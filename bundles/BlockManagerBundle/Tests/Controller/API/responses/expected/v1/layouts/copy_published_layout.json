@@ -1,8 +1,8 @@
 {
     "id": 7,
-    "type": "4_zones_a",
-    "published": false,
-    "has_published_state": false,
+    "type": "4_zones_b",
+    "published": true,
+    "has_published_state": true,
     "shared": false,
     "name": "My new layout name",
     "zones": [
@@ -17,9 +17,7 @@
         {
             "identifier": "left",
             "name": "Left",
-            "block_ids": [
-                7
-            ],
+            "block_ids": [],
             "allowed_block_definitions": true,
             "linked_layout_id": null,
             "linked_zone_identifier": null
@@ -27,10 +25,7 @@
         {
             "identifier": "right",
             "name": "Right",
-            "block_ids": [
-                8,
-                9
-            ],
+            "block_ids": [],
             "allowed_block_definitions": true,
             "linked_layout_id": null,
             "linked_zone_identifier": null
@@ -39,9 +34,7 @@
             "identifier": "top",
             "name": "Top",
             "block_ids": [],
-            "allowed_block_definitions": [
-                "title"
-            ],
+            "allowed_block_definitions": true,
             "linked_layout_id": null,
             "linked_zone_identifier": null
         }

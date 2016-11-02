@@ -58,12 +58,6 @@ ngbm_api_v1_layouts_create_draft:
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.layout:createDraft"
 
-ngbm_api_v1_layouts_copy_draft:
-    path: /layouts/{layoutId}/draft/copy
-    methods: [POST]
-    defaults:
-        _controller: "netgen_block_manager.controller.api.v1.layout:copyDraft"
-
 ngbm_api_v1_layouts_discard_draft:
     path: /layouts/{layoutId}/draft
     methods: [DELETE]

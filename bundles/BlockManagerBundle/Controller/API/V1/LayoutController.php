@@ -240,8 +240,12 @@ class LayoutController extends Controller
      */
     public function copy($layoutId, Request $request)
     {
+        $layout = $request->query->get('published') === 'true' ?
+            $this->layoutService->loadLayout($layoutId) :
+            $this->layoutService->loadLayoutDraft($layoutId);
+
         $copiedLayout = $this->layoutService->copyLayout(
-            $this->layoutService->loadLayout($layoutId),
+            $layout,
             $request->request->get('name')
         );
 
@@ -283,24 +287,6 @@ class LayoutController extends Controller
 
             throw $e;
         }
-    }
-
-    /**
-     * Copies the layout draft.
-     *
-     * @param int|string $layoutId
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Netgen\BlockManager\Serializer\Values\View
-     */
-    public function copyDraft($layoutId, Request $request)
-    {
-        $copiedLayout = $this->layoutService->copyLayout(
-            $this->layoutService->loadLayoutDraft($layoutId),
-            $request->request->get('name')
-        );
-
-        return new View($copiedLayout, Version::API_V1, Response::HTTP_CREATED);
     }
 
     /**
