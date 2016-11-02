@@ -44,7 +44,7 @@ class AdminAuthenticationExceptionListener implements EventSubscriberInterface
         }
 
         $event->setException(
-            new AccessDeniedHttpException($exception->getMessage())
+            new AccessDeniedHttpException()
         );
 
         $event->stopPropagation();
