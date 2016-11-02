@@ -2,21 +2,13 @@
 
 namespace Netgen\BlockManager\View\Provider;
 
-use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface;
 use Netgen\BlockManager\View\View\RuleView;
 
 class RuleViewProvider implements ViewProviderInterface
 {
-    /**
-     * @var \Netgen\BlockManager\API\Service\LayoutResolverService
-     */
-    protected $layoutResolverService;
-
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface
      */
@@ -30,16 +22,13 @@ class RuleViewProvider implements ViewProviderInterface
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\API\Service\LayoutResolverService $layoutResolverService
      * @param \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface $targetTypeRegistry
      * @param \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface $conditionTypeRegistry
      */
     public function __construct(
-        LayoutResolverService $layoutResolverService,
         TargetTypeRegistryInterface $targetTypeRegistry,
         ConditionTypeRegistryInterface $conditionTypeRegistry
     ) {
-        $this->layoutResolverService = $layoutResolverService;
         $this->targetTypeRegistry = $targetTypeRegistry;
         $this->conditionTypeRegistry = $conditionTypeRegistry;
     }
@@ -59,7 +48,6 @@ class RuleViewProvider implements ViewProviderInterface
 
         $ruleView->addParameters(
             array(
-                'published_rule' => $this->loadPublishedRule($valueObject),
                 'target_types' => $this->targetTypeRegistry->getTargetTypes(),
                 'condition_types' => $this->conditionTypeRegistry->getConditionTypes(),
             )
@@ -78,28 +66,5 @@ class RuleViewProvider implements ViewProviderInterface
     public function supports($valueObject)
     {
         return $valueObject instanceof Rule;
-    }
-
-    /**
-     * Returns the published version of provided rule or null
-     * if rule has no published version.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
-     */
-    protected function loadPublishedRule(Rule $rule)
-    {
-        if ($rule->getStatus() === Value::STATUS_PUBLISHED) {
-            return $rule;
-        }
-
-        try {
-            return $this->layoutResolverService->loadRule(
-                $rule->getId()
-            );
-        } catch (NotFoundException $e) {
-            // Do nothing
-        }
     }
 }
