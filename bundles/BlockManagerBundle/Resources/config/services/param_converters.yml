@@ -1,23 +1,14 @@
 parameters:
     netgen_block_manager.param_converter.page.block.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\BlockParamConverter
-    netgen_block_manager.param_converter.page.block_draft.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\BlockDraftParamConverter
     netgen_block_manager.param_converter.page.zone.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\ZoneParamConverter
-    netgen_block_manager.param_converter.page.zone_draft.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\ZoneDraftParamConverter
     netgen_block_manager.param_converter.page.layout.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutParamConverter
-    netgen_block_manager.param_converter.page.layout_draft.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutDraftParamConverter
     netgen_block_manager.param_converter.page.collection_reference.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\CollectionReferenceParamConverter
     netgen_block_manager.param_converter.collection.collection.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\CollectionParamConverter
-    netgen_block_manager.param_converter.collection.collection_draft.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\CollectionDraftParamConverter
     netgen_block_manager.param_converter.collection.item.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\ItemParamConverter
-    netgen_block_manager.param_converter.collection.item_draft.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\ItemDraftParamConverter
     netgen_block_manager.param_converter.collection.query.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\QueryParamConverter
-    netgen_block_manager.param_converter.collection.query_draft.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\QueryDraftParamConverter
     netgen_block_manager.param_converter.layout_resolver.rule.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\RuleParamConverter
-    netgen_block_manager.param_converter.layout_resolver.rule_draft.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\RuleDraftParamConverter
     netgen_block_manager.param_converter.layout_resolver.condition.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\ConditionParamConverter
-    netgen_block_manager.param_converter.layout_resolver.condition_draft.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\ConditionDraftParamConverter
     netgen_block_manager.param_converter.layout_resolver.target.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\TargetParamConverter
-    netgen_block_manager.param_converter.layout_resolver.target_draft.class: Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\TargetDraftParamConverter
 
 services:
     netgen_block_manager.param_converter.page.block:
@@ -27,13 +18,6 @@ services:
         tags:
             - { name: request.param_converter, priority: 0 }
 
-    netgen_block_manager.param_converter.page.block_draft:
-        class: "%netgen_block_manager.param_converter.page.block_draft.class%"
-        arguments:
-            - "@netgen_block_manager.api.service.block"
-        tags:
-            - { name: request.param_converter, priority: 10 }
-
     netgen_block_manager.param_converter.page.zone:
         class: "%netgen_block_manager.param_converter.page.zone.class%"
         arguments:
@@ -41,26 +25,12 @@ services:
         tags:
             - { name: request.param_converter, priority: 0 }
 
-    netgen_block_manager.param_converter.page.zone_draft:
-        class: "%netgen_block_manager.param_converter.page.zone_draft.class%"
-        arguments:
-            - "@netgen_block_manager.api.service.layout"
-        tags:
-            - { name: request.param_converter, priority: 10 }
-
     netgen_block_manager.param_converter.page.layout:
         class: "%netgen_block_manager.param_converter.page.layout.class%"
         arguments:
             - "@netgen_block_manager.api.service.layout"
         tags:
             - { name: request.param_converter, priority: 0 }
-
-    netgen_block_manager.param_converter.page.layout_draft:
-        class: "%netgen_block_manager.param_converter.page.layout_draft.class%"
-        arguments:
-            - "@netgen_block_manager.api.service.layout"
-        tags:
-            - { name: request.param_converter, priority: 10 }
 
     netgen_block_manager.param_converter.page.collection_reference:
         class: "%netgen_block_manager.param_converter.page.collection_reference.class%"
@@ -76,26 +46,12 @@ services:
         tags:
             - { name: request.param_converter, priority: 0 }
 
-    netgen_block_manager.param_converter.collection.collection_draft:
-        class: "%netgen_block_manager.param_converter.collection.collection_draft.class%"
-        arguments:
-            - "@netgen_block_manager.api.service.collection"
-        tags:
-            - { name: request.param_converter, priority: 10 }
-
     netgen_block_manager.param_converter.collection.item:
         class: "%netgen_block_manager.param_converter.collection.item.class%"
         arguments:
             - "@netgen_block_manager.api.service.collection"
         tags:
             - { name: request.param_converter, priority: 0 }
-
-    netgen_block_manager.param_converter.collection.item_draft:
-        class: "%netgen_block_manager.param_converter.collection.item_draft.class%"
-        arguments:
-            - "@netgen_block_manager.api.service.collection"
-        tags:
-            - { name: request.param_converter, priority: 10 }
 
     netgen_block_manager.param_converter.collection.query:
         class: "%netgen_block_manager.param_converter.collection.query.class%"
@@ -104,26 +60,12 @@ services:
         tags:
             - { name: request.param_converter, priority: 0 }
 
-    netgen_block_manager.param_converter.collection.query_draft:
-        class: "%netgen_block_manager.param_converter.collection.query_draft.class%"
-        arguments:
-            - "@netgen_block_manager.api.service.collection"
-        tags:
-            - { name: request.param_converter, priority: 10 }
-
     netgen_block_manager.param_converter.layout_resolver.rule:
         class: "%netgen_block_manager.param_converter.layout_resolver.rule.class%"
         arguments:
             - "@netgen_block_manager.api.service.layout_resolver"
         tags:
             - { name: request.param_converter, priority: 0 }
-
-    netgen_block_manager.param_converter.layout_resolver.rule_draft:
-        class: "%netgen_block_manager.param_converter.layout_resolver.rule_draft.class%"
-        arguments:
-            - "@netgen_block_manager.api.service.layout_resolver"
-        tags:
-            - { name: request.param_converter, priority: 10 }
 
     netgen_block_manager.param_converter.layout_resolver.condition:
         class: "%netgen_block_manager.param_converter.layout_resolver.condition.class%"
@@ -132,23 +74,9 @@ services:
         tags:
             - { name: request.param_converter, priority: 0 }
 
-    netgen_block_manager.param_converter.layout_resolver.condition_draft:
-        class: "%netgen_block_manager.param_converter.layout_resolver.condition_draft.class%"
-        arguments:
-            - "@netgen_block_manager.api.service.layout_resolver"
-        tags:
-            - { name: request.param_converter, priority: 10 }
-
     netgen_block_manager.param_converter.layout_resolver.target:
         class: "%netgen_block_manager.param_converter.layout_resolver.target.class%"
         arguments:
             - "@netgen_block_manager.api.service.layout_resolver"
         tags:
             - { name: request.param_converter, priority: 0 }
-
-    netgen_block_manager.param_converter.layout_resolver.target_draft:
-        class: "%netgen_block_manager.param_converter.layout_resolver.target_draft.class%"
-        arguments:
-            - "@netgen_block_manager.api.service.layout_resolver"
-        tags:
-            - { name: request.param_converter, priority: 10 }
