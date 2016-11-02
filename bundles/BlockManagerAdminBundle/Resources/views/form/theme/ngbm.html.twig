@@ -1,3 +1,7 @@
+{%- block range_widget -%}
+    <input type="range" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+{%- endblock range_widget -%}
+
 {%- block form_row -%}
     <div {% if errors|length > 0 %} class="error-input" {% endif %}>
         {%- if 'checkbox' in block_prefixes or 'radio' in block_prefixes -%}
