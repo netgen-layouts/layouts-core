@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Netgen\BlockManager\API\Values\ConditionCreateStruct;
 use Netgen\BlockManager\API\Values\ConditionUpdateStruct;
-use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\API\Values\LayoutResolver\Target;

@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service;
 
-use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Configuration\BlockType\BlockType;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\API\Values\Collection\Collection;

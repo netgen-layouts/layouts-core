@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service;
 
-use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Exception\NotFoundException;
