@@ -218,42 +218,32 @@ class LayoutResolverController extends Controller
      * Enables a rule.
      *
      * @param int|string $ruleId
-     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function enableRule($ruleId, Request $request)
+    public function enableRule($ruleId)
     {
-        $returnRule = $this->layoutResolverService->enableRule(
+        $rule = $this->layoutResolverService->enableRule(
             $this->layoutResolverService->loadRule($ruleId)
         );
 
-        if ($request->query->get('draft') === 'true') {
-            $returnRule = $this->layoutResolverService->loadRuleDraft($ruleId);
-        }
-
-        return $this->buildView($returnRule, array(), ViewInterface::CONTEXT_ADMIN);
+        return $this->buildView($rule, array(), ViewInterface::CONTEXT_ADMIN);
     }
 
     /**
      * Disables a rule.
      *
      * @param int|string $ruleId
-     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function disableRule($ruleId, Request $request)
+    public function disableRule($ruleId)
     {
-        $returnRule = $this->layoutResolverService->disableRule(
+        $rule = $this->layoutResolverService->disableRule(
             $this->layoutResolverService->loadRule($ruleId)
         );
 
-        if ($request->query->get('draft') === 'true') {
-            $returnRule = $this->layoutResolverService->loadRuleDraft($ruleId);
-        }
-
-        return $this->buildView($returnRule, array(), ViewInterface::CONTEXT_ADMIN);
+        return $this->buildView($rule, array(), ViewInterface::CONTEXT_ADMIN);
     }
 
     /**
