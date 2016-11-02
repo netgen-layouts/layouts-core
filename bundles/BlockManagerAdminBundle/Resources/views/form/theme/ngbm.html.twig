@@ -1,4 +1,10 @@
 {%- block range_widget -%}
+    {% set min = attr.min|default(null) %}
+    {% set max = attr.max|default(null) %}
+    <div class="range-range">
+        <span class="range-min">{% if min != null %}{{ min }}{% endif %}</span>
+        <span class="range-max">{% if max != null %}{{ max }}{% endif %}</span>
+    </div>
     <input type="range" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
 {%- endblock range_widget -%}
 
