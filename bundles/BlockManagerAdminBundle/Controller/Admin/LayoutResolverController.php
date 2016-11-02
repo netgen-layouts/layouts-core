@@ -5,10 +5,7 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin;
 use Netgen\BlockManager\API\Repository;
 use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\LayoutResolver\ConditionDraft;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft;
-use Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType;
@@ -116,14 +113,14 @@ class LayoutResolverController extends Controller
     /**
      * Updates the rule.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft $rule
+     * @param int|string $ruleId
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If provided layout does not exist
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function updateRule(RuleDraft $rule, Request $request)
+    public function updateRule($ruleId, Request $request)
     {
         $layoutId = $request->request->get('layout_id');
         $layoutId = $layoutId !== null ? trim($layoutId) : null;
@@ -154,7 +151,10 @@ class LayoutResolverController extends Controller
             (!empty($layoutId) ? $layoutId : 0) :
             null;
 
-        $updatedRule = $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
+        $updatedRule = $this->layoutResolverService->updateRule(
+            $this->layoutResolverService->loadRuleDraft($ruleId),
+            $ruleUpdateStruct
+        );
 
         return $this->buildView($updatedRule, array(), ViewInterface::CONTEXT_ADMIN);
     }
@@ -217,17 +217,19 @@ class LayoutResolverController extends Controller
     /**
      * Enables a rule.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
+     * @param int|string $ruleId
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function enableRule(Rule $rule, Request $request)
+    public function enableRule($ruleId, Request $request)
     {
-        $returnRule = $this->layoutResolverService->enableRule($rule);
+        $returnRule = $this->layoutResolverService->enableRule(
+            $this->layoutResolverService->loadRule($ruleId)
+        );
 
         if ($request->query->get('draft') === 'true') {
-            $returnRule = $this->layoutResolverService->loadRuleDraft($rule->getId());
+            $returnRule = $this->layoutResolverService->loadRuleDraft($ruleId);
         }
 
         return $this->buildView($returnRule, array(), ViewInterface::CONTEXT_ADMIN);
@@ -236,17 +238,19 @@ class LayoutResolverController extends Controller
     /**
      * Disables a rule.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
+     * @param int|string $ruleId
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function disableRule(Rule $rule, Request $request)
+    public function disableRule($ruleId, Request $request)
     {
-        $returnRule = $this->layoutResolverService->disableRule($rule);
+        $returnRule = $this->layoutResolverService->disableRule(
+            $this->layoutResolverService->loadRule($ruleId)
+        );
 
         if ($request->query->get('draft') === 'true') {
-            $returnRule = $this->layoutResolverService->loadRuleDraft($rule->getId());
+            $returnRule = $this->layoutResolverService->loadRuleDraft($ruleId);
         }
 
         return $this->buildView($returnRule, array(), ViewInterface::CONTEXT_ADMIN);
@@ -255,15 +259,16 @@ class LayoutResolverController extends Controller
     /**
      * Creates a new rule draft from published state.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
+     * @param int|string $ruleId
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If an error occurred
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function createRuleDraft(Rule $rule)
+    public function createRuleDraft($ruleId)
     {
         $ruleDraft = null;
+        $rule = $this->layoutResolverService->loadRule($ruleId);
 
         try {
             $ruleDraft = $this->layoutResolverService->loadRuleDraft($rule->getId());
@@ -274,7 +279,7 @@ class LayoutResolverController extends Controller
         $this->repository->beginTransaction();
 
         try {
-            if ($ruleDraft instanceof RuleDraft) {
+            if ($ruleDraft instanceof Rule) {
                 $this->layoutResolverService->discardDraft($ruleDraft);
             }
 
@@ -293,17 +298,17 @@ class LayoutResolverController extends Controller
     /**
      * Discards a rule draft.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft $rule
+     * @param int|string $ruleId
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function discardRuleDraft(RuleDraft $rule)
+    public function discardRuleDraft($ruleId)
     {
-        $this->layoutResolverService->discardDraft($rule);
-
-        $publishedRule = $this->layoutResolverService->loadRule(
-            $rule->getId()
+        $this->layoutResolverService->discardDraft(
+            $this->layoutResolverService->loadRuleDraft($ruleId)
         );
+
+        $publishedRule = $this->layoutResolverService->loadRule($ruleId);
 
         return $this->buildView($publishedRule, array(), ViewInterface::CONTEXT_ADMIN);
     }
@@ -311,13 +316,15 @@ class LayoutResolverController extends Controller
     /**
      * Publishes a rule draft.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft $rule
+     * @param int|string $ruleId
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function publishRuleDraft(RuleDraft $rule)
+    public function publishRuleDraft($ruleId)
     {
-        $publishedRule = $this->layoutResolverService->publishRule($rule);
+        $publishedRule = $this->layoutResolverService->publishRule(
+            $this->layoutResolverService->loadRuleDraft($ruleId)
+        );
 
         return $this->buildView($publishedRule, array(), ViewInterface::CONTEXT_ADMIN);
     }
@@ -325,13 +332,15 @@ class LayoutResolverController extends Controller
     /**
      * Deletes a rule.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
+     * @param int|string $ruleId
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function deleteRule(Rule $rule)
+    public function deleteRule($ruleId)
     {
-        $this->layoutResolverService->deleteRule($rule);
+        $this->layoutResolverService->deleteRule(
+            $this->layoutResolverService->loadRule($ruleId)
+        );
 
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
@@ -339,14 +348,16 @@ class LayoutResolverController extends Controller
     /**
      * Displays the target create form.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft $rule
+     * @param int|string $ruleId
      * @param string $type
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function targetCreateForm(RuleDraft $rule, $type, Request $request)
+    public function targetCreateForm($ruleId, $type, Request $request)
     {
+        $rule = $this->layoutResolverService->loadRuleDraft($ruleId);
+
         $targetType = $this->targetTypeRegistry->getTargetType($type);
         $createStruct = $this->layoutResolverService->newTargetCreateStruct($type);
 
@@ -394,15 +405,17 @@ class LayoutResolverController extends Controller
     /**
      * Displays the target edit form.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft $target
+     * @param int|string $targetId
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If target type does not exist
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function targetEditForm(TargetDraft $target, Request $request)
+    public function targetEditForm($targetId, Request $request)
     {
+        $target = $this->layoutResolverService->loadTargetDraft($targetId);
+
         $targetType = $target->getTargetType();
 
         $updateStruct = $this->layoutResolverService->newTargetUpdateStruct();
@@ -451,12 +464,14 @@ class LayoutResolverController extends Controller
     /**
      * Deletes a rule target.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft $target
+     * @param int|string $targetId
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function deleteTarget(TargetDraft $target)
+    public function deleteTarget($targetId)
     {
+        $target = $this->layoutResolverService->loadTargetDraft($targetId);
+
         $this->layoutResolverService->deleteTarget($target);
 
         return $this->buildView(
@@ -471,14 +486,16 @@ class LayoutResolverController extends Controller
     /**
      * Displays the condition create form.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft $rule
+     * @param int|string $ruleId
      * @param string $type
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function conditionCreateForm(RuleDraft $rule, $type, Request $request)
+    public function conditionCreateForm($ruleId, $type, Request $request)
     {
+        $rule = $this->layoutResolverService->loadRuleDraft($ruleId);
+
         $conditionType = $this->conditionTypeRegistry->getConditionType($type);
         $createStruct = $this->layoutResolverService->newConditionCreateStruct($type);
 
@@ -526,15 +543,17 @@ class LayoutResolverController extends Controller
     /**
      * Displays the condition edit form.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\ConditionDraft $condition
+     * @param int|string $conditionId
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If condition type does not exist
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function conditionEditForm(ConditionDraft $condition, Request $request)
+    public function conditionEditForm($conditionId, Request $request)
     {
+        $condition = $this->layoutResolverService->loadConditionDraft($conditionId);
+
         $conditionType = $condition->getConditionType();
 
         $updateStruct = $this->layoutResolverService->newConditionUpdateStruct();
@@ -583,12 +602,14 @@ class LayoutResolverController extends Controller
     /**
      * Deletes a rule condition.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\ConditionDraft $condition
+     * @param int|string $conditionId
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function deleteCondition(ConditionDraft $condition)
+    public function deleteCondition($conditionId)
     {
+        $condition = $this->layoutResolverService->loadConditionDraft($conditionId);
+
         $this->layoutResolverService->deleteCondition($condition);
 
         return $this->buildView(

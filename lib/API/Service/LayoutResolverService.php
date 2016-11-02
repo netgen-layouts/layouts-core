@@ -4,10 +4,9 @@ namespace Netgen\BlockManager\API\Service;
 
 use Netgen\BlockManager\API\Values\ConditionCreateStruct;
 use Netgen\BlockManager\API\Values\ConditionUpdateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\ConditionDraft;
+use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft;
-use Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft;
+use Netgen\BlockManager\API\Values\LayoutResolver\Target;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\RuleCreateStruct;
 use Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct;
@@ -35,7 +34,7 @@ interface LayoutResolverService
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If rule with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
     public function loadRuleDraft($ruleId);
 
@@ -86,7 +85,7 @@ interface LayoutResolverService
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If target with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Target
      */
     public function loadTargetDraft($targetId);
 
@@ -108,7 +107,7 @@ interface LayoutResolverService
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If condition with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\ConditionDraft
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Condition
      */
     public function loadConditionDraft($conditionId);
 
@@ -117,25 +116,29 @@ interface LayoutResolverService
      *
      * @param \Netgen\BlockManager\API\Values\RuleCreateStruct $ruleCreateStruct
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
     public function createRule(RuleCreateStruct $ruleCreateStruct);
 
     /**
      * Updates a rule.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft $rule
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
      * @param \Netgen\BlockManager\API\Values\RuleUpdateStruct $ruleUpdateStruct
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft
+     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
+     *
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
-    public function updateRule(RuleDraft $rule, RuleUpdateStruct $ruleUpdateStruct);
+    public function updateRule(Rule $rule, RuleUpdateStruct $ruleUpdateStruct);
 
     /**
      * Updates rule metadata.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
      * @param \Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct $ruleUpdateStruct
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not published
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
@@ -155,27 +158,32 @@ interface LayoutResolverService
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If draft already exists for the rule
+     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not published
+     *                                                          If draft already exists for the rule
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
     public function createDraft(Rule $rule);
 
     /**
      * Discards a rule draft.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft $rule
+     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
+     *
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
      */
-    public function discardDraft(RuleDraft $rule);
+    public function discardDraft(Rule $rule);
 
     /**
      * Publishes a rule.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft $rule
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
-    public function publishRule(RuleDraft $rule);
+    public function publishRule(Rule $rule);
 
     /**
      * Deletes a rule.
@@ -190,7 +198,8 @@ interface LayoutResolverService
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If rule cannot be enabled
+     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not published
+     *                                                          If rule cannot be enabled
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
@@ -201,7 +210,8 @@ interface LayoutResolverService
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If rule cannot be disabled
+     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not published
+     *                                                          If rule cannot be disabled
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
@@ -210,58 +220,69 @@ interface LayoutResolverService
     /**
      * Adds a target to rule.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft $rule
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
      * @param \Netgen\BlockManager\API\Values\TargetCreateStruct $targetCreateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If target of different type than it already exists in the rule is added
+     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
+     *                                                          If target of different type than it already exists in the rule is added
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Target
      */
-    public function addTarget(RuleDraft $rule, TargetCreateStruct $targetCreateStruct);
+    public function addTarget(Rule $rule, TargetCreateStruct $targetCreateStruct);
 
     /**
      * Updates a target.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft $target
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Target $target
      * @param \Netgen\BlockManager\API\Values\TargetUpdateStruct $targetUpdateStruct
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft
+     * @throws \Netgen\BlockManager\Exception\BadStateException If target is not a draft
+     *
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Target
      */
-    public function updateTarget(TargetDraft $target, TargetUpdateStruct $targetUpdateStruct);
+    public function updateTarget(Target $target, TargetUpdateStruct $targetUpdateStruct);
 
     /**
      * Removes a target.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft $target
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Target $target
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If target is not a draft
      */
-    public function deleteTarget(TargetDraft $target);
+    public function deleteTarget(Target $target);
 
     /**
      * Adds a condition to rule.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft $rule
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
      * @param \Netgen\BlockManager\API\Values\ConditionCreateStruct $conditionCreateStruct
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\ConditionDraft
+     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
+     *
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Condition
      */
-    public function addCondition(RuleDraft $rule, ConditionCreateStruct $conditionCreateStruct);
+    public function addCondition(Rule $rule, ConditionCreateStruct $conditionCreateStruct);
 
     /**
      * Updates a condition.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\ConditionDraft $condition
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Condition $condition
      * @param \Netgen\BlockManager\API\Values\ConditionUpdateStruct $conditionUpdateStruct
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\ConditionDraft
+     * @throws \Netgen\BlockManager\Exception\BadStateException If condition is not a draft
+     *
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Condition
      */
-    public function updateCondition(ConditionDraft $condition, ConditionUpdateStruct $conditionUpdateStruct);
+    public function updateCondition(Condition $condition, ConditionUpdateStruct $conditionUpdateStruct);
 
     /**
      * Removes a condition.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\ConditionDraft $condition
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Condition $condition
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If condition is not a draft
      */
-    public function deleteCondition(ConditionDraft $condition);
+    public function deleteCondition(Condition $condition);
 
     /**
      * Creates a new rule create struct.

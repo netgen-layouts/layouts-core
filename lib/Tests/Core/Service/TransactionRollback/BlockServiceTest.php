@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
@@ -9,14 +10,13 @@ use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\BlockManager\Core\Values\Page\BlockDraft;
+use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Core\Values\Page\CollectionReference;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandler;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceCollection;
 use Netgen\BlockManager\Persistence\Values\Page\Block as PersistenceBlock;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReference as PersistenceCollectionReference;
 use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
-use Netgen\BlockManager\Core\Values\Page\LayoutDraft;
 use Netgen\BlockManager\Persistence\Handler\BlockHandler;
 use Netgen\BlockManager\Persistence\Handler\LayoutHandler;
 use Exception;
@@ -114,7 +114,7 @@ class BlockServiceTest extends TransactionRollbackTest
 
         $this->blockService->createBlock(
             new BlockCreateStruct(array('definitionIdentifier' => 'blockDef')),
-            new LayoutDraft(),
+            new Layout(array('status' => Value::STATUS_DRAFT)),
             'zone'
         );
     }
@@ -140,7 +140,12 @@ class BlockServiceTest extends TransactionRollbackTest
             ->method('rollbackTransaction');
 
         $this->blockService->updateBlock(
-            new BlockDraft(array('blockDefinition' => new BlockDefinition('block_definition'))),
+            new Block(
+                array(
+                    'status' => Value::STATUS_DRAFT,
+                    'blockDefinition' => new BlockDefinition('block_definition'),
+                )
+            ),
             new BlockUpdateStruct()
         );
     }
@@ -210,7 +215,7 @@ class BlockServiceTest extends TransactionRollbackTest
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->blockService->copyBlock(new BlockDraft());
+        $this->blockService->copyBlock(new Block(array('status' => Value::STATUS_DRAFT)));
     }
 
     /**
@@ -233,7 +238,7 @@ class BlockServiceTest extends TransactionRollbackTest
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->blockService->moveBlock(new BlockDraft(), 0);
+        $this->blockService->moveBlock(new Block(array('status' => Value::STATUS_DRAFT)), 0);
     }
 
     /**
@@ -261,7 +266,7 @@ class BlockServiceTest extends TransactionRollbackTest
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->blockService->restoreBlock(new BlockDraft());
+        $this->blockService->restoreBlock(new Block(array('status' => Value::STATUS_DRAFT)));
     }
 
     /**
@@ -284,6 +289,6 @@ class BlockServiceTest extends TransactionRollbackTest
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->blockService->deleteBlock(new BlockDraft());
+        $this->blockService->deleteBlock(new Block(array('status' => Value::STATUS_DRAFT)));
     }
 }

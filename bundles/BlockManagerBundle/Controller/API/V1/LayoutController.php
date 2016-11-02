@@ -5,8 +5,6 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 use Netgen\BlockManager\API\Repository;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\Layout;
-use Netgen\BlockManager\API\Values\Page\LayoutDraft;
-use Netgen\BlockManager\API\Values\Page\ZoneDraft;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Exception\NotFoundException;
@@ -79,10 +77,9 @@ class LayoutController extends Controller
      */
     public function load($layoutId, Request $request)
     {
-        $layout = $this->loadLayout(
-            $layoutId,
-            $request->query->get('published') !== 'true'
-        );
+        $layout = $request->query->get('published') === 'true' ?
+            $this->layoutService->loadLayout($layoutId) :
+            $this->layoutService->loadLayoutDraft($layoutId);
 
         return new View($layout, Version::API_V1);
     }
@@ -97,10 +94,9 @@ class LayoutController extends Controller
      */
     public function viewLayoutBlocks($layoutId, Request $request)
     {
-        $layout = $this->loadLayout(
-            $layoutId,
-            $request->query->get('published') !== 'true'
-        );
+        $layout = $request->query->get('published') === 'true' ?
+            $this->layoutService->loadLayout($layoutId) :
+            $this->layoutService->loadLayoutDraft($layoutId);
 
         $blocks = array();
         foreach ($layout as $zone) {
@@ -123,17 +119,12 @@ class LayoutController extends Controller
      */
     public function viewZoneBlocks($layoutId, $zoneIdentifier, Request $request)
     {
-        $layout = $this->loadLayout(
-            $layoutId,
-            $request->query->get('published') !== 'true'
-        );
-
-        if (!$layout->hasZone($zoneIdentifier)) {
-            throw new NotFoundException('zone', $zoneIdentifier);
-        }
+        $zone = $request->query->get('published') === 'true' ?
+            $this->layoutService->loadZone($layoutId, $zoneIdentifier) :
+            $this->layoutService->loadZoneDraft($layoutId, $zoneIdentifier);
 
         $blocks = array();
-        foreach ($layout->getZone($zoneIdentifier, false) as $block) {
+        foreach ($zone as $block) {
             $blocks[] = new View($block, Version::API_V1);
         }
 
@@ -143,15 +134,18 @@ class LayoutController extends Controller
     /**
      * Links the provided zone to zone from shared layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\ZoneDraft $zone
+     * @param int|string $layoutId
+     * @param string $zoneIdentifier
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If linked layout or zone do not exist
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function linkZone(ZoneDraft $zone, Request $request)
+    public function linkZone($layoutId, $zoneIdentifier, Request $request)
     {
+        $zone = $this->layoutService->loadZoneDraft($layoutId, $zoneIdentifier);
+
         try {
             $linkedZone = $this->layoutService->loadZone(
                 $request->request->get('linked_layout_id'),
@@ -172,13 +166,16 @@ class LayoutController extends Controller
     /**
      * Removes the zone link, if any exists.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\ZoneDraft $zone
+     * @param int|string $layoutId
+     * @param string $zoneIdentifier
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function unlinkZone(ZoneDraft $zone)
+    public function unlinkZone($layoutId, $zoneIdentifier)
     {
-        $this->layoutService->unlinkZone($zone);
+        $this->layoutService->unlinkZone(
+            $this->layoutService->loadZoneDraft($layoutId, $zoneIdentifier)
+        );
 
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
@@ -215,17 +212,20 @@ class LayoutController extends Controller
     /**
      * Updates the layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\LayoutDraft $layout
+     * @param int|string $layoutId
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function update(LayoutDraft $layout, Request $request)
+    public function update($layoutId, Request $request)
     {
         $layoutUpdateStruct = $this->layoutService->newLayoutUpdateStruct();
         $layoutUpdateStruct->name = $request->request->get('name');
 
-        $this->layoutService->updateLayout($layout, $layoutUpdateStruct);
+        $this->layoutService->updateLayout(
+            $this->layoutService->loadLayoutDraft($layoutId),
+            $layoutUpdateStruct
+        );
 
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
@@ -233,15 +233,15 @@ class LayoutController extends Controller
     /**
      * Copies the layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param int|string $layoutId
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
-    public function copy(Layout $layout, Request $request)
+    public function copy($layoutId, Request $request)
     {
         $copiedLayout = $this->layoutService->copyLayout(
-            $layout,
+            $this->layoutService->loadLayout($layoutId),
             $request->request->get('name')
         );
 
@@ -251,13 +251,14 @@ class LayoutController extends Controller
     /**
      * Creates a new layout draft.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param int|string $layoutId
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
-    public function createDraft(Layout $layout)
+    public function createDraft($layoutId)
     {
         $layoutDraft = null;
+        $layout = $this->layoutService->loadLayout($layoutId);
 
         try {
             $layoutDraft = $this->layoutService->loadLayoutDraft($layout->getId());
@@ -268,7 +269,7 @@ class LayoutController extends Controller
         $this->repository->beginTransaction();
 
         try {
-            if ($layoutDraft instanceof LayoutDraft) {
+            if ($layoutDraft instanceof Layout) {
                 $this->layoutService->discardDraft($layoutDraft);
             }
 
@@ -287,26 +288,33 @@ class LayoutController extends Controller
     /**
      * Copies the layout draft.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\LayoutDraft $layout
+     * @param int|string $layoutId
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
-    public function copyDraft(LayoutDraft $layout, Request $request)
+    public function copyDraft($layoutId, Request $request)
     {
-        return $this->copy($layout, $request);
+        $copiedLayout = $this->layoutService->copyLayout(
+            $this->layoutService->loadLayoutDraft($layoutId),
+            $request->request->get('name')
+        );
+
+        return new View($copiedLayout, Version::API_V1, Response::HTTP_CREATED);
     }
 
     /**
      * Discards a layout draft.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\LayoutDraft $layout
+     * @param int|string $layoutId
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function discardDraft(LayoutDraft $layout)
+    public function discardDraft($layoutId)
     {
-        $this->layoutService->discardDraft($layout);
+        $this->layoutService->discardDraft(
+            $this->layoutService->loadLayoutDraft($layoutId)
+        );
 
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
@@ -314,13 +322,15 @@ class LayoutController extends Controller
     /**
      * Publishes a layout draft.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\LayoutDraft $layout
+     * @param int|string $layoutId
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function publishDraft(LayoutDraft $layout)
+    public function publishDraft($layoutId)
     {
-        $this->layoutService->publishLayout($layout);
+        $this->layoutService->publishLayout(
+            $this->layoutService->loadLayoutDraft($layoutId)
+        );
 
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
@@ -328,35 +338,16 @@ class LayoutController extends Controller
     /**
      * Deletes a layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param int|string $layoutId
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function delete(Layout $layout)
+    public function delete($layoutId)
     {
-        $this->layoutService->deleteLayout($layout);
+        $this->layoutService->deleteLayout(
+            $this->layoutService->loadLayout($layoutId)
+        );
 
         return new Response(null, Response::HTTP_NO_CONTENT);
-    }
-
-    /**
-     * Loads either published or draft state of the layout.
-     *
-     * @param int|string $layoutId
-     * @param bool $loadDraft
-     *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout|\Netgen\BlockManager\API\Values\Page\LayoutDraft
-     */
-    protected function loadLayout($layoutId, $loadDraft = true)
-    {
-        if ($loadDraft) {
-            return $this->layoutService->loadLayoutDraft(
-                $layoutId
-            );
-        }
-
-        return $this->layoutService->loadLayout(
-            $layoutId
-        );
     }
 }

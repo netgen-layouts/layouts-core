@@ -10,11 +10,10 @@ use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper;
 use Netgen\BlockManager\API\Values\ConditionCreateStruct;
 use Netgen\BlockManager\API\Values\ConditionUpdateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\ConditionDraft;
+use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft;
-use Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft;
+use Netgen\BlockManager\API\Values\LayoutResolver\Target;
 use Netgen\BlockManager\API\Values\RuleCreateStruct;
 use Netgen\BlockManager\API\Values\RuleUpdateStruct;
 use Netgen\BlockManager\API\Values\TargetCreateStruct;
@@ -89,7 +88,7 @@ class LayoutResolverService implements APILayoutResolverService
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If rule with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
     public function loadRuleDraft($ruleId)
     {
@@ -138,9 +137,13 @@ class LayoutResolverService implements APILayoutResolverService
      */
     public function getRuleCount(Layout $layout)
     {
+        if ($layout->getStatus() !== Value::STATUS_PUBLISHED) {
+            throw new BadStateException('layout', 'Only published layouts can be used in rules.');
+        }
+
         $persistenceLayout = $this->persistenceHandler->getLayoutHandler()->loadLayout(
             $layout->getId(),
-            $layout->getStatus()
+            Value::STATUS_PUBLISHED
         );
 
         return $this->handler->getRuleCount($persistenceLayout);
@@ -194,7 +197,7 @@ class LayoutResolverService implements APILayoutResolverService
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If target with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Target
      */
     public function loadTargetDraft($targetId)
     {
@@ -236,7 +239,7 @@ class LayoutResolverService implements APILayoutResolverService
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If condition with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\ConditionDraft
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Condition
      */
     public function loadConditionDraft($conditionId)
     {
@@ -255,7 +258,7 @@ class LayoutResolverService implements APILayoutResolverService
      *
      * @param \Netgen\BlockManager\API\Values\RuleCreateStruct $ruleCreateStruct
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
     public function createRule(RuleCreateStruct $ruleCreateStruct)
     {
@@ -281,13 +284,19 @@ class LayoutResolverService implements APILayoutResolverService
     /**
      * Updates a rule.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft $rule
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
      * @param \Netgen\BlockManager\API\Values\RuleUpdateStruct $ruleUpdateStruct
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft
+     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
+     *
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
-    public function updateRule(RuleDraft $rule, RuleUpdateStruct $ruleUpdateStruct)
+    public function updateRule(Rule $rule, RuleUpdateStruct $ruleUpdateStruct)
     {
+        if ($rule->getStatus() !== Value::STATUS_DRAFT) {
+            throw new BadStateException('rule', 'Only draft rules can be updated.');
+        }
+
         $persistenceRule = $this->handler->loadRule($rule->getId(), Value::STATUS_DRAFT);
 
         $this->validator->validateRuleUpdateStruct($ruleUpdateStruct);
@@ -315,10 +324,16 @@ class LayoutResolverService implements APILayoutResolverService
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
      * @param \Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct $ruleUpdateStruct
      *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not published
+     *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
     public function updateRuleMetadata(Rule $rule, RuleMetadataUpdateStruct $ruleUpdateStruct)
     {
+        if ($rule->getStatus() !== Value::STATUS_PUBLISHED) {
+            throw new BadStateException('rule', 'Metadata can be updated only for published rules.');
+        }
+
         $persistenceRule = $this->handler->loadRule($rule->getId(), Value::STATUS_PUBLISHED);
 
         $this->validator->validateRuleMetadataUpdateStruct($ruleUpdateStruct);
@@ -370,12 +385,17 @@ class LayoutResolverService implements APILayoutResolverService
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If draft already exists for the rule
+     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not published
+     *                                                          If draft already exists for the rule
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
     public function createDraft(Rule $rule)
     {
+        if ($rule->getStatus() !== Value::STATUS_PUBLISHED) {
+            throw new BadStateException('rule', 'Drafts can only be created from published rules.');
+        }
+
         $persistenceRule = $this->handler->loadRule($rule->getId(), Value::STATUS_PUBLISHED);
 
         if ($this->handler->ruleExists($persistenceRule->id, Value::STATUS_DRAFT)) {
@@ -400,10 +420,16 @@ class LayoutResolverService implements APILayoutResolverService
     /**
      * Discards a rule draft.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft $rule
+     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
+     *
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
      */
-    public function discardDraft(RuleDraft $rule)
+    public function discardDraft(Rule $rule)
     {
+        if ($rule->getStatus() !== Value::STATUS_DRAFT) {
+            throw new BadStateException('rule', 'Only draft rules can be discarded.');
+        }
+
         $persistenceRule = $this->handler->loadRule($rule->getId(), Value::STATUS_DRAFT);
 
         $this->persistenceHandler->beginTransaction();
@@ -424,12 +450,18 @@ class LayoutResolverService implements APILayoutResolverService
     /**
      * Publishes a rule.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft $rule
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
-    public function publishRule(RuleDraft $rule)
+    public function publishRule(Rule $rule)
     {
+        if ($rule->getStatus() !== Value::STATUS_DRAFT) {
+            throw new BadStateException('rule', 'Only draft rules can be published.');
+        }
+
         $persistenceRule = $this->handler->loadRule($rule->getId(), Value::STATUS_DRAFT);
 
         $this->persistenceHandler->beginTransaction();
@@ -495,12 +527,17 @@ class LayoutResolverService implements APILayoutResolverService
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If rule cannot be enabled
+     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not published
+     *                                                          If rule cannot be enabled
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
     public function enableRule(Rule $rule)
     {
+        if ($rule->getStatus() !== Value::STATUS_PUBLISHED) {
+            throw new BadStateException('rule', 'Only published rules can be enabled.');
+        }
+
         $persistenceRule = $this->handler->loadRule($rule->getId(), Value::STATUS_PUBLISHED);
 
         if ($persistenceRule->enabled) {
@@ -534,12 +571,17 @@ class LayoutResolverService implements APILayoutResolverService
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If rule cannot be disabled
+     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not published
+     *                                                          If rule cannot be disabled
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
     public function disableRule(Rule $rule)
     {
+        if ($rule->getStatus() !== Value::STATUS_PUBLISHED) {
+            throw new BadStateException('rule', 'Only published rules can be disabled.');
+        }
+
         $persistenceRule = $this->handler->loadRule($rule->getId(), Value::STATUS_PUBLISHED);
 
         if (!$persistenceRule->enabled) {
@@ -563,15 +605,20 @@ class LayoutResolverService implements APILayoutResolverService
     /**
      * Adds a target to rule.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft $rule
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
      * @param \Netgen\BlockManager\API\Values\TargetCreateStruct $targetCreateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If target of different type than it already exists in the rule is added
+     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
+     *                                                          If target of different type than it already exists in the rule is added
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Target
      */
-    public function addTarget(RuleDraft $rule, TargetCreateStruct $targetCreateStruct)
+    public function addTarget(Rule $rule, TargetCreateStruct $targetCreateStruct)
     {
+        if ($rule->getStatus() !== Value::STATUS_DRAFT) {
+            throw new BadStateException('rule', 'Targets can be added only to draft rules.');
+        }
+
         $persistenceRule = $this->handler->loadRule($rule->getId(), Value::STATUS_DRAFT);
         $ruleTargets = $this->handler->loadRuleTargets($persistenceRule);
 
@@ -608,13 +655,19 @@ class LayoutResolverService implements APILayoutResolverService
     /**
      * Updates a target.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft $target
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Target $target
      * @param \Netgen\BlockManager\API\Values\TargetUpdateStruct $targetUpdateStruct
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft
+     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
+     *
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Target
      */
-    public function updateTarget(TargetDraft $target, TargetUpdateStruct $targetUpdateStruct)
+    public function updateTarget(Target $target, TargetUpdateStruct $targetUpdateStruct)
     {
+        if ($target->getStatus() !== Value::STATUS_DRAFT) {
+            throw new BadStateException('target', 'Only draft targets can be updated.');
+        }
+
         $persistenceTarget = $this->handler->loadTarget($target->getId(), Value::STATUS_DRAFT);
 
         $this->validator->validateTargetUpdateStruct($target, $targetUpdateStruct);
@@ -639,10 +692,16 @@ class LayoutResolverService implements APILayoutResolverService
     /**
      * Removes a target.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft $target
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Target $target
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
      */
-    public function deleteTarget(TargetDraft $target)
+    public function deleteTarget(Target $target)
     {
+        if ($target->getStatus() !== Value::STATUS_DRAFT) {
+            throw new BadStateException('target', 'Only draft targets can be deleted.');
+        }
+
         $persistenceTarget = $this->handler->loadTarget($target->getId(), Value::STATUS_DRAFT);
 
         $this->persistenceHandler->beginTransaction();
@@ -660,13 +719,19 @@ class LayoutResolverService implements APILayoutResolverService
     /**
      * Adds a condition to rule.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft $rule
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
      * @param \Netgen\BlockManager\API\Values\ConditionCreateStruct $conditionCreateStruct
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\ConditionDraft
+     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
+     *
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Condition
      */
-    public function addCondition(RuleDraft $rule, ConditionCreateStruct $conditionCreateStruct)
+    public function addCondition(Rule $rule, ConditionCreateStruct $conditionCreateStruct)
     {
+        if ($rule->getStatus() !== Value::STATUS_DRAFT) {
+            throw new BadStateException('rule', 'Conditions can be added only to draft rules.');
+        }
+
         $persistenceRule = $this->handler->loadRule($rule->getId(), Value::STATUS_DRAFT);
 
         $this->validator->validateConditionCreateStruct($conditionCreateStruct);
@@ -691,13 +756,19 @@ class LayoutResolverService implements APILayoutResolverService
     /**
      * Updates a condition.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\ConditionDraft $condition
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Condition $condition
      * @param \Netgen\BlockManager\API\Values\ConditionUpdateStruct $conditionUpdateStruct
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\ConditionDraft
+     * @throws \Netgen\BlockManager\Exception\BadStateException If condition is not a draft
+     *
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Condition
      */
-    public function updateCondition(ConditionDraft $condition, ConditionUpdateStruct $conditionUpdateStruct)
+    public function updateCondition(Condition $condition, ConditionUpdateStruct $conditionUpdateStruct)
     {
+        if ($condition->getStatus() !== Value::STATUS_DRAFT) {
+            throw new BadStateException('condition', 'Only draft conditions can be updated.');
+        }
+
         $persistenceCondition = $this->handler->loadCondition($condition->getId(), Value::STATUS_DRAFT);
 
         $this->validator->validateConditionUpdateStruct($condition, $conditionUpdateStruct);
@@ -722,10 +793,16 @@ class LayoutResolverService implements APILayoutResolverService
     /**
      * Removes a condition.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\ConditionDraft $condition
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Condition $condition
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If condition is not a draft
      */
-    public function deleteCondition(ConditionDraft $condition)
+    public function deleteCondition(Condition $condition)
     {
+        if ($condition->getStatus() !== Value::STATUS_DRAFT) {
+            throw new BadStateException('condition', 'Only draft conditions can be deleted.');
+        }
+
         $persistenceCondition = $this->handler->loadCondition($condition->getId(), Value::STATUS_DRAFT);
 
         $this->persistenceHandler->beginTransaction();

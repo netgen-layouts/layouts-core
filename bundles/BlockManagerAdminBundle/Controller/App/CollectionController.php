@@ -3,7 +3,6 @@
 namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\App;
 
 use Netgen\BlockManager\API\Service\CollectionService;
-use Netgen\BlockManager\API\Values\Collection\QueryDraft;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,14 +28,16 @@ class CollectionController extends Controller
     /**
      * Displays and processes query draft edit form.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\QueryDraft $query
+     * @param int|string $queryId
      * @param string $formName
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
-    public function queryEditForm(QueryDraft $query, $formName, Request $request)
+    public function queryEditForm($queryId, $formName, Request $request)
     {
+        $query = $this->collectionService->loadQueryDraft($queryId);
+
         $queryTypeConfig = $query->getQueryType()->getConfig();
 
         $updateStruct = $this->collectionService->newQueryUpdateStruct($query);

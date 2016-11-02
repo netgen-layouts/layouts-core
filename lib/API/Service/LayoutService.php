@@ -5,9 +5,7 @@ namespace Netgen\BlockManager\API\Service;
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout;
-use Netgen\BlockManager\API\Values\Page\LayoutDraft;
 use Netgen\BlockManager\API\Values\Page\Zone;
-use Netgen\BlockManager\API\Values\Page\ZoneDraft;
 
 interface LayoutService
 {
@@ -29,7 +27,7 @@ interface LayoutService
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\Page\LayoutDraft
+     * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
     public function loadLayoutDraft($layoutId);
 
@@ -86,7 +84,7 @@ interface LayoutService
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID or zone with specified identifier do not exist
      *
-     * @return \Netgen\BlockManager\API\Values\Page\ZoneDraft
+     * @return \Netgen\BlockManager\API\Values\Page\Zone
      */
     public function loadZoneDraft($layoutId, $identifier);
 
@@ -103,25 +101,29 @@ interface LayoutService
     /**
      * Links the zone to provided linked zone. If zone had a previous link, it will be overwritten.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\ZoneDraft $zone
+     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
      * @param \Netgen\BlockManager\API\Values\Page\Zone $linkedZone
      *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If zone is not a draft
+     * @throws \Netgen\BlockManager\Exception\BadStateException If linked zone is not published
      * @throws \Netgen\BlockManager\Exception\BadStateException If zone is in the shared layout
      * @throws \Netgen\BlockManager\Exception\BadStateException If linked zone is not in the shared layout
      * @throws \Netgen\BlockManager\Exception\BadStateException If zone and linked zone belong to the same layout
      *
-     * @return \Netgen\BlockManager\API\Values\Page\ZoneDraft
+     * @return \Netgen\BlockManager\API\Values\Page\Zone
      */
-    public function linkZone(ZoneDraft $zone, Zone $linkedZone);
+    public function linkZone(Zone $zone, Zone $linkedZone);
 
     /**
      * Removes the link in the zone.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\ZoneDraft $zone
+     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
      *
-     * @return \Netgen\BlockManager\API\Values\Page\ZoneDraft
+     * @throws \Netgen\BlockManager\Exception\BadStateException If zone is not a draft
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Zone
      */
-    public function unlinkZone(ZoneDraft $zone);
+    public function unlinkZone(Zone $zone);
 
     /**
      * Creates a layout.
@@ -130,21 +132,22 @@ interface LayoutService
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If layout with provided name already exists
      *
-     * @return \Netgen\BlockManager\API\Values\Page\LayoutDraft
+     * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
     public function createLayout(LayoutCreateStruct $layoutCreateStruct);
 
     /**
      * Updates a specified layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\LayoutDraft $layout
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      * @param \Netgen\BlockManager\API\Values\LayoutUpdateStruct $layoutUpdateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If layout with provided name already exists
+     * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
+     *                                                          If layout with provided name already exists
      *
-     * @return \Netgen\BlockManager\API\Values\Page\LayoutDraft
+     * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
-    public function updateLayout(LayoutDraft $layout, LayoutUpdateStruct $layoutUpdateStruct);
+    public function updateLayout(Layout $layout, LayoutUpdateStruct $layoutUpdateStruct);
 
     /**
      * Copies a specified layout.
@@ -163,27 +166,32 @@ interface LayoutService
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If draft already exists for layout
+     * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not published
+     *                                                          If draft already exists for layout
      *
-     * @return \Netgen\BlockManager\API\Values\Page\LayoutDraft
+     * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
     public function createDraft(Layout $layout);
 
     /**
      * Discards a layout draft.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\LayoutDraft $layout
+     * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      */
-    public function discardDraft(LayoutDraft $layout);
+    public function discardDraft(Layout $layout);
 
     /**
      * Publishes a layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\LayoutDraft $layout
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
-    public function publishLayout(LayoutDraft $layout);
+    public function publishLayout(Layout $layout);
 
     /**
      * Deletes a specified layout.

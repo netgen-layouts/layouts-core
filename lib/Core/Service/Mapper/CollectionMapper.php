@@ -4,16 +4,12 @@ namespace Netgen\BlockManager\Core\Service\Mapper;
 
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
-use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceCollection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item as PersistenceItem;
 use Netgen\BlockManager\Persistence\Values\Collection\Query as PersistenceQuery;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
-use Netgen\BlockManager\Core\Values\Collection\CollectionDraft;
 use Netgen\BlockManager\Core\Values\Collection\Item;
-use Netgen\BlockManager\Core\Values\Collection\ItemDraft;
 use Netgen\BlockManager\Core\Values\Collection\Query;
-use Netgen\BlockManager\Core\Values\Collection\QueryDraft;
 
 class CollectionMapper extends Mapper
 {
@@ -50,7 +46,7 @@ class CollectionMapper extends Mapper
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      *
-     * @return \Netgen\BlockManager\API\Values\Collection\Collection|\Netgen\BlockManager\API\Values\Collection\CollectionDraft
+     * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
     public function mapCollection(PersistenceCollection $collection)
     {
@@ -82,9 +78,7 @@ class CollectionMapper extends Mapper
             'queries' => $queries,
         );
 
-        return $collection->status === Value::STATUS_PUBLISHED ?
-            new Collection($collectionData) :
-            new CollectionDraft($collectionData);
+        return new Collection($collectionData);
     }
 
     /**
@@ -92,7 +86,7 @@ class CollectionMapper extends Mapper
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Item $item
      *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item|\Netgen\BlockManager\API\Values\Collection\ItemDraft
+     * @return \Netgen\BlockManager\API\Values\Collection\Item
      */
     public function mapItem(PersistenceItem $item)
     {
@@ -106,9 +100,7 @@ class CollectionMapper extends Mapper
             'valueType' => $item->valueType,
         );
 
-        return $item->status === Value::STATUS_PUBLISHED ?
-            new Item($itemData) :
-            new ItemDraft($itemData);
+        return new Item($itemData);
     }
 
     /**
@@ -116,7 +108,7 @@ class CollectionMapper extends Mapper
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
      *
-     * @return \Netgen\BlockManager\API\Values\Collection\Query|\Netgen\BlockManager\API\Values\Collection\QueryDraft
+     * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
     public function mapQuery(PersistenceQuery $query)
     {
@@ -137,8 +129,6 @@ class CollectionMapper extends Mapper
             ),
         );
 
-        return $query->status === Value::STATUS_PUBLISHED ?
-            new Query($queryData) :
-            new QueryDraft($queryData);
+        return new Query($queryData);
     }
 }

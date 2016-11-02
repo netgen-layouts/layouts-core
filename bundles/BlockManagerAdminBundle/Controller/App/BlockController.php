@@ -4,7 +4,6 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\App;
 
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\CollectionService;
-use Netgen\BlockManager\API\Values\Page\BlockDraft;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
@@ -48,12 +47,13 @@ class BlockController extends Controller
     /**
      * Displays block edit interface.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\BlockDraft $block
+     * @param int|string $blockId
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function edit(BlockDraft $block)
+    public function edit($blockId)
     {
+        $block = $this->blockService->loadBlockDraft($blockId);
         $collectionReferences = $this->blockService->loadCollectionReferences($block);
 
         $collections = array();
@@ -75,14 +75,16 @@ class BlockController extends Controller
     /**
      * Displays and processes block draft edit form.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\BlockDraft $block
+     * @param int|string $blockId
      * @param string $formName
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
-    public function editForm(BlockDraft $block, $formName, Request $request)
+    public function editForm($blockId, $formName, Request $request)
     {
+        $block = $this->blockService->loadBlockDraft($blockId);
+
         $blockDefinition = $block->getBlockDefinition();
         $blockDefinitionConfig = $blockDefinition->getConfig();
 

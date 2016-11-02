@@ -3,13 +3,12 @@
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
 use Netgen\BlockManager\API\Repository;
-use Netgen\BlockManager\API\Values\Collection\ItemDraft;
-use Netgen\BlockManager\API\Values\Collection\QueryDraft;
+use Netgen\BlockManager\API\Values\Collection\Item;
+use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Collection\Result\ResultLoaderInterface;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\API\Values\Collection\CollectionDraft;
 use Netgen\BlockManager\Serializer\Version;
 use Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\CollectionValidator;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
@@ -61,31 +60,33 @@ class CollectionController extends Controller
     /**
      * Loads the collection.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\CollectionDraft $collection
+     * @param int|string $collectionId
      *
      * @return \Netgen\BlockManager\Serializer\Values\VersionedValue
      */
-    public function loadCollection(CollectionDraft $collection)
+    public function loadCollection($collectionId)
     {
+        $collection = $this->collectionService->loadCollectionDraft($collectionId);
+
         return new VersionedValue($collection, Version::API_V1);
     }
 
     /**
      * Returns the collection result.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\CollectionDRaft $collection
+     * @param int|string $collectionId
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Netgen\BlockManager\Serializer\Values\VersionedValue
      */
-    public function loadCollectionResult(CollectionDraft $collection, Request $request)
+    public function loadCollectionResult($collectionId, Request $request)
     {
         $offset = $request->query->get('offset', 0);
         $limit = $request->query->get('limit', null);
 
         return new VersionedValue(
             $this->resultLoader->load(
-                $collection,
+                $this->collectionService->loadCollectionDraft($collectionId),
                 (int)$offset,
                 !empty($limit) ? (int)$limit : null,
                 ResultLoaderInterface::INCLUDE_INVISIBLE_ITEMS |
@@ -98,14 +99,16 @@ class CollectionController extends Controller
     /**
      * Loads all collection items.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\CollectionDraft $collection
+     * @param int|string $collectionId
      *
      * @return \Netgen\BlockManager\Serializer\Values\Value
      */
-    public function loadCollectionItems(CollectionDraft $collection)
+    public function loadCollectionItems($collectionId)
     {
+        $collection = $this->collectionService->loadCollectionDraft($collectionId);
+
         $items = array_map(
-            function (ItemDraft $item) {
+            function (Item $item) {
                 return new VersionedValue($item, Version::API_V1);
             },
             $collection->getItems()
@@ -117,14 +120,16 @@ class CollectionController extends Controller
     /**
      * Loads all collection queries.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\CollectionDraft $collection
+     * @param int|string $collectionId
      *
      * @return \Netgen\BlockManager\Serializer\Values\Value
      */
-    public function loadCollectionQueries(CollectionDraft $collection)
+    public function loadCollectionQueries($collectionId)
     {
+        $collection = $this->collectionService->loadCollectionDraft($collectionId);
+
         $queries = array_map(
-            function (QueryDraft $query) {
+            function (Query $query) {
                 return new VersionedValue($query, Version::API_V1);
             },
             $collection->getQueries()
@@ -136,24 +141,26 @@ class CollectionController extends Controller
     /**
      * Loads the item.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\ItemDraft $item
+     * @param int|string $itemId
      *
      * @return \Netgen\BlockManager\Serializer\Values\VersionedValue
      */
-    public function loadItem(ItemDraft $item)
+    public function loadItem($itemId)
     {
+        $item = $this->collectionService->loadItemDraft($itemId);
+
         return new VersionedValue($item, Version::API_V1);
     }
 
     /**
      * Adds an item inside the collection.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\CollectionDraft $collection
+     * @param int|string $collectionId
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function addItems(CollectionDraft $collection, Request $request)
+    public function addItems($collectionId, Request $request)
     {
         $this->validator->validateAddItems($request);
 
@@ -170,7 +177,7 @@ class CollectionController extends Controller
                 );
 
                 $this->collectionService->addItem(
-                    $collection,
+                    $this->collectionService->loadCollectionDraft($collectionId),
                     $itemCreateStruct,
                     isset($item['position']) ? $item['position'] : null
                 );
@@ -189,15 +196,15 @@ class CollectionController extends Controller
     /**
      * Moves the item inside the collection.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\ItemDraft $item
+     * @param int|string $itemId
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function moveItem(ItemDraft $item, Request $request)
+    public function moveItem($itemId, Request $request)
     {
         $this->collectionService->moveItem(
-            $item,
+            $this->collectionService->loadItemDraft($itemId),
             $request->request->get('position')
         );
 
@@ -207,13 +214,15 @@ class CollectionController extends Controller
     /**
      * Deletes the item.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\ItemDraft $item
+     * @param int|string $itemId
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function deleteItem(ItemDraft $item)
+    public function deleteItem($itemId)
     {
-        $this->collectionService->deleteItem($item);
+        $this->collectionService->deleteItem(
+            $this->collectionService->loadItemDraft($itemId)
+        );
 
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
@@ -221,27 +230,31 @@ class CollectionController extends Controller
     /**
      * Loads the query.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\QueryDraft $query
+     * @param int|string $queryId
      *
      * @return \Netgen\BlockManager\Serializer\Values\VersionedValue
      */
-    public function loadQuery(QueryDraft $query)
+    public function loadQuery($queryId)
     {
+        $query = $this->collectionService->loadQueryDraft($queryId);
+
         return new VersionedValue($query, Version::API_V1);
     }
 
     /**
      * Updates the query.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\QueryDraft $query
+     * @param int|string $queryId
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If some of the parameters do not exist in the query
      *
      * @return \Netgen\BlockManager\Serializer\Values\VersionedValue
      */
-    public function updateQuery(QueryDraft $query, Request $request)
+    public function updateQuery($queryId, Request $request)
     {
+        $query = $this->collectionService->loadQueryDraft($queryId);
+
         $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct();
         $queryUpdateStruct->identifier = $request->request->get('identifier');
 
@@ -271,15 +284,15 @@ class CollectionController extends Controller
     /**
      * Moves the query inside the collection.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\QueryDraft $query
+     * @param int|string $queryId
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function moveQuery(QueryDraft $query, Request $request)
+    public function moveQuery($queryId, Request $request)
     {
         $this->collectionService->moveQuery(
-            $query,
+            $this->collectionService->loadQueryDraft($queryId),
             $request->request->get('position')
         );
 
@@ -289,13 +302,15 @@ class CollectionController extends Controller
     /**
      * Deletes the query.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\QueryDraft $query
+     * @param int|string $queryId
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function deleteQuery(QueryDraft $query)
+    public function deleteQuery($queryId)
     {
-        $this->collectionService->deleteQuery($query);
+        $this->collectionService->deleteQuery(
+            $this->collectionService->loadQueryDraft($queryId)
+        );
 
         return new Response(null, Response::HTTP_NO_CONTENT);
     }

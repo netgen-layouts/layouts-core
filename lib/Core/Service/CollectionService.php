@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Core\Service;
 
-use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Collection\QueryTypeInterface;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
 use Netgen\BlockManager\Core\Service\Mapper\ParameterMapper;
@@ -13,9 +12,8 @@ use Netgen\BlockManager\Core\Service\Mapper\CollectionMapper;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\CollectionDraft;
-use Netgen\BlockManager\API\Values\Collection\ItemDraft;
-use Netgen\BlockManager\API\Values\Collection\QueryDraft;
+use Netgen\BlockManager\API\Values\Collection\Item;
+use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\ItemCreateStruct;
@@ -108,7 +106,7 @@ class CollectionService implements APICollectionService
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If collection with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\Collection\CollectionDraft
+     * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
     public function loadCollectionDraft($collectionId)
     {
@@ -176,7 +174,7 @@ class CollectionService implements APICollectionService
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If item with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\Collection\ItemDraft
+     * @return \Netgen\BlockManager\API\Values\Collection\Item
      */
     public function loadItemDraft($itemId)
     {
@@ -218,7 +216,7 @@ class CollectionService implements APICollectionService
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If query with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\Collection\QueryDraft
+     * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
     public function loadQueryDraft($queryId)
     {
@@ -239,7 +237,7 @@ class CollectionService implements APICollectionService
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If collection with provided name already exists
      *
-     * @return \Netgen\BlockManager\API\Values\Collection\CollectionDraft
+     * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
     public function createCollection(CollectionCreateStruct $collectionCreateStruct)
     {
@@ -271,15 +269,20 @@ class CollectionService implements APICollectionService
     /**
      * Updates a specified collection.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\CollectionDraft $collection
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      * @param \Netgen\BlockManager\API\Values\CollectionUpdateStruct $collectionUpdateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection with provided name already exists
+     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
+     *                                                          If collection with provided name already exists
      *
-     * @return \Netgen\BlockManager\API\Values\Collection\CollectionDraft
+     * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function updateCollection(CollectionDraft $collection, CollectionUpdateStruct $collectionUpdateStruct)
+    public function updateCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct)
     {
+        if ($collection->getStatus() !== Value::STATUS_DRAFT) {
+            throw new BadStateException('collection', 'Only draft collections can be updated.');
+        }
+
         $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
 
         $this->collectionValidator->validateCollectionUpdateStruct($collectionUpdateStruct);
@@ -310,16 +313,21 @@ class CollectionService implements APICollectionService
     /**
      * Changes the type of specified collection.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\CollectionDraft $collection
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      * @param int $newType
      * @param \Netgen\BlockManager\API\Values\QueryCreateStruct $queryCreateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection type cannot be changed
+     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
+     *                                                          If collection type cannot be changed
      *
-     * @return \Netgen\BlockManager\API\Values\Collection\CollectionDraft
+     * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function changeCollectionType(CollectionDraft $collection, $newType, QueryCreateStruct $queryCreateStruct = null)
+    public function changeCollectionType(Collection $collection, $newType, QueryCreateStruct $queryCreateStruct = null)
     {
+        if ($collection->getStatus() !== Value::STATUS_DRAFT) {
+            throw new BadStateException('collection', 'Type can be changed only for draft collections.');
+        }
+
         $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
 
         if (!in_array($newType, array(Collection::TYPE_MANUAL, Collection::TYPE_DYNAMIC))) {
@@ -390,12 +398,17 @@ class CollectionService implements APICollectionService
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If draft already exists for collection
+     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not published
+     *                                                          If draft already exists for collection
      *
-     * @return \Netgen\BlockManager\API\Values\Collection\CollectionDraft
+     * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
     public function createDraft(Collection $collection)
     {
+        if ($collection->getStatus() !== Value::STATUS_PUBLISHED) {
+            throw new BadStateException('collection', 'Draft can be created only from published collections.');
+        }
+
         $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Value::STATUS_PUBLISHED);
 
         if ($this->collectionHandler->collectionExists($persistenceCollection->id, Value::STATUS_DRAFT)) {
@@ -420,10 +433,16 @@ class CollectionService implements APICollectionService
     /**
      * Discards a collection draft.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\CollectionDraft $collection
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
      */
-    public function discardDraft(CollectionDraft $collection)
+    public function discardDraft(Collection $collection)
     {
+        if ($collection->getStatus() !== Value::STATUS_DRAFT) {
+            throw new BadStateException('collection', 'Only draft collections can be discarded.');
+        }
+
         $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
 
         $this->persistenceHandler->beginTransaction();
@@ -444,12 +463,18 @@ class CollectionService implements APICollectionService
     /**
      * Publishes a collection.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\CollectionDraft $collection
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function publishCollection(CollectionDraft $collection)
+    public function publishCollection(Collection $collection)
     {
+        if ($collection->getStatus() !== Value::STATUS_DRAFT) {
+            throw new BadStateException('collection', 'Only draft collections can be published.');
+        }
+
         $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
 
         $this->persistenceHandler->beginTransaction();
@@ -507,16 +532,21 @@ class CollectionService implements APICollectionService
     /**
      * Adds an item to collection.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\CollectionDraft $collection
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      * @param \Netgen\BlockManager\API\Values\ItemCreateStruct $itemCreateStruct
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If position is out of range (for manual collections)
+     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
+     *                                                          If position is out of range (for manual collections)
      *
-     * @return \Netgen\BlockManager\API\Values\Collection\ItemDraft
+     * @return \Netgen\BlockManager\API\Values\Collection\Item
      */
-    public function addItem(CollectionDraft $collection, ItemCreateStruct $itemCreateStruct, $position = null)
+    public function addItem(Collection $collection, ItemCreateStruct $itemCreateStruct, $position = null)
     {
+        if ($collection->getStatus() !== Value::STATUS_DRAFT) {
+            throw new BadStateException('collection', 'Items can only be added to draft collections.');
+        }
+
         $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
 
         $this->collectionValidator->validatePosition(
@@ -548,13 +578,18 @@ class CollectionService implements APICollectionService
     /**
      * Moves an item within the collection.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\ItemDraft $item
+     * @param \Netgen\BlockManager\API\Values\Collection\Item $item
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If position is out of range (for manual collections)
+     * @throws \Netgen\BlockManager\Exception\BadStateException If item is not a draft
+     *                                                          If position is out of range (for manual collections)
      */
-    public function moveItem(ItemDraft $item, $position)
+    public function moveItem(Item $item, $position)
     {
+        if ($item->getStatus() !== Value::STATUS_DRAFT) {
+            throw new BadStateException('item', 'Only draft items can be moved.');
+        }
+
         $persistenceItem = $this->collectionHandler->loadItem($item->getId(), Value::STATUS_DRAFT);
 
         $this->collectionValidator->validatePosition($position, 'position', true);
@@ -579,10 +614,16 @@ class CollectionService implements APICollectionService
     /**
      * Removes an item.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\ItemDraft $item
+     * @param \Netgen\BlockManager\API\Values\Collection\Item $item
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If item is not a draft
      */
-    public function deleteItem(ItemDraft $item)
+    public function deleteItem(Item $item)
     {
+        if ($item->getStatus() !== Value::STATUS_DRAFT) {
+            throw new BadStateException('item', 'Only draft items can be deleted.');
+        }
+
         $persistenceItem = $this->collectionHandler->loadItem($item->getId(), Value::STATUS_DRAFT);
 
         $this->persistenceHandler->beginTransaction();
@@ -600,17 +641,22 @@ class CollectionService implements APICollectionService
     /**
      * Adds a query to collection.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\CollectionDraft $collection
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      * @param \Netgen\BlockManager\API\Values\QueryCreateStruct $queryCreateStruct
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If query with specified identifier already exists within the collection
+     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
+     *                                                          If query with specified identifier already exists within the collection
      *                                                          If position is out of range
      *
-     * @return \Netgen\BlockManager\API\Values\Collection\QueryDraft
+     * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
-    public function addQuery(CollectionDraft $collection, QueryCreateStruct $queryCreateStruct, $position = null)
+    public function addQuery(Collection $collection, QueryCreateStruct $queryCreateStruct, $position = null)
     {
+        if ($collection->getStatus() !== Value::STATUS_DRAFT) {
+            throw new BadStateException('query', 'Queries can be added only to draft collections.');
+        }
+
         $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
 
         $this->collectionValidator->validatePosition($position, 'position');
@@ -653,15 +699,20 @@ class CollectionService implements APICollectionService
     /**
      * Updates a query.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\QueryDraft $query
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      * @param \Netgen\BlockManager\API\Values\QueryUpdateStruct $queryUpdateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If query with specified identifier already exists within the collection
+     * @throws \Netgen\BlockManager\Exception\BadStateException If query is not a draft
+     *                                                          If query with specified identifier already exists within the collection
      *
-     * @return \Netgen\BlockManager\API\Values\Collection\QueryDraft
+     * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
-    public function updateQuery(QueryDraft $query, QueryUpdateStruct $queryUpdateStruct)
+    public function updateQuery(Query $query, QueryUpdateStruct $queryUpdateStruct)
     {
+        if ($query->getStatus() !== Value::STATUS_DRAFT) {
+            throw new BadStateException('query', 'Only draft queries can be updated.');
+        }
+
         $persistenceQuery = $this->collectionHandler->loadQuery($query->getId(), Value::STATUS_DRAFT);
         $persistenceCollection = $this->collectionHandler->loadCollection($persistenceQuery->collectionId, Value::STATUS_DRAFT);
 
@@ -701,13 +752,18 @@ class CollectionService implements APICollectionService
     /**
      * Moves a query within the collection.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\QueryDraft $query
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If position is out of range
+     * @throws \Netgen\BlockManager\Exception\BadStateException If query is not a draft
+     *                                                          If position is out of range
      */
-    public function moveQuery(QueryDraft $query, $position)
+    public function moveQuery(Query $query, $position)
     {
+        if ($query->getStatus() !== Value::STATUS_DRAFT) {
+            throw new BadStateException('query', 'Only draft queries can be moved.');
+        }
+
         $persistenceQuery = $this->collectionHandler->loadQuery($query->getId(), Value::STATUS_DRAFT);
 
         $this->collectionValidator->validatePosition($position, 'position', true);
@@ -732,10 +788,16 @@ class CollectionService implements APICollectionService
     /**
      * Removes a query.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\QueryDraft $query
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If query is not a draft
      */
-    public function deleteQuery(QueryDraft $query)
+    public function deleteQuery(Query $query)
     {
+        if ($query->getStatus() !== Value::STATUS_DRAFT) {
+            throw new BadStateException('query', 'Only draft queries can be deleted.');
+        }
+
         $persistenceQuery = $this->collectionHandler->loadQuery($query->getId(), Value::STATUS_DRAFT);
 
         $this->persistenceHandler->beginTransaction();

@@ -11,7 +11,6 @@ use Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Netgen\BlockManager\API\Values\Page\BlockDraft;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
 
@@ -59,10 +58,9 @@ class BlockController extends Controller
      */
     public function view($blockId, Request $request)
     {
-        $block = $this->loadBlock(
-            $blockId,
-            $request->query->get('published') !== 'true'
-        );
+        $block = $request->query->get('published') === 'true' ?
+            $this->blockService->loadBlock($blockId) :
+            $this->blockService->loadBlockDraft($blockId);
 
         return new View($block, Version::API_V1);
     }
@@ -106,15 +104,17 @@ class BlockController extends Controller
     /**
      * Updates the block.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\BlockDraft $block
+     * @param int|string $blockId
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If some of the parameters do not exist in the block
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
-    public function update(BlockDraft $block, Request $request)
+    public function update($blockId, Request $request)
     {
+        $block = $this->blockService->loadBlockDraft($blockId);
+
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct();
         $blockUpdateStruct->name = $request->request->get('name');
         $blockUpdateStruct->viewType = $request->request->get('view_type');
@@ -146,15 +146,15 @@ class BlockController extends Controller
     /**
      * Copies the block draft.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\BlockDraft $block
+     * @param int|string $blockId
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
-    public function copy(BlockDraft $block, Request $request)
+    public function copy($blockId, Request $request)
     {
         $copiedBlock = $this->blockService->copyBlock(
-            $block,
+            $this->blockService->loadBlockDraft($blockId),
             $request->request->get('zone_identifier')
         );
 
@@ -164,15 +164,15 @@ class BlockController extends Controller
     /**
      * Moves the block draft.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\BlockDraft $block
+     * @param int|string $blockId
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function move(BlockDraft $block, Request $request)
+    public function move($blockId, Request $request)
     {
         $this->blockService->moveBlock(
-            $block,
+            $this->blockService->loadBlockDraft($blockId),
             $request->request->get('position'),
             $request->request->get('zone_identifier')
         );
@@ -183,13 +183,15 @@ class BlockController extends Controller
     /**
      * Restores the block draft to the published state.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\BlockDraft $block
+     * @param int|string $blockId
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
-    public function restore(BlockDraft $block)
+    public function restore($blockId)
     {
-        $restoredBlock = $this->blockService->restoreBlock($block);
+        $restoredBlock = $this->blockService->restoreBlock(
+            $this->blockService->loadBlockDraft($blockId)
+        );
 
         return new View($restoredBlock, Version::API_V1);
     }
@@ -197,35 +199,16 @@ class BlockController extends Controller
     /**
      * Deletes the block draft.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\BlockDraft $block
+     * @param int|string $blockId
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function delete(BlockDraft $block)
+    public function delete($blockId)
     {
-        $this->blockService->deleteBlock($block);
+        $this->blockService->deleteBlock(
+            $this->blockService->loadBlockDraft($blockId)
+        );
 
         return new Response(null, Response::HTTP_NO_CONTENT);
-    }
-
-    /**
-     * Loads either published or draft state of the block.
-     *
-     * @param int|string $blockId
-     * @param bool $loadDraft
-     *
-     * @return \Netgen\BlockManager\API\Values\Page\Block|\Netgen\BlockManager\API\Values\Page\BlockDraft
-     */
-    protected function loadBlock($blockId, $loadDraft = true)
-    {
-        if ($loadDraft) {
-            return $this->blockService->loadBlockDraft(
-                $blockId
-            );
-        }
-
-        return $this->blockService->loadBlock(
-            $blockId
-        );
     }
 }

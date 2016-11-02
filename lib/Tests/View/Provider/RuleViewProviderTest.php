@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\View\Provider;
 
 use Netgen\BlockManager\API\Service\LayoutResolverService;
-use Netgen\BlockManager\Core\Values\LayoutResolver\RuleDraft;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry;
@@ -51,7 +50,7 @@ class RuleViewProviderTest extends TestCase
      */
     public function testProvideView()
     {
-        $rule = new Rule(array('id' => 42));
+        $rule = new Rule(array('id' => 42, 'status' => Value::STATUS_PUBLISHED));
 
         $this->layoutResolverServiceMock
             ->expects($this->never())
@@ -85,7 +84,7 @@ class RuleViewProviderTest extends TestCase
      */
     public function testProvideViewWithRuleDraft()
     {
-        $rule = new RuleDraft(array('id' => 42));
+        $rule = new Rule(array('id' => 42, 'status' => Value::STATUS_DRAFT));
         $publishedRule = new Rule(array('id' => 42));
 
         $this->layoutResolverServiceMock
@@ -122,7 +121,7 @@ class RuleViewProviderTest extends TestCase
      */
     public function testProvideViewWithRuleDraftWithoutPublishedStatus()
     {
-        $rule = new RuleDraft(array('id' => 42));
+        $rule = new Rule(array('id' => 42, 'status' => Value::STATUS_DRAFT));
 
         $this->layoutResolverServiceMock
             ->expects($this->once())

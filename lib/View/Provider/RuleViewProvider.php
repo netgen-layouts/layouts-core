@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\View\Provider;
 
 use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft;
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface;
@@ -90,7 +90,7 @@ class RuleViewProvider implements ViewProviderInterface
      */
     protected function loadPublishedRule(Rule $rule)
     {
-        if (!$rule instanceof RuleDraft) {
+        if ($rule->getStatus() === Value::STATUS_PUBLISHED) {
             return $rule;
         }
 

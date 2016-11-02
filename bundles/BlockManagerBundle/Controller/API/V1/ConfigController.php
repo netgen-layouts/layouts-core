@@ -141,7 +141,7 @@ class ConfigController extends Controller
             !$this->csrfTokenManager instanceof CsrfTokenManagerInterface ||
             $this->csrfTokenId === null
         ) {
-            return;
+            return null;
         }
 
         $token = $this->csrfTokenManager->getToken($this->csrfTokenId);

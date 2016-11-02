@@ -2,21 +2,17 @@
 
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
-use Netgen\BlockManager\API\Values\Page\Layout;
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface;
 use Netgen\BlockManager\Persistence\Handler;
-use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule as PersistenceRule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition as PersistenceCondition;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\Core\Values\LayoutResolver\RuleDraft;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
-use Netgen\BlockManager\Core\Values\LayoutResolver\TargetDraft;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\Core\Values\LayoutResolver\ConditionDraft;
 
 class LayoutResolverMapper extends Mapper
 {
@@ -61,7 +57,7 @@ class LayoutResolverMapper extends Mapper
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule|\Netgen\BlockManager\API\Values\LayoutResolver\RuleDraft
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
     public function mapRule(PersistenceRule $rule)
     {
@@ -69,6 +65,7 @@ class LayoutResolverMapper extends Mapper
 
         $layout = null;
         try {
+            // Layouts used by rule are always in published status
             $layout = $this->persistenceHandler->getLayoutHandler()->loadLayout(
                 $rule->layoutId,
                 Value::STATUS_PUBLISHED
@@ -104,9 +101,7 @@ class LayoutResolverMapper extends Mapper
             'conditions' => $conditions,
         );
 
-        return $rule->status === Value::STATUS_PUBLISHED ?
-            new Rule($ruleData) :
-            new RuleDraft($ruleData);
+        return new Rule($ruleData);
     }
 
     /**
@@ -114,7 +109,7 @@ class LayoutResolverMapper extends Mapper
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target $target
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Target|\Netgen\BlockManager\API\Values\LayoutResolver\TargetDraft
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Target
      */
     public function mapTarget(PersistenceTarget $target)
     {
@@ -128,9 +123,7 @@ class LayoutResolverMapper extends Mapper
             'value' => $target->value,
         );
 
-        return $target->status === Value::STATUS_PUBLISHED ?
-            new Target($targetData) :
-            new TargetDraft($targetData);
+        return new Target($targetData);
     }
 
     /**
@@ -138,7 +131,7 @@ class LayoutResolverMapper extends Mapper
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition $condition
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Condition|\Netgen\BlockManager\API\Values\LayoutResolver\ConditionDraft
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Condition
      */
     public function mapCondition(PersistenceCondition $condition)
     {
@@ -152,8 +145,6 @@ class LayoutResolverMapper extends Mapper
             'value' => $condition->value,
         );
 
-        return $condition->status === Value::STATUS_PUBLISHED ?
-            new Condition($conditionData) :
-            new ConditionDraft($conditionData);
+        return new Condition($conditionData);
     }
 }

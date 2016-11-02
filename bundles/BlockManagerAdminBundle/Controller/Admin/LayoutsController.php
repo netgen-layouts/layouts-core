@@ -110,7 +110,7 @@ class LayoutsController extends Controller
      *
      * @param int|string $layoutId
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout|\Netgen\BlockManager\API\Values\Page\LayoutDraft
+     * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
     protected function loadLayout($layoutId)
     {

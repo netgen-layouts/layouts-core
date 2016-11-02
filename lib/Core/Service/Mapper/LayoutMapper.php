@@ -8,9 +8,7 @@ use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone as PersistenceZone;
 use Netgen\BlockManager\Core\Values\Page\Zone;
-use Netgen\BlockManager\Core\Values\Page\ZoneDraft;
 use Netgen\BlockManager\Core\Values\Page\Layout;
-use Netgen\BlockManager\Core\Values\Page\LayoutDraft;
 use Netgen\BlockManager\Persistence\Handler;
 
 class LayoutMapper extends Mapper
@@ -45,7 +43,7 @@ class LayoutMapper extends Mapper
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $zone
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Zone|\Netgen\BlockManager\API\Values\Page\ZoneDraft
+     * @return \Netgen\BlockManager\API\Values\Page\Zone
      */
     public function mapZone(PersistenceZone $zone)
     {
@@ -81,9 +79,7 @@ class LayoutMapper extends Mapper
             'blocks' => $blocks,
         );
 
-        return $zone->status === Value::STATUS_PUBLISHED ?
-            new Zone($zoneData) :
-            new ZoneDraft($zoneData);
+        return new Zone($zoneData);
     }
 
     /**
@@ -91,7 +87,7 @@ class LayoutMapper extends Mapper
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout|\Netgen\BlockManager\API\Values\Page\LayoutDraft
+     * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
     public function mapLayout(PersistenceLayout $layout)
     {
@@ -115,8 +111,6 @@ class LayoutMapper extends Mapper
             'zones' => $zones,
         );
 
-        return $layout->status === Value::STATUS_PUBLISHED ?
-            new Layout($layoutData) :
-            new LayoutDraft($layoutData);
+        return new Layout($layoutData);
     }
 }
