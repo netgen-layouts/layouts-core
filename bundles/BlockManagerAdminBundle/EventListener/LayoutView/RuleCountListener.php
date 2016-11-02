@@ -37,7 +37,7 @@ class RuleCountListener implements EventSubscriberInterface
     }
 
     /**
-     * Includes results built from all block collections, if specified so.
+     * Injects the rule count to the layout.
      *
      * @param \Netgen\BlockManager\Event\View\CollectViewParametersEvent $event
      */
