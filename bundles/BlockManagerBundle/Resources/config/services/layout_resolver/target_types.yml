@@ -12,7 +12,7 @@ services:
         calls:
             - [setRequestStack, ["@request_stack"]]
         tags:
-            - { name: netgen_block_manager.layout.resolver.target_type, priority: 1 }
+            - { name: netgen_block_manager.layout.resolver.target_type, priority: 10 }
 
     netgen_block_manager.layout.resolver.target_type.route_prefix:
         class: "%netgen_block_manager.layout.resolver.target_type.route_prefix.class%"
@@ -26,25 +26,25 @@ services:
         calls:
             - [setRequestStack, ["@request_stack"]]
         tags:
-            - { name: netgen_block_manager.layout.resolver.target_type, priority: 3 }
+            - { name: netgen_block_manager.layout.resolver.target_type, priority: 30 }
 
     netgen_block_manager.layout.resolver.target_type.path_info_prefix:
         class: "%netgen_block_manager.layout.resolver.target_type.path_info_prefix.class%"
         calls:
             - [setRequestStack, ["@request_stack"]]
         tags:
-            - { name: netgen_block_manager.layout.resolver.target_type, priority: 2 }
+            - { name: netgen_block_manager.layout.resolver.target_type, priority: 20 }
 
     netgen_block_manager.layout.resolver.target_type.request_uri:
         class: "%netgen_block_manager.layout.resolver.target_type.request_uri.class%"
         calls:
             - [setRequestStack, ["@request_stack"]]
         tags:
-            - { name: netgen_block_manager.layout.resolver.target_type, priority: 5 }
+            - { name: netgen_block_manager.layout.resolver.target_type, priority: 50 }
 
     netgen_block_manager.layout.resolver.target_type.request_uri_prefix:
         class: "%netgen_block_manager.layout.resolver.target_type.request_uri_prefix.class%"
         calls:
             - [setRequestStack, ["@request_stack"]]
         tags:
-            - { name: netgen_block_manager.layout.resolver.target_type, priority: 4 }
+            - { name: netgen_block_manager.layout.resolver.target_type, priority: 40 }
