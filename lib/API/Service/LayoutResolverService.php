@@ -195,7 +195,6 @@ interface LayoutResolverService
     /**
      * Enables a rule.
      *
-     *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not published

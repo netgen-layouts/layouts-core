@@ -2,12 +2,12 @@
 
 {% trans_default_domain 'ngbm_admin' %}
 
-<div class="nl-rule-content {% if not published_rule.enabled %}disabled{% endif %}" data-id="{{ rule.id }}">
+<div class="nl-rule-content {% if not rule.enabled %}disabled{% endif %}" data-id="{{ rule.id }}">
     <div class="nl-panel-head">
         <div class="panel-head-title">
 
             <div class="panel-icon">
-                <i class="material-icons" role="presentation">{% if published_rule.enabled %}dns{% else %}do_not_disturb{% endif %}</i>
+                <i class="material-icons" role="presentation">{% if rule.enabled %}dns{% else %}do_not_disturb{% endif %}</i>
             </div>
 
             {% if rule.layout != null %}
@@ -23,7 +23,7 @@
                 </div>
             {% endif %}
 
-            {% if not published_rule.enabled %}
+            {% if not rule.enabled %}
                 <span class="disabled-label">{{ 'layout_resolver.rule.inactive'|trans }}</span>
             {% endif %}
 
@@ -45,7 +45,7 @@
                         <li><a href="#" class="js-link-layout-trigger">{{ 'layout_resolver.rule.link_layout'|trans }}</a></li>
                     {% endif %}
 
-                    {% if published_rule.enabled %}
+                    {% if rule.enabled %}
                         <li><a href="#" class="js-rule-edit" data-action="disable">{{ 'layout_resolver.rule.disable_rule'|trans }}</a></li>
                     {% else %}
                         <li><a href="#" {% if published_rule.layout == null or published_rule.targets|length == 0 %} disabled {% else %} class="js-rule-edit" data-action="enable" {% endif %}>{{ 'layout_resolver.rule.enable_rule'|trans }}</a></li>
