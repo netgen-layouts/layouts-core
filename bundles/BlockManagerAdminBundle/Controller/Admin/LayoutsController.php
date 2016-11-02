@@ -3,7 +3,6 @@
 namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin;
 
 use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Layout\Form\CopyType;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
@@ -52,7 +51,9 @@ class LayoutsController extends Controller
      */
     public function copyLayout($layoutId, Request $request)
     {
-        $layout = $this->loadLayout($layoutId);
+        $layout = $request->query->get('published') === 'true' ?
+            $this->layoutService->loadLayout($layoutId) :
+            $this->layoutService->loadLayoutDraft($layoutId);
 
         $form = $this->createForm(
             CopyType::class,
@@ -94,32 +95,18 @@ class LayoutsController extends Controller
      * Deletes a layout.
      *
      * @param int $layoutId
+     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function deleteLayout($layoutId)
+    public function deleteLayout($layoutId, Request $request)
     {
-        $layout = $this->loadLayout($layoutId);
+        $layout = $request->query->get('published') === 'true' ?
+            $this->layoutService->loadLayout($layoutId) :
+            $this->layoutService->loadLayoutDraft($layoutId);
+
         $this->layoutService->deleteLayout($layout);
 
         return new Response(null, Response::HTTP_NO_CONTENT);
-    }
-
-    /**
-     * Loads either published or draft state of the layout.
-     *
-     * @param int|string $layoutId
-     *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout
-     */
-    protected function loadLayout($layoutId)
-    {
-        try {
-            return $this->layoutService->loadLayout($layoutId);
-        } catch (NotFoundException $e) {
-            // Do nothing
-        }
-
-        return $this->layoutService->loadLayoutDraft($layoutId);
     }
 }
