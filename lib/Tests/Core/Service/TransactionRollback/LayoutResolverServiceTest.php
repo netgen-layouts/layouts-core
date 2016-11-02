@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
 use Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct;
 use Netgen\BlockManager\API\Values\TargetUpdateStruct;
-use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
@@ -95,7 +94,7 @@ class LayoutResolverServiceTest extends TransactionRollbackTest
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->updateRule(
-            new Rule(array('status' => Value::STATUS_DRAFT)),
+            new Rule(array('published' => false)),
             new RuleUpdateStruct()
         );
     }
@@ -121,7 +120,7 @@ class LayoutResolverServiceTest extends TransactionRollbackTest
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->updateRuleMetadata(
-            new Rule(array('status' => Value::STATUS_PUBLISHED)),
+            new Rule(array('published' => true)),
             new RuleMetadataUpdateStruct()
         );
     }
@@ -174,7 +173,7 @@ class LayoutResolverServiceTest extends TransactionRollbackTest
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->createDraft(new Rule(array('status' => Value::STATUS_PUBLISHED)));
+        $this->layoutResolverService->createDraft(new Rule(array('published' => true)));
     }
 
     /**
@@ -197,7 +196,7 @@ class LayoutResolverServiceTest extends TransactionRollbackTest
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->discardDraft(new Rule(array('status' => Value::STATUS_DRAFT)));
+        $this->layoutResolverService->discardDraft(new Rule(array('published' => false)));
     }
 
     /**
@@ -220,7 +219,7 @@ class LayoutResolverServiceTest extends TransactionRollbackTest
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->publishRule(new Rule(array('status' => Value::STATUS_DRAFT)));
+        $this->layoutResolverService->publishRule(new Rule(array('published' => false)));
     }
 
     /**
@@ -280,7 +279,7 @@ class LayoutResolverServiceTest extends TransactionRollbackTest
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->enableRule(new Rule(array('status' => Value::STATUS_PUBLISHED)));
+        $this->layoutResolverService->enableRule(new Rule(array('published' => true)));
     }
 
     /**
@@ -311,7 +310,7 @@ class LayoutResolverServiceTest extends TransactionRollbackTest
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->disableRule(new Rule(array('status' => Value::STATUS_PUBLISHED)));
+        $this->layoutResolverService->disableRule(new Rule(array('published' => true)));
     }
 
     /**
@@ -340,7 +339,7 @@ class LayoutResolverServiceTest extends TransactionRollbackTest
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->addTarget(
-            new Rule(array('status' => Value::STATUS_DRAFT)),
+            new Rule(array('published' => false)),
             new TargetCreateStruct()
         );
     }
@@ -366,7 +365,7 @@ class LayoutResolverServiceTest extends TransactionRollbackTest
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->updateTarget(
-            new Target(array('status' => Value::STATUS_DRAFT)),
+            new Target(array('published' => false)),
             new TargetUpdateStruct()
         );
     }
@@ -391,7 +390,7 @@ class LayoutResolverServiceTest extends TransactionRollbackTest
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->deleteTarget(new Target(array('status' => Value::STATUS_DRAFT)));
+        $this->layoutResolverService->deleteTarget(new Target(array('published' => false)));
     }
 
     /**
@@ -415,7 +414,7 @@ class LayoutResolverServiceTest extends TransactionRollbackTest
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->addCondition(
-            new Rule(array('status' => Value::STATUS_DRAFT)),
+            new Rule(array('published' => false)),
             new ConditionCreateStruct()
         );
     }
@@ -441,7 +440,7 @@ class LayoutResolverServiceTest extends TransactionRollbackTest
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->updateCondition(
-            new Condition(array('status' => Value::STATUS_DRAFT)),
+            new Condition(array('published' => false)),
             new ConditionUpdateStruct()
         );
     }
@@ -466,6 +465,6 @@ class LayoutResolverServiceTest extends TransactionRollbackTest
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->deleteCondition(new Condition(array('status' => Value::STATUS_DRAFT)));
+        $this->layoutResolverService->deleteCondition(new Condition(array('published' => false)));
     }
 }

@@ -21,6 +21,7 @@ class RuleTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getComment
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getTargets
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getConditions
+     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::isPublished
      */
     public function testSetDefaultProperties()
     {
@@ -32,6 +33,7 @@ class RuleTest extends TestCase
         $this->assertNull($rule->getPriority());
         $this->assertNull($rule->isEnabled());
         $this->assertNull($rule->getComment());
+        $this->assertNull($rule->isPublished());
         $this->assertEquals(array(), $rule->getTargets());
         $this->assertEquals(array(), $rule->getConditions());
     }
@@ -46,6 +48,7 @@ class RuleTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getComment
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getTargets
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getConditions
+     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::isPublished
      */
     public function testSetProperties()
     {
@@ -59,16 +62,18 @@ class RuleTest extends TestCase
                 'comment' => 'Comment',
                 'targets' => array(new Target(), new Target()),
                 'conditions' => array(new Condition()),
+                'published' => true,
             )
         );
 
         $this->assertEquals(42, $rule->getId());
-        $this->assertEquals(Value::STATUS_PUBLISHED, $rule->getStatus());
+        $this->assertTrue($rule->isPublished());
         $this->assertEquals(new Layout(array('id' => 24)), $rule->getLayout());
         $this->assertEquals(13, $rule->getPriority());
         $this->assertTrue($rule->isEnabled());
         $this->assertEquals('Comment', $rule->getComment());
         $this->assertCount(2, $rule->getTargets());
         $this->assertCount(1, $rule->getConditions());
+        $this->assertTrue($rule->isPublished());
     }
 }

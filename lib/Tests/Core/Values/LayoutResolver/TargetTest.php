@@ -16,6 +16,7 @@ class TargetTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getRuleId
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getTargetType
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getValue
+     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::isPublished
      */
     public function testSetDefaultProperties()
     {
@@ -26,6 +27,7 @@ class TargetTest extends TestCase
         $this->assertNull($target->getRuleId());
         $this->assertNull($target->getTargetType());
         $this->assertNull($target->getValue());
+        $this->assertNull($target->isPublished());
     }
 
     /**
@@ -35,6 +37,7 @@ class TargetTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getRuleId
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getTargetType
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getValue
+     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::isPublished
      */
     public function testSetProperties()
     {
@@ -45,13 +48,15 @@ class TargetTest extends TestCase
                 'ruleId' => 30,
                 'targetType' => new TargetType('target'),
                 'value' => 32,
+                'published' => true,
             )
         );
 
         $this->assertEquals(42, $target->getId());
-        $this->assertEquals(Value::STATUS_PUBLISHED, $target->getStatus());
+        $this->assertTrue($target->isPublished());
         $this->assertEquals(30, $target->getRuleId());
         $this->assertEquals(new TargetType('target'), $target->getTargetType());
         $this->assertEquals(32, $target->getValue());
+        $this->assertTrue($target->isPublished());
     }
 }

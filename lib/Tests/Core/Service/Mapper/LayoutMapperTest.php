@@ -46,9 +46,10 @@ abstract class LayoutMapperTest extends ServiceTestCase
         $this->assertEquals(1, $zone->getLayoutId());
         $this->assertEquals(Value::STATUS_PUBLISHED, $zone->getStatus());
         $this->assertInstanceOf(APIZone::class, $zone->getLinkedZone());
-        $this->assertEquals(Value::STATUS_PUBLISHED, $zone->getLinkedZone()->getStatus());
+        $this->assertTrue($zone->getLinkedZone()->isPublished());
         $this->assertEquals(3, $zone->getLinkedZone()->getLayoutId());
         $this->assertEquals('right', $zone->getLinkedZone()->getIdentifier());
+        $this->assertTrue($zone->isPublished());
 
         $this->assertNotEmpty($zone->getBlocks());
 
@@ -94,6 +95,7 @@ abstract class LayoutMapperTest extends ServiceTestCase
         $this->assertEquals(1447065813, $layout->getModified()->getTimestamp());
         $this->assertEquals(Value::STATUS_PUBLISHED, $layout->getStatus());
         $this->assertTrue($layout->isShared());
+        $this->assertTrue($layout->isPublished());
 
         $this->assertNotEmpty($layout->getZones());
 

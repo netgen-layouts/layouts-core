@@ -28,6 +28,11 @@ class Condition extends ValueObject implements APICondition
     protected $conditionType;
 
     /**
+     * @var bool
+     */
+    protected $published;
+
+    /**
      * @var mixed
      */
     protected $value;
@@ -70,6 +75,16 @@ class Condition extends ValueObject implements APICondition
     public function getConditionType()
     {
         return $this->conditionType;
+    }
+
+    /**
+     * Returns if the condition is published.
+     *
+     * @return bool
+     */
+    public function isPublished()
+    {
+        return $this->published;
     }
 
     /**

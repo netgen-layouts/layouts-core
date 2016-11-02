@@ -57,6 +57,7 @@ class BlockNormalizerTest extends TestCase
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
                 'status' => Value::STATUS_PUBLISHED,
+                'published' => true,
                 'name' => 'My block',
             )
         );

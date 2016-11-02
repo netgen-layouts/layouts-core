@@ -16,6 +16,7 @@ class ZoneTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getLinkedZone
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getBlocks
+     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::isPublished
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::count
      */
     public function testSetDefaultProperties()
@@ -27,6 +28,7 @@ class ZoneTest extends TestCase
         $this->assertNull($zone->getStatus());
         $this->assertNull($zone->getLinkedZone());
         $this->assertEquals(array(), $zone->getBlocks());
+        $this->assertNull($zone->isPublished());
         $this->assertEquals(0, count($zone));
     }
 
@@ -37,6 +39,7 @@ class ZoneTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getLinkedZone
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getBlocks
+     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::isPublished
      * @covers \Netgen\BlockManager\Core\Values\Page\Zone::count
      */
     public function testSetProperties()
@@ -47,6 +50,7 @@ class ZoneTest extends TestCase
                 'layoutId' => 84,
                 'status' => Value::STATUS_PUBLISHED,
                 'linkedZone' => null,
+                'published' => true,
                 'blocks' => array(
                     new Block(),
                 ),
@@ -55,9 +59,10 @@ class ZoneTest extends TestCase
 
         $this->assertEquals('left', $zone->getIdentifier());
         $this->assertEquals(84, $zone->getLayoutId());
-        $this->assertEquals(Value::STATUS_PUBLISHED, $zone->getStatus());
+        $this->assertTrue($zone->isPublished());
         $this->assertEquals(array(new Block()), $zone->getBlocks());
         $this->assertNull($zone->getLinkedZone());
+        $this->assertTrue($zone->isPublished());
         $this->assertEquals(1, count($zone));
     }
 }

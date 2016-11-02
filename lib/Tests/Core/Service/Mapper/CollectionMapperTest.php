@@ -48,6 +48,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertTrue($collection->isShared());
         $this->assertNull(null, $collection->getName());
         $this->assertEquals(Value::STATUS_PUBLISHED, $collection->getStatus());
+        $this->assertTrue($collection->isPublished());
 
         foreach ($collection->getItems() as $item) {
             $this->assertInstanceOf(APIItem::class, $item);
@@ -98,6 +99,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertEquals('12', $item->getValueId());
         $this->assertEquals('ezcontent', $item->getValueType());
         $this->assertEquals(Value::STATUS_PUBLISHED, $item->getStatus());
+        $this->assertTrue($item->isPublished());
     }
 
     /**
@@ -130,6 +132,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertEquals(1, $query->getPosition());
         $this->assertEquals('my_search', $query->getIdentifier());
         $this->assertEquals(Value::STATUS_PUBLISHED, $query->getStatus());
+        $this->assertTrue($query->isPublished());
 
         $this->assertEquals(
             array(

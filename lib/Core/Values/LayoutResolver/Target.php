@@ -28,6 +28,11 @@ class Target extends ValueObject implements APITarget
     protected $targetType;
 
     /**
+     * @var bool
+     */
+    protected $published;
+
+    /**
      * @var mixed
      */
     protected $value;
@@ -70,6 +75,16 @@ class Target extends ValueObject implements APITarget
     public function getTargetType()
     {
         return $this->targetType;
+    }
+
+    /**
+     * Returns if the target is published.
+     *
+     * @return bool
+     */
+    public function isPublished()
+    {
+        return $this->published;
     }
 
     /**

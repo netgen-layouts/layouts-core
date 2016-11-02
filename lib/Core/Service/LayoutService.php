@@ -251,11 +251,11 @@ class LayoutService implements LayoutServiceInterface
      */
     public function linkZone(Zone $zone, Zone $linkedZone)
     {
-        if ($zone->getStatus() !== Value::STATUS_DRAFT) {
+        if ($zone->isPublished()) {
             throw new BadStateException('zone', 'Only draft zones can be linked.');
         }
 
-        if ($linkedZone->getStatus() !== Value::STATUS_PUBLISHED) {
+        if (!$linkedZone->isPublished()) {
             throw new BadStateException('linkedZone', 'Zones can only be linked to published zones.');
         }
 
@@ -305,7 +305,7 @@ class LayoutService implements LayoutServiceInterface
      */
     public function unlinkZone(Zone $zone)
     {
-        if ($zone->getStatus() !== Value::STATUS_DRAFT) {
+        if ($zone->isPublished()) {
             throw new BadStateException('zone', 'Only draft zones can be unlinked.');
         }
 
@@ -375,7 +375,7 @@ class LayoutService implements LayoutServiceInterface
      */
     public function updateLayout(Layout $layout, LayoutUpdateStruct $layoutUpdateStruct)
     {
-        if ($layout->getStatus() !== Value::STATUS_DRAFT) {
+        if ($layout->isPublished()) {
             throw new BadStateException('layout', 'Only draft layouts can be updated.');
         }
 
@@ -453,7 +453,7 @@ class LayoutService implements LayoutServiceInterface
      */
     public function createDraft(Layout $layout)
     {
-        if ($layout->getStatus() !== Value::STATUS_PUBLISHED) {
+        if (!$layout->isPublished()) {
             throw new BadStateException('layout', 'Drafts can only be created from published layouts.');
         }
 
@@ -482,13 +482,14 @@ class LayoutService implements LayoutServiceInterface
     /**
      * Discards a layout draft.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
      */
     public function discardDraft(Layout $layout)
     {
-        if ($layout->getStatus() !== Value::STATUS_DRAFT) {
+        if ($layout->isPublished()) {
             throw new BadStateException('layout', 'Only drafts can be discarded.');
         }
 
@@ -520,7 +521,7 @@ class LayoutService implements LayoutServiceInterface
      */
     public function publishLayout(Layout $layout)
     {
-        if ($layout->getStatus() !== Value::STATUS_DRAFT) {
+        if ($layout->isPublished()) {
             throw new BadStateException('layout', 'Only drafts can be published.');
         }
 

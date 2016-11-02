@@ -35,6 +35,13 @@ interface Condition extends Value
     public function getConditionType();
 
     /**
+     * Returns if the condition is published.
+     *
+     * @return bool
+     */
+    public function isPublished();
+
+    /**
      * Returns the condition value.
      *
      * @return mixed

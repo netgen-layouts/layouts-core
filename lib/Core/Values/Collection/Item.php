@@ -23,6 +23,11 @@ class Item extends ValueObject implements APIItem
     protected $collectionId;
 
     /**
+     * @var bool
+     */
+    protected $published;
+
+    /**
      * @var int
      */
     protected $position;
@@ -70,6 +75,16 @@ class Item extends ValueObject implements APIItem
     public function getCollectionId()
     {
         return $this->collectionId;
+    }
+
+    /**
+     * Returns if the item is published.
+     *
+     * @return bool
+     */
+    public function isPublished()
+    {
+        return $this->published;
     }
 
     /**

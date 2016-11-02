@@ -61,6 +61,7 @@ abstract class BlockMapperTest extends ServiceTestCase
         $this->assertEquals('standard', $block->getItemViewType());
         $this->assertEquals('My block', $block->getName());
         $this->assertEquals(Value::STATUS_PUBLISHED, $block->getStatus());
+        $this->assertTrue($block->isPublished());
 
         $this->assertEquals(
             array(

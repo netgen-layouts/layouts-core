@@ -28,6 +28,13 @@ interface Query extends Value
     public function getCollectionId();
 
     /**
+     * Returns if the query is published.
+     *
+     * @return bool
+     */
+    public function isPublished();
+
+    /**
      * Returns the position the query is at.
      *
      * @return int

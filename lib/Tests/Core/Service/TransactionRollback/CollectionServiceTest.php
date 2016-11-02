@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 use Netgen\BlockManager\API\Values\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\ItemCreateStruct;
-use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
@@ -107,7 +106,7 @@ class CollectionServiceTest extends TransactionRollbackTest
             ->method('rollbackTransaction');
 
         $this->collectionService->updateCollection(
-            new Collection(array('status' => Value::STATUS_DRAFT)),
+            new Collection(array('published' => false)),
             new CollectionUpdateStruct()
         );
     }
@@ -139,7 +138,7 @@ class CollectionServiceTest extends TransactionRollbackTest
             ->method('rollbackTransaction');
 
         $this->collectionService->changeCollectionType(
-            new Collection(array('status' => Value::STATUS_DRAFT)),
+            new Collection(array('published' => false)),
             Collection::TYPE_MANUAL
         );
     }
@@ -203,7 +202,7 @@ class CollectionServiceTest extends TransactionRollbackTest
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->createDraft(new Collection(array('status' => Value::STATUS_PUBLISHED)));
+        $this->collectionService->createDraft(new Collection(array('published' => true)));
     }
 
     /**
@@ -226,7 +225,7 @@ class CollectionServiceTest extends TransactionRollbackTest
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->discardDraft(new Collection(array('status' => Value::STATUS_DRAFT)));
+        $this->collectionService->discardDraft(new Collection(array('published' => false)));
     }
 
     /**
@@ -249,7 +248,7 @@ class CollectionServiceTest extends TransactionRollbackTest
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->publishCollection(new Collection(array('status' => Value::STATUS_DRAFT)));
+        $this->collectionService->publishCollection(new Collection(array('published' => false)));
     }
 
     /**
@@ -308,7 +307,7 @@ class CollectionServiceTest extends TransactionRollbackTest
             ->method('rollbackTransaction');
 
         $this->collectionService->addItem(
-            new Collection(array('status' => Value::STATUS_DRAFT)),
+            new Collection(array('published' => false)),
             new ItemCreateStruct(array('type' => Item::TYPE_MANUAL))
         );
     }
@@ -333,7 +332,7 @@ class CollectionServiceTest extends TransactionRollbackTest
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->moveItem(new Item(array('status' => Value::STATUS_DRAFT)), 0);
+        $this->collectionService->moveItem(new Item(array('published' => false)), 0);
     }
 
     /**
@@ -356,7 +355,7 @@ class CollectionServiceTest extends TransactionRollbackTest
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->deleteItem(new Item(array('status' => Value::STATUS_DRAFT)));
+        $this->collectionService->deleteItem(new Item(array('published' => false)));
     }
 
     /**
@@ -391,7 +390,7 @@ class CollectionServiceTest extends TransactionRollbackTest
             ->method('rollbackTransaction');
 
         $this->collectionService->addQuery(
-            new Collection(array('status' => Value::STATUS_DRAFT)),
+            new Collection(array('published' => false)),
             new QueryCreateStruct(array('type' => 'queryType'))
         );
     }
@@ -424,7 +423,7 @@ class CollectionServiceTest extends TransactionRollbackTest
         $this->collectionService->updateQuery(
             new Query(
                 array(
-                    'status' => Value::STATUS_DRAFT,
+                    'published' => false,
                     'queryType' => new QueryType('type'),
                 )
             ),
@@ -452,7 +451,7 @@ class CollectionServiceTest extends TransactionRollbackTest
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->moveQuery(new Query(array('status' => Value::STATUS_DRAFT)), 0);
+        $this->collectionService->moveQuery(new Query(array('published' => false)), 0);
     }
 
     /**
@@ -475,6 +474,6 @@ class CollectionServiceTest extends TransactionRollbackTest
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->deleteQuery(new Query(array('status' => Value::STATUS_DRAFT)));
+        $this->collectionService->deleteQuery(new Query(array('published' => false)));
     }
 }

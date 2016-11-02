@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
-use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
@@ -114,7 +113,7 @@ class BlockServiceTest extends TransactionRollbackTest
 
         $this->blockService->createBlock(
             new BlockCreateStruct(array('definitionIdentifier' => 'blockDef')),
-            new Layout(array('status' => Value::STATUS_DRAFT)),
+            new Layout(array('published' => false)),
             'zone'
         );
     }
@@ -142,7 +141,7 @@ class BlockServiceTest extends TransactionRollbackTest
         $this->blockService->updateBlock(
             new Block(
                 array(
-                    'status' => Value::STATUS_DRAFT,
+                    'published' => false,
                     'blockDefinition' => new BlockDefinition('block_definition'),
                 )
             ),
@@ -215,7 +214,7 @@ class BlockServiceTest extends TransactionRollbackTest
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->blockService->copyBlock(new Block(array('status' => Value::STATUS_DRAFT)));
+        $this->blockService->copyBlock(new Block(array('published' => false)));
     }
 
     /**
@@ -238,7 +237,7 @@ class BlockServiceTest extends TransactionRollbackTest
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->blockService->moveBlock(new Block(array('status' => Value::STATUS_DRAFT)), 0);
+        $this->blockService->moveBlock(new Block(array('published' => false)), 0);
     }
 
     /**
@@ -266,7 +265,7 @@ class BlockServiceTest extends TransactionRollbackTest
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->blockService->restoreBlock(new Block(array('status' => Value::STATUS_DRAFT)));
+        $this->blockService->restoreBlock(new Block(array('published' => false)));
     }
 
     /**
@@ -289,6 +288,6 @@ class BlockServiceTest extends TransactionRollbackTest
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->blockService->deleteBlock(new Block(array('status' => Value::STATUS_DRAFT)));
+        $this->blockService->deleteBlock(new Block(array('published' => false)));
     }
 }

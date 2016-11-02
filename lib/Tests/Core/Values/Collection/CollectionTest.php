@@ -21,6 +21,7 @@ class CollectionTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getManualItems
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getOverrideItems
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getQueries
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isPublished
      */
     public function testSetDefaultProperties()
     {
@@ -31,6 +32,7 @@ class CollectionTest extends TestCase
         $this->assertNull($collection->getType());
         $this->assertNull($collection->isShared());
         $this->assertNull($collection->getName());
+        $this->assertNull($collection->isPublished());
         $this->assertEquals(array(), $collection->getItems());
         $this->assertEquals(array(), $collection->getManualItems());
         $this->assertEquals(array(), $collection->getOverrideItems());
@@ -48,6 +50,7 @@ class CollectionTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getManualItems
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getOverrideItems
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getQueries
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isPublished
      */
     public function testSetProperties()
     {
@@ -58,6 +61,7 @@ class CollectionTest extends TestCase
                 'type' => Collection::TYPE_DYNAMIC,
                 'shared' => true,
                 'name' => 'My collection',
+                'published' => true,
                 'items' => array(
                     new Item(array('type' => Item::TYPE_MANUAL, 'position' => 3)),
                     new Item(array('type' => Item::TYPE_OVERRIDE, 'position' => 5)),
@@ -69,10 +73,11 @@ class CollectionTest extends TestCase
         );
 
         $this->assertEquals(42, $collection->getId());
-        $this->assertEquals(Value::STATUS_PUBLISHED, $collection->getStatus());
+        $this->assertTrue($collection->isPublished());
         $this->assertEquals(Collection::TYPE_DYNAMIC, $collection->getType());
         $this->assertTrue($collection->isShared());
         $this->assertEquals('My collection', $collection->getName());
+        $this->assertTrue($collection->isPublished());
         $this->assertCount(2, $collection->getItems());
         $this->assertCount(1, $collection->getManualItems());
         $this->assertCount(1, $collection->getOverrideItems());

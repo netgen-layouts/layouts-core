@@ -16,6 +16,7 @@ class ConditionTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getRuleId
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getConditionType
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getValue
+     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::isPublished
      */
     public function testSetDefaultProperties()
     {
@@ -26,6 +27,8 @@ class ConditionTest extends TestCase
         $this->assertNull($condition->getRuleId());
         $this->assertNull($condition->getConditionType());
         $this->assertNull($condition->getValue());
+        $this->assertNull($condition->isPublished());
+        $this->assertNull($condition->isPublished());
     }
 
     /**
@@ -35,6 +38,7 @@ class ConditionTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getRuleId
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getConditionType
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getValue
+     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::isPublished
      */
     public function testSetProperties()
     {
@@ -45,13 +49,15 @@ class ConditionTest extends TestCase
                 'ruleId' => 30,
                 'conditionType' => new ConditionType('condition'),
                 'value' => 32,
+                'published' => true,
             )
         );
 
         $this->assertEquals(42, $condition->getId());
-        $this->assertEquals(Value::STATUS_PUBLISHED, $condition->getStatus());
+        $this->assertTrue($condition->isPublished());
         $this->assertEquals(30, $condition->getRuleId());
         $this->assertEquals(new ConditionType('condition'), $condition->getConditionType());
         $this->assertEquals(32, $condition->getValue());
+        $this->assertTrue($condition->isPublished());
     }
 }

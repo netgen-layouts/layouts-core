@@ -34,6 +34,11 @@ class Block extends ValueObject implements APIBlock
     protected $blockDefinition;
 
     /**
+     * @var bool
+     */
+    protected $published;
+
+    /**
      * @var string
      */
     protected $viewType;
@@ -106,6 +111,16 @@ class Block extends ValueObject implements APIBlock
     public function getBlockDefinition()
     {
         return $this->blockDefinition;
+    }
+
+    /**
+     * Returns if the block is published.
+     *
+     * @return bool
+     */
+    public function isPublished()
+    {
+        return $this->published;
     }
 
     /**

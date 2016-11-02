@@ -21,6 +21,7 @@ class QueryTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getParameters
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getParameter
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::hasParameter
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::isPublished
      */
     public function testSetDefaultProperties()
     {
@@ -32,6 +33,7 @@ class QueryTest extends TestCase
         $this->assertNull($query->getPosition());
         $this->assertNull($query->getIdentifier());
         $this->assertNull($query->getQueryType());
+        $this->assertNull($query->isPublished());
         $this->assertEquals(array(), $query->getParameters());
         $this->assertFalse($query->hasParameter('test'));
 
@@ -53,6 +55,7 @@ class QueryTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getParameters
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getParameter
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::hasParameter
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::isPublished
      */
     public function testSetProperties()
     {
@@ -65,11 +68,12 @@ class QueryTest extends TestCase
                 'identifier' => 'my_query',
                 'queryType' => new QueryType('query_type'),
                 'parameters' => array('param' => 'value'),
+                'published' => true,
             )
         );
 
         $this->assertEquals(42, $query->getId());
-        $this->assertEquals(Value::STATUS_PUBLISHED, $query->getStatus());
+        $this->assertTrue($query->isPublished());
         $this->assertEquals(30, $query->getCollectionId());
         $this->assertEquals(3, $query->getPosition());
         $this->assertEquals('my_query', $query->getIdentifier());
@@ -78,6 +82,7 @@ class QueryTest extends TestCase
         $this->assertEquals('value', $query->getParameter('param'));
         $this->assertFalse($query->hasParameter('test'));
         $this->assertTrue($query->hasParameter('param'));
+        $this->assertTrue($query->isPublished());
 
         try {
             $query->getParameter('test');

@@ -25,6 +25,11 @@ class Zone extends ValueObject implements APIZone
     protected $status;
 
     /**
+     * @var bool
+     */
+    protected $published;
+
+    /**
      * @var \Netgen\BlockManager\API\Values\Page\Zone
      */
     protected $linkedZone;
@@ -62,6 +67,16 @@ class Zone extends ValueObject implements APIZone
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Returns if the zone is published.
+     *
+     * @return bool
+     */
+    public function isPublished()
+    {
+        return $this->published;
     }
 
     /**

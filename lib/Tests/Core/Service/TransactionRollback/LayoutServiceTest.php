@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
-use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Tests\Configuration\Stubs\LayoutType;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
@@ -107,8 +106,8 @@ class LayoutServiceTest extends TransactionRollbackTest
             ->method('rollbackTransaction');
 
         $this->layoutService->linkZone(
-            new Zone(array('status' => Value::STATUS_DRAFT)),
-            new Zone(array('status' => Value::STATUS_PUBLISHED))
+            new Zone(array('published' => false)),
+            new Zone(array('published' => true))
         );
     }
 
@@ -132,7 +131,7 @@ class LayoutServiceTest extends TransactionRollbackTest
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->unlinkZone(new Zone(array('status' => Value::STATUS_DRAFT)));
+        $this->layoutService->unlinkZone(new Zone(array('published' => false)));
     }
 
     /**
@@ -184,7 +183,7 @@ class LayoutServiceTest extends TransactionRollbackTest
             ->method('rollbackTransaction');
 
         $this->layoutService->updateLayout(
-            new Layout(array('status' => Value::STATUS_DRAFT)),
+            new Layout(array('published' => false)),
             new LayoutUpdateStruct(array('name' => 'New name'))
         );
     }
@@ -242,7 +241,7 @@ class LayoutServiceTest extends TransactionRollbackTest
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->createDraft(new Layout(array('status' => Value::STATUS_PUBLISHED)));
+        $this->layoutService->createDraft(new Layout(array('published' => true)));
     }
 
     /**
@@ -265,7 +264,7 @@ class LayoutServiceTest extends TransactionRollbackTest
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->discardDraft(new Layout(array('status' => Value::STATUS_DRAFT)));
+        $this->layoutService->discardDraft(new Layout(array('published' => false)));
     }
 
     /**
@@ -288,7 +287,7 @@ class LayoutServiceTest extends TransactionRollbackTest
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->publishLayout(new Layout(array('status' => Value::STATUS_DRAFT)));
+        $this->layoutService->publishLayout(new Layout(array('published' => false)));
     }
 
     /**

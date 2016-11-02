@@ -42,6 +42,13 @@ interface Block extends Value
     public function getBlockDefinition();
 
     /**
+     * Returns if the block is published.
+     *
+     * @return bool
+     */
+    public function isPublished();
+
+    /**
      * Returns block parameters.
      *
      * @return \Netgen\BlockManager\Parameters\ParameterValue[]

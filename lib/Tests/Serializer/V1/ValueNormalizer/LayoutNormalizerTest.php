@@ -67,6 +67,7 @@ class LayoutNormalizerTest extends TestCase
                 'created' => $currentDate,
                 'modified' => $currentDate,
                 'shared' => true,
+                'published' => false,
                 'zones' => array(
                     'left' => new Zone(
                         array(

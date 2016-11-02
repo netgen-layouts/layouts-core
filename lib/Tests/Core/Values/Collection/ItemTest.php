@@ -17,6 +17,7 @@ class ItemTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getType
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getValueId
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getValueType
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::isPublished
      */
     public function testSetDefaultProperties()
     {
@@ -29,6 +30,7 @@ class ItemTest extends TestCase
         $this->assertNull($item->getType());
         $this->assertNull($item->getValueId());
         $this->assertNull($item->getValueType());
+        $this->assertNull($item->isPublished());
     }
 
     /**
@@ -40,6 +42,7 @@ class ItemTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getType
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getValueId
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getValueType
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::isPublished
      */
     public function testSetProperties()
     {
@@ -52,15 +55,17 @@ class ItemTest extends TestCase
                 'type' => Item::TYPE_OVERRIDE,
                 'valueId' => 32,
                 'valueType' => 'ezcontent',
+                'published' => true,
             )
         );
 
         $this->assertEquals(42, $item->getId());
-        $this->assertEquals(Value::STATUS_PUBLISHED, $item->getStatus());
+        $this->assertTrue($item->isPublished());
         $this->assertEquals(30, $item->getCollectionId());
         $this->assertEquals(3, $item->getPosition());
         $this->assertEquals(Item::TYPE_OVERRIDE, $item->getType());
         $this->assertEquals(32, $item->getValueId());
         $this->assertEquals('ezcontent', $item->getValueType());
+        $this->assertTrue($item->isPublished());
     }
 }

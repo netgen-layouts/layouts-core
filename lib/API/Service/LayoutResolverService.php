@@ -168,9 +168,10 @@ interface LayoutResolverService
     /**
      * Discards a rule draft.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
      */
     public function discardDraft(Rule $rule);
 

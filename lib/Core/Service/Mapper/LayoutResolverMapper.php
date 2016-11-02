@@ -99,6 +99,7 @@ class LayoutResolverMapper extends Mapper
             'comment' => $rule->comment,
             'targets' => $targets,
             'conditions' => $conditions,
+            'published' => $rule->status === Value::STATUS_PUBLISHED,
         );
 
         return new Rule($ruleData);
@@ -120,6 +121,7 @@ class LayoutResolverMapper extends Mapper
             'targetType' => $this->targetTypeRegistry->getTargetType(
                 $target->type
             ),
+            'published' => $target->status === Value::STATUS_PUBLISHED,
             'value' => $target->value,
         );
 
@@ -142,6 +144,7 @@ class LayoutResolverMapper extends Mapper
             'conditionType' => $this->conditionTypeRegistry->getConditionType(
                 $condition->type
             ),
+            'published' => $condition->status === Value::STATUS_PUBLISHED,
             'value' => $condition->value,
         );
 

@@ -38,6 +38,13 @@ interface Item extends Value
     public function getCollectionId();
 
     /**
+     * Returns if the item is published.
+     *
+     * @return bool
+     */
+    public function isPublished();
+
+    /**
      * Returns the item position within the collection.
      *
      * @return int

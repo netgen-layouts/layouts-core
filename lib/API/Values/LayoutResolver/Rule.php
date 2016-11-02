@@ -28,6 +28,13 @@ interface Rule extends Value
     public function getLayout();
 
     /**
+     * Returns if the rule is published.
+     *
+     * @return bool
+     */
+    public function isPublished();
+
+    /**
      * Returns if the rule is enabled.
      *
      * @return bool

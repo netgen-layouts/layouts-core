@@ -23,6 +23,7 @@ class LayoutTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getZones
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getZone
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::hasZone
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::isPublished
      */
     public function testSetDefaultProperties()
     {
@@ -38,6 +39,7 @@ class LayoutTest extends TestCase
         $this->assertEquals(array(), $layout->getZones());
         $this->assertNull($layout->getZone('test'));
         $this->assertFalse($layout->hasZone('test'));
+        $this->assertNull($layout->isPublished());
     }
 
     /**
@@ -52,6 +54,7 @@ class LayoutTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getZones
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getZone
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::hasZone
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::isPublished
      */
     public function testSetProperties()
     {
@@ -71,6 +74,7 @@ class LayoutTest extends TestCase
                 'status' => Value::STATUS_PUBLISHED,
                 'shared' => true,
                 'zones' => array('left' => new Zone(), 'right' => new Zone()),
+                'published' => true,
             )
         );
 
@@ -79,7 +83,7 @@ class LayoutTest extends TestCase
         $this->assertEquals('My layout', $layout->getName());
         $this->assertEquals($createdDate, $layout->getCreated());
         $this->assertEquals($modifiedDate, $layout->getModified());
-        $this->assertEquals(Value::STATUS_PUBLISHED, $layout->getStatus());
+        $this->assertTrue($layout->isPublished());
         $this->assertTrue($layout->isShared());
         $this->assertEquals(
             array('left' => new Zone(), 'right' => new Zone()),
@@ -89,5 +93,6 @@ class LayoutTest extends TestCase
         $this->assertFalse($layout->hasZone('test'));
         $this->assertInstanceOf(Zone::class, $layout->getZone('left'));
         $this->assertTrue($layout->hasZone('left'));
+        $this->assertTrue($layout->isPublished());
     }
 }

@@ -25,6 +25,11 @@ class Collection extends ValueObject implements APICollection
     /**
      * @var bool
      */
+    protected $published;
+
+    /**
+     * @var bool
+     */
     protected $shared;
 
     /**
@@ -70,6 +75,16 @@ class Collection extends ValueObject implements APICollection
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Returns if the collection is published.
+     *
+     * @return bool
+     */
+    public function isPublished()
+    {
+        return $this->published;
     }
 
     /**

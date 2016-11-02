@@ -51,6 +51,7 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
         $this->assertTrue($rule->isEnabled());
         $this->assertEquals(12, $rule->getPriority());
         $this->assertEquals('Comment', $rule->getComment());
+        $this->assertTrue($rule->isPublished());
 
         $this->assertNotEmpty($rule->getTargets());
 
@@ -92,6 +93,7 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
         $this->assertEquals(Value::STATUS_PUBLISHED, $target->getStatus());
         $this->assertEquals(42, $target->getRuleId());
         $this->assertEquals(42, $target->getValue());
+        $this->assertTrue($target->isPublished());
     }
 
     /**
@@ -121,5 +123,6 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
         $this->assertEquals(Value::STATUS_PUBLISHED, $condition->getStatus());
         $this->assertEquals(42, $condition->getRuleId());
         $this->assertEquals(42, $condition->getValue());
+        $this->assertTrue($condition->isPublished());
     }
 }

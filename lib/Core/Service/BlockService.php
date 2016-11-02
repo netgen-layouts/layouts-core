@@ -217,7 +217,7 @@ class BlockService implements BlockServiceInterface
      */
     public function createBlock(BlockCreateStruct $blockCreateStruct, Layout $layout, $zoneIdentifier, $position = null)
     {
-        if ($layout->getStatus() !== Value::STATUS_DRAFT) {
+        if ($layout->isPublished()) {
             throw new BadStateException('layout', 'Blocks can only be created in layouts in draft status.');
         }
 
@@ -294,7 +294,7 @@ class BlockService implements BlockServiceInterface
      */
     public function updateBlock(Block $block, BlockUpdateStruct $blockUpdateStruct)
     {
-        if ($block->getStatus() !== Value::STATUS_DRAFT) {
+        if ($block->isPublished()) {
             throw new BadStateException('block', 'Only draft blocks can be updated.');
         }
 
@@ -383,7 +383,7 @@ class BlockService implements BlockServiceInterface
      */
     public function copyBlock(Block $block, $zoneIdentifier = null)
     {
-        if ($block->getStatus() !== Value::STATUS_DRAFT) {
+        if ($block->isPublished()) {
             throw new BadStateException('block', 'Only draft blocks can be copied.');
         }
 
@@ -436,7 +436,7 @@ class BlockService implements BlockServiceInterface
      */
     public function moveBlock(Block $block, $position, $zoneIdentifier = null)
     {
-        if ($block->getStatus() !== Value::STATUS_DRAFT) {
+        if ($block->isPublished()) {
             throw new BadStateException('block', 'Only draft blocks can be moved.');
         }
 
@@ -493,7 +493,7 @@ class BlockService implements BlockServiceInterface
      */
     public function restoreBlock(Block $block)
     {
-        if ($block->getStatus() !== Value::STATUS_DRAFT) {
+        if ($block->isPublished()) {
             throw new BadStateException('block', 'Only draft blocks can be restored.');
         }
 
@@ -541,7 +541,7 @@ class BlockService implements BlockServiceInterface
      */
     public function deleteBlock(Block $block)
     {
-        if ($block->getStatus() !== Value::STATUS_DRAFT) {
+        if ($block->isPublished()) {
             throw new BadStateException('block', 'Only draft blocks can be deleted.');
         }
 

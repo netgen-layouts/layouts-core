@@ -43,7 +43,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     {
         $collection = $this->collectionService->loadCollection(3);
 
-        $this->assertEquals(Value::STATUS_PUBLISHED, $collection->getStatus());
+        $this->assertTrue($collection->isPublished());
         $this->assertInstanceOf(Collection::class, $collection);
     }
 
@@ -64,7 +64,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     {
         $collection = $this->collectionService->loadCollectionDraft(3);
 
-        $this->assertEquals(Value::STATUS_DRAFT, $collection->getStatus());
+        $this->assertFalse($collection->isPublished());
         $this->assertInstanceOf(Collection::class, $collection);
     }
 
@@ -87,7 +87,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $this->assertNotEmpty($collections);
 
         foreach ($collections as $collection) {
-            $this->assertEquals(Value::STATUS_PUBLISHED, $collection->getStatus());
+            $this->assertTrue($collection->isPublished());
             $this->assertInstanceOf(Collection::class, $collection);
             $this->assertTrue($collection->isShared());
         }
@@ -100,7 +100,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     {
         $item = $this->collectionService->loadItem(7);
 
-        $this->assertEquals(Value::STATUS_PUBLISHED, $item->getStatus());
+        $this->assertTrue($item->isPublished());
         $this->assertInstanceOf(Item::class, $item);
     }
 
@@ -120,7 +120,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     {
         $item = $this->collectionService->loadItemDraft(7);
 
-        $this->assertEquals(Value::STATUS_DRAFT, $item->getStatus());
+        $this->assertFalse($item->isPublished());
         $this->assertInstanceOf(Item::class, $item);
     }
 
@@ -140,7 +140,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     {
         $query = $this->collectionService->loadQuery(2);
 
-        $this->assertEquals(Value::STATUS_PUBLISHED, $query->getStatus());
+        $this->assertTrue($query->isPublished());
         $this->assertInstanceOf(Query::class, $query);
     }
 
@@ -160,7 +160,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     {
         $query = $this->collectionService->loadQueryDraft(2);
 
-        $this->assertEquals(Value::STATUS_DRAFT, $query->getStatus());
+        $this->assertFalse($query->isPublished());
         $this->assertInstanceOf(Query::class, $query);
     }
 
@@ -185,7 +185,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
 
         $createdCollection = $this->collectionService->createCollection($collectionCreateStruct);
 
-        $this->assertEquals(Value::STATUS_DRAFT, $createdCollection->getStatus());
+        $this->assertFalse($createdCollection->isPublished());
         $this->assertInstanceOf(Collection::class, $createdCollection);
         $this->assertEquals('New name', $createdCollection->getName());
     }
@@ -216,7 +216,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
 
         $updatedCollection = $this->collectionService->updateCollection($collection, $collectionUpdateStruct);
 
-        $this->assertEquals(Value::STATUS_DRAFT, $updatedCollection->getStatus());
+        $this->assertFalse($updatedCollection->isPublished());
         $this->assertInstanceOf(Collection::class, $updatedCollection);
         $this->assertEquals('Super cool collection', $updatedCollection->getName());
     }
@@ -254,7 +254,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
             )
         );
 
-        $this->assertEquals(Value::STATUS_DRAFT, $updatedCollection->getStatus());
+        $this->assertFalse($updatedCollection->isPublished());
         $this->assertInstanceOf(Collection::class, $updatedCollection);
         $this->assertEquals(Collection::TYPE_DYNAMIC, $updatedCollection->getType());
         $this->assertEquals(count($updatedCollection->getItems()), count($collection->getItems()));
@@ -274,7 +274,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
             Collection::TYPE_MANUAL
         );
 
-        $this->assertEquals(Value::STATUS_DRAFT, $updatedCollection->getStatus());
+        $this->assertFalse($updatedCollection->isPublished());
         $this->assertInstanceOf(Collection::class, $updatedCollection);
         $this->assertEquals(Collection::TYPE_MANUAL, $updatedCollection->getType());
         $this->assertEquals(count($updatedCollection->getItems()), count($collection->getItems()));
@@ -307,7 +307,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $collection = $this->collectionService->loadCollection(3);
         $copiedCollection = $this->collectionService->copyCollection($collection);
 
-        $this->assertEquals($collection->getStatus(), $copiedCollection->getStatus());
+        $this->assertEquals($collection->isPublished(), $copiedCollection->isPublished());
         $this->assertInstanceOf(Collection::class, $copiedCollection);
         $this->assertEquals(6, $copiedCollection->getId());
         $this->assertNull($copiedCollection->getName());
@@ -321,7 +321,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $collection = $this->collectionService->loadCollection(3);
         $copiedCollection = $this->collectionService->copyCollection($collection, 'New name');
 
-        $this->assertEquals($collection->getStatus(), $copiedCollection->getStatus());
+        $this->assertEquals($collection->isPublished(), $copiedCollection->isPublished());
         $this->assertInstanceOf(Collection::class, $copiedCollection);
         $this->assertEquals(6, $copiedCollection->getId());
         $this->assertEquals('New name', $copiedCollection->getName());
@@ -345,7 +345,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $collection = $this->collectionService->loadCollection(2);
         $draftCollection = $this->collectionService->createDraft($collection);
 
-        $this->assertEquals(Value::STATUS_DRAFT, $draftCollection->getStatus());
+        $this->assertFalse($draftCollection->isPublished());
         $this->assertInstanceOf(Collection::class, $draftCollection);
     }
 
@@ -380,7 +380,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $publishedCollection = $this->collectionService->publishCollection($collection);
 
         $this->assertInstanceOf(Collection::class, $publishedCollection);
-        $this->assertEquals(Value::STATUS_PUBLISHED, $publishedCollection->getStatus());
+        $this->assertTrue($publishedCollection->isPublished());
 
         try {
             $this->collectionService->loadCollectionDraft($collection->getId());
@@ -417,7 +417,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
             1
         );
 
-        $this->assertEquals(Value::STATUS_DRAFT, $createdItem->getStatus());
+        $this->assertFalse($createdItem->isPublished());
         $this->assertInstanceOf(Item::class, $createdItem);
     }
 
@@ -444,7 +444,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
         );
 
         /*
-        $this->assertEquals(Value::STATUS_DRAFT, $movedItem->getStatus());
+        $this->assertFalse($movedItem->isPublished());
         $this->assertInstanceOf(Item::class, $movedItem);
         $this->assertEquals(1, $movedItem->getPosition());
         */
@@ -502,7 +502,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
             1
         );
 
-        $this->assertEquals(Value::STATUS_DRAFT, $createdQuery->getStatus());
+        $this->assertFalse($createdQuery->isPublished());
         $this->assertInstanceOf(Query::class, $createdQuery);
 
         $secondQuery = $this->collectionService->loadQueryDraft(3);
@@ -571,7 +571,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
 
         $updatedQuery = $this->collectionService->updateQuery($query, $queryUpdateStruct);
 
-        $this->assertEquals(Value::STATUS_DRAFT, $updatedQuery->getStatus());
+        $this->assertFalse($updatedQuery->isPublished());
         $this->assertInstanceOf(Query::class, $updatedQuery);
 
         $this->assertEquals('new_identifier', $updatedQuery->getIdentifier());
@@ -625,7 +625,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
         );
 
         /*
-        $this->assertEquals(Value::STATUS_DRAFT, $movedQuery->getStatus());
+        $this->assertFalse($movedQuery->isPublished());
         $this->assertInstanceOf(Query::class, $movedQuery);
         $this->assertEquals(1, $movedQuery->getPosition());
         */

@@ -35,6 +35,13 @@ interface Target extends Value
     public function getTargetType();
 
     /**
+     * Returns if the target is published.
+     *
+     * @return bool
+     */
+    public function isPublished();
+
+    /**
      * Returns the target value.
      *
      * @return mixed

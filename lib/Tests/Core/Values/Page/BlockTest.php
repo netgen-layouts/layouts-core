@@ -24,6 +24,7 @@ class BlockTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getItemViewType
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getName
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getStatus
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::isPublished
      */
     public function testSetDefaultProperties()
     {
@@ -40,6 +41,7 @@ class BlockTest extends TestCase
         $this->assertNull($block->getItemViewType());
         $this->assertNull($block->getName());
         $this->assertNull($block->getStatus());
+        $this->assertNull($block->isPublished());
 
         try {
             $block->getParameter('test');
@@ -62,6 +64,7 @@ class BlockTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getItemViewType
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getName
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getStatus
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::isPublished
      */
     public function testSetProperties()
     {
@@ -80,6 +83,7 @@ class BlockTest extends TestCase
                 'itemViewType' => 'standard',
                 'name' => 'My block',
                 'status' => Value::STATUS_PUBLISHED,
+                'published' => true,
             )
         );
 
@@ -94,7 +98,8 @@ class BlockTest extends TestCase
         $this->assertEquals('default', $block->getViewType());
         $this->assertEquals('standard', $block->getItemViewType());
         $this->assertEquals('My block', $block->getName());
-        $this->assertEquals(Value::STATUS_PUBLISHED, $block->getStatus());
+        $this->assertTrue($block->isPublished());
+        $this->assertTrue($block->isPublished());
 
         $this->assertEquals(
             array(

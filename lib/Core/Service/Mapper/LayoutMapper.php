@@ -2,9 +2,10 @@
 
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Persistence\Values\Value;
+use Netgen\BlockManager\Persistence\Values\Value as PersistenceValue;
 use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone as PersistenceZone;
 use Netgen\BlockManager\Core\Values\Page\Zone;
@@ -56,7 +57,7 @@ class LayoutMapper extends Mapper
                 // We're always using published versions of linked zones
                 $linkedZone = $this->persistenceHandler->getLayoutHandler()->loadZone(
                     $zone->linkedLayoutId,
-                    Value::STATUS_PUBLISHED,
+                    PersistenceValue::STATUS_PUBLISHED,
                     $zone->linkedZoneIdentifier
                 );
 
@@ -77,6 +78,7 @@ class LayoutMapper extends Mapper
             'status' => $zone->status,
             'linkedZone' => $linkedZone,
             'blocks' => $blocks,
+            'published' => $zone->status === Value::STATUS_PUBLISHED,
         );
 
         return new Zone($zoneData);
@@ -109,6 +111,7 @@ class LayoutMapper extends Mapper
             'status' => $layout->status,
             'shared' => $layout->shared,
             'zones' => $zones,
+            'published' => $layout->status === Value::STATUS_PUBLISHED,
         );
 
         return new Layout($layoutData);

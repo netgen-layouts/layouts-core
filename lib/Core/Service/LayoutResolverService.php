@@ -137,7 +137,7 @@ class LayoutResolverService implements APILayoutResolverService
      */
     public function getRuleCount(Layout $layout)
     {
-        if ($layout->getStatus() !== Value::STATUS_PUBLISHED) {
+        if (!$layout->isPublished()) {
             throw new BadStateException('layout', 'Only published layouts can be used in rules.');
         }
 
@@ -293,7 +293,7 @@ class LayoutResolverService implements APILayoutResolverService
      */
     public function updateRule(Rule $rule, RuleUpdateStruct $ruleUpdateStruct)
     {
-        if ($rule->getStatus() !== Value::STATUS_DRAFT) {
+        if ($rule->isPublished()) {
             throw new BadStateException('rule', 'Only draft rules can be updated.');
         }
 
@@ -330,7 +330,7 @@ class LayoutResolverService implements APILayoutResolverService
      */
     public function updateRuleMetadata(Rule $rule, RuleMetadataUpdateStruct $ruleUpdateStruct)
     {
-        if ($rule->getStatus() !== Value::STATUS_PUBLISHED) {
+        if (!$rule->isPublished()) {
             throw new BadStateException('rule', 'Metadata can be updated only for published rules.');
         }
 
@@ -392,7 +392,7 @@ class LayoutResolverService implements APILayoutResolverService
      */
     public function createDraft(Rule $rule)
     {
-        if ($rule->getStatus() !== Value::STATUS_PUBLISHED) {
+        if (!$rule->isPublished()) {
             throw new BadStateException('rule', 'Drafts can only be created from published rules.');
         }
 
@@ -420,13 +420,14 @@ class LayoutResolverService implements APILayoutResolverService
     /**
      * Discards a rule draft.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
      */
     public function discardDraft(Rule $rule)
     {
-        if ($rule->getStatus() !== Value::STATUS_DRAFT) {
+        if ($rule->isPublished()) {
             throw new BadStateException('rule', 'Only draft rules can be discarded.');
         }
 
@@ -458,7 +459,7 @@ class LayoutResolverService implements APILayoutResolverService
      */
     public function publishRule(Rule $rule)
     {
-        if ($rule->getStatus() !== Value::STATUS_DRAFT) {
+        if ($rule->isPublished()) {
             throw new BadStateException('rule', 'Only draft rules can be published.');
         }
 
@@ -534,7 +535,7 @@ class LayoutResolverService implements APILayoutResolverService
      */
     public function enableRule(Rule $rule)
     {
-        if ($rule->getStatus() !== Value::STATUS_PUBLISHED) {
+        if (!$rule->isPublished()) {
             throw new BadStateException('rule', 'Only published rules can be enabled.');
         }
 
@@ -578,7 +579,7 @@ class LayoutResolverService implements APILayoutResolverService
      */
     public function disableRule(Rule $rule)
     {
-        if ($rule->getStatus() !== Value::STATUS_PUBLISHED) {
+        if (!$rule->isPublished()) {
             throw new BadStateException('rule', 'Only published rules can be disabled.');
         }
 
@@ -615,7 +616,7 @@ class LayoutResolverService implements APILayoutResolverService
      */
     public function addTarget(Rule $rule, TargetCreateStruct $targetCreateStruct)
     {
-        if ($rule->getStatus() !== Value::STATUS_DRAFT) {
+        if ($rule->isPublished()) {
             throw new BadStateException('rule', 'Targets can be added only to draft rules.');
         }
 
@@ -664,7 +665,7 @@ class LayoutResolverService implements APILayoutResolverService
      */
     public function updateTarget(Target $target, TargetUpdateStruct $targetUpdateStruct)
     {
-        if ($target->getStatus() !== Value::STATUS_DRAFT) {
+        if ($target->isPublished()) {
             throw new BadStateException('target', 'Only draft targets can be updated.');
         }
 
@@ -698,7 +699,7 @@ class LayoutResolverService implements APILayoutResolverService
      */
     public function deleteTarget(Target $target)
     {
-        if ($target->getStatus() !== Value::STATUS_DRAFT) {
+        if ($target->isPublished()) {
             throw new BadStateException('target', 'Only draft targets can be deleted.');
         }
 
@@ -728,7 +729,7 @@ class LayoutResolverService implements APILayoutResolverService
      */
     public function addCondition(Rule $rule, ConditionCreateStruct $conditionCreateStruct)
     {
-        if ($rule->getStatus() !== Value::STATUS_DRAFT) {
+        if ($rule->isPublished()) {
             throw new BadStateException('rule', 'Conditions can be added only to draft rules.');
         }
 
@@ -765,7 +766,7 @@ class LayoutResolverService implements APILayoutResolverService
      */
     public function updateCondition(Condition $condition, ConditionUpdateStruct $conditionUpdateStruct)
     {
-        if ($condition->getStatus() !== Value::STATUS_DRAFT) {
+        if ($condition->isPublished()) {
             throw new BadStateException('condition', 'Only draft conditions can be updated.');
         }
 
@@ -799,7 +800,7 @@ class LayoutResolverService implements APILayoutResolverService
      */
     public function deleteCondition(Condition $condition)
     {
-        if ($condition->getStatus() !== Value::STATUS_DRAFT) {
+        if ($condition->isPublished()) {
             throw new BadStateException('condition', 'Only draft conditions can be deleted.');
         }
 

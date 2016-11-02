@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Persistence\Values\Page\Block as PersistenceBlock;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReference as PersistenceCollectionReference;
@@ -74,6 +75,7 @@ class BlockMapper extends Mapper
             'itemViewType' => $block->itemViewType,
             'name' => $block->name,
             'status' => $block->status,
+            'published' => $block->status === Value::STATUS_PUBLISHED,
         );
 
         return new Block($blockData);

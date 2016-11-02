@@ -75,6 +75,15 @@ class Collection implements APICollection
     }
 
     /**
+     * Returns if the collection is published.
+     *
+     * @return bool
+     */
+    public function isPublished()
+    {
+    }
+
+    /**
      * Returns if the collection is shared.
      *
      * @return int

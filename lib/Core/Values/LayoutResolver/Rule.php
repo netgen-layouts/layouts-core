@@ -25,6 +25,11 @@ class Rule extends ValueObject implements APIRule
     /**
      * @var bool
      */
+    protected $published;
+
+    /**
+     * @var bool
+     */
     protected $enabled;
 
     /**
@@ -75,6 +80,16 @@ class Rule extends ValueObject implements APIRule
     public function getLayout()
     {
         return $this->layout;
+    }
+
+    /**
+     * Returns if the rule is published.
+     *
+     * @return bool
+     */
+    public function isPublished()
+    {
+        return $this->published;
     }
 
     /**

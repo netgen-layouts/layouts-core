@@ -42,6 +42,11 @@ class Layout extends ValueObject implements APILayout
     /**
      * @var bool
      */
+    protected $published;
+
+    /**
+     * @var bool
+     */
     protected $shared;
 
     /**
@@ -107,6 +112,16 @@ class Layout extends ValueObject implements APILayout
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Returns if the layout is published.
+     *
+     * @return bool
+     */
+    public function isPublished()
+    {
+        return $this->published;
     }
 
     /**

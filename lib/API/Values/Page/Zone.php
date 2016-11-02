@@ -31,6 +31,13 @@ interface Zone extends Value, ArrayAccess, IteratorAggregate, Countable
     public function getStatus();
 
     /**
+     * Returns if the zone is published.
+     *
+     * @return bool
+     */
+    public function isPublished();
+
+    /**
      * Returns the linked zone.
      *
      * @return \Netgen\BlockManager\API\Values\Page\Zone

@@ -279,7 +279,7 @@ class CollectionService implements APICollectionService
      */
     public function updateCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct)
     {
-        if ($collection->getStatus() !== Value::STATUS_DRAFT) {
+        if ($collection->isPublished()) {
             throw new BadStateException('collection', 'Only draft collections can be updated.');
         }
 
@@ -324,7 +324,7 @@ class CollectionService implements APICollectionService
      */
     public function changeCollectionType(Collection $collection, $newType, QueryCreateStruct $queryCreateStruct = null)
     {
-        if ($collection->getStatus() !== Value::STATUS_DRAFT) {
+        if ($collection->isPublished()) {
             throw new BadStateException('collection', 'Type can be changed only for draft collections.');
         }
 
@@ -405,7 +405,7 @@ class CollectionService implements APICollectionService
      */
     public function createDraft(Collection $collection)
     {
-        if ($collection->getStatus() !== Value::STATUS_PUBLISHED) {
+        if (!$collection->isPublished()) {
             throw new BadStateException('collection', 'Draft can be created only from published collections.');
         }
 
@@ -439,7 +439,7 @@ class CollectionService implements APICollectionService
      */
     public function discardDraft(Collection $collection)
     {
-        if ($collection->getStatus() !== Value::STATUS_DRAFT) {
+        if ($collection->isPublished()) {
             throw new BadStateException('collection', 'Only draft collections can be discarded.');
         }
 
@@ -471,7 +471,7 @@ class CollectionService implements APICollectionService
      */
     public function publishCollection(Collection $collection)
     {
-        if ($collection->getStatus() !== Value::STATUS_DRAFT) {
+        if ($collection->isPublished()) {
             throw new BadStateException('collection', 'Only draft collections can be published.');
         }
 
@@ -543,7 +543,7 @@ class CollectionService implements APICollectionService
      */
     public function addItem(Collection $collection, ItemCreateStruct $itemCreateStruct, $position = null)
     {
-        if ($collection->getStatus() !== Value::STATUS_DRAFT) {
+        if ($collection->isPublished()) {
             throw new BadStateException('collection', 'Items can only be added to draft collections.');
         }
 
@@ -586,7 +586,7 @@ class CollectionService implements APICollectionService
      */
     public function moveItem(Item $item, $position)
     {
-        if ($item->getStatus() !== Value::STATUS_DRAFT) {
+        if ($item->isPublished()) {
             throw new BadStateException('item', 'Only draft items can be moved.');
         }
 
@@ -620,7 +620,7 @@ class CollectionService implements APICollectionService
      */
     public function deleteItem(Item $item)
     {
-        if ($item->getStatus() !== Value::STATUS_DRAFT) {
+        if ($item->isPublished()) {
             throw new BadStateException('item', 'Only draft items can be deleted.');
         }
 
@@ -653,7 +653,7 @@ class CollectionService implements APICollectionService
      */
     public function addQuery(Collection $collection, QueryCreateStruct $queryCreateStruct, $position = null)
     {
-        if ($collection->getStatus() !== Value::STATUS_DRAFT) {
+        if ($collection->isPublished()) {
             throw new BadStateException('query', 'Queries can be added only to draft collections.');
         }
 
@@ -709,7 +709,7 @@ class CollectionService implements APICollectionService
      */
     public function updateQuery(Query $query, QueryUpdateStruct $queryUpdateStruct)
     {
-        if ($query->getStatus() !== Value::STATUS_DRAFT) {
+        if ($query->isPublished()) {
             throw new BadStateException('query', 'Only draft queries can be updated.');
         }
 
@@ -760,7 +760,7 @@ class CollectionService implements APICollectionService
      */
     public function moveQuery(Query $query, $position)
     {
-        if ($query->getStatus() !== Value::STATUS_DRAFT) {
+        if ($query->isPublished()) {
             throw new BadStateException('query', 'Only draft queries can be moved.');
         }
 
@@ -794,7 +794,7 @@ class CollectionService implements APICollectionService
      */
     public function deleteQuery(Query $query)
     {
-        if ($query->getStatus() !== Value::STATUS_DRAFT) {
+        if ($query->isPublished()) {
             throw new BadStateException('query', 'Only draft queries can be deleted.');
         }
 
