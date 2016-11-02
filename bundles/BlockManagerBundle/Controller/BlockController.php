@@ -4,7 +4,6 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller;
 
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\Bundle\BlockManagerBundle\Exception\RenderingFailedException;
-use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Psr\Log\LoggerInterface;

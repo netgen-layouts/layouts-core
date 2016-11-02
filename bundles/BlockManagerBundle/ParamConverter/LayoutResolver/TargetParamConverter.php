@@ -62,6 +62,10 @@ class TargetParamConverter extends ParamConverter
      */
     public function loadValueObject(array $values)
     {
-        return $this->layoutResolverService->loadTarget($values['targetId']);
+        if ($values['published']) {
+            return $this->layoutResolverService->loadTarget($values['targetId']);
+        }
+
+        return $this->layoutResolverService->loadTargetDraft($values['targetId']);
     }
 }

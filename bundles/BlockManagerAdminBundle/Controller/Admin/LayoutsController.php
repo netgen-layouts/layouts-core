@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin;
 
 use Netgen\BlockManager\API\Service\LayoutService;
+use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Layout\Form\CopyType;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
@@ -44,17 +45,13 @@ class LayoutsController extends Controller
     /**
      * Copies a layout.
      *
-     * @param int $layoutId
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function copyLayout($layoutId, Request $request)
+    public function copyLayout(Layout $layout, Request $request)
     {
-        $layout = $request->query->get('published') === 'true' ?
-            $this->layoutService->loadLayout($layoutId) :
-            $this->layoutService->loadLayoutDraft($layoutId);
-
         $form = $this->createForm(
             CopyType::class,
             array('name' => $layout->getName() . ' (copy)'),
@@ -94,17 +91,12 @@ class LayoutsController extends Controller
     /**
      * Deletes a layout.
      *
-     * @param int $layoutId
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function deleteLayout($layoutId, Request $request)
+    public function deleteLayout(Layout $layout)
     {
-        $layout = $request->query->get('published') === 'true' ?
-            $this->layoutService->loadLayout($layoutId) :
-            $this->layoutService->loadLayoutDraft($layoutId);
-
         $this->layoutService->deleteLayout($layout);
 
         return new Response(null, Response::HTTP_NO_CONTENT);

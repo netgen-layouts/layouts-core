@@ -71,6 +71,7 @@ class ZoneParamConverterTest extends TestCase
                 array(
                     'layoutId' => 42,
                     'zoneIdentifier' => 'left',
+                    'published' => true,
                 )
             )
         );

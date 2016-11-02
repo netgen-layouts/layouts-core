@@ -65,6 +65,9 @@ class BlockParamConverterTest extends TestCase
             ->with($this->equalTo(42))
             ->will($this->returnValue($block));
 
-        $this->assertEquals($block, $this->paramConverter->loadValueObject(array('blockId' => 42)));
+        $this->assertEquals(
+            $block,
+            $this->paramConverter->loadValueObject(array('blockId' => 42, 'published' => true))
+        );
     }
 }

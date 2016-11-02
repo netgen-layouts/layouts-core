@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter\Page;
 
-use Netgen\BlockManager\Core\Values\Page\BlockDraft;
+use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\CollectionReferenceParamConverter;
 use Netgen\BlockManager\API\Values\Page\CollectionReference as APICollectionReference;
 use Netgen\BlockManager\Core\Values\Page\CollectionReference;
@@ -58,12 +58,12 @@ class CollectionReferenceParamConverterTest extends TestCase
      */
     public function testLoadValueObject()
     {
-        $block = new BlockDraft();
+        $block = new Block();
         $collectionReference = new CollectionReference();
 
         $this->blockServiceMock
             ->expects($this->at(0))
-            ->method('loadBlockDraft')
+            ->method('loadBlock')
             ->with($this->equalTo(42))
             ->will($this->returnValue($block));
 
@@ -79,6 +79,7 @@ class CollectionReferenceParamConverterTest extends TestCase
                 array(
                     'blockId' => 42,
                     'collectionIdentifier' => 'default',
+                    'published' => true,
                 )
             )
         );

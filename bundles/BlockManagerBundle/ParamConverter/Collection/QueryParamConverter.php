@@ -62,6 +62,10 @@ class QueryParamConverter extends ParamConverter
      */
     public function loadValueObject(array $values)
     {
-        return $this->collectionService->loadQuery($values['queryId']);
+        if ($values['published']) {
+            return $this->collectionService->loadQuery($values['queryId']);
+        }
+
+        return $this->collectionService->loadQueryDraft($values['queryId']);
     }
 }

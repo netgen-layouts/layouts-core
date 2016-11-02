@@ -62,6 +62,10 @@ class RuleParamConverter extends ParamConverter
      */
     public function loadValueObject(array $values)
     {
-        return $this->layoutResolverService->loadRule($values['ruleId']);
+        if ($values['published']) {
+            return $this->layoutResolverService->loadRule($values['ruleId']);
+        }
+
+        return $this->layoutResolverService->loadRuleDraft($values['ruleId']);
     }
 }

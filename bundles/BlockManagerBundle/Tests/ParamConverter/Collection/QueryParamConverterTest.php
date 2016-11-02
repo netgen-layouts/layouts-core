@@ -65,6 +65,9 @@ class QueryParamConverterTest extends TestCase
             ->with($this->equalTo(42))
             ->will($this->returnValue($query));
 
-        $this->assertEquals($query, $this->paramConverter->loadValueObject(array('queryId' => 42)));
+        $this->assertEquals(
+            $query,
+            $this->paramConverter->loadValueObject(array('queryId' => 42, 'published' => true))
+        );
     }
 }

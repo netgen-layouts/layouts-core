@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\ParamConverter;
 
+use Netgen\BlockManager\API\Values\Value;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter as ParamConverterConfiguration;
 use Symfony\Component\HttpFoundation\Request;
@@ -9,6 +10,8 @@ use Netgen\BlockManager\Exception\InvalidArgumentException;
 
 abstract class ParamConverter implements ParamConverterInterface
 {
+    const ROUTE_STATUS_PARAM = '_ngbm_status';
+
     /**
      * Stores the object in the request.
      *
@@ -40,6 +43,16 @@ abstract class ParamConverter implements ParamConverterInterface
                     'Required request attribute is empty.'
                 );
             }
+        }
+
+        $routeStatusParam = $request->attributes->get(self::ROUTE_STATUS_PARAM);
+        $queryPublishedParam = $request->query->get('published');
+
+        $values['published'] = false;
+        if (in_array($routeStatusParam, array('published', 'draft'))) {
+            $values['published'] = $routeStatusParam === 'published';
+        } elseif ($queryPublishedParam === 'true') {
+            $values['published'] = true;
         }
 
         $request->attributes->set(

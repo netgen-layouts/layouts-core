@@ -65,6 +65,9 @@ class ItemParamConverterTest extends TestCase
             ->with($this->equalTo(42))
             ->will($this->returnValue($item));
 
-        $this->assertEquals($item, $this->paramConverter->loadValueObject(array('itemId' => 42)));
+        $this->assertEquals(
+            $item,
+            $this->paramConverter->loadValueObject(array('itemId' => 42, 'published' => true))
+        );
     }
 }

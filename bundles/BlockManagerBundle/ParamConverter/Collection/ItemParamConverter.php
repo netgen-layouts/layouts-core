@@ -62,6 +62,10 @@ class ItemParamConverter extends ParamConverter
      */
     public function loadValueObject(array $values)
     {
-        return $this->collectionService->loadItem($values['itemId']);
+        if ($values['published']) {
+            return $this->collectionService->loadItem($values['itemId']);
+        }
+
+        return $this->collectionService->loadItemDraft($values['itemId']);
     }
 }

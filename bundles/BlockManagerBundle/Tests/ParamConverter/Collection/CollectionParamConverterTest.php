@@ -65,6 +65,9 @@ class CollectionParamConverterTest extends TestCase
             ->with($this->equalTo(42))
             ->will($this->returnValue($collection));
 
-        $this->assertEquals($collection, $this->paramConverter->loadValueObject(array('collectionId' => 42)));
+        $this->assertEquals(
+            $collection,
+            $this->paramConverter->loadValueObject(array('collectionId' => 42, 'published' => true))
+        );
     }
 }

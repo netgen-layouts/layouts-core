@@ -65,6 +65,9 @@ class LayoutParamConverterTest extends TestCase
             ->with($this->equalTo(42))
             ->will($this->returnValue($layout));
 
-        $this->assertEquals($layout, $this->paramConverter->loadValueObject(array('layoutId' => 42)));
+        $this->assertEquals(
+            $layout,
+            $this->paramConverter->loadValueObject(array('layoutId' => 42, 'published' => true))
+        );
     }
 }

@@ -4,6 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Collection\Result\ResultLoaderInterface;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\API\Service\BlockService;
@@ -67,33 +68,24 @@ class BlockCollectionController extends Controller
     /**
      * Loads the collection reference.
      *
-     * @param int|string $blockId
-     * @param string $collectionIdentifier
+     * @param \Netgen\BlockManager\API\Values\Page\CollectionReference $collectionReference
      *
      * @return \Netgen\BlockManager\Serializer\Values\VersionedValue
      */
-    public function load($blockId, $collectionIdentifier)
+    public function load(CollectionReference $collectionReference)
     {
-        $block = $this->blockService->loadBlockDraft($blockId);
-        $collectionReference = $this->blockService->loadCollectionReference(
-            $block,
-            $collectionIdentifier
-        );
-
         return new VersionedValue($collectionReference, Version::API_V1);
     }
 
     /**
      * Loads all block draft collection references.
      *
-     * @param int|string $blockId
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
      *
      * @return \Netgen\BlockManager\Serializer\Values\Value
      */
-    public function loadCollectionReferences($blockId)
+    public function loadCollectionReferences(Block $block)
     {
-        $block = $this->blockService->loadBlockDraft($blockId);
-
         $collectionReferences = array_map(
             function (CollectionReference $collectionReference) {
                 return new VersionedValue($collectionReference, Version::API_V1);
@@ -107,20 +99,13 @@ class BlockCollectionController extends Controller
     /**
      * Returns the collection result.
      *
-     * @param int|string $blockId
-     * @param string $collectionIdentifier
+     * @param \Netgen\BlockManager\API\Values\Page\CollectionReference $collectionReference
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Netgen\BlockManager\Serializer\Values\VersionedValue
      */
-    public function loadCollectionResult($blockId, $collectionIdentifier, Request $request)
+    public function loadCollectionResult(CollectionReference $collectionReference, Request $request)
     {
-        $block = $this->blockService->loadBlockDraft($blockId);
-        $collectionReference = $this->blockService->loadCollectionReference(
-            $block,
-            $collectionIdentifier
-        );
-
         $offset = $request->query->get('offset', 0);
         $limit = $request->query->get('limit', null);
 
@@ -139,8 +124,7 @@ class BlockCollectionController extends Controller
     /**
      * Changes the collection type within the block.
      *
-     * @param int|string $blockId
-     * @param string $collectionIdentifier
+     * @param \Netgen\BlockManager\API\Values\Page\CollectionReference $collectionReference
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If new collection type is not valid
@@ -149,14 +133,8 @@ class BlockCollectionController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function changeCollectionType($blockId, $collectionIdentifier, Request $request)
+    public function changeCollectionType(CollectionReference $collectionReference, Request $request)
     {
-        $block = $this->blockService->loadBlockDraft($blockId);
-        $collectionReference = $this->blockService->loadCollectionReference(
-            $block,
-            $collectionIdentifier
-        );
-
         $this->validator->validateChangeCollectionType($request);
 
         $newType = $request->request->get('new_type');

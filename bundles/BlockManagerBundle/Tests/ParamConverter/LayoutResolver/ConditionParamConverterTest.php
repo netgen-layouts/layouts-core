@@ -65,6 +65,9 @@ class ConditionParamConverterTest extends TestCase
             ->with($this->equalTo(42))
             ->will($this->returnValue($condition));
 
-        $this->assertEquals($condition, $this->paramConverter->loadValueObject(array('conditionId' => 42)));
+        $this->assertEquals(
+            $condition,
+            $this->paramConverter->loadValueObject(array('conditionId' => 42, 'published' => true))
+        );
     }
 }

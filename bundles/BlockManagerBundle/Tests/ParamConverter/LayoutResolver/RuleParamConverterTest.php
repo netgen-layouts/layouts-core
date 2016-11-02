@@ -65,6 +65,9 @@ class RuleParamConverterTest extends TestCase
             ->with($this->equalTo(42))
             ->will($this->returnValue($rule));
 
-        $this->assertEquals($rule, $this->paramConverter->loadValueObject(array('ruleId' => 42)));
+        $this->assertEquals(
+            $rule,
+            $this->paramConverter->loadValueObject(array('ruleId' => 42, 'published' => true))
+        );
     }
 }

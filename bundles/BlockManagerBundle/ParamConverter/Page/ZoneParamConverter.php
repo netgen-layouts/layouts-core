@@ -62,9 +62,10 @@ class ZoneParamConverter extends ParamConverter
      */
     public function loadValueObject(array $values)
     {
-        return $this->layoutService->loadZone(
-            $values['layoutId'],
-            $values['zoneIdentifier']
-        );
+        if ($values['published']) {
+            return $this->layoutService->loadZone($values['layoutId'], $values['zoneIdentifier']);
+        }
+
+        return $this->layoutService->loadZoneDraft($values['layoutId'], $values['zoneIdentifier']);
     }
 }

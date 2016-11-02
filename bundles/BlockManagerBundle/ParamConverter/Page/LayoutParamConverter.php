@@ -62,6 +62,10 @@ class LayoutParamConverter extends ParamConverter
      */
     public function loadValueObject(array $values)
     {
-        return $this->layoutService->loadLayout($values['layoutId']);
+        if ($values['published']) {
+            return $this->layoutService->loadLayout($values['layoutId']);
+        }
+
+        return $this->layoutService->loadLayoutDraft($values['layoutId']);
     }
 }

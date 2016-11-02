@@ -63,7 +63,9 @@ class CollectionReferenceParamConverter extends ParamConverter
     public function loadValueObject(array $values)
     {
         return $this->blockService->loadCollectionReference(
-            $this->blockService->loadBlockDraft($values['blockId']),
+            $values['published'] ?
+                $this->blockService->loadBlock($values['blockId']) :
+                $this->blockService->loadBlockDraft($values['blockId']),
             $values['collectionIdentifier']
         );
     }
