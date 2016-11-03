@@ -68,4 +68,11 @@ interface Rule extends Value
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Condition[]
      */
     public function getConditions();
+
+    /**
+     * Returns if the rule can be enabled.
+     *
+     * @return bool
+     */
+    public function canBeEnabled();
 }

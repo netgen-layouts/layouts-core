@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Core\Values\LayoutResolver;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule as APIRule;
+use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\ValueObject;
 
 class Rule extends ValueObject implements APIRule
@@ -140,5 +141,23 @@ class Rule extends ValueObject implements APIRule
     public function getConditions()
     {
         return $this->conditions;
+    }
+
+    /**
+     * Returns if the rule can be enabled.
+     *
+     * @return bool
+     */
+    public function canBeEnabled()
+    {
+        if (!$this->published) {
+            return false;
+        }
+
+        if (!$this->layout instanceof Layout) {
+            return false;
+        }
+
+        return !empty($this->targets);
     }
 }

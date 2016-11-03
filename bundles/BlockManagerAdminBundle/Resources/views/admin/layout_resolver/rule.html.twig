@@ -2,8 +2,6 @@
 
 {% trans_default_domain 'ngbm_admin' %}
 
-{% set can_be_enabled = rule.published and rule.layout is not empty and rule.targets is not empty %}
-
 <div class="nl-rule-content {% if not rule.enabled %}disabled{% endif %}" data-id="{{ rule.id }}">
     <div class="nl-panel-head">
         <div class="panel-head-title">
@@ -50,7 +48,7 @@
                     {% if rule.enabled %}
                         <li><a href="#" {% if not rule.published %} disabled {% else %} class="js-rule-edit" data-action="disable" {% endif %}>{{ 'layout_resolver.rule.disable_rule'|trans }}</a></li>
                     {% else %}
-                        <li><a href="#" {% if not can_be_enabled %} disabled {% else %} class="js-rule-edit" data-action="enable" {% endif %}>{{ 'layout_resolver.rule.enable_rule'|trans }}</a></li>
+                        <li><a href="#" {% if not rule.canBeEnabled %} disabled {% else %} class="js-rule-edit" data-action="enable" {% endif %}>{{ 'layout_resolver.rule.enable_rule'|trans }}</a></li>
                     {% endif %}
 
                     <li><a href="#" class="js-rule-delete">{{ 'layout_resolver.rule.delete_rule'|trans }}</a></li>
