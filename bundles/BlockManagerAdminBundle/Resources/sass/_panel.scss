@@ -84,16 +84,14 @@
                 color:hsl(0, 0, 82);
             }
         }
-        .panel-link-action {
-            a {
-                border-left:1px solid hsla(0, 0, 0, 0.14);
-                padding-left:$gutter;
-                margin-left:$gutter;
-                display:flex;
-                align-items:center;
-                cursor:pointer;
-                color:$linkColor;
-            }
+        a.panel-link-action {
+            border-left:1px solid hsla(0, 0, 0, 0.14);
+            padding-left:$gutter;
+            margin-left:$gutter;
+            display:flex;
+            align-items:center;
+            cursor:pointer;
+            color:$linkColor;
             i {
                 color:$panelLightColor;
                 margin-right:0.25em;
@@ -414,7 +412,7 @@
         .nl-panel-actions,
         .remove-setting,
         .settings-action,
-        .panel-link-action {
+        a.panel-link-action {
             display:none !important;
         }
         .editable-value {

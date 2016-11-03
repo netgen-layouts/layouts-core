@@ -17,9 +17,7 @@
             {% else %}
                 <div class="panel-name" title="{{ 'layout_resolver.rule.no_linked_layout'|trans }}">
                     <span>{{ 'layout_resolver.rule.no_linked_layout'|trans }}</span>
-                    <div data-browser-config-name="ngbm_layout" class="panel-link-action js-link-layout">
-                        <a class="js-trigger" href="#"><i class="material-icons" role="presentation">link</i> {{ 'layout_resolver.rule.no_linked_layout.link'|trans }}</a>
-                    </div>
+                    <a class="js-link-layout panel-link-action" data-browser-config-name="ngbm_layout" href="#"><i class="material-icons" role="presentation">link</i> {{ 'layout_resolver.rule.no_linked_layout.link'|trans }}</a>
                 </div>
             {% endif %}
 
@@ -35,15 +33,15 @@
                 <ul class="nl-dropdown-menu">
                     <li><a href="#" {% if rule.layout is empty %} disabled {% else %} class="js-rule-unlink" {% endif %}>{{ 'layout_resolver.rule.unlink_layout'|trans }}</a></li>
 
-                    {% if rule.layout is not empty %}
-                        <li>
-                            <div data-browser-config-name="ngbm_layout" class="js-link-layout" data-linked-layout="{{ rule.layout.id }}">
-                                <a class="js-trigger" href="#">{{ 'layout_resolver.rule.link_other_layout'|trans }}</a>
-                            </div>
-                        </li>
-                    {% else %}
-                        <li><a href="#" class="js-link-layout-trigger">{{ 'layout_resolver.rule.link_layout'|trans }}</a></li>
-                    {% endif %}
+                    <li>
+                        <a class="js-link-layout" {% if rule.layout is not empty %}data-linked-layout="{{ rule.layout.id }}"{% endif %} data-browser-config-name="ngbm_layout" href="#">
+                            {% if rule.layout is not empty %}
+                                {{ 'layout_resolver.rule.link_other_layout'|trans }}
+                            {% else %}
+                                {{ 'layout_resolver.rule.link_layout'|trans }}
+                            {% endif %}
+                        </a>
+                    </li>
 
                     {% if rule.enabled %}
                         <li><a href="#" {% if not rule.published %} disabled {% else %} class="js-rule-edit" data-action="disable" {% endif %}>{{ 'layout_resolver.rule.disable_rule'|trans }}</a></li>
