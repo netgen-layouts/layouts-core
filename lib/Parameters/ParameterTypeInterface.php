@@ -22,26 +22,6 @@ interface ParameterTypeInterface
     public function getConstraints(ParameterInterface $parameter, $value);
 
     /**
-     * Returns constraints that will be used when parameter is required.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
-     * @param mixed $value
-     *
-     * @return \Symfony\Component\Validator\Constraint[]
-     */
-    public function getRequiredConstraints(ParameterInterface $parameter, $value);
-
-    /**
-     * Returns constraints that will be used to validate the parameter value.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
-     * @param mixed $value
-     *
-     * @return \Symfony\Component\Validator\Constraint[]
-     */
-    public function getValueConstraints(ParameterInterface $parameter, $value);
-
-    /**
      * Converts the parameter value to from a domain format to scalar/hash format.
      *
      * @param mixed $value

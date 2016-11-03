@@ -26,7 +26,7 @@ class ChoiceType extends ParameterType
      *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    public function getValueConstraints(ParameterInterface $parameter, $value)
+    protected function getValueConstraints(ParameterInterface $parameter, $value)
     {
         $options = $parameter->getOptions();
 

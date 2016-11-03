@@ -63,11 +63,7 @@ class ParameterStructValidator extends ConstraintValidator
             $value->getParameters(),
             new Constraints\Collection(
                 array(
-                    'fields' => $this->buildConstraintFields(
-                        $value,
-                        $constraint->parameters,
-                        $constraint->required
-                    ),
+                    'fields' => $this->buildConstraintFields($value, $constraint),
                 )
             )
         );
@@ -99,25 +95,24 @@ class ParameterStructValidator extends ConstraintValidator
      * Builds the "fields" array from provided parameters and parameter values.
      *
      * @param \Netgen\BlockManager\API\Values\ParameterStruct $parameterStruct
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface[] $parameters
-     * @param bool $isRequired
+     * @param \Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct $constraint
      *
      * @return array
      */
-    protected function buildConstraintFields(ParameterStruct $parameterStruct, array $parameters, $isRequired = true)
+    protected function buildConstraintFields(ParameterStruct $parameterStruct, ParameterStructConstraint $constraint)
     {
         $fields = array();
-        foreach ($parameters as $parameterName => $parameter) {
+        foreach ($constraint->parameters as $parameterName => $parameter) {
             $parameterValue = $parameterStruct->hasParameter($parameterName) ?
                 $parameterStruct->getParameter($parameterName) :
                 null;
 
             $parameterType = $this->parameterTypeRegistry->getParameterType($parameter->getType());
+            $constraints = $parameterType->getConstraints($parameter, $parameterValue);
 
-            $fields[$parameterName] = $this->buildFieldConstraint(
-                $parameterType->getConstraints($parameter, $parameterValue),
-                $isRequired
-            );
+            $fields[$parameterName] = $constraint->required && $parameter->isRequired() ?
+                new Constraints\Required($constraints) :
+                new Constraints\Optional($constraints);
 
             if ($parameter instanceof CompoundParameterInterface) {
                 foreach ($parameter->getParameters() as $subParameterName => $subParameter) {
@@ -126,39 +121,21 @@ class ParameterStructValidator extends ConstraintValidator
                         null;
 
                     $subParameterType = $this->parameterTypeRegistry->getParameterType($subParameter->getType());
-                    $constraints = $subParameterType->getValueConstraints($subParameter, $subParameterValue);
+                    $constraints = $subParameterType->getConstraints($subParameter, $subParameterValue);
 
-                    if (
-                        $parameterStruct->hasParameter($parameterName) &&
-                        $parameterStruct->getParameter($parameterName) &&
-                        $subParameter->isRequired()
-                    ) {
-                        $constraints = array_merge(
-                            $constraints,
-                            $subParameterType->getRequiredConstraints($subParameter, $subParameterValue)
-                        );
+                    if ($parameterValue !== true && $subParameterValue === null) {
+                        $fields[$subParameterName] = new Constraints\Optional(new Constraints\IsNull());
+
+                        continue;
                     }
 
-                    $fields[$subParameterName] = $this->buildFieldConstraint($constraints, $isRequired);
+                    $fields[$subParameterName] = $constraint->required && $subParameter->isRequired() ?
+                        new Constraints\Required($constraints) :
+                        new Constraints\Optional($constraints);
                 }
             }
         }
 
         return $fields;
-    }
-
-    /**
-     * Builds the Constraints\Required or Constraints\Optional constraint as specified by $isRequired flag.
-     *
-     * @param \Symfony\Component\Validator\Constraint[] $constraints
-     * @param bool $isRequired
-     *
-     * @return \Symfony\Component\Validator\Constraint
-     */
-    protected function buildFieldConstraint(array $constraints, $isRequired)
-    {
-        return $isRequired ?
-            new Constraints\Required($constraints) :
-            new Constraints\Optional($constraints);
     }
 }

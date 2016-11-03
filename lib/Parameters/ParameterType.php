@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Parameters;
 
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Constraints;
 
 abstract class ParameterType implements ParameterTypeInterface
@@ -23,6 +24,16 @@ abstract class ParameterType implements ParameterTypeInterface
      */
     public function getConstraints(ParameterInterface $parameter, $value)
     {
+        if ($parameter->getType() !== $this->getType()) {
+            throw new InvalidArgumentException(
+                'parameter',
+                sprintf(
+                    'Parameter with "%s" type is not supported',
+                    $parameter->getType()
+                )
+            );
+        }
+
         return array_merge(
             $this->getRequiredConstraints($parameter, $value),
             $this->getValueConstraints($parameter, $value)
@@ -37,7 +48,7 @@ abstract class ParameterType implements ParameterTypeInterface
      *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    public function getRequiredConstraints(ParameterInterface $parameter, $value)
+    protected function getRequiredConstraints(ParameterInterface $parameter, $value)
     {
         if ($parameter->isRequired()) {
             return array(
@@ -56,7 +67,7 @@ abstract class ParameterType implements ParameterTypeInterface
      *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    abstract public function getValueConstraints(ParameterInterface $parameter, $value);
+    abstract protected function getValueConstraints(ParameterInterface $parameter, $value);
 
     /**
      * Converts the parameter value to from a domain format to scalar/hash format.

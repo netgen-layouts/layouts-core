@@ -345,7 +345,7 @@ class BlockValidatorTest extends TestCase
                         'css_class' => 'class',
                     ),
                 ),
-                false,
+                true,
             ),
         );
     }
