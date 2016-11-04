@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\View\Matcher\Form\Block;
 
-use Netgen\BlockManager\Block\BlockDefinitionInterface;
+use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
 use Netgen\BlockManager\View\View\FormViewInterface;
 use Netgen\BlockManager\View\ViewInterface;
@@ -23,15 +23,15 @@ class Definition implements MatcherInterface
             return false;
         }
 
-        if (!$view->getForm()->getConfig()->hasOption('blockDefinition')) {
+        if (!$view->getForm()->getConfig()->hasOption('block')) {
             return false;
         }
 
-        $blockDefinition = $view->getForm()->getConfig()->getOption('blockDefinition');
-        if (!$blockDefinition instanceof BlockDefinitionInterface) {
+        $block = $view->getForm()->getConfig()->getOption('block');
+        if (!$block instanceof Block) {
             return false;
         }
 
-        return in_array($blockDefinition->getIdentifier(), $config);
+        return in_array($block->getBlockDefinition()->getIdentifier(), $config);
     }
 }

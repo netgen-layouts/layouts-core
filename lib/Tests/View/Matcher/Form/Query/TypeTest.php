@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\View\Matcher\Form\Query;
 
 use Netgen\BlockManager\Collection\QueryType;
 use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
+use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandler;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Matcher\Stubs\Form;
@@ -46,10 +47,14 @@ class TypeTest extends TestCase
             Form::class,
             null,
             array(
-                'queryType' => new QueryType(
-                    'type',
-                    new QueryTypeHandler(),
-                    new Configuration('type', 'Type')
+                'query' => new Query(
+                    array(
+                        'queryType' => new QueryType(
+                            'type',
+                            new QueryTypeHandler(),
+                            new Configuration('type', 'Type')
+                        ),
+                    )
                 ),
             )
         );
@@ -84,7 +89,7 @@ class TypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Matcher\Form\Query\Type::match
      */
-    public function testMatchWithNoQueryType()
+    public function testMatchWithNoQuery()
     {
         $form = $this->formFactory->create(Form::class);
 
@@ -94,9 +99,9 @@ class TypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Matcher\Form\Query\Type::match
      */
-    public function testMatchWithInvalidQueryType()
+    public function testMatchWithInvalidQuery()
     {
-        $form = $this->formFactory->create(Form::class, null, array('queryType' => 'type'));
+        $form = $this->formFactory->create(Form::class, null, array('query' => 'type'));
 
         $this->assertFalse($this->matcher->match(new FormView($form), array('type')));
     }

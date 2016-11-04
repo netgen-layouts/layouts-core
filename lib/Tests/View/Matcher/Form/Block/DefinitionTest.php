@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\View\Matcher\Form\Block;
 
+use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Matcher\Stubs\Form;
@@ -44,7 +45,11 @@ class DefinitionTest extends TestCase
             Form::class,
             null,
             array(
-                'blockDefinition' => new BlockDefinition('block'),
+                'block' => new Block(
+                    array(
+                        'blockDefinition' => new BlockDefinition('block'),
+                    )
+                ),
             )
         );
 
@@ -78,7 +83,7 @@ class DefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Matcher\Form\Block\Definition::match
      */
-    public function testMatchWithNoBlockDefinition()
+    public function testMatchWithNoBlock()
     {
         $form = $this->formFactory->create(Form::class);
 
@@ -88,9 +93,9 @@ class DefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Matcher\Form\Block\Definition::match
      */
-    public function testMatchWithInvalidBlockDefinition()
+    public function testMatchWithInvalidBlock()
     {
-        $form = $this->formFactory->create(Form::class, null, array('blockDefinition' => 'block'));
+        $form = $this->formFactory->create(Form::class, null, array('block' => 'block'));
 
         $this->assertFalse($this->matcher->match(new FormView($form), array('block')));
     }

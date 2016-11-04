@@ -16,7 +16,7 @@ class Form extends AbstractType
     {
         // This is a curated list of options that will be used
         // to test form matchers, add options as needed
-        $resolver->setDefined('blockDefinition');
-        $resolver->setDefined('queryType');
+        $resolver->setDefined('block');
+        $resolver->setDefined('query');
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\View\Matcher\Form\Query;
 
-use Netgen\BlockManager\Collection\QueryTypeInterface;
+use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
 use Netgen\BlockManager\View\View\FormViewInterface;
 use Netgen\BlockManager\View\ViewInterface;
@@ -23,15 +23,15 @@ class Type implements MatcherInterface
             return false;
         }
 
-        if (!$view->getForm()->getConfig()->hasOption('queryType')) {
+        if (!$view->getForm()->getConfig()->hasOption('query')) {
             return false;
         }
 
-        $queryType = $view->getForm()->getConfig()->getOption('queryType');
-        if (!$queryType instanceof QueryTypeInterface) {
+        $query = $view->getForm()->getConfig()->getOption('query');
+        if (!$query instanceof Query) {
             return false;
         }
 
-        return in_array($queryType->getType(), $config);
+        return in_array($query->getQueryType()->getType(), $config);
     }
 }

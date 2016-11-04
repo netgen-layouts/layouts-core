@@ -34,6 +34,7 @@ class BooleanMapperTest extends TestCase
     {
         $this->assertEquals(
             array(
+                'label' => false,
                 'reverse' => true,
                 'parameters' => array(),
                 'label_prefix' => 'label',
