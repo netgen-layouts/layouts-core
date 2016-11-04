@@ -120,14 +120,14 @@ class ParameterStructValidator extends ConstraintValidator
                         $parameterStruct->getParameter($subParameterName) :
                         null;
 
-                    $subParameterType = $this->parameterTypeRegistry->getParameterType($subParameter->getType());
-                    $constraints = $subParameterType->getConstraints($subParameter, $subParameterValue);
-
                     if ($parameterValue !== true && $subParameterValue === null) {
                         $fields[$subParameterName] = new Constraints\Optional(new Constraints\IsNull());
 
                         continue;
                     }
+
+                    $subParameterType = $this->parameterTypeRegistry->getParameterType($subParameter->getType());
+                    $constraints = $subParameterType->getConstraints($subParameter, $subParameterValue);
 
                     $fields[$subParameterName] = $constraint->required && $subParameter->isRequired() ?
                         new Constraints\Required($constraints) :
