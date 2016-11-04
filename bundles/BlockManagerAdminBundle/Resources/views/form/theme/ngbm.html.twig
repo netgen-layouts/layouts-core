@@ -61,16 +61,12 @@
     </div>
 {%- endblock ngbm_key_values_widget -%}
 
-{%- block ngbm_compound_boolean_widget -%}
+{%- block ngbm_compound_boolean_row -%}
     <div
         data-compound-checkbox="true"
         {% if reverse %}data-compound-reverse="true"{% endif %}
         {{ block('widget_container_attributes') }}
     >
-        {%- if form.parent is empty -%}
-            {{- form_errors(form) -}}
-        {%- endif -%}
-
         <div class="checkbox">
             {{- form_errors(form._self) -}}
             {{- form_widget(form._self) -}}
@@ -81,4 +77,4 @@
             </div>
         </div>
     </div>
-{%- endblock ngbm_compound_boolean_widget -%}
+{%- endblock ngbm_compound_boolean_row -%}

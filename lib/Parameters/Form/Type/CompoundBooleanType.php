@@ -23,19 +23,14 @@ class CompoundBooleanType extends ParametersType
 
         $resolver->setRequired(
             array(
-                'checkbox_required',
-                'checkbox_label',
                 'checkbox_property_path',
                 'reverse',
             )
         );
 
-        $resolver->setAllowedTypes('checkbox_required', 'bool');
-        $resolver->setAllowedTypes('checkbox_label', 'string');
         $resolver->setAllowedTypes('checkbox_property_path', 'string');
         $resolver->setAllowedTypes('reverse', 'bool');
 
-        $resolver->setDefault('checkbox_required', false);
         $resolver->setDefault('reverse', false);
     }
 
@@ -77,8 +72,8 @@ class CompoundBooleanType extends ParametersType
             '_self',
             CheckboxType::class,
             array(
-                'label' => $options['checkbox_label'],
-                'required' => $options['checkbox_required'],
+                'label' => $options['label'],
+                'required' => $builder->getRequired(),
                 'property_path' => $options['checkbox_property_path'],
             )
         );

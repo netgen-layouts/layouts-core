@@ -30,15 +30,12 @@ class BooleanMapper extends Mapper
     public function mapOptions(ParameterInterface $parameter, $parameterName, array $formOptions)
     {
         return array(
-            'label' => false,
             'label_prefix' => $formOptions['label_prefix'],
             'property_path_prefix' => $formOptions['property_path_prefix'],
 
             'reverse' => $parameter->getOptions()['reverse'],
             'parameters' => $parameter->getParameters(),
 
-            'checkbox_required' => $parameter->isRequired(),
-            'checkbox_label' => $formOptions['label_prefix'] . '.' . $parameterName,
             'checkbox_property_path' => $formOptions['property_path_prefix'] . '[' . $parameterName . ']',
         );
     }

@@ -34,13 +34,10 @@ class BooleanMapperTest extends TestCase
     {
         $this->assertEquals(
             array(
-                'label' => false,
                 'reverse' => true,
                 'parameters' => array(),
                 'label_prefix' => 'label',
                 'property_path_prefix' => 'parameters',
-                'checkbox_required' => true,
-                'checkbox_label' => 'label.name',
                 'checkbox_property_path' => 'parameters[name]',
             ),
             $this->mapper->mapOptions(

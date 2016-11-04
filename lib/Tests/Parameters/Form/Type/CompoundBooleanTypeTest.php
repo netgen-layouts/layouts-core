@@ -59,7 +59,6 @@ class CompoundBooleanTypeTest extends FormTestCase
                 ),
                 'label_prefix' => 'label',
                 'property_path_prefix' => 'parameters',
-                'checkbox_label' => 'checkbox_label',
                 'checkbox_property_path' => 'parameters[main_checkbox]',
             )
         );
@@ -111,7 +110,6 @@ class CompoundBooleanTypeTest extends FormTestCase
                 ),
                 'label_prefix' => 'label',
                 'property_path_prefix' => 'parameters',
-                'checkbox_label' => 'checkbox_label',
                 'checkbox_property_path' => 'parameters[main_checkbox]',
             )
         );
@@ -160,7 +158,6 @@ class CompoundBooleanTypeTest extends FormTestCase
                 ),
                 'label_prefix' => 'label',
                 'property_path_prefix' => 'parameters',
-                'checkbox_label' => 'checkbox_label',
                 'checkbox_property_path' => 'parameters[main_checkbox]',
             )
         );
@@ -213,7 +210,6 @@ class CompoundBooleanTypeTest extends FormTestCase
                 ),
                 'label_prefix' => 'label',
                 'property_path_prefix' => 'parameters',
-                'checkbox_label' => 'checkbox_label',
                 'checkbox_property_path' => 'parameters[main_checkbox]',
                 'reverse' => true,
             )
@@ -268,7 +264,6 @@ class CompoundBooleanTypeTest extends FormTestCase
                 ),
                 'label_prefix' => 'label',
                 'property_path_prefix' => 'parameters',
-                'checkbox_label' => 'checkbox_label',
                 'checkbox_property_path' => 'parameters[main_checkbox]',
                 'reverse' => true,
             )
@@ -302,7 +297,6 @@ class CompoundBooleanTypeTest extends FormTestCase
             'parameters' => array(),
             'label_prefix' => 'label',
             'property_path_prefix' => 'parameters',
-            'checkbox_label' => 'checkbox_label',
             'checkbox_property_path' => 'checkbox_property_path',
             'reverse' => true,
         );
@@ -313,9 +307,7 @@ class CompoundBooleanTypeTest extends FormTestCase
         $this->assertEquals(array(), $resolvedOptions['parameters']);
         $this->assertEquals('label', $resolvedOptions['label_prefix']);
         $this->assertEquals('parameters', $resolvedOptions['property_path_prefix']);
-        $this->assertEquals('checkbox_label', $resolvedOptions['checkbox_label']);
         $this->assertEquals('checkbox_property_path', $resolvedOptions['checkbox_property_path']);
-        $this->assertFalse($resolvedOptions['checkbox_required']);
         $this->assertTrue($resolvedOptions['reverse']);
     }
 
@@ -347,7 +339,6 @@ class CompoundBooleanTypeTest extends FormTestCase
                 'parameters' => null,
                 'label_prefix' => 'label',
                 'property_path_prefix' => 'parameters',
-                'checkbox_label' => 'checkbox_label',
                 'checkbox_property_path' => 'checkbox_property_path',
             )
         );
@@ -368,7 +359,6 @@ class CompoundBooleanTypeTest extends FormTestCase
                 'parameters' => array(),
                 'label_prefix' => 'label',
                 'property_path_prefix' => null,
-                'checkbox_label' => 'checkbox_label',
                 'checkbox_property_path' => 'checkbox_property_path',
             )
         );
