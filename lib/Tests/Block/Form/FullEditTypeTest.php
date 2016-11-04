@@ -3,9 +3,8 @@
 namespace Netgen\BlockManager\Tests\Block\Form;
 
 use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\BlockManager\Parameters\Form\ParametersType;
-use Netgen\BlockManager\Parameters\FormMapper\FormMapper;
-use Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextLineHandler;
+use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
+use Netgen\BlockManager\Parameters\Form\Mapper\TextLineMapper;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Block\Form\FullEditType;
@@ -47,11 +46,11 @@ class FullEditTypeTest extends FormTestCase
      */
     public function getTypes()
     {
-        $formMapper = new FormMapper(
-            array('text_line' => new TextLineHandler())
+        return array(
+            new ParametersType(
+                array('text_line' => new TextLineMapper())
+            ),
         );
-
-        return array(new ParametersType($formMapper));
     }
 
     /**

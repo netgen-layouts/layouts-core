@@ -19,25 +19,23 @@ parameters:
 
     netgen_block_manager.parameters.parameter_filter.html.html_purifier.class: Netgen\BlockManager\Parameters\Filter\Html\HtmlPurifierFilter
 
-    netgen_block_manager.parameters.parameter_handler.text_line.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextLineHandler
-    netgen_block_manager.parameters.parameter_handler.identifier.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\IdentifierHandler
-    netgen_block_manager.parameters.parameter_handler.integer.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\IntegerHandler
-    netgen_block_manager.parameters.parameter_handler.range.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\RangeHandler
-    netgen_block_manager.parameters.parameter_handler.number.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\NumberHandler
-    netgen_block_manager.parameters.parameter_handler.boolean.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\BooleanHandler
-    netgen_block_manager.parameters.parameter_handler.text.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\TextHandler
-    netgen_block_manager.parameters.parameter_handler.html.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\HtmlHandler
-    netgen_block_manager.parameters.parameter_handler.choice.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\ChoiceHandler
-    netgen_block_manager.parameters.parameter_handler.url.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\UrlHandler
-    netgen_block_manager.parameters.parameter_handler.email.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\EmailHandler
-    netgen_block_manager.parameters.parameter_handler.item_link.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\ItemLinkHandler
-    netgen_block_manager.parameters.parameter_handler.link.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\LinkHandler
-    netgen_block_manager.parameters.parameter_handler.compound.boolean.class: Netgen\BlockManager\Parameters\FormMapper\ParameterHandler\Compound\BooleanHandler
+    netgen_block_manager.parameters.form.mapper.text_line.class: Netgen\BlockManager\Parameters\Form\Mapper\TextLineMapper
+    netgen_block_manager.parameters.form.mapper.identifier.class: Netgen\BlockManager\Parameters\Form\Mapper\IdentifierMapper
+    netgen_block_manager.parameters.form.mapper.integer.class: Netgen\BlockManager\Parameters\Form\Mapper\IntegerMapper
+    netgen_block_manager.parameters.form.mapper.range.class: Netgen\BlockManager\Parameters\Form\Mapper\RangeMapper
+    netgen_block_manager.parameters.form.mapper.number.class: Netgen\BlockManager\Parameters\Form\Mapper\NumberMapper
+    netgen_block_manager.parameters.form.mapper.boolean.class: Netgen\BlockManager\Parameters\Form\Mapper\BooleanMapper
+    netgen_block_manager.parameters.form.mapper.text.class: Netgen\BlockManager\Parameters\Form\Mapper\TextMapper
+    netgen_block_manager.parameters.form.mapper.html.class: Netgen\BlockManager\Parameters\Form\Mapper\HtmlMapper
+    netgen_block_manager.parameters.form.mapper.choice.class: Netgen\BlockManager\Parameters\Form\Mapper\ChoiceMapper
+    netgen_block_manager.parameters.form.mapper.url.class: Netgen\BlockManager\Parameters\Form\Mapper\UrlMapper
+    netgen_block_manager.parameters.form.mapper.email.class: Netgen\BlockManager\Parameters\Form\Mapper\EmailMapper
+    netgen_block_manager.parameters.form.mapper.item_link.class: Netgen\BlockManager\Parameters\Form\Mapper\ItemLinkMapper
+    netgen_block_manager.parameters.form.mapper.link.class: Netgen\BlockManager\Parameters\Form\Mapper\LinkMapper
+    netgen_block_manager.parameters.form.mapper.compound.boolean.class: Netgen\BlockManager\Parameters\Form\Mapper\Compound\BooleanMapper
 
-    netgen_block_manager.parameters.form_mapper.class: Netgen\BlockManager\Parameters\FormMapper\FormMapper
-
-    netgen_block_manager.parameters.form.parameters.class: Netgen\BlockManager\Parameters\Form\ParametersType
-    netgen_block_manager.parameters.form.ngbm_compound_boolean.class: Netgen\BlockManager\Parameters\Form\CompoundBooleanType
+    netgen_block_manager.parameters.form.type.parameters.class: Netgen\BlockManager\Parameters\Form\Type\ParametersType
+    netgen_block_manager.parameters.form.type.ngbm_compound_boolean.class: Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType
 
 services:
     netgen_block_manager.parameters.registry.parameter_type:
@@ -121,97 +119,90 @@ services:
         tags:
             - { name: netgen_block_manager.parameters.parameter_type }
 
-    netgen_block_manager.parameters.parameter_handler.text_line:
-        class: "%netgen_block_manager.parameters.parameter_handler.text_line.class%"
+    netgen_block_manager.parameters.form.mapper.text_line:
+        class: "%netgen_block_manager.parameters.form.mapper.text_line.class%"
         tags:
-            - { name: netgen_block_manager.parameters.parameter_handler, type: text_line }
+            - { name: netgen_block_manager.parameters.form.mapper, type: text_line }
 
-    netgen_block_manager.parameters.parameter_handler.identifier:
-        class: "%netgen_block_manager.parameters.parameter_handler.identifier.class%"
+    netgen_block_manager.parameters.form.mapper.identifier:
+        class: "%netgen_block_manager.parameters.form.mapper.identifier.class%"
         tags:
-            - { name: netgen_block_manager.parameters.parameter_handler, type: identifier }
+            - { name: netgen_block_manager.parameters.form.mapper, type: identifier }
 
-    netgen_block_manager.parameters.parameter_handler.integer:
-        class: "%netgen_block_manager.parameters.parameter_handler.integer.class%"
+    netgen_block_manager.parameters.form.mapper.integer:
+        class: "%netgen_block_manager.parameters.form.mapper.integer.class%"
         tags:
-            - { name: netgen_block_manager.parameters.parameter_handler, type: integer }
+            - { name: netgen_block_manager.parameters.form.mapper, type: integer }
 
-    netgen_block_manager.parameters.parameter_handler.range:
-        class: "%netgen_block_manager.parameters.parameter_handler.range.class%"
+    netgen_block_manager.parameters.form.mapper.range:
+        class: "%netgen_block_manager.parameters.form.mapper.range.class%"
         tags:
-            - { name: netgen_block_manager.parameters.parameter_handler, type: range }
+            - { name: netgen_block_manager.parameters.form.mapper, type: range }
 
-    netgen_block_manager.parameters.parameter_handler.number:
-        class: "%netgen_block_manager.parameters.parameter_handler.number.class%"
+    netgen_block_manager.parameters.form.mapper.number:
+        class: "%netgen_block_manager.parameters.form.mapper.number.class%"
         tags:
-            - { name: netgen_block_manager.parameters.parameter_handler, type: number }
+            - { name: netgen_block_manager.parameters.form.mapper, type: number }
 
-    netgen_block_manager.parameters.parameter_handler.boolean:
-        class: "%netgen_block_manager.parameters.parameter_handler.boolean.class%"
+    netgen_block_manager.parameters.form.mapper.boolean:
+        class: "%netgen_block_manager.parameters.form.mapper.boolean.class%"
         tags:
-            - { name: netgen_block_manager.parameters.parameter_handler, type: boolean }
+            - { name: netgen_block_manager.parameters.form.mapper, type: boolean }
 
-    netgen_block_manager.parameters.parameter_handler.text:
-        class: "%netgen_block_manager.parameters.parameter_handler.text.class%"
+    netgen_block_manager.parameters.form.mapper.text:
+        class: "%netgen_block_manager.parameters.form.mapper.text.class%"
         tags:
-            - { name: netgen_block_manager.parameters.parameter_handler, type: text }
+            - { name: netgen_block_manager.parameters.form.mapper, type: text }
 
-    netgen_block_manager.parameters.parameter_handler.html:
-        class: "%netgen_block_manager.parameters.parameter_handler.html.class%"
+    netgen_block_manager.parameters.form.mapper.html:
+        class: "%netgen_block_manager.parameters.form.mapper.html.class%"
         tags:
-            - { name: netgen_block_manager.parameters.parameter_handler, type: html }
+            - { name: netgen_block_manager.parameters.form.mapper, type: html }
 
-    netgen_block_manager.parameters.parameter_handler.choice:
-        class: "%netgen_block_manager.parameters.parameter_handler.choice.class%"
+    netgen_block_manager.parameters.form.mapper.choice:
+        class: "%netgen_block_manager.parameters.form.mapper.choice.class%"
         tags:
-            - { name: netgen_block_manager.parameters.parameter_handler, type: choice }
+            - { name: netgen_block_manager.parameters.form.mapper, type: choice }
 
-    netgen_block_manager.parameters.parameter_handler.url:
-        class: "%netgen_block_manager.parameters.parameter_handler.url.class%"
+    netgen_block_manager.parameters.form.mapper.url:
+        class: "%netgen_block_manager.parameters.form.mapper.url.class%"
         tags:
-            - { name: netgen_block_manager.parameters.parameter_handler, type: url }
+            - { name: netgen_block_manager.parameters.form.mapper, type: url }
 
-    netgen_block_manager.parameters.parameter_handler.email:
-        class: "%netgen_block_manager.parameters.parameter_handler.email.class%"
+    netgen_block_manager.parameters.form.mapper.email:
+        class: "%netgen_block_manager.parameters.form.mapper.email.class%"
         tags:
-            - { name: netgen_block_manager.parameters.parameter_handler, type: email }
+            - { name: netgen_block_manager.parameters.form.mapper, type: email }
 
-    netgen_block_manager.parameters.parameter_handler.item_link:
-        class: "%netgen_block_manager.parameters.parameter_handler.item_link.class%"
+    netgen_block_manager.parameters.form.mapper.item_link:
+        class: "%netgen_block_manager.parameters.form.mapper.item_link.class%"
         arguments:
             - "%netgen_block_manager.item.value_types%"
         tags:
-            - { name: netgen_block_manager.parameters.parameter_handler, type: item_link }
+            - { name: netgen_block_manager.parameters.form.mapper, type: item_link }
 
-    netgen_block_manager.parameters.parameter_handler.link:
-        class: "%netgen_block_manager.parameters.parameter_handler.link.class%"
+    netgen_block_manager.parameters.form.mapper.link:
+        class: "%netgen_block_manager.parameters.form.mapper.link.class%"
         arguments:
             - "@netgen_block_manager.parameters.parameter_type.link"
             - "%netgen_block_manager.item.value_types%"
         tags:
-            - { name: netgen_block_manager.parameters.parameter_handler, type: link }
+            - { name: netgen_block_manager.parameters.form.mapper, type: link }
 
-    netgen_block_manager.parameters.parameter_handler.compound.boolean:
-        class: "%netgen_block_manager.parameters.parameter_handler.compound.boolean.class%"
+    netgen_block_manager.parameters.form.mapper.compound.boolean:
+        class: "%netgen_block_manager.parameters.form.mapper.compound.boolean.class%"
         tags:
-            - { name: netgen_block_manager.parameters.parameter_handler, type: compound_boolean }
+            - { name: netgen_block_manager.parameters.form.mapper, type: compound_boolean }
 
-    netgen_block_manager.parameters.form_mapper:
-        class: "%netgen_block_manager.parameters.form_mapper.class%"
+    netgen_block_manager.parameters.form.type.parameters:
+        class: "%netgen_block_manager.parameters.form.type.parameters.class%"
         arguments:
             - []
-
-    netgen_block_manager.parameters.form.parameters:
-        class: "%netgen_block_manager.parameters.form.parameters.class%"
-        arguments:
-            - "@netgen_block_manager.parameters.form_mapper"
         tags:
             - { name: form.type }
 
-
-    netgen_block_manager.parameters.form.ngbm_compound_boolean:
-        class: "%netgen_block_manager.parameters.form.ngbm_compound_boolean.class%"
-        arguments:
-            - "@netgen_block_manager.parameters.form_mapper"
+    netgen_block_manager.parameters.form.type.ngbm_compound_boolean:
+        class: "%netgen_block_manager.parameters.form.type.ngbm_compound_boolean.class%"
+        parent: netgen_block_manager.parameters.form.type.parameters
         tags:
             - { name: form.type }
