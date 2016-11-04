@@ -38,7 +38,6 @@ class BooleanMapperTest extends TestCase
                 'parameters' => array(),
                 'label_prefix' => 'label',
                 'property_path_prefix' => 'parameters',
-                'checkbox_property_path' => 'parameters[name]',
             ),
             $this->mapper->mapOptions(
                 new Boolean(array(), array('reverse' => true), true),
