@@ -56,7 +56,7 @@ class ParametersTypeTest extends FormTestCase
                     'css_id' => new TextLine(),
                 ),
                 'label_prefix' => 'label',
-                'property_path_prefix' => 'parameters',
+                'property_path' => 'parameters',
             )
         );
 
@@ -97,7 +97,6 @@ class ParametersTypeTest extends FormTestCase
         $options = array(
             'parameters' => array(),
             'label_prefix' => 'label',
-            'property_path_prefix' => 'parameters',
         );
 
         $resolvedOptions = $optionsResolver->resolve($options);
@@ -106,7 +105,6 @@ class ParametersTypeTest extends FormTestCase
             array(
                 'parameters' => array(),
                 'label_prefix' => 'label',
-                'property_path_prefix' => 'parameters',
                 'inherit_data' => true,
                 'translation_domain' => ParametersType::TRANSLATION_DOMAIN,
             ),
@@ -141,26 +139,6 @@ class ParametersTypeTest extends FormTestCase
             array(
                 'parameters' => null,
                 'label_prefix' => 'label',
-                'property_path_prefix' => 'parameters',
-            )
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Parameters\Form\ParametersType::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     */
-    public function testConfigureOptionsWithInvalidOptions()
-    {
-        $optionsResolver = new OptionsResolver();
-
-        $this->formType->configureOptions($optionsResolver);
-
-        $optionsResolver->resolve(
-            array(
-                'parameters' => array(),
-                'label_prefix' => 'label',
-                'property_path_prefix' => null,
             )
         );
     }

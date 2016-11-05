@@ -34,19 +34,13 @@ class BooleanMapperTest extends TestCase
     {
         $this->assertEquals(
             array(
-                'label' => false,
+                'mapped' => false,
                 'reverse' => true,
-                'parameters' => array(),
-                'label_prefix' => 'label',
-                'property_path_prefix' => 'parameters',
             ),
             $this->mapper->mapOptions(
                 new Boolean(array(), array('reverse' => true), true),
                 'name',
-                array(
-                    'label_prefix' => 'label',
-                    'property_path_prefix' => 'parameters',
-                )
+                array()
             )
         );
     }

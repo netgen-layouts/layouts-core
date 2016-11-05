@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Parameters\Form\Type;
 
 use Netgen\BlockManager\Form\AbstractType;
+use Netgen\BlockManager\Parameters\CompoundParameterInterface;
 use Netgen\BlockManager\Parameters\Registry\FormMapperRegistryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -37,13 +38,11 @@ class ParametersType extends AbstractType
             array(
                 'parameters',
                 'label_prefix',
-                'property_path_prefix',
             )
         );
 
         $resolver->setAllowedTypes('parameters', 'array');
         $resolver->setAllowedTypes('label_prefix', 'string');
-        $resolver->setAllowedTypes('property_path_prefix', 'string');
 
         $resolver->setDefault('inherit_data', true);
     }
@@ -63,9 +62,8 @@ class ParametersType extends AbstractType
             $mapper = $this->formMapperRegistry->getFormMapper($parameter->getType());
 
             $defaultOptions = array(
-                'required' => $parameter->isRequired(),
                 'label' => $options['label_prefix'] . '.' . $parameterName,
-                'property_path' => $options['property_path_prefix'] . '[' . $parameterName . ']',
+                'property_path' => $options['property_path'] . '[' . $parameterName . ']',
             );
 
             $parameterForm = $builder->create(
@@ -79,6 +77,15 @@ class ParametersType extends AbstractType
             );
 
             $mapper->handleForm($parameter, $parameterForm);
+
+            if ($parameter instanceof CompoundParameterInterface) {
+                $this->buildForm(
+                    $parameterForm,
+                    array(
+                        'parameters' => $parameter->getParameters(),
+                    ) + $options
+                );
+            }
 
             $builder->add($parameterForm);
         }

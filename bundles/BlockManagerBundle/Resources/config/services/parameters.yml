@@ -204,9 +204,3 @@ services:
             - "@netgen_block_manager.parameters.registry.form_mapper"
         tags:
             - { name: form.type }
-
-    netgen_block_manager.parameters.form.type.ngbm_compound_boolean:
-        class: "%netgen_block_manager.parameters.form.type.ngbm_compound_boolean.class%"
-        parent: netgen_block_manager.parameters.form.type.parameters
-        tags:
-            - { name: form.type }

@@ -4,11 +4,9 @@ namespace Netgen\BlockManager\Tests\Parameters\Form\Type;
 
 use Netgen\BlockManager\API\Values\ParameterStruct;
 use Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType;
-use Netgen\BlockManager\Parameters\Parameter\TextLine;
-use Netgen\BlockManager\Parameters\Form\Mapper\TextLineMapper;
-use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CompoundBooleanTypeTest extends FormTestCase
@@ -18,10 +16,7 @@ class CompoundBooleanTypeTest extends FormTestCase
      */
     public function getMainType()
     {
-        $formMapperRegistry = new FormMapperRegistry();
-        $formMapperRegistry->addFormMapper('text_line', new TextLineMapper());
-
-        return new CompoundBooleanType($formMapperRegistry);
+        return new CompoundBooleanType();
     }
 
     /**
@@ -53,12 +48,23 @@ class CompoundBooleanTypeTest extends FormTestCase
             'main_checkbox',
             CompoundBooleanType::class,
             array(
-                'parameters' => array(
-                    'css_class' => new TextLine(),
-                    'css_id' => new TextLine(),
-                ),
-                'label_prefix' => 'label',
-                'property_path_prefix' => 'parameters',
+                'property_path' => 'parameters[main_checkbox]',
+            )
+        );
+
+        $parentForm->get('main_checkbox')->add(
+            'css_class',
+            TextType::class,
+            array(
+                'property_path' => 'parameters[css_class]',
+            )
+        );
+
+        $parentForm->get('main_checkbox')->add(
+            'css_id',
+            TextType::class,
+            array(
+                'property_path' => 'parameters[css_id]',
             )
         );
 
@@ -103,12 +109,23 @@ class CompoundBooleanTypeTest extends FormTestCase
             'main_checkbox',
             CompoundBooleanType::class,
             array(
-                'parameters' => array(
-                    'css_class' => new TextLine(),
-                    'css_id' => new TextLine(),
-                ),
-                'label_prefix' => 'label',
-                'property_path_prefix' => 'parameters',
+                'property_path' => 'parameters[main_checkbox]',
+            )
+        );
+
+        $parentForm->get('main_checkbox')->add(
+            'css_class',
+            TextType::class,
+            array(
+                'property_path' => 'parameters[css_class]',
+            )
+        );
+
+        $parentForm->get('main_checkbox')->add(
+            'css_id',
+            TextType::class,
+            array(
+                'property_path' => 'parameters[css_id]',
             )
         );
 
@@ -150,12 +167,23 @@ class CompoundBooleanTypeTest extends FormTestCase
             'main_checkbox',
             CompoundBooleanType::class,
             array(
-                'parameters' => array(
-                    'css_class' => new TextLine(),
-                    'css_id' => new TextLine(),
-                ),
-                'label_prefix' => 'label',
-                'property_path_prefix' => 'parameters',
+                'property_path' => 'parameters[main_checkbox]',
+            )
+        );
+
+        $parentForm->get('main_checkbox')->add(
+            'css_class',
+            TextType::class,
+            array(
+                'property_path' => 'parameters[css_class]',
+            )
+        );
+
+        $parentForm->get('main_checkbox')->add(
+            'css_id',
+            TextType::class,
+            array(
+                'property_path' => 'parameters[css_id]',
             )
         );
 
@@ -201,13 +229,24 @@ class CompoundBooleanTypeTest extends FormTestCase
             'main_checkbox',
             CompoundBooleanType::class,
             array(
-                'parameters' => array(
-                    'css_class' => new TextLine(),
-                    'css_id' => new TextLine(),
-                ),
-                'label_prefix' => 'label',
-                'property_path_prefix' => 'parameters',
+                'property_path' => 'parameters[main_checkbox]',
                 'reverse' => true,
+            )
+        );
+
+        $parentForm->get('main_checkbox')->add(
+            'css_class',
+            TextType::class,
+            array(
+                'property_path' => 'parameters[css_class]',
+            )
+        );
+
+        $parentForm->get('main_checkbox')->add(
+            'css_id',
+            TextType::class,
+            array(
+                'property_path' => 'parameters[css_id]',
             )
         );
 
@@ -254,13 +293,24 @@ class CompoundBooleanTypeTest extends FormTestCase
             'main_checkbox',
             CompoundBooleanType::class,
             array(
-                'parameters' => array(
-                    'css_class' => new TextLine(),
-                    'css_id' => new TextLine(),
-                ),
-                'label_prefix' => 'label',
-                'property_path_prefix' => 'parameters',
+                'property_path' => 'parameters[main_checkbox]',
                 'reverse' => true,
+            )
+        );
+
+        $parentForm->get('main_checkbox')->add(
+            'css_class',
+            TextType::class,
+            array(
+                'property_path' => 'parameters[css_class]',
+            )
+        );
+
+        $parentForm->get('main_checkbox')->add(
+            'css_id',
+            TextType::class,
+            array(
+                'property_path' => 'parameters[css_id]',
             )
         );
 
@@ -289,70 +339,13 @@ class CompoundBooleanTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $options = array(
-            'parameters' => array(),
-            'label_prefix' => 'label',
-            'property_path_prefix' => 'parameters',
             'reverse' => true,
         );
 
         $resolvedOptions = $optionsResolver->resolve($options);
 
         $this->assertTrue($resolvedOptions['inherit_data']);
-        $this->assertEquals(array(), $resolvedOptions['parameters']);
-        $this->assertEquals('label', $resolvedOptions['label_prefix']);
-        $this->assertEquals('parameters', $resolvedOptions['property_path_prefix']);
         $this->assertTrue($resolvedOptions['reverse']);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Parameters\Form\CompoundBooleanType::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
-     */
-    public function testConfigureOptionsWithMissingParameters()
-    {
-        $optionsResolver = new OptionsResolver();
-
-        $this->formType->configureOptions($optionsResolver);
-
-        $optionsResolver->resolve();
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Parameters\Form\CompoundBooleanType::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     */
-    public function testConfigureOptionsWithInvalidParameters()
-    {
-        $optionsResolver = new OptionsResolver();
-
-        $this->formType->configureOptions($optionsResolver);
-
-        $optionsResolver->resolve(
-            array(
-                'parameters' => null,
-                'label_prefix' => 'label',
-                'property_path_prefix' => 'parameters',
-            )
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Parameters\Form\CompoundBooleanType::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     */
-    public function testConfigureOptionsWithInvalidOptions()
-    {
-        $optionsResolver = new OptionsResolver();
-
-        $this->formType->configureOptions($optionsResolver);
-
-        $optionsResolver->resolve(
-            array(
-                'parameters' => array(),
-                'label_prefix' => 'label',
-                'property_path_prefix' => null,
-            )
-        );
     }
 
     /**

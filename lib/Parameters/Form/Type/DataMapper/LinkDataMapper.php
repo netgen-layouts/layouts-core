@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Parameters\Form\Type\DataMapper;
 
 use Netgen\BlockManager\Parameters\ParameterTypeInterface;
+use Netgen\BlockManager\Parameters\Value\LinkValue;
 use Symfony\Component\Form\DataMapperInterface;
 
 class LinkDataMapper implements DataMapperInterface
@@ -32,7 +33,10 @@ class LinkDataMapper implements DataMapperInterface
      */
     public function mapDataToForms($data, $forms)
     {
-        /** @var \Netgen\BlockManager\Parameters\Value\Link $data */
+        if (!$data instanceof LinkValue) {
+            return;
+        }
+
         $forms = iterator_to_array($forms);
 
         $forms['link_type']->setData($data->getLinkType());

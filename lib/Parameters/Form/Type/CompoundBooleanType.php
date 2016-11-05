@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Parameters\Form\Type;
 
+use Netgen\BlockManager\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -10,7 +11,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class CompoundBooleanType extends ParametersType
+class CompoundBooleanType extends AbstractType
 {
     /**
      * Configures the options for this type.
@@ -30,6 +31,7 @@ class CompoundBooleanType extends ParametersType
         $resolver->setAllowedTypes('reverse', 'bool');
 
         $resolver->setDefault('reverse', false);
+        $resolver->setDefault('inherit_data', true);
     }
 
     /**
@@ -71,12 +73,10 @@ class CompoundBooleanType extends ParametersType
             CheckboxType::class,
             array(
                 'required' => $builder->getRequired(),
-                'label' => $options['label_prefix'] . '.' . $builder->getName(),
-                'property_path' => $options['property_path_prefix'] . '[' . $builder->getName() . ']',
+                'label' => $builder->getOptions()['label'],
+                'property_path' => $builder->getPropertyPath(),
             )
         );
-
-        parent::buildForm($builder, $options);
     }
 
     /**

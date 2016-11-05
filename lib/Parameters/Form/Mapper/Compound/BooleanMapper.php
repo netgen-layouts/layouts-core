@@ -30,12 +30,9 @@ class BooleanMapper extends Mapper
     public function mapOptions(ParameterInterface $parameter, $parameterName, array $formOptions)
     {
         return array(
-            'label' => false,
-            'label_prefix' => $formOptions['label_prefix'],
-            'property_path_prefix' => $formOptions['property_path_prefix'],
+            'mapped' => false,
 
             'reverse' => $parameter->getOptions()['reverse'],
-            'parameters' => $parameter->getParameters(),
         );
     }
 }
