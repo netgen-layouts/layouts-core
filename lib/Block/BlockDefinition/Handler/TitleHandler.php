@@ -42,11 +42,15 @@ class TitleHandler extends BlockDefinitionHandler
                 true
             ),
             'title' => new Parameter\TextLine(array(), true),
-            'link' => new Parameter\Link(
+            'use_link' => new Parameter\Compound\Boolean(
                 array(
-                    'value_types' => $this->linkValueTypes,
+                    'link' => new Parameter\Link(
+                        array(
+                            'value_types' => $this->linkValueTypes,
+                        )
+                    ),
                 )
-            ),
+            )
         ) + $this->getCommonParameters();
     }
 }

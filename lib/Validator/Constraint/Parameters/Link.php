@@ -7,6 +7,11 @@ use Symfony\Component\Validator\Constraint;
 class Link extends Constraint
 {
     /**
+     * @var bool
+     */
+    public $required = false;
+
+    /**
      * @var array
      */
     public $valueTypes = array();

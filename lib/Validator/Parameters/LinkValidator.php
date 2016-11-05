@@ -55,11 +55,12 @@ class LinkValidator extends ConstraintValidator
             );
         }
 
-        $linkConstraints = array(
-            $linkType !== null ?
-                new Constraints\NotBlank() :
-                new Constraints\IsNull(),
-        );
+        $linkConstraints = array();
+        if ($linkType === null) {
+            $linkConstraints[] = new Constraints\IsNull();
+        } elseif ($constraint->required) {
+            $linkConstraints[] = new Constraints\NotBlank();
+        }
 
         if ($linkType !== null) {
             if ($linkType === LinkValue::LINK_TYPE_URL) {

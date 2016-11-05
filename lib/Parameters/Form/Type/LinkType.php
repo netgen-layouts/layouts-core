@@ -51,7 +51,6 @@ class LinkType extends AbstractType
                         'forms.uri.link_type.internal' => LinkValue::LINK_TYPE_INTERNAL,
                     ),
                 'choices_as_values' => true,
-                'placeholder' => $options['required'] ? false : 'forms.uri.link_type.none',
                 'required' => true,
                 'property_path' => 'linkType',
             )

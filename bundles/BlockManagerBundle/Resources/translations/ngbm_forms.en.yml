@@ -12,6 +12,8 @@ block.name: 'Block label'
 
 block.title.tag: 'Heading level'
 block.title.title: 'Title'
+block.title.use_link: 'Use link'
+block.title.link: 'Link'
 block.title.css_class: 'CSS class'
 block.title.css_id: 'CSS ID'
 block.title.set_container: 'Wrap in container'

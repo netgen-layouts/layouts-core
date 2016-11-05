@@ -6,7 +6,7 @@
 
 {% block content %}
     <{{ tag }} class="title">
-        {% if not link.empty %}
+        {% if block.parameter('use_link').value and not link.empty %}
             {{ ngbm_render_parameter(link, {content: title}) }}
         {% else %}
             {{ title }}
