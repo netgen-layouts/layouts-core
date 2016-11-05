@@ -7,9 +7,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use Netgen\BlockManager\Exception\RuntimeException;
 
-class ParametersTypePass implements CompilerPassInterface
+class FormMapperRegistryPass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_block_manager.parameters.form.type.parameters';
+    const SERVICE_NAME = 'netgen_block_manager.parameters.registry.form_mapper';
     const TAG_NAME = 'netgen_block_manager.parameters.form.mapper';
 
     /**
@@ -23,8 +23,7 @@ class ParametersTypePass implements CompilerPassInterface
             return;
         }
 
-        $parametersForm = $container->findDefinition(self::SERVICE_NAME);
-        $formMappers = array();
+        $registry = $container->findDefinition(self::SERVICE_NAME);
 
         foreach ($container->findTaggedServiceIds(self::TAG_NAME) as $formMapper => $tag) {
             if (!isset($tag[0]['type'])) {
@@ -33,12 +32,13 @@ class ParametersTypePass implements CompilerPassInterface
                 );
             }
 
-            $formMappers[$tag[0]['type']] = new Reference($formMapper);
+            $registry->addMethodCall(
+                'addFormMapper',
+                array(
+                    $tag[0]['type'],
+                    new Reference($formMapper),
+                )
+            );
         }
-
-        $parametersForm->replaceArgument(
-            0,
-            $formMappers
-        );
     }
 }

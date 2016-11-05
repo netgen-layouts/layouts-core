@@ -6,11 +6,11 @@ use Netgen\BlockManager\API\Values\ParameterStruct;
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
 use Netgen\BlockManager\Parameters\Form\Mapper\TextLineMapper;
 use Netgen\BlockManager\Parameters\Parameter\TextLine;
+use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use DateTime;
 
 class ParametersTypeTest extends FormTestCase
 {
@@ -19,20 +19,10 @@ class ParametersTypeTest extends FormTestCase
      */
     public function getMainType()
     {
-        return new ParametersType(
-            array(
-                'text_line' => new TextLineMapper(),
-            )
-        );
-    }
+        $formMapperRegistry = new FormMapperRegistry();
+        $formMapperRegistry->addFormMapper('text_line', new TextLineMapper());
 
-    /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::__construct
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     */
-    public function testConstructorThrowsRuntimeExceptionWithNoParameterMapperInterface()
-    {
-        new ParametersType(array($this->createMock(DateTime::class)));
+        return new ParametersType($formMapperRegistry);
     }
 
     /**

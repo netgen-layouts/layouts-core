@@ -3,12 +3,12 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\CompilerPass\Parameters;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
-use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Parameters\ParametersTypePass;
+use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Parameters\FormMapperRegistryPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
-class ParametersTypePassTest extends AbstractCompilerPassTestCase
+class FormMapperRegistryPassTest extends AbstractCompilerPassTestCase
 {
     /**
      * Register the compiler pass under test.
@@ -17,7 +17,7 @@ class ParametersTypePassTest extends AbstractCompilerPassTestCase
      */
     protected function registerCompilerPass(ContainerBuilder $container)
     {
-        $container->addCompilerPass(new ParametersTypePass());
+        $container->addCompilerPass(new FormMapperRegistryPass());
     }
 
     /**
@@ -25,10 +25,7 @@ class ParametersTypePassTest extends AbstractCompilerPassTestCase
      */
     public function testProcess()
     {
-        $parametersForm = new Definition();
-        $parametersForm->setArguments(array(null));
-
-        $this->setDefinition('netgen_block_manager.parameters.form.type.parameters', $parametersForm);
+        $this->setDefinition('netgen_block_manager.parameters.registry.form_mapper', new Definition());
 
         $formMapper = new Definition();
         $formMapper->addTag(
@@ -40,11 +37,12 @@ class ParametersTypePassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'netgen_block_manager.parameters.form.type.parameters',
-            0,
+        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+            'netgen_block_manager.parameters.registry.form_mapper',
+            'addFormMapper',
             array(
-                'test' => new Reference('netgen_block_manager.parameters.form.mapper.test'),
+                'test',
+                new Reference('netgen_block_manager.parameters.form.mapper.test'),
             )
         );
     }
@@ -55,10 +53,7 @@ class ParametersTypePassTest extends AbstractCompilerPassTestCase
      */
     public function testProcessThrowsRuntimeExceptionWithNoTagType()
     {
-        $parametersForm = new Definition();
-        $parametersForm->setArguments(array(null, null));
-
-        $this->setDefinition('netgen_block_manager.parameters.form.type.parameters', $parametersForm);
+        $this->setDefinition('netgen_block_manager.parameters.registry.form_mapper', new Definition());
 
         $formMapper = new Definition();
         $formMapper->addTag('netgen_block_manager.parameters.form.mapper');

@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Collection\Query\Form;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
 use Netgen\BlockManager\Parameters\Form\Mapper;
+use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\API\Values\QueryUpdateStruct;
 use Netgen\BlockManager\Collection\Query\Form\FullEditType;
@@ -43,14 +44,11 @@ class FullEditTypeTest extends FormTestCase
      */
     public function getTypes()
     {
-        return array(
-            new ParametersType(
-                array(
-                    'text_line' => new Mapper\TextLineMapper(),
-                    'integer' => new Mapper\IntegerMapper(),
-                )
-            ),
-        );
+        $formMapperRegistry = new FormMapperRegistry();
+        $formMapperRegistry->addFormMapper('text_line', new Mapper\TextLineMapper());
+        $formMapperRegistry->addFormMapper('integer', new Mapper\IntegerMapper());
+
+        return array(new ParametersType($formMapperRegistry));
     }
 
     /**

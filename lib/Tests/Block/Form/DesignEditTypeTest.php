@@ -12,6 +12,7 @@ use Netgen\BlockManager\Parameters\Form\Mapper\TextLineMapper;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Block\Form\DesignEditType;
+use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -76,11 +77,10 @@ class DesignEditTypeTest extends FormTestCase
      */
     public function getTypes()
     {
-        return array(
-            new ParametersType(
-                array('text_line' => new TextLineMapper())
-            ),
-        );
+        $formMapperRegistry = new FormMapperRegistry();
+        $formMapperRegistry->addFormMapper('text_line', new TextLineMapper());
+
+        return array(new ParametersType($formMapperRegistry));
     }
 
     /**

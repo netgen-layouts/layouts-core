@@ -2,38 +2,26 @@
 
 namespace Netgen\BlockManager\Parameters\Form\Type;
 
-use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Form\AbstractType;
-use Netgen\BlockManager\Parameters\Form\MapperInterface;
+use Netgen\BlockManager\Parameters\Registry\FormMapperRegistryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class ParametersType extends AbstractType
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\Form\MapperInterface[]
+     * @var \Netgen\BlockManager\Parameters\Registry\FormMapperRegistryInterface
      */
-    protected $mappers = array();
+    protected $formMapperRegistry;
 
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Parameters\Form\MapperInterface[] $mappers
+     * @param \Netgen\BlockManager\Parameters\Registry\FormMapperRegistryInterface $formMapperRegistry
      */
-    public function __construct(array $mappers = array())
+    public function __construct(FormMapperRegistryInterface $formMapperRegistry)
     {
-        foreach ($mappers as $mapper) {
-            if (!$mapper instanceof MapperInterface) {
-                throw new RuntimeException(
-                    sprintf(
-                        'Parameter form mapper "%s" needs to implement MapperInterface.',
-                        get_class($mapper)
-                    )
-                );
-            }
-        }
-
-        $this->mappers = $mappers;
+        $this->formMapperRegistry = $formMapperRegistry;
     }
 
     /**
@@ -72,18 +60,7 @@ class ParametersType extends AbstractType
         $parameters = $options['parameters'];
 
         foreach ($parameters as $parameterName => $parameter) {
-            $parameterType = $parameter->getType();
-
-            if (!isset($this->mappers[$parameterType])) {
-                throw new RuntimeException(
-                    sprintf(
-                        'No parameter form mapper found for "%s" parameter type.',
-                        $parameterType
-                    )
-                );
-            }
-
-            $mapper = $this->mappers[$parameterType];
+            $mapper = $this->formMapperRegistry->getFormMapper($parameter->getType());
 
             $defaultOptions = array(
                 'required' => $parameter->isRequired(),

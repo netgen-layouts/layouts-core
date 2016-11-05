@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Values\ParameterStruct;
 use Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType;
 use Netgen\BlockManager\Parameters\Parameter\TextLine;
 use Netgen\BlockManager\Parameters\Form\Mapper\TextLineMapper;
+use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,11 +18,10 @@ class CompoundBooleanTypeTest extends FormTestCase
      */
     public function getMainType()
     {
-        return new CompoundBooleanType(
-            array(
-                'text_line' => new TextLineMapper(),
-            )
-        );
+        $formMapperRegistry = new FormMapperRegistry();
+        $formMapperRegistry->addFormMapper('text_line', new TextLineMapper());
+
+        return new CompoundBooleanType($formMapperRegistry);
     }
 
     /**

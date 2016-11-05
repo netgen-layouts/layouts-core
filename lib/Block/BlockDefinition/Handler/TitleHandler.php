@@ -50,7 +50,7 @@ class TitleHandler extends BlockDefinitionHandler
                         )
                     ),
                 )
-            )
+            ),
         ) + $this->getCommonParameters();
     }
 }
