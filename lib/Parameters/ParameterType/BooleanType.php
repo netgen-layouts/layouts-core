@@ -28,7 +28,7 @@ class BooleanType extends ParameterType
     public function configureOptions(OptionsResolver $optionsResolver)
     {
         $optionsResolver->setDefault('default_value', function (Options $options, $previousValue) {
-            if ($options['required'] && $previousValue === null) {
+            if ($options['required']) {
                 return false;
             }
 

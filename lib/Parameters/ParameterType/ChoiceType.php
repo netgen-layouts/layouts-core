@@ -44,7 +44,7 @@ class ChoiceType extends ParameterType
         );
 
         $optionsResolver->setDefault('default_value', function (Options $options, $previousValue) {
-            if ($options['required'] && $previousValue === null) {
+            if ($options['required']) {
                 if (!is_callable($options['options']) && !empty($options['options'])) {
                     return array_values($options['options'])[0];
                 }
