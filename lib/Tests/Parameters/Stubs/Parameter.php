@@ -34,7 +34,8 @@ class Parameter extends BaseParameter
      * @param array $groups
      */
     public function __construct(
-        $name, ParameterTypeInterface $type,
+        $name,
+        ParameterTypeInterface $type,
         array $options = array(),
         $isRequired = false,
         $defaultValue = null,
