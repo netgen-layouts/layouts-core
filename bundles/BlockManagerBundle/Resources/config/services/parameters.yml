@@ -38,7 +38,6 @@ parameters:
     netgen_block_manager.parameters.form.mapper.compound.boolean.class: Netgen\BlockManager\Parameters\Form\Mapper\Compound\BooleanMapper
 
     netgen_block_manager.parameters.form.type.parameters.class: Netgen\BlockManager\Parameters\Form\Type\ParametersType
-    netgen_block_manager.parameters.form.type.ngbm_compound_boolean.class: Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType
 
 services:
     netgen_block_manager.parameters.registry.parameter_type:
