@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Serializer\V1\ConfigurationNormalizer;
 
-use Netgen\BlockManager\Configuration\Source\Query;
+use Netgen\BlockManager\Configuration\Factory\SourceFactory;
 use Netgen\BlockManager\Configuration\Source\Source;
 use Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\SourceNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
@@ -36,26 +36,28 @@ class SourceNormalizerTest extends TestCase
      */
     public function testNormalize()
     {
-        $source = new Source(
+        $source = SourceFactory::buildSource(
             'identifier',
-            'Source',
             array(
-                new Query('identifier', new QueryType('ezcontent'), array('param' => 'value')),
-                new Query('identifier2', new QueryType('ezcontent'), array('param2' => 'value2')),
+                'name' => 'Source',
+                'queries' => array(
+                    'identifier' => array(
+                        'default_parameters' => array('param' => 'value'),
+                    ),
+                    'identifier2' => array(
+                        'default_parameters' => array('param2' => 'value2'),
+                    ),
+                ),
+            ),
+            array(
+                'identifier' => new QueryType('ezcontent'),
+                'identifier2' => new QueryType('ezcontent'),
             )
         );
 
         $this->serializerMock
             ->expects($this->at(0))
             ->method('normalize')
-            ->with(
-                $this->equalTo(
-                    array(
-                        new VersionedValue(new Query('identifier', new QueryType('ezcontent'), array('param' => 'value')), 1),
-                        new VersionedValue(new Query('identifier2', new QueryType('ezcontent'), array('param2' => 'value2')), 1),
-                    )
-                )
-            )
             ->will($this->returnValue(array('queries')));
 
         $this->assertEquals(
@@ -96,10 +98,10 @@ class SourceNormalizerTest extends TestCase
             array(42, false),
             array(42.12, false),
             array(new Value(), false),
-            array(new Source('identifier', 'name', array()), false),
+            array(new Source(), false),
             array(new VersionedValue(new Value(), 1), false),
-            array(new VersionedValue(new Source('identifier', 'name', array()), 2), false),
-            array(new VersionedValue(new Source('identifier', 'name', array()), 1), true),
+            array(new VersionedValue(new Source(), 2), false),
+            array(new VersionedValue(new Source(), 1), true),
         );
     }
 }

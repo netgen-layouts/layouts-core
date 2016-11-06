@@ -41,21 +41,27 @@ class SourceFactoryTest extends TestCase
 
         $this->assertEquals(
             new Source(
-                'dynamic',
-                'Dynamic source',
                 array(
-                    'default' => new Query(
-                        'default',
-                        new QueryType('ezcontent_search'),
-                        array(
-                            'parent_location_id' => 2,
-                            'content_types' => array('news', 'article'),
-                        )
-                    ),
-                    'other' => new Query(
-                        'other',
-                        new QueryType('other_type'),
-                        array()
+                    'identifier' => 'dynamic',
+                    'name' => 'Dynamic source',
+                    'queries' => array(
+                        'default' => new Query(
+                            array(
+                                'identifier' => 'default',
+                                'queryType' => new QueryType('ezcontent_search'),
+                                'defaultParameters' => array(
+                                    'parent_location_id' => 2,
+                                    'content_types' => array('news', 'article'),
+                                ),
+                            )
+                        ),
+                        'other' => new Query(
+                            array(
+                                'identifier' => 'other',
+                                'queryType' => new QueryType('other_type'),
+                                'defaultParameters' => array(),
+                            )
+                        ),
                     ),
                 )
             ),

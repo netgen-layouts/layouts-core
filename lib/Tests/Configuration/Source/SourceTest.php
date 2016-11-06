@@ -10,20 +10,31 @@ use PHPUnit\Framework\TestCase;
 class SourceTest extends TestCase
 {
     /**
+     * @var \Netgen\BlockManager\Configuration\Source\Query
+     */
+    protected $query;
+
+    /**
      * @var \Netgen\BlockManager\Configuration\Source\Source
      */
     protected $source;
 
     public function setUp()
     {
-        $this->source = new Source(
-            'source',
-            'Source',
+        $this->query = new Query(
             array(
-                'default' => new Query(
-                    'default',
-                    new QueryType('ezcontent_search'),
-                    array('parent_location_id' => 2)
+                'identifier' => 'default',
+                'queryType' => new QueryType('ezcontent_search'),
+                'defaultParameters' => array('parent_location_id' => 2),
+            )
+        );
+
+        $this->source = new Source(
+            array(
+                'identifier' => 'source',
+                'name' => 'Source',
+                'queries' => array(
+                    'default' => $this->query,
                 ),
             )
         );
@@ -53,11 +64,7 @@ class SourceTest extends TestCase
     {
         $this->assertEquals(
             array(
-                'default' => new Query(
-                    'default',
-                    new QueryType('ezcontent_search'),
-                    array('parent_location_id' => 2)
-                ),
+                'default' => $this->query,
             ),
             $this->source->getQueries()
         );
@@ -84,14 +91,7 @@ class SourceTest extends TestCase
      */
     public function testGetQuery()
     {
-        $this->assertEquals(
-            new Query(
-                'default',
-                new QueryType('ezcontent_search'),
-                array('parent_location_id' => 2)
-            ),
-            $this->source->getQuery('default')
-        );
+        $this->assertEquals($this->query, $this->source->getQuery('default'));
     }
 
     /**

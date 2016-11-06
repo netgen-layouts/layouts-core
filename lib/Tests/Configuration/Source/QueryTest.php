@@ -15,7 +15,13 @@ class QueryTest extends TestCase
 
     public function setUp()
     {
-        $this->query = new Query('default', new QueryType('ezcontent_search'), array('parent_location_id' => 2));
+        $this->query = new Query(
+            array(
+                'identifier' => 'default',
+                'queryType' => new QueryType('ezcontent_search'),
+                'defaultParameters' => array('parent_location_id' => 2),
+            )
+        );
     }
 
     /**

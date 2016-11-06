@@ -22,12 +22,20 @@ class SourceFactory
 
         foreach ($config['queries'] as $queryIdentifier => $queryConfig) {
             $queries[$queryIdentifier] = new Query(
-                $queryIdentifier,
-                $queryTypes[$queryIdentifier],
-                $queryConfig['default_parameters']
+                array(
+                    'identifier' => $queryIdentifier,
+                    'queryType' => $queryTypes[$queryIdentifier],
+                    'defaultParameters' => $queryConfig['default_parameters'],
+                )
             );
         }
 
-        return new Source($identifier, $config['name'], $queries);
+        return new Source(
+            array(
+                'identifier' => $identifier,
+                'name' => $config['name'],
+                'queries' => $queries,
+            )
+        );
     }
 }

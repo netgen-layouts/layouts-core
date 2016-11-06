@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Configuration\Source;
 
-use Netgen\BlockManager\Collection\QueryTypeInterface;
+use Netgen\BlockManager\ValueObject;
 
-class Query
+class Query extends ValueObject
 {
     /**
      * @var string
@@ -20,20 +20,6 @@ class Query
      * @var array
      */
     protected $defaultParameters = array();
-
-    /**
-     * Constructor.
-     *
-     * @param string $identifier
-     * @param \Netgen\BlockManager\Collection\QueryTypeInterface $queryType
-     * @param array $defaultParameters
-     */
-    public function __construct($identifier, QueryTypeInterface $queryType, array $defaultParameters)
-    {
-        $this->identifier = $identifier;
-        $this->queryType = $queryType;
-        $this->defaultParameters = $defaultParameters;
-    }
 
     /**
      * Returns the query identifier.

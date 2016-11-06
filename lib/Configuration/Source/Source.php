@@ -3,8 +3,9 @@
 namespace Netgen\BlockManager\Configuration\Source;
 
 use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\ValueObject;
 
-class Source
+class Source extends ValueObject
 {
     /**
      * @var string
@@ -20,20 +21,6 @@ class Source
      * @var \Netgen\BlockManager\Configuration\Source\Query[]
      */
     protected $queries = array();
-
-    /**
-     * Constructor.
-     *
-     * @param string $identifier
-     * @param string $name
-     * @param \Netgen\BlockManager\Configuration\Source\Query[] $queries
-     */
-    public function __construct($identifier, $name, array $queries)
-    {
-        $this->identifier = $identifier;
-        $this->name = $name;
-        $this->queries = $queries;
-    }
 
     /**
      * Returns the source identifier.

@@ -27,9 +27,11 @@ class SourceQueryNormalizerTest extends TestCase
     public function testNormalize()
     {
         $sourceQuery = new Query(
-            'identifier',
-            new QueryType('type'),
-            array('param' => 'value')
+            array(
+                'identifier' => 'identifier',
+                'queryType' => new QueryType('type'),
+                'defaultParameters' => array('param' => 'value'),
+            )
         );
 
         $this->assertEquals(
@@ -70,10 +72,10 @@ class SourceQueryNormalizerTest extends TestCase
             array(42, false),
             array(42.12, false),
             array(new Value(), false),
-            array(new Query('identifier', new QueryType('type'), array()), false),
+            array(new Query(), false),
             array(new VersionedValue(new Value(), 1), false),
-            array(new VersionedValue(new Query('identifier', new QueryType('type'), array()), 2), false),
-            array(new VersionedValue(new Query('identifier', new QueryType('type'), array()), 1), true),
+            array(new VersionedValue(new Query(), 2), false),
+            array(new VersionedValue(new Query(), 1), true),
         );
     }
 }

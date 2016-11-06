@@ -22,11 +22,7 @@ class SourceRegistryTest extends TestCase
     {
         $this->registry = new SourceRegistry();
 
-        $this->source = new Source(
-            'source',
-            'Source',
-            array()
-        );
+        $this->source = new Source(array('identifier' => 'source'));
 
         $this->registry->addSource($this->source);
     }
