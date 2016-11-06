@@ -46,7 +46,7 @@ abstract class ParameterStruct extends ValueObject
     }
 
     /**
-     * Returns the parameter with provided identifier.
+     * Returns the parameter with provided name.
      *
      * @param string $parameterName
      *
@@ -70,7 +70,7 @@ abstract class ParameterStruct extends ValueObject
     }
 
     /**
-     * Returns if the struct has a parameter with provided identifier.
+     * Returns if the struct has a parameter with provided name.
      *
      * @param string $parameterName
      *

@@ -2,9 +2,10 @@
 
 namespace Netgen\BlockManager\API\Values\Collection;
 
+use Netgen\BlockManager\API\Values\ParameterBasedValue;
 use Netgen\BlockManager\API\Values\Value;
 
-interface Query extends Value
+interface Query extends Value, ParameterBasedValue
 {
     /**
      * Returns the query ID.
@@ -54,31 +55,4 @@ interface Query extends Value
      * @return \Netgen\BlockManager\Collection\QueryTypeInterface
      */
     public function getQueryType();
-
-    /**
-     * Returns the query parameters.
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterValue[]
-     */
-    public function getParameters();
-
-    /**
-     * Returns specified query parameter.
-     *
-     * @param string $parameter
-     *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the requested parameter does not exist
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterValue
-     */
-    public function getParameter($parameter);
-
-    /**
-     * Returns if query has a specified parameter.
-     *
-     * @param string $parameter
-     *
-     * @return bool
-     */
-    public function hasParameter($parameter);
 }
