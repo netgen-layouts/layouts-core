@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Values\Page;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Core\Values\Page\Layout;
-use Netgen\BlockManager\Tests\Configuration\Stubs\LayoutType;
+use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use PHPUnit\Framework\TestCase;
 use DateTime;
 
@@ -67,7 +67,7 @@ class LayoutTest extends TestCase
         $layout = new Layout(
             array(
                 'id' => 42,
-                'layoutType' => new LayoutType('4_zones_a'),
+                'layoutType' => new LayoutType(array('identifier' => '4_zones_a')),
                 'name' => 'My layout',
                 'created' => $createdDate,
                 'modified' => $modifiedDate,
@@ -79,7 +79,7 @@ class LayoutTest extends TestCase
         );
 
         $this->assertEquals(42, $layout->getId());
-        $this->assertEquals(new LayoutType('4_zones_a'), $layout->getLayoutType());
+        $this->assertEquals(new LayoutType(array('identifier' => '4_zones_a')), $layout->getLayoutType());
         $this->assertEquals('My layout', $layout->getName());
         $this->assertEquals($createdDate, $layout->getCreated());
         $this->assertEquals($modifiedDate, $layout->getModified());

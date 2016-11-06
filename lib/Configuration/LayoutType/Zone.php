@@ -2,7 +2,9 @@
 
 namespace Netgen\BlockManager\Configuration\LayoutType;
 
-class Zone
+use Netgen\BlockManager\ValueObject;
+
+class Zone extends ValueObject
 {
     /**
      * @var string
@@ -18,20 +20,6 @@ class Zone
      * @var array
      */
     protected $allowedBlockDefinitions = array();
-
-    /**
-     * Constructor.
-     *
-     * @param string $identifier
-     * @param string $name
-     * @param array $allowedBlockDefinitions
-     */
-    public function __construct($identifier, $name, array $allowedBlockDefinitions)
-    {
-        $this->identifier = $identifier;
-        $this->name = $name;
-        $this->allowedBlockDefinitions = $allowedBlockDefinitions;
-    }
 
     /**
      * Returns the zone identifier.

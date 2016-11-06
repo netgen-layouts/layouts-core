@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service;
 
+use Netgen\BlockManager\Configuration\LayoutType\Zone;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
@@ -10,7 +11,7 @@ use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
-use Netgen\BlockManager\Tests\Configuration\Stubs\LayoutType;
+use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
@@ -103,22 +104,26 @@ abstract class ServiceTestCase extends TestCase
     protected function prepareRegistries()
     {
         $layoutType1 = new LayoutType(
-            '4_zones_a',
             array(
-                'top' => array(),
-                'left' => array(),
-                'right' => array('title', 'list'),
-                'bottom' => array('title'),
+                'identifier' => '4_zones_a',
+                'zones' => array(
+                    'top' => new Zone(),
+                    'left' => new Zone(),
+                    'right' => new Zone(array('allowedBlockDefinitions' => array('title', 'list'))),
+                    'bottom' => new Zone(array('allowedBlockDefinitions' => array('title'))),
+                ),
             )
         );
 
         $layoutType2 = new LayoutType(
-            '4_zones_b',
             array(
-                'top' => array(),
-                'left' => array(),
-                'right' => array(),
-                'bottom' => array(),
+                'identifier' => '4_zones_b',
+                'zones' => array(
+                    'top' => new Zone(),
+                    'left' => new Zone(),
+                    'right' => new Zone(),
+                    'bottom' => new Zone(),
+                ),
             )
         );
 

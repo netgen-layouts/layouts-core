@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\View\Matcher\Layout;
 
 use Netgen\BlockManager\Core\Values\Page\Layout;
-use Netgen\BlockManager\Tests\Configuration\Stubs\LayoutType;
+use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\View\LayoutView;
 use Netgen\BlockManager\View\Matcher\Layout\Type;
@@ -33,7 +33,7 @@ class TypeTest extends TestCase
     {
         $layout = new Layout(
             array(
-                'layoutType' => new LayoutType('4_zones_a'),
+                'layoutType' => new LayoutType(array('identifier' => '4_zones_a')),
             )
         );
 

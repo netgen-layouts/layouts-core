@@ -3,13 +3,12 @@
 namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
 
 use Netgen\BlockManager\API\Service\LayoutService;
+use Netgen\BlockManager\Configuration\Factory\LayoutTypeFactory;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
-use Netgen\BlockManager\Configuration\LayoutType\Zone as LayoutTypeZone;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use DateTime;
 use PHPUnit\Framework\TestCase;
@@ -50,12 +49,20 @@ class LayoutNormalizerTest extends TestCase
             )
         );
 
-        $layoutType = new LayoutType(
+        $layoutType = LayoutTypeFactory::buildLayoutType(
             '4_zones_a',
-            '4 zones A',
             array(
-                'left' => new LayoutTypeZone('left', 'Left', array('title')),
-                'right' => new LayoutTypeZone('right', 'Right', array()),
+                'name' => '4 zones A',
+                'zones' => array(
+                    'left' => array(
+                        'name' => 'Left',
+                        'allowed_block_definitions' => array('title'),
+                    ),
+                    'right' => array(
+                        'name' => 'Right',
+                        'allowed_block_definitions' => array(),
+                    ),
+                ),
             )
         );
 

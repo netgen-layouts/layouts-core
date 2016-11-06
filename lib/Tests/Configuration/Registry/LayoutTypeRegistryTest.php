@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Configuration\Registry;
 
-use Netgen\BlockManager\Tests\Configuration\Stubs\LayoutType;
+use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use PHPUnit\Framework\TestCase;
 
@@ -22,7 +22,7 @@ class LayoutTypeRegistryTest extends TestCase
     {
         $this->registry = new LayoutTypeRegistry();
 
-        $this->layoutType = new LayoutType('layout_type');
+        $this->layoutType = new LayoutType(array('identifier' => 'layout_type'));
 
         $this->registry->addLayoutType($this->layoutType);
     }

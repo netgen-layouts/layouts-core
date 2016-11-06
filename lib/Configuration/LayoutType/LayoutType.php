@@ -3,8 +3,9 @@
 namespace Netgen\BlockManager\Configuration\LayoutType;
 
 use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\ValueObject;
 
-class LayoutType
+class LayoutType extends ValueObject
 {
     /**
      * @var string
@@ -20,20 +21,6 @@ class LayoutType
      * @var \Netgen\BlockManager\Configuration\LayoutType\Zone[]
      */
     protected $zones = array();
-
-    /**
-     * Constructor.
-     *
-     * @param string $identifier
-     * @param string $name
-     * @param \Netgen\BlockManager\Configuration\LayoutType\Zone[] $zones
-     */
-    public function __construct($identifier, $name, array $zones)
-    {
-        $this->identifier = $identifier;
-        $this->name = $name;
-        $this->zones = $zones;
-    }
 
     /**
      * Returns the layout type identifier.

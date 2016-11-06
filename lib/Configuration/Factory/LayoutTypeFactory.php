@@ -21,12 +21,20 @@ class LayoutTypeFactory
 
         foreach ($config['zones'] as $zoneIdentifier => $zoneConfig) {
             $zones[$zoneIdentifier] = new Zone(
-                $zoneIdentifier,
-                $zoneConfig['name'],
-                $zoneConfig['allowed_block_definitions']
+                array(
+                    'identifier' => $zoneIdentifier,
+                    'name' => $zoneConfig['name'],
+                    'allowedBlockDefinitions' => $zoneConfig['allowed_block_definitions'],
+                )
             );
         }
 
-        return new LayoutType($identifier, $config['name'], $zones);
+        return new LayoutType(
+            array(
+                'identifier' => $identifier,
+                'name' => $config['name'],
+                'zones' => $zones,
+            )
+        );
     }
 }

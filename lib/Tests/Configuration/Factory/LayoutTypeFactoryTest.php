@@ -29,13 +29,17 @@ class LayoutTypeFactoryTest extends TestCase
 
         $this->assertEquals(
             new LayoutType(
-                '4_zones_a',
-                '4 zones A',
                 array(
-                    'left' => new Zone(
-                        'left',
-                        'Left',
-                        array('title', 'text')
+                    'identifier' => '4_zones_a',
+                    'name' => '4 zones A',
+                    'zones' => array(
+                        'left' => new Zone(
+                            array(
+                                'identifier' => 'left',
+                                'name' => 'Left',
+                                'allowedBlockDefinitions' => array('title', 'text'),
+                            )
+                        ),
                     ),
                 )
             ),

@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Serializer\V1\ConfigurationNormalizer;
 
+use Netgen\BlockManager\Configuration\Factory\LayoutTypeFactory;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Configuration\LayoutType\Zone;
 use Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\LayoutTypeNormalizer;
@@ -27,12 +28,20 @@ class LayoutTypeNormalizerTest extends TestCase
      */
     public function testNormalize()
     {
-        $layoutType = new LayoutType(
+        $layoutType = LayoutTypeFactory::buildLayoutType(
             '4_zones_a',
-            'Layout type',
             array(
-                'zone1' => new Zone('zone1', 'Zone 1', array('title')),
-                'zone2' => new Zone('zone2', 'Zone 2', array()),
+                'name' => 'Layout type',
+                'zones' => array(
+                    'zone1' => array(
+                        'name' => 'Zone 1',
+                        'allowed_block_definitions' => array('title'),
+                    ),
+                    'zone2' => array(
+                        'name' => 'Zone 2',
+                        'allowed_block_definitions' => array(),
+                    ),
+                ),
             )
         );
 
@@ -85,10 +94,10 @@ class LayoutTypeNormalizerTest extends TestCase
             array(42, false),
             array(42.12, false),
             array(new Value(), false),
-            array(new LayoutType('4_zones_a', '4 zones A', array()), false),
+            array(new LayoutType(), false),
             array(new VersionedValue(new Value(), 1), false),
-            array(new VersionedValue(new LayoutType('4_zones_a', '4 zones A', array()), 2), false),
-            array(new VersionedValue(new LayoutType('4_zones_a', '4 zones A', array()), 1), true),
+            array(new VersionedValue(new LayoutType(), 2), false),
+            array(new VersionedValue(new LayoutType(), 1), true),
         );
     }
 }

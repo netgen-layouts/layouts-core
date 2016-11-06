@@ -4,7 +4,8 @@ namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
-use Netgen\BlockManager\Tests\Configuration\Stubs\LayoutType;
+use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
+use Netgen\BlockManager\Configuration\LayoutType\Zone as ZoneConfig;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Core\Values\Page\Layout;
@@ -53,11 +54,13 @@ class LayoutServiceTest extends TransactionRollbackTest
         $this->layoutValidatorMock = $this->createMock(LayoutValidator::class);
 
         $layoutType = new LayoutType(
-            '4_zones_a',
             array(
-                'left' => array(),
-                'right' => array(),
-                'bottom' => array(),
+                'identifier' => '4_zones_a',
+                'zones' => array(
+                    'left' => new ZoneConfig(),
+                    'right' => new ZoneConfig(),
+                    'bottom' => new ZoneConfig(),
+                ),
             )
         );
 

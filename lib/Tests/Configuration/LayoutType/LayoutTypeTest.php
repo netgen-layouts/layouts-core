@@ -16,13 +16,17 @@ class LayoutTypeTest extends TestCase
     public function setUp()
     {
         $this->layoutType = new LayoutType(
-            '4_zones_a',
-            '4 zones A',
             array(
-                'left' => new Zone(
-                    'left',
-                    'Left',
-                    array('title', 'text')
+                'identifier' => '4_zones_a',
+                'name' => '4 zones A',
+                'zones' => array(
+                    'left' => new Zone(
+                        array(
+                            'identifier' => 'left',
+                            'name' => 'Left',
+                            'allowedBlockDefinitions' => array('title', 'text'),
+                        )
+                    ),
                 ),
             )
         );
@@ -53,9 +57,11 @@ class LayoutTypeTest extends TestCase
         $this->assertEquals(
             array(
                 'left' => new Zone(
-                    'left',
-                    'Left',
-                    array('title', 'text')
+                    array(
+                        'identifier' => 'left',
+                        'name' => 'Left',
+                        'allowedBlockDefinitions' => array('title', 'text'),
+                    )
                 ),
             ),
             $this->layoutType->getZones()
@@ -93,9 +99,11 @@ class LayoutTypeTest extends TestCase
     {
         $this->assertEquals(
             new Zone(
-                'left',
-                'Left',
-                array('title', 'text')
+                array(
+                    'identifier' => 'left',
+                    'name' => 'Left',
+                    'allowedBlockDefinitions' => array('title', 'text'),
+                )
             ),
             $this->layoutType->getZone('left')
         );

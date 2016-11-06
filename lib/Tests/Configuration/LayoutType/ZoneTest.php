@@ -14,7 +14,13 @@ class ZoneTest extends TestCase
 
     public function setUp()
     {
-        $this->zone = new Zone('left', 'Left', array('title'));
+        $this->zone = new Zone(
+            array(
+                'identifier' => 'left',
+                'name' => 'Left',
+                'allowedBlockDefinitions' => array('title'),
+            )
+        );
     }
 
     /**
@@ -55,7 +61,7 @@ class ZoneTest extends TestCase
      */
     public function testIsBlockDefinitionAllowedWithEmptyList()
     {
-        $this->zone = new Zone('left', 'Left', array());
+        $this->zone = new Zone();
 
         $this->assertTrue($this->zone->isBlockDefinitionAllowed('title'));
     }

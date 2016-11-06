@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\Block\Form;
 
 use Netgen\BlockManager\API\Values\LayoutCreateStruct;
-use Netgen\BlockManager\Tests\Configuration\Stubs\LayoutType;
+use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Layout\Form\CreateType;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
@@ -17,7 +17,7 @@ class CreateTypeTest extends FormTestCase
     public function getMainType()
     {
         $layoutTypeRegistry = new LayoutTypeRegistry();
-        $layoutTypeRegistry->addLayoutType(new LayoutType('4_zones_a'));
+        $layoutTypeRegistry->addLayoutType(new LayoutType(array('identifier' => '4_zones_a')));
 
         return new CreateType($layoutTypeRegistry);
     }
