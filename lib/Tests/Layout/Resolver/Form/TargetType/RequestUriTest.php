@@ -37,10 +37,10 @@ class RequestUriTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType::buildForm
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper::getOptions
+     * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper::mapOptions
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper::handleForm
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\RequestUri::getFormType
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\RequestUri::getOptions
+     * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\RequestUri::mapOptions
      */
     public function testSubmitValidData()
     {

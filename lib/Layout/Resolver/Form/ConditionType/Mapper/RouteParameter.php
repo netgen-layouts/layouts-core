@@ -20,13 +20,13 @@ class RouteParameter extends Mapper
     }
 
     /**
-     * Returns the form type options.
+     * Maps the form type options from provided target type.
      *
      * @param \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface $conditionType
      *
      * @return array
      */
-    public function getOptions(ConditionTypeInterface $conditionType)
+    public function mapOptions(ConditionTypeInterface $conditionType)
     {
         return array(
             'label' => false,

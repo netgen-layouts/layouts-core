@@ -37,10 +37,10 @@ class PathInfoPrefixTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType::buildForm
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper::getOptions
+     * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper::mapOptions
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper::handleForm
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\PathInfoPrefix::getFormType
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\PathInfoPrefix::getOptions
+     * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\PathInfoPrefix::mapOptions
      */
     public function testSubmitValidData()
     {

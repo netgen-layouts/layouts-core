@@ -37,10 +37,10 @@ class RouteParameterTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::buildForm
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper::getOptions
+     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper::mapOptions
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper::handleForm
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter::getFormType
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter::getOptions
+     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter::mapOptions
      */
     public function testSubmitValidData()
     {

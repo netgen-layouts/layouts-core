@@ -15,13 +15,13 @@ interface MapperInterface
     public function getFormType();
 
     /**
-     * Returns the form type options.
+     * Maps the form type options from provided target type.
      *
      * @param \Netgen\BlockManager\Layout\Resolver\TargetTypeInterface $targetType
      *
      * @return array
      */
-    public function getOptions(TargetTypeInterface $targetType);
+    public function mapOptions(TargetTypeInterface $targetType);
 
     /**
      * Handles the form for this target type.
