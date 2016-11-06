@@ -55,6 +55,7 @@ class ParameterStructValidator extends ConstraintValidator
             new Constraints\Collection(
                 array(
                     'fields' => $this->buildConstraintFields($value, $constraint),
+                    'allowMissingFields' => $constraint->allowMissingFields
                 )
             )
         );
@@ -103,10 +104,11 @@ class ParameterStructValidator extends ConstraintValidator
                 null;
 
             $constraints = $parameter->getType()->getConstraints($parameter, $parameterValue);
+            if (!$parameter->isRequired()) {
+                $constraints = new Constraints\Optional($constraints);
+            }
 
-            $fields[$parameterName] = !$constraint->allowMissingFields && $parameter->isRequired() ?
-                new Constraints\Required($constraints) :
-                new Constraints\Optional($constraints);
+            $fields[$parameterName] = $constraints;
 
             if ($parameter instanceof CompoundParameterInterface) {
                 foreach ($parameter->getParameters() as $subParameter) {
@@ -115,9 +117,14 @@ class ParameterStructValidator extends ConstraintValidator
                         $parameterStruct->getParameterValue($subParameterName) :
                         null;
 
+                    // Sub parameter values are always optional (either missing or set to null)
+
                     $constraints = array();
                     if ($subParameterValue !== null) {
-                        $constraints = $subParameter->getType()->getConstraints($subParameter, $subParameterValue);
+                        $constraints = $subParameter->getType()->getConstraints(
+                            $subParameter,
+                            $subParameterValue
+                        );
                     }
 
                     $fields[$subParameterName] = new Constraints\Optional($constraints);
