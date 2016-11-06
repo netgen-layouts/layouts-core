@@ -128,7 +128,7 @@ class CollectionMapper extends Mapper
             'queryType' => $queryType,
             'published' => $query->status === Value::STATUS_PUBLISHED,
             'parameters' => $this->parameterMapper->mapParameters(
-                $queryType->getParameters(),
+                $queryType,
                 $query->parameters
             ),
         );

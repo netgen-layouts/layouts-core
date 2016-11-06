@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
 use Netgen\BlockManager\Parameters\CompoundParameterInterface;
+use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
 use Netgen\BlockManager\Parameters\ParameterValue;
 
 class ParameterMapper
@@ -10,16 +11,16 @@ class ParameterMapper
     /**
      * Maps the parameter value in regard to provided list of parameters.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface[] $parameters
+     * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
      * @param array $parameterValues
      *
      * @return array
      */
-    public function mapParameters(array $parameters, array $parameterValues)
+    public function mapParameters(ParameterCollectionInterface $parameterCollection, array $parameterValues)
     {
         $mappedValues = array();
 
-        foreach ($parameters as $parameter) {
+        foreach ($parameterCollection->getParameters() as $parameter) {
             $parameterName = $parameter->getName();
             $rawValue = array_key_exists($parameterName, $parameterValues) ?
                 $parameterValues[$parameterName] :
@@ -41,7 +42,7 @@ class ParameterMapper
             if ($parameter instanceof CompoundParameterInterface) {
                 $mappedValues = array_merge(
                     $mappedValues,
-                    $this->mapParameters($parameter->getParameters(), $parameterValues)
+                    $this->mapParameters($parameter, $parameterValues)
                 );
             }
         }
@@ -52,16 +53,16 @@ class ParameterMapper
     /**
      * Serializes the existing struct values based on provided parameters.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface[] $parameters
+     * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
      * @param array $parameterValues
      *
      * @return array
      */
-    public function serializeValues(array $parameters, array $parameterValues)
+    public function serializeValues(ParameterCollectionInterface $parameterCollection, array $parameterValues)
     {
         $serializedValues = array();
 
-        foreach ($parameters as $parameter) {
+        foreach ($parameterCollection->getParameters() as $parameter) {
             $parameterName = $parameter->getName();
             if (!array_key_exists($parameterName, $parameterValues)) {
                 continue;
@@ -74,7 +75,7 @@ class ParameterMapper
             if ($parameter instanceof CompoundParameterInterface) {
                 $serializedValues = array_merge(
                     $serializedValues,
-                    $this->serializeValues($parameter->getParameters(), $parameterValues)
+                    $this->serializeValues($parameter, $parameterValues)
                 );
             }
         }

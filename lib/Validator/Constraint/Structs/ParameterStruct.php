@@ -12,9 +12,9 @@ class ParameterStruct extends Constraint
     public $message = 'netgen_block_manager.parameter_struct.invalid_value';
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterInterface[]
+     * @var \Netgen\BlockManager\Parameters\ParameterCollectionInterface
      */
-    public $parameters = array();
+    public $parameterCollection;
 
     /**
      * @var bool

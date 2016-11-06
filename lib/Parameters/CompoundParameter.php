@@ -29,7 +29,7 @@ class CompoundParameter extends Parameter implements CompoundParameterInterface
     }
 
     /**
-     * Returns the parameters.
+     * Returns the list of parameters in the object.
      *
      * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
      */

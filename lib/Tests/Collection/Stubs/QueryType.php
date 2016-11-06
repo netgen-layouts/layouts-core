@@ -39,9 +39,7 @@ class QueryType implements QueryTypeInterface
     }
 
     /**
-     * Returns the array specifying query parameters.
-     *
-     * The keys are parameter identifiers.
+     * Returns the list of parameters in the object.
      *
      * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
      */

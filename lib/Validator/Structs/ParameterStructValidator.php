@@ -44,7 +44,7 @@ class ParameterStructValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, ParameterStruct::class);
         }
 
-        $this->filterParameters($value, $constraint->parameters);
+        $this->filterParameters($value, $constraint->parameterCollection->getParameters());
 
         /** @var \Symfony\Component\Validator\Validator\ContextualValidatorInterface $validator */
         $validator = $this->context->getValidator()->inContext($this->context);
@@ -92,7 +92,7 @@ class ParameterStructValidator extends ConstraintValidator
     protected function buildConstraintFields(ParameterStruct $parameterStruct, ParameterStructConstraint $constraint)
     {
         $fields = array();
-        foreach ($constraint->parameters as $parameter) {
+        foreach ($constraint->parameterCollection->getParameters() as $parameter) {
             $parameterName = $parameter->getName();
             $parameterValue = $parameterStruct->hasParameter($parameterName) ?
                 $parameterStruct->getParameter($parameterName) :

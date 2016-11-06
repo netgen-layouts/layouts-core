@@ -257,7 +257,7 @@ class CollectionValidator extends Validator
             array(
                 new ParameterStruct(
                     array(
-                        'parameters' => $queryType->getParameters(),
+                        'parameterCollection' => $queryType,
                     )
                 ),
             ),

@@ -91,7 +91,7 @@ class BlockValidator extends Validator
             array(
                 new ParameterStruct(
                     array(
-                        'parameters' => $blockDefinition->getParameters(),
+                        'parameterCollection' => $blockDefinition,
                     )
                 ),
             ),

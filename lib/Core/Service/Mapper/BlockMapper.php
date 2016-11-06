@@ -68,7 +68,7 @@ class BlockMapper extends Mapper
             'position' => $block->position,
             'blockDefinition' => $blockDefinition,
             'parameters' => $this->parameterMapper->mapParameters(
-                $blockDefinition->getParameters(),
+                $blockDefinition,
                 $block->parameters
             ),
             'viewType' => $block->viewType,

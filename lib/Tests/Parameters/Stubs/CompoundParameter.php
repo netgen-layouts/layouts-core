@@ -12,7 +12,7 @@ class CompoundParameter extends Parameter implements CompoundParameterInterface
     protected $parameters;
 
     /**
-     * Returns the parameters.
+     * Returns the list of parameters in the object.
      *
      * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
      */
@@ -22,7 +22,7 @@ class CompoundParameter extends Parameter implements CompoundParameterInterface
     }
 
     /**
-     * Returns the parameters.
+     * Sets the parameters.
      *
      * @param \Netgen\BlockManager\Parameters\ParameterInterface[] $parameters
      */

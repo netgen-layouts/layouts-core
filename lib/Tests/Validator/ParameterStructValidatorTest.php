@@ -7,6 +7,7 @@ use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry;
 use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameter;
 use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
+use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterCollection;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterFilter;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\Structs\ParameterStructValidator;
@@ -31,9 +32,11 @@ class ParameterStructValidatorTest extends ValidatorTestCase
 
         $this->constraint = new ParameterStruct(
             array(
-                'parameters' => array(
-                    'css_id' => new Parameter('css_id', new ParameterType\TextLineType(), array(), true),
-                    'checkbox' => $compoundParameter,
+                'parameterCollection' => new ParameterCollection(
+                    array(
+                        'css_id' => new Parameter('css_id', new ParameterType\TextLineType(), array(), true),
+                        'checkbox' => $compoundParameter,
+                    )
                 ),
                 'allowMissingFields' => true,
             )

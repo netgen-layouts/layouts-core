@@ -673,7 +673,7 @@ class CollectionService implements APICollectionService
         $clonedQueryCreateStruct = clone $queryCreateStruct;
         $clonedQueryCreateStruct->setParameters(
             $this->parameterMapper->serializeValues(
-                $queryType->getParameters(),
+                $queryType,
                 $queryCreateStruct->getParameters()
             )
         );
@@ -727,7 +727,7 @@ class CollectionService implements APICollectionService
         $clonedQueryUpdateStruct = clone $queryUpdateStruct;
         $clonedQueryUpdateStruct->setParameters(
             $this->parameterMapper->serializeValues(
-                $query->getQueryType()->getParameters(),
+                $query->getQueryType(),
                 $queryUpdateStruct->getParameters()
             )
         );
