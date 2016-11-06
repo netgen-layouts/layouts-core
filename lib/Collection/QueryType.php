@@ -54,6 +54,7 @@ class QueryType extends ValueObject implements QueryTypeInterface
         if ($this->parameters === null) {
             $this->handler->buildParameters($this->parameterBuilder);
             $this->parameters = $this->parameterBuilder->buildParameters();
+            unset($this->parameterBuilder);
         }
 
         return $this->parameters;

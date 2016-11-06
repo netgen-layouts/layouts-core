@@ -52,6 +52,7 @@ class BlockDefinition extends ValueObject implements BlockDefinitionInterface
         if ($this->parameters === null) {
             $this->handler->buildParameters($this->parameterBuilder);
             $this->parameters = $this->parameterBuilder->buildParameters();
+            unset($this->parameterBuilder);
         }
 
         return $this->parameters;
