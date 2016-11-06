@@ -42,7 +42,7 @@ class RenderBlock extends Twig_TokenParser
                     $token->getValue()
                 ),
                 $token->getLine(),
-                $stream->getSourceContext()
+                $stream->getSourceContext()->getName()
             );
         }
 

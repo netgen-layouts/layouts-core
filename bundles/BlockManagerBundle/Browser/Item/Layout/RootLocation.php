@@ -43,5 +43,6 @@ class RootLocation implements LocationInterface
      */
     public function getParentId()
     {
+        return null;
     }
 }
