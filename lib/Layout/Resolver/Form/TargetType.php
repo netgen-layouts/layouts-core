@@ -82,7 +82,7 @@ class TargetType extends AbstractType
             ) + $mapper->mapOptions($targetType)
         );
 
-        $mapper->handleForm($valueForm);
+        $mapper->handleForm($valueForm, $targetType);
 
         $builder->add($valueForm);
     }

@@ -30,10 +30,11 @@ abstract class Mapper implements MapperInterface
      * This is the place where you will usually add data mappers and transformers to the form.
      *
      * @param \Symfony\Component\Form\FormBuilderInterface $builder
+     * @param \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface $conditionType
      *
      * @return array
      */
-    public function handleForm(FormBuilderInterface $builder)
+    public function handleForm(FormBuilderInterface $builder, ConditionTypeInterface $conditionType)
     {
     }
 }

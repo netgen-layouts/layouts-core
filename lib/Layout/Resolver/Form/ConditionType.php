@@ -82,7 +82,7 @@ class ConditionType extends AbstractType
             ) + $mapper->mapOptions($conditionType)
         );
 
-        $mapper->handleForm($valueForm);
+        $mapper->handleForm($valueForm, $conditionType);
 
         $builder->add($valueForm);
     }
