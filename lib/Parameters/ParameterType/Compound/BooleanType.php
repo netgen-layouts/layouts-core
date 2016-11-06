@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Parameters\ParameterType\Compound;
 
 use Netgen\BlockManager\Parameters\ParameterInterface;
+use Netgen\BlockManager\Parameters\CompoundParameterType;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
