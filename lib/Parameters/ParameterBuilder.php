@@ -62,7 +62,10 @@ class ParameterBuilder implements ParameterBuilderInterface
         );
 
         if ($type instanceof CompoundParameterTypeInterface) {
-            $this->unresolvedParameters[$name]['builder'] = new self($this->parameterTypeRegistry);
+            $childBuilder = new self($this->parameterTypeRegistry);
+            $type->buildParameters($childBuilder);
+
+            $this->unresolvedParameters[$name]['builder'] = $childBuilder;
         }
 
         return $this;
