@@ -23,6 +23,12 @@ block.text.css_class: 'CSS class'
 block.text.css_id: 'CSS ID'
 block.text.set_container: 'Wrap in container'
 
+block.link.link_text: 'Link text'
+block.link.link_style: 'Link style'
+block.link.css_class: 'CSS class'
+block.link.css_id: 'CSS ID'
+block.link.set_container: 'Wrap in container'
+
 block.markdown.content: 'Content'
 block.markdown.css_class: 'CSS class'
 block.markdown.css_id: 'CSS ID'

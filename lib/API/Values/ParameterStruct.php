@@ -119,6 +119,7 @@ abstract class ParameterStruct extends ValueObject
     {
         if ($inputValue instanceof ParameterValue) {
             $value = $inputValue->getValue();
+
             return is_object($value) ? clone $value : $value;
         }
 

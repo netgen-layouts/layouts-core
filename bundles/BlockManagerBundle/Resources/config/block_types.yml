@@ -7,6 +7,10 @@ block_types:
         name: 'Text'
         definition_identifier: text
 
+    link:
+        name: 'Link'
+        definition_identifier: link
+
     markdown:
         name: 'Markdown'
         definition_identifier: markdown

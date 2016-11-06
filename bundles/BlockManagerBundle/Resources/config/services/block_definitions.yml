@@ -7,6 +7,7 @@ parameters:
 
     netgen_block_manager.block.block_definition.handler.title.class: Netgen\BlockManager\Block\BlockDefinition\Handler\TitleHandler
     netgen_block_manager.block.block_definition.handler.text.class: Netgen\BlockManager\Block\BlockDefinition\Handler\TextHandler
+    netgen_block_manager.block.block_definition.handler.link.class: Netgen\BlockManager\Block\BlockDefinition\Handler\LinkHandler
     netgen_block_manager.block.block_definition.handler.markdown.parser.class: Michelf\MarkdownExtra
     netgen_block_manager.block.block_definition.handler.markdown.class: Netgen\BlockManager\Block\BlockDefinition\Handler\MarkdownHandler
     netgen_block_manager.block.block_definition.handler.rich_text.class: Netgen\BlockManager\Block\BlockDefinition\Handler\RichTextHandler
@@ -24,6 +25,17 @@ parameters:
         h3: 'Heading 3'
 
     netgen_block_manager.block.block_definition.handler.title.value_types: []
+
+    netgen_block_manager.block.block_definition.handler.link.options:
+        'link': 'Link'
+        'btn btn-primary': 'Primary button'
+        'btn btn-secondary': 'Secondary button'
+        'btn btn-success': 'Success button'
+        'btn btn-info': 'Info button'
+        'btn btn-warning': 'Warning button'
+        'btn btn-danger': 'Danger button'
+
+    netgen_block_manager.block.block_definition.handler.link.value_types: []
 
     netgen_block_manager.block.block_definition.handler.external_video.services:
         youtube: 'YouTube'
@@ -79,6 +91,14 @@ services:
         class: "%netgen_block_manager.block.block_definition.handler.text.class%"
         tags:
             - { name: netgen_block_manager.block.block_definition_handler, identifier: text }
+
+    netgen_block_manager.block.block_definition.handler.link:
+        class: "%netgen_block_manager.block.block_definition.handler.link.class%"
+        arguments:
+            - "%netgen_block_manager.block.block_definition.handler.link.options%"
+            - "%netgen_block_manager.block.block_definition.handler.link.value_types%"
+        tags:
+            - { name: netgen_block_manager.block.block_definition_handler, identifier: link }
 
     netgen_block_manager.block.block_definition.handler.markdown.parser:
         class: "%netgen_block_manager.block.block_definition.handler.markdown.parser.class%"

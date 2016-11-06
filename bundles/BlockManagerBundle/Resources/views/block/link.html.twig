@@ -1,0 +1,18 @@
+{% extends 'NetgenBlockManagerBundle:block:block.html.twig' %}
+
+{% set link_style = block.parameter('link_style').value %}
+{% set link_text = block.parameter('link_text') %}
+{% set link = block.parameter('link') %}
+
+{% block content %}
+    {% if not link.empty and not link_text.empty %}
+        {{ ngbm_render_parameter(
+            link, {
+                attr: {
+                    class: link_style
+                },
+                content: link_text.value
+            }
+        ) }}
+    {% endif %}
+{% endblock %}

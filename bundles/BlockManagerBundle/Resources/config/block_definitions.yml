@@ -9,6 +9,11 @@ block_definitions:
             text:
                 name: 'Text'
 
+    link:
+        view_types:
+            link:
+                name: 'Link'
+
     markdown:
         view_types:
             markdown:

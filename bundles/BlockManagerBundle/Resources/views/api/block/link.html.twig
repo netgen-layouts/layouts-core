@@ -1,0 +1,11 @@
+{% extends 'NetgenBlockManagerBundle:api/block:block.html.twig' %}
+
+{% trans_default_domain 'ngbm_app' %}
+
+{% block content %}
+    <p data-inline>
+        <span contenteditable="true" data-attr="link_text" data-hint="{{ 'block.link.placeholder'|trans }}" data-inline-child>
+            {{ block.parameter('link_text').value }}
+        </span>
+    </p>
+{% endblock %}
