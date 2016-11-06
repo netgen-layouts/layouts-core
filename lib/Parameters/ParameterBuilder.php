@@ -73,7 +73,7 @@ class ParameterBuilder implements ParameterBuilderInterface
                 $this->parameterTypeRegistry,
                 array(
                     // Child parameters receive the group from the parent
-                    'groups' => $options['groups']
+                    'groups' => isset($options['groups']) ? $options['groups'] : array(),
                 )
             );
 
