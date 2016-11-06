@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Configuration\BlockType;
 
-use Netgen\BlockManager\Block\BlockDefinitionInterface;
+use Netgen\BlockManager\ValueObject;
 
-class BlockType
+class BlockType extends ValueObject
 {
     /**
      * @var string
@@ -25,22 +25,6 @@ class BlockType
      * @var array
      */
     protected $defaults = array();
-
-    /**
-     * Constructor.
-     *
-     * @param string $identifier
-     * @param string $name
-     * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition
-     * @param array $defaults
-     */
-    public function __construct($identifier, $name, BlockDefinitionInterface $blockDefinition, array $defaults = array())
-    {
-        $this->identifier = $identifier;
-        $this->name = $name;
-        $this->blockDefinition = $blockDefinition;
-        $this->defaults = $defaults;
-    }
 
     /**
      * Returns the block type identifier.

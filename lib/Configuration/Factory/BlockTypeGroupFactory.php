@@ -18,9 +18,11 @@ class BlockTypeGroupFactory
     public static function buildBlockTypeGroup($identifier, array $config, array $blockTypes = array())
     {
         return new BlockTypeGroup(
-            $identifier,
-            $config['name'],
-            $blockTypes
+            array(
+                'identifier' => $identifier,
+                'name' => $config['name'],
+                'blockTypes' => $blockTypes,
+            )
         );
     }
 }

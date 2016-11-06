@@ -19,14 +19,16 @@ class BlockTypeGroupFactoryTest extends TestCase
             array(
                 'name' => 'Simple blocks',
             ),
-            array(new BlockType('title'), new BlockType('title_with_h3'))
+            array(new BlockType(array('identifier' => 'title')))
         );
 
         $this->assertEquals(
             new BlockTypeGroup(
-                'simple_blocks',
-                'Simple blocks',
-                array(new BlockType('title'), new BlockType('title_with_h3'))
+                array(
+                    'identifier' => 'simple_blocks',
+                    'name' => 'Simple blocks',
+                    'blockTypes' => array(new BlockType(array('identifier' => 'title'))),
+                )
             ),
             $blockTypeGroup
         );

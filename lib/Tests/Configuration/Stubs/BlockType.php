@@ -10,15 +10,13 @@ class BlockType extends BaseBlockType
     /**
      * Constructor.
      *
-     * @param string $identifier
+     * @param array $properties
      */
-    public function __construct($identifier)
+    public function __construct(array $properties = array())
     {
-        parent::__construct(
-            $identifier,
-            $identifier,
-            new BlockDefinition($identifier),
-            array()
-        );
+        $properties['name'] = $properties['identifier'];
+        $properties['blockDefinition'] = new BlockDefinition($properties['identifier']);
+
+        parent::__construct($properties);
     }
 }

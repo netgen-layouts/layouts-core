@@ -34,13 +34,15 @@ class BlockTypeNormalizerTest extends TestCase
     public function testNormalize()
     {
         $blockType = new BlockType(
-            'identifier',
-            'Block type',
-            $this->blockDefinition,
             array(
-                'name' => 'Default name',
-                'view_type' => 'Default view type',
-                'parameters' => array('param' => 'value'),
+                'identifier' => 'identifier',
+                'name' => 'Block type',
+                'blockDefinition' => $this->blockDefinition,
+                'defaults' => array(
+                    'name' => 'Default name',
+                    'view_type' => 'Default view type',
+                    'parameters' => array('param' => 'value'),
+                ),
             )
         );
 
@@ -74,8 +76,6 @@ class BlockTypeNormalizerTest extends TestCase
      */
     public function supportsNormalizationProvider()
     {
-        $blockDefinition = new BlockDefinition('title');
-
         return array(
             array(null, false),
             array(true, false),
@@ -85,10 +85,10 @@ class BlockTypeNormalizerTest extends TestCase
             array(42, false),
             array(42.12, false),
             array(new Value(), false),
-            array(new BlockType('identifier', 'name', $blockDefinition), false),
+            array(new BlockType(), false),
             array(new VersionedValue(new Value(), 1), false),
-            array(new VersionedValue(new BlockType('identifier', 'name', $blockDefinition), 2), false),
-            array(new VersionedValue(new BlockType('identifier', 'name', $blockDefinition), 1), true),
+            array(new VersionedValue(new BlockType(), 2), false),
+            array(new VersionedValue(new BlockType(), 1), true),
         );
     }
 }

@@ -27,16 +27,18 @@ class BlockTypeGroupNormalizerTest extends TestCase
     public function testNormalize()
     {
         $blockTypeGroup = new BlockTypeGroup(
-            'identifier',
-            'Block group',
-            array(new BlockType('type1'), new BlockType('type2'))
+            array(
+                'identifier' => 'identifier',
+                'name' => 'Block group',
+                'blockTypes' => array(new BlockType(array('identifier' => 'type'))),
+            )
         );
 
         $this->assertEquals(
             array(
                 'identifier' => $blockTypeGroup->getIdentifier(),
                 'name' => $blockTypeGroup->getName(),
-                'block_types' => array('type1', 'type2'),
+                'block_types' => array('type'),
             ),
             $this->normalizer->normalize(new VersionedValue($blockTypeGroup, 1))
         );
@@ -70,10 +72,10 @@ class BlockTypeGroupNormalizerTest extends TestCase
             array(42, false),
             array(42.12, false),
             array(new Value(), false),
-            array(new BlockTypeGroup('identifier', 'name'), false),
+            array(new BlockTypeGroup(), false),
             array(new VersionedValue(new Value(), 1), false),
-            array(new VersionedValue(new BlockTypeGroup('identifier', 'name'), 2), false),
-            array(new VersionedValue(new BlockTypeGroup('identifier', 'name'), 1), true),
+            array(new VersionedValue(new BlockTypeGroup(), 2), false),
+            array(new VersionedValue(new BlockTypeGroup(), 1), true),
         );
     }
 }

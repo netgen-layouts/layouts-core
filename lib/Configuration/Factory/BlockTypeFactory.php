@@ -19,10 +19,12 @@ class BlockTypeFactory
     public static function buildBlockType($identifier, array $config, BlockDefinitionInterface $blockDefinition)
     {
         return new BlockType(
-            $identifier,
-            $config['name'],
-            $blockDefinition,
-            $config['defaults']
+            array(
+                'identifier' => $identifier,
+                'name' => $config['name'],
+                'blockDefinition' => $blockDefinition,
+                'defaults' => $config['defaults'],
+            )
         );
     }
 }

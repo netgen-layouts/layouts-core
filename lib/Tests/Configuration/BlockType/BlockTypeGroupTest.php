@@ -16,9 +16,11 @@ class BlockTypeGroupTest extends TestCase
     public function setUp()
     {
         $this->blockTypeGroup = new BlockTypeGroup(
-            'simple_blocks',
-            'Simple blocks',
-            array(new BlockType('title'), new BlockType('title_with_h3'))
+            array(
+                'identifier' => 'simple_blocks',
+                'name' => 'Simple blocks',
+                'blockTypes' => array(new BlockType(array('identifier' => 'type'))),
+            )
         );
     }
 
@@ -45,7 +47,7 @@ class BlockTypeGroupTest extends TestCase
     public function testGetBlockTypes()
     {
         $this->assertEquals(
-            array(new BlockType('title'), new BlockType('title_with_h3')),
+            array(new BlockType(array('identifier' => 'type'))),
             $this->blockTypeGroup->getBlockTypes()
         );
     }

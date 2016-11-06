@@ -28,13 +28,9 @@ class BlockTypeRegistryTest extends TestCase
     {
         $this->registry = new BlockTypeRegistry();
 
-        $this->blockType = new BlockType('block_type');
+        $this->blockType = new BlockType(array('identifier' => 'block_type'));
 
-        $this->blockTypeGroup = new BlockTypeGroup(
-            'block_type_group',
-            'Block type group',
-            array()
-        );
+        $this->blockTypeGroup = new BlockTypeGroup(array('identifier' => 'block_type_group'));
 
         $this->registry->addBlockType($this->blockType);
         $this->registry->addBlockTypeGroup($this->blockTypeGroup);

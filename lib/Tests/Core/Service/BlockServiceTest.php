@@ -160,9 +160,9 @@ abstract class BlockServiceTest extends ServiceTestCase
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             new BlockType(
-                'title',
-                'Title',
-                $this->blockDefinitionRegistry->getBlockDefinition('title')
+                array(
+                    'blockDefinition' => $this->blockDefinitionRegistry->getBlockDefinition('title'),
+                )
             )
         );
 
@@ -198,9 +198,9 @@ abstract class BlockServiceTest extends ServiceTestCase
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             new BlockType(
-                'title',
-                'Title',
-                $this->blockDefinitionRegistry->getBlockDefinition('title')
+                array(
+                    'blockDefinition' => $this->blockDefinitionRegistry->getBlockDefinition('title'),
+                )
             )
         );
 
@@ -222,9 +222,9 @@ abstract class BlockServiceTest extends ServiceTestCase
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             new BlockType(
-                'title',
-                'Title',
-                $this->blockDefinitionRegistry->getBlockDefinition('title')
+                array(
+                    'blockDefinition' => $this->blockDefinitionRegistry->getBlockDefinition('title'),
+                )
             )
         );
 
@@ -248,9 +248,9 @@ abstract class BlockServiceTest extends ServiceTestCase
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             new BlockType(
-                'title',
-                'Title',
-                $this->blockDefinitionRegistry->getBlockDefinition('title')
+                array(
+                    'blockDefinition' => $this->blockDefinitionRegistry->getBlockDefinition('title'),
+                )
             )
         );
 
@@ -271,9 +271,9 @@ abstract class BlockServiceTest extends ServiceTestCase
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             new BlockType(
-                'title',
-                'Title',
-                $this->blockDefinitionRegistry->getBlockDefinition('title')
+                array(
+                    'blockDefinition' => $this->blockDefinitionRegistry->getBlockDefinition('title'),
+                )
             )
         );
 
@@ -293,9 +293,9 @@ abstract class BlockServiceTest extends ServiceTestCase
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             new BlockType(
-                'gallery',
-                'Gallery',
-                $this->blockDefinitionRegistry->getBlockDefinition('gallery')
+                array(
+                    'blockDefinition' => $this->blockDefinitionRegistry->getBlockDefinition('gallery'),
+                )
             )
         );
 
@@ -702,15 +702,15 @@ abstract class BlockServiceTest extends ServiceTestCase
             ),
             $this->blockService->newBlockCreateStruct(
                 new BlockType(
-                    'title',
-                    'Title',
-                    $this->blockDefinitionRegistry->getBlockDefinition('title'),
                     array(
-                        'view_type' => 'small',
-                        'item_view_type' => 'standard',
-                        'name' => 'My block',
-                        'parameters' => array(
-                            'css_class' => 'css-class',
+                        'blockDefinition' => $this->blockDefinitionRegistry->getBlockDefinition('title'),
+                        'defaults' => array(
+                            'view_type' => 'small',
+                            'item_view_type' => 'standard',
+                            'name' => 'My block',
+                            'parameters' => array(
+                                'css_class' => 'css-class',
+                            ),
                         ),
                     )
                 )
@@ -738,15 +738,15 @@ abstract class BlockServiceTest extends ServiceTestCase
             ),
             $this->blockService->newBlockCreateStruct(
                 new BlockType(
-                    'title',
-                    'Title',
-                    $this->blockDefinitionRegistry->getBlockDefinition('title'),
                     array(
-                        'view_type' => 'non_existing',
-                        'item_view_type' => 'standard',
-                        'name' => 'My block',
-                        'parameters' => array(
-                            'css_class' => 'css-class',
+                        'blockDefinition' => $this->blockDefinitionRegistry->getBlockDefinition('title'),
+                        'defaults' => array(
+                            'view_type' => 'non_existing',
+                            'item_view_type' => 'standard',
+                            'name' => 'My block',
+                            'parameters' => array(
+                                'css_class' => 'css-class',
+                            ),
                         ),
                     )
                 )
@@ -774,15 +774,15 @@ abstract class BlockServiceTest extends ServiceTestCase
             ),
             $this->blockService->newBlockCreateStruct(
                 new BlockType(
-                    'title',
-                    'Title',
-                    $this->blockDefinitionRegistry->getBlockDefinition('title'),
                     array(
-                        'view_type' => 'small',
-                        'item_view_type' => 'non_existing',
-                        'name' => 'My block',
-                        'parameters' => array(
-                            'css_class' => 'css-class',
+                        'blockDefinition' => $this->blockDefinitionRegistry->getBlockDefinition('title'),
+                        'defaults' => array(
+                            'view_type' => 'small',
+                            'item_view_type' => 'non_existing',
+                            'name' => 'My block',
+                            'parameters' => array(
+                                'css_class' => 'css-class',
+                            ),
                         ),
                     )
                 )
@@ -810,15 +810,15 @@ abstract class BlockServiceTest extends ServiceTestCase
             ),
             $this->blockService->newBlockCreateStruct(
                 new BlockType(
-                    'title',
-                    'Title',
-                    $this->blockDefinitionRegistry->getBlockDefinition('title'),
                     array(
-                        'view_type' => 'non_existing',
-                        'item_view_type' => 'non_existing',
-                        'name' => 'My block',
-                        'parameters' => array(
-                            'css_class' => 'css-class',
+                        'blockDefinition' => $this->blockDefinitionRegistry->getBlockDefinition('title'),
+                        'defaults' => array(
+                            'view_type' => 'non_existing',
+                            'item_view_type' => 'non_existing',
+                            'name' => 'My block',
+                            'parameters' => array(
+                                'css_class' => 'css-class',
+                            ),
                         ),
                     )
                 )

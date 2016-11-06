@@ -2,7 +2,9 @@
 
 namespace Netgen\BlockManager\Configuration\BlockType;
 
-class BlockTypeGroup
+use Netgen\BlockManager\ValueObject;
+
+class BlockTypeGroup extends ValueObject
 {
     /**
      * @var string
@@ -18,20 +20,6 @@ class BlockTypeGroup
      * @var \Netgen\BlockManager\Configuration\BlockType\BlockType[]
      */
     protected $blockTypes = array();
-
-    /**
-     * Constructor.
-     *
-     * @param string $identifier
-     * @param string $name
-     * @param \Netgen\BlockManager\Configuration\BlockType\BlockType[] $blockTypes
-     */
-    public function __construct($identifier, $name, array $blockTypes = array())
-    {
-        $this->identifier = $identifier;
-        $this->name = $name;
-        $this->blockTypes = $blockTypes;
-    }
 
     /**
      * Returns the block type group identifier.

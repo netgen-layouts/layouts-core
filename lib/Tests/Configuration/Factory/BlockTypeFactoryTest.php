@@ -30,11 +30,13 @@ class BlockTypeFactoryTest extends TestCase
 
         $this->assertEquals(
             new BlockType(
-                'title',
-                'Title',
-                $blockDefinition,
                 array(
-                    'viewType' => 'default',
+                    'identifier' => 'title',
+                    'name' => 'Title',
+                    'blockDefinition' => $blockDefinition,
+                    'defaults' => array(
+                        'viewType' => 'default',
+                    ),
                 )
             ),
             $blockType
