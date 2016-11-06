@@ -32,25 +32,51 @@ class DesignEditTypeTest extends FormTestCase
         parent::setUp();
 
         $config = new Configuration(
-            'block_definition',
             array(
-                'design' => new Form('design', DesignEditType::class, true),
-            ),
-            array(
-                'large' => new ViewType(
-                    'large',
-                    'Large',
-                    array(
-                        'standard' => new ItemViewType('standard', 'Standard'),
-                        'other' => new ItemViewType('other', 'Other'),
-                    )
+                'identifier' => 'block_definition',
+                'forms' => array(
+                    'design' => new Form(
+                        array(
+                            'identifier' => 'design',
+                            'type' => DesignEditType::class,
+                        )
+                    ),
                 ),
-                'small' => new ViewType(
-                    'small',
-                    'Small',
-                    array(
-                        'standard' => new ItemViewType('standard', 'Standard'),
-                    )
+                'viewTypes' => array(
+                    'large' => new ViewType(
+                        array(
+                            'identifier' => 'large',
+                            'name' => 'Large',
+                            'itemViewTypes' => array(
+                                'standard' => new ItemViewType(
+                                    array(
+                                        'identifier' => 'standard',
+                                        'name' => 'Standard',
+                                    )
+                                ),
+                                'other' => new ItemViewType(
+                                    array(
+                                        'identifier' => 'other',
+                                        'name' => 'Other',
+                                    )
+                                ),
+                            ),
+                        )
+                    ),
+                    'small' => new ViewType(
+                        array(
+                            'identifier' => 'large',
+                            'name' => 'Large',
+                            'itemViewTypes' => array(
+                                'standard' => new ItemViewType(
+                                    array(
+                                        'identifier' => 'standard',
+                                        'name' => 'Standard',
+                                    )
+                                ),
+                            ),
+                        )
+                    ),
                 ),
             )
         );

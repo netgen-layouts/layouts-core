@@ -3,8 +3,9 @@
 namespace Netgen\BlockManager\Block\BlockDefinition\Configuration;
 
 use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\ValueObject;
 
-class ViewType
+class ViewType extends ValueObject
 {
     /**
      * @var string
@@ -25,26 +26,6 @@ class ViewType
      * @var array
      */
     protected $validParameters;
-
-    /**
-     * Constructor.
-     *
-     * @param string $identifier
-     * @param string $name
-     * @param \Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType[] $itemViewTypes
-     * @param array $validParameters
-     */
-    public function __construct(
-        $identifier,
-        $name,
-        array $itemViewTypes = array(),
-        array $validParameters = null
-    ) {
-        $this->identifier = $identifier;
-        $this->name = $name;
-        $this->itemViewTypes = $itemViewTypes;
-        $this->validParameters = $validParameters;
-    }
 
     /**
      * Returns the view type identifier.

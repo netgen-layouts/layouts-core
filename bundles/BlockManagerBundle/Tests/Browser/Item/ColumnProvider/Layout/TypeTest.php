@@ -3,7 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Browser\Item\ColumnProvider\Layout;
 
 use Netgen\BlockManager\Core\Values\Page\Layout;
-use Netgen\BlockManager\Tests\Configuration\Stubs\LayoutType;
+use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\Bundle\BlockManagerBundle\Browser\Item\ColumnProvider\Layout\Type;
 use Netgen\Bundle\BlockManagerBundle\Browser\Item\Layout\Item;
 use PHPUnit\Framework\TestCase;
@@ -28,7 +28,11 @@ class TypeTest extends TestCase
         $item = new Item(
             new Layout(
                 array(
-                    'layoutType' => new LayoutType('4_zones_a', array(), '4 zones A'),
+                    'layoutType' => new LayoutType(
+                        array(
+                            'name' => '4 zones A',
+                        )
+                    ),
                 )
             )
         );

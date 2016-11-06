@@ -23,8 +23,10 @@ class Factory
             }
 
             $forms[$formIdentifier] = new Form(
-                $formIdentifier,
-                $formConfig['type']
+                array(
+                    'identifier' => $formIdentifier,
+                    'type' => $formConfig['type'],
+                )
             );
         }
 
@@ -36,19 +38,29 @@ class Factory
             $itemViewTypes = array();
             foreach ($viewTypeConfig['item_view_types'] as $itemViewTypeIdentifier => $itemViewTypeConfig) {
                 $itemViewTypes[$itemViewTypeIdentifier] = new ItemViewType(
-                    $itemViewTypeIdentifier,
-                    $itemViewTypeConfig['name']
+                    array(
+                        'identifier' => $itemViewTypeIdentifier,
+                        'name' => $itemViewTypeConfig['name'],
+                    )
                 );
             }
 
             $viewTypes[$viewTypeIdentifier] = new ViewType(
-                $viewTypeIdentifier,
-                $viewTypeConfig['name'],
-                $itemViewTypes,
-                $viewTypeConfig['valid_parameters']
+                array(
+                    'identifier' => $viewTypeIdentifier,
+                    'name' => $viewTypeConfig['name'],
+                    'itemViewTypes' => $itemViewTypes,
+                    'validParameters' => $viewTypeConfig['valid_parameters'],
+                )
             );
         }
 
-        return new Configuration($identifier, $forms, $viewTypes);
+        return new Configuration(
+            array(
+                'identifier' => $identifier,
+                'forms' => $forms,
+                'viewTypes' => $viewTypes,
+            )
+        );
     }
 }

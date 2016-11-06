@@ -47,15 +47,24 @@ class BlockValidatorTest extends TestCase
     {
         $this->blockDefinitionRegistryMock = $this->createMock(BlockDefinitionRegistryInterface::class);
         $this->blockDefinitionConfig = new Configuration(
-            'def',
-            array(),
             array(
-                'large' => new ViewType(
-                    'large',
-                    'Large',
-                    array(
-                        'standard' => new ItemViewType('standard', 'Standard'),
-                    )
+                'identifier' => 'def',
+                'forms' => array(),
+                'viewTypes' => array(
+                    'large' => new ViewType(
+                        array(
+                            'identifier' => 'large',
+                            'name' => 'Large',
+                            'itemViewTypes' => array(
+                                'standard' => new ItemViewType(
+                                    array(
+                                        'identifier' => 'standard',
+                                        'name' => 'Standard',
+                                    )
+                                ),
+                            ),
+                        )
+                    ),
                 ),
             )
         );

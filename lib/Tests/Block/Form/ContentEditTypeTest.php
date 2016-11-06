@@ -32,24 +32,45 @@ class ContentEditTypeTest extends FormTestCase
         parent::setUp();
 
         $config = new Configuration(
-            'block_definition',
             array(
-                'content' => new Form('content', ContentEditType::class, true),
-            ),
-            array(
-                'large' => new ViewType(
-                    'large',
-                    'Large',
-                    array(
-                        'standard' => new ItemViewType('standard', 'Standard'),
-                    )
+                'identifier' => 'block_definition',
+                'forms' => array(
+                    'content' => new Form(
+                        array(
+                            'identifier' => 'content',
+                            'type' => ContentEditType::class,
+                        )
+                    ),
                 ),
-                'small' => new ViewType(
-                    'small',
-                    'Small',
-                    array(
-                        'standard' => new ItemViewType('standard', 'Standard'),
-                    )
+                'viewTypes' => array(
+                    'large' => new ViewType(
+                        array(
+                            'identifier' => 'large',
+                            'name' => 'Large',
+                            'itemViewTypes' => array(
+                                'standard' => new ItemViewType(
+                                    array(
+                                        'identifier' => 'standard',
+                                        'name' => 'Standard',
+                                    )
+                                ),
+                            ),
+                        )
+                    ),
+                    'small' => new ViewType(
+                        array(
+                            'identifier' => 'large',
+                            'name' => 'Large',
+                            'itemViewTypes' => array(
+                                'standard' => new ItemViewType(
+                                    array(
+                                        'identifier' => 'standard',
+                                        'name' => 'Standard',
+                                    )
+                                ),
+                            ),
+                        )
+                    ),
                 ),
             )
         );

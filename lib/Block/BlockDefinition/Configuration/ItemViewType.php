@@ -2,7 +2,9 @@
 
 namespace Netgen\BlockManager\Block\BlockDefinition\Configuration;
 
-class ItemViewType
+use Netgen\BlockManager\ValueObject;
+
+class ItemViewType extends ValueObject
 {
     /**
      * @var string
@@ -13,18 +15,6 @@ class ItemViewType
      * @var string
      */
     protected $name;
-
-    /**
-     * Constructor.
-     *
-     * @param string $identifier
-     * @param string $name
-     */
-    public function __construct($identifier, $name)
-    {
-        $this->identifier = $identifier;
-        $this->name = $name;
-    }
 
     /**
      * Returns the item view type identifier.

@@ -131,16 +131,28 @@ class BlockDefinition implements BlockDefinitionInterface
         foreach ($this->viewTypes as $viewType => $itemTypes) {
             $itemViewTypes = array();
             foreach ($itemTypes as $itemType) {
-                $itemViewTypes[$itemType] = new ItemViewType($itemType, $itemType);
+                $itemViewTypes[$itemType] = new ItemViewType(
+                    array(
+                        'identifier' => $itemType,
+                        'name' => $itemType,
+                    )
+                );
             }
 
             $viewTypes[$viewType] = new ViewType(
-                $viewType,
-                $viewType,
-                $itemViewTypes
+                array(
+                    'identifier' => $viewType,
+                    'name' => $viewType,
+                    'itemViewTypes' => $itemViewTypes,
+                )
             );
         }
 
-        return new Configuration($this->identifier, array(), $viewTypes);
+        return new Configuration(
+            array(
+                'identifier' => $this->identifier,
+                'viewTypes' => $viewTypes,
+            )
+        );
     }
 }

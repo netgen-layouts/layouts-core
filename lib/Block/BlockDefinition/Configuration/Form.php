@@ -2,7 +2,9 @@
 
 namespace Netgen\BlockManager\Block\BlockDefinition\Configuration;
 
-class Form
+use Netgen\BlockManager\ValueObject;
+
+class Form extends ValueObject
 {
     /**
      * @var string
@@ -13,18 +15,6 @@ class Form
      * @var string
      */
     protected $type;
-
-    /**
-     * Constructor.
-     *
-     * @param string $identifier
-     * @param string $type
-     */
-    public function __construct($identifier, $type)
-    {
-        $this->identifier = $identifier;
-        $this->type = $type;
-    }
 
     /**
      * Returns the form identifier.

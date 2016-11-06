@@ -3,8 +3,9 @@
 namespace Netgen\BlockManager\Block\BlockDefinition\Configuration;
 
 use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\ValueObject;
 
-class Configuration
+class Configuration extends ValueObject
 {
     /**
      * @var string
@@ -12,7 +13,7 @@ class Configuration
     protected $identifier;
 
     /**
-     * @var array
+     * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\Form[]
      */
     protected $forms = array();
 
@@ -20,20 +21,6 @@ class Configuration
      * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType[]
      */
     protected $viewTypes = array();
-
-    /**
-     * Constructor.
-     *
-     * @param string $identifier
-     * @param array $forms
-     * @param \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType[] $viewTypes
-     */
-    public function __construct($identifier, array $forms = array(), array $viewTypes = array())
-    {
-        $this->identifier = $identifier;
-        $this->forms = $forms;
-        $this->viewTypes = $viewTypes;
-    }
 
     /**
      * Returns all forms.

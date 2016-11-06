@@ -67,21 +67,32 @@ class FactoryTest extends TestCase
 
         $this->assertEquals(
             new Configuration(
-                'block_definition',
                 array(
-                    'content' => new Form('content', 'form_type', true),
-                ),
-                array(
-                    'large' => new ViewType(
-                        'large',
-                        'Large',
-                        array(
-                            'standard' => new ItemViewType(
-                                'standard',
-                                'Standard'
-                            ),
+                    'identifier' => 'block_definition',
+                    'forms' => array(
+                        'content' => new Form(
+                            array(
+                                'identifier' => 'content',
+                                'type' => 'form_type',
+                            )
                         ),
-                        array('param1', 'param2')
+                    ),
+                    'viewTypes' => array(
+                        'large' => new ViewType(
+                            array(
+                                'identifier' => 'large',
+                                'name' => 'Large',
+                                'itemViewTypes' => array(
+                                    'standard' => new ItemViewType(
+                                        array(
+                                            'identifier' => 'standard',
+                                            'name' => 'Standard',
+                                        )
+                                    ),
+                                ),
+                                'validParameters' => array('param1', 'param2'),
+                            )
+                        ),
                     ),
                 )
             ),

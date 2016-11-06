@@ -17,13 +17,15 @@ class ConfigurationTest extends TestCase
     public function setUp()
     {
         $this->configuration = new Configuration(
-            'block_definition',
             array(
-                'content' => new Form('content', 'form_type', true),
-            ),
-            array(
-                'large' => new ViewType('large', 'Large'),
-                'small' => new ViewType('small', 'Small'),
+                'identifier' => 'block_definition',
+                'forms' => array(
+                    'content' => new Form(array('identifier' => 'content')),
+                ),
+                'viewTypes' => array(
+                    'large' => new ViewType(array('identifier' => 'large')),
+                    'small' => new ViewType(array('identifier' => 'small')),
+                ),
             )
         );
     }
@@ -36,7 +38,7 @@ class ConfigurationTest extends TestCase
     {
         $this->assertEquals(
             array(
-                'content' => new Form('content', 'form_type', true),
+                'content' => new Form(array('identifier' => 'content')),
             ),
             $this->configuration->getForms()
         );
@@ -57,7 +59,7 @@ class ConfigurationTest extends TestCase
     public function testGetForm()
     {
         $this->assertEquals(
-            new Form('content', 'form_type', true),
+            new Form(array('identifier' => 'content')),
             $this->configuration->getForm('content')
         );
     }
@@ -78,8 +80,8 @@ class ConfigurationTest extends TestCase
     {
         $this->assertEquals(
             array(
-                'large' => new ViewType('large', 'Large'),
-                'small' => new ViewType('small', 'Small'),
+                'large' => new ViewType(array('identifier' => 'large')),
+                'small' => new ViewType(array('identifier' => 'small')),
             ),
             $this->configuration->getViewTypes()
         );
@@ -111,7 +113,7 @@ class ConfigurationTest extends TestCase
     public function testGetViewType()
     {
         $this->assertEquals(
-            new ViewType('large', 'Large'),
+            new ViewType(array('identifier' => 'large')),
             $this->configuration->getViewType('large')
         );
     }

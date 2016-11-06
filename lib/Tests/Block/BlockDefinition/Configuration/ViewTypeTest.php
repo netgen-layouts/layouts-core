@@ -16,13 +16,15 @@ class ViewTypeTest extends TestCase
     public function setUp()
     {
         $this->viewType = new ViewType(
-            'large',
-            'Large',
             array(
-                'standard' => new ItemViewType('standard', 'Standard'),
-                'standard_with_intro' => new ItemViewType('standard_with_intro', 'Standard with intro'),
-            ),
-            array('param1', 'param2')
+                'identifier' => 'large',
+                'name' => 'Large',
+                'itemViewTypes' => array(
+                    'standard' => new ItemViewType(array('identifier' => 'standard')),
+                    'standard_with_intro' => new ItemViewType(array('identifier' => 'standard_with_intro')),
+                ),
+                'validParameters' => array('param1', 'param2'),
+            )
         );
     }
 
@@ -50,8 +52,8 @@ class ViewTypeTest extends TestCase
     {
         $this->assertEquals(
             array(
-                'standard' => new ItemViewType('standard', 'Standard'),
-                'standard_with_intro' => new ItemViewType('standard_with_intro', 'Standard with intro'),
+                'standard' => new ItemViewType(array('identifier' => 'standard')),
+                'standard_with_intro' => new ItemViewType(array('identifier' => 'standard_with_intro')),
             ),
             $this->viewType->getItemViewTypes()
         );
@@ -83,7 +85,7 @@ class ViewTypeTest extends TestCase
     public function testGetItemViewType()
     {
         $this->assertEquals(
-            new ItemViewType('standard', 'Standard'),
+            new ItemViewType(array('identifier' => 'standard')),
             $this->viewType->getItemViewType('standard')
         );
     }
