@@ -55,7 +55,7 @@ class ParameterStructValidator extends ConstraintValidator
             new Constraints\Collection(
                 array(
                     'fields' => $this->buildConstraintFields($value, $constraint),
-                    'allowMissingFields' => $constraint->allowMissingFields
+                    'allowMissingFields' => $constraint->allowMissingFields,
                 )
             )
         );

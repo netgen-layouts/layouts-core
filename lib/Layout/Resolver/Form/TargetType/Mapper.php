@@ -16,12 +16,7 @@ abstract class Mapper implements MapperInterface
      */
     public function mapOptions(TargetTypeInterface $targetType)
     {
-        return array(
-            'required' => true,
-            'constraints' => $targetType->getConstraints(),
-            'label' => sprintf('target_type.%s.label', $targetType->getType()),
-            'error_bubbling' => false,
-        );
+        return array();
     }
 
     /**

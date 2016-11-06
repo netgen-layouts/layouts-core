@@ -30,7 +30,6 @@ class RouteParameter extends Mapper
     {
         return array(
             'label' => false,
-            'required' => true,
             'key_name' => 'parameter_name',
             'key_label' => 'condition_type.route_parameter.parameter_name.label',
             'values_name' => 'parameter_values',

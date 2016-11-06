@@ -74,12 +74,20 @@ class TargetType extends AbstractType
 
         $mapper = $this->mappers[$targetType->getType()];
 
+        $defaultOptions = array(
+            'required' => true,
+            'label' => sprintf('target_type.%s.label', $targetType->getType()),
+            'property_path' => 'value',
+            'constraints' => $targetType->getConstraints(),
+            'error_bubbling' => false,
+        );
+
         $valueForm = $builder->create(
             'value',
             $mapper->getFormType(),
-            array(
-                'property_path' => 'value',
-            ) + $mapper->mapOptions($targetType)
+            $mapper->mapOptions(
+                $targetType
+            ) + $defaultOptions
         );
 
         $mapper->handleForm($valueForm, $targetType);

@@ -74,12 +74,20 @@ class ConditionType extends AbstractType
 
         $mapper = $this->mappers[$conditionType->getType()];
 
+        $defaultOptions = array(
+            'required' => true,
+            'label' => sprintf('condition_type.%s.label', $conditionType->getType()),
+            'property_path' => 'value',
+            'constraints' => $conditionType->getConstraints(),
+            'error_bubbling' => false,
+        );
+
         $valueForm = $builder->create(
             'value',
             $mapper->getFormType(),
-            array(
-                'property_path' => 'value',
-            ) + $mapper->mapOptions($conditionType)
+            $mapper->mapOptions(
+                $conditionType
+            ) + $defaultOptions
         );
 
         $mapper->handleForm($valueForm, $conditionType);
