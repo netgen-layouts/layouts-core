@@ -5,14 +5,14 @@ namespace Netgen\BlockManager\API\Values;
 interface ParameterBasedValue
 {
     /**
-     * Returns all parameters.
+     * Returns all parameter values.
      *
      * @return \Netgen\BlockManager\Parameters\ParameterValue[]
      */
     public function getParameters();
 
     /**
-     * Returns the specified parameter.
+     * Returns the specified parameter value.
      *
      * @param string $parameter
      *
@@ -23,7 +23,7 @@ interface ParameterBasedValue
     public function getParameter($parameter);
 
     /**
-     * Returns if the object has a specified parameter.
+     * Returns if the object has a specified parameter value.
      *
      * @param string $parameter
      *

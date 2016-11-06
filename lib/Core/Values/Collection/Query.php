@@ -46,11 +46,6 @@ class Query extends ValueObject implements APIQuery
     protected $queryType;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterValue[]
-     */
-    protected $parameters = array();
-
-    /**
      * Returns the query ID.
      *
      * @return int|string

@@ -12,7 +12,7 @@ trait ParameterBasedValueTrait
     protected $parameters = array();
 
     /**
-     * Returns all parameters.
+     * Returns all parameter values.
      *
      * @return \Netgen\BlockManager\Parameters\ParameterValue[]
      */
@@ -22,7 +22,7 @@ trait ParameterBasedValueTrait
     }
 
     /**
-     * Returns the specified parameter.
+     * Returns the specified parameter value.
      *
      * @param string $parameterName
      *
@@ -37,16 +37,16 @@ trait ParameterBasedValueTrait
         }
 
         throw new InvalidArgumentException(
-            'parameter',
+            'parameterName',
             sprintf(
-                'Parameter "%s" does not exist in the object.',
+                'Parameter with "%s" name does not exist in the object.',
                 $parameterName
             )
         );
     }
 
     /**
-     * Returns if the object has a specified parameter.
+     * Returns if the object has a specified parameter value.
      *
      * @param string $parameterName
      *

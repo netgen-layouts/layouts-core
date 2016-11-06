@@ -3,23 +3,11 @@
 namespace Netgen\BlockManager\Tests\Parameters\Stubs;
 
 use Netgen\BlockManager\Parameters\CompoundParameterInterface;
+use Netgen\BlockManager\Parameters\ParameterCollectionTrait;
 
 class CompoundParameter extends Parameter implements CompoundParameterInterface
 {
-    /**
-     * @var \Netgen\BlockManager\Parameters\ParameterInterface[]
-     */
-    protected $parameters;
-
-    /**
-     * Returns the list of parameters in the object.
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
-     */
-    public function getParameters()
-    {
-        return $this->parameters;
-    }
+    use ParameterCollectionTrait;
 
     /**
      * Sets the parameters.

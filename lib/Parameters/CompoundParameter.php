@@ -4,10 +4,7 @@ namespace Netgen\BlockManager\Parameters;
 
 class CompoundParameter extends Parameter implements CompoundParameterInterface
 {
-    /**
-     * @var \Netgen\BlockManager\Parameters\ParameterInterface[]
-     */
-    protected $parameters = array();
+    use ParameterCollectionTrait;
 
     /**
      * Constructor.
@@ -26,15 +23,5 @@ class CompoundParameter extends Parameter implements CompoundParameterInterface
         parent::__construct($name, $type, $options);
 
         $this->parameters = $parameters;
-    }
-
-    /**
-     * Returns the list of parameters in the object.
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
-     */
-    public function getParameters()
-    {
-        return $this->parameters;
     }
 }

@@ -3,19 +3,17 @@
 namespace Netgen\BlockManager\Block;
 
 use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\Parameters\ParameterCollectionTrait;
 use Netgen\BlockManager\ValueObject;
 
 class BlockDefinition extends ValueObject implements BlockDefinitionInterface
 {
+    use ParameterCollectionTrait;
+
     /**
      * @var string
      */
     protected $identifier;
-
-    /**
-     * @var \Netgen\BlockManager\Parameters\ParameterInterface[]
-     */
-    protected $parameters;
 
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface
@@ -28,11 +26,6 @@ class BlockDefinition extends ValueObject implements BlockDefinitionInterface
     protected $config;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterBuilderInterface
-     */
-    protected $parameterBuilder;
-
-    /**
      * Returns block definition identifier.
      *
      * @return string
@@ -40,22 +33,6 @@ class BlockDefinition extends ValueObject implements BlockDefinitionInterface
     public function getIdentifier()
     {
         return $this->identifier;
-    }
-
-    /**
-     * Returns the list of parameters in the object.
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
-     */
-    public function getParameters()
-    {
-        if ($this->parameters === null) {
-            $this->handler->buildParameters($this->parameterBuilder);
-            $this->parameters = $this->parameterBuilder->buildParameters();
-            unset($this->parameterBuilder);
-        }
-
-        return $this->parameters;
     }
 
     /**

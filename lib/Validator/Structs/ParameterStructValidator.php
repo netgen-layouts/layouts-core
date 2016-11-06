@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Validator\Structs;
 
 use Netgen\BlockManager\Parameters\CompoundParameterInterface;
 use Netgen\BlockManager\API\Values\ParameterStruct;
+use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
 use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistryInterface;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct as ParameterStructConstraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -44,7 +45,7 @@ class ParameterStructValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, ParameterStruct::class);
         }
 
-        $this->filterParameters($value, $constraint->parameterCollection->getParameters());
+        $this->filterParameters($value, $constraint->parameterCollection);
 
         /** @var \Symfony\Component\Validator\Validator\ContextualValidatorInterface $validator */
         $validator = $this->context->getValidator()->inContext($this->context);
@@ -63,16 +64,19 @@ class ParameterStructValidator extends ConstraintValidator
      * Filters the parameter values.
      *
      * @param \Netgen\BlockManager\API\Values\ParameterStruct $parameterStruct
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface[] $parameters
+     * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
      */
-    protected function filterParameters(ParameterStruct $parameterStruct, array $parameters)
+    protected function filterParameters(ParameterStruct $parameterStruct, ParameterCollectionInterface $parameterCollection)
     {
         foreach ($parameterStruct->getParameterValues() as $parameterName => $parameterValue) {
-            if (!isset($parameters[$parameterName])) {
+            if (!$parameterCollection->hasParameter($parameterName)) {
                 continue;
             }
 
-            $filters = $this->parameterFilterRegistry->getParameterFilters($parameters[$parameterName]->getType()->getIdentifier());
+            $filters = $this->parameterFilterRegistry->getParameterFilters(
+                $parameterCollection->getParameter($parameterName)->getType()->getIdentifier()
+            );
+
             foreach ($filters as $filter) {
                 $parameterValue = $filter->filter($parameterValue);
             }

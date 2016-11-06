@@ -29,7 +29,12 @@ class QueryTypeFactory
                 'type' => $type,
                 'handler' => $handler,
                 'config' => $config,
-                'parameterBuilder' => $parameterBuilder,
+                'parameters' => function () use ($handler, $parameterBuilder) {
+                    $handler->buildParameters($parameterBuilder);
+                    $parameters = $parameterBuilder->buildParameters();
+
+                    return $parameters;
+                },
             )
         );
     }

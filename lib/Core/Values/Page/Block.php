@@ -61,11 +61,6 @@ class Block extends ValueObject implements APIBlock
     protected $status;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterValue[]
-     */
-    protected $parameters = array();
-
-    /**
      * Returns the block ID.
      *
      * @return int|string

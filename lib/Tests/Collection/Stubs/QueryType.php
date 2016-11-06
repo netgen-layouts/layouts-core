@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Collection\Stubs;
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
 use Netgen\BlockManager\Collection\QueryTypeInterface;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 
 class QueryType implements QueryTypeInterface
 {
@@ -46,6 +47,36 @@ class QueryType implements QueryTypeInterface
     public function getParameters()
     {
         return $this->handler->getParameters();
+    }
+
+    /**
+     * Returns the parameter with provided name.
+     *
+     * @param string $parameterName
+     *
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If parameter with provided name does not exist
+     *
+     * @return \Netgen\BlockManager\Parameters\ParameterInterface
+     */
+    public function getParameter($parameterName)
+    {
+        if ($this->hasParameter($parameterName)) {
+            return $this->handler->getParameters()[$parameterName];
+        }
+
+        throw new InvalidArgumentException('parameterName', 'Parameter is missing.');
+    }
+
+    /**
+     * Returns if the parameter with provided name exists in the collection.
+     *
+     * @param string $parameterName
+     *
+     * @return bool
+     */
+    public function hasParameter($parameterName)
+    {
+        return isset($this->handler->getParameters()[$parameterName]);
     }
 
     /**

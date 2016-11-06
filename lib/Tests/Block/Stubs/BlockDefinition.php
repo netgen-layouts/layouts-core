@@ -7,6 +7,7 @@ use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 
 class BlockDefinition implements BlockDefinitionInterface
 {
@@ -57,6 +58,36 @@ class BlockDefinition implements BlockDefinitionInterface
     public function getParameters()
     {
         return $this->handler->getParameters();
+    }
+
+    /**
+     * Returns the parameter with provided name.
+     *
+     * @param string $parameterName
+     *
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If parameter with provided name does not exist
+     *
+     * @return \Netgen\BlockManager\Parameters\ParameterInterface
+     */
+    public function getParameter($parameterName)
+    {
+        if ($this->hasParameter($parameterName)) {
+            return $this->handler->getParameters()[$parameterName];
+        }
+
+        throw new InvalidArgumentException('parameterName', 'Parameter is missing.');
+    }
+
+    /**
+     * Returns if the parameter with provided name exists in the collection.
+     *
+     * @param string $parameterName
+     *
+     * @return bool
+     */
+    public function hasParameter($parameterName)
+    {
+        return isset($this->handler->getParameters()[$parameterName]);
     }
 
     /**

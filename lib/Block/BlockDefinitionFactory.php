@@ -27,9 +27,14 @@ class BlockDefinitionFactory
     ) {
         $data = array(
             'identifier' => $identifier,
-            'parameterBuilder' => $parameterBuilder,
             'handler' => $handler,
             'config' => $config,
+            'parameters' => function () use ($handler, $parameterBuilder) {
+                $handler->buildParameters($parameterBuilder);
+                $parameters = $parameterBuilder->buildParameters();
+
+                return $parameters;
+            },
         );
 
         if ($handler instanceof TwigBlockDefinitionHandlerInterface) {

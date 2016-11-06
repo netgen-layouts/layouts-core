@@ -3,10 +3,13 @@
 namespace Netgen\BlockManager\Collection;
 
 use Netgen\BlockManager\API\Values\Collection\Query;
+use Netgen\BlockManager\Parameters\ParameterCollectionTrait;
 use Netgen\BlockManager\ValueObject;
 
 class QueryType extends ValueObject implements QueryTypeInterface
 {
+    use ParameterCollectionTrait;
+
     /**
      * @var string
      */
@@ -23,16 +26,6 @@ class QueryType extends ValueObject implements QueryTypeInterface
     protected $config;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterInterface[]
-     */
-    protected $parameters;
-
-    /**
-     * @var \Netgen\BlockManager\Parameters\ParameterBuilderInterface
-     */
-    protected $parameterBuilder;
-
-    /**
      * Returns the query type.
      *
      * @return string
@@ -40,24 +33,6 @@ class QueryType extends ValueObject implements QueryTypeInterface
     public function getType()
     {
         return $this->type;
-    }
-
-    /**
-     * Returns the array specifying query parameters.
-     *
-     * The keys are parameter identifiers.
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
-     */
-    public function getParameters()
-    {
-        if ($this->parameters === null) {
-            $this->handler->buildParameters($this->parameterBuilder);
-            $this->parameters = $this->parameterBuilder->buildParameters();
-            unset($this->parameterBuilder);
-        }
-
-        return $this->parameters;
     }
 
     /**
