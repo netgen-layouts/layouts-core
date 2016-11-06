@@ -93,13 +93,8 @@ abstract class ParameterStruct extends ValueObject
     public function fillValues(ParameterCollectionInterface $parameterCollection, $values = array(), $useDefaults = true)
     {
         foreach ($parameterCollection->getParameters() as $parameter) {
-            $parameterName = $parameter->getName();
-            $value = $useDefaults ? $parameter->getDefaultValue() : null;
-            if (array_key_exists($parameterName, $values)) {
-                $value = $this->buildValue($parameter, $values[$parameterName]);
-            }
-
-            $this->setParameterValue($parameterName, $value);
+            $value = $this->buildValue($parameter, $values, $useDefaults);
+            $this->setParameterValue($parameter->getName(), $value);
 
             if ($parameter instanceof CompoundParameterInterface) {
                 $this->fillValues($parameter, $values, $useDefaults);
@@ -108,21 +103,27 @@ abstract class ParameterStruct extends ValueObject
     }
 
     /**
-     * Builds the value suitable for usage by the struct.
+     * Builds the value suitable for usage by the struct for provided parameter.
      *
      * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
-     * @param mixed $inputValue
+     * @param array $values
+     * @param bool $useDefaults
      *
      * @return mixed
      */
-    protected function buildValue(ParameterInterface $parameter, $inputValue)
+    protected function buildValue(ParameterInterface $parameter, array $values = array(), $useDefaults = true)
     {
-        if ($inputValue instanceof ParameterValue) {
-            $value = $inputValue->getValue();
+        if (!array_key_exists($parameter->getName(), $values)) {
+            return $useDefaults ? $parameter->getDefaultValue() : null;
+        }
+
+        $value = $values[$parameter->getName()];
+        if ($value instanceof ParameterValue) {
+            $value = $value->getValue();
 
             return is_object($value) ? clone $value : $value;
         }
 
-        return $parameter->getType()->toValue($inputValue);
+        return $parameter->getType()->toValue($value);
     }
 }
