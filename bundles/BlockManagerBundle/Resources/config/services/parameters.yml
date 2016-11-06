@@ -40,6 +40,8 @@ parameters:
     netgen_block_manager.parameters.form.type.parameters.class: Netgen\BlockManager\Parameters\Form\Type\ParametersType
 
 services:
+    # Registries
+
     netgen_block_manager.parameters.registry.parameter_type:
         class: "%netgen_block_manager.parameters.registry.parameter_type.class%"
 
@@ -49,16 +51,23 @@ services:
     netgen_block_manager.parameters.registry.parameter_filter:
         class: "%netgen_block_manager.parameters.registry.parameter_filter.class%"
 
+    # Builders
+
     netgen_block_manager.parameters.parameter_builder:
         class: "%netgen_block_manager.parameters.parameter_builder.class%"
         arguments:
             - "@netgen_block_manager.parameters.registry.parameter_type"
+        # Builder is a one use & discard object, hence shared: false
         shared: false
+
+    # Filters
 
     netgen_block_manager.parameters.parameter_filter.html.html_purifier:
         class: "%netgen_block_manager.parameters.parameter_filter.html.html_purifier.class%"
         tags:
             - { name: netgen_block_manager.parameters.parameter_filter, parameter_type: html }
+
+    # Parameter types
 
     netgen_block_manager.parameters.parameter_type.text_line:
         class: "%netgen_block_manager.parameters.parameter_type.text_line.class%"
@@ -129,6 +138,8 @@ services:
         class: "%netgen_block_manager.parameters.parameter_type.compound.boolean.class%"
         tags:
             - { name: netgen_block_manager.parameters.parameter_type }
+
+    # Form mappers
 
     netgen_block_manager.parameters.form.mapper.text_line:
         class: "%netgen_block_manager.parameters.form.mapper.text_line.class%"
@@ -203,6 +214,8 @@ services:
         class: "%netgen_block_manager.parameters.form.mapper.compound.boolean.class%"
         tags:
             - { name: netgen_block_manager.parameters.form.mapper, type: compound_boolean }
+
+    # Form
 
     netgen_block_manager.parameters.form.type.parameters:
         class: "%netgen_block_manager.parameters.form.type.parameters.class%"
