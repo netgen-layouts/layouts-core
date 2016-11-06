@@ -25,6 +25,11 @@ class ParameterBuilder implements ParameterBuilderInterface
     protected $resolvedParameters = array();
 
     /**
+     * @var array
+     */
+    protected $overrideOptions = array();
+
+    /**
      * @var bool
      */
     protected $locked = false;
@@ -33,10 +38,12 @@ class ParameterBuilder implements ParameterBuilderInterface
      * Constructor.
      *
      * @param \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface $parameterTypeRegistry
+     * @param array $overrideOptions
      */
-    public function __construct(ParameterTypeRegistryInterface $parameterTypeRegistry)
+    public function __construct(ParameterTypeRegistryInterface $parameterTypeRegistry, array $overrideOptions = array())
     {
         $this->parameterTypeRegistry = $parameterTypeRegistry;
+        $this->overrideOptions = $overrideOptions;
     }
 
     /**
@@ -58,11 +65,18 @@ class ParameterBuilder implements ParameterBuilderInterface
 
         $this->unresolvedParameters[$name] = array(
             'type' => $type,
-            'options' => $options,
+            'options' => $this->overrideOptions + $options,
         );
 
         if ($type instanceof CompoundParameterTypeInterface) {
-            $childBuilder = new self($this->parameterTypeRegistry);
+            $childBuilder = new self(
+                $this->parameterTypeRegistry,
+                array(
+                    // Child parameters receive the group from the parent
+                    'groups' => $options['groups']
+                )
+            );
+
             $type->buildParameters($childBuilder);
 
             $this->unresolvedParameters[$name]['builder'] = $childBuilder;

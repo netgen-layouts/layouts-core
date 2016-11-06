@@ -85,7 +85,6 @@ class GalleryHandler extends BlockDefinitionHandler
             array(
                 'required' => true,
                 'options' => $this->paginationTypes,
-                'groups' => array(self::GROUP_DESIGN),
             )
         );
 
@@ -122,7 +121,6 @@ class GalleryHandler extends BlockDefinitionHandler
                 'required' => true,
                 'min' => $this->minAutoplayTime,
                 'max' => $this->maxAutoplayTime,
-                'groups' => array(self::GROUP_DESIGN),
             )
         );
 
@@ -156,10 +154,7 @@ class GalleryHandler extends BlockDefinitionHandler
 
         $builder->get('show_details')->add(
             'show_details_on_hover',
-            ParameterType\BooleanType::class,
-            array(
-                'groups' => array(self::GROUP_DESIGN),
-            )
+            ParameterType\BooleanType::class
         );
 
         $builder->add(
