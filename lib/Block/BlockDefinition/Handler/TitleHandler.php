@@ -51,6 +51,7 @@ class TitleHandler extends BlockDefinitionHandler
             ParameterType\TextLineType::class,
             array(
                 'required' => true,
+                'default_value' => 'Title',
             )
         );
 

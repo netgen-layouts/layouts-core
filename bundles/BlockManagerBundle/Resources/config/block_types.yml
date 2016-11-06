@@ -2,16 +2,10 @@ block_types:
     title:
         name: 'Title'
         definition_identifier: title
-        defaults:
-            parameters:
-                title: 'Title'
 
     text:
         name: 'Text'
         definition_identifier: text
-        defaults:
-            parameters:
-                content: 'Text'
 
     markdown:
         name: 'Markdown'
@@ -29,10 +23,6 @@ block_types:
     map:
         name: 'Map'
         definition_identifier: map
-        defaults:
-            parameters:
-                zoom: 5
-                show_marker: true
 
     html_snippet:
         name: 'HTML snippet'

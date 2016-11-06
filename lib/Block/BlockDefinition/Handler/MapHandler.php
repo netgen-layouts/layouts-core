@@ -75,6 +75,7 @@ class MapHandler extends BlockDefinitionHandler
             ParameterType\RangeType::class,
             array(
                 'required' => true,
+                'default_value' => 5,
                 'groups' => array(self::GROUP_DESIGN),
                 'min' => $this->minZoom,
                 'max' => $this->maxZoom,
@@ -95,6 +96,7 @@ class MapHandler extends BlockDefinitionHandler
             'show_marker',
             ParameterType\BooleanType::class,
             array(
+                'default_value' => true,
                 'groups' => array(self::GROUP_DESIGN),
             )
         );

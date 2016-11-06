@@ -20,6 +20,7 @@ class TextHandler extends BlockDefinitionHandler
             ParameterType\TextType::class,
             array(
                 'required' => true,
+                'default_value' => 'Text',
             )
         );
 
