@@ -19,7 +19,7 @@ class ParameterStruct extends Constraint
     /**
      * @var bool
      */
-    public $required = false;
+    public $allowMissingFields = false;
 
     /**
      * Returns the name of the class that validates this constraint.

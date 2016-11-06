@@ -54,7 +54,7 @@ class QueryUpdateStructValidator extends ConstraintValidator
                 new ParameterStruct(
                     array(
                         'parameters' => $queryType->getParameters(),
-                        'required' => false,
+                        'allowMissingFields' => true,
                     )
                 ),
             )

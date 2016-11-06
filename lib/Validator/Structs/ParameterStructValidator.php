@@ -100,7 +100,7 @@ class ParameterStructValidator extends ConstraintValidator
 
             $constraints = $parameter->getType()->getConstraints($parameter, $parameterValue);
 
-            $fields[$parameterName] = $constraint->required && $parameter->isRequired() ?
+            $fields[$parameterName] = !$constraint->allowMissingFields && $parameter->isRequired() ?
                 new Constraints\Required($constraints) :
                 new Constraints\Optional($constraints);
 

@@ -92,7 +92,6 @@ class BlockValidator extends Validator
                 new ParameterStruct(
                     array(
                         'parameters' => $blockDefinition->getParameters(),
-                        'required' => true,
                     )
                 ),
             ),

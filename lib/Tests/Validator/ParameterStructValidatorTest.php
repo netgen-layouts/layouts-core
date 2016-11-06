@@ -35,6 +35,7 @@ class ParameterStructValidatorTest extends ValidatorTestCase
                     'css_id' => new Parameter('css_id', new ParameterType\TextLineType(), array(), true),
                     'checkbox' => $compoundParameter,
                 ),
+                'allowMissingFields' => true,
             )
         );
     }
@@ -64,7 +65,7 @@ class ParameterStructValidatorTest extends ValidatorTestCase
      */
     public function testValidate($parameters, $required, $isValid)
     {
-        $this->constraint->required = $required;
+        $this->constraint->allowMissingFields = !$required;
 
         $this->assertValid(
             $isValid,
