@@ -28,8 +28,8 @@ parameters:
 
     netgen_block_manager.block.block_definition.handler.link.options:
         'link': 'Link'
+        'btn btn-default': 'Default button'
         'btn btn-primary': 'Primary button'
-        'btn btn-secondary': 'Secondary button'
         'btn btn-success': 'Success button'
         'btn btn-info': 'Info button'
         'btn btn-warning': 'Warning button'
