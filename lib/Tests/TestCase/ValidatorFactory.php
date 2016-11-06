@@ -2,9 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\TestCase;
 
-use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry;
-use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\BlockManager\Validator\BlockItemViewTypeValidator;
 use Netgen\BlockManager\Validator\BlockViewTypeValidator;
 use Netgen\BlockManager\Validator\Structs\ParameterStructValidator;
@@ -30,14 +28,7 @@ class ValidatorFactory extends ConstraintValidatorFactory
         } elseif ($name === 'ngbm_value_type') {
             return new ValueTypeValidator(array('value'));
         } elseif ($name === 'ngbm_parameter_struct') {
-            $parameterTypeRegistry = new ParameterTypeRegistry();
-            $parameterTypeRegistry->addParameterType(new ParameterType\TextLineType());
-            $parameterTypeRegistry->addParameterType(new ParameterType\IntegerType());
-
-            return new ParameterStructValidator(
-                $parameterTypeRegistry,
-                new ParameterFilterRegistry()
-            );
+            return new ParameterStructValidator(new ParameterFilterRegistry());
         } elseif ($name === 'ngbm_block_update_struct') {
             return new BlockUpdateStructValidator();
         } elseif ($name === 'ngbm_query_update_struct') {

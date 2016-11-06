@@ -37,11 +37,6 @@ interface BlockDefinitionInterface
     public function hasCollection();
 
     /**
-     * @return \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface
-     */
-    public function getHandler();
-
-    /**
      * Returns the block definition configuration.
      *
      * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration

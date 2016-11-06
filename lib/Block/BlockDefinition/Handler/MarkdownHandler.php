@@ -3,9 +3,10 @@
 namespace Netgen\BlockManager\Block\BlockDefinition\Handler;
 
 use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\Parameters\Parameter\Text;
+use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
 use Michelf\MarkdownInterface;
+use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 
 class MarkdownHandler extends BlockDefinitionHandler
 {
@@ -25,15 +26,18 @@ class MarkdownHandler extends BlockDefinitionHandler
     }
 
     /**
-     * Returns the array specifying block parameters.
+     * Builds the parameters by using provided parameter builder.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
+     * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $builder
      */
-    public function getParameters()
+    public function buildParameters(ParameterBuilderInterface $builder)
     {
-        return array(
-            'content' => new Text(),
-        ) + $this->getCommonParameters();
+        $builder->add(
+            'content',
+            ParameterType\TextType::class
+        );
+
+        $this->buildCommonParameters($builder);
     }
 
     /**

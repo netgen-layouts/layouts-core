@@ -41,8 +41,8 @@ class BlockNormalizer extends SerializerAwareNormalizer implements NormalizerInt
         $block = $object->getValue();
 
         $parameters = array();
-        foreach ($block->getParameters() as $parameterName => $parameter) {
-            $parameters[$parameterName] = new VersionedValue($parameter, $object->getVersion());
+        foreach ($block->getParameters() as $parameter) {
+            $parameters[$parameter->getName()] = new VersionedValue($parameter, $object->getVersion());
         }
 
         return array(

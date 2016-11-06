@@ -1,9 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Block\Stubs;
+namespace Netgen\BlockManager\Block;
 
 use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\Block\TwigBlockDefinitionInterface;
 
 class TwigBlockDefinition extends BlockDefinition implements TwigBlockDefinitionInterface
 {
@@ -16,6 +15,6 @@ class TwigBlockDefinition extends BlockDefinition implements TwigBlockDefinition
      */
     public function getTwigBlockName(Block $block)
     {
-        return $block->getParameter('block_name')->getValue();
+        return $this->handler->getTwigBlockName($block);
     }
 }

@@ -2,20 +2,45 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
 
-use Netgen\BlockManager\Parameters\Parameter\Identifier;
 use Netgen\BlockManager\Parameters\ParameterType\IdentifierType;
+use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use Symfony\Component\Validator\Validation;
 use PHPUnit\Framework\TestCase;
 
 class IdentifierTypeTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\IdentifierType::getType
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\IdentifierType::getIdentifier
      */
-    public function testGetType()
+    public function testGetIdentifier()
     {
         $type = new IdentifierType();
-        $this->assertEquals('identifier', $type->getType());
+        $this->assertEquals('identifier', $type->getIdentifier());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\IdentifierType::configureOptions
+     * @dataProvider validOptionsProvider
+     *
+     * @param array $options
+     * @param array $resolvedOptions
+     */
+    public function testValidOptions($options, $resolvedOptions)
+    {
+        $parameter = $this->getParameter($options);
+        $this->assertEquals($resolvedOptions, $parameter->getOptions());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\IdentifierType::configureOptions
+     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidArgumentException
+     * @dataProvider invalidOptionsProvider
+     *
+     * @param array $options
+     */
+    public function testInvalidOptions($options)
+    {
+        $this->getParameter($options);
     }
 
     /**
@@ -24,11 +49,42 @@ class IdentifierTypeTest extends TestCase
      * @param array $options
      * @param bool $required
      *
-     * @return \Netgen\BlockManager\Parameters\Parameter\Identifier
+     * @return \Netgen\BlockManager\Parameters\ParameterInterface
      */
     public function getParameter(array $options = array(), $required = false)
     {
-        return new Identifier($options, $required);
+        return new Parameter('name', new IdentifierType(), $options, $required);
+    }
+
+    /**
+     * Provider for testing valid parameter attributes.
+     *
+     * @return array
+     */
+    public function validOptionsProvider()
+    {
+        return array(
+            array(
+                array(),
+                array(),
+            ),
+        );
+    }
+
+    /**
+     * Provider for testing invalid parameter attributes.
+     *
+     * @return array
+     */
+    public function invalidOptionsProvider()
+    {
+        return array(
+            array(
+                array(
+                    'undefined_value' => 'Value',
+                ),
+            ),
+        );
     }
 
     /**

@@ -3,7 +3,8 @@
 namespace Netgen\BlockManager\Block\BlockDefinition;
 
 use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Parameters\ParameterType;
+use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 
 abstract class BlockDefinitionHandler implements BlockDefinitionHandlerInterface
 {
@@ -11,15 +12,12 @@ abstract class BlockDefinitionHandler implements BlockDefinitionHandlerInterface
     const GROUP_DESIGN = 'design';
 
     /**
-     * Returns the array specifying block parameters.
+     * Builds the parameters by using provided parameter builder.
      *
-     * The keys are parameter identifiers.
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
+     * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $builder
      */
-    public function getParameters()
+    public function buildParameters(ParameterBuilderInterface $builder)
     {
-        return array();
     }
 
     /**
@@ -45,35 +43,35 @@ abstract class BlockDefinitionHandler implements BlockDefinitionHandlerInterface
     }
 
     /**
-     * Returns the array specifying the parameters most block will use.
-     *
-     * The keys are parameter identifiers.
+     * Builds the parameters most blocks will use by using provided parameter builder.
      *
      * @param array $groups
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
+     * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $builder
      */
-    protected function getCommonParameters(array $groups = array())
+    public function buildCommonParameters(ParameterBuilderInterface $builder, array $groups = array())
     {
-        return array(
-            'css_class' => new Parameter\TextLine(
-                array(),
-                false,
-                null,
-                $groups
-            ),
-            'css_id' => new Parameter\TextLine(
-                array(),
-                false,
-                null,
-                $groups
-            ),
-            'set_container' => new Parameter\Boolean(
-                array(),
-                false,
-                null,
-                $groups
-            ),
+        $builder->add(
+            'css_class',
+            ParameterType\TextLineType::class,
+            array(
+                'groups' => $groups,
+            )
+        );
+
+        $builder->add(
+            'css_id',
+            ParameterType\TextLineType::class,
+            array(
+                'groups' => $groups,
+            )
+        );
+
+        $builder->add(
+            'set_container',
+            ParameterType\BooleanType::class,
+            array(
+                'groups' => $groups,
+            )
         );
     }
 }

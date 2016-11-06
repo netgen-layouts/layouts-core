@@ -5,17 +5,30 @@ namespace Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\ParameterInterface;
 use Netgen\BlockManager\Validator\Constraint\Parameters\ItemLink as ItemLinkConstraint;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ItemLinkType extends ParameterType
 {
     /**
-     * Returns the parameter type.
+     * getIdentifierReturns the parameter type identifier.
      *
      * @return string
      */
-    public function getType()
+    public function getIdentifier()
     {
         return 'item_link';
+    }
+
+    /**
+     * Configures the options for this parameter.
+     *
+     * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
+     */
+    public function configureOptions(OptionsResolver $optionsResolver)
+    {
+        $optionsResolver->setRequired(array('value_types'));
+        $optionsResolver->setAllowedTypes('value_types', 'array');
+        $optionsResolver->setDefault('value_types', array());
     }
 
     /**

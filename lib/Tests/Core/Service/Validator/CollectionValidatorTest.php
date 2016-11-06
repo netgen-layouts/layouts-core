@@ -122,10 +122,14 @@ class CollectionValidatorTest extends TestCase
      */
     public function testValidateQueryCreateStruct(array $params, $isValid)
     {
+        $handler = new QueryTypeHandlerWithRequiredParameter();
         $queryType = new QueryType(
-            'query_type',
-            new QueryTypeHandlerWithRequiredParameter(),
-            $this->queryTypeConfigMock
+            array(
+                'type' => 'query_type',
+                'handler' => new QueryTypeHandlerWithRequiredParameter(),
+                'config' => $this->queryTypeConfigMock,
+                'parameters' => $handler->getParameters(),
+            )
         );
 
         $this->queryTypeRegistryMock

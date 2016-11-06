@@ -3,17 +3,16 @@
 namespace Netgen\BlockManager\Collection\QueryType;
 
 use Netgen\BlockManager\API\Values\Collection\Query;
+use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 
 interface QueryTypeHandlerInterface
 {
     /**
-     * Returns the array specifying query parameters.
+     * Builds the parameters by using provided parameter builder.
      *
-     * The keys are parameter identifiers.
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
+     * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $builder
      */
-    public function getParameters();
+    public function buildParameters(ParameterBuilderInterface $builder);
 
     /**
      * Returns the values from the query.

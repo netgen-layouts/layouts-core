@@ -30,6 +30,7 @@ class QueryTypeRegistryPassTest extends AbstractCompilerPassTestCase
         $this->setParameter('netgen_block_manager.collection.query_type.configuration.factory.class', 'factory_class');
         $this->setParameter('netgen_block_manager.collection.query_type.configuration.class', 'config_class');
         $this->setParameter('netgen_block_manager.collection.query_type.class', 'definition_class');
+        $this->setParameter('netgen_block_manager.collection.query_type.factory.class', 'factory_class');
 
         $this->setDefinition('netgen_block_manager.collection.registry.query_type', new Definition());
 

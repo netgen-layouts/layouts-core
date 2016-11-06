@@ -31,9 +31,11 @@ class BlockDefinitionTest extends TestCase
         $this->configMock = $this->createMock(Configuration::class);
 
         $this->blockDefinition = new BlockDefinition(
-            'block_definition',
-            $this->handler,
-            $this->configMock
+            array(
+                'identifier' => 'block_definition',
+                'handler' => $this->handler,
+                'config' => $this->configMock,
+            )
         );
     }
 
@@ -44,14 +46,6 @@ class BlockDefinitionTest extends TestCase
     public function testGetIdentifier()
     {
         $this->assertEquals('block_definition', $this->blockDefinition->getIdentifier());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::getHandler
-     */
-    public function testGetHandler()
-    {
-        $this->assertEquals($this->handler, $this->blockDefinition->getHandler());
     }
 
     /**

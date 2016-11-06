@@ -51,11 +51,6 @@ interface QueryTypeInterface
     public function getCount(Query $query);
 
     /**
-     * @return \Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface
-     */
-    public function getHandler();
-
-    /**
      * Returns the query type configuration.
      *
      * @return \Netgen\BlockManager\Collection\QueryType\Configuration\Configuration

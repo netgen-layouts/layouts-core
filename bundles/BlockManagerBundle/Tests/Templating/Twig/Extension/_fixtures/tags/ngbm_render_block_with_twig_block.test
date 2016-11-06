@@ -19,7 +19,7 @@ return array(
             'parameters' => array(
                 'block_name' => new \Netgen\BlockManager\Parameters\ParameterValue(
                     array(
-                        'identifier' => 'block_name',
+                        'name' => 'block_name',
                         'value' => 'my_block',
                     )
                 ),

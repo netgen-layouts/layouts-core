@@ -3,10 +3,10 @@
 namespace Netgen\BlockManager\Tests\Validator;
 
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
-use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry;
-use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
+use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameter;
+use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterFilter;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\Structs\ParameterStructValidator;
@@ -18,15 +18,22 @@ class ParameterStructValidatorTest extends ValidatorTestCase
     {
         parent::setUp();
 
+        $compoundParameter = new CompoundParameter(
+            'checkbox',
+            new ParameterType\Compound\BooleanType()
+        );
+
+        $compoundParameter->setParameters(
+            array(
+                'param' => new Parameter('param', new ParameterType\IdentifierType(), array(), true),
+            )
+        );
+
         $this->constraint = new ParameterStruct(
             array(
                 'parameters' => array(
-                    'css_id' => new Parameter\TextLine(array(), true),
-                    'checkbox' => new Parameter\Compound\Boolean(
-                        array(
-                            'param' => new Parameter\Identifier(array(), true),
-                        )
-                    ),
+                    'css_id' => new Parameter('css_id', new ParameterType\TextLineType(), array(), true),
+                    'checkbox' => $compoundParameter,
                 ),
             )
         );
@@ -37,15 +44,10 @@ class ParameterStructValidatorTest extends ValidatorTestCase
      */
     public function getValidator()
     {
-        $parameterTypeRegistry = new ParameterTypeRegistry();
-        $parameterTypeRegistry->addParameterType(new ParameterType\TextLineType());
-        $parameterTypeRegistry->addParameterType(new ParameterType\IdentifierType());
-        $parameterTypeRegistry->addParameterType(new ParameterType\Compound\BooleanType());
-
         $parameterFilterRegistry = new ParameterFilterRegistry();
         $parameterFilterRegistry->addParameterFilters('text_line', array(new ParameterFilter()));
 
-        return new ParameterStructValidator($parameterTypeRegistry, $parameterFilterRegistry);
+        return new ParameterStructValidator($parameterFilterRegistry);
     }
 
     /**

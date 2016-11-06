@@ -4,18 +4,52 @@ namespace Netgen\BlockManager\Parameters\ParameterType;
 
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\ParameterInterface;
+use Symfony\Component\OptionsResolver\Options;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
 class RangeType extends ParameterType
 {
     /**
-     * Returns the parameter type.
+     * getIdentifierReturns the parameter type identifier.
      *
      * @return string
      */
-    public function getType()
+    public function getIdentifier()
     {
         return 'range';
+    }
+
+    /**
+     * Configures the options for this parameter.
+     *
+     * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
+     */
+    public function configureOptions(OptionsResolver $optionsResolver)
+    {
+        $optionsResolver->setRequired(array('min', 'max'));
+
+        $optionsResolver->setAllowedTypes('min', 'int');
+        $optionsResolver->setAllowedTypes('max', 'int');
+
+        $optionsResolver->setNormalizer(
+            'max',
+            function (Options $options, $value) {
+                if ($value < $options['min']) {
+                    return $options['min'];
+                }
+
+                return $value;
+            }
+        );
+
+        $optionsResolver->setDefault('default_value', function (Options $options, $previousValue) {
+            if ($options['required'] && $previousValue === null) {
+                return $options['min'];
+            }
+
+            return $previousValue;
+        });
     }
 
     /**

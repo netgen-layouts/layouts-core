@@ -5,8 +5,9 @@ namespace Netgen\BlockManager\Tests\Parameters\Form\Type;
 use Netgen\BlockManager\API\Values\ParameterStruct;
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
 use Netgen\BlockManager\Parameters\Form\Mapper\TextLineMapper;
-use Netgen\BlockManager\Parameters\Parameter\TextLine;
+use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
+use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -52,8 +53,8 @@ class ParametersTypeTest extends FormTestCase
             ParametersType::class,
             array(
                 'parameters' => array(
-                    'css_class' => new TextLine(),
-                    'css_id' => new TextLine(),
+                    'css_class' => new Parameter('css_class', new ParameterType\TextLineType()),
+                    'css_id' => new Parameter('css_id', new ParameterType\TextLineType()),
                 ),
                 'label_prefix' => 'label',
                 'property_path' => 'parameters',

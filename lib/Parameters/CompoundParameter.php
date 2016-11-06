@@ -2,9 +2,7 @@
 
 namespace Netgen\BlockManager\Parameters;
 
-use Netgen\BlockManager\Exception\LogicException;
-
-abstract class CompoundParameter extends Parameter implements CompoundParameterInterface
+class CompoundParameter extends Parameter implements CompoundParameterInterface
 {
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterInterface[]
@@ -14,32 +12,20 @@ abstract class CompoundParameter extends Parameter implements CompoundParameterI
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface[] $parameters
+     * @param string $name
+     * @param \Netgen\BlockManager\Parameters\ParameterTypeInterface $type
      * @param array $options
-     * @param bool $isRequired
-     * @param mixed $defaultValue
-     * @param array $groups
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface[] $parameters
      */
     public function __construct(
-        array $parameters = array(),
+        $name,
+        ParameterTypeInterface $type,
         array $options = array(),
-        $isRequired = false,
-        $defaultValue = null,
-        array $groups = array()
+        array $parameters = array()
     ) {
-        foreach ($parameters as $parameter) {
-            if (!$parameter instanceof ParameterInterface) {
-                throw new LogicException('Only parameters can be added to compound parameter.');
-            }
-
-            if ($parameter instanceof CompoundParameterInterface) {
-                throw new LogicException('Compound parameters cannot be added to a compound parameter.');
-            }
-        }
+        parent::__construct($name, $type, $options);
 
         $this->parameters = $parameters;
-
-        parent::__construct($options, $isRequired, $defaultValue, $groups);
     }
 
     /**

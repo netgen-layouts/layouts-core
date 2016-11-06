@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Block\BlockDefinition\Handler;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
 use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
+use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 
 class FullViewBlockHandler extends BlockDefinitionHandler implements TwigBlockDefinitionHandlerInterface
 {
@@ -24,13 +25,13 @@ class FullViewBlockHandler extends BlockDefinitionHandler implements TwigBlockDe
     }
 
     /**
-     * Returns the array specifying block parameters.
+     * Builds the parameters by using provided parameter builder.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
+     * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $builder
      */
-    public function getParameters()
+    public function buildParameters(ParameterBuilderInterface $builder)
     {
-        return $this->getCommonParameters();
+        $this->buildCommonParameters($builder);
     }
 
     /**

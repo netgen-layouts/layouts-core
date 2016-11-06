@@ -9,11 +9,11 @@ use Symfony\Component\Validator\Constraints;
 class IdentifierType extends ParameterType
 {
     /**
-     * Returns the parameter type.
+     * getIdentifierReturns the parameter type identifier.
      *
      * @return string
      */
-    public function getType()
+    public function getIdentifier()
     {
         return 'identifier';
     }

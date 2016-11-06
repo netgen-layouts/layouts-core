@@ -4,18 +4,54 @@ namespace Netgen\BlockManager\Parameters\ParameterType;
 
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\ParameterInterface;
+use Symfony\Component\OptionsResolver\Options;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
 class ChoiceType extends ParameterType
 {
     /**
-     * Returns the parameter type.
+     * getIdentifierReturns the parameter type identifier.
      *
      * @return string
      */
-    public function getType()
+    public function getIdentifier()
     {
         return 'choice';
+    }
+
+    /**
+     * Configures the options for this parameter.
+     *
+     * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
+     */
+    public function configureOptions(OptionsResolver $optionsResolver)
+    {
+        $optionsResolver->setDefault('multiple', false);
+        $optionsResolver->setRequired(array('multiple', 'options'));
+        $optionsResolver->setAllowedTypes('multiple', 'bool');
+        $optionsResolver->setAllowedTypes('options', array('array', 'callable'));
+
+        $optionsResolver->setAllowedValues(
+            'options',
+            function ($value) {
+                if (is_callable($value)) {
+                    return true;
+                }
+
+                return !empty($value);
+            }
+        );
+
+        $optionsResolver->setDefault('default_value', function (Options $options, $previousValue) {
+            if ($options['required'] && $previousValue === null) {
+                if (!is_callable($options['options']) && !empty($options['options'])) {
+                    return array_values($options['options'])[0];
+                }
+            }
+
+            return $previousValue;
+        });
     }
 
     /**

@@ -3,26 +3,10 @@
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
 use Netgen\BlockManager\Parameters\CompoundParameterInterface;
-use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface;
 use Netgen\BlockManager\Parameters\ParameterValue;
 
 class ParameterMapper
 {
-    /**
-     * @var \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface
-     */
-    protected $parameterTypeRegistry;
-
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface $parameterTypeRegistry
-     */
-    public function __construct(ParameterTypeRegistryInterface $parameterTypeRegistry)
-    {
-        $this->parameterTypeRegistry = $parameterTypeRegistry;
-    }
-
     /**
      * Maps the parameter value in regard to provided list of parameters.
      *
@@ -35,19 +19,18 @@ class ParameterMapper
     {
         $mappedValues = array();
 
-        foreach ($parameters as $parameterName => $parameter) {
+        foreach ($parameters as $parameter) {
+            $parameterName = $parameter->getName();
             $rawValue = array_key_exists($parameterName, $parameterValues) ?
                 $parameterValues[$parameterName] :
                 null;
 
-            $parameterType = $this->parameterTypeRegistry->getParameterType(
-                $parameter->getType()
-            );
+            $parameterType = $parameter->getType();
 
             $value = $parameterType->toValue($rawValue);
             $mappedValues[$parameterName] = new ParameterValue(
                 array(
-                    'identifier' => $parameterName,
+                    'name' => $parameterName,
                     'parameter' => $parameter,
                     'parameterType' => $parameterType,
                     'value' => $value,
@@ -78,16 +61,13 @@ class ParameterMapper
     {
         $serializedValues = array();
 
-        foreach ($parameters as $parameterName => $parameter) {
+        foreach ($parameters as $parameter) {
+            $parameterName = $parameter->getName();
             if (!array_key_exists($parameterName, $parameterValues)) {
                 continue;
             }
 
-            $parameterType = $this->parameterTypeRegistry->getParameterType(
-                $parameter->getType()
-            );
-
-            $serializedValues[$parameterName] = $parameterType->fromValue(
+            $serializedValues[$parameterName] = $parameter->getType()->fromValue(
                 $parameterValues[$parameterName]
             );
 

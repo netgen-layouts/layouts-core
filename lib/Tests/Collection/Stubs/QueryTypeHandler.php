@@ -4,8 +4,10 @@ namespace Netgen\BlockManager\Tests\Collection\Stubs;
 
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
-use Netgen\BlockManager\Parameters\Parameter\Integer;
-use Netgen\BlockManager\Parameters\Parameter\TextLine;
+use Netgen\BlockManager\Parameters\ParameterType\IntegerType;
+use Netgen\BlockManager\Parameters\ParameterType\TextLineType;
+use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
+use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 
 class QueryTypeHandler implements QueryTypeHandlerInterface
 {
@@ -32,6 +34,15 @@ class QueryTypeHandler implements QueryTypeHandlerInterface
     }
 
     /**
+     * Builds the parameters by using provided parameter builder.
+     *
+     * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $builder
+     */
+    public function buildParameters(ParameterBuilderInterface $builder)
+    {
+    }
+
+    /**
      * Returns the array specifying query parameters.
      *
      * The keys are parameter identifiers.
@@ -41,8 +52,8 @@ class QueryTypeHandler implements QueryTypeHandlerInterface
     public function getParameters()
     {
         return array(
-            'offset' => new Integer(),
-            'param' => new TextLine(),
+            'offset' => new Parameter('offset', new IntegerType()),
+            'param' => new Parameter('param', new TextLineType()),
         );
     }
 

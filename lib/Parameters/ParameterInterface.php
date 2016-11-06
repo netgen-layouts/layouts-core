@@ -5,9 +5,16 @@ namespace Netgen\BlockManager\Parameters;
 interface ParameterInterface
 {
     /**
-     * Returns the parameter type.
+     * Returns the parameter name.
      *
      * @return string
+     */
+    public function getName();
+
+    /**
+     * Returns the parameter type.
+     *
+     * @return \Netgen\BlockManager\Parameters\ParameterTypeInterface
      */
     public function getType();
 

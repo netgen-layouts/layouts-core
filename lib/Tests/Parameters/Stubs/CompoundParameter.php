@@ -2,17 +2,32 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\Stubs;
 
-use Netgen\BlockManager\Parameters\CompoundParameter as BaseCompoundParameter;
+use Netgen\BlockManager\Parameters\CompoundParameterInterface;
 
-class CompoundParameter extends BaseCompoundParameter
+class CompoundParameter extends Parameter implements CompoundParameterInterface
 {
     /**
-     * Returns the parameter type.
-     *
-     * @return string
+     * @var \Netgen\BlockManager\Parameters\ParameterInterface[]
      */
-    public function getType()
+    protected $parameters;
+
+    /**
+     * Returns the parameters.
+     *
+     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
+     */
+    public function getParameters()
     {
-        return 'compound';
+        return $this->parameters;
+    }
+
+    /**
+     * Returns the parameters.
+     *
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface[] $parameters
+     */
+    public function setParameters(array $parameters)
+    {
+        $this->parameters = $parameters;
     }
 }

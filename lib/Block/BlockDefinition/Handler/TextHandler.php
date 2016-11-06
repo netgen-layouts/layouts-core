@@ -3,19 +3,26 @@
 namespace Netgen\BlockManager\Block\BlockDefinition\Handler;
 
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
-use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Parameters\ParameterType;
+use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 
 class TextHandler extends BlockDefinitionHandler
 {
     /**
-     * Returns the array specifying block parameters.
+     * Builds the parameters by using provided parameter builder.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
+     * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $builder
      */
-    public function getParameters()
+    public function buildParameters(ParameterBuilderInterface $builder)
     {
-        return array(
-            'content' => new Parameter\Text(array(), true),
-        ) + $this->getCommonParameters();
+        $builder->add(
+            'content',
+            ParameterType\TextType::class,
+            array(
+                'required' => true,
+            )
+        );
+
+        $this->buildCommonParameters($builder);
     }
 }

@@ -3,7 +3,8 @@
 namespace Netgen\BlockManager\Block\BlockDefinition\Handler;
 
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
-use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Parameters\ParameterType;
+use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 
 class MapHandler extends BlockDefinitionHandler
 {
@@ -37,56 +38,67 @@ class MapHandler extends BlockDefinitionHandler
     }
 
     /**
-     * Returns the array specifying block parameters.
+     * Builds the parameters by using provided parameter builder.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
+     * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $builder
      */
-    public function getParameters()
+    public function buildParameters(ParameterBuilderInterface $builder)
     {
-        return array(
-            'latitude' => new Parameter\Number(
-                array(
-                    'min' => -90,
-                    'max' => 90,
-                    'scale' => 6,
-                ),
-                true,
-                0,
-                array(self::GROUP_CONTENT)
-            ),
-            'longitude' => new Parameter\Number(
-                array(
-                    'min' => -180,
-                    'max' => 180,
-                    'scale' => 6,
-                ),
-                true,
-                0,
-                array(self::GROUP_CONTENT)
-            ),
-            'zoom' => new Parameter\Range(
-                array(
-                    'min' => $this->minZoom,
-                    'max' => $this->maxZoom,
-                ),
-                true,
-                null,
-                array(self::GROUP_DESIGN)
-            ),
-            'map_type' => new Parameter\Choice(
-                array(
-                    'options' => $this->mapTypes,
-                ),
-                true,
-                null,
-                array(self::GROUP_DESIGN)
-            ),
-            'show_marker' => new Parameter\Boolean(
-                array(),
-                false,
-                null,
-                array(self::GROUP_DESIGN)
-            ),
-        ) + $this->getCommonParameters(array(self::GROUP_DESIGN));
+        $builder->add(
+            'latitude',
+            ParameterType\NumberType::class,
+            array(
+                'required' => true,
+                'default_value' => 0,
+                'groups' => array(self::GROUP_CONTENT),
+                'min' => -90,
+                'max' => 90,
+                'scale' => 6,
+            )
+        );
+
+        $builder->add(
+            'longitude',
+            ParameterType\NumberType::class,
+            array(
+                'required' => true,
+                'default_value' => 0,
+                'groups' => array(self::GROUP_CONTENT),
+                'min' => -180,
+                'max' => 180,
+                'scale' => 6,
+            )
+        );
+
+        $builder->add(
+            'zoom',
+            ParameterType\RangeType::class,
+            array(
+                'required' => true,
+                'groups' => array(self::GROUP_DESIGN),
+                'min' => $this->minZoom,
+                'max' => $this->maxZoom,
+            )
+        );
+
+        $builder->add(
+            'map_type',
+            ParameterType\ChoiceType::class,
+            array(
+                'required' => true,
+                'groups' => array(self::GROUP_DESIGN),
+                'options' => $this->mapTypes,
+            )
+        );
+
+        $builder->add(
+            'show_marker',
+            ParameterType\BooleanType::class,
+            array(
+                'groups' => array(self::GROUP_DESIGN),
+            )
+        );
+
+        $this->buildCommonParameters($builder, array(self::GROUP_DESIGN));
     }
 }

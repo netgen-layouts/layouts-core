@@ -76,6 +76,14 @@ class QueryTypeRegistryPass implements CompilerPassInterface
             $queryTypeService->addArgument($type);
             $queryTypeService->addArgument(new Reference($foundHandler));
             $queryTypeService->addArgument(new Reference($configServiceName));
+            $queryTypeService->addArgument(new Reference('netgen_block_manager.parameters.parameter_builder'));
+            $queryTypeService->setFactory(
+                array(
+                    $container->getParameter('netgen_block_manager.collection.query_type.factory.class'),
+                    'buildQueryType',
+                )
+            );
+
             $container->setDefinition($queryTypeServiceName, $queryTypeService);
 
             $queryTypeRegistry->addMethodCall(

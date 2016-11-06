@@ -58,8 +58,9 @@ class ParametersType extends AbstractType
         /** @var \Netgen\BlockManager\Parameters\ParameterInterface[] $parameters */
         $parameters = $options['parameters'];
 
-        foreach ($parameters as $parameterName => $parameter) {
-            $mapper = $this->formMapperRegistry->getFormMapper($parameter->getType());
+        foreach ($parameters as $parameter) {
+            $parameterName = $parameter->getName();
+            $mapper = $this->formMapperRegistry->getFormMapper($parameter->getType()->getIdentifier());
 
             $defaultOptions = array(
                 'label' => $options['label_prefix'] . '.' . $parameterName,
@@ -70,9 +71,7 @@ class ParametersType extends AbstractType
                 $parameterName,
                 $mapper->getFormType(),
                 $mapper->mapOptions(
-                    $parameter,
-                    $parameterName,
-                    $options
+                    $parameter
                 ) + $defaultOptions
             );
 

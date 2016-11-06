@@ -2,59 +2,56 @@
 
 namespace Netgen\BlockManager\Parameters;
 
-use Symfony\Component\OptionsResolver\OptionsResolver;
-
-abstract class Parameter implements ParameterInterface
+class Parameter implements ParameterInterface
 {
+    /**
+     * @var string
+     */
+    protected $name;
+
+    /**
+     * @var \Netgen\BlockManager\Parameters\ParameterTypeInterface
+     */
+    protected $type;
+
     /**
      * @var array
      */
     protected $options = array();
 
     /**
-     * @var bool
-     */
-    protected $isRequired;
-
-    /**
-     * @var mixed
-     */
-    protected $defaultValue;
-
-    /**
-     * @var array
-     */
-    protected $groups;
-
-    /**
      * Constructor.
      *
+     * @param string $name
+     * @param \Netgen\BlockManager\Parameters\ParameterTypeInterface $type
      * @param array $options
-     * @param bool $isRequired
-     * @param mixed $defaultValue
-     * @param array $groups
      */
-    public function __construct(
-        array $options = array(),
-        $isRequired = false,
-        $defaultValue = null,
-        array $groups = array()
-    ) {
-        $optionsResolver = new OptionsResolver();
-        $this->configureOptions($optionsResolver);
-        $this->options = $optionsResolver->resolve($options);
+    public function __construct($name, ParameterTypeInterface $type, array $options = array())
+    {
+        $this->name = $name;
+        $this->type = $type;
+        $this->options = $options;
+    }
 
-        $this->isRequired = (bool)$isRequired;
-        $this->defaultValue = $defaultValue;
-        $this->groups = $groups;
+    /**
+     * Returns the parameter name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
      * Returns the parameter type.
      *
-     * @return string
+     * @return \Netgen\BlockManager\Parameters\ParameterTypeInterface
      */
-    abstract public function getType();
+    public function getType()
+    {
+        return $this->type;
+    }
 
     /**
      * Returns the parameter options.
@@ -73,7 +70,7 @@ abstract class Parameter implements ParameterInterface
      */
     public function isRequired()
     {
-        return $this->isRequired;
+        return isset($this->options['required']) ? $this->options['required'] : false;
     }
 
     /**
@@ -83,7 +80,7 @@ abstract class Parameter implements ParameterInterface
      */
     public function getDefaultValue()
     {
-        return $this->defaultValue;
+        return isset($this->options['default_value']) ? $this->options['default_value'] : null;
     }
 
     /**
@@ -91,15 +88,6 @@ abstract class Parameter implements ParameterInterface
      */
     public function getGroups()
     {
-        return $this->groups;
-    }
-
-    /**
-     * Configures the options for this parameter.
-     *
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
-     */
-    protected function configureOptions(OptionsResolver $optionsResolver)
-    {
+        return isset($this->options['groups']) ? $this->options['groups'] : array();
     }
 }

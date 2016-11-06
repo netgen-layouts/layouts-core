@@ -1,5 +1,6 @@
 parameters:
     netgen_block_manager.block.block_definition.class: Netgen\BlockManager\Block\BlockDefinition
+    netgen_block_manager.block.block_definition.factory.class: Netgen\BlockManager\Block\BlockDefinitionFactory
     netgen_block_manager.block.block_definition.configuration.class: Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration
     netgen_block_manager.block.block_definition.configuration.factory.class: Netgen\BlockManager\Block\BlockDefinition\Configuration\Factory
     netgen_block_manager.block.registry.block_definition.class: Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry

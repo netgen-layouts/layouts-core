@@ -3,7 +3,8 @@
 namespace Netgen\BlockManager\Block\BlockDefinition\Handler;
 
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
-use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Parameters\ParameterType;
+use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 
 class ExternalVideoHandler extends BlockDefinitionHandler
 {
@@ -23,16 +24,31 @@ class ExternalVideoHandler extends BlockDefinitionHandler
     }
 
     /**
-     * Returns the array specifying block parameters.
+     * Builds the parameters by using provided parameter builder.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
+     * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $builder
      */
-    public function getParameters()
+    public function buildParameters(ParameterBuilderInterface $builder)
     {
-        return array(
-            'service' => new Parameter\Choice(array('options' => $this->services), true),
-            'video_id' => new Parameter\TextLine(),
-            'caption' => new Parameter\TextLine(),
-        ) + $this->getCommonParameters();
+        $builder->add(
+            'service',
+            ParameterType\ChoiceType::class,
+            array(
+                'required' => true,
+                'options' => $this->services,
+            )
+        );
+
+        $builder->add(
+            'video_id',
+            ParameterType\TextLineType::class
+        );
+
+        $builder->add(
+            'caption',
+            ParameterType\TextLineType::class
+        );
+
+        $this->buildCommonParameters($builder);
     }
 }

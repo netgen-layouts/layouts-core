@@ -3,8 +3,9 @@
 namespace Netgen\BlockManager\Tests\Parameters\Form\Mapper\Compound;
 
 use Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType;
-use Netgen\BlockManager\Parameters\Parameter\Compound\Boolean;
+use Netgen\BlockManager\Parameters\ParameterType\Compound\BooleanType;
 use Netgen\BlockManager\Parameters\Form\Mapper\Compound\BooleanMapper;
+use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use PHPUnit\Framework\TestCase;
 
 class BooleanMapperTest extends TestCase
@@ -38,9 +39,7 @@ class BooleanMapperTest extends TestCase
                 'reverse' => true,
             ),
             $this->mapper->mapOptions(
-                new Boolean(array(), array('reverse' => true), true),
-                'name',
-                array()
+                new Parameter('name', new BooleanType(), array('reverse' => true))
             )
         );
     }

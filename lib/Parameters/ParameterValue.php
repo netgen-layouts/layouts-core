@@ -9,7 +9,7 @@ class ParameterValue extends ValueObject
     /**
      * @var string
      */
-    protected $identifier;
+    protected $name;
 
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterInterface
@@ -32,13 +32,13 @@ class ParameterValue extends ValueObject
     protected $isEmpty;
 
     /**
-     * Returns the parameter identifier.
+     * Returns the parameter name.
      *
      * @return string
      */
-    public function getIdentifier()
+    public function getName()
     {
-        return $this->identifier;
+        return $this->name;
     }
 
     /**

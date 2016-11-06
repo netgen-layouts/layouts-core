@@ -3,7 +3,8 @@
 namespace Netgen\BlockManager\Block\BlockDefinition\Handler;
 
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
-use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Parameters\ParameterType;
+use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 
 class ListHandler extends BlockDefinitionHandler
 {
@@ -23,22 +24,23 @@ class ListHandler extends BlockDefinitionHandler
     }
 
     /**
-     * Returns the array specifying block parameters.
+     * Builds the parameters by using provided parameter builder.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
+     * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $builder
      */
-    public function getParameters()
+    public function buildParameters(ParameterBuilderInterface $builder)
     {
-        return array(
-            'number_of_columns' => new Parameter\Choice(
-                array(
-                    'options' => $this->columns,
-                ),
-                true,
-                null,
-                array(self::GROUP_DESIGN)
-            ),
-        ) + $this->getCommonParameters(array(self::GROUP_DESIGN));
+        $builder->add(
+            'number_of_columns',
+            ParameterType\ChoiceType::class,
+            array(
+                'required' => true,
+                'options' => $this->columns,
+                'groups' => array(self::GROUP_DESIGN),
+            )
+        );
+
+        $this->buildCommonParameters($builder, array(self::GROUP_DESIGN));
     }
 
     /**

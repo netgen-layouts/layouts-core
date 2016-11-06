@@ -4,18 +4,36 @@ namespace Netgen\BlockManager\Parameters\ParameterType;
 
 use Netgen\BlockManager\Parameters\ParameterInterface;
 use Netgen\BlockManager\Parameters\ParameterType;
+use Symfony\Component\OptionsResolver\Options;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
 class BooleanType extends ParameterType
 {
     /**
-     * Returns the parameter type.
+     * getIdentifierReturns the parameter type identifier.
      *
      * @return string
      */
-    public function getType()
+    public function getIdentifier()
     {
         return 'boolean';
+    }
+
+    /**
+     * Configures the options for this parameter.
+     *
+     * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
+     */
+    public function configureOptions(OptionsResolver $optionsResolver)
+    {
+        $optionsResolver->setDefault('default_value', function (Options $options, $previousValue) {
+            if ($options['required'] && $previousValue === null) {
+                return false;
+            }
+
+            return $previousValue;
+        });
     }
 
     /**

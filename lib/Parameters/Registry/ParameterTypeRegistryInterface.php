@@ -16,22 +16,33 @@ interface ParameterTypeRegistryInterface
     /**
      * Returns if registry has a parameter type.
      *
-     * @param string $type
+     * @param string $identifier
      *
      * @return bool
      */
-    public function hasParameterType($type);
+    public function hasParameterType($identifier);
 
     /**
      * Returns a parameter type with provided identifier.
      *
-     * @param string $type
+     * @param string $identifier
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If parameter type does not exist
      *
      * @return \Netgen\BlockManager\Parameters\ParameterTypeInterface
      */
-    public function getParameterType($type);
+    public function getParameterType($identifier);
+
+    /**
+     * Returns a parameter type with provided class.
+     *
+     * @param string $class
+     *
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If parameter type does not exist
+     *
+     * @return \Netgen\BlockManager\Parameters\ParameterTypeInterface
+     */
+    public function getParameterTypeByClass($class);
 
     /**
      * Returns all parameter types.

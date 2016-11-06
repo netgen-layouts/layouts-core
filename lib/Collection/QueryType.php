@@ -3,10 +3,9 @@
 namespace Netgen\BlockManager\Collection;
 
 use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
-use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
+use Netgen\BlockManager\ValueObject;
 
-class QueryType implements QueryTypeInterface
+class QueryType extends ValueObject implements QueryTypeInterface
 {
     /**
      * @var string
@@ -29,18 +28,9 @@ class QueryType implements QueryTypeInterface
     protected $parameters;
 
     /**
-     * Constructor.
-     *
-     * @param string $type
-     * @param \Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface $handler
-     * @param \Netgen\BlockManager\Collection\QueryType\Configuration\Configuration $config
+     * @var \Netgen\BlockManager\Parameters\ParameterBuilderInterface
      */
-    public function __construct($type, QueryTypeHandlerInterface $handler, Configuration $config)
-    {
-        $this->type = $type;
-        $this->handler = $handler;
-        $this->config = $config;
-    }
+    protected $parameterBuilder;
 
     /**
      * Returns the query type.
@@ -62,7 +52,8 @@ class QueryType implements QueryTypeInterface
     public function getParameters()
     {
         if ($this->parameters === null) {
-            $this->parameters = $this->handler->getParameters();
+            $this->handler->buildParameters($this->parameterBuilder);
+            $this->parameters = $this->parameterBuilder->buildParameters();
         }
 
         return $this->parameters;
@@ -107,14 +98,6 @@ class QueryType implements QueryTypeInterface
         }
 
         return $queryCount;
-    }
-
-    /**
-     * @return \Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface
-     */
-    public function getHandler()
-    {
-        return $this->handler;
     }
 
     /**

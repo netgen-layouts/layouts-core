@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\Validator\Structs;
 use Netgen\BlockManager\Parameters\CompoundParameterInterface;
 use Netgen\BlockManager\API\Values\ParameterStruct;
 use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistryInterface;
-use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct as ParameterStructConstraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Constraints;
@@ -15,11 +14,6 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 class ParameterStructValidator extends ConstraintValidator
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface
-     */
-    protected $parameterTypeRegistry;
-
-    /**
      * @var \Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistryInterface
      */
     protected $parameterFilterRegistry;
@@ -27,14 +21,10 @@ class ParameterStructValidator extends ConstraintValidator
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface $parameterTypeRegistry
      * @param \Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistryInterface $parameterFilterRegistry
      */
-    public function __construct(
-        ParameterTypeRegistryInterface $parameterTypeRegistry,
-        ParameterFilterRegistryInterface $parameterFilterRegistry
-    ) {
-        $this->parameterTypeRegistry = $parameterTypeRegistry;
+    public function __construct(ParameterFilterRegistryInterface $parameterFilterRegistry)
+    {
         $this->parameterFilterRegistry = $parameterFilterRegistry;
     }
 
@@ -82,7 +72,7 @@ class ParameterStructValidator extends ConstraintValidator
                 continue;
             }
 
-            $filters = $this->parameterFilterRegistry->getParameterFilters($parameters[$parameterName]->getType());
+            $filters = $this->parameterFilterRegistry->getParameterFilters($parameters[$parameterName]->getType()->getIdentifier());
             foreach ($filters as $filter) {
                 $parameter = $filter->filter($parameter);
             }
@@ -102,28 +92,28 @@ class ParameterStructValidator extends ConstraintValidator
     protected function buildConstraintFields(ParameterStruct $parameterStruct, ParameterStructConstraint $constraint)
     {
         $fields = array();
-        foreach ($constraint->parameters as $parameterName => $parameter) {
+        foreach ($constraint->parameters as $parameter) {
+            $parameterName = $parameter->getName();
             $parameterValue = $parameterStruct->hasParameter($parameterName) ?
                 $parameterStruct->getParameter($parameterName) :
                 null;
 
-            $parameterType = $this->parameterTypeRegistry->getParameterType($parameter->getType());
-            $constraints = $parameterType->getConstraints($parameter, $parameterValue);
+            $constraints = $parameter->getType()->getConstraints($parameter, $parameterValue);
 
             $fields[$parameterName] = $constraint->required && $parameter->isRequired() ?
                 new Constraints\Required($constraints) :
                 new Constraints\Optional($constraints);
 
             if ($parameter instanceof CompoundParameterInterface) {
-                foreach ($parameter->getParameters() as $subParameterName => $subParameter) {
+                foreach ($parameter->getParameters() as $subParameter) {
+                    $subParameterName = $subParameter->getName();
                     $subParameterValue = $parameterStruct->hasParameter($subParameterName) ?
                         $parameterStruct->getParameter($subParameterName) :
                         null;
 
                     $constraints = array();
                     if ($subParameterValue !== null) {
-                        $subParameterType = $this->parameterTypeRegistry->getParameterType($subParameter->getType());
-                        $constraints = $subParameterType->getConstraints($subParameter, $subParameterValue);
+                        $constraints = $subParameter->getType()->getConstraints($subParameter, $subParameterValue);
                     }
 
                     $fields[$subParameterName] = new Constraints\Optional($constraints);

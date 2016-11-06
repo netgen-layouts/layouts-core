@@ -2,14 +2,23 @@
 
 namespace Netgen\BlockManager\Parameters;
 
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
 interface ParameterTypeInterface
 {
     /**
-     * Returns the parameter type.
+     * Returns the parameter type identifier.
      *
      * @return string
      */
-    public function getType();
+    public function getIdentifier();
+
+    /**
+     * Configures the options for this parameter.
+     *
+     * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
+     */
+    public function configureOptions(OptionsResolver $optionsResolver);
 
     /**
      * Returns the parameter constraints.

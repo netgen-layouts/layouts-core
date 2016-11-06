@@ -11,12 +11,10 @@ abstract class Mapper implements MapperInterface
      * Maps parameter options to Symfony form options.
      *
      * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
-     * @param string $parameterName
-     * @param array $formOptions
      *
      * @return array
      */
-    public function mapOptions(ParameterInterface $parameter, $parameterName, array $formOptions)
+    public function mapOptions(ParameterInterface $parameter)
     {
         return array();
     }

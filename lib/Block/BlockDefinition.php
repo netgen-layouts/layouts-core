@@ -3,15 +3,19 @@
 namespace Netgen\BlockManager\Block;
 
 use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
+use Netgen\BlockManager\ValueObject;
 
-class BlockDefinition implements BlockDefinitionInterface
+class BlockDefinition extends ValueObject implements BlockDefinitionInterface
 {
     /**
      * @var string
      */
     protected $identifier;
+
+    /**
+     * @var \Netgen\BlockManager\Parameters\ParameterInterface[]
+     */
+    protected $parameters;
 
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface
@@ -24,23 +28,9 @@ class BlockDefinition implements BlockDefinitionInterface
     protected $config;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterInterface[]
+     * @var \Netgen\BlockManager\Parameters\ParameterBuilderInterface
      */
-    protected $parameters;
-
-    /**
-     * Constructor.
-     *
-     * @param string $identifier
-     * @param \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface $handler
-     * @param \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration $config
-     */
-    public function __construct($identifier, BlockDefinitionHandlerInterface $handler, Configuration $config)
-    {
-        $this->identifier = $identifier;
-        $this->handler = $handler;
-        $this->config = $config;
-    }
+    protected $parameterBuilder;
 
     /**
      * Returns block definition identifier.
@@ -60,7 +50,8 @@ class BlockDefinition implements BlockDefinitionInterface
     public function getParameters()
     {
         if ($this->parameters === null) {
-            $this->parameters = $this->handler->getParameters();
+            $this->handler->buildParameters($this->parameterBuilder);
+            $this->parameters = $this->parameterBuilder->buildParameters();
         }
 
         return $this->parameters;
@@ -86,14 +77,6 @@ class BlockDefinition implements BlockDefinitionInterface
     public function hasCollection()
     {
         return $this->handler->hasCollection();
-    }
-
-    /**
-     * @return \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface
-     */
-    public function getHandler()
-    {
-        return $this->handler;
     }
 
     /**

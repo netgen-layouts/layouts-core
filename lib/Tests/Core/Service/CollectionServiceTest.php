@@ -578,7 +578,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
             array(
                 'offset' => new ParameterValue(
                     array(
-                        'identifier' => 'offset',
+                        'name' => 'offset',
                         'parameter' => $query->getQueryType()->getParameters()['offset'],
                         'parameterType' => $this->parameterTypeRegistry->getParameterType('integer'),
                         'value' => '0',
@@ -587,7 +587,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
                 ),
                 'param' => new ParameterValue(
                     array(
-                        'identifier' => 'param',
+                        'name' => 'param',
                         'parameter' => $query->getQueryType()->getParameters()['param'],
                         'parameterType' => $this->parameterTypeRegistry->getParameterType('text_line'),
                         'value' => 'value',

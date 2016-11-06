@@ -3,7 +3,8 @@
 namespace Netgen\BlockManager\Block\BlockDefinition\Handler;
 
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
-use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
+use Netgen\BlockManager\Parameters\ParameterType;
 
 class TitleHandler extends BlockDefinitionHandler
 {
@@ -30,27 +31,42 @@ class TitleHandler extends BlockDefinitionHandler
     }
 
     /**
-     * Returns the array specifying block parameters.
+     * Builds the parameters by using provided parameter builder.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
+     * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $builder
      */
-    public function getParameters()
+    public function buildParameters(ParameterBuilderInterface $builder)
     {
-        return array(
-            'tag' => new Parameter\Choice(
-                array('options' => $this->options),
-                true
-            ),
-            'title' => new Parameter\TextLine(array(), true),
-            'use_link' => new Parameter\Compound\Boolean(
-                array(
-                    'link' => new Parameter\Link(
-                        array(
-                            'value_types' => $this->linkValueTypes,
-                        )
-                    ),
-                )
-            ),
-        ) + $this->getCommonParameters();
+        $builder->add(
+            'tag',
+            ParameterType\ChoiceType::class,
+            array(
+                'required' => true,
+                'options' => $this->options,
+            )
+        );
+
+        $builder->add(
+            'title',
+            ParameterType\TextLineType::class,
+            array(
+                'required' => true,
+            )
+        );
+
+        $builder->add(
+            'use_link',
+            ParameterType\Compound\BooleanType::class
+        );
+
+        $builder->get('use_link')->add(
+            'link',
+            ParameterType\LinkType::class,
+            array(
+                'value_types' => $this->linkValueTypes,
+            )
+        );
+
+        $this->buildCommonParameters($builder);
     }
 }

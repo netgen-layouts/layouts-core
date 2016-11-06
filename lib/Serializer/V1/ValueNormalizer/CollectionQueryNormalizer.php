@@ -25,8 +25,8 @@ class CollectionQueryNormalizer extends SerializerAwareNormalizer implements Nor
         $query = $object->getValue();
 
         $parameters = array();
-        foreach ($query->getParameters() as $parameterName => $parameter) {
-            $parameters[$parameterName] = new VersionedValue($parameter, $object->getVersion());
+        foreach ($query->getParameters() as $parameter) {
+            $parameters[$parameter->getName()] = new VersionedValue($parameter, $object->getVersion());
         }
 
         return array(

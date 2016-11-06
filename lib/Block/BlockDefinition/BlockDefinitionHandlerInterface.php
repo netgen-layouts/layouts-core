@@ -3,15 +3,16 @@
 namespace Netgen\BlockManager\Block\BlockDefinition;
 
 use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 
 interface BlockDefinitionHandlerInterface
 {
     /**
-     * Returns the array specifying block parameters.
+     * Builds the parameters by using provided parameter builder.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
+     * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $builder
      */
-    public function getParameters();
+    public function buildParameters(ParameterBuilderInterface $builder);
 
     /**
      * Returns the array of dynamic parameters provided by this block definition.

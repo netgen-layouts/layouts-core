@@ -3,7 +3,8 @@
 namespace Netgen\BlockManager\Block\BlockDefinition\Handler;
 
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
-use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Parameters\ParameterType;
+use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 
 class GalleryHandler extends BlockDefinitionHandler
 {
@@ -56,103 +57,120 @@ class GalleryHandler extends BlockDefinitionHandler
     }
 
     /**
-     * Returns the array specifying block parameters.
+     * Builds the parameters by using provided parameter builder.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
+     * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $builder
      */
-    public function getParameters()
+    public function buildParameters(ParameterBuilderInterface $builder)
     {
-        return array(
-            'next_and_previous' => new Parameter\Boolean(
-                array(),
-                false,
-                null,
-                array(self::GROUP_DESIGN)
-            ),
-            'show_pagination' => new Parameter\Compound\Boolean(
-                array(
-                    'pagination_type' => new Parameter\Choice(
-                        array(
-                            'options' => $this->paginationTypes,
-                        ),
-                        true,
-                        null,
-                        array(self::GROUP_DESIGN)
-                    ),
-                ),
-                array(),
-                false,
-                null,
-                array(self::GROUP_DESIGN)
-            ),
-            'infinite_loop' => new Parameter\Boolean(
-                array(),
-                false,
-                null,
-                array(self::GROUP_DESIGN)
-            ),
-            'transition' => new Parameter\Choice(
-                array(
-                    'options' => $this->transitions,
-                ),
-                true,
-                null,
-                array(self::GROUP_DESIGN)
-            ),
-            'autoplay' => new Parameter\Compound\Boolean(
-                array(
-                    'autoplay_time' => new Parameter\Range(
-                        array(
-                            'min' => $this->minAutoplayTime,
-                            'max' => $this->maxAutoplayTime,
-                        ),
-                        true,
-                        null,
-                        array(self::GROUP_DESIGN)
-                    ),
-                ),
-                array(),
-                false,
-                null,
-                array(self::GROUP_DESIGN)
-            ),
-            'aspect_ratio' => new Parameter\Choice(
-                array(
-                    'options' => $this->aspectRatios,
-                ),
-                true,
-                null,
-                array(self::GROUP_DESIGN)
-            ),
-            'show_details' => new Parameter\Compound\Boolean(
-                array(
-                    'show_details_on_hover' => new Parameter\Boolean(
-                        array(),
-                        false,
-                        null,
-                        array(self::GROUP_DESIGN)
-                    ),
-                ),
-                array(),
-                false,
-                null,
-                array(self::GROUP_DESIGN)
-            ),
-            'number_of_thumbnails' => new Parameter\Integer(
-                array(
-                    'min' => 1,
-                ),
-                true,
-                null,
-                array(self::GROUP_DESIGN)
-            ),
-            'enable_lightbox' => new Parameter\Boolean(
-                array(),
-                false,
-                null,
-                array(self::GROUP_DESIGN)
-            ),
-        ) + $this->getCommonParameters(array(self::GROUP_DESIGN));
+        $builder->add(
+            'next_and_previous',
+            ParameterType\BooleanType::class,
+            array(
+                'groups' => array(self::GROUP_DESIGN),
+            )
+        );
+
+        $builder->add(
+            'show_pagination',
+            ParameterType\Compound\BooleanType::class,
+            array(
+                'groups' => array(self::GROUP_DESIGN),
+            )
+        );
+
+        $builder->get('show_pagination')->add(
+            'pagination_type',
+            ParameterType\ChoiceType::class,
+            array(
+                'required' => true,
+                'options' => $this->paginationTypes,
+                'groups' => array(self::GROUP_DESIGN),
+            )
+        );
+
+        $builder->add(
+            'infinite_loop',
+            ParameterType\BooleanType::class,
+            array(
+                'groups' => array(self::GROUP_DESIGN),
+            )
+        );
+
+        $builder->add(
+            'transition',
+            ParameterType\ChoiceType::class,
+            array(
+                'required' => true,
+                'options' => $this->transitions,
+                'groups' => array(self::GROUP_DESIGN),
+            )
+        );
+
+        $builder->add(
+            'autoplay',
+            ParameterType\Compound\BooleanType::class,
+            array(
+                'groups' => array(self::GROUP_DESIGN),
+            )
+        );
+
+        $builder->get('autoplay')->add(
+            'autoplay_time',
+            ParameterType\RangeType::class,
+            array(
+                'required' => true,
+                'min' => $this->minAutoplayTime,
+                'max' => $this->maxAutoplayTime,
+                'groups' => array(self::GROUP_DESIGN),
+            )
+        );
+
+        $builder->add(
+            'aspect_ratio',
+            ParameterType\ChoiceType::class,
+            array(
+                'required' => true,
+                'options' => $this->aspectRatios,
+                'groups' => array(self::GROUP_DESIGN),
+            )
+        );
+
+        $builder->add(
+            'number_of_thumbnails',
+            ParameterType\IntegerType::class,
+            array(
+                'required' => true,
+                'min' => 1,
+                'groups' => array(self::GROUP_DESIGN),
+            )
+        );
+
+        $builder->add(
+            'show_details',
+            ParameterType\Compound\BooleanType::class,
+            array(
+                'groups' => array(self::GROUP_DESIGN),
+            )
+        );
+
+        $builder->get('show_details')->add(
+            'show_details_on_hover',
+            ParameterType\BooleanType::class,
+            array(
+                'groups' => array(self::GROUP_DESIGN),
+            )
+        );
+
+        $builder->add(
+            'enable_lightbox',
+            ParameterType\BooleanType::class,
+            array(
+                'groups' => array(self::GROUP_DESIGN),
+            )
+        );
+
+        $this->buildCommonParameters($builder);
     }
 
     /**

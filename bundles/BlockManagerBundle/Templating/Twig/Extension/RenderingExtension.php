@@ -3,7 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension;
 
 use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
+use Netgen\BlockManager\Block\TwigBlockDefinitionInterface;
 use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\Bundle\BlockManagerBundle\Exception\RenderingFailedException;
@@ -301,11 +301,11 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
     {
         $blockParams = array();
 
-        $blockDefinitionHandler = $block->getBlockDefinition()->getHandler();
-        if ($blockDefinitionHandler instanceof TwigBlockDefinitionHandlerInterface) {
+        $blockDefinition = $block->getBlockDefinition();
+        if ($blockDefinition instanceof TwigBlockDefinitionInterface) {
             $blockParams['twig_block_content'] = $this->renderTwigBlock(
                 $block,
-                $blockDefinitionHandler->getTwigBlockName($block),
+                $blockDefinition->getTwigBlockName($block),
                 $twigTemplate,
                 $twigContext,
                 $twigBlocks

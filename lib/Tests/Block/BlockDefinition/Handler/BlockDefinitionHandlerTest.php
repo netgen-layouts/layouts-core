@@ -19,14 +19,6 @@ class BlockDefinitionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::getParameters
-     */
-    public function testGetParameters()
-    {
-        $this->assertEquals(array(), $this->handler->getParameters());
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::getDynamicParameters
      */
     public function testGetDynamicParameters()

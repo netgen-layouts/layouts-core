@@ -2,20 +2,61 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
 
-use Netgen\BlockManager\Parameters\Parameter\Boolean;
 use Netgen\BlockManager\Parameters\ParameterType\BooleanType;
+use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use Symfony\Component\Validator\Validation;
 use PHPUnit\Framework\TestCase;
 
 class BooleanTypeTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\BooleanType::getType
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\BooleanType::getIdentifier
      */
-    public function testGetType()
+    public function testGetIdentifier()
     {
         $type = new BooleanType();
-        $this->assertEquals('boolean', $type->getType());
+        $this->assertEquals('boolean', $type->getIdentifier());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\BooleanType::getDefaultValue
+     *
+     * @param array $options
+     * @param bool $required
+     * @param mixed $defaultValue
+     * @param mixed $expected
+     *
+     * @dataProvider defaultValueProvider
+     */
+    public function testGetDefaultValue(array $options, $required, $defaultValue, $expected)
+    {
+        $parameter = $this->getParameter($options, $required, $defaultValue);
+        $this->assertEquals($expected, $parameter->getDefaultValue());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\Boolean::configureOptions
+     * @dataProvider validOptionsProvider
+     *
+     * @param array $options
+     * @param array $resolvedOptions
+     */
+    public function testValidOptions($options, $resolvedOptions)
+    {
+        $parameter = $this->getParameter($options);
+        $this->assertEquals($resolvedOptions, $parameter->getOptions());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\Boolean::configureOptions
+     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidArgumentException
+     * @dataProvider invalidOptionsProvider
+     *
+     * @param array $options
+     */
+    public function testInvalidOptions($options)
+    {
+        $this->getParameter($options);
     }
 
     /**
@@ -25,11 +66,59 @@ class BooleanTypeTest extends TestCase
      * @param bool $required
      * @param mixed $defaultValue
      *
-     * @return \Netgen\BlockManager\Parameters\Parameter\Boolean
+     * @return \Netgen\BlockManager\Parameters\ParameterInterface
      */
     public function getParameter(array $options = array(), $required = false, $defaultValue = null)
     {
-        return new Boolean($options, $required, $defaultValue);
+        return new Parameter('name', new BooleanType(), $options, $required, $defaultValue);
+    }
+
+    /**
+     * Provider for testing default parameter values.
+     *
+     * @return array
+     */
+    public function defaultValueProvider()
+    {
+        return array(
+            array(array(), true, null, false),
+            array(array(), false, null, null),
+            array(array(), true, false, false),
+            array(array(), false, false, false),
+            array(array(), true, true, true),
+            array(array(), false, true, true),
+        );
+    }
+
+    /**
+     * Provider for testing valid parameter attributes.
+     *
+     * @return array
+     */
+    public function validOptionsProvider()
+    {
+        return array(
+            array(
+                array(),
+                array(),
+            ),
+        );
+    }
+
+    /**
+     * Provider for testing invalid parameter attributes.
+     *
+     * @return array
+     */
+    public function invalidOptionsProvider()
+    {
+        return array(
+            array(
+                array(
+                    'undefined_value' => 'Value',
+                ),
+            ),
+        );
     }
 
     /**

@@ -261,8 +261,6 @@ services:
 
     netgen_block_manager.core.service.parameter_mapper:
         class: "%netgen_block_manager.core.service.parameter_mapper.class%"
-        arguments:
-            - "@netgen_block_manager.parameters.registry.parameter_type"
 
     # Service aliases
 

@@ -55,10 +55,14 @@ class DesignEditTypeTest extends FormTestCase
             )
         );
 
+        $handler = new BlockDefinitionHandler(array('design'));
         $blockDefinition = new BlockDefinition(
-            'block_definition',
-            new BlockDefinitionHandler(array('design')),
-            $config
+            array(
+                'identifier' => 'block_definition',
+                'handler' => $handler,
+                'config' => $config,
+                'parameters' => $handler->getParameters(),
+            )
         );
 
         $this->block = new Block(array('blockDefinition' => $blockDefinition));

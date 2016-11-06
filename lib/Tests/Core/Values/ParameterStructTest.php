@@ -3,7 +3,9 @@
 namespace Netgen\BlockManager\Tests\Core\Values;
 
 use Netgen\BlockManager\API\Values\ParameterStruct;
-use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Parameters\ParameterType;
+use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameter;
+use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use PHPUnit\Framework\TestCase;
 
 class ParameterStructTest extends TestCase
@@ -123,17 +125,24 @@ class ParameterStructTest extends TestCase
      */
     public function testFillValues()
     {
+        $compoundParameter = new CompoundParameter(
+            'compound',
+            new ParameterType\Compound\BooleanType(),
+            array(),
+            false,
+            true
+        );
+
+        $compoundParameter->setParameters(
+            array(
+                'inner' => new Parameter('inner', new ParameterType\TextLineType(), array(), false, 'inner_default'),
+            )
+        );
+
         $parameters = array(
-            'css_class' => new Parameter\TextLine(array(), false, 'css'),
-            'css_id' => new Parameter\TextLine(array(), false, 'id'),
-            'compound' => new Parameter\Compound\Boolean(
-                array(
-                    'inner' => new Parameter\TextLine(array(), false, 'inner_default'),
-                ),
-                array(),
-                false,
-                true
-            ),
+            'css_class' => new Parameter('css_class', new ParameterType\TextLineType(), array(), false, 'css'),
+            'css_id' => new Parameter('css_id', new ParameterType\TextLineType(), array(), false, 'id'),
+            'compound' => $compoundParameter,
         );
 
         $initialValues = array(
@@ -159,17 +168,24 @@ class ParameterStructTest extends TestCase
      */
     public function testFillValuesWithoutDefaults()
     {
+        $compoundParameter = new CompoundParameter(
+            'compound',
+            new ParameterType\Compound\BooleanType(),
+            array(),
+            false,
+            true
+        );
+
+        $compoundParameter->setParameters(
+            array(
+                'inner' => new Parameter('inner', new ParameterType\TextLineType(), array(), false, 'inner_default'),
+            )
+        );
+
         $parameters = array(
-            'css_class' => new Parameter\TextLine(array(), false, 'css'),
-            'css_id' => new Parameter\TextLine(array(), false, 'id'),
-            'compound' => new Parameter\Compound\Boolean(
-                array(
-                    'inner' => new Parameter\TextLine(array(), false, 'inner_default'),
-                ),
-                array(),
-                false,
-                true
-            ),
+            'css_class' => new Parameter('css_class', new ParameterType\TextLineType(), array(), false, 'css'),
+            'css_id' => new Parameter('css_id', new ParameterType\TextLineType(), array(), false, 'id'),
+            'compound' => $compoundParameter,
         );
 
         $initialValues = array(

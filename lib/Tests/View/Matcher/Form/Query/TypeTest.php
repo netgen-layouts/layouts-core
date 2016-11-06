@@ -2,10 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\View\Matcher\Form\Query;
 
-use Netgen\BlockManager\Collection\QueryType;
-use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Core\Values\Collection\Query;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandler;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Matcher\Stubs\Form;
 use Netgen\BlockManager\View\View\FormView;
@@ -49,11 +47,7 @@ class TypeTest extends TestCase
             array(
                 'query' => new Query(
                     array(
-                        'queryType' => new QueryType(
-                            'type',
-                            new QueryTypeHandler(),
-                            new Configuration('type', 'Type')
-                        ),
+                        'queryType' => new QueryType('type'),
                     )
                 ),
             )

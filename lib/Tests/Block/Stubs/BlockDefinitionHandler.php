@@ -4,7 +4,8 @@ namespace Netgen\BlockManager\Tests\Block\Stubs;
 
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler as BaseBlockDefinitionHandler;
 use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Parameters\ParameterType;
+use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 
 class BlockDefinitionHandler extends BaseBlockDefinitionHandler
 {
@@ -33,8 +34,8 @@ class BlockDefinitionHandler extends BaseBlockDefinitionHandler
     public function getParameters()
     {
         return array(
-            'css_class' => new Parameter\TextLine(array(), false, null, $this->parameterGroups),
-            'css_id' => new Parameter\TextLine(array(), false, null, $this->parameterGroups),
+            'css_class' => new Parameter('css_class', new ParameterType\TextLineType(), array(), false, null, $this->parameterGroups),
+            'css_id' => new Parameter('css_id', new ParameterType\TextLineType(), array(), false, null, $this->parameterGroups),
         );
     }
 

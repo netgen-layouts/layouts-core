@@ -154,9 +154,9 @@ abstract class EditType extends AbstractType
         $blockDefinition = $options['block']->getBlockDefinition();
         $formParameters = array();
 
-        foreach ($blockDefinition->getParameters() as $parameterName => $parameter) {
+        foreach ($blockDefinition->getParameters() as $parameter) {
             if ($this->includeParameter($parameter, $groups)) {
-                $formParameters[$parameterName] = $parameter;
+                $formParameters[$parameter->getName()] = $parameter;
             }
         }
 

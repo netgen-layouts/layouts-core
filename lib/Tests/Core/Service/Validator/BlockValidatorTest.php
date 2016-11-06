@@ -79,10 +79,14 @@ class BlockValidatorTest extends TestCase
      */
     public function testValidateBlockCreateStruct(array $params, $isValid)
     {
+        $handler = new BlockDefinitionHandlerWithRequiredParameter();
         $blockDefinition = new BlockDefinition(
-            'block',
-            new BlockDefinitionHandlerWithRequiredParameter(),
-            $this->blockDefinitionConfig
+            array(
+                'identifier' => 'block',
+                'handler' => $handler,
+                'config' => $this->blockDefinitionConfig,
+                'parameters' => $handler->getParameters(),
+            )
         );
 
         $this->blockDefinitionRegistryMock

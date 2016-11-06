@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
 
 use Netgen\BlockManager\Core\Values\Collection\Query;
+use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionQueryNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
@@ -43,27 +44,35 @@ class CollectionQueryNormalizerTest extends TestCase
                 'identifier' => 'default',
                 'queryType' => new QueryType('ezcontent_search'),
                 'parameters' => array(
-                    'param' => 'value',
-                    'param2' => array(
-                        'param3' => 'value3',
+                    'param' => new ParameterValue(
+                        array(
+                            'name' => 'param',
+                            'value' => 'value',
+                        )
+                    ),
+                    'param2' => new ParameterValue(
+                        array(
+                            'name' => 'param2',
+                            'value' => array(
+                                'param3' => 'value3',
+                            ),
+                        )
                     ),
                 ),
             )
         );
 
+        $serializedParams = array(
+            'param' => 'value',
+            'param2' => array(
+                'param3' => 'value3',
+            ),
+        );
+
         $this->serializerMock
             ->expects($this->once())
             ->method('normalize')
-            ->will(
-                $this->returnValue(
-                    array(
-                        'param' => 'value',
-                        'param2' => array(
-                            'param3' => 'value3',
-                        ),
-                    )
-                )
-            );
+            ->will($this->returnValue($serializedParams));
 
         $this->assertEquals(
             array(
@@ -72,7 +81,7 @@ class CollectionQueryNormalizerTest extends TestCase
                 'position' => $query->getPosition(),
                 'identifier' => $query->getIdentifier(),
                 'type' => $query->getQueryType()->getType(),
-                'parameters' => $query->getParameters(),
+                'parameters' => $serializedParams,
             ),
             $this->normalizer->normalize(new VersionedValue($query, 1))
         );

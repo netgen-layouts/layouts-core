@@ -2,20 +2,61 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
 
-use Netgen\BlockManager\Parameters\Parameter\Integer;
 use Netgen\BlockManager\Parameters\ParameterType\IntegerType;
+use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use Symfony\Component\Validator\Validation;
 use PHPUnit\Framework\TestCase;
 
 class IntegerTypeTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\IntegerType::getType
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\IntegerType::getIdentifier
      */
-    public function testGetType()
+    public function testGetIdentifier()
     {
         $type = new IntegerType();
-        $this->assertEquals('integer', $type->getType());
+        $this->assertEquals('integer', $type->getIdentifier());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\IntegerType::getDefaultValue
+     *
+     * @param array $options
+     * @param bool $required
+     * @param mixed $defaultValue
+     * @param mixed $expected
+     *
+     * @dataProvider defaultValueProvider
+     */
+    public function testGetDefaultValue(array $options, $required, $defaultValue, $expected)
+    {
+        $parameter = $this->getParameter($options, $required, $defaultValue);
+        $this->assertEquals($expected, $parameter->getDefaultValue());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\IntegerType::configureOptions
+     * @dataProvider validOptionsProvider
+     *
+     * @param array $options
+     * @param array $resolvedOptions
+     */
+    public function testValidOptions($options, $resolvedOptions)
+    {
+        $parameter = $this->getParameter($options);
+        $this->assertEquals($resolvedOptions, $parameter->getOptions());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\IntegerType::configureOptions
+     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidArgumentException
+     * @dataProvider invalidOptionsProvider
+     *
+     * @param array $options
+     */
+    public function testInvalidOptions($options)
+    {
+        $this->getParameter($options);
     }
 
     /**
@@ -25,11 +66,139 @@ class IntegerTypeTest extends TestCase
      * @param bool $required
      * @param mixed $defaultValue
      *
-     * @return \Netgen\BlockManager\Parameters\Parameter\Integer
+     * @return \Netgen\BlockManager\Parameters\ParameterInterface
      */
     public function getParameter(array $options = array(), $required = false, $defaultValue = null)
     {
-        return new Integer($options, $required, $defaultValue);
+        return new Parameter('name', new IntegerType(), $options, $required, $defaultValue);
+    }
+
+    /**
+     * Provider for testing default parameter values.
+     *
+     * @return array
+     */
+    public function defaultValueProvider()
+    {
+        return array(
+            array(array(), true, null, null),
+            array(array('min' => 3), true, null, 3),
+            array(array(), false, null, null),
+            array(array('min' => 3), false, null, null),
+            array(array(), true, 4, 4),
+            array(array('min' => 3), true, 4, 4),
+            array(array(), false, 4, 4),
+            array(array('min' => 3), false, 4, 4),
+        );
+    }
+
+    /**
+     * Provider for testing valid parameter attributes.
+     *
+     * @return array
+     */
+    public function validOptionsProvider()
+    {
+        return array(
+            array(
+                array(
+                ),
+                array(
+                    'max' => null,
+                    'min' => null,
+                ),
+            ),
+            array(
+                array(
+                    'max' => 5,
+                ),
+                array(
+                    'max' => 5,
+                    'min' => null,
+                ),
+            ),
+            array(
+                array(
+                    'max' => null,
+                ),
+                array(
+                    'max' => null,
+                    'min' => null,
+                ),
+            ),
+            array(
+                array(
+                    'min' => 5,
+                ),
+                array(
+                    'min' => 5,
+                    'max' => null,
+                ),
+            ),
+            array(
+                array(
+                    'min' => null,
+                ),
+                array(
+                    'max' => null,
+                    'min' => null,
+                ),
+            ),
+            array(
+                array(
+                    'min' => 5,
+                    'max' => 10,
+                ),
+                array(
+                    'min' => 5,
+                    'max' => 10,
+                ),
+            ),
+            array(
+                array(
+                    'min' => 5,
+                    'max' => 3,
+                ),
+                array(
+                    'min' => 5,
+                    'max' => 5,
+                ),
+            ),
+        );
+    }
+
+    /**
+     * Provider for testing invalid parameter attributes.
+     *
+     * @return array
+     */
+    public function invalidOptionsProvider()
+    {
+        return array(
+            array(
+                array(
+                    'max' => array(),
+                ),
+                array(
+                    'max' => 5.5,
+                ),
+                array(
+                    'max' => '5',
+                ),
+                array(
+                    'min' => array(),
+                ),
+                array(
+                    'min' => 5.5,
+                ),
+                array(
+                    'min' => '5',
+                ),
+                array(
+                    'undefined_value' => 'Value',
+                ),
+            ),
+        );
     }
 
     /**

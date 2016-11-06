@@ -4,16 +4,10 @@ namespace Netgen\BlockManager\Tests\Collection;
 
 use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
 use Netgen\BlockManager\Collection\QueryType;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandler;
 use PHPUnit\Framework\TestCase;
 
 class QueryTypeTest extends TestCase
 {
-    /**
-     * @var \Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface
-     */
-    protected $handler;
-
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
@@ -26,14 +20,13 @@ class QueryTypeTest extends TestCase
 
     public function setUp()
     {
-        $this->handler = new QueryTypeHandler();
-
         $this->configMock = $this->createMock(Configuration::class);
 
         $this->queryType = new QueryType(
-            'query_type',
-            $this->handler,
-            $this->configMock
+            array(
+                'type' => 'query_type',
+                'config' => $this->configMock,
+            )
         );
     }
 
@@ -44,14 +37,6 @@ class QueryTypeTest extends TestCase
     public function testGetType()
     {
         $this->assertEquals('query_type', $this->queryType->getType());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Collection\QueryType::getHandler
-     */
-    public function testGetHandler()
-    {
-        $this->assertEquals($this->handler, $this->queryType->getHandler());
     }
 
     /**

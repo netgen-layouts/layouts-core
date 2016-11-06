@@ -54,10 +54,14 @@ class ContentEditTypeTest extends FormTestCase
             )
         );
 
+        $handler = new BlockDefinitionHandler(array('content'));
         $blockDefinition = new BlockDefinition(
-            'block_definition',
-            new BlockDefinitionHandler(array('content')),
-            $config
+            array(
+                'identifier' => 'block_definition',
+                'handler' => $handler,
+                'config' => $config,
+                'parameters' => $handler->getParameters(),
+            )
         );
 
         $this->block = new Block(array('blockDefinition' => $blockDefinition));

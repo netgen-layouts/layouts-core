@@ -2,8 +2,9 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\Form;
 
-use Netgen\BlockManager\Parameters\Parameter\TextLine;
+use Netgen\BlockManager\Parameters\ParameterType\TextLineType;
 use Netgen\BlockManager\Parameters\Form\Mapper;
+use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use PHPUnit\Framework\TestCase;
 
 class MapperTest extends TestCase
@@ -26,9 +27,7 @@ class MapperTest extends TestCase
         $this->assertEquals(
             array(),
             $this->mapper->mapOptions(
-                new TextLine(array(), true),
-                'name',
-                array()
+                new Parameter('name', new TextLineType())
             )
         );
     }

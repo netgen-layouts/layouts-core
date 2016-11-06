@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
 
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\Core\Values\Page\Block;
+use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\BlockNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
@@ -51,8 +52,18 @@ class BlockNormalizerTest extends TestCase
                 'position' => 2,
                 'blockDefinition' => new BlockDefinition('text'),
                 'parameters' => array(
-                    'some_param' => 'some_value',
-                    'some_other_param' => 'some_other_value',
+                    'some_param' => new ParameterValue(
+                        array(
+                            'name' => 'some_param',
+                            'value' => 'some_value',
+                        )
+                    ),
+                    'some_other_param' => new ParameterValue(
+                        array(
+                            'name' => 'some_other_param',
+                            'value' => 'some_other_value',
+                        )
+                    ),
                 ),
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
@@ -62,17 +73,15 @@ class BlockNormalizerTest extends TestCase
             )
         );
 
+        $serializedParams = array(
+            'some_param' => 'some_value',
+            'some_other_param' => 'some_other_value',
+        );
+
         $this->serializerMock
             ->expects($this->once())
             ->method('normalize')
-            ->will(
-                $this->returnValue(
-                    array(
-                        'some_param' => 'some_value',
-                        'some_other_param' => 'some_other_value',
-                    )
-                )
-            );
+            ->will($this->returnValue($serializedParams));
 
         $this->blockServiceMock
             ->expects($this->once())
@@ -88,7 +97,7 @@ class BlockNormalizerTest extends TestCase
                 'zone_identifier' => $block->getZoneIdentifier(),
                 'position' => 2,
                 'layout_id' => $block->getLayoutId(),
-                'parameters' => $block->getParameters(),
+                'parameters' => $serializedParams,
                 'view_type' => $block->getViewType(),
                 'item_view_type' => $block->getItemViewType(),
                 'published' => true,

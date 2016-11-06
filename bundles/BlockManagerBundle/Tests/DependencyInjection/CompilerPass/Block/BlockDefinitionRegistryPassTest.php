@@ -30,6 +30,7 @@ class BlockDefinitionRegistryPassTest extends AbstractCompilerPassTestCase
         $this->setParameter('netgen_block_manager.block.block_definition.configuration.factory.class', 'factory_class');
         $this->setParameter('netgen_block_manager.block.block_definition.configuration.class', 'config_class');
         $this->setParameter('netgen_block_manager.block.block_definition.class', 'definition_class');
+        $this->setParameter('netgen_block_manager.block.block_definition.factory.class', 'factory_class');
 
         $this->setDefinition('netgen_block_manager.block.registry.block_definition', new Definition());
 

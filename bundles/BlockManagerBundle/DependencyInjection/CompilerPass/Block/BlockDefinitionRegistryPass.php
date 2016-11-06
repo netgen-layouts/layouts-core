@@ -76,6 +76,14 @@ class BlockDefinitionRegistryPass implements CompilerPassInterface
             $blockDefinitionService->addArgument($identifier);
             $blockDefinitionService->addArgument(new Reference($foundHandler));
             $blockDefinitionService->addArgument(new Reference($configServiceName));
+            $blockDefinitionService->addArgument(new Reference('netgen_block_manager.parameters.parameter_builder'));
+            $blockDefinitionService->setFactory(
+                array(
+                    $container->getParameter('netgen_block_manager.block.block_definition.factory.class'),
+                    'buildBlockDefinition',
+                )
+            );
+
             $container->setDefinition($blockDefinitionServiceName, $blockDefinitionService);
 
             $blockDefinitionRegistry->addMethodCall(

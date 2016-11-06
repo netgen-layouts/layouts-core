@@ -90,7 +90,8 @@ abstract class ParameterStruct extends ValueObject
      */
     public function fillValues(array $parameters, $values = array(), $useDefaults = true)
     {
-        foreach ($parameters as $parameterName => $parameter) {
+        foreach ($parameters as $parameter) {
+            $parameterName = $parameter->getName();
             $value = $useDefaults ? $parameter->getDefaultValue() : null;
             if (array_key_exists($parameterName, $values)) {
                 $value = $values[$parameterName] instanceof ParameterValue ?

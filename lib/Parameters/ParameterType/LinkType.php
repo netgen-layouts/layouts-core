@@ -6,17 +6,30 @@ use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\ParameterInterface;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
 use Netgen\BlockManager\Validator\Constraint\Parameters\Link as LinkConstraint;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class LinkType extends ParameterType
 {
     /**
-     * Returns the parameter type.
+     * getIdentifierReturns the parameter type identifier.
      *
      * @return string
      */
-    public function getType()
+    public function getIdentifier()
     {
         return 'link';
+    }
+
+    /**
+     * Configures the options for this parameter.
+     *
+     * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
+     */
+    public function configureOptions(OptionsResolver $optionsResolver)
+    {
+        $optionsResolver->setRequired(array('value_types'));
+        $optionsResolver->setAllowedTypes('value_types', 'array');
+        $optionsResolver->setDefault('value_types', array());
     }
 
     /**
