@@ -34,15 +34,15 @@ class ParametersTypeTest extends FormTestCase
     public function testSubmitValidData()
     {
         $submittedData = array(
-            'parameters' => array(
+            'parameter_values' => array(
                 'css_id' => 'Some CSS ID',
                 'css_class' => 'Some CSS class',
             ),
         );
 
         $updatedStruct = $this->getMockForAbstractClass(ParameterStruct::class);
-        $updatedStruct->setParameter('css_id', 'Some CSS ID');
-        $updatedStruct->setParameter('css_class', 'Some CSS class');
+        $updatedStruct->setParameterValue('css_id', 'Some CSS ID');
+        $updatedStruct->setParameterValue('css_class', 'Some CSS class');
 
         $parentForm = $this->factory->create(
             FormType::class,
@@ -50,7 +50,7 @@ class ParametersTypeTest extends FormTestCase
         );
 
         $parentForm->add(
-            'parameters',
+            'parameter_values',
             ParametersType::class,
             array(
                 'parameter_collection' => new ParameterCollection(
@@ -60,7 +60,7 @@ class ParametersTypeTest extends FormTestCase
                     )
                 ),
                 'label_prefix' => 'label',
-                'property_path' => 'parameters',
+                'property_path' => 'parameterValues',
             )
         );
 
@@ -69,12 +69,12 @@ class ParametersTypeTest extends FormTestCase
         $this->assertTrue($parentForm->isSynchronized());
         $this->assertEquals($updatedStruct, $parentForm->getData());
 
-        $this->assertCount(2, $parentForm->get('parameters')->all());
+        $this->assertCount(2, $parentForm->get('parameter_values')->all());
 
-        foreach (array_keys($submittedData['parameters']) as $key) {
-            $paramForm = $parentForm->get('parameters')->get($key);
+        foreach (array_keys($submittedData['parameter_values']) as $key) {
+            $paramForm = $parentForm->get('parameter_values')->get($key);
 
-            $this->assertEquals('parameters[' . $key . ']', $paramForm->getPropertyPath());
+            $this->assertEquals('parameterValues[' . $key . ']', $paramForm->getPropertyPath());
             $this->assertEquals('label.' . $key, $paramForm->getConfig()->getOption('label'));
             $this->assertInstanceOf(TextType::class, $paramForm->getConfig()->getType()->getInnerType());
         }
@@ -82,10 +82,10 @@ class ParametersTypeTest extends FormTestCase
         $view = $parentForm->createView();
         $children = $view->children;
 
-        $this->assertArrayHasKey('parameters', $children);
+        $this->assertArrayHasKey('parameter_values', $children);
 
-        foreach (array_keys($submittedData['parameters']) as $key) {
-            $this->assertArrayHasKey($key, $children['parameters']);
+        foreach (array_keys($submittedData['parameter_values']) as $key) {
+            $this->assertArrayHasKey($key, $children['parameter_values']);
         }
     }
 

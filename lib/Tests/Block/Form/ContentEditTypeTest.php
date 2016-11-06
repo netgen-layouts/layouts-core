@@ -102,7 +102,7 @@ class ContentEditTypeTest extends FormTestCase
 
         $updatedStruct = new BlockUpdateStruct();
         $updatedStruct->name = 'My block';
-        $updatedStruct->setParameter('css_class', 'Some CSS class');
+        $updatedStruct->setParameterValue('css_class', 'Some CSS class');
 
         $form = $this->factory->create(
             ContentEditType::class,

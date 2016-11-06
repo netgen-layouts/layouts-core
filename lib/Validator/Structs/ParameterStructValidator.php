@@ -50,7 +50,7 @@ class ParameterStructValidator extends ConstraintValidator
         $validator = $this->context->getValidator()->inContext($this->context);
 
         $validator->validate(
-            $value->getParameters(),
+            $value->getParameterValues(),
             new Constraints\Collection(
                 array(
                     'fields' => $this->buildConstraintFields($value, $constraint),
@@ -67,17 +67,17 @@ class ParameterStructValidator extends ConstraintValidator
      */
     protected function filterParameters(ParameterStruct $parameterStruct, array $parameters)
     {
-        foreach ($parameterStruct->getParameters() as $parameterName => $parameter) {
+        foreach ($parameterStruct->getParameterValues() as $parameterName => $parameterValue) {
             if (!isset($parameters[$parameterName])) {
                 continue;
             }
 
             $filters = $this->parameterFilterRegistry->getParameterFilters($parameters[$parameterName]->getType()->getIdentifier());
             foreach ($filters as $filter) {
-                $parameter = $filter->filter($parameter);
+                $parameterValue = $filter->filter($parameterValue);
             }
 
-            $parameterStruct->setParameter($parameterName, $parameter);
+            $parameterStruct->setParameterValue($parameterName, $parameterValue);
         }
     }
 
@@ -94,8 +94,8 @@ class ParameterStructValidator extends ConstraintValidator
         $fields = array();
         foreach ($constraint->parameterCollection->getParameters() as $parameter) {
             $parameterName = $parameter->getName();
-            $parameterValue = $parameterStruct->hasParameter($parameterName) ?
-                $parameterStruct->getParameter($parameterName) :
+            $parameterValue = $parameterStruct->hasParameterValue($parameterName) ?
+                $parameterStruct->getParameterValue($parameterName) :
                 null;
 
             $constraints = $parameter->getType()->getConstraints($parameter, $parameterValue);
@@ -107,8 +107,8 @@ class ParameterStructValidator extends ConstraintValidator
             if ($parameter instanceof CompoundParameterInterface) {
                 foreach ($parameter->getParameters() as $subParameter) {
                     $subParameterName = $subParameter->getName();
-                    $subParameterValue = $parameterStruct->hasParameter($subParameterName) ?
-                        $parameterStruct->getParameter($subParameterName) :
+                    $subParameterValue = $parameterStruct->hasParameterValue($subParameterName) ?
+                        $parameterStruct->getParameterValue($subParameterName) :
                         null;
 
                     $constraints = array();

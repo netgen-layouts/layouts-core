@@ -925,7 +925,7 @@ class CollectionHandlerTest extends TestCase
         $queryCreateStruct = new QueryCreateStruct();
         $queryCreateStruct->identifier = 'new_query';
         $queryCreateStruct->type = 'ezcontent_search';
-        $queryCreateStruct->setParameter('param', 'value');
+        $queryCreateStruct->setParameterValue('param', 'value');
 
         $this->assertEquals(
             new Query(
@@ -959,7 +959,7 @@ class CollectionHandlerTest extends TestCase
         $queryCreateStruct = new QueryCreateStruct();
         $queryCreateStruct->identifier = 'new_query';
         $queryCreateStruct->type = 'ezcontent_search';
-        $queryCreateStruct->setParameter('param', 'value');
+        $queryCreateStruct->setParameterValue('param', 'value');
 
         $this->assertEquals(
             new Query(
@@ -990,7 +990,7 @@ class CollectionHandlerTest extends TestCase
         $queryCreateStruct = new QueryCreateStruct();
         $queryCreateStruct->identifier = 'new_query';
         $queryCreateStruct->type = 'ezcontent_search';
-        $queryCreateStruct->setParameter('param', 'value');
+        $queryCreateStruct->setParameterValue('param', 'value');
 
         $this->collectionHandler->addQuery(
             $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED),
@@ -1009,7 +1009,7 @@ class CollectionHandlerTest extends TestCase
         $queryCreateStruct = new QueryCreateStruct();
         $queryCreateStruct->identifier = 'new_query';
         $queryCreateStruct->type = 'ezcontent_search';
-        $queryCreateStruct->setParameter('param', 'value');
+        $queryCreateStruct->setParameterValue('param', 'value');
 
         $this->collectionHandler->addQuery(
             $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED),
@@ -1026,8 +1026,8 @@ class CollectionHandlerTest extends TestCase
     {
         $queryUpdateStruct = new QueryUpdateStruct();
         $queryUpdateStruct->identifier = 'new_identifier';
-        $queryUpdateStruct->setParameter('parent_location_id', 3);
-        $queryUpdateStruct->setParameter('some_param', 'Some value');
+        $queryUpdateStruct->setParameterValue('parent_location_id', 3);
+        $queryUpdateStruct->setParameterValue('some_param', 'Some value');
 
         $this->assertEquals(
             new Query(

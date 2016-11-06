@@ -256,7 +256,7 @@ class CollectionController extends Controller
                 }
 
                 $parameterType = $query->getParameter($parameterName)->getParameterType();
-                $queryUpdateStruct->setParameter(
+                $queryUpdateStruct->setParameterValue(
                     $parameterName,
                     $parameterType->toValue($parameterValue)
                 );

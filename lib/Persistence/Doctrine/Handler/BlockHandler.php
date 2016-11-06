@@ -180,7 +180,7 @@ class BlockHandler implements BlockHandlerInterface
                     'viewType' => $blockCreateStruct->viewType,
                     'itemViewType' => $blockCreateStruct->itemViewType,
                     'name' => $blockCreateStruct->name !== null ? trim($blockCreateStruct->name) : '',
-                    'parameters' => $blockCreateStruct->getParameters(),
+                    'parameters' => $blockCreateStruct->getParameterValues(),
                 )
             )
         );
@@ -228,7 +228,7 @@ class BlockHandler implements BlockHandlerInterface
                     'viewType' => $blockUpdateStruct->viewType !== null ? $blockUpdateStruct->viewType : $block->viewType,
                     'itemViewType' => $blockUpdateStruct->itemViewType !== null ? $blockUpdateStruct->itemViewType : $block->itemViewType,
                     'name' => $blockUpdateStruct->name !== null ? trim($blockUpdateStruct->name) : $block->name,
-                    'parameters' => $blockUpdateStruct->getParameters() + $block->parameters,
+                    'parameters' => $blockUpdateStruct->getParameterValues() + $block->parameters,
                 )
             )
         );

@@ -125,7 +125,7 @@ class BlockController extends Controller
                 }
 
                 $parameterType = $block->getParameter($parameterName)->getParameterType();
-                $blockUpdateStruct->setParameter(
+                $blockUpdateStruct->setParameterValue(
                     $parameterName,
                     $parameterType->toValue($parameterValue)
                 );

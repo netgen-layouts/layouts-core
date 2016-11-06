@@ -95,7 +95,7 @@ class BlockValidator extends Validator
                     )
                 ),
             ),
-            'parameters'
+            'parameterValues'
         );
     }
 

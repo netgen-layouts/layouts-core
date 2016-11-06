@@ -565,8 +565,8 @@ abstract class CollectionServiceTest extends ServiceTestCase
 
         $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct();
         $queryUpdateStruct->identifier = 'new_identifier';
-        $queryUpdateStruct->setParameter('parent_location_id', 3);
-        $queryUpdateStruct->setParameter('param', 'value');
+        $queryUpdateStruct->setParameterValue('parent_location_id', 3);
+        $queryUpdateStruct->setParameterValue('param', 'value');
 
         $updatedQuery = $this->collectionService->updateQuery($query, $queryUpdateStruct);
 
@@ -732,7 +732,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
                 array(
                     'identifier' => 'new_query',
                     'type' => 'ezcontent_search',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'offset' => null,
                         'param' => null,
                     ),
@@ -764,7 +764,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
             new QueryUpdateStruct(
                 array(
                     'identifier' => $query->getIdentifier(),
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'offset' => 0,
                         'param' => null,
                     ),

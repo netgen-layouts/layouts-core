@@ -216,7 +216,7 @@ class CollectionValidatorTest extends TestCase
                 array(
                     'identifier' => 'my_query',
                     'type' => 'query_type',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'param' => 'value',
                     ),
                 ),
@@ -226,7 +226,7 @@ class CollectionValidatorTest extends TestCase
                 array(
                     'identifier' => null,
                     'type' => 'query_type',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'param' => 'value',
                     ),
                 ),
@@ -236,7 +236,7 @@ class CollectionValidatorTest extends TestCase
                 array(
                     'identifier' => '',
                     'type' => 'query_type',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'param' => 'value',
                     ),
                 ),
@@ -246,7 +246,7 @@ class CollectionValidatorTest extends TestCase
                 array(
                     'identifier' => 42,
                     'type' => 'query_type',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'param' => 'value',
                     ),
                 ),
@@ -256,7 +256,7 @@ class CollectionValidatorTest extends TestCase
                 array(
                     'identifier' => 'my_query',
                     'type' => null,
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'param' => 'value',
                     ),
                 ),
@@ -266,7 +266,7 @@ class CollectionValidatorTest extends TestCase
                 array(
                     'identifier' => 'my_query',
                     'type' => '',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'param' => 'value',
                     ),
                 ),
@@ -276,7 +276,7 @@ class CollectionValidatorTest extends TestCase
                 array(
                     'identifier' => 'my_query',
                     'type' => 42,
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'param' => 'value',
                     ),
                 ),
@@ -286,7 +286,7 @@ class CollectionValidatorTest extends TestCase
                 array(
                     'identifier' => 'my_query',
                     'type' => 'query_type',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'param' => '',
                     ),
                 ),
@@ -296,7 +296,7 @@ class CollectionValidatorTest extends TestCase
                 array(
                     'identifier' => 'my_query',
                     'type' => 'query_type',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'param' => null,
                     ),
                 ),
@@ -306,7 +306,7 @@ class CollectionValidatorTest extends TestCase
                 array(
                     'identifier' => 'my_query',
                     'type' => 'query_type',
-                    'parameters' => array(),
+                    'parameterValues' => array(),
                 ),
                 false,
             ),
@@ -319,7 +319,7 @@ class CollectionValidatorTest extends TestCase
             array(
                 array(
                     'identifier' => 'my_query',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'param' => 'value',
                     ),
                 ),
@@ -328,7 +328,7 @@ class CollectionValidatorTest extends TestCase
             array(
                 array(
                     'identifier' => null,
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'param' => 'value',
                     ),
                 ),
@@ -337,7 +337,7 @@ class CollectionValidatorTest extends TestCase
             array(
                 array(
                     'identifier' => '',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'param' => 'value',
                     ),
                 ),
@@ -346,7 +346,7 @@ class CollectionValidatorTest extends TestCase
             array(
                 array(
                     'identifier' => 42,
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'param' => 'value',
                     ),
                 ),
@@ -355,7 +355,7 @@ class CollectionValidatorTest extends TestCase
             array(
                 array(
                     'identifier' => 'my_query',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'param' => '',
                     ),
                 ),
@@ -364,7 +364,7 @@ class CollectionValidatorTest extends TestCase
             array(
                 array(
                     'identifier' => 'my_query',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'param' => null,
                     ),
                 ),
@@ -373,7 +373,7 @@ class CollectionValidatorTest extends TestCase
             array(
                 array(
                     'identifier' => 'my_query',
-                    'parameters' => array(),
+                    'parameterValues' => array(),
                 ),
                 true,
             ),

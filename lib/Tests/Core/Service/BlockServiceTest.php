@@ -316,8 +316,8 @@ abstract class BlockServiceTest extends ServiceTestCase
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct();
         $blockUpdateStruct->viewType = 'small';
         $blockUpdateStruct->name = 'Super cool block';
-        $blockUpdateStruct->setParameter('css_class', 'test_value');
-        $blockUpdateStruct->setParameter('css_id', 'some_other_test_value');
+        $blockUpdateStruct->setParameterValue('css_class', 'test_value');
+        $blockUpdateStruct->setParameterValue('css_id', 'some_other_test_value');
 
         $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
@@ -359,8 +359,8 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct();
         $blockUpdateStruct->viewType = 'small';
-        $blockUpdateStruct->setParameter('css_class', 'test_value');
-        $blockUpdateStruct->setParameter('css_id', 'some_other_test_value');
+        $blockUpdateStruct->setParameterValue('css_class', 'test_value');
+        $blockUpdateStruct->setParameterValue('css_id', 'some_other_test_value');
 
         $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
@@ -402,8 +402,8 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct();
         $blockUpdateStruct->name = 'Super cool block';
-        $blockUpdateStruct->setParameter('css_class', 'test_value');
-        $blockUpdateStruct->setParameter('css_id', 'some_other_test_value');
+        $blockUpdateStruct->setParameterValue('css_class', 'test_value');
+        $blockUpdateStruct->setParameterValue('css_id', 'some_other_test_value');
 
         $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
@@ -694,7 +694,7 @@ abstract class BlockServiceTest extends ServiceTestCase
                     'viewType' => 'small',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => 'css-class',
                         'css_id' => null,
                     ),
@@ -730,7 +730,7 @@ abstract class BlockServiceTest extends ServiceTestCase
                     'viewType' => 'small',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => 'css-class',
                         'css_id' => null,
                     ),
@@ -766,7 +766,7 @@ abstract class BlockServiceTest extends ServiceTestCase
                     'viewType' => 'small',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => 'css-class',
                         'css_id' => null,
                     ),
@@ -802,7 +802,7 @@ abstract class BlockServiceTest extends ServiceTestCase
                     'viewType' => 'small',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => 'css-class',
                         'css_id' => null,
                     ),
@@ -850,7 +850,7 @@ abstract class BlockServiceTest extends ServiceTestCase
                     'viewType' => $block->getViewType(),
                     'itemViewType' => $block->getItemViewType(),
                     'name' => $block->getName(),
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => 'CSS class',
                         'css_id' => null,
                     ),

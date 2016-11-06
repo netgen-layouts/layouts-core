@@ -75,8 +75,8 @@ class FullEditTypeTest extends FormTestCase
         $updatedStruct->viewType = 'large';
         $updatedStruct->itemViewType = 'standard';
         $updatedStruct->name = 'My block';
-        $updatedStruct->setParameter('css_id', 'Some CSS ID');
-        $updatedStruct->setParameter('css_class', 'Some CSS class');
+        $updatedStruct->setParameterValue('css_id', 'Some CSS ID');
+        $updatedStruct->setParameterValue('css_class', 'Some CSS class');
 
         $form = $this->factory->create(
             FullEditType::class,

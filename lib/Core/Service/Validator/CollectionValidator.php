@@ -261,7 +261,7 @@ class CollectionValidator extends Validator
                     )
                 ),
             ),
-            'parameters'
+            'parameterValues'
         );
     }
 

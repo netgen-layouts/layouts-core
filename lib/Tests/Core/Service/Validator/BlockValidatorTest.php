@@ -138,7 +138,7 @@ class BlockValidatorTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => 'class',
                         'css_id' => 'id',
                     ),
@@ -151,7 +151,7 @@ class BlockValidatorTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => 'class',
                         'css_id' => 'id',
                     ),
@@ -164,7 +164,7 @@ class BlockValidatorTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => 'class',
                         'css_id' => 'id',
                     ),
@@ -177,7 +177,7 @@ class BlockValidatorTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => 'class',
                         'css_id' => 'id',
                     ),
@@ -190,7 +190,7 @@ class BlockValidatorTest extends TestCase
                     'viewType' => 'nonexistent',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => 'class',
                         'css_id' => 'id',
                     ),
@@ -203,7 +203,7 @@ class BlockValidatorTest extends TestCase
                     'viewType' => '',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => 'class',
                         'css_id' => 'id',
                     ),
@@ -216,7 +216,7 @@ class BlockValidatorTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => 'nonexistent',
                     'name' => 'My block',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => 'class',
                         'css_id' => 'id',
                     ),
@@ -229,7 +229,7 @@ class BlockValidatorTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => '',
                     'name' => 'My block',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => 'class',
                         'css_id' => 'id',
                     ),
@@ -242,7 +242,7 @@ class BlockValidatorTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => null,
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => 'class',
                         'css_id' => 'id',
                     ),
@@ -255,7 +255,7 @@ class BlockValidatorTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => '',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => 'class',
                         'css_id' => 'id',
                     ),
@@ -268,7 +268,7 @@ class BlockValidatorTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 42,
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => 'class',
                         'css_id' => 'id',
                     ),
@@ -281,7 +281,7 @@ class BlockValidatorTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => '',
                         'css_id' => 'id',
                     ),
@@ -294,7 +294,7 @@ class BlockValidatorTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => null,
                         'css_id' => 'id',
                     ),
@@ -307,7 +307,7 @@ class BlockValidatorTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_id' => 'id',
                     ),
                 ),
@@ -319,7 +319,7 @@ class BlockValidatorTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => 'class',
                         'css_id' => '',
                     ),
@@ -332,7 +332,7 @@ class BlockValidatorTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => 'class',
                         'css_id' => null,
                     ),
@@ -345,7 +345,7 @@ class BlockValidatorTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => 'class',
                     ),
                 ),
@@ -362,7 +362,7 @@ class BlockValidatorTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => 'class',
                         'css_id' => 'id',
                     ),
@@ -374,7 +374,7 @@ class BlockValidatorTest extends TestCase
                     'viewType' => null,
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => 'class',
                         'css_id' => 'id',
                     ),
@@ -386,7 +386,7 @@ class BlockValidatorTest extends TestCase
                     'viewType' => null,
                     'itemViewType' => null,
                     'name' => 'My block',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => 'class',
                         'css_id' => 'id',
                     ),
@@ -398,7 +398,7 @@ class BlockValidatorTest extends TestCase
                     'viewType' => '',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => 'class',
                         'css_id' => 'id',
                     ),
@@ -410,7 +410,7 @@ class BlockValidatorTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => '',
                     'name' => 'My block',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => 'class',
                         'css_id' => 'id',
                     ),
@@ -422,7 +422,7 @@ class BlockValidatorTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => 'nonexistent',
                     'name' => 'My block',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => 'class',
                         'css_id' => 'id',
                     ),
@@ -434,7 +434,7 @@ class BlockValidatorTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => null,
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => 'class',
                         'css_id' => 'id',
                     ),
@@ -446,7 +446,7 @@ class BlockValidatorTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => '',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => 'class',
                         'css_id' => 'id',
                     ),
@@ -458,7 +458,7 @@ class BlockValidatorTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 42,
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => 'class',
                         'css_id' => 'id',
                     ),
@@ -470,7 +470,7 @@ class BlockValidatorTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => '',
                         'css_id' => 'id',
                     ),
@@ -482,7 +482,7 @@ class BlockValidatorTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => null,
                         'css_id' => 'id',
                     ),
@@ -494,7 +494,7 @@ class BlockValidatorTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_id' => 'id',
                     ),
                 ),
@@ -505,7 +505,7 @@ class BlockValidatorTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => 'class',
                         'css_id' => '',
                     ),
@@ -517,7 +517,7 @@ class BlockValidatorTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => 'class',
                         'css_id' => null,
                     ),
@@ -529,7 +529,7 @@ class BlockValidatorTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                    'parameters' => array(
+                    'parameterValues' => array(
                         'css_class' => 'class',
                     ),
                 ),

@@ -63,7 +63,7 @@ class FullEditTypeTest extends FormTestCase
         );
 
         $updatedStruct = new QueryUpdateStruct();
-        $updatedStruct->setParameter('param', 'Param value');
+        $updatedStruct->setParameterValue('param', 'Param value');
 
         $form = $this->factory->create(
             FullEditType::class,

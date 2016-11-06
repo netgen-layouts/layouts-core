@@ -105,7 +105,7 @@ class DesignEditTypeTest extends FormTestCase
         $updatedStruct = new BlockUpdateStruct();
         $updatedStruct->viewType = 'large';
         $updatedStruct->itemViewType = 'standard';
-        $updatedStruct->setParameter('css_class', 'Some CSS class');
+        $updatedStruct->setParameterValue('css_class', 'Some CSS class');
 
         $form = $this->factory->create(
             DesignEditType::class,

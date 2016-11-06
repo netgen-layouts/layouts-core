@@ -48,7 +48,7 @@ class QueryUpdateStructValidator extends ConstraintValidator
             );
         }
 
-        $validator->atPath('parameters')->validate(
+        $validator->atPath('parameterValues')->validate(
             $value,
             array(
                 new ParameterStruct(

@@ -13,73 +13,73 @@ abstract class ParameterStruct extends ValueObject
     /**
      * @var array
      */
-    protected $parameters = array();
+    protected $parameterValues = array();
 
     /**
-     * Sets the parameters to the struct.
+     * Sets the parameter values to the struct.
      *
-     * @param array $parameters
+     * @param array $parameterValues
      */
-    public function setParameters(array $parameters)
+    public function setParameterValues(array $parameterValues)
     {
-        $this->parameters = $parameters;
+        $this->parameterValues = $parameterValues;
     }
 
     /**
-     * Sets the parameter to the struct.
+     * Sets the parameter value to the struct.
      *
      * @param string $parameterName
      * @param mixed $parameterValue
      */
-    public function setParameter($parameterName, $parameterValue)
+    public function setParameterValue($parameterName, $parameterValue)
     {
-        $this->parameters[$parameterName] = $parameterValue;
+        $this->parameterValues[$parameterName] = $parameterValue;
     }
 
     /**
-     * Returns all parameters from the struct.
+     * Returns all parameter values from the struct.
      *
      * @return array
      */
-    public function getParameters()
+    public function getParameterValues()
     {
-        return $this->parameters;
+        return $this->parameterValues;
     }
 
     /**
-     * Returns the parameter with provided name.
+     * Returns the parameter value with provided name.
      *
      * @param string $parameterName
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If parameter does not exist
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If parameter value does not exist
      *
      * @return mixed
      */
-    public function getParameter($parameterName)
+    public function getParameterValue($parameterName)
     {
-        if (!$this->hasParameter($parameterName)) {
+        if (!$this->hasParameterValue($parameterName)) {
             throw new InvalidArgumentException(
                 'parameterName',
                 sprintf(
-                    'Parameter "%s" does not exist in the struct.',
+                    'Parameter value with name "%s" does not exist in the struct.',
                     $parameterName
                 )
             );
         }
 
-        return $this->parameters[$parameterName];
+        return $this->parameterValues[$parameterName];
     }
 
     /**
-     * Returns if the struct has a parameter with provided name.
+     * Returns if the struct has a parameter value with provided name.
      *
      * @param string $parameterName
      *
      * @return bool
      */
-    public function hasParameter($parameterName)
+    public function hasParameterValue($parameterName)
     {
-        return array_key_exists($parameterName, $this->parameters);
+        return array_key_exists($parameterName, $this->parameterValues);
     }
 
     /**
@@ -100,7 +100,7 @@ abstract class ParameterStruct extends ValueObject
                     $values[$parameterName];
             }
 
-            $this->setParameter($parameterName, is_object($value) ? clone $value : $value);
+            $this->setParameterValue($parameterName, is_object($value) ? clone $value : $value);
 
             if ($parameter instanceof CompoundParameterInterface) {
                 $this->fillValues($parameter, $values, $useDefaults);

@@ -53,7 +53,7 @@ class FullEditType extends AbstractType
             ParametersType::class,
             array(
                 'label' => false,
-                'property_path' => 'parameters',
+                'property_path' => 'parameterValues',
                 'parameter_collection' => $queryType,
                 'label_prefix' => 'query.' . $queryType->getType(),
             )

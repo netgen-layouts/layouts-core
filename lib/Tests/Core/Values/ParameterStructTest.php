@@ -23,20 +23,20 @@ class ParameterStructTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\API\Values\ParameterStruct::__construct
-     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::getParameters
+     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::getParameterValues
      */
     public function testDefaultProperties()
     {
-        $this->assertEquals(array(), $this->struct->getParameters());
+        $this->assertEquals(array(), $this->struct->getParameterValues());
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::setParameters
-     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::getParameters
+     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::setParameterValues
+     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::getParameterValues
      */
-    public function testSetParameters()
+    public function testSetParameterValues()
     {
-        $this->struct->setParameters(
+        $this->struct->setParameterValues(
             array(
                 'some_param' => 'some_value',
                 'some_other_param' => 'some_other_value',
@@ -48,77 +48,77 @@ class ParameterStructTest extends TestCase
                 'some_param' => 'some_value',
                 'some_other_param' => 'some_other_value',
             ),
-            $this->struct->getParameters()
+            $this->struct->getParameterValues()
         );
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::setParameter
+     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::setParameterValue
      */
-    public function testSetParameter()
+    public function testSetParameterValue()
     {
-        $this->struct->setParameter('some_param', 'some_value');
-        $this->struct->setParameter('some_other_param', 'some_other_value');
+        $this->struct->setParameterValue('some_param', 'some_value');
+        $this->struct->setParameterValue('some_other_param', 'some_other_value');
 
         $this->assertEquals(
             array(
                 'some_param' => 'some_value',
                 'some_other_param' => 'some_other_value',
             ),
-            $this->struct->getParameters()
+            $this->struct->getParameterValues()
         );
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::setParameter
+     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::setParameterValue
      */
-    public function testOverwriteParameters()
+    public function testOverwriteParameterValues()
     {
-        $this->struct->setParameter('some_param', 'some_value');
-        $this->struct->setParameter('some_param', 'new_value');
+        $this->struct->setParameterValue('some_param', 'some_value');
+        $this->struct->setParameterValue('some_param', 'new_value');
 
-        $this->assertEquals(array('some_param' => 'new_value'), $this->struct->getParameters());
+        $this->assertEquals(array('some_param' => 'new_value'), $this->struct->getParameterValues());
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::getParameter
+     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::getParameterValue
      */
-    public function testGetParameter()
+    public function testGetParameterValue()
     {
-        $this->struct->setParameter('some_param', 'some_value');
+        $this->struct->setParameterValue('some_param', 'some_value');
 
-        $this->assertEquals('some_value', $this->struct->getParameter('some_param'));
+        $this->assertEquals('some_value', $this->struct->getParameterValue('some_param'));
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::getParameter
+     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::getParameterValue
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      */
-    public function testGetParameterThrowsInvalidArgumentException()
+    public function testGetParameterValueThrowsInvalidArgumentException()
     {
-        $this->struct->setParameter('some_param', 'some_value');
+        $this->struct->setParameterValue('some_param', 'some_value');
 
-        $this->struct->getParameter('some_other_param');
+        $this->struct->getParameterValue('some_other_param');
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::hasParameter
+     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::hasParameterValue
      */
-    public function testHasParameter()
+    public function testHasParameterValue()
     {
-        $this->struct->setParameter('some_param', 'some_value');
+        $this->struct->setParameterValue('some_param', 'some_value');
 
-        $this->assertTrue($this->struct->hasParameter('some_param'));
+        $this->assertTrue($this->struct->hasParameterValue('some_param'));
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::hasParameter
+     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::hasParameterValue
      */
-    public function testHasParameterWithNoParameter()
+    public function testHasParameterValueWithNoValue()
     {
-        $this->struct->setParameter('some_param', 'some_value');
+        $this->struct->setParameterValue('some_param', 'some_value');
 
-        $this->assertFalse($this->struct->hasParameter('some_other_param'));
+        $this->assertFalse($this->struct->hasParameterValue('some_other_param'));
     }
 
     /**
@@ -142,7 +142,7 @@ class ParameterStructTest extends TestCase
                 'compound' => true,
                 'inner' => 'inner_initial',
             ),
-            $this->struct->getParameters()
+            $this->struct->getParameterValues()
         );
     }
 
@@ -167,7 +167,7 @@ class ParameterStructTest extends TestCase
                 'compound' => null,
                 'inner' => 'inner_initial',
             ),
-            $this->struct->getParameters()
+            $this->struct->getParameterValues()
         );
     }
 

@@ -55,7 +55,7 @@ class ParameterStructValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @param string $parameters
+     * @param string $parameterValues
      * @param bool $required
      * @param bool $isValid
      *
@@ -66,13 +66,13 @@ class ParameterStructValidatorTest extends ValidatorTestCase
      * @covers \Netgen\BlockManager\Validator\ParameterStructValidator::buildFieldConstraint
      * @dataProvider validateDataProvider
      */
-    public function testValidate($parameters, $required, $isValid)
+    public function testValidate($parameterValues, $required, $isValid)
     {
         $this->constraint->allowMissingFields = !$required;
 
         $this->assertValid(
             $isValid,
-            new BlockCreateStruct(array('parameters' => $parameters))
+            new BlockCreateStruct(array('parameterValues' => $parameterValues))
         );
     }
 

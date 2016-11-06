@@ -271,7 +271,7 @@ class CollectionHandler implements CollectionHandlerInterface
                         'status' => $status,
                         'identifier' => $queryCreateStruct->identifier,
                         'type' => $queryCreateStruct->type,
-                        'parameters' => $queryCreateStruct->getParameters(),
+                        'parameters' => $queryCreateStruct->getParameterValues(),
                     )
                 )
             );
@@ -605,7 +605,7 @@ class CollectionHandler implements CollectionHandlerInterface
                     'status' => $collection->status,
                     'identifier' => $queryCreateStruct->identifier,
                     'type' => $queryCreateStruct->type,
-                    'parameters' => $queryCreateStruct->getParameters(),
+                    'parameters' => $queryCreateStruct->getParameterValues(),
                 )
             )
         );
@@ -631,7 +631,7 @@ class CollectionHandler implements CollectionHandlerInterface
                     'identifier' => $queryUpdateStruct->identifier !== null ?
                         $queryUpdateStruct->identifier :
                         $query->identifier,
-                    'parameters' => $queryUpdateStruct->getParameters() + $query->parameters,
+                    'parameters' => $queryUpdateStruct->getParameterValues() + $query->parameters,
                 )
             )
         );

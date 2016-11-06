@@ -252,7 +252,7 @@ class BlockHandlerTest extends TestCase
         $blockCreateStruct->viewType = 'large';
         $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->name = 'My block';
-        $blockCreateStruct->setParameter('a_param', 'A value');
+        $blockCreateStruct->setParameterValue('a_param', 'A value');
 
         $this->assertEquals(
             new Block(
@@ -295,7 +295,7 @@ class BlockHandlerTest extends TestCase
         $blockCreateStruct->viewType = 'large';
         $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->name = 'My block';
-        $blockCreateStruct->setParameter('a_param', 'A value');
+        $blockCreateStruct->setParameterValue('a_param', 'A value');
 
         $this->assertEquals(
             new Block(
@@ -334,7 +334,7 @@ class BlockHandlerTest extends TestCase
         $blockCreateStruct->viewType = 'large';
         $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->name = 'My block';
-        $blockCreateStruct->setParameter('a_param', 'A value');
+        $blockCreateStruct->setParameterValue('a_param', 'A value');
 
         $this->blockHandler->createBlock(
             $blockCreateStruct,
@@ -356,7 +356,7 @@ class BlockHandlerTest extends TestCase
         $blockCreateStruct->viewType = 'large';
         $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->name = 'My block';
-        $blockCreateStruct->setParameter('a_param', 'A value');
+        $blockCreateStruct->setParameterValue('a_param', 'A value');
 
         $this->blockHandler->createBlock(
             $blockCreateStruct,
@@ -376,8 +376,8 @@ class BlockHandlerTest extends TestCase
         $blockUpdateStruct->name = 'My block';
         $blockUpdateStruct->viewType = 'large';
         $blockUpdateStruct->itemViewType = 'new';
-        $blockUpdateStruct->setParameter('number_of_columns', 4);
-        $blockUpdateStruct->setParameter('some_param', 'Some value');
+        $blockUpdateStruct->setParameterValue('number_of_columns', 4);
+        $blockUpdateStruct->setParameterValue('some_param', 'Some value');
 
         $this->assertEquals(
             new Block(

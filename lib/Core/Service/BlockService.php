@@ -240,10 +240,10 @@ class BlockService implements BlockServiceInterface
         );
 
         $clonedBlockCreateStruct = clone $blockCreateStruct;
-        $clonedBlockCreateStruct->setParameters(
+        $clonedBlockCreateStruct->setParameterValues(
             $this->parameterMapper->serializeValues(
                 $blockDefinition,
-                $blockCreateStruct->getParameters()
+                $blockCreateStruct->getParameterValues()
             )
         );
 
@@ -303,10 +303,10 @@ class BlockService implements BlockServiceInterface
         $this->blockValidator->validateBlockUpdateStruct($block, $blockUpdateStruct);
 
         $clonedBlockUpdateStruct = clone $blockUpdateStruct;
-        $clonedBlockUpdateStruct->setParameters(
+        $clonedBlockUpdateStruct->setParameterValues(
             $this->parameterMapper->serializeValues(
                 $block->getBlockDefinition(),
-                $blockUpdateStruct->getParameters()
+                $blockUpdateStruct->getParameterValues()
             )
         );
 
@@ -515,7 +515,7 @@ class BlockService implements BlockServiceInterface
                         'name' => $publishedBlock->name,
                         'viewType' => $publishedBlock->viewType,
                         'itemViewType' => $publishedBlock->itemViewType,
-                        'parameters' => $publishedBlock->parameters,
+                        'parameterValues' => $publishedBlock->parameters,
                     )
                 )
             );
