@@ -3,8 +3,9 @@
 namespace Netgen\BlockManager\Collection\QueryType\Configuration;
 
 use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\ValueObject;
 
-class Configuration
+class Configuration extends ValueObject
 {
     /**
      * @var string
@@ -17,7 +18,7 @@ class Configuration
     protected $name;
 
     /**
-     * @var array
+     * @var \Netgen\BlockManager\Collection\QueryType\Configuration\Form[]
      */
     protected $forms = array();
 
@@ -25,22 +26,6 @@ class Configuration
      * @var array
      */
     protected $defaults = array();
-
-    /**
-     * Constructor.
-     *
-     * @param string $type
-     * @param string $name
-     * @param array $forms
-     * @param array $defaults
-     */
-    public function __construct($type, $name, array $forms = array(), array $defaults = array())
-    {
-        $this->type = $type;
-        $this->name = $name;
-        $this->forms = $forms;
-        $this->defaults = $defaults;
-    }
 
     /**
      * Returns the query type name.

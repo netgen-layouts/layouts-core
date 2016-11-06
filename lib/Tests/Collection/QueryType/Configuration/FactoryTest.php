@@ -51,14 +51,21 @@ class FactoryTest extends TestCase
 
         $this->assertEquals(
             new Configuration(
-                'query_type',
-                'Query type',
                 array(
-                    'full' => new Form('full', 'form_type', true),
-                ),
-                array(
-                    'parameters' => array(
-                        'param' => 'value',
+                    'type' => 'query_type',
+                    'name' => 'Query type',
+                    'forms' => array(
+                        'full' => new Form(
+                            array(
+                                'identifier' => 'full',
+                                'type' => 'form_type',
+                            )
+                        ),
+                    ),
+                    'defaults' => array(
+                        'parameters' => array(
+                            'param' => 'value',
+                        ),
                     ),
                 )
             ),

@@ -22,11 +22,20 @@ class Factory
             }
 
             $forms[$formIdentifier] = new Form(
-                $formIdentifier,
-                $formConfig['type']
+                array(
+                    'identifier' => $formIdentifier,
+                    'type' => $formConfig['type'],
+                )
             );
         }
 
-        return new Configuration($identifier, $config['name'], $forms, $config['defaults']);
+        return new Configuration(
+            array(
+                'type' => $identifier,
+                'name' => $config['name'],
+                'forms' => $forms,
+                'defaults' => $config['defaults'],
+            )
+        );
     }
 }

@@ -130,6 +130,6 @@ class QueryType implements QueryTypeInterface
      */
     public function getConfig()
     {
-        return new Configuration($this->type, $this->type);
+        return new Configuration(array('type' => $this->type, 'name' => $this->type));
     }
 }
