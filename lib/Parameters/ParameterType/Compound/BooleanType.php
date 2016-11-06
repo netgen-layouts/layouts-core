@@ -77,4 +77,16 @@ class BooleanType extends CompoundParameterType
             ),
         );
     }
+
+    /**
+     * Returns if the parameter value is empty.
+     *
+     * @param mixed $value
+     *
+     * @return bool
+     */
+    public function isValueEmpty($value)
+    {
+        return $value === null;
+    }
 }
