@@ -82,6 +82,10 @@ class LinkType extends ParameterType
      */
     public function toValue($value)
     {
+        if ($value instanceof LinkValue) {
+            return $value;
+        }
+
         if (!is_array($value) || empty($value['link_type'])) {
             return new LinkValue();
         }

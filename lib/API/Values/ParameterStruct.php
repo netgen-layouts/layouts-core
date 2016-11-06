@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\API\Values;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Parameters\CompoundParameterInterface;
 use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
+use Netgen\BlockManager\Parameters\ParameterInterface;
 use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\ValueObject;
 
@@ -95,16 +96,32 @@ abstract class ParameterStruct extends ValueObject
             $parameterName = $parameter->getName();
             $value = $useDefaults ? $parameter->getDefaultValue() : null;
             if (array_key_exists($parameterName, $values)) {
-                $value = $values[$parameterName] instanceof ParameterValue ?
-                    $values[$parameterName]->getValue() :
-                    $values[$parameterName];
+                $value = $this->buildValue($parameter, $values[$parameterName]);
             }
 
-            $this->setParameterValue($parameterName, is_object($value) ? clone $value : $value);
+            $this->setParameterValue($parameterName, $value);
 
             if ($parameter instanceof CompoundParameterInterface) {
                 $this->fillValues($parameter, $values, $useDefaults);
             }
         }
+    }
+
+    /**
+     * Builds the value suitable for usage by the struct.
+     *
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
+     * @param mixed $inputValue
+     *
+     * @return mixed
+     */
+    protected function buildValue(ParameterInterface $parameter, $inputValue)
+    {
+        if ($inputValue instanceof ParameterValue) {
+            $value = $inputValue->getValue();
+            return is_object($value) ? clone $value : $value;
+        }
+
+        return $parameter->getType()->toValue($inputValue);
     }
 }
