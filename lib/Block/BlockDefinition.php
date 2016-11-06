@@ -43,7 +43,7 @@ class BlockDefinition extends ValueObject implements BlockDefinitionInterface
     }
 
     /**
-     * Returns the array specifying block parameters.
+     * Returns the list of parameters in the object.
      *
      * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
      */

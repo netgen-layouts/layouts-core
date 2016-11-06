@@ -3,8 +3,9 @@
 namespace Netgen\BlockManager\Collection;
 
 use Netgen\BlockManager\API\Values\Collection\Query;
+use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
 
-interface QueryTypeInterface
+interface QueryTypeInterface extends ParameterCollectionInterface
 {
     /**
      * Returns the query type.
@@ -12,15 +13,6 @@ interface QueryTypeInterface
      * @return string
      */
     public function getType();
-
-    /**
-     * Returns the array specifying query parameters.
-     *
-     * The keys are parameter identifiers.
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
-     */
-    public function getParameters();
 
     /**
      * Returns the values from the query.

@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\API\Values;
 
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Parameters\CompoundParameterInterface;
+use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
 use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\ValueObject;
 
@@ -84,13 +85,13 @@ abstract class ParameterStruct extends ValueObject
     /**
      * Fills the struct values based on provided list of parameters and values.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface[] $parameters
+     * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
      * @param array $values
      * @param bool $useDefaults
      */
-    public function fillValues(array $parameters, $values = array(), $useDefaults = true)
+    public function fillValues(ParameterCollectionInterface $parameterCollection, $values = array(), $useDefaults = true)
     {
-        foreach ($parameters as $parameter) {
+        foreach ($parameterCollection->getParameters() as $parameter) {
             $parameterName = $parameter->getName();
             $value = $useDefaults ? $parameter->getDefaultValue() : null;
             if (array_key_exists($parameterName, $values)) {
@@ -102,7 +103,7 @@ abstract class ParameterStruct extends ValueObject
             $this->setParameter($parameterName, is_object($value) ? clone $value : $value);
 
             if ($parameter instanceof CompoundParameterInterface) {
-                $this->fillValues($parameter->getParameters(), $values, $useDefaults);
+                $this->fillValues($parameter, $values, $useDefaults);
             }
         }
     }

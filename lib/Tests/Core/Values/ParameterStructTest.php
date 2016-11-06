@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Values\ParameterStruct;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameter;
 use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
+use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterCollection;
 use PHPUnit\Framework\TestCase;
 
 class ParameterStructTest extends TestCase
@@ -125,32 +126,14 @@ class ParameterStructTest extends TestCase
      */
     public function testFillValues()
     {
-        $compoundParameter = new CompoundParameter(
-            'compound',
-            new ParameterType\Compound\BooleanType(),
-            array(),
-            false,
-            true
-        );
-
-        $compoundParameter->setParameters(
-            array(
-                'inner' => new Parameter('inner', new ParameterType\TextLineType(), array(), false, 'inner_default'),
-            )
-        );
-
-        $parameters = array(
-            'css_class' => new Parameter('css_class', new ParameterType\TextLineType(), array(), false, 'css'),
-            'css_id' => new Parameter('css_id', new ParameterType\TextLineType(), array(), false, 'id'),
-            'compound' => $compoundParameter,
-        );
+        $parameterCollection = $this->buildParameterCollection();
 
         $initialValues = array(
             'css_class' => 'initial_css',
             'inner' => 'inner_initial',
         );
 
-        $this->struct->fillValues($parameters, $initialValues);
+        $this->struct->fillValues($parameterCollection, $initialValues);
 
         $this->assertEquals(
             array(
@@ -167,6 +150,31 @@ class ParameterStructTest extends TestCase
      * @covers \Netgen\BlockManager\API\Values\ParameterStruct::fillValues
      */
     public function testFillValuesWithoutDefaults()
+    {
+        $parameterCollection = $this->buildParameterCollection();
+
+        $initialValues = array(
+            'css_class' => 'initial_css',
+            'inner' => 'inner_initial',
+        );
+
+        $this->struct->fillValues($parameterCollection, $initialValues, false);
+
+        $this->assertEquals(
+            array(
+                'css_class' => 'initial_css',
+                'css_id' => null,
+                'compound' => null,
+                'inner' => 'inner_initial',
+            ),
+            $this->struct->getParameters()
+        );
+    }
+
+    /**
+     * @return \Netgen\BlockManager\Tests\Parameters\Stubs\ParameterCollection
+     */
+    protected function buildParameterCollection()
     {
         $compoundParameter = new CompoundParameter(
             'compound',
@@ -188,21 +196,6 @@ class ParameterStructTest extends TestCase
             'compound' => $compoundParameter,
         );
 
-        $initialValues = array(
-            'css_class' => 'initial_css',
-            'inner' => 'inner_initial',
-        );
-
-        $this->struct->fillValues($parameters, $initialValues, false);
-
-        $this->assertEquals(
-            array(
-                'css_class' => 'initial_css',
-                'css_id' => null,
-                'compound' => null,
-                'inner' => 'inner_initial',
-            ),
-            $this->struct->getParameters()
-        );
+        return new ParameterCollection($parameters);
     }
 }

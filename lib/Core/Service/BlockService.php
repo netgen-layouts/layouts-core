@@ -593,7 +593,7 @@ class BlockService implements BlockServiceInterface
         );
 
         $blockCreateStruct->fillValues(
-            $blockDefinition->getParameters(),
+            $blockDefinition,
             $blockType->getDefaultParameters()
         );
 
@@ -622,7 +622,7 @@ class BlockService implements BlockServiceInterface
         $blockDefinition = $block->getBlockDefinition();
 
         $blockUpdateStruct->fillValues(
-            $blockDefinition->getParameters(),
+            $blockDefinition,
             $block->getParameters(),
             false
         );

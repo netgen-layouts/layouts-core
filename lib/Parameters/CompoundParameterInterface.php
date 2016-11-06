@@ -2,12 +2,6 @@
 
 namespace Netgen\BlockManager\Parameters;
 
-interface CompoundParameterInterface extends ParameterInterface
+interface CompoundParameterInterface extends ParameterCollectionInterface
 {
-    /**
-     * Returns the parameters.
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
-     */
-    public function getParameters();
 }
