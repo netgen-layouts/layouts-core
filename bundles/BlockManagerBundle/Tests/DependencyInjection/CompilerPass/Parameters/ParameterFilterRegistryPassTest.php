@@ -30,11 +30,11 @@ class ParameterFilterRegistryPassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('netgen_block_manager.parameters.registry.parameter_filter', $parameterFilterRegistry);
 
         $matcher1 = new Definition();
-        $matcher1->addTag('netgen_block_manager.parameters.parameter_filter', array('parameter_type' => 'html'));
+        $matcher1->addTag('netgen_block_manager.parameters.parameter_filter', array('type' => 'html'));
         $this->setDefinition('netgen_block_manager.parameters.parameter_filter.test1', $matcher1);
 
         $matcher2 = new Definition();
-        $matcher2->addTag('netgen_block_manager.parameters.parameter_filter', array('priority' => 5, 'parameter_type' => 'html'));
+        $matcher2->addTag('netgen_block_manager.parameters.parameter_filter', array('priority' => 5, 'type' => 'html'));
         $this->setDefinition('netgen_block_manager.parameters.parameter_filter.test2', $matcher2);
 
         $this->compile();

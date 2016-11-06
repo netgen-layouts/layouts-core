@@ -65,7 +65,7 @@ services:
     netgen_block_manager.parameters.parameter_filter.html.html_purifier:
         class: "%netgen_block_manager.parameters.parameter_filter.html.html_purifier.class%"
         tags:
-            - { name: netgen_block_manager.parameters.parameter_filter, parameter_type: html }
+            - { name: netgen_block_manager.parameters.parameter_filter, type: html }
 
     # Parameter types
 
