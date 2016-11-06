@@ -84,7 +84,7 @@ class ParametersType extends AbstractType
                 ) + $defaultOptions
             );
 
-            $mapper->handleForm($parameter, $parameterForm);
+            $mapper->handleForm($parameterForm, $parameter);
 
             if ($parameter instanceof CompoundParameterInterface) {
                 $this->buildForm(

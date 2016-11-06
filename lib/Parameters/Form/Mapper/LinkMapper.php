@@ -6,16 +6,10 @@ use Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper;
 use Netgen\BlockManager\Parameters\Form\Mapper;
 use Netgen\BlockManager\Parameters\ParameterInterface;
 use Netgen\BlockManager\Parameters\Form\Type\LinkType;
-use Netgen\BlockManager\Parameters\ParameterTypeInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class LinkMapper extends Mapper
 {
-    /**
-     * @var \Netgen\BlockManager\Parameters\ParameterTypeInterface
-     */
-    protected $parameterType;
-
     /**
      * @var array
      */
@@ -24,12 +18,10 @@ class LinkMapper extends Mapper
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterTypeInterface $parameterType
      * @param array $defaultValueTypes
      */
-    public function __construct(ParameterTypeInterface $parameterType, array $defaultValueTypes = array())
+    public function __construct(array $defaultValueTypes = array())
     {
-        $this->parameterType = $parameterType;
         $this->defaultValueTypes = $defaultValueTypes;
     }
 
@@ -63,13 +55,11 @@ class LinkMapper extends Mapper
     /**
      * Allows the mapper to do any kind of processing to created form.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
      * @param \Symfony\Component\Form\FormBuilderInterface $form
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
      */
-    public function handleForm(ParameterInterface $parameter, FormBuilderInterface $form)
+    public function handleForm(FormBuilderInterface $form, ParameterInterface $parameter)
     {
-        parent::handleForm($parameter, $form);
-
-        $form->setDataMapper(new LinkDataMapper($this->parameterType));
+        $form->setDataMapper(new LinkDataMapper($parameter->getType()));
     }
 }
