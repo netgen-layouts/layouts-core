@@ -47,7 +47,6 @@ class FullEditType extends AbstractType
     {
         /** @var \Netgen\BlockManager\Collection\QueryTypeInterface $queryType */
         $queryType = $options['query']->getQueryType();
-        $parameters = $queryType->getParameters();
 
         $builder->add(
             'parameters',
@@ -55,7 +54,7 @@ class FullEditType extends AbstractType
             array(
                 'label' => false,
                 'property_path' => 'parameters',
-                'parameters' => $parameters,
+                'parameter_collection' => $queryType,
                 'label_prefix' => 'query.' . $queryType->getType(),
             )
         );

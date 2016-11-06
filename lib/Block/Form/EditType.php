@@ -7,7 +7,6 @@ use Netgen\BlockManager\API\Values\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
-use Netgen\BlockManager\Parameters\ParameterInterface;
 use Netgen\BlockManager\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -152,13 +151,6 @@ abstract class EditType extends AbstractType
     {
         /** @var \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition */
         $blockDefinition = $options['block']->getBlockDefinition();
-        $formParameters = array();
-
-        foreach ($blockDefinition->getParameters() as $parameter) {
-            if ($this->includeParameter($parameter, $groups)) {
-                $formParameters[$parameter->getName()] = $parameter;
-            }
-        }
 
         $builder->add(
             'parameters',
@@ -166,29 +158,11 @@ abstract class EditType extends AbstractType
             array(
                 'label' => false,
                 'property_path' => 'parameters',
-                'parameters' => $formParameters,
+                'parameter_collection' => $blockDefinition,
                 'label_prefix' => 'block.' . $blockDefinition->getIdentifier(),
+                'groups' => $groups,
             )
         );
-    }
-
-    /**
-     * Returns if the parameter will be included in the form.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
-     * @param array $groups
-     *
-     * @return bool
-     */
-    protected function includeParameter(ParameterInterface $parameter, array $groups = array())
-    {
-        $parameterGroups = $parameter->getGroups();
-
-        if (empty($parameterGroups) && empty($groups)) {
-            return true;
-        }
-
-        return !empty(array_intersect($parameterGroups, $groups));
     }
 
     /**

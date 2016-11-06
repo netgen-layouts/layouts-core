@@ -4,6 +4,8 @@ namespace Netgen\BlockManager\Parameters\Form\Type;
 
 use Netgen\BlockManager\Form\AbstractType;
 use Netgen\BlockManager\Parameters\CompoundParameterInterface;
+use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
+use Netgen\BlockManager\Parameters\ParameterInterface;
 use Netgen\BlockManager\Parameters\Registry\FormMapperRegistryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -36,14 +38,17 @@ class ParametersType extends AbstractType
 
         $resolver->setRequired(
             array(
-                'parameters',
+                'groups',
+                'parameter_collection',
                 'label_prefix',
             )
         );
 
-        $resolver->setAllowedTypes('parameters', 'array');
+        $resolver->setAllowedTypes('groups', 'array');
+        $resolver->setAllowedTypes('parameter_collection', ParameterCollectionInterface::class);
         $resolver->setAllowedTypes('label_prefix', 'string');
 
+        $resolver->setDefault('groups', array());
         $resolver->setDefault('inherit_data', true);
     }
 
@@ -55,10 +60,14 @@ class ParametersType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        /** @var \Netgen\BlockManager\Parameters\ParameterInterface[] $parameters */
-        $parameters = $options['parameters'];
+        /** @var \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection */
+        $parameterCollection = $options['parameter_collection'];
 
-        foreach ($parameters as $parameter) {
+        foreach ($parameterCollection->getParameters() as $parameter) {
+            if (!$this->includeParameter($parameter, $options['groups'])) {
+                continue;
+            }
+
             $parameterName = $parameter->getName();
             $mapper = $this->formMapperRegistry->getFormMapper($parameter->getType()->getIdentifier());
 
@@ -81,12 +90,31 @@ class ParametersType extends AbstractType
                 $this->buildForm(
                     $parameterForm,
                     array(
-                        'parameters' => $parameter->getParameters(),
+                        'parameter_collection' => $parameter,
                     ) + $options
                 );
             }
 
             $builder->add($parameterForm);
         }
+    }
+
+    /**
+     * Returns if the parameter will be included in the form.
+     *
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
+     * @param array $groups
+     *
+     * @return bool
+     */
+    protected function includeParameter(ParameterInterface $parameter, array $groups = array())
+    {
+        $parameterGroups = $parameter->getGroups();
+
+        if (empty($parameterGroups) && empty($groups)) {
+            return true;
+        }
+
+        return !empty(array_intersect($parameterGroups, $groups));
     }
 }

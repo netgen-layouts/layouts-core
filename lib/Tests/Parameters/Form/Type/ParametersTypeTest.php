@@ -8,6 +8,7 @@ use Netgen\BlockManager\Parameters\Form\Mapper\TextLineMapper;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
 use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
+use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterCollection;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -52,9 +53,11 @@ class ParametersTypeTest extends FormTestCase
             'parameters',
             ParametersType::class,
             array(
-                'parameters' => array(
-                    'css_class' => new Parameter('css_class', new ParameterType\TextLineType()),
-                    'css_id' => new Parameter('css_id', new ParameterType\TextLineType()),
+                'parameter_collection' => new ParameterCollection(
+                    array(
+                        'css_class' => new Parameter('css_class', new ParameterType\TextLineType()),
+                        'css_id' => new Parameter('css_id', new ParameterType\TextLineType()),
+                    )
                 ),
                 'label_prefix' => 'label',
                 'property_path' => 'parameters',
@@ -96,7 +99,7 @@ class ParametersTypeTest extends FormTestCase
         $this->formType->configureOptions($optionsResolver);
 
         $options = array(
-            'parameters' => array(),
+            'parameter_collection' => new ParameterCollection(),
             'label_prefix' => 'label',
         );
 
@@ -104,8 +107,9 @@ class ParametersTypeTest extends FormTestCase
 
         $this->assertEquals(
             array(
-                'parameters' => array(),
+                'parameter_collection' => new ParameterCollection(),
                 'label_prefix' => 'label',
+                'groups' => array(),
                 'inherit_data' => true,
                 'translation_domain' => ParametersType::TRANSLATION_DOMAIN,
             ),
@@ -138,7 +142,7 @@ class ParametersTypeTest extends FormTestCase
 
         $optionsResolver->resolve(
             array(
-                'parameters' => null,
+                'parameter_collection' => null,
                 'label_prefix' => 'label',
             )
         );
