@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Parameters\Form\Mapper;
 
 use Netgen\BlockManager\Parameters\Form\Mapper;
-use Netgen\Bundle\EzFormsBundle\Form\Type\UrlType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 
 class UrlMapper extends Mapper
 {

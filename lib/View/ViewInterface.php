@@ -36,7 +36,7 @@ interface ViewInterface
     /**
      * Returns the view fallback context.
      *
-     * @return string
+     * @return string|null
      */
     public function getFallbackContext();
 

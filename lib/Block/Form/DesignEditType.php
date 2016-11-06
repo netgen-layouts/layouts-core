@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Block\Form;
 
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
+use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class DesignEditType extends EditType

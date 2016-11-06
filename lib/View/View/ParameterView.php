@@ -32,7 +32,7 @@ class ParameterView extends View implements ParameterViewInterface
     /**
      * Returns the view fallback context.
      *
-     * @return string
+     * @return string|null
      */
     public function getFallbackContext()
     {

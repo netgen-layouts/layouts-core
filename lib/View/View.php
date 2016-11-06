@@ -60,7 +60,7 @@ abstract class View implements ViewInterface
     /**
      * Returns the view fallback context.
      *
-     * @return string
+     * @return string|null
      */
     public function getFallbackContext()
     {

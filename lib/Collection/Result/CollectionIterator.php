@@ -121,7 +121,7 @@ class CollectionIterator implements Iterator, Countable
     /**
      * Return the key of the current element.
      *
-     * @return int
+     * @return mixed
      */
     public function key()
     {

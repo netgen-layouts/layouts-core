@@ -30,8 +30,6 @@ interface MapperInterface
      *
      * @param \Symfony\Component\Form\FormBuilderInterface $builder
      * @param \Netgen\BlockManager\Layout\Resolver\TargetTypeInterface $targetType
-     *
-     * @return array
      */
     public function handleForm(FormBuilderInterface $builder, TargetTypeInterface $targetType);
 }

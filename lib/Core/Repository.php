@@ -29,7 +29,7 @@ class Repository implements APIRepository
     protected $collectionService;
 
     /**
-     * @var \Netgen\BlockManager\API\Service\CollectionService
+     * @var \Netgen\BlockManager\API\Service\LayoutResolverService
      */
     protected $layoutResolverService;
 

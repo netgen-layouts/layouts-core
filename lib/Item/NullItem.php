@@ -58,5 +58,6 @@ class NullItem extends ValueObject implements ItemInterface
      */
     public function getObject()
     {
+        return null;
     }
 }

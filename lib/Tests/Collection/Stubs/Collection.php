@@ -86,7 +86,7 @@ class Collection implements APICollection
     /**
      * Returns if the collection is shared.
      *
-     * @return int
+     * @return bool
      */
     public function isShared()
     {

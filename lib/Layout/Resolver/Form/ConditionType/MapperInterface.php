@@ -30,8 +30,6 @@ interface MapperInterface
      *
      * @param \Symfony\Component\Form\FormBuilderInterface $builder
      * @param \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface $conditionType
-     *
-     * @return array
      */
     public function handleForm(FormBuilderInterface $builder, ConditionTypeInterface $conditionType);
 }

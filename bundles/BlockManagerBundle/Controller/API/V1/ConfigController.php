@@ -133,7 +133,7 @@ class ConfigController extends Controller
     /**
      * Returns the CSRF token.
      *
-     * @return string
+     * @return string|null
      */
     protected function getCsrfToken()
     {

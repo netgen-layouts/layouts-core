@@ -46,8 +46,6 @@ class TemplateResolver implements TemplateResolverInterface
      * @param \Netgen\BlockManager\View\ViewInterface $view
      *
      * @throws \RuntimeException If there's no template defined for specified view
-     *
-     * @return string
      */
     public function resolveTemplate(ViewInterface $view)
     {

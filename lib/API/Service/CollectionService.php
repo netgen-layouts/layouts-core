@@ -264,7 +264,7 @@ interface CollectionService
     /**
      * Creates a new collection create struct.
      *
-     * @param string $type
+     * @param int $type
      * @param string $name
      *
      * @return \Netgen\BlockManager\API\Values\CollectionCreateStruct

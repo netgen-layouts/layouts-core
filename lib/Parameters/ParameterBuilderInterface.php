@@ -54,7 +54,7 @@ interface ParameterBuilderInterface extends Countable
     /**
      * Builds the parameters.
      *
-     * @return \Netgen\BlockManager\Parameters\Parameter[]
+     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
      */
     public function buildParameters();
 }

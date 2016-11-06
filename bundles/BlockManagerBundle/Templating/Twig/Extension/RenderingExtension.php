@@ -279,7 +279,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      *
      * @throws \Exception If an error occurred
      */
-    public function displayZone(Zone $zone, $viewContext, Twig_Template $twigTemplate, $twigContext, array $twigBlocks = array())
+    public function displayZone(Zone $zone, $viewContext, Twig_Template $twigTemplate, array $twigContext = array(), array $twigBlocks = array())
     {
         foreach ($zone as $block) {
             $this->displayBlock($block, $viewContext, $twigTemplate, $twigContext, $twigBlocks);
@@ -297,7 +297,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      *
      * @throws \Exception If an error occurred
      */
-    public function displayBlock(Block $block, $viewContext, Twig_Template $twigTemplate, $twigContext, array $twigBlocks = array())
+    public function displayBlock(Block $block, $viewContext, Twig_Template $twigTemplate, array $twigContext = array(), array $twigBlocks = array())
     {
         $blockParams = array();
 
@@ -358,12 +358,12 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param string $twigBlockName
      * @param \Twig_Template $twigTemplate
-     * @param string $twigContext
+     * @param array $twigContext
      * @param array $twigBlocks
      *
      * @return string
      */
-    protected function renderTwigBlock(Block $block, $twigBlockName, Twig_Template $twigTemplate, $twigContext, array $twigBlocks = array())
+    protected function renderTwigBlock(Block $block, $twigBlockName, Twig_Template $twigTemplate, array $twigContext = array(), array $twigBlocks = array())
     {
         try {
             ob_start();
