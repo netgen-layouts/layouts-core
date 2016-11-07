@@ -106,14 +106,16 @@ class BlockCollectionController extends Controller
      */
     public function loadCollectionResult(CollectionReference $collectionReference, Request $request)
     {
-        $offset = $request->query->get('offset', 0);
-        $limit = $request->query->get('limit', null);
+        $this->validator->validateOffsetAndLimit($request);
+
+        $offset = (int)$request->query->get('offset');
+        $limit = $request->query->get('limit');
 
         return new VersionedValue(
             $this->resultLoader->load(
                 $collectionReference->getCollection(),
                 (int)$offset,
-                !empty($limit) ? (int)$limit : null,
+                $limit !== null ? (int)$limit : 25,
                 ResultLoaderInterface::INCLUDE_INVISIBLE_ITEMS |
                 ResultLoaderInterface::INCLUDE_INVALID_ITEMS
             ),

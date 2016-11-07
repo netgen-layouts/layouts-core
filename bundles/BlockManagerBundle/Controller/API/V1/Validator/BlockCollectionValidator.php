@@ -7,7 +7,7 @@ use Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints;
 
-class BlockCollectionValidator
+class BlockCollectionValidator extends Validator
 {
     use ValidatorTrait;
 
