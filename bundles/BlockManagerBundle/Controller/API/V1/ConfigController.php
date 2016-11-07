@@ -8,7 +8,6 @@ use Netgen\BlockManager\Configuration\Registry\SourceRegistryInterface;
 use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 class ConfigController extends Controller

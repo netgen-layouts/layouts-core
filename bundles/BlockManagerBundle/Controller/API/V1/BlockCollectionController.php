@@ -13,7 +13,6 @@ use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator;
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -106,16 +105,16 @@ class BlockCollectionController extends Controller
      */
     public function loadCollectionResult(CollectionReference $collectionReference, Request $request)
     {
-        $this->validator->validateOffsetAndLimit($request);
-
-        $offset = (int)$request->query->get('offset');
+        $offset = $request->query->get('offset');
         $limit = $request->query->get('limit');
+
+        $this->validator->validateOffsetAndLimit($offset, $limit);
 
         return new VersionedValue(
             $this->resultLoader->load(
                 $collectionReference->getCollection(),
                 (int)$offset,
-                $limit !== null ? (int)$limit : 25,
+                $limit !== null ? (int)$limit : $this->maxLimit,
                 ResultLoaderInterface::INCLUDE_INVISIBLE_ITEMS |
                 ResultLoaderInterface::INCLUDE_INVALID_ITEMS
             ),
