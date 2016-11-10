@@ -3,7 +3,6 @@ parameters:
 
     netgen_block_manager.controller.block.class: Netgen\Bundle\BlockManagerBundle\Controller\BlockController
 
-    netgen_block_manager.controller.api.v1.controller.class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Controller
     netgen_block_manager.controller.api.v1.config.class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\ConfigController
     netgen_block_manager.controller.api.v1.layout.class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController
     netgen_block_manager.controller.api.v1.block.class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController
@@ -39,13 +38,9 @@ services:
 
     # API controllers
 
-    netgen_block_manager.controller.api.v1.controller:
-        class: "%netgen_block_manager.controller.api.v1.controller.class%"
-        parent: netgen_block_manager.controller.base
-
     netgen_block_manager.controller.api.v1.config:
         class: "%netgen_block_manager.controller.api.v1.config.class%"
-        parent: netgen_block_manager.controller.api.v1.controller
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.configuration.registry.block_type"
             - "@netgen_block_manager.configuration.registry.layout_type"
@@ -55,7 +50,7 @@ services:
 
     netgen_block_manager.controller.api.v1.layout:
         class: "%netgen_block_manager.controller.api.v1.layout.class%"
-        parent: netgen_block_manager.controller.api.v1.controller
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.repository"
             - "@netgen_block_manager.api.service.layout"
@@ -63,7 +58,7 @@ services:
 
     netgen_block_manager.controller.api.v1.block:
         class: "%netgen_block_manager.controller.api.v1.block.class%"
-        parent: netgen_block_manager.controller.api.v1.controller
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.block"
             - "@netgen_block_manager.api.service.layout"
@@ -71,7 +66,7 @@ services:
 
     netgen_block_manager.controller.api.v1.block_collection:
         class: "%netgen_block_manager.controller.api.v1.block_collection.class%"
-        parent: netgen_block_manager.controller.api.v1.controller
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.block"
             - "@netgen_block_manager.api.service.collection"
@@ -81,7 +76,7 @@ services:
 
     netgen_block_manager.controller.api.v1.collection:
         class: "%netgen_block_manager.controller.api.v1.collection.class%"
-        parent: netgen_block_manager.controller.api.v1.controller
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.repository"
             - "@netgen_block_manager.collection.result_loader"
