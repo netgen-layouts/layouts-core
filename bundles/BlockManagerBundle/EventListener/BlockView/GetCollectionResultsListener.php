@@ -22,6 +22,11 @@ class GetCollectionResultsListener implements EventSubscriberInterface
     protected $blockService;
 
     /**
+     * @var int
+     */
+    protected $maxLimit;
+
+    /**
      * @var array
      */
     protected $enabledContexts;
@@ -31,15 +36,18 @@ class GetCollectionResultsListener implements EventSubscriberInterface
      *
      * @param \Netgen\BlockManager\Collection\Result\ResultLoaderInterface $resultLoader
      * @param \Netgen\BlockManager\API\Service\BlockService $blockService
+     * @param int $maxLimit
      * @param array $enabledContexts
      */
     public function __construct(
         ResultLoaderInterface $resultLoader,
         BlockService $blockService,
+        $maxLimit,
         array $enabledContexts = array()
     ) {
         $this->resultLoader = $resultLoader;
         $this->blockService = $blockService;
+        $this->maxLimit = $maxLimit;
         $this->enabledContexts = $enabledContexts;
     }
 
@@ -73,10 +81,15 @@ class GetCollectionResultsListener implements EventSubscriberInterface
 
         $collectionReferences = $this->blockService->loadCollectionReferences($view->getBlock());
         foreach ($collectionReferences as $collectionReference) {
+            $limit = $collectionReference->getLimit();
+            if ($limit === null || $limit <= 0 || $limit > $this->maxLimit) {
+                $limit = $this->maxLimit;
+            }
+
             $collections[$collectionReference->getIdentifier()] = $this->resultLoader->load(
                 $collectionReference->getCollection(),
                 $collectionReference->getOffset(),
-                $collectionReference->getLimit()
+                $limit
             );
         }
 
