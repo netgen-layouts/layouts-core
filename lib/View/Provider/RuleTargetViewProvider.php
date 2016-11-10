@@ -17,10 +17,7 @@ class RuleTargetViewProvider implements ViewProviderInterface
      */
     public function provideView($valueObject, array $parameters = array())
     {
-        /** @var \Netgen\BlockManager\API\Values\LayoutResolver\Target $valueObject */
-        $ruleTargetView = new RuleTargetView($valueObject);
-
-        return $ruleTargetView;
+        return new RuleTargetView($valueObject);
     }
 
     /**

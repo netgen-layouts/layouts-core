@@ -17,10 +17,7 @@ class RuleConditionViewProvider implements ViewProviderInterface
      */
     public function provideView($valueObject, array $parameters = array())
     {
-        /** @var \Netgen\BlockManager\API\Values\LayoutResolver\Condition $valueObject */
-        $ruleConditionView = new RuleConditionView($valueObject);
-
-        return $ruleConditionView;
+        return new RuleConditionView($valueObject);
     }
 
     /**

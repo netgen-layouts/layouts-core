@@ -17,7 +17,6 @@ class FormViewProvider implements ViewProviderInterface
      */
     public function provideView($valueObject, array $parameters = array())
     {
-        /** @var \Symfony\Component\Form\FormInterface $valueObject */
         return new FormView($valueObject);
     }
 

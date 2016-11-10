@@ -26,10 +26,7 @@ class ItemViewProvider implements ViewProviderInterface
             throw new RuntimeException('To build the item view, "viewType" parameter needs to be a string.');
         }
 
-        /** @var \Netgen\BlockManager\Item\ItemInterface $valueObject */
-        $itemView = new ItemView($valueObject, $parameters['viewType']);
-
-        return $itemView;
+        return new ItemView($valueObject, $parameters['viewType']);
     }
 
     /**

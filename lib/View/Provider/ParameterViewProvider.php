@@ -17,10 +17,7 @@ class ParameterViewProvider implements ViewProviderInterface
      */
     public function provideView($valueObject, array $parameters = array())
     {
-        /** @var \Netgen\BlockManager\Parameters\ParameterValue $valueObject */
-        $parameterView = new ParameterView($valueObject);
-
-        return $parameterView;
+        return new ParameterView($valueObject);
     }
 
     /**
