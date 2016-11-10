@@ -82,7 +82,7 @@ class GetCollectionResultsListener implements EventSubscriberInterface
         $collectionReferences = $this->blockService->loadCollectionReferences($view->getBlock());
         foreach ($collectionReferences as $collectionReference) {
             $limit = $collectionReference->getLimit();
-            if ($limit === null || $limit <= 0 || $limit > $this->maxLimit) {
+            if ($limit === null || $limit > $this->maxLimit) {
                 $limit = $this->maxLimit;
             }
 
