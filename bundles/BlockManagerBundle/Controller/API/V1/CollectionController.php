@@ -93,13 +93,15 @@ class CollectionController extends Controller
 
         $this->validator->validateOffsetAndLimit($offset, $limit);
 
+        if ($limit === null || $limit > $this->maxLimit) {
+            $limit = $this->maxLimit;
+        }
+
         return new VersionedValue(
             $this->resultLoader->load(
                 $collection,
                 (int)$offset,
-                $limit !== null && $limit <= $this->maxLimit ?
-                    (int)$limit :
-                    $this->maxLimit,
+                (int)$limit,
                 ResultLoaderInterface::INCLUDE_INVISIBLE_ITEMS |
                 ResultLoaderInterface::INCLUDE_INVALID_ITEMS
             ),
