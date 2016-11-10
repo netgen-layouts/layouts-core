@@ -3,36 +3,10 @@
 namespace Netgen\BlockManager\View\Provider;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface;
-use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface;
 use Netgen\BlockManager\View\View\RuleView;
 
 class RuleViewProvider implements ViewProviderInterface
 {
-    /**
-     * @var \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface
-     */
-    protected $targetTypeRegistry;
-
-    /**
-     * @var \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface
-     */
-    protected $conditionTypeRegistry;
-
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface $targetTypeRegistry
-     * @param \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface $conditionTypeRegistry
-     */
-    public function __construct(
-        TargetTypeRegistryInterface $targetTypeRegistry,
-        ConditionTypeRegistryInterface $conditionTypeRegistry
-    ) {
-        $this->targetTypeRegistry = $targetTypeRegistry;
-        $this->conditionTypeRegistry = $conditionTypeRegistry;
-    }
-
     /**
      * Provides the view.
      *
@@ -43,17 +17,7 @@ class RuleViewProvider implements ViewProviderInterface
      */
     public function provideView($valueObject, array $parameters = array())
     {
-        /** @var \Netgen\BlockManager\API\Values\LayoutResolver\Rule $valueObject */
-        $ruleView = new RuleView($valueObject);
-
-        $ruleView->addParameters(
-            array(
-                'target_types' => $this->targetTypeRegistry->getTargetTypes(),
-                'condition_types' => $this->conditionTypeRegistry->getConditionTypes(),
-            )
-        );
-
-        return $ruleView;
+        return new RuleView($valueObject);
     }
 
     /**
