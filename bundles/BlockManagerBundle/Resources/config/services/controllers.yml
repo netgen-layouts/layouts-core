@@ -42,8 +42,6 @@ services:
     netgen_block_manager.controller.api.v1.controller:
         class: "%netgen_block_manager.controller.api.v1.controller.class%"
         parent: netgen_block_manager.controller.base
-        calls:
-            - [setMaxLimit, ["%netgen_block_manager.api.max_limit%"]]
 
     netgen_block_manager.controller.api.v1.config:
         class: "%netgen_block_manager.controller.api.v1.config.class%"
@@ -79,6 +77,7 @@ services:
             - "@netgen_block_manager.api.service.collection"
             - "@netgen_block_manager.controller.api.v1.block_collection.validator"
             - "@netgen_block_manager.collection.result_loader"
+            - "%netgen_block_manager.collection.max_limit%"
 
     netgen_block_manager.controller.api.v1.collection:
         class: "%netgen_block_manager.controller.api.v1.collection.class%"
@@ -87,11 +86,10 @@ services:
             - "@netgen_block_manager.api.repository"
             - "@netgen_block_manager.collection.result_loader"
             - "@netgen_block_manager.controller.api.v1.collection.validator"
+            - "%netgen_block_manager.collection.max_limit%"
 
     netgen_block_manager.controller.api.v1.validator:
         class: "%netgen_block_manager.controller.api.v1.validator.class%"
-        arguments:
-            - "%netgen_block_manager.api.max_limit%"
         calls:
             - [setValidator, ["@validator"]]
 

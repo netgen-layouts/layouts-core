@@ -13,6 +13,7 @@ use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -45,23 +46,31 @@ class BlockCollectionController extends Controller
     protected $resultLoader;
 
     /**
+     * @var int
+     */
+    protected $maxLimit;
+
+    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\API\Service\BlockService $blockService
      * @param \Netgen\BlockManager\API\Service\CollectionService $collectionService
      * @param \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator $validator
      * @param \Netgen\BlockManager\Collection\Result\ResultLoaderInterface $resultLoader
+     * @param int $maxLimit
      */
     public function __construct(
         BlockService $blockService,
         CollectionService $collectionService,
         BlockCollectionValidator $validator,
-        ResultLoaderInterface $resultLoader
+        ResultLoaderInterface $resultLoader,
+        $maxLimit
     ) {
         $this->blockService = $blockService;
         $this->collectionService = $collectionService;
         $this->validator = $validator;
         $this->resultLoader = $resultLoader;
+        $this->maxLimit = $maxLimit;
     }
 
     /**
@@ -114,7 +123,9 @@ class BlockCollectionController extends Controller
             $this->resultLoader->load(
                 $collectionReference->getCollection(),
                 (int)$offset,
-                $limit !== null ? (int)$limit : $this->maxLimit,
+                $limit !== null && $limit <= $this->maxLimit ?
+                    (int)$limit :
+                    $this->maxLimit,
                 ResultLoaderInterface::INCLUDE_INVISIBLE_ITEMS |
                 ResultLoaderInterface::INCLUDE_INVALID_ITEMS
             ),

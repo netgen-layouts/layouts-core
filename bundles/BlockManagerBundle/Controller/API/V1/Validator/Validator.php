@@ -10,21 +10,6 @@ abstract class Validator
     use ValidatorTrait;
 
     /**
-     * @var int
-     */
-    protected $maxLimit;
-
-    /**
-     * Constructor.
-     *
-     * @param int $maxLimit
-     */
-    public function __construct($maxLimit)
-    {
-        $this->maxLimit = $maxLimit;
-    }
-
-    /**
      * Validates offset and limit parameters.
      *
      * @param int $offset
@@ -48,8 +33,7 @@ abstract class Validator
                 $limit,
                 array(
                     new Constraints\Type(array('type', 'numeric')),
-                    new Constraints\GreaterThanOrEqual(array('value' => 0)),
-                    new Constraints\LessThanOrEqual(array('value' => $this->maxLimit)),
+                    new Constraints\GreaterThan(array('value' => 0)),
                     new Constraints\NotBlank(),
                 )
             );

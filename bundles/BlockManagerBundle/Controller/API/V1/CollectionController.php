@@ -12,6 +12,7 @@ use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\CollectionValidator;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Exception;
@@ -39,20 +40,28 @@ class CollectionController extends Controller
     protected $validator;
 
     /**
+     * @var int
+     */
+    protected $maxLimit;
+
+    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\API\Repository $repository
      * @param \Netgen\BlockManager\Collection\Result\ResultLoaderInterface $resultLoader
      * @param \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\CollectionValidator $validator
+     * @param int $maxLimit
      */
     public function __construct(
         Repository $repository,
         ResultLoaderInterface $resultLoader,
-        CollectionValidator $validator
+        CollectionValidator $validator,
+        $maxLimit
     ) {
         $this->repository = $repository;
         $this->resultLoader = $resultLoader;
         $this->validator = $validator;
+        $this->maxLimit = $maxLimit;
 
         $this->collectionService = $repository->getCollectionService();
     }
@@ -88,7 +97,9 @@ class CollectionController extends Controller
             $this->resultLoader->load(
                 $collection,
                 (int)$offset,
-                $limit !== null ? (int)$limit : $this->maxLimit,
+                $limit !== null && $limit <= $this->maxLimit ?
+                    (int)$limit :
+                    $this->maxLimit,
                 ResultLoaderInterface::INCLUDE_INVISIBLE_ITEMS |
                 ResultLoaderInterface::INCLUDE_INVALID_ITEMS
             ),

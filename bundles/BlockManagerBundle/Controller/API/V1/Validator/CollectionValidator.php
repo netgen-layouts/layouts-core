@@ -3,13 +3,10 @@
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator;
 
 use Netgen\BlockManager\Exception\ValidationFailedException;
-use Netgen\BlockManager\Validator\ValidatorTrait;
 use Symfony\Component\HttpFoundation\Request;
 
 class CollectionValidator extends Validator
 {
-    use ValidatorTrait;
-
     /**
      * Validates item creation parameters from the request.
      *

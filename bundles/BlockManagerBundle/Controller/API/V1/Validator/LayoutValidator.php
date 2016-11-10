@@ -2,14 +2,11 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator;
 
-use Netgen\BlockManager\Validator\ValidatorTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints;
 
 class LayoutValidator extends Validator
 {
-    use ValidatorTrait;
-
     /**
      * Validates layout creation parameters from the request.
      *
