@@ -46,6 +46,7 @@ class GetCollectionResultsListenerTest extends TestCase
         $this->listener = new GetCollectionResultsListener(
             $this->resultLoaderMock,
             $this->blockServiceMock,
+            25,
             array(ViewInterface::CONTEXT_DEFAULT)
         );
     }

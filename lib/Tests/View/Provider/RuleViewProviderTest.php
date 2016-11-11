@@ -22,16 +22,7 @@ class RuleViewProviderTest extends TestCase
 
     public function setUp()
     {
-        $targetTypeRegistry = new TargetTypeRegistry();
-        $targetTypeRegistry->addTargetType(new TargetType('target', 42));
-
-        $conditionTypeRegistry = new ConditionTypeRegistry();
-        $conditionTypeRegistry->addConditionType(new ConditionType('condition'));
-
-        $this->ruleViewProvider = new RuleViewProvider(
-            $targetTypeRegistry,
-            $conditionTypeRegistry
-        );
+        $this->ruleViewProvider = new RuleViewProvider();
     }
 
     /**
@@ -52,12 +43,6 @@ class RuleViewProviderTest extends TestCase
         $this->assertEquals(
             array(
                 'rule' => $rule,
-                'target_types' => array(
-                    'target' => new TargetType('target', 42),
-                ),
-                'condition_types' => array(
-                    'condition' => new ConditionType('condition'),
-                ),
             ),
             $view->getParameters()
         );
