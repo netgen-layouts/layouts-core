@@ -2,18 +2,21 @@
 
 namespace Netgen\BlockManager\Core\Service;
 
-use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
+use Netgen\BlockManager\API\Values\LayoutUpdateStruct as APILayoutUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\BlockManager\API\Service\LayoutService as LayoutServiceInterface;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Core\Service\Mapper\LayoutMapper;
-use Netgen\BlockManager\API\Values\LayoutCreateStruct;
+use Netgen\BlockManager\API\Values\LayoutCreateStruct as APILayoutCreateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Exception\BadStateException;
 use Exception;
+use Netgen\BlockManager\Persistence\Values\ZoneCreateStruct;
 
 class LayoutService implements LayoutServiceInterface
 {
@@ -334,7 +337,7 @@ class LayoutService implements LayoutServiceInterface
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
-    public function createLayout(LayoutCreateStruct $layoutCreateStruct)
+    public function createLayout(APILayoutCreateStruct $layoutCreateStruct)
     {
         $this->layoutValidator->validateLayoutCreateStruct($layoutCreateStruct);
 
@@ -348,9 +351,24 @@ class LayoutService implements LayoutServiceInterface
 
         try {
             $createdLayout = $this->layoutHandler->createLayout(
-                $layoutCreateStruct,
-                Value::STATUS_DRAFT,
-                $layoutType->getZoneIdentifiers()
+                new LayoutCreateStruct(
+                    array(
+                        'type' => $layoutCreateStruct->type,
+                        'name' => trim($layoutCreateStruct->name),
+                        'status' => Value::STATUS_DRAFT,
+                        'shared' => $layoutCreateStruct->shared ? true : false,
+                        'zoneCreateStructs' => array_map(
+                            function ($zoneIdentifier) {
+                                return new ZoneCreateStruct(
+                                    array(
+                                        'identifier' => $zoneIdentifier,
+                                    )
+                                );
+                            },
+                            $layoutType->getZoneIdentifiers()
+                        ),
+                    )
+                )
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -373,7 +391,7 @@ class LayoutService implements LayoutServiceInterface
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
-    public function updateLayout(Layout $layout, LayoutUpdateStruct $layoutUpdateStruct)
+    public function updateLayout(Layout $layout, APILayoutUpdateStruct $layoutUpdateStruct)
     {
         if ($layout->isPublished()) {
             throw new BadStateException('layout', 'Only draft layouts can be updated.');
@@ -394,7 +412,13 @@ class LayoutService implements LayoutServiceInterface
         try {
             $updatedLayout = $this->layoutHandler->updateLayout(
                 $persistenceLayout,
-                $layoutUpdateStruct
+                new LayoutUpdateStruct(
+                    array(
+                        'name' => $layoutUpdateStruct->name !== null ?
+                            trim($layoutUpdateStruct->name) :
+                            $persistenceLayout->name,
+                    )
+                )
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -586,7 +610,7 @@ class LayoutService implements LayoutServiceInterface
      */
     public function newLayoutCreateStruct($type, $name)
     {
-        return new LayoutCreateStruct(
+        return new APILayoutCreateStruct(
             array(
                 'type' => $type,
                 'name' => $name,
@@ -601,6 +625,6 @@ class LayoutService implements LayoutServiceInterface
      */
     public function newLayoutUpdateStruct()
     {
-        return new LayoutUpdateStruct();
+        return new APILayoutUpdateStruct();
     }
 }

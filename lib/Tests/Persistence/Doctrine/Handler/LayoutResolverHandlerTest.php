@@ -2,13 +2,13 @@
 
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
 
-use Netgen\BlockManager\API\Values\RuleCreateStruct;
-use Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct;
-use Netgen\BlockManager\API\Values\RuleUpdateStruct;
-use Netgen\BlockManager\API\Values\TargetCreateStruct;
-use Netgen\BlockManager\API\Values\ConditionCreateStruct;
-use Netgen\BlockManager\API\Values\ConditionUpdateStruct;
-use Netgen\BlockManager\API\Values\TargetUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\RuleCreateStruct;
+use Netgen\BlockManager\Persistence\Values\RuleMetadataUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\RuleUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\TargetCreateStruct;
+use Netgen\BlockManager\Persistence\Values\ConditionCreateStruct;
+use Netgen\BlockManager\Persistence\Values\ConditionUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\TargetUpdateStruct;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
@@ -276,11 +276,9 @@ class LayoutResolverHandlerTest extends TestCase
         $ruleCreateStruct->priority = 5;
         $ruleCreateStruct->enabled = true;
         $ruleCreateStruct->comment = 'My rule';
+        $ruleCreateStruct->status = Value::STATUS_DRAFT;
 
-        $createdRule = $this->handler->createRule(
-            $ruleCreateStruct,
-            Value::STATUS_DRAFT
-        );
+        $createdRule = $this->handler->createRule($ruleCreateStruct);
 
         $this->assertInstanceOf(Rule::class, $createdRule);
 
@@ -288,30 +286,6 @@ class LayoutResolverHandlerTest extends TestCase
         $this->assertEquals(3, $createdRule->layoutId);
         $this->assertEquals(5, $createdRule->priority);
         $this->assertTrue($createdRule->enabled);
-        $this->assertEquals('My rule', $createdRule->comment);
-        $this->assertEquals(Value::STATUS_DRAFT, $createdRule->status);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::createRule
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
-     */
-    public function testCreateRuleWithDefaultValues()
-    {
-        $ruleCreateStruct = new RuleCreateStruct();
-        $ruleCreateStruct->comment = 'My rule';
-
-        $createdRule = $this->handler->createRule(
-            $ruleCreateStruct,
-            Value::STATUS_DRAFT
-        );
-
-        $this->assertInstanceOf(Rule::class, $createdRule);
-
-        $this->assertEquals(22, $createdRule->id);
-        $this->assertEquals(null, $createdRule->layoutId);
-        $this->assertEquals(0, $createdRule->priority);
-        $this->assertFalse($createdRule->enabled);
         $this->assertEquals('My rule', $createdRule->comment);
         $this->assertEquals(Value::STATUS_DRAFT, $createdRule->status);
     }
@@ -340,51 +314,6 @@ class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRule
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRule
-     */
-    public function testUpdateRuleWithNoLayout()
-    {
-        $ruleUpdateStruct = new RuleUpdateStruct();
-        $ruleUpdateStruct->comment = 'New comment';
-
-        $updatedRule = $this->handler->updateRule(
-            $this->handler->loadRule(3, Value::STATUS_PUBLISHED),
-            $ruleUpdateStruct
-        );
-
-        $this->assertInstanceOf(Rule::class, $updatedRule);
-
-        $this->assertEquals(3, $updatedRule->id);
-        $this->assertEquals(3, $updatedRule->layoutId);
-        $this->assertEquals('New comment', $updatedRule->comment);
-        $this->assertEquals(Value::STATUS_PUBLISHED, $updatedRule->status);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRule
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRule
-     */
-    public function testUpdateRuleWithEmptyLayout()
-    {
-        $ruleUpdateStruct = new RuleUpdateStruct();
-        $ruleUpdateStruct->layoutId = 0;
-        $ruleUpdateStruct->comment = 'New comment';
-
-        $updatedRule = $this->handler->updateRule(
-            $this->handler->loadRule(3, Value::STATUS_PUBLISHED),
-            $ruleUpdateStruct
-        );
-
-        $this->assertInstanceOf(Rule::class, $updatedRule);
-
-        $this->assertEquals(3, $updatedRule->id);
-        $this->assertNull($updatedRule->layoutId);
-        $this->assertEquals('New comment', $updatedRule->comment);
-        $this->assertEquals(Value::STATUS_PUBLISHED, $updatedRule->status);
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRuleMetadata
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRuleData
      */
@@ -394,6 +323,7 @@ class LayoutResolverHandlerTest extends TestCase
             $this->handler->loadRule(5, Value::STATUS_PUBLISHED),
             new RuleMetadataUpdateStruct(
                 array(
+                    'enabled' => false,
                     'priority' => 50,
                 )
             )
@@ -401,6 +331,7 @@ class LayoutResolverHandlerTest extends TestCase
 
         $this->assertInstanceOf(Rule::class, $updatedRule);
         $this->assertEquals(50, $updatedRule->priority);
+        $this->assertFalse($updatedRule->enabled);
         $this->assertEquals(Value::STATUS_PUBLISHED, $updatedRule->status);
     }
 
@@ -580,36 +511,6 @@ class LayoutResolverHandlerTest extends TestCase
         }
 
         $this->handler->loadRule(5, Value::STATUS_DRAFT);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::enableRule
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRuleData
-     */
-    public function testEnableRule()
-    {
-        $updatedRule = $this->handler->enableRule(
-            $this->handler->loadRule(5, Value::STATUS_PUBLISHED)
-        );
-
-        $this->assertInstanceOf(Rule::class, $updatedRule);
-        $this->assertTrue($updatedRule->enabled);
-        $this->assertEquals(Value::STATUS_PUBLISHED, $updatedRule->status);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::disableRule
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRuleData
-     */
-    public function testDisableRule()
-    {
-        $updatedRule = $this->handler->disableRule(
-            $this->handler->loadRule(1, Value::STATUS_PUBLISHED)
-        );
-
-        $this->assertInstanceOf(Rule::class, $updatedRule);
-        $this->assertFalse($updatedRule->enabled);
-        $this->assertEquals(Value::STATUS_PUBLISHED, $updatedRule->status);
     }
 
     /**

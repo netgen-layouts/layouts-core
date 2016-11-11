@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Persistence\Handler;
 
-use Netgen\BlockManager\API\Values\BlockCreateStruct;
-use Netgen\BlockManager\API\Values\BlockUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\BlockCreateStruct;
+use Netgen\BlockManager\Persistence\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
@@ -66,16 +66,13 @@ interface BlockHandler
     /**
      * Creates a block in specified layout and zone.
      *
-     * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
-     * @param string $zoneIdentifier
-     * @param int $position
+     * @param \Netgen\BlockManager\Persistence\Values\BlockCreateStruct $blockCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function createBlock(BlockCreateStruct $blockCreateStruct, Layout $layout, $zoneIdentifier, $position = null);
+    public function createBlock(BlockCreateStruct $blockCreateStruct);
 
     /**
      * Creates the collection reference.
@@ -92,7 +89,7 @@ interface BlockHandler
      * Updates a block with specified ID.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param \Netgen\BlockManager\API\Values\BlockUpdateStruct $blockUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\BlockUpdateStruct $blockUpdateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */

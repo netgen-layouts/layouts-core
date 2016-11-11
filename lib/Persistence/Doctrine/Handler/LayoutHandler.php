@@ -6,8 +6,6 @@ use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler;
 use Netgen\BlockManager\Persistence\Handler\BlockHandler as BaseBlockHandler;
 use Netgen\BlockManager\Persistence\Handler\LayoutHandler as LayoutHandlerInterface;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper;
-use Netgen\BlockManager\API\Values\LayoutCreateStruct as APILayoutCreateStruct;
-use Netgen\BlockManager\API\Values\LayoutUpdateStruct as APILayoutUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutUpdateStruct;
 use Netgen\BlockManager\Exception\NotFoundException;
@@ -234,58 +232,31 @@ class LayoutHandler implements LayoutHandlerInterface
     /**
      * Creates a layout.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct
-     * @param int $status
-     * @param array $zoneIdentifiers
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutCreateStruct $layoutCreateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
-    public function createLayout(APILayoutCreateStruct $layoutCreateStruct, $status, array $zoneIdentifiers = array())
+    public function createLayout(LayoutCreateStruct $layoutCreateStruct)
     {
-        $zoneCreateStructs = array();
-        foreach (array_unique($zoneIdentifiers) as $zoneIdentifier) {
-            $zoneCreateStructs[] = new ZoneCreateStruct(
-                array(
-                    'identifier' => $zoneIdentifier,
-                    'linkedLayoutId' => null,
-                    'linkedZoneIdentifier' => null,
-                )
-            );
-        }
+        $createdLayoutId = $this->queryHandler->createLayout($layoutCreateStruct);
 
-        $createdLayoutId = $this->queryHandler->createLayout(
-            new LayoutCreateStruct(
-                array(
-                    'type' => $layoutCreateStruct->type,
-                    'name' => trim($layoutCreateStruct->name),
-                    'status' => $status,
-                    'shared' => $layoutCreateStruct->shared !== null ? $layoutCreateStruct->shared : false,
-                    'zoneCreateStructs' => $zoneCreateStructs,
-                )
-            )
-        );
-
-        return $this->loadLayout($createdLayoutId, $status);
+        return $this->loadLayout($createdLayoutId, $layoutCreateStruct->status);
     }
 
     /**
      * Updates a layout with specified ID.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
-     * @param \Netgen\BlockManager\API\Values\LayoutUpdateStruct $layoutUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutUpdateStruct $layoutUpdateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
-    public function updateLayout(Layout $layout, APILayoutUpdateStruct $layoutUpdateStruct)
+    public function updateLayout(Layout $layout, LayoutUpdateStruct $layoutUpdateStruct)
     {
         $this->queryHandler->updateLayout(
             $layout->id,
             $layout->status,
-            new LayoutUpdateStruct(
-                array(
-                    'name' => $layoutUpdateStruct->name !== null ? trim($layoutUpdateStruct->name) : $layout->name,
-                )
-            )
+            $layoutUpdateStruct
         );
 
         return $this->loadLayout($layout->id, $layout->status);

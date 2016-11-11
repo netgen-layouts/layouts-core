@@ -318,12 +318,14 @@ class CollectionQueryHandler extends QueryHandler
     /**
      * Adds an item.
      *
+     * @param int|string $collectionId
+     * @param int $status
      * @param \Netgen\BlockManager\Persistence\Values\ItemCreateStruct $itemCreateStruct
      * @param int|string $itemId
      *
      * @return int
      */
-    public function addItem(ItemCreateStruct $itemCreateStruct, $itemId = null)
+    public function addItem($collectionId, $status, ItemCreateStruct $itemCreateStruct, $itemId = null)
     {
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_collection_item')
@@ -342,8 +344,8 @@ class CollectionQueryHandler extends QueryHandler
                 'id',
                 $itemId !== null ? (int)$itemId : $this->connectionHelper->getAutoIncrementValue('ngbm_collection_item')
             )
-            ->setParameter('status', $itemCreateStruct->status, Type::INTEGER)
-            ->setParameter('collection_id', $itemCreateStruct->collectionId, Type::INTEGER)
+            ->setParameter('status', $status, Type::INTEGER)
+            ->setParameter('collection_id', $collectionId, Type::INTEGER)
             ->setParameter('position', $itemCreateStruct->position, Type::INTEGER)
             ->setParameter('type', $itemCreateStruct->type, Type::INTEGER)
             ->setParameter('value_id', $itemCreateStruct->valueId, Type::STRING)
@@ -456,12 +458,14 @@ class CollectionQueryHandler extends QueryHandler
     /**
      * Adds a query.
      *
+     * @param int|string $collectionId
+     * @param int $status
      * @param \Netgen\BlockManager\Persistence\Values\QueryCreateStruct $queryCreateStruct
      * @param int|string $queryId
      *
      * @return int
      */
-    public function addQuery(QueryCreateStruct $queryCreateStruct, $queryId = null)
+    public function addQuery($collectionId, $status, QueryCreateStruct $queryCreateStruct, $queryId = null)
     {
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_collection_query')
@@ -480,8 +484,8 @@ class CollectionQueryHandler extends QueryHandler
                 'id',
                 $queryId !== null ? (int)$queryId : $this->connectionHelper->getAutoIncrementValue('ngbm_collection_query')
             )
-            ->setParameter('status', $queryCreateStruct->status, Type::INTEGER)
-            ->setParameter('collection_id', $queryCreateStruct->collectionId, Type::INTEGER)
+            ->setParameter('status', $status, Type::INTEGER)
+            ->setParameter('collection_id', $collectionId, Type::INTEGER)
             ->setParameter('position', $queryCreateStruct->position, Type::INTEGER)
             ->setParameter('identifier', $queryCreateStruct->identifier, Type::STRING)
             ->setParameter('type', $queryCreateStruct->type, Type::STRING)

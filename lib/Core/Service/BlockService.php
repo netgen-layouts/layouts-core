@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Service\BlockService as BlockServiceInterface;
-use Netgen\BlockManager\API\Values\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\Page\CollectionReference;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Configuration\BlockType\BlockType;
@@ -13,13 +12,16 @@ use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Core\Service\Mapper\BlockMapper;
-use Netgen\BlockManager\API\Values\BlockCreateStruct;
-use Netgen\BlockManager\API\Values\BlockUpdateStruct;
+use Netgen\BlockManager\API\Values\BlockCreateStruct as APIBlockCreateStruct;
+use Netgen\BlockManager\API\Values\BlockUpdateStruct as APIBlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Exception\BadStateException;
+use Netgen\BlockManager\Persistence\Values\BlockCreateStruct;
+use Netgen\BlockManager\Persistence\Values\BlockUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\CollectionCreateStruct;
 use Exception;
 
 class BlockService implements BlockServiceInterface
@@ -215,7 +217,7 @@ class BlockService implements BlockServiceInterface
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function createBlock(BlockCreateStruct $blockCreateStruct, Layout $layout, $zoneIdentifier, $position = null)
+    public function createBlock(APIBlockCreateStruct $blockCreateStruct, Layout $layout, $zoneIdentifier, $position = null)
     {
         if ($layout->isPublished()) {
             throw new BadStateException('layout', 'Blocks can only be created in layouts in draft status.');
@@ -239,22 +241,26 @@ class BlockService implements BlockServiceInterface
             $blockCreateStruct->definitionIdentifier
         );
 
-        $clonedBlockCreateStruct = clone $blockCreateStruct;
-        $clonedBlockCreateStruct->setParameterValues(
-            $this->parameterMapper->serializeValues(
-                $blockDefinition,
-                $blockCreateStruct->getParameterValues()
-            )
-        );
-
         $this->persistenceHandler->beginTransaction();
 
         try {
             $createdBlock = $this->blockHandler->createBlock(
-                $clonedBlockCreateStruct,
-                $persistenceLayout,
-                $zoneIdentifier,
-                $position
+                new BlockCreateStruct(
+                    array(
+                        'layoutId' => $persistenceLayout->id,
+                        'zoneIdentifier' => $zoneIdentifier,
+                        'status' => $persistenceLayout->status,
+                        'position' => $position,
+                        'definitionIdentifier' => $blockCreateStruct->definitionIdentifier,
+                        'viewType' => $blockCreateStruct->viewType,
+                        'itemViewType' => $blockCreateStruct->itemViewType,
+                        'name' => $blockCreateStruct->name !== null ? trim($blockCreateStruct->name) : '',
+                        'parameters' => $this->parameterMapper->serializeValues(
+                            $blockDefinition,
+                            $blockCreateStruct->getParameterValues()
+                        ),
+                    )
+                )
             );
 
             if ($blockDefinition->hasCollection()) {
@@ -262,8 +268,13 @@ class BlockService implements BlockServiceInterface
                 $collectionCreateStruct->type = Collection::TYPE_MANUAL;
 
                 $createdCollection = $this->collectionHandler->createCollection(
-                    $collectionCreateStruct,
-                    $persistenceLayout->status
+                    new CollectionCreateStruct(
+                        array(
+                            'status' => Value::STATUS_DRAFT,
+                            'type' => Collection::TYPE_MANUAL,
+                            'shared' => false,
+                        )
+                    )
                 );
 
                 $this->blockHandler->createCollectionReference(
@@ -292,7 +303,7 @@ class BlockService implements BlockServiceInterface
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function updateBlock(Block $block, BlockUpdateStruct $blockUpdateStruct)
+    public function updateBlock(Block $block, APIBlockUpdateStruct $blockUpdateStruct)
     {
         if ($block->isPublished()) {
             throw new BadStateException('block', 'Only draft blocks can be updated.');
@@ -302,20 +313,24 @@ class BlockService implements BlockServiceInterface
 
         $this->blockValidator->validateBlockUpdateStruct($block, $blockUpdateStruct);
 
-        $clonedBlockUpdateStruct = clone $blockUpdateStruct;
-        $clonedBlockUpdateStruct->setParameterValues(
-            $this->parameterMapper->serializeValues(
-                $block->getBlockDefinition(),
-                $blockUpdateStruct->getParameterValues()
-            )
-        );
-
         $this->persistenceHandler->beginTransaction();
 
         try {
             $updatedBlock = $this->blockHandler->updateBlock(
                 $persistenceBlock,
-                $clonedBlockUpdateStruct
+                new BlockUpdateStruct(
+                    array(
+                        'viewType' => $blockUpdateStruct->viewType ?: $persistenceBlock->viewType,
+                        'itemViewType' => $blockUpdateStruct->itemViewType ?: $persistenceBlock->itemViewType,
+                        'name' => $blockUpdateStruct->name !== null
+                            ? trim($blockUpdateStruct->name) :
+                            $persistenceBlock->name,
+                        'parameters' => $this->parameterMapper->serializeValues(
+                            $block->getBlockDefinition(),
+                            $blockUpdateStruct->getParameterValues()
+                        ) + $persistenceBlock->parameters,
+                    )
+                )
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -515,7 +530,7 @@ class BlockService implements BlockServiceInterface
                         'name' => $publishedBlock->name,
                         'viewType' => $publishedBlock->viewType,
                         'itemViewType' => $publishedBlock->itemViewType,
-                        'parameterValues' => $publishedBlock->parameters,
+                        'parameters' => $publishedBlock->parameters,
                     )
                 )
             );
@@ -583,7 +598,7 @@ class BlockService implements BlockServiceInterface
             $itemViewTypeIdentifier = $viewType->getItemViewTypeIdentifiers()[0];
         }
 
-        $blockCreateStruct = new BlockCreateStruct(
+        $blockCreateStruct = new APIBlockCreateStruct(
             array(
                 'definitionIdentifier' => $blockDefinition->getIdentifier(),
                 'name' => $blockType->getDefaultName(),
@@ -609,7 +624,7 @@ class BlockService implements BlockServiceInterface
      */
     public function newBlockUpdateStruct(Block $block = null)
     {
-        $blockUpdateStruct = new BlockUpdateStruct();
+        $blockUpdateStruct = new APIBlockUpdateStruct();
 
         if (!$block instanceof Block) {
             return $blockUpdateStruct;

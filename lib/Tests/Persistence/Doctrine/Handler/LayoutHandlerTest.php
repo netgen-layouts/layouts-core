@@ -3,10 +3,10 @@
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
 
 use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Persistence\Values\Collection\Collection;
+use Netgen\BlockManager\Persistence\Values\ZoneCreateStruct;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
-use Netgen\BlockManager\API\Values\LayoutCreateStruct;
-use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutCreateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
@@ -454,12 +454,13 @@ class LayoutHandlerTest extends TestCase
         $layoutCreateStruct->type = 'new_layout';
         $layoutCreateStruct->name = 'New layout';
         $layoutCreateStruct->shared = true;
-
-        $createdLayout = $this->layoutHandler->createLayout(
-            $layoutCreateStruct,
-            Value::STATUS_DRAFT,
-            array('first_zone', 'second_zone')
+        $layoutCreateStruct->status = Value::STATUS_DRAFT;
+        $layoutCreateStruct->zoneCreateStructs = array(
+            new ZoneCreateStruct(array('identifier' => 'first_zone')),
+            new ZoneCreateStruct(array('identifier' => 'second_zone')),
         );
+
+        $createdLayout = $this->layoutHandler->createLayout($layoutCreateStruct);
 
         $this->assertInstanceOf(Layout::class, $createdLayout);
 

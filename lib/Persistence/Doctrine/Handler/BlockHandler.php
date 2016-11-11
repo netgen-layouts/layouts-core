@@ -2,9 +2,7 @@
 
 namespace Netgen\BlockManager\Persistence\Doctrine\Handler;
 
-use Netgen\BlockManager\API\Values\BlockCreateStruct as APIBlockCreateStruct;
 use Netgen\BlockManager\Persistence\Values\BlockCreateStruct;
-use Netgen\BlockManager\API\Values\BlockUpdateStruct as APIBlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper;
@@ -149,43 +147,26 @@ class BlockHandler implements BlockHandlerInterface
     /**
      * Creates a block in specified layout and zone.
      *
-     * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
-     * @param string $zoneIdentifier
-     * @param int $position
+     * @param \Netgen\BlockManager\Persistence\Values\BlockCreateStruct $blockCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function createBlock(APIBlockCreateStruct $blockCreateStruct, Layout $layout, $zoneIdentifier, $position = null)
+    public function createBlock(BlockCreateStruct $blockCreateStruct)
     {
-        $position = $this->positionHelper->createPosition(
+        $blockCreateStruct->position = $this->positionHelper->createPosition(
             $this->getPositionHelperConditions(
-                $layout->id,
-                $layout->status,
-                $zoneIdentifier
+                $blockCreateStruct->layoutId,
+                $blockCreateStruct->status,
+                $blockCreateStruct->zoneIdentifier
             ),
-            $position
+            $blockCreateStruct->position
         );
 
-        $createdBlockId = $this->queryHandler->createBlock(
-            new BlockCreateStruct(
-                array(
-                    'layoutId' => $layout->id,
-                    'zoneIdentifier' => $zoneIdentifier,
-                    'status' => $layout->status,
-                    'position' => $position,
-                    'definitionIdentifier' => $blockCreateStruct->definitionIdentifier,
-                    'viewType' => $blockCreateStruct->viewType,
-                    'itemViewType' => $blockCreateStruct->itemViewType,
-                    'name' => $blockCreateStruct->name !== null ? trim($blockCreateStruct->name) : '',
-                    'parameters' => $blockCreateStruct->getParameterValues(),
-                )
-            )
-        );
+        $createdBlockId = $this->queryHandler->createBlock($blockCreateStruct);
 
-        return $this->loadBlock($createdBlockId, $layout->status);
+        return $this->loadBlock($createdBlockId, $blockCreateStruct->status);
     }
 
     /**
@@ -214,23 +195,16 @@ class BlockHandler implements BlockHandlerInterface
      * Updates a block with specified ID.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param \Netgen\BlockManager\API\Values\BlockUpdateStruct $blockUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\BlockUpdateStruct $blockUpdateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function updateBlock(Block $block, APIBlockUpdateStruct $blockUpdateStruct)
+    public function updateBlock(Block $block, BlockUpdateStruct $blockUpdateStruct)
     {
         $this->queryHandler->updateBlock(
             $block->id,
             $block->status,
-            new BlockUpdateStruct(
-                array(
-                    'viewType' => $blockUpdateStruct->viewType !== null ? $blockUpdateStruct->viewType : $block->viewType,
-                    'itemViewType' => $blockUpdateStruct->itemViewType !== null ? $blockUpdateStruct->itemViewType : $block->itemViewType,
-                    'name' => $blockUpdateStruct->name !== null ? trim($blockUpdateStruct->name) : $block->name,
-                    'parameters' => $blockUpdateStruct->getParameterValues() + $block->parameters,
-                )
-            )
+            $blockUpdateStruct
         );
 
         return $this->loadBlock($block->id, $block->status);

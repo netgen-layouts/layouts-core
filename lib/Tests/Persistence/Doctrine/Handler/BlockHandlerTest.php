@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
 
 use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\API\Values\BlockCreateStruct;
-use Netgen\BlockManager\API\Values\BlockUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\BlockCreateStruct;
+use Netgen\BlockManager\Persistence\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
@@ -249,10 +249,16 @@ class BlockHandlerTest extends TestCase
     {
         $blockCreateStruct = new BlockCreateStruct();
         $blockCreateStruct->definitionIdentifier = 'new_block';
+        $blockCreateStruct->layoutId = 1;
+        $blockCreateStruct->status = Value::STATUS_DRAFT;
+        $blockCreateStruct->zoneIdentifier = 'right';
+        $blockCreateStruct->position = 0;
         $blockCreateStruct->viewType = 'large';
         $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->name = 'My block';
-        $blockCreateStruct->setParameterValue('a_param', 'A value');
+        $blockCreateStruct->parameters = array(
+            'a_param' => 'A value',
+        );
 
         $this->assertEquals(
             new Block(
@@ -271,12 +277,7 @@ class BlockHandlerTest extends TestCase
                     'status' => Value::STATUS_DRAFT,
                 )
             ),
-            $this->blockHandler->createBlock(
-                $blockCreateStruct,
-                $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
-                'right',
-                0
-            )
+            $this->blockHandler->createBlock($blockCreateStruct)
         );
 
         $secondBlock = $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT);
@@ -292,10 +293,15 @@ class BlockHandlerTest extends TestCase
     {
         $blockCreateStruct = new BlockCreateStruct();
         $blockCreateStruct->definitionIdentifier = 'new_block';
+        $blockCreateStruct->layoutId = 1;
+        $blockCreateStruct->status = Value::STATUS_DRAFT;
+        $blockCreateStruct->zoneIdentifier = 'right';
         $blockCreateStruct->viewType = 'large';
         $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->name = 'My block';
-        $blockCreateStruct->setParameterValue('a_param', 'A value');
+        $blockCreateStruct->parameters = array(
+            'a_param' => 'A value',
+        );
 
         $this->assertEquals(
             new Block(
@@ -314,11 +320,7 @@ class BlockHandlerTest extends TestCase
                     'status' => Value::STATUS_DRAFT,
                 )
             ),
-            $this->blockHandler->createBlock(
-                $blockCreateStruct,
-                $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
-                'right'
-            )
+            $this->blockHandler->createBlock($blockCreateStruct)
         );
     }
 
@@ -331,17 +333,18 @@ class BlockHandlerTest extends TestCase
     {
         $blockCreateStruct = new BlockCreateStruct();
         $blockCreateStruct->definitionIdentifier = 'new_block';
+        $blockCreateStruct->layoutId = 1;
+        $blockCreateStruct->status = Value::STATUS_DRAFT;
+        $blockCreateStruct->zoneIdentifier = 'right';
+        $blockCreateStruct->position = -5;
         $blockCreateStruct->viewType = 'large';
         $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->name = 'My block';
-        $blockCreateStruct->setParameterValue('a_param', 'A value');
-
-        $this->blockHandler->createBlock(
-            $blockCreateStruct,
-            $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED),
-            'right',
-            -5
+        $blockCreateStruct->parameters = array(
+            'a_param' => 'A value',
         );
+
+        $this->blockHandler->createBlock($blockCreateStruct);
     }
 
     /**
@@ -353,17 +356,18 @@ class BlockHandlerTest extends TestCase
     {
         $blockCreateStruct = new BlockCreateStruct();
         $blockCreateStruct->definitionIdentifier = 'new_block';
+        $blockCreateStruct->layoutId = 1;
+        $blockCreateStruct->status = Value::STATUS_DRAFT;
+        $blockCreateStruct->zoneIdentifier = 'right';
+        $blockCreateStruct->position = 9999;
         $blockCreateStruct->viewType = 'large';
         $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->name = 'My block';
-        $blockCreateStruct->setParameterValue('a_param', 'A value');
-
-        $this->blockHandler->createBlock(
-            $blockCreateStruct,
-            $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED),
-            'right',
-            9999
+        $blockCreateStruct->parameters = array(
+            'a_param' => 'A value',
         );
+
+        $this->blockHandler->createBlock($blockCreateStruct);
     }
 
     /**
@@ -376,8 +380,10 @@ class BlockHandlerTest extends TestCase
         $blockUpdateStruct->name = 'My block';
         $blockUpdateStruct->viewType = 'large';
         $blockUpdateStruct->itemViewType = 'new';
-        $blockUpdateStruct->setParameterValue('number_of_columns', 4);
-        $blockUpdateStruct->setParameterValue('some_param', 'Some value');
+        $blockUpdateStruct->parameters = array(
+            'number_of_columns' => 4,
+            'some_param' => 'Some value',
+        );
 
         $this->assertEquals(
             new Block(

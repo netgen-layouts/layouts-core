@@ -4,17 +4,12 @@ namespace Netgen\BlockManager\Persistence\Doctrine\Handler;
 
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\CollectionCreateStruct as APICollectionCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
 use Netgen\BlockManager\Persistence\Values\CollectionCreateStruct;
-use Netgen\BlockManager\API\Values\CollectionUpdateStruct as APICollectionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\CollectionUpdateStruct;
-use Netgen\BlockManager\API\Values\ItemCreateStruct as APIItemCreateStruct;
 use Netgen\BlockManager\Persistence\Values\ItemCreateStruct;
-use Netgen\BlockManager\API\Values\QueryCreateStruct as APIQueryCreateStruct;
 use Netgen\BlockManager\Persistence\Values\QueryCreateStruct;
-use Netgen\BlockManager\API\Values\QueryUpdateStruct as APIQueryUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\QueryUpdateStruct;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper;
@@ -224,123 +219,31 @@ class CollectionHandler implements CollectionHandlerInterface
     /**
      * Creates a collection.
      *
-     * @param \Netgen\BlockManager\API\Values\CollectionCreateStruct $collectionCreateStruct
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\CollectionCreateStruct $collectionCreateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
-    public function createCollection(APICollectionCreateStruct $collectionCreateStruct, $status)
+    public function createCollection(CollectionCreateStruct $collectionCreateStruct)
     {
-        $name = null;
-        if ($collectionCreateStruct->name !== null) {
-            $name = trim($collectionCreateStruct->name);
-        }
+        $createdCollectionId = $this->queryHandler->createCollection($collectionCreateStruct);
 
-        $createdCollectionId = $this->queryHandler->createCollection(
-            new CollectionCreateStruct(
-                array(
-                    'status' => $status,
-                    'type' => $collectionCreateStruct->type,
-                    'shared' => $collectionCreateStruct->shared !== null ? $collectionCreateStruct->shared : false,
-                    'name' => $name,
-                )
-            )
-        );
-
-        foreach ($collectionCreateStruct->itemCreateStructs as $position => $itemCreateStruct) {
-            $this->queryHandler->addItem(
-                new ItemCreateStruct(
-                    array(
-                        'collectionId' => $createdCollectionId,
-                        'position' => $position,
-                        'status' => $status,
-                        'valueId' => $itemCreateStruct->valueId,
-                        'valueType' => $itemCreateStruct->valueType,
-                        'type' => $itemCreateStruct->type,
-                    )
-                )
-            );
-        }
-
-        foreach ($collectionCreateStruct->queryCreateStructs as $position => $queryCreateStruct) {
-            $this->queryHandler->addQuery(
-                new QueryCreateStruct(
-                    array(
-                        'collectionId' => $createdCollectionId,
-                        'position' => $position,
-                        'status' => $status,
-                        'identifier' => $queryCreateStruct->identifier,
-                        'type' => $queryCreateStruct->type,
-                        'parameters' => $queryCreateStruct->getParameterValues(),
-                    )
-                )
-            );
-        }
-
-        return $this->loadCollection($createdCollectionId, $status);
+        return $this->loadCollection($createdCollectionId, $collectionCreateStruct->status);
     }
 
     /**
      * Updates a collection with specified ID.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\API\Values\CollectionUpdateStruct $collectionUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\CollectionUpdateStruct $collectionUpdateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
-    public function updateCollection(Collection $collection, APICollectionUpdateStruct $collectionUpdateStruct)
+    public function updateCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct)
     {
-        $name = $collection->name;
-        if ($collectionUpdateStruct->name !== null) {
-            $name = trim($collectionUpdateStruct->name);
-        }
-
         $this->queryHandler->updateCollection(
             $collection->id,
             $collection->status,
-            new CollectionUpdateStruct(
-                array(
-                    'type' => $collection->type,
-                    'name' => $name,
-                )
-            )
-        );
-
-        return $this->loadCollection($collection->id, $collection->status);
-    }
-
-    /**
-     * Changes the type of specified collection.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param int $newType
-     * @param \Netgen\BlockManager\API\Values\QueryCreateStruct $queryCreateStruct
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
-     */
-    public function changeCollectionType(Collection $collection, $newType, APIQueryCreateStruct $queryCreateStruct = null)
-    {
-        foreach ($this->loadCollectionQueries($collection) as $query) {
-            $this->deleteQuery($query);
-        }
-
-        if ($newType === Collection::TYPE_MANUAL) {
-            foreach ($this->loadCollectionItems($collection) as $index => $item) {
-                $this->moveItem($item, $index);
-            }
-        } elseif ($newType === Collection::TYPE_DYNAMIC) {
-            $this->addQuery($collection, $queryCreateStruct);
-        }
-
-        $this->queryHandler->updateCollection(
-            $collection->id,
-            $collection->status,
-            new CollectionUpdateStruct(
-                array(
-                    'type' => $newType,
-                    'name' => $collection->name,
-                )
-            )
+            $collectionUpdateStruct
         );
 
         return $this->loadCollection($collection->id, $collection->status);
@@ -371,11 +274,11 @@ class CollectionHandler implements CollectionHandlerInterface
 
         foreach ($collectionItems as $collectionItem) {
             $this->queryHandler->addItem(
+                $copiedCollectionId,
+                $collectionItem->status,
                 new ItemCreateStruct(
                     array(
-                        'collectionId' => $copiedCollectionId,
                         'position' => $collectionItem->position,
-                        'status' => $collectionItem->status,
                         'valueId' => $collectionItem->valueId,
                         'valueType' => $collectionItem->valueType,
                         'type' => $collectionItem->type,
@@ -388,11 +291,11 @@ class CollectionHandler implements CollectionHandlerInterface
 
         foreach ($collectionQueries as $collectionQuery) {
             $this->queryHandler->addQuery(
+                $copiedCollectionId,
+                $collectionQuery->status,
                 new QueryCreateStruct(
                     array(
-                        'collectionId' => $copiedCollectionId,
                         'position' => $collectionQuery->position,
-                        'status' => $collectionQuery->status,
                         'identifier' => $collectionQuery->identifier,
                         'type' => $collectionQuery->type,
                         'parameters' => $collectionQuery->parameters,
@@ -430,11 +333,11 @@ class CollectionHandler implements CollectionHandlerInterface
 
         foreach ($collectionItems as $collectionItem) {
             $this->queryHandler->addItem(
+                $collectionItem->collectionId,
+                $newStatus,
                 new ItemCreateStruct(
                     array(
-                        'collectionId' => $collectionItem->collectionId,
                         'position' => $collectionItem->position,
-                        'status' => $newStatus,
                         'valueId' => $collectionItem->valueId,
                         'valueType' => $collectionItem->valueType,
                         'type' => $collectionItem->type,
@@ -448,11 +351,11 @@ class CollectionHandler implements CollectionHandlerInterface
 
         foreach ($collectionQueries as $collectionQuery) {
             $this->queryHandler->addQuery(
+                $collectionQuery->collectionId,
+                $newStatus,
                 new QueryCreateStruct(
                     array(
-                        'collectionId' => $collectionQuery->collectionId,
                         'position' => $collectionQuery->position,
-                        'status' => $newStatus,
                         'identifier' => $collectionQuery->identifier,
                         'type' => $collectionQuery->type,
                         'parameters' => $collectionQuery->parameters,
@@ -482,35 +385,27 @@ class CollectionHandler implements CollectionHandlerInterface
      * Adds an item to collection.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\API\Values\ItemCreateStruct $itemCreateStruct
-     * @param int $position
+     * @param \Netgen\BlockManager\Persistence\Values\ItemCreateStruct $itemCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range (for manual collections)
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Item
      */
-    public function addItem(Collection $collection, APIItemCreateStruct $itemCreateStruct, $position = null)
+    public function addItem(Collection $collection, ItemCreateStruct $itemCreateStruct)
     {
-        $position = $this->positionHelper->createPosition(
+        $itemCreateStruct->position = $this->positionHelper->createPosition(
             $this->getPositionHelperItemConditions(
                 $collection->id,
                 $collection->status
             ),
-            $position,
+            $itemCreateStruct->position,
             $collection->type !== Collection::TYPE_MANUAL
         );
 
         $createdItemId = $this->queryHandler->addItem(
-            new ItemCreateStruct(
-                array(
-                    'collectionId' => $collection->id,
-                    'position' => $position,
-                    'status' => $collection->status,
-                    'valueId' => $itemCreateStruct->valueId,
-                    'valueType' => $itemCreateStruct->valueType,
-                    'type' => $itemCreateStruct->type,
-                )
-            )
+            $collection->id,
+            $collection->status,
+            $itemCreateStruct
         );
 
         return $this->loadItem($createdItemId, $collection->status);
@@ -580,34 +475,26 @@ class CollectionHandler implements CollectionHandlerInterface
      * Adds a query to collection.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\API\Values\QueryCreateStruct $queryCreateStruct
-     * @param int $position
+     * @param \Netgen\BlockManager\Persistence\Values\QueryCreateStruct $queryCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
-    public function addQuery(Collection $collection, APIQueryCreateStruct $queryCreateStruct, $position = null)
+    public function addQuery(Collection $collection, QueryCreateStruct $queryCreateStruct)
     {
-        $position = $this->positionHelper->createPosition(
+        $queryCreateStruct->position = $this->positionHelper->createPosition(
             $this->getPositionHelperQueryConditions(
                 $collection->id,
                 $collection->status
             ),
-            $position
+            $queryCreateStruct->position
         );
 
         $createdQueryId = $this->queryHandler->addQuery(
-            new QueryCreateStruct(
-                array(
-                    'collectionId' => $collection->id,
-                    'position' => $position,
-                    'status' => $collection->status,
-                    'identifier' => $queryCreateStruct->identifier,
-                    'type' => $queryCreateStruct->type,
-                    'parameters' => $queryCreateStruct->getParameterValues(),
-                )
-            )
+            $collection->id,
+            $collection->status,
+            $queryCreateStruct
         );
 
         return $this->loadQuery($createdQueryId, $collection->status);
@@ -617,23 +504,16 @@ class CollectionHandler implements CollectionHandlerInterface
      * Updates a query with specified ID.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
-     * @param \Netgen\BlockManager\API\Values\QueryUpdateStruct $queryUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\QueryUpdateStruct $queryUpdateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
-    public function updateQuery(Query $query, APIQueryUpdateStruct $queryUpdateStruct)
+    public function updateQuery(Query $query, QueryUpdateStruct $queryUpdateStruct)
     {
         $this->queryHandler->updateQuery(
             $query->id,
             $query->status,
-            new QueryUpdateStruct(
-                array(
-                    'identifier' => $queryUpdateStruct->identifier !== null ?
-                        $queryUpdateStruct->identifier :
-                        $query->identifier,
-                    'parameters' => $queryUpdateStruct->getParameterValues() + $query->parameters,
-                )
-            )
+            $queryUpdateStruct
         );
 
         return $this->loadQuery($query->id, $query->status);

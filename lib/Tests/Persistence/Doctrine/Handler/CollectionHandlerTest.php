@@ -2,11 +2,11 @@
 
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
 
-use Netgen\BlockManager\API\Values\CollectionCreateStruct;
-use Netgen\BlockManager\API\Values\CollectionUpdateStruct;
-use Netgen\BlockManager\API\Values\ItemCreateStruct;
-use Netgen\BlockManager\API\Values\QueryCreateStruct;
-use Netgen\BlockManager\API\Values\QueryUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\CollectionCreateStruct;
+use Netgen\BlockManager\Persistence\Values\CollectionUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\ItemCreateStruct;
+use Netgen\BlockManager\Persistence\Values\QueryCreateStruct;
+use Netgen\BlockManager\Persistence\Values\QueryUpdateStruct;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
@@ -295,26 +295,13 @@ class CollectionHandlerTest extends TestCase
      */
     public function testCreateCollection()
     {
-        $itemCreateStruct = new ItemCreateStruct();
-        $itemCreateStruct->type = Item::TYPE_MANUAL;
-        $itemCreateStruct->valueId = 42;
-        $itemCreateStruct->valueType = 'value';
-
-        $queryCreateStruct = new QueryCreateStruct();
-        $queryCreateStruct->identifier = 'default';
-        $queryCreateStruct->type = 'type';
-
         $collectionCreateStruct = new CollectionCreateStruct();
         $collectionCreateStruct->type = Collection::TYPE_DYNAMIC;
         $collectionCreateStruct->shared = false;
         $collectionCreateStruct->name = 'New collection';
-        $collectionCreateStruct->itemCreateStructs = array($itemCreateStruct);
-        $collectionCreateStruct->queryCreateStructs = array($queryCreateStruct);
+        $collectionCreateStruct->status = Value::STATUS_DRAFT;
 
-        $createdCollection = $this->collectionHandler->createCollection(
-            $collectionCreateStruct,
-            Value::STATUS_DRAFT
-        );
+        $createdCollection = $this->collectionHandler->createCollection($collectionCreateStruct);
 
         $this->assertInstanceOf(Collection::class, $createdCollection);
 
@@ -323,36 +310,6 @@ class CollectionHandlerTest extends TestCase
         $this->assertFalse($createdCollection->shared);
         $this->assertEquals('New collection', $createdCollection->name);
         $this->assertEquals(Value::STATUS_DRAFT, $createdCollection->status);
-
-        $this->assertEquals(
-            new Item(
-                array(
-                    'id' => 13,
-                    'collectionId' => 6,
-                    'position' => 0,
-                    'type' => Item::TYPE_MANUAL,
-                    'valueId' => '42',
-                    'valueType' => 'value',
-                    'status' => Value::STATUS_DRAFT,
-                )
-            ),
-            $this->collectionHandler->loadItem(13, Value::STATUS_DRAFT)
-        );
-
-        $this->assertEquals(
-            new Query(
-                array(
-                    'id' => 5,
-                    'collectionId' => 6,
-                    'position' => 0,
-                    'type' => 'type',
-                    'identifier' => 'default',
-                    'parameters' => array(),
-                    'status' => Value::STATUS_DRAFT,
-                )
-            ),
-            $this->collectionHandler->loadQuery(5, Value::STATUS_DRAFT)
-        );
     }
 
     /**
@@ -362,6 +319,7 @@ class CollectionHandlerTest extends TestCase
     public function testUpdateCollection()
     {
         $collectionUpdateStruct = new CollectionUpdateStruct();
+        $collectionUpdateStruct->type = Collection::TYPE_DYNAMIC;
         $collectionUpdateStruct->name = 'Updated collection';
 
         $updatedCollection = $this->collectionHandler->updateCollection(
@@ -376,64 +334,6 @@ class CollectionHandlerTest extends TestCase
         $this->assertTrue($updatedCollection->shared);
         $this->assertEquals('Updated collection', $updatedCollection->name);
         $this->assertEquals(Value::STATUS_PUBLISHED, $updatedCollection->status);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::changeCollectionType
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateCollection
-     */
-    public function testChangeCollectionTypeFromManualToDynamic()
-    {
-        $collection = $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT);
-
-        $queryCreateStruct = new QueryCreateStruct();
-        $queryCreateStruct->identifier = 'default';
-        $queryCreateStruct->type = 'type';
-
-        $updatedCollection = $this->collectionHandler->changeCollectionType(
-            $collection,
-            Collection::TYPE_DYNAMIC,
-            $queryCreateStruct
-        );
-
-        $this->assertEquals(Collection::TYPE_DYNAMIC, $updatedCollection->type);
-
-        $this->assertEquals(
-            new Query(
-                array(
-                    'id' => 5,
-                    'collectionId' => 1,
-                    'position' => 0,
-                    'type' => 'type',
-                    'identifier' => 'default',
-                    'parameters' => array(),
-                    'status' => Value::STATUS_DRAFT,
-                )
-            ),
-            $this->collectionHandler->loadQuery(5, Value::STATUS_DRAFT)
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::changeCollectionType
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateCollection
-     */
-    public function testChangeCollectionTypeFromDynamicToManual()
-    {
-        $collection = $this->collectionHandler->loadCollection(4, Value::STATUS_DRAFT);
-
-        $updatedCollection = $this->collectionHandler->changeCollectionType(
-            $collection,
-            Collection::TYPE_MANUAL
-        );
-
-        $this->assertEquals(Collection::TYPE_MANUAL, $updatedCollection->type);
-        $this->assertEmpty($this->collectionHandler->loadCollectionQueries($collection));
-
-        $items = $this->collectionHandler->loadCollectionItems($collection);
-        foreach ($items as $index => $item) {
-            $this->assertEquals($index, $item->position);
-        }
     }
 
     /**
@@ -686,6 +586,7 @@ class CollectionHandlerTest extends TestCase
     {
         $itemCreateStruct = new ItemCreateStruct();
         $itemCreateStruct->type = Item::TYPE_MANUAL;
+        $itemCreateStruct->position = 1;
         $itemCreateStruct->valueId = '42';
         $itemCreateStruct->valueType = 'ezcontent';
 
@@ -703,8 +604,7 @@ class CollectionHandlerTest extends TestCase
             ),
             $this->collectionHandler->addItem(
                 $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
-                $itemCreateStruct,
-                1
+                $itemCreateStruct
             )
         );
 
@@ -751,13 +651,13 @@ class CollectionHandlerTest extends TestCase
     {
         $itemCreateStruct = new ItemCreateStruct();
         $itemCreateStruct->type = Item::TYPE_MANUAL;
+        $itemCreateStruct->position = -1;
         $itemCreateStruct->valueId = '42';
         $itemCreateStruct->valueType = 'ezcontent';
 
         $this->collectionHandler->addItem(
             $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
-            $itemCreateStruct,
-            -1
+            $itemCreateStruct
         );
     }
 
@@ -770,13 +670,13 @@ class CollectionHandlerTest extends TestCase
     {
         $itemCreateStruct = new ItemCreateStruct();
         $itemCreateStruct->type = Item::TYPE_MANUAL;
+        $itemCreateStruct->position = -9999;
         $itemCreateStruct->valueId = '42';
         $itemCreateStruct->valueType = 'ezcontent';
 
         $this->collectionHandler->addItem(
             $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
-            $itemCreateStruct,
-            -9999
+            $itemCreateStruct
         );
     }
 
@@ -925,7 +825,10 @@ class CollectionHandlerTest extends TestCase
         $queryCreateStruct = new QueryCreateStruct();
         $queryCreateStruct->identifier = 'new_query';
         $queryCreateStruct->type = 'ezcontent_search';
-        $queryCreateStruct->setParameterValue('param', 'value');
+        $queryCreateStruct->position = 1;
+        $queryCreateStruct->parameters = array(
+            'param' => 'value',
+        );
 
         $this->assertEquals(
             new Query(
@@ -941,8 +844,7 @@ class CollectionHandlerTest extends TestCase
             ),
             $this->collectionHandler->addQuery(
                 $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED),
-                $queryCreateStruct,
-                1
+                $queryCreateStruct
             )
         );
 
@@ -959,7 +861,9 @@ class CollectionHandlerTest extends TestCase
         $queryCreateStruct = new QueryCreateStruct();
         $queryCreateStruct->identifier = 'new_query';
         $queryCreateStruct->type = 'ezcontent_search';
-        $queryCreateStruct->setParameterValue('param', 'value');
+        $queryCreateStruct->parameters = array(
+            'param' => 'value',
+        );
 
         $this->assertEquals(
             new Query(
@@ -990,12 +894,14 @@ class CollectionHandlerTest extends TestCase
         $queryCreateStruct = new QueryCreateStruct();
         $queryCreateStruct->identifier = 'new_query';
         $queryCreateStruct->type = 'ezcontent_search';
-        $queryCreateStruct->setParameterValue('param', 'value');
+        $queryCreateStruct->position = -1;
+        $queryCreateStruct->parameters = array(
+            'param' => 'value',
+        );
 
         $this->collectionHandler->addQuery(
             $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED),
-            $queryCreateStruct,
-            -1
+            $queryCreateStruct
         );
     }
 
@@ -1009,12 +915,14 @@ class CollectionHandlerTest extends TestCase
         $queryCreateStruct = new QueryCreateStruct();
         $queryCreateStruct->identifier = 'new_query';
         $queryCreateStruct->type = 'ezcontent_search';
-        $queryCreateStruct->setParameterValue('param', 'value');
+        $queryCreateStruct->position = -9999;
+        $queryCreateStruct->parameters = array(
+            'param' => 'value',
+        );
 
         $this->collectionHandler->addQuery(
             $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED),
-            $queryCreateStruct,
-            -9999
+            $queryCreateStruct
         );
     }
 
@@ -1026,8 +934,10 @@ class CollectionHandlerTest extends TestCase
     {
         $queryUpdateStruct = new QueryUpdateStruct();
         $queryUpdateStruct->identifier = 'new_identifier';
-        $queryUpdateStruct->setParameterValue('parent_location_id', 3);
-        $queryUpdateStruct->setParameterValue('some_param', 'Some value');
+        $queryUpdateStruct->parameters = array(
+            'parent_location_id' => 3,
+            'some_param' => 'Some value',
+        );
 
         $this->assertEquals(
             new Query(
@@ -1039,10 +949,6 @@ class CollectionHandlerTest extends TestCase
                     'type' => 'ezcontent_search',
                     'parameters' => array(
                         'parent_location_id' => 3,
-                        'sort_direction' => 'descending',
-                        'sort_type' => 'date_published',
-                        'offset' => 0,
-                        'query_type' => 'list',
                         'some_param' => 'Some value',
                     ),
                     'status' => Value::STATUS_PUBLISHED,

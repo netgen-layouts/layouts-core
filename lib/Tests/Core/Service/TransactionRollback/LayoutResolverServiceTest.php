@@ -272,7 +272,7 @@ class LayoutResolverServiceTest extends TransactionRollbackTest
 
         $this->layoutResolverHandlerMock
             ->expects($this->at(2))
-            ->method('enableRule')
+            ->method('updateRuleMetadata')
             ->will($this->throwException(new Exception()));
 
         $this->persistenceHandler
@@ -303,7 +303,7 @@ class LayoutResolverServiceTest extends TransactionRollbackTest
 
         $this->layoutResolverHandlerMock
             ->expects($this->at(1))
-            ->method('disableRule')
+            ->method('updateRuleMetadata')
             ->will($this->throwException(new Exception()));
 
         $this->persistenceHandler

@@ -4,22 +4,29 @@ namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Service\LayoutResolverService as APILayoutResolverService;
 use Netgen\BlockManager\API\Values\Page\Layout;
-use Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct;
-use Netgen\BlockManager\API\Values\TargetUpdateStruct;
+use Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct as APIRuleMetadataUpdateStruct;
+use Netgen\BlockManager\API\Values\TargetUpdateStruct as APITargetUpdateStruct;
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper;
-use Netgen\BlockManager\API\Values\ConditionCreateStruct;
-use Netgen\BlockManager\API\Values\ConditionUpdateStruct;
+use Netgen\BlockManager\API\Values\ConditionCreateStruct as APIConditionCreateStruct;
+use Netgen\BlockManager\API\Values\ConditionUpdateStruct as APIConditionUpdateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\API\Values\LayoutResolver\Target;
-use Netgen\BlockManager\API\Values\RuleCreateStruct;
-use Netgen\BlockManager\API\Values\RuleUpdateStruct;
-use Netgen\BlockManager\API\Values\TargetCreateStruct;
+use Netgen\BlockManager\API\Values\RuleCreateStruct as APIRuleCreateStruct;
+use Netgen\BlockManager\API\Values\RuleUpdateStruct as APIRuleUpdateStruct;
+use Netgen\BlockManager\API\Values\TargetCreateStruct as APITargetCreateStruct;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Exception\BadStateException;
 use Exception;
+use Netgen\BlockManager\Persistence\Values\ConditionCreateStruct;
+use Netgen\BlockManager\Persistence\Values\ConditionUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\RuleCreateStruct;
+use Netgen\BlockManager\Persistence\Values\RuleMetadataUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\RuleUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\TargetCreateStruct;
+use Netgen\BlockManager\Persistence\Values\TargetUpdateStruct;
 
 class LayoutResolverService implements APILayoutResolverService
 {
@@ -260,7 +267,7 @@ class LayoutResolverService implements APILayoutResolverService
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
-    public function createRule(RuleCreateStruct $ruleCreateStruct)
+    public function createRule(APIRuleCreateStruct $ruleCreateStruct)
     {
         $this->validator->validateRuleCreateStruct($ruleCreateStruct);
 
@@ -268,8 +275,15 @@ class LayoutResolverService implements APILayoutResolverService
 
         try {
             $createdRule = $this->handler->createRule(
-                $ruleCreateStruct,
-                Value::STATUS_DRAFT
+                new RuleCreateStruct(
+                    array(
+                        'layoutId' => $ruleCreateStruct->layoutId,
+                        'priority' => $ruleCreateStruct->priority !== null ? $ruleCreateStruct->priority : 0,
+                        'enabled' => $ruleCreateStruct->enabled ? true : false,
+                        'comment' => $ruleCreateStruct->comment,
+                        'status' => Value::STATUS_DRAFT,
+                    )
+                )
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -291,7 +305,7 @@ class LayoutResolverService implements APILayoutResolverService
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
-    public function updateRule(Rule $rule, RuleUpdateStruct $ruleUpdateStruct)
+    public function updateRule(Rule $rule, APIRuleUpdateStruct $ruleUpdateStruct)
     {
         if ($rule->isPublished()) {
             throw new BadStateException('rule', 'Only draft rules can be updated.');
@@ -306,7 +320,16 @@ class LayoutResolverService implements APILayoutResolverService
         try {
             $updatedRule = $this->handler->updateRule(
                 $persistenceRule,
-                $ruleUpdateStruct
+                new RuleUpdateStruct(
+                    array(
+                        'layoutId' => $ruleUpdateStruct->layoutId !== null ?
+                            $ruleUpdateStruct->layoutId :
+                            $persistenceRule->layoutId,
+                        'comment' => $ruleUpdateStruct->comment !== null ?
+                            $ruleUpdateStruct->comment :
+                            $persistenceRule->comment,
+                    )
+                )
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -328,7 +351,7 @@ class LayoutResolverService implements APILayoutResolverService
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
-    public function updateRuleMetadata(Rule $rule, RuleMetadataUpdateStruct $ruleUpdateStruct)
+    public function updateRuleMetadata(Rule $rule, APIRuleMetadataUpdateStruct $ruleUpdateStruct)
     {
         if (!$rule->isPublished()) {
             throw new BadStateException('rule', 'Metadata can be updated only for published rules.');
@@ -343,7 +366,14 @@ class LayoutResolverService implements APILayoutResolverService
         try {
             $updatedRule = $this->handler->updateRuleMetadata(
                 $persistenceRule,
-                $ruleUpdateStruct
+                new RuleMetadataUpdateStruct(
+                    array(
+                        'enabled' => $persistenceRule->enabled,
+                        'priority' => $ruleUpdateStruct->priority !== null ?
+                            $ruleUpdateStruct->priority :
+                            $persistenceRule->priority,
+                    )
+                )
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -486,7 +516,15 @@ class LayoutResolverService implements APILayoutResolverService
             $this->handler->deleteRule($persistenceRule->id, Value::STATUS_DRAFT);
 
             if ($publishedRule->layoutId === null || $this->handler->getTargetCount($publishedRule) === 0) {
-                $this->handler->disableRule($publishedRule);
+                $publishedRule = $this->handler->updateRuleMetadata(
+                    $publishedRule,
+                    new RuleMetadataUpdateStruct(
+                        array(
+                            'enabled' => false,
+                            'priority' => $publishedRule->priority,
+                        )
+                    )
+                );
             }
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -495,9 +533,7 @@ class LayoutResolverService implements APILayoutResolverService
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->mapper->mapRule(
-            $this->handler->loadRule($rule->getId(), Value::STATUS_PUBLISHED)
-        );
+        return $this->mapper->mapRule($publishedRule);
     }
 
     /**
@@ -556,7 +592,15 @@ class LayoutResolverService implements APILayoutResolverService
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $updatedRule = $this->handler->enableRule($persistenceRule);
+            $updatedRule = $this->handler->updateRuleMetadata(
+                $persistenceRule,
+                new RuleMetadataUpdateStruct(
+                    array(
+                        'enabled' => true,
+                        'priority' => $persistenceRule->priority,
+                    )
+                )
+            );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
@@ -592,7 +636,15 @@ class LayoutResolverService implements APILayoutResolverService
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $updatedRule = $this->handler->disableRule($persistenceRule);
+            $updatedRule = $this->handler->updateRuleMetadata(
+                $persistenceRule,
+                new RuleMetadataUpdateStruct(
+                    array(
+                        'enabled' => false,
+                        'priority' => $persistenceRule->priority,
+                    )
+                )
+            );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
@@ -614,7 +666,7 @@ class LayoutResolverService implements APILayoutResolverService
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Target
      */
-    public function addTarget(Rule $rule, TargetCreateStruct $targetCreateStruct)
+    public function addTarget(Rule $rule, APITargetCreateStruct $targetCreateStruct)
     {
         if ($rule->isPublished()) {
             throw new BadStateException('rule', 'Targets can be added only to draft rules.');
@@ -641,7 +693,12 @@ class LayoutResolverService implements APILayoutResolverService
         try {
             $createdTarget = $this->handler->addTarget(
                 $persistenceRule,
-                $targetCreateStruct
+                new TargetCreateStruct(
+                    array(
+                        'type' => $targetCreateStruct->type,
+                        'value' => $targetCreateStruct->value,
+                    )
+                )
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -663,7 +720,7 @@ class LayoutResolverService implements APILayoutResolverService
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Target
      */
-    public function updateTarget(Target $target, TargetUpdateStruct $targetUpdateStruct)
+    public function updateTarget(Target $target, APITargetUpdateStruct $targetUpdateStruct)
     {
         if ($target->isPublished()) {
             throw new BadStateException('target', 'Only draft targets can be updated.');
@@ -678,7 +735,11 @@ class LayoutResolverService implements APILayoutResolverService
         try {
             $updatedTarget = $this->handler->updateTarget(
                 $persistenceTarget,
-                $targetUpdateStruct
+                new TargetUpdateStruct(
+                    array(
+                        'value' => $targetUpdateStruct->value,
+                    )
+                )
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -727,7 +788,7 @@ class LayoutResolverService implements APILayoutResolverService
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Condition
      */
-    public function addCondition(Rule $rule, ConditionCreateStruct $conditionCreateStruct)
+    public function addCondition(Rule $rule, APIConditionCreateStruct $conditionCreateStruct)
     {
         if ($rule->isPublished()) {
             throw new BadStateException('rule', 'Conditions can be added only to draft rules.');
@@ -742,7 +803,12 @@ class LayoutResolverService implements APILayoutResolverService
         try {
             $createdCondition = $this->handler->addCondition(
                 $persistenceRule,
-                $conditionCreateStruct
+                new ConditionCreateStruct(
+                    array(
+                        'type' => $conditionCreateStruct->type,
+                        'value' => $conditionCreateStruct->value,
+                    )
+                )
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -764,7 +830,7 @@ class LayoutResolverService implements APILayoutResolverService
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Condition
      */
-    public function updateCondition(Condition $condition, ConditionUpdateStruct $conditionUpdateStruct)
+    public function updateCondition(Condition $condition, APIConditionUpdateStruct $conditionUpdateStruct)
     {
         if ($condition->isPublished()) {
             throw new BadStateException('condition', 'Only draft conditions can be updated.');
@@ -779,7 +845,11 @@ class LayoutResolverService implements APILayoutResolverService
         try {
             $updatedCondition = $this->handler->updateCondition(
                 $persistenceCondition,
-                $conditionUpdateStruct
+                new ConditionUpdateStruct(
+                    array(
+                        'value' => $conditionUpdateStruct->value,
+                    )
+                )
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -825,7 +895,7 @@ class LayoutResolverService implements APILayoutResolverService
      */
     public function newRuleCreateStruct()
     {
-        return new RuleCreateStruct();
+        return new APIRuleCreateStruct();
     }
 
     /**
@@ -835,7 +905,7 @@ class LayoutResolverService implements APILayoutResolverService
      */
     public function newRuleUpdateStruct()
     {
-        return new RuleUpdateStruct();
+        return new APIRuleUpdateStruct();
     }
 
     /**
@@ -845,7 +915,7 @@ class LayoutResolverService implements APILayoutResolverService
      */
     public function newRuleMetadataUpdateStruct()
     {
-        return new RuleMetadataUpdateStruct();
+        return new APIRuleMetadataUpdateStruct();
     }
 
     /**
@@ -857,7 +927,7 @@ class LayoutResolverService implements APILayoutResolverService
      */
     public function newTargetCreateStruct($type)
     {
-        return new TargetCreateStruct(
+        return new APITargetCreateStruct(
             array(
                 'type' => $type,
             )
@@ -871,7 +941,7 @@ class LayoutResolverService implements APILayoutResolverService
      */
     public function newTargetUpdateStruct()
     {
-        return new TargetUpdateStruct();
+        return new APITargetUpdateStruct();
     }
 
     /**
@@ -883,7 +953,7 @@ class LayoutResolverService implements APILayoutResolverService
      */
     public function newConditionCreateStruct($type)
     {
-        return new ConditionCreateStruct(
+        return new APIConditionCreateStruct(
             array(
                 'type' => $type,
             )
@@ -897,6 +967,6 @@ class LayoutResolverService implements APILayoutResolverService
      */
     public function newConditionUpdateStruct()
     {
-        return new ConditionUpdateStruct();
+        return new APIConditionUpdateStruct();
     }
 }

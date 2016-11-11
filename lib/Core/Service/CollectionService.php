@@ -14,11 +14,16 @@ use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\API\Values\CollectionCreateStruct;
-use Netgen\BlockManager\API\Values\CollectionUpdateStruct;
-use Netgen\BlockManager\API\Values\ItemCreateStruct;
-use Netgen\BlockManager\API\Values\QueryCreateStruct;
-use Netgen\BlockManager\API\Values\QueryUpdateStruct;
+use Netgen\BlockManager\API\Values\CollectionCreateStruct as APICollectionCreateStruct;
+use Netgen\BlockManager\API\Values\CollectionUpdateStruct as APICollectionUpdateStruct;
+use Netgen\BlockManager\API\Values\ItemCreateStruct as APIItemCreateStruct;
+use Netgen\BlockManager\API\Values\QueryCreateStruct as APIQueryCreateStruct;
+use Netgen\BlockManager\API\Values\QueryUpdateStruct as APIQueryUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\CollectionCreateStruct;
+use Netgen\BlockManager\Persistence\Values\CollectionUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\ItemCreateStruct;
+use Netgen\BlockManager\Persistence\Values\QueryCreateStruct;
+use Netgen\BlockManager\Persistence\Values\QueryUpdateStruct;
 use Exception;
 
 class CollectionService implements APICollectionService
@@ -239,7 +244,7 @@ class CollectionService implements APICollectionService
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function createCollection(CollectionCreateStruct $collectionCreateStruct)
+    public function createCollection(APICollectionCreateStruct $collectionCreateStruct)
     {
         $this->collectionValidator->validateCollectionCreateStruct($collectionCreateStruct);
 
@@ -253,9 +258,45 @@ class CollectionService implements APICollectionService
 
         try {
             $createdCollection = $this->collectionHandler->createCollection(
-                $collectionCreateStruct,
-                Value::STATUS_DRAFT
+                new CollectionCreateStruct(
+                    array(
+                        'status' => Value::STATUS_DRAFT,
+                        'type' => $collectionCreateStruct->type,
+                        'shared' => $collectionCreateStruct->shared ? true : false,
+                        'name' => $collectionCreateStruct->name !== null ?
+                            trim($collectionCreateStruct->name) :
+                            null,
+                    )
+                )
             );
+
+            foreach ($collectionCreateStruct->itemCreateStructs as $position => $itemCreateStruct) {
+                $this->collectionHandler->addItem(
+                    $createdCollection,
+                    new ItemCreateStruct(
+                        array(
+                            'position' => $position,
+                            'valueId' => $itemCreateStruct->valueId,
+                            'valueType' => $itemCreateStruct->valueType,
+                            'type' => $itemCreateStruct->type,
+                        )
+                    )
+                );
+            }
+
+            foreach ($collectionCreateStruct->queryCreateStructs as $position => $queryCreateStruct) {
+                $this->collectionHandler->addQuery(
+                    $createdCollection,
+                    new QueryCreateStruct(
+                        array(
+                            'position' => $position,
+                            'identifier' => $queryCreateStruct->identifier,
+                            'type' => $queryCreateStruct->type,
+                            'parameters' => $queryCreateStruct->getParameterValues(),
+                        )
+                    )
+                );
+            }
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
@@ -277,7 +318,7 @@ class CollectionService implements APICollectionService
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function updateCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct)
+    public function updateCollection(Collection $collection, APICollectionUpdateStruct $collectionUpdateStruct)
     {
         if ($collection->isPublished()) {
             throw new BadStateException('collection', 'Only draft collections can be updated.');
@@ -298,7 +339,14 @@ class CollectionService implements APICollectionService
         try {
             $updatedCollection = $this->collectionHandler->updateCollection(
                 $persistenceCollection,
-                $collectionUpdateStruct
+                new CollectionUpdateStruct(
+                    array(
+                        'type' => $persistenceCollection->type,
+                        'name' => $collectionUpdateStruct->name !== null ?
+                            trim($collectionUpdateStruct->name) :
+                            $persistenceCollection->name,
+                    )
+                )
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -322,7 +370,7 @@ class CollectionService implements APICollectionService
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function changeCollectionType(Collection $collection, $newType, QueryCreateStruct $queryCreateStruct = null)
+    public function changeCollectionType(Collection $collection, $newType, APIQueryCreateStruct $queryCreateStruct = null)
     {
         if ($collection->isPublished()) {
             throw new BadStateException('collection', 'Type can be changed only for draft collections.');
@@ -341,10 +389,40 @@ class CollectionService implements APICollectionService
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $newCollection = $this->collectionHandler->changeCollectionType(
+            foreach ($this->collectionHandler->loadCollectionQueries($persistenceCollection) as $query) {
+                $this->collectionHandler->deleteQuery($query);
+            }
+
+            if ($newType === Collection::TYPE_MANUAL) {
+                foreach ($this->collectionHandler->loadCollectionItems($persistenceCollection) as $index => $item) {
+                    $this->collectionHandler->moveItem($item, $index);
+                }
+            } elseif ($newType === Collection::TYPE_DYNAMIC) {
+                $queryType = $this->queryTypeRegistry->getQueryType($queryCreateStruct->type);
+
+                $this->collectionHandler->addQuery(
+                    $persistenceCollection,
+                    new QueryCreateStruct(
+                        array(
+                            'identifier' => $queryCreateStruct->identifier,
+                            'type' => $queryCreateStruct->type,
+                            'parameters' => $this->parameterMapper->serializeValues(
+                                $queryType,
+                                $queryCreateStruct->getParameterValues()
+                            ),
+                        )
+                    )
+                );
+            }
+
+            $newCollection = $this->collectionHandler->updateCollection(
                 $persistenceCollection,
-                $newType,
-                $queryCreateStruct
+                new CollectionUpdateStruct(
+                    array(
+                        'type' => $newType,
+                        'name' => $persistenceCollection->name,
+                    )
+                )
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -541,7 +619,7 @@ class CollectionService implements APICollectionService
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Item
      */
-    public function addItem(Collection $collection, ItemCreateStruct $itemCreateStruct, $position = null)
+    public function addItem(Collection $collection, APIItemCreateStruct $itemCreateStruct, $position = null)
     {
         if ($collection->isPublished()) {
             throw new BadStateException('collection', 'Items can only be added to draft collections.');
@@ -562,8 +640,14 @@ class CollectionService implements APICollectionService
         try {
             $createdItem = $this->collectionHandler->addItem(
                 $persistenceCollection,
-                $itemCreateStruct,
-                $position
+                new ItemCreateStruct(
+                    array(
+                        'position' => $position,
+                        'valueId' => $itemCreateStruct->valueId,
+                        'valueType' => $itemCreateStruct->valueType,
+                        'type' => $itemCreateStruct->type,
+                    )
+                )
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -651,7 +735,7 @@ class CollectionService implements APICollectionService
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
-    public function addQuery(Collection $collection, QueryCreateStruct $queryCreateStruct, $position = null)
+    public function addQuery(Collection $collection, APIQueryCreateStruct $queryCreateStruct, $position = null)
     {
         if ($collection->isPublished()) {
             throw new BadStateException('query', 'Queries can be added only to draft collections.');
@@ -670,21 +754,22 @@ class CollectionService implements APICollectionService
             $queryCreateStruct->type
         );
 
-        $clonedQueryCreateStruct = clone $queryCreateStruct;
-        $clonedQueryCreateStruct->setParameterValues(
-            $this->parameterMapper->serializeValues(
-                $queryType,
-                $queryCreateStruct->getParameterValues()
-            )
-        );
-
         $this->persistenceHandler->beginTransaction();
 
         try {
             $createdQuery = $this->collectionHandler->addQuery(
                 $persistenceCollection,
-                $clonedQueryCreateStruct,
-                $position
+                new QueryCreateStruct(
+                    array(
+                        'position' => $position,
+                        'identifier' => $queryCreateStruct->identifier,
+                        'type' => $queryCreateStruct->type,
+                        'parameters' => $this->parameterMapper->serializeValues(
+                            $queryType,
+                            $queryCreateStruct->getParameterValues()
+                        ),
+                    )
+                )
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -707,7 +792,7 @@ class CollectionService implements APICollectionService
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
-    public function updateQuery(Query $query, QueryUpdateStruct $queryUpdateStruct)
+    public function updateQuery(Query $query, APIQueryUpdateStruct $queryUpdateStruct)
     {
         if ($query->isPublished()) {
             throw new BadStateException('query', 'Only draft queries can be updated.');
@@ -724,20 +809,20 @@ class CollectionService implements APICollectionService
             }
         }
 
-        $clonedQueryUpdateStruct = clone $queryUpdateStruct;
-        $clonedQueryUpdateStruct->setParameterValues(
-            $this->parameterMapper->serializeValues(
-                $query->getQueryType(),
-                $queryUpdateStruct->getParameterValues()
-            )
-        );
-
         $this->persistenceHandler->beginTransaction();
 
         try {
             $updatedQuery = $this->collectionHandler->updateQuery(
                 $persistenceQuery,
-                $clonedQueryUpdateStruct
+                new QueryUpdateStruct(
+                    array(
+                        'identifier' => $queryUpdateStruct->identifier ?: $persistenceQuery->identifier,
+                        'parameters' => $this->parameterMapper->serializeValues(
+                            $query->getQueryType(),
+                            $queryUpdateStruct->getParameterValues()
+                        ) + $persistenceQuery->parameters,
+                    )
+                )
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -822,7 +907,7 @@ class CollectionService implements APICollectionService
      */
     public function newCollectionCreateStruct($type, $name = null)
     {
-        return new CollectionCreateStruct(
+        return new APICollectionCreateStruct(
             array(
                 'type' => $type,
                 'name' => $name,
@@ -837,7 +922,7 @@ class CollectionService implements APICollectionService
      */
     public function newCollectionUpdateStruct()
     {
-        return new CollectionUpdateStruct();
+        return new APICollectionUpdateStruct();
     }
 
     /**
@@ -851,7 +936,7 @@ class CollectionService implements APICollectionService
      */
     public function newItemCreateStruct($type, $valueId, $valueType)
     {
-        return new ItemCreateStruct(
+        return new APIItemCreateStruct(
             array(
                 'type' => $type,
                 'valueId' => $valueId,
@@ -870,7 +955,7 @@ class CollectionService implements APICollectionService
      */
     public function newQueryCreateStruct(QueryTypeInterface $queryType, $identifier)
     {
-        $queryCreateStruct = new QueryCreateStruct(
+        $queryCreateStruct = new APIQueryCreateStruct(
             array(
                 'identifier' => $identifier,
                 'type' => $queryType->getType(),
@@ -894,7 +979,7 @@ class CollectionService implements APICollectionService
      */
     public function newQueryUpdateStruct(Query $query = null)
     {
-        $queryUpdateStruct = new QueryUpdateStruct();
+        $queryUpdateStruct = new APIQueryUpdateStruct();
 
         if (!$query instanceof Query) {
             return $queryUpdateStruct;

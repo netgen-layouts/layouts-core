@@ -499,12 +499,14 @@ class LayoutResolverQueryHandler extends QueryHandler
     /**
      * Adds a target to rule.
      *
+     * @param int|string $ruleId
+     * @param int $status
      * @param \Netgen\BlockManager\Persistence\Values\TargetCreateStruct $targetCreateStruct
      * @param int|string $targetId
      *
      * @return int
      */
-    public function addTarget(TargetCreateStruct $targetCreateStruct, $targetId = null)
+    public function addTarget($ruleId, $status, TargetCreateStruct $targetCreateStruct, $targetId = null)
     {
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_rule_target')
@@ -521,8 +523,8 @@ class LayoutResolverQueryHandler extends QueryHandler
                 'id',
                 $targetId !== null ? (int)$targetId : $this->connectionHelper->getAutoIncrementValue('ngbm_rule_target')
             )
-            ->setParameter('status', $targetCreateStruct->status, Type::INTEGER)
-            ->setParameter('rule_id', $targetCreateStruct->ruleId, Type::INTEGER)
+            ->setParameter('status', $status, Type::INTEGER)
+            ->setParameter('rule_id', $ruleId, Type::INTEGER)
             ->setParameter('type', $targetCreateStruct->type, Type::STRING)
             ->setParameter('value', $targetCreateStruct->value, is_array($targetCreateStruct->value) ? Type::JSON_ARRAY : Type::STRING);
 
@@ -579,12 +581,14 @@ class LayoutResolverQueryHandler extends QueryHandler
     /**
      * Adds a condition to rule.
      *
+     * @param int|string $ruleId
+     * @param int $status
      * @param \Netgen\BlockManager\Persistence\Values\ConditionCreateStruct $conditionCreateStruct
      * @param int|string $conditionId
      *
      * @return int
      */
-    public function addCondition(ConditionCreateStruct $conditionCreateStruct, $conditionId = null)
+    public function addCondition($ruleId, $status, ConditionCreateStruct $conditionCreateStruct, $conditionId = null)
     {
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_rule_condition')
@@ -601,8 +605,8 @@ class LayoutResolverQueryHandler extends QueryHandler
                 'id',
                 $conditionId !== null ? (int)$conditionId : $this->connectionHelper->getAutoIncrementValue('ngbm_rule_condition')
             )
-            ->setParameter('status', $conditionCreateStruct->status, Type::INTEGER)
-            ->setParameter('rule_id', $conditionCreateStruct->ruleId, Type::INTEGER)
+            ->setParameter('status', $status, Type::INTEGER)
+            ->setParameter('rule_id', $ruleId, Type::INTEGER)
             ->setParameter('type', $conditionCreateStruct->type, Type::STRING)
             ->setParameter('value', json_encode($conditionCreateStruct->value), Type::STRING);
 

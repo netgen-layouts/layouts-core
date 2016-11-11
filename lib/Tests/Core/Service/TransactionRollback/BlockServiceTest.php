@@ -127,7 +127,7 @@ class BlockServiceTest extends TransactionRollbackTest
         $this->blockHandlerMock
             ->expects($this->at(0))
             ->method('loadBlock')
-            ->will($this->returnValue(new PersistenceBlock()));
+            ->will($this->returnValue(new PersistenceBlock(array('parameters' => array()))));
 
         $this->blockHandlerMock
             ->expects($this->at(1))

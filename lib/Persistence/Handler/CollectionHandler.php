@@ -2,11 +2,11 @@
 
 namespace Netgen\BlockManager\Persistence\Handler;
 
-use Netgen\BlockManager\API\Values\CollectionCreateStruct;
-use Netgen\BlockManager\API\Values\CollectionUpdateStruct;
-use Netgen\BlockManager\API\Values\ItemCreateStruct;
-use Netgen\BlockManager\API\Values\QueryCreateStruct;
-use Netgen\BlockManager\API\Values\QueryUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\CollectionCreateStruct;
+use Netgen\BlockManager\Persistence\Values\CollectionUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\ItemCreateStruct;
+use Netgen\BlockManager\Persistence\Values\QueryCreateStruct;
+use Netgen\BlockManager\Persistence\Values\QueryUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
@@ -111,33 +111,21 @@ interface CollectionHandler
     /**
      * Creates a collection.
      *
-     * @param \Netgen\BlockManager\API\Values\CollectionCreateStruct $collectionCreateStruct
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\CollectionCreateStruct $collectionCreateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
-    public function createCollection(CollectionCreateStruct $collectionCreateStruct, $status);
+    public function createCollection(CollectionCreateStruct $collectionCreateStruct);
 
     /**
      * Updates a collection with specified ID.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\API\Values\CollectionUpdateStruct $collectionUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\CollectionUpdateStruct $collectionUpdateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
     public function updateCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct);
-
-    /**
-     * Changes the type of specified collection.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param int $newType
-     * @param \Netgen\BlockManager\API\Values\QueryCreateStruct $queryCreateStruct
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
-     */
-    public function changeCollectionType(Collection $collection, $newType, QueryCreateStruct $queryCreateStruct = null);
 
     /**
      * Copies a collection.
@@ -171,14 +159,13 @@ interface CollectionHandler
      * Adds an item to collection.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\API\Values\ItemCreateStruct $itemCreateStruct
-     * @param int $position
+     * @param \Netgen\BlockManager\Persistence\Values\ItemCreateStruct $itemCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range (for manual collections)
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Item
      */
-    public function addItem(Collection $collection, ItemCreateStruct $itemCreateStruct, $position = null);
+    public function addItem(Collection $collection, ItemCreateStruct $itemCreateStruct);
 
     /**
      * Moves an item to specified position in the collection.
@@ -213,20 +200,19 @@ interface CollectionHandler
      * Adds a query to collection.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\API\Values\QueryCreateStruct $queryCreateStruct
-     * @param int $position
+     * @param \Netgen\BlockManager\Persistence\Values\QueryCreateStruct $queryCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
-    public function addQuery(Collection $collection, QueryCreateStruct $queryCreateStruct, $position = null);
+    public function addQuery(Collection $collection, QueryCreateStruct $queryCreateStruct);
 
     /**
      * Updates a query with specified ID.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
-     * @param \Netgen\BlockManager\API\Values\QueryUpdateStruct $queryUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\QueryUpdateStruct $queryUpdateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */

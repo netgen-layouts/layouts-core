@@ -2,29 +2,22 @@
 
 namespace Netgen\BlockManager\Persistence\Doctrine\Handler;
 
-use Netgen\BlockManager\API\Values\ConditionCreateStruct as APIConditionCreateStruct;
 use Netgen\BlockManager\Persistence\Values\ConditionCreateStruct;
-use Netgen\BlockManager\API\Values\ConditionUpdateStruct as APIConditionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\ConditionUpdateStruct;
-use Netgen\BlockManager\API\Values\RuleCreateStruct as APIRuleCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\RuleCreateStruct;
-use Netgen\BlockManager\API\Values\RuleUpdateStruct as APIRuleUpdateStruct;
-use Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct as APIRuleMetadataUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\RuleMetadataUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\RuleUpdateStruct;
-use Netgen\BlockManager\API\Values\TargetCreateStruct as APITargetCreateStruct;
-use Netgen\BlockManager\API\Values\TargetUpdateStruct as APITargetUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\RuleMetadataUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\TargetCreateStruct;
+use Netgen\BlockManager\Persistence\Values\TargetUpdateStruct;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler;
 use Netgen\BlockManager\Persistence\Handler\LayoutResolverHandler as LayoutResolverHandlerInterface;
 use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Persistence\Values\TargetUpdateStruct;
 
 class LayoutResolverHandler implements LayoutResolverHandlerInterface
 {
@@ -230,47 +223,31 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
     /**
      * Creates a rule.
      *
-     * @param \Netgen\BlockManager\API\Values\RuleCreateStruct $ruleCreateStruct
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\RuleCreateStruct $ruleCreateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule
      */
-    public function createRule(APIRuleCreateStruct $ruleCreateStruct, $status)
+    public function createRule(RuleCreateStruct $ruleCreateStruct)
     {
-        $createdRuleId = $this->queryHandler->createRule(
-            new RuleCreateStruct(
-                array(
-                    'layoutId' => $ruleCreateStruct->layoutId,
-                    'priority' => $ruleCreateStruct->priority !== null ? $ruleCreateStruct->priority : 0,
-                    'enabled' => $ruleCreateStruct->enabled !== null ? $ruleCreateStruct->enabled : false,
-                    'comment' => $ruleCreateStruct->comment,
-                    'status' => $status,
-                )
-            )
-        );
+        $createdRuleId = $this->queryHandler->createRule($ruleCreateStruct);
 
-        return $this->loadRule($createdRuleId, $status);
+        return $this->loadRule($createdRuleId, $ruleCreateStruct->status);
     }
 
     /**
      * Updates a rule with specified ID.
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
-     * @param \Netgen\BlockManager\API\Values\RuleUpdateStruct $ruleUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\RuleUpdateStruct $ruleUpdateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule
      */
-    public function updateRule(Rule $rule, APIRuleUpdateStruct $ruleUpdateStruct)
+    public function updateRule(Rule $rule, RuleUpdateStruct $ruleUpdateStruct)
     {
         $this->queryHandler->updateRule(
             $rule->id,
             $rule->status,
-            new RuleUpdateStruct(
-                array(
-                    'layoutId' => $ruleUpdateStruct->layoutId !== null ? $ruleUpdateStruct->layoutId : $rule->layoutId,
-                    'comment' => $ruleUpdateStruct->comment !== null ? $ruleUpdateStruct->comment : $rule->comment,
-                )
-            )
+            $ruleUpdateStruct
         );
 
         return $this->loadRule($rule->id, $rule->status);
@@ -280,20 +257,15 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
      * Updates rule metadata.
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
-     * @param \Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct $ruleUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\RuleMetadataUpdateStruct $ruleUpdateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule
      */
-    public function updateRuleMetadata(Rule $rule, APIRuleMetadataUpdateStruct $ruleUpdateStruct)
+    public function updateRuleMetadata(Rule $rule, RuleMetadataUpdateStruct $ruleUpdateStruct)
     {
         $this->queryHandler->updateRuleData(
             $rule->id,
-            new RuleMetadataUpdateStruct(
-                array(
-                    'enabled' => $rule->enabled,
-                    'priority' => $ruleUpdateStruct->priority !== null ? $ruleUpdateStruct->priority : $rule->priority,
-                )
-            )
+            $ruleUpdateStruct
         );
 
         return $this->loadRule($rule->id, $rule->status);
@@ -328,10 +300,10 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
 
         foreach ($ruleTargets as $ruleTarget) {
             $this->queryHandler->addTarget(
+                $copiedRuleId,
+                $ruleTarget->status,
                 new TargetCreateStruct(
                     array(
-                        'ruleId' => $copiedRuleId,
-                        'status' => $ruleTarget->status,
                         'type' => $ruleTarget->type,
                         'value' => $ruleTarget->value,
                     )
@@ -345,10 +317,10 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
 
         foreach ($ruleConditions as $ruleCondition) {
             $this->queryHandler->addCondition(
+                $copiedRuleId,
+                $ruleCondition->status,
                 new ConditionCreateStruct(
                     array(
-                        'ruleId' => $copiedRuleId,
-                        'status' => $ruleCondition->status,
                         'type' => $ruleCondition->type,
                         'value' => $ruleCondition->value,
                     )
@@ -390,10 +362,10 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
 
         foreach ($ruleTargets as $ruleTarget) {
             $this->queryHandler->addTarget(
+                $ruleTarget->ruleId,
+                $newStatus,
                 new TargetCreateStruct(
                     array(
-                        'ruleId' => $ruleTarget->ruleId,
-                        'status' => $newStatus,
                         'type' => $ruleTarget->type,
                         'value' => $ruleTarget->value,
                     )
@@ -408,10 +380,10 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
 
         foreach ($ruleConditions as $ruleCondition) {
             $this->queryHandler->addCondition(
+                $ruleCondition->ruleId,
+                $newStatus,
                 new ConditionCreateStruct(
                     array(
-                        'ruleId' => $ruleCondition->ruleId,
-                        'status' => $newStatus,
                         'type' => $ruleCondition->type,
                         'value' => $ruleCondition->value,
                     )
@@ -437,68 +409,19 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
     }
 
     /**
-     * Enables a rule.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule
-     */
-    public function enableRule(Rule $rule)
-    {
-        $this->queryHandler->updateRuleData(
-            $rule->id,
-            new RuleMetadataUpdateStruct(
-                array(
-                    'enabled' => true,
-                    'priority' => $rule->priority,
-                )
-            )
-        );
-
-        return $this->loadRule($rule->id, $rule->status);
-    }
-
-    /**
-     * Disables a rule.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule
-     */
-    public function disableRule(Rule $rule)
-    {
-        $this->queryHandler->updateRuleData(
-            $rule->id,
-            new RuleMetadataUpdateStruct(
-                array(
-                    'enabled' => false,
-                    'priority' => $rule->priority,
-                )
-            )
-        );
-
-        return $this->loadRule($rule->id, $rule->status);
-    }
-
-    /**
      * Adds a target to rule.
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
-     * @param \Netgen\BlockManager\API\Values\TargetCreateStruct $targetCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\TargetCreateStruct $targetCreateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target
      */
-    public function addTarget(Rule $rule, APITargetCreateStruct $targetCreateStruct)
+    public function addTarget(Rule $rule, TargetCreateStruct $targetCreateStruct)
     {
         $createdTargetId = $this->queryHandler->addTarget(
-            new TargetCreateStruct(
-                array(
-                    'ruleId' => $rule->id,
-                    'status' => $rule->status,
-                    'type' => $targetCreateStruct->type,
-                    'value' => $targetCreateStruct->value,
-                )
-            )
+            $rule->id,
+            $rule->status,
+            $targetCreateStruct
         );
 
         return $this->loadTarget($createdTargetId, $rule->status);
@@ -508,20 +431,16 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
      * Updates a target with specified ID.
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target $target
-     * @param \Netgen\BlockManager\API\Values\TargetUpdateStruct $targetUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\TargetUpdateStruct $targetUpdateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target
      */
-    public function updateTarget(Target $target, APITargetUpdateStruct $targetUpdateStruct)
+    public function updateTarget(Target $target, TargetUpdateStruct $targetUpdateStruct)
     {
         $this->queryHandler->updateTarget(
             $target->id,
             $target->status,
-            new TargetUpdateStruct(
-                array(
-                    'value' => $targetUpdateStruct->value,
-                )
-            )
+            $targetUpdateStruct
         );
 
         return $this->loadTarget($target->id, $target->status);
@@ -541,21 +460,16 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
      * Adds a condition to rule.
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
-     * @param \Netgen\BlockManager\API\Values\ConditionCreateStruct $conditionCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\ConditionCreateStruct $conditionCreateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition
      */
-    public function addCondition(Rule $rule, APIConditionCreateStruct $conditionCreateStruct)
+    public function addCondition(Rule $rule, ConditionCreateStruct $conditionCreateStruct)
     {
         $createdConditionId = $this->queryHandler->addCondition(
-            new ConditionCreateStruct(
-                array(
-                    'ruleId' => $rule->id,
-                    'status' => $rule->status,
-                    'type' => $conditionCreateStruct->type,
-                    'value' => $conditionCreateStruct->value,
-                )
-            )
+            $rule->id,
+            $rule->status,
+            $conditionCreateStruct
         );
 
         return $this->loadCondition($createdConditionId, $rule->status);
@@ -565,20 +479,16 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
      * Updates a condition with specified ID.
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition $condition
-     * @param \Netgen\BlockManager\API\Values\ConditionUpdateStruct $conditionUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\ConditionUpdateStruct $conditionUpdateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition
      */
-    public function updateCondition(Condition $condition, APIConditionUpdateStruct $conditionUpdateStruct)
+    public function updateCondition(Condition $condition, ConditionUpdateStruct $conditionUpdateStruct)
     {
         $this->queryHandler->updateCondition(
             $condition->id,
             $condition->status,
-            new ConditionUpdateStruct(
-                array(
-                    'value' => $conditionUpdateStruct->value,
-                )
-            )
+            $conditionUpdateStruct
         );
 
         return $this->loadCondition($condition->id, $condition->status);
