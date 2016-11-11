@@ -489,7 +489,7 @@ class CollectionQueryHandler extends QueryHandler
             ->setParameter('position', $queryCreateStruct->position, Type::INTEGER)
             ->setParameter('identifier', $queryCreateStruct->identifier, Type::STRING)
             ->setParameter('type', $queryCreateStruct->type, Type::STRING)
-            ->setParameter('parameters', $queryCreateStruct->parameters, is_array($queryCreateStruct->parameters) ? Type::JSON_ARRAY : Type::STRING);
+            ->setParameter('parameters', $queryCreateStruct->parameters, Type::JSON_ARRAY);
 
         $query->execute();
 

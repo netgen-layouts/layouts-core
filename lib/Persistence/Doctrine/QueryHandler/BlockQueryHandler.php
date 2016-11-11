@@ -157,7 +157,7 @@ class BlockQueryHandler extends QueryHandler
             ->setParameter('view_type', $blockCreateStruct->viewType, Type::STRING)
             ->setParameter('item_view_type', $blockCreateStruct->itemViewType, Type::STRING)
             ->setParameter('name', trim($blockCreateStruct->name), Type::STRING)
-            ->setParameter('parameters', $blockCreateStruct->parameters, is_array($blockCreateStruct->parameters) ? Type::JSON_ARRAY : Type::STRING);
+            ->setParameter('parameters', $blockCreateStruct->parameters, Type::JSON_ARRAY);
 
         $query->execute();
 
