@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
 
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Values\ZoneCreateStruct;
+use Netgen\BlockManager\Persistence\Values\ZoneUpdateStruct;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\BlockManager\Persistence\Values\LayoutCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutUpdateStruct;
@@ -396,15 +397,22 @@ class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::linkZone
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::linkZone
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::updateZone
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::updateZone
      */
-    public function testLinkZone()
+    public function testUpdateZone()
     {
         $zone = $this->layoutHandler->loadZone(1, Value::STATUS_DRAFT, 'top');
         $linkedZone = $this->layoutHandler->loadZone(3, Value::STATUS_PUBLISHED, 'top');
 
-        $updatedZone = $this->layoutHandler->linkZone($zone, $linkedZone);
+        $updatedZone = $this->layoutHandler->updateZone(
+            $zone,
+            new ZoneUpdateStruct(
+                array(
+                    'linkedZone' => $linkedZone,
+                )
+            )
+        );
 
         $this->assertEquals(
             new Zone(
@@ -421,14 +429,21 @@ class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::unlinkZone
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::unlinkZone
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::updateZone
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::updateZone
      */
-    public function testUnlinkZone()
+    public function testUpdateZoneWithResettingLinkedZone()
     {
         $zone = $this->layoutHandler->loadZone(1, Value::STATUS_DRAFT, 'left');
 
-        $updatedZone = $this->layoutHandler->unlinkZone($zone);
+        $updatedZone = $this->layoutHandler->updateZone(
+            $zone,
+            new ZoneUpdateStruct(
+                array(
+                    'linkedZone' => false,
+                )
+            )
+        );
 
         $this->assertEquals(
             new Zone(
@@ -534,9 +549,13 @@ class LayoutHandlerTest extends TestCase
     public function testCopyLayout()
     {
         // Link the zone before copying, to make sure those are copied too
-        $this->layoutHandler->linkZone(
+        $this->layoutHandler->updateZone(
             $this->layoutHandler->loadZone(1, Value::STATUS_PUBLISHED, 'left'),
-            $this->layoutHandler->loadZone(3, Value::STATUS_PUBLISHED, 'left')
+            new ZoneUpdateStruct(
+                array(
+                    'linkedZone' => $this->layoutHandler->loadZone(3, Value::STATUS_PUBLISHED, 'left'),
+                )
+            )
         );
 
         $copiedLayout = $this->layoutHandler->copyLayout(
@@ -713,9 +732,13 @@ class LayoutHandlerTest extends TestCase
     public function testCreateLayoutStatus()
     {
         // Link the zone before copying, to make sure those are copied too
-        $this->layoutHandler->linkZone(
+        $this->layoutHandler->updateZone(
             $this->layoutHandler->loadZone(1, Value::STATUS_PUBLISHED, 'left'),
-            $this->layoutHandler->loadZone(3, Value::STATUS_PUBLISHED, 'left')
+            new ZoneUpdateStruct(
+                array(
+                    'linkedZone' => $this->layoutHandler->loadZone(3, Value::STATUS_PUBLISHED, 'left'),
+                )
+            )
         );
 
         $copiedLayout = $this->layoutHandler->createLayoutStatus(

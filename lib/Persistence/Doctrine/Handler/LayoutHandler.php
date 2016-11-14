@@ -12,6 +12,7 @@ use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
 use Netgen\BlockManager\Persistence\Values\ZoneCreateStruct;
+use Netgen\BlockManager\Persistence\Values\ZoneUpdateStruct;
 
 class LayoutHandler implements LayoutHandlerInterface
 {
@@ -187,49 +188,6 @@ class LayoutHandler implements LayoutHandlerInterface
     }
 
     /**
-     * Links the zone to provided linked zone. If zone had a previous link, it will be overwritten.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $zone
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $linkedZone
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Zone
-     */
-    public function linkZone(Zone $zone, Zone $linkedZone)
-    {
-        $this->queryHandler->linkZone(
-            $zone->layoutId,
-            $zone->identifier,
-            $zone->status,
-            $linkedZone->layoutId,
-            $linkedZone->identifier
-        );
-
-        return $this->loadZone(
-            $zone->layoutId,
-            $zone->status,
-            $zone->identifier
-        );
-    }
-
-    /**
-     * Removes the link in the zone.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $zone
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Zone
-     */
-    public function unlinkZone(Zone $zone)
-    {
-        $this->queryHandler->unlinkZone($zone->layoutId, $zone->identifier, $zone->status);
-
-        return $this->loadZone(
-            $zone->layoutId,
-            $zone->status,
-            $zone->identifier
-        );
-    }
-
-    /**
      * Creates a layout.
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutCreateStruct $layoutCreateStruct
@@ -271,6 +229,26 @@ class LayoutHandler implements LayoutHandlerInterface
         );
 
         return $this->loadLayout($layout->id, $layout->status);
+    }
+
+    /**
+     * Updates a specified zone.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $zone
+     * @param \Netgen\BlockManager\Persistence\Values\ZoneUpdateStruct $zoneUpdateStruct
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Zone
+     */
+    public function updateZone(Zone $zone, ZoneUpdateStruct $zoneUpdateStruct)
+    {
+        $this->queryHandler->updateZone(
+            $zone->layoutId,
+            $zone->status,
+            $zone->identifier,
+            $zoneUpdateStruct
+        );
+
+        return $this->loadZone($zone->layoutId, $zone->status, $zone->identifier);
     }
 
     /**

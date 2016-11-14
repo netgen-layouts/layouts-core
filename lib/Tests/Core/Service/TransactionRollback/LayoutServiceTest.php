@@ -101,7 +101,7 @@ class LayoutServiceTest extends TransactionRollbackTest
 
         $this->layoutHandlerMock
             ->expects($this->at(4))
-            ->method('linkZone')
+            ->method('updateZone')
             ->will($this->throwException(new Exception()));
 
         $this->persistenceHandler
@@ -127,7 +127,7 @@ class LayoutServiceTest extends TransactionRollbackTest
 
         $this->layoutHandlerMock
             ->expects($this->at(1))
-            ->method('unlinkZone')
+            ->method('updateZone')
             ->will($this->throwException(new Exception()));
 
         $this->persistenceHandler

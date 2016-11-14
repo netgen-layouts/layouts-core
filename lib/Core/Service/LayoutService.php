@@ -17,6 +17,7 @@ use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Exception\BadStateException;
 use Exception;
 use Netgen\BlockManager\Persistence\Values\ZoneCreateStruct;
+use Netgen\BlockManager\Persistence\Values\ZoneUpdateStruct;
 
 class LayoutService implements LayoutServiceInterface
 {
@@ -283,9 +284,13 @@ class LayoutService implements LayoutServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $updatedZone = $this->layoutHandler->linkZone(
+            $updatedZone = $this->layoutHandler->updateZone(
                 $persistenceZone,
-                $persistenceLinkedZone
+                new ZoneUpdateStruct(
+                    array(
+                        'linkedZone' => $persistenceLinkedZone,
+                    )
+                )
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -317,7 +322,14 @@ class LayoutService implements LayoutServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $updatedZone = $this->layoutHandler->unlinkZone($persistenceZone);
+            $updatedZone = $this->layoutHandler->updateZone(
+                $persistenceZone,
+                new ZoneUpdateStruct(
+                    array(
+                        'linkedZone' => false,
+                    )
+                )
+            );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;

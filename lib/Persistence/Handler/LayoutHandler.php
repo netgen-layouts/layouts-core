@@ -6,6 +6,7 @@ use Netgen\BlockManager\Persistence\Values\LayoutCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
+use Netgen\BlockManager\Persistence\Values\ZoneUpdateStruct;
 
 interface LayoutHandler
 {
@@ -100,25 +101,6 @@ interface LayoutHandler
     public function layoutNameExists($name, $excludedLayoutId = null, $status = null);
 
     /**
-     * Links the zone to provided linked zone. If zone had a previous link, it will be overwritten.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $zone
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $linkedZone
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Zone
-     */
-    public function linkZone(Zone $zone, Zone $linkedZone);
-
-    /**
-     * Removes the link in the zone.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $zone
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Zone
-     */
-    public function unlinkZone(Zone $zone);
-
-    /**
      * Creates a layout.
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutCreateStruct $layoutCreateStruct
@@ -136,6 +118,16 @@ interface LayoutHandler
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
     public function updateLayout(Layout $layout, LayoutUpdateStruct $layoutUpdateStruct);
+
+    /**
+     * Updates a specified zone.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $zone
+     * @param \Netgen\BlockManager\Persistence\Values\ZoneUpdateStruct $zoneUpdateStruct
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Zone
+     */
+    public function updateZone(Zone $zone, ZoneUpdateStruct $zoneUpdateStruct);
 
     /**
      * Copies the layout.

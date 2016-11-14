@@ -6,6 +6,7 @@ use Netgen\BlockManager\Persistence\Values\LayoutCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Value;
 use Doctrine\DBAL\Types\Type;
+use Netgen\BlockManager\Persistence\Values\ZoneUpdateStruct;
 
 class LayoutQueryHandler extends QueryHandler
 {
@@ -234,68 +235,6 @@ class LayoutQueryHandler extends QueryHandler
     }
 
     /**
-     * Links the zone to provided linked zone. If zone had a previous link, it will be overwritten.
-     *
-     * @param int|string $layoutId
-     * @param string $zoneIdentifier
-     * @param int $status
-     * @param int|string $linkedLayoutId
-     * @param string $linkedZoneIdentifier
-     */
-    public function linkZone($layoutId, $zoneIdentifier, $status, $linkedLayoutId, $linkedZoneIdentifier)
-    {
-        $query = $this->connection->createQueryBuilder();
-        $query
-            ->update('ngbm_zone')
-            ->set('linked_layout_id', ':linked_layout_id')
-            ->set('linked_zone_identifier', ':linked_zone_identifier')
-            ->where(
-                $query->expr()->andX(
-                    $query->expr()->eq('identifier', ':identifier'),
-                    $query->expr()->eq('layout_id', ':layout_id')
-                )
-            )
-            ->setParameter('identifier', $zoneIdentifier, Type::STRING)
-            ->setParameter('layout_id', $layoutId, Type::INTEGER)
-            ->setParameter('linked_layout_id', $linkedLayoutId, Type::INTEGER)
-            ->setParameter('linked_zone_identifier', $linkedZoneIdentifier, Type::STRING);
-
-        $this->applyStatusCondition($query, $status);
-
-        $query->execute();
-    }
-
-    /**
-     * Removes the link in the zone.
-     *
-     * @param int|string $layoutId
-     * @param string $zoneIdentifier
-     * @param int $status
-     */
-    public function unlinkZone($layoutId, $zoneIdentifier, $status)
-    {
-        $query = $this->connection->createQueryBuilder();
-        $query
-            ->update('ngbm_zone')
-            ->set('linked_layout_id', ':linked_layout_id')
-            ->set('linked_zone_identifier', ':linked_zone_identifier')
-            ->where(
-                $query->expr()->andX(
-                    $query->expr()->eq('identifier', ':identifier'),
-                    $query->expr()->eq('layout_id', ':layout_id')
-                )
-            )
-            ->setParameter('identifier', $zoneIdentifier, Type::STRING)
-            ->setParameter('layout_id', $layoutId, Type::INTEGER)
-            ->setParameter('linked_layout_id', null, Type::INTEGER)
-            ->setParameter('linked_zone_identifier', null, Type::STRING);
-
-        $this->applyStatusCondition($query, $status);
-
-        $query->execute();
-    }
-
-    /**
      * Creates a layout.
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutCreateStruct $layoutCreateStruct
@@ -386,6 +325,47 @@ class LayoutQueryHandler extends QueryHandler
         $this->applyStatusCondition($query, $status);
 
         $query->execute();
+    }
+
+    /**
+     * Updates a zone.
+     *
+     * @param int|string $layoutId
+     * @param int $status
+     * @param string $identifier
+     * @param \Netgen\BlockManager\Persistence\Values\ZoneUpdateStruct $zoneUpdateStruct
+     */
+    public function updateZone($layoutId, $status, $identifier, ZoneUpdateStruct $zoneUpdateStruct)
+    {
+        if ($zoneUpdateStruct->linkedZone !== null) {
+            $linkedLayoutId = null;
+            $linkedZoneIdentifier = null;
+
+            if ($zoneUpdateStruct->linkedZone) {
+                $linkedLayoutId = $zoneUpdateStruct->linkedZone->layoutId;
+                $linkedZoneIdentifier = $zoneUpdateStruct->linkedZone->identifier;
+            }
+
+            $query = $this->connection->createQueryBuilder();
+            $query
+                ->update('ngbm_zone')
+                ->set('linked_layout_id', ':linked_layout_id')
+                ->set('linked_zone_identifier', ':linked_zone_identifier')
+                ->where(
+                    $query->expr()->andX(
+                        $query->expr()->eq('layout_id', ':layout_id'),
+                        $query->expr()->eq('identifier', ':identifier')
+                    )
+                )
+                ->setParameter('layout_id', $layoutId, Type::INTEGER)
+                ->setParameter('identifier', $identifier, Type::STRING)
+                ->setParameter('linked_layout_id', $linkedLayoutId, Type::INTEGER)
+                ->setParameter('linked_zone_identifier', $linkedZoneIdentifier, Type::STRING);
+
+            $this->applyStatusCondition($query, $status);
+
+            $query->execute();
+        }
     }
 
     /**
