@@ -256,6 +256,10 @@ class LayoutHandler implements LayoutHandlerInterface
      */
     public function updateLayout(Layout $layout, LayoutUpdateStruct $layoutUpdateStruct)
     {
+        $layoutUpdateStruct->modified = $layoutUpdateStruct->modified !== null ?
+            $layoutUpdateStruct->modified :
+            $layout->modified;
+
         $layoutUpdateStruct->name = $layoutUpdateStruct->name !== null ?
             trim($layoutUpdateStruct->name) :
             $layout->name;
@@ -265,21 +269,6 @@ class LayoutHandler implements LayoutHandlerInterface
             $layout->status,
             $layoutUpdateStruct
         );
-
-        return $this->loadLayout($layout->id, $layout->status);
-    }
-
-    /**
-     * Updates layout modified timestamp.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
-     * @param int $timestamp
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
-     */
-    public function updateModified(Layout $layout, $timestamp)
-    {
-        $this->queryHandler->updateModified($layout->id, $layout->status, $timestamp);
 
         return $this->loadLayout($layout->id, $layout->status);
     }

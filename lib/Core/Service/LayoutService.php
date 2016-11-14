@@ -414,7 +414,7 @@ class LayoutService implements LayoutServiceInterface
                 $persistenceLayout,
                 new LayoutUpdateStruct(
                     array(
-                        'name' => $layoutUpdateStruct->name
+                        'name' => $layoutUpdateStruct->name,
                     )
                 )
             );
@@ -490,7 +490,15 @@ class LayoutService implements LayoutServiceInterface
         try {
             $this->layoutHandler->deleteLayout($persistenceLayout->id, Value::STATUS_DRAFT);
             $layoutDraft = $this->layoutHandler->createLayoutStatus($persistenceLayout, Value::STATUS_DRAFT);
-            $layoutDraft = $this->layoutHandler->updateModified($layoutDraft, time());
+
+            $layoutDraft = $this->layoutHandler->updateLayout(
+                $layoutDraft,
+                new LayoutUpdateStruct(
+                    array(
+                        'modified' => time(),
+                    )
+                )
+            );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;

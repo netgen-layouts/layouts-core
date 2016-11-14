@@ -138,16 +138,6 @@ interface LayoutHandler
     public function updateLayout(Layout $layout, LayoutUpdateStruct $layoutUpdateStruct);
 
     /**
-     * Updates layout modified timestamp.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
-     * @param int $timestamp
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
-     */
-    public function updateModified(Layout $layout, $timestamp);
-
-    /**
      * Copies the layout.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout

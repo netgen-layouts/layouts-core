@@ -509,6 +509,7 @@ class LayoutHandlerTest extends TestCase
     {
         $layoutUpdateStruct = new LayoutUpdateStruct();
         $layoutUpdateStruct->name = 'New name';
+        $layoutUpdateStruct->modified = 123;
 
         $originalLayout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
         $updatedLayout = $this->layoutHandler->updateLayout(
@@ -518,25 +519,7 @@ class LayoutHandlerTest extends TestCase
 
         $this->assertInstanceOf(Layout::class, $updatedLayout);
         $this->assertEquals('New name', $updatedLayout->name);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::updateModified
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::updateModified
-     */
-    public function testUpdateModified()
-    {
-        $time = time();
-
-        $originalLayout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
-        $updatedLayout = $this->layoutHandler->updateModified(
-            $originalLayout,
-            $time
-        );
-
-        $this->assertInstanceOf(Layout::class, $updatedLayout);
-        $this->assertEquals($originalLayout->created, $updatedLayout->created);
-        $this->assertEquals($time, $updatedLayout->modified);
+        $this->assertEquals(123, $updatedLayout->modified);
     }
 
     /**

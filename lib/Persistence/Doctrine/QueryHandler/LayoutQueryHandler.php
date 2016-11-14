@@ -375,35 +375,13 @@ class LayoutQueryHandler extends QueryHandler
         $query
             ->update('ngbm_layout')
             ->set('name', ':name')
-            ->where(
-                $query->expr()->eq('id', ':id')
-            )
-            ->setParameter('id', $layoutId, Type::INTEGER)
-            ->setParameter('name', $layoutUpdateStruct->name, Type::STRING);
-
-        $this->applyStatusCondition($query, $status);
-
-        $query->execute();
-    }
-
-    /**
-     * Updates a layout.
-     *
-     * @param int|string $layoutId
-     * @param int $status
-     * @param int $timestamp
-     */
-    public function updateModified($layoutId, $status, $timestamp)
-    {
-        $query = $this->connection->createQueryBuilder();
-        $query
-            ->update('ngbm_layout')
             ->set('modified', ':modified')
             ->where(
                 $query->expr()->eq('id', ':id')
             )
             ->setParameter('id', $layoutId, Type::INTEGER)
-            ->setParameter('modified', $timestamp, Type::INTEGER);
+            ->setParameter('name', $layoutUpdateStruct->name, Type::STRING)
+            ->setParameter('modified', $layoutUpdateStruct->modified, Type::INTEGER);
 
         $this->applyStatusCondition($query, $status);
 
