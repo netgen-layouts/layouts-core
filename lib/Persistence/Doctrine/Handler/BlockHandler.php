@@ -10,7 +10,6 @@ use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler;
 use Netgen\BlockManager\Persistence\Handler\BlockHandler as BlockHandlerInterface;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandler as CollectionHandlerInterface;
 use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\CollectionReferenceCreateStruct;
 use Netgen\BlockManager\Persistence\Values\CollectionReferenceUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\Block;

@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Persistence\Handler;
 
 use Netgen\BlockManager\Persistence\Values\BlockCreateStruct;
 use Netgen\BlockManager\Persistence\Values\BlockUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\CollectionReferenceCreateStruct;
 use Netgen\BlockManager\Persistence\Values\CollectionReferenceUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
