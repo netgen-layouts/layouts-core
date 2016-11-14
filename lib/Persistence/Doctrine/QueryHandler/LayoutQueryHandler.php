@@ -6,6 +6,7 @@ use Netgen\BlockManager\Persistence\Values\LayoutCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Value;
 use Doctrine\DBAL\Types\Type;
+use Netgen\BlockManager\Persistence\Values\ZoneCreateStruct;
 use Netgen\BlockManager\Persistence\Values\ZoneUpdateStruct;
 
 class LayoutQueryHandler extends QueryHandler
@@ -278,27 +279,43 @@ class LayoutQueryHandler extends QueryHandler
         }
 
         foreach ($layoutCreateStruct->zoneCreateStructs as $zoneCreateStruct) {
-            $query = $this->connection->createQueryBuilder()
-                ->insert('ngbm_zone')
-                ->values(
-                    array(
-                        'identifier' => ':identifier',
-                        'layout_id' => ':layout_id',
-                        'status' => ':status',
-                        'linked_layout_id' => ':linked_layout_id',
-                        'linked_zone_identifier' => ':linked_zone_identifier',
-                    )
-                )
-                ->setParameter('identifier', $zoneCreateStruct->identifier, Type::STRING)
-                ->setParameter('layout_id', $createdLayoutId, Type::INTEGER)
-                ->setParameter('status', $layoutCreateStruct->status, Type::INTEGER)
-                ->setParameter('linked_layout_id', $zoneCreateStruct->linkedLayoutId, Type::INTEGER)
-                ->setParameter('linked_zone_identifier', $zoneCreateStruct->linkedZoneIdentifier, Type::STRING);
-
-            $query->execute();
+            $this->createZone(
+                $createdLayoutId,
+                $layoutCreateStruct->status,
+                $zoneCreateStruct
+            );
         }
 
         return $createdLayoutId;
+    }
+
+    /**
+     * Creates a zone in specified layout.
+     *
+     * @param int|string $layoutId
+     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\ZoneCreateStruct $zoneCreateStruct
+     */
+    public function createZone($layoutId, $status, ZoneCreateStruct $zoneCreateStruct)
+    {
+        $query = $this->connection->createQueryBuilder()
+            ->insert('ngbm_zone')
+            ->values(
+                array(
+                    'identifier' => ':identifier',
+                    'layout_id' => ':layout_id',
+                    'status' => ':status',
+                    'linked_layout_id' => ':linked_layout_id',
+                    'linked_zone_identifier' => ':linked_zone_identifier',
+                )
+            )
+            ->setParameter('identifier', $zoneCreateStruct->identifier, Type::STRING)
+            ->setParameter('layout_id', $layoutId, Type::INTEGER)
+            ->setParameter('status', $status, Type::INTEGER)
+            ->setParameter('linked_layout_id', $zoneCreateStruct->linkedLayoutId, Type::INTEGER)
+            ->setParameter('linked_zone_identifier', $zoneCreateStruct->linkedZoneIdentifier, Type::STRING);
+
+        $query->execute();
     }
 
     /**

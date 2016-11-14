@@ -205,6 +205,25 @@ class LayoutHandler implements LayoutHandlerInterface
     }
 
     /**
+     * Creates a zone in provided layout.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\Persistence\Values\ZoneCreateStruct $zoneCreateStruct
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Zone
+     */
+    public function createZone(Layout $layout, ZoneCreateStruct $zoneCreateStruct)
+    {
+        $this->queryHandler->createZone(
+            $layout->id,
+            $layout->status,
+            $zoneCreateStruct
+        );
+
+        return $this->loadZone($layout->id, $layout->status, $zoneCreateStruct->identifier);
+    }
+
+    /**
      * Updates a layout with specified ID.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout

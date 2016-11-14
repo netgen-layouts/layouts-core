@@ -6,6 +6,7 @@ use Netgen\BlockManager\Persistence\Values\LayoutCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
+use Netgen\BlockManager\Persistence\Values\ZoneCreateStruct;
 use Netgen\BlockManager\Persistence\Values\ZoneUpdateStruct;
 
 interface LayoutHandler
@@ -108,6 +109,16 @@ interface LayoutHandler
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
     public function createLayout(LayoutCreateStruct $layoutCreateStruct);
+
+    /**
+     * Creates a zone in provided layout.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\Persistence\Values\ZoneCreateStruct $zoneCreateStruct
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Zone
+     */
+    public function createZone(Layout $layout, ZoneCreateStruct $zoneCreateStruct);
 
     /**
      * Updates a layout with specified ID.

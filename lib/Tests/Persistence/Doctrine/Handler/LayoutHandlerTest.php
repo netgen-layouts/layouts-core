@@ -517,6 +517,31 @@ class LayoutHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::createZone
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createZone
+     */
+    public function testCreateZone()
+    {
+        $zoneCreateStruct = new ZoneCreateStruct();
+        $zoneCreateStruct->identifier = 'new_zone';
+        $zoneCreateStruct->linkedLayoutId = 3;
+        $zoneCreateStruct->linkedZoneIdentifier = 'linked_zone';
+
+        $createdZone = $this->layoutHandler->createZone(
+            $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
+            $zoneCreateStruct
+        );
+
+        $this->assertInstanceOf(Zone::class, $createdZone);
+
+        $this->assertEquals(1, $createdZone->layoutId);
+        $this->assertEquals(Value::STATUS_DRAFT, $createdZone->status);
+        $this->assertEquals('new_zone', $createdZone->identifier);
+        $this->assertEquals(3, $createdZone->linkedLayoutId);
+        $this->assertEquals('linked_zone', $createdZone->linkedZoneIdentifier);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::updateLayout
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::updateLayout
      */
