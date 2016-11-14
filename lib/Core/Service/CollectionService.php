@@ -745,7 +745,7 @@ class CollectionService implements APICollectionService
         $this->collectionValidator->validatePosition($position, 'position');
         $this->collectionValidator->validateQueryCreateStruct($queryCreateStruct);
 
-        if ($this->collectionHandler->queryIdentifierExists($persistenceCollection, $queryCreateStruct->identifier)) {
+        if ($this->collectionHandler->queryExists($persistenceCollection, $queryCreateStruct->identifier)) {
             throw new BadStateException('identifier', 'Query with specified identifier already exists.');
         }
 
@@ -803,7 +803,7 @@ class CollectionService implements APICollectionService
         $this->collectionValidator->validateQueryUpdateStruct($query, $queryUpdateStruct);
 
         if ($queryUpdateStruct->identifier !== null && $queryUpdateStruct->identifier !== $persistenceQuery->identifier) {
-            if ($this->collectionHandler->queryIdentifierExists($persistenceCollection, $queryUpdateStruct->identifier)) {
+            if ($this->collectionHandler->queryExists($persistenceCollection, $queryUpdateStruct->identifier)) {
                 throw new BadStateException('identifier', 'Query with specified identifier already exists.');
             }
         }

@@ -434,7 +434,7 @@ class CollectionQueryHandler extends QueryHandler
      *
      * @return bool
      */
-    public function queryIdentifierExists($collectionId, $status, $identifier)
+    public function queryExists($collectionId, $status, $identifier)
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')

@@ -375,7 +375,7 @@ class CollectionServiceTest extends TransactionRollbackTest
 
         $this->collectionHandlerMock
             ->expects($this->at(1))
-            ->method('queryIdentifierExists')
+            ->method('queryExists')
             ->will($this->returnValue(false));
 
         $this->collectionHandlerMock

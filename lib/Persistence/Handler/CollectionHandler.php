@@ -194,7 +194,7 @@ interface CollectionHandler
      *
      * @return bool
      */
-    public function queryIdentifierExists(Collection $collection, $identifier);
+    public function queryExists(Collection $collection, $identifier);
 
     /**
      * Adds a query to collection.

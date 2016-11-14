@@ -789,13 +789,13 @@ class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::queryIdentifierExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::queryIdentifierExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::queryExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::queryExists
      */
-    public function testQueryIdentifierExists()
+    public function testQueryExists()
     {
         $this->assertTrue(
-            $this->collectionHandler->queryIdentifierExists(
+            $this->collectionHandler->queryExists(
                 $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED),
                 'default'
             )
@@ -803,13 +803,13 @@ class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::queryIdentifierExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::queryIdentifierExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::queryExists
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::queryExists
      */
-    public function testQueryIdentifierNotExists()
+    public function testQueryNotExists()
     {
         $this->assertFalse(
-            $this->collectionHandler->queryIdentifierExists(
+            $this->collectionHandler->queryExists(
                 $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED),
                 'featured'
             )

@@ -480,9 +480,9 @@ class CollectionHandler implements CollectionHandlerInterface
      *
      * @return bool
      */
-    public function queryIdentifierExists(Collection $collection, $identifier)
+    public function queryExists(Collection $collection, $identifier)
     {
-        return $this->queryHandler->queryIdentifierExists($collection->id, $collection->status, $identifier);
+        return $this->queryHandler->queryExists($collection->id, $collection->status, $identifier);
     }
 
     /**
