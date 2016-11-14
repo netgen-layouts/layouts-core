@@ -22,17 +22,17 @@ abstract class Validator
         $this->validate(
             $offset,
             array(
-                new Constraints\Type(array('type', 'numeric')),
+                new Constraints\Type(array('type' => 'numeric')),
                 new Constraints\GreaterThanOrEqual(array('value' => 0)),
                 new Constraints\NotBlank(),
             )
         );
 
-        if ($limit !== null) {
+        if (!empty($limit)) {
             $this->validate(
                 $limit,
                 array(
-                    new Constraints\Type(array('type', 'numeric')),
+                    new Constraints\Type(array('type' => 'numeric')),
                     new Constraints\GreaterThan(array('value' => 0)),
                     new Constraints\NotBlank(),
                 )

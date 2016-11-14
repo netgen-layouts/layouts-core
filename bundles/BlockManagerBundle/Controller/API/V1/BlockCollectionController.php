@@ -119,7 +119,7 @@ class BlockCollectionController extends Controller
 
         $this->validator->validateOffsetAndLimit($offset, $limit);
 
-        if ($limit === null || $limit > $this->maxLimit) {
+        if (empty($limit) || $limit > $this->maxLimit) {
             $limit = $this->maxLimit;
         }
 
