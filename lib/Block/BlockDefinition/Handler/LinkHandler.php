@@ -11,7 +11,7 @@ class LinkHandler extends BlockDefinitionHandler
     /**
      * @var array
      */
-    protected $options = array();
+    protected $linkStyles = array();
 
     /**
      * @var array
@@ -21,12 +21,12 @@ class LinkHandler extends BlockDefinitionHandler
     /**
      * Constructor.
      *
-     * @param array $options
+     * @param array $linkStyles
      * @param array $linkValueTypes
      */
-    public function __construct(array $options = array(), array $linkValueTypes = array())
+    public function __construct(array $linkStyles = array(), array $linkValueTypes = array())
     {
-        $this->options = array_flip($options);
+        $this->linkStyles = array_flip($linkStyles);
         $this->linkValueTypes = $linkValueTypes;
     }
 
@@ -51,7 +51,7 @@ class LinkHandler extends BlockDefinitionHandler
             ParameterType\ChoiceType::class,
             array(
                 'required' => true,
-                'options' => $this->options,
+                'options' => $this->linkStyles,
             )
         );
 

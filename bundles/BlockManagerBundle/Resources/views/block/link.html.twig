@@ -4,12 +4,21 @@
 {% set link_text = block.parameter('link_text') %}
 {% set link = block.parameter('link') %}
 
+{% set link_class = '' %}
+{% if link_style == 'link' %}
+    {% set link_class = 'link' %}
+{% elseif link_style == 'default_button' %}
+    {% set link_class = 'btn btn-default' %}
+{% elseif link_style == 'highlighted_button' %}
+    {% set link_class = 'btn btn-primary' %}
+{% endif %}
+
 {% block content %}
     {% if not link.empty and not link_text.empty %}
         {{ ngbm_render_parameter(
             link, {
                 attr: {
-                    class: link_style
+                    class: link_class
                 },
                 content: link_text.value
             }
