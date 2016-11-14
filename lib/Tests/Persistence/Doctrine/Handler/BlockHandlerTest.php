@@ -6,6 +6,8 @@ use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Values\BlockCreateStruct;
 use Netgen\BlockManager\Persistence\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
+use Netgen\BlockManager\Persistence\Values\CollectionReferenceCreateStruct;
+use Netgen\BlockManager\Persistence\Values\CollectionReferenceUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\BlockManager\Persistence\Values\Value;
@@ -424,14 +426,22 @@ class BlockHandlerTest extends TestCase
                     'collectionId' => 2,
                     'collectionStatus' => Value::STATUS_PUBLISHED,
                     'identifier' => 'default',
-                    'offset' => 0,
-                    'limit' => null,
+                    'offset' => 3,
+                    'limit' => 6,
                 )
             ),
             $this->blockHandler->updateCollectionReference(
-                $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT),
-                'default',
-                new Collection(array('id' => 2, 'status' => Value::STATUS_PUBLISHED))
+                $this->blockHandler->loadCollectionReference(
+                    $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT),
+                    'default'
+                ),
+                new CollectionReferenceUpdateStruct(
+                    array(
+                        'collection' => new Collection(array('id' => 2, 'status' => Value::STATUS_PUBLISHED)),
+                        'offset' => 3,
+                        'limit' => 6,
+                    )
+                )
             )
         );
     }
@@ -805,7 +815,17 @@ class BlockHandlerTest extends TestCase
         $block = $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT);
         $collection = $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED);
 
-        $this->blockHandler->createCollectionReference($block, $collection, 'new');
+        $this->blockHandler->createCollectionReference(
+            $block,
+            new CollectionReferenceCreateStruct(
+                array(
+                    'identifier' => 'new',
+                    'collection' => $collection,
+                    'offset' => 5,
+                    'limit' => 10,
+                )
+            )
+        );
 
         $this->assertEquals(
             new CollectionReference(
@@ -815,8 +835,8 @@ class BlockHandlerTest extends TestCase
                     'collectionId' => $collection->id,
                     'collectionStatus' => $collection->status,
                     'identifier' => 'new',
-                    'offset' => 0,
-                    'limit' => null,
+                    'offset' => 5,
+                    'limit' => 10,
                 )
             ),
             $this->blockHandler->loadCollectionReference($block, 'new')

@@ -11,7 +11,10 @@ use Netgen\BlockManager\Persistence\Handler\BlockHandler as BlockHandlerInterfac
 use Netgen\BlockManager\Persistence\Handler\CollectionHandler as CollectionHandlerInterface;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
+use Netgen\BlockManager\Persistence\Values\CollectionReferenceCreateStruct;
+use Netgen\BlockManager\Persistence\Values\CollectionReferenceUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
+use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
 
@@ -175,21 +178,14 @@ class BlockHandler implements BlockHandlerInterface
      * Creates the collection reference.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param string $identifier
-     * @param int $offset
-     * @param int $limit
+     * @param \Netgen\BlockManager\Persistence\Values\CollectionReferenceCreateStruct $createStruct
      */
-    public function createCollectionReference(Block $block, Collection $collection, $identifier, $offset = 0, $limit = null)
+    public function createCollectionReference(Block $block, CollectionReferenceCreateStruct $createStruct)
     {
         $this->queryHandler->createCollectionReference(
             $block->id,
             $block->status,
-            $collection->id,
-            $collection->status,
-            $identifier,
-            $offset,
-            $limit
+            $createStruct
         );
     }
 
@@ -226,23 +222,35 @@ class BlockHandler implements BlockHandlerInterface
     /**
      * Updates a collection reference with specified identifier.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param string $identifier
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
+     * @param \Netgen\BlockManager\Persistence\Values\Page\CollectionReference $collectionReference
+     * @param \Netgen\BlockManager\Persistence\Values\CollectionReferenceUpdateStruct $updateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\CollectionReference
      */
-    public function updateCollectionReference(Block $block, $identifier, Collection $collection)
+    public function updateCollectionReference(CollectionReference $collectionReference, CollectionReferenceUpdateStruct $updateStruct)
     {
+        $updateStruct->offset = $updateStruct->offset !== null ?
+            $updateStruct->offset :
+            $collectionReference->offset;
+
+        $updateStruct->limit = $updateStruct->limit !== null ?
+            $updateStruct->limit :
+            $collectionReference->limit;
+
         $this->queryHandler->updateCollectionReference(
-            $block->id,
-            $block->status,
-            $identifier,
-            $collection->id,
-            $collection->status
+            $collectionReference->blockId,
+            $collectionReference->blockStatus,
+            $collectionReference->identifier,
+            $updateStruct
         );
 
-        return $this->loadCollectionReference($block, $identifier);
+        return $this->loadCollectionReference(
+            $this->loadBlock(
+                $collectionReference->blockId,
+                $collectionReference->blockStatus
+            ),
+            $collectionReference->identifier
+        );
     }
 
     /**
@@ -310,11 +318,14 @@ class BlockHandler implements BlockHandlerInterface
             $this->queryHandler->createCollectionReference(
                 $targetBlock->id,
                 $targetBlock->status,
-                $collection->id,
-                $collection->status,
-                $collectionReference->identifier,
-                $collectionReference->offset,
-                $collectionReference->limit
+                new CollectionReferenceCreateStruct(
+                    array(
+                        'collection' => $collection,
+                        'identifier' => $collectionReference->identifier,
+                        'offset' => $collectionReference->offset,
+                        'limit' => $collectionReference->limit,
+                    )
+                )
             );
         }
     }
@@ -436,11 +447,14 @@ class BlockHandler implements BlockHandlerInterface
             $this->queryHandler->createCollectionReference(
                 $block->id,
                 $newStatus,
-                $collection->id,
-                $collection->status,
-                $collectionReference->identifier,
-                $collectionReference->offset,
-                $collectionReference->limit
+                new CollectionReferenceCreateStruct(
+                    array(
+                        'collection' => $collection,
+                        'identifier' => $collectionReference->identifier,
+                        'offset' => $collectionReference->offset,
+                        'limit' => $collectionReference->limit,
+                    )
+                )
             );
         }
     }

@@ -23,6 +23,8 @@ use Netgen\BlockManager\Persistence\Values\BlockCreateStruct;
 use Netgen\BlockManager\Persistence\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\CollectionCreateStruct;
 use Exception;
+use Netgen\BlockManager\Persistence\Values\CollectionReferenceCreateStruct;
+use Netgen\BlockManager\Persistence\Values\CollectionReferenceUpdateStruct;
 
 class BlockService implements BlockServiceInterface
 {
@@ -279,8 +281,14 @@ class BlockService implements BlockServiceInterface
 
                 $this->blockHandler->createCollectionReference(
                     $createdBlock,
-                    $createdCollection,
-                    'default'
+                    new CollectionReferenceCreateStruct(
+                        array(
+                            'identifier' => 'default',
+                            'collection' => $createdCollection,
+                            'offset' => 0,
+                            'limit' => null,
+                        )
+                    )
                 );
             }
         } catch (Exception $e) {
@@ -367,9 +375,12 @@ class BlockService implements BlockServiceInterface
 
         try {
             $updatedReference = $this->blockHandler->updateCollectionReference(
-                $persistenceBlock,
-                $persistenceCollectionReference->identifier,
-                $persistenceCollection
+                $persistenceCollectionReference,
+                new CollectionReferenceUpdateStruct(
+                    array(
+                        'collection' => $persistenceCollection,
+                    )
+                )
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();

@@ -6,6 +6,8 @@ use Netgen\BlockManager\Persistence\Values\BlockCreateStruct;
 use Netgen\BlockManager\Persistence\Values\BlockUpdateStruct;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\DBAL\Connection;
+use Netgen\BlockManager\Persistence\Values\CollectionReferenceCreateStruct;
+use Netgen\BlockManager\Persistence\Values\CollectionReferenceUpdateStruct;
 
 class BlockQueryHandler extends QueryHandler
 {
@@ -169,13 +171,9 @@ class BlockQueryHandler extends QueryHandler
      *
      * @param int|string $blockId
      * @param int $blockStatus
-     * @param int|string $collectionId
-     * @param int $collectionStatus
-     * @param string $identifier
-     * @param int $offset
-     * @param int $limit
+     * @param \Netgen\BlockManager\Persistence\Values\CollectionReferenceCreateStruct $createStruct
      */
-    public function createCollectionReference($blockId, $blockStatus, $collectionId, $collectionStatus, $identifier, $offset = 0, $limit = null)
+    public function createCollectionReference($blockId, $blockStatus, CollectionReferenceCreateStruct $createStruct)
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -193,11 +191,11 @@ class BlockQueryHandler extends QueryHandler
             )
             ->setParameter('block_id', $blockId, Type::INTEGER)
             ->setParameter('block_status', $blockStatus, Type::INTEGER)
-            ->setParameter('collection_id', $collectionId, Type::INTEGER)
-            ->setParameter('collection_status', $collectionStatus, Type::INTEGER)
-            ->setParameter('identifier', $identifier, Type::STRING)
-            ->setParameter('start', $offset, Type::INTEGER)
-            ->setParameter('length', $limit, Type::INTEGER);
+            ->setParameter('collection_id', $createStruct->collection->id, Type::INTEGER)
+            ->setParameter('collection_status', $createStruct->collection->status, Type::INTEGER)
+            ->setParameter('identifier', $createStruct->identifier, Type::STRING)
+            ->setParameter('start', $createStruct->offset, Type::INTEGER)
+            ->setParameter('length', $createStruct->limit, Type::INTEGER);
 
         $query->execute();
     }
@@ -238,16 +236,15 @@ class BlockQueryHandler extends QueryHandler
      * @param int|string $blockId
      * @param int $status
      * @param string $identifier
-     * @param int|string $collectionId
-     * @param int $collectionStatus
+     * @param \Netgen\BlockManager\Persistence\Values\CollectionReferenceUpdateStruct $updateStruct
      */
-    public function updateCollectionReference($blockId, $status, $identifier, $collectionId, $collectionStatus)
+    public function updateCollectionReference($blockId, $status, $identifier, CollectionReferenceUpdateStruct $updateStruct)
     {
         $query = $this->connection->createQueryBuilder();
         $query
             ->update('ngbm_block_collection')
-            ->set('collection_id', ':collection_id')
-            ->set('collection_status', ':collection_status')
+            ->set('start', ':start')
+            ->set('length', ':length')
             ->where(
                 $query->expr()->andX(
                     $query->expr()->eq('block_id', ':block_id'),
@@ -256,9 +253,17 @@ class BlockQueryHandler extends QueryHandler
                 )
             )
             ->setParameter('block_id', $blockId, Type::INTEGER)
-            ->setParameter('collection_id', $collectionId, Type::INTEGER)
-            ->setParameter('collection_status', $collectionStatus, Type::INTEGER)
-            ->setParameter('identifier', $identifier, Type::STRING);
+            ->setParameter('identifier', $identifier, Type::STRING)
+            ->setParameter('start', $updateStruct->offset, Type::INTEGER)
+            ->setParameter('length', $updateStruct->limit, Type::INTEGER);
+
+        if ($updateStruct->collection !== null) {
+            $query
+                ->set('collection_id', ':collection_id')
+                ->set('collection_status', ':collection_status')
+                ->setParameter('collection_id', $updateStruct->collection->id, Type::INTEGER)
+                ->setParameter('collection_status', $updateStruct->collection->status, Type::INTEGER);
+        }
 
         $this->applyStatusCondition($query, $status, 'block_status', 'block_status');
 

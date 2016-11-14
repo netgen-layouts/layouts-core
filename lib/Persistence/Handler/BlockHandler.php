@@ -5,7 +5,10 @@ namespace Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Persistence\Values\BlockCreateStruct;
 use Netgen\BlockManager\Persistence\Values\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
+use Netgen\BlockManager\Persistence\Values\CollectionReferenceCreateStruct;
+use Netgen\BlockManager\Persistence\Values\CollectionReferenceUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
+use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
 
@@ -78,12 +81,9 @@ interface BlockHandler
      * Creates the collection reference.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param string $identifier
-     * @param int $offset
-     * @param int $limit
+     * @param \Netgen\BlockManager\Persistence\Values\CollectionReferenceCreateStruct $createStruct
      */
-    public function createCollectionReference(Block $block, Collection $collection, $identifier, $offset = 0, $limit = null);
+    public function createCollectionReference(Block $block, CollectionReferenceCreateStruct $createStruct);
 
     /**
      * Updates a block with specified ID.
@@ -98,13 +98,12 @@ interface BlockHandler
     /**
      * Updates a collection reference with specified identifier.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param string $identifier
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
+     * @param \Netgen\BlockManager\Persistence\Values\Page\CollectionReference $collectionReference
+     * @param \Netgen\BlockManager\Persistence\Values\CollectionReferenceUpdateStruct $updateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\CollectionReference
      */
-    public function updateCollectionReference(Block $block, $identifier, Collection $collection);
+    public function updateCollectionReference(CollectionReference $collectionReference, CollectionReferenceUpdateStruct $updateStruct);
 
     /**
      * Copies a block to a specified layout.
