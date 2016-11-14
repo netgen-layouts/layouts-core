@@ -238,6 +238,9 @@ class LayoutHandler implements LayoutHandlerInterface
      */
     public function createLayout(LayoutCreateStruct $layoutCreateStruct)
     {
+        $layoutCreateStruct->name = trim($layoutCreateStruct->name);
+        $layoutCreateStruct->shared = $layoutCreateStruct->shared ? true : false;
+
         $createdLayoutId = $this->queryHandler->createLayout($layoutCreateStruct);
 
         return $this->loadLayout($createdLayoutId, $layoutCreateStruct->status);
@@ -253,6 +256,10 @@ class LayoutHandler implements LayoutHandlerInterface
      */
     public function updateLayout(Layout $layout, LayoutUpdateStruct $layoutUpdateStruct)
     {
+        $layoutUpdateStruct->name = $layoutUpdateStruct->name !== null ?
+            trim($layoutUpdateStruct->name) :
+            $layout->name;
+
         $this->queryHandler->updateLayout(
             $layout->id,
             $layout->status,

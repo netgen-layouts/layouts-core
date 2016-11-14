@@ -225,6 +225,12 @@ class CollectionHandler implements CollectionHandlerInterface
      */
     public function createCollection(CollectionCreateStruct $collectionCreateStruct)
     {
+        $collectionCreateStruct->shared = $collectionCreateStruct->shared ? true : false;
+
+        $collectionCreateStruct->name = $collectionCreateStruct->name !== null ?
+            trim($collectionCreateStruct->name) :
+            null;
+
         $createdCollectionId = $this->queryHandler->createCollection($collectionCreateStruct);
 
         return $this->loadCollection($createdCollectionId, $collectionCreateStruct->status);
@@ -240,6 +246,14 @@ class CollectionHandler implements CollectionHandlerInterface
      */
     public function updateCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct)
     {
+        $collectionUpdateStruct->type = $collectionUpdateStruct->type !== null ?
+            $collectionUpdateStruct->type :
+            $collection->type;
+
+        $collectionUpdateStruct->name = $collectionUpdateStruct->name !== null ?
+            trim($collectionUpdateStruct->name) :
+            $collection->name;
+
         $this->queryHandler->updateCollection(
             $collection->id,
             $collection->status,
@@ -510,6 +524,12 @@ class CollectionHandler implements CollectionHandlerInterface
      */
     public function updateQuery(Query $query, QueryUpdateStruct $queryUpdateStruct)
     {
+        $queryUpdateStruct->identifier = $queryUpdateStruct->identifier ?: $query->identifier;
+
+        $queryUpdateStruct->parameters = is_array($queryUpdateStruct->parameters) ?
+            $queryUpdateStruct->parameters :
+            $query->parameters;
+
         $this->queryHandler->updateQuery(
             $query->id,
             $query->status,

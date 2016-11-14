@@ -262,10 +262,8 @@ class CollectionService implements APICollectionService
                     array(
                         'status' => Value::STATUS_DRAFT,
                         'type' => $collectionCreateStruct->type,
-                        'shared' => $collectionCreateStruct->shared ? true : false,
-                        'name' => $collectionCreateStruct->name !== null ?
-                            trim($collectionCreateStruct->name) :
-                            null,
+                        'shared' => $collectionCreateStruct->shared,
+                        'name' => $collectionCreateStruct->name,
                     )
                 )
             );
@@ -285,6 +283,8 @@ class CollectionService implements APICollectionService
             }
 
             foreach ($collectionCreateStruct->queryCreateStructs as $position => $queryCreateStruct) {
+                $queryType = $this->queryTypeRegistry->getQueryType($queryCreateStruct->type);
+
                 $this->collectionHandler->addQuery(
                     $createdCollection,
                     new QueryCreateStruct(
@@ -292,7 +292,10 @@ class CollectionService implements APICollectionService
                             'position' => $position,
                             'identifier' => $queryCreateStruct->identifier,
                             'type' => $queryCreateStruct->type,
-                            'parameters' => $queryCreateStruct->getParameterValues(),
+                            'parameters' => $this->parameterMapper->serializeValues(
+                                $queryType,
+                                $queryCreateStruct->getParameterValues()
+                            ),
                         )
                     )
                 );
@@ -341,10 +344,7 @@ class CollectionService implements APICollectionService
                 $persistenceCollection,
                 new CollectionUpdateStruct(
                     array(
-                        'type' => $persistenceCollection->type,
-                        'name' => $collectionUpdateStruct->name !== null ?
-                            trim($collectionUpdateStruct->name) :
-                            $persistenceCollection->name,
+                        'name' => $collectionUpdateStruct->name,
                     )
                 )
             );
@@ -420,7 +420,6 @@ class CollectionService implements APICollectionService
                 new CollectionUpdateStruct(
                     array(
                         'type' => $newType,
-                        'name' => $persistenceCollection->name,
                     )
                 )
             );
@@ -816,7 +815,7 @@ class CollectionService implements APICollectionService
                 $persistenceQuery,
                 new QueryUpdateStruct(
                     array(
-                        'identifier' => $queryUpdateStruct->identifier ?: $persistenceQuery->identifier,
+                        'identifier' => $queryUpdateStruct->identifier,
                         'parameters' => $this->parameterMapper->serializeValues(
                             $query->getQueryType(),
                             $queryUpdateStruct->getParameterValues()

@@ -155,6 +155,8 @@ class BlockHandler implements BlockHandlerInterface
      */
     public function createBlock(BlockCreateStruct $blockCreateStruct)
     {
+        $blockCreateStruct->name = trim($blockCreateStruct->name);
+
         $blockCreateStruct->position = $this->positionHelper->createPosition(
             $this->getPositionHelperConditions(
                 $blockCreateStruct->layoutId,
@@ -201,6 +203,17 @@ class BlockHandler implements BlockHandlerInterface
      */
     public function updateBlock(Block $block, BlockUpdateStruct $blockUpdateStruct)
     {
+        $blockUpdateStruct->viewType = $blockUpdateStruct->viewType ?: $block->viewType;
+        $blockUpdateStruct->itemViewType = $blockUpdateStruct->itemViewType ?: $block->itemViewType;
+
+        $blockUpdateStruct->name = $blockUpdateStruct->name !== null ?
+            trim($blockUpdateStruct->name) :
+            $block->name;
+
+        $blockUpdateStruct->parameters = is_array($blockUpdateStruct->parameters) ?
+            $blockUpdateStruct->parameters :
+            $block->parameters;
+
         $this->queryHandler->updateBlock(
             $block->id,
             $block->status,

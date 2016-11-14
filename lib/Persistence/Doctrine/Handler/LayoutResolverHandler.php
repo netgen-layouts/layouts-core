@@ -229,6 +229,13 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
      */
     public function createRule(RuleCreateStruct $ruleCreateStruct)
     {
+        $ruleCreateStruct->enabled = $ruleCreateStruct->enabled ? true : false;
+        $ruleCreateStruct->comment = trim($ruleCreateStruct->comment);
+
+        $ruleCreateStruct->priority = $ruleCreateStruct->priority !== null ?
+            $ruleCreateStruct->priority :
+            0;
+
         $createdRuleId = $this->queryHandler->createRule($ruleCreateStruct);
 
         return $this->loadRule($createdRuleId, $ruleCreateStruct->status);
@@ -244,6 +251,15 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
      */
     public function updateRule(Rule $rule, RuleUpdateStruct $ruleUpdateStruct)
     {
+        // Layout ID can be 0, to indicate removal of the linked layout
+        $ruleUpdateStruct->layoutId = $ruleUpdateStruct->layoutId !== null ?
+            $ruleUpdateStruct->layoutId :
+            $rule->layoutId;
+
+        $ruleUpdateStruct->comment = $ruleUpdateStruct->comment !== null ?
+            trim($ruleUpdateStruct->comment) :
+            $rule->comment;
+
         $this->queryHandler->updateRule(
             $rule->id,
             $rule->status,
@@ -263,6 +279,14 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
      */
     public function updateRuleMetadata(Rule $rule, RuleMetadataUpdateStruct $ruleUpdateStruct)
     {
+        $ruleUpdateStruct->priority = $ruleUpdateStruct->priority !== null ?
+            $ruleUpdateStruct->priority :
+            $rule->priority;
+
+        $ruleUpdateStruct->enabled = $ruleUpdateStruct->enabled !== null ?
+            $ruleUpdateStruct->enabled :
+            $rule->enabled;
+
         $this->queryHandler->updateRuleData(
             $rule->id,
             $ruleUpdateStruct

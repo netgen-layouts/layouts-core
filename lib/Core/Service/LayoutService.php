@@ -354,9 +354,9 @@ class LayoutService implements LayoutServiceInterface
                 new LayoutCreateStruct(
                     array(
                         'type' => $layoutCreateStruct->type,
-                        'name' => trim($layoutCreateStruct->name),
+                        'name' => $layoutCreateStruct->name,
                         'status' => Value::STATUS_DRAFT,
-                        'shared' => $layoutCreateStruct->shared ? true : false,
+                        'shared' => $layoutCreateStruct->shared,
                         'zoneCreateStructs' => array_map(
                             function ($zoneIdentifier) {
                                 return new ZoneCreateStruct(
@@ -414,9 +414,7 @@ class LayoutService implements LayoutServiceInterface
                 $persistenceLayout,
                 new LayoutUpdateStruct(
                     array(
-                        'name' => $layoutUpdateStruct->name !== null ?
-                            trim($layoutUpdateStruct->name) :
-                            $persistenceLayout->name,
+                        'name' => $layoutUpdateStruct->name
                     )
                 )
             );

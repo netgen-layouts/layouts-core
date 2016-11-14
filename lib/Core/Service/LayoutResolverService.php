@@ -19,7 +19,6 @@ use Netgen\BlockManager\API\Values\RuleUpdateStruct as APIRuleUpdateStruct;
 use Netgen\BlockManager\API\Values\TargetCreateStruct as APITargetCreateStruct;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Exception\BadStateException;
-use Exception;
 use Netgen\BlockManager\Persistence\Values\ConditionCreateStruct;
 use Netgen\BlockManager\Persistence\Values\ConditionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\RuleCreateStruct;
@@ -27,6 +26,7 @@ use Netgen\BlockManager\Persistence\Values\RuleMetadataUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\RuleUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\TargetCreateStruct;
 use Netgen\BlockManager\Persistence\Values\TargetUpdateStruct;
+use Exception;
 
 class LayoutResolverService implements APILayoutResolverService
 {
@@ -278,8 +278,8 @@ class LayoutResolverService implements APILayoutResolverService
                 new RuleCreateStruct(
                     array(
                         'layoutId' => $ruleCreateStruct->layoutId,
-                        'priority' => $ruleCreateStruct->priority !== null ? $ruleCreateStruct->priority : 0,
-                        'enabled' => $ruleCreateStruct->enabled ? true : false,
+                        'priority' => $ruleCreateStruct->priority,
+                        'enabled' => $ruleCreateStruct->enabled,
                         'comment' => $ruleCreateStruct->comment,
                         'status' => Value::STATUS_DRAFT,
                     )
@@ -322,12 +322,8 @@ class LayoutResolverService implements APILayoutResolverService
                 $persistenceRule,
                 new RuleUpdateStruct(
                     array(
-                        'layoutId' => $ruleUpdateStruct->layoutId !== null ?
-                            $ruleUpdateStruct->layoutId :
-                            $persistenceRule->layoutId,
-                        'comment' => $ruleUpdateStruct->comment !== null ?
-                            $ruleUpdateStruct->comment :
-                            $persistenceRule->comment,
+                        'layoutId' => $ruleUpdateStruct->layoutId,
+                        'comment' => $ruleUpdateStruct->comment,
                     )
                 )
             );
@@ -368,10 +364,7 @@ class LayoutResolverService implements APILayoutResolverService
                 $persistenceRule,
                 new RuleMetadataUpdateStruct(
                     array(
-                        'enabled' => $persistenceRule->enabled,
-                        'priority' => $ruleUpdateStruct->priority !== null ?
-                            $ruleUpdateStruct->priority :
-                            $persistenceRule->priority,
+                        'priority' => $ruleUpdateStruct->priority,
                     )
                 )
             );
@@ -521,7 +514,6 @@ class LayoutResolverService implements APILayoutResolverService
                     new RuleMetadataUpdateStruct(
                         array(
                             'enabled' => false,
-                            'priority' => $publishedRule->priority,
                         )
                     )
                 );
@@ -597,7 +589,6 @@ class LayoutResolverService implements APILayoutResolverService
                 new RuleMetadataUpdateStruct(
                     array(
                         'enabled' => true,
-                        'priority' => $persistenceRule->priority,
                     )
                 )
             );
@@ -641,7 +632,6 @@ class LayoutResolverService implements APILayoutResolverService
                 new RuleMetadataUpdateStruct(
                     array(
                         'enabled' => false,
-                        'priority' => $persistenceRule->priority,
                     )
                 )
             );

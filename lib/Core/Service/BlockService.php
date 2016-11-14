@@ -254,7 +254,7 @@ class BlockService implements BlockServiceInterface
                         'definitionIdentifier' => $blockCreateStruct->definitionIdentifier,
                         'viewType' => $blockCreateStruct->viewType,
                         'itemViewType' => $blockCreateStruct->itemViewType,
-                        'name' => $blockCreateStruct->name !== null ? trim($blockCreateStruct->name) : '',
+                        'name' => $blockCreateStruct->name,
                         'parameters' => $this->parameterMapper->serializeValues(
                             $blockDefinition,
                             $blockCreateStruct->getParameterValues()
@@ -320,11 +320,9 @@ class BlockService implements BlockServiceInterface
                 $persistenceBlock,
                 new BlockUpdateStruct(
                     array(
-                        'viewType' => $blockUpdateStruct->viewType ?: $persistenceBlock->viewType,
-                        'itemViewType' => $blockUpdateStruct->itemViewType ?: $persistenceBlock->itemViewType,
-                        'name' => $blockUpdateStruct->name !== null
-                            ? trim($blockUpdateStruct->name) :
-                            $persistenceBlock->name,
+                        'viewType' => $blockUpdateStruct->viewType,
+                        'itemViewType' => $blockUpdateStruct->itemViewType,
+                        'name' => $blockUpdateStruct->name,
                         'parameters' => $this->parameterMapper->serializeValues(
                             $block->getBlockDefinition(),
                             $blockUpdateStruct->getParameterValues()
