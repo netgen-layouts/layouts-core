@@ -310,7 +310,7 @@ class BlockHandler implements BlockHandlerInterface
                 $collectionReference->collectionStatus
             );
 
-            if (!$this->collectionHandler->isSharedCollection($collection->id)) {
+            if (!$collection->shared) {
                 $collection = $this->collectionHandler->copyCollection($collection);
             }
 
@@ -436,7 +436,7 @@ class BlockHandler implements BlockHandlerInterface
                 $collectionReference->collectionStatus
             );
 
-            if (!$this->collectionHandler->isSharedCollection($collection->id)) {
+            if (!$collection->shared) {
                 $collection = $this->collectionHandler->createCollectionStatus(
                     $collection,
                     $newStatus

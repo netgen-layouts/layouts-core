@@ -236,24 +236,6 @@ class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isSharedCollection
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionData
-     */
-    public function testIsSharedCollection()
-    {
-        $this->assertTrue($this->collectionHandler->isSharedCollection(3));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isSharedCollection
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionData
-     */
-    public function testIsSharedCollectionReturnsFalse()
-    {
-        $this->assertFalse($this->collectionHandler->isSharedCollection(2));
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::collectionNameExists
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::collectionNameExists
      */

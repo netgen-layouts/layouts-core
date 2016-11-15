@@ -89,15 +89,6 @@ interface CollectionHandler
     public function collectionExists($collectionId, $status);
 
     /**
-     * Returns if collection with specified ID is shared.
-     *
-     * @param int|string $collectionId
-     *
-     * @return bool
-     */
-    public function isSharedCollection($collectionId);
-
-    /**
      * Returns if collection name exists.
      *
      * @param string $name

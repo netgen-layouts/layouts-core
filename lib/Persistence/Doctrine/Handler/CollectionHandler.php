@@ -189,20 +189,6 @@ class CollectionHandler implements CollectionHandlerInterface
     }
 
     /**
-     * Returns if collection with specified ID is shared.
-     *
-     * @param int|string $collectionId
-     *
-     * @return bool
-     */
-    public function isSharedCollection($collectionId)
-    {
-        $data = $this->queryHandler->loadCollectionData($collectionId);
-
-        return isset($data[0]['shared']) && (bool)$data[0]['shared'] === true;
-    }
-
-    /**
      * Returns if collection name exists.
      *
      * @param string $name
