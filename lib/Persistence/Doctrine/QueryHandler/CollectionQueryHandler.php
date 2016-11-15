@@ -599,7 +599,7 @@ class CollectionQueryHandler extends QueryHandler
     protected function getCollectionSelectQuery()
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT id', 'status', 'type', 'shared', 'name')
+        $query->select('DISTINCT ngbm_collection.*')
             ->from('ngbm_collection');
 
         return $query;
@@ -613,7 +613,7 @@ class CollectionQueryHandler extends QueryHandler
     protected function getItemSelectQuery()
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT id', 'status', 'collection_id', 'position', 'type', 'value_id', 'value_type')
+        $query->select('DISTINCT ngbm_collection_item.*')
             ->from('ngbm_collection_item');
 
         return $query;
@@ -627,7 +627,7 @@ class CollectionQueryHandler extends QueryHandler
     protected function getQuerySelectQuery()
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT id', 'status', 'collection_id', 'position', 'identifier', 'type', 'parameters')
+        $query->select('DISTINCT ngbm_collection_query.*')
             ->from('ngbm_collection_query');
 
         return $query;

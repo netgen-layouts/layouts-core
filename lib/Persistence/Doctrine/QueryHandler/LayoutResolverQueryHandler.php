@@ -668,7 +668,7 @@ class LayoutResolverQueryHandler extends QueryHandler
     protected function getRuleSelectQuery()
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT r.id', 'r.status', 'r.layout_id', 'r.comment', 'rd.enabled', 'rd.priority')
+        $query->select('DISTINCT r.*', 'rd.*')
             ->from('ngbm_rule', 'r')
             ->innerJoin(
                 'r',
@@ -688,7 +688,7 @@ class LayoutResolverQueryHandler extends QueryHandler
     protected function getTargetSelectQuery()
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT id', 'status', 'rule_id', 'type', 'value')
+        $query->select('DISTINCT ngbm_rule_target.*')
             ->from('ngbm_rule_target');
 
         return $query;
@@ -702,7 +702,7 @@ class LayoutResolverQueryHandler extends QueryHandler
     protected function getConditionSelectQuery()
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT id', 'status', 'rule_id', 'type', 'value')
+        $query->select('DISTINCT ngbm_rule_condition.*')
             ->from('ngbm_rule_condition');
 
         return $query;

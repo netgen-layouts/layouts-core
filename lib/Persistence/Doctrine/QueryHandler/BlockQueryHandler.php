@@ -425,7 +425,7 @@ class BlockQueryHandler extends QueryHandler
     protected function getBlockSelectQuery()
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT id', 'status', 'layout_id', 'zone_identifier', 'position', 'definition_identifier', 'view_type', 'item_view_type', 'name', 'parameters')
+        $query->select('DISTINCT ngbm_block.*')
             ->from('ngbm_block');
 
         return $query;
