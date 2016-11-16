@@ -19,14 +19,16 @@ abstract class Validator
      */
     public function validateOffsetAndLimit($offset, $limit)
     {
-        $this->validate(
-            $offset,
-            array(
-                new Constraints\Type(array('type' => 'numeric')),
-                new Constraints\GreaterThanOrEqual(array('value' => 0)),
-                new Constraints\NotBlank(),
-            )
-        );
+        if (!empty($offset)) {
+            $this->validate(
+                $offset,
+                array(
+                    new Constraints\Type(array('type' => 'numeric')),
+                    new Constraints\GreaterThanOrEqual(array('value' => 0)),
+                    new Constraints\NotBlank(),
+                )
+            );
+        }
 
         if (!empty($limit)) {
             $this->validate(
