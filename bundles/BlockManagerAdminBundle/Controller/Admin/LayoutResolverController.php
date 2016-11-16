@@ -179,7 +179,7 @@ class LayoutResolverController extends Controller
         try {
             // Rules are ordered by descending priority
             // in the request variable, we reverse the list here
-            // as it is way easier to increment priorities from 0
+            // as it is way easier to increment priorities
             // then decrement them (especially when we need to
             // make sure to skip rules which do not exist)
             $ruleIds = array_reverse(
@@ -189,7 +189,7 @@ class LayoutResolverController extends Controller
             );
 
             $ruleUpdateStruct = $this->layoutResolverService->newRuleMetadataUpdateStruct();
-            $ruleUpdateStruct->priority = 0;
+            $ruleUpdateStruct->priority = 10;
 
             foreach (array_values($ruleIds) as $ruleId) {
                 try {
