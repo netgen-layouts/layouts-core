@@ -26,7 +26,8 @@ abstract class Validator
                     new Constraints\Type(array('type' => 'numeric')),
                     new Constraints\GreaterThanOrEqual(array('value' => 0)),
                     new Constraints\NotBlank(),
-                )
+                ),
+                'offset'
             );
         }
 
@@ -37,7 +38,8 @@ abstract class Validator
                     new Constraints\Type(array('type' => 'numeric')),
                     new Constraints\GreaterThan(array('value' => 0)),
                     new Constraints\NotBlank(),
-                )
+                ),
+                'limit'
             );
         }
     }
