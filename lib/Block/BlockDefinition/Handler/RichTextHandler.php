@@ -20,6 +20,7 @@ class RichTextHandler extends BlockDefinitionHandler
             ParameterType\HtmlType::class,
             array(
                 'required' => true,
+                'default_value' => 'Text',
             )
         );
 
