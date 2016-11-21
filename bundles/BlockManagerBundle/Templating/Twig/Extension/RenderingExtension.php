@@ -5,6 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\View\RendererInterface;
+use Netgen\BlockManager\View\View\BlockView\ContextualizedTwigTemplate;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderBlock;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
@@ -253,12 +254,12 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      * Displays the provided block.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     * @param array $parameters
      * @param string $viewContext
+     * @param \Netgen\BlockManager\View\View\BlockView\ContextualizedTwigTemplate $twigTemplate
      *
      * @throws \Exception If an error occurred
      */
-    public function displayBlock(Block $block, array $parameters, $viewContext)
+    public function displayBlock(Block $block, $viewContext, ContextualizedTwigTemplate $twigTemplate)
     {
         try {
             if ($this->isBlockCacheable($block)) {
@@ -267,15 +268,16 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
                         $this->blockController,
                         array(
                             'blockId' => $block->getId(),
-                            'parameters' => $parameters,
                             'context' => $viewContext,
                         )
                     ),
                     'esi'
                 );
+
+                return;
             }
 
-            echo $this->viewRenderer->renderValueObject($block, $parameters, $viewContext);
+            echo $this->viewRenderer->renderValueObject($block, array('twigTemplate' => $twigTemplate), $viewContext);
         } catch (Exception $e) {
             $errorMessage = sprintf('Error rendering a block with ID "%s"', $block->getId());
 
@@ -308,6 +310,8 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
 
     /**
      * Returns if the block instance is cacheable.
+     *
+     * @todo Refactor out to separate service
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      *

@@ -52,7 +52,7 @@ class RenderBlock extends Twig_Node
             ->write('if ($ngbmBlock instanceof ' . Block::class . ') {' . PHP_EOL)
             ->indent()
                 ->write('$this->env->getExtension("' . RenderingExtension::class . '")->displayBlock($ngbmBlock, ')
-                ->raw('array("twigTemplate" => $ngbmTemplate), $ngbmContext);' . PHP_EOL)
+                ->raw('$ngbmContext, $ngbmTemplate);' . PHP_EOL)
             ->outdent()
             ->write('}' . PHP_EOL);
     }

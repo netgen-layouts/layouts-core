@@ -60,7 +60,7 @@ class RenderZoneTest extends NodeTest
 \$ngbmTemplate = new {$templateClass}(\$this, \$context, \$blocks);
 if (\$ngbmZone instanceof {$zoneClass}) {
     foreach (\$ngbmZone as \$ngbmBlock) {
-        \$this->env->getExtension("{$extensionClass}")->displayBlock(\$ngbmBlock, array("twigTemplate" => \$ngbmTemplate), \$ngbmContext);
+        \$this->env->getExtension("{$extensionClass}")->displayBlock(\$ngbmBlock, \$ngbmContext, \$ngbmTemplate);
     }
 }
 EOT
@@ -76,7 +76,7 @@ EOT
 \$ngbmTemplate = new {$templateClass}(\$this, \$context, \$blocks);
 if (\$ngbmZone instanceof {$zoneClass}) {
     foreach (\$ngbmZone as \$ngbmBlock) {
-        \$this->env->getExtension("{$extensionClass}")->displayBlock(\$ngbmBlock, array("twigTemplate" => \$ngbmTemplate), \$ngbmContext);
+        \$this->env->getExtension("{$extensionClass}")->displayBlock(\$ngbmBlock, \$ngbmContext, \$ngbmTemplate);
     }
 }
 EOT

@@ -54,7 +54,7 @@ class RenderZone extends Twig_Node
                 ->write('foreach ($ngbmZone as $ngbmBlock) {' . PHP_EOL)
                 ->indent()
                     ->write('$this->env->getExtension("' . RenderingExtension::class . '")->displayBlock($ngbmBlock, ')
-                    ->raw('array("twigTemplate" => $ngbmTemplate), $ngbmContext);' . PHP_EOL)
+                    ->raw('$ngbmContext, $ngbmTemplate);' . PHP_EOL)
                 ->outdent()
                 ->write('}' . PHP_EOL)
             ->outdent()
