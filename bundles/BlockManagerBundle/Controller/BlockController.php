@@ -53,19 +53,18 @@ class BlockController extends Controller
      * we log an error and just return an empty response in order not to crash the page.
      *
      * @param int|string $blockId
-     * @param array $parameters
      * @param string $context
      *
      * @throws \Exception If rendering fails
      *
      * @return \Netgen\BlockManager\View\View\BlockViewInterface|\Symfony\Component\HttpFoundation\Response
      */
-    public function viewBlock($blockId, array $parameters = array(), $context = ViewInterface::CONTEXT_DEFAULT)
+    public function viewBlock($blockId, $context = ViewInterface::CONTEXT_DEFAULT)
     {
         try {
             $block = $this->blockService->loadBlock($blockId);
 
-            return $this->buildView($block, $parameters, $context);
+            return $this->buildView($block, $context);
         } catch (Exception $e) {
             $errorMessage = sprintf('Error rendering a block with ID %d', $blockId);
 
