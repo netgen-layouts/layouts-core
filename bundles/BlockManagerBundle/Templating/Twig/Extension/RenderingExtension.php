@@ -8,7 +8,6 @@ use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderBlock;
-use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\View\ViewInterface;
@@ -249,24 +248,6 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
             );
 
             return $this->handleException($e, $errorMessage);
-        }
-    }
-
-    /**
-     * Displays the provided zone.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
-     * @param string $viewContext
-     * @param \Twig_Template $twigTemplate
-     * @param array $twigContext
-     * @param array $twigBlocks
-     *
-     * @throws \Exception If an error occurred
-     */
-    public function displayZone(Zone $zone, $viewContext, Twig_Template $twigTemplate, array $twigContext = array(), array $twigBlocks = array())
-    {
-        foreach ($zone as $block) {
-            $this->displayBlock($block, $viewContext, $twigTemplate, $twigContext, $twigBlocks);
         }
     }
 

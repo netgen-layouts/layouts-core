@@ -56,7 +56,9 @@ class RenderZoneTest extends NodeTest
 \$ngbmZone = {$this->getNodeGetter('zone')};
 \$ngbmContext = {$this->getNodeGetter('context')};
 if (\$ngbmZone instanceof {$zoneClass}) {
-    \$this->env->getExtension("{$extensionClass}")->displayZone(\$ngbmZone, \$ngbmContext, \$this, \$context, \$blocks);
+    foreach (\$ngbmZone as \$ngbmBlock) {
+        \$this->env->getExtension("{$extensionClass}")->displayBlock(\$ngbmBlock, \$ngbmContext, \$this, \$context, \$blocks);
+    }
 }
 EOT
                 ,
@@ -69,7 +71,9 @@ EOT
 \$ngbmZone = {$this->getNodeGetter('zone')};
 \$ngbmContext = Netgen\BlockManager\View\ViewInterface::CONTEXT_DEFAULT;
 if (\$ngbmZone instanceof {$zoneClass}) {
-    \$this->env->getExtension("{$extensionClass}")->displayZone(\$ngbmZone, \$ngbmContext, \$this, \$context, \$blocks);
+    foreach (\$ngbmZone as \$ngbmBlock) {
+        \$this->env->getExtension("{$extensionClass}")->displayBlock(\$ngbmBlock, \$ngbmContext, \$this, \$context, \$blocks);
+    }
 }
 EOT
                 ,

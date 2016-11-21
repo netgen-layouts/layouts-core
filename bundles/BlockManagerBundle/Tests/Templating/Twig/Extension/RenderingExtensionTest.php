@@ -5,11 +5,8 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Item\Item;
-use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
-use Netgen\BlockManager\Tests\Block\Stubs\TwigBlockDefinition;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension;
@@ -333,128 +330,6 @@ class RenderingExtensionTest extends TestCase
             new Condition(),
             array('param' => 'value'),
             ViewInterface::CONTEXT_DEFAULT
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::displayZone
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::setDebug
-     * @expectedException \Exception
-     */
-    public function testDisplayZoneThrowsExceptionInDebug()
-    {
-        $twigTemplateMock = $this->createMock(Twig_Template::class);
-
-        $twigTemplateMock
-            ->expects($this->at(0))
-            ->method('displayBlock')
-            ->will($this->throwException(new Exception()));
-
-        $this->viewRendererMock
-            ->expects($this->once())
-            ->method('renderValueObject');
-
-        $this->extension->setDebug(true);
-        $this->extension->displayZone(
-            new Zone(
-                array(
-                    'blocks' => array(
-                        new Block(
-                            array(
-                                'blockDefinition' => new BlockDefinition('block_definition'),
-                            )
-                        ),
-                        new Block(
-                            array(
-                                'blockDefinition' => new TwigBlockDefinition('twig_block'),
-                                'parameters' => array(
-                                    'block_name' => new ParameterValue(
-                                        array(
-                                            'value' => 'my_block',
-                                        )
-                                    ),
-                                ),
-                            )
-                        ),
-                        new Block(
-                            array(
-                                'blockDefinition' => new BlockDefinition('block_definition'),
-                            )
-                        ),
-                    ),
-                )
-            ),
-            ViewInterface::CONTEXT_DEFAULT,
-            $twigTemplateMock,
-            array(),
-            array()
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::displayZone
-     */
-    public function testDisplayZoneRendersBlocksOnException()
-    {
-        $twigTemplateMock = $this->createMock(Twig_Template::class);
-
-        $twigTemplateMock
-            ->expects($this->at(0))
-            ->method('displayBlock')
-            ->will($this->throwException(new Exception()));
-
-        $this->viewRendererMock
-            ->expects($this->at(0))
-            ->method('renderValueObject')
-            ->will($this->returnValue('rendered block 1'));
-
-        $this->viewRendererMock
-            ->expects($this->at(1))
-            ->method('renderValueObject')
-            ->will($this->returnValue('rendered block 2'));
-
-        ob_start();
-
-        $this->extension->displayZone(
-            new Zone(
-                array(
-                    'blocks' => array(
-                        new Block(
-                            array(
-                                'blockDefinition' => new BlockDefinition('block_definition'),
-                            )
-                        ),
-                        new Block(
-                            array(
-                                'blockDefinition' => new TwigBlockDefinition('twig_block'),
-                                'parameters' => array(
-                                    'block_name' => new ParameterValue(
-                                        array(
-                                            'value' => 'my_block',
-                                        )
-                                    ),
-                                ),
-                            )
-                        ),
-                        new Block(
-                            array(
-                                'blockDefinition' => new BlockDefinition('block_definition'),
-                            )
-                        ),
-                    ),
-                )
-            ),
-            ViewInterface::CONTEXT_DEFAULT,
-            $twigTemplateMock,
-            array(),
-            array()
-        );
-
-        $renderedTemplate = ob_get_clean();
-
-        $this->assertEquals(
-            'rendered block 1rendered block 2',
-            $renderedTemplate
         );
     }
 }

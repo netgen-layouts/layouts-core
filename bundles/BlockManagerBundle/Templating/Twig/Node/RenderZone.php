@@ -48,8 +48,12 @@ class RenderZone extends Twig_Node
         $compiler
             ->write('if ($ngbmZone instanceof ' . Zone::class . ') {' . PHP_EOL)
             ->indent()
-                ->write('$this->env->getExtension("' . RenderingExtension::class . '")->displayZone($ngbmZone, ')
-                ->raw('$ngbmContext, $this, $context, $blocks);' . PHP_EOL)
+                ->write('foreach ($ngbmZone as $ngbmBlock) {' . PHP_EOL)
+                ->indent()
+                    ->write('$this->env->getExtension("' . RenderingExtension::class . '")->displayBlock($ngbmBlock, ')
+                    ->raw('$ngbmContext, $this, $context, $blocks);' . PHP_EOL)
+                ->outdent()
+                ->write('}' . PHP_EOL)
             ->outdent()
             ->write('}' . PHP_EOL);
     }
