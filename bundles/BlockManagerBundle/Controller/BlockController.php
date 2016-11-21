@@ -3,7 +3,6 @@
 namespace Netgen\Bundle\BlockManagerBundle\Controller;
 
 use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\Bundle\BlockManagerBundle\Exception\RenderingFailedException;
 use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Psr\Log\LoggerInterface;
@@ -57,7 +56,7 @@ class BlockController extends Controller
      * @param array $parameters
      * @param string $context
      *
-     * @throws \Netgen\Bundle\BlockManagerBundle\Exception\RenderingFailedException If rendering fails
+     * @throws \Exception If rendering fails
      *
      * @return \Netgen\BlockManager\View\View\BlockViewInterface|\Symfony\Component\HttpFoundation\Response
      */
@@ -73,7 +72,7 @@ class BlockController extends Controller
             $this->logger->error($errorMessage . ': ' . $e->getMessage());
 
             if ($this->debug) {
-                throw new RenderingFailedException($errorMessage, 0, $e);
+                throw $e;
             }
 
             return new Response();

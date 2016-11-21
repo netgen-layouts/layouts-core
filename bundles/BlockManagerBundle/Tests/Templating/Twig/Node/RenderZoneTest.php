@@ -7,7 +7,7 @@ use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtensio
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderZone;
 use Twig_Node_Expression_Name;
 
-class RenderZoneTest extends \Twig_Test_NodeTestCase
+class RenderZoneTest extends NodeTest
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderZone::__construct
@@ -53,8 +53,8 @@ class RenderZoneTest extends \Twig_Test_NodeTestCase
                 new RenderZone($zone, $context, 1),
                 <<<EOT
 // line 1
-\$ngbmZone = (isset(\$context["zone"]) ? \$context["zone"] : \$this->getContext(\$context, "zone"));
-\$ngbmContext = (isset(\$context["context"]) ? \$context["context"] : \$this->getContext(\$context, "context"));
+\$ngbmZone = {$this->getNodeGetter('zone')};
+\$ngbmContext = {$this->getNodeGetter('context')};
 if (\$ngbmZone instanceof {$zoneClass}) {
     \$this->env->getExtension("{$extensionClass}")->displayZone(\$ngbmZone, \$ngbmContext, \$this, \$context, \$blocks);
 }
@@ -66,7 +66,7 @@ EOT
                 new RenderZone($zone, null, 1),
                 <<<EOT
 // line 1
-\$ngbmZone = (isset(\$context["zone"]) ? \$context["zone"] : \$this->getContext(\$context, "zone"));
+\$ngbmZone = {$this->getNodeGetter('zone')};
 \$ngbmContext = Netgen\BlockManager\View\ViewInterface::CONTEXT_DEFAULT;
 if (\$ngbmZone instanceof {$zoneClass}) {
     \$this->env->getExtension("{$extensionClass}")->displayZone(\$ngbmZone, \$ngbmContext, \$this, \$context, \$blocks);

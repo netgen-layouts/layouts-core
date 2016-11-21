@@ -7,7 +7,7 @@ use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtensio
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderBlock;
 use Twig_Node_Expression_Name;
 
-class RenderBlockTest extends \Twig_Test_NodeTestCase
+class RenderBlockTest extends NodeTest
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderBlock::__construct
@@ -53,8 +53,8 @@ class RenderBlockTest extends \Twig_Test_NodeTestCase
                 new RenderBlock($block, $context, 1),
                 <<<EOT
 // line 1
-\$ngbmBlock = (isset(\$context["block"]) ? \$context["block"] : \$this->getContext(\$context, "block"));
-\$ngbmContext = (isset(\$context["context"]) ? \$context["context"] : \$this->getContext(\$context, "context"));
+\$ngbmBlock = {$this->getNodeGetter('block')};
+\$ngbmContext = {$this->getNodeGetter('context')};
 if (\$ngbmBlock instanceof {$blockClass}) {
     \$this->env->getExtension("{$extensionClass}")->displayBlock(\$ngbmBlock, \$ngbmContext, \$this, \$context, \$blocks);
 }
@@ -66,7 +66,7 @@ EOT
                 new RenderBlock($block, null, 1),
                 <<<EOT
 // line 1
-\$ngbmBlock = (isset(\$context["block"]) ? \$context["block"] : \$this->getContext(\$context, "block"));
+\$ngbmBlock = {$this->getNodeGetter('block')};
 \$ngbmContext = Netgen\BlockManager\View\ViewInterface::CONTEXT_DEFAULT;
 if (\$ngbmBlock instanceof {$blockClass}) {
     \$this->env->getExtension("{$extensionClass}")->displayBlock(\$ngbmBlock, \$ngbmContext, \$this, \$context, \$blocks);

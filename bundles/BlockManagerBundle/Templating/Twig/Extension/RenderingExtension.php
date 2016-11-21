@@ -6,7 +6,6 @@ use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Block\TwigBlockDefinitionInterface;
 use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\View\RendererInterface;
-use Netgen\Bundle\BlockManagerBundle\Exception\RenderingFailedException;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderBlock;
 use Netgen\BlockManager\API\Values\Page\Zone;
@@ -211,27 +210,12 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      */
     public function renderItem(array $context, ItemInterface $item, $viewType, array $parameters = array(), $viewContext = null)
     {
-        if ($viewContext === null) {
-            $viewContext = !empty($context['view_context']) ?
-                $context['view_context'] :
-                ViewInterface::CONTEXT_DEFAULT;
-        }
-
-        try {
-            return $this->viewRenderer->renderValueObject(
-                $item,
-                array('viewType' => $viewType) + $parameters,
-                $viewContext
-            );
-        } catch (Exception $e) {
-            $errorMessage = sprintf(
-                'Error rendering an item with ID "%s" and type "%s"',
-                $item->getValueId(),
-                $item->getValueType()
-            );
-
-            return $this->handleException($e, $errorMessage);
-        }
+        return $this->renderValueObject(
+            $context,
+            $item,
+            array('viewType' => $viewType) + $parameters,
+            $viewContext
+        );
     }
 
     /**
@@ -299,20 +283,26 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      */
     public function displayBlock(Block $block, $viewContext, Twig_Template $twigTemplate, array $twigContext = array(), array $twigBlocks = array())
     {
-        $blockParams = array();
+        try {
+            $blockParams = array();
 
-        $blockDefinition = $block->getBlockDefinition();
-        if ($blockDefinition instanceof TwigBlockDefinitionInterface) {
-            $blockParams['twig_block_content'] = $this->renderTwigBlock(
-                $block,
-                $blockDefinition->getTwigBlockName($block),
-                $twigTemplate,
-                $twigContext,
-                $twigBlocks
-            );
+            $blockDefinition = $block->getBlockDefinition();
+            if ($blockDefinition instanceof TwigBlockDefinitionInterface) {
+                $blockParams['twig_block_content'] = $this->renderTwigBlock(
+                    $block,
+                    $blockDefinition->getTwigBlockName($block),
+                    $twigTemplate,
+                    $twigContext,
+                    $twigBlocks
+                );
+            }
+
+            echo $this->renderBlock($block, $blockParams, $viewContext);
+        } catch (Exception $e) {
+            $errorMessage = sprintf('Error rendering a block with ID "%s"', $block->getId());
+
+            echo $this->handleException($e, $errorMessage);
         }
-
-        echo $this->renderBlock($block, $blockParams, $viewContext);
     }
 
     /**
@@ -326,30 +316,21 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      */
     protected function renderBlock(Block $block, array $parameters = array(), $viewContext = ViewInterface::CONTEXT_DEFAULT)
     {
-        try {
-            if ($this->isBlockCacheable($block)) {
-                return $this->fragmentHandler->render(
-                    new ControllerReference(
-                        $this->blockController,
-                        array(
-                            'blockId' => $block->getId(),
-                            'parameters' => $parameters,
-                            'context' => $viewContext,
-                        )
-                    ),
-                    'esi'
-                );
-            }
-
-            return $this->viewRenderer->renderValueObject($block, $parameters, $viewContext);
-        } catch (Exception $e) {
-            $errorMessage = sprintf(
-                'Error rendering a block with ID "%s"',
-                $block->getId()
+        if ($this->isBlockCacheable($block)) {
+            return $this->fragmentHandler->render(
+                new ControllerReference(
+                    $this->blockController,
+                    array(
+                        'blockId' => $block->getId(),
+                        'parameters' => $parameters,
+                        'context' => $viewContext,
+                    )
+                ),
+                'esi'
             );
-
-            return $this->handleException($e, $errorMessage);
         }
+
+        return $this->viewRenderer->renderValueObject($block, $parameters, $viewContext);
     }
 
     /**
@@ -365,22 +346,20 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      */
     protected function renderTwigBlock(Block $block, $twigBlockName, Twig_Template $twigTemplate, array $twigContext = array(), array $twigBlocks = array())
     {
+        $level = ob_get_level();
+        ob_start();
+
         try {
-            ob_start();
-
             $twigTemplate->displayBlock($twigBlockName, $twigContext, $twigBlocks);
-
-            return ob_get_clean();
         } catch (Exception $e) {
-            ob_end_clean();
+            while (ob_get_level() > $level) {
+                ob_end_clean();
+            }
 
-            $errorMessage = sprintf(
-                'Error rendering a block with ID "%s"',
-                $block->getId()
-            );
-
-            return $this->handleException($e, $errorMessage);
+            throw $e;
         }
+
+        return ob_get_clean();
     }
 
     /**
@@ -391,7 +370,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      *
      * @todo Refactor out to separate service
      *
-     * @throws \Netgen\Bundle\BlockManagerBundle\Exception\RenderingFailedException
+     * @throws \Exception
      *
      * @return string
      */
@@ -400,7 +379,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
         $this->logger->error($errorMessage . ': ' . $exception->getMessage());
 
         if ($this->debug) {
-            throw new RenderingFailedException($errorMessage, 0, $exception);
+            throw $exception;
         }
 
         return '';
