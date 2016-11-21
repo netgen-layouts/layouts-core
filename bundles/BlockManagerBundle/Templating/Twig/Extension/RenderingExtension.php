@@ -289,7 +289,6 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
             $blockDefinition = $block->getBlockDefinition();
             if ($blockDefinition instanceof TwigBlockDefinitionInterface) {
                 $blockParams['twig_block_content'] = $this->renderTwigBlock(
-                    $block,
                     $blockDefinition->getTwigBlockName($block),
                     $twigTemplate,
                     $twigContext,
@@ -336,15 +335,16 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
     /**
      * Renders the provided Twig block.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param string $twigBlockName
      * @param \Twig_Template $twigTemplate
      * @param array $twigContext
      * @param array $twigBlocks
      *
+     * @throws \Exception If rendering failed
+     *
      * @return string
      */
-    protected function renderTwigBlock(Block $block, $twigBlockName, Twig_Template $twigTemplate, array $twigContext = array(), array $twigBlocks = array())
+    protected function renderTwigBlock($twigBlockName, Twig_Template $twigTemplate, array $twigContext = array(), array $twigBlocks = array())
     {
         $level = ob_get_level();
         ob_start();
