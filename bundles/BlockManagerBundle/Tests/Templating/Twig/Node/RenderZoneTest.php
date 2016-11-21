@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig\Node;
 
 use Netgen\BlockManager\API\Values\Page\Zone;
+use Netgen\BlockManager\View\View\BlockView\ContextualizedTwigTemplate;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderZone;
 use Twig_Node_Expression_Name;
@@ -44,6 +45,7 @@ class RenderZoneTest extends NodeTest
 
         $zoneClass = Zone::class;
         $extensionClass = RenderingExtension::class;
+        $templateClass = ContextualizedTwigTemplate::class;
 
         $zone = new Twig_Node_Expression_Name('zone', 1);
         $context = new Twig_Node_Expression_Name('context', 1);
@@ -55,9 +57,10 @@ class RenderZoneTest extends NodeTest
 // line 1
 \$ngbmZone = {$this->getNodeGetter('zone')};
 \$ngbmContext = {$this->getNodeGetter('context')};
+\$ngbmTemplate = new {$templateClass}(\$this, \$context, \$blocks);
 if (\$ngbmZone instanceof {$zoneClass}) {
     foreach (\$ngbmZone as \$ngbmBlock) {
-        \$this->env->getExtension("{$extensionClass}")->displayBlock(\$ngbmBlock, \$ngbmContext, \$this, \$context, \$blocks);
+        \$this->env->getExtension("{$extensionClass}")->displayBlock(\$ngbmBlock, array("twigTemplate" => \$ngbmTemplate), \$ngbmContext);
     }
 }
 EOT
@@ -70,9 +73,10 @@ EOT
 // line 1
 \$ngbmZone = {$this->getNodeGetter('zone')};
 \$ngbmContext = Netgen\BlockManager\View\ViewInterface::CONTEXT_DEFAULT;
+\$ngbmTemplate = new {$templateClass}(\$this, \$context, \$blocks);
 if (\$ngbmZone instanceof {$zoneClass}) {
     foreach (\$ngbmZone as \$ngbmBlock) {
-        \$this->env->getExtension("{$extensionClass}")->displayBlock(\$ngbmBlock, \$ngbmContext, \$this, \$context, \$blocks);
+        \$this->env->getExtension("{$extensionClass}")->displayBlock(\$ngbmBlock, array("twigTemplate" => \$ngbmTemplate), \$ngbmContext);
     }
 }
 EOT

@@ -14,7 +14,6 @@ use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
 use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
 use Twig_SimpleFunction;
 use Twig_TokenParser;
-use Twig_Template;
 use Exception;
 use PHPUnit\Framework\TestCase;
 
@@ -113,8 +112,6 @@ class RenderingExtensionTest extends TestCase
      */
     public function testDisplayBlockReturnsEmptyStringOnException()
     {
-        $twigTemplateMock = $this->createMock(Twig_Template::class);
-
         $block = new Block(array('blockDefinition' => new BlockDefinition('block')));
 
         $this->viewRendererMock
@@ -131,10 +128,8 @@ class RenderingExtensionTest extends TestCase
             '',
             $this->extension->displayBlock(
                 $block,
-                ViewInterface::CONTEXT_DEFAULT,
-                $twigTemplateMock,
                 array(),
-                array()
+                ViewInterface::CONTEXT_DEFAULT
             )
         );
     }
@@ -146,8 +141,6 @@ class RenderingExtensionTest extends TestCase
      */
     public function testDisplayBlockThrowsExceptionInDebug()
     {
-        $twigTemplateMock = $this->createMock(Twig_Template::class);
-
         $this->extension->setDebug(true);
         $block = new Block(array('blockDefinition' => new BlockDefinition('block')));
 
@@ -163,10 +156,8 @@ class RenderingExtensionTest extends TestCase
 
         $this->extension->displayBlock(
             $block,
-            ViewInterface::CONTEXT_DEFAULT,
-            $twigTemplateMock,
             array(),
-            array()
+            ViewInterface::CONTEXT_DEFAULT
         );
     }
 

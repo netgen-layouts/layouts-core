@@ -5,10 +5,6 @@
 {% extends 'base.html.twig' %}
 
 {% ngbm_render_block block %}
-
-{% block my_block %}
-This is my block
-{% endblock %}
 --DATA--
 return array(
     'block' => new \Netgen\BlockManager\Core\Values\Page\Block(
@@ -30,4 +26,4 @@ return array(
 --CONFIG--
 return array()
 --EXPECT--
-This is my block
+rendered twig block

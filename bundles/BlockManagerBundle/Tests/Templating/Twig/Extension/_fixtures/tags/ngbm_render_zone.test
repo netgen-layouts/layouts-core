@@ -5,10 +5,6 @@
 {% extends 'base.html.twig' %}
 
 {% ngbm_render_zone zone %}
-
-{% block my_block %}
-This is my block
-{% endblock %}
 --DATA--
 return array(
     'zone' => new \Netgen\BlockManager\Core\Values\Page\Zone(
@@ -50,5 +46,6 @@ return array(
 --CONFIG--
 return array()
 --EXPECT--
-rendered blockThis is my block
+rendered block
+rendered twig block
 rendered block

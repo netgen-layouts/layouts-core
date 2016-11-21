@@ -3,7 +3,6 @@
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension;
 
 use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\Block\TwigBlockDefinitionInterface;
 use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone;
@@ -11,14 +10,13 @@ use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderBlock;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\View\ViewInterface;
-use Psr\Log\LoggerInterface;
-use Psr\Log\NullLogger;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
 use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use Twig_Extension_GlobalsInterface;
 use Twig_SimpleFunction;
 use Twig_Extension;
-use Twig_Template;
 use Exception;
 
 class RenderingExtension extends Twig_Extension implements Twig_Extension_GlobalsInterface
@@ -255,92 +253,34 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      * Displays the provided block.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param array $parameters
      * @param string $viewContext
-     * @param \Twig_Template $twigTemplate
-     * @param array $twigContext
-     * @param array $twigBlocks
      *
      * @throws \Exception If an error occurred
      */
-    public function displayBlock(Block $block, $viewContext, Twig_Template $twigTemplate, array $twigContext = array(), array $twigBlocks = array())
+    public function displayBlock(Block $block, array $parameters, $viewContext)
     {
         try {
-            $blockParams = array();
-
-            $blockDefinition = $block->getBlockDefinition();
-            if ($blockDefinition instanceof TwigBlockDefinitionInterface) {
-                $blockParams['twig_block_content'] = $this->renderTwigBlock(
-                    $blockDefinition->getTwigBlockName($block),
-                    $twigTemplate,
-                    $twigContext,
-                    $twigBlocks
+            if ($this->isBlockCacheable($block)) {
+                echo $this->fragmentHandler->render(
+                    new ControllerReference(
+                        $this->blockController,
+                        array(
+                            'blockId' => $block->getId(),
+                            'parameters' => $parameters,
+                            'context' => $viewContext,
+                        )
+                    ),
+                    'esi'
                 );
             }
 
-            echo $this->renderBlock($block, $blockParams, $viewContext);
+            echo $this->viewRenderer->renderValueObject($block, $parameters, $viewContext);
         } catch (Exception $e) {
             $errorMessage = sprintf('Error rendering a block with ID "%s"', $block->getId());
 
             echo $this->handleException($e, $errorMessage);
         }
-    }
-
-    /**
-     * Renders the provided block.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     * @param array $parameters
-     * @param string $viewContext
-     *
-     * @return string
-     */
-    protected function renderBlock(Block $block, array $parameters = array(), $viewContext = ViewInterface::CONTEXT_DEFAULT)
-    {
-        if ($this->isBlockCacheable($block)) {
-            return $this->fragmentHandler->render(
-                new ControllerReference(
-                    $this->blockController,
-                    array(
-                        'blockId' => $block->getId(),
-                        'parameters' => $parameters,
-                        'context' => $viewContext,
-                    )
-                ),
-                'esi'
-            );
-        }
-
-        return $this->viewRenderer->renderValueObject($block, $parameters, $viewContext);
-    }
-
-    /**
-     * Renders the provided Twig block.
-     *
-     * @param string $twigBlockName
-     * @param \Twig_Template $twigTemplate
-     * @param array $twigContext
-     * @param array $twigBlocks
-     *
-     * @throws \Exception If rendering failed
-     *
-     * @return string
-     */
-    protected function renderTwigBlock($twigBlockName, Twig_Template $twigTemplate, array $twigContext = array(), array $twigBlocks = array())
-    {
-        $level = ob_get_level();
-        ob_start();
-
-        try {
-            $twigTemplate->displayBlock($twigBlockName, $twigContext, $twigBlocks);
-        } catch (Exception $e) {
-            while (ob_get_level() > $level) {
-                ob_end_clean();
-            }
-
-            throw $e;
-        }
-
-        return ob_get_clean();
     }
 
     /**

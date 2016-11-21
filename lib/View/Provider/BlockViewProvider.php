@@ -3,7 +3,10 @@
 namespace Netgen\BlockManager\View\Provider;
 
 use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\Block\TwigBlockDefinitionInterface;
 use Netgen\BlockManager\View\View\BlockView;
+use Netgen\BlockManager\View\View\BlockView\TwigBlockView;
+use Netgen\BlockManager\View\View\BlockView\ContextualizedTwigTemplate;
 
 class BlockViewProvider implements ViewProviderInterface
 {
@@ -17,7 +20,20 @@ class BlockViewProvider implements ViewProviderInterface
      */
     public function provideView($valueObject, array $parameters = array())
     {
-        return new BlockView($valueObject);
+        $blockDefinition = $valueObject->getBlockDefinition();
+        if (!$blockDefinition instanceof TwigBlockDefinitionInterface) {
+            return new BlockView($valueObject);
+        }
+
+        $twigBlockContent = '';
+
+        if (isset($parameters['twigTemplate']) && $parameters['twigTemplate'] instanceof ContextualizedTwigTemplate) {
+            $twigBlockContent = $parameters['twigTemplate']->renderBlock(
+                $blockDefinition->getTwigBlockName($valueObject)
+            );
+        }
+
+        return new TwigBlockView($valueObject, $twigBlockContent);
     }
 
     /**
