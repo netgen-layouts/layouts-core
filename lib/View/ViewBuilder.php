@@ -68,11 +68,11 @@ class ViewBuilder implements ViewBuilderInterface
         $view->addParameters($parameters);
         $view->addParameters(array('view_context' => $context));
 
+        $this->templateResolver->resolveTemplate($view);
+
         $event = new CollectViewParametersEvent($view);
         $this->eventDispatcher->dispatch(BlockManagerEvents::BUILD_VIEW, $event);
         $view->addParameters($event->getParameters());
-
-        $this->templateResolver->resolveTemplate($view);
 
         return $view;
     }
