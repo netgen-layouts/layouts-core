@@ -72,16 +72,15 @@ class GlobalVariableTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getLayout
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::resolveLayout
      */
     public function testGetLayout()
     {
         $this->layoutResolverMock
             ->expects($this->once())
-            ->method('resolveRules')
+            ->method('resolveRule')
             ->will(
                 $this->returnValue(
-                    array(new Rule(array('layout' => new Layout())))
+                    new Rule(array('layout' => new Layout()))
                 )
             );
 
@@ -93,14 +92,13 @@ class GlobalVariableTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getLayout
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::resolveLayout
      */
     public function testGetLayoutWithNoResolvedRules()
     {
         $this->layoutResolverMock
             ->expects($this->once())
-            ->method('resolveRules')
-            ->will($this->returnValue(array()));
+            ->method('resolveRule')
+            ->will($this->returnValue(null));
 
         // This will trigger layout resolver
         $this->globalVariable->getLayoutTemplate();
@@ -110,7 +108,6 @@ class GlobalVariableTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getLayout
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::resolveLayout
      */
     public function testGetLayoutWithNoResolverExecuted()
     {
@@ -119,16 +116,15 @@ class GlobalVariableTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getLayoutTemplate
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::resolveLayout
      */
     public function testGetLayoutTemplate()
     {
         $this->layoutResolverMock
             ->expects($this->once())
-            ->method('resolveRules')
+            ->method('resolveRule')
             ->will(
                 $this->returnValue(
-                    array(new Rule(array('layout' => new Layout())))
+                    new Rule(array('layout' => new Layout()))
                 )
             );
 
@@ -150,14 +146,13 @@ class GlobalVariableTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getLayoutTemplate
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::resolveLayout
      */
     public function testGetLayoutTemplateWithNoResolvedRules()
     {
         $this->layoutResolverMock
             ->expects($this->once())
-            ->method('resolveRules')
-            ->will($this->returnValue(array()));
+            ->method('resolveRule')
+            ->will($this->returnValue(null));
 
         $this->pageLayoutResolverMock
             ->expects($this->once())

@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Layout\Resolver;
 
 use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
+use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface;
 
 class LayoutResolver implements LayoutResolverInterface
@@ -69,6 +70,24 @@ class LayoutResolver implements LayoutResolverInterface
         );
 
         return $matchedRules;
+    }
+
+    /**
+     * Returns the first valid rule that matches the current conditions.
+     *
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule|null
+     */
+    public function resolveRule()
+    {
+        foreach ($this->resolveRules() as $rule) {
+            if (!$rule->getLayout() instanceof Layout) {
+                continue;
+            }
+
+            return $rule;
+        }
+
+        return null;
     }
 
     /**

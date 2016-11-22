@@ -17,6 +17,13 @@ interface LayoutResolverInterface
     public function resolveRules();
 
     /**
+     * Returns the first valid rule that matches the current conditions.
+     *
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule|null
+     */
+    public function resolveRule();
+
+    /**
      * Matches the rules based on provided target type and value.
      *
      * @param string $targetType

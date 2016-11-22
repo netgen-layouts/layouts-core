@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig;
 
+use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface;
@@ -122,30 +123,18 @@ class GlobalVariable
 
     /**
      * Resolves the used layout, based on current conditions.
-     */
-    protected function resolveLayout()
-    {
-        foreach ($this->layoutResolver->resolveRules() as $rule) {
-            if (!$rule->getLayout() instanceof Layout) {
-                continue;
-            }
-
-            $this->layout = $rule->getLayout();
-
-            break;
-        }
-    }
-
-    /**
-     * Resolves the used layout, based on current conditions.
      *
      * @param string $context
      */
     protected function buildLayoutView($context = ViewInterface::CONTEXT_DEFAULT)
     {
-        $this->resolveLayout();
+        $resolvedRule = $this->layoutResolver->resolveRule();
+        if (!$resolvedRule instanceof Rule) {
+            return;
+        }
 
-        if ($this->layoutView === null && $this->layout instanceof Layout) {
+        if ($this->layoutView === null) {
+            $this->layout = $resolvedRule->getLayout();
             $this->layoutView = $this->viewBuilder->buildView($this->layout, array(), $context);
         }
     }
