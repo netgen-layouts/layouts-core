@@ -39,6 +39,11 @@ class GlobalVariable
     protected $layout;
 
     /**
+     * @var \Netgen\BlockManager\API\Values\LayoutResolver\Rule
+     */
+    protected $rule;
+
+    /**
      * @var \Netgen\BlockManager\View\View\LayoutViewInterface
      */
     protected $layoutView;
@@ -76,6 +81,16 @@ class GlobalVariable
     public function getLayout()
     {
         return $this->layout;
+    }
+
+    /**
+     * Returns the rule used to resolve the current layout.
+     *
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
+     */
+    public function getRule()
+    {
+        return $this->rule;
     }
 
     /**
@@ -134,7 +149,9 @@ class GlobalVariable
         }
 
         if ($this->layoutView === null) {
+            $this->rule = $resolvedRule;
             $this->layout = $resolvedRule->getLayout();
+
             $this->layoutView = $this->viewBuilder->buildView($this->layout, array(), $context);
         }
     }
