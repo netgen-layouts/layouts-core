@@ -43,6 +43,20 @@
     {{ include('WebProfilerBundle:Profiler:toolbar_item.html.twig') }}
 {% endblock %}
 
+{% block head %}
+    {{ parent() }}
+
+    <style type="text/css">
+        .container {
+            max-width:100%;
+        }
+
+        .table-contained {
+            max-width:1000px;
+        }
+    </style>
+{% endblock %}
+
 {% block menu %}
     <span class="label">
         <span class="icon">
@@ -93,7 +107,7 @@
 
                     <h2>Rule targets</h2>
 
-                    <table>
+                    <table class="table-contained">
                         <thead>
                             <tr>
                                 <th scope="col" class="key">Target type</th>
@@ -113,7 +127,7 @@
                     <h2>Rule conditions</h2>
 
                     {% if rule.conditions|length > 0 %}
-                        <table>
+                        <table class="table-contained">
                             <thead>
                                 <tr>
                                     <th scope="col" class="key">Condition type</th>
@@ -152,6 +166,7 @@
                             <tr>
                                 <th scope="col">Block ID</th>
                                 <th scope="col">Layout ID</th>
+                                <th scope="col">Shared</th>
                                 <th scope="col" class="font-normal">Block definition</th>
                                 <th scope="col" class="font-normal">View type</th>
                                 <th scope="col" class="font-normal">Block label</th>
@@ -163,6 +178,7 @@
                             <tr>
                                 <th>{{ block.id }}</th>
                                 <td>{{ block.layout_id }}</td>
+                                <td>{{ block.layout_id == layout.id ? 'No' : 'Yes' }}</td>
                                 <td>{{ block.definition }}</td>
                                 <td>{{ block.view_type }}</td>
                                 <td>{{ block.name }}</td>
