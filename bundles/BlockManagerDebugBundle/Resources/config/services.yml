@@ -1,0 +1,10 @@
+parameters:
+    netgen_block_manager.data_collector.collector.class: Netgen\Bundle\BlockManagerDebugBundle\DataCollector\BlockManagerDataCollector
+
+services:
+    netgen_block_manager.data_collector.collector:
+        class: "%netgen_block_manager.data_collector.collector.class%"
+        arguments:
+            - "@netgen_block_manager.templating.global_variable"
+        tags:
+            - { name: data_collector, template: 'NetgenBlockManagerDebugBundle:data_collector:ngbm.html.twig', id: ngbm }

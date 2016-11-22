@@ -68,6 +68,26 @@ class GlobalVariable
     }
 
     /**
+     * Returns the currently resolved layout.
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Layout
+     */
+    public function getLayout()
+    {
+        return $this->layout;
+    }
+
+    /**
+     * Returns the configuration object.
+     *
+     * @return \Netgen\BlockManager\Configuration\ConfigurationInterface
+     */
+    public function getConfig()
+    {
+        return $this->configuration;
+    }
+
+    /**
      * Returns the pagelayout template.
      *
      * @return string
@@ -79,20 +99,6 @@ class GlobalVariable
         }
 
         return $this->pageLayoutTemplate;
-    }
-
-    /**
-     * Returns the currently resolved layout.
-     *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout
-     */
-    public function getLayout()
-    {
-        if ($this->layout === null) {
-            $this->resolveLayout();
-        }
-
-        return $this->layout;
     }
 
     /**
@@ -112,16 +118,6 @@ class GlobalVariable
         }
 
         return $this->layoutView->getTemplate();
-    }
-
-    /**
-     * Returns the configuration object.
-     *
-     * @return \Netgen\BlockManager\Configuration\ConfigurationInterface
-     */
-    public function getConfig()
-    {
-        return $this->configuration;
     }
 
     /**
@@ -147,10 +143,10 @@ class GlobalVariable
      */
     protected function buildLayoutView($context = ViewInterface::CONTEXT_DEFAULT)
     {
-        $layout = $this->getLayout();
+        $this->resolveLayout();
 
-        if ($this->layoutView === null && $layout instanceof Layout) {
-            $this->layoutView = $this->viewBuilder->buildView($layout, array(), $context);
+        if ($this->layoutView === null && $this->layout instanceof Layout) {
+            $this->layoutView = $this->viewBuilder->buildView($this->layout, array(), $context);
         }
     }
 }
