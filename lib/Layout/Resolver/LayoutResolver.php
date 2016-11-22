@@ -75,6 +75,8 @@ class LayoutResolver implements LayoutResolverInterface
     /**
      * Returns the first valid rule that matches the current conditions.
      *
+     * This method will dispatch an event when match is found.
+     *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule|null
      */
     public function resolveRule()

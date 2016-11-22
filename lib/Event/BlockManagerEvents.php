@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Event\View;
+namespace Netgen\BlockManager\Event;
 
-class ViewEvents
+class BlockManagerEvents
 {
     /**
      * This event will be dispatched when the view object has been built.

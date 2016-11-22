@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Event\View;
 
-use Netgen\BlockManager\Event\View\CollectViewParametersEvent;
+use Netgen\BlockManager\Event\CollectViewParametersEvent;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Symfony\Component\HttpFoundation\ParameterBag;

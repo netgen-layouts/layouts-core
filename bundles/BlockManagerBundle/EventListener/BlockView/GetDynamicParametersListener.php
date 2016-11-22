@@ -4,8 +4,8 @@ namespace Netgen\Bundle\BlockManagerBundle\EventListener\BlockView;
 
 use Netgen\BlockManager\View\View\BlockViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Netgen\BlockManager\Event\View\CollectViewParametersEvent;
-use Netgen\BlockManager\Event\View\ViewEvents;
+use Netgen\BlockManager\Event\CollectViewParametersEvent;
+use Netgen\BlockManager\Event\BlockManagerEvents;
 
 class GetDynamicParametersListener implements EventSubscriberInterface
 {
@@ -16,13 +16,13 @@ class GetDynamicParametersListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return array(ViewEvents::BUILD_VIEW => 'onBuildView');
+        return array(BlockManagerEvents::BUILD_VIEW => 'onBuildView');
     }
 
     /**
      * Includes block definition dynamic parameters into block view if specified.
      *
-     * @param \Netgen\BlockManager\Event\View\CollectViewParametersEvent $event
+     * @param \Netgen\BlockManager\Event\CollectViewParametersEvent $event
      */
     public function onBuildView(CollectViewParametersEvent $event)
     {

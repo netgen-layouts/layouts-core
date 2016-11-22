@@ -6,8 +6,8 @@ use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\View\View\LayoutViewInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Netgen\BlockManager\Event\View\CollectViewParametersEvent;
-use Netgen\BlockManager\Event\View\ViewEvents;
+use Netgen\BlockManager\Event\CollectViewParametersEvent;
+use Netgen\BlockManager\Event\BlockManagerEvents;
 
 class RuleCountListener implements EventSubscriberInterface
 {
@@ -33,13 +33,13 @@ class RuleCountListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return array(ViewEvents::BUILD_VIEW => 'onBuildView');
+        return array(BlockManagerEvents::BUILD_VIEW => 'onBuildView');
     }
 
     /**
      * Injects the rule count to the layout.
      *
-     * @param \Netgen\BlockManager\Event\View\CollectViewParametersEvent $event
+     * @param \Netgen\BlockManager\Event\CollectViewParametersEvent $event
      */
     public function onBuildView(CollectViewParametersEvent $event)
     {

@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\View;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Netgen\BlockManager\Event\View\CollectViewParametersEvent;
-use Netgen\BlockManager\Event\View\ViewEvents;
+use Netgen\BlockManager\Event\CollectViewParametersEvent;
+use Netgen\BlockManager\Event\BlockManagerEvents;
 use Netgen\BlockManager\View\Provider\ViewProviderInterface;
 use Netgen\BlockManager\Exception\RuntimeException;
 
@@ -69,7 +69,7 @@ class ViewBuilder implements ViewBuilderInterface
         $view->addParameters(array('view_context' => $context));
 
         $event = new CollectViewParametersEvent($view);
-        $this->eventDispatcher->dispatch(ViewEvents::BUILD_VIEW, $event);
+        $this->eventDispatcher->dispatch(BlockManagerEvents::BUILD_VIEW, $event);
         $view->addParameters($event->getViewParameters());
 
         $this->templateResolver->resolveTemplate($view);

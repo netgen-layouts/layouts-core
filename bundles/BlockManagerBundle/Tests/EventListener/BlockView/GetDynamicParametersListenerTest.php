@@ -4,12 +4,12 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener\BlockView;
 
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetDynamicParametersListener;
-use Netgen\BlockManager\Event\View\CollectViewParametersEvent;
+use Netgen\BlockManager\Event\CollectViewParametersEvent;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\View\BlockView;
-use Netgen\BlockManager\Event\View\ViewEvents;
+use Netgen\BlockManager\Event\BlockManagerEvents;
 use PHPUnit\Framework\TestCase;
 
 class GetDynamicParametersListenerTest extends TestCase
@@ -33,7 +33,7 @@ class GetDynamicParametersListenerTest extends TestCase
     public function testGetSubscribedEvents()
     {
         $this->assertEquals(
-            array(ViewEvents::BUILD_VIEW => 'onBuildView'),
+            array(BlockManagerEvents::BUILD_VIEW => 'onBuildView'),
             $this->listener->getSubscribedEvents()
         );
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Event\View;
+namespace Netgen\BlockManager\Event;
 
 use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Component\EventDispatcher\Event;
