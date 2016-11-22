@@ -56,7 +56,7 @@ class GetDynamicParametersListenerTest extends TestCase
                     'definition_param' => 'definition_value',
                 ),
             ),
-            $event->getViewParameters()
+            $event->getParameters()
         );
     }
 
@@ -69,6 +69,6 @@ class GetDynamicParametersListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
         $this->listener->onBuildView($event);
 
-        $this->assertEquals(array(), $event->getViewParameters());
+        $this->assertEquals(array(), $event->getParameters());
     }
 }

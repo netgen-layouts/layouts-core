@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Event;
 
 use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Component\EventDispatcher\Event;
-use Symfony\Component\HttpFoundation\ParameterBag;
 
 class CollectViewParametersEvent extends Event
 {
@@ -16,11 +15,11 @@ class CollectViewParametersEvent extends Event
     protected $view;
 
     /**
-     * Parameter bag used to manipulate the view parameters. Its contents will be injected to the view.
+     * Parameters to be injected into the view.
      *
-     * @var \Symfony\Component\HttpFoundation\ParameterBag
+     * @var array
      */
-    protected $parameterBag;
+    protected $parameters = array();
 
     /**
      * Constructor.
@@ -30,27 +29,29 @@ class CollectViewParametersEvent extends Event
     public function __construct(ViewInterface $view)
     {
         $this->view = clone $view;
-        $this->parameterBag = new ParameterBag();
     }
 
     /**
-     * Returns the parameters that can be injected into the View.
+     * Returns the parameters that will be injected into the View.
      *
      * @return array
      */
-    public function getViewParameters()
+    public function getParameters()
     {
-        return $this->parameterBag->all();
+        return $this->parameters;
     }
 
     /**
-     * Returns the parameter bag used to manipulate the view parameters.
+     * Returns the parameters that will be injected into the View.
      *
-     * @return \Symfony\Component\HttpFoundation\ParameterBag
+     * @param string $parameterName
+     * @param mixed $parameterValue
+     *
+     * @return array
      */
-    public function getParameterBag()
+    public function addParameter($parameterName, $parameterValue)
     {
-        return $this->parameterBag;
+        return $this->parameters[$parameterName] = $parameterValue;
     }
 
     /**

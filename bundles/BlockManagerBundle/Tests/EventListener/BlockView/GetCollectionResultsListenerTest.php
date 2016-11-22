@@ -121,7 +121,7 @@ class GetCollectionResultsListenerTest extends TestCase
                     'collection2' => new ResultSet(array('collection' => new Collection())),
                 ),
             ),
-            $event->getViewParameters()
+            $event->getParameters()
         );
     }
 
@@ -135,7 +135,7 @@ class GetCollectionResultsListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
         $this->listener->onBuildView($event);
 
-        $this->assertEquals(array(), $event->getViewParameters());
+        $this->assertEquals(array(), $event->getParameters());
     }
 
     /**
@@ -152,6 +152,6 @@ class GetCollectionResultsListenerTest extends TestCase
 
         $this->listener->onBuildView($event);
 
-        $this->assertEquals(array(), $event->getViewParameters());
+        $this->assertEquals(array(), $event->getParameters());
     }
 }

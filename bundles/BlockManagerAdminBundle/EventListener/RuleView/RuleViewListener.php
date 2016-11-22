@@ -62,11 +62,7 @@ class RuleViewListener implements EventSubscriberInterface
             return;
         }
 
-        $event->getParameterBag()->add(
-            array(
-                'target_types' => $this->targetTypeRegistry->getTargetTypes(),
-                'condition_types' => $this->conditionTypeRegistry->getConditionTypes(),
-            )
-        );
+        $event->addParameter('target_types', $this->targetTypeRegistry->getTargetTypes());
+        $event->addParameter('condition_types', $this->conditionTypeRegistry->getConditionTypes());
     }
 }

@@ -93,6 +93,6 @@ class GetCollectionResultsListener implements EventSubscriberInterface
             );
         }
 
-        $event->getParameterBag()->add(array('collections' => $collections));
+        $event->addParameter('collections', $collections);
     }
 }
