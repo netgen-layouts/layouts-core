@@ -1,8 +1,10 @@
 {% extends 'WebProfilerBundle:Profiler:layout.html.twig' %}
 
 {% block toolbar %}
+    {% set layout = collector.data.layout %}
+
     {% set status = 'yellow' %}
-    {% if collector.resolvedLayout %}
+    {% if layout %}
         {% set status = 'green' %}
     {% endif %}
 
@@ -14,31 +16,167 @@
         </svg>
 
         <span class="sf-toolbar-value">
-            {% if collector.resolvedLayout %}
-                {{ collector.resolvedLayout.layoutType.name }}
+            {% if layout %}
+                {{ layout.name }}
             {% else %}
                 No layout resolved
             {% endif %}
         </span>
     {% endset %}
 
-    {% set text %}
+    {% if layout %}
+        {% set text %}
+            {% import 'NetgenBlockManagerAdminBundle:admin:macros.html.twig' as macros %}
+
+            <div class="sf-toolbar-info-piece">
+                <b>Resolved layout</b>
+
+                <span>
+                    <a href="{{ macros.layout_path(layout.id) }}" target="_blank">
+                        {{ layout.name }}
+                    </a>
+                </span>
+            </div>
+        {% endset %}
+    {% endif %}
+
+    {{ include('WebProfilerBundle:Profiler:toolbar_item.html.twig') }}
+{% endblock %}
+
+{% block menu %}
+    <span class="label">
+        <span class="icon">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">
+                <path fill="#AAAAAA" d="M20.1,1H3.9C2.3,1,1,2.3,1,3.9v16.3C1,21.7,2.3,23,3.9,23h16.3c1.6,0,2.9-1.3,2.9-2.9V3.9
+                    C23,2.3,21.7,1,20.1,1z M21,20.1c0,0.5-0.4,0.9-0.9,0.9H3.9C3.4,21,3,20.6,3,20.1V3.9C3,3.4,3.4,3,3.9,3h16.3C20.6,3,21,3.4,21,3.9
+                    V20.1z M5,5h14v3H5V5z M5,10h3v9H5V10z M10,10h9v9h-9V10z"/>
+            </svg>
+        </span>
+
+        <strong>Netgen Layouts</strong>
+    </span>
+{% endblock %}
+
+{% block panel %}
+    {% set layout = collector.data.layout %}
+    {% set rule = collector.data.rule %}
+    {% set blocks = collector.data.blocks %}
+
+    <div class="sf-tabs">
         {% import 'NetgenBlockManagerAdminBundle:admin:macros.html.twig' as macros %}
 
-        <div class="sf-toolbar-info-piece">
-            <b>Resolved layout</b>
+        <div class="tab">
+            <h3 class="tab-title">Layout</h3>
 
-            <span>
-                {% if collector.resolvedLayout %}
-                    <a href="{{ macros.layout_path(collector.resolvedLayout.id) }}" target="_blank">
-                        {{ collector.resolvedLayout.layoutType.name }}
-                    </a>
+            <div class="tab-content">
+                {% if layout %}
+                    <div class="metrics">
+                        <div class="metric">
+                            <span class="value">
+                                <a href="{{ macros.layout_path(layout.id) }}" target="_blank">
+                                    {{ layout.name }}
+                                </a>
+                            </span>
+                            <span class="label">Layout name</span>
+                        </div>
+
+                        <div class="metric">
+                            <span class="value">{{ layout.type }}</span>
+                            <span class="label">Layout type</span>
+                        </div>
+
+                        <div class="metric">
+                            <span class="value">{{ rule.id }}</span>
+                            <span class="label">Rule ID</span>
+                        </div>
+                    </div>
+
+                    <h2>Rule targets</h2>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col" class="key">Target type</th>
+                                <th scope="col">Target value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for target in rule.targets %}
+                            <tr>
+                                <th>{{ target.type }}</th>
+                                <td>{{ profiler_dump(target.value) }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <h2>Rule conditions</h2>
+
+                    {% if rule.conditions|length > 0 %}
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="key">Condition type</th>
+                                    <th scope="col">Condition value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for condition in rule.conditions %}
+                                <tr>
+                                    <th>{{ condition.type }}</th>
+                                    <td>{{ profiler_dump(condition.value) }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p class="help">
+                            Rule does not have any conditions.
+                        </p>
+                    {% endif %}
                 {% else %}
-                    No layout resolved
+                    <div class="empty">
+                        <p>No layout was resolved for this request.</p>
+                    </div>
                 {% endif %}
-            </span>
+            </div>
         </div>
-    {% endset %}
 
-    {{ include('WebProfilerBundle:Profiler:toolbar_item.html.twig', {link: false}) }}
+        <div class="tab">
+            <h3 class="tab-title">Rendered blocks</h3>
+
+            <div class="tab-content">
+                {% if blocks|length > 0 %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th scope="col">Block ID</th>
+                                <th scope="col">Layout ID</th>
+                                <th scope="col" class="font-normal">Block definition</th>
+                                <th scope="col" class="font-normal">View type</th>
+                                <th scope="col" class="font-normal">Block label</th>
+                                <th scope="col">Template</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for block in blocks %}
+                            <tr>
+                                <th>{{ block.id }}</th>
+                                <td>{{ block.layout_id }}</td>
+                                <td>{{ block.definition }}</td>
+                                <td>{{ block.view_type }}</td>
+                                <td>{{ block.name }}</td>
+                                <td>{{ block.template }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <div class="empty">
+                        <p>No blocks were rendered during this request.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

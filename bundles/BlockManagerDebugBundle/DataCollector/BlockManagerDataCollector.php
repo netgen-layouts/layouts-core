@@ -3,10 +3,12 @@
 namespace Netgen\Bundle\BlockManagerDebugBundle\DataCollector;
 
 use Netgen\BlockManager\API\Values\Page\Layout;
+use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
+use Netgen\BlockManager\View\View\BlockViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
+use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use Exception;
 
 class BlockManagerDataCollector extends DataCollector
@@ -25,7 +27,9 @@ class BlockManagerDataCollector extends DataCollector
     {
         $this->globalVariable = $globalVariable;
 
-        $this->data['resolved_layout'] = null;
+        $this->data['rule'] = null;
+        $this->data['layout'] = null;
+        $this->data['blocks'] = array();
     }
 
     /**
@@ -37,20 +41,83 @@ class BlockManagerDataCollector extends DataCollector
      */
     public function collect(Request $request, Response $response, Exception $exception = null)
     {
-        $resolvedLayout = $this->globalVariable->getLayout();
-        if ($resolvedLayout instanceof Layout) {
-            $this->data['resolved_layout'] = $resolvedLayout;
+        $rule = $this->globalVariable->getRule();
+        $layout = $this->globalVariable->getLayout();
+
+        if ($rule instanceof Rule) {
+            $this->collectRule($rule);
         }
+
+        if ($layout instanceof Layout) {
+            $this->collectLayout($layout);
+        }
+    }
+
+    /**
+     * Collects the layout data.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     */
+    public function collectLayout(Layout $layout)
+    {
+        $this->data['layout'] = array(
+            'id' => $layout->getId(),
+            'name' => $layout->getName(),
+            'type' => $layout->getLayoutType()->getName(),
+        );
+    }
+
+    /**
+     * Collects the rule data.
+     *
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
+     */
+    public function collectRule(Rule $rule)
+    {
+        $this->data['rule'] = array(
+            'id' => $rule->getId(),
+        );
+
+        foreach ($rule->getTargets() as $target) {
+            $this->data['rule']['targets'][] = array(
+                'type' => $target->getTargetType()->getType(),
+                'value' => $target->getValue(),
+            );
+        }
+
+        foreach ($rule->getConditions() as $condition) {
+            $this->data['rule']['conditions'][] = array(
+                'type' => $condition->getConditionType()->getType(),
+                'value' => $condition->getValue(),
+            );
+        }
+    }
+
+    /**
+     * Collects the block view data.
+     *
+     * @param \Netgen\BlockManager\View\View\BlockViewInterface $blockView
+     */
+    public function collectBlockView(BlockViewInterface $blockView)
+    {
+        $this->data['blocks'][] = array(
+            'id' => $blockView->getBlock()->getId(),
+            'layout_id' => $blockView->getBlock()->getLayoutId(),
+            'definition' => $blockView->getBlock()->getBlockDefinition()->getIdentifier(),
+            'view_type' => $blockView->getBlock()->getViewType(),
+            'name' => $blockView->getBlock()->getName(),
+            'template' => $blockView->getTemplate(),
+        );
     }
 
     /**
      * Returns the resolved layout.
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout
+     * @return array
      */
-    public function getResolvedLayout()
+    public function getData()
     {
-        return $this->data['resolved_layout'];
+        return $this->data;
     }
 
     /**

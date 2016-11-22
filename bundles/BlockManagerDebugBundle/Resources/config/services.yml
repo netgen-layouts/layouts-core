@@ -1,10 +1,18 @@
 parameters:
-    netgen_block_manager.data_collector.collector.class: Netgen\Bundle\BlockManagerDebugBundle\DataCollector\BlockManagerDataCollector
+    netgen_block_manager.debug.data_collector.class: Netgen\Bundle\BlockManagerDebugBundle\DataCollector\BlockManagerDataCollector
+    netgen_block_manager.debug.data_collector.event_listener.block_view.class: Netgen\Bundle\BlockManagerDebugBundle\DataCollector\EventListener\BlockViewListener
 
 services:
-    netgen_block_manager.data_collector.collector:
-        class: "%netgen_block_manager.data_collector.collector.class%"
+    netgen_block_manager.debug.data_collector:
+        class: "%netgen_block_manager.debug.data_collector.class%"
         arguments:
             - "@netgen_block_manager.templating.global_variable"
         tags:
             - { name: data_collector, template: 'NetgenBlockManagerDebugBundle:data_collector:ngbm.html.twig', id: ngbm }
+
+    netgen_block_manager.debug.data_collector.event_listener.block_view:
+        class: "%netgen_block_manager.debug.data_collector.event_listener.block_view.class%"
+        arguments:
+            - "@netgen_block_manager.debug.data_collector"
+        tags:
+            - { name: kernel.event_subscriber }
