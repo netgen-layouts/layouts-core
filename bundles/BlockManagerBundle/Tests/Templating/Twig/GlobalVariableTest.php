@@ -85,6 +85,9 @@ class GlobalVariableTest extends TestCase
                 )
             );
 
+        // This will trigger layout resolver
+        $this->globalVariable->getLayoutTemplate();
+
         $this->assertEquals(new Layout(), $this->globalVariable->getLayout());
     }
 
@@ -99,6 +102,18 @@ class GlobalVariableTest extends TestCase
             ->method('resolveRules')
             ->will($this->returnValue(array()));
 
+        // This will trigger layout resolver
+        $this->globalVariable->getLayoutTemplate();
+
+        $this->assertNull($this->globalVariable->getLayout());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getLayout
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::resolveLayout
+     */
+    public function testGetLayoutWithNoResolverExecuted()
+    {
         $this->assertNull($this->globalVariable->getLayout());
     }
 
