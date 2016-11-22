@@ -36,17 +36,13 @@
         "psr-4": {
             "Netgen\\BlockManager\\": "lib/",
             "Netgen\\Bundle\\BlockManagerBundle\\": "bundles/BlockManagerBundle/",
-            "Netgen\\Bundle\\BlockManagerAdminBundle\\": "bundles/BlockManagerAdminBundle/"
+            "Netgen\\Bundle\\BlockManagerAdminBundle\\": "bundles/BlockManagerAdminBundle/",
+            "Netgen\\Bundle\\BlockManagerDebugBundle\\": "bundles/BlockManagerDebugBundle/",
+            "Netgen\\Bundle\\BlockManagerFixturesBundle\\": "bundles/BlockManagerFixturesBundle/"
         },
         "exclude-from-classmap": [
             "**/Tests/"
         ]
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Netgen\\Bundle\\BlockManagerDebugBundle\\": "bundles/BlockManagerDebugBundle/",
-            "Netgen\\Bundle\\BlockManagerFixturesBundle\\": "bundles/BlockManagerFixturesBundle/"
-        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
