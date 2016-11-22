@@ -7,6 +7,7 @@ use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
+use Exception;
 
 class BlockManagerDataCollector extends DataCollector
 {
@@ -30,11 +31,11 @@ class BlockManagerDataCollector extends DataCollector
     /**
      * Collects data for the given Request and Response.
      *
-     * @param Request $request A Request instance
-     * @param Response $response A Response instance
-     * @param \Exception $exception An Exception instance
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Symfony\Component\HttpFoundation\Response $response
+     * @param \Exception $exception
      */
-    public function collect(Request $request, Response $response, \Exception $exception = null)
+    public function collect(Request $request, Response $response, Exception $exception = null)
     {
         $resolvedLayout = $this->globalVariable->getLayout();
         if ($resolvedLayout instanceof Layout) {
