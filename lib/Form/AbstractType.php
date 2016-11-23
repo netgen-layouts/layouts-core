@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Form;
 use Symfony\Component\Form\AbstractType as BaseAbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AbstractType extends BaseAbstractType
+abstract class AbstractType extends BaseAbstractType
 {
     const TRANSLATION_DOMAIN = 'ngbm_forms';
 
