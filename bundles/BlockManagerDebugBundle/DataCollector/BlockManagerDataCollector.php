@@ -106,7 +106,6 @@ class BlockManagerDataCollector extends DataCollector
             'zone_identifier' => $blockView->getBlock()->getZoneIdentifier(),
             'definition' => $blockView->getBlock()->getBlockDefinition()->getIdentifier(),
             'view_type' => $blockView->getBlock()->getViewType(),
-            'name' => $blockView->getBlock()->getName(),
             'template' => $blockView->getTemplate(),
         );
     }

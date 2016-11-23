@@ -166,11 +166,10 @@
                             <tr>
                                 <th scope="col">Block ID</th>
                                 <th scope="col">Layout ID</th>
-                                <th scope="col">Zone</th>
                                 <th scope="col">Shared</th>
-                                <th scope="col" class="font-normal">Block definition</th>
-                                <th scope="col" class="font-normal">View type</th>
-                                <th scope="col" class="font-normal">Block label</th>
+                                <th scope="col">Zone</th>
+                                <th scope="col">Block definition</th>
+                                <th scope="col">View type</th>
                                 <th scope="col">Template</th>
                             </tr>
                         </thead>
@@ -179,11 +178,10 @@
                             <tr>
                                 <th>{{ block.id }}</th>
                                 <td>{{ block.layout_id }}</td>
+                                <td class="font-normal">{{ block.layout_id == layout.id ? 'No' : 'Yes' }}</td>
                                 <td>{{ block.zone_identifier }}</td>
-                                <td>{{ block.layout_id == layout.id ? 'No' : 'Yes' }}</td>
                                 <td>{{ block.definition }}</td>
                                 <td>{{ block.view_type }}</td>
-                                <td>{{ block.name }}</td>
                                 <td>{{ block.template }}</td>
                             </tr>
                         {% endfor %}
