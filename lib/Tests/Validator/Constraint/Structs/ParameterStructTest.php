@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 class ParametersTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Validator\Constraint\ParameterStruct::validatedBy
+     * @covers \Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct::validatedBy
      */
     public function testValidatedBy()
     {

@@ -18,7 +18,6 @@ class RootLocationTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Browser\Item\Layout\RootLocation::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Browser\Item\Layout\RootLocation::getLocationId
      */
     public function testGetLocationId()

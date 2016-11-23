@@ -19,7 +19,7 @@ class NumberTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\NumberType::getDefaultValue
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\NumberType::configureOptions
      *
      * @param array $options
      * @param bool $required

@@ -21,7 +21,7 @@ class FormMapperRegistryPassTest extends AbstractCompilerPassTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Parameters\ParametersTypePass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Parameters\FormMapperRegistryPass::process
      */
     public function testProcess()
     {
@@ -48,7 +48,7 @@ class FormMapperRegistryPassTest extends AbstractCompilerPassTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Parameters\ParametersTypePass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Parameters\FormMapperRegistryPass::process
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      */
     public function testProcessThrowsRuntimeExceptionWithNoTagType()

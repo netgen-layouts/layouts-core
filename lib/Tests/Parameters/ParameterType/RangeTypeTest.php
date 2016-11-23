@@ -19,7 +19,7 @@ class RangeTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\RangeType::getDefaultValue
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\RangeType::configureOptions
      *
      * @param array $options
      * @param bool $required

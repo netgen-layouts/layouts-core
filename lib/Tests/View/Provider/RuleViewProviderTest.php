@@ -23,7 +23,6 @@ class RuleViewProviderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\View\Provider\RuleViewProvider::provideView
-     * @covers \Netgen\BlockManager\View\Provider\RuleViewProvider::loadPublishedRule
      */
     public function testProvideView()
     {

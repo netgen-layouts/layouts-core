@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Validator;
+namespace Netgen\BlockManager\Tests\Validator\Structs;
 
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\Parameters\ParameterType;
@@ -59,11 +59,10 @@ class ParameterStructValidatorTest extends ValidatorTestCase
      * @param bool $required
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Validator\ParameterStructValidator::__construct
-     * @covers \Netgen\BlockManager\Validator\ParameterStructValidator::validate
-     * @covers \Netgen\BlockManager\Validator\ParameterStructValidator::filterParameters
-     * @covers \Netgen\BlockManager\Validator\ParameterStructValidator::buildConstraintFields
-     * @covers \Netgen\BlockManager\Validator\ParameterStructValidator::buildFieldConstraint
+     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::__construct
+     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::validate
+     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::filterParameters
+     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::buildConstraintFields
      * @dataProvider validateDataProvider
      */
     public function testValidate($parameterValues, $required, $isValid)

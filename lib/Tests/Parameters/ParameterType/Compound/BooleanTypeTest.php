@@ -19,7 +19,7 @@ class BooleanTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\Compound\BooleanType::getDefaultValue
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\Compound\BooleanType::configureOptions
      *
      * @param array $options
      * @param bool $required

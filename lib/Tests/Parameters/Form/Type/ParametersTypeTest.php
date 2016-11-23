@@ -28,8 +28,8 @@ class ParametersTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\ParametersType::__construct
-     * @covers \Netgen\BlockManager\Parameters\Form\ParametersType::buildForm
+     * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::__construct
+     * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::buildForm
      */
     public function testSubmitValidData()
     {
@@ -90,7 +90,7 @@ class ParametersTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\ParametersType::configureOptions
+     * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::configureOptions
      */
     public function testConfigureOptions()
     {
@@ -118,7 +118,7 @@ class ParametersTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\ParametersType::configureOptions
+     * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
      */
     public function testConfigureOptionsWithMissingParameters()
@@ -131,7 +131,7 @@ class ParametersTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\ParametersType::configureOptions
+     * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function testConfigureOptionsWithInvalidParameters()

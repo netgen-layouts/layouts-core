@@ -19,7 +19,7 @@ class IntegerTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\IntegerType::getDefaultValue
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\IntegerType::configureOptions
      *
      * @param array $options
      * @param bool $required

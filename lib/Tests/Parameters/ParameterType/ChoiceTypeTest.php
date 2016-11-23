@@ -19,7 +19,7 @@ class ChoiceTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ChoiceType::getDefaultValue
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\ChoiceType::configureOptions
      *
      * @param array $options
      * @param bool $required

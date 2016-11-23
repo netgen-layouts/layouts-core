@@ -20,9 +20,8 @@ class CompoundBooleanTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\CompoundBooleanType::__construct
-     * @covers \Netgen\BlockManager\Parameters\Form\CompoundBooleanType::buildForm
-     * @covers \Netgen\BlockManager\Parameters\Form\CompoundBooleanType::buildView
+     * @covers \Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType::buildForm
+     * @covers \Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType::buildView
      */
     public function testSubmitValidData()
     {
@@ -84,9 +83,8 @@ class CompoundBooleanTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\CompoundBooleanType::__construct
-     * @covers \Netgen\BlockManager\Parameters\Form\CompoundBooleanType::buildForm
-     * @covers \Netgen\BlockManager\Parameters\Form\CompoundBooleanType::buildView
+     * @covers \Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType::buildForm
+     * @covers \Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType::buildView
      */
     public function testSubmitValidDataWithUncheckedCheckbox()
     {
@@ -145,9 +143,8 @@ class CompoundBooleanTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\CompoundBooleanType::__construct
-     * @covers \Netgen\BlockManager\Parameters\Form\CompoundBooleanType::buildForm
-     * @covers \Netgen\BlockManager\Parameters\Form\CompoundBooleanType::buildView
+     * @covers \Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType::buildForm
+     * @covers \Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType::buildView
      */
     public function testSubmitValidDataWithUncheckedCheckboxAndEmptyData()
     {
@@ -203,9 +200,8 @@ class CompoundBooleanTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\CompoundBooleanType::__construct
-     * @covers \Netgen\BlockManager\Parameters\Form\CompoundBooleanType::buildForm
-     * @covers \Netgen\BlockManager\Parameters\Form\CompoundBooleanType::buildView
+     * @covers \Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType::buildForm
+     * @covers \Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType::buildView
      */
     public function testSubmitValidDataWithReverseMode()
     {
@@ -266,9 +262,8 @@ class CompoundBooleanTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\CompoundBooleanType::__construct
-     * @covers \Netgen\BlockManager\Parameters\Form\CompoundBooleanType::buildForm
-     * @covers \Netgen\BlockManager\Parameters\Form\CompoundBooleanType::buildView
+     * @covers \Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType::buildForm
+     * @covers \Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType::buildView
      */
     public function testSubmitValidDataWithUncheckedCheckboxAndReverseMode()
     {
@@ -330,7 +325,7 @@ class CompoundBooleanTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\CompoundBooleanType::configureOptions
+     * @covers \Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType::configureOptions
      */
     public function testConfigureOptions()
     {
@@ -349,7 +344,7 @@ class CompoundBooleanTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\CompoundBooleanType::getBlockPrefix
+     * @covers \Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType::getBlockPrefix
      */
     public function testGetBlockPrefix()
     {

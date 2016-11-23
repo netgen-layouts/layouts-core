@@ -19,7 +19,7 @@ class BooleanTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\BooleanType::getDefaultValue
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\BooleanType::configureOptions
      *
      * @param array $options
      * @param bool $required
@@ -35,7 +35,7 @@ class BooleanTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\Boolean::configureOptions
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\BooleanType::configureOptions
      * @dataProvider validOptionsProvider
      *
      * @param array $options
@@ -48,7 +48,7 @@ class BooleanTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\Boolean::configureOptions
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\BooleanType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidArgumentException
      * @dataProvider invalidOptionsProvider
      *
