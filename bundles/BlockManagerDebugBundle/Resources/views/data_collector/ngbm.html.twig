@@ -51,7 +51,7 @@
             max-width:100%;
         }
 
-        .table-contained {
+        .nl-container {
             max-width:1000px;
         }
     </style>
@@ -82,7 +82,7 @@
         <div class="tab">
             <h3 class="tab-title">Resolved layout</h3>
 
-            <div class="tab-content">
+            <div class="tab-content nl-container">
                 {% if layout %}
                     <div class="metrics">
                         <div class="metric">
@@ -107,7 +107,7 @@
 
                     <h2>Rule targets</h2>
 
-                    <table class="table-contained">
+                    <table>
                         <thead>
                             <tr>
                                 <th scope="col" class="key">Target type</th>
@@ -126,8 +126,8 @@
 
                     <h2>Rule conditions</h2>
 
-                    {% if rule.conditions|length > 0 %}
-                        <table class="table-contained">
+                    {% if rule.conditions is defined and rule.conditions|length > 0 %}
+                        <table>
                             <thead>
                                 <tr>
                                     <th scope="col" class="key">Condition type</th>
@@ -144,7 +144,7 @@
                             </tbody>
                         </table>
                     {% else %}
-                        <p class="help">
+                        <p class="empty">
                             Rule does not have any conditions.
                         </p>
                     {% endif %}
