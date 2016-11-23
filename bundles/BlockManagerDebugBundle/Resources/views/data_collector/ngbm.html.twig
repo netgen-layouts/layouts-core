@@ -161,6 +161,13 @@
 
             <div class="tab-content">
                 {% if blocks|length > 0 %}
+                    <div class="metrics">
+                        <div class="metric">
+                            <span class="value">{{ blocks|length }}</span>
+                            <span class="label">Blocks rendered</span>
+                        </div>
+                    </div>
+
                     <table>
                         <thead>
                             <tr>
