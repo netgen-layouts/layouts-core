@@ -43,11 +43,9 @@ class ResultIteratorFactory
     {
         return new ResultFilterIterator(
             new ResultBuilderIterator(
-                new ItemLoaderIterator(
-                    $collectionIterator,
-                    $this->itemLoader,
-                    $this->itemBuilder
-                )
+                $collectionIterator,
+                $this->itemLoader,
+                $this->itemBuilder
             ),
             $flags
         );
