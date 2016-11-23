@@ -37,6 +37,10 @@ class LayoutNameValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, LayoutName::class);
         }
 
+        if ($value === null) {
+            return;
+        }
+
         if (!is_string($value)) {
             throw new UnexpectedTypeException($value, 'string');
         }
