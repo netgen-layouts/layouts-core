@@ -60,6 +60,7 @@ class CreateType extends AbstractType
             ChoiceType::class,
             array(
                 'label' => 'layout.type',
+                'required' => true,
                 'choices' => $choices,
                 'choices_as_values' => true,
                 'expanded' => true,
@@ -75,6 +76,7 @@ class CreateType extends AbstractType
             TextType::class,
             array(
                 'label' => 'layout.name',
+                'required' => true,
                 'constraints' => array(
                     new Constraints\NotBlank(),
                     new LayoutName(),
