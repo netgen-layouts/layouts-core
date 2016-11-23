@@ -165,7 +165,7 @@ class GalleryHandler extends BlockDefinitionHandler
             )
         );
 
-        $this->buildCommonParameters($builder);
+        $this->buildCommonParameters($builder, array(self::GROUP_DESIGN));
     }
 
     /**
