@@ -80,7 +80,7 @@
         {% import 'NetgenBlockManagerAdminBundle:admin:macros.html.twig' as macros %}
 
         <div class="tab">
-            <h3 class="tab-title">Resolved layout</h3>
+            <h3 class="tab-title">Rendered layout</h3>
 
             <div class="tab-content nl-container">
                 {% if layout %}
@@ -102,6 +102,13 @@
                         <div class="metric">
                             <span class="value">{{ rule.id }}</span>
                             <span class="label">Rule ID</span>
+                        </div>
+                    </div>
+
+                    <div class="metrics">
+                        <div class="metric">
+                            <span class="value">{{ layout.template }}</span>
+                            <span class="label">Template</span>
                         </div>
                     </div>
 

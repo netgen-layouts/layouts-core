@@ -5,6 +5,7 @@ namespace Netgen\Bundle\BlockManagerDebugBundle\DataCollector;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\View\View\BlockViewInterface;
+use Netgen\BlockManager\View\View\LayoutViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,28 +43,31 @@ class BlockManagerDataCollector extends DataCollector
     public function collect(Request $request, Response $response, Exception $exception = null)
     {
         $rule = $this->globalVariable->getRule();
-        $layout = $this->globalVariable->getLayout();
+        $layoutView = $this->globalVariable->getLayoutView();
 
         if ($rule instanceof Rule) {
             $this->collectRule($rule);
         }
 
-        if ($layout instanceof Layout) {
-            $this->collectLayout($layout);
+        if ($layoutView instanceof LayoutViewInterface) {
+            $this->collectLayout($layoutView);
         }
     }
 
     /**
      * Collects the layout data.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\View\View\LayoutViewInterface $layoutView
      */
-    public function collectLayout(Layout $layout)
+    public function collectLayout(LayoutViewInterface $layoutView)
     {
+        $layout = $layoutView->getLayout();
+
         $this->data['layout'] = array(
             'id' => $layout->getId(),
             'name' => $layout->getName(),
             'type' => $layout->getLayoutType()->getName(),
+            'template' => $layoutView->getTemplate(),
         );
     }
 

@@ -84,6 +84,16 @@ class GlobalVariable
     }
 
     /**
+     * Returns the currently resolved layout view.
+     *
+     * @return \Netgen\BlockManager\View\View\LayoutViewInterface
+     */
+    public function getLayoutView()
+    {
+        return $this->layoutView;
+    }
+
+    /**
      * Returns the rule used to resolve the current layout.
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
