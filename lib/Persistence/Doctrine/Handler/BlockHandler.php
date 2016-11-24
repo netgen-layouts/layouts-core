@@ -480,6 +480,10 @@ class BlockHandler implements BlockHandlerInterface
     /**
      * Deletes blocks with specified IDs.
      *
+     * This method does not reorder blocks in the affected zones,
+     * so this should be used only when deleting the blocks for an entire zone
+     * or layout.
+     *
      * @param array $blockIds
      * @param int $status
      */
