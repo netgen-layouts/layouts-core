@@ -71,6 +71,8 @@ trait ParameterCollectionTrait
         if (is_callable($this->parameters)) {
             $parametersClosure = $this->parameters;
             $this->parameters = $parametersClosure();
+        } elseif ($this->parameters === null) {
+            $this->parameters = array();
         }
     }
 }
