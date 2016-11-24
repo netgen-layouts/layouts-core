@@ -7,9 +7,9 @@ block_types:
         name: 'Text'
         definition_identifier: text
 
-    link:
-        name: 'Link'
-        definition_identifier: link
+    button:
+        name: 'Button'
+        definition_identifier: button
 
     markdown:
         name: 'Markdown'

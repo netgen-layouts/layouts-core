@@ -9,10 +9,10 @@ view:
                 template: "NetgenBlockManagerBundle:block:text.html.twig"
                 match:
                     block\definition: text
-            link:
-                template: "NetgenBlockManagerBundle:block:link.html.twig"
+            button:
+                template: "NetgenBlockManagerBundle:block:button.html.twig"
                 match:
-                    block\definition: link
+                    block\definition: button
             markdown:
                 template: "NetgenBlockManagerBundle:block:markdown.html.twig"
                 match:
@@ -78,10 +78,10 @@ view:
                 match:
                     block\definition: text
                     api_version: 1
-            link:
-                template: "NetgenBlockManagerBundle:api/block:link.html.twig"
+            button:
+                template: "NetgenBlockManagerBundle:api/block:button.html.twig"
                 match:
-                    block\definition: link
+                    block\definition: button
                     api_version: 1
             markdown:
                 template: "NetgenBlockManagerBundle:api/block:markdown.html.twig"

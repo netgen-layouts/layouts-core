@@ -6,28 +6,28 @@ use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 use Netgen\BlockManager\Parameters\ParameterType;
 
-class LinkHandler extends BlockDefinitionHandler
+class ButtonHandler extends BlockDefinitionHandler
 {
     /**
      * @var array
      */
-    protected $linkStyles = array();
+    protected $styles = array();
 
     /**
      * @var array
      */
-    protected $linkValueTypes = array();
+    protected $valueTypes = array();
 
     /**
      * Constructor.
      *
-     * @param array $linkStyles
-     * @param array $linkValueTypes
+     * @param array $styles
+     * @param array $valueTypes
      */
-    public function __construct(array $linkStyles = array(), array $linkValueTypes = array())
+    public function __construct(array $styles = array(), array $valueTypes = array())
     {
-        $this->linkStyles = array_flip($linkStyles);
-        $this->linkValueTypes = $linkValueTypes;
+        $this->styles = array_flip($styles);
+        $this->valueTypes = $valueTypes;
     }
 
     /**
@@ -38,7 +38,7 @@ class LinkHandler extends BlockDefinitionHandler
     public function buildParameters(ParameterBuilderInterface $builder)
     {
         $builder->add(
-            'link_text',
+            'text',
             ParameterType\TextLineType::class,
             array(
                 'required' => true,
@@ -47,11 +47,11 @@ class LinkHandler extends BlockDefinitionHandler
         );
 
         $builder->add(
-            'link_style',
+            'style',
             ParameterType\ChoiceType::class,
             array(
                 'required' => true,
-                'options' => $this->linkStyles,
+                'options' => $this->styles,
             )
         );
 
@@ -59,7 +59,7 @@ class LinkHandler extends BlockDefinitionHandler
             'link',
             ParameterType\LinkType::class,
             array(
-                'value_types' => $this->linkValueTypes,
+                'value_types' => $this->valueTypes,
             )
         );
 

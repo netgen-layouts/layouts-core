@@ -7,7 +7,7 @@ parameters:
 
     netgen_block_manager.block.block_definition.handler.title.class: Netgen\BlockManager\Block\BlockDefinition\Handler\TitleHandler
     netgen_block_manager.block.block_definition.handler.text.class: Netgen\BlockManager\Block\BlockDefinition\Handler\TextHandler
-    netgen_block_manager.block.block_definition.handler.link.class: Netgen\BlockManager\Block\BlockDefinition\Handler\LinkHandler
+    netgen_block_manager.block.block_definition.handler.button.class: Netgen\BlockManager\Block\BlockDefinition\Handler\ButtonHandler
     netgen_block_manager.block.block_definition.handler.markdown.parser.class: Michelf\MarkdownExtra
     netgen_block_manager.block.block_definition.handler.markdown.class: Netgen\BlockManager\Block\BlockDefinition\Handler\MarkdownHandler
     netgen_block_manager.block.block_definition.handler.rich_text.class: Netgen\BlockManager\Block\BlockDefinition\Handler\RichTextHandler
@@ -26,12 +26,12 @@ parameters:
 
     netgen_block_manager.block.block_definition.handler.title.value_types: []
 
-    netgen_block_manager.block.block_definition.handler.link.link_styles:
-        'link': 'Link'
+    netgen_block_manager.block.block_definition.handler.button.styles:
         'default_button': 'Default button'
         'highlighted_button': 'Highlighted button'
+        'link': 'Link'
 
-    netgen_block_manager.block.block_definition.handler.link.value_types: []
+    netgen_block_manager.block.block_definition.handler.button.value_types: []
 
     netgen_block_manager.block.block_definition.handler.external_video.services:
         youtube: 'YouTube'
@@ -88,13 +88,13 @@ services:
         tags:
             - { name: netgen_block_manager.block.block_definition_handler, identifier: text }
 
-    netgen_block_manager.block.block_definition.handler.link:
-        class: "%netgen_block_manager.block.block_definition.handler.link.class%"
+    netgen_block_manager.block.block_definition.handler.button:
+        class: "%netgen_block_manager.block.block_definition.handler.button.class%"
         arguments:
-            - "%netgen_block_manager.block.block_definition.handler.link.link_styles%"
-            - "%netgen_block_manager.block.block_definition.handler.link.value_types%"
+            - "%netgen_block_manager.block.block_definition.handler.button.styles%"
+            - "%netgen_block_manager.block.block_definition.handler.button.value_types%"
         tags:
-            - { name: netgen_block_manager.block.block_definition_handler, identifier: link }
+            - { name: netgen_block_manager.block.block_definition_handler, identifier: button }
 
     netgen_block_manager.block.block_definition.handler.markdown.parser:
         class: "%netgen_block_manager.block.block_definition.handler.markdown.parser.class%"

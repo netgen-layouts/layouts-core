@@ -9,10 +9,10 @@ block_definitions:
             text:
                 name: 'Text'
 
-    link:
+    button:
         view_types:
-            link:
-                name: 'Link'
+            button:
+                name: 'Button'
 
     markdown:
         view_types:
