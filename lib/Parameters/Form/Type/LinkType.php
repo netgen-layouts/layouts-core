@@ -26,6 +26,8 @@ class LinkType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
+        parent::configureOptions($resolver);
+
         $resolver->setRequired(array('value_types'));
         $resolver->setAllowedTypes('value_types', 'array');
         $resolver->setDefault('value_types', array());
@@ -45,11 +47,11 @@ class LinkType extends AbstractType
             array(
                 'label' => 'forms.uri.link_type',
                 'choices' => array(
-                        'forms.uri.link_type.url' => LinkValue::LINK_TYPE_URL,
-                        'forms.uri.link_type.email' => LinkValue::LINK_TYPE_EMAIL,
-                        'forms.uri.link_type.phone' => LinkValue::LINK_TYPE_PHONE,
-                        'forms.uri.link_type.internal' => LinkValue::LINK_TYPE_INTERNAL,
-                    ),
+                    'forms.uri.link_type.url' => LinkValue::LINK_TYPE_URL,
+                    'forms.uri.link_type.email' => LinkValue::LINK_TYPE_EMAIL,
+                    'forms.uri.link_type.phone' => LinkValue::LINK_TYPE_PHONE,
+                    'forms.uri.link_type.internal' => LinkValue::LINK_TYPE_INTERNAL,
+                ),
                 'choices_as_values' => true,
                 'required' => true,
                 'property_path' => 'linkType',
