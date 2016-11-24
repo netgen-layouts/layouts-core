@@ -328,32 +328,6 @@ class BlockQueryHandler extends QueryHandler
     /**
      * Deletes the collection reference.
      *
-     * @param int|string $blockId
-     * @param int $blockStatus
-     * @param string $identifier
-     */
-    public function deleteCollectionReference($blockId, $blockStatus, $identifier)
-    {
-        $query = $this->connection->createQueryBuilder();
-
-        $query->delete('ngbm_block_collection')
-            ->where(
-                $query->expr()->andX(
-                    $query->expr()->eq('block_id', ':block_id'),
-                    $query->expr()->eq('identifier', ':identifier')
-                )
-            )
-            ->setParameter('block_id', $blockId, Type::INTEGER)
-            ->setParameter('identifier', $identifier, Type::STRING);
-
-        $this->applyStatusCondition($query, $blockStatus, 'block_status', 'block_status');
-
-        $query->execute();
-    }
-
-    /**
-     * Deletes the collection reference.
-     *
      * @param array $blockIds
      * @param int $status
      */
