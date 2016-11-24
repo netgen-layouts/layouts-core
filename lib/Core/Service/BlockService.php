@@ -665,10 +665,6 @@ class BlockService implements BlockServiceInterface
      */
     protected function isBlockAllowedWithinZone($definitionIdentifier, $layoutType, $zoneIdentifier)
     {
-        if (!$this->layoutTypeRegistry->hasLayoutType($layoutType)) {
-            return true;
-        }
-
         $layoutType = $this->layoutTypeRegistry->getLayoutType($layoutType);
         if (!$layoutType->hasZone($zoneIdentifier)) {
             return true;
