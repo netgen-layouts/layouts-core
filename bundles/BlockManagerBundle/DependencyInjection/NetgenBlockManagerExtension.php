@@ -205,6 +205,8 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
      *
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @param array $configs
+     *
+     * @return array
      */
     protected function buildLayoutTypes(ContainerBuilder $container, array $configs = array())
     {
@@ -224,6 +226,8 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
                 ->addTag('netgen_block_manager.configuration.layout_type')
                 ->setAbstract(false);
         }
+
+        return $configs;
     }
 
     /**
@@ -231,6 +235,8 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
      *
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @param array $configs
+     *
+     * @return array
      */
     protected function buildSources(ContainerBuilder $container, array $configs = array())
     {
@@ -260,6 +266,8 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
                 ->addTag('netgen_block_manager.configuration.source')
                 ->setAbstract(false);
         }
+
+        return $configs;
     }
 
     /**
@@ -268,6 +276,8 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @param array $blockDefinitionConfigs
      * @param array $blockTypeConfigs
+     *
+     * @return array
      */
     protected function buildBlockTypes(
         ContainerBuilder $container,
@@ -329,25 +339,31 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
                 ->addTag('netgen_block_manager.configuration.block_type')
                 ->setAbstract(false);
         }
+
+        return $blockTypeConfigs;
     }
 
     /**
      * Builds the config objects from provided array config.
      *
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     * @param array $configs
+     * @param array $blockTypeGroupConfigs
+     *
+     * @return array
      */
-    protected function buildBlockTypeGroups(ContainerBuilder $container, array $configs = array())
-    {
-        foreach ($configs as $identifier => $config) {
-            if (!$config['enabled']) {
+    protected function buildBlockTypeGroups(
+        ContainerBuilder $container,
+        array $blockTypeGroupConfigs = array()
+    ) {
+        foreach ($blockTypeGroupConfigs as $identifier => $blockTypeGroupConfig) {
+            if (!$blockTypeGroupConfig['enabled']) {
                 continue;
             }
 
             $serviceIdentifier = sprintf('netgen_block_manager.configuration.block_type_group.%s', $identifier);
 
             $blockTypeReferences = array();
-            foreach ($config['block_types'] as $blockType) {
+            foreach ($blockTypeGroupConfig['block_types'] as $blockType) {
                 $blockTypeReferences[] = new Reference(
                     sprintf(
                         'netgen_block_manager.configuration.block_type.%s',
@@ -361,25 +377,11 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
                     $serviceIdentifier,
                     new DefinitionDecorator('netgen_block_manager.configuration.block_type_group')
                 )
-                ->setArguments(array($identifier, $config, $blockTypeReferences))
+                ->setArguments(array($identifier, $blockTypeGroupConfig, $blockTypeReferences))
                 ->addTag('netgen_block_manager.configuration.block_type_group')
                 ->setAbstract(false);
         }
-    }
 
-    /**
-     * Humanizes the provided text.
-     *
-     * Sequences of underscores are replaced by single spaces. The first letter
-     * of the resulting string is capitalized, while all other letters are
-     * turned to lowercase.
-     *
-     * @param string $text
-     *
-     * @return string
-     */
-    protected function humanize($text)
-    {
-        return ucfirst(trim(strtolower(preg_replace(array('/([A-Z])/', '/[_\s]+/'), array('_$1', ' '), $text))));
+        return $blockTypeGroupConfigs;
     }
 }
