@@ -103,13 +103,21 @@ class GetCollectionResultsListenerTest extends TestCase
         $this->resultLoaderMock
             ->expects($this->at(0))
             ->method('load')
-            ->with($this->equalTo(new Collection()))
+            ->with(
+                $this->equalTo(new Collection()),
+                $this->equalTo(3),
+                $this->equalTo(5)
+            )
             ->will($this->returnValue(new ResultSet(array('collection' => new Collection()))));
 
         $this->resultLoaderMock
             ->expects($this->at(1))
             ->method('load')
-            ->with($this->equalTo(new Collection()))
+            ->with(
+                $this->equalTo(new Collection()),
+                $this->equalTo(5),
+                $this->equalTo(10)
+            )
             ->will($this->returnValue(new ResultSet(array('collection' => new Collection()))));
 
         $this->listener->onBuildView($event);
@@ -119,6 +127,104 @@ class GetCollectionResultsListenerTest extends TestCase
                 'collections' => array(
                     'collection1' => new ResultSet(array('collection' => new Collection())),
                     'collection2' => new ResultSet(array('collection' => new Collection())),
+                ),
+            ),
+            $event->getParameters()
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::onBuildView
+     */
+    public function testOnBuildViewWithEmptyLimit()
+    {
+        $blockDefinition = new BlockDefinition('def');
+
+        $collectionReference = new CollectionReference(
+            array(
+                'block' => new Block(),
+                'collection' => new Collection(),
+                'identifier' => 'collection',
+                'offset' => 3,
+                'limit' => null,
+            )
+        );
+
+        $view = new BlockView(new Block(), $blockDefinition);
+        $view->setContext(ViewInterface::CONTEXT_DEFAULT);
+        $event = new CollectViewParametersEvent($view);
+
+        $this->blockServiceMock
+            ->expects($this->once())
+            ->method('loadCollectionReferences')
+            ->with($this->equalTo(new Block()))
+            ->will($this->returnValue(array($collectionReference)));
+
+        $this->resultLoaderMock
+            ->expects($this->at(0))
+            ->method('load')
+            ->with(
+                $this->equalTo(new Collection()),
+                $this->equalTo(3),
+                $this->equalTo(25)
+            )
+            ->will($this->returnValue(new ResultSet(array('collection' => new Collection()))));
+
+        $this->listener->onBuildView($event);
+
+        $this->assertEquals(
+            array(
+                'collections' => array(
+                    'collection' => new ResultSet(array('collection' => new Collection())),
+                ),
+            ),
+            $event->getParameters()
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::onBuildView
+     */
+    public function testOnBuildViewWithTooLargeLimit()
+    {
+        $blockDefinition = new BlockDefinition('def');
+
+        $collectionReference = new CollectionReference(
+            array(
+                'block' => new Block(),
+                'collection' => new Collection(),
+                'identifier' => 'collection',
+                'offset' => 3,
+                'limit' => 9999,
+            )
+        );
+
+        $view = new BlockView(new Block(), $blockDefinition);
+        $view->setContext(ViewInterface::CONTEXT_DEFAULT);
+        $event = new CollectViewParametersEvent($view);
+
+        $this->blockServiceMock
+            ->expects($this->once())
+            ->method('loadCollectionReferences')
+            ->with($this->equalTo(new Block()))
+            ->will($this->returnValue(array($collectionReference)));
+
+        $this->resultLoaderMock
+            ->expects($this->at(0))
+            ->method('load')
+            ->with(
+                $this->equalTo(new Collection()),
+                $this->equalTo(3),
+                $this->equalTo(25)
+            )
+            ->will($this->returnValue(new ResultSet(array('collection' => new Collection()))));
+
+        $this->listener->onBuildView($event);
+
+        $this->assertEquals(
+            array(
+                'collections' => array(
+                    'collection' => new ResultSet(array('collection' => new Collection())),
                 ),
             ),
             $event->getParameters()

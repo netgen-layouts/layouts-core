@@ -673,7 +673,7 @@ class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::copyDraft
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::copy
      */
     public function testCopy()
     {

@@ -28,6 +28,7 @@ class TargetParamConverterTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\TargetParamConverter::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\TargetParamConverter::getSourceAttributeNames
      */
     public function testGetSourceAttributeName()
@@ -52,7 +53,6 @@ class TargetParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\TargetParamConverter::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\TargetParamConverter::loadValueObject
      */
     public function testLoadValueObject()
@@ -67,7 +67,36 @@ class TargetParamConverterTest extends TestCase
 
         $this->assertEquals(
             $target,
-            $this->paramConverter->loadValueObject(array('targetId' => 42, 'published' => true))
+            $this->paramConverter->loadValueObject(
+                array(
+                    'targetId' => 42,
+                    'published' => true,
+                )
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\TargetParamConverter::loadValueObject
+     */
+    public function testLoadValueObjectDraft()
+    {
+        $target = new Target();
+
+        $this->layoutResolverServiceMock
+            ->expects($this->once())
+            ->method('loadTargetDraft')
+            ->with($this->equalTo(42))
+            ->will($this->returnValue($target));
+
+        $this->assertEquals(
+            $target,
+            $this->paramConverter->loadValueObject(
+                array(
+                    'targetId' => 42,
+                    'published' => false,
+                )
+            )
         );
     }
 }

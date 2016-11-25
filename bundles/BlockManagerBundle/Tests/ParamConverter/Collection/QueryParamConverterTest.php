@@ -28,6 +28,7 @@ class QueryParamConverterTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\QueryParamConverter::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\QueryParamConverter::getSourceAttributeNames
      */
     public function testGetSourceAttributeName()
@@ -52,7 +53,6 @@ class QueryParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\QueryParamConverter::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\QueryParamConverter::loadValueObject
      */
     public function testLoadValueObject()
@@ -67,7 +67,36 @@ class QueryParamConverterTest extends TestCase
 
         $this->assertEquals(
             $query,
-            $this->paramConverter->loadValueObject(array('queryId' => 42, 'published' => true))
+            $this->paramConverter->loadValueObject(
+                array(
+                    'queryId' => 42,
+                    'published' => true,
+                )
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\QueryParamConverter::loadValueObject
+     */
+    public function testLoadValueObjectDraft()
+    {
+        $query = new Query();
+
+        $this->collectionServiceMock
+            ->expects($this->once())
+            ->method('loadQueryDraft')
+            ->with($this->equalTo(42))
+            ->will($this->returnValue($query));
+
+        $this->assertEquals(
+            $query,
+            $this->paramConverter->loadValueObject(
+                array(
+                    'queryId' => 42,
+                    'published' => false,
+                )
+            )
         );
     }
 }

@@ -4,7 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter as ParamConverterConfiguration;
 use Netgen\Bundle\BlockManagerBundle\Tests\Stubs\ParamConverter;
-use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\Bundle\BlockManagerBundle\Tests\Stubs\Value;
 use Symfony\Component\HttpFoundation\Request;
 use PHPUnit\Framework\TestCase;
 
@@ -24,7 +24,87 @@ class ParamConverterTest extends TestCase
         $this->assertTrue($paramConverter->apply($request, $configuration));
         $this->assertTrue($request->attributes->has('value'));
         $this->assertEquals(
-            new Value(),
+            new Value(array('id' => 42, 'published' => false)),
+            $request->attributes->get('value')
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter::apply
+     */
+    public function testApplyWithPublishedRouteStatusParam()
+    {
+        $request = Request::create('/');
+        $request->attributes->set('id', 42);
+        $request->attributes->set(ParamConverter::ROUTE_STATUS_PARAM, 'published');
+        $configuration = new ParamConverterConfiguration(array());
+        $configuration->setClass(Value::class);
+
+        $paramConverter = new ParamConverter();
+        $this->assertTrue($paramConverter->apply($request, $configuration));
+        $this->assertTrue($request->attributes->has('value'));
+        $this->assertEquals(
+            new Value(array('id' => 42, 'published' => true)),
+            $request->attributes->get('value')
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter::apply
+     */
+    public function testApplyWithDraftRouteStatusParam()
+    {
+        $request = Request::create('/');
+        $request->attributes->set('id', 42);
+        $request->attributes->set(ParamConverter::ROUTE_STATUS_PARAM, 'draft');
+        $configuration = new ParamConverterConfiguration(array());
+        $configuration->setClass(Value::class);
+
+        $paramConverter = new ParamConverter();
+        $this->assertTrue($paramConverter->apply($request, $configuration));
+        $this->assertTrue($request->attributes->has('value'));
+        $this->assertEquals(
+            new Value(array('id' => 42, 'published' => false)),
+            $request->attributes->get('value')
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter::apply
+     */
+    public function testApplyWithPublishedQueryStatusParam()
+    {
+        $request = Request::create('/');
+        $request->attributes->set('id', 42);
+        $request->query->set('published', 'true');
+        $configuration = new ParamConverterConfiguration(array());
+        $configuration->setClass(Value::class);
+
+        $paramConverter = new ParamConverter();
+        $this->assertTrue($paramConverter->apply($request, $configuration));
+        $this->assertTrue($request->attributes->has('value'));
+        $this->assertEquals(
+            new Value(array('id' => 42, 'published' => true)),
+            $request->attributes->get('value')
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter::apply
+     */
+    public function testApplyWithDraftQueryStatusParam()
+    {
+        $request = Request::create('/');
+        $request->attributes->set('id', 42);
+        $request->query->set('published', 'false');
+        $configuration = new ParamConverterConfiguration(array());
+        $configuration->setClass(Value::class);
+
+        $paramConverter = new ParamConverter();
+        $this->assertTrue($paramConverter->apply($request, $configuration));
+        $this->assertTrue($request->attributes->has('value'));
+        $this->assertEquals(
+            new Value(array('id' => 42, 'published' => false)),
             $request->attributes->get('value')
         );
     }

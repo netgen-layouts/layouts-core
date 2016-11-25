@@ -9,7 +9,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::__construct
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::loadCollectionReference
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::load
      */
     public function testLoadCollectionReference()
     {
@@ -51,6 +51,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::loadCollectionResult
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\Validator::validateOffsetAndLimit
      */
     public function testLoadCollectionResult()
     {
@@ -59,6 +60,21 @@ class BlockCollectionControllerTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'v1/block_collections/load_collection_result',
+            Response::HTTP_OK
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::loadCollectionResult
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\Validator::validateOffsetAndLimit
+     */
+    public function testLoadCollectionResultWithOffsetAndLimit()
+    {
+        $this->client->request('GET', '/bm/api/v1/blocks/5/collections/default/result?offset=2&limit=2');
+
+        $this->assertResponse(
+            $this->client->getResponse(),
+            'v1/block_collections/load_collection_result_limited',
             Response::HTTP_OK
         );
     }

@@ -29,6 +29,7 @@ class CollectionReferenceParamConverterTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\CollectionReferenceParamConverter::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\CollectionReferenceParamConverter::getSourceAttributeNames
      */
     public function testGetSourceAttributeName()
@@ -53,7 +54,6 @@ class CollectionReferenceParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\CollectionReferenceParamConverter::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\CollectionReferenceParamConverter::loadValueObject
      */
     public function testLoadValueObject()
@@ -80,6 +80,38 @@ class CollectionReferenceParamConverterTest extends TestCase
                     'blockId' => 42,
                     'collectionIdentifier' => 'default',
                     'published' => true,
+                )
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\CollectionReferenceParamConverter::loadValueObject
+     */
+    public function testLoadValueObjectDraft()
+    {
+        $block = new Block();
+        $collectionReference = new CollectionReference();
+
+        $this->blockServiceMock
+            ->expects($this->at(0))
+            ->method('loadBlockDraft')
+            ->with($this->equalTo(42))
+            ->will($this->returnValue($block));
+
+        $this->blockServiceMock
+            ->expects($this->at(1))
+            ->method('loadCollectionReference')
+            ->with($this->equalTo($block), $this->equalTo('default'))
+            ->will($this->returnValue($collectionReference));
+
+        $this->assertEquals(
+            $collectionReference,
+            $this->paramConverter->loadValueObject(
+                array(
+                    'blockId' => 42,
+                    'collectionIdentifier' => 'default',
+                    'published' => false,
                 )
             )
         );

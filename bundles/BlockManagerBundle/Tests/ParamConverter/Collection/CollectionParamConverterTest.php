@@ -28,6 +28,7 @@ class CollectionParamConverterTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\CollectionParamConverter::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\CollectionParamConverter::getSourceAttributeNames
      */
     public function testGetSourceAttributeName()
@@ -52,7 +53,6 @@ class CollectionParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\CollectionParamConverter::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\CollectionParamConverter::loadValueObject
      */
     public function testLoadValueObject()
@@ -67,7 +67,36 @@ class CollectionParamConverterTest extends TestCase
 
         $this->assertEquals(
             $collection,
-            $this->paramConverter->loadValueObject(array('collectionId' => 42, 'published' => true))
+            $this->paramConverter->loadValueObject(
+                array(
+                    'collectionId' => 42,
+                    'published' => true,
+                )
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\CollectionParamConverter::loadValueObject
+     */
+    public function testLoadValueObjectDraft()
+    {
+        $collection = new Collection();
+
+        $this->collectionServiceMock
+            ->expects($this->once())
+            ->method('loadCollectionDraft')
+            ->with($this->equalTo(42))
+            ->will($this->returnValue($collection));
+
+        $this->assertEquals(
+            $collection,
+            $this->paramConverter->loadValueObject(
+                array(
+                    'collectionId' => 42,
+                    'published' => false,
+                )
+            )
         );
     }
 }

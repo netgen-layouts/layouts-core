@@ -28,6 +28,7 @@ class LayoutParamConverterTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutParamConverter::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutParamConverter::getSourceAttributeNames
      */
     public function testGetSourceAttributeName()
@@ -52,7 +53,6 @@ class LayoutParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutParamConverter::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutParamConverter::loadValueObject
      */
     public function testLoadValueObject()
@@ -68,6 +68,30 @@ class LayoutParamConverterTest extends TestCase
         $this->assertEquals(
             $layout,
             $this->paramConverter->loadValueObject(array('layoutId' => 42, 'published' => true))
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutParamConverter::loadValueObject
+     */
+    public function testLoadValueObjectDraft()
+    {
+        $layout = new Layout();
+
+        $this->layoutServiceMock
+            ->expects($this->once())
+            ->method('loadLayoutDraft')
+            ->with($this->equalTo(42))
+            ->will($this->returnValue($layout));
+
+        $this->assertEquals(
+            $layout,
+            $this->paramConverter->loadValueObject(
+                array(
+                    'layoutId' => 42,
+                    'published' => false,
+                )
+            )
         );
     }
 }

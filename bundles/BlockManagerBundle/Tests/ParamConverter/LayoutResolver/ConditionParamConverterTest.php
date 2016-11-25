@@ -28,6 +28,7 @@ class ConditionParamConverterTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\ConditionParamConverter::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\ConditionParamConverter::getSourceAttributeNames
      */
     public function testGetSourceAttributeName()
@@ -52,7 +53,6 @@ class ConditionParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\ConditionParamConverter::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\ConditionParamConverter::loadValueObject
      */
     public function testLoadValueObject()
@@ -67,7 +67,36 @@ class ConditionParamConverterTest extends TestCase
 
         $this->assertEquals(
             $condition,
-            $this->paramConverter->loadValueObject(array('conditionId' => 42, 'published' => true))
+            $this->paramConverter->loadValueObject(
+                array(
+                    'conditionId' => 42,
+                    'published' => true,
+                )
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\ConditionParamConverter::loadValueObject
+     */
+    public function testLoadValueObjectDraft()
+    {
+        $condition = new Condition();
+
+        $this->layoutResolverServiceMock
+            ->expects($this->once())
+            ->method('loadConditionDraft')
+            ->with($this->equalTo(42))
+            ->will($this->returnValue($condition));
+
+        $this->assertEquals(
+            $condition,
+            $this->paramConverter->loadValueObject(
+                array(
+                    'conditionId' => 42,
+                    'published' => false,
+                )
+            )
         );
     }
 }

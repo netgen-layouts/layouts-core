@@ -28,6 +28,7 @@ class RuleParamConverterTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\RuleParamConverter::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\RuleParamConverter::getSourceAttributeNames
      */
     public function testGetSourceAttributeName()
@@ -52,7 +53,6 @@ class RuleParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\RuleParamConverter::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\RuleParamConverter::loadValueObject
      */
     public function testLoadValueObject()
@@ -67,7 +67,36 @@ class RuleParamConverterTest extends TestCase
 
         $this->assertEquals(
             $rule,
-            $this->paramConverter->loadValueObject(array('ruleId' => 42, 'published' => true))
+            $this->paramConverter->loadValueObject(
+                array(
+                    'ruleId' => 42,
+                    'published' => true,
+                )
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\RuleParamConverter::loadValueObject
+     */
+    public function testLoadValueObjectDraft()
+    {
+        $rule = new Rule();
+
+        $this->layoutResolverServiceMock
+            ->expects($this->once())
+            ->method('loadRuleDraft')
+            ->with($this->equalTo(42))
+            ->will($this->returnValue($rule));
+
+        $this->assertEquals(
+            $rule,
+            $this->paramConverter->loadValueObject(
+                array(
+                    'ruleId' => 42,
+                    'published' => false,
+                )
+            )
         );
     }
 }

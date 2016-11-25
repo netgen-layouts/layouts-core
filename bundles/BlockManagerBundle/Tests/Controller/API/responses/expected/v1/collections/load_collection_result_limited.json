@@ -1,0 +1,25 @@
+{
+    "items": [
+        {
+            "id": 10,
+            "collection_id": 4,
+            "position": 2,
+            "type": 0,
+            "value_id": 72,
+            "value_type": "ezlocation",
+            "name": "NHL Upsets This Week's Social TV Rankings",
+            "visible": true
+        },
+        {
+            "id": 11,
+            "collection_id": 4,
+            "position": 3,
+            "type": 0,
+            "value_id": 73,
+            "value_type": "ezlocation",
+            "name": "How \"The Simpsons\" Fixed Apple's iPhone Keyboard",
+            "visible": true
+        }
+    ],
+    "item_count": 6
+}

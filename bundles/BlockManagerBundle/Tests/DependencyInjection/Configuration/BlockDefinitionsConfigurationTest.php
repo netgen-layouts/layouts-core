@@ -69,6 +69,11 @@ class BlockDefinitionsConfigurationTest extends TestCase
                                         'name' => 'Standard',
                                     ),
                                 ),
+                                'valid_parameters' => null,
+                            ),
+                            'small' => array(
+                                'name' => 'Small',
+                                'enabled' => true,
                             ),
                         ),
                     ),
@@ -108,6 +113,16 @@ class BlockDefinitionsConfigurationTest extends TestCase
                             'name' => 'Disabled',
                             'enabled' => false,
                             'item_view_types' => array(),
+                            'valid_parameters' => null,
+                        ),
+                        'small' => array(
+                            'name' => 'Small',
+                            'enabled' => true,
+                            'item_view_types' => array(
+                                'standard' => array(
+                                    'name' => 'Standard',
+                                ),
+                            ),
                             'valid_parameters' => null,
                         ),
                     ),

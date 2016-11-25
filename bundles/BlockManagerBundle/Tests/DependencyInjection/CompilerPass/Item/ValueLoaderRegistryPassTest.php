@@ -51,6 +51,21 @@ class ValueLoaderRegistryPassTest extends AbstractCompilerPassTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ValueLoaderRegistryPass::process
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      */
+    public function testProcessThrowsRuntimeExceptionWithInvalidValueTypeTag()
+    {
+        $this->setDefinition('netgen_block_manager.item.registry.value_loader', new Definition());
+
+        $valueLoader = new Definition();
+        $valueLoader->addTag('netgen_block_manager.item.value_loader', array('value_type' => '123'));
+        $this->setDefinition('netgen_block_manager.item.value_loader.test', $valueLoader);
+
+        $this->compile();
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ValueLoaderRegistryPass::process
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     */
     public function testProcessThrowsRuntimeExceptionWithNoTagValueType()
     {
         $this->setDefinition('netgen_block_manager.item.registry.value_loader', new Definition());

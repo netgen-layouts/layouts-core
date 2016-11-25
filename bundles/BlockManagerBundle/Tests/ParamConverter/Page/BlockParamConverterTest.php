@@ -28,6 +28,7 @@ class BlockParamConverterTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\BlockParamConverter::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\BlockParamConverter::getSourceAttributeNames
      */
     public function testGetSourceAttributeName()
@@ -52,7 +53,6 @@ class BlockParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\BlockParamConverter::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\BlockParamConverter::loadValueObject
      */
     public function testLoadValueObject()
@@ -67,7 +67,36 @@ class BlockParamConverterTest extends TestCase
 
         $this->assertEquals(
             $block,
-            $this->paramConverter->loadValueObject(array('blockId' => 42, 'published' => true))
+            $this->paramConverter->loadValueObject(
+                array(
+                    'blockId' => 42,
+                    'published' => true,
+                )
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\BlockParamConverter::loadValueObject
+     */
+    public function testLoadValueObjectDraft()
+    {
+        $block = new Block();
+
+        $this->blockServiceMock
+            ->expects($this->once())
+            ->method('loadBlockDraft')
+            ->with($this->equalTo(42))
+            ->will($this->returnValue($block));
+
+        $this->assertEquals(
+            $block,
+            $this->paramConverter->loadValueObject(
+                array(
+                    'blockId' => 42,
+                    'published' => false,
+                )
+            )
         );
     }
 }

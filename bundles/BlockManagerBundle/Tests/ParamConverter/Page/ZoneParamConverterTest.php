@@ -28,6 +28,7 @@ class ZoneParamConverterTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\ZoneParamConverter::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\ZoneParamConverter::getSourceAttributeNames
      */
     public function testGetSourceAttributeName()
@@ -52,7 +53,6 @@ class ZoneParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\ZoneParamConverter::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\ZoneParamConverter::loadValueObject
      */
     public function testLoadValueObject()
@@ -72,6 +72,31 @@ class ZoneParamConverterTest extends TestCase
                     'layoutId' => 42,
                     'zoneIdentifier' => 'left',
                     'published' => true,
+                )
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\ZoneParamConverter::loadValueObject
+     */
+    public function testLoadValueObjectDraft()
+    {
+        $zone = new Zone();
+
+        $this->layoutServiceMock
+            ->expects($this->once())
+            ->method('loadZoneDraft')
+            ->with($this->equalTo(42), $this->equalTo('left'))
+            ->will($this->returnValue($zone));
+
+        $this->assertEquals(
+            $zone,
+            $this->paramConverter->loadValueObject(
+                array(
+                    'layoutId' => 42,
+                    'zoneIdentifier' => 'left',
+                    'published' => false,
                 )
             )
         );

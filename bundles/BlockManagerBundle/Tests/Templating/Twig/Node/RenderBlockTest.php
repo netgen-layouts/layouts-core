@@ -36,6 +36,24 @@ class RenderBlockTest extends NodeTest
     }
 
     /**
+     * Overriden to enable 'covers' annotation.
+     *
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\ContextTrait::compileContextNode
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderBlock::compile
+     *
+     * @param \Twig_Node $node
+     * @param string $source
+     * @param \Twig_Environment $environment
+     * @param bool $isPattern
+     *
+     * @dataProvider getTests
+     */
+    public function testCompile($node, $source, $environment = null, $isPattern = false)
+    {
+        parent::testCompile($node, $source, $environment, $isPattern);
+    }
+
+    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderBlock::compile
      */
     public function getTests()

@@ -120,18 +120,20 @@ class RenderingExtensionTest extends TestCase
             ->method('renderValueObject')
             ->will($this->throwException(new Exception()));
 
-        $this->assertEquals(
-            '',
-            $this->extension->displayBlock(
-                $block,
-                ViewInterface::CONTEXT_DEFAULT,
-                $this->createMock(ContextualizedTwigTemplate::class)
-            )
+        ob_start();
+
+        $this->extension->displayBlock(
+            $block,
+            ViewInterface::CONTEXT_DEFAULT,
+            $this->createMock(ContextualizedTwigTemplate::class)
         );
+
+        $this->assertEquals('', ob_get_clean());
     }
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::displayBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::setDebug
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::handleException
      * @expectedException \Exception
      */
@@ -209,6 +211,7 @@ class RenderingExtensionTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderItem
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::setDebug
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::handleException
      * @expectedException \Exception
      */
@@ -263,6 +266,58 @@ class RenderingExtensionTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderValueObject
+     */
+    public function testRenderValueObjectWithNoContext()
+    {
+        $this->viewRendererMock
+            ->expects($this->once())
+            ->method('renderValueObject')
+            ->with(
+                $this->equalTo(new Condition()),
+                $this->equalTo(array('param' => 'value')),
+                $this->equalTo(ViewInterface::CONTEXT_DEFAULT)
+            )
+            ->will($this->returnValue('rendered value'));
+
+        $this->assertEquals(
+            'rendered value',
+            $this->extension->renderValueObject(
+                array(),
+                new Condition(),
+                array('param' => 'value')
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderValueObject
+     */
+    public function testRenderValueObjectWithContextInTwigContext()
+    {
+        $this->viewRendererMock
+            ->expects($this->once())
+            ->method('renderValueObject')
+            ->with(
+                $this->equalTo(new Condition()),
+                $this->equalTo(array('param' => 'value')),
+                $this->equalTo(ViewInterface::CONTEXT_DEFAULT)
+            )
+            ->will($this->returnValue('rendered value'));
+
+        $this->assertEquals(
+            'rendered value',
+            $this->extension->renderValueObject(
+                array(
+                    'view_context' => ViewInterface::CONTEXT_DEFAULT,
+                ),
+                new Condition(),
+                array('param' => 'value')
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderValueObject
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::handleException
      */
     public function testRenderValueObjectReturnsEmptyStringOnException()
@@ -290,6 +345,7 @@ class RenderingExtensionTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::setDebug
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::handleException
      * @expectedException \Exception
      */
