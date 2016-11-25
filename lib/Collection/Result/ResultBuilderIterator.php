@@ -70,7 +70,11 @@ class ResultBuilderIterator extends IteratorIterator
                 $object->getValueType()
             );
         } catch (InvalidItemException $e) {
-            $item = new NullItem($object->getValueId());
+            $item = new NullItem(
+                array(
+                    'valueId' => $object->getValueId(),
+                )
+            );
         }
 
         return new Result(
