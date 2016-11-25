@@ -35,8 +35,11 @@ class LayoutNormalizerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer::__construct
      * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer::normalize
      * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer::getZones
+     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer::getZoneName
+     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer::getAllowedBlocks
      */
     public function testNormalizeLayout()
     {
@@ -95,6 +98,11 @@ class LayoutNormalizerTest extends TestCase
                             'blocks' => array(),
                         )
                     ),
+                    'missing' => new Zone(
+                        array(
+                            'identifier' => 'missing',
+                        )
+                    ),
                 ),
             )
         );
@@ -131,6 +139,14 @@ class LayoutNormalizerTest extends TestCase
                         'allowed_block_definitions' => true,
                         'linked_layout_id' => 24,
                         'linked_zone_identifier' => 'top',
+                    ),
+                    array(
+                        'identifier' => 'missing',
+                        'name' => 'missing',
+                        'block_ids' => array(),
+                        'allowed_block_definitions' => true,
+                        'linked_layout_id' => null,
+                        'linked_zone_identifier' => null,
                     ),
                 ),
             ),

@@ -2,22 +2,17 @@
 
 namespace Netgen\BlockManager\Tests\TestCase;
 
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Validation;
-use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 use PHPUnit\Framework\TestCase;
 
 abstract class ValidatorTestCase extends TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \Symfony\Component\Validator\Context\ExecutionContextInterface
      */
-    protected $executionContextMock;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $violationBuilderMock;
+    protected $executionContext;
 
     /**
      * @var \Symfony\Component\Validator\Validator\ValidatorInterface
@@ -34,61 +29,18 @@ abstract class ValidatorTestCase extends TestCase
      */
     public function setUp()
     {
-        $this->executionContextMock = $this->createMock(ExecutionContextInterface::class);
+        $validator = Validation::createValidatorBuilder()
+            ->setConstraintValidatorFactory(new ValidatorFactory($this))
+            ->getValidator();
 
-        $this->executionContextMock
-            ->expects($this->any())
-            ->method('getValidator')
-            ->will(
-                $this->returnCallback(
-                    function () {
-                        return Validation::createValidatorBuilder()
-                            ->setConstraintValidatorFactory(new ValidatorFactory())
-                            ->getValidator();
-                    }
-                )
-            );
+        $this->executionContext = new ExecutionContext(
+            $validator,
+            'root',
+            $this->createMock(TranslatorInterface::class)
+        );
 
         $this->validator = $this->getValidator();
-        $this->validator->initialize($this->executionContextMock);
-
-        $this->violationBuilderMock = $this
-            ->createMock(ConstraintViolationBuilderInterface::class);
-
-        $this->violationBuilderMock
-            ->expects($this->any())
-            ->method('setParameter')
-            ->will($this->returnValue($this->violationBuilderMock));
-
-        $this->violationBuilderMock
-            ->expects($this->any())
-            ->method('setCode')
-            ->will($this->returnValue($this->violationBuilderMock));
-
-        $this->violationBuilderMock
-            ->expects($this->any())
-            ->method('setInvalidValue')
-            ->will($this->returnValue($this->violationBuilderMock));
-
-        $this->violationBuilderMock
-            ->expects($this->any())
-            ->method('atPath')
-            ->will($this->returnValue($this->violationBuilderMock));
-    }
-
-    protected function expectValidate()
-    {
-        $this->executionContextMock
-            ->expects($this->never())
-            ->method('buildViolation');
-    }
-
-    protected function expectNoValidate()
-    {
-        $this->executionContextMock
-            ->expects($this->atLeastOnce())
-            ->method('buildViolation')
-            ->will($this->returnValue($this->violationBuilderMock));
+        $this->validator->initialize($this->executionContext);
     }
 
     /**
@@ -97,9 +49,16 @@ abstract class ValidatorTestCase extends TestCase
      */
     public function assertValid($isValid, $value)
     {
-        $isValid ? $this->expectValidate() : $this->expectNoValidate();
-
+        $this->executionContext->setConstraint($this->constraint);
         $this->validator->validate($value, $this->constraint);
+
+        if ($isValid) {
+            $this->assertCount(0, $this->executionContext->getViolations());
+        }
+
+        if (!$isValid) {
+            $this->assertGreaterThan(0, count($this->executionContext->getViolations()));
+        }
     }
 
     /**

@@ -413,6 +413,38 @@ class BlockHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::updateBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::updateBlock
+     */
+    public function testUpdateBlockWithDefaultValues()
+    {
+        $blockUpdateStruct = new BlockUpdateStruct();
+
+        $this->assertEquals(
+            new Block(
+                array(
+                    'id' => 1,
+                    'layoutId' => 1,
+                    'zoneIdentifier' => 'right',
+                    'position' => 0,
+                    'definitionIdentifier' => 'list',
+                    'parameters' => array(
+                        'number_of_columns' => 2,
+                    ),
+                    'viewType' => 'list',
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
+                    'status' => Value::STATUS_DRAFT,
+                )
+            ),
+            $this->blockHandler->updateBlock(
+                $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT),
+                $blockUpdateStruct
+            )
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::updateCollectionReference
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::updateCollectionReference
      */
@@ -442,6 +474,34 @@ class BlockHandlerTest extends TestCase
                         'limit' => 6,
                     )
                 )
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::updateCollectionReference
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::updateCollectionReference
+     */
+    public function testUpdateCollectionReferenceWithDefaultValues()
+    {
+        $this->assertEquals(
+            new CollectionReference(
+                array(
+                    'blockId' => 1,
+                    'blockStatus' => Value::STATUS_DRAFT,
+                    'collectionId' => 1,
+                    'collectionStatus' => Value::STATUS_DRAFT,
+                    'identifier' => 'default',
+                    'offset' => 0,
+                    'limit' => null,
+                )
+            ),
+            $this->blockHandler->updateCollectionReference(
+                $this->blockHandler->loadCollectionReference(
+                    $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT),
+                    'default'
+                ),
+                new CollectionReferenceUpdateStruct()
             )
         );
     }
@@ -505,6 +565,49 @@ class BlockHandlerTest extends TestCase
                 ),
             ),
             $this->blockHandler->loadCollectionReferences($copiedBlock)
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlockCollections
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
+     */
+    public function testCopyBlockCollections()
+    {
+        $targetBlock = $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT);
+
+        $this->blockHandler->copyBlockCollections(
+            $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT),
+            $targetBlock
+        );
+
+        $this->assertEquals(
+            array(
+                new CollectionReference(
+                    array(
+                        'blockId' => 3,
+                        'blockStatus' => Value::STATUS_DRAFT,
+                        'collectionId' => 6,
+                        'collectionStatus' => Value::STATUS_DRAFT,
+                        'identifier' => 'default',
+                        'offset' => 0,
+                        'limit' => null,
+                    )
+                ),
+                new CollectionReference(
+                    array(
+                        'blockId' => 3,
+                        'blockStatus' => Value::STATUS_DRAFT,
+                        'collectionId' => 3,
+                        'collectionStatus' => Value::STATUS_PUBLISHED,
+                        'identifier' => 'featured',
+                        'offset' => 0,
+                        'limit' => null,
+                    )
+                ),
+            ),
+            $this->blockHandler->loadCollectionReferences($targetBlock)
         );
     }
 
@@ -804,6 +907,61 @@ class BlockHandlerTest extends TestCase
 
         // Verify that shared collection still exists
         $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::deleteBlocks
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlocks
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadBlockCollectionIds
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteCollectionReferences
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     */
+    public function testDeleteBlocks()
+    {
+        $this->blockHandler->deleteBlocks(
+            array(1, 2),
+            Value::STATUS_DRAFT
+        );
+
+        try {
+            $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT);
+            self::fail('Block still exists after deleting');
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
+
+        try {
+            $this->blockHandler->loadBlock(2, Value::STATUS_DRAFT);
+            self::fail('Block still exists after deleting');
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
+
+        // Verify that shared collection still exists
+        $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED);
+
+        // This should throw NotFoundException
+        $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::deleteBlockCollections
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadBlockCollectionIds
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteCollectionReferences
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     */
+    public function testDeleteBlockCollections()
+    {
+        $this->blockHandler->deleteBlockCollections(
+            array(1, 2),
+            Value::STATUS_DRAFT
+        );
+
+        // Verify that shared collection still exists
+        $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED);
+
+        // This should throw NotFoundException
+        $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT);
     }
 
     /**

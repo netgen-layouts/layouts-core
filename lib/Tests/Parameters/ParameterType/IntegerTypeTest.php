@@ -244,4 +244,31 @@ class IntegerTypeTest extends TestCase
             array(null, true, false),
         );
     }
+
+    /**
+     * @param mixed $value
+     * @param bool $isEmpty
+     *
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\IntegerType::isValueEmpty
+     * @dataProvider emptyProvider
+     */
+    public function testIsValueEmpty($value, $isEmpty)
+    {
+        $type = new IntegerType();
+        $this->assertEquals($isEmpty, $type->isValueEmpty($value));
+    }
+
+    /**
+     * Provider for testing if the value is empty.
+     *
+     * @return array
+     */
+    public function emptyProvider()
+    {
+        return array(
+            array(null, true),
+            array(42, false),
+            array(0, false),
+        );
+    }
 }

@@ -49,7 +49,7 @@ class LayoutResolverValidatorTest extends TestCase
     public function setUp()
     {
         $this->validator = Validation::createValidatorBuilder()
-            ->setConstraintValidatorFactory(new ValidatorFactory())
+            ->setConstraintValidatorFactory(new ValidatorFactory($this))
             ->getValidator();
 
         $this->targetTypeRegistry = new TargetTypeRegistry();
@@ -70,6 +70,7 @@ class LayoutResolverValidatorTest extends TestCase
      * @param array $params
      * @param bool $isValid
      *
+     * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator::__construct
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator::validateRuleCreateStruct
      * @dataProvider validateRuleCreateStructProvider
      * @doesNotPerformAssertions
@@ -104,7 +105,7 @@ class LayoutResolverValidatorTest extends TestCase
      * @param array $params
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator::validateRuleUpdateStruct
+     * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator::validateRuleMetadataUpdateStruct
      * @dataProvider validateRuleMetadataUpdateStructProvider
      * @doesNotPerformAssertions
      */

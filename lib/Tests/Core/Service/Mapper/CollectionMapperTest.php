@@ -25,6 +25,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\Mapper::__construct
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::__construct
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapCollection
      */

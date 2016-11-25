@@ -46,14 +46,26 @@ class CollectionTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getType
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isShared
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getName
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::hasItem
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getItem
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::filterItems
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getItems
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::hasManualItem
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getManualItem
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getManualItems
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::hasOverrideItem
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getOverrideItem
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getOverrideItems
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getQueries
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isPublished
      */
     public function testSetProperties()
     {
+        $items = array(
+            new Item(array('type' => Item::TYPE_MANUAL, 'position' => 3)),
+            new Item(array('type' => Item::TYPE_OVERRIDE, 'position' => 5)),
+        );
+
         $collection = new Collection(
             array(
                 'id' => 42,
@@ -62,10 +74,7 @@ class CollectionTest extends TestCase
                 'shared' => true,
                 'name' => 'My collection',
                 'published' => true,
-                'items' => array(
-                    new Item(array('type' => Item::TYPE_MANUAL, 'position' => 3)),
-                    new Item(array('type' => Item::TYPE_OVERRIDE, 'position' => 5)),
-                ),
+                'items' => $items,
                 'queries' => array(
                     new Query(array('identifier' => 'my_query')),
                 ),
@@ -89,5 +98,17 @@ class CollectionTest extends TestCase
         $this->assertEquals(Item::TYPE_OVERRIDE, $collection->getOverrideItems()[5]->getType());
 
         $this->assertEquals('my_query', $collection->getQueries()[0]->getIdentifier());
+
+        $this->assertFalse($collection->hasManualItem(2));
+        $this->assertTrue($collection->hasManualItem(3));
+
+        $this->assertEquals($items[0], $collection->getManualItem(3));
+        $this->assertNull($collection->getManualItem(2));
+
+        $this->assertFalse($collection->hasOverrideItem(4));
+        $this->assertTrue($collection->hasOverrideItem(5));
+
+        $this->assertEquals($items[1], $collection->getOverrideItem(5));
+        $this->assertNull($collection->getOverrideItem(4));
     }
 }

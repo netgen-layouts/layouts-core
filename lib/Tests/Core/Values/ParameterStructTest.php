@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Core\Values;
 
 use Netgen\BlockManager\API\Values\ParameterStruct;
 use Netgen\BlockManager\Parameters\ParameterType;
+use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameter;
 use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterCollection;
@@ -123,6 +124,7 @@ class ParameterStructTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\API\Values\ParameterStruct::fillValues
+     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::buildValue
      */
     public function testFillValues()
     {
@@ -148,6 +150,41 @@ class ParameterStructTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\API\Values\ParameterStruct::fillValues
+     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::buildValue
+     */
+    public function testFillValuesWithParameterValueInstances()
+    {
+        $parameterCollection = $this->buildParameterCollection();
+
+        $initialValues = array(
+            'css_class' => new ParameterValue(
+                array(
+                    'value' => 'initial_css',
+                )
+            ),
+            'inner' => new ParameterValue(
+                array(
+                    'value' => 'inner_initial',
+                )
+            ),
+        );
+
+        $this->struct->fillValues($parameterCollection, $initialValues);
+
+        $this->assertEquals(
+            array(
+                'css_class' => 'initial_css',
+                'css_id' => 'id',
+                'compound' => true,
+                'inner' => 'inner_initial',
+            ),
+            $this->struct->getParameterValues()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::fillValues
+     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::buildValue
      */
     public function testFillValuesWithoutDefaults()
     {

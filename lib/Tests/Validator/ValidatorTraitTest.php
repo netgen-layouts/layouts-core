@@ -8,6 +8,7 @@ use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use PHPUnit\Framework\TestCase;
+use Exception;
 
 class ValidatorTraitTest extends TestCase
 {
@@ -71,6 +72,22 @@ class ValidatorTraitTest extends TestCase
                         )
                     )
                 )
+            );
+
+        $this->validator->validate('some value', array(new Constraints\NotBlank()));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Validator\ValidatorTrait::validate
+     * @expectedException \Netgen\BlockManager\Exception\ValidationFailedException
+     */
+    public function testValidateThrowsValidationFailedExceptionOnOtherException()
+    {
+        $this->validatorMock
+            ->expects($this->once())
+            ->method('validate')
+            ->will(
+                $this->throwException(new Exception())
             );
 
         $this->validator->validate('some value', array(new Constraints\NotBlank()));

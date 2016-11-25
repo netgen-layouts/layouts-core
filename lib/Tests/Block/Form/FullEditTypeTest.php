@@ -55,7 +55,9 @@ class FullEditTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\Form\FullEditType::buildForm
+     * @covers \Netgen\BlockManager\Block\Form\FullEditType::buildView
      * @covers \Netgen\BlockManager\Block\Form\EditType::addViewTypeForm
+     * @covers \Netgen\BlockManager\Block\Form\EditType::processViewTypeConfig
      * @covers \Netgen\BlockManager\Block\Form\EditType::addBlockNameForm
      * @covers \Netgen\BlockManager\Block\Form\EditType::addParametersForm
      */
@@ -99,6 +101,8 @@ class FullEditTypeTest extends FormTestCase
         foreach (array_keys($submittedData['parameters']) as $key) {
             $this->assertArrayHasKey($key, $children['parameters']);
         }
+
+        $this->assertArrayHasKey('parameter_view_types', $view->vars);
     }
 
     /**

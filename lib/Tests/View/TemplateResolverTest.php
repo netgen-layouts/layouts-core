@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\View;
 
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\Tests\View\Stubs\ViewWithFallbackContext;
 use Netgen\BlockManager\View\TemplateResolver;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
@@ -28,7 +29,7 @@ class TemplateResolverTest extends TestCase
      */
     public function testConstructorThrowsRuntimeExceptionIfNoMatcherInterface()
     {
-        $templateResolver = new TemplateResolver(
+        new TemplateResolver(
             array(
                 'definition_identifier' => $this->createMock(DateTime::class),
             )
@@ -140,6 +141,48 @@ class TemplateResolverTest extends TestCase
         $templateResolver->resolveTemplate($this->view);
 
         $this->assertEquals('some_template.html.twig', $this->view->getTemplate());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
+     * @covers \Netgen\BlockManager\View\TemplateResolver::matches
+     */
+    public function testResolveTemplateWithFallbackContext()
+    {
+        $this->view = new ViewWithFallbackContext(new Value(), 'fallback');
+        $this->view->setContext('context');
+
+        $viewConfiguration = array(
+            'view' => array(
+                'fallback' => array(
+                    'text' => array(
+                        'template' => 'some_template.html.twig',
+                        'match' => array(),
+                        'parameters' => array(),
+                    ),
+                ),
+            ),
+        );
+
+        $templateResolver = new TemplateResolver(
+            array(),
+            $viewConfiguration
+        );
+
+        $templateResolver->resolveTemplate($this->view);
+
+        $this->assertEquals('some_template.html.twig', $this->view->getTemplate());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     */
+    public function testResolveTemplateThrowsRuntimeExceptionIfInvalidContext()
+    {
+        $this->view->setContext(42);
+        $templateResolver = new TemplateResolver();
+        $templateResolver->resolveTemplate($this->view);
     }
 
     /**

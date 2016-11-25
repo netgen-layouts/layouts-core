@@ -17,6 +17,17 @@ class CollectionIteratorTest extends TestCase
      * @param int $offset
      * @param int $limit
      *
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::__construct
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::count
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::current
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::next
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::key
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::valid
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::rewind
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::advanceQuery
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::getCountBeforeOffset
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::getCountAtOffset
+     *
      * @dataProvider manualCollectionProvider
      */
     public function testWithManualCollection(array $collectionItems, array $values, $totalCount, $offset = 0, $limit = null)
@@ -37,6 +48,17 @@ class CollectionIteratorTest extends TestCase
      * @param int $totalCount
      * @param int $offset
      * @param int $limit
+     *
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::__construct
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::count
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::current
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::next
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::key
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::valid
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::rewind
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::advanceQuery
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::getCountBeforeOffset
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::getCountAtOffset
      *
      * @dataProvider dynamicCollectionProvider
      */

@@ -5,14 +5,15 @@ namespace Netgen\BlockManager\Tests\Validator;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\ValueTypeValidator;
 use Netgen\BlockManager\Validator\Constraint\ValueType;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ValueTypeValidatorTest extends ValidatorTestCase
 {
     public function setUp()
     {
-        parent::setUp();
-
         $this->constraint = new ValueType();
+
+        parent::setUp();
     }
 
     /**
@@ -24,16 +25,35 @@ class ValueTypeValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @param string $valueType
+     * @param string $value
      * @param bool $isValid
      *
      * @covers \Netgen\BlockManager\Validator\ValueTypeValidator::__construct
      * @covers \Netgen\BlockManager\Validator\ValueTypeValidator::validate
      * @dataProvider validateDataProvider
      */
-    public function testValidate($valueType, $isValid)
+    public function testValidate($value, $isValid)
     {
-        $this->assertValid($isValid, $valueType);
+        $this->assertValid($isValid, $value);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Validator\ValueTypeValidator::validate
+     * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
+     */
+    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint()
+    {
+        $this->constraint = new NotBlank();
+        $this->assertValid(true, 'value');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Validator\ValueTypeValidator::validate
+     * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
+     */
+    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue()
+    {
+        $this->assertValid(true, 42);
     }
 
     public function validateDataProvider()

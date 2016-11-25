@@ -22,15 +22,22 @@ class QueryTypeHandler implements QueryTypeHandlerInterface
     protected $count;
 
     /**
+     * @var int|null
+     */
+    protected $internalLimit;
+
+    /**
      * Constructor.
      *
      * @param array $values
      * @param int $count
+     * @param int $internalLimit
      */
-    public function __construct(array $values = array(), $count = null)
+    public function __construct(array $values = array(), $count = null, $internalLimit = null)
     {
         $this->values = $values;
         $this->count = $count;
+        $this->internalLimit = $internalLimit;
     }
 
     /**
@@ -96,5 +103,6 @@ class QueryTypeHandler implements QueryTypeHandlerInterface
      */
     public function getInternalLimit(Query $query)
     {
+        return $this->internalLimit;
     }
 }

@@ -219,6 +219,17 @@ class LayoutHandlerTest extends TestCase
                         'shared' => false,
                     )
                 ),
+                new Layout(
+                    array(
+                        'id' => 7,
+                        'type' => '4_zones_b',
+                        'name' => 'My seventh layout',
+                        'created' => 1447065813,
+                        'modified' => 1447065813,
+                        'status' => Value::STATUS_DRAFT,
+                        'shared' => false,
+                    )
+                ),
             ),
             $this->layoutHandler->loadLayouts(true)
         );
@@ -479,7 +490,7 @@ class LayoutHandlerTest extends TestCase
 
         $this->assertInstanceOf(Layout::class, $createdLayout);
 
-        $this->assertEquals(7, $createdLayout->id);
+        $this->assertEquals(8, $createdLayout->id);
         $this->assertEquals('new_layout', $createdLayout->type);
         $this->assertEquals('New layout', $createdLayout->name);
         $this->assertEquals(Value::STATUS_DRAFT, $createdLayout->status);
@@ -563,6 +574,25 @@ class LayoutHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::updateLayout
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::updateLayout
+     */
+    public function testUpdateLayoutWithDefaultValues()
+    {
+        $layoutUpdateStruct = new LayoutUpdateStruct();
+
+        $originalLayout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
+        $updatedLayout = $this->layoutHandler->updateLayout(
+            $originalLayout,
+            $layoutUpdateStruct
+        );
+
+        $this->assertInstanceOf(Layout::class, $updatedLayout);
+        $this->assertEquals('My layout', $updatedLayout->name);
+        $this->assertEquals(1447065813, $updatedLayout->modified);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::copyLayout
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutData
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutZonesData
@@ -590,7 +620,7 @@ class LayoutHandlerTest extends TestCase
 
         $this->assertInstanceOf(Layout::class, $copiedLayout);
 
-        $this->assertEquals(7, $copiedLayout->id);
+        $this->assertEquals(8, $copiedLayout->id);
         $this->assertEquals('4_zones_a', $copiedLayout->type);
         $this->assertEquals('New name', $copiedLayout->name);
         $this->assertEquals(Value::STATUS_PUBLISHED, $copiedLayout->status);

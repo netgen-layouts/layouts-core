@@ -42,4 +42,16 @@ class QueryHandlerTest extends TestCase
 
         $this->assertEquals(array('status' => 1), $query->getParameters());
     }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\QueryHandler::applyOffsetAndLimit
+     */
+    public function testApplyOffsetAndLimit()
+    {
+        $query = $this->databaseConnection->createQueryBuilder();
+        $this->queryHandler->applyOffsetAndLimit($query, 10, 15);
+
+        $this->assertEquals(10, $query->getFirstResult());
+        $this->assertEquals(15, $query->getMaxResults());
+    }
 }

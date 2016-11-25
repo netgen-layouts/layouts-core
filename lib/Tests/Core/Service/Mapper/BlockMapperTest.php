@@ -23,8 +23,9 @@ abstract class BlockMapperTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlock
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\Mapper::__construct
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::__construct
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlock
      */
     public function testMapBlock()
     {

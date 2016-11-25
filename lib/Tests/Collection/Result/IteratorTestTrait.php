@@ -16,7 +16,7 @@ trait IteratorTestTrait
     {
         $i = 0;
 
-        foreach ($iterator as $value) {
+        foreach ($iterator as $key => $value) {
             if (!isset($expected[$i])) {
                 $this->fail(
                     sprintf(

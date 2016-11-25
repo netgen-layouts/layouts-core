@@ -6,6 +6,8 @@ use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\BlockItemViewTypeValidator;
 use Netgen\BlockManager\Validator\Constraint\BlockItemViewType;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use stdClass;
 
 class BlockItemViewTypeValidatorTest extends ValidatorTestCase
 {
@@ -16,14 +18,14 @@ class BlockItemViewTypeValidatorTest extends ValidatorTestCase
 
     public function setUp()
     {
-        parent::setUp();
-
         $this->blockDefinition = new BlockDefinition(
             'block',
             array('large' => array('standard'))
         );
 
         $this->constraint = new BlockItemViewType(array('definition' => $this->blockDefinition));
+
+        parent::setUp();
     }
 
     /**
@@ -36,17 +38,57 @@ class BlockItemViewTypeValidatorTest extends ValidatorTestCase
 
     /**
      * @param string $viewType
-     * @param string $itemViewType
+     * @param string $value
      * @param bool $isValid
      *
      * @covers \Netgen\BlockManager\Validator\BlockItemViewTypeValidator::validate
      * @dataProvider validateDataProvider
      */
-    public function testValidate($viewType, $itemViewType, $isValid)
+    public function testValidate($viewType, $value, $isValid)
     {
         $this->constraint->viewType = $viewType;
 
-        $this->assertValid($isValid, $itemViewType);
+        $this->assertValid($isValid, $value);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Validator\BlockItemViewTypeValidator::validate
+     * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
+     */
+    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint()
+    {
+        $this->constraint = new NotBlank();
+        $this->assertValid(true, 'standard');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Validator\BlockItemViewTypeValidator::validate
+     * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
+     */
+    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidBlockDefinition()
+    {
+        $this->constraint->definition = new stdClass();
+        $this->assertValid(true, 'standard');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Validator\BlockItemViewTypeValidator::validate
+     * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
+     */
+    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidViewType()
+    {
+        $this->constraint->viewType = 42;
+        $this->assertValid(true, 'standard');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Validator\BlockItemViewTypeValidator::validate
+     * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
+     */
+    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue()
+    {
+        $this->constraint->viewType = 'large';
+        $this->assertValid(true, 42);
     }
 
     public function validateDataProvider()

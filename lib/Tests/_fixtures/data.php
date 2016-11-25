@@ -12,6 +12,7 @@ return array(
         array('id' => 5, 'status' => 0, 'type' => '4_zones_b', 'name' => 'My fifth layout', 'created' => 1447065813, 'modified' => 1447065813, 'shared' => 1),
         array('id' => 5, 'status' => 1, 'type' => '4_zones_b', 'name' => 'My fifth layout', 'created' => 1447065813, 'modified' => 1447065813, 'shared' => 1),
         array('id' => 6, 'status' => 1, 'type' => '4_zones_b', 'name' => 'My sixth layout', 'created' => 1447065813, 'modified' => 1447065813, 'shared' => 0),
+        array('id' => 7, 'status' => 0, 'type' => '4_zones_b', 'name' => 'My seventh layout', 'created' => 1447065813, 'modified' => 1447065813, 'shared' => 0),
     ),
     'ngbm_zone' => array(
         array('identifier' => 'top', 'layout_id' => 1, 'status' => 0, 'linked_layout_id' => null, 'linked_zone_identifier' => null),
@@ -54,6 +55,12 @@ return array(
         array('identifier' => 'left', 'layout_id' => 6, 'status' => 1, 'linked_layout_id' => null, 'linked_zone_identifier' => null),
         array('identifier' => 'right', 'layout_id' => 6, 'status' => 1, 'linked_layout_id' => null, 'linked_zone_identifier' => null),
         array('identifier' => 'bottom', 'layout_id' => 6, 'status' => 1, 'linked_layout_id' => null, 'linked_zone_identifier' => null),
+        array('identifier' => 'top', 'layout_id' => 7, 'status' => 0, 'linked_layout_id' => null, 'linked_zone_identifier' => null),
+        array('identifier' => 'left', 'layout_id' => 7, 'status' => 0, 'linked_layout_id' => null, 'linked_zone_identifier' => null),
+        array('identifier' => 'right', 'layout_id' => 7, 'status' => 0, 'linked_layout_id' => null, 'linked_zone_identifier' => null),
+        array('identifier' => 'bottom', 'layout_id' => 7, 'status' => 0, 'linked_layout_id' => null, 'linked_zone_identifier' => null),
+        // This zone does not exist in a layout but is used in tests for layouts which had it's layout type config changed
+        array('identifier' => 'center', 'layout_id' => 7, 'status' => 0, 'linked_layout_id' => null, 'linked_zone_identifier' => null),
     ),
     'ngbm_block' => array(
         array('id' => 1, 'status' => 0, 'layout_id' => 1, 'zone_identifier' => 'right', 'position' => 0, 'definition_identifier' => 'list', 'view_type' => 'list', 'item_view_type' => 'standard', 'name' => 'My block', 'parameters' => '{"number_of_columns": 2}'),

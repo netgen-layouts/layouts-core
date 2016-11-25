@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\Constraint\LayoutName;
 use Netgen\BlockManager\Validator\LayoutNameValidator;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class LayoutNameValidatorTest extends ValidatorTestCase
 {
@@ -16,9 +17,9 @@ class LayoutNameValidatorTest extends ValidatorTestCase
 
     public function setUp()
     {
-        parent::setUp();
-
         $this->constraint = new LayoutName();
+
+        parent::setUp();
     }
 
     /**
@@ -32,22 +33,43 @@ class LayoutNameValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @param string $layoutName
-     * @param bool $exists
+     * @param string $value
+     * @param bool $isValid
      *
      * @covers \Netgen\BlockManager\Validator\LayoutNameValidator::__construct
      * @covers \Netgen\BlockManager\Validator\LayoutNameValidator::validate
      * @dataProvider validateDataProvider
      */
-    public function testValidate($layoutName, $exists)
+    public function testValidate($value, $isValid)
     {
-        $this->layoutServiceMock
-            ->expects($this->once())
-            ->method('layoutNameExists')
-            ->with($this->equalTo($layoutName))
-            ->will($this->returnValue($exists));
+        if ($value !== null) {
+            $this->layoutServiceMock
+                ->expects($this->once())
+                ->method('layoutNameExists')
+                ->with($this->equalTo($value))
+                ->will($this->returnValue(!$isValid));
+        }
 
-        $this->assertValid(!$exists, $layoutName);
+        $this->assertValid($isValid, $value);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Validator\LayoutNameValidator::validate
+     * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
+     */
+    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint()
+    {
+        $this->constraint = new NotBlank();
+        $this->assertValid(true, 'My layout');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Validator\LayoutNameValidator::validate
+     * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
+     */
+    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue()
+    {
+        $this->assertValid(true, 42);
     }
 
     public function validateDataProvider()
@@ -55,6 +77,7 @@ class LayoutNameValidatorTest extends ValidatorTestCase
         return array(
             array('My layout', true),
             array('My layout', false),
+            array(null, true),
         );
     }
 }

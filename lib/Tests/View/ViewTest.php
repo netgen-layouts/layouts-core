@@ -4,8 +4,8 @@ namespace Netgen\BlockManager\Tests\View;
 
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
+use PHPUnit\Framework\TestCase;
 
 class ViewTest extends TestCase
 {
@@ -47,6 +47,14 @@ class ViewTest extends TestCase
         $this->view->setTemplate('template.html.twig');
 
         $this->assertEquals('template.html.twig', $this->view->getTemplate());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\View::getFallbackContext
+     */
+    public function testGetFallbackContext()
+    {
+        $this->assertNull($this->view->getFallbackContext());
     }
 
     /**

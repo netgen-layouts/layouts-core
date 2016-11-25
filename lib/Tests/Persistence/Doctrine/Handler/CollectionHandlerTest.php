@@ -295,14 +295,57 @@ class CollectionHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createCollection
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollection
+     */
+    public function testCreateCollectionWithDefaultValues()
+    {
+        $collectionCreateStruct = new CollectionCreateStruct();
+        $collectionCreateStruct->type = Collection::TYPE_DYNAMIC;
+        $collectionCreateStruct->status = Value::STATUS_DRAFT;
+
+        $createdCollection = $this->collectionHandler->createCollection($collectionCreateStruct);
+
+        $this->assertInstanceOf(Collection::class, $createdCollection);
+
+        $this->assertEquals(6, $createdCollection->id);
+        $this->assertEquals(Collection::TYPE_DYNAMIC, $createdCollection->type);
+        $this->assertFalse($createdCollection->shared);
+        $this->assertNull($createdCollection->name);
+        $this->assertEquals(Value::STATUS_DRAFT, $createdCollection->status);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::updateCollection
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateCollection
      */
     public function testUpdateCollection()
     {
         $collectionUpdateStruct = new CollectionUpdateStruct();
-        $collectionUpdateStruct->type = Collection::TYPE_DYNAMIC;
+        $collectionUpdateStruct->type = Collection::TYPE_MANUAL;
         $collectionUpdateStruct->name = 'Updated collection';
+
+        $updatedCollection = $this->collectionHandler->updateCollection(
+            $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED),
+            $collectionUpdateStruct
+        );
+
+        $this->assertInstanceOf(Collection::class, $updatedCollection);
+
+        $this->assertEquals(3, $updatedCollection->id);
+        $this->assertEquals(Collection::TYPE_MANUAL, $updatedCollection->type);
+        $this->assertTrue($updatedCollection->shared);
+        $this->assertEquals('Updated collection', $updatedCollection->name);
+        $this->assertEquals(Value::STATUS_PUBLISHED, $updatedCollection->status);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::updateCollection
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateCollection
+     */
+    public function testUpdateCollectionWithDefaultValues()
+    {
+        $collectionUpdateStruct = new CollectionUpdateStruct();
 
         $updatedCollection = $this->collectionHandler->updateCollection(
             $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED),
@@ -314,7 +357,7 @@ class CollectionHandlerTest extends TestCase
         $this->assertEquals(3, $updatedCollection->id);
         $this->assertEquals(Collection::TYPE_DYNAMIC, $updatedCollection->type);
         $this->assertTrue($updatedCollection->shared);
-        $this->assertEquals('Updated collection', $updatedCollection->name);
+        $this->assertEquals('My collection', $updatedCollection->name);
         $this->assertEquals(Value::STATUS_PUBLISHED, $updatedCollection->status);
     }
 
@@ -932,6 +975,40 @@ class CollectionHandlerTest extends TestCase
                     'parameters' => array(
                         'parent_location_id' => 3,
                         'some_param' => 'Some value',
+                    ),
+                    'status' => Value::STATUS_PUBLISHED,
+                )
+            ),
+            $this->collectionHandler->updateQuery(
+                $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED),
+                $queryUpdateStruct
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::updateQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateQuery
+     */
+    public function testUpdateQueryWithDefaultValues()
+    {
+        $queryUpdateStruct = new QueryUpdateStruct();
+
+        $this->assertEquals(
+            new Query(
+                array(
+                    'id' => 1,
+                    'collectionId' => 2,
+                    'position' => 0,
+                    'identifier' => 'default',
+                    'type' => 'ezcontent_search',
+                    'parameters' => array(
+                        'parent_location_id' => 2,
+                        'sort_direction' => 'descending',
+                        'sort_type' => 'date_published',
+                        'offset' => 0,
+                        'query_type' => 'list',
+
                     ),
                     'status' => Value::STATUS_PUBLISHED,
                 )

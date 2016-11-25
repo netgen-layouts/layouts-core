@@ -182,11 +182,25 @@ abstract class CollectionServiceTest extends ServiceTestCase
             'New name'
         );
 
+        $collectionCreateStruct->itemCreateStructs = array(
+            $this->collectionService->newItemCreateStruct(Item::TYPE_MANUAL, '66', 'ezcontent'),
+        );
+
+        $collectionCreateStruct->queryCreateStructs = array(
+            $this->collectionService->newQueryCreateStruct(
+                new QueryType('ezcontent_search'),
+                'new_query'
+            ),
+        );
+
         $createdCollection = $this->collectionService->createCollection($collectionCreateStruct);
 
         $this->assertFalse($createdCollection->isPublished());
         $this->assertInstanceOf(Collection::class, $createdCollection);
         $this->assertEquals('New name', $createdCollection->getName());
+
+        $this->assertCount(1, $createdCollection->getItems());
+        $this->assertCount(1, $createdCollection->getQueries());
     }
 
     /**
@@ -218,6 +232,23 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $this->assertFalse($updatedCollection->isPublished());
         $this->assertInstanceOf(Collection::class, $updatedCollection);
         $this->assertEquals('Super cool collection', $updatedCollection->getName());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateCollection
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testUpdateCollectionThrowsBadStateExceptionWithNonDraftCollection()
+    {
+        $collection = $this->collectionService->loadCollection(4);
+
+        $collectionUpdateStruct = $this->collectionService->newCollectionUpdateStruct();
+        $collectionUpdateStruct->name = 'Super cool collection';
+
+        $this->collectionService->updateCollection(
+            $collection,
+            $collectionUpdateStruct
+        );
     }
 
     /**
@@ -288,6 +319,38 @@ abstract class CollectionServiceTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::changeCollectionType
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
+    public function testChangeCollectionTypeThrowsBadStateExceptionWithNonDraftCollection()
+    {
+        $collection = $this->collectionService->loadCollection(4);
+
+        $this->collectionService->changeCollectionType(
+            $collection,
+            Collection::TYPE_MANUAL
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::changeCollectionType
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testChangeCollectionTypeThrowsBadStateExceptionWithInvalidType()
+    {
+        $collection = $this->collectionService->loadCollectionDraft(1);
+
+        $this->collectionService->changeCollectionType(
+            $collection,
+            999,
+            $this->collectionService->newQueryCreateStruct(
+                new QueryType('ezcontent_search'),
+                'default'
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::changeCollectionType
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
     public function testChangeCollectionTypeThrowsBadStateExceptionOnChangingToDynamicCollectionWithoutQueryCreateStruct()
     {
         $collection = $this->collectionService->loadCollectionDraft(1);
@@ -352,6 +415,16 @@ abstract class CollectionServiceTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::createDraft
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
+    public function testCreateDraftThrowsBadStateExceptionWithNonPublishedCollection()
+    {
+        $collection = $this->collectionService->loadCollectionDraft(3);
+        $this->collectionService->createDraft($collection);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::createDraft
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
     public function testCreateDraftThrowsBadStateExceptionIfDraftAlreadyExists()
     {
         $collection = $this->collectionService->loadCollection(3);
@@ -371,6 +444,16 @@ abstract class CollectionServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::discardDraft
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testDiscardDraftThrowsBadStateExceptionWithNonDraftCollection()
+    {
+        $collection = $this->collectionService->loadCollection(3);
+        $this->collectionService->discardDraft($collection);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::publishCollection
      */
     public function testPublishCollection()
@@ -387,6 +470,16 @@ abstract class CollectionServiceTest extends ServiceTestCase
         } catch (NotFoundException $e) {
             // Do nothing
         }
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::publishCollection
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testPublishCollectionThrowsBadStateExceptionWithNonDraftCollection()
+    {
+        $collection = $this->collectionService->loadCollection(3);
+        $this->collectionService->publishCollection($collection);
     }
 
     /**
@@ -418,6 +511,22 @@ abstract class CollectionServiceTest extends ServiceTestCase
 
         $this->assertFalse($createdItem->isPublished());
         $this->assertInstanceOf(Item::class, $createdItem);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::addItem
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testAddItemThrowsBadStateExceptionWithNonDraftCollection()
+    {
+        $itemCreateStruct = $this->collectionService->newItemCreateStruct(Item::TYPE_MANUAL, '66', 'ezcontent');
+        $collection = $this->collectionService->loadCollection(4);
+
+        $this->collectionService->addItem(
+            $collection,
+            $itemCreateStruct,
+            1
+        );
     }
 
     /**
@@ -456,7 +565,19 @@ abstract class CollectionServiceTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::moveItem
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testMoveItemThrowsInvalidArgumentExceptionWhenPositionIsTooLarge()
+    public function testMoveItemThrowsBadStateExceptionWithNonDraftItem()
+    {
+        $this->collectionService->moveItem(
+            $this->collectionService->loadItem(4),
+            1
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::moveItem
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testMoveItemThrowsBadStateExceptionWhenPositionIsTooLarge()
     {
         $this->collectionService->moveItem(
             $this->collectionService->loadItemDraft(1),
@@ -484,6 +605,16 @@ abstract class CollectionServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteItem
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testDeleteItemThrowsBadStateExceptionWithNonDraftItem()
+    {
+        $item = $this->collectionService->loadItem(4);
+        $this->collectionService->deleteItem($item);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::addQuery
      */
     public function testAddQuery()
@@ -506,6 +637,26 @@ abstract class CollectionServiceTest extends ServiceTestCase
 
         $secondQuery = $this->collectionService->loadQueryDraft(3);
         $this->assertEquals(2, $secondQuery->getPosition());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::addQuery
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testAddQueryThrowsBadStateExceptionInNonDraftCollection()
+    {
+        $queryCreateStruct = $this->collectionService->newQueryCreateStruct(
+            new QueryType('ezcontent_search'),
+            'new_query'
+        );
+
+        $collection = $this->collectionService->loadCollection(3);
+
+        $this->collectionService->addQuery(
+            $collection,
+            $queryCreateStruct,
+            1
+        );
     }
 
     /**
@@ -603,6 +754,22 @@ abstract class CollectionServiceTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateQuery
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
+    public function testUpdateQueryThrowsBadStateExceptionWithNonDraftQuery()
+    {
+        $query = $this->collectionService->loadQuery(2);
+
+        $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct();
+        $queryUpdateStruct->identifier = 'new_identifier';
+        $queryUpdateStruct->setParameterValue('parent_location_id', 3);
+        $queryUpdateStruct->setParameterValue('param', 'value');
+
+        $this->collectionService->updateQuery($query, $queryUpdateStruct);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateQuery
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
     public function testUpdateQueryWithExistingIdentifierThrowsBadStateException()
     {
         $query = $this->collectionService->loadQueryDraft(2);
@@ -637,7 +804,19 @@ abstract class CollectionServiceTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::moveQuery
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testMoveQueryThrowsInvalidArgumentExceptionWhenPositionIsTooLarge()
+    public function testMoveQueryThrowsBadStateExceptionWithNonDraftQuery()
+    {
+        $this->collectionService->moveQuery(
+            $this->collectionService->loadQuery(2),
+            1
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::moveQuery
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testMoveQueryThrowsBadStateExceptionWhenPositionIsTooLarge()
     {
         $this->collectionService->moveQuery(
             $this->collectionService->loadQueryDraft(2),
@@ -668,6 +847,16 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $this->assertEquals(0, $secondQuery->getPosition());
 
         $this->assertEquals(count($collection->getQueries()) - 1, count($collectionAfterDelete->getQueries()));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteQuery
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testDeleteQueryThrowsBadStateExceptionWithNonDraftQuery()
+    {
+        $query = $this->collectionService->loadQuery(2);
+        $this->collectionService->deleteQuery($query);
     }
 
     /**

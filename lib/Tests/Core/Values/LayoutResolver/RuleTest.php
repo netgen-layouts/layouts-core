@@ -76,4 +76,68 @@ class RuleTest extends TestCase
         $this->assertCount(1, $rule->getConditions());
         $this->assertTrue($rule->isPublished());
     }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::canBeEnabled
+     */
+    public function testCanBeEnabled()
+    {
+        $rule = new Rule(
+            array(
+                'layout' => new Layout(array('id' => 24)),
+                'targets' => array(new Target(), new Target()),
+                'published' => true,
+            )
+        );
+
+        $this->assertTrue($rule->canBeEnabled());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::canBeEnabled
+     */
+    public function testCanBeEnabledWhenNotPublished()
+    {
+        $rule = new Rule(
+            array(
+                'layout' => new Layout(array('id' => 24)),
+                'targets' => array(new Target(), new Target()),
+                'published' => false,
+            )
+        );
+
+        $this->assertFalse($rule->canBeEnabled());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::canBeEnabled
+     */
+    public function testCanBeEnabledWithNoLayout()
+    {
+        $rule = new Rule(
+            array(
+                'layout' => null,
+                'targets' => array(new Target(), new Target()),
+                'published' => true,
+            )
+        );
+
+        $this->assertFalse($rule->canBeEnabled());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::canBeEnabled
+     */
+    public function testCanBeEnabledWithNoTargets()
+    {
+        $rule = new Rule(
+            array(
+                'layout' => new Layout(array('id' => 24)),
+                'targets' => array(),
+                'published' => true,
+            )
+        );
+
+        $this->assertFalse($rule->canBeEnabled());
+    }
 }

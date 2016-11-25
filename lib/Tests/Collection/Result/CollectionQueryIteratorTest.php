@@ -17,6 +17,10 @@ class CollectionQueryIteratorTest extends TestCase
      * @param int $limit
      * @param array $expectedResult
      *
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionQueryIterator::__construct
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionQueryIterator::getIterator
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionQueryIterator::count
+     *
      * @dataProvider singleQueryProvider
      */
     public function testWithSingleQuery($offset, $limit, $expectedResult)
@@ -38,6 +42,10 @@ class CollectionQueryIteratorTest extends TestCase
      * @param int $offset
      * @param int $limit
      * @param array $expectedResult
+     *
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionQueryIterator::__construct
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionQueryIterator::getIterator
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionQueryIterator::count
      *
      * @dataProvider multipleQueriesProvider
      */
@@ -65,6 +73,11 @@ class CollectionQueryIteratorTest extends TestCase
         $this->assertEquals(29, $queryIterator->count());
     }
 
+    /**
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionQueryIterator::__construct
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionQueryIterator::getIterator
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionQueryIterator::count
+     */
     public function testWithEmptyQueries()
     {
         $queryIterator = new CollectionQueryIterator(new Collection());

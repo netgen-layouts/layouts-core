@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\ParameterType\HtmlType;
 use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Validator\Validation;
 
 class HtmlTypeTest extends TestCase
 {
@@ -82,6 +83,42 @@ class HtmlTypeTest extends TestCase
                     'undefined_value' => 'Value',
                 ),
             ),
+        );
+    }
+
+    /**
+     * @param mixed $value
+     * @param bool $isValid
+     *
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\HtmlType::getValueConstraints
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\HtmlType::getRequiredConstraints
+     * @dataProvider validationProvider
+     */
+    public function testValidation($value, $isValid)
+    {
+        $type = new HtmlType();
+        $parameter = $this->getParameter();
+        $validator = Validation::createValidator();
+
+        $errors = $validator->validate($value, $type->getConstraints($parameter, $value));
+        $this->assertEquals($isValid, $errors->count() == 0);
+    }
+
+    /**
+     * Provider for testing valid parameter values.
+     *
+     * @return array
+     */
+    public function validationProvider()
+    {
+        return array(
+            array('test', true),
+            array(null, true),
+            array(12.3, false),
+            array(12, false),
+            array(true, false),
+            array(false, false),
+            array(array(), false),
         );
     }
 }

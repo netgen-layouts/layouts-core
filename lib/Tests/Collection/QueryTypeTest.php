@@ -4,6 +4,8 @@ namespace Netgen\BlockManager\Tests\Collection;
 
 use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
 use Netgen\BlockManager\Collection\QueryType;
+use Netgen\BlockManager\Core\Values\Collection\Query;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandler;
 use PHPUnit\Framework\TestCase;
 
 class QueryTypeTest extends TestCase
@@ -25,6 +27,7 @@ class QueryTypeTest extends TestCase
         $this->queryType = new QueryType(
             array(
                 'type' => 'query_type',
+                'handler' => new QueryTypeHandler(array('val1', 'val2')),
                 'config' => $this->configMock,
             )
         );
@@ -40,10 +43,42 @@ class QueryTypeTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Collection\QueryType::getValues
+     */
+    public function testGetValues()
+    {
+        $this->assertEquals(array('val1', 'val2'), $this->queryType->getValues(new Query()));
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Collection\QueryType::getConfig
      */
     public function testGetConfig()
     {
         $this->assertEquals($this->configMock, $this->queryType->getConfig());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\QueryType::getCount
+     */
+    public function testGetCount()
+    {
+        $this->assertEquals(2, $this->queryType->getCount(new Query()));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\QueryType::getCount
+     */
+    public function testGetCountWithInternalLimit()
+    {
+        $queryType = new QueryType(
+            array(
+                'type' => 'query_type',
+                'handler' => new QueryTypeHandler(array('val1', 'val2'), null, 1),
+                'config' => $this->configMock,
+            )
+        );
+
+        $this->assertEquals(1, $queryType->getCount(new Query()));
     }
 }

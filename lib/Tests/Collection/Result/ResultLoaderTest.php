@@ -72,17 +72,17 @@ class ResultLoaderTest extends TestCase
             array(42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54)
         );
 
-        $result = $this->resultLoader->load($collection, 0, 5);
+        $resultSet = $this->resultLoader->load($collection, 0, 5);
 
-        $this->assertInstanceOf(ResultSet::class, $result);
-        $this->assertEquals($collection, $result->getCollection());
-        $this->assertEquals(0, $result->getOffset());
-        $this->assertEquals(5, $result->getLimit());
+        $this->assertInstanceOf(ResultSet::class, $resultSet);
+        $this->assertEquals($collection, $resultSet->getCollection());
+        $this->assertEquals(0, $resultSet->getOffset());
+        $this->assertEquals(5, $resultSet->getLimit());
 
-        foreach ($result->getResults() as $index => $resultItem) {
-            $this->assertInstanceOf(Result::class, $resultItem);
-            $this->assertEquals(Result::TYPE_MANUAL, $resultItem->getType());
-            $this->assertEquals($index, $resultItem->getPosition());
+        foreach ($resultSet as $index => $result) {
+            $this->assertInstanceOf(Result::class, $result);
+            $this->assertEquals(Result::TYPE_MANUAL, $result->getType());
+            $this->assertEquals($index, $result->getPosition());
         }
     }
 

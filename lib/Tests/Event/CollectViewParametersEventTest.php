@@ -29,6 +29,16 @@ class CollectViewParametersEventTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Event\CollectViewParametersEvent::addParameter
+     * @covers \Netgen\BlockManager\Event\CollectViewParametersEvent::getParameters
+     */
+    public function testAddParameter()
+    {
+        $this->event->addParameter('param', 'value');
+        $this->assertEquals(array('param' => 'value'), $this->event->getParameters());
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Event\CollectViewParametersEvent::getView
      */
     public function testGetView()

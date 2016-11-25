@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Block\Stubs;
 
 use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
@@ -31,13 +32,14 @@ class BlockDefinition implements BlockDefinitionInterface
      *
      * @param string $identifier
      * @param array $viewTypes
+     * @param \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface $handler
      */
-    public function __construct($identifier, array $viewTypes = array())
+    public function __construct($identifier, array $viewTypes = array(), BlockDefinitionHandlerInterface $handler = null)
     {
         $this->identifier = $identifier;
         $this->viewTypes = $viewTypes;
 
-        $this->handler = new BlockDefinitionHandler();
+        $this->handler = $handler ?: new BlockDefinitionHandler();
     }
 
     /**

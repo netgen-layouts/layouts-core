@@ -28,7 +28,7 @@ class LayoutValidatorTest extends TestCase
     public function setUp()
     {
         $this->validator = Validation::createValidatorBuilder()
-            ->setConstraintValidatorFactory(new ValidatorFactory())
+            ->setConstraintValidatorFactory(new ValidatorFactory($this))
             ->getValidator();
 
         $this->layoutValidator = new LayoutValidator();
@@ -71,6 +71,23 @@ class LayoutValidatorTest extends TestCase
         );
     }
 
+    /**
+     * @param string $layoutName
+     * @param bool $isValid
+     *
+     * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutValidator::validateLayoutName
+     * @dataProvider validateLayoutNameDataProvider
+     * @doesNotPerformAssertions
+     */
+    public function testValidateLayoutName($layoutName, $isValid)
+    {
+        if (!$isValid) {
+            $this->expectException(ValidationFailedException::class);
+        }
+
+        $this->layoutValidator->validateLayoutName($layoutName);
+    }
+
     public function validateLayoutCreateStructDataProvider()
     {
         return array(
@@ -97,6 +114,16 @@ class LayoutValidatorTest extends TestCase
             array(array('name' => null), false),
             array(array('name' => ''), false),
             array(array('name' => '   '), false),
+        );
+    }
+
+    public function validateLayoutNameDataProvider()
+    {
+        return array(
+            array('New name', true),
+            array(23, false),
+            array(null, false),
+            array('', false),
         );
     }
 }

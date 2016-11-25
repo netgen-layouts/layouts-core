@@ -70,7 +70,7 @@ class BlockValidatorTest extends TestCase
         );
 
         $this->validator = Validation::createValidatorBuilder()
-            ->setConstraintValidatorFactory(new ValidatorFactory())
+            ->setConstraintValidatorFactory(new ValidatorFactory($this))
             ->getValidator();
 
         $this->blockValidator = new BlockValidator($this->blockDefinitionRegistryMock);

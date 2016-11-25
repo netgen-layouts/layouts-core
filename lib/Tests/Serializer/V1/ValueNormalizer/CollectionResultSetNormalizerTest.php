@@ -18,7 +18,7 @@ class CollectionResultSetNormalizerTest extends TestCase
     protected $serializerMock;
 
     /**
-     * @var \Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionResultNormalizer
+     * @var \Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionResultSetNormalizer
      */
     protected $normalizer;
 
@@ -31,7 +31,7 @@ class CollectionResultSetNormalizerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionResultNormalizer::normalize
+     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionResultSetNormalizer::normalize
      */
     public function testNormalize()
     {
@@ -71,7 +71,7 @@ class CollectionResultSetNormalizerTest extends TestCase
      * @param mixed $data
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionResultNormalizer::supportsNormalization
+     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionResultSetNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
     public function testSupportsNormalization($data, $expected)

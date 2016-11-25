@@ -3,6 +3,8 @@
 namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
+use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
+use Netgen\BlockManager\Configuration\LayoutType\Zone;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\API\Values\BlockCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
@@ -79,9 +81,24 @@ class BlockServiceTest extends TransactionRollbackTest
         $blockDefinitionRegistry = new BlockDefinitionRegistry();
         $blockDefinitionRegistry->addBlockDefinition(new BlockDefinition('blockDef'));
 
+        $layoutTypeRegistry = new LayoutTypeRegistry();
+        $layoutTypeRegistry->addLayoutType(
+            new LayoutType(
+                array(
+                    'identifier' => '4_zones_b',
+                    'zones' => array(
+                        'top' => new Zone(),
+                        'left' => new Zone(),
+                        'right' => new Zone(),
+                        'bottom' => new Zone(),
+                    ),
+                )
+            )
+        );
+
         $this->blockService = $this->createBlockService(
             $this->blockValidatorMock,
-            new LayoutTypeRegistry(),
+            $layoutTypeRegistry,
             $blockDefinitionRegistry
         );
     }
@@ -95,7 +112,7 @@ class BlockServiceTest extends TransactionRollbackTest
         $this->layoutHandlerMock
             ->expects($this->at(0))
             ->method('loadLayout')
-            ->will($this->returnValue(new PersistenceLayout()));
+            ->will($this->returnValue(new PersistenceLayout(array('type' => '4_zones_b'))));
 
         $this->layoutHandlerMock
             ->expects($this->at(1))
@@ -203,7 +220,7 @@ class BlockServiceTest extends TransactionRollbackTest
         $this->layoutHandlerMock
             ->expects($this->at(0))
             ->method('loadLayout')
-            ->will($this->returnValue(new PersistenceLayout()));
+            ->will($this->returnValue(new PersistenceLayout(array('type' => '4_zones_b'))));
 
         $this->blockHandlerMock
             ->expects($this->at(1))

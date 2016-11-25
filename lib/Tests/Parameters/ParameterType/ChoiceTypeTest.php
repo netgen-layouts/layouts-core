@@ -258,4 +258,33 @@ class ChoiceTypeTest extends TestCase
             array(0, false),
         );
     }
+
+    /**
+     * @param mixed $value
+     * @param bool $isEmpty
+     *
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\ChoiceType::isValueEmpty
+     * @dataProvider emptyProvider
+     */
+    public function testIsValueEmpty($value, $isEmpty)
+    {
+        $type = new ChoiceType();
+        $this->assertEquals($isEmpty, $type->isValueEmpty($value));
+    }
+
+    /**
+     * Provider for testing if the value is empty.
+     *
+     * @return array
+     */
+    public function emptyProvider()
+    {
+        return array(
+            array(null, true),
+            array(42, false),
+            array(0, false),
+            array('42', false),
+            array('', false),
+        );
+    }
 }

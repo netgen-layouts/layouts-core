@@ -12,13 +12,12 @@ use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterFilter;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\Structs\ParameterStructValidator;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ParameterStructValidatorTest extends ValidatorTestCase
 {
     public function setUp()
     {
-        parent::setUp();
-
         $compoundParameter = new CompoundParameter(
             'checkbox',
             new ParameterType\Compound\BooleanType()
@@ -41,6 +40,8 @@ class ParameterStructValidatorTest extends ValidatorTestCase
                 'allowMissingFields' => true,
             )
         );
+
+        parent::setUp();
     }
 
     /**
@@ -55,7 +56,7 @@ class ParameterStructValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @param string $parameterValues
+     * @param string $value
      * @param bool $required
      * @param bool $isValid
      *
@@ -65,14 +66,33 @@ class ParameterStructValidatorTest extends ValidatorTestCase
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::buildConstraintFields
      * @dataProvider validateDataProvider
      */
-    public function testValidate($parameterValues, $required, $isValid)
+    public function testValidate($value, $required, $isValid)
     {
         $this->constraint->allowMissingFields = !$required;
 
         $this->assertValid(
             $isValid,
-            new BlockCreateStruct(array('parameterValues' => $parameterValues))
+            new BlockCreateStruct(array('parameterValues' => $value))
         );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::validate
+     * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
+     */
+    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint()
+    {
+        $this->constraint = new NotBlank();
+        $this->assertValid(true, new BlockCreateStruct());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::validate
+     * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
+     */
+    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue()
+    {
+        $this->assertValid(true, 42);
     }
 
     public function validateDataProvider()

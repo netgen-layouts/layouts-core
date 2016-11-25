@@ -6,7 +6,9 @@ use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
+use Netgen\BlockManager\Exception\RuntimeException;
 use PHPUnit\Framework\TestCase;
+use Traversable;
 use DateTime;
 
 class LayoutTest extends TestCase
@@ -55,6 +57,12 @@ class LayoutTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getZone
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::hasZone
      * @covers \Netgen\BlockManager\Core\Values\Page\Layout::isPublished
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getIterator
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::count
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::offsetExists
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::offsetGet
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::offsetSet
+     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::offsetUnset
      */
     public function testSetProperties()
     {
@@ -63,6 +71,11 @@ class LayoutTest extends TestCase
 
         $modifiedDate = new DateTime();
         $modifiedDate->setTimestamp(456);
+
+        $zones = array(
+            'left' => new Zone(array('identifier' => 'left')),
+            'right' => new Zone(array('identifier' => 'right', 'linkedZone' => new Zone())),
+        );
 
         $layout = new Layout(
             array(
@@ -73,7 +86,7 @@ class LayoutTest extends TestCase
                 'modified' => $modifiedDate,
                 'status' => Value::STATUS_PUBLISHED,
                 'shared' => true,
-                'zones' => array('left' => new Zone(), 'right' => new Zone()),
+                'zones' => $zones,
                 'published' => true,
             )
         );
@@ -85,14 +98,34 @@ class LayoutTest extends TestCase
         $this->assertEquals($modifiedDate, $layout->getModified());
         $this->assertTrue($layout->isPublished());
         $this->assertTrue($layout->isShared());
-        $this->assertEquals(
-            array('left' => new Zone(), 'right' => new Zone()),
-            $layout->getZones()
-        );
+        $this->assertEquals($zones, $layout->getZones());
         $this->assertNull($layout->getZone('test'));
         $this->assertFalse($layout->hasZone('test'));
-        $this->assertInstanceOf(Zone::class, $layout->getZone('left'));
-        $this->assertTrue($layout->hasZone('left'));
+        $this->assertEquals($zones['right']->getLinkedZone(), $layout->getZone('right'));
+        $this->assertEquals($zones['right'], $layout->getZone('right', true));
+        $this->assertTrue($layout->hasZone('right'));
         $this->assertTrue($layout->isPublished());
+
+        $this->assertInstanceOf(Traversable::class, $layout->getIterator());
+        $this->assertEquals($zones, iterator_to_array($layout->getIterator()));
+
+        $this->assertCount(2, $layout);
+
+        $this->assertTrue(isset($layout['left']));
+        $this->assertEquals($zones['left'], $layout['left']);
+
+        try {
+            $layout['left'] = new Zone();
+            $this->fail('Succeeded in setting a new zone to layout.');
+        } catch (RuntimeException $e) {
+            // Do nothing
+        }
+
+        try {
+            unset($layout['left']);
+            $this->fail('Succeeded in unsetting a zone in layout.');
+        } catch (RuntimeException $e) {
+            // Do nothing
+        }
     }
 }

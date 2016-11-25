@@ -24,6 +24,7 @@ abstract class LayoutMapperTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\Mapper::__construct
      * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper::__construct
      * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper::mapZone
      */

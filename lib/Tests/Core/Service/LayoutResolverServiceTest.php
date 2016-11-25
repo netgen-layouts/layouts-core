@@ -113,6 +113,17 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::getRuleCount
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testGetRuleCountThrowsBadStateExceptionWithNonPublishedLayout()
+    {
+        $this->layoutResolverService->getRuleCount(
+            $this->layoutService->loadLayoutDraft(1)
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::matchRules
      */
     public function testMatchRules()
@@ -281,6 +292,21 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateRule
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testUpdateRuleThrowsBadStateExceptionWithNonDraftRule()
+    {
+        $rule = $this->layoutResolverService->loadRule(5);
+
+        $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
+        $ruleUpdateStruct->layoutId = 3;
+        $ruleUpdateStruct->comment = 'Updated comment';
+
+        $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateRuleMetadata
      */
     public function testUpdateRuleMetadata()
@@ -299,6 +325,24 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
         $this->assertInstanceOf(Rule::class, $updatedRule);
         $this->assertEquals(50, $updatedRule->getPriority());
         $this->assertTrue($updatedRule->isPublished());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateRuleMetadata
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testUpdateRuleMetadataThrowsBadStateExceptionWithNonPublishedRule()
+    {
+        $rule = $this->layoutResolverService->loadRuleDraft(7);
+
+        $this->layoutResolverService->updateRuleMetadata(
+            $rule,
+            new RuleMetadataUpdateStruct(
+                array(
+                    'priority' => 50,
+                )
+            )
+        );
     }
 
     /**
@@ -331,6 +375,17 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::createDraft
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
+    public function testCreateDraftThrowsBadStateExceptionWithNonPublishedRule()
+    {
+        $rule = $this->layoutResolverService->loadRuleDraft(7);
+
+        $this->layoutResolverService->createDraft($rule);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::createDraft
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
     public function testCreateDraftThrowsBadStateExceptionIfDraftAlreadyExists()
     {
         $rule = $this->layoutResolverService->loadRule(3);
@@ -349,6 +404,16 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
         $this->layoutResolverService->discardDraft($rule);
 
         $this->layoutResolverService->loadRuleDraft($rule->getId());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::discardDraft
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testDiscardDraftThrowsBadStateExceptionWithNonDraftRule()
+    {
+        $rule = $this->layoutResolverService->loadRule(5);
+        $this->layoutResolverService->discardDraft($rule);
     }
 
     /**
@@ -426,6 +491,16 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::publishRule
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testPublishRuleThrowsBadStateExceptionWithNonDraftRule()
+    {
+        $rule = $this->layoutResolverService->loadRule(5);
+        $this->layoutResolverService->publishRule($rule);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteRule
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */
@@ -450,6 +525,17 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
         $this->assertInstanceOf(Rule::class, $enabledRule);
         $this->assertTrue($enabledRule->isEnabled());
         $this->assertTrue($enabledRule->isPublished());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::enableRule
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testEnableRuleThrowsBadStateExceptionWithNonPublishedRule()
+    {
+        $rule = $this->layoutResolverService->loadRuleDraft(7);
+
+        $this->layoutResolverService->enableRule($rule);
     }
 
     /**
@@ -503,6 +589,17 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::disableRule
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
+    public function testDisableRuleThrowsBadStateExceptionWithNonPublishedRule()
+    {
+        $rule = $this->layoutResolverService->loadRuleDraft(7);
+
+        $this->layoutResolverService->disableRule($rule);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::disableRule
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
     public function testDisableRuleThrowsBadStateExceptionIfRuleIsAlreadyDisabled()
     {
         $rule = $this->layoutResolverService->loadRule(4);
@@ -530,6 +627,26 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
 
         $this->assertFalse($createdTarget->isPublished());
         $this->assertInstanceOf(Target::class, $createdTarget);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::addTarget
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testAddTargetThrowsBadStateExceptionOnNonDraftRule()
+    {
+        $targetCreateStruct = $this->layoutResolverService->newTargetCreateStruct(
+            'route_prefix'
+        );
+
+        $targetCreateStruct->value = 'some_route_';
+
+        $rule = $this->layoutResolverService->loadRule(5);
+
+        $this->layoutResolverService->addTarget(
+            $rule,
+            $targetCreateStruct
+        );
     }
 
     /**
@@ -571,6 +688,20 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateTarget
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testUpdateTargetThrowsBadStateExceptionOnNonDraftTarget()
+    {
+        $target = $this->layoutResolverService->loadTarget(9);
+
+        $targetUpdateStruct = $this->layoutResolverService->newTargetUpdateStruct();
+        $targetUpdateStruct->value = 'new_value';
+
+        $this->layoutResolverService->updateTarget($target, $targetUpdateStruct);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteTarget
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */
@@ -581,6 +712,17 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
         $this->layoutResolverService->deleteTarget($target);
 
         $this->layoutResolverService->loadTargetDraft($target->getId());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteTarget
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testDeleteTargetThrowsBadStateExceptionOnNonDraftTarget()
+    {
+        $target = $this->layoutResolverService->loadTarget(9);
+
+        $this->layoutResolverService->deleteTarget($target);
     }
 
     /**
@@ -606,6 +748,26 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::addCondition
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testAddConditionThrowsBadStateExceptionOnNonDraftRule()
+    {
+        $conditionCreateStruct = $this->layoutResolverService->newConditionCreateStruct(
+            'ez_site_access'
+        );
+
+        $conditionCreateStruct->value = 'cro';
+
+        $rule = $this->layoutResolverService->loadRule(5);
+
+        $this->layoutResolverService->addCondition(
+            $rule,
+            $conditionCreateStruct
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateCondition
      */
     public function testUpdateCondition()
@@ -624,6 +786,20 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateCondition
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testUpdateConditionThrowsBadStateExceptionOnNonDraftCondition()
+    {
+        $condition = $this->layoutResolverService->loadCondition(4);
+
+        $conditionUpdateStruct = $this->layoutResolverService->newConditionUpdateStruct();
+        $conditionUpdateStruct->value = 'new_value';
+
+        $this->layoutResolverService->updateCondition($condition, $conditionUpdateStruct);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteCondition
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */
@@ -633,6 +809,16 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
         $this->layoutResolverService->deleteCondition($condition);
 
         $this->layoutResolverService->loadConditionDraft($condition->getId());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteCondition
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testDeleteConditionThrowsBadStateExceptionOnNonDraftCondition()
+    {
+        $condition = $this->layoutResolverService->loadCondition(4);
+        $this->layoutResolverService->deleteCondition($condition);
     }
 
     /**

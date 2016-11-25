@@ -220,4 +220,32 @@ class RangeTypeTest extends TestCase
             array(null, true, false),
         );
     }
+
+    /**
+     * @param mixed $value
+     * @param bool $isEmpty
+     *
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\RangeType::isValueEmpty
+     * @dataProvider emptyProvider
+     */
+    public function testIsValueEmpty($value, $isEmpty)
+    {
+        $type = new RangeType();
+        $this->assertEquals($isEmpty, $type->isValueEmpty($value));
+    }
+
+    /**
+     * Provider for testing if the value is empty.
+     *
+     * @return array
+     */
+    public function emptyProvider()
+    {
+        return array(
+            array(null, true),
+            array(42, false),
+            array(42.5, false),
+            array(0, false),
+        );
+    }
 }

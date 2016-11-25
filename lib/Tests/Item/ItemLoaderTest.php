@@ -39,6 +39,7 @@ class ItemLoaderTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Item\ItemLoader::__construct
      * @covers \Netgen\BlockManager\Item\ItemLoader::load
      */
     public function testLoad()

@@ -26,7 +26,7 @@ class ValidatorTest extends TestCase
     public function setUp()
     {
         $this->baseValidator = Validation::createValidatorBuilder()
-            ->setConstraintValidatorFactory(new ValidatorFactory())
+            ->setConstraintValidatorFactory(new ValidatorFactory($this))
             ->getValidator();
 
         $this->validator = $this->getMockForAbstractClass(Validator::class);
@@ -86,6 +86,24 @@ class ValidatorTest extends TestCase
         $this->validator->validatePosition($position, null, $isRequired);
     }
 
+    /**
+     * @param int $offset
+     * @param int $limit
+     * @param bool $isValid
+     *
+     * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::validateOffsetAndLimit
+     * @dataProvider validateOffsetAndLimitDataProvider
+     * @doesNotPerformAssertions
+     */
+    public function testValidateOffsetAndLimit($offset, $limit, $isValid)
+    {
+        if (!$isValid) {
+            $this->expectException(ValidationFailedException::class);
+        }
+
+        $this->validator->validateOffsetAndLimit($offset, $limit);
+    }
+
     public function validateIdDataProvider()
     {
         return array(
@@ -130,6 +148,21 @@ class ValidatorTest extends TestCase
             array(null, true, false),
             array('identifier', false, false),
             array('identifier', true, false),
+        );
+    }
+
+    public function validateOffsetAndLimitDataProvider()
+    {
+        return array(
+            array(0, null, true),
+            array(5, null, true),
+            array('5', null, false),
+            array(null, null, false),
+            array(0, 1, true),
+            array(5, 1, true),
+            array('5', 1, false),
+            array(null, 1, false),
+            array(5, '5', false),
         );
     }
 }

@@ -95,7 +95,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $layouts = $this->layoutService->loadLayouts(true);
 
         $this->assertInternalType('array', $layouts);
-        $this->assertCount(4, $layouts);
+        $this->assertCount(5, $layouts);
 
         foreach ($layouts as $layout) {
             $this->assertInstanceOf(Layout::class, $layout);
@@ -251,10 +251,34 @@ abstract class LayoutServiceTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::linkZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testLinkZoneWhenInSharedLayout()
+    public function testLinkZoneThrowsBadStateExceptionWhenInSharedLayout()
     {
         $zone = $this->layoutService->loadZoneDraft(3, 'left');
         $linkedZone = $this->layoutService->loadZone(5, 'left');
+
+        $this->layoutService->linkZone($zone, $linkedZone);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::linkZone
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testLinkZoneThrowsBadStateExceptionWithNonDraftZone()
+    {
+        $zone = $this->layoutService->loadZone(2, 'left');
+        $linkedZone = $this->layoutService->loadZone(3, 'left');
+
+        $this->layoutService->linkZone($zone, $linkedZone);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::linkZone
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testLinkZoneThrowsBadStateExceptionWithNonPublishedLinkedZone()
+    {
+        $zone = $this->layoutService->loadZoneDraft(2, 'left');
+        $linkedZone = $this->layoutService->loadZoneDraft(3, 'left');
 
         $this->layoutService->linkZone($zone, $linkedZone);
     }
@@ -293,6 +317,17 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $updatedZone = $this->layoutService->unlinkZone($zone);
 
         $this->assertNull($updatedZone->getLinkedZone());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::unlinkZone
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testUnlinkZoneThrowsBadStateExceptionWithNonDraftZone()
+    {
+        $zone = $this->layoutService->loadZone(2, 'top');
+
+        $this->layoutService->unlinkZone($zone);
     }
 
     /**
@@ -346,7 +381,21 @@ abstract class LayoutServiceTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::updateLayout
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testUpdateLayoutThrowsBadStateException()
+    public function testUpdateLayoutThrowsBadStateExceptionWithNonDraftLayout()
+    {
+        $layout = $this->layoutService->loadLayout(1);
+
+        $layoutUpdateStruct = $this->layoutService->newLayoutUpdateStruct();
+        $layoutUpdateStruct->name = 'New name';
+
+        $this->layoutService->updateLayout($layout, $layoutUpdateStruct);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::updateLayout
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testUpdateLayoutThrowsBadStateExceptionWithExistingLayoutName()
     {
         $layout = $this->layoutService->loadLayoutDraft(2);
 
@@ -370,7 +419,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $this->assertEquals($layout->isPublished(), $copiedLayout->isPublished());
         $this->assertInstanceOf(Layout::class, $copiedLayout);
 
-        $this->assertEquals(7, $copiedLayout->getId());
+        $this->assertEquals(8, $copiedLayout->getId());
         $this->assertEquals('New name', $copiedLayout->getName());
     }
 
@@ -401,6 +450,16 @@ abstract class LayoutServiceTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::createDraft
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
+    public function testCreateDraftThrowsBadStateExceptionWithNonPublishedLayout()
+    {
+        $layout = $this->layoutService->loadLayoutDraft(3);
+        $this->layoutService->createDraft($layout);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createDraft
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
     public function testCreateDraftThrowsBadStateExceptionIfDraftAlreadyExists()
     {
         $layout = $this->layoutService->loadLayout(1);
@@ -420,6 +479,16 @@ abstract class LayoutServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::discardDraft
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testDiscardDraftThrowsBadStateExceptionWithNonDraftLayout()
+    {
+        $layout = $this->layoutService->loadLayout(1);
+        $this->layoutService->discardDraft($layout);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::publishLayout
      */
     public function testPublishLayout()
@@ -436,6 +505,16 @@ abstract class LayoutServiceTest extends ServiceTestCase
         } catch (NotFoundException $e) {
             // Do nothing
         }
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::publishLayout
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testPublishLayoutThrowsBadStateExceptionWithNonDraftLayout()
+    {
+        $layout = $this->layoutService->loadLayout(1);
+        $this->layoutService->publishLayout($layout);
     }
 
     /**

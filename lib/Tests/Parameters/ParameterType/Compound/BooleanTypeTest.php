@@ -181,4 +181,31 @@ class BooleanTypeTest extends TestCase
             array(12, false, false),
         );
     }
+
+    /**
+     * @param mixed $value
+     * @param bool $isEmpty
+     *
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\Compound\BooleanType::isValueEmpty
+     * @dataProvider emptyProvider
+     */
+    public function testIsValueEmpty($value, $isEmpty)
+    {
+        $type = new BooleanType();
+        $this->assertEquals($isEmpty, $type->isValueEmpty($value));
+    }
+
+    /**
+     * Provider for testing if the value is empty.
+     *
+     * @return array
+     */
+    public function emptyProvider()
+    {
+        return array(
+            array(null, true),
+            array(false, false),
+            array(true, false),
+        );
+    }
 }

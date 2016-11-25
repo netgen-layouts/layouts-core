@@ -25,6 +25,7 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\Mapper::__construct
      * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper::__construct
      * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper::mapRule
      */
@@ -64,6 +65,23 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
         foreach ($rule->getConditions() as $condition) {
             $this->assertInstanceOf(APICondition::class, $condition);
         }
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper::mapRule
+     */
+    public function testMapRuleWithNonExistingLayout()
+    {
+        $persistenceRule = new Rule(
+            array(
+                'layoutId' => 99999,
+            )
+        );
+
+        $rule = $this->layoutResolverMapper->mapRule($persistenceRule);
+
+        $this->assertInstanceOf(APIRule::class, $rule);
+        $this->assertNull($rule->getLayout());
     }
 
     /**

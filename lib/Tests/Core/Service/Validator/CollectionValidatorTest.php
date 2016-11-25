@@ -50,10 +50,25 @@ class CollectionValidatorTest extends TestCase
     {
         $this->queryTypeRegistryMock = $this->createMock(QueryTypeRegistryInterface::class);
 
+        $handler = new QueryTypeHandlerWithRequiredParameter();
+        $queryType = new QueryType(
+            array(
+                'type' => 'query_type',
+                'handler' => new QueryTypeHandlerWithRequiredParameter(),
+                'config' => $this->queryTypeConfigMock,
+                'parameters' => $handler->getParameters(),
+            )
+        );
+
+        $this->queryTypeRegistryMock
+            ->expects($this->any())
+            ->method('getQueryType')
+            ->will($this->returnValue($queryType));
+
         $this->queryTypeConfigMock = $this->createMock(Configuration::class);
 
         $this->validator = Validation::createValidatorBuilder()
-            ->setConstraintValidatorFactory(new ValidatorFactory())
+            ->setConstraintValidatorFactory(new ValidatorFactory($this))
             ->getValidator();
 
         $this->collectionValidator = new CollectionValidator($this->queryTypeRegistryMock);
@@ -76,6 +91,51 @@ class CollectionValidatorTest extends TestCase
         }
 
         $this->collectionValidator->validateCollectionCreateStruct(new CollectionCreateStruct($params));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateCollectionCreateStruct
+     * @expectedException \Netgen\BlockManager\Exception\ValidationFailedException
+     */
+    public function testValidateCollectionCreateStructWithNonUniqueQueryIdentifiers()
+    {
+        $collectionCreateStruct = new CollectionCreateStruct();
+        $collectionCreateStruct->type = Collection::TYPE_DYNAMIC;
+
+        $collectionCreateStruct->queryCreateStructs = array(
+            new QueryCreateStruct(array('type' => 'query_type', 'identifier' => 'new')),
+            new QueryCreateStruct(array('type' => 'query_type', 'identifier' => 'new')),
+        );
+
+        $this->collectionValidator->validateCollectionCreateStruct($collectionCreateStruct);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateCollectionCreateStruct
+     * @expectedException \Netgen\BlockManager\Exception\ValidationFailedException
+     */
+    public function testValidateCollectionCreateStructWithQueriesInManualCollection()
+    {
+        $collectionCreateStruct = new CollectionCreateStruct();
+        $collectionCreateStruct->type = Collection::TYPE_MANUAL;
+
+        $collectionCreateStruct->queryCreateStructs = array(
+            new QueryCreateStruct(array('type' => 'query_type', 'identifier' => 'new')),
+        );
+
+        $this->collectionValidator->validateCollectionCreateStruct($collectionCreateStruct);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateCollectionCreateStruct
+     * @expectedException \Netgen\BlockManager\Exception\ValidationFailedException
+     */
+    public function testValidateCollectionCreateStructWithNoQueriesInDynamicCollection()
+    {
+        $collectionCreateStruct = new CollectionCreateStruct();
+        $collectionCreateStruct->type = Collection::TYPE_DYNAMIC;
+
+        $this->collectionValidator->validateCollectionCreateStruct($collectionCreateStruct);
     }
 
     /**
@@ -122,21 +182,6 @@ class CollectionValidatorTest extends TestCase
      */
     public function testValidateQueryCreateStruct(array $params, $isValid)
     {
-        $handler = new QueryTypeHandlerWithRequiredParameter();
-        $queryType = new QueryType(
-            array(
-                'type' => 'query_type',
-                'handler' => new QueryTypeHandlerWithRequiredParameter(),
-                'config' => $this->queryTypeConfigMock,
-                'parameters' => $handler->getParameters(),
-            )
-        );
-
-        $this->queryTypeRegistryMock
-            ->expects($this->any())
-            ->method('getQueryType')
-            ->will($this->returnValue($queryType));
-
         if (!$isValid) {
             $this->expectException(ValidationFailedException::class);
         }
