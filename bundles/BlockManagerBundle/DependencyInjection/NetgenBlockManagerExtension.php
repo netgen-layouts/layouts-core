@@ -108,8 +108,8 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
 
         $this->buildLayoutTypes($container, $config['layout_types']);
         $this->buildSources($container, $config['sources']);
-        $this->buildBlockTypes($container, $config['block_definitions'], $config['block_types']);
-        $this->buildBlockTypeGroups($container, $config['block_type_groups']);
+        $blockTypeConfigs = $this->buildBlockTypes($container, $config['block_definitions'], $config['block_types']);
+        $this->buildBlockTypeGroups($container, $config['block_type_groups'], $blockTypeConfigs);
     }
 
     /**
@@ -348,13 +348,35 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
      *
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @param array $blockTypeGroupConfigs
+     * @param array $blockTypeConfigs
      *
      * @return array
      */
     protected function buildBlockTypeGroups(
         ContainerBuilder $container,
-        array $blockTypeGroupConfigs = array()
+        array $blockTypeGroupConfigs = array(),
+        array $blockTypeConfigs = array()
     ) {
+        $missingBlockTypes = array();
+
+        // We will add all blocks which are not located in any group to a custom group
+        // if it exists and is enabled
+        if (isset($blockTypeGroupConfigs['custom']) && $blockTypeGroupConfigs['custom']['enabled']) {
+            foreach ($blockTypeConfigs as $blockType => $blockTypeConfig) {
+                if (!$blockTypeConfig['enabled']) {
+                    continue;
+                }
+
+                foreach ($blockTypeGroupConfigs as $blockTypeGroupConfig) {
+                    if (in_array($blockType, $blockTypeGroupConfig['block_types'])) {
+                        continue 2;
+                    }
+                }
+
+                $missingBlockTypes[] = $blockType;
+            }
+        }
+
         foreach ($blockTypeGroupConfigs as $identifier => $blockTypeGroupConfig) {
             if (!$blockTypeGroupConfig['enabled']) {
                 continue;
@@ -363,7 +385,12 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
             $serviceIdentifier = sprintf('netgen_block_manager.configuration.block_type_group.%s', $identifier);
 
             $blockTypeReferences = array();
-            foreach ($blockTypeGroupConfig['block_types'] as $blockType) {
+            $blockTypes = $blockTypeGroupConfig['block_types'];
+            if ($identifier === 'custom') {
+                $blockTypes = array_merge($blockTypes, $missingBlockTypes);
+            }
+
+            foreach ($blockTypes as $blockType) {
                 $blockTypeReferences[] = new Reference(
                     sprintf(
                         'netgen_block_manager.configuration.block_type.%s',

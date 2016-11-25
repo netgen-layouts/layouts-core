@@ -11,3 +11,5 @@ block_type_groups:
     placeholders:
         name: 'Placeholders'
         block_types: [twig_block, full_view]
+    custom:
+        name: 'Custom blocks'

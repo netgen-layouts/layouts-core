@@ -7,6 +7,11 @@ block_types:
             parameters:
                 number_of_columns: 3
 
+    # All gallery blocks are specified via view type specific config
+    # so we disable the one which is automatically created
+    gallery:
+        enabled: false
+
     slider:
         name: 'Slider'
         definition_identifier: gallery
