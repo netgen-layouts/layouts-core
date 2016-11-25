@@ -35,14 +35,9 @@ class CollectionQueryIterator implements IteratorAggregate, Countable
      */
     public function __construct(Collection $collection, $offset = 0, $limit = null)
     {
-        $manualItemsPositions = array_keys($collection->getManualItems());
-
-        $numberOfItemsBeforeOffset = $this->getCountBeforeOffset($manualItemsPositions, $offset);
-        $numberOfItemsAtOffset = $this->getCountAtOffset($manualItemsPositions, $offset, $limit);
-
         $this->collection = $collection;
-        $this->offset = $offset - $numberOfItemsBeforeOffset;
-        $this->limit = $limit !== null ? $limit - $numberOfItemsAtOffset : null;
+        $this->offset = $offset;
+        $this->limit = $limit;
     }
 
     /**
@@ -108,58 +103,5 @@ class CollectionQueryIterator implements IteratorAggregate, Countable
         }
 
         return $totalCount;
-    }
-
-    /**
-     * Returns the count of items at positions before the original offset.
-     *
-     * Example: Original offset for fetching values from the queries is 10
-     *          We already have 3 items injected at positions 3, 5, 9, 15 and 17
-     *          Resulting count is 3
-     *
-     * @param array $positions
-     * @param int $offset
-     *
-     * @return int
-     */
-    protected function getCountBeforeOffset(array $positions, $offset = 0)
-    {
-        return count(
-            array_filter(
-                $positions,
-                function ($position) use ($offset) {
-                    return $position < $offset;
-                }
-            )
-        );
-    }
-
-    /**
-     * Returns the count of items at positions between the original offset and (offset + limit - 1).
-     *
-     * Example: Original offset for fetching values from the queries is 10 and limit is also 10
-     *          We already have 3 items injected at positions 3, 5, 9, 15 and 17
-     *          Resulting count is 2
-     *
-     * @param array $positions
-     * @param int $offset
-     * @param int $limit
-     *
-     * @return int
-     */
-    protected function getCountAtOffset(array $positions, $offset = 0, $limit = null)
-    {
-        return count(
-            array_filter(
-                $positions,
-                function ($position) use ($offset, $limit) {
-                    if ($limit !== null) {
-                        return $position >= $offset && $position < ($offset + $limit - 1);
-                    }
-
-                    return $position >= $offset;
-                }
-            )
-        );
     }
 }
