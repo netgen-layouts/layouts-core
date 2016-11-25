@@ -43,7 +43,9 @@ class ResultLoader implements ResultLoaderInterface
         return new ResultSet(
             array(
                 'collection' => $collection,
-                'results' => iterator_to_array($results),
+                'results' => array_values(
+                    iterator_to_array($results)
+                ),
                 'totalCount' => $collectionIterator->count(),
                 'offset' => $offset,
                 'limit' => $limit,
