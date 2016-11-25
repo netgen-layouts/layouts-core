@@ -13,6 +13,11 @@ class Configuration extends ValueObject
     protected $identifier;
 
     /**
+     * @var string
+     */
+    protected $name;
+
+    /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\Form[]
      */
     protected $forms = array();
@@ -21,6 +26,16 @@ class Configuration extends ValueObject
      * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType[]
      */
     protected $viewTypes = array();
+
+    /**
+     * Returns the block definition human readable name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 
     /**
      * Returns all forms.

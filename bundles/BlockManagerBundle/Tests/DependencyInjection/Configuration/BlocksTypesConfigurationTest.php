@@ -84,6 +84,64 @@ class BlocksTypesConfigurationTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypesNodeDefinition
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
      */
+    public function testBlockTypeSettingsWithNoName()
+    {
+        $config = array(
+            array(
+                'block_types' => array(
+                    'block_type' => array(),
+                ),
+            ),
+        );
+
+        $expectedConfig = array(
+            'block_types' => array(
+                'block_type' => array(),
+            ),
+        );
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'block_types.*.name'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypesNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
+     */
+    public function testBlockTypeSettingsWithNoDefinitionIdentifier()
+    {
+        $config = array(
+            array(
+                'block_types' => array(
+                    'block_type' => array(),
+                ),
+            ),
+        );
+
+        $expectedConfig = array(
+            'block_types' => array(
+                'block_type' => array(),
+            ),
+        );
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'block_types.*.definition_identifier'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypesNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
+     */
     public function testBlockTypeSettingsWithNoDefaultName()
     {
         $config = array(
@@ -312,40 +370,6 @@ class BlocksTypesConfigurationTest extends TestCase
     {
         $config = array(
             'block_types' => array(),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypesNodeDefinition
-     */
-    public function testBlockTypeSettingsWithNoBlockTypeName()
-    {
-        $config = array(
-            'block_types' => array(
-                'block_type' => array(
-                    'definition_identifier' => 'block',
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypesNodeDefinition
-     */
-    public function testBlockTypeSettingsWithNoDefaultDefinitionIdentifier()
-    {
-        $config = array(
-            'block_types' => array(
-                'block_type' => array(
-                    'name' => 'Block type',
-                ),
-            ),
         );
 
         $this->assertConfigurationIsInvalid(array($config));

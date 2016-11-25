@@ -1,11 +1,5 @@
 block_types:
-    button:
-        name: 'Button / Link'
-        definition_identifier: button
-
     markdown:
-        name: 'Markdown'
-        definition_identifier: markdown
         enabled: false
 
     grid:

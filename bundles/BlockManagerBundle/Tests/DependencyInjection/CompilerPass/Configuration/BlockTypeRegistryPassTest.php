@@ -29,7 +29,6 @@ class BlockTypeRegistryPassTest extends AbstractCompilerPassTestCase
     {
         $this->setParameter('netgen_block_manager.block_types', array());
         $this->setParameter('netgen_block_manager.block_type_groups', array());
-        $this->setParameter('netgen_block_manager.block_definitions', array());
 
         $this->setDefinition('netgen_block_manager.configuration.registry.block_type', new Definition());
 
@@ -57,7 +56,6 @@ class BlockTypeRegistryPassTest extends AbstractCompilerPassTestCase
     {
         $this->setParameter('netgen_block_manager.block_types', array());
         $this->setParameter('netgen_block_manager.block_type_groups', array());
-        $this->setParameter('netgen_block_manager.block_definitions', array());
 
         $this->setDefinition('netgen_block_manager.configuration.registry.block_type', new Definition());
 
@@ -80,6 +78,39 @@ class BlockTypeRegistryPassTest extends AbstractCompilerPassTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeRegistryPass::process
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeRegistryPass::validateBlockTypes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeRegistryPass::validateBlockTypeGroups
+     */
+    public function testProcessWithNoDefinitionIdentifier()
+    {
+        $this->setParameter(
+            'netgen_block_manager.block_types',
+            array(
+                'type' => array(),
+            )
+        );
+
+        $this->setParameter('netgen_block_manager.block_type_groups', array());
+
+        $this->setDefinition('netgen_block_manager.configuration.registry.block_type', new Definition());
+
+        $blockType = new Definition();
+        $blockType->addTag('netgen_block_manager.configuration.block_type');
+        $this->setDefinition('netgen_block_manager.configuration.block_type.test', $blockType);
+
+        $this->compile();
+
+        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+            'netgen_block_manager.configuration.registry.block_type',
+            'addBlockType',
+            array(
+                new Reference('netgen_block_manager.configuration.block_type.test'),
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeRegistryPass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeRegistryPass::validateBlockTypes
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeRegistryPass::validateBlockTypeGroups
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      */
     public function testProcessThrowsRuntimeExceptionWithNoBlockDefinition()
@@ -94,7 +125,6 @@ class BlockTypeRegistryPassTest extends AbstractCompilerPassTestCase
         );
 
         $this->setParameter('netgen_block_manager.block_type_groups', array());
-        $this->setParameter('netgen_block_manager.block_definitions', array());
 
         $this->setDefinition('netgen_block_manager.configuration.registry.block_type', new Definition());
 
@@ -123,7 +153,6 @@ class BlockTypeRegistryPassTest extends AbstractCompilerPassTestCase
         );
 
         $this->setParameter('netgen_block_manager.block_types', array());
-        $this->setParameter('netgen_block_manager.block_definitions', array());
 
         $this->setDefinition('netgen_block_manager.configuration.registry.block_type', new Definition());
 

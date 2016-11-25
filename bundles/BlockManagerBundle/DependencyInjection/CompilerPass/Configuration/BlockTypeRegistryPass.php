@@ -85,6 +85,12 @@ class BlockTypeRegistryPass implements CompilerPassInterface
     protected function validateBlockTypes(ContainerBuilder $container, array $blockTypes)
     {
         foreach ($blockTypes as $blockType => $blockTypeConfig) {
+            if (!isset($blockTypeConfig['definition_identifier'])) {
+                // Block types without definition identifier are automatically built
+                // from the matching definition identifier, so no need for checking them here
+                continue;
+            }
+
             $definition = $blockTypeConfig['definition_identifier'];
             if (!$container->has(sprintf('netgen_block_manager.block.block_definition.%s', $definition))) {
                 throw new RuntimeException(

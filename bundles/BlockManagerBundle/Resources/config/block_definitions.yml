@@ -1,50 +1,60 @@
 block_definitions:
     title:
+        name: 'Title'
         view_types:
             title:
                 name: 'Title'
 
     text:
+        name: 'Text'
         view_types:
             text:
                 name: 'Text'
 
     button:
+        name: 'Button / Link'
         view_types:
             button:
                 name: 'Button'
 
     markdown:
+        name: 'Markdown'
         view_types:
             markdown:
                 name: 'Markdown'
 
     rich_text:
+        name: 'Rich text'
         view_types:
             rich_text:
                 name: 'Rich text'
 
     html_snippet:
+        name: 'HTML snippet'
         view_types:
             html_snippet:
                 name: 'HTML snippet'
 
     full_view:
+        name: 'Full view'
         view_types:
             full_view:
                 name: 'Full view'
 
     twig_block:
+        name: 'Twig block'
         view_types:
             twig_block:
                 name: 'Twig block'
 
     external_video:
+        name: 'External video'
         view_types:
             external_video:
                 name: 'External video'
 
     map:
+        name: 'Map'
         forms:
             full:
                 enabled: false
@@ -55,6 +65,7 @@ block_definitions:
                 name: 'Map'
 
     list:
+        name: 'List'
         forms:
             full:
                 enabled: false
@@ -68,6 +79,7 @@ block_definitions:
                 name: 'Grid'
 
     gallery:
+        name: 'Gallery'
         forms:
             full:
                 enabled: false

@@ -275,14 +275,30 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
         array $blockTypeConfigs = array()
     ) {
         foreach ($blockDefinitionConfigs as $definitionIdentifier => $definitionConfig) {
+            if (
+                !empty($blockTypeConfigs[$definitionIdentifier]['definition_identifier']) &&
+                $blockTypeConfigs[$definitionIdentifier]['definition_identifier'] !== $definitionIdentifier
+            ) {
+                // We skip the block types which have been completely redefined
+                // i.e. had the block definition identifier changed
+                continue;
+            }
+
             if (!isset($blockTypeConfigs[$definitionIdentifier])) {
                 $blockTypeConfigs[$definitionIdentifier] = array(
-                    'name' => $this->humanize($definitionIdentifier),
+                    'name' => $definitionConfig['name'],
                     'enabled' => true,
                     'definition_identifier' => $definitionIdentifier,
                     'defaults' => array(),
                 );
+
+                continue;
             }
+
+            $blockTypeConfigs[$definitionIdentifier] += array(
+                'name' => $definitionConfig['name'],
+                'definition_identifier' => $definitionIdentifier,
+            );
         }
 
         foreach ($blockTypeConfigs as $identifier => $blockTypeConfig) {

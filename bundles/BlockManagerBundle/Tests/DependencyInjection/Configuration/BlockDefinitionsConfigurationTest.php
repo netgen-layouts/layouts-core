@@ -37,6 +37,7 @@ class BlockDefinitionsConfigurationTest extends TestCase
             array(
                 'block_definitions' => array(
                     'block' => array(
+                        'name' => 'Block',
                         'forms' => array(
                             'full' => array(
                                 'type' => 'test_form',
@@ -84,6 +85,7 @@ class BlockDefinitionsConfigurationTest extends TestCase
         $expectedConfig = array(
             'block_definitions' => array(
                 'block' => array(
+                    'name' => 'Block',
                     'forms' => array(
                         'full' => array(
                             'type' => 'test_form',
@@ -352,6 +354,27 @@ class BlockDefinitionsConfigurationTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockDefinitionsNodeDefinition
      */
+    public function testBlockDefinitionSettingsWithNoName()
+    {
+        $config = array(
+            'block_definitions' => array(
+                'block' => array(
+                    'view_types' => array(
+                        'default' => array(
+                            'name' => 'Default',
+                        ),
+                    ),
+                ),
+            ),
+        );
+
+        $this->assertConfigurationIsInvalid(array($config));
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockDefinitionsNodeDefinition
+     */
     public function testBlockDefinitionSettingsWithNoBlockDefinitions()
     {
         $config = array(
@@ -370,6 +393,7 @@ class BlockDefinitionsConfigurationTest extends TestCase
         $config = array(
             'block_definitions' => array(
                 'block' => array(
+                    'name' => 'Block',
                     'forms' => array(
                         'full' => array(
                             'enabled' => false,
@@ -404,6 +428,7 @@ class BlockDefinitionsConfigurationTest extends TestCase
         $config = array(
             'block_definitions' => array(
                 'block' => array(
+                    'name' => 'Block',
                     'forms' => array(
                         'full' => array(
                             'enabled' => false,
@@ -438,6 +463,7 @@ class BlockDefinitionsConfigurationTest extends TestCase
         $config = array(
             'block_definitions' => array(
                 'block' => array(
+                    'name' => 'Block',
                     'forms' => array(
                         'full' => array(
                             'enabled' => true,
@@ -472,6 +498,7 @@ class BlockDefinitionsConfigurationTest extends TestCase
         $config = array(
             'block_definitions' => array(
                 'block' => array(
+                    'name' => 'Block',
                     'forms' => array(
                         'full' => array(
                             'enabled' => true,
@@ -506,6 +533,7 @@ class BlockDefinitionsConfigurationTest extends TestCase
         $config = array(
             'block_definitions' => array(
                 'block' => array(
+                    'name' => 'Block',
                     'forms' => array(
                         'full' => array(
                             'enabled' => true,
@@ -543,6 +571,7 @@ class BlockDefinitionsConfigurationTest extends TestCase
         $config = array(
             'block_definitions' => array(
                 'block' => array(
+                    'name' => 'Block',
                     'view_types' => array(),
                 ),
             ),
@@ -560,6 +589,7 @@ class BlockDefinitionsConfigurationTest extends TestCase
         $config = array(
             'block_definitions' => array(
                 'block' => array(
+                    'name' => 'Block',
                     'view_types' => array(
                         'default' => array(
                             'name' => 'Default',

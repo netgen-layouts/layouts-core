@@ -19,6 +19,7 @@ class ConfigurationTest extends TestCase
         $this->configuration = new Configuration(
             array(
                 'identifier' => 'block_definition',
+                'name' => 'Block definition',
                 'forms' => array(
                     'content' => new Form(array('identifier' => 'content')),
                 ),
@@ -32,6 +33,14 @@ class ConfigurationTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration::__construct
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration::getName
+     */
+    public function testGetName()
+    {
+        $this->assertEquals('Block definition', $this->configuration->getName());
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration::getForms
      */
     public function testGetForms()

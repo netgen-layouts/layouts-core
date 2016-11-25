@@ -27,6 +27,7 @@ class FactoryTest extends TestCase
     public function testBuildConfig()
     {
         $config = array(
+            'name' => 'Block definition',
             'forms' => array(
                 'content' => array(
                     'type' => 'form_type',
@@ -69,6 +70,7 @@ class FactoryTest extends TestCase
             new Configuration(
                 array(
                     'identifier' => 'block_definition',
+                    'name' => 'Block definition',
                     'forms' => array(
                         'content' => new Form(
                             array(

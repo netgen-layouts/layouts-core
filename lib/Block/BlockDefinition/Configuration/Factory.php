@@ -58,6 +58,7 @@ class Factory
         return new Configuration(
             array(
                 'identifier' => $identifier,
+                'name' => $config['name'],
                 'forms' => $forms,
                 'viewTypes' => $viewTypes,
             )
