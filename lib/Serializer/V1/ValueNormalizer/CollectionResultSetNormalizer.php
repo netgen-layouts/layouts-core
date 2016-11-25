@@ -25,7 +25,7 @@ class CollectionResultSetNormalizer extends SerializerAwareNormalizer implements
         $resultSet = $object->getValue();
 
         $results = array();
-        foreach ($resultSet->getResults() as $result) {
+        foreach ($resultSet as $result) {
             $results[] = new VersionedValue($result, $object->getVersion());
         }
 
