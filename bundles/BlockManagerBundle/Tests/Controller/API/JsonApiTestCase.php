@@ -2,6 +2,10 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API;
 
+use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use Netgen\BlockManager\Ez\Collection\QueryType\Handler\ContentSearchHandler;
+use eZ\Publish\Core\Helper\TranslationHelper;
+use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\DatabaseTrait;
 use Symfony\Component\HttpFoundation\Response;
 use Lakion\ApiTestCase\JsonApiTestCase as BaseJsonApiTestCase;
@@ -16,9 +20,10 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         parent::setUp();
 
         $this->setUpClient();
-
+        $this->mockItemLoader();
+        $this->mockSearchHandler();
+        $this->mockTranslationHelper();
         $this->prepareDatabase(__DIR__ . '/../../../../../lib/Tests/_fixtures');
-
         $this->expectedResponsesPath = __DIR__ . '/responses/expected';
     }
 
@@ -32,6 +37,62 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
     public function tearDown()
     {
         $this->closeDatabaseConnection();
+    }
+
+    protected function mockItemLoader()
+    {
+        /** @var \Mockery\MockInterface $locationMock */
+        $itemLoaderMock = $this->client->getContainer()->mock(
+            'netgen_block_manager.item.item_loader',
+            ItemLoaderInterface::class
+        );
+
+        $itemFixtures = require __DIR__ . '/fixtures/items.php';
+
+        foreach ($itemFixtures as $valueId => $item) {
+            $itemLoaderMock
+                ->shouldReceive('load')
+                ->with($item->getValueId(), $item->getValueType())
+                ->andReturn($item);
+        }
+    }
+
+    protected function mockSearchHandler()
+    {
+        /** @var \Mockery\MockInterface $locationMock */
+        $searchHandlerMock = $this->client->getContainer()->mock(
+            'netgen_block_manager.collection.query_type.handler.ezcontent_search',
+            ContentSearchHandler::class
+        );
+
+        $searchHandlerMock->makePartial();
+
+        $searchFixtures = require __DIR__ . '/fixtures/search.php';
+
+        $searchHandlerMock
+            ->shouldReceive('getCount')
+            ->andReturn(count($searchFixtures));
+
+        $searchHandlerMock
+            ->shouldReceive('getValues')
+            ->andReturn($searchFixtures);
+    }
+
+    protected function mockTranslationHelper()
+    {
+        /** @var \Mockery\MockInterface $translationHelperMock */
+        $translationHelperMock = $this->client->getContainer()->mock(
+            'ezpublish.translation_helper',
+            TranslationHelper::class
+        );
+
+        $translationHelperMock
+            ->shouldReceive('getTranslatedContentNameByContentInfo')
+            ->andReturnUsing(
+                function (ContentInfo $contentInfo) {
+                    return $contentInfo->name;
+                }
+            );
     }
 
     /**
