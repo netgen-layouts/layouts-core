@@ -86,6 +86,7 @@ class BlockDefinitionsConfigurationTest extends TestCase
             'block_definitions' => array(
                 'block' => array(
                     'name' => 'Block',
+                    'enabled' => true,
                     'forms' => array(
                         'full' => array(
                             'type' => 'test_form',
@@ -136,6 +137,39 @@ class BlockDefinitionsConfigurationTest extends TestCase
             $config,
             $expectedConfig,
             'block_definitions'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockDefinitionsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
+     */
+    public function testBlockDefinitionSettingsWithDisabledBlockDefinition()
+    {
+        $config = array(
+            array(
+                'block_definitions' => array(
+                    'block' => array(
+                        'enabled' => false,
+                    ),
+                ),
+            ),
+        );
+
+        $expectedConfig = array(
+            'block_definitions' => array(
+                'block' => array(
+                    'enabled' => false,
+                ),
+            ),
+        );
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'block_definitions.*.enabled'
         );
     }
 

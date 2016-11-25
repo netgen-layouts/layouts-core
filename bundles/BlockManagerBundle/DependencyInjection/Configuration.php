@@ -163,6 +163,7 @@ class Configuration implements ConfigurationInterface
             ->requiresAtLeastOneElement()
             ->useAttributeAsKey('identifier')
             ->prototype('array')
+                ->canBeDisabled()
                 ->children()
                     ->scalarNode('name')
                         ->isRequired()

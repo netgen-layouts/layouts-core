@@ -19,6 +19,7 @@ block_definitions:
 
     markdown:
         name: 'Markdown'
+        enabled: false
         view_types:
             markdown:
                 name: 'Markdown'

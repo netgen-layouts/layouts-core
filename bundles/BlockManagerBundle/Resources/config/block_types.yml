@@ -1,7 +1,4 @@
 block_types:
-    markdown:
-        enabled: false
-
     grid:
         name: 'Grid'
         definition_identifier: list
