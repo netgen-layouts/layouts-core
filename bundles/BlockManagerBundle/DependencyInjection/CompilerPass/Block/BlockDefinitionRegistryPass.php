@@ -29,6 +29,10 @@ class BlockDefinitionRegistryPass implements CompilerPassInterface
 
         $blockDefinitions = $container->getParameter('netgen_block_manager.block_definitions');
         foreach ($blockDefinitions as $identifier => $blockDefinition) {
+            if (!$blockDefinition['enabled']) {
+                continue;
+            }
+
             $configServiceName = sprintf('netgen_block_manager.block.block_definition.configuration.%s', $identifier);
             $configService = new Definition(
                 $container->getParameter('netgen_block_manager.block.block_definition.configuration.class')
