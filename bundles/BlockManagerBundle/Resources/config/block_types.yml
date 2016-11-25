@@ -1,12 +1,4 @@
 block_types:
-    title:
-        name: 'Title'
-        definition_identifier: title
-
-    text:
-        name: 'Text'
-        definition_identifier: text
-
     button:
         name: 'Button / Link'
         definition_identifier: button
@@ -15,34 +7,6 @@ block_types:
         name: 'Markdown'
         definition_identifier: markdown
         enabled: false
-
-    rich_text:
-        name: 'Rich text'
-        definition_identifier: rich_text
-
-    external_video:
-        name: 'External video'
-        definition_identifier: external_video
-
-    map:
-        name: 'Map'
-        definition_identifier: map
-
-    html_snippet:
-        name: 'HTML snippet'
-        definition_identifier: html_snippet
-
-    full_view:
-        name: 'Full view'
-        definition_identifier: full_view
-
-    twig_block:
-        name: 'Twig block'
-        definition_identifier: twig_block
-
-    list:
-        name: 'List'
-        definition_identifier: list
 
     grid:
         name: 'Grid'

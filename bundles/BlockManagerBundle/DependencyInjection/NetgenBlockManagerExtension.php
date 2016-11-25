@@ -108,7 +108,7 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
 
         $this->buildLayoutTypes($container, $config['layout_types']);
         $this->buildSources($container, $config['sources']);
-        $this->buildBlockTypes($container, $config['block_types']);
+        $this->buildBlockTypes($container, $config['block_definitions'], $config['block_types']);
         $this->buildBlockTypeGroups($container, $config['block_type_groups']);
     }
 
@@ -266,12 +266,27 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
      * Builds the config objects from provided array config.
      *
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     * @param array $configs
+     * @param array $blockDefinitionConfigs
+     * @param array $blockTypeConfigs
      */
-    protected function buildBlockTypes(ContainerBuilder $container, array $configs = array())
-    {
-        foreach ($configs as $identifier => $config) {
-            if (!$config['enabled']) {
+    protected function buildBlockTypes(
+        ContainerBuilder $container,
+        array $blockDefinitionConfigs = array(),
+        array $blockTypeConfigs = array()
+    ) {
+        foreach ($blockDefinitionConfigs as $definitionIdentifier => $definitionConfig) {
+            if (!isset($blockTypeConfigs[$definitionIdentifier])) {
+                $blockTypeConfigs[$definitionIdentifier] = array(
+                    'name' => $this->humanize($definitionIdentifier),
+                    'enabled' => true,
+                    'definition_identifier' => $definitionIdentifier,
+                    'defaults' => array(),
+                );
+            }
+        }
+
+        foreach ($blockTypeConfigs as $identifier => $blockTypeConfig) {
+            if (!$blockTypeConfig['enabled']) {
                 continue;
             }
 
@@ -285,11 +300,11 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
                 ->setArguments(
                     array(
                         $identifier,
-                        $config,
+                        $blockTypeConfig,
                         new Reference(
                             sprintf(
                                 'netgen_block_manager.block.block_definition.%s',
-                                $config['definition_identifier']
+                                $blockTypeConfig['definition_identifier']
                             )
                         ),
                     )
@@ -333,5 +348,21 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
                 ->addTag('netgen_block_manager.configuration.block_type_group')
                 ->setAbstract(false);
         }
+    }
+
+    /**
+     * Humanizes the provided text.
+     *
+     * Sequences of underscores are replaced by single spaces. The first letter
+     * of the resulting string is capitalized, while all other letters are
+     * turned to lowercase.
+     *
+     * @param string $text
+     *
+     * @return string
+     */
+    protected function humanize($text)
+    {
+        return ucfirst(trim(strtolower(preg_replace(array('/([A-Z])/', '/[_\s]+/'), array('_$1', ' '), $text))));
     }
 }

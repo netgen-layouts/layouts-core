@@ -26,10 +26,9 @@ class BlockTypeRegistryPass implements CompilerPassInterface
 
         $blockTypes = $container->getParameter('netgen_block_manager.block_types');
         $blockTypeGroups = $container->getParameter('netgen_block_manager.block_type_groups');
-        $blockDefinitions = $container->getParameter('netgen_block_manager.block_definitions');
 
-        $this->validateBlockTypeGroups($blockTypeGroups, $blockTypes);
-        $this->validateBlockTypes($blockTypes, $blockDefinitions);
+        $this->validateBlockTypeGroups($container, $blockTypeGroups);
+        $this->validateBlockTypes($container, $blockTypes);
 
         $registry = $container->findDefinition(self::SERVICE_NAME);
         $blockTypeServices = $container->findTaggedServiceIds(self::TAG_NAME);
@@ -53,16 +52,16 @@ class BlockTypeRegistryPass implements CompilerPassInterface
     /**
      * Validates block type group config.
      *
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @param array $blockTypeGroups
-     * @param array $blockTypes
      *
      * @throws \RuntimeException If validation failed
      */
-    protected function validateBlockTypeGroups(array $blockTypeGroups, array $blockTypes)
+    protected function validateBlockTypeGroups(ContainerBuilder $container, array $blockTypeGroups)
     {
         foreach ($blockTypeGroups as $blockTypeGroup => $blockTypeGroupConfig) {
             foreach ($blockTypeGroupConfig['block_types'] as $blockType) {
-                if (!isset($blockTypes[$blockType])) {
+                if (!$container->has(sprintf('netgen_block_manager.configuration.block_type.%s', $blockType))) {
                     throw new RuntimeException(
                         sprintf(
                             'Block type "%s" used in "%s" block type group does not exist.',
@@ -78,15 +77,16 @@ class BlockTypeRegistryPass implements CompilerPassInterface
     /**
      * Validates block type config.
      *
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @param array $blockTypes
-     * @param array $blockDefinitions
      *
      * @throws \RuntimeException If validation failed
      */
-    protected function validateBlockTypes(array $blockTypes, array $blockDefinitions)
+    protected function validateBlockTypes(ContainerBuilder $container, array $blockTypes)
     {
         foreach ($blockTypes as $blockType => $blockTypeConfig) {
-            if (!isset($blockDefinitions[$blockTypeConfig['definition_identifier']])) {
+            $definition = $blockTypeConfig['definition_identifier'];
+            if (!$container->has(sprintf('netgen_block_manager.block.block_definition.%s', $definition))) {
                 throw new RuntimeException(
                     sprintf(
                         'Block definition "%s" used in "%s" block type does not exist.',
