@@ -8,7 +8,7 @@ block_types:
         definition_identifier: text
 
     button:
-        name: 'Button'
+        name: 'Button / Link'
         definition_identifier: button
 
     markdown:
