@@ -16,15 +16,7 @@ class ViewTest extends TestCase
 
     public function setUp()
     {
-        $this->view = new View(new Value());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\View\View::getValueObject
-     */
-    public function testGetValueObject()
-    {
-        $this->assertEquals(new Value(), $this->view->getValueObject());
+        $this->view = new View(array('valueObject' => new Value()));
     }
 
     /**
@@ -79,66 +71,48 @@ class ViewTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\View\View::addParameter
      * @covers \Netgen\BlockManager\View\View::hasParameter
      */
     public function testHasParameter()
     {
-        $this->view->setParameters(array('param' => 'value'));
+        $this->view->addParameter('param', 'value');
 
         $this->assertTrue($this->view->hasParameter('param'));
     }
 
     /**
+     * @covers \Netgen\BlockManager\View\View::addParameter
      * @covers \Netgen\BlockManager\View\View::hasParameter
      */
     public function testHasParameterWithNoParam()
     {
-        $this->view->setParameters(array('param' => 'value'));
+        $this->view->addParameter('param', 'value');
 
         $this->assertFalse($this->view->hasParameter('other_param'));
     }
 
     /**
+     * @covers \Netgen\BlockManager\View\View::addParameter
      * @covers \Netgen\BlockManager\View\View::getParameter
      */
     public function testGetParameter()
     {
-        $this->view->setParameters(array('param' => 'value'));
+        $this->view->addParameter('param', 'value');
 
         $this->assertEquals('value', $this->view->getParameter('param'));
     }
 
     /**
+     * @covers \Netgen\BlockManager\View\View::addParameter
      * @covers \Netgen\BlockManager\View\View::getParameter
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      */
     public function testGetParameterThrowsOutOfBoundsException()
     {
-        $this->view->setParameters(array('param' => 'value'));
+        $this->view->addParameter('param', 'value');
 
         $this->view->getParameter('other_param');
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\View\View::setParameters
-     * @covers \Netgen\BlockManager\View\View::getParameters
-     */
-    public function testSetParameters()
-    {
-        $this->view->setParameters(
-            array(
-                'some_param' => 'some_value',
-                'some_other_param' => 'some_other_value',
-            )
-        );
-
-        $this->assertEquals(
-            array(
-                'some_param' => 'some_value',
-                'some_other_param' => 'some_other_value',
-            ),
-            $this->view->getParameters()
-        );
     }
 
     /**
@@ -146,7 +120,7 @@ class ViewTest extends TestCase
      */
     public function testAddParameters()
     {
-        $this->view->setParameters(
+        $this->view->addParameters(
             array(
                 'some_param' => 'some_value',
                 'some_other_param' => 'some_other_value',

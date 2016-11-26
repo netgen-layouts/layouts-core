@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\View\Matcher\Block;
 
-use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\View\BlockView;
@@ -38,8 +37,9 @@ class ViewTypeTest extends TestCase
         );
 
         $view = new BlockView(
-            $block,
-            $this->createMock(BlockDefinitionInterface::class)
+            array(
+                'valueObject' => $block,
+            )
         );
 
         $this->assertEquals($expected, $this->matcher->match($view, $config));
@@ -66,6 +66,6 @@ class ViewTypeTest extends TestCase
      */
     public function testMatchWithNoBlockView()
     {
-        $this->assertFalse($this->matcher->match(new View(new Value()), array()));
+        $this->assertFalse($this->matcher->match(new View(array('valueObject' => new Value())), array()));
     }
 }

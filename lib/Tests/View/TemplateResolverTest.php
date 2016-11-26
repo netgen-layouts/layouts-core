@@ -19,7 +19,7 @@ class TemplateResolverTest extends TestCase
 
     public function setUp()
     {
-        $this->view = new View(new Value());
+        $this->view = new View(array('valueObject' => new Value()));
         $this->view->setContext('context');
     }
 
@@ -149,7 +149,13 @@ class TemplateResolverTest extends TestCase
      */
     public function testResolveTemplateWithFallbackContext()
     {
-        $this->view = new ViewWithFallbackContext(new Value(), 'fallback');
+        $this->view = new ViewWithFallbackContext(
+            array(
+                'valueObject' => new Value(),
+                'fallbackContext' => 'fallback',
+            )
+        );
+
         $this->view->setContext('context');
 
         $viewConfiguration = array(

@@ -2,24 +2,10 @@
 
 namespace Netgen\BlockManager\View\View;
 
-use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\View\View;
 
 class ItemView extends View implements ItemViewInterface
 {
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Item\ItemInterface $item
-     * @param string $viewType
-     */
-    public function __construct(ItemInterface $item, $viewType)
-    {
-        $this->valueObject = $item;
-        $this->internalParameters['item'] = $item;
-        $this->internalParameters['viewType'] = $viewType;
-    }
-
     /**
      * Returns the item.
      *
@@ -37,7 +23,7 @@ class ItemView extends View implements ItemViewInterface
      */
     public function getViewType()
     {
-        return $this->internalParameters['viewType'];
+        return $this->parameters['viewType'];
     }
 
     /**

@@ -10,7 +10,6 @@ use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\View\BlockView\ContextualizedTwigTemplate;
-use Netgen\BlockManager\View\View\BlockView\TwigBlockView;
 use Netgen\BlockManager\View\View\BlockViewInterface;
 use PHPUnit\Framework\TestCase;
 use Twig_Template;
@@ -94,7 +93,6 @@ class BlockViewProviderTest extends TestCase
         );
 
         $this->assertInstanceOf(BlockViewInterface::class, $view);
-        $this->assertInstanceOf(TwigBlockView::class, $view);
 
         $this->assertEquals($block, $view->getBlock());
         $this->assertNull($view->getTemplate());
@@ -135,7 +133,6 @@ class BlockViewProviderTest extends TestCase
         );
 
         $this->assertInstanceOf(BlockViewInterface::class, $view);
-        $this->assertInstanceOf(TwigBlockView::class, $view);
 
         $this->assertEquals($block, $view->getBlock());
         $this->assertNull($view->getTemplate());

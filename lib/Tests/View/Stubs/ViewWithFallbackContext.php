@@ -12,18 +12,6 @@ class ViewWithFallbackContext extends BaseView
     protected $fallbackContext;
 
     /**
-     * Constructor.
-     *
-     * @param mixed $valueObject
-     * @param string $fallbackContext
-     */
-    public function __construct($valueObject, $fallbackContext)
-    {
-        $this->valueObject = $valueObject;
-        $this->fallbackContext = $fallbackContext;
-    }
-
-    /**
      * Returns the view identifier.
      *
      * @return string

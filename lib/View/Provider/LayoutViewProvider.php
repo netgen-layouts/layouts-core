@@ -17,7 +17,14 @@ class LayoutViewProvider implements ViewProviderInterface
      */
     public function provideView($valueObject, array $parameters = array())
     {
-        return new LayoutView($valueObject);
+        return new LayoutView(
+            array(
+                'valueObject' => $valueObject,
+                'parameters' => array(
+                    'layout' => $valueObject,
+                ),
+            )
+        );
     }
 
     /**

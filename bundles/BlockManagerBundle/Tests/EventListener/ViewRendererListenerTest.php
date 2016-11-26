@@ -35,7 +35,7 @@ class ViewRendererListenerTest extends TestCase
      */
     public function testOnView()
     {
-        $view = new View(new Value());
+        $view = new View(array('valueObject' => new Value()));
 
         $response = new Response();
         $response->headers->set('X-NGBM-Test', 'test');

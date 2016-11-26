@@ -8,7 +8,6 @@ use Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResult
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Collection\Result\ResultLoaderInterface;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Event\CollectViewParametersEvent;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
@@ -68,8 +67,6 @@ class GetCollectionResultsListenerTest extends TestCase
      */
     public function testOnBuildView()
     {
-        $blockDefinition = new BlockDefinition('def');
-
         $collectionReference1 = new CollectionReference(
             array(
                 'block' => new Block(),
@@ -90,7 +87,7 @@ class GetCollectionResultsListenerTest extends TestCase
             )
         );
 
-        $view = new BlockView(new Block(), $blockDefinition);
+        $view = new BlockView(array('valueObject' => new Block()));
         $view->setContext(ViewInterface::CONTEXT_DEFAULT);
         $event = new CollectViewParametersEvent($view);
 
@@ -138,8 +135,6 @@ class GetCollectionResultsListenerTest extends TestCase
      */
     public function testOnBuildViewWithEmptyLimit()
     {
-        $blockDefinition = new BlockDefinition('def');
-
         $collectionReference = new CollectionReference(
             array(
                 'block' => new Block(),
@@ -150,7 +145,7 @@ class GetCollectionResultsListenerTest extends TestCase
             )
         );
 
-        $view = new BlockView(new Block(), $blockDefinition);
+        $view = new BlockView(array('valueObject' => new Block()));
         $view->setContext(ViewInterface::CONTEXT_DEFAULT);
         $event = new CollectViewParametersEvent($view);
 
@@ -187,8 +182,6 @@ class GetCollectionResultsListenerTest extends TestCase
      */
     public function testOnBuildViewWithTooLargeLimit()
     {
-        $blockDefinition = new BlockDefinition('def');
-
         $collectionReference = new CollectionReference(
             array(
                 'block' => new Block(),
@@ -199,7 +192,7 @@ class GetCollectionResultsListenerTest extends TestCase
             )
         );
 
-        $view = new BlockView(new Block(), $blockDefinition);
+        $view = new BlockView(array('valueObject' => new Block()));
         $view->setContext(ViewInterface::CONTEXT_DEFAULT);
         $event = new CollectViewParametersEvent($view);
 
@@ -237,7 +230,7 @@ class GetCollectionResultsListenerTest extends TestCase
      */
     public function testOnBuildViewWithNoBlockView()
     {
-        $view = new View(new Value());
+        $view = new View(array('valueObject' => new Value()));
         $event = new CollectViewParametersEvent($view);
         $this->listener->onBuildView($event);
 
@@ -250,9 +243,7 @@ class GetCollectionResultsListenerTest extends TestCase
      */
     public function testOnBuildViewWithWrongContext()
     {
-        $blockDefinition = new BlockDefinition('def');
-
-        $view = new BlockView(new Block(), $blockDefinition);
+        $view = new BlockView(array('valueObject' => new Block()));
         $view->setContext(ViewInterface::CONTEXT_API);
         $event = new CollectViewParametersEvent($view);
 

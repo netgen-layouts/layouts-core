@@ -133,14 +133,14 @@ class GlobalVariableTest extends TestCase
             ->method('buildView')
             ->will(
                 $this->returnValue(
-                    new LayoutView(new Layout())
+                    new LayoutView(array('valueObject' => new Layout()))
                 )
             );
 
         // This will trigger layout resolver
         $this->globalVariable->getLayoutTemplate();
 
-        $this->assertEquals(new LayoutView(new Layout()), $this->globalVariable->getLayoutView());
+        $this->assertEquals(new LayoutView(array('valueObject' => new Layout())), $this->globalVariable->getLayoutView());
     }
 
     /**
@@ -230,7 +230,7 @@ class GlobalVariableTest extends TestCase
                 )
             );
 
-        $layoutView = new LayoutView(new Layout());
+        $layoutView = new LayoutView(array('valueObject' => new Layout()));
         $layoutView->setTemplate('layout.html.twig');
 
         $this->viewBuilderMock

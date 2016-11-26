@@ -3,21 +3,9 @@
 namespace Netgen\BlockManager\View\View;
 
 use Netgen\BlockManager\View\View;
-use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
 
 class RuleConditionView extends View implements RuleConditionViewInterface
 {
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Condition $condition
-     */
-    public function __construct(Condition $condition)
-    {
-        $this->valueObject = $condition;
-        $this->internalParameters['condition'] = $condition;
-    }
-
     /**
      * Returns the layout.
      *

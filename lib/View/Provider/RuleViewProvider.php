@@ -17,7 +17,14 @@ class RuleViewProvider implements ViewProviderInterface
      */
     public function provideView($valueObject, array $parameters = array())
     {
-        return new RuleView($valueObject);
+        return new RuleView(
+            array(
+                'valueObject' => $valueObject,
+                'parameters' => array(
+                    'rule' => $valueObject,
+                ),
+            )
+        );
     }
 
     /**

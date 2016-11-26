@@ -2,10 +2,11 @@
 
 namespace Netgen\BlockManager\View;
 
-use Symfony\Component\HttpFoundation\Response;
+use Netgen\BlockManager\ValueObject;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Symfony\Component\HttpFoundation\Response;
 
-abstract class View implements ViewInterface
+abstract class View extends ValueObject implements ViewInterface
 {
     /**
      * @var mixed
@@ -35,17 +36,7 @@ abstract class View implements ViewInterface
     /**
      * @var array
      */
-    protected $internalParameters = array();
-
-    /**
-     * Returns the value object in this view.
-     *
-     * @return mixed
-     */
-    public function getValueObject()
-    {
-        return $this->valueObject;
-    }
+    protected $customParameters = array();
 
     /**
      * Returns the view context.
@@ -168,17 +159,18 @@ abstract class View implements ViewInterface
      */
     public function getParameters()
     {
-        return $this->internalParameters + $this->parameters;
+        return $this->parameters + $this->customParameters;
     }
 
     /**
-     * Sets the view parameters.
+     * Adds a parameter to the view.
      *
-     * @param array $parameters
+     * @param string $parameterName
+     * @param mixed $parameterValue
      */
-    public function setParameters(array $parameters = array())
+    public function addParameter($parameterName, $parameterValue)
     {
-        $this->parameters = $parameters;
+        $this->customParameters[$parameterName] = $parameterValue;
     }
 
     /**
@@ -188,6 +180,6 @@ abstract class View implements ViewInterface
      */
     public function addParameters(array $parameters = array())
     {
-        $this->parameters = $parameters + $this->parameters;
+        $this->customParameters = $parameters + $this->customParameters;
     }
 }

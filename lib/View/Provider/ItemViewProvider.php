@@ -26,7 +26,15 @@ class ItemViewProvider implements ViewProviderInterface
             throw new RuntimeException('To build the item view, "viewType" parameter needs to be a string.');
         }
 
-        return new ItemView($valueObject, $parameters['viewType']);
+        return new ItemView(
+            array(
+                'valueObject' => $valueObject,
+                'parameters' => array(
+                    'item' => $valueObject,
+                    'viewType' => $parameters['viewType'],
+                ),
+            )
+        );
     }
 
     /**

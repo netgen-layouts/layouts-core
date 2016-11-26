@@ -20,13 +20,6 @@ interface ViewInterface
     public function getIdentifier();
 
     /**
-     * Returns the value in this view.
-     *
-     * @return mixed
-     */
-    public function getValueObject();
-
-    /**
      * Returns the view context.
      *
      * @return string
@@ -103,11 +96,12 @@ interface ViewInterface
     public function getParameters();
 
     /**
-     * Sets the view parameters.
+     * Adds a parameter to the view.
      *
-     * @param array $parameters
+     * @param string $parameterName
+     * @param mixed $parameterValue
      */
-    public function setParameters(array $parameters = array());
+    public function addParameter($parameterName, $parameterValue);
 
     /**
      * Adds parameters to the view.

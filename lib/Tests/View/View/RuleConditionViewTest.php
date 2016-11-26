@@ -22,9 +22,17 @@ class RuleConditionViewTest extends TestCase
     {
         $this->condition = new Condition(array('id' => 42));
 
-        $this->view = new RuleConditionView($this->condition);
-        $this->view->addParameters(array('param' => 'value'));
-        $this->view->addParameters(array('condition' => 42));
+        $this->view = new RuleConditionView(
+            array(
+                'valueObject' => $this->condition,
+                'parameters' => array(
+                    'condition' => $this->condition,
+                ),
+            )
+        );
+
+        $this->view->addParameter('param', 'value');
+        $this->view->addParameter('condition', 42);
     }
 
     /**

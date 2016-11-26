@@ -3,21 +3,9 @@
 namespace Netgen\BlockManager\View\View;
 
 use Netgen\BlockManager\View\View;
-use Symfony\Component\Form\FormInterface;
 
 class FormView extends View implements FormViewInterface
 {
-    /**
-     * Constructor.
-     *
-     * @param \Symfony\Component\Form\FormInterface $form
-     */
-    public function __construct(FormInterface $form)
-    {
-        $this->valueObject = $form;
-        $this->internalParameters['form'] = $form->createView();
-    }
-
     /**
      * Returns the form.
      *
@@ -45,7 +33,7 @@ class FormView extends View implements FormViewInterface
      */
     public function getFormView()
     {
-        return $this->internalParameters['form'];
+        return $this->parameters['form'];
     }
 
     /**

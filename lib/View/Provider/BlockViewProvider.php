@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\View\Provider;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Block\TwigBlockDefinitionInterface;
 use Netgen\BlockManager\View\View\BlockView;
-use Netgen\BlockManager\View\View\BlockView\TwigBlockView;
 use Netgen\BlockManager\View\View\BlockView\ContextualizedTwigTemplate;
 
 class BlockViewProvider implements ViewProviderInterface
@@ -22,7 +21,14 @@ class BlockViewProvider implements ViewProviderInterface
     {
         $blockDefinition = $valueObject->getBlockDefinition();
         if (!$blockDefinition instanceof TwigBlockDefinitionInterface) {
-            return new BlockView($valueObject);
+            return new BlockView(
+                array(
+                    'valueObject' => $valueObject,
+                    'parameters' => array(
+                        'block' => $valueObject,
+                    ),
+                )
+            );
         }
 
         $twigBlockContent = '';
@@ -33,7 +39,15 @@ class BlockViewProvider implements ViewProviderInterface
             );
         }
 
-        return new TwigBlockView($valueObject, $twigBlockContent);
+        return new BlockView(
+            array(
+                'valueObject' => $valueObject,
+                'parameters' => array(
+                    'block' => $valueObject,
+                    'twig_block_content' => $twigBlockContent,
+                ),
+            )
+        );
     }
 
     /**

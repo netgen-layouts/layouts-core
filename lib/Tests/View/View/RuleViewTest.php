@@ -22,9 +22,17 @@ class RuleViewTest extends TestCase
     {
         $this->rule = new Rule(array('id' => 42));
 
-        $this->view = new RuleView($this->rule);
-        $this->view->addParameters(array('param' => 'value'));
-        $this->view->addParameters(array('rule' => 42));
+        $this->view = new RuleView(
+            array(
+                'valueObject' => $this->rule,
+                'parameters' => array(
+                    'rule' => $this->rule,
+                ),
+            )
+        );
+
+        $this->view->addParameter('param', 'value');
+        $this->view->addParameter('rule', 42);
     }
 
     /**

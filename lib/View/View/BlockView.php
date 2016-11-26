@@ -3,22 +3,9 @@
 namespace Netgen\BlockManager\View\View;
 
 use Netgen\BlockManager\View\View;
-use Netgen\BlockManager\API\Values\Page\Block;
 
 class BlockView extends View implements BlockViewInterface
 {
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     */
-    public function __construct(Block $block)
-    {
-        $this->valueObject = $block;
-
-        $this->internalParameters['block'] = $block;
-    }
-
     /**
      * Returns the block.
      *

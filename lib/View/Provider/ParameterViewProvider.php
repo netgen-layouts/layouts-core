@@ -17,7 +17,14 @@ class ParameterViewProvider implements ViewProviderInterface
      */
     public function provideView($valueObject, array $parameters = array())
     {
-        return new ParameterView($valueObject);
+        return new ParameterView(
+            array(
+                'valueObject' => $valueObject,
+                'parameters' => array(
+                    'parameter' => $valueObject,
+                ),
+            )
+        );
     }
 
     /**

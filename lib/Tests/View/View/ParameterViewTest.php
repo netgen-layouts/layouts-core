@@ -23,9 +23,17 @@ class ParameterViewTest extends TestCase
     {
         $this->parameterValue = new ParameterValue();
 
-        $this->view = new ParameterView($this->parameterValue);
-        $this->view->addParameters(array('param' => 'value'));
-        $this->view->addParameters(array('parameter' => 42));
+        $this->view = new ParameterView(
+            array(
+                'valueObject' => $this->parameterValue,
+                'parameters' => array(
+                    'parameter' => $this->parameterValue,
+                ),
+            )
+        );
+
+        $this->view->addParameter('param', 'value');
+        $this->view->addParameter('parameter', 42);
     }
 
     /**

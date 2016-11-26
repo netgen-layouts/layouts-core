@@ -16,7 +16,7 @@ class CollectViewParametersEventTest extends TestCase
 
     public function setUp()
     {
-        $this->event = new CollectViewParametersEvent(new View(new Value()));
+        $this->event = new CollectViewParametersEvent(new View(array('valueObject' => new Value())));
     }
 
     /**
@@ -43,6 +43,6 @@ class CollectViewParametersEventTest extends TestCase
      */
     public function testGetView()
     {
-        $this->assertEquals(new View(new Value()), $this->event->getView());
+        $this->assertEquals(new View(array('valueObject' => new Value())), $this->event->getView());
     }
 }

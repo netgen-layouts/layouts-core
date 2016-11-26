@@ -66,7 +66,7 @@ class ViewBuilder implements ViewBuilderInterface
         $view = $viewProvider->provideView($valueObject, $parameters);
         $view->setContext($context);
         $view->addParameters($parameters);
-        $view->addParameters(array('view_context' => $context));
+        $view->addParameter('view_context', $context);
 
         $this->templateResolver->resolveTemplate($view);
 

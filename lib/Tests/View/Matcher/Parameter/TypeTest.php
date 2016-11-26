@@ -31,13 +31,13 @@ class TypeTest extends TestCase
      */
     public function testMatch(array $config, $expected)
     {
-        $layout = new ParameterValue(
+        $parameterValue = new ParameterValue(
             array(
                 'parameterType' => new TextType(),
             )
         );
 
-        $view = new ParameterView($layout);
+        $view = new ParameterView(array('valueObject' => $parameterValue));
 
         $this->assertEquals($expected, $this->matcher->match($view, $config));
     }
@@ -63,6 +63,6 @@ class TypeTest extends TestCase
      */
     public function testMatchWithNoParameterView()
     {
-        $this->assertFalse($this->matcher->match(new View(new Value()), array()));
+        $this->assertFalse($this->matcher->match(new View(array('valueObject' => new Value())), array()));
     }
 }

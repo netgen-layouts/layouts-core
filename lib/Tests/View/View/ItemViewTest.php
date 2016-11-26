@@ -22,9 +22,18 @@ class ItemViewTest extends TestCase
     {
         $this->item = new Item();
 
-        $this->view = new ItemView($this->item, 'view_type');
-        $this->view->addParameters(array('param' => 'value'));
-        $this->view->addParameters(array('item' => 42));
+        $this->view = new ItemView(
+            array(
+                'valueObject' => $this->item,
+                'parameters' => array(
+                    'item' => $this->item,
+                    'viewType' => 'view_type',
+                ),
+            )
+        );
+
+        $this->view->addParameter('param', 'value');
+        $this->view->addParameter('item', 42);
     }
 
     /**

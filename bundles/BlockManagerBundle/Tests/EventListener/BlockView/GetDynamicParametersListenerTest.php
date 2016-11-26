@@ -45,7 +45,7 @@ class GetDynamicParametersListenerTest extends TestCase
     {
         $block = new Block(array('blockDefinition' => new BlockDefinition('def')));
 
-        $view = new BlockView($block);
+        $view = new BlockView(array('valueObject' => $block));
         $event = new CollectViewParametersEvent($view);
 
         $this->listener->onBuildView($event);
@@ -65,7 +65,7 @@ class GetDynamicParametersListenerTest extends TestCase
      */
     public function testOnBuildViewWithNoBlockView()
     {
-        $view = new View(new Value());
+        $view = new View(array('valueObject' => new Value()));
         $event = new CollectViewParametersEvent($view);
         $this->listener->onBuildView($event);
 
