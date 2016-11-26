@@ -49,6 +49,7 @@ class LinkValidator extends ConstraintValidator
                                 LinkValue::LINK_TYPE_PHONE,
                                 LinkValue::LINK_TYPE_INTERNAL,
                             ),
+                            'strict' => true,
                         )
                     ),
                 )
