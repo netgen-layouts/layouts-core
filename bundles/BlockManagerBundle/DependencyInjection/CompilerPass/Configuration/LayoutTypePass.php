@@ -4,10 +4,11 @@ namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Conf
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\Reference;
 use Netgen\BlockManager\Exception\RuntimeException;
 
-class LayoutTypeRegistryPass implements CompilerPassInterface
+class LayoutTypePass implements CompilerPassInterface
 {
     const SERVICE_NAME = 'netgen_block_manager.configuration.registry.layout_type';
     const TAG_NAME = 'netgen_block_manager.configuration.layout_type';
@@ -27,6 +28,7 @@ class LayoutTypeRegistryPass implements CompilerPassInterface
         $blockDefinitions = $container->getParameter('netgen_block_manager.block_definitions');
 
         $this->validateLayoutTypes($layoutTypes, $blockDefinitions);
+        $this->buildLayoutTypes($container, $layoutTypes);
 
         $registry = $container->findDefinition(self::SERVICE_NAME);
         $layoutTypeServices = $container->findTaggedServiceIds(self::TAG_NAME);
@@ -36,6 +38,32 @@ class LayoutTypeRegistryPass implements CompilerPassInterface
                 'addLayoutType',
                 array(new Reference($layoutTypeService))
             );
+        }
+    }
+
+    /**
+     * Builds the layout type objects from provided configuration.
+     *
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param array $layoutTypes
+     */
+    protected function buildLayoutTypes(ContainerBuilder $container, array $layoutTypes)
+    {
+        foreach ($layoutTypes as $identifier => $layoutType) {
+            if (!$layoutType['enabled']) {
+                continue;
+            }
+
+            $serviceIdentifier = sprintf('netgen_block_manager.configuration.layout_type.%s', $identifier);
+
+            $container
+                ->setDefinition(
+                    $serviceIdentifier,
+                    new DefinitionDecorator('netgen_block_manager.configuration.layout_type')
+                )
+                ->setArguments(array($identifier, $layoutType))
+                ->addTag('netgen_block_manager.configuration.layout_type')
+                ->setAbstract(false);
         }
     }
 

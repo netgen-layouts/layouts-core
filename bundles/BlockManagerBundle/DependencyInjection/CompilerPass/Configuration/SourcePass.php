@@ -4,10 +4,11 @@ namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Conf
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\Reference;
 use Netgen\BlockManager\Exception\RuntimeException;
 
-class SourceRegistryPass implements CompilerPassInterface
+class SourcePass implements CompilerPassInterface
 {
     const SERVICE_NAME = 'netgen_block_manager.configuration.registry.source';
     const TAG_NAME = 'netgen_block_manager.configuration.source';
@@ -27,6 +28,7 @@ class SourceRegistryPass implements CompilerPassInterface
         $queryTypes = $container->getParameter('netgen_block_manager.query_types');
 
         $this->validateSources($sources, $queryTypes);
+        $this->buildSources($container, $sources);
 
         $registry = $container->findDefinition(self::SERVICE_NAME);
         $sourceServices = $container->findTaggedServiceIds(self::TAG_NAME);
@@ -36,6 +38,42 @@ class SourceRegistryPass implements CompilerPassInterface
                 'addSource',
                 array(new Reference($sourceService))
             );
+        }
+    }
+
+    /**
+     * Builds the source objects from provided configuration.
+     *
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * @param array $sources
+     */
+    protected function buildSources(ContainerBuilder $container, array $sources)
+    {
+        foreach ($sources as $identifier => $source) {
+            if (!$source['enabled']) {
+                continue;
+            }
+
+            $serviceIdentifier = sprintf('netgen_block_manager.configuration.source.%s', $identifier);
+
+            $queryTypeReferences = array();
+            foreach ($source['queries'] as $queryIdentifier => $queryConfig) {
+                $queryTypeReferences[$queryIdentifier] = new Reference(
+                    sprintf(
+                        'netgen_block_manager.collection.query_type.%s',
+                        $queryConfig['query_type']
+                    )
+                );
+            }
+
+            $container
+                ->setDefinition(
+                    $serviceIdentifier,
+                    new DefinitionDecorator('netgen_block_manager.configuration.source')
+                )
+                ->setArguments(array($identifier, $source, $queryTypeReferences))
+                ->addTag('netgen_block_manager.configuration.source')
+                ->setAbstract(false);
         }
     }
 
