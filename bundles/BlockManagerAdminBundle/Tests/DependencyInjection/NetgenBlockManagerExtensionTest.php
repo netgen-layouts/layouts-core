@@ -3,7 +3,9 @@
 namespace Netgen\Bundle\BlockManagerAdminBundle\Tests\DependencyInjection;
 
 use Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection\NetgenBlockManagerAdminExtension;
+use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class NetgenBlockManagerAdminExtensionTest extends AbstractExtensionTestCase
 {
@@ -48,5 +50,45 @@ class NetgenBlockManagerAdminExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasService('netgen_block_manager.templating.twig.extension.admin');
         $this->assertContainerBuilderHasService('netgen_block_manager.event_listener.set_is_admin_request');
         $this->assertContainerBuilderHasService('netgen_block_manager.controller.admin.layouts');
+    }
+
+    /**
+     * We test for existence of one config value from each of the config files.
+     *
+     * @covers \Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection\NetgenBlockManagerAdminExtension::prepend
+     */
+    public function testPrepend()
+    {
+        $container = new ContainerBuilder();
+        $container->setParameter('kernel.bundles', array('NetgenBlockManagerBundle' => true));
+        $container->registerExtension(new NetgenBlockManagerExtension());
+        $extension = new NetgenBlockManagerAdminExtension();
+
+        $extension->prepend($container);
+
+        $config = call_user_func_array(
+            'array_merge_recursive',
+            $container->getExtensionConfig('netgen_block_manager')
+        );
+
+        $this->assertInternalType('array', $config);
+
+        $this->assertArrayHasKey('view', $config);
+
+        $this->assertArrayHasKey('form_view', $config['view']);
+        $this->assertArrayHasKey('admin', $config['view']['form_view']);
+
+        $this->assertArrayHasKey('layout_view', $config['view']);
+        $this->assertArrayHasKey('admin', $config['view']['layout_view']);
+
+        $this->assertArrayHasKey('rule_condition_view', $config['view']);
+        $this->assertArrayHasKey('admin', $config['view']['rule_condition_view']);
+
+        $this->assertArrayHasKey('rule_target_view', $config['view']);
+        $this->assertArrayHasKey('admin', $config['view']['rule_target_view']);
+
+        $this->assertArrayHasKey('default_view_templates', $config);
+        $this->assertArrayHasKey('layout_view', $config['default_view_templates']);
+        $this->assertArrayHasKey('admin', $config['default_view_templates']['layout_view']);
     }
 }

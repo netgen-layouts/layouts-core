@@ -2,8 +2,11 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection;
 
+use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
+use Netgen\Bundle\ContentBrowserBundle\DependencyInjection\NetgenContentBrowserExtension;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
 {
@@ -81,5 +84,70 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
             'netgen_block_manager.configuration',
             'netgen_block_manager.configuration.container'
         );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::getConfiguration
+     */
+    public function testGetConfiguration()
+    {
+        $container = new ContainerBuilder();
+        $extension = new NetgenBlockManagerExtension();
+
+        $configuration = $extension->getConfiguration(array(), $container);
+        $this->assertInstanceOf(Configuration::class, $configuration);
+    }
+
+    /**
+     * We test for existence of one config value from each of the config files.
+     *
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::prepend
+     */
+    public function testPrepend()
+    {
+        $container = new ContainerBuilder();
+        $container->setParameter('kernel.bundles', array('NetgenContentBrowserBundle' => true));
+        $container->registerExtension(new NetgenContentBrowserExtension());
+        $extension = new NetgenBlockManagerExtension();
+
+        $extension->prepend($container);
+
+        $config = call_user_func_array(
+            'array_merge_recursive',
+            $container->getExtensionConfig('netgen_block_manager')
+        );
+
+        $this->assertInternalType('array', $config);
+
+        $this->assertArrayHasKey('block_definitions', $config);
+        $this->assertArrayHasKey('title', $config['block_definitions']);
+
+        $this->assertArrayHasKey('block_type_groups', $config);
+        $this->assertArrayHasKey('basic', $config['block_type_groups']);
+
+        $this->assertArrayHasKey('block_types', $config);
+        $this->assertArrayHasKey('grid', $config['block_types']);
+
+        $this->assertArrayHasKey('layout_types', $config);
+        $this->assertArrayHasKey('layout_1', $config['layout_types']);
+
+        $this->assertArrayHasKey('view', $config);
+
+        $this->assertArrayHasKey('block_view', $config['view']);
+        $this->assertArrayHasKey('layout_view', $config['view']);
+        $this->assertArrayHasKey('parameter_view', $config['view']);
+
+        $this->assertArrayHasKey('default_view_templates', $config);
+        $this->assertArrayHasKey('block_view', $config['default_view_templates']);
+
+        $browserConfig = call_user_func_array(
+            'array_merge_recursive',
+            $container->getExtensionConfig('netgen_content_browser')
+        );
+
+        $this->assertInternalType('array', $browserConfig);
+
+        $this->assertArrayHasKey('item_types', $browserConfig);
+        $this->assertArrayHasKey('ngbm_layout', $browserConfig['item_types']);
     }
 }
