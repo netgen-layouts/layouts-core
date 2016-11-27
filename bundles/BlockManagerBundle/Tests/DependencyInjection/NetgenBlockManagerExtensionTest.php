@@ -4,9 +4,9 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection;
 
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
+use Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\Stubs\ExtensionPlugin;
 use Netgen\Bundle\ContentBrowserBundle\DependencyInjection\NetgenContentBrowserExtension;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
 {
@@ -18,9 +18,59 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
      */
     protected function getContainerExtensions()
     {
-        return array(
-            new NetgenBlockManagerExtension(),
-        );
+        $extension = new NetgenBlockManagerExtension();
+        $extension->addPlugin(new ExtensionPlugin());
+
+        return array($extension);
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::addPlugin
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::hasPlugin
+     */
+    public function testHasPlugin()
+    {
+        $extension = $this->container->getExtension('netgen_block_manager');
+
+        $this->assertTrue($extension->hasPlugin(ExtensionPlugin::class));
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::addPlugin
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::getPlugin
+     */
+    public function testGetPlugin()
+    {
+        $extension = $this->container->getExtension('netgen_block_manager');
+
+        $this->assertInstanceOf(ExtensionPlugin::class, $extension->getPlugin(ExtensionPlugin::class));
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::addPlugin
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::getPlugin
+     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     */
+    public function testGetPluginThrowsInvalidArgumentException()
+    {
+        $extension = $this->container->getExtension('netgen_block_manager');
+
+        $extension->getPlugin('unknown');
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::addPlugin
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::getPlugins
+     */
+    public function testGetPlugins()
+    {
+        $extension = $this->container->getExtension('netgen_block_manager');
+        $plugins = $extension->getPlugins();
+
+        $this->assertInternalType('array', $plugins);
+        $this->assertArrayHasKey(ExtensionPlugin::class, $plugins);
+        $this->assertCount(1, $plugins);
+        $this->assertInstanceOf(ExtensionPlugin::class, $plugins[ExtensionPlugin::class]);
     }
 
     /**
@@ -91,10 +141,9 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
      */
     public function testGetConfiguration()
     {
-        $container = new ContainerBuilder();
-        $extension = new NetgenBlockManagerExtension();
+        $extension = $this->container->getExtension('netgen_block_manager');
 
-        $configuration = $extension->getConfiguration(array(), $container);
+        $configuration = $extension->getConfiguration(array(), $this->container);
         $this->assertInstanceOf(Configuration::class, $configuration);
     }
 
@@ -105,16 +154,15 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
      */
     public function testPrepend()
     {
-        $container = new ContainerBuilder();
-        $container->setParameter('kernel.bundles', array('NetgenContentBrowserBundle' => true));
-        $container->registerExtension(new NetgenContentBrowserExtension());
-        $extension = new NetgenBlockManagerExtension();
+        $this->container->setParameter('kernel.bundles', array('NetgenContentBrowserBundle' => true));
+        $this->container->registerExtension(new NetgenContentBrowserExtension());
 
-        $extension->prepend($container);
+        $extension = $this->container->getExtension('netgen_block_manager');
+        $extension->prepend($this->container);
 
         $config = call_user_func_array(
             'array_merge_recursive',
-            $container->getExtensionConfig('netgen_block_manager')
+            $this->container->getExtensionConfig('netgen_block_manager')
         );
 
         $this->assertInternalType('array', $config);
@@ -142,12 +190,39 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
 
         $browserConfig = call_user_func_array(
             'array_merge_recursive',
-            $container->getExtensionConfig('netgen_content_browser')
+            $this->container->getExtensionConfig('netgen_content_browser')
         );
 
         $this->assertInternalType('array', $browserConfig);
 
         $this->assertArrayHasKey('item_types', $browserConfig);
         $this->assertArrayHasKey('ngbm_layout', $browserConfig['item_types']);
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::prepend
+     */
+    public function testAppendFromPlugin()
+    {
+        $extension = $this->container->getExtension('netgen_block_manager');
+        $extension->prepend($this->container);
+
+        $config = call_user_func_array(
+            'array_merge_recursive',
+            $this->container->getExtensionConfig('netgen_block_manager')
+        );
+
+        $this->assertInternalType('array', $config);
+
+        $this->assertArrayHasKey('block_types', $config);
+        $this->assertArrayHasKey('test_type', $config['block_types']);
+
+        $this->assertEquals(
+            array(
+                'name' => 'Test type',
+                'definition_identifier' => 'title',
+            ),
+            $config['block_types']['test_type']
+        );
     }
 }

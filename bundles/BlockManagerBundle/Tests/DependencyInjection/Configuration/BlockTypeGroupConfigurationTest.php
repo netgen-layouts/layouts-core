@@ -7,7 +7,7 @@ use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 use PHPUnit\Framework\TestCase;
 
-class BlockTypeGroupsConfigurationTest extends TestCase
+class BlockTypeGroupConfigurationTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
 
@@ -19,16 +19,14 @@ class BlockTypeGroupsConfigurationTest extends TestCase
      */
     protected function getConfiguration()
     {
-        $extension = new NetgenBlockManagerExtension();
-
-        return new Configuration($extension->getAlias());
+        return new Configuration(new NetgenBlockManagerExtension());
     }
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypeGroupsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\BlockTypeGroupNode::getConfigurationNode
      */
     public function testBlockTypeGroupsSettings()
     {
@@ -63,8 +61,8 @@ class BlockTypeGroupsConfigurationTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::load
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypeGroupsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\BlockTypeGroupNode::getConfigurationNode
      */
     public function testBlockTypeGroupsSettingsWithNoBlockTypesMerge()
     {
@@ -103,8 +101,8 @@ class BlockTypeGroupsConfigurationTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypeGroupsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\BlockTypeGroupNode::getConfigurationNode
      */
     public function testBlockTypeGroupsSettingsWithBlockTypes()
     {
@@ -136,8 +134,8 @@ class BlockTypeGroupsConfigurationTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getAvailableNodeDefinitions
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypeGroupsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\BlockTypeGroupNode::getConfigurationNode
      */
     public function testBlockTypeGroupsSettingsWithNonUniqueBlockTypes()
     {
@@ -168,7 +166,7 @@ class BlockTypeGroupsConfigurationTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypeGroupsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\BlockTypeGroupNode::getConfigurationNode
      */
     public function testBlockTypeGroupsSettingsWithNoBlockTypeSettings()
     {
@@ -181,7 +179,7 @@ class BlockTypeGroupsConfigurationTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypeGroupsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\BlockTypeGroupNode::getConfigurationNode
      */
     public function testBlockTypeGroupsSettingsWithNoName()
     {
@@ -196,7 +194,7 @@ class BlockTypeGroupsConfigurationTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getBlockTypeGroupsNodeDefinition
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\BlockTypeGroupNode::getConfigurationNode
      */
     public function testBlockTypeGroupsSettingsWithEmptyBlockTypes()
     {

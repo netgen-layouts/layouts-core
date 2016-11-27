@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection;
 
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -9,68 +10,68 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Yaml\Yaml;
-use Closure;
 
 class NetgenBlockManagerExtension extends Extension implements PrependExtensionInterface
 {
     /**
-     * @var \Closure[]
+     * @var \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ExtensionPluginInterface[]
      */
-    protected $configTreeBuilders = array();
+    protected $plugins = array();
 
     /**
-     * @var \Closure[]
-     */
-    protected $preProcessors = array();
-
-    /**
-     * @var \Closure[]
-     */
-    protected $postProcessors = array();
-
-    /**
-     * @var array
-     */
-    protected $appendConfigs = array();
-
-    /**
-     * Adds the config tree builder closure.
+     * Adds a plugin to the extension.
      *
-     * @param \Closure $configTreeBuilder
+     * @param \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ExtensionPluginInterface $plugin
      */
-    public function addConfigTreeBuilder(Closure $configTreeBuilder)
+    public function addPlugin(ExtensionPluginInterface $plugin)
     {
-        $this->configTreeBuilders[] = $configTreeBuilder;
+        $this->plugins[get_class($plugin)] = $plugin;
     }
 
     /**
-     * Adds the config preprocessor closure.
+     * Returns if the plugin exists. Name of the plugin is its fully qualified class name.
      *
-     * @param \Closure $preProcessor
+     * @param string $pluginName
+     *
+     * @return bool
      */
-    public function addPreProcessor(Closure $preProcessor)
+    public function hasPlugin($pluginName)
     {
-        $this->preProcessors[] = $preProcessor;
+        return isset($this->plugins[$pluginName]);
     }
 
     /**
-     * Adds the config post processor closure.
+     * Returns the plugin by name. Name of the plugin is its fully qualified class name.
      *
-     * @param \Closure $postProcessor
+     * @param string $pluginName
+     *
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the specified plugin does not exist
+     *
+     * @return \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ExtensionPluginInterface
      */
-    public function addPostProcessor(Closure $postProcessor)
+    public function getPlugin($pluginName)
     {
-        $this->postProcessors[] = $postProcessor;
+        if (!isset($this->plugins[$pluginName])) {
+            throw new InvalidArgumentException(
+                'name',
+                sprintf(
+                    'Extension plugin "%s" does not exist',
+                    $pluginName
+                )
+            );
+        }
+
+        return $this->plugins[$pluginName];
     }
 
     /**
-     * Adds the config files that should be appended to config files of this bundle.
+     * Returns the all available plugins.
      *
-     * @param array $configs
+     * @return \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ExtensionPluginInterface[]
      */
-    public function addAppendConfigs(array $configs)
+    public function getPlugins()
     {
-        $this->appendConfigs += $configs;
+        return $this->plugins;
     }
 
     /**
@@ -85,15 +86,15 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
     {
         $extensionAlias = $this->getAlias();
 
-        foreach ($this->preProcessors as $preProcessor) {
-            $configs = $preProcessor($configs, $container);
+        foreach ($this->plugins as $plugin) {
+            $configs = $plugin->preProcessConfiguration($configs);
         }
 
         $configuration = $this->getConfiguration($configs, $container);
         $config = $this->processConfiguration($configuration, $configs);
 
-        foreach ($this->postProcessors as $postProcessor) {
-            $config = $postProcessor($config, $container);
+        foreach ($this->plugins as $plugin) {
+            $config = $plugin->postProcessConfiguration($config);
         }
 
         $this->loadConfigFiles($container);
@@ -123,7 +124,13 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
             'view/parameter_view.yml' => 'netgen_block_manager',
             'view/default_templates.yml' => 'netgen_block_manager',
             'browser/item_types.yml' => 'netgen_content_browser',
-        ) + $this->appendConfigs;
+        );
+
+        foreach ($this->plugins as $plugin) {
+            foreach ($plugin->appendConfigurationFiles() as $configFile) {
+                $prependConfigs[$configFile] = 'netgen_block_manager';
+            }
+        }
 
         foreach (array_reverse($prependConfigs) as $configFile => $prependConfig) {
             if ($configFile[0] !== '/') {
@@ -146,7 +153,7 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
      */
     public function getConfiguration(array $config, ContainerBuilder $container)
     {
-        return new Configuration($this->getAlias(), $this->configTreeBuilders);
+        return new Configuration($this);
     }
 
     /**

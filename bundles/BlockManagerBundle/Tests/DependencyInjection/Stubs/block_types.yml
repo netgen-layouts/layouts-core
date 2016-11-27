@@ -1,0 +1,4 @@
+block_types:
+    test_type:
+        name: 'Test type'
+        definition_identifier: title
