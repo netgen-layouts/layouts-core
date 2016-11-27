@@ -70,7 +70,7 @@ class CsrfValidationListener implements EventSubscriberInterface
             return;
         }
 
-        if ($request->isMethodSafe()) {
+        if ($request->isMethodSafe(false)) {
             return;
         }
 
