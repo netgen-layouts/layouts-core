@@ -6,7 +6,6 @@ services:
         class: "%netgen_block_manager.menu.admin.main_menu_builder.class%"
         arguments:
             - "@knp_menu.factory"
-            - "@request_stack"
 
     netgen_block_manager.menu.admin.main_menu:
         class: Knp\Menu\MenuItem

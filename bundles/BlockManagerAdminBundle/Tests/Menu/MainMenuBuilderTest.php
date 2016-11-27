@@ -5,7 +5,6 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Tests\Menu;
 use Knp\Menu\Integration\Symfony\RoutingExtension;
 use Netgen\Bundle\BlockManagerAdminBundle\Menu\MainMenuBuilder;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Knp\Menu\ItemInterface;
 use Knp\Menu\MenuFactory;
 use PHPUnit\Framework\TestCase;
@@ -33,10 +32,7 @@ class MainMenuBuilderTest extends TestCase
         $menuFactory = new MenuFactory();
         $menuFactory->addExtension(new RoutingExtension($urlGeneratorMock));
 
-        $this->builder = new MainMenuBuilder(
-            $menuFactory,
-            new RequestStack()
-        );
+        $this->builder = new MainMenuBuilder($menuFactory);
     }
 
     /**

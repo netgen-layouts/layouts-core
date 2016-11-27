@@ -3,7 +3,6 @@
 namespace Netgen\Bundle\BlockManagerAdminBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 class MainMenuBuilder
 {
@@ -13,20 +12,13 @@ class MainMenuBuilder
     protected $factory;
 
     /**
-     * @var \Symfony\Component\HttpFoundation\RequestStack
-     */
-    protected $requestStack;
-
-    /**
      * Constructor.
      *
      * @param \Knp\Menu\FactoryInterface $factory
-     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
      */
-    public function __construct(FactoryInterface $factory, RequestStack $requestStack)
+    public function __construct(FactoryInterface $factory)
     {
         $this->factory = $factory;
-        $this->requestStack = $requestStack;
     }
 
     /**
@@ -37,11 +29,6 @@ class MainMenuBuilder
     public function createMenu()
     {
         $menu = $this->factory->createItem('root');
-
-        if (method_exists($menu, 'setCurrentUri')) {
-            // For compatibility with KNP Menu Bundle 1.x
-            $menu->setCurrentUri($this->requestStack->getCurrentRequest()->getRequestUri());
-        }
 
         $menu
             ->addChild('layout_resolver', array('route' => 'ngbm_admin_layout_resolver_index'))
