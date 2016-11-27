@@ -36,5 +36,6 @@ class NetgenBlockManagerBundle extends Bundle
         $container->addCompilerPass(new CompilerPass\Configuration\SourcePass());
         $container->addCompilerPass(new CompilerPass\Configuration\LayoutTypePass());
         $container->addCompilerPass(new CompilerPass\Configuration\BlockTypePass());
+        $container->addCompilerPass(new CompilerPass\Configuration\BlockTypeGroupPass());
     }
 }

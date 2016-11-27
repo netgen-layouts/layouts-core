@@ -23,11 +23,8 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::process
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::generateBlockTypeConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::generateBlockTypeGroupConfig
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::buildBlockTypes
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::buildBlockTypeGroups
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::validateBlockTypes
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::validateBlockTypeGroups
      */
     public function testProcess()
     {
@@ -51,8 +48,6 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
             )
         );
 
-        $this->setParameter('netgen_block_manager.block_type_groups', array());
-
         $this->setDefinition('netgen_block_manager.configuration.registry.block_type', new Definition());
 
         $this->compile();
@@ -70,11 +65,8 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::process
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::generateBlockTypeConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::generateBlockTypeGroupConfig
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::buildBlockTypes
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::buildBlockTypeGroups
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::validateBlockTypes
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::validateBlockTypeGroups
      */
     public function testProcessWithRedefinedBlockType()
     {
@@ -101,8 +93,6 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
                 ),
             )
         );
-
-        $this->setParameter('netgen_block_manager.block_type_groups', array());
 
         $this->setDefinition('netgen_block_manager.configuration.registry.block_type', new Definition());
 
@@ -134,11 +124,8 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::process
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::generateBlockTypeConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::generateBlockTypeGroupConfig
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::buildBlockTypes
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::buildBlockTypeGroups
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::validateBlockTypes
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::validateBlockTypeGroups
      */
     public function testProcessWithDefaultConfigForBlockType()
     {
@@ -158,8 +145,6 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
                 ),
             )
         );
-
-        $this->setParameter('netgen_block_manager.block_type_groups', array());
 
         $this->setDefinition('netgen_block_manager.configuration.registry.block_type', new Definition());
 
@@ -192,11 +177,8 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::process
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::generateBlockTypeConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::generateBlockTypeGroupConfig
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::buildBlockTypes
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::buildBlockTypeGroups
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::validateBlockTypes
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::validateBlockTypeGroups
      */
     public function testProcessWithNonExistingBlockType()
     {
@@ -211,8 +193,6 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
                 ),
             )
         );
-
-        $this->setParameter('netgen_block_manager.block_type_groups', array());
 
         $this->setDefinition('netgen_block_manager.configuration.registry.block_type', new Definition());
 
@@ -244,11 +224,8 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::process
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::generateBlockTypeConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::generateBlockTypeGroupConfig
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::buildBlockTypes
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::buildBlockTypeGroups
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::validateBlockTypes
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::validateBlockTypeGroups
      */
     public function testProcessWithDisabledBlockType()
     {
@@ -272,8 +249,6 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
             )
         );
 
-        $this->setParameter('netgen_block_manager.block_type_groups', array());
-
         $this->setDefinition('netgen_block_manager.configuration.registry.block_type', new Definition());
 
         $this->compile();
@@ -284,149 +259,8 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::process
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::generateBlockTypeConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::generateBlockTypeGroupConfig
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::buildBlockTypes
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::buildBlockTypeGroups
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::validateBlockTypes
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::validateBlockTypeGroups
-     */
-    public function testProcessGroup()
-    {
-        $this->setParameter(
-            'netgen_block_manager.block_type_groups',
-            array(
-                'test' => array(
-                    'enabled' => true,
-                    'block_types' => array(),
-                ),
-            )
-        );
-
-        $this->setParameter('netgen_block_manager.block_types', array());
-        $this->setParameter('netgen_block_manager.block_definitions', array());
-
-        $this->setDefinition('netgen_block_manager.configuration.registry.block_type', new Definition());
-
-        $this->compile();
-
-        $this->assertContainerBuilderHasService('netgen_block_manager.configuration.block_type_group.test');
-        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
-            'netgen_block_manager.configuration.registry.block_type',
-            'addBlockTypeGroup',
-            array(
-                new Reference('netgen_block_manager.configuration.block_type_group.test'),
-            )
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::process
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::generateBlockTypeConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::generateBlockTypeGroupConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::buildBlockTypes
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::buildBlockTypeGroups
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::validateBlockTypes
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::validateBlockTypeGroups
-     */
-    public function testProcessGroupWithPopulatingCustomGroup()
-    {
-        $this->setParameter(
-            'netgen_block_manager.block_type_groups',
-            array(
-                'test' => array(
-                    'enabled' => true,
-                    'block_types' => array('test2'),
-                ),
-                'custom' => array(
-                    'enabled' => true,
-                    'block_types' => array(),
-                ),
-            )
-        );
-
-        $this->setParameter(
-            'netgen_block_manager.block_types',
-            array(
-                'test' => array(
-                    'enabled' => true,
-                    'definition_identifier' => 'test',
-                ),
-                'test1' => array(
-                    'enabled' => false,
-                    'definition_identifier' => 'test',
-                ),
-                'test2' => array(
-                    'enabled' => true,
-                    'definition_identifier' => 'test',
-                ),
-            )
-        );
-
-        $this->setParameter(
-            'netgen_block_manager.block_definitions',
-            array(
-                'test' => array(
-                    'name' => 'Test',
-                    'enabled' => true,
-                ),
-            )
-        );
-
-        $this->setDefinition('netgen_block_manager.configuration.registry.block_type', new Definition());
-
-        $this->compile();
-
-        $blockTypeGroups = $this->container->getParameter('netgen_block_manager.block_type_groups');
-        $this->assertArrayHasKey('custom', $blockTypeGroups);
-
-        $this->assertEquals(
-            array(
-                'enabled' => true,
-                'block_types' => array('test'),
-            ),
-            $blockTypeGroups['custom']
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::process
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::generateBlockTypeConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::generateBlockTypeGroupConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::buildBlockTypes
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::buildBlockTypeGroups
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::validateBlockTypes
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::validateBlockTypeGroups
-     */
-    public function testProcessGroupWithDisabledGroup()
-    {
-        $this->setParameter(
-            'netgen_block_manager.block_type_groups',
-            array(
-                'test' => array(
-                    'enabled' => false,
-                    'block_types' => array(),
-                ),
-            )
-        );
-
-        $this->setParameter('netgen_block_manager.block_types', array());
-        $this->setParameter('netgen_block_manager.block_definitions', array());
-
-        $this->setDefinition('netgen_block_manager.configuration.registry.block_type', new Definition());
-
-        $this->compile();
-
-        $this->assertContainerBuilderNotHasService('netgen_block_manager.configuration.block_type_group.test');
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::process
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::generateBlockTypeConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::generateBlockTypeGroupConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::buildBlockTypes
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::buildBlockTypeGroups
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::validateBlockTypes
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::validateBlockTypeGroups
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      */
     public function testProcessThrowsRuntimeExceptionWithNoBlockDefinition()
@@ -441,37 +275,6 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
             )
         );
 
-        $this->setParameter('netgen_block_manager.block_type_groups', array());
-        $this->setParameter('netgen_block_manager.block_definitions', array());
-
-        $this->setDefinition('netgen_block_manager.configuration.registry.block_type', new Definition());
-
-        $this->compile();
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::process
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::generateBlockTypeConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::generateBlockTypeGroupConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::buildBlockTypes
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::buildBlockTypeGroups
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::validateBlockTypes
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::validateBlockTypeGroups
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     */
-    public function testProcessThrowsRuntimeExceptionWithNoBlockType()
-    {
-        $this->setParameter(
-            'netgen_block_manager.block_type_groups',
-            array(
-                'test' => array(
-                    'enabled' => true,
-                    'block_types' => array('title'),
-                ),
-            )
-        );
-
-        $this->setParameter('netgen_block_manager.block_types', array());
         $this->setParameter('netgen_block_manager.block_definitions', array());
 
         $this->setDefinition('netgen_block_manager.configuration.registry.block_type', new Definition());
