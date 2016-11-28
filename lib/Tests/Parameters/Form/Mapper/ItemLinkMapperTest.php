@@ -6,7 +6,7 @@ use Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper;
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Parameters\ParameterType\ItemLinkType as ItemLinkParameterType;
 use Netgen\BlockManager\Parameters\Form\Mapper\ItemLinkMapper;
-use Netgen\Bundle\ContentBrowserBundle\Form\Type\ContentBrowserDynamicType;
+use Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormFactoryInterface;

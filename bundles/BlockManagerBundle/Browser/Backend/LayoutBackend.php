@@ -5,11 +5,11 @@ namespace Netgen\Bundle\BlockManagerBundle\Browser\Backend;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Exception\NotFoundException as BaseNotFoundException;
-use Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException;
+use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\Bundle\BlockManagerBundle\Browser\Item\Layout\Item;
 use Netgen\Bundle\BlockManagerBundle\Browser\Item\Layout\RootLocation;
-use Netgen\Bundle\ContentBrowserBundle\Backend\BackendInterface;
-use Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface;
+use Netgen\ContentBrowser\Backend\BackendInterface;
+use Netgen\ContentBrowser\Item\LocationInterface;
 
 class LayoutBackend implements BackendInterface
 {
@@ -31,7 +31,7 @@ class LayoutBackend implements BackendInterface
     /**
      * Returns the default sections available in the backend.
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface[]
+     * @return \Netgen\ContentBrowser\Item\LocationInterface[]
      */
     public function getDefaultSections()
     {
@@ -43,9 +43,9 @@ class LayoutBackend implements BackendInterface
      *
      * @param int|string $id
      *
-     * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException If location does not exist
+     * @throws \Netgen\ContentBrowser\Exceptions\NotFoundException If location does not exist
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface
+     * @return \Netgen\ContentBrowser\Item\LocationInterface
      */
     public function loadLocation($id)
     {
@@ -57,9 +57,9 @@ class LayoutBackend implements BackendInterface
      *
      * @param int|string $id
      *
-     * @throws \Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException If item does not exist
+     * @throws \Netgen\ContentBrowser\Exceptions\NotFoundException If item does not exist
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface
+     * @return \Netgen\ContentBrowser\Item\ItemInterface
      */
     public function loadItem($id)
     {
@@ -79,9 +79,9 @@ class LayoutBackend implements BackendInterface
     /**
      * Returns the locations below provided location.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface $location
+     * @param \Netgen\ContentBrowser\Item\LocationInterface $location
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface[]
+     * @return \Netgen\ContentBrowser\Item\LocationInterface[]
      */
     public function getSubLocations(LocationInterface $location)
     {
@@ -91,7 +91,7 @@ class LayoutBackend implements BackendInterface
     /**
      * Returns the count of locations below provided location.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface $location
+     * @param \Netgen\ContentBrowser\Item\LocationInterface $location
      *
      * @return int
      */
@@ -103,11 +103,11 @@ class LayoutBackend implements BackendInterface
     /**
      * Returns the location items.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface $location
+     * @param \Netgen\ContentBrowser\Item\LocationInterface $location
      * @param int $offset
      * @param int $limit
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface[]
+     * @return \Netgen\ContentBrowser\Item\ItemInterface[]
      */
     public function getSubItems(LocationInterface $location, $offset = 0, $limit = 25)
     {
@@ -119,7 +119,7 @@ class LayoutBackend implements BackendInterface
     /**
      * Returns the location items count.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface $location
+     * @param \Netgen\ContentBrowser\Item\LocationInterface $location
      *
      * @return int
      */
@@ -137,7 +137,7 @@ class LayoutBackend implements BackendInterface
      * @param int $offset
      * @param int $limit
      *
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface[]
+     * @return \Netgen\ContentBrowser\Item\ItemInterface[]
      */
     public function search($searchText, $offset = 0, $limit = 25)
     {

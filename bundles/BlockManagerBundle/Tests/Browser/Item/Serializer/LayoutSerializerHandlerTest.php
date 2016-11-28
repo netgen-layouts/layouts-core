@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\Bundle\ContentBrowserBundle\Tests\Browser\Item\Serializer;
+namespace Netgen\Bundle\BlockManagerBundle\Tests\Browser\Item\Serializer;
 
 use Netgen\Bundle\BlockManagerBundle\Browser\Item\Layout\Item;
 use Netgen\BlockManager\Core\Values\Page\Layout;
@@ -31,7 +31,7 @@ class LayoutSerializerHandlerTest extends TestCase
     }
 
     /**
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface
+     * @return \Netgen\ContentBrowser\Item\ItemInterface
      */
     protected function getItem()
     {

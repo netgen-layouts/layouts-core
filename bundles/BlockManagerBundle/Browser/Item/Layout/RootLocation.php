@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Browser\Item\Layout;
 
-use Netgen\Bundle\ContentBrowserBundle\Item\LocationInterface;
+use Netgen\ContentBrowser\Item\LocationInterface;
 
 class RootLocation implements LocationInterface
 {

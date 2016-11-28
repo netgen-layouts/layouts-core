@@ -3,7 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Browser\Item\Layout;
 
 use Netgen\BlockManager\API\Values\Page\Layout;
-use Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface;
+use Netgen\ContentBrowser\Item\ItemInterface;
 
 class Item implements ItemInterface, LayoutInterface
 {

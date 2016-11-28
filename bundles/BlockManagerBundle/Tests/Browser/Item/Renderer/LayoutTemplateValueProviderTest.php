@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\Bundle\ContentBrowserBundle\Tests\Browser\Item\Renderer;
+namespace Netgen\Bundle\BlockManagerBundle\Tests\Browser\Item\Renderer;
 
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\Bundle\BlockManagerBundle\Browser\Item\Layout\Item;
@@ -35,7 +35,7 @@ class LayoutTemplateValueProviderTest extends TestCase
     }
 
     /**
-     * @return \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface
+     * @return \Netgen\ContentBrowser\Item\ItemInterface
      */
     protected function getItem()
     {

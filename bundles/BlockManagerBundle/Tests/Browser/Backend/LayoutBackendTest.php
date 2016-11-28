@@ -6,7 +6,7 @@ use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\Bundle\BlockManagerBundle\Browser\Item\Layout\RootLocation;
-use Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface;
+use Netgen\ContentBrowser\Item\ItemInterface;
 use Netgen\Bundle\BlockManagerBundle\Browser\Backend\LayoutBackend;
 use PHPUnit\Framework\TestCase;
 
@@ -79,7 +79,7 @@ class LayoutBackendTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Browser\Backend\LayoutBackend::loadItem
-     * @expectedException \Netgen\Bundle\ContentBrowserBundle\Exceptions\NotFoundException
+     * @expectedException \Netgen\ContentBrowser\Exceptions\NotFoundException
      */
     public function testLoadItemThrowsNotFoundException()
     {

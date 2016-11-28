@@ -7,8 +7,8 @@ use Netgen\BlockManager\Parameters\Form\Type\LinkType;
 use Netgen\BlockManager\Parameters\ParameterType\LinkType as LinkParameterType;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
-use Netgen\Bundle\ContentBrowserBundle\Form\Type\ContentBrowserDynamicType;
-use Netgen\Bundle\ContentBrowserBundle\Item\ItemRepositoryInterface;
+use Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType;
+use Netgen\ContentBrowser\Item\ItemRepositoryInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 

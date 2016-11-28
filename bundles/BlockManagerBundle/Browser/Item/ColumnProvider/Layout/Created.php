@@ -2,8 +2,8 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Browser\Item\ColumnProvider\Layout;
 
-use Netgen\Bundle\ContentBrowserBundle\Item\ColumnProvider\ColumnValueProviderInterface;
-use Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface;
+use Netgen\ContentBrowser\Item\ColumnProvider\ColumnValueProviderInterface;
+use Netgen\ContentBrowser\Item\ItemInterface;
 
 class Created implements ColumnValueProviderInterface
 {
@@ -25,7 +25,7 @@ class Created implements ColumnValueProviderInterface
     /**
      * Provides the column value.
      *
-     * @param \Netgen\Bundle\ContentBrowserBundle\Item\ItemInterface $item
+     * @param \Netgen\ContentBrowser\Item\ItemInterface $item
      *
      * @return mixed
      */

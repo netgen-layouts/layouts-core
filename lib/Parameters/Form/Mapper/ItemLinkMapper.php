@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Parameters\Form\Mapper;
 
-use Netgen\Bundle\ContentBrowserBundle\Form\Type\ContentBrowserDynamicType;
+use Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType;
 use Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper;
 use Netgen\BlockManager\Parameters\Form\Mapper;
 use Netgen\BlockManager\Parameters\ParameterInterface;
