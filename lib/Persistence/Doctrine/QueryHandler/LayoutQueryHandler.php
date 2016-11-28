@@ -2,12 +2,12 @@
 
 namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
 
-use Netgen\BlockManager\Persistence\Values\LayoutCreateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\LayoutCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\LayoutUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Value;
 use Doctrine\DBAL\Types\Type;
-use Netgen\BlockManager\Persistence\Values\ZoneCreateStruct;
-use Netgen\BlockManager\Persistence\Values\ZoneUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\ZoneCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\ZoneUpdateStruct;
 
 class LayoutQueryHandler extends QueryHandler
 {
@@ -238,7 +238,7 @@ class LayoutQueryHandler extends QueryHandler
     /**
      * Creates a layout.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutCreateStruct $layoutCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Page\LayoutCreateStruct $layoutCreateStruct
      * @param int|string $layoutId
      *
      * @return int
@@ -294,7 +294,7 @@ class LayoutQueryHandler extends QueryHandler
      *
      * @param int|string $layoutId
      * @param int $status
-     * @param \Netgen\BlockManager\Persistence\Values\ZoneCreateStruct $zoneCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Page\ZoneCreateStruct $zoneCreateStruct
      */
     public function createZone($layoutId, $status, ZoneCreateStruct $zoneCreateStruct)
     {
@@ -323,7 +323,7 @@ class LayoutQueryHandler extends QueryHandler
      *
      * @param int|string $layoutId
      * @param int $status
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutUpdateStruct $layoutUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Page\LayoutUpdateStruct $layoutUpdateStruct
      */
     public function updateLayout($layoutId, $status, LayoutUpdateStruct $layoutUpdateStruct)
     {
@@ -350,7 +350,7 @@ class LayoutQueryHandler extends QueryHandler
      * @param int|string $layoutId
      * @param int $status
      * @param string $identifier
-     * @param \Netgen\BlockManager\Persistence\Values\ZoneUpdateStruct $zoneUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Page\ZoneUpdateStruct $zoneUpdateStruct
      */
     public function updateZone($layoutId, $status, $identifier, ZoneUpdateStruct $zoneUpdateStruct)
     {

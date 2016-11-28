@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
-use Netgen\BlockManager\API\Values\LayoutCreateStruct;
-use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
+use Netgen\BlockManager\API\Values\Page\LayoutCreateStruct;
+use Netgen\BlockManager\API\Values\Page\LayoutUpdateStruct;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Configuration\LayoutType\Zone as ZoneConfig;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;

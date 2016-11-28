@@ -9,8 +9,8 @@ use Netgen\BlockManager\API\Values\Page\CollectionReference;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
-use Netgen\BlockManager\API\Values\BlockCreateStruct;
-use Netgen\BlockManager\API\Values\BlockUpdateStruct;
+use Netgen\BlockManager\API\Values\Page\BlockCreateStruct;
+use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Parameters\ParameterValue;
 

@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Persistence\Handler;
 
-use Netgen\BlockManager\Persistence\Values\BlockCreateStruct;
-use Netgen\BlockManager\Persistence\Values\BlockUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\CollectionReferenceCreateStruct;
-use Netgen\BlockManager\Persistence\Values\CollectionReferenceUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\BlockCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\BlockUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
@@ -68,7 +68,7 @@ interface BlockHandler
     /**
      * Creates a block in specified layout and zone.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\BlockCreateStruct $blockCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Page\BlockCreateStruct $blockCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
      *
@@ -80,7 +80,7 @@ interface BlockHandler
      * Creates the collection reference.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param \Netgen\BlockManager\Persistence\Values\CollectionReferenceCreateStruct $createStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceCreateStruct $createStruct
      */
     public function createCollectionReference(Block $block, CollectionReferenceCreateStruct $createStruct);
 
@@ -88,7 +88,7 @@ interface BlockHandler
      * Updates a block with specified ID.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param \Netgen\BlockManager\Persistence\Values\BlockUpdateStruct $blockUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Page\BlockUpdateStruct $blockUpdateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
@@ -98,7 +98,7 @@ interface BlockHandler
      * Updates a collection reference with specified identifier.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\CollectionReference $collectionReference
-     * @param \Netgen\BlockManager\Persistence\Values\CollectionReferenceUpdateStruct $updateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceUpdateStruct $updateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\CollectionReference
      */

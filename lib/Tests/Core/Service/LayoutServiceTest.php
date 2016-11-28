@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service;
 
-use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
+use Netgen\BlockManager\API\Values\Page\LayoutUpdateStruct;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
-use Netgen\BlockManager\API\Values\LayoutCreateStruct;
+use Netgen\BlockManager\API\Values\Page\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\Page\Zone;
 

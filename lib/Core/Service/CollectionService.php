@@ -14,16 +14,16 @@ use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\API\Values\CollectionCreateStruct as APICollectionCreateStruct;
-use Netgen\BlockManager\API\Values\CollectionUpdateStruct as APICollectionUpdateStruct;
-use Netgen\BlockManager\API\Values\ItemCreateStruct as APIItemCreateStruct;
-use Netgen\BlockManager\API\Values\QueryCreateStruct as APIQueryCreateStruct;
-use Netgen\BlockManager\API\Values\QueryUpdateStruct as APIQueryUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\CollectionCreateStruct;
-use Netgen\BlockManager\Persistence\Values\CollectionUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\ItemCreateStruct;
-use Netgen\BlockManager\Persistence\Values\QueryCreateStruct;
-use Netgen\BlockManager\Persistence\Values\QueryUpdateStruct;
+use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct as APICollectionCreateStruct;
+use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct as APICollectionUpdateStruct;
+use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct as APIItemCreateStruct;
+use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct as APIQueryCreateStruct;
+use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct as APIQueryUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\QueryUpdateStruct;
 use Exception;
 
 class CollectionService implements APICollectionService
@@ -238,7 +238,7 @@ class CollectionService implements APICollectionService
     /**
      * Creates a collection.
      *
-     * @param \Netgen\BlockManager\API\Values\CollectionCreateStruct $collectionCreateStruct
+     * @param \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct $collectionCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If collection with provided name already exists
      *
@@ -314,7 +314,7 @@ class CollectionService implements APICollectionService
      * Updates a specified collection.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\API\Values\CollectionUpdateStruct $collectionUpdateStruct
+     * @param \Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct $collectionUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
      *                                                          If collection with provided name already exists
@@ -363,7 +363,7 @@ class CollectionService implements APICollectionService
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      * @param int $newType
-     * @param \Netgen\BlockManager\API\Values\QueryCreateStruct $queryCreateStruct
+     * @param \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct $queryCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
      *                                                          If collection type cannot be changed
@@ -610,7 +610,7 @@ class CollectionService implements APICollectionService
      * Adds an item to collection.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\API\Values\ItemCreateStruct $itemCreateStruct
+     * @param \Netgen\BlockManager\API\Values\Collection\ItemCreateStruct $itemCreateStruct
      * @param int $position
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
@@ -725,7 +725,7 @@ class CollectionService implements APICollectionService
      * Adds a query to collection.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\API\Values\QueryCreateStruct $queryCreateStruct
+     * @param \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct $queryCreateStruct
      * @param int $position
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
@@ -784,7 +784,7 @@ class CollectionService implements APICollectionService
      * Updates a query.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     * @param \Netgen\BlockManager\API\Values\QueryUpdateStruct $queryUpdateStruct
+     * @param \Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct $queryUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If query is not a draft
      *                                                          If query with specified identifier already exists within the collection
@@ -902,7 +902,7 @@ class CollectionService implements APICollectionService
      * @param int $type
      * @param string $name
      *
-     * @return \Netgen\BlockManager\API\Values\CollectionCreateStruct
+     * @return \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct
      */
     public function newCollectionCreateStruct($type, $name = null)
     {
@@ -917,7 +917,7 @@ class CollectionService implements APICollectionService
     /**
      * Creates a new collection update struct.
      *
-     * @return \Netgen\BlockManager\API\Values\CollectionUpdateStruct
+     * @return \Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct
      */
     public function newCollectionUpdateStruct()
     {
@@ -931,7 +931,7 @@ class CollectionService implements APICollectionService
      * @param int|string $valueId
      * @param string $valueType
      *
-     * @return \Netgen\BlockManager\API\Values\ItemCreateStruct
+     * @return \Netgen\BlockManager\API\Values\Collection\ItemCreateStruct
      */
     public function newItemCreateStruct($type, $valueId, $valueType)
     {
@@ -950,7 +950,7 @@ class CollectionService implements APICollectionService
      * @param \Netgen\BlockManager\Collection\QueryTypeInterface $queryType
      * @param string $identifier
      *
-     * @return \Netgen\BlockManager\API\Values\QueryCreateStruct
+     * @return \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct
      */
     public function newQueryCreateStruct(QueryTypeInterface $queryType, $identifier)
     {
@@ -974,7 +974,7 @@ class CollectionService implements APICollectionService
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      *
-     * @return \Netgen\BlockManager\API\Values\QueryUpdateStruct
+     * @return \Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct
      */
     public function newQueryUpdateStruct(Query $query = null)
     {

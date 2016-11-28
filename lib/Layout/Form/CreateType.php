@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Layout\Form;
 
-use Netgen\BlockManager\API\Values\LayoutCreateStruct;
+use Netgen\BlockManager\API\Values\Page\LayoutCreateStruct;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Validator\Constraint\LayoutName;
 use Netgen\BlockManager\Form\AbstractType;

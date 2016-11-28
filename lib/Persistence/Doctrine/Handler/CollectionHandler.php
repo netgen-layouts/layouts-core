@@ -6,11 +6,11 @@ use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
-use Netgen\BlockManager\Persistence\Values\CollectionCreateStruct;
-use Netgen\BlockManager\Persistence\Values\CollectionUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\ItemCreateStruct;
-use Netgen\BlockManager\Persistence\Values\QueryCreateStruct;
-use Netgen\BlockManager\Persistence\Values\QueryUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\QueryUpdateStruct;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandler as CollectionHandlerInterface;
@@ -205,7 +205,7 @@ class CollectionHandler implements CollectionHandlerInterface
     /**
      * Creates a collection.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\CollectionCreateStruct $collectionCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct $collectionCreateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
@@ -226,7 +226,7 @@ class CollectionHandler implements CollectionHandlerInterface
      * Updates a collection with specified ID.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\Persistence\Values\CollectionUpdateStruct $collectionUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct $collectionUpdateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
@@ -385,7 +385,7 @@ class CollectionHandler implements CollectionHandlerInterface
      * Adds an item to collection.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\Persistence\Values\ItemCreateStruct $itemCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct $itemCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range (for manual collections)
      *
@@ -475,7 +475,7 @@ class CollectionHandler implements CollectionHandlerInterface
      * Adds a query to collection.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\Persistence\Values\QueryCreateStruct $queryCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct $queryCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
      *
@@ -504,7 +504,7 @@ class CollectionHandler implements CollectionHandlerInterface
      * Updates a query with specified ID.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
-     * @param \Netgen\BlockManager\Persistence\Values\QueryUpdateStruct $queryUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\QueryUpdateStruct $queryUpdateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */

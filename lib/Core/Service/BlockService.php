@@ -12,19 +12,19 @@ use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Core\Service\Mapper\BlockMapper;
-use Netgen\BlockManager\API\Values\BlockCreateStruct as APIBlockCreateStruct;
-use Netgen\BlockManager\API\Values\BlockUpdateStruct as APIBlockUpdateStruct;
+use Netgen\BlockManager\API\Values\Page\BlockCreateStruct as APIBlockCreateStruct;
+use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct as APIBlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Persistence\Values\BlockCreateStruct;
-use Netgen\BlockManager\Persistence\Values\BlockUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\CollectionCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\BlockCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\BlockUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
 use Exception;
-use Netgen\BlockManager\Persistence\Values\CollectionReferenceCreateStruct;
-use Netgen\BlockManager\Persistence\Values\CollectionReferenceUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceUpdateStruct;
 
 class BlockService implements BlockServiceInterface
 {
@@ -207,7 +207,7 @@ class BlockService implements BlockServiceInterface
     /**
      * Creates a block in specified layout and zone.
      *
-     * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
+     * @param \Netgen\BlockManager\API\Values\Page\BlockCreateStruct $blockCreateStruct
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      * @param string $zoneIdentifier
      * @param int $position
@@ -305,7 +305,7 @@ class BlockService implements BlockServiceInterface
      * Updates a specified block.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     * @param \Netgen\BlockManager\API\Values\BlockUpdateStruct $blockUpdateStruct
+     * @param \Netgen\BlockManager\API\Values\Page\BlockUpdateStruct $blockUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If block is not a draft
      *
@@ -588,7 +588,7 @@ class BlockService implements BlockServiceInterface
      *
      * @param \Netgen\BlockManager\Configuration\BlockType\BlockType $blockType
      *
-     * @return \Netgen\BlockManager\API\Values\BlockCreateStruct
+     * @return \Netgen\BlockManager\API\Values\Page\BlockCreateStruct
      */
     public function newBlockCreateStruct(BlockType $blockType)
     {
@@ -629,7 +629,7 @@ class BlockService implements BlockServiceInterface
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      *
-     * @return \Netgen\BlockManager\API\Values\BlockUpdateStruct
+     * @return \Netgen\BlockManager\API\Values\Page\BlockUpdateStruct
      */
     public function newBlockUpdateStruct(Block $block = null)
     {

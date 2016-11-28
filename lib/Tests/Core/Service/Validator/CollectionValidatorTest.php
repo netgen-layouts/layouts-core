@@ -2,17 +2,17 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
-use Netgen\BlockManager\API\Values\CollectionCreateStruct;
-use Netgen\BlockManager\API\Values\ItemCreateStruct;
+use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
+use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
-use Netgen\BlockManager\API\Values\CollectionUpdateStruct;
+use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
-use Netgen\BlockManager\API\Values\QueryCreateStruct;
-use Netgen\BlockManager\API\Values\QueryUpdateStruct;
+use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
+use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
 use Netgen\BlockManager\Exception\ValidationFailedException;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandlerWithRequiredParameter;
 use Netgen\BlockManager\Collection\QueryType;

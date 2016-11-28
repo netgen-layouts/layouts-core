@@ -2,11 +2,11 @@
 
 namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
 
-use Netgen\BlockManager\Persistence\Values\CollectionCreateStruct;
-use Netgen\BlockManager\Persistence\Values\CollectionUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\ItemCreateStruct;
-use Netgen\BlockManager\Persistence\Values\QueryCreateStruct;
-use Netgen\BlockManager\Persistence\Values\QueryUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\QueryUpdateStruct;
 use Doctrine\DBAL\Types\Type;
 
 class CollectionQueryHandler extends QueryHandler
@@ -217,7 +217,7 @@ class CollectionQueryHandler extends QueryHandler
     /**
      * Creates a collection.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\CollectionCreateStruct $collectionCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct $collectionCreateStruct
      * @param int|string $collectionId
      *
      * @return int
@@ -254,7 +254,7 @@ class CollectionQueryHandler extends QueryHandler
      *
      * @param int|string $collectionId
      * @param int $status
-     * @param \Netgen\BlockManager\Persistence\Values\CollectionUpdateStruct $collectionUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct $collectionUpdateStruct
      */
     public function updateCollection($collectionId, $status, CollectionUpdateStruct $collectionUpdateStruct)
     {
@@ -320,7 +320,7 @@ class CollectionQueryHandler extends QueryHandler
      *
      * @param int|string $collectionId
      * @param int $status
-     * @param \Netgen\BlockManager\Persistence\Values\ItemCreateStruct $itemCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct $itemCreateStruct
      * @param int|string $itemId
      *
      * @return int
@@ -460,7 +460,7 @@ class CollectionQueryHandler extends QueryHandler
      *
      * @param int|string $collectionId
      * @param int $status
-     * @param \Netgen\BlockManager\Persistence\Values\QueryCreateStruct $queryCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct $queryCreateStruct
      * @param int|string $queryId
      *
      * @return int
@@ -501,7 +501,7 @@ class CollectionQueryHandler extends QueryHandler
      *
      * @param int|string $queryId
      * @param int $status
-     * @param \Netgen\BlockManager\Persistence\Values\QueryUpdateStruct $queryUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\QueryUpdateStruct $queryUpdateStruct
      */
     public function updateQuery($queryId, $status, QueryUpdateStruct $queryUpdateStruct)
     {

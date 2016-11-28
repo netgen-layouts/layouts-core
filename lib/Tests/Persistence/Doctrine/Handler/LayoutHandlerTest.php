@@ -3,11 +3,11 @@
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
 
 use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Persistence\Values\ZoneCreateStruct;
-use Netgen\BlockManager\Persistence\Values\ZoneUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\ZoneCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\ZoneUpdateStruct;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
-use Netgen\BlockManager\Persistence\Values\LayoutCreateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\LayoutCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\LayoutUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;

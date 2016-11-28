@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Layout\Resolver\Form;
 
-use Netgen\BlockManager\API\Values\TargetStruct;
+use Netgen\BlockManager\API\Values\LayoutResolver\TargetStruct;
 use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;
 use Netgen\BlockManager\Layout\Resolver\Form\TargetType\MapperInterface;
 use Netgen\BlockManager\Form\AbstractType;

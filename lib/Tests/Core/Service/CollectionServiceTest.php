@@ -8,12 +8,12 @@ use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\API\Values\CollectionCreateStruct;
-use Netgen\BlockManager\API\Values\CollectionUpdateStruct;
-use Netgen\BlockManager\API\Values\ItemCreateStruct;
+use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
+use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
+use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
-use Netgen\BlockManager\API\Values\QueryCreateStruct;
-use Netgen\BlockManager\API\Values\QueryUpdateStruct;
+use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
+use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
 
 abstract class CollectionServiceTest extends ServiceTestCase
 {

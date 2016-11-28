@@ -4,12 +4,12 @@ namespace Netgen\BlockManager\API\Service;
 
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\API\Values\CollectionCreateStruct;
-use Netgen\BlockManager\API\Values\CollectionUpdateStruct;
+use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
+use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\ItemCreateStruct;
-use Netgen\BlockManager\API\Values\QueryCreateStruct;
-use Netgen\BlockManager\API\Values\QueryUpdateStruct;
+use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
+use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
+use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
 use Netgen\BlockManager\Collection\QueryTypeInterface;
 
 interface CollectionService
@@ -93,7 +93,7 @@ interface CollectionService
     /**
      * Creates a collection.
      *
-     * @param \Netgen\BlockManager\API\Values\CollectionCreateStruct $collectionCreateStruct
+     * @param \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct $collectionCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If collection with provided name already exists
      *
@@ -105,7 +105,7 @@ interface CollectionService
      * Updates a specified collection.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\API\Values\CollectionUpdateStruct $collectionUpdateStruct
+     * @param \Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct $collectionUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
      *                                                          If collection with provided name already exists
@@ -119,7 +119,7 @@ interface CollectionService
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      * @param int $newType
-     * @param \Netgen\BlockManager\API\Values\QueryCreateStruct $queryCreateStruct
+     * @param \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct $queryCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
      *                                                          If collection type cannot be changed
@@ -183,7 +183,7 @@ interface CollectionService
      * Adds an item to collection.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\API\Values\ItemCreateStruct $itemCreateStruct
+     * @param \Netgen\BlockManager\API\Values\Collection\ItemCreateStruct $itemCreateStruct
      * @param int $position
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
@@ -217,7 +217,7 @@ interface CollectionService
      * Adds a query to collection.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\API\Values\QueryCreateStruct $queryCreateStruct
+     * @param \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct $queryCreateStruct
      * @param int $position
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
@@ -232,7 +232,7 @@ interface CollectionService
      * Updates a query.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     * @param \Netgen\BlockManager\API\Values\QueryUpdateStruct $queryUpdateStruct
+     * @param \Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct $queryUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If query is not a draft
      *                                                          If query with specified identifier already exists within the collection
@@ -267,14 +267,14 @@ interface CollectionService
      * @param int $type
      * @param string $name
      *
-     * @return \Netgen\BlockManager\API\Values\CollectionCreateStruct
+     * @return \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct
      */
     public function newCollectionCreateStruct($type, $name = null);
 
     /**
      * Creates a new collection update struct.
      *
-     * @return \Netgen\BlockManager\API\Values\CollectionUpdateStruct
+     * @return \Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct
      */
     public function newCollectionUpdateStruct();
 
@@ -285,7 +285,7 @@ interface CollectionService
      * @param int|string $valueId
      * @param string $valueType
      *
-     * @return \Netgen\BlockManager\API\Values\ItemCreateStruct
+     * @return \Netgen\BlockManager\API\Values\Collection\ItemCreateStruct
      */
     public function newItemCreateStruct($type, $valueId, $valueType);
 
@@ -295,7 +295,7 @@ interface CollectionService
      * @param \Netgen\BlockManager\Collection\QueryTypeInterface $queryType
      * @param string $identifier
      *
-     * @return \Netgen\BlockManager\API\Values\QueryCreateStruct
+     * @return \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct
      */
     public function newQueryCreateStruct(QueryTypeInterface $queryType, $identifier);
 
@@ -304,7 +304,7 @@ interface CollectionService
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      *
-     * @return \Netgen\BlockManager\API\Values\QueryUpdateStruct
+     * @return \Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct
      */
     public function newQueryUpdateStruct(Query $query = null);
 }

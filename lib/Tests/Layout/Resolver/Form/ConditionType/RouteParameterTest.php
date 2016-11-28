@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Layout\Resolver\Form\ConditionType;
 use Netgen\BlockManager\Form\KeyValuesType;
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter as RouteParameterMapper;
 use Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter;
-use Netgen\BlockManager\API\Values\ConditionCreateStruct;
+use Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 

@@ -2,12 +2,12 @@
 
 namespace Netgen\BlockManager\Persistence\Handler;
 
-use Netgen\BlockManager\Persistence\Values\LayoutCreateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\LayoutCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\LayoutUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
-use Netgen\BlockManager\Persistence\Values\ZoneCreateStruct;
-use Netgen\BlockManager\Persistence\Values\ZoneUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\ZoneCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\ZoneUpdateStruct;
 
 interface LayoutHandler
 {
@@ -104,7 +104,7 @@ interface LayoutHandler
     /**
      * Creates a layout.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutCreateStruct $layoutCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Page\LayoutCreateStruct $layoutCreateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
@@ -114,7 +114,7 @@ interface LayoutHandler
      * Creates a zone in provided layout.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
-     * @param \Netgen\BlockManager\Persistence\Values\ZoneCreateStruct $zoneCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Page\ZoneCreateStruct $zoneCreateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Zone
      */
@@ -124,7 +124,7 @@ interface LayoutHandler
      * Updates a layout with specified ID.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutUpdateStruct $layoutUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Page\LayoutUpdateStruct $layoutUpdateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
@@ -134,7 +134,7 @@ interface LayoutHandler
      * Updates a specified zone.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $zone
-     * @param \Netgen\BlockManager\Persistence\Values\ZoneUpdateStruct $zoneUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Page\ZoneUpdateStruct $zoneUpdateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Zone
      */

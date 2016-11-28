@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Validator\Structs;
 
 use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\API\Values\QueryUpdateStruct;
+use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
 use Netgen\BlockManager\Validator\Constraint\Structs\QueryUpdateStruct as QueryUpdateStructConstraint;
 use Symfony\Component\Validator\ConstraintValidator;

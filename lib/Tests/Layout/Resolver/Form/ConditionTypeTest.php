@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Layout\Resolver\Form;
 
-use Netgen\BlockManager\API\Values\ConditionCreateStruct;
+use Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType as ConditionTypeForm;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;

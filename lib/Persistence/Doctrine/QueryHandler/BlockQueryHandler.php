@@ -2,12 +2,12 @@
 
 namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
 
-use Netgen\BlockManager\Persistence\Values\BlockCreateStruct;
-use Netgen\BlockManager\Persistence\Values\BlockUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\BlockCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\BlockUpdateStruct;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\DBAL\Connection;
-use Netgen\BlockManager\Persistence\Values\CollectionReferenceCreateStruct;
-use Netgen\BlockManager\Persistence\Values\CollectionReferenceUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceUpdateStruct;
 
 class BlockQueryHandler extends QueryHandler
 {
@@ -124,7 +124,7 @@ class BlockQueryHandler extends QueryHandler
     /**
      * Creates a block.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\BlockCreateStruct $blockCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Page\BlockCreateStruct $blockCreateStruct
      * @param int|string $blockId
      *
      * @return int
@@ -171,7 +171,7 @@ class BlockQueryHandler extends QueryHandler
      *
      * @param int|string $blockId
      * @param int $blockStatus
-     * @param \Netgen\BlockManager\Persistence\Values\CollectionReferenceCreateStruct $createStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceCreateStruct $createStruct
      */
     public function createCollectionReference($blockId, $blockStatus, CollectionReferenceCreateStruct $createStruct)
     {
@@ -205,7 +205,7 @@ class BlockQueryHandler extends QueryHandler
      *
      * @param int|string $blockId
      * @param int $status
-     * @param \Netgen\BlockManager\Persistence\Values\BlockUpdateStruct $blockUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Page\BlockUpdateStruct $blockUpdateStruct
      */
     public function updateBlock($blockId, $status, BlockUpdateStruct $blockUpdateStruct)
     {
@@ -236,7 +236,7 @@ class BlockQueryHandler extends QueryHandler
      * @param int|string $blockId
      * @param int $status
      * @param string $identifier
-     * @param \Netgen\BlockManager\Persistence\Values\CollectionReferenceUpdateStruct $updateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceUpdateStruct $updateStruct
      */
     public function updateCollectionReference($blockId, $status, $identifier, CollectionReferenceUpdateStruct $updateStruct)
     {

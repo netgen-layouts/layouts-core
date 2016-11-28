@@ -4,28 +4,28 @@ namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Service\LayoutResolverService as APILayoutResolverService;
 use Netgen\BlockManager\API\Values\Page\Layout;
-use Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct as APIRuleMetadataUpdateStruct;
-use Netgen\BlockManager\API\Values\TargetUpdateStruct as APITargetUpdateStruct;
+use Netgen\BlockManager\API\Values\LayoutResolver\RuleMetadataUpdateStruct as APIRuleMetadataUpdateStruct;
+use Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct as APITargetUpdateStruct;
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper;
-use Netgen\BlockManager\API\Values\ConditionCreateStruct as APIConditionCreateStruct;
-use Netgen\BlockManager\API\Values\ConditionUpdateStruct as APIConditionUpdateStruct;
+use Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct as APIConditionCreateStruct;
+use Netgen\BlockManager\API\Values\LayoutResolver\ConditionUpdateStruct as APIConditionUpdateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\API\Values\LayoutResolver\Target;
-use Netgen\BlockManager\API\Values\RuleCreateStruct as APIRuleCreateStruct;
-use Netgen\BlockManager\API\Values\RuleUpdateStruct as APIRuleUpdateStruct;
-use Netgen\BlockManager\API\Values\TargetCreateStruct as APITargetCreateStruct;
+use Netgen\BlockManager\API\Values\LayoutResolver\RuleCreateStruct as APIRuleCreateStruct;
+use Netgen\BlockManager\API\Values\LayoutResolver\RuleUpdateStruct as APIRuleUpdateStruct;
+use Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct as APITargetCreateStruct;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Persistence\Values\ConditionCreateStruct;
-use Netgen\BlockManager\Persistence\Values\ConditionUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\RuleCreateStruct;
-use Netgen\BlockManager\Persistence\Values\RuleMetadataUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\RuleUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\TargetCreateStruct;
-use Netgen\BlockManager\Persistence\Values\TargetUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionCreateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleCreateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleMetadataUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetCreateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetUpdateStruct;
 use Exception;
 
 class LayoutResolverService implements APILayoutResolverService
@@ -263,7 +263,7 @@ class LayoutResolverService implements APILayoutResolverService
     /**
      * Creates a rule.
      *
-     * @param \Netgen\BlockManager\API\Values\RuleCreateStruct $ruleCreateStruct
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleCreateStruct $ruleCreateStruct
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
@@ -299,7 +299,7 @@ class LayoutResolverService implements APILayoutResolverService
      * Updates a rule.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
-     * @param \Netgen\BlockManager\API\Values\RuleUpdateStruct $ruleUpdateStruct
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleUpdateStruct $ruleUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
      *
@@ -341,7 +341,7 @@ class LayoutResolverService implements APILayoutResolverService
      * Updates rule metadata.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
-     * @param \Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct $ruleUpdateStruct
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleMetadataUpdateStruct $ruleUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not published
      *
@@ -649,7 +649,7 @@ class LayoutResolverService implements APILayoutResolverService
      * Adds a target to rule.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
-     * @param \Netgen\BlockManager\API\Values\TargetCreateStruct $targetCreateStruct
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct $targetCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
      *                                                          If target of different type than it already exists in the rule is added
@@ -704,7 +704,7 @@ class LayoutResolverService implements APILayoutResolverService
      * Updates a target.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Target $target
-     * @param \Netgen\BlockManager\API\Values\TargetUpdateStruct $targetUpdateStruct
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct $targetUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
      *
@@ -772,7 +772,7 @@ class LayoutResolverService implements APILayoutResolverService
      * Adds a condition to rule.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
-     * @param \Netgen\BlockManager\API\Values\ConditionCreateStruct $conditionCreateStruct
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct $conditionCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
      *
@@ -814,7 +814,7 @@ class LayoutResolverService implements APILayoutResolverService
      * Updates a condition.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Condition $condition
-     * @param \Netgen\BlockManager\API\Values\ConditionUpdateStruct $conditionUpdateStruct
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\ConditionUpdateStruct $conditionUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If condition is not a draft
      *
@@ -881,7 +881,7 @@ class LayoutResolverService implements APILayoutResolverService
     /**
      * Creates a new rule create struct.
      *
-     * @return \Netgen\BlockManager\API\Values\RuleCreateStruct
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\RuleCreateStruct
      */
     public function newRuleCreateStruct()
     {
@@ -891,7 +891,7 @@ class LayoutResolverService implements APILayoutResolverService
     /**
      * Creates a new rule update struct.
      *
-     * @return \Netgen\BlockManager\API\Values\RuleUpdateStruct
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\RuleUpdateStruct
      */
     public function newRuleUpdateStruct()
     {
@@ -901,7 +901,7 @@ class LayoutResolverService implements APILayoutResolverService
     /**
      * Creates a new rule metadata update struct.
      *
-     * @return \Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\RuleMetadataUpdateStruct
      */
     public function newRuleMetadataUpdateStruct()
     {
@@ -913,7 +913,7 @@ class LayoutResolverService implements APILayoutResolverService
      *
      * @param string $type
      *
-     * @return \Netgen\BlockManager\API\Values\TargetCreateStruct
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct
      */
     public function newTargetCreateStruct($type)
     {
@@ -927,7 +927,7 @@ class LayoutResolverService implements APILayoutResolverService
     /**
      * Creates a new target update struct.
      *
-     * @return \Netgen\BlockManager\API\Values\TargetUpdateStruct
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct
      */
     public function newTargetUpdateStruct()
     {
@@ -939,7 +939,7 @@ class LayoutResolverService implements APILayoutResolverService
      *
      * @param string $type
      *
-     * @return \Netgen\BlockManager\API\Values\ConditionCreateStruct
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct
      */
     public function newConditionCreateStruct($type)
     {
@@ -953,7 +953,7 @@ class LayoutResolverService implements APILayoutResolverService
     /**
      * Creates a new condition update struct.
      *
-     * @return \Netgen\BlockManager\API\Values\ConditionUpdateStruct
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\ConditionUpdateStruct
      */
     public function newConditionUpdateStruct()
     {

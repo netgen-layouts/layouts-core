@@ -2,18 +2,18 @@
 
 namespace Netgen\BlockManager\Persistence\Doctrine\Handler;
 
-use Netgen\BlockManager\Persistence\Values\ConditionCreateStruct;
-use Netgen\BlockManager\Persistence\Values\ConditionUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionCreateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
-use Netgen\BlockManager\Persistence\Values\RuleCreateStruct;
-use Netgen\BlockManager\Persistence\Values\RuleUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\RuleMetadataUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\TargetCreateStruct;
-use Netgen\BlockManager\Persistence\Values\TargetUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleCreateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleMetadataUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetCreateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetUpdateStruct;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler;
 use Netgen\BlockManager\Persistence\Handler\LayoutResolverHandler as LayoutResolverHandlerInterface;
@@ -223,7 +223,7 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
     /**
      * Creates a rule.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\RuleCreateStruct $ruleCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleCreateStruct $ruleCreateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule
      */
@@ -245,7 +245,7 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
      * Updates a rule with specified ID.
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
-     * @param \Netgen\BlockManager\Persistence\Values\RuleUpdateStruct $ruleUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleUpdateStruct $ruleUpdateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule
      */
@@ -273,7 +273,7 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
      * Updates rule metadata.
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
-     * @param \Netgen\BlockManager\Persistence\Values\RuleMetadataUpdateStruct $ruleUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleMetadataUpdateStruct $ruleUpdateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule
      */
@@ -436,7 +436,7 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
      * Adds a target to rule.
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
-     * @param \Netgen\BlockManager\Persistence\Values\TargetCreateStruct $targetCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetCreateStruct $targetCreateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target
      */
@@ -455,7 +455,7 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
      * Updates a target with specified ID.
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target $target
-     * @param \Netgen\BlockManager\Persistence\Values\TargetUpdateStruct $targetUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetUpdateStruct $targetUpdateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target
      */
@@ -484,7 +484,7 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
      * Adds a condition to rule.
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
-     * @param \Netgen\BlockManager\Persistence\Values\ConditionCreateStruct $conditionCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionCreateStruct $conditionCreateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition
      */
@@ -503,7 +503,7 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
      * Updates a condition with specified ID.
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition $condition
-     * @param \Netgen\BlockManager\Persistence\Values\ConditionUpdateStruct $conditionUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionUpdateStruct $conditionUpdateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition
      */

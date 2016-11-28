@@ -2,13 +2,13 @@
 
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
 
-use Netgen\BlockManager\Persistence\Values\RuleCreateStruct;
-use Netgen\BlockManager\Persistence\Values\RuleMetadataUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\RuleUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\TargetCreateStruct;
-use Netgen\BlockManager\Persistence\Values\ConditionCreateStruct;
-use Netgen\BlockManager\Persistence\Values\ConditionUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\TargetUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleCreateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleMetadataUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetCreateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionCreateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetUpdateStruct;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;

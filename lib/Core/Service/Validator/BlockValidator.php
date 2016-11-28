@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Core\Service\Validator;
 
-use Netgen\BlockManager\API\Values\BlockCreateStruct;
-use Netgen\BlockManager\API\Values\BlockUpdateStruct;
+use Netgen\BlockManager\API\Values\Page\BlockCreateStruct;
+use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Validator\Constraint\BlockItemViewType;
@@ -32,7 +32,7 @@ class BlockValidator extends Validator
     /**
      * Validates block create struct.
      *
-     * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
+     * @param \Netgen\BlockManager\API\Values\Page\BlockCreateStruct $blockCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\ValidationFailedException If the validation failed
      */
@@ -103,7 +103,7 @@ class BlockValidator extends Validator
      * Validates block update struct.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     * @param \Netgen\BlockManager\API\Values\BlockUpdateStruct $blockUpdateStruct
+     * @param \Netgen\BlockManager\API\Values\Page\BlockUpdateStruct $blockUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\ValidationFailedException If the validation failed
      */

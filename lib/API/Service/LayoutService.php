@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\API\Service;
 
-use Netgen\BlockManager\API\Values\LayoutCreateStruct;
-use Netgen\BlockManager\API\Values\LayoutUpdateStruct;
+use Netgen\BlockManager\API\Values\Page\LayoutCreateStruct;
+use Netgen\BlockManager\API\Values\Page\LayoutUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\Page\Zone;
 
@@ -128,7 +128,7 @@ interface LayoutService
     /**
      * Creates a layout.
      *
-     * @param \Netgen\BlockManager\API\Values\LayoutCreateStruct $layoutCreateStruct
+     * @param \Netgen\BlockManager\API\Values\Page\LayoutCreateStruct $layoutCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If layout with provided name already exists
      *
@@ -140,7 +140,7 @@ interface LayoutService
      * Updates a specified layout.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
-     * @param \Netgen\BlockManager\API\Values\LayoutUpdateStruct $layoutUpdateStruct
+     * @param \Netgen\BlockManager\API\Values\Page\LayoutUpdateStruct $layoutUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
      *                                                          If layout with provided name already exists
@@ -207,14 +207,14 @@ interface LayoutService
      * @param string $type
      * @param string $name
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutCreateStruct
+     * @return \Netgen\BlockManager\API\Values\Page\LayoutCreateStruct
      */
     public function newLayoutCreateStruct($type, $name);
 
     /**
      * Creates a new layout update struct.
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutUpdateStruct
+     * @return \Netgen\BlockManager\API\Values\Page\LayoutUpdateStruct
      */
     public function newLayoutUpdateStruct();
 }

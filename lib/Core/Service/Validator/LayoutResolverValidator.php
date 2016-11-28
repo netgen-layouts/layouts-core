@@ -4,13 +4,13 @@ namespace Netgen\BlockManager\Core\Service\Validator;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\API\Values\LayoutResolver\Target;
-use Netgen\BlockManager\API\Values\RuleCreateStruct;
-use Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct;
-use Netgen\BlockManager\API\Values\RuleUpdateStruct;
-use Netgen\BlockManager\API\Values\TargetCreateStruct;
-use Netgen\BlockManager\API\Values\ConditionCreateStruct;
-use Netgen\BlockManager\API\Values\ConditionUpdateStruct;
-use Netgen\BlockManager\API\Values\TargetUpdateStruct;
+use Netgen\BlockManager\API\Values\LayoutResolver\RuleCreateStruct;
+use Netgen\BlockManager\API\Values\LayoutResolver\RuleMetadataUpdateStruct;
+use Netgen\BlockManager\API\Values\LayoutResolver\RuleUpdateStruct;
+use Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct;
+use Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct;
+use Netgen\BlockManager\API\Values\LayoutResolver\ConditionUpdateStruct;
+use Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct;
 use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface;
 use Symfony\Component\Validator\Constraints;
@@ -44,7 +44,7 @@ class LayoutResolverValidator extends Validator
     /**
      * Validates rule create struct.
      *
-     * @param \Netgen\BlockManager\API\Values\RuleCreateStruct $ruleCreateStruct
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleCreateStruct $ruleCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\ValidationFailedException If the validation failed
      */
@@ -95,7 +95,7 @@ class LayoutResolverValidator extends Validator
     /**
      * Validates rule update struct.
      *
-     * @param \Netgen\BlockManager\API\Values\RuleUpdateStruct $ruleUpdateStruct
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleUpdateStruct $ruleUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\ValidationFailedException If the validation failed
      */
@@ -126,7 +126,7 @@ class LayoutResolverValidator extends Validator
     /**
      * Validates rule metadata update struct.
      *
-     * @param \Netgen\BlockManager\API\Values\RuleMetadataUpdateStruct $ruleUpdateStruct
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleMetadataUpdateStruct $ruleUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\ValidationFailedException If the validation failed
      */
@@ -147,7 +147,7 @@ class LayoutResolverValidator extends Validator
     /**
      * Validates target create struct.
      *
-     * @param \Netgen\BlockManager\API\Values\TargetCreateStruct $targetCreateStruct
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct $targetCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\ValidationFailedException If the validation failed
      */
@@ -175,7 +175,7 @@ class LayoutResolverValidator extends Validator
      * Validates target update struct.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Target $target
-     * @param \Netgen\BlockManager\API\Values\TargetUpdateStruct $targetUpdateStruct
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct $targetUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\ValidationFailedException If the validation failed
      */
@@ -193,7 +193,7 @@ class LayoutResolverValidator extends Validator
     /**
      * Validates condition create struct.
      *
-     * @param \Netgen\BlockManager\API\Values\ConditionCreateStruct $conditionCreateStruct
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct $conditionCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\ValidationFailedException If the validation failed
      */
@@ -221,7 +221,7 @@ class LayoutResolverValidator extends Validator
      * Validates condition update struct.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Condition $condition
-     * @param \Netgen\BlockManager\API\Values\ConditionUpdateStruct $conditionUpdateStruct
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\ConditionUpdateStruct $conditionUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\ValidationFailedException If the validation failed
      */

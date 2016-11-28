@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\API\Service;
 
-use Netgen\BlockManager\API\Values\BlockCreateStruct;
-use Netgen\BlockManager\API\Values\BlockUpdateStruct;
+use Netgen\BlockManager\API\Values\Page\BlockCreateStruct;
+use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\Layout;
@@ -65,7 +65,7 @@ interface BlockService
     /**
      * Creates a block in specified layout and zone.
      *
-     * @param \Netgen\BlockManager\API\Values\BlockCreateStruct $blockCreateStruct
+     * @param \Netgen\BlockManager\API\Values\Page\BlockCreateStruct $blockCreateStruct
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      * @param string $zoneIdentifier
      * @param int $position
@@ -83,7 +83,7 @@ interface BlockService
      * Updates a specified block.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     * @param \Netgen\BlockManager\API\Values\BlockUpdateStruct $blockUpdateStruct
+     * @param \Netgen\BlockManager\API\Values\Page\BlockUpdateStruct $blockUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If block is not a draft
      *
@@ -158,7 +158,7 @@ interface BlockService
      *
      * @param \Netgen\BlockManager\Configuration\BlockType\BlockType $blockType
      *
-     * @return \Netgen\BlockManager\API\Values\BlockCreateStruct
+     * @return \Netgen\BlockManager\API\Values\Page\BlockCreateStruct
      */
     public function newBlockCreateStruct(BlockType $blockType);
 
@@ -167,7 +167,7 @@ interface BlockService
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      *
-     * @return \Netgen\BlockManager\API\Values\BlockUpdateStruct
+     * @return \Netgen\BlockManager\API\Values\Page\BlockUpdateStruct
      */
     public function newBlockUpdateStruct(Block $block = null);
 }

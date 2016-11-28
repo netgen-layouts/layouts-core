@@ -5,15 +5,15 @@ namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
 use Doctrine\DBAL\Connection;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver\TargetHandler;
-use Netgen\BlockManager\Persistence\Values\ConditionCreateStruct;
-use Netgen\BlockManager\Persistence\Values\ConditionUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionCreateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Value;
-use Netgen\BlockManager\Persistence\Values\RuleCreateStruct;
-use Netgen\BlockManager\Persistence\Values\RuleUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\RuleMetadataUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\TargetCreateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleCreateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleMetadataUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetCreateStruct;
 use Doctrine\DBAL\Types\Type;
-use Netgen\BlockManager\Persistence\Values\TargetUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetUpdateStruct;
 use Netgen\BlockManager\Exception\RuntimeException;
 
 class LayoutResolverQueryHandler extends QueryHandler
@@ -319,7 +319,7 @@ class LayoutResolverQueryHandler extends QueryHandler
     /**
      * Creates a rule.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\RuleCreateStruct $ruleCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleCreateStruct $ruleCreateStruct
      * @param int|string $ruleId
      *
      * @return int
@@ -373,7 +373,7 @@ class LayoutResolverQueryHandler extends QueryHandler
      *
      * @param int|string $ruleId
      * @param int $status
-     * @param \Netgen\BlockManager\Persistence\Values\RuleUpdateStruct $ruleUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleUpdateStruct $ruleUpdateStruct
      */
     public function updateRule($ruleId, $status, RuleUpdateStruct $ruleUpdateStruct)
     {
@@ -398,7 +398,7 @@ class LayoutResolverQueryHandler extends QueryHandler
      * Updates rule data which is independent of statuses.
      *
      * @param int|string $ruleId
-     * @param \Netgen\BlockManager\Persistence\Values\RuleMetadataUpdateStruct $ruleMetadataUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleMetadataUpdateStruct $ruleMetadataUpdateStruct
      */
     public function updateRuleData($ruleId, RuleMetadataUpdateStruct $ruleMetadataUpdateStruct)
     {
@@ -501,7 +501,7 @@ class LayoutResolverQueryHandler extends QueryHandler
      *
      * @param int|string $ruleId
      * @param int $status
-     * @param \Netgen\BlockManager\Persistence\Values\TargetCreateStruct $targetCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetCreateStruct $targetCreateStruct
      * @param int|string $targetId
      *
      * @return int
@@ -538,7 +538,7 @@ class LayoutResolverQueryHandler extends QueryHandler
      *
      * @param int|string $targetId
      * @param int $status
-     * @param \Netgen\BlockManager\Persistence\Values\TargetUpdateStruct $targetUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetUpdateStruct $targetUpdateStruct
      */
     public function updateTarget($targetId, $status, TargetUpdateStruct $targetUpdateStruct)
     {
@@ -583,7 +583,7 @@ class LayoutResolverQueryHandler extends QueryHandler
      *
      * @param int|string $ruleId
      * @param int $status
-     * @param \Netgen\BlockManager\Persistence\Values\ConditionCreateStruct $conditionCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionCreateStruct $conditionCreateStruct
      * @param int|string $conditionId
      *
      * @return int
@@ -620,7 +620,7 @@ class LayoutResolverQueryHandler extends QueryHandler
      *
      * @param int|string $conditionId
      * @param int $status
-     * @param \Netgen\BlockManager\Persistence\Values\ConditionUpdateStruct $conditionUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionUpdateStruct $conditionUpdateStruct
      */
     public function updateCondition($conditionId, $status, ConditionUpdateStruct $conditionUpdateStruct)
     {

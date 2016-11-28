@@ -2,11 +2,11 @@
 
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
 
-use Netgen\BlockManager\Persistence\Values\CollectionCreateStruct;
-use Netgen\BlockManager\Persistence\Values\CollectionUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\ItemCreateStruct;
-use Netgen\BlockManager\Persistence\Values\QueryCreateStruct;
-use Netgen\BlockManager\Persistence\Values\QueryUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\QueryUpdateStruct;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
