@@ -31,6 +31,12 @@ $bundles[] = new Netgen\Bundle\BlockManagerAdminBundle\NetgenBlockManagerAdminBu
 return $bundles;
 ```
 
+It is also recommended to add the following bundle when in `dev` environment to activate the integration of Netgen Layouts into Symfony debug toolbar:
+
+```
+$bundles[] = new Netgen\Bundle\BlockManagerDebugBundle\NetgenBlockManagerDebugBundle();
+```
+
 Import database schema
 ----------------------
 
