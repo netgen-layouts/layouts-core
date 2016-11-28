@@ -2,8 +2,8 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator;
 
-use Netgen\BlockManager\Exception\ValidationFailedException;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints;
 
 class CollectionValidator extends Validator
 {
@@ -16,23 +16,40 @@ class CollectionValidator extends Validator
      */
     public function validateAddItems(Request $request)
     {
-        $items = $request->request->get('items');
-        if (!is_array($items) || empty($items)) {
-            throw new ValidationFailedException('Item list is invalid.');
-        }
-
-        foreach ($items as $index => $item) {
-            foreach (array('type', 'value_id', 'value_type') as $param) {
-                if (!array_key_exists($param, $item)) {
-                    throw new ValidationFailedException(
-                        sprintf(
-                            'The "%s" property is missing in item no. %d.',
-                            $param,
-                            $index
-                        )
-                    );
-                }
-            }
-        }
+        $this->validate(
+            $request->request->get('items'),
+            array(
+                new Constraints\Type(array('type' => 'array')),
+                new Constraints\NotBlank(),
+                new Constraints\All(
+                    array(
+                        'constraints' => new Constraints\Collection(
+                            array(
+                                'fields' => array(
+                                    'type' => array(
+                                        new Constraints\NotNull(),
+                                        new Constraints\Type(array('type' => 'int')),
+                                    ),
+                                    'value_id' => array(
+                                        new Constraints\NotNull(),
+                                        new Constraints\Type(array('type' => 'scalar')),
+                                    ),
+                                    'value_type' => array(
+                                        new Constraints\NotBlank(),
+                                        new Constraints\Type(array('type' => 'string')),
+                                    ),
+                                    'position' => new Constraints\Optional(
+                                        array(
+                                            new Constraints\NotNull(),
+                                            new Constraints\Type(array('type' => 'int')),
+                                        )
+                                    ),
+                                ),
+                            )
+                        ),
+                    )
+                ),
+            )
+        );
     }
 }

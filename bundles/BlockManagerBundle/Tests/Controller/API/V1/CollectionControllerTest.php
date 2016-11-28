@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1;
 
+use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -169,13 +170,13 @@ class CollectionControllerTest extends JsonApiTestCase
             array(
                 'items' => array(
                     array(
-                        'type' => 0,
+                        'type' => Item::TYPE_MANUAL,
                         'value_id' => 73,
                         'value_type' => 'ezcontent',
                         'position' => 3,
                     ),
                     array(
-                        'type' => 0,
+                        'type' => Item::TYPE_MANUAL,
                         'value_id' => 74,
                         'value_type' => 'ezcontent',
                     ),
@@ -205,13 +206,13 @@ class CollectionControllerTest extends JsonApiTestCase
             array(
                 'items' => array(
                     array(
-                        'type' => 0,
+                        'type' => Item::TYPE_MANUAL,
                         'value_id' => 73,
                         'value_type' => 'ezcontent',
                         'position' => 3,
                     ),
                     array(
-                        'type' => 0,
+                        'type' => Item::TYPE_MANUAL,
                         'value_id' => 74,
                         'value_type' => 'ezcontent',
                     ),
@@ -388,7 +389,7 @@ class CollectionControllerTest extends JsonApiTestCase
             array(
                 'items' => array(
                     array(
-                        'type' => 0,
+                        'type' => Item::TYPE_MANUAL,
                         'value_id' => array(),
                         'value_type' => 'ezcontent',
                         'position' => 3,
@@ -422,7 +423,7 @@ class CollectionControllerTest extends JsonApiTestCase
             array(
                 'items' => array(
                     array(
-                        'type' => 0,
+                        'type' => Item::TYPE_MANUAL,
                         'value_type' => 'ezcontent',
                         'position' => 3,
                     ),
@@ -455,7 +456,7 @@ class CollectionControllerTest extends JsonApiTestCase
             array(
                 'items' => array(
                     array(
-                        'type' => 0,
+                        'type' => Item::TYPE_MANUAL,
                         'value_id' => 73,
                         'value_type' => 42,
                         'position' => 3,
@@ -489,7 +490,7 @@ class CollectionControllerTest extends JsonApiTestCase
             array(
                 'items' => array(
                     array(
-                        'type' => 0,
+                        'type' => Item::TYPE_MANUAL,
                         'value_id' => 73,
                         'position' => 3,
                     ),
@@ -522,7 +523,7 @@ class CollectionControllerTest extends JsonApiTestCase
             array(
                 'items' => array(
                     array(
-                        'type' => 0,
+                        'type' => Item::TYPE_MANUAL,
                         'value_id' => 73,
                         'value_type' => 'ezcontent',
                         'position' => '3',
@@ -556,7 +557,7 @@ class CollectionControllerTest extends JsonApiTestCase
             array(
                 'items' => array(
                     array(
-                        'type' => 0,
+                        'type' => Item::TYPE_MANUAL,
                         'value_id' => 73,
                         'value_type' => 'ezcontent',
                     ),
@@ -589,7 +590,7 @@ class CollectionControllerTest extends JsonApiTestCase
             array(
                 'items' => array(
                     array(
-                        'type' => 0,
+                        'type' => Item::TYPE_MANUAL,
                         'value_id' => 73,
                         'value_type' => 'ezcontent',
                         'position' => 9999,
