@@ -2,6 +2,10 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1;
 
+use Netgen\BlockManager\Core\Repository;
+use Netgen\BlockManager\Core\Service\LayoutService;
+use Netgen\BlockManager\Core\Values\Page\Layout;
+use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -872,6 +876,60 @@ class LayoutControllerTest extends JsonApiTestCase
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND
         );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::createDraft
+     */
+    public function testCreateDraftWithTransactionRollback()
+    {
+        $clientContainer = $this->client->getContainer();
+
+        /** @var \Mockery\MockInterface $locationMock */
+        $repositoryMock = $clientContainer->mock(
+            'netgen_block_manager.core.repository',
+            Repository::class
+        );
+
+        /** @var \Mockery\MockInterface $locationMock */
+        $layoutServiceMock = $clientContainer->mock(
+            'netgen_block_manager.core.service.layout',
+            LayoutService::class
+        );
+
+        $repositoryMock
+            ->shouldReceive('beginTransaction')
+            ->getMock()
+                ->shouldReceive('rollbackTransaction')->once();
+
+        $layoutServiceMock
+            ->shouldReceive('loadLayout')->andReturn(new Layout())
+            ->getMock()
+                ->shouldReceive('loadLayoutDraft')
+            ->getMock()
+                ->shouldReceive('discardDraft')
+            ->getMock()
+                ->shouldReceive('createDraft')
+                ->andThrow(new BadStateException('test', 'test'));
+
+        $data = $this->jsonEncode(array());
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/layouts/1/draft?html=false',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_UNPROCESSABLE_ENTITY
+        );
+
+        $clientContainer->unmock('netgen_block_manager.core.service.layout');
+        $clientContainer->unmock('netgen_block_manager.core.repository');
     }
 
     /**
