@@ -19,14 +19,14 @@
 	</php>
 
     <testsuites>
-        <testsuite name="Netgen\Bundle\BlockManagerBundle\Controller">
-            <directory>bundles/BlockManagerBundle/Tests/Controller</directory>
+        <testsuite name="Netgen\Bundle\BlockManagerBundle\Controller\API">
+            <directory>bundles/BlockManagerBundle/Tests/Controller/API</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist>
-            <directory suffix=".php">bundles/BlockManagerBundle/Controller</directory>
+            <directory suffix=".php">bundles/BlockManagerBundle/Controller/API</directory>
         </whitelist>
     </filter>
 </phpunit>
