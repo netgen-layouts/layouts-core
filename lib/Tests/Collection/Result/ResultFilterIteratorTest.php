@@ -117,7 +117,7 @@ class ResultFilterIteratorTest extends TestCase
 
         $iterator = new ResultFilterIterator(
             new ArrayIterator($results),
-            pow(2, 32) - 1 // All flags active
+            2**32 - 1 // All flags active
         );
 
         $this->assertEquals($results, iterator_to_array($iterator));
