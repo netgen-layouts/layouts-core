@@ -1,14 +1,11 @@
-parameters:
-    netgen_block_manager.menu.admin.main_menu_builder.class: Netgen\Bundle\BlockManagerAdminBundle\Menu\MainMenuBuilder
-
 services:
     netgen_block_manager.menu.admin.main_menu_builder:
-        class: "%netgen_block_manager.menu.admin.main_menu_builder.class%"
+        class: Netgen\Bundle\BlockManagerAdminBundle\Menu\MainMenuBuilder
         arguments:
             - "@knp_menu.factory"
 
     netgen_block_manager.menu.admin.main_menu:
         class: Knp\Menu\MenuItem
-        factory: ["@netgen_block_manager.menu.admin.main_menu_builder", createMenu]
+        factory: ["@netgen_block_manager.menu.admin.main_menu_builder", "createMenu"]
         tags:
             - { name: knp_menu.menu, alias: ngbm.admin.main_menu }

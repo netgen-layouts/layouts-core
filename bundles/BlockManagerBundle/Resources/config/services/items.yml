@@ -1,25 +1,19 @@
-parameters:
-    netgen_block_manager.item.item_builder.class: Netgen\BlockManager\Item\ItemBuilder
-    netgen_block_manager.item.item_loader.class: Netgen\BlockManager\Item\ItemLoader
-    netgen_block_manager.item.url_builder.class: Netgen\BlockManager\Item\UrlBuilder
-    netgen_block_manager.item.registry.value_loader.class: Netgen\BlockManager\Item\Registry\ValueLoaderRegistry
-
 services:
     netgen_block_manager.item.item_builder:
-        class: "%netgen_block_manager.item.item_builder.class%"
+        class: Netgen\BlockManager\Item\ItemBuilder
         arguments:
             - []
 
     netgen_block_manager.item.item_loader:
-        class: "%netgen_block_manager.item.item_loader.class%"
+        class: Netgen\BlockManager\Item\ItemLoader
         arguments:
             - "@netgen_block_manager.item.registry.value_loader"
             - "@netgen_block_manager.item.item_builder"
 
     netgen_block_manager.item.url_builder:
-        class: "%netgen_block_manager.item.url_builder.class%"
+        class: Netgen\BlockManager\Item\UrlBuilder
         arguments:
             - []
 
     netgen_block_manager.item.registry.value_loader:
-        class: "%netgen_block_manager.item.registry.value_loader.class%"
+        class: Netgen\BlockManager\Item\Registry\ValueLoaderRegistry

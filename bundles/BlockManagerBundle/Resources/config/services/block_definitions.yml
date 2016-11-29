@@ -1,24 +1,4 @@
 parameters:
-    netgen_block_manager.block.block_definition.class: Netgen\BlockManager\Block\BlockDefinition
-    netgen_block_manager.block.block_definition.factory.class: Netgen\BlockManager\Block\BlockDefinitionFactory
-    netgen_block_manager.block.block_definition.configuration.class: Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration
-    netgen_block_manager.block.block_definition.configuration.factory.class: Netgen\BlockManager\Block\BlockDefinition\Configuration\Factory
-    netgen_block_manager.block.registry.block_definition.class: Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry
-
-    netgen_block_manager.block.block_definition.handler.title.class: Netgen\BlockManager\Block\BlockDefinition\Handler\TitleHandler
-    netgen_block_manager.block.block_definition.handler.text.class: Netgen\BlockManager\Block\BlockDefinition\Handler\TextHandler
-    netgen_block_manager.block.block_definition.handler.button.class: Netgen\BlockManager\Block\BlockDefinition\Handler\ButtonHandler
-    netgen_block_manager.block.block_definition.handler.markdown.parser.class: Michelf\MarkdownExtra
-    netgen_block_manager.block.block_definition.handler.markdown.class: Netgen\BlockManager\Block\BlockDefinition\Handler\MarkdownHandler
-    netgen_block_manager.block.block_definition.handler.rich_text.class: Netgen\BlockManager\Block\BlockDefinition\Handler\RichTextHandler
-    netgen_block_manager.block.block_definition.handler.external_video.class: Netgen\BlockManager\Block\BlockDefinition\Handler\ExternalVideoHandler
-    netgen_block_manager.block.block_definition.handler.html_snippet.class: Netgen\BlockManager\Block\BlockDefinition\Handler\HtmlSnippetHandler
-    netgen_block_manager.block.block_definition.handler.full_view.class: Netgen\BlockManager\Block\BlockDefinition\Handler\FullViewBlockHandler
-    netgen_block_manager.block.block_definition.handler.twig_block.class: Netgen\BlockManager\Block\BlockDefinition\Handler\TwigBlockHandler
-    netgen_block_manager.block.block_definition.handler.map.class: Netgen\BlockManager\Block\BlockDefinition\Handler\MapHandler
-    netgen_block_manager.block.block_definition.handler.list.class: Netgen\BlockManager\Block\BlockDefinition\Handler\ListHandler
-    netgen_block_manager.block.block_definition.handler.gallery.class: Netgen\BlockManager\Block\BlockDefinition\Handler\GalleryHandler
-
     netgen_block_manager.block.block_definition.handler.title.options:
         h1: 'Heading 1'
         h2: 'Heading 2'
@@ -73,10 +53,10 @@ parameters:
 
 services:
     netgen_block_manager.block.registry.block_definition:
-        class: "%netgen_block_manager.block.registry.block_definition.class%"
+        class: Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry
 
     netgen_block_manager.block.block_definition.handler.title:
-        class: "%netgen_block_manager.block.block_definition.handler.title.class%"
+        class: Netgen\BlockManager\Block\BlockDefinition\Handler\TitleHandler
         arguments:
             - "%netgen_block_manager.block.block_definition.handler.title.options%"
             - "%netgen_block_manager.block.block_definition.handler.title.value_types%"
@@ -84,12 +64,12 @@ services:
             - { name: netgen_block_manager.block.block_definition_handler, identifier: title }
 
     netgen_block_manager.block.block_definition.handler.text:
-        class: "%netgen_block_manager.block.block_definition.handler.text.class%"
+        class: Netgen\BlockManager\Block\BlockDefinition\Handler\TextHandler
         tags:
             - { name: netgen_block_manager.block.block_definition_handler, identifier: text }
 
     netgen_block_manager.block.block_definition.handler.button:
-        class: "%netgen_block_manager.block.block_definition.handler.button.class%"
+        class: Netgen\BlockManager\Block\BlockDefinition\Handler\ButtonHandler
         arguments:
             - "%netgen_block_manager.block.block_definition.handler.button.styles%"
             - "%netgen_block_manager.block.block_definition.handler.button.value_types%"
@@ -97,46 +77,46 @@ services:
             - { name: netgen_block_manager.block.block_definition_handler, identifier: button }
 
     netgen_block_manager.block.block_definition.handler.markdown.parser:
-        class: "%netgen_block_manager.block.block_definition.handler.markdown.parser.class%"
+        class: Michelf\MarkdownExtra
 
     netgen_block_manager.block.block_definition.handler.markdown:
-        class: "%netgen_block_manager.block.block_definition.handler.markdown.class%"
+        class: Netgen\BlockManager\Block\BlockDefinition\Handler\MarkdownHandler
         arguments:
             - "@netgen_block_manager.block.block_definition.handler.markdown.parser"
         tags:
             - { name: netgen_block_manager.block.block_definition_handler, identifier: markdown }
 
     netgen_block_manager.block.block_definition.handler.rich_text:
-        class: "%netgen_block_manager.block.block_definition.handler.rich_text.class%"
+        class: Netgen\BlockManager\Block\BlockDefinition\Handler\RichTextHandler
         tags:
             - { name: netgen_block_manager.block.block_definition_handler, identifier: rich_text }
 
     netgen_block_manager.block.block_definition.handler.external_video:
-        class: "%netgen_block_manager.block.block_definition.handler.external_video.class%"
+        class: Netgen\BlockManager\Block\BlockDefinition\Handler\ExternalVideoHandler
         arguments:
             - "%netgen_block_manager.block.block_definition.handler.external_video.services%"
         tags:
             - { name: netgen_block_manager.block.block_definition_handler, identifier: external_video }
 
     netgen_block_manager.block.block_definition.handler.html_snippet:
-        class: "%netgen_block_manager.block.block_definition.handler.html_snippet.class%"
+        class: Netgen\BlockManager\Block\BlockDefinition\Handler\HtmlSnippetHandler
         tags:
             - { name: netgen_block_manager.block.block_definition_handler, identifier: html_snippet }
 
     netgen_block_manager.block.block_definition.handler.full_view:
-        class: "%netgen_block_manager.block.block_definition.handler.full_view.class%"
+        class: Netgen\BlockManager\Block\BlockDefinition\Handler\FullViewBlockHandler
         arguments:
             - "%netgen_block_manager.block.block_definition.handler.full_view.twig_block_name%"
         tags:
             - { name: netgen_block_manager.block.block_definition_handler, identifier: full_view }
 
     netgen_block_manager.block.block_definition.handler.twig_block:
-        class: "%netgen_block_manager.block.block_definition.handler.twig_block.class%"
+        class: Netgen\BlockManager\Block\BlockDefinition\Handler\TwigBlockHandler
         tags:
             - { name: netgen_block_manager.block.block_definition_handler, identifier: twig_block }
 
     netgen_block_manager.block.block_definition.handler.map:
-        class: "%netgen_block_manager.block.block_definition.handler.map.class%"
+        class: Netgen\BlockManager\Block\BlockDefinition\Handler\MapHandler
         arguments:
             - "%netgen_block_manager.block.block_definition.handler.map.min_zoom%"
             - "%netgen_block_manager.block.block_definition.handler.map.max_zoom%"
@@ -145,14 +125,14 @@ services:
             - { name: netgen_block_manager.block.block_definition_handler, identifier: map }
 
     netgen_block_manager.block.block_definition.handler.list:
-        class: "%netgen_block_manager.block.block_definition.handler.list.class%"
+        class: Netgen\BlockManager\Block\BlockDefinition\Handler\ListHandler
         arguments:
             - "%netgen_block_manager.block.block_definition.handler.list.columns%"
         tags:
             - { name: netgen_block_manager.block.block_definition_handler, identifier: list }
 
     netgen_block_manager.block.block_definition.handler.gallery:
-        class: "%netgen_block_manager.block.block_definition.handler.gallery.class%"
+        class: Netgen\BlockManager\Block\BlockDefinition\Handler\GalleryHandler
         arguments:
             - "%netgen_block_manager.block.block_definition.handler.gallery.min_autoplay_time%"
             - "%netgen_block_manager.block.block_definition.handler.gallery.max_autoplay_time%"

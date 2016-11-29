@@ -1,15 +1,11 @@
-parameters:
-    netgen_block_manager.templating.admin_global_variable.class: Netgen\Bundle\BlockManagerAdminBundle\Templating\Twig\GlobalVariable
-    netgen_block_manager.templating.twig.extension.admin.class: Netgen\Bundle\BlockManagerAdminBundle\Templating\Twig\Extension\AdminExtension
-
 services:
     netgen_block_manager.templating.admin_global_variable:
-        class: "%netgen_block_manager.templating.admin_global_variable.class%"
+        class: Netgen\Bundle\BlockManagerAdminBundle\Templating\Twig\GlobalVariable
         arguments:
             - "%netgen_block_manager.admin.pagelayout%"
 
     netgen_block_manager.templating.twig.extension.admin:
-        class: "%netgen_block_manager.templating.twig.extension.admin.class%"
+        class: Netgen\Bundle\BlockManagerAdminBundle\Templating\Twig\Extension\AdminExtension
         arguments:
             - "@netgen_block_manager.templating.admin_global_variable"
         tags:

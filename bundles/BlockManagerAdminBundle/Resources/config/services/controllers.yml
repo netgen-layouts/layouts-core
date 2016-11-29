@@ -1,18 +1,6 @@
-parameters:
-    netgen_block_manager.controller.admin.layout_resolver.class: Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\LayoutResolverController
-    netgen_block_manager.controller.admin.layouts.class: Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\LayoutsController
-    netgen_block_manager.controller.admin.shared_layouts.class: Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\SharedLayoutsController
-
-    netgen_block_manager.controller.admin.layout_resolver.validator.class: Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Validator\LayoutResolverValidator
-
-    netgen_block_manager.controller.app.index.class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\IndexController
-    netgen_block_manager.controller.app.layout.class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\LayoutController
-    netgen_block_manager.controller.app.block.class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\BlockController
-    netgen_block_manager.controller.app.collection.class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\CollectionController
-
 services:
     netgen_block_manager.controller.admin.layout_resolver:
-        class: "%netgen_block_manager.controller.admin.layout_resolver.class%"
+        class: Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\LayoutResolverController
         parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.repository"
@@ -23,34 +11,34 @@ services:
             - "@netgen_block_manager.controller.admin.layout_resolver.validator"
 
     netgen_block_manager.controller.admin.layouts:
-        class: "%netgen_block_manager.controller.admin.layouts.class%"
+        class: Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\LayoutsController
         parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.layout"
 
     netgen_block_manager.controller.admin.shared_layouts:
-        class: "%netgen_block_manager.controller.admin.shared_layouts.class%"
+        class: Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\SharedLayoutsController
         parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.layout"
 
     netgen_block_manager.controller.admin.layout_resolver.validator:
-        class: "%netgen_block_manager.controller.admin.layout_resolver.validator.class%"
+        class: Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Validator\LayoutResolverValidator
         calls:
             - [setValidator, ["@validator"]]
 
     netgen_block_manager.controller.app.index:
-        class: "%netgen_block_manager.controller.app.index.class%"
+        class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\IndexController
         parent: netgen_block_manager.controller.base
 
     netgen_block_manager.controller.app.layout:
-        class: "%netgen_block_manager.controller.app.layout.class%"
+        class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\LayoutController
         parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.layout"
 
     netgen_block_manager.controller.app.block:
-        class: "%netgen_block_manager.controller.app.block.class%"
+        class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\BlockController
         parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.block"
@@ -58,7 +46,7 @@ services:
             - "@netgen_block_manager.collection.registry.query_type"
 
     netgen_block_manager.controller.app.collection:
-        class: "%netgen_block_manager.controller.app.collection.class%"
+        class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\CollectionController
         parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.collection"

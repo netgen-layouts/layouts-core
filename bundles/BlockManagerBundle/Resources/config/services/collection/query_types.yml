@@ -1,6 +1,0 @@
-parameters:
-    netgen_block_manager.collection.query_type.class: Netgen\BlockManager\Collection\QueryType
-    netgen_block_manager.collection.query_type.factory.class: Netgen\BlockManager\Collection\QueryTypeFactory
-
-    netgen_block_manager.collection.query_type.configuration.class: Netgen\BlockManager\Collection\QueryType\Configuration\Configuration
-    netgen_block_manager.collection.query_type.configuration.factory.class: Netgen\BlockManager\Collection\QueryType\Configuration\Factory

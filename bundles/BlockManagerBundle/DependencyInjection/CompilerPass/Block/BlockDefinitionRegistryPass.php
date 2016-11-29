@@ -2,6 +2,10 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block;
 
+use Netgen\BlockManager\Block\BlockDefinition;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\Factory;
+use Netgen\BlockManager\Block\BlockDefinitionFactory;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -34,18 +38,11 @@ class BlockDefinitionRegistryPass implements CompilerPassInterface
             }
 
             $configServiceName = sprintf('netgen_block_manager.block.block_definition.configuration.%s', $identifier);
-            $configService = new Definition(
-                $container->getParameter('netgen_block_manager.block.block_definition.configuration.class')
-            );
+            $configService = new Definition(Configuration::class);
 
             $configService->setArguments(array($identifier, $blockDefinition));
             $configService->setPublic(false);
-            $configService->setFactory(
-                array(
-                    $container->getParameter('netgen_block_manager.block.block_definition.configuration.factory.class'),
-                    'buildConfig',
-                )
-            );
+            $configService->setFactory(array(Factory::class, 'buildConfig'));
 
             $container->setDefinition($configServiceName, $configService);
 
@@ -73,20 +70,13 @@ class BlockDefinitionRegistryPass implements CompilerPassInterface
             }
 
             $blockDefinitionServiceName = sprintf('netgen_block_manager.block.block_definition.%s', $identifier);
-            $blockDefinitionService = new Definition(
-                $container->getParameter('netgen_block_manager.block.block_definition.class')
-            );
+            $blockDefinitionService = new Definition(BlockDefinition::class);
 
             $blockDefinitionService->addArgument($identifier);
             $blockDefinitionService->addArgument(new Reference($foundHandler));
             $blockDefinitionService->addArgument(new Reference($configServiceName));
             $blockDefinitionService->addArgument(new Reference('netgen_block_manager.parameters.parameter_builder'));
-            $blockDefinitionService->setFactory(
-                array(
-                    $container->getParameter('netgen_block_manager.block.block_definition.factory.class'),
-                    'buildBlockDefinition',
-                )
-            );
+            $blockDefinitionService->setFactory(array(BlockDefinitionFactory::class, 'buildBlockDefinition'));
 
             $container->setDefinition($blockDefinitionServiceName, $blockDefinitionService);
 

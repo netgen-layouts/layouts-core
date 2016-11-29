@@ -1,0 +1,14 @@
+services:
+    netgen_block_manager.collection.result_iterator_factory:
+        class: Netgen\BlockManager\Collection\Result\ResultIteratorFactory
+        arguments:
+            - "@netgen_block_manager.item.item_loader"
+            - "@netgen_block_manager.item.item_builder"
+
+    netgen_block_manager.collection.result_loader:
+        class: Netgen\BlockManager\Collection\Result\ResultLoader
+        arguments:
+            - "@netgen_block_manager.collection.result_iterator_factory"
+
+    netgen_block_manager.collection.registry.query_type:
+        class: Netgen\BlockManager\Collection\Registry\QueryTypeRegistry

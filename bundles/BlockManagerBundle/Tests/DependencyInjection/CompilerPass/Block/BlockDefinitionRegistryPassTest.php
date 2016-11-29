@@ -30,10 +30,6 @@ class BlockDefinitionRegistryPassTest extends AbstractCompilerPassTestCase
             array('block_definition' => array('enabled' => true))
         );
 
-        $this->setParameter('netgen_block_manager.block.block_definition.configuration.factory.class', 'factory_class');
-        $this->setParameter('netgen_block_manager.block.block_definition.configuration.class', 'config_class');
-        $this->setParameter('netgen_block_manager.block.block_definition.factory.class', 'factory_class');
-        $this->setParameter('netgen_block_manager.block.block_definition.class', 'definition_class');
         $this->setDefinition('netgen_block_manager.block.registry.block_definition', new Definition());
 
         $blockDefinitionHandler = new Definition();
@@ -90,9 +86,6 @@ class BlockDefinitionRegistryPassTest extends AbstractCompilerPassTestCase
             array('block_definition' => array('enabled' => true))
         );
 
-        $this->setParameter('netgen_block_manager.block.block_definition.configuration.factory.class', 'factory_class');
-        $this->setParameter('netgen_block_manager.block.block_definition.configuration.class', 'config_class');
-        $this->setParameter('netgen_block_manager.block.block_definition.class', 'definition_class');
         $this->setDefinition('netgen_block_manager.block.registry.block_definition', new Definition());
 
         $blockDefinitionHandler = new Definition();
@@ -112,10 +105,6 @@ class BlockDefinitionRegistryPassTest extends AbstractCompilerPassTestCase
             'netgen_block_manager.block_definitions',
             array('block_definition' => array('enabled' => true))
         );
-
-        $this->setParameter('netgen_block_manager.block.block_definition.configuration.factory.class', 'factory_class');
-        $this->setParameter('netgen_block_manager.block.block_definition.configuration.class', 'config_class');
-        $this->setParameter('netgen_block_manager.block.block_definition.class', 'definition_class');
 
         $this->setDefinition('netgen_block_manager.block.registry.block_definition', new Definition());
 

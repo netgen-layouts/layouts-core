@@ -1,23 +1,6 @@
-parameters:
-    netgen_block_manager.configuration.container.class: Netgen\BlockManager\Configuration\ContainerConfiguration
-
-    netgen_block_manager.configuration.source.class: Netgen\BlockManager\Configuration\Source\Source
-    netgen_block_manager.configuration.layout_type.class: Netgen\BlockManager\Configuration\LayoutType\LayoutType
-    netgen_block_manager.configuration.block_type.class: Netgen\BlockManager\Configuration\BlockType\BlockType
-    netgen_block_manager.configuration.block_type_group.class: Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup
-
-    netgen_block_manager.configuration.registry.source.class: Netgen\BlockManager\Configuration\Registry\SourceRegistry
-    netgen_block_manager.configuration.registry.layout_type.class: Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry
-    netgen_block_manager.configuration.registry.block_type.class: Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry
-
-    netgen_block_manager.configuration.factory.source.class: Netgen\BlockManager\Configuration\Factory\SourceFactory
-    netgen_block_manager.configuration.factory.layout_type.class: Netgen\BlockManager\Configuration\Factory\LayoutTypeFactory
-    netgen_block_manager.configuration.factory.block_type.class: Netgen\BlockManager\Configuration\Factory\BlockTypeFactory
-    netgen_block_manager.configuration.factory.block_type_group.class: Netgen\BlockManager\Configuration\Factory\BlockTypeGroupFactory
-
 services:
     netgen_block_manager.configuration.container:
-        class: "%netgen_block_manager.configuration.container.class%"
+        class: Netgen\BlockManager\Configuration\ContainerConfiguration
         calls:
             - [setContainer, ["@service_container"]]
 
@@ -27,36 +10,36 @@ services:
     # Registries
 
     netgen_block_manager.configuration.registry.source:
-        class: "%netgen_block_manager.configuration.registry.source.class%"
+        class: Netgen\BlockManager\Configuration\Registry\SourceRegistry
 
     netgen_block_manager.configuration.registry.layout_type:
-        class: "%netgen_block_manager.configuration.registry.layout_type.class%"
+        class: Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry
 
     netgen_block_manager.configuration.registry.block_type:
-        class: "%netgen_block_manager.configuration.registry.block_type.class%"
+        class: Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry
 
     # Synthetic services
 
     netgen_block_manager.configuration.source:
-        class: "%netgen_block_manager.configuration.source.class%"
-        factory: ["%netgen_block_manager.configuration.factory.source.class%", "buildSource"]
+        class: Netgen\BlockManager\Configuration\Source\Source
+        factory: [Netgen\BlockManager\Configuration\Factory\SourceFactory, buildSource]
         abstract: true
         synthetic: true
 
     netgen_block_manager.configuration.layout_type:
-        class: "%netgen_block_manager.configuration.layout_type.class%"
-        factory: ["%netgen_block_manager.configuration.factory.layout_type.class%", "buildLayoutType"]
+        class: Netgen\BlockManager\Configuration\LayoutType\LayoutType
+        factory: [Netgen\BlockManager\Configuration\Factory\LayoutTypeFactory, buildLayoutType]
         abstract: true
         synthetic: true
 
     netgen_block_manager.configuration.block_type:
-        class: "%netgen_block_manager.configuration.block_type.class%"
-        factory: ["%netgen_block_manager.configuration.factory.block_type.class%", "buildBlockType"]
+        class: Netgen\BlockManager\Configuration\BlockType\BlockType
+        factory: [Netgen\BlockManager\Configuration\Factory\BlockTypeFactory, buildBlockType]
         abstract: true
         synthetic: true
 
     netgen_block_manager.configuration.block_type_group:
-        class: "%netgen_block_manager.configuration.block_type_group.class%"
-        factory: ["%netgen_block_manager.configuration.factory.block_type_group.class%", "buildBlockTypeGroup"]
+        class: Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup
+        factory: [Netgen\BlockManager\Configuration\Factory\BlockTypeGroupFactory, buildBlockTypeGroup]
         abstract: true
         synthetic: true

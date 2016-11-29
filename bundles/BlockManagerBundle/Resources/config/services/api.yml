@@ -1,47 +1,6 @@
-parameters:
-    netgen_block_manager.persistence.doctrine.handler.class: Netgen\BlockManager\Persistence\Doctrine\Handler
-    netgen_block_manager.persistence.doctrine.helper.connection.class: Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper
-    netgen_block_manager.persistence.doctrine.helper.position.class: Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper
-
-    netgen_block_manager.persistence.doctrine.layout.query_handler.class: Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler
-    netgen_block_manager.persistence.doctrine.layout.mapper.class: Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper
-    netgen_block_manager.persistence.doctrine.layout.handler.class: Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler
-
-    netgen_block_manager.persistence.doctrine.block.query_handler.class: Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler
-    netgen_block_manager.persistence.doctrine.block.mapper.class: Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper
-    netgen_block_manager.persistence.doctrine.block.handler.class: Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler
-
-    netgen_block_manager.persistence.doctrine.collection.query_handler.class: Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler
-    netgen_block_manager.persistence.doctrine.collection.mapper.class: Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper
-    netgen_block_manager.persistence.doctrine.collection.handler.class: Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler
-
-    netgen_block_manager.persistence.doctrine.layout_resolver.query_handler.class: Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler
-    netgen_block_manager.persistence.doctrine.layout_resolver.mapper.class: Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper
-    netgen_block_manager.persistence.doctrine.layout_resolver.handler.class: Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler
-
-    netgen_block_manager.core.repository.class: Netgen\BlockManager\Core\Repository
-
-    netgen_block_manager.core.service.layout.validator.class: Netgen\BlockManager\Core\Service\Validator\LayoutValidator
-    netgen_block_manager.core.service.layout.mapper.class: Netgen\BlockManager\Core\Service\Mapper\LayoutMapper
-    netgen_block_manager.core.service.layout.class: Netgen\BlockManager\Core\Service\LayoutService
-
-    netgen_block_manager.core.service.block.validator.class: Netgen\BlockManager\Core\Service\Validator\BlockValidator
-    netgen_block_manager.core.service.block.mapper.class: Netgen\BlockManager\Core\Service\Mapper\BlockMapper
-    netgen_block_manager.core.service.block.class: Netgen\BlockManager\Core\Service\BlockService
-
-    netgen_block_manager.core.service.collection.validator.class: Netgen\BlockManager\Core\Service\Validator\CollectionValidator
-    netgen_block_manager.core.service.collection.mapper.class: Netgen\BlockManager\Core\Service\Mapper\CollectionMapper
-    netgen_block_manager.core.service.collection.class: Netgen\BlockManager\Core\Service\CollectionService
-
-    netgen_block_manager.core.service.layout_resolver.validator.class: Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator
-    netgen_block_manager.core.service.layout_resolver.mapper.class: Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper
-    netgen_block_manager.core.service.layout_resolver.class: Netgen\BlockManager\Core\Service\LayoutResolverService
-
-    netgen_block_manager.core.service.parameter_mapper.class: Netgen\BlockManager\Core\Service\Mapper\ParameterMapper
-
 services:
     netgen_block_manager.persistence.doctrine.handler:
-        class: "%netgen_block_manager.persistence.doctrine.handler.class%"
+        class: Netgen\BlockManager\Persistence\Doctrine\Handler
         public: false
         arguments:
             - "@database_connection"
@@ -53,13 +12,13 @@ services:
     # Persistence helpers
 
     netgen_block_manager.persistence.doctrine.helper.connection:
-        class: "%netgen_block_manager.persistence.doctrine.helper.connection.class%"
+        class: Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper
         public: false
         arguments:
             - "@database_connection"
 
     netgen_block_manager.persistence.doctrine.helper.position:
-        class: "%netgen_block_manager.persistence.doctrine.helper.position.class%"
+        class: Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper
         public: false
         arguments:
             - "@database_connection"
@@ -67,18 +26,18 @@ services:
     # Layout related persistence APIs
 
     netgen_block_manager.persistence.doctrine.layout.query_handler:
-        class: "%netgen_block_manager.persistence.doctrine.layout.query_handler.class%"
+        class: Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler
         public: false
         arguments:
             - "@database_connection"
             - "@netgen_block_manager.persistence.doctrine.helper.connection"
 
     netgen_block_manager.persistence.doctrine.layout.mapper:
-        class: "%netgen_block_manager.persistence.doctrine.layout.mapper.class%"
+        class: Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper
         public: false
 
     netgen_block_manager.persistence.doctrine.layout.handler:
-        class: "%netgen_block_manager.persistence.doctrine.layout.handler.class%"
+        class: Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler
         public: false
         arguments:
             - "@netgen_block_manager.persistence.doctrine.layout.query_handler"
@@ -88,18 +47,18 @@ services:
     # Block related persistence APIs
 
     netgen_block_manager.persistence.doctrine.block.query_handler:
-        class: "%netgen_block_manager.persistence.doctrine.block.query_handler.class%"
+        class: Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler
         public: false
         arguments:
             - "@database_connection"
             - "@netgen_block_manager.persistence.doctrine.helper.connection"
 
     netgen_block_manager.persistence.doctrine.block.mapper:
-        class: "%netgen_block_manager.persistence.doctrine.block.mapper.class%"
+        class: Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper
         public: false
 
     netgen_block_manager.persistence.doctrine.block.handler:
-        class: "%netgen_block_manager.persistence.doctrine.block.handler.class%"
+        class: Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler
         public: false
         arguments:
             - "@netgen_block_manager.persistence.doctrine.block.query_handler"
@@ -110,18 +69,18 @@ services:
     # Collection related persistence APIs
 
     netgen_block_manager.persistence.doctrine.collection.query_handler:
-        class: "%netgen_block_manager.persistence.doctrine.collection.query_handler.class%"
+        class: Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler
         public: false
         arguments:
             - "@database_connection"
             - "@netgen_block_manager.persistence.doctrine.helper.connection"
 
     netgen_block_manager.persistence.doctrine.collection.mapper:
-        class: "%netgen_block_manager.persistence.doctrine.collection.mapper.class%"
+        class: Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper
         public: false
 
     netgen_block_manager.persistence.doctrine.collection.handler:
-        class: "%netgen_block_manager.persistence.doctrine.collection.handler.class%"
+        class: Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler
         public: false
         arguments:
             - "@netgen_block_manager.persistence.doctrine.collection.query_handler"
@@ -131,7 +90,7 @@ services:
     # Layout resolver related persistence APIs
 
     netgen_block_manager.persistence.doctrine.layout_resolver.query_handler:
-        class: "%netgen_block_manager.persistence.doctrine.layout_resolver.query_handler.class%"
+        class: Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler
         public: false
         arguments:
             - "@database_connection"
@@ -139,11 +98,11 @@ services:
             - []
 
     netgen_block_manager.persistence.doctrine.layout_resolver.mapper:
-        class: "%netgen_block_manager.persistence.doctrine.layout_resolver.mapper.class%"
+        class: Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper
         public: false
 
     netgen_block_manager.persistence.doctrine.layout_resolver.handler:
-        class: "%netgen_block_manager.persistence.doctrine.layout_resolver.handler.class%"
+        class: Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler
         public: false
         arguments:
             - "@netgen_block_manager.persistence.doctrine.layout_resolver.query_handler"
@@ -152,7 +111,7 @@ services:
     # Repository
 
     netgen_block_manager.core.repository:
-        class: "%netgen_block_manager.core.repository.class%"
+        class: Netgen\BlockManager\Core\Repository
         arguments:
             - "@netgen_block_manager.core.service.layout"
             - "@netgen_block_manager.core.service.block"
@@ -163,19 +122,19 @@ services:
     # Layout related APIs
 
     netgen_block_manager.core.service.layout.validator:
-        class: "%netgen_block_manager.core.service.layout.validator.class%"
+        class: Netgen\BlockManager\Core\Service\Validator\LayoutValidator
         calls:
             - [setValidator, ["@validator"]]
 
     netgen_block_manager.core.service.layout.mapper:
-        class: "%netgen_block_manager.core.service.layout.mapper.class%"
+        class: Netgen\BlockManager\Core\Service\Mapper\LayoutMapper
         arguments:
             - "@netgen_block_manager.core.service.block.mapper"
             - "@netgen_block_manager.persistence.handler"
             - "@netgen_block_manager.configuration.registry.layout_type"
 
     netgen_block_manager.core.service.layout:
-        class: "%netgen_block_manager.core.service.layout.class%"
+        class: Netgen\BlockManager\Core\Service\LayoutService
         arguments:
             - "@netgen_block_manager.core.service.layout.validator"
             - "@netgen_block_manager.core.service.layout.mapper"
@@ -185,14 +144,14 @@ services:
     # Block related APIs
 
     netgen_block_manager.core.service.block.validator:
-        class: "%netgen_block_manager.core.service.block.validator.class%"
+        class: Netgen\BlockManager\Core\Service\Validator\BlockValidator
         arguments:
             - "@netgen_block_manager.block.registry.block_definition"
         calls:
             - [setValidator, ["@validator"]]
 
     netgen_block_manager.core.service.block.mapper:
-        class: "%netgen_block_manager.core.service.block.mapper.class%"
+        class: Netgen\BlockManager\Core\Service\Mapper\BlockMapper
         arguments:
             - "@netgen_block_manager.persistence.handler"
             - "@netgen_block_manager.core.service.collection.mapper"
@@ -200,7 +159,7 @@ services:
             - "@netgen_block_manager.block.registry.block_definition"
 
     netgen_block_manager.core.service.block:
-        class: "%netgen_block_manager.core.service.block.class%"
+        class: Netgen\BlockManager\Core\Service\BlockService
         arguments:
             - "@netgen_block_manager.core.service.block.validator"
             - "@netgen_block_manager.core.service.block.mapper"
@@ -212,21 +171,21 @@ services:
     # Collection related APIs
 
     netgen_block_manager.core.service.collection.validator:
-        class: "%netgen_block_manager.core.service.collection.validator.class%"
+        class: Netgen\BlockManager\Core\Service\Validator\CollectionValidator
         arguments:
             - "@netgen_block_manager.collection.registry.query_type"
         calls:
             - [setValidator, ["@validator"]]
 
     netgen_block_manager.core.service.collection.mapper:
-        class: "%netgen_block_manager.core.service.collection.mapper.class%"
+        class: Netgen\BlockManager\Core\Service\Mapper\CollectionMapper
         arguments:
             - "@netgen_block_manager.persistence.handler"
             - "@netgen_block_manager.core.service.parameter_mapper"
             - "@netgen_block_manager.collection.registry.query_type"
 
     netgen_block_manager.core.service.collection:
-        class: "%netgen_block_manager.core.service.collection.class%"
+        class: Netgen\BlockManager\Core\Service\CollectionService
         arguments:
             - "@netgen_block_manager.core.service.collection.validator"
             - "@netgen_block_manager.core.service.collection.mapper"
@@ -237,7 +196,7 @@ services:
     # Layout resolver related APIs
 
     netgen_block_manager.core.service.layout_resolver.validator:
-        class: "%netgen_block_manager.core.service.layout_resolver.validator.class%"
+        class: Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator
         arguments:
             - "@netgen_block_manager.layout.resolver.registry.target_type"
             - "@netgen_block_manager.layout.resolver.registry.condition_type"
@@ -245,7 +204,7 @@ services:
             - [setValidator, ["@validator"]]
 
     netgen_block_manager.core.service.layout_resolver.mapper:
-        class: "%netgen_block_manager.core.service.layout_resolver.mapper.class%"
+        class: Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper
         arguments:
             - "@netgen_block_manager.persistence.handler"
             - "@netgen_block_manager.core.service.layout.mapper"
@@ -253,14 +212,14 @@ services:
             - "@netgen_block_manager.layout.resolver.registry.condition_type"
 
     netgen_block_manager.core.service.layout_resolver:
-        class: "%netgen_block_manager.core.service.layout_resolver.class%"
+        class: Netgen\BlockManager\Core\Service\LayoutResolverService
         arguments:
             - "@netgen_block_manager.core.service.layout_resolver.validator"
             - "@netgen_block_manager.core.service.layout_resolver.mapper"
             - "@netgen_block_manager.persistence.handler"
 
     netgen_block_manager.core.service.parameter_mapper:
-        class: "%netgen_block_manager.core.service.parameter_mapper.class%"
+        class: Netgen\BlockManager\Core\Service\Mapper\ParameterMapper
 
     # Service aliases
 

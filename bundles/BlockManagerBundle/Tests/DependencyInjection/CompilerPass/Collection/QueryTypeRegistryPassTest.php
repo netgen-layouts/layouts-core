@@ -27,10 +27,6 @@ class QueryTypeRegistryPassTest extends AbstractCompilerPassTestCase
     {
         $queryTypes = array('query_type' => array('config'));
         $this->setParameter('netgen_block_manager.query_types', $queryTypes);
-        $this->setParameter('netgen_block_manager.collection.query_type.configuration.factory.class', 'factory_class');
-        $this->setParameter('netgen_block_manager.collection.query_type.configuration.class', 'config_class');
-        $this->setParameter('netgen_block_manager.collection.query_type.class', 'definition_class');
-        $this->setParameter('netgen_block_manager.collection.query_type.factory.class', 'factory_class');
 
         $this->setDefinition('netgen_block_manager.collection.registry.query_type', new Definition());
 
@@ -41,31 +37,7 @@ class QueryTypeRegistryPassTest extends AbstractCompilerPassTestCase
         $this->compile();
 
         $this->assertContainerBuilderHasService(
-            'netgen_block_manager.collection.query_type.configuration.query_type',
-            'config_class'
-        );
-
-        $this->assertContainerBuilderHasService(
-            'netgen_block_manager.collection.query_type.query_type',
-            'definition_class'
-        );
-
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'netgen_block_manager.collection.query_type.query_type',
-            0,
-            'query_type'
-        );
-
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'netgen_block_manager.collection.query_type.query_type',
-            1,
-            new Reference('netgen_block_manager.collection.query_type.handler.test')
-        );
-
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'netgen_block_manager.collection.query_type.query_type',
-            2,
-            new Reference('netgen_block_manager.collection.query_type.configuration.query_type')
+            'netgen_block_manager.collection.query_type.query_type'
         );
 
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
@@ -85,9 +57,6 @@ class QueryTypeRegistryPassTest extends AbstractCompilerPassTestCase
     {
         $queryTypes = array('query_type' => array('config'));
         $this->setParameter('netgen_block_manager.query_types', $queryTypes);
-        $this->setParameter('netgen_block_manager.collection.query_type.configuration.factory.class', 'factory_class');
-        $this->setParameter('netgen_block_manager.collection.query_type.configuration.class', 'config_class');
-        $this->setParameter('netgen_block_manager.collection.query_type.class', 'definition_class');
 
         $this->setDefinition('netgen_block_manager.collection.registry.query_type', new Definition());
 
@@ -106,9 +75,6 @@ class QueryTypeRegistryPassTest extends AbstractCompilerPassTestCase
     {
         $queryTypes = array('query_type' => array('config'));
         $this->setParameter('netgen_block_manager.query_types', $queryTypes);
-        $this->setParameter('netgen_block_manager.collection.query_type.configuration.factory.class', 'factory_class');
-        $this->setParameter('netgen_block_manager.collection.query_type.configuration.class', 'config_class');
-        $this->setParameter('netgen_block_manager.collection.query_type.class', 'definition_class');
 
         $this->setDefinition('netgen_block_manager.collection.registry.query_type', new Definition());
 

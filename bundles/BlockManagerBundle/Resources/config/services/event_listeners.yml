@@ -1,56 +1,44 @@
-parameters:
-    netgen_block_manager.event_listener.exception_conversion.class: Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener
-    netgen_block_manager.event_listener.exception_serializer.class: Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionSerializerListener
-    netgen_block_manager.event_listener.serializer.class: Netgen\Bundle\BlockManagerBundle\EventListener\SerializerListener
-    netgen_block_manager.event_listener.request_body_listener.class: Netgen\Bundle\BlockManagerBundle\EventListener\RequestBodyListener
-    netgen_block_manager.event_listener.view_renderer.class: Netgen\Bundle\BlockManagerBundle\EventListener\ViewRendererListener
-    netgen_block_manager.event_listener.set_is_api_request.class: Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener
-    netgen_block_manager.event_listener.api_csrf_validation_listener.class: Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\ApiCsrfValidationListener
-
-    netgen_block_manager.event_listener.block_view.get_collection_results.class: Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener
-    netgen_block_manager.event_listener.block_view.get_dynamic_parameters.class: Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetDynamicParametersListener
-
 services:
     netgen_block_manager.event_listener.exception_conversion:
-        class: "%netgen_block_manager.event_listener.exception_conversion.class%"
+        class: Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener
         tags:
             - { name: kernel.event_subscriber }
 
     netgen_block_manager.event_listener.exception_serializer:
-        class: "%netgen_block_manager.event_listener.exception_serializer.class%"
+        class: Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionSerializerListener
         arguments:
             - "@serializer"
         tags:
             - { name: kernel.event_subscriber }
 
     netgen_block_manager.event_listener.serializer:
-        class: "%netgen_block_manager.event_listener.serializer.class%"
+        class: Netgen\Bundle\BlockManagerBundle\EventListener\SerializerListener
         arguments:
             - "@serializer"
         tags:
             - { name: kernel.event_subscriber }
 
     netgen_block_manager.event_listener.request_body_listener:
-        class: "%netgen_block_manager.event_listener.request_body_listener.class%"
+        class: Netgen\Bundle\BlockManagerBundle\EventListener\RequestBodyListener
         arguments:
             - "@serializer"
         tags:
             - { name: kernel.event_subscriber }
 
     netgen_block_manager.event_listener.view_renderer:
-        class: "%netgen_block_manager.event_listener.view_renderer.class%"
+        class: Netgen\Bundle\BlockManagerBundle\EventListener\ViewRendererListener
         arguments:
             - "@netgen_block_manager.view.renderer"
         tags:
             - { name: kernel.event_subscriber }
 
     netgen_block_manager.event_listener.set_is_api_request:
-        class: "%netgen_block_manager.event_listener.set_is_api_request.class%"
+        class: Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener
         tags:
             - { name: kernel.event_subscriber }
 
     netgen_block_manager.event_listener.api_csrf_validation_listener:
-        class: "%netgen_block_manager.event_listener.api_csrf_validation_listener.class%"
+        class: Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\ApiCsrfValidationListener
         arguments:
             - "@security.csrf.token_manager"
             - "%netgen_block_manager.api.csrf_token_id%"
@@ -58,7 +46,7 @@ services:
             - { name: kernel.event_subscriber }
 
     netgen_block_manager.event_listener.block_view.get_collection_results:
-        class: "%netgen_block_manager.event_listener.block_view.get_collection_results.class%"
+        class: Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener
         arguments:
             - "@netgen_block_manager.collection.result_loader"
             - "@netgen_block_manager.api.service.block"
@@ -68,6 +56,6 @@ services:
             - { name: kernel.event_subscriber }
 
     netgen_block_manager.event_listener.block_view.get_dynamic_parameters:
-        class: "%netgen_block_manager.event_listener.block_view.get_dynamic_parameters.class%"
+        class: Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetDynamicParametersListener
         tags:
             - { name: kernel.event_subscriber }

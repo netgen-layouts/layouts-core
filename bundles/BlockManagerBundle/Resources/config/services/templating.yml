@@ -1,13 +1,9 @@
 parameters:
     netgen_block_manager.controller.block_controller: 'ngbm_block:viewBlock'
-    netgen_block_manager.templating.global_variable.class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable
-    netgen_block_manager.templating.twig.extension.rendering.class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension
-    netgen_block_manager.templating.twig.extension.item.class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\ItemExtension
-    netgen_block_manager.templating.pagelayout_resolver.default.class: Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolver
 
 services:
     netgen_block_manager.templating.global_variable:
-        class: "%netgen_block_manager.templating.global_variable.class%"
+        class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable
         arguments:
             - "@netgen_block_manager.configuration"
             - "@netgen_block_manager.layout.resolver"
@@ -15,7 +11,7 @@ services:
             - "@netgen_block_manager.view.builder"
 
     netgen_block_manager.templating.twig.extension.rendering:
-        class: "%netgen_block_manager.templating.twig.extension.rendering.class%"
+        class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension
         arguments:
             - "@netgen_block_manager.api.service.layout"
             - "@netgen_block_manager.templating.global_variable"
@@ -30,7 +26,7 @@ services:
             - { name: monolog.logger, channel: ngbm }
 
     netgen_block_manager.templating.twig.extension.item:
-        class: "%netgen_block_manager.templating.twig.extension.item.class%"
+        class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\ItemExtension
         arguments:
             - "@netgen_block_manager.item.item_loader"
             - "@netgen_block_manager.item.url_builder"
@@ -42,7 +38,7 @@ services:
             - { name: monolog.logger, channel: ngbm }
 
     netgen_block_manager.templating.pagelayout_resolver.default:
-        class: "%netgen_block_manager.templating.pagelayout_resolver.default.class%"
+        class: Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolver
         arguments:
             - "%netgen_block_manager.pagelayout%"
 

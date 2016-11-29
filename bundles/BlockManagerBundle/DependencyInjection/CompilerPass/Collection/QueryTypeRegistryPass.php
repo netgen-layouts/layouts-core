@@ -2,6 +2,10 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection;
 
+use Netgen\BlockManager\Collection\QueryType;
+use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
+use Netgen\BlockManager\Collection\QueryType\Configuration\Factory;
+use Netgen\BlockManager\Collection\QueryTypeFactory;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -30,18 +34,11 @@ class QueryTypeRegistryPass implements CompilerPassInterface
         $queryTypes = $container->getParameter('netgen_block_manager.query_types');
         foreach ($queryTypes as $type => $queryType) {
             $configServiceName = sprintf('netgen_block_manager.collection.query_type.configuration.%s', $type);
-            $configService = new Definition(
-                $container->getParameter('netgen_block_manager.collection.query_type.configuration.class')
-            );
+            $configService = new Definition(Configuration::class);
 
             $configService->setArguments(array($type, $queryType));
             $configService->setPublic(false);
-            $configService->setFactory(
-                array(
-                    $container->getParameter('netgen_block_manager.collection.query_type.configuration.factory.class'),
-                    'buildConfig',
-                )
-            );
+            $configService->setFactory(array(Factory::class, 'buildConfig'));
 
             $container->setDefinition($configServiceName, $configService);
 
@@ -69,20 +66,13 @@ class QueryTypeRegistryPass implements CompilerPassInterface
             }
 
             $queryTypeServiceName = sprintf('netgen_block_manager.collection.query_type.%s', $type);
-            $queryTypeService = new Definition(
-                $container->getParameter('netgen_block_manager.collection.query_type.class')
-            );
+            $queryTypeService = new Definition(QueryType::class);
 
             $queryTypeService->addArgument($type);
             $queryTypeService->addArgument(new Reference($foundHandler));
             $queryTypeService->addArgument(new Reference($configServiceName));
             $queryTypeService->addArgument(new Reference('netgen_block_manager.parameters.parameter_builder'));
-            $queryTypeService->setFactory(
-                array(
-                    $container->getParameter('netgen_block_manager.collection.query_type.factory.class'),
-                    'buildQueryType',
-                )
-            );
+            $queryTypeService->setFactory(array(QueryTypeFactory::class, 'buildQueryType'));
 
             $container->setDefinition($queryTypeServiceName, $queryTypeService);
 
