@@ -1,14 +1,14 @@
 parameters:
-    netgen_block_manager.browser.backend.layout.class: Netgen\Bundle\BlockManagerBundle\Browser\Backend\LayoutBackend
+    netgen_block_manager.browser.backend.layout.class: Netgen\BlockManager\Browser\Backend\LayoutBackend
 
-    netgen_block_manager.browser.serializer.handler.layout.class: Netgen\Bundle\BlockManagerBundle\Browser\Item\Serializer\LayoutSerializerHandler
-    netgen_block_manager.browser.template_value_provider.layout.class: Netgen\Bundle\BlockManagerBundle\Browser\Item\Renderer\LayoutTemplateValueProvider
+    netgen_block_manager.browser.serializer.handler.layout.class: Netgen\BlockManager\Browser\Item\Serializer\LayoutSerializerHandler
+    netgen_block_manager.browser.template_value_provider.layout.class: Netgen\BlockManager\Browser\Item\Renderer\LayoutTemplateValueProvider
 
-    netgen_block_manager.browser.column_value_provider.layout.layout_id.class: Netgen\Bundle\BlockManagerBundle\Browser\Item\ColumnProvider\Layout\LayoutId
-    netgen_block_manager.browser.column_value_provider.layout.type.class: Netgen\Bundle\BlockManagerBundle\Browser\Item\ColumnProvider\Layout\Type
-    netgen_block_manager.browser.column_value_provider.layout.created.class: Netgen\Bundle\BlockManagerBundle\Browser\Item\ColumnProvider\Layout\Created
-    netgen_block_manager.browser.column_value_provider.layout.modified.class: Netgen\Bundle\BlockManagerBundle\Browser\Item\ColumnProvider\Layout\Modified
-    netgen_block_manager.browser.column_value_provider.layout.shared.class: Netgen\Bundle\BlockManagerBundle\Browser\Item\ColumnProvider\Layout\Shared
+    netgen_block_manager.browser.column_value_provider.layout.layout_id.class: Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\LayoutId
+    netgen_block_manager.browser.column_value_provider.layout.type.class: Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Type
+    netgen_block_manager.browser.column_value_provider.layout.created.class: Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Created
+    netgen_block_manager.browser.column_value_provider.layout.modified.class: Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Modified
+    netgen_block_manager.browser.column_value_provider.layout.shared.class: Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Shared
 
 services:
     netgen_block_manager.browser.backend.layout:
