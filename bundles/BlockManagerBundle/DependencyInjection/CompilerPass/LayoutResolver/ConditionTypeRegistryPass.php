@@ -31,7 +31,7 @@ class ConditionTypeRegistryPass implements CompilerPassInterface
         }
 
         krsort($conditionTypes);
-        $conditionTypes = call_user_func_array('array_merge', $conditionTypes);
+        $conditionTypes = array_merge(...$conditionTypes);
 
         foreach ($conditionTypes as $conditionType) {
             $conditionTypeRegistry->addMethodCall(

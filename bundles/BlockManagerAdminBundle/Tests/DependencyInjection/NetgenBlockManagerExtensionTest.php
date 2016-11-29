@@ -64,9 +64,8 @@ class NetgenBlockManagerAdminExtensionTest extends AbstractExtensionTestCase
         $extension = $this->container->getExtension('netgen_block_manager_admin');
         $extension->prepend($this->container);
 
-        $config = call_user_func_array(
-            'array_merge_recursive',
-            $this->container->getExtensionConfig('netgen_block_manager')
+        $config = array_merge_recursive(
+            ...$this->container->getExtensionConfig('netgen_block_manager')
         );
 
         $this->assertInternalType('array', $config);

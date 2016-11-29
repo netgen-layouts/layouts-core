@@ -32,7 +32,7 @@ class ViewBuilderPass implements CompilerPassInterface
         }
 
         krsort($viewProviders);
-        $viewProviders = call_user_func_array('array_merge', $viewProviders);
+        $viewProviders = array_merge(...$viewProviders);
 
         $viewBuilder->replaceArgument(2, $viewProviders);
     }

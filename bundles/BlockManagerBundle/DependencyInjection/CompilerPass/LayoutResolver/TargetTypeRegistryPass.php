@@ -31,7 +31,7 @@ class TargetTypeRegistryPass implements CompilerPassInterface
         }
 
         krsort($targetTypes);
-        $targetTypes = call_user_func_array('array_merge', $targetTypes);
+        $targetTypes = array_merge(...$targetTypes);
 
         foreach ($targetTypes as $targetType) {
             $targetTypeRegistry->addMethodCall(

@@ -160,9 +160,8 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
         $extension = $this->container->getExtension('netgen_block_manager');
         $extension->prepend($this->container);
 
-        $config = call_user_func_array(
-            'array_merge_recursive',
-            $this->container->getExtensionConfig('netgen_block_manager')
+        $config = array_merge_recursive(
+            ...$this->container->getExtensionConfig('netgen_block_manager')
         );
 
         $this->assertInternalType('array', $config);
@@ -188,9 +187,8 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
         $this->assertArrayHasKey('default_view_templates', $config);
         $this->assertArrayHasKey('block_view', $config['default_view_templates']);
 
-        $browserConfig = call_user_func_array(
-            'array_merge_recursive',
-            $this->container->getExtensionConfig('netgen_content_browser')
+        $browserConfig = array_merge_recursive(
+            ...$this->container->getExtensionConfig('netgen_content_browser')
         );
 
         $this->assertInternalType('array', $browserConfig);
@@ -207,9 +205,8 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
         $extension = $this->container->getExtension('netgen_block_manager');
         $extension->prepend($this->container);
 
-        $config = call_user_func_array(
-            'array_merge_recursive',
-            $this->container->getExtensionConfig('netgen_block_manager')
+        $config = array_merge_recursive(
+            ...$this->container->getExtensionConfig('netgen_block_manager')
         );
 
         $this->assertInternalType('array', $config);
