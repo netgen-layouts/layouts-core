@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.12, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.16, for Linux (x86_64)
 --
 -- Host: localhost    Database: ngbm
 -- ------------------------------------------------------
--- Server version	5.7.12-0ubuntu1.1
+-- Server version	5.7.16-0ubuntu0.16.10.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -124,8 +124,10 @@ INSERT INTO `ngbm_layout` VALUES (2,1,'4_zones_b','My other layout',1447065813,1
 INSERT INTO `ngbm_layout` VALUES (3,0,'4_zones_b','My third layout',1447065813,1447065813,1);
 INSERT INTO `ngbm_layout` VALUES (3,1,'4_zones_b','My third layout',1447065813,1447065813,1);
 INSERT INTO `ngbm_layout` VALUES (4,0,'4_zones_b','My fourth layout',1447065813,1447065813,0);
+INSERT INTO `ngbm_layout` VALUES (5,0,'4_zones_b','My fifth layout',1447065813,1447065813,1);
 INSERT INTO `ngbm_layout` VALUES (5,1,'4_zones_b','My fifth layout',1447065813,1447065813,1);
 INSERT INTO `ngbm_layout` VALUES (6,1,'4_zones_b','My sixth layout',1447065813,1447065813,0);
+INSERT INTO `ngbm_layout` VALUES (7,0,'4_zones_b','My seventh layout',1447065813,1447065813,0);
 /*!40000 ALTER TABLE `ngbm_layout` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -271,8 +273,11 @@ INSERT INTO `ngbm_zone` VALUES ('bottom',2,1,NULL,NULL);
 INSERT INTO `ngbm_zone` VALUES ('bottom',3,0,NULL,NULL);
 INSERT INTO `ngbm_zone` VALUES ('bottom',3,1,NULL,NULL);
 INSERT INTO `ngbm_zone` VALUES ('bottom',4,0,NULL,NULL);
+INSERT INTO `ngbm_zone` VALUES ('bottom',5,0,NULL,NULL);
 INSERT INTO `ngbm_zone` VALUES ('bottom',5,1,NULL,NULL);
 INSERT INTO `ngbm_zone` VALUES ('bottom',6,1,NULL,NULL);
+INSERT INTO `ngbm_zone` VALUES ('bottom',7,0,NULL,NULL);
+INSERT INTO `ngbm_zone` VALUES ('center',7,0,NULL,NULL);
 INSERT INTO `ngbm_zone` VALUES ('left',1,0,NULL,NULL);
 INSERT INTO `ngbm_zone` VALUES ('left',1,1,NULL,NULL);
 INSERT INTO `ngbm_zone` VALUES ('left',2,0,NULL,NULL);
@@ -280,8 +285,10 @@ INSERT INTO `ngbm_zone` VALUES ('left',2,1,NULL,NULL);
 INSERT INTO `ngbm_zone` VALUES ('left',3,0,NULL,NULL);
 INSERT INTO `ngbm_zone` VALUES ('left',3,1,NULL,NULL);
 INSERT INTO `ngbm_zone` VALUES ('left',4,0,NULL,NULL);
+INSERT INTO `ngbm_zone` VALUES ('left',5,0,NULL,NULL);
 INSERT INTO `ngbm_zone` VALUES ('left',5,1,NULL,NULL);
 INSERT INTO `ngbm_zone` VALUES ('left',6,1,NULL,NULL);
+INSERT INTO `ngbm_zone` VALUES ('left',7,0,NULL,NULL);
 INSERT INTO `ngbm_zone` VALUES ('right',1,0,NULL,NULL);
 INSERT INTO `ngbm_zone` VALUES ('right',1,1,NULL,NULL);
 INSERT INTO `ngbm_zone` VALUES ('right',2,0,NULL,NULL);
@@ -289,8 +296,10 @@ INSERT INTO `ngbm_zone` VALUES ('right',2,1,NULL,NULL);
 INSERT INTO `ngbm_zone` VALUES ('right',3,0,NULL,NULL);
 INSERT INTO `ngbm_zone` VALUES ('right',3,1,NULL,NULL);
 INSERT INTO `ngbm_zone` VALUES ('right',4,0,NULL,NULL);
+INSERT INTO `ngbm_zone` VALUES ('right',5,0,NULL,NULL);
 INSERT INTO `ngbm_zone` VALUES ('right',5,1,NULL,NULL);
 INSERT INTO `ngbm_zone` VALUES ('right',6,1,NULL,NULL);
+INSERT INTO `ngbm_zone` VALUES ('right',7,0,NULL,NULL);
 INSERT INTO `ngbm_zone` VALUES ('top',1,0,NULL,NULL);
 INSERT INTO `ngbm_zone` VALUES ('top',1,1,NULL,NULL);
 INSERT INTO `ngbm_zone` VALUES ('top',2,0,3,'top');
@@ -298,8 +307,10 @@ INSERT INTO `ngbm_zone` VALUES ('top',2,1,3,'top');
 INSERT INTO `ngbm_zone` VALUES ('top',3,0,NULL,NULL);
 INSERT INTO `ngbm_zone` VALUES ('top',3,1,NULL,NULL);
 INSERT INTO `ngbm_zone` VALUES ('top',4,0,NULL,NULL);
+INSERT INTO `ngbm_zone` VALUES ('top',5,0,NULL,NULL);
 INSERT INTO `ngbm_zone` VALUES ('top',5,1,NULL,NULL);
 INSERT INTO `ngbm_zone` VALUES ('top',6,1,NULL,NULL);
+INSERT INTO `ngbm_zone` VALUES ('top',7,0,NULL,NULL);
 /*!40000 ALTER TABLE `ngbm_zone` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -312,4 +323,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-07-07 15:54:19
+-- Dump completed on 2016-11-30 17:06:36
