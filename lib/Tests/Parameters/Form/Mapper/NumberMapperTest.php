@@ -34,10 +34,11 @@ class NumberMapperTest extends TestCase
     public function testMapOptions()
     {
         $parameter = new Parameter(
-            'name',
-            new NumberParameterType(),
             array(
-                'scale' => 6,
+                'type' => new NumberParameterType(),
+                'options' => array(
+                    'scale' => 6,
+                ),
             )
         );
 

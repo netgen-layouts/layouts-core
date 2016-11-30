@@ -2,7 +2,9 @@
 
 namespace Netgen\BlockManager\Parameters;
 
-class Parameter implements ParameterInterface
+use Netgen\BlockManager\ValueObject;
+
+class Parameter extends ValueObject implements ParameterInterface
 {
     /**
      * @var string
@@ -17,21 +19,22 @@ class Parameter implements ParameterInterface
     /**
      * @var array
      */
-    protected $options = array();
+    protected $options;
 
     /**
-     * Constructor.
-     *
-     * @param string $name
-     * @param \Netgen\BlockManager\Parameters\ParameterTypeInterface $type
-     * @param array $options
+     * @var bool
      */
-    public function __construct($name, ParameterTypeInterface $type, array $options = array())
-    {
-        $this->name = $name;
-        $this->type = $type;
-        $this->options = $options;
-    }
+    protected $isRequired;
+
+    /**
+     * @var mixed
+     */
+    protected $defaultValue;
+
+    /**
+     * @var array
+     */
+    protected $groups;
 
     /**
      * Returns the parameter name.
@@ -70,7 +73,7 @@ class Parameter implements ParameterInterface
      */
     public function isRequired()
     {
-        return isset($this->options['required']) ? $this->options['required'] : false;
+        return $this->isRequired;
     }
 
     /**
@@ -80,7 +83,7 @@ class Parameter implements ParameterInterface
      */
     public function getDefaultValue()
     {
-        return isset($this->options['default_value']) ? $this->options['default_value'] : null;
+        return $this->defaultValue;
     }
 
     /**
@@ -88,6 +91,6 @@ class Parameter implements ParameterInterface
      */
     public function getGroups()
     {
-        return isset($this->options['groups']) ? $this->options['groups'] : array();
+        return $this->groups;
     }
 }

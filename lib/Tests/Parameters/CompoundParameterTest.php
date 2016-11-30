@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Parameters;
 
 use Netgen\BlockManager\Exception\InvalidArgumentException;
-use Netgen\BlockManager\Parameters\ParameterType\Compound\BooleanType;
 use Netgen\BlockManager\Parameters\CompoundParameter;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterCollection;
 use PHPUnit\Framework\TestCase;
@@ -19,7 +18,7 @@ class CompoundParameterTest extends TestCase
      */
     public function testDefaultProperties()
     {
-        $parameter = new CompoundParameter('name', new BooleanType());
+        $parameter = new CompoundParameter();
 
         $this->assertEquals(array(), $parameter->getParameters());
         $this->assertFalse($parameter->hasParameter('test'));
@@ -41,15 +40,8 @@ class CompoundParameterTest extends TestCase
     public function testSetProperties()
     {
         $parameter = new CompoundParameter(
-            'name',
-            new BooleanType(),
             array(
-                'required' => true,
-                'default_value' => 42,
-                'groups' => array('group'),
-            ),
-            array(
-                'name' => 'value',
+                'parameters' => array('name' => 'value'),
             )
         );
 

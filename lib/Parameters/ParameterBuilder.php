@@ -15,19 +15,49 @@ class ParameterBuilder implements ParameterBuilderInterface
     protected $parameterTypeRegistry;
 
     /**
+     * @var string
+     */
+    protected $name;
+
+    /**
+     * @var \Netgen\BlockManager\Parameters\ParameterTypeInterface
+     */
+    protected $type;
+
+    /**
      * @var array
      */
-    protected $unresolvedParameters = array();
+    protected $options;
+
+    /**
+     * @var bool
+     */
+    protected $isRequired;
+
+    /**
+     * @var mixed
+     */
+    protected $defaultValue;
+
+    /**
+     * @var array
+     */
+    protected $groups;
+
+    /**
+     * @var \Netgen\BlockManager\Parameters\ParameterBuilderInterface
+     */
+    protected $parentBuilder;
+
+    /**
+     * @var array
+     */
+    protected $unresolvedChildren = array();
 
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterInterface[]
      */
-    protected $resolvedParameters = array();
-
-    /**
-     * @var array
-     */
-    protected $overrideOptions = array();
+    protected $resolvedChildren = array();
 
     /**
      * @var bool
@@ -38,12 +68,183 @@ class ParameterBuilder implements ParameterBuilderInterface
      * Constructor.
      *
      * @param \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface $parameterTypeRegistry
-     * @param array $overrideOptions
+     * @param string $name
+     * @param \Netgen\BlockManager\Parameters\ParameterTypeInterface $type
+     * @param array $options
+     * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $parentBuilder
      */
-    public function __construct(ParameterTypeRegistryInterface $parameterTypeRegistry, array $overrideOptions = array())
-    {
+    public function __construct(
+        ParameterTypeRegistryInterface $parameterTypeRegistry,
+        $name = null,
+        ParameterTypeInterface $type = null,
+        array $options = array(),
+        ParameterBuilderInterface $parentBuilder = null
+    ) {
         $this->parameterTypeRegistry = $parameterTypeRegistry;
-        $this->overrideOptions = $overrideOptions;
+
+        $this->name = $name;
+        $this->type = $type;
+        $this->options = $this->resolveOptions($options);
+
+        $this->isRequired = $this->options['required'];
+        $this->defaultValue = $this->options['default_value'];
+        $this->groups = $this->options['groups'];
+
+        unset(
+            $this->options['required'],
+            $this->options['default_value'],
+            $this->options['groups']
+        );
+
+        $this->parentBuilder = $parentBuilder;
+    }
+
+    /**
+     * Returns the parameter name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Returns the parameter type.
+     *
+     * @return \Netgen\BlockManager\Parameters\ParameterTypeInterface
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Returns the parameter options.
+     *
+     * @return array
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    /**
+     * Returns the parameter option with provided name.
+     *
+     * @param string $name
+     *
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the option does not exist
+     *
+     * @return mixed
+     */
+    public function getOption($name)
+    {
+        if (!array_key_exists($name, $this->options)) {
+            throw new InvalidArgumentException(
+                'name',
+                sprintf(
+                    'Option "%s" does not exist in builder for "%s" parameter',
+                    $name,
+                    $this->name
+                )
+            );
+        }
+
+        return $this->options[$name];
+    }
+
+    /**
+     * Returns if the parameter option with provided name exists.
+     *
+     * @param string $name
+     *
+     * @return bool
+     */
+    public function hasOption($name)
+    {
+        return array_key_exists($name, $this->options);
+    }
+
+    /**
+     * Returns if the parameter is required.
+     *
+     * @return bool
+     */
+    public function isRequired()
+    {
+        return $this->isRequired;
+    }
+
+    /**
+     * Sets if the parameter is required.
+     *
+     * @param bool $isRequired
+     *
+     * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface
+     */
+    public function setRequired($isRequired)
+    {
+        $this->isRequired = (bool)$isRequired;
+
+        return $this;
+    }
+
+    /**
+     * Returns the default value of the parameter.
+     *
+     * @return mixed
+     */
+    public function getDefaultValue()
+    {
+        return $this->defaultValue;
+    }
+
+    /**
+     * Sets the default value of the parameter.
+     *
+     * @param mixed $defaultValue
+     *
+     * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface
+     */
+    public function setDefaultValue($defaultValue)
+    {
+        $this->defaultValue = $defaultValue;
+
+        return $this;
+    }
+
+    /**
+     * Returns the parameter groups.
+     *
+     * @return array
+     */
+    public function getGroups()
+    {
+        if (!$this->parentBuilder instanceof ParameterBuilderInterface) {
+            return $this->groups;
+        }
+
+        if (!$this->parentBuilder->getType() instanceof CompoundParameterTypeInterface) {
+            return $this->groups;
+        }
+
+        // Child parameters receive the group from the parent
+        return $this->parentBuilder->getGroups();
+    }
+
+    /**
+     * Sets the parameter groups.
+     *
+     * @param array $groups
+     *
+     * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface
+     */
+    public function setGroups(array $groups)
+    {
+        $this->groups = $groups;
+
+        return $this;
     }
 
     /**
@@ -63,24 +264,36 @@ class ParameterBuilder implements ParameterBuilderInterface
 
         $type = $this->parameterTypeRegistry->getParameterTypeByClass($type);
 
-        $this->unresolvedParameters[$name] = array(
-            'type' => $type,
-            'options' => $this->overrideOptions + $options,
-        );
-
-        if ($type instanceof CompoundParameterTypeInterface) {
-            $childBuilder = new self(
-                $this->parameterTypeRegistry,
-                array(
-                    // Child parameters receive the group from the parent
-                    'groups' => isset($options['groups']) ? $options['groups'] : array(),
+        if (
+            $this->type instanceof CompoundParameterTypeInterface &&
+            $type instanceof CompoundParameterTypeInterface
+        ) {
+            throw new InvalidArgumentException(
+                'name',
+                sprintf(
+                    'Compound parameters cannot be added to compound parameters.',
+                    $name
                 )
             );
-
-            $type->buildParameters($childBuilder);
-
-            $this->unresolvedParameters[$name]['builder'] = $childBuilder;
         }
+
+        if ($this->type !== null && !$this->type instanceof CompoundParameterTypeInterface) {
+            throw new InvalidArgumentException(
+                'name',
+                sprintf(
+                    'Parameters cannot be added to non-compound parameters.',
+                    $name
+                )
+            );
+        }
+
+        $this->unresolvedChildren[$name] = new self(
+            $this->parameterTypeRegistry,
+            $name,
+            $type,
+            $options,
+            $this
+        );
 
         return $this;
     }
@@ -108,17 +321,7 @@ class ParameterBuilder implements ParameterBuilderInterface
             );
         }
 
-        if (!$this->unresolvedParameters[$name]['type'] instanceof CompoundParameterTypeInterface) {
-            throw new InvalidArgumentException(
-                'name',
-                sprintf(
-                    'Parameter with "%s" name is not compound.',
-                    $name
-                )
-            );
-        }
-
-        return $this->unresolvedParameters[$name]['builder'];
+        return $this->unresolvedChildren[$name];
     }
 
     /**
@@ -130,7 +333,7 @@ class ParameterBuilder implements ParameterBuilderInterface
      */
     public function has($name)
     {
-        return isset($this->unresolvedParameters[$name]);
+        return isset($this->unresolvedChildren[$name]);
     }
 
     /**
@@ -146,7 +349,7 @@ class ParameterBuilder implements ParameterBuilderInterface
             throw new BadMethodCallException('Removing parameters is not possible after parameters have been built.');
         }
 
-        unset($this->unresolvedParameters[$name]);
+        unset($this->unresolvedChildren[$name]);
 
         return $this;
     }
@@ -158,7 +361,7 @@ class ParameterBuilder implements ParameterBuilderInterface
      */
     public function count()
     {
-        return count($this->unresolvedParameters);
+        return count($this->unresolvedChildren);
     }
 
     /**
@@ -169,64 +372,57 @@ class ParameterBuilder implements ParameterBuilderInterface
     public function buildParameters()
     {
         if ($this->locked) {
-            return $this->resolvedParameters;
+            return $this->resolvedChildren;
         }
 
-        foreach ($this->unresolvedParameters as $parameterName => $parameterOptions) {
-            $parameterType = $parameterOptions['type'];
+        if ($this->type instanceof CompoundParameterTypeInterface) {
+            $this->type->buildParameters($this);
+        }
 
-            $childParameters = array();
-            if (isset($parameterOptions['builder'])) {
-                $childParameters = $parameterOptions['builder']->buildParameters();
-            }
-
-            $resolvedOptions = $this->resolveOptions($parameterType, $parameterOptions['options']);
-
-            $this->resolvedParameters[$parameterName] = $this->buildParameter(
-                $parameterName,
-                $parameterType,
-                $resolvedOptions,
-                $childParameters
-            );
+        foreach ($this->unresolvedChildren as $name => $builder) {
+            $this->resolvedChildren[$name] = $this->buildParameter($builder);
         }
 
         $this->locked = true;
 
-        return $this->resolvedParameters;
+        return $this->resolvedChildren;
     }
 
     /**
      * Builds the parameter.
      *
-     * @param string $name
-     * @param \Netgen\BlockManager\Parameters\ParameterTypeInterface $type
-     * @param array $options
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface[] $childParameters
+     * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $builder
      *
      * @return \Netgen\BlockManager\Parameters\ParameterInterface
      */
-    protected function buildParameter(
-        $name,
-        ParameterTypeInterface $type,
-        array $options = array(),
-        array $childParameters = array()
-    ) {
-        if (!empty($childParameters)) {
-            return new CompoundParameter($name, $type, $options, $childParameters);
+    protected function buildParameter(ParameterBuilderInterface $builder)
+    {
+        $data = array(
+            'name' => $builder->getName(),
+            'type' => $builder->getType(),
+            'options' => $builder->getOptions(),
+            'isRequired' => $builder->isRequired(),
+            'defaultValue' => $builder->getDefaultValue(),
+            'groups' => $builder->getGroups(),
+        );
+
+        if (!$builder->getType() instanceof CompoundParameterTypeInterface) {
+            return new Parameter($data);
         }
 
-        return new Parameter($name, $type, $options);
+        $data['parameters'] = $builder->buildParameters();
+
+        return new CompoundParameter($data);
     }
 
     /**
      * Resolves the parameter options.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterTypeInterface $parameterType
      * @param array $options
      *
      * @return array
      */
-    protected function resolveOptions(ParameterTypeInterface $parameterType, array $options = array())
+    protected function resolveOptions(array $options)
     {
         $optionsResolver = new OptionsResolver();
 
@@ -234,7 +430,9 @@ class ParameterBuilder implements ParameterBuilderInterface
         $optionsResolver->setDefault('required', false);
         $optionsResolver->setDefault('groups', array());
 
-        $parameterType->configureOptions($optionsResolver);
+        if ($this->type instanceof ParameterTypeInterface) {
+            $this->type->configureOptions($optionsResolver);
+        }
 
         $optionsResolver->setRequired(array('required', 'default_value', 'groups'));
 

@@ -9,21 +9,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class Parameter extends BaseParameter
 {
     /**
-     * @var bool
-     */
-    protected $isRequired;
-
-    /**
-     * @var mixed
-     */
-    protected $defaultValue;
-
-    /**
-     * @var array
-     */
-    protected $groups;
-
-    /**
      * Constructor.
      *
      * @param string $name
@@ -41,9 +26,6 @@ class Parameter extends BaseParameter
         $defaultValue = null,
         array $groups = array()
     ) {
-        $this->name = $name;
-        $this->type = $type;
-
         $optionsResolver = new OptionsResolver();
 
         $optionsResolver->setDefined(array('groups', 'default_value', 'required'));
@@ -62,14 +44,21 @@ class Parameter extends BaseParameter
             $options['default_value'] = $defaultValue;
         }
 
-        $this->type->configureOptions($optionsResolver);
-        $this->options = $optionsResolver->resolve($options);
+        $type->configureOptions($optionsResolver);
+        $options = $optionsResolver->resolve($options);
 
-        $this->isRequired = $this->options['required'];
-        $this->defaultValue = $this->options['default_value'];
-        $this->groups = $this->options['groups'];
+        $data = array(
+            'name' => $name,
+            'type' => $type,
+            'isRequired' => $options['required'],
+            'defaultValue' => $options['default_value'],
+            'groups' => $options['groups'],
+        );
 
-        unset($this->options['required'], $this->options['default_value'], $this->options['groups']);
+        unset($options['required'], $options['default_value'], $options['groups']);
+        $data['options'] = $options;
+
+        parent::__construct($data);
     }
 
     /**

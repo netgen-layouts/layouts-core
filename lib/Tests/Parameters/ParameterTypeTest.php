@@ -30,7 +30,11 @@ class ParameterTypeTest extends TestCase
         $this->assertEquals(
             array(),
             $this->parameterType->getConstraints(
-                new Parameter('name', new ParameterType()),
+                new Parameter(
+                    array(
+                        'type' => new ParameterType(),
+                    )
+                ),
                 42
             )
         );
@@ -46,7 +50,12 @@ class ParameterTypeTest extends TestCase
         $this->assertEquals(
             array(new NotBlank()),
             $this->parameterType->getConstraints(
-                new Parameter('name', new ParameterType(), array('required' => true)),
+                new Parameter(
+                    array(
+                        'type' => new ParameterType(),
+                        'isRequired' => true,
+                    )
+                ),
                 42
             )
         );
@@ -59,7 +68,7 @@ class ParameterTypeTest extends TestCase
     public function testGetConstraintsThrowsInvalidArgumentException()
     {
         $this->parameterType->getConstraints(
-            new Parameter('name', new TextType()),
+            new Parameter(array('type' => new TextType())),
             42
         );
     }

@@ -42,7 +42,7 @@ class ParameterValueTest extends TestCase
         $parameterValue = new ParameterValue(
             array(
                 'name' => 'param_name',
-                'parameter' => new Parameter('param_name', new TextType()),
+                'parameter' => new Parameter(),
                 'parameterType' => new TextType(),
                 'value' => 42,
                 'isEmpty' => false,
@@ -50,7 +50,7 @@ class ParameterValueTest extends TestCase
         );
 
         $this->assertEquals('param_name', $parameterValue->getName());
-        $this->assertEquals(new Parameter('param_name', new TextType()), $parameterValue->getParameter());
+        $this->assertEquals(new Parameter(), $parameterValue->getParameter());
         $this->assertEquals(new TextType(), $parameterValue->getParameterType());
         $this->assertEquals(42, $parameterValue->getValue());
         $this->assertFalse($parameterValue->isEmpty());

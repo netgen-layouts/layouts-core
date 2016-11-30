@@ -19,14 +19,14 @@ class ParameterTest extends TestCase
      */
     public function testSetDefaultProperties()
     {
-        $parameter = new Parameter('name', new TextType());
+        $parameter = new Parameter();
 
-        $this->assertEquals('name', $parameter->getName());
-        $this->assertEquals(new TextType(), $parameter->getType());
-        $this->assertEquals(array(), $parameter->getOptions());
-        $this->assertFalse($parameter->isRequired());
+        $this->assertNull($parameter->getName());
+        $this->assertnull($parameter->getType());
+        $this->assertNull($parameter->getOptions());
+        $this->assertNull($parameter->isRequired());
         $this->assertNull($parameter->getDefaultValue());
-        $this->assertEquals(array(), $parameter->getGroups());
+        $this->assertNull($parameter->getGroups());
     }
 
     /**
@@ -40,28 +40,21 @@ class ParameterTest extends TestCase
     public function testSetProperties()
     {
         $parameter = new Parameter(
-            'name',
-            new TextType(),
             array(
-                'required' => true,
-                'default_value' => 42,
+                'name' => 'name',
+                'type' => new TextType(),
+                'options' => array('option'),
+                'isRequired' => true,
+                'defaultValue' => 42,
                 'groups' => array('group'),
             )
         );
 
         $this->assertEquals('name', $parameter->getName());
         $this->assertEquals(new TextType(), $parameter->getType());
+        $this->assertEquals(array('option'), $parameter->getOptions());
         $this->assertTrue($parameter->isRequired());
         $this->assertEquals(42, $parameter->getDefaultValue());
         $this->assertEquals(array('group'), $parameter->getGroups());
-
-        $this->assertEquals(
-            array(
-                'required' => true,
-                'default_value' => 42,
-                'groups' => array('group'),
-            ),
-            $parameter->getOptions()
-        );
     }
 }

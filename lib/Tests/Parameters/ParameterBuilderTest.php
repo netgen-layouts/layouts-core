@@ -33,6 +33,209 @@ class ParameterBuilderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::__construct
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::getName
+     */
+    public function testGetName()
+    {
+        $this->builder->add(
+            'test',
+            ParameterType\TextType::class,
+            array(
+                'required' => true,
+                'default_value' => 'test value',
+                'groups' => array('group'),
+            )
+        );
+
+        $this->assertEquals('test', $this->builder->get('test')->getName());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::getType
+     */
+    public function testGetType()
+    {
+        $this->builder->add(
+            'test',
+            ParameterType\TextType::class,
+            array(
+                'required' => true,
+                'default_value' => 'test value',
+                'groups' => array('group'),
+            )
+        );
+
+        $this->assertEquals(
+            $this->registry->getParameterType('text'),
+            $this->builder->get('test')->getType()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::getOptions
+     */
+    public function testGetOptions()
+    {
+        $this->builder->add(
+            'test',
+            ParameterType\Compound\BooleanType::class,
+            array(
+                'required' => true,
+                'default_value' => 'test value',
+                'groups' => array('group'),
+                'reverse' => true,
+            )
+        );
+
+        $this->assertEquals(
+            array('reverse' => true),
+            $this->builder->get('test')->getOptions()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::getOption
+     */
+    public function testGetOption()
+    {
+        $this->builder->add(
+            'test',
+            ParameterType\Compound\BooleanType::class,
+            array(
+                'required' => true,
+                'default_value' => 'test value',
+                'groups' => array('group'),
+                'reverse' => true,
+            )
+        );
+
+        $this->assertTrue($this->builder->get('test')->getOption('reverse'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::getOption
+     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     */
+    public function testGetOptionThrowsInvalidArgumentException()
+    {
+        $this->builder->add(
+            'test',
+            ParameterType\Compound\BooleanType::class,
+            array(
+                'required' => true,
+                'default_value' => 'test value',
+                'groups' => array('group'),
+                'reverse' => true,
+            )
+        );
+
+        $this->assertTrue($this->builder->get('test')->getOption('unknown'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::hasOption
+     */
+    public function testHasOption()
+    {
+        $this->builder->add(
+            'test',
+            ParameterType\Compound\BooleanType::class,
+            array(
+                'required' => true,
+                'default_value' => 'test value',
+                'groups' => array('group'),
+                'reverse' => true,
+            )
+        );
+
+        $this->assertTrue($this->builder->get('test')->hasOption('reverse'));
+        $this->assertFalse($this->builder->get('test')->hasOption('unknown'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::isRequired
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setRequired
+     */
+    public function testGetSetRequired()
+    {
+        $this->builder->add(
+            'test',
+            ParameterType\TextType::class
+        );
+
+        $this->builder->get('test')->setRequired(true);
+
+        $this->assertTrue($this->builder->get('test')->isRequired());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::getDefaultValue
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setDefaultValue
+     */
+    public function testGetSetDefaultValue()
+    {
+        $this->builder->add(
+            'test',
+            ParameterType\TextType::class
+        );
+
+        $this->builder->get('test')->setDefaultValue(42);
+
+        $this->assertEquals(42, $this->builder->get('test')->getDefaultValue());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::getGroups
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setGroups
+     */
+    public function testGetSetGroups()
+    {
+        $this->builder->add(
+            'test',
+            ParameterType\TextType::class
+        );
+
+        $this->builder->get('test')->setGroups(array('group'));
+
+        $this->assertEquals(array('group'), $this->builder->get('test')->getGroups());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::getGroups
+     */
+    public function testGetGroupsWithoutParentBuilder()
+    {
+        $this->assertEquals(array(), $this->builder->getGroups());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::getGroups
+     */
+    public function testGetGroupsWithCompoundParameter()
+    {
+        $this->builder->add(
+            'test',
+            ParameterType\Compound\BooleanType::class,
+            array(
+                'required' => true,
+                'default_value' => 'test value',
+                'groups' => array('group'),
+                'reverse' => true,
+            )
+        );
+
+        $this->builder->get('test')->add(
+            'test2',
+            ParameterType\TextType::class,
+            array(
+                'groups' => array('group2'),
+            )
+        );
+
+        $this->assertEquals(array('group'), $this->builder->get('test')->get('test2')->getGroups());
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::add
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::count
      */
@@ -87,6 +290,50 @@ class ParameterBuilderTest extends TestCase
                 'default_value' => 'test value 2',
                 'groups' => array('group 2'),
             )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::add
+     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     */
+    public function testAddThrowsInvalidArgumentExceptionOnAddingParameterToNonCompoundParameter()
+    {
+        $this->builder->add(
+            'test',
+            ParameterType\TextType::class,
+            array(
+                'required' => true,
+                'default_value' => 'test value',
+                'groups' => array('group'),
+            )
+        );
+
+        $this->builder->get('test')->add(
+            'test2',
+            ParameterType\TextType::class,
+            array(
+                'required' => false,
+                'default_value' => 'test value 2',
+                'groups' => array('group 2'),
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::add
+     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     */
+    public function testAddThrowsInvalidArgumentExceptionOnAddingCompoundParameterToCompoundParameter()
+    {
+        $this->builder->add(
+            'test',
+            ParameterType\Compound\BooleanType::class
+        );
+
+        $this->builder->get('test')->add(
+            'test2',
+            ParameterType\Compound\BooleanType::class
         );
     }
 
@@ -160,26 +407,6 @@ class ParameterBuilderTest extends TestCase
         );
 
         $this->builder->get('unknown');
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::add
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::get
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
-     */
-    public function testGetThrowsInvalidArgumentExceptionWithNonCompoundParameter()
-    {
-        $this->builder->add(
-            'test',
-            ParameterType\TextType::class,
-            array(
-                'required' => true,
-                'default_value' => 'test value',
-                'groups' => array('group'),
-            )
-        );
-
-        $this->builder->get('test');
     }
 
     /**
@@ -291,32 +518,34 @@ class ParameterBuilderTest extends TestCase
             $parameters,
             array(
                 'test' => new Parameter(
-                    'test',
-                    $this->registry->getParameterType('text'),
                     array(
-                        'required' => true,
-                        'default_value' => 'test value',
+                        'name' => 'test',
+                        'type' => $this->registry->getParameterType('text'),
+                        'options' => array(),
+                        'isRequired' => true,
+                        'defaultValue' => 'test value',
                         'groups' => array('group'),
                     )
                 ),
                 'compound' => new CompoundParameter(
-                    'compound',
-                    $this->registry->getParameterType('compound_boolean'),
                     array(
-                        'required' => false,
-                        'default_value' => true,
+                        'name' => 'compound',
+                        'type' => $this->registry->getParameterType('compound_boolean'),
+                        'options' => array('reverse' => false),
+                        'isRequired' => false,
+                        'defaultValue' => true,
                         'groups' => array('group 2'),
-                        'reverse' => false,
-                    ),
-                    array(
-                        'test2' => new Parameter(
-                            'test2',
-                            $this->registry->getParameterType('text'),
-                            array(
-                                'required' => true,
-                                'default_value' => 'test value 2',
-                                'groups' => array('group 2'),
-                            )
+                        'parameters' => array(
+                            'test2' => new Parameter(
+                                array(
+                                    'name' => 'test2',
+                                    'type' => $this->registry->getParameterType('text'),
+                                    'options' => array(),
+                                    'isRequired' => true,
+                                    'defaultValue' => 'test value 2',
+                                    'groups' => array('group 2'),
+                                )
+                            ),
                         ),
                     )
                 ),
@@ -349,11 +578,12 @@ class ParameterBuilderTest extends TestCase
             $parameters,
             array(
                 'test' => new Parameter(
-                    'test',
-                    $this->registry->getParameterType('text'),
                     array(
-                        'required' => true,
-                        'default_value' => 'test value',
+                        'name' => 'test',
+                        'type' => $this->registry->getParameterType('text'),
+                        'options' => array(),
+                        'isRequired' => true,
+                        'defaultValue' => 'test value',
                         'groups' => array('group'),
                     )
                 ),
@@ -376,11 +606,12 @@ class ParameterBuilderTest extends TestCase
             $parameters,
             array(
                 'test' => new Parameter(
-                    'test',
-                    $this->registry->getParameterType('text'),
                     array(
-                        'required' => false,
-                        'default_value' => null,
+                        'name' => 'test',
+                        'type' => $this->registry->getParameterType('text'),
+                        'options' => array(),
+                        'isRequired' => false,
+                        'defaultValue' => null,
                         'groups' => array(),
                     )
                 ),

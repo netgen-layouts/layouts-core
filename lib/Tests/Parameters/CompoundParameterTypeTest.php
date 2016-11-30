@@ -44,7 +44,11 @@ class CompoundParameterTypeTest extends TestCase
         $this->assertEquals(
             array(),
             $this->parameterType->getConstraints(
-                new CompoundParameter('name', new CompoundParameterType()),
+                new CompoundParameter(
+                    array(
+                        'type' => new CompoundParameterType(),
+                    )
+                ),
                 42
             )
         );
@@ -60,7 +64,12 @@ class CompoundParameterTypeTest extends TestCase
         $this->assertEquals(
             array(new NotBlank()),
             $this->parameterType->getConstraints(
-                new CompoundParameter('name', new CompoundParameterType(), array('required' => true)),
+                new CompoundParameter(
+                    array(
+                        'type' => new CompoundParameterType(),
+                        'isRequired' => true,
+                    )
+                ),
                 42
             )
         );
@@ -73,7 +82,7 @@ class CompoundParameterTypeTest extends TestCase
     public function testGetConstraintsThrowsInvalidArgumentException()
     {
         $this->parameterType->getConstraints(
-            new CompoundParameter('name', new BooleanType()),
+            new CompoundParameter(array('type' => new BooleanType())),
             42
         );
     }

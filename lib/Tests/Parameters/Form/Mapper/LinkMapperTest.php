@@ -39,10 +39,11 @@ class LinkMapperTest extends TestCase
     public function testMapOptions()
     {
         $parameter = new Parameter(
-            'name',
-            new LinkParameterType(),
             array(
-                'value_types' => array('value'),
+                'type' => new LinkParameterType(),
+                'options' => array(
+                    'value_types' => array('value'),
+                ),
             )
         );
 
@@ -61,10 +62,11 @@ class LinkMapperTest extends TestCase
     public function testMapOptionsWithEmptyValueTypes()
     {
         $parameter = new Parameter(
-            'name',
-            new LinkParameterType(),
             array(
-                'value_types' => array(),
+                'type' => new LinkParameterType(),
+                'options' => array(
+                    'value_types' => array(),
+                ),
             )
         );
 
@@ -82,7 +84,11 @@ class LinkMapperTest extends TestCase
      */
     public function testHandleForm()
     {
-        $parameter = new Parameter('name', new LinkParameterType());
+        $parameter = new Parameter(
+            array(
+                'type' => new LinkParameterType(),
+            )
+        );
 
         $dispatcher = $this->createMock(EventDispatcherInterface::class);
         $factory = $this->createMock(FormFactoryInterface::class);
