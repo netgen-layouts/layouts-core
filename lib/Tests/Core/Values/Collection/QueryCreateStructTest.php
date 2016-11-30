@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Core\Values\Collection;
 
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
+use Netgen\BlockManager\Collection\QueryType;
 use PHPUnit\Framework\TestCase;
 
 class QueryCreateStructTest extends TestCase
@@ -12,7 +13,7 @@ class QueryCreateStructTest extends TestCase
         $queryCreateStruct = new QueryCreateStruct();
 
         $this->assertNull($queryCreateStruct->identifier);
-        $this->assertNull($queryCreateStruct->type);
+        $this->assertNull($queryCreateStruct->queryType);
     }
 
     public function testSetProperties()
@@ -20,11 +21,11 @@ class QueryCreateStructTest extends TestCase
         $queryCreateStruct = new QueryCreateStruct(
             array(
                 'identifier' => 'my_query',
-                'type' => 'query_type',
+                'queryType' => new QueryType(),
             )
         );
 
         $this->assertEquals('my_query', $queryCreateStruct->identifier);
-        $this->assertEquals('query_type', $queryCreateStruct->type);
+        $this->assertEquals(new QueryType(), $queryCreateStruct->queryType);
     }
 }

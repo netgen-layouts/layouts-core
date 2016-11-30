@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\Collection\QueryTypeInterface;
-use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
 use Netgen\BlockManager\Core\Service\Mapper\ParameterMapper;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Persistence\Handler;
@@ -49,11 +48,6 @@ class CollectionService implements APICollectionService
     protected $persistenceHandler;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface
-     */
-    protected $queryTypeRegistry;
-
-    /**
      * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandler
      */
     protected $collectionHandler;
@@ -65,20 +59,17 @@ class CollectionService implements APICollectionService
      * @param \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper $collectionMapper
      * @param \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper $parameterMapper
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
-     * @param \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface $queryTypeRegistry
      */
     public function __construct(
         CollectionValidator $collectionValidator,
         CollectionMapper $collectionMapper,
         ParameterMapper $parameterMapper,
-        Handler $persistenceHandler,
-        QueryTypeRegistryInterface $queryTypeRegistry
+        Handler $persistenceHandler
     ) {
         $this->collectionValidator = $collectionValidator;
         $this->collectionMapper = $collectionMapper;
         $this->parameterMapper = $parameterMapper;
         $this->persistenceHandler = $persistenceHandler;
-        $this->queryTypeRegistry = $queryTypeRegistry;
 
         $this->collectionHandler = $persistenceHandler->getCollectionHandler();
     }
@@ -283,17 +274,15 @@ class CollectionService implements APICollectionService
             }
 
             foreach ($collectionCreateStruct->queryCreateStructs as $position => $queryCreateStruct) {
-                $queryType = $this->queryTypeRegistry->getQueryType($queryCreateStruct->type);
-
                 $this->collectionHandler->addQuery(
                     $createdCollection,
                     new QueryCreateStruct(
                         array(
                             'position' => $position,
                             'identifier' => $queryCreateStruct->identifier,
-                            'type' => $queryCreateStruct->type,
+                            'type' => $queryCreateStruct->queryType->getType(),
                             'parameters' => $this->parameterMapper->serializeValues(
-                                $queryType,
+                                $queryCreateStruct->queryType,
                                 $queryCreateStruct->getParameterValues()
                             ),
                         )
@@ -398,16 +387,14 @@ class CollectionService implements APICollectionService
                     $this->collectionHandler->moveItem($item, $index);
                 }
             } elseif ($newType === Collection::TYPE_DYNAMIC) {
-                $queryType = $this->queryTypeRegistry->getQueryType($queryCreateStruct->type);
-
                 $this->collectionHandler->addQuery(
                     $persistenceCollection,
                     new QueryCreateStruct(
                         array(
                             'identifier' => $queryCreateStruct->identifier,
-                            'type' => $queryCreateStruct->type,
+                            'type' => $queryCreateStruct->queryType->getType(),
                             'parameters' => $this->parameterMapper->serializeValues(
-                                $queryType,
+                                $queryCreateStruct->queryType,
                                 $queryCreateStruct->getParameterValues()
                             ),
                         )
@@ -749,10 +736,6 @@ class CollectionService implements APICollectionService
             throw new BadStateException('identifier', 'Query with specified identifier already exists.');
         }
 
-        $queryType = $this->queryTypeRegistry->getQueryType(
-            $queryCreateStruct->type
-        );
-
         $this->persistenceHandler->beginTransaction();
 
         try {
@@ -762,9 +745,9 @@ class CollectionService implements APICollectionService
                     array(
                         'position' => $position,
                         'identifier' => $queryCreateStruct->identifier,
-                        'type' => $queryCreateStruct->type,
+                        'type' => $queryCreateStruct->queryType->getType(),
                         'parameters' => $this->parameterMapper->serializeValues(
-                            $queryType,
+                            $queryCreateStruct->queryType,
                             $queryCreateStruct->getParameterValues()
                         ),
                     )
@@ -957,7 +940,7 @@ class CollectionService implements APICollectionService
         $queryCreateStruct = new APIQueryCreateStruct(
             array(
                 'identifier' => $identifier,
-                'type' => $queryType->getType(),
+                'queryType' => $queryType,
             )
         );
 

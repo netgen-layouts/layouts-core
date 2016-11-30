@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
-use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
@@ -52,13 +51,7 @@ class CollectionServiceTest extends TransactionRollbackTest
 
         $this->collectionValidatorMock = $this->createMock(CollectionValidator::class);
 
-        $queryTypeRegistry = new QueryTypeRegistry();
-        $queryTypeRegistry->addQueryType(new QueryType('queryType'));
-
-        $this->collectionService = $this->createCollectionService(
-            $this->collectionValidatorMock,
-            $queryTypeRegistry
-        );
+        $this->collectionService = $this->createCollectionService($this->collectionValidatorMock);
     }
 
     /**
@@ -389,7 +382,7 @@ class CollectionServiceTest extends TransactionRollbackTest
 
         $this->collectionService->addQuery(
             new Collection(array('published' => false)),
-            new QueryCreateStruct(array('type' => 'queryType'))
+            new QueryCreateStruct(array('queryType' => new QueryType('type')))
         );
     }
 

@@ -920,7 +920,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
             new QueryCreateStruct(
                 array(
                     'identifier' => 'new_query',
-                    'type' => 'ezcontent_search',
+                    'queryType' => new QueryType('ezcontent_search'),
                     'parameterValues' => array(
                         'offset' => null,
                         'param' => null,

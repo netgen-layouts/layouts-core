@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Core\Service\Validator;
 
+use Netgen\BlockManager\Collection\QueryTypeInterface;
 use Netgen\BlockManager\Validator\Constraint\Structs\QueryUpdateStruct as QueryUpdateStructConstraint;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\Item;
@@ -11,7 +12,6 @@ use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
-use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
 use Netgen\BlockManager\Exception\ValidationFailedException;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
 use Netgen\BlockManager\Validator\Constraint\ValueType;
@@ -19,21 +19,6 @@ use Symfony\Component\Validator\Constraints;
 
 class CollectionValidator extends Validator
 {
-    /**
-     * @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface
-     */
-    protected $queryTypeRegistry;
-
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface $queryTypeRegistry
-     */
-    public function __construct(QueryTypeRegistryInterface $queryTypeRegistry)
-    {
-        $this->queryTypeRegistry = $queryTypeRegistry;
-    }
-
     /**
      * Validates collection create struct.
      *
@@ -242,22 +227,20 @@ class CollectionValidator extends Validator
         );
 
         $this->validate(
-            $queryCreateStruct->type,
+            $queryCreateStruct->queryType,
             array(
-                new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'string')),
+                new Constraints\NotNull(),
+                new Constraints\Type(array('type' => QueryTypeInterface::class)),
             ),
-            'type'
+            'queryType'
         );
-
-        $queryType = $this->queryTypeRegistry->getQueryType($queryCreateStruct->type);
 
         $this->validate(
             $queryCreateStruct,
             array(
                 new ParameterStruct(
                     array(
-                        'parameterCollection' => $queryType,
+                        'parameterCollection' => $queryCreateStruct->queryType,
                     )
                 ),
             ),

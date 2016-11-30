@@ -85,8 +85,7 @@ trait TestCaseTrait
             $validator,
             $this->createCollectionMapper(),
             $this->createParameterMapper(),
-            $this->persistenceHandler,
-            $this->queryTypeRegistry
+            $this->persistenceHandler
         );
     }
 

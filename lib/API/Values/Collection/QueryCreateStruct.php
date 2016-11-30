@@ -12,7 +12,7 @@ class QueryCreateStruct extends ParameterStruct
     public $identifier;
 
     /**
-     * @var string
+     * @var \Netgen\BlockManager\Collection\QueryTypeInterface
      */
-    public $type;
+    public $queryType;
 }
