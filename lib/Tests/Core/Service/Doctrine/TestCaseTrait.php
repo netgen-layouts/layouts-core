@@ -67,8 +67,7 @@ trait TestCaseTrait
             $this->createBlockMapper(),
             $this->createParameterMapper(),
             $this->persistenceHandler,
-            $this->layoutTypeRegistry,
-            $this->blockDefinitionRegistry
+            $this->layoutTypeRegistry
         );
     }
 

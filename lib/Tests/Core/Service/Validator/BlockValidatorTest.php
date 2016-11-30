@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
-use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\API\Values\Page\BlockCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct;
@@ -21,16 +20,6 @@ use PHPUnit\Framework\TestCase;
 class BlockValidatorTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration
-     */
-    protected $blockDefinitionConfig;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $blockDefinitionRegistryMock;
-
-    /**
      * @var \Symfony\Component\Validator\Validator\ValidatorInterface
      */
     protected $validator;
@@ -45,35 +34,11 @@ class BlockValidatorTest extends TestCase
      */
     public function setUp()
     {
-        $this->blockDefinitionRegistryMock = $this->createMock(BlockDefinitionRegistryInterface::class);
-        $this->blockDefinitionConfig = new Configuration(
-            array(
-                'identifier' => 'def',
-                'forms' => array(),
-                'viewTypes' => array(
-                    'large' => new ViewType(
-                        array(
-                            'identifier' => 'large',
-                            'name' => 'Large',
-                            'itemViewTypes' => array(
-                                'standard' => new ItemViewType(
-                                    array(
-                                        'identifier' => 'standard',
-                                        'name' => 'Standard',
-                                    )
-                                ),
-                            ),
-                        )
-                    ),
-                ),
-            )
-        );
-
         $this->validator = Validation::createValidatorBuilder()
             ->setConstraintValidatorFactory(new ValidatorFactory($this))
             ->getValidator();
 
-        $this->blockValidator = new BlockValidator($this->blockDefinitionRegistryMock);
+        $this->blockValidator = new BlockValidator();
         $this->blockValidator->setValidator($this->validator);
     }
 
@@ -88,21 +53,6 @@ class BlockValidatorTest extends TestCase
      */
     public function testValidateBlockCreateStruct(array $params, $isValid)
     {
-        $handler = new BlockDefinitionHandlerWithRequiredParameter();
-        $blockDefinition = new BlockDefinition(
-            array(
-                'identifier' => 'block',
-                'handler' => $handler,
-                'config' => $this->blockDefinitionConfig,
-                'parameters' => $handler->getParameters(),
-            )
-        );
-
-        $this->blockDefinitionRegistryMock
-            ->expects($this->any())
-            ->method('getBlockDefinition')
-            ->will($this->returnValue($blockDefinition));
-
         if (!$isValid) {
             $this->expectException(ValidationFailedException::class);
         }
@@ -143,7 +93,7 @@ class BlockValidatorTest extends TestCase
         return array(
             array(
                 array(
-                    'definitionIdentifier' => 'block_definition',
+                    'blockDefinition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -156,7 +106,7 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'definitionIdentifier' => null,
+                    'blockDefinition' => null,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -169,7 +119,7 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'definitionIdentifier' => '',
+                    'blockDefinition' => 42,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -182,20 +132,7 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'definitionIdentifier' => 42,
-                    'viewType' => 'large',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'parameterValues' => array(
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ),
-                ),
-                false,
-            ),
-            array(
-                array(
-                    'definitionIdentifier' => 'block_definition',
+                    'blockDefinition' => $this->getBlockDefinition(),
                     'viewType' => 'nonexistent',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -208,7 +145,7 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'definitionIdentifier' => 'block_definition',
+                    'blockDefinition' => $this->getBlockDefinition(),
                     'viewType' => '',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -221,7 +158,7 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'definitionIdentifier' => 'block_definition',
+                    'blockDefinition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'nonexistent',
                     'name' => 'My block',
@@ -234,7 +171,7 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'definitionIdentifier' => 'block_definition',
+                    'blockDefinition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => '',
                     'name' => 'My block',
@@ -247,7 +184,7 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'definitionIdentifier' => 'block_definition',
+                    'blockDefinition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => null,
@@ -260,7 +197,7 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'definitionIdentifier' => 'block_definition',
+                    'blockDefinition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => '',
@@ -273,7 +210,7 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'definitionIdentifier' => 'block_definition',
+                    'blockDefinition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 42,
@@ -286,7 +223,7 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'definitionIdentifier' => 'block_definition',
+                    'blockDefinition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -299,7 +236,7 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'definitionIdentifier' => 'block_definition',
+                    'blockDefinition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -312,7 +249,7 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'definitionIdentifier' => 'block_definition',
+                    'blockDefinition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -324,7 +261,7 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'definitionIdentifier' => 'block_definition',
+                    'blockDefinition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -337,7 +274,7 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'definitionIdentifier' => 'block_definition',
+                    'blockDefinition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -350,7 +287,7 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'definitionIdentifier' => 'block_definition',
+                    'blockDefinition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -544,6 +481,46 @@ class BlockValidatorTest extends TestCase
                 ),
                 true,
             ),
+        );
+    }
+
+    /**
+     * @return \Netgen\BlockManager\Block\BlockDefinition
+     */
+    protected function getBlockDefinition()
+    {
+        $config = new Configuration(
+            array(
+                'identifier' => 'def',
+                'forms' => array(),
+                'viewTypes' => array(
+                    'large' => new ViewType(
+                        array(
+                            'identifier' => 'large',
+                            'name' => 'Large',
+                            'itemViewTypes' => array(
+                                'standard' => new ItemViewType(
+                                    array(
+                                        'identifier' => 'standard',
+                                        'name' => 'Standard',
+                                    )
+                                ),
+                            ),
+                        )
+                    ),
+                ),
+            )
+        );
+
+        $handler = new BlockDefinitionHandlerWithRequiredParameter();
+
+        return new BlockDefinition(
+            array(
+                'identifier' => 'block',
+                'handler' => $handler,
+                'config' => $config,
+                'parameters' => $handler->getParameters(),
+            )
         );
     }
 }

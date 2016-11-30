@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Core\Service\Validator;
 use Netgen\BlockManager\API\Values\Page\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
+use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Validator\Constraint\BlockItemViewType;
 use Netgen\BlockManager\Validator\Constraint\BlockViewType;
 use Netgen\BlockManager\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
@@ -15,21 +15,6 @@ use Symfony\Component\Validator\Constraints;
 class BlockValidator extends Validator
 {
     /**
-     * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface
-     */
-    protected $blockDefinitionRegistry;
-
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface $blockDefinitionRegistry
-     */
-    public function __construct(BlockDefinitionRegistryInterface $blockDefinitionRegistry)
-    {
-        $this->blockDefinitionRegistry = $blockDefinitionRegistry;
-    }
-
-    /**
      * Validates block create struct.
      *
      * @param \Netgen\BlockManager\API\Values\Page\BlockCreateStruct $blockCreateStruct
@@ -38,17 +23,13 @@ class BlockValidator extends Validator
      */
     public function validateBlockCreateStruct(BlockCreateStruct $blockCreateStruct)
     {
-        $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition(
-            $blockCreateStruct->definitionIdentifier
-        );
-
         $this->validate(
-            $blockCreateStruct->definitionIdentifier,
+            $blockCreateStruct->blockDefinition,
             array(
-                new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'string')),
+                new Constraints\NotNull(),
+                new Constraints\Type(array('type' => BlockDefinitionInterface::class)),
             ),
-            'definitionIdentifier'
+            'blockDefinition'
         );
 
         $this->validate(
@@ -56,7 +37,7 @@ class BlockValidator extends Validator
             array(
                 new Constraints\NotBlank(),
                 new Constraints\Type(array('type' => 'string')),
-                new BlockViewType(array('definition' => $blockDefinition)),
+                new BlockViewType(array('definition' => $blockCreateStruct->blockDefinition)),
             ),
             'viewType'
         );
@@ -69,7 +50,7 @@ class BlockValidator extends Validator
                 new BlockItemViewType(
                     array(
                         'viewType' => $blockCreateStruct->viewType,
-                        'definition' => $blockDefinition,
+                        'definition' => $blockCreateStruct->blockDefinition,
                     )
                 ),
             ),
@@ -91,7 +72,7 @@ class BlockValidator extends Validator
             array(
                 new ParameterStruct(
                     array(
-                        'parameterCollection' => $blockDefinition,
+                        'parameterCollection' => $blockCreateStruct->blockDefinition,
                     )
                 ),
             ),

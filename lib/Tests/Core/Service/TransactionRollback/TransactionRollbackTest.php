@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
-use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Core\Service\CollectionService;
 use Netgen\BlockManager\Core\Service\LayoutResolverService;
@@ -61,22 +60,19 @@ abstract class TransactionRollbackTest extends TestCase
      *
      * @param \Netgen\BlockManager\Core\Service\Validator\BlockValidator $validator
      * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
-     * @param \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface $blockDefinitionRegistry
      *
      * @return \Netgen\BlockManager\Core\Service\BlockService
      */
     protected function createBlockService(
         BlockValidator $validator,
-        LayoutTypeRegistryInterface $layoutTypeRegistry,
-        BlockDefinitionRegistryInterface $blockDefinitionRegistry
+        LayoutTypeRegistryInterface $layoutTypeRegistry
     ) {
         return new BlockService(
             $validator,
             $this->createBlockMapper(),
             $this->createParameterMapper(),
             $this->persistenceHandler,
-            $layoutTypeRegistry,
-            $blockDefinitionRegistry
+            $layoutTypeRegistry
         );
     }
 

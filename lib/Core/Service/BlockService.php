@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Service\BlockService as BlockServiceInterface;
 use Netgen\BlockManager\API\Values\Page\CollectionReference;
-use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Configuration\BlockType\BlockType;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Core\Service\Mapper\ParameterMapper;
@@ -22,9 +21,9 @@ use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Persistence\Values\Page\BlockCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
-use Exception;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceUpdateStruct;
+use Exception;
 
 class BlockService implements BlockServiceInterface
 {
@@ -54,11 +53,6 @@ class BlockService implements BlockServiceInterface
     protected $layoutTypeRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface
-     */
-    protected $blockDefinitionRegistry;
-
-    /**
      * @var \Netgen\BlockManager\Persistence\Handler\BlockHandler
      */
     protected $blockHandler;
@@ -81,22 +75,19 @@ class BlockService implements BlockServiceInterface
      * @param \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper $parameterMapper
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
      * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
-     * @param \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface $blockDefinitionRegistry
      */
     public function __construct(
         BlockValidator $blockValidator,
         BlockMapper $blockMapper,
         ParameterMapper $parameterMapper,
         Handler $persistenceHandler,
-        LayoutTypeRegistryInterface $layoutTypeRegistry,
-        BlockDefinitionRegistryInterface $blockDefinitionRegistry
+        LayoutTypeRegistryInterface $layoutTypeRegistry
     ) {
         $this->blockValidator = $blockValidator;
         $this->blockMapper = $blockMapper;
         $this->parameterMapper = $parameterMapper;
         $this->persistenceHandler = $persistenceHandler;
         $this->layoutTypeRegistry = $layoutTypeRegistry;
-        $this->blockDefinitionRegistry = $blockDefinitionRegistry;
 
         $this->blockHandler = $persistenceHandler->getBlockHandler();
         $this->layoutHandler = $persistenceHandler->getLayoutHandler();
@@ -235,13 +226,9 @@ class BlockService implements BlockServiceInterface
             throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
         }
 
-        if (!$this->isBlockAllowedWithinZone($blockCreateStruct->definitionIdentifier, $persistenceLayout->type, $zoneIdentifier)) {
+        if (!$this->isBlockAllowedWithinZone($blockCreateStruct->blockDefinition->getIdentifier(), $persistenceLayout->type, $zoneIdentifier)) {
             throw new BadStateException('zoneIdentifier', 'Block cannot be created in specified zone.');
         }
-
-        $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition(
-            $blockCreateStruct->definitionIdentifier
-        );
 
         $this->persistenceHandler->beginTransaction();
 
@@ -253,19 +240,19 @@ class BlockService implements BlockServiceInterface
                         'zoneIdentifier' => $zoneIdentifier,
                         'status' => $persistenceLayout->status,
                         'position' => $position,
-                        'definitionIdentifier' => $blockCreateStruct->definitionIdentifier,
+                        'definitionIdentifier' => $blockCreateStruct->blockDefinition->getIdentifier(),
                         'viewType' => $blockCreateStruct->viewType,
                         'itemViewType' => $blockCreateStruct->itemViewType,
                         'name' => $blockCreateStruct->name,
                         'parameters' => $this->parameterMapper->serializeValues(
-                            $blockDefinition,
+                            $blockCreateStruct->blockDefinition,
                             $blockCreateStruct->getParameterValues()
                         ),
                     )
                 )
             );
 
-            if ($blockDefinition->hasCollection()) {
+            if ($blockCreateStruct->blockDefinition->hasCollection()) {
                 $collectionCreateStruct = new CollectionCreateStruct();
                 $collectionCreateStruct->type = Collection::TYPE_MANUAL;
 
@@ -609,7 +596,7 @@ class BlockService implements BlockServiceInterface
 
         $blockCreateStruct = new APIBlockCreateStruct(
             array(
-                'definitionIdentifier' => $blockDefinition->getIdentifier(),
+                'blockDefinition' => $blockDefinition,
                 'name' => $blockType->getDefaultName(),
                 'viewType' => $viewTypeIdentifier,
                 'itemViewType' => $itemViewTypeIdentifier,

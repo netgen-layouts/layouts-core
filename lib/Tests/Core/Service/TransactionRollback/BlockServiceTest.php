@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
-use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Configuration\LayoutType\Zone;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
@@ -78,9 +77,6 @@ class BlockServiceTest extends TransactionRollbackTest
 
         $this->blockValidatorMock = $this->createMock(BlockValidator::class);
 
-        $blockDefinitionRegistry = new BlockDefinitionRegistry();
-        $blockDefinitionRegistry->addBlockDefinition(new BlockDefinition('blockDef'));
-
         $layoutTypeRegistry = new LayoutTypeRegistry();
         $layoutTypeRegistry->addLayoutType(
             new LayoutType(
@@ -98,8 +94,7 @@ class BlockServiceTest extends TransactionRollbackTest
 
         $this->blockService = $this->createBlockService(
             $this->blockValidatorMock,
-            $layoutTypeRegistry,
-            $blockDefinitionRegistry
+            $layoutTypeRegistry
         );
     }
 
@@ -129,7 +124,7 @@ class BlockServiceTest extends TransactionRollbackTest
             ->method('rollbackTransaction');
 
         $this->blockService->createBlock(
-            new BlockCreateStruct(array('definitionIdentifier' => 'blockDef')),
+            new BlockCreateStruct(array('blockDefinition' => new BlockDefinition('blockDef'))),
             new Layout(array('published' => false)),
             'zone'
         );

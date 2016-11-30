@@ -826,10 +826,12 @@ abstract class BlockServiceTest extends ServiceTestCase
      */
     public function testNewBlockCreateStruct()
     {
+        $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition('title');
+
         $this->assertEquals(
             new BlockCreateStruct(
                 array(
-                    'definitionIdentifier' => 'title',
+                    'blockDefinition' => $blockDefinition,
                     'viewType' => 'small',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -842,7 +844,7 @@ abstract class BlockServiceTest extends ServiceTestCase
             $this->blockService->newBlockCreateStruct(
                 new BlockType(
                     array(
-                        'blockDefinition' => $this->blockDefinitionRegistry->getBlockDefinition('title'),
+                        'blockDefinition' => $blockDefinition,
                         'defaults' => array(
                             'view_type' => 'small',
                             'item_view_type' => 'standard',
@@ -862,10 +864,12 @@ abstract class BlockServiceTest extends ServiceTestCase
      */
     public function testNewBlockCreateStructWithNonExistingViewType()
     {
+        $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition('title');
+
         $this->assertEquals(
             new BlockCreateStruct(
                 array(
-                    'definitionIdentifier' => 'title',
+                    'blockDefinition' => $blockDefinition,
                     'viewType' => 'small',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -878,7 +882,7 @@ abstract class BlockServiceTest extends ServiceTestCase
             $this->blockService->newBlockCreateStruct(
                 new BlockType(
                     array(
-                        'blockDefinition' => $this->blockDefinitionRegistry->getBlockDefinition('title'),
+                        'blockDefinition' => $blockDefinition,
                         'defaults' => array(
                             'view_type' => 'non_existing',
                             'item_view_type' => 'standard',
@@ -898,10 +902,12 @@ abstract class BlockServiceTest extends ServiceTestCase
      */
     public function testNewBlockCreateStructWithNonExistingItemViewType()
     {
+        $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition('title');
+
         $this->assertEquals(
             new BlockCreateStruct(
                 array(
-                    'definitionIdentifier' => 'title',
+                    'blockDefinition' => $blockDefinition,
                     'viewType' => 'small',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -914,7 +920,7 @@ abstract class BlockServiceTest extends ServiceTestCase
             $this->blockService->newBlockCreateStruct(
                 new BlockType(
                     array(
-                        'blockDefinition' => $this->blockDefinitionRegistry->getBlockDefinition('title'),
+                        'blockDefinition' => $blockDefinition,
                         'defaults' => array(
                             'view_type' => 'small',
                             'item_view_type' => 'non_existing',
@@ -934,10 +940,12 @@ abstract class BlockServiceTest extends ServiceTestCase
      */
     public function testNewBlockCreateStructWithNonExistingViewTypeAndItemViewType()
     {
+        $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition('title');
+
         $this->assertEquals(
             new BlockCreateStruct(
                 array(
-                    'definitionIdentifier' => 'title',
+                    'blockDefinition' => $blockDefinition,
                     'viewType' => 'small',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -950,7 +958,7 @@ abstract class BlockServiceTest extends ServiceTestCase
             $this->blockService->newBlockCreateStruct(
                 new BlockType(
                     array(
-                        'blockDefinition' => $this->blockDefinitionRegistry->getBlockDefinition('title'),
+                        'blockDefinition' => $blockDefinition,
                         'defaults' => array(
                             'view_type' => 'non_existing',
                             'item_view_type' => 'non_existing',

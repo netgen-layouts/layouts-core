@@ -145,8 +145,6 @@ services:
 
     netgen_block_manager.core.service.block.validator:
         class: Netgen\BlockManager\Core\Service\Validator\BlockValidator
-        arguments:
-            - "@netgen_block_manager.block.registry.block_definition"
         calls:
             - [setValidator, ["@validator"]]
 
@@ -166,7 +164,6 @@ services:
             - "@netgen_block_manager.core.service.parameter_mapper"
             - "@netgen_block_manager.persistence.handler"
             - "@netgen_block_manager.configuration.registry.layout_type"
-            - "@netgen_block_manager.block.registry.block_definition"
 
     # Collection related APIs
 

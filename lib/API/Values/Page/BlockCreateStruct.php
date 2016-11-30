@@ -7,9 +7,9 @@ use Netgen\BlockManager\API\Values\ParameterStruct;
 class BlockCreateStruct extends ParameterStruct
 {
     /**
-     * @var string
+     * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
-    public $definitionIdentifier;
+    public $blockDefinition;
 
     /**
      * @var string
