@@ -2,7 +2,6 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\ParamConverter;
 
-use Netgen\BlockManager\API\Values\Value;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter as ParamConverterConfiguration;
 use Symfony\Component\HttpFoundation\Request;
