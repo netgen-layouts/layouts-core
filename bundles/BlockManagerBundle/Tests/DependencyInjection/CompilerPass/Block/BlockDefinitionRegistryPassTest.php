@@ -3,6 +3,10 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\CompilerPass\Block;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
+use Netgen\BlockManager\Block\BlockDefinition;
+use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
+use Netgen\BlockManager\Block\TwigBlockDefinition;
+use Netgen\BlockManager\Tests\Block\Stubs\TwigBlockDefinitionHandler;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionRegistryPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -21,9 +25,13 @@ class BlockDefinitionRegistryPassTest extends AbstractCompilerPassTestCase
     }
 
     /**
+     * @param string $handlerClass
+     * @param string $definitionClass
+     *
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionRegistryPass::process
+     * @dataProvider processDataProvider
      */
-    public function testProcess()
+    public function testProcess($handlerClass, $definitionClass)
     {
         $this->setParameter(
             'netgen_block_manager.block_definitions',
@@ -32,7 +40,7 @@ class BlockDefinitionRegistryPassTest extends AbstractCompilerPassTestCase
 
         $this->setDefinition('netgen_block_manager.block.registry.block_definition', new Definition());
 
-        $blockDefinitionHandler = new Definition();
+        $blockDefinitionHandler = new Definition($handlerClass);
         $blockDefinitionHandler->addTag(
             'netgen_block_manager.block.block_definition_handler',
             array('identifier' => 'block_definition')
@@ -45,14 +53,20 @@ class BlockDefinitionRegistryPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
+//        var_dump($this->container->getDefinition(
+//            'netgen_block_manager.block.block_definition.block_definition'
+//        ));
+
         $this->assertContainerBuilderHasService(
-            'netgen_block_manager.block.block_definition.block_definition'
+            'netgen_block_manager.block.block_definition.block_definition',
+            $definitionClass
         );
 
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'netgen_block_manager.block.registry.block_definition',
             'addBlockDefinition',
             array(
+                'block_definition',
                 new Reference('netgen_block_manager.block.block_definition.block_definition'),
             )
         );
@@ -122,5 +136,13 @@ class BlockDefinitionRegistryPassTest extends AbstractCompilerPassTestCase
         // The container has at least self ("service_container") as the service
         $this->assertCount(1, $this->container->getServiceIds());
         $this->assertEmpty($this->container->getParameterBag()->all());
+    }
+
+    public function processDataProvider()
+    {
+        return array(
+            array(BlockDefinitionHandler::class, BlockDefinition::class),
+            array(TwigBlockDefinitionHandler::class, TwigBlockDefinition::class),
+        );
     }
 }

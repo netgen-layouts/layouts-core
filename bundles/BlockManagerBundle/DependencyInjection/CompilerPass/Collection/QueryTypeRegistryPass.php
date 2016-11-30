@@ -68,6 +68,7 @@ class QueryTypeRegistryPass implements CompilerPassInterface
             $queryTypeServiceName = sprintf('netgen_block_manager.collection.query_type.%s', $type);
             $queryTypeService = new Definition(QueryType::class);
 
+            $queryTypeService->setLazy(true);
             $queryTypeService->addArgument($type);
             $queryTypeService->addArgument(new Reference($foundHandler));
             $queryTypeService->addArgument(new Reference($configServiceName));
@@ -78,7 +79,10 @@ class QueryTypeRegistryPass implements CompilerPassInterface
 
             $queryTypeRegistry->addMethodCall(
                 'addQueryType',
-                array(new Reference($queryTypeServiceName))
+                array(
+                    $type,
+                    new Reference($queryTypeServiceName),
+                )
             );
         }
     }

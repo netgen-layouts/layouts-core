@@ -24,7 +24,7 @@ class QueryTypeRegistryTest extends TestCase
 
         $this->queryType = new QueryType('query_type');
 
-        $this->registry->addQueryType($this->queryType);
+        $this->registry->addQueryType('query_type', $this->queryType);
     }
 
     /**

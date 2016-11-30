@@ -15,11 +15,12 @@ class QueryTypeRegistry implements QueryTypeRegistryInterface
     /**
      * Adds a query type to registry.
      *
+     * @param string $type
      * @param \Netgen\BlockManager\Collection\QueryTypeInterface $queryType
      */
-    public function addQueryType(QueryTypeInterface $queryType)
+    public function addQueryType($type, QueryTypeInterface $queryType)
     {
-        $this->queryTypes[$queryType->getType()] = $queryType;
+        $this->queryTypes[$type] = $queryType;
     }
 
     /**

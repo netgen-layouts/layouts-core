@@ -46,7 +46,6 @@ class BlockValidatorTest extends TestCase
      * @param array $params
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Core\Service\Validator\BlockValidator::__construct
      * @covers \Netgen\BlockManager\Core\Service\Validator\BlockValidator::validateBlockCreateStruct
      * @dataProvider validateBlockCreateStructDataProvider
      * @doesNotPerformAssertions

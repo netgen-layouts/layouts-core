@@ -133,7 +133,7 @@ abstract class ServiceTestCase extends TestCase
         $this->layoutTypeRegistry->addLayoutType($layoutType2);
 
         $this->queryTypeRegistry = new QueryTypeRegistry();
-        $this->queryTypeRegistry->addQueryType(new QueryType('ezcontent_search'));
+        $this->queryTypeRegistry->addQueryType('ezcontent_search', new QueryType('ezcontent_search'));
 
         $blockDefinition1 = new BlockDefinition('title', array('small' => array('standard')), new BlockDefinitionHandlerWithoutCollection());
         $blockDefinition2 = new BlockDefinition('text', array('standard' => array('standard')), new BlockDefinitionHandlerWithoutCollection());
@@ -141,10 +141,10 @@ abstract class ServiceTestCase extends TestCase
         $blockDefinition4 = new BlockDefinition('list', array('standard' => array('standard')));
 
         $this->blockDefinitionRegistry = new BlockDefinitionRegistry();
-        $this->blockDefinitionRegistry->addBlockDefinition($blockDefinition1);
-        $this->blockDefinitionRegistry->addBlockDefinition($blockDefinition2);
-        $this->blockDefinitionRegistry->addBlockDefinition($blockDefinition3);
-        $this->blockDefinitionRegistry->addBlockDefinition($blockDefinition4);
+        $this->blockDefinitionRegistry->addBlockDefinition('title', $blockDefinition1);
+        $this->blockDefinitionRegistry->addBlockDefinition('text', $blockDefinition2);
+        $this->blockDefinitionRegistry->addBlockDefinition('gallery', $blockDefinition3);
+        $this->blockDefinitionRegistry->addBlockDefinition('list', $blockDefinition4);
 
         $this->targetTypeRegistry = new TargetTypeRegistry();
         $this->targetTypeRegistry->addTargetType(new TargetType('target'));

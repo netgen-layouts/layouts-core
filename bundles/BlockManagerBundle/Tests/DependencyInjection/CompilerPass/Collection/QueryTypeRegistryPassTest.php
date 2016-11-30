@@ -44,6 +44,7 @@ class QueryTypeRegistryPassTest extends AbstractCompilerPassTestCase
             'netgen_block_manager.collection.registry.query_type',
             'addQueryType',
             array(
+                'query_type',
                 new Reference('netgen_block_manager.collection.query_type.query_type'),
             )
         );

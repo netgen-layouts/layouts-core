@@ -24,17 +24,15 @@ class QueryTypeFactory
         Configuration $config,
         ParameterBuilderInterface $parameterBuilder
     ) {
+        $handler->buildParameters($parameterBuilder);
+        $parameters = $parameterBuilder->buildParameters();
+
         return new QueryType(
             array(
                 'type' => $type,
                 'handler' => $handler,
                 'config' => $config,
-                'parameters' => function () use ($handler, $parameterBuilder) {
-                    $handler->buildParameters($parameterBuilder);
-                    $parameters = $parameterBuilder->buildParameters();
-
-                    return $parameters;
-                },
+                'parameters' => $parameters,
             )
         );
     }

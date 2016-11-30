@@ -24,7 +24,7 @@ class BlockDefinitionRegistryTest extends TestCase
 
         $this->blockDefinition = new BlockDefinition('block_definition');
 
-        $this->registry->addBlockDefinition($this->blockDefinition);
+        $this->registry->addBlockDefinition('block_definition', $this->blockDefinition);
     }
 
     /**

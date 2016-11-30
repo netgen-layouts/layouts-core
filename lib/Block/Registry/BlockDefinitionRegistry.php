@@ -15,11 +15,12 @@ class BlockDefinitionRegistry implements BlockDefinitionRegistryInterface
     /**
      * Adds a block definition to registry.
      *
+     * @param string $identifier
      * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition
      */
-    public function addBlockDefinition(BlockDefinitionInterface $blockDefinition)
+    public function addBlockDefinition($identifier, BlockDefinitionInterface $blockDefinition)
     {
-        $this->blockDefinitions[$blockDefinition->getIdentifier()] = $blockDefinition;
+        $this->blockDefinitions[$identifier] = $blockDefinition;
     }
 
     /**

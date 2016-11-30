@@ -18,8 +18,6 @@ trait ParameterCollectionTrait
      */
     public function getParameters()
     {
-        $this->buildParameters();
-
         return $this->parameters;
     }
 
@@ -34,8 +32,6 @@ trait ParameterCollectionTrait
      */
     public function getParameter($parameterName)
     {
-        $this->buildParameters();
-
         if (isset($this->parameters[$parameterName])) {
             return $this->parameters[$parameterName];
         }
@@ -58,21 +54,6 @@ trait ParameterCollectionTrait
      */
     public function hasParameter($parameterName)
     {
-        $this->buildParameters();
-
         return isset($this->parameters[$parameterName]);
-    }
-
-    /**
-     * Builds the parameters from provided closure.
-     */
-    protected function buildParameters()
-    {
-        if (is_callable($this->parameters)) {
-            $parametersClosure = $this->parameters;
-            $this->parameters = $parametersClosure();
-        } elseif ($this->parameters === null) {
-            $this->parameters = array();
-        }
     }
 }

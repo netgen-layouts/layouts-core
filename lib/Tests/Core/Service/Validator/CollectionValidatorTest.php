@@ -49,8 +49,7 @@ class CollectionValidatorTest extends TestCase
      * @param array $params
      * @param bool $isValid
      *
-     * @covers       \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::__construct
-     * @covers       \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateCollectionCreateStruct
+     * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateCollectionCreateStruct
      * @dataProvider validateCollectionCreateStructProvider
      * @doesNotPerformAssertions
      */
@@ -114,7 +113,7 @@ class CollectionValidatorTest extends TestCase
      * @param array $params
      * @param bool $isValid
      *
-     * @covers       \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateCollectionUpdateStruct
+     * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateCollectionUpdateStruct
      * @dataProvider validateCollectionUpdateStructProvider
      * @doesNotPerformAssertions
      */
@@ -133,7 +132,7 @@ class CollectionValidatorTest extends TestCase
      * @param array $params
      * @param bool $isValid
      *
-     * @covers       \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateItemCreateStruct
+     * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateItemCreateStruct
      * @dataProvider validateItemCreateStructProvider
      * @doesNotPerformAssertions
      */
@@ -150,7 +149,7 @@ class CollectionValidatorTest extends TestCase
      * @param array $params
      * @param array $isValid
      *
-     * @covers       \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateQueryCreateStruct
+     * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateQueryCreateStruct
      * @dataProvider validateQueryCreateStructProvider
      * @doesNotPerformAssertions
      */
@@ -167,7 +166,7 @@ class CollectionValidatorTest extends TestCase
      * @param array $params
      * @param array $isValid
      *
-     * @covers       \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateQueryUpdateStruct
+     * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateQueryUpdateStruct
      * @dataProvider validateQueryUpdateStructProvider
      * @doesNotPerformAssertions
      */
