@@ -48,8 +48,7 @@ trait TestCaseTrait
         return new LayoutService(
             $validator,
             $this->createLayoutMapper(),
-            $this->persistenceHandler,
-            $this->layoutTypeRegistry
+            $this->persistenceHandler
         );
     }
 

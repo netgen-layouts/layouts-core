@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
 use Netgen\BlockManager\API\Values\Page\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Page\LayoutUpdateStruct;
+use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Exception\ValidationFailedException;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
@@ -91,18 +92,17 @@ class LayoutValidatorTest extends TestCase
     public function validateLayoutCreateStructDataProvider()
     {
         return array(
-            array(array('type' => 'type', 'name' => 'Name', 'shared' => null), true),
-            array(array('type' => 'type', 'name' => 'Name', 'shared' => false), true),
-            array(array('type' => 'type', 'name' => 'Name', 'shared' => true), true),
-            array(array('type' => null, 'name' => 'Name', 'shared' => null), false),
-            array(array('type' => '', 'name' => 'Name', 'shared' => null), false),
-            array(array('type' => 42, 'name' => 'Name', 'shared' => null), false),
-            array(array('type' => 'type', 'name' => null, 'shared' => null), false),
-            array(array('type' => 'type', 'name' => '', 'shared' => null), false),
-            array(array('type' => 'type', 'name' => '   ', 'shared' => null), false),
-            array(array('type' => 'type', 'name' => 42, 'shared' => null), false),
-            array(array('type' => 'type', 'name' => 'Name', 'shared' => ''), false),
-            array(array('type' => 'type', 'name' => 'Name', 'shared' => 42), false),
+            array(array('layoutType' => $this->getLayoutType(), 'name' => 'Name', 'shared' => null), true),
+            array(array('layoutType' => $this->getLayoutType(), 'name' => 'Name', 'shared' => false), true),
+            array(array('layoutType' => $this->getLayoutType(), 'name' => 'Name', 'shared' => true), true),
+            array(array('layoutType' => null, 'name' => 'Name', 'shared' => null), false),
+            array(array('layoutType' => 42, 'name' => 'Name', 'shared' => null), false),
+            array(array('layoutType' => $this->getLayoutType(), 'name' => null, 'shared' => null), false),
+            array(array('layoutType' => $this->getLayoutType(), 'name' => '', 'shared' => null), false),
+            array(array('layoutType' => $this->getLayoutType(), 'name' => '   ', 'shared' => null), false),
+            array(array('layoutType' => $this->getLayoutType(), 'name' => 42, 'shared' => null), false),
+            array(array('layoutType' => $this->getLayoutType(), 'name' => 'Name', 'shared' => ''), false),
+            array(array('layoutType' => $this->getLayoutType(), 'name' => 'Name', 'shared' => 42), false),
         );
     }
 
@@ -124,6 +124,15 @@ class LayoutValidatorTest extends TestCase
             array(23, false),
             array(null, false),
             array('', false),
+        );
+    }
+
+    public function getLayoutType()
+    {
+        return new LayoutType(
+            array(
+                'identifier' => 'type',
+            )
         );
     }
 }

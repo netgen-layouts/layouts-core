@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Netgen\BlockManager\API\Values\Page\LayoutUpdateStruct;
+use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\API\Values\Page\LayoutCreateStruct;
@@ -336,7 +337,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     public function testCreateLayout()
     {
         $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
-            '4_zones_a',
+            $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
             'My new layout'
         );
 
@@ -353,7 +354,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     public function testCreateLayoutThrowsBadStateException()
     {
         $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
-            '4_zones_a',
+            $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
             'My layout'
         );
 
@@ -537,11 +538,14 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $this->assertEquals(
             new LayoutCreateStruct(
                 array(
-                    'type' => '4_zones_a',
+                    'layoutType' => new LayoutType(array('identifier' => '4_zones_a')),
                     'name' => 'New layout',
                 )
             ),
-            $this->layoutService->newLayoutCreateStruct('4_zones_a', 'New layout')
+            $this->layoutService->newLayoutCreateStruct(
+                new LayoutType(array('identifier' => '4_zones_a')),
+                'New layout'
+            )
         );
     }
 

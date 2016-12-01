@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Layout\Form;
 
 use Netgen\BlockManager\API\Values\Page\LayoutCreateStruct;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
+use Netgen\BlockManager\Layout\Form\DataTransformer\LayoutTypeTransformer;
 use Netgen\BlockManager\Validator\Constraint\LayoutName;
 use Netgen\BlockManager\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -56,7 +57,7 @@ class CreateType extends AbstractType
         }
 
         $builder->add(
-            'type',
+            'layoutType',
             ChoiceType::class,
             array(
                 'label' => 'layout.type',
@@ -67,8 +68,12 @@ class CreateType extends AbstractType
                 'constraints' => array(
                     new Constraints\NotBlank(),
                 ),
-                'property_path' => 'type',
+                'property_path' => 'layoutType',
             )
+        );
+
+        $builder->get('layoutType')->addModelTransformer(
+            new LayoutTypeTransformer($this->layoutTypeRegistry)
         );
 
         $builder->add(

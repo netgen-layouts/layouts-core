@@ -3,10 +3,10 @@
 namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Values\Page\LayoutUpdateStruct as APILayoutUpdateStruct;
+use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Persistence\Values\Page\LayoutUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\BlockManager\API\Service\LayoutService as LayoutServiceInterface;
-use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Core\Service\Mapper\LayoutMapper;
@@ -15,9 +15,9 @@ use Netgen\BlockManager\Persistence\Values\Page\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Exception\BadStateException;
-use Exception;
 use Netgen\BlockManager\Persistence\Values\Page\ZoneCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\ZoneUpdateStruct;
+use Exception;
 
 class LayoutService implements LayoutServiceInterface
 {
@@ -42,28 +42,20 @@ class LayoutService implements LayoutServiceInterface
     protected $layoutHandler;
 
     /**
-     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface
-     */
-    protected $layoutTypeRegistry;
-
-    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\Core\Service\Validator\LayoutValidator $layoutValidator
      * @param \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper $layoutMapper
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
-     * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
      */
     public function __construct(
         LayoutValidator $layoutValidator,
         LayoutMapper $layoutMapper,
-        Handler $persistenceHandler,
-        LayoutTypeRegistryInterface $layoutTypeRegistry
+        Handler $persistenceHandler
     ) {
         $this->layoutValidator = $layoutValidator;
         $this->layoutMapper = $layoutMapper;
         $this->persistenceHandler = $persistenceHandler;
-        $this->layoutTypeRegistry = $layoutTypeRegistry;
 
         $this->layoutHandler = $persistenceHandler->getLayoutHandler();
     }
@@ -357,15 +349,13 @@ class LayoutService implements LayoutServiceInterface
             throw new BadStateException('name', 'Layout with provided name already exists.');
         }
 
-        $layoutType = $this->layoutTypeRegistry->getLayoutType($layoutCreateStruct->type);
-
         $this->persistenceHandler->beginTransaction();
 
         try {
             $createdLayout = $this->layoutHandler->createLayout(
                 new LayoutCreateStruct(
                     array(
-                        'type' => $layoutCreateStruct->type,
+                        'type' => $layoutCreateStruct->layoutType->getIdentifier(),
                         'name' => $layoutCreateStruct->name,
                         'status' => Value::STATUS_DRAFT,
                         'shared' => $layoutCreateStruct->shared,
@@ -377,7 +367,7 @@ class LayoutService implements LayoutServiceInterface
                                     )
                                 );
                             },
-                            $layoutType->getZoneIdentifiers()
+                            $layoutCreateStruct->layoutType->getZoneIdentifiers()
                         ),
                     )
                 )
@@ -621,16 +611,16 @@ class LayoutService implements LayoutServiceInterface
     /**
      * Creates a new layout create struct.
      *
-     * @param string $type
+     * @param \Netgen\BlockManager\Configuration\LayoutType\LayoutType $layoutType
      * @param string $name
      *
      * @return \Netgen\BlockManager\API\Values\Page\LayoutCreateStruct
      */
-    public function newLayoutCreateStruct($type, $name)
+    public function newLayoutCreateStruct(LayoutType $layoutType, $name)
     {
         return new APILayoutCreateStruct(
             array(
-                'type' => $type,
+                'layoutType' => $layoutType,
                 'name' => $name,
             )
         );

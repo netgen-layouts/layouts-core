@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Values\Page\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Page\LayoutUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\Page\Zone;
+use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 
 interface LayoutService
 {
@@ -204,12 +205,12 @@ interface LayoutService
     /**
      * Creates a new layout create struct.
      *
-     * @param string $type
+     * @param \Netgen\BlockManager\Configuration\LayoutType\LayoutType $layoutType
      * @param string $name
      *
      * @return \Netgen\BlockManager\API\Values\Page\LayoutCreateStruct
      */
-    public function newLayoutCreateStruct($type, $name);
+    public function newLayoutCreateStruct(LayoutType $layoutType, $name);
 
     /**
      * Creates a new layout update struct.

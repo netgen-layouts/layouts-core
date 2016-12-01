@@ -67,10 +67,7 @@ class LayoutServiceTest extends TransactionRollbackTest
         $this->layoutTypeRegistry = new LayoutTypeRegistry();
         $this->layoutTypeRegistry->addLayoutType($layoutType);
 
-        $this->layoutService = $this->createLayoutService(
-            $this->layoutValidatorMock,
-            $this->layoutTypeRegistry
-        );
+        $this->layoutService = $this->createLayoutService($this->layoutValidatorMock);
     }
 
     /**
@@ -157,7 +154,11 @@ class LayoutServiceTest extends TransactionRollbackTest
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->createLayout(new LayoutCreateStruct(array('type' => '4_zones_a')));
+        $this->layoutService->createLayout(
+            new LayoutCreateStruct(
+                array('layoutType' => new LayoutType())
+            )
+        );
     }
 
     /**

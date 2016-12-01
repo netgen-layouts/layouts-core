@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Core\Service\Validator;
 
 use Netgen\BlockManager\API\Values\Page\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Page\LayoutUpdateStruct;
+use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Symfony\Component\Validator\Constraints;
 
 class LayoutValidator extends Validator
@@ -31,12 +32,12 @@ class LayoutValidator extends Validator
         );
 
         $this->validate(
-            $layoutCreateStruct->type,
+            $layoutCreateStruct->layoutType,
             array(
                 new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'string')),
+                new Constraints\Type(array('type' => LayoutType::class)),
             ),
-            'type'
+            'layoutType'
         );
 
         if ($layoutCreateStruct->shared !== null) {

@@ -41,17 +41,15 @@ abstract class TransactionRollbackTest extends TestCase
      * Creates a layout service under test.
      *
      * @param \Netgen\BlockManager\Core\Service\Validator\LayoutValidator $validator
-     * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
      *
      * @return \Netgen\BlockManager\Core\Service\LayoutService
      */
-    protected function createLayoutService(LayoutValidator $validator, LayoutTypeRegistryInterface $layoutTypeRegistry)
+    protected function createLayoutService(LayoutValidator $validator)
     {
         return new LayoutService(
             $validator,
             $this->createLayoutMapper(),
-            $this->persistenceHandler,
-            $layoutTypeRegistry
+            $this->persistenceHandler
         );
     }
 
