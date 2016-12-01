@@ -43,13 +43,16 @@ class RangeType extends ParameterType
             }
         );
 
-        $optionsResolver->setDefault('default_value', function (Options $options, $previousValue) {
-            if ($options['required']) {
-                return $options['min'];
-            }
+        $optionsResolver->setDefault(
+            'default_value',
+            function (Options $options, $previousValue) {
+                if ($options['required']) {
+                    return $options['min'];
+                }
 
-            return $previousValue;
-        });
+                return $previousValue;
+            }
+        );
     }
 
     /**

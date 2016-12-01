@@ -27,13 +27,16 @@ class BooleanType extends ParameterType
      */
     public function configureOptions(OptionsResolver $optionsResolver)
     {
-        $optionsResolver->setDefault('default_value', function (Options $options, $previousValue) {
-            if ($options['required']) {
-                return false;
-            }
+        $optionsResolver->setDefault(
+            'default_value',
+            function (Options $options, $previousValue) {
+                if ($options['required']) {
+                    return false;
+                }
 
-            return $previousValue;
-        });
+                return $previousValue;
+            }
+        );
     }
 
     /**
