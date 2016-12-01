@@ -28,6 +28,8 @@ class LinkType extends AbstractType
     {
         parent::configureOptions($resolver);
 
+        $resolver->setDefault('translation_domain', 'ngbm_forms');
+
         $resolver->setRequired(array('value_types'));
         $resolver->setAllowedTypes('value_types', 'array');
         $resolver->setDefault('value_types', array());
@@ -45,12 +47,12 @@ class LinkType extends AbstractType
             'link_type',
             ChoiceType::class,
             array(
-                'label' => 'forms.link.link_type',
+                'label' => 'link.link_type',
                 'choices' => array(
-                    'forms.link.link_type.url' => LinkValue::LINK_TYPE_URL,
-                    'forms.link.link_type.email' => LinkValue::LINK_TYPE_EMAIL,
-                    'forms.link.link_type.phone' => LinkValue::LINK_TYPE_PHONE,
-                    'forms.link.link_type.internal' => LinkValue::LINK_TYPE_INTERNAL,
+                    'link.link_type.url' => LinkValue::LINK_TYPE_URL,
+                    'link.link_type.email' => LinkValue::LINK_TYPE_EMAIL,
+                    'link.link_type.phone' => LinkValue::LINK_TYPE_PHONE,
+                    'link.link_type.internal' => LinkValue::LINK_TYPE_INTERNAL,
                 ),
                 'choices_as_values' => true,
                 'required' => true,
@@ -62,7 +64,7 @@ class LinkType extends AbstractType
             LinkValue::LINK_TYPE_URL,
             UrlType::class,
             array(
-                'label' => 'forms.link.link_type.url',
+                'label' => 'link.link_type.url',
             )
         );
 
@@ -70,7 +72,7 @@ class LinkType extends AbstractType
             LinkValue::LINK_TYPE_EMAIL,
             EmailType::class,
             array(
-                'label' => 'forms.link.link_type.email',
+                'label' => 'link.link_type.email',
             )
         );
 
@@ -78,7 +80,7 @@ class LinkType extends AbstractType
             LinkValue::LINK_TYPE_PHONE,
             TextType::class,
             array(
-                'label' => 'forms.link.link_type.phone',
+                'label' => 'link.link_type.phone',
             )
         );
 
@@ -86,7 +88,7 @@ class LinkType extends AbstractType
             LinkValue::LINK_TYPE_INTERNAL,
             ContentBrowserDynamicType::class,
             array(
-                'label' => 'forms.link.link_type.internal',
+                'label' => 'link.link_type.internal',
                 'item_types' => $options['value_types'],
                 'error_bubbling' => false,
             )
@@ -114,7 +116,7 @@ class LinkType extends AbstractType
             'link_suffix',
             TextType::class,
             array(
-                'label' => 'forms.link.link_suffix',
+                'label' => 'link.link_suffix',
                 'property_path' => 'linkSuffix',
             )
         );
@@ -123,7 +125,7 @@ class LinkType extends AbstractType
             'new_window',
             CheckboxType::class,
             array(
-                'label' => 'forms.link.new_window',
+                'label' => 'link.new_window',
                 'required' => true,
                 'property_path' => 'newWindow',
             )

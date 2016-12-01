@@ -27,7 +27,7 @@ class AbstractTypeTest extends FormTestCase
         $resolvedOptions = $optionsResolver->resolve(array());
 
         $this->assertEquals(
-            AbstractType::TRANSLATION_DOMAIN,
+            'ngbm',
             $resolvedOptions['translation_domain']
         );
     }

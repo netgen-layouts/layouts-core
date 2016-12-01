@@ -2,8 +2,6 @@
 
 {% form_theme form.type _self %}
 
-{% trans_default_domain 'ngbm_forms' %}
-
 {% block _create_type_widget %}
     <div {{ block('widget_container_attributes') }}>
     {%- for child in form %}

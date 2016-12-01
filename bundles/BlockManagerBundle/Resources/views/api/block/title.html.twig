@@ -6,7 +6,7 @@
     {% set tag = block.parameter('tag').value|default('h1') %}
 
     <{{ tag }} data-inline>
-        <span contenteditable="true" data-attr="title" data-hint="{{ 'block.title.placeholder'|trans }}" data-inline-child>
+        <span contenteditable="true" data-attr="title" data-hint="{{ 'block.placeholder.title'|trans }}" data-inline-child>
             {{ block.parameter('title').value }}
         </span>
     </{{ tag }}>

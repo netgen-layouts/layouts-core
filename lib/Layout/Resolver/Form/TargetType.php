@@ -76,7 +76,7 @@ class TargetType extends AbstractType
 
         $defaultOptions = array(
             'required' => true,
-            'label' => sprintf('target_type.%s.label', $targetType->getType()),
+            'label' => sprintf('layout_resolver.target.%s', $targetType->getType()),
             'property_path' => 'value',
             'constraints' => $targetType->getConstraints(),
             'error_bubbling' => false,

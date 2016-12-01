@@ -185,7 +185,7 @@ class ParametersTypeTest extends FormTestCase
                 'label_prefix' => 'label',
                 'groups' => array(),
                 'inherit_data' => true,
-                'translation_domain' => ParametersType::TRANSLATION_DOMAIN,
+                'translation_domain' => 'ngbm',
             ),
             $resolvedOptions
         );

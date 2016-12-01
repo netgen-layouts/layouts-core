@@ -1,6 +1,6 @@
 item_types:
     ngbm_layout:
-        name: item_types.layout
+        name: item_types.ngbm_layout
         min_selected: 1
         max_selected: 1
         tree:

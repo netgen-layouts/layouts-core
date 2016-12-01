@@ -37,9 +37,9 @@ class RouteParameterTest extends TestCase
             array(
                 'label' => false,
                 'key_name' => 'parameter_name',
-                'key_label' => 'condition_type.route_parameter.parameter_name.label',
+                'key_label' => 'layout_resolver.condition.route_parameter.parameter_name',
                 'values_name' => 'parameter_values',
-                'values_label' => 'condition_type.route_parameter.parameter_values.label',
+                'values_label' => 'layout_resolver.condition.route_parameter.parameter_values',
                 'values_type' => TextType::class,
             ),
             $this->mapper->mapOptions(

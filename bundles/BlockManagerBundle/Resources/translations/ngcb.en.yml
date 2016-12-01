@@ -1,4 +1,4 @@
-item_types.layout: 'Layout'
+item_types.ngbm_layout: 'Layout'
 
 columns.ngbm_layout.layout_id: 'Layout ID'
 columns.ngbm_layout.type: 'Type'

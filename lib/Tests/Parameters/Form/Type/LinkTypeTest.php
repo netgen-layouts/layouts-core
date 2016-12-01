@@ -177,7 +177,7 @@ class LinkTypeTest extends FormTestCase
         $this->assertEquals(
             array(
                 'value_types' => array('value'),
-                'translation_domain' => LinkType::TRANSLATION_DOMAIN,
+                'translation_domain' => 'ngbm_forms',
             ),
             $resolvedOptions
         );
@@ -197,7 +197,7 @@ class LinkTypeTest extends FormTestCase
         $this->assertEquals(
             array(
                 'value_types' => array(),
-                'translation_domain' => LinkType::TRANSLATION_DOMAIN,
+                'translation_domain' => 'ngbm_forms',
             ),
             $resolvedOptions
         );

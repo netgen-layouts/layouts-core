@@ -76,7 +76,7 @@ class ConditionType extends AbstractType
 
         $defaultOptions = array(
             'required' => true,
-            'label' => sprintf('condition_type.%s.label', $conditionType->getType()),
+            'label' => sprintf('layout_resolver.condition.%s', $conditionType->getType()),
             'property_path' => 'value',
             'constraints' => $conditionType->getConstraints(),
             'error_bubbling' => false,
