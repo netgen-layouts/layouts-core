@@ -3,6 +3,15 @@
 namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Netgen\BlockManager\Configuration\LayoutType\Zone;
+use Netgen\BlockManager\Core\Service\BlockService;
+use Netgen\BlockManager\Core\Service\CollectionService;
+use Netgen\BlockManager\Core\Service\LayoutResolverService;
+use Netgen\BlockManager\Core\Service\LayoutService;
+use Netgen\BlockManager\Core\Service\Mapper\BlockMapper;
+use Netgen\BlockManager\Core\Service\Mapper\CollectionMapper;
+use Netgen\BlockManager\Core\Service\Mapper\LayoutMapper;
+use Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper;
+use Netgen\BlockManager\Core\Service\Mapper\ParameterMapper;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
@@ -55,6 +64,11 @@ abstract class ServiceTestCase extends TestCase
     protected $parameterTypeRegistry;
 
     /**
+     * @var \Netgen\BlockManager\Persistence\Handler
+     */
+    protected $persistenceHandler;
+
+    /**
      * @var \Netgen\BlockManager\API\Service\BlockService
      */
     protected $blockService;
@@ -97,6 +111,7 @@ abstract class ServiceTestCase extends TestCase
     public function setUp()
     {
         $this->prepareRegistries();
+        $this->preparePersistence();
     }
 
     /**
@@ -172,73 +187,136 @@ abstract class ServiceTestCase extends TestCase
     }
 
     /**
+     * Prepares the persistence handler used in tests.
+     */
+    abstract public function preparePersistence();
+
+    /**
      * Creates a layout service under test.
-     *
-     * @param \Netgen\BlockManager\Core\Service\Validator\LayoutValidator $validator
      *
      * @return \Netgen\BlockManager\Core\Service\LayoutService
      */
-    abstract protected function createLayoutService(LayoutValidator $validator);
+    protected function createLayoutService()
+    {
+        return new LayoutService(
+            $this->createMock(LayoutValidator::class),
+            $this->createLayoutMapper(),
+            $this->persistenceHandler
+        );
+    }
 
     /**
      * Creates a block service under test.
      *
-     * @param \Netgen\BlockManager\Core\Service\Validator\BlockValidator $validator
-     *
      * @return \Netgen\BlockManager\API\Service\BlockService
      */
-    abstract protected function createBlockService(BlockValidator $validator);
+    protected function createBlockService()
+    {
+        return new BlockService(
+            $this->createMock(BlockValidator::class),
+            $this->createBlockMapper(),
+            $this->createParameterMapper(),
+            $this->persistenceHandler,
+            $this->layoutTypeRegistry
+        );
+    }
 
     /**
      * Creates a collection service under test.
      *
-     * @param \Netgen\BlockManager\Core\Service\Validator\CollectionValidator $validator
-     *
      * @return \Netgen\BlockManager\API\Service\CollectionService
      */
-    abstract protected function createCollectionService(CollectionValidator $validator);
+    protected function createCollectionService()
+    {
+        return new CollectionService(
+            $this->createMock(CollectionValidator::class),
+            $this->createCollectionMapper(),
+            $this->createParameterMapper(),
+            $this->persistenceHandler
+        );
+    }
 
     /**
      * Creates a layout resolver service under test.
      *
-     * @param \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator $validator
-     *
      * @return \Netgen\BlockManager\API\Service\LayoutResolverService
      */
-    abstract protected function createLayoutResolverService(LayoutResolverValidator $validator);
+    protected function createLayoutResolverService()
+    {
+        return new LayoutResolverService(
+            $this->createMock(LayoutResolverValidator::class),
+            $this->createLayoutResolverMapper(),
+            $this->persistenceHandler
+        );
+    }
 
     /**
      * Creates a layout mapper under test.
      *
      * @return \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper
      */
-    abstract protected function createLayoutMapper();
+    protected function createLayoutMapper()
+    {
+        return new LayoutMapper(
+            $this->createBlockMapper(),
+            $this->persistenceHandler,
+            $this->layoutTypeRegistry
+        );
+    }
 
     /**
      * Creates a block mapper under test.
      *
      * @return \Netgen\BlockManager\Core\Service\Mapper\BlockMapper
      */
-    abstract protected function createBlockMapper();
+    protected function createBlockMapper()
+    {
+        return new BlockMapper(
+            $this->persistenceHandler,
+            $this->createCollectionMapper(),
+            $this->createParameterMapper(),
+            $this->blockDefinitionRegistry
+        );
+    }
 
     /**
      * Creates a collection mapper under test.
      *
      * @return \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper
      */
-    abstract protected function createCollectionMapper();
+    protected function createCollectionMapper()
+    {
+        return new CollectionMapper(
+            $this->persistenceHandler,
+            $this->createParameterMapper(),
+            $this->queryTypeRegistry
+        );
+    }
 
     /**
      * Creates a layout resolver mapper under test.
      *
      * @return \Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper
      */
-    abstract protected function createLayoutResolverMapper();
+    protected function createLayoutResolverMapper()
+    {
+        return new LayoutResolverMapper(
+            $this->persistenceHandler,
+            $this->createLayoutMapper(),
+            $this->targetTypeRegistry,
+            $this->conditionTypeRegistry
+        );
+    }
 
     /**
      * Creates the parameter mapper under test.
      *
      * @return \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper
      */
-    abstract protected function createParameterMapper();
+    protected function createParameterMapper()
+    {
+        return new ParameterMapper(
+            $this->parameterTypeRegistry
+        );
+    }
 }

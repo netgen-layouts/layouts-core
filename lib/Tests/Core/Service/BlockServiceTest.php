@@ -17,34 +17,23 @@ use Netgen\BlockManager\Parameters\ParameterValue;
 abstract class BlockServiceTest extends ServiceTestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $blockValidatorMock;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $layoutValidatorMock;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $collectionValidatorMock;
-
-    /**
      * Sets up the tests.
      */
     public function setUp()
     {
         parent::setUp();
 
-        $this->blockValidatorMock = $this->createMock(BlockValidator::class);
-        $this->layoutValidatorMock = $this->createMock(LayoutValidator::class);
-        $this->collectionValidatorMock = $this->createMock(CollectionValidator::class);
+        $this->blockService = $this->createBlockService(
+            $this->createMock(BlockValidator::class)
+        );
 
-        $this->blockService = $this->createBlockService($this->blockValidatorMock);
-        $this->layoutService = $this->createLayoutService($this->layoutValidatorMock);
-        $this->collectionService = $this->createCollectionService($this->collectionValidatorMock);
+        $this->layoutService = $this->createLayoutService(
+            $this->createMock(LayoutValidator::class)
+        );
+
+        $this->collectionService = $this->createCollectionService(
+            $this->createMock(CollectionValidator::class)
+        );
     }
 
     /**

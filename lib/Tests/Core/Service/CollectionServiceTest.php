@@ -18,20 +18,15 @@ use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
 abstract class CollectionServiceTest extends ServiceTestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $collectionValidatorMock;
-
-    /**
      * Sets up the tests.
      */
     public function setUp()
     {
         parent::setUp();
 
-        $this->collectionValidatorMock = $this->createMock(CollectionValidator::class);
-
-        $this->collectionService = $this->createCollectionService($this->collectionValidatorMock);
+        $this->collectionService = $this->createCollectionService(
+            $this->createMock(CollectionValidator::class)
+        );
     }
 
     /**

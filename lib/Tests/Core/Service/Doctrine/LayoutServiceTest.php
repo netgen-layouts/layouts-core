@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Doctrine;
 
+use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\BlockManager\Tests\Core\Service\LayoutServiceTest as BaseLayoutServiceTest;
 
 class LayoutServiceTest extends BaseLayoutServiceTest
@@ -9,17 +10,15 @@ class LayoutServiceTest extends BaseLayoutServiceTest
     use TestCaseTrait;
 
     /**
-     * Sets up the tests.
+     * Prepares the prerequisites for using services in tests.
      */
-    public function setUp()
+    public function preparePersistence()
     {
-        $this->preparePersistence();
-
-        parent::setUp();
+        $this->persistenceHandler = $this->createPersistenceHandler();
     }
 
     public function tearDown()
     {
-        $this->closeDatabaseConnection();
+        $this->closeDatabase();
     }
 }

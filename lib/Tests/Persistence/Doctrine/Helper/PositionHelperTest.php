@@ -27,9 +27,9 @@ class PositionHelperTest extends TestCase
      */
     public function setUp()
     {
-        $this->prepareHandlers();
+        $this->createDatabase();
 
-        $this->collectionHandler = $this->createPersistenceHandler()->getCollectionHandler();
+        $this->collectionHandler = $this->createCollectionHandler();
         $this->positionHelper = new PositionHelper($this->databaseConnection);
     }
 
@@ -38,7 +38,7 @@ class PositionHelperTest extends TestCase
      */
     public function tearDown()
     {
-        $this->closeDatabaseConnection();
+        $this->closeDatabase();
     }
 
     /**

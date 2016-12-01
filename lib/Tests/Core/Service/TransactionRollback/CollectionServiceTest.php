@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
-use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
@@ -14,22 +13,11 @@ use Netgen\BlockManager\Persistence\Values\Collection\Item as PersistenceItem;
 use Netgen\BlockManager\Persistence\Values\Collection\Query as PersistenceQuery;
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
-use Netgen\BlockManager\Persistence\Handler\CollectionHandler;
-use Exception;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
+use Exception;
 
-class CollectionServiceTest extends TransactionRollbackTest
+class CollectionServiceTest extends ServiceTestCase
 {
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $collectionHandlerMock;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $collectionValidatorMock;
-
     /**
      * @var \Netgen\BlockManager\API\Service\CollectionService
      */
@@ -40,18 +28,9 @@ class CollectionServiceTest extends TransactionRollbackTest
      */
     public function setUp()
     {
-        $this->preparePersistence();
+        parent::setUp();
 
-        $this->collectionHandlerMock = $this->createMock(CollectionHandler::class);
-
-        $this->persistenceHandler
-            ->expects($this->any())
-            ->method('getCollectionHandler')
-            ->will($this->returnValue($this->collectionHandlerMock));
-
-        $this->collectionValidatorMock = $this->createMock(CollectionValidator::class);
-
-        $this->collectionService = $this->createCollectionService($this->collectionValidatorMock);
+        $this->collectionService = $this->createCollectionService();
     }
 
     /**

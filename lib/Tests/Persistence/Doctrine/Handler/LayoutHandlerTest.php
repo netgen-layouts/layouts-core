@@ -38,7 +38,7 @@ class LayoutHandlerTest extends TestCase
      */
     public function setUp()
     {
-        $this->prepareHandlers();
+        $this->createDatabase();
 
         $this->layoutHandler = $this->createLayoutHandler();
         $this->blockHandler = $this->createBlockHandler();
@@ -50,7 +50,7 @@ class LayoutHandlerTest extends TestCase
      */
     public function tearDown()
     {
-        $this->closeDatabaseConnection();
+        $this->closeDatabase();
     }
 
     /**

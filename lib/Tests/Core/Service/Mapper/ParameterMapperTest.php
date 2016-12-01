@@ -22,8 +22,6 @@ class ParameterMapperTest extends TestCase
      */
     public function setUp()
     {
-        parent::setUp();
-
         $this->mapper = new ParameterMapper();
     }
 

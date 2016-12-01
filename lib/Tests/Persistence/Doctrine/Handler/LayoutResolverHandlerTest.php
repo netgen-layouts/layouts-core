@@ -36,7 +36,7 @@ class LayoutResolverHandlerTest extends TestCase
      */
     public function setUp()
     {
-        $this->prepareHandlers();
+        $this->createDatabase();
 
         $this->handler = $this->createLayoutResolverHandler();
         $this->layoutHandler = $this->createLayoutHandler();
@@ -47,7 +47,7 @@ class LayoutResolverHandlerTest extends TestCase
      */
     public function tearDown()
     {
-        $this->closeDatabaseConnection();
+        $this->closeDatabase();
     }
 
     /**

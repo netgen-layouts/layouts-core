@@ -20,27 +20,19 @@ use Netgen\BlockManager\Exception\NotFoundException;
 abstract class LayoutResolverServiceTest extends ServiceTestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $layoutValidatorMock;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $layoutResolverValidatorMock;
-
-    /**
      * Sets up the tests.
      */
     public function setUp()
     {
         parent::setUp();
 
-        $this->layoutValidatorMock = $this->createMock(LayoutValidator::class);
-        $this->layoutResolverValidatorMock = $this->createMock(LayoutResolverValidator::class);
+        $this->layoutService = $this->createLayoutService(
+            $this->createMock(LayoutValidator::class)
+        );
 
-        $this->layoutService = $this->createLayoutService($this->layoutValidatorMock);
-        $this->layoutResolverService = $this->createLayoutResolverService($this->layoutResolverValidatorMock);
+        $this->layoutResolverService = $this->createLayoutResolverService(
+            $this->createMock(LayoutResolverValidator::class)
+        );
     }
 
     /**

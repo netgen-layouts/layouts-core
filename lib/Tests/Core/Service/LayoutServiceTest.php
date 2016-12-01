@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\Tests\Core\Service;
 use Netgen\BlockManager\API\Values\Page\LayoutUpdateStruct;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\API\Values\Page\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\Page\Zone;
@@ -13,20 +12,13 @@ use Netgen\BlockManager\API\Values\Page\Zone;
 abstract class LayoutServiceTest extends ServiceTestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $layoutValidatorMock;
-
-    /**
      * Sets up the tests.
      */
     public function setUp()
     {
         parent::setUp();
 
-        $this->layoutValidatorMock = $this->createMock(LayoutValidator::class);
-
-        $this->layoutService = $this->createLayoutService($this->layoutValidatorMock);
+        $this->layoutService = $this->createLayoutService();
     }
 
     /**

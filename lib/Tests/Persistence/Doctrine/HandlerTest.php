@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine;
 
-use Netgen\BlockManager\Persistence\Doctrine\Handler;
 use Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler;
 use Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler;
 use Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler;
@@ -15,19 +14,18 @@ class HandlerTest extends TestCase
     use TestCaseTrait;
 
     /**
-     * Sets up the tests.
+     * @var \Netgen\BlockManager\Persistence\Doctrine\Handler
      */
-    public function setUp()
-    {
-        $this->prepareHandlers();
-    }
+    protected $handler;
 
     /**
-     * Tears down the tests.
+     * Sets up the database connection.
      */
-    public function tearDown()
+    protected function setUp()
     {
-        $this->closeDatabaseConnection();
+        $this->databaseConnection = $this->createMock(Connection::class);
+
+        $this->handler = $this->createPersistenceHandler($this->databaseConnection);
     }
 
     /**
@@ -36,11 +34,9 @@ class HandlerTest extends TestCase
      */
     public function testGetLayoutHandler()
     {
-        $handler = $this->createPersistenceHandler();
-
         $this->assertInstanceOf(
             LayoutHandler::class,
-            $handler->getLayoutHandler()
+            $this->handler->getLayoutHandler()
         );
     }
 
@@ -49,11 +45,9 @@ class HandlerTest extends TestCase
      */
     public function testGetBlockHandler()
     {
-        $handler = $this->createPersistenceHandler();
-
         $this->assertInstanceOf(
             BlockHandler::class,
-            $handler->getBlockHandler()
+            $this->handler->getBlockHandler()
         );
     }
 
@@ -62,11 +56,9 @@ class HandlerTest extends TestCase
      */
     public function testGetCollectionHandler()
     {
-        $handler = $this->createPersistenceHandler();
-
         $this->assertInstanceOf(
             CollectionHandler::class,
-            $handler->getCollectionHandler()
+            $this->handler->getCollectionHandler()
         );
     }
 
@@ -75,11 +67,9 @@ class HandlerTest extends TestCase
      */
     public function testGetLayoutResolverHandler()
     {
-        $handler = $this->createPersistenceHandler();
-
         $this->assertInstanceOf(
             LayoutResolverHandler::class,
-            $handler->getLayoutResolverHandler()
+            $this->handler->getLayoutResolverHandler()
         );
     }
 
@@ -88,22 +78,11 @@ class HandlerTest extends TestCase
      */
     public function testBeginTransaction()
     {
-        $databaseConnection = $this
-            ->createMock(Connection::class);
-
-        $databaseConnection
+        $this->databaseConnection
             ->expects($this->once())
             ->method('beginTransaction');
 
-        $handler = new Handler(
-            $databaseConnection,
-            $this->createLayoutHandler(),
-            $this->createBlockHandler(),
-            $this->createCollectionHandler(),
-            $this->createLayoutResolverHandler()
-        );
-
-        $handler->beginTransaction();
+        $this->handler->beginTransaction();
     }
 
     /**
@@ -111,22 +90,11 @@ class HandlerTest extends TestCase
      */
     public function testCommitTransaction()
     {
-        $databaseConnection = $this
-            ->createMock(Connection::class);
-
-        $databaseConnection
+        $this->databaseConnection
             ->expects($this->once())
             ->method('commit');
 
-        $handler = new Handler(
-            $databaseConnection,
-            $this->createLayoutHandler(),
-            $this->createBlockHandler(),
-            $this->createCollectionHandler(),
-            $this->createLayoutResolverHandler()
-        );
-
-        $handler->commitTransaction();
+        $this->handler->commitTransaction();
     }
 
     /**
@@ -134,21 +102,10 @@ class HandlerTest extends TestCase
      */
     public function testRollbackTransaction()
     {
-        $databaseConnection = $this
-            ->createMock(Connection::class);
-
-        $databaseConnection
+        $this->databaseConnection
             ->expects($this->once())
             ->method('rollback');
 
-        $handler = new Handler(
-            $databaseConnection,
-            $this->createLayoutHandler(),
-            $this->createBlockHandler(),
-            $this->createCollectionHandler(),
-            $this->createLayoutResolverHandler()
-        );
-
-        $handler->rollbackTransaction();
+        $this->handler->rollbackTransaction();
     }
 }

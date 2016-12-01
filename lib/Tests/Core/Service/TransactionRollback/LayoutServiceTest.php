@@ -5,33 +5,14 @@ namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 use Netgen\BlockManager\API\Values\Page\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Page\LayoutUpdateStruct;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
-use Netgen\BlockManager\Configuration\LayoutType\Zone as ZoneConfig;
-use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
-use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone as PersistenceZone;
-use Netgen\BlockManager\Persistence\Handler\LayoutHandler;
 use Exception;
 
-class LayoutServiceTest extends TransactionRollbackTest
+class LayoutServiceTest extends ServiceTestCase
 {
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $layoutHandlerMock;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $layoutValidatorMock;
-
-    /**
-     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface
-     */
-    protected $layoutTypeRegistry;
-
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService
      */
@@ -42,32 +23,9 @@ class LayoutServiceTest extends TransactionRollbackTest
      */
     public function setUp()
     {
-        $this->preparePersistence();
+        parent::setUp();
 
-        $this->layoutHandlerMock = $this->createMock(LayoutHandler::class);
-
-        $this->persistenceHandler
-            ->expects($this->any())
-            ->method('getLayoutHandler')
-            ->will($this->returnValue($this->layoutHandlerMock));
-
-        $this->layoutValidatorMock = $this->createMock(LayoutValidator::class);
-
-        $layoutType = new LayoutType(
-            array(
-                'identifier' => '4_zones_a',
-                'zones' => array(
-                    'left' => new ZoneConfig(),
-                    'right' => new ZoneConfig(),
-                    'bottom' => new ZoneConfig(),
-                ),
-            )
-        );
-
-        $this->layoutTypeRegistry = new LayoutTypeRegistry();
-        $this->layoutTypeRegistry->addLayoutType($layoutType);
-
-        $this->layoutService = $this->createLayoutService($this->layoutValidatorMock);
+        $this->layoutService = $this->createLayoutService();
     }
 
     /**

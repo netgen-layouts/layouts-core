@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine;
 
+use Doctrine\DBAL\Connection;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Handler;
@@ -24,20 +25,19 @@ trait TestCaseTrait
     use DatabaseTrait;
 
     /**
-     * Sets up the database connection.
-     */
-    public function prepareHandlers()
-    {
-        $this->prepareDatabase(__DIR__ . '/../../_fixtures');
-    }
-
-    /**
      * Returns the persistence handler under test.
+     *
+     * @param \Doctrine\DBAL\Connection $connection
      *
      * @return \Netgen\BlockManager\Persistence\Handler
      */
-    protected function createPersistenceHandler()
+    protected function createPersistenceHandler(Connection $connection = null)
     {
+        $this->databaseConnection = $connection;
+        if ($this->databaseConnection === null) {
+            $this->createDatabase();
+        }
+
         return new Handler(
             $this->databaseConnection,
             $this->createLayoutHandler(),

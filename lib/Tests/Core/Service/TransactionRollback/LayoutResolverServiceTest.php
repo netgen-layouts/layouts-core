@@ -4,11 +4,9 @@ namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\RuleMetadataUpdateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct;
-use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
-use Netgen\BlockManager\Persistence\Handler\LayoutResolverHandler;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule as PersistenceRule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition as PersistenceCondition;
@@ -19,18 +17,8 @@ use Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\ConditionUpdateStruct;
 use Exception;
 
-class LayoutResolverServiceTest extends TransactionRollbackTest
+class LayoutResolverServiceTest extends ServiceTestCase
 {
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $layoutResolverHandlerMock;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $layoutResolverValidatorMock;
-
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutResolverService
      */
@@ -41,18 +29,9 @@ class LayoutResolverServiceTest extends TransactionRollbackTest
      */
     public function setUp()
     {
-        $this->preparePersistence();
+        parent::setUp();
 
-        $this->layoutResolverHandlerMock = $this->createMock(LayoutResolverHandler::class);
-
-        $this->persistenceHandler
-            ->expects($this->any())
-            ->method('getLayoutResolverHandler')
-            ->will($this->returnValue($this->layoutResolverHandlerMock));
-
-        $this->layoutResolverValidatorMock = $this->createMock(LayoutResolverValidator::class);
-
-        $this->layoutResolverService = $this->createLayoutResolverService($this->layoutResolverValidatorMock);
+        $this->layoutResolverService = $this->createLayoutResolverService();
     }
 
     /**

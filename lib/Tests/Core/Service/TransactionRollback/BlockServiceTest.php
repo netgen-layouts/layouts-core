@@ -2,48 +2,21 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
-use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
-use Netgen\BlockManager\Configuration\LayoutType\Zone;
-use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\API\Values\Page\BlockCreateStruct;
-use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Core\Values\Page\CollectionReference;
-use Netgen\BlockManager\Persistence\Handler\CollectionHandler;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceCollection;
 use Netgen\BlockManager\Persistence\Values\Page\Block as PersistenceBlock;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReference as PersistenceCollectionReference;
 use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
-use Netgen\BlockManager\Persistence\Handler\BlockHandler;
-use Netgen\BlockManager\Persistence\Handler\LayoutHandler;
-use Exception;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
+use Exception;
 
-class BlockServiceTest extends TransactionRollbackTest
+class BlockServiceTest extends ServiceTestCase
 {
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $blockHandlerMock;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $layoutHandlerMock;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $collectionHandlerMock;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $blockValidatorMock;
-
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService
      */
@@ -54,48 +27,9 @@ class BlockServiceTest extends TransactionRollbackTest
      */
     public function setUp()
     {
-        $this->preparePersistence();
+        parent::setUp();
 
-        $this->blockHandlerMock = $this->createMock(BlockHandler::class);
-        $this->layoutHandlerMock = $this->createMock(LayoutHandler::class);
-        $this->collectionHandlerMock = $this->createMock(CollectionHandler::class);
-
-        $this->persistenceHandler
-            ->expects($this->any())
-            ->method('getBlockHandler')
-            ->will($this->returnValue($this->blockHandlerMock));
-
-        $this->persistenceHandler
-            ->expects($this->any())
-            ->method('getLayoutHandler')
-            ->will($this->returnValue($this->layoutHandlerMock));
-
-        $this->persistenceHandler
-            ->expects($this->any())
-            ->method('getCollectionHandler')
-            ->will($this->returnValue($this->collectionHandlerMock));
-
-        $this->blockValidatorMock = $this->createMock(BlockValidator::class);
-
-        $layoutTypeRegistry = new LayoutTypeRegistry();
-        $layoutTypeRegistry->addLayoutType(
-            new LayoutType(
-                array(
-                    'identifier' => '4_zones_b',
-                    'zones' => array(
-                        'top' => new Zone(),
-                        'left' => new Zone(),
-                        'right' => new Zone(),
-                        'bottom' => new Zone(),
-                    ),
-                )
-            )
-        );
-
-        $this->blockService = $this->createBlockService(
-            $this->blockValidatorMock,
-            $layoutTypeRegistry
-        );
+        $this->blockService = $this->createBlockService();
     }
 
     /**

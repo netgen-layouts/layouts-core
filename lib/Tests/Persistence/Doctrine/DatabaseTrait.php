@@ -35,7 +35,7 @@ trait DatabaseTrait
      *
      * @param string $fixturesPath
      */
-    protected function prepareDatabase($fixturesPath)
+    protected function createDatabase($fixturesPath = __DIR__ . '/../../_fixtures')
     {
         $this->databaseUri = getenv('DATABASE');
         if (empty($this->databaseUri)) {
@@ -49,7 +49,11 @@ trait DatabaseTrait
         preg_match('/^(?<db>.+):\/\//', $this->databaseUri, $matches);
         $this->databaseServer = $matches['db'];
 
-        $this->createDatabaseConnection();
+        $this->databaseConnection = DriverManager::getConnection(
+            array(
+                'url' => $this->databaseUri,
+            )
+        );
 
         $useMigrations ?
             $this->executeMigrations() :
@@ -63,21 +67,9 @@ trait DatabaseTrait
     }
 
     /**
-     * Creates the database connection.
-     */
-    protected function createDatabaseConnection()
-    {
-        $this->databaseConnection = DriverManager::getConnection(
-            array(
-                'url' => $this->databaseUri,
-            )
-        );
-    }
-
-    /**
      * Closes the database connection.
      */
-    protected function closeDatabaseConnection()
+    protected function closeDatabase()
     {
         if ($this->databaseUri !== $this->inMemoryDsn) {
             $this->databaseConnection->close();

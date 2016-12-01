@@ -29,7 +29,7 @@ class CollectionHandlerTest extends TestCase
      */
     public function setUp()
     {
-        $this->prepareHandlers();
+        $this->createDatabase();
 
         $this->collectionHandler = $this->createCollectionHandler();
     }
@@ -39,7 +39,7 @@ class CollectionHandlerTest extends TestCase
      */
     public function tearDown()
     {
-        $this->closeDatabaseConnection();
+        $this->closeDatabase();
     }
 
     /**

@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Doctrine\Mapper;
 
-use Netgen\BlockManager\Tests\Core\Service\Doctrine\TestCaseTrait;
+use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\BlockManager\Tests\Core\Service\Mapper\LayoutMapperTest as BaseLayoutMapperTest;
 
 class LayoutMapperTest extends BaseLayoutMapperTest
@@ -10,17 +10,15 @@ class LayoutMapperTest extends BaseLayoutMapperTest
     use TestCaseTrait;
 
     /**
-     * Sets up the tests.
+     * Prepares the prerequisites for using services in tests.
      */
-    public function setUp()
+    public function preparePersistence()
     {
-        $this->preparePersistence();
-
-        parent::setUp();
+        $this->persistenceHandler = $this->createPersistenceHandler();
     }
 
     public function tearDown()
     {
-        $this->closeDatabaseConnection();
+        $this->closeDatabase();
     }
 }

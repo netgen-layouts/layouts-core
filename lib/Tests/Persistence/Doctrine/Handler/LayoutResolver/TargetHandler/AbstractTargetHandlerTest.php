@@ -23,7 +23,7 @@ abstract class AbstractTargetHandlerTest extends TestCase
      */
     public function setUp()
     {
-        $this->prepareHandlers();
+        $this->createDatabase();
 
         $this->handler = new LayoutResolverHandler(
             new LayoutResolverQueryHandler(
@@ -40,7 +40,7 @@ abstract class AbstractTargetHandlerTest extends TestCase
      */
     public function tearDown()
     {
-        $this->closeDatabaseConnection();
+        $this->closeDatabase();
     }
 
     /**

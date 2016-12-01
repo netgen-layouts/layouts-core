@@ -30,7 +30,6 @@ class ConnectionHelperTest extends TestCase
     public function setUp()
     {
         $this->databasePlatformMock = $this->createMock(AbstractPlatform::class);
-
         $this->databaseConnectionMock = $this->createMock(Connection::class);
 
         $this->databaseConnectionMock
