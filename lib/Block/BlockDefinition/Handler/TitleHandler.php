@@ -11,7 +11,7 @@ class TitleHandler extends BlockDefinitionHandler
     /**
      * @var array
      */
-    protected $options = array();
+    protected $tags = array();
 
     /**
      * @var array
@@ -21,12 +21,12 @@ class TitleHandler extends BlockDefinitionHandler
     /**
      * Constructor.
      *
-     * @param array $options
+     * @param array $tags
      * @param array $linkValueTypes
      */
-    public function __construct(array $options = array(), array $linkValueTypes = array())
+    public function __construct(array $tags = array(), array $linkValueTypes = array())
     {
-        $this->options = array_flip($options);
+        $this->tags = array_flip($tags);
         $this->linkValueTypes = $linkValueTypes;
     }
 
@@ -42,7 +42,7 @@ class TitleHandler extends BlockDefinitionHandler
             ParameterType\ChoiceType::class,
             array(
                 'required' => true,
-                'options' => $this->options,
+                'options' => $this->tags,
             )
         );
 
