@@ -10,7 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class ItemLinkType extends ParameterType
 {
     /**
-     * getIdentifierReturns the parameter type identifier.
+     * Returns the parameter type identifier.
      *
      * @return string
      */

@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints;
 class BooleanType extends CompoundParameterType
 {
     /**
-     * getIdentifierReturns the parameter type identifier.
+     * Returns the parameter type identifier.
      *
      * @return string
      */

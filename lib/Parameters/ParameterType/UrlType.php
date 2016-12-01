@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints;
 class UrlType extends ParameterType
 {
     /**
-     * getIdentifierReturns the parameter type identifier.
+     * Returns the parameter type identifier.
      *
      * @return string
      */
