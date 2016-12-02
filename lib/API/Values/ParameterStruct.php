@@ -124,6 +124,6 @@ abstract class ParameterStruct extends ValueObject
             return is_object($value) ? clone $value : $value;
         }
 
-        return $parameter->getType()->toValue($value);
+        return $parameter->getType()->createValueFromInput($value);
     }
 }

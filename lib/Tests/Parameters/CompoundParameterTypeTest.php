@@ -88,19 +88,27 @@ class CompoundParameterTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\CompoundParameterType::fromValue
+     * @covers \Netgen\BlockManager\Parameters\CompoundParameterType::toHash
      */
-    public function testFromValue()
+    public function testToHash()
     {
-        $this->assertEquals(42, $this->parameterType->fromValue(42));
+        $this->assertEquals(42, $this->parameterType->toHash(42));
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\CompoundParameterType::toValue
+     * @covers \Netgen\BlockManager\Parameters\CompoundParameterType::fromHash
      */
-    public function testToValue()
+    public function testFromHash()
     {
-        $this->assertEquals(42, $this->parameterType->toValue(42));
+        $this->assertEquals(42, $this->parameterType->fromHash(42));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\CompoundParameterType::createValueFromInput
+     */
+    public function testCreateValueFromInput()
+    {
+        $this->assertEquals(42, $this->parameterType->createValueFromInput(42));
     }
 
     /**

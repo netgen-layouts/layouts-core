@@ -28,7 +28,7 @@ class ParameterMapper
 
             $parameterType = $parameter->getType();
 
-            $value = $parameterType->toValue($rawValue);
+            $value = $parameterType->fromHash($rawValue);
             $mappedValues[$parameterName] = new ParameterValue(
                 array(
                     'name' => $parameterName,
@@ -68,7 +68,7 @@ class ParameterMapper
                 continue;
             }
 
-            $serializedValues[$parameterName] = $parameter->getType()->fromValue(
+            $serializedValues[$parameterName] = $parameter->getType()->toHash(
                 $parameterValues[$parameterName]
             );
 

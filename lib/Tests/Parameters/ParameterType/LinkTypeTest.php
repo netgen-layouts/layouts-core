@@ -178,16 +178,16 @@ class LinkTypeTest extends TestCase
      * @param mixed $value
      * @param bool $convertedValue
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::fromValue
-     * @dataProvider fromValueProvider
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::toHash
+     * @dataProvider toHashProvider
      */
-    public function testFromValue($value, $convertedValue)
+    public function testToHash($value, $convertedValue)
     {
         $type = new LinkType();
-        $this->assertEquals($convertedValue, $type->fromValue($value));
+        $this->assertEquals($convertedValue, $type->toHash($value));
     }
 
-    public function fromValueProvider()
+    public function toHashProvider()
     {
         return array(
             array(
@@ -217,22 +217,18 @@ class LinkTypeTest extends TestCase
      * @param mixed $value
      * @param bool $convertedValue
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::toValue
-     * @dataProvider toValueProvider
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::fromHash
+     * @dataProvider fromHashProvider
      */
-    public function testToValue($value, $convertedValue)
+    public function testFromHash($value, $convertedValue)
     {
         $type = new LinkType();
-        $this->assertEquals($convertedValue, $type->toValue($value));
+        $this->assertEquals($convertedValue, $type->fromHash($value));
     }
 
-    public function toValueProvider()
+    public function fromHashProvider()
     {
         return array(
-            array(
-                new LinkValue(),
-                new LinkValue(),
-            ),
             array(
                 42,
                 new LinkValue(),
@@ -240,6 +236,61 @@ class LinkTypeTest extends TestCase
             array(
                 array(),
                 new LinkValue(),
+            ),
+            array(
+                array(
+                    'link_type' => 'url',
+                    'link' => 'http://www.google.com',
+                    'link_suffix' => '?suffix',
+                    'new_window' => true,
+                ),
+                new LinkValue(
+                    array(
+                        'linkType' => 'url',
+                        'link' => 'http://www.google.com',
+                        'linkSuffix' => '?suffix',
+                        'newWindow' => true,
+                    )
+                ),
+            ),
+            array(
+                array(
+                    'link_type' => 'url',
+                    'link' => 'http://www.google.com',
+                ),
+                new LinkValue(
+                    array(
+                        'linkType' => 'url',
+                        'link' => 'http://www.google.com',
+                    )
+                ),
+            ),
+        );
+    }
+
+    /**
+     * @param mixed $value
+     * @param bool $convertedValue
+     *
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::createValueFromInput
+     * @dataProvider createValueFromInputProvider
+     */
+    public function testCreateValueFromInput($value, $convertedValue)
+    {
+        $type = new LinkType();
+        $this->assertEquals($convertedValue, $type->createValueFromInput($value));
+    }
+
+    public function createValueFromInputProvider()
+    {
+        return array(
+            array(
+                42,
+                42,
+            ),
+            array(
+                array(),
+                array(),
             ),
             array(
                 array(

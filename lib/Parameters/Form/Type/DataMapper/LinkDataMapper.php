@@ -71,6 +71,6 @@ class LinkDataMapper implements DataMapperInterface
             );
         }
 
-        $data = $this->parameterType->toValue($data);
+        $data = $this->parameterType->fromHash($data);
     }
 }

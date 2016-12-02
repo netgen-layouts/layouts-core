@@ -37,7 +37,7 @@ interface ParameterTypeInterface
      *
      * @return mixed
      */
-    public function fromValue($value);
+    public function toHash($value);
 
     /**
      * Converts the provided parameter value to value usable by the domain.
@@ -46,7 +46,18 @@ interface ParameterTypeInterface
      *
      * @return mixed
      */
-    public function toValue($value);
+    public function fromHash($value);
+
+    /**
+     * Potentially converts the input value to value usable by the domain.
+     *
+     * If the value cannot be converted, original value should be returned.
+     *
+     * @param mixed $value
+     *
+     * @return mixed
+     */
+    public function createValueFromInput($value);
 
     /**
      * Returns if the parameter value is empty.

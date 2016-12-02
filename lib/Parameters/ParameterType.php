@@ -89,7 +89,7 @@ abstract class ParameterType implements ParameterTypeInterface
      *
      * @return mixed
      */
-    public function fromValue($value)
+    public function toHash($value)
     {
         return $value;
     }
@@ -104,9 +104,26 @@ abstract class ParameterType implements ParameterTypeInterface
      *
      * @return mixed
      */
-    public function toValue($value)
+    public function fromHash($value)
     {
         return $value;
+    }
+
+    /**
+     * Potentially converts the input value to value usable by the domain.
+     *
+     * If the value cannot be converted, original value should be returned.
+     *
+     * This is a trivial implementation, just returning the provided value, usable by parameters
+     * which have the scalar/hash format equal to domain format.
+     *
+     * @param mixed $value
+     *
+     * @return mixed
+     */
+    public function createValueFromInput($value)
+    {
+        return $this->fromHash($value);
     }
 
     /**

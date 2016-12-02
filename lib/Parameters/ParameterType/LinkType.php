@@ -61,7 +61,7 @@ class LinkType extends ParameterType
      *
      * @return mixed
      */
-    public function fromValue($value)
+    public function toHash($value)
     {
         if (!$value instanceof LinkValue) {
             return null;
@@ -82,12 +82,8 @@ class LinkType extends ParameterType
      *
      * @return mixed
      */
-    public function toValue($value)
+    public function fromHash($value)
     {
-        if ($value instanceof LinkValue) {
-            return $value;
-        }
-
         if (!is_array($value) || empty($value['link_type'])) {
             return new LinkValue();
         }
@@ -100,6 +96,24 @@ class LinkType extends ParameterType
                 'newWindow' => isset($value['new_window']) ? $value['new_window'] : false,
             )
         );
+    }
+
+    /**
+     * Potentially converts the input value to value usable by the domain.
+     *
+     * If the value cannot be converted, original value should be returned.
+     *
+     * @param mixed $value
+     *
+     * @return mixed
+     */
+    public function createValueFromInput($value)
+    {
+        if (!is_array($value) || empty($value['link_type'])) {
+            return $value;
+        }
+
+        return $this->fromHash($value);
     }
 
     /**
