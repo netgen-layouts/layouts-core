@@ -6,6 +6,7 @@ use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\ParameterInterface;
 use Netgen\BlockManager\Validator\Constraint\Parameters\ItemLink as ItemLinkConstraint;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints;
 
 class ItemLinkType extends ParameterType
 {
@@ -42,6 +43,7 @@ class ItemLinkType extends ParameterType
     protected function getValueConstraints(ParameterInterface $parameter, $value)
     {
         return array(
+            new Constraints\Type(array('type' => 'string')),
             new ItemLinkConstraint(),
         );
     }

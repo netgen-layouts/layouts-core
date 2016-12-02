@@ -29,6 +29,7 @@ class EmailType extends ParameterType
     protected function getValueConstraints(ParameterInterface $parameter, $value)
     {
         return array(
+            new Constraints\Type(array('type' => 'string')),
             new Constraints\Email(),
         );
     }

@@ -7,6 +7,7 @@ use Netgen\BlockManager\Parameters\ParameterInterface;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
 use Netgen\BlockManager\Validator\Constraint\Parameters\Link as LinkConstraint;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints;
 
 class LinkType extends ParameterType
 {
@@ -43,6 +44,7 @@ class LinkType extends ParameterType
     protected function getValueConstraints(ParameterInterface $parameter, $value)
     {
         return array(
+            new Constraints\Type(array('type' => LinkValue::class)),
             new LinkConstraint(
                 array(
                     'required' => $parameter->isRequired(),
