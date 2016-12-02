@@ -32,10 +32,31 @@ class ParameterStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::setParameterValue
+     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::setParameterValues
      * @covers \Netgen\BlockManager\API\Values\ParameterStruct::getParameterValues
      */
-    public function testGetParameterValues()
+    public function testSetParameterValues()
+    {
+        $this->struct->setParameterValues(
+            array(
+                'some_param' => 'some_value',
+                'some_other_param' => 'some_other_value',
+            )
+        );
+
+        $this->assertEquals(
+            array(
+                'some_param' => 'some_value',
+                'some_other_param' => 'some_other_value',
+            ),
+            $this->struct->getParameterValues()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::setParameterValue
+     */
+    public function testSetParameterValue()
     {
         $this->struct->setParameterValue('some_param', 'some_value');
         $this->struct->setParameterValue('some_other_param', 'some_other_value');
