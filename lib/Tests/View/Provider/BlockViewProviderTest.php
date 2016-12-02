@@ -6,9 +6,10 @@ use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\TwigBlockDefinition;
 use Netgen\BlockManager\View\Provider\BlockViewProvider;
-use Netgen\BlockManager\Core\Values\Page\Block;
+use Netgen\BlockManager\Core\Values\Page\Block as CoreBlock;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\View\View\BlockView\Block;
 use Netgen\BlockManager\View\View\BlockView\ContextualizedTwigTemplate;
 use Netgen\BlockManager\View\View\BlockViewInterface;
 use PHPUnit\Framework\TestCase;
@@ -31,7 +32,7 @@ class BlockViewProviderTest extends TestCase
      */
     public function testProvideView()
     {
-        $block = new Block(
+        $block = new CoreBlock(
             array(
                 'id' => 42,
                 'blockDefinition' => new BlockDefinition('block_definition'),
@@ -40,14 +41,15 @@ class BlockViewProviderTest extends TestCase
 
         /** @var \Netgen\BlockManager\View\View\BlockViewInterface $view */
         $view = $this->blockViewProvider->provideView($block);
+        $viewBlock = new Block($block, array('definition_param' => 'definition_value'));
 
         $this->assertInstanceOf(BlockViewInterface::class, $view);
 
-        $this->assertEquals($block, $view->getBlock());
+        $this->assertEquals($viewBlock, $view->getBlock());
         $this->assertNull($view->getTemplate());
         $this->assertEquals(
             array(
-                'block' => $block,
+                'block' => $viewBlock,
             ),
             $view->getParameters()
         );
@@ -58,7 +60,7 @@ class BlockViewProviderTest extends TestCase
      */
     public function testProvideViewWithTwigBlock()
     {
-        $block = new Block(
+        $block = new CoreBlock(
             array(
                 'id' => 42,
                 'blockDefinition' => new TwigBlockDefinition('block_definition'),
@@ -92,13 +94,15 @@ class BlockViewProviderTest extends TestCase
             )
         );
 
+        $viewBlock = new Block($block, array('definition_param' => 'definition_value'));
+
         $this->assertInstanceOf(BlockViewInterface::class, $view);
 
-        $this->assertEquals($block, $view->getBlock());
+        $this->assertEquals($viewBlock, $view->getBlock());
         $this->assertNull($view->getTemplate());
         $this->assertEquals(
             array(
-                'block' => $block,
+                'block' => $viewBlock,
                 'twig_block_content' => 'rendered',
             ),
             $view->getParameters()
@@ -110,7 +114,7 @@ class BlockViewProviderTest extends TestCase
      */
     public function testProvideViewWithInvalidTwigTemplate()
     {
-        $block = new Block(
+        $block = new CoreBlock(
             array(
                 'id' => 42,
                 'blockDefinition' => new TwigBlockDefinition('block_definition'),
@@ -132,13 +136,15 @@ class BlockViewProviderTest extends TestCase
             )
         );
 
+        $viewBlock = new Block($block, array('definition_param' => 'definition_value'));
+
         $this->assertInstanceOf(BlockViewInterface::class, $view);
 
-        $this->assertEquals($block, $view->getBlock());
+        $this->assertEquals($viewBlock, $view->getBlock());
         $this->assertNull($view->getTemplate());
         $this->assertEquals(
             array(
-                'block' => $block,
+                'block' => $viewBlock,
                 'twig_block_content' => '',
             ),
             $view->getParameters()
@@ -166,7 +172,7 @@ class BlockViewProviderTest extends TestCase
     {
         return array(
             array(new Value(), false),
-            array(new Block(), true),
+            array(new CoreBlock(), true),
             array(new Layout(), false),
         );
     }

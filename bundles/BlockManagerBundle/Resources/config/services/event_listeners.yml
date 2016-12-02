@@ -54,8 +54,3 @@ services:
             - "%netgen_block_manager.block_view.collection_results_contexts%"
         tags:
             - { name: kernel.event_subscriber }
-
-    netgen_block_manager.event_listener.block_view.get_dynamic_parameters:
-        class: Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetDynamicParametersListener
-        tags:
-            - { name: kernel.event_subscriber }

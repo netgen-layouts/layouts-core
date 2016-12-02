@@ -2,9 +2,10 @@
 
 namespace Netgen\BlockManager\View\Provider;
 
-use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
 use Netgen\BlockManager\Block\TwigBlockDefinitionInterface;
 use Netgen\BlockManager\View\View\BlockView;
+use Netgen\BlockManager\View\View\BlockView\Block;
 use Netgen\BlockManager\View\View\BlockView\ContextualizedTwigTemplate;
 
 class BlockViewProvider implements ViewProviderInterface
@@ -19,13 +20,17 @@ class BlockViewProvider implements ViewProviderInterface
      */
     public function provideView($valueObject, array $parameters = array())
     {
+        /** @var \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition */
         $blockDefinition = $valueObject->getBlockDefinition();
+        $dynamicParameters = $blockDefinition->getDynamicParameters($valueObject, $parameters);
+        $block = new Block($valueObject, $dynamicParameters);
+
         if (!$blockDefinition instanceof TwigBlockDefinitionInterface) {
             return new BlockView(
                 array(
-                    'valueObject' => $valueObject,
+                    'valueObject' => $block,
                     'parameters' => array(
-                        'block' => $valueObject,
+                        'block' => $block,
                     ),
                 )
             );
@@ -41,9 +46,9 @@ class BlockViewProvider implements ViewProviderInterface
 
         return new BlockView(
             array(
-                'valueObject' => $valueObject,
+                'valueObject' => $block,
                 'parameters' => array(
-                    'block' => $valueObject,
+                    'block' => $block,
                     'twig_block_content' => $twigBlockContent,
                 ),
             )
@@ -59,6 +64,6 @@ class BlockViewProvider implements ViewProviderInterface
      */
     public function supports($valueObject)
     {
-        return $valueObject instanceof Block;
+        return $valueObject instanceof APIBlock;
     }
 }

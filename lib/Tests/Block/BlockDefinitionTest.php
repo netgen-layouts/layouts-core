@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Tests\Block;
 
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Block\DynamicParameters;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use PHPUnit\Framework\TestCase;
@@ -62,9 +61,12 @@ class BlockDefinitionTest extends TestCase
      */
     public function testGetDynamicParameters()
     {
-        $dynamicParameters = $this->blockDefinition->getDynamicParameters(new Block());
-        $this->assertInstanceOf(DynamicParameters::class, $dynamicParameters);
-        $this->assertEquals('definition_value', $dynamicParameters->getParameter('definition_param'));
+        $this->assertEquals(
+            array(
+                'definition_param' => 'definition_value',
+            ),
+            $this->blockDefinition->getDynamicParameters(new Block())
+        );
     }
 
     /**

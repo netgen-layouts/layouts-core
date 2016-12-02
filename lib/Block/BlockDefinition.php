@@ -39,12 +39,13 @@ class BlockDefinition extends ValueObject implements BlockDefinitionInterface
      * Returns the array of dynamic parameters provided by this block definition.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param array $parameters
      *
-     * @return \Netgen\BlockManager\Block\DynamicParameters
+     * @return array
      */
-    public function getDynamicParameters(Block $block)
+    public function getDynamicParameters(Block $block, array $parameters = array())
     {
-        return new DynamicParameters($this->handler->getDynamicParameters($block));
+        return $this->handler->getDynamicParameters($block, $parameters);
     }
 
     /**

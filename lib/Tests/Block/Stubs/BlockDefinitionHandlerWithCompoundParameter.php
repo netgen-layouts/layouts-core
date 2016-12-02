@@ -62,10 +62,11 @@ class BlockDefinitionHandlerWithCompoundParameter extends BaseBlockDefinitionHan
      * Returns the array of dynamic parameters provided by this block definition.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param array $parameters
      *
      * @return array
      */
-    public function getDynamicParameters(Block $block)
+    public function getDynamicParameters(Block $block, array $parameters = array())
     {
         return array('definition_param' => 'definition_value');
     }
