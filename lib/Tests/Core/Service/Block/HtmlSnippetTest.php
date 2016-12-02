@@ -2,16 +2,16 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Block;
 
-use Netgen\BlockManager\Block\BlockDefinition\Handler\TwigBlockHandler;
+use Netgen\BlockManager\Block\BlockDefinition\Handler\HtmlSnippetHandler;
 
-abstract class TwigBlockTest extends BlockTest
+abstract class HtmlSnippetTest extends BlockTest
 {
     /**
      * @return \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface
      */
     public function createBlockDefinitionHandler()
     {
-        return new TwigBlockHandler();
+        return new HtmlSnippetHandler();
     }
 
     /**
@@ -23,31 +23,31 @@ abstract class TwigBlockTest extends BlockTest
             array(
                 array(),
                 array(
-                    'block_name' => null,
+                    'content' => null,
                 ),
             ),
             array(
                 array(
-                    'block_name' => null,
+                    'content' => null,
                 ),
                 array(
-                    'block_name' => null,
-                ),
-            ),
-            array(
-                array(
-                    'block_name' => '',
-                ),
-                array(
-                    'block_name' => '',
+                    'content' => null,
                 ),
             ),
             array(
                 array(
-                    'block_name' => 'block',
+                    'content' => '',
                 ),
                 array(
-                    'block_name' => 'block',
+                    'content' => '',
+                ),
+            ),
+            array(
+                array(
+                    'content' => '<b>Text</b>',
+                ),
+                array(
+                    'content' => '<b>Text</b>',
                 ),
             ),
             array(
@@ -67,7 +67,7 @@ abstract class TwigBlockTest extends BlockTest
         return array(
             array(
                 array(
-                    'block_name' => 42,
+                    'content' => 42,
                 ),
             ),
         );

@@ -2,16 +2,21 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Block;
 
-use Netgen\BlockManager\Block\BlockDefinition\Handler\TwigBlockHandler;
+use Netgen\BlockManager\Block\BlockDefinition\Handler\ListHandler;
 
-abstract class TwigBlockTest extends BlockTest
+abstract class ListTest extends BlockTest
 {
     /**
      * @return \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface
      */
     public function createBlockDefinitionHandler()
     {
-        return new TwigBlockHandler();
+        return new ListHandler(
+            array(
+                2 => '2 columns',
+                3 => '3 columns',
+            )
+        );
     }
 
     /**
@@ -23,31 +28,15 @@ abstract class TwigBlockTest extends BlockTest
             array(
                 array(),
                 array(
-                    'block_name' => null,
+                    'number_of_columns' => 2,
                 ),
             ),
             array(
                 array(
-                    'block_name' => null,
+                    'number_of_columns' => 3,
                 ),
                 array(
-                    'block_name' => null,
-                ),
-            ),
-            array(
-                array(
-                    'block_name' => '',
-                ),
-                array(
-                    'block_name' => '',
-                ),
-            ),
-            array(
-                array(
-                    'block_name' => 'block',
-                ),
-                array(
-                    'block_name' => 'block',
+                    'number_of_columns' => 3,
                 ),
             ),
             array(
@@ -67,7 +56,12 @@ abstract class TwigBlockTest extends BlockTest
         return array(
             array(
                 array(
-                    'block_name' => 42,
+                    'number_of_columns' => null,
+                ),
+            ),
+            array(
+                array(
+                    'number_of_columns' => '2',
                 ),
             ),
         );

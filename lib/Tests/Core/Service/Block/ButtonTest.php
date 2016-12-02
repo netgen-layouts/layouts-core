@@ -2,20 +2,20 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Block;
 
-use Netgen\BlockManager\Block\BlockDefinition\Handler\TitleHandler;
+use Netgen\BlockManager\Block\BlockDefinition\Handler\ButtonHandler;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
 
-abstract class TitleTest extends BlockTest
+abstract class ButtonTest extends BlockTest
 {
     /**
      * @return \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface
      */
     public function createBlockDefinitionHandler()
     {
-        return new TitleHandler(
+        return new ButtonHandler(
             array(
-                'h1' => 'Heading 1',
-                'h2' => 'Heading 2',
+                'default_button' => 'Default button',
+                'highlighted_button' => 'Highlighted button',
             ),
             array('value')
         );
@@ -30,41 +30,39 @@ abstract class TitleTest extends BlockTest
             array(
                 array(),
                 array(
-                    'tag' => 'h1',
+                    'text' => 'Text',
                 ),
             ),
             array(
                 array(
-                    'tag' => 'h2',
+                    'text' => 'New text',
                 ),
                 array(
-                    'tag' => 'h2',
-                ),
-            ),
-            array(
-                array(),
-                array(
-                    'title' => 'Title',
-                ),
-            ),
-            array(
-                array(
-                    'title' => 'New title',
-                ),
-                array(
-                    'title' => 'New title',
+                    'text' => 'New text',
                 ),
             ),
             array(
                 array(),
                 array(
-                    'use_link' => null,
+                    'style' => 'default_button',
+                ),
+            ),
+            array(
+                array(
+                    'style' => 'highlighted_button',
+                ),
+                array(
+                    'style' => 'highlighted_button',
+                ),
+            ),
+            array(
+                array(),
+                array(
                     'link' => new LinkValue(),
                 ),
             ),
             array(
                 array(
-                    'use_link' => true,
                     'link' => new LinkValue(
                         array(
                             'linkType' => LinkValue::LINK_TYPE_URL,
@@ -73,7 +71,6 @@ abstract class TitleTest extends BlockTest
                     ),
                 ),
                 array(
-                    'use_link' => true,
                     'link' => new LinkValue(
                         array(
                             'linkType' => LinkValue::LINK_TYPE_URL,
@@ -84,7 +81,6 @@ abstract class TitleTest extends BlockTest
             ),
             array(
                 array(
-                    'use_link' => true,
                     'link' => new LinkValue(
                         array(
                             'linkType' => LinkValue::LINK_TYPE_INTERNAL,
@@ -93,7 +89,6 @@ abstract class TitleTest extends BlockTest
                     ),
                 ),
                 array(
-                    'use_link' => true,
                     'link' => new LinkValue(
                         array(
                             'linkType' => LinkValue::LINK_TYPE_INTERNAL,
@@ -119,44 +114,28 @@ abstract class TitleTest extends BlockTest
         return array(
             array(
                 array(
-                    'tag' => null,
+                    'text' => null,
                 ),
             ),
             array(
                 array(
-                    'tag' => '',
+                    'text' => '',
                 ),
             ),
             array(
                 array(
-                    'tag' => 42,
+                    'text' => 42,
                 ),
             ),
             array(
                 array(
-                    'title' => null,
+                    'style' => null,
                 ),
             ),
             array(
                 array(
-                    'title' => '',
+                    'style' => 42,
                 ),
-            ),
-            array(
-                array(
-                    'title' => 42,
-                ),
-            ),
-            array(
-                array(
-                    'use_link' => 42,
-                ),
-            ),
-            array(
-                array(
-                    'link' => 42,
-                ),
-                array('use_link', 'link'),
             ),
             array(
                 array(
@@ -167,7 +146,6 @@ abstract class TitleTest extends BlockTest
                         )
                     ),
                 ),
-                array('use_link', 'link'),
             ),
         );
     }

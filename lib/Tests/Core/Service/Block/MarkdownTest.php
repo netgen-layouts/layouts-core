@@ -2,16 +2,17 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Block;
 
-use Netgen\BlockManager\Block\BlockDefinition\Handler\TwigBlockHandler;
+use Netgen\BlockManager\Block\BlockDefinition\Handler\MarkdownHandler;
+use Michelf\Markdown;
 
-abstract class TwigBlockTest extends BlockTest
+abstract class MarkdownTest extends BlockTest
 {
     /**
      * @return \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface
      */
     public function createBlockDefinitionHandler()
     {
-        return new TwigBlockHandler();
+        return new MarkdownHandler(new Markdown());
     }
 
     /**
@@ -23,31 +24,31 @@ abstract class TwigBlockTest extends BlockTest
             array(
                 array(),
                 array(
-                    'block_name' => null,
+                    'content' => null,
                 ),
             ),
             array(
                 array(
-                    'block_name' => null,
+                    'content' => null,
                 ),
                 array(
-                    'block_name' => null,
-                ),
-            ),
-            array(
-                array(
-                    'block_name' => '',
-                ),
-                array(
-                    'block_name' => '',
+                    'content' => null,
                 ),
             ),
             array(
                 array(
-                    'block_name' => 'block',
+                    'content' => '',
                 ),
                 array(
-                    'block_name' => 'block',
+                    'content' => '',
+                ),
+            ),
+            array(
+                array(
+                    'content' => '* Text',
+                ),
+                array(
+                    'content' => '* Text',
                 ),
             ),
             array(
@@ -67,7 +68,7 @@ abstract class TwigBlockTest extends BlockTest
         return array(
             array(
                 array(
-                    'block_name' => 42,
+                    'content' => 42,
                 ),
             ),
         );

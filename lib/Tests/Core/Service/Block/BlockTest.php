@@ -8,6 +8,7 @@ use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
+use Netgen\BlockManager\Exception\ValidationFailedException;
 use Netgen\BlockManager\Parameters\ParameterBuilder;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Configuration\BlockType\BlockType;
@@ -87,6 +88,10 @@ abstract class BlockTest extends ServiceTestCase
      */
     public function testCreateBlockWithInvalidParameters(array $parameters, array $testedParams = null)
     {
+        if (empty($parameters)) {
+            throw new ValidationFailedException();
+        }
+
         $blockDefinition = $this->createBlockDefinition(
             $testedParams !== null ? $testedParams : array_keys($parameters)
         );
@@ -103,11 +108,7 @@ abstract class BlockTest extends ServiceTestCase
         $blockCreateStruct->fillValues($blockDefinition, $parameters);
 
         $layout = $this->layoutService->loadLayoutDraft(1);
-        $this->blockService->createBlock(
-            $blockCreateStruct,
-            $layout,
-            'left'
-        );
+        $this->blockService->createBlock($blockCreateStruct, $layout, 'left');
     }
 
     /**

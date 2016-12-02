@@ -2,16 +2,22 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Block;
 
-use Netgen\BlockManager\Block\BlockDefinition\Handler\TwigBlockHandler;
+use Netgen\BlockManager\Block\BlockDefinition\Handler\TextHandler;
 
-abstract class TwigBlockTest extends BlockTest
+abstract class TextTest extends BlockTest
 {
     /**
      * @return \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface
      */
     public function createBlockDefinitionHandler()
     {
-        return new TwigBlockHandler();
+        return new TextHandler(
+            array(
+                'h1' => 'Heading 1',
+                'h2' => 'Heading 2',
+            ),
+            array('value')
+        );
     }
 
     /**
@@ -23,31 +29,15 @@ abstract class TwigBlockTest extends BlockTest
             array(
                 array(),
                 array(
-                    'block_name' => null,
+                    'content' => 'Text',
                 ),
             ),
             array(
                 array(
-                    'block_name' => null,
+                    'content' => 'New Text',
                 ),
                 array(
-                    'block_name' => null,
-                ),
-            ),
-            array(
-                array(
-                    'block_name' => '',
-                ),
-                array(
-                    'block_name' => '',
-                ),
-            ),
-            array(
-                array(
-                    'block_name' => 'block',
-                ),
-                array(
-                    'block_name' => 'block',
+                    'content' => 'New Text',
                 ),
             ),
             array(
@@ -67,7 +57,17 @@ abstract class TwigBlockTest extends BlockTest
         return array(
             array(
                 array(
-                    'block_name' => 42,
+                    'content' => null,
+                ),
+            ),
+            array(
+                array(
+                    'content' => '',
+                ),
+            ),
+            array(
+                array(
+                    'content' => 42,
                 ),
             ),
         );
