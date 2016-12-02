@@ -4,11 +4,11 @@ namespace Netgen\BlockManager\Block\BlockDefinition\Handler;
 
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
-use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
+use Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 use Netgen\BlockManager\Parameters\ParameterType;
 
-class TwigBlockHandler extends BlockDefinitionHandler implements TwigBlockDefinitionHandlerInterface
+class TwigBlockHandler extends BlockDefinitionHandler
 {
     /**
      * Builds the parameters by using provided parameter builder.
@@ -35,5 +35,32 @@ class TwigBlockHandler extends BlockDefinitionHandler implements TwigBlockDefini
     public function getTwigBlockName(Block $block)
     {
         return $block->getParameter('block_name')->getValue();
+    }
+
+    /**
+     * Returns the array of dynamic parameters provided by this block definition.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param array $parameters
+     *
+     * @return array
+     */
+    public function getDynamicParameters(Block $block, array $parameters = array())
+    {
+        return array(
+            'content' => function () use ($block, $parameters) {
+                if (!isset($parameters['twigTemplate'])) {
+                    return '';
+                }
+
+                if (!$parameters['twigTemplate'] instanceof ContextualizedTwigTemplate) {
+                    return '';
+                }
+
+                return $parameters['twigTemplate']->renderBlock(
+                    $this->getTwigBlockName($block)
+                );
+            },
+        );
     }
 }

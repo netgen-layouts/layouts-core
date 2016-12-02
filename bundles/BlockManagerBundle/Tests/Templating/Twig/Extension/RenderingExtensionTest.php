@@ -8,7 +8,7 @@ use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\View\RendererInterface;
-use Netgen\BlockManager\View\View\BlockView\ContextualizedTwigTemplate;
+use Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;

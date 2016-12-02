@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\View\RendererInterface;
-use Netgen\BlockManager\View\View\BlockView\ContextualizedTwigTemplate;
+use Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderBlock;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
@@ -255,7 +255,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param string $viewContext
-     * @param \Netgen\BlockManager\View\View\BlockView\ContextualizedTwigTemplate $twigTemplate
+     * @param \Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate $twigTemplate
      *
      * @throws \Exception If an error occurred
      */

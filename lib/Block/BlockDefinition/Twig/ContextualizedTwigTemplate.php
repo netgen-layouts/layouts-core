@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\View\View\BlockView;
+namespace Netgen\BlockManager\Block\BlockDefinition\Twig;
 
 use Twig_Template;
 use Exception;

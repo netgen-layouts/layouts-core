@@ -5,8 +5,6 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\CompilerPas
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
-use Netgen\BlockManager\Block\TwigBlockDefinition;
-use Netgen\BlockManager\Tests\Block\Stubs\TwigBlockDefinitionHandler;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionRegistryPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -52,10 +50,6 @@ class BlockDefinitionRegistryPassTest extends AbstractCompilerPassTestCase
         );
 
         $this->compile();
-
-//        var_dump($this->container->getDefinition(
-//            'netgen_block_manager.block.block_definition.block_definition'
-//        ));
 
         $this->assertContainerBuilderHasService(
             'netgen_block_manager.block.block_definition.block_definition',
@@ -142,7 +136,6 @@ class BlockDefinitionRegistryPassTest extends AbstractCompilerPassTestCase
     {
         return array(
             array(BlockDefinitionHandler::class, BlockDefinition::class),
-            array(TwigBlockDefinitionHandler::class, TwigBlockDefinition::class),
         );
     }
 }

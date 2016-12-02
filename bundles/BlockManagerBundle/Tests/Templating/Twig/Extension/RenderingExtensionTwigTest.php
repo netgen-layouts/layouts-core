@@ -3,7 +3,6 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig;
 
 use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\Block\TwigBlockDefinitionInterface;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension;
@@ -50,7 +49,7 @@ class RenderingExtensionTwigTest extends \Twig_Test_IntegrationTestCase
             ->will(
                 $this->returnCallback(
                     function ($block, $parameters, $context) {
-                        if ($block->getBlockDefinition() instanceof TwigBlockDefinitionInterface) {
+                        if ($block->getBlockDefinition()->getIdentifier() === 'twig_block') {
                             return 'rendered twig block' . PHP_EOL;
                         } elseif ($context === ViewInterface::CONTEXT_DEFAULT) {
                             return 'rendered block' . PHP_EOL;

@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Block;
 
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
-use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 
 class BlockDefinitionFactory
@@ -28,17 +27,13 @@ class BlockDefinitionFactory
         $handler->buildParameters($parameterBuilder);
         $parameters = $parameterBuilder->buildParameters();
 
-        $data = array(
-            'identifier' => $identifier,
-            'handler' => $handler,
-            'config' => $config,
-            'parameters' => $parameters,
+        return new BlockDefinition(
+            array(
+                'identifier' => $identifier,
+                'handler' => $handler,
+                'config' => $config,
+                'parameters' => $parameters,
+            )
         );
-
-        if ($handler instanceof TwigBlockDefinitionHandlerInterface) {
-            return new TwigBlockDefinition($data);
-        }
-
-        return new BlockDefinition($data);
     }
 }

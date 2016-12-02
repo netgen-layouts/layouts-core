@@ -5,9 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Bloc
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Factory;
-use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinitionFactory;
-use Netgen\BlockManager\Block\TwigBlockDefinition;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -71,14 +69,8 @@ class BlockDefinitionRegistryPass implements CompilerPassInterface
                 );
             }
 
-            $definitionClass = BlockDefinition::class;
-            $handlerDefinition = $container->getDefinition($foundHandler);
-            if (is_a($handlerDefinition->getClass(), TwigBlockDefinitionHandlerInterface::class, true)) {
-                $definitionClass = TwigBlockDefinition::class;
-            }
-
             $blockDefinitionServiceName = sprintf('netgen_block_manager.block.block_definition.%s', $identifier);
-            $blockDefinitionService = new Definition($definitionClass);
+            $blockDefinitionService = new Definition(BlockDefinition::class);
 
             $blockDefinitionService->setLazy(true);
             $blockDefinitionService->addArgument($identifier);

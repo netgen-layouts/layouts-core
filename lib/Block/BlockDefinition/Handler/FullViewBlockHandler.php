@@ -3,11 +3,9 @@
 namespace Netgen\BlockManager\Block\BlockDefinition\Handler;
 
 use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
-use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 
-class FullViewBlockHandler extends BlockDefinitionHandler implements TwigBlockDefinitionHandlerInterface
+class FullViewBlockHandler extends TwigBlockHandler
 {
     /**
      * @var string

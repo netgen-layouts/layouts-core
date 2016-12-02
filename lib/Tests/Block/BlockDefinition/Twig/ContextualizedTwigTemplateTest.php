@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\View\View\BlockView;
+namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Twig;
 
-use Netgen\BlockManager\View\View\BlockView\ContextualizedTwigTemplate;
+use Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate;
 use PHPUnit\Framework\TestCase;
 use Twig_Template;
 use Exception;
@@ -10,8 +10,8 @@ use Exception;
 class ContextualizedTwigTemplateTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\View\View\BlockView\ContextualizedTwigTemplate::__construct
-     * @covers \Netgen\BlockManager\View\View\BlockView\ContextualizedTwigTemplate::renderBlock
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate::__construct
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate::renderBlock
      */
     public function testRenderBlock()
     {
@@ -34,7 +34,7 @@ class ContextualizedTwigTemplateTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View\BlockView\ContextualizedTwigTemplate::renderBlock
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate::renderBlock
      * @expectedException \Exception
      */
     public function testRenderBlockWithException()

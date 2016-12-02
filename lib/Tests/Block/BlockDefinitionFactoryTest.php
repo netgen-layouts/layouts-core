@@ -4,10 +4,8 @@ namespace Netgen\BlockManager\Tests\Block;
 
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
-use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinitionFactory;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
-use Netgen\BlockManager\Block\TwigBlockDefinitionInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -42,23 +40,6 @@ class BlockDefinitionFactoryTest extends TestCase
         );
 
         $this->assertInstanceOf(BlockDefinitionInterface::class, $blockDefinition);
-        $this->assertEquals('definition', $blockDefinition->getIdentifier());
-        $this->assertEquals($this->configMock, $blockDefinition->getConfig());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::buildBlockDefinition
-     */
-    public function testBuildBlockDefinitionWithTwigHandler()
-    {
-        $blockDefinition = BlockDefinitionFactory::buildBlockDefinition(
-            'definition',
-            $this->createMock(TwigBlockDefinitionHandlerInterface::class),
-            $this->configMock,
-            $this->parameterBuilderMock
-        );
-
-        $this->assertInstanceOf(TwigBlockDefinitionInterface::class, $blockDefinition);
         $this->assertEquals('definition', $blockDefinition->getIdentifier());
         $this->assertEquals($this->configMock, $blockDefinition->getConfig());
     }

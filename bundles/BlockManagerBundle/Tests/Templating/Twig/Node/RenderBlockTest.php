@@ -3,7 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig\Node;
 
 use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\View\View\BlockView\ContextualizedTwigTemplate;
+use Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderBlock;
 use Twig_Node_Expression_Name;

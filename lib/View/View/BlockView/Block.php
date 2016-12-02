@@ -173,7 +173,7 @@ class Block implements APIBlock
      */
     public function getDynamicParameter($parameter)
     {
-        if (!isset($this->dynamicParameters[$parameter])) {
+        if (!$this->hasDynamicParameter($parameter)) {
             return null;
         }
 
