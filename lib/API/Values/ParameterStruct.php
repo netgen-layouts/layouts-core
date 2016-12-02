@@ -17,16 +17,6 @@ abstract class ParameterStruct extends ValueObject
     protected $parameterValues = array();
 
     /**
-     * Sets the parameter values to the struct.
-     *
-     * @param array $parameterValues
-     */
-    public function setParameterValues(array $parameterValues)
-    {
-        $this->parameterValues = $parameterValues;
-    }
-
-    /**
      * Sets the parameter value to the struct.
      *
      * @param string $parameterName
