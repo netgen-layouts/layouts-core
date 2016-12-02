@@ -194,12 +194,18 @@ abstract class ServiceTestCase extends TestCase
     /**
      * Creates a layout service under test.
      *
+     * @param \Netgen\BlockManager\Core\Service\Validator\LayoutValidator $validator
+     *
      * @return \Netgen\BlockManager\Core\Service\LayoutService
      */
-    protected function createLayoutService()
+    protected function createLayoutService(LayoutValidator $validator = null)
     {
+        if ($validator === null) {
+            $validator = $this->createMock(LayoutValidator::class);
+        }
+
         return new LayoutService(
-            $this->createMock(LayoutValidator::class),
+            $validator,
             $this->createLayoutMapper(),
             $this->persistenceHandler
         );
@@ -208,12 +214,18 @@ abstract class ServiceTestCase extends TestCase
     /**
      * Creates a block service under test.
      *
+     * @param \Netgen\BlockManager\Core\Service\Validator\BlockValidator $validator
+     *
      * @return \Netgen\BlockManager\API\Service\BlockService
      */
-    protected function createBlockService()
+    protected function createBlockService(BlockValidator $validator = null)
     {
+        if ($validator === null) {
+            $validator = $this->createMock(BlockValidator::class);
+        }
+
         return new BlockService(
-            $this->createMock(BlockValidator::class),
+            $validator,
             $this->createBlockMapper(),
             $this->createParameterMapper(),
             $this->persistenceHandler,
@@ -224,12 +236,18 @@ abstract class ServiceTestCase extends TestCase
     /**
      * Creates a collection service under test.
      *
+     * @param \Netgen\BlockManager\Core\Service\Validator\CollectionValidator $validator
+     *
      * @return \Netgen\BlockManager\API\Service\CollectionService
      */
-    protected function createCollectionService()
+    protected function createCollectionService(CollectionValidator $validator = null)
     {
+        if ($validator === null) {
+            $validator = $this->createMock(CollectionValidator::class);
+        }
+
         return new CollectionService(
-            $this->createMock(CollectionValidator::class),
+            $validator,
             $this->createCollectionMapper(),
             $this->createParameterMapper(),
             $this->persistenceHandler
@@ -239,12 +257,18 @@ abstract class ServiceTestCase extends TestCase
     /**
      * Creates a layout resolver service under test.
      *
+     * @param \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator $validator
+     *
      * @return \Netgen\BlockManager\API\Service\LayoutResolverService
      */
-    protected function createLayoutResolverService()
+    protected function createLayoutResolverService(LayoutResolverValidator $validator = null)
     {
+        if ($validator === null) {
+            $validator = $this->createMock(LayoutResolverValidator::class);
+        }
+
         return new LayoutResolverService(
-            $this->createMock(LayoutResolverValidator::class),
+            $validator,
             $this->createLayoutResolverMapper(),
             $this->persistenceHandler
         );
