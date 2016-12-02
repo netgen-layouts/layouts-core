@@ -5,10 +5,6 @@ namespace Netgen\BlockManager\Tests\Core\Service\Block;
 use Netgen\BlockManager\Block\BlockDefinition\Handler\TitleHandler;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
 
-/**
- * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\TitleHandler::__construct
- * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\TitleHandler::buildParameters
- */
 abstract class TitleTest extends BlockTest
 {
     /**
