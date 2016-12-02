@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Block;
 
+use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
-use Netgen\BlockManager\Block\BlockDefinitionFactory;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Parameters\ParameterBuilder;
@@ -52,7 +52,7 @@ abstract class BlockTest extends ServiceTestCase
      */
     public function testCreateBlock(array $parameters, array $expectedParameters)
     {
-        $blockDefinition = $this->createBlockDefinition();
+        $blockDefinition = $this->createBlockDefinition(array_keys($expectedParameters));
         $blockType = new BlockType(
             array(
                 'blockDefinition' => $blockDefinition,
@@ -81,12 +81,16 @@ abstract class BlockTest extends ServiceTestCase
 
     /**
      * @param array $parameters
+     * @param array $testedParams
      * @dataProvider invalidParametersDataProvider
      * @expectedException \Netgen\BlockManager\Exception\ValidationFailedException
      */
-    public function testCreateBlockWithInvalidParameters(array $parameters)
+    public function testCreateBlockWithInvalidParameters(array $parameters, array $testedParams = null)
     {
-        $blockDefinition = $this->createBlockDefinition();
+        $blockDefinition = $this->createBlockDefinition(
+            $testedParams !== null ? $testedParams : array_keys($parameters)
+        );
+
         $blockType = new BlockType(
             array(
                 'blockDefinition' => $blockDefinition,
@@ -135,16 +139,34 @@ abstract class BlockTest extends ServiceTestCase
     }
 
     /**
+     * @param array $parameterNames
+     *
      * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
-    protected function createBlockDefinition()
+    protected function createBlockDefinition(array $parameterNames = array())
     {
-        $blockDefinition = BlockDefinitionFactory::buildBlockDefinition(
-            'definition',
-            $this->createBlockDefinitionHandler(),
-            $this->createBlockConfiguration(),
-            new ParameterBuilder(
-                $this->parameterTypeRegistry
+        $handler = $this->createBlockDefinitionHandler();
+        $configuration = $this->createBlockConfiguration();
+
+        $parameterBuilder = new ParameterBuilder($this->parameterTypeRegistry);
+        $handler->buildParameters($parameterBuilder);
+        $parameters = $parameterBuilder->buildParameters();
+
+        $filteredParameters = array();
+        if (!empty($parameterNames)) {
+            foreach ($parameters as $parameterName => $parameter) {
+                if (in_array($parameterName, $parameterNames)) {
+                    $filteredParameters[$parameterName] = $parameter;
+                }
+            }
+        }
+
+        $blockDefinition = new BlockDefinition(
+            array(
+                'identifier' => 'definition',
+                'handler' => $handler,
+                'config' => $configuration,
+                'parameters' => $filteredParameters,
             )
         );
 

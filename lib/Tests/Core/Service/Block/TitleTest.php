@@ -31,33 +31,39 @@ abstract class TitleTest extends BlockTest
                 array(),
                 array(
                     'tag' => 'h1',
+                ),
+            ),
+            array(
+                array(
+                    'tag' => 'h2',
+                ),
+                array(
+                    'tag' => 'h2',
+                ),
+            ),
+            array(
+                array(),
+                array(
                     'title' => 'Title',
-                    'use_link' => null,
-                    'link' => new LinkValue(),
-                    'css_class' => null,
-                    'css_id' => null,
-                    'set_container' => null,
                 ),
             ),
             array(
                 array(
-                    'tag' => 'h2',
                     'title' => 'New title',
                 ),
                 array(
-                    'tag' => 'h2',
                     'title' => 'New title',
+                ),
+            ),
+            array(
+                array(),
+                array(
                     'use_link' => null,
                     'link' => new LinkValue(),
-                    'css_class' => null,
-                    'css_id' => null,
-                    'set_container' => null,
                 ),
             ),
             array(
                 array(
-                    'tag' => 'h2',
-                    'title' => 'New title',
                     'use_link' => true,
                     'link' => new LinkValue(
                         array(
@@ -65,13 +71,8 @@ abstract class TitleTest extends BlockTest
                             'link' => 'http://www.netgenlabs.com',
                         )
                     ),
-                    'css_class' => 'some-class',
-                    'css_id' => 'css-id',
-                    'set_container' => true,
                 ),
                 array(
-                    'tag' => 'h2',
-                    'title' => 'New title',
                     'use_link' => true,
                     'link' => new LinkValue(
                         array(
@@ -79,9 +80,26 @@ abstract class TitleTest extends BlockTest
                             'link' => 'http://www.netgenlabs.com',
                         )
                     ),
-                    'css_class' => 'some-class',
-                    'css_id' => 'css-id',
-                    'set_container' => true,
+                ),
+            ),
+            array(
+                array(
+                    'use_link' => true,
+                    'link' => new LinkValue(
+                        array(
+                            'linkType' => LinkValue::LINK_TYPE_INTERNAL,
+                            'link' => 'value://42',
+                        )
+                    ),
+                ),
+                array(
+                    'use_link' => true,
+                    'link' => new LinkValue(
+                        array(
+                            'linkType' => LinkValue::LINK_TYPE_INTERNAL,
+                            'link' => 'value://42',
+                        )
+                    ),
                 ),
             ),
         );
@@ -96,53 +114,54 @@ abstract class TitleTest extends BlockTest
             array(
                 array(
                     'tag' => null,
-                    'title' => 'New title',
                 ),
             ),
             array(
                 array(
                     'tag' => '',
-                    'title' => 'New title',
                 ),
             ),
             array(
                 array(
                     'tag' => 42,
-                    'title' => 'New title',
                 ),
             ),
             array(
                 array(
-                    'tag' => 'h2',
                     'title' => null,
                 ),
             ),
             array(
                 array(
-                    'tag' => 'h2',
                     'title' => '',
                 ),
             ),
             array(
                 array(
-                    'tag' => 'h2',
                     'title' => 42,
                 ),
             ),
             array(
                 array(
-                    'tag' => 'h2',
-                    'title' => 'New title',
                     'use_link' => 42,
                 ),
             ),
             array(
                 array(
-                    'tag' => 'h2',
-                    'title' => 'New title',
-                    'use_link' => true,
                     'link' => 42,
                 ),
+                array('use_link', 'link'),
+            ),
+            array(
+                array(
+                    'link' => new LinkValue(
+                        array(
+                            'linkType' => LinkValue::LINK_TYPE_INTERNAL,
+                            'link' => 'unknown://42',
+                        )
+                    ),
+                ),
+                array('use_link', 'link'),
             ),
         );
     }
