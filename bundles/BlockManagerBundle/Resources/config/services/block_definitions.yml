@@ -104,7 +104,7 @@ services:
             - { name: netgen_block_manager.block.block_definition_handler, identifier: html_snippet }
 
     netgen_block_manager.block.block_definition.handler.full_view:
-        class: Netgen\BlockManager\Block\BlockDefinition\Handler\FullViewBlockHandler
+        class: Netgen\BlockManager\Block\BlockDefinition\Handler\FullViewHandler
         arguments:
             - "%netgen_block_manager.block.block_definition.handler.full_view.twig_block_name%"
         tags:

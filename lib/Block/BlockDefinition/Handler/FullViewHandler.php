@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Block\BlockDefinition\Handler;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 
-class FullViewBlockHandler extends TwigBlockHandler
+class FullViewHandler extends TwigBlockHandler
 {
     /**
      * @var string
