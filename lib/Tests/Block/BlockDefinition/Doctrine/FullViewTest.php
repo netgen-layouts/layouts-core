@@ -1,14 +1,14 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Service\Doctrine\Block;
+namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Doctrine;
 
-use Netgen\BlockManager\Tests\Core\Service\Block\RichTextTest as BaseRichTextTest;
+use Netgen\BlockManager\Tests\Block\BlockDefinition\FullViewTest as BaseFullViewTest;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 
 /**
- * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\RichTextHandler::buildParameters
+ * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\FullViewHandler::buildParameters
  */
-class RichTextTest extends BaseRichTextTest
+class FullViewTest extends BaseFullViewTest
 {
     use TestCaseTrait;
 

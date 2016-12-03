@@ -1,15 +1,14 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Service\Doctrine\Block;
+namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Doctrine;
 
-use Netgen\BlockManager\Tests\Core\Service\Block\ListTest as BaseListTest;
+use Netgen\BlockManager\Tests\Block\BlockDefinition\TextTest as BaseTextTest;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 
 /**
- * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\ListHandler::__construct
- * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\ListHandler::buildParameters
+ * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\TextHandler::buildParameters
  */
-class ListTest extends BaseListTest
+class TextTest extends BaseTextTest
 {
     use TestCaseTrait;
 

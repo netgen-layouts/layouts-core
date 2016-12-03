@@ -296,6 +296,35 @@ class BlockValidatorTest extends TestCase
                 ),
                 true,
             ),
+            array(
+                array(
+                    'blockDefinition' => $this->getBlockDefinition(),
+                    'viewType' => 'large',
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'blockDefinition' => $this->getBlockDefinition(),
+                    'viewType' => 'large',
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
+                    'parameterValues' => array(),
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'blockDefinition' => $this->getBlockDefinition(),
+                    'viewType' => 'large',
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
+                    'parameterValues' => 42,
+                ),
+                false,
+            ),
         );
     }
 
@@ -477,6 +506,32 @@ class BlockValidatorTest extends TestCase
                     'parameterValues' => array(
                         'css_class' => 'class',
                     ),
+                ),
+                true,
+            ),
+            array(
+                array(
+                    'viewType' => 'large',
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
+                    'parameterValues' => array(),
+                ),
+                true,
+            ),
+            array(
+                array(
+                    'viewType' => 'large',
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
+                    'parameterValues' => 42,
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'viewType' => 'large',
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
                 ),
                 true,
             ),

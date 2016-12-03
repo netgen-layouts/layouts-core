@@ -1,14 +1,15 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Service\Doctrine\Block;
+namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Doctrine;
 
-use Netgen\BlockManager\Tests\Core\Service\Block\TwigBlockTest as BaseTwigBlockTest;
+use Netgen\BlockManager\Tests\Block\BlockDefinition\ButtonTest as BaseButtonTest;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 
 /**
- * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\TwigBlockHandler::buildParameters
+ * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\ButtonHandler::__construct
+ * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\ButtonHandler::buildParameters
  */
-class TwigBlockTest extends BaseTwigBlockTest
+class ButtonTest extends BaseButtonTest
 {
     use TestCaseTrait;
 

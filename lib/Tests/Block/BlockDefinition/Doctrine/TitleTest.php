@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Service\Doctrine\Block;
+namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Doctrine;
 
-use Netgen\BlockManager\Tests\Core\Service\Block\TitleTest as BaseTitleTest;
+use Netgen\BlockManager\Tests\Block\BlockDefinition\TitleTest as BaseTitleTest;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 
 /**

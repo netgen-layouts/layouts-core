@@ -1,15 +1,14 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Service\Doctrine\Block;
+namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Doctrine;
 
-use Netgen\BlockManager\Tests\Core\Service\Block\ButtonTest as BaseButtonTest;
+use Netgen\BlockManager\Tests\Block\BlockDefinition\RichTextTest as BaseRichTextTest;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 
 /**
- * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\ButtonHandler::__construct
- * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\ButtonHandler::buildParameters
+ * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\RichTextHandler::buildParameters
  */
-class ButtonTest extends BaseButtonTest
+class RichTextTest extends BaseRichTextTest
 {
     use TestCaseTrait;
 

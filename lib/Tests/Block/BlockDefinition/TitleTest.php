@@ -1,21 +1,21 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Service\Block;
+namespace Netgen\BlockManager\Tests\Block\BlockDefinition;
 
-use Netgen\BlockManager\Block\BlockDefinition\Handler\ButtonHandler;
+use Netgen\BlockManager\Block\BlockDefinition\Handler\TitleHandler;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
 
-abstract class ButtonTest extends BlockTest
+abstract class TitleTest extends BlockTest
 {
     /**
      * @return \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface
      */
     public function createBlockDefinitionHandler()
     {
-        return new ButtonHandler(
+        return new TitleHandler(
             array(
-                'default_button' => 'Default button',
-                'highlighted_button' => 'Highlighted button',
+                'h1' => 'Heading 1',
+                'h2' => 'Heading 2',
             ),
             array('value')
         );
@@ -30,39 +30,41 @@ abstract class ButtonTest extends BlockTest
             array(
                 array(),
                 array(
-                    'text' => 'Text',
+                    'tag' => 'h1',
                 ),
             ),
             array(
                 array(
-                    'text' => 'New text',
+                    'tag' => 'h2',
                 ),
                 array(
-                    'text' => 'New text',
-                ),
-            ),
-            array(
-                array(),
-                array(
-                    'style' => 'default_button',
-                ),
-            ),
-            array(
-                array(
-                    'style' => 'highlighted_button',
-                ),
-                array(
-                    'style' => 'highlighted_button',
+                    'tag' => 'h2',
                 ),
             ),
             array(
                 array(),
                 array(
+                    'title' => 'Title',
+                ),
+            ),
+            array(
+                array(
+                    'title' => 'New title',
+                ),
+                array(
+                    'title' => 'New title',
+                ),
+            ),
+            array(
+                array(),
+                array(
+                    'use_link' => null,
                     'link' => new LinkValue(),
                 ),
             ),
             array(
                 array(
+                    'use_link' => true,
                     'link' => new LinkValue(
                         array(
                             'linkType' => LinkValue::LINK_TYPE_URL,
@@ -71,6 +73,7 @@ abstract class ButtonTest extends BlockTest
                     ),
                 ),
                 array(
+                    'use_link' => true,
                     'link' => new LinkValue(
                         array(
                             'linkType' => LinkValue::LINK_TYPE_URL,
@@ -81,6 +84,7 @@ abstract class ButtonTest extends BlockTest
             ),
             array(
                 array(
+                    'use_link' => true,
                     'link' => new LinkValue(
                         array(
                             'linkType' => LinkValue::LINK_TYPE_INTERNAL,
@@ -89,6 +93,7 @@ abstract class ButtonTest extends BlockTest
                     ),
                 ),
                 array(
+                    'use_link' => true,
                     'link' => new LinkValue(
                         array(
                             'linkType' => LinkValue::LINK_TYPE_INTERNAL,
@@ -114,28 +119,44 @@ abstract class ButtonTest extends BlockTest
         return array(
             array(
                 array(
-                    'text' => null,
+                    'tag' => null,
                 ),
             ),
             array(
                 array(
-                    'text' => '',
+                    'tag' => '',
                 ),
             ),
             array(
                 array(
-                    'text' => 42,
+                    'tag' => 42,
                 ),
             ),
             array(
                 array(
-                    'style' => null,
+                    'title' => null,
                 ),
             ),
             array(
                 array(
-                    'style' => 42,
+                    'title' => '',
                 ),
+            ),
+            array(
+                array(
+                    'title' => 42,
+                ),
+            ),
+            array(
+                array(
+                    'use_link' => 42,
+                ),
+            ),
+            array(
+                array(
+                    'link' => 42,
+                ),
+                array('use_link', 'link'),
             ),
             array(
                 array(
@@ -146,6 +167,7 @@ abstract class ButtonTest extends BlockTest
                         )
                     ),
                 ),
+                array('use_link', 'link'),
             ),
         );
     }

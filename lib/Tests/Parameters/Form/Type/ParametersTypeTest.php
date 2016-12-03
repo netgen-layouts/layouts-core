@@ -35,6 +35,7 @@ class ParametersTypeTest extends FormTestCase
      * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::__construct
      * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::buildForm
      * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::includeParameter
+     * @covers \Netgen\BlockManager\Parameters\Form\Mapper::handleForm
      */
     public function testSubmitValidData()
     {

@@ -1,17 +1,22 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Service\Block;
+namespace Netgen\BlockManager\Tests\Block\BlockDefinition;
 
-use Netgen\BlockManager\Block\BlockDefinition\Handler\HtmlSnippetHandler;
+use Netgen\BlockManager\Block\BlockDefinition\Handler\ListHandler;
 
-abstract class HtmlSnippetTest extends BlockTest
+abstract class ListTest extends BlockTest
 {
     /**
      * @return \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface
      */
     public function createBlockDefinitionHandler()
     {
-        return new HtmlSnippetHandler();
+        return new ListHandler(
+            array(
+                2 => '2 columns',
+                3 => '3 columns',
+            )
+        );
     }
 
     /**
@@ -23,31 +28,15 @@ abstract class HtmlSnippetTest extends BlockTest
             array(
                 array(),
                 array(
-                    'content' => null,
+                    'number_of_columns' => 2,
                 ),
             ),
             array(
                 array(
-                    'content' => null,
+                    'number_of_columns' => 3,
                 ),
                 array(
-                    'content' => null,
-                ),
-            ),
-            array(
-                array(
-                    'content' => '',
-                ),
-                array(
-                    'content' => '',
-                ),
-            ),
-            array(
-                array(
-                    'content' => '<b>Text</b>',
-                ),
-                array(
-                    'content' => '<b>Text</b>',
+                    'number_of_columns' => 3,
                 ),
             ),
             array(
@@ -67,7 +56,12 @@ abstract class HtmlSnippetTest extends BlockTest
         return array(
             array(
                 array(
-                    'content' => 42,
+                    'number_of_columns' => null,
+                ),
+            ),
+            array(
+                array(
+                    'number_of_columns' => '2',
                 ),
             ),
         );

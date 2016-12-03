@@ -1,22 +1,17 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Service\Block;
+namespace Netgen\BlockManager\Tests\Block\BlockDefinition;
 
-use Netgen\BlockManager\Block\BlockDefinition\Handler\ListHandler;
+use Netgen\BlockManager\Block\BlockDefinition\Handler\HtmlSnippetHandler;
 
-abstract class ListTest extends BlockTest
+abstract class HtmlSnippetTest extends BlockTest
 {
     /**
      * @return \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface
      */
     public function createBlockDefinitionHandler()
     {
-        return new ListHandler(
-            array(
-                2 => '2 columns',
-                3 => '3 columns',
-            )
-        );
+        return new HtmlSnippetHandler();
     }
 
     /**
@@ -28,15 +23,31 @@ abstract class ListTest extends BlockTest
             array(
                 array(),
                 array(
-                    'number_of_columns' => 2,
+                    'content' => null,
                 ),
             ),
             array(
                 array(
-                    'number_of_columns' => 3,
+                    'content' => null,
                 ),
                 array(
-                    'number_of_columns' => 3,
+                    'content' => null,
+                ),
+            ),
+            array(
+                array(
+                    'content' => '',
+                ),
+                array(
+                    'content' => '',
+                ),
+            ),
+            array(
+                array(
+                    'content' => '<b>Text</b>',
+                ),
+                array(
+                    'content' => '<b>Text</b>',
                 ),
             ),
             array(
@@ -56,12 +67,7 @@ abstract class ListTest extends BlockTest
         return array(
             array(
                 array(
-                    'number_of_columns' => null,
-                ),
-            ),
-            array(
-                array(
-                    'number_of_columns' => '2',
+                    'content' => 42,
                 ),
             ),
         );

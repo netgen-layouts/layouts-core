@@ -1,15 +1,14 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Service\Doctrine\Block;
+namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Doctrine;
 
-use Netgen\BlockManager\Tests\Core\Service\Block\FullViewTest as BaseFullViewTest;
+use Netgen\BlockManager\Tests\Block\BlockDefinition\MarkdownTest as BaseMarkdownTest;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 
 /**
- * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\FullViewHandler::__construct
- * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\FullViewHandler::buildParameters
+ * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\MarkdownHandler::buildParameters
  */
-class FullViewTest extends BaseFullViewTest
+class MarkdownTest extends BaseMarkdownTest
 {
     use TestCaseTrait;
 

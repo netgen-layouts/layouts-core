@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Service\Block;
+namespace Netgen\BlockManager\Tests\Block\BlockDefinition;
 
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
@@ -78,6 +78,9 @@ abstract class BlockTest extends ServiceTestCase
         }
 
         $this->assertEquals($expectedParameters, $createdParameters);
+
+        $collectionReferences = $this->blockService->loadCollectionReferences($createdBlock);
+        $this->assertEquals($blockDefinition->hasCollection(), count($collectionReferences) > 0);
     }
 
     /**

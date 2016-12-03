@@ -1,15 +1,14 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Service\Doctrine\Block;
+namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Doctrine;
 
-use Netgen\BlockManager\Tests\Core\Service\Block\MarkdownTest as BaseMarkdownTest;
+use Netgen\BlockManager\Tests\Block\BlockDefinition\TwigBlockTest as BaseTwigBlockTest;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 
 /**
- * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\MarkdownHandler::__construct
- * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\MarkdownHandler::buildParameters
+ * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\TwigBlockHandler::buildParameters
  */
-class MarkdownTest extends BaseMarkdownTest
+class TwigBlockTest extends BaseTwigBlockTest
 {
     use TestCaseTrait;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Service\Block;
+namespace Netgen\BlockManager\Tests\Block\BlockDefinition;
 
 use Netgen\BlockManager\Block\BlockDefinition\Handler\TextHandler;
 

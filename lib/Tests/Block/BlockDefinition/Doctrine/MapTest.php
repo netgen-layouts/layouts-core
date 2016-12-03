@@ -1,14 +1,15 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Service\Doctrine\Block;
+namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Doctrine;
 
-use Netgen\BlockManager\Tests\Core\Service\Block\HtmlSnippetTest as BaseHtmlSnippetTest;
+use Netgen\BlockManager\Tests\Block\BlockDefinition\MapTest as BaseMapTest;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 
 /**
- * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\HtmlSnippetHandler::buildParameters
+ * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\MapHandler::__construct
+ * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\MapHandler::buildParameters
  */
-class HtmlSnippetTest extends BaseHtmlSnippetTest
+class MapTest extends BaseMapTest
 {
     use TestCaseTrait;
 
