@@ -17,15 +17,15 @@
 >
     <testsuites>
         <testsuite name="Netgen\BlockManager">
-            <directory>lib/Tests</directory>
+            <directory>tests/lib</directory>
         </testsuite>
         <testsuite name="Netgen\Bundle\BlockManagerBundle">
-            <directory>bundles/BlockManagerBundle/Tests</directory>
-            <exclude>bundles/BlockManagerBundle/Tests/Controller</exclude>
+            <directory>tests/bundles/BlockManagerBundle</directory>
+            <exclude>tests/bundles/BlockManagerBundle/Controller</exclude>
         </testsuite>
         <testsuite name="Netgen\Bundle\BlockManagerAdminBundle">
-            <directory>bundles/BlockManagerAdminBundle/Tests</directory>
-            <exclude>bundles/BlockManagerAdminBundle/Tests/Controller</exclude>
+            <directory>tests/bundles/BlockManagerAdminBundle</directory>
+            <exclude>tests/bundles/BlockManagerAdminBundle/Controller</exclude>
         </testsuite>
     </testsuites>
 
@@ -35,10 +35,7 @@
             <directory suffix=".php">bundles/BlockManagerBundle</directory>
             <directory suffix=".php">bundles/BlockManagerAdminBundle</directory>
             <exclude>
-                <directory>lib/Tests</directory>
-                <directory>lib/Migrations</directory>
                 <directory>bundles/*Bundle/Controller</directory>
-                <directory>bundles/*Bundle/Tests</directory>
                 <directory>bundles/*Bundle/Resources</directory>
             </exclude>
         </whitelist>

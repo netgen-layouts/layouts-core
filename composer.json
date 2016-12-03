@@ -35,10 +35,17 @@
     "autoload": {
         "psr-4": {
             "Netgen\\BlockManager\\": "lib/",
+
+            "Netgen\\BlockManager\\Migrations\\": "migrations/",
+
             "Netgen\\Bundle\\BlockManagerBundle\\": "bundles/BlockManagerBundle/",
             "Netgen\\Bundle\\BlockManagerAdminBundle\\": "bundles/BlockManagerAdminBundle/",
             "Netgen\\Bundle\\BlockManagerDebugBundle\\": "bundles/BlockManagerDebugBundle/",
-            "Netgen\\Bundle\\BlockManagerFixturesBundle\\": "bundles/BlockManagerFixturesBundle/"
+            "Netgen\\Bundle\\BlockManagerFixturesBundle\\": "bundles/BlockManagerFixturesBundle/",
+
+            "Netgen\\BlockManager\\Tests\\": "tests/lib/",
+            "Netgen\\Bundle\\BlockManagerBundle\\Tests\\": "tests/bundles/BlockManagerBundle/",
+            "Netgen\\Bundle\\BlockManagerAdminBundle\\Tests\\": "tests/bundles/BlockManagerAdminBundle/"
         },
         "exclude-from-classmap": [
             "**/Tests/"

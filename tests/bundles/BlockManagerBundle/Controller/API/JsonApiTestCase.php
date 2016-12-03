@@ -23,7 +23,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         $this->mockItemLoader();
         $this->mockSearchHandler();
         $this->mockTranslationHelper();
-        $this->prepareDatabase(__DIR__ . '/../../../../../lib/Tests/_fixtures');
+        $this->createDatabase(__DIR__ . '/../../../../lib/_fixtures');
         $this->expectedResponsesPath = __DIR__ . '/responses/expected';
     }
 
@@ -36,7 +36,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
 
     public function tearDown()
     {
-        $this->closeDatabaseConnection();
+        $this->closeDatabase();
     }
 
     protected function mockItemLoader()
