@@ -1,8 +1,10 @@
 <?php
 
 return PhpCsFixer\Config::create()
+    ->setRiskyAllowed(true)
     ->setRules([
         '@Symfony' => true,
+        '@Symfony:risky' => true,
         'concat_space' => ['spacing' => 'one'],
         'phpdoc_order' => true,
         'phpdoc_align' => false,
