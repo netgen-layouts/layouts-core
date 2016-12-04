@@ -41,6 +41,7 @@ class ParameterViewTest extends TestCase
     {
         $this->assertEquals($this->parameterValue, $this->view->getParameterValue());
     }
+
     /**
      * @covers \Netgen\BlockManager\View\View\ParameterView::getParameters
      */

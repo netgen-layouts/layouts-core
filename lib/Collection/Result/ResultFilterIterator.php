@@ -37,13 +37,13 @@ class ResultFilterIterator extends FilterIterator
         $result = self::current();
 
         if (!$result->getItem() instanceof NullItem) {
-            if ((bool)($this->flags & ResultLoaderInterface::INCLUDE_INVISIBLE_ITEMS)) {
+            if ((bool) ($this->flags & ResultLoaderInterface::INCLUDE_INVISIBLE_ITEMS)) {
                 return true;
             }
 
             return $result->getItem()->isVisible();
         }
 
-        return (bool)($this->flags & ResultLoaderInterface::INCLUDE_INVALID_ITEMS);
+        return (bool) ($this->flags & ResultLoaderInterface::INCLUDE_INVALID_ITEMS);
     }
 }

@@ -40,6 +40,7 @@ class BlockViewTest extends TestCase
     {
         $this->assertEquals($this->block, $this->view->getBlock());
     }
+
     /**
      * @covers \Netgen\BlockManager\View\View\BlockView::getParameters
      */

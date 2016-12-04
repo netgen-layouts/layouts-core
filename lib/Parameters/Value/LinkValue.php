@@ -71,6 +71,6 @@ class LinkValue extends ValueObject
      */
     public function getNewWindow()
     {
-        return (bool)$this->newWindow;
+        return (bool) $this->newWindow;
     }
 }

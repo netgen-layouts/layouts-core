@@ -100,8 +100,8 @@ class CollectionController extends Controller
         return new VersionedValue(
             $this->resultLoader->load(
                 $collection,
-                (int)$offset,
-                (int)$limit,
+                (int) $offset,
+                (int) $limit,
                 ResultLoaderInterface::INCLUDE_INVISIBLE_ITEMS |
                 ResultLoaderInterface::INCLUDE_INVALID_ITEMS
             ),

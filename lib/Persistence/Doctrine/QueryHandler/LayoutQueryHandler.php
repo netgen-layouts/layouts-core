@@ -82,7 +82,7 @@ class LayoutQueryHandler extends QueryHandler
         }
 
         if ($shared !== null) {
-            $query->setParameter('shared', (bool)$shared, Type::BOOLEAN);
+            $query->setParameter('shared', (bool) $shared, Type::BOOLEAN);
         }
 
         $query->setParameter('status', Value::STATUS_PUBLISHED, Type::INTEGER);
@@ -262,7 +262,7 @@ class LayoutQueryHandler extends QueryHandler
             )
             ->setValue(
                 'id',
-                $layoutId !== null ? (int)$layoutId : $this->connectionHelper->getAutoIncrementValue('ngbm_layout')
+                $layoutId !== null ? (int) $layoutId : $this->connectionHelper->getAutoIncrementValue('ngbm_layout')
             )
             ->setParameter('status', $layoutCreateStruct->status, Type::INTEGER)
             ->setParameter('type', $layoutCreateStruct->type, Type::STRING)
@@ -275,7 +275,7 @@ class LayoutQueryHandler extends QueryHandler
 
         $createdLayoutId = $layoutId;
         if ($createdLayoutId === null) {
-            $createdLayoutId = (int)$this->connectionHelper->lastInsertId('ngbm_layout');
+            $createdLayoutId = (int) $this->connectionHelper->lastInsertId('ngbm_layout');
         }
 
         foreach ($layoutCreateStruct->zoneCreateStructs as $zoneCreateStruct) {

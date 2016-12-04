@@ -26,7 +26,7 @@ class ConditionTypeRegistryPass implements CompilerPassInterface
 
         $conditionTypes = array();
         foreach ($container->findTaggedServiceIds(self::TAG_NAME) as $conditionType => $tag) {
-            $priority = isset($tag[0]['priority']) ? (int)$tag[0]['priority'] : 0;
+            $priority = isset($tag[0]['priority']) ? (int) $tag[0]['priority'] : 0;
             $conditionTypes[$priority][] = new Reference($conditionType);
         }
 

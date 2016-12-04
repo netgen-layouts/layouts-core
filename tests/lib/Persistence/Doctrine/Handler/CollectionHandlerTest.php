@@ -1008,7 +1008,6 @@ class CollectionHandlerTest extends TestCase
                         'sort_type' => 'date_published',
                         'offset' => 0,
                         'query_type' => 'list',
-
                     ),
                     'status' => Value::STATUS_PUBLISHED,
                 )

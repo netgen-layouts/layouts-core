@@ -27,7 +27,7 @@ class ViewBuilderPass implements CompilerPassInterface
 
         $viewProviders = array();
         foreach ($viewProviderServices as $serviceName => $tag) {
-            $priority = isset($tag[0]['priority']) ? (int)$tag[0]['priority'] : 0;
+            $priority = isset($tag[0]['priority']) ? (int) $tag[0]['priority'] : 0;
             $viewProviders[$priority][] = new Reference($serviceName);
         }
 

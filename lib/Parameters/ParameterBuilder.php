@@ -185,7 +185,7 @@ class ParameterBuilder implements ParameterBuilderInterface
      */
     public function setRequired($isRequired)
     {
-        $this->isRequired = (bool)$isRequired;
+        $this->isRequired = (bool) $isRequired;
 
         return $this;
     }

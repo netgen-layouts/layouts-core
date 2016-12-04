@@ -21,13 +21,13 @@ class LayoutMapper
         foreach ($data as $dataItem) {
             $layouts[] = new Layout(
                 array(
-                    'id' => (int)$dataItem['id'],
+                    'id' => (int) $dataItem['id'],
                     'type' => $dataItem['type'],
                     'name' => $dataItem['name'],
-                    'created' => (int)$dataItem['created'],
-                    'modified' => (int)$dataItem['modified'],
-                    'status' => (int)$dataItem['status'],
-                    'shared' => (bool)$dataItem['shared'],
+                    'created' => (int) $dataItem['created'],
+                    'modified' => (int) $dataItem['modified'],
+                    'status' => (int) $dataItem['status'],
+                    'shared' => (bool) $dataItem['shared'],
                 )
             );
         }
@@ -50,9 +50,9 @@ class LayoutMapper
             $zones[] = new Zone(
                 array(
                     'identifier' => $dataItem['identifier'],
-                    'layoutId' => (int)$dataItem['layout_id'],
-                    'status' => (int)$dataItem['status'],
-                    'linkedLayoutId' => $dataItem['linked_layout_id'] !== null ? (int)$dataItem['linked_layout_id'] : null,
+                    'layoutId' => (int) $dataItem['layout_id'],
+                    'status' => (int) $dataItem['status'],
+                    'linkedLayoutId' => $dataItem['linked_layout_id'] !== null ? (int) $dataItem['linked_layout_id'] : null,
                     'linkedZoneIdentifier' => $dataItem['linked_zone_identifier'],
                 )
             );

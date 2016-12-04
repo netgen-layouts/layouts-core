@@ -22,11 +22,11 @@ class LayoutResolverMapper
         foreach ($data as $dataItem) {
             $rules[] = new Rule(
                 array(
-                    'id' => (int)$dataItem['id'],
-                    'status' => (int)$dataItem['status'],
-                    'layoutId' => $dataItem['layout_id'] !== null ? (int)$dataItem['layout_id'] : null,
-                    'enabled' => (bool)$dataItem['enabled'],
-                    'priority' => (int)$dataItem['priority'],
+                    'id' => (int) $dataItem['id'],
+                    'status' => (int) $dataItem['status'],
+                    'layoutId' => $dataItem['layout_id'] !== null ? (int) $dataItem['layout_id'] : null,
+                    'enabled' => (bool) $dataItem['enabled'],
+                    'priority' => (int) $dataItem['priority'],
                     'comment' => $dataItem['comment'],
                 )
             );
@@ -49,9 +49,9 @@ class LayoutResolverMapper
         foreach ($data as $dataItem) {
             $targets[] = new Target(
                 array(
-                    'id' => (int)$dataItem['id'],
-                    'status' => (int)$dataItem['status'],
-                    'ruleId' => (int)$dataItem['rule_id'],
+                    'id' => (int) $dataItem['id'],
+                    'status' => (int) $dataItem['status'],
+                    'ruleId' => (int) $dataItem['rule_id'],
                     'type' => $dataItem['type'],
                     'value' => $dataItem['value'],
                 )
@@ -75,9 +75,9 @@ class LayoutResolverMapper
         foreach ($data as $dataItem) {
             $conditions[] = new Condition(
                 array(
-                    'id' => (int)$dataItem['id'],
-                    'status' => (int)$dataItem['status'],
-                    'ruleId' => (int)$dataItem['rule_id'],
+                    'id' => (int) $dataItem['id'],
+                    'status' => (int) $dataItem['status'],
+                    'ruleId' => (int) $dataItem['rule_id'],
                     'type' => $dataItem['type'],
                     'value' => json_decode($dataItem['value'], true),
                 )

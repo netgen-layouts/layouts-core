@@ -22,11 +22,11 @@ class CollectionMapper
         foreach ($data as $dataItem) {
             $collections[] = new Collection(
                 array(
-                    'id' => (int)$dataItem['id'],
-                    'type' => (int)$dataItem['type'],
-                    'shared' => (bool)$dataItem['shared'],
+                    'id' => (int) $dataItem['id'],
+                    'type' => (int) $dataItem['type'],
+                    'shared' => (bool) $dataItem['shared'],
                     'name' => $dataItem['name'],
-                    'status' => (int)$dataItem['status'],
+                    'status' => (int) $dataItem['status'],
                 )
             );
         }
@@ -48,13 +48,13 @@ class CollectionMapper
         foreach ($data as $dataItem) {
             $items[] = new Item(
                 array(
-                    'id' => (int)$dataItem['id'],
-                    'collectionId' => (int)$dataItem['collection_id'],
-                    'position' => (int)$dataItem['position'],
-                    'type' => (int)$dataItem['type'],
+                    'id' => (int) $dataItem['id'],
+                    'collectionId' => (int) $dataItem['collection_id'],
+                    'position' => (int) $dataItem['position'],
+                    'type' => (int) $dataItem['type'],
                     'valueId' => $dataItem['value_id'],
                     'valueType' => $dataItem['value_type'],
-                    'status' => (int)$dataItem['status'],
+                    'status' => (int) $dataItem['status'],
                 )
             );
         }
@@ -80,13 +80,13 @@ class CollectionMapper
 
             $queries[] = new Query(
                 array(
-                    'id' => (int)$dataItem['id'],
-                    'collectionId' => (int)$dataItem['collection_id'],
-                    'position' => (int)$dataItem['position'],
+                    'id' => (int) $dataItem['id'],
+                    'collectionId' => (int) $dataItem['collection_id'],
+                    'position' => (int) $dataItem['position'],
                     'identifier' => $dataItem['identifier'],
                     'type' => $dataItem['type'],
                     'parameters' => is_array($parameters) ? $parameters : array(),
-                    'status' => (int)$dataItem['status'],
+                    'status' => (int) $dataItem['status'],
                 )
             );
         }

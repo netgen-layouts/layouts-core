@@ -90,7 +90,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      */
     public function setDebug($debug)
     {
-        $this->debug = (bool)$debug;
+        $this->debug = (bool) $debug;
     }
 
     /**

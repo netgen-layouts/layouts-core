@@ -149,7 +149,7 @@ class BlockQueryHandler extends QueryHandler
             )
             ->setValue(
                 'id',
-                $blockId !== null ? (int)$blockId : $this->connectionHelper->getAutoIncrementValue('ngbm_block')
+                $blockId !== null ? (int) $blockId : $this->connectionHelper->getAutoIncrementValue('ngbm_block')
             )
             ->setParameter('status', $blockCreateStruct->status, Type::INTEGER)
             ->setParameter('layout_id', $blockCreateStruct->layoutId, Type::INTEGER)
@@ -163,7 +163,7 @@ class BlockQueryHandler extends QueryHandler
 
         $query->execute();
 
-        return (int)$this->connectionHelper->lastInsertId('ngbm_block');
+        return (int) $this->connectionHelper->lastInsertId('ngbm_block');
     }
 
     /**

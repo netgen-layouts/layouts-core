@@ -32,7 +32,7 @@ abstract class Mapper
     protected function createDateTime($timestamp)
     {
         $dateTime = new DateTime();
-        $dateTime->setTimestamp((int)$timestamp);
+        $dateTime->setTimestamp((int) $timestamp);
 
         return $dateTime;
     }

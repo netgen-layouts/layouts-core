@@ -45,7 +45,7 @@ class BlockController extends Controller
      */
     public function setDebug($debug)
     {
-        $this->debug = (bool)$debug;
+        $this->debug = (bool) $debug;
     }
 
     /**

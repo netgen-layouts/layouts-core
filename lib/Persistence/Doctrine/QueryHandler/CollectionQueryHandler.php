@@ -237,7 +237,7 @@ class CollectionQueryHandler extends QueryHandler
             )
             ->setValue(
                 'id',
-                $collectionId !== null ? (int)$collectionId : $this->connectionHelper->getAutoIncrementValue('ngbm_collection')
+                $collectionId !== null ? (int) $collectionId : $this->connectionHelper->getAutoIncrementValue('ngbm_collection')
             )
             ->setParameter('status', $collectionCreateStruct->status, Type::INTEGER)
             ->setParameter('type', $collectionCreateStruct->type, Type::INTEGER)
@@ -246,7 +246,7 @@ class CollectionQueryHandler extends QueryHandler
 
         $query->execute();
 
-        return (int)$this->connectionHelper->lastInsertId('ngbm_collection');
+        return (int) $this->connectionHelper->lastInsertId('ngbm_collection');
     }
 
     /**
@@ -342,7 +342,7 @@ class CollectionQueryHandler extends QueryHandler
             )
             ->setValue(
                 'id',
-                $itemId !== null ? (int)$itemId : $this->connectionHelper->getAutoIncrementValue('ngbm_collection_item')
+                $itemId !== null ? (int) $itemId : $this->connectionHelper->getAutoIncrementValue('ngbm_collection_item')
             )
             ->setParameter('status', $status, Type::INTEGER)
             ->setParameter('collection_id', $collectionId, Type::INTEGER)
@@ -353,7 +353,7 @@ class CollectionQueryHandler extends QueryHandler
 
         $query->execute();
 
-        return (int)$this->connectionHelper->lastInsertId('ngbm_collection_item');
+        return (int) $this->connectionHelper->lastInsertId('ngbm_collection_item');
     }
 
     /**
@@ -482,7 +482,7 @@ class CollectionQueryHandler extends QueryHandler
             )
             ->setValue(
                 'id',
-                $queryId !== null ? (int)$queryId : $this->connectionHelper->getAutoIncrementValue('ngbm_collection_query')
+                $queryId !== null ? (int) $queryId : $this->connectionHelper->getAutoIncrementValue('ngbm_collection_query')
             )
             ->setParameter('status', $status, Type::INTEGER)
             ->setParameter('collection_id', $collectionId, Type::INTEGER)
@@ -493,7 +493,7 @@ class CollectionQueryHandler extends QueryHandler
 
         $query->execute();
 
-        return (int)$this->connectionHelper->lastInsertId('ngbm_collection_query');
+        return (int) $this->connectionHelper->lastInsertId('ngbm_collection_query');
     }
 
     /**

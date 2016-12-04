@@ -41,7 +41,7 @@ class Sqlite
 
         $data = $query->execute()->fetchAll();
 
-        return isset($data[0]['id']) ? (int)$data[0]['id'] + 1 : 1;
+        return isset($data[0]['id']) ? (int) $data[0]['id'] + 1 : 1;
     }
 
     /**
@@ -60,6 +60,6 @@ class Sqlite
 
         $data = $query->execute()->fetchAll();
 
-        return isset($data[0]['id']) ? (int)$data[0]['id'] : 0;
+        return isset($data[0]['id']) ? (int) $data[0]['id'] : 0;
     }
 }

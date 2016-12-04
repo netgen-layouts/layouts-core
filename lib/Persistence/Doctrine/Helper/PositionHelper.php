@@ -135,7 +135,7 @@ class PositionHelper
 
         $data = $query->execute()->fetchAll();
 
-        return isset($data[0][$columnName]) ? (int)$data[0][$columnName] + 1 : 0;
+        return isset($data[0][$columnName]) ? (int) $data[0][$columnName] + 1 : 0;
     }
 
     /**

@@ -26,7 +26,7 @@ class TargetTypeRegistryPass implements CompilerPassInterface
 
         $targetTypes = array();
         foreach ($container->findTaggedServiceIds(self::TAG_NAME) as $targetType => $tag) {
-            $priority = isset($tag[0]['priority']) ? (int)$tag[0]['priority'] : 0;
+            $priority = isset($tag[0]['priority']) ? (int) $tag[0]['priority'] : 0;
             $targetTypes[$priority][] = new Reference($targetType);
         }
 

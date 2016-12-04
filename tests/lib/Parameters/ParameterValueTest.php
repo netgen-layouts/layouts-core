@@ -26,7 +26,7 @@ class ParameterValueTest extends TestCase
         $this->assertNull($parameterValue->getParameterType());
         $this->assertNull($parameterValue->getValue());
         $this->assertNull($parameterValue->isEmpty());
-        $this->assertEquals('', (string)$parameterValue);
+        $this->assertEquals('', (string) $parameterValue);
     }
 
     /**
@@ -54,6 +54,6 @@ class ParameterValueTest extends TestCase
         $this->assertEquals(new TextType(), $parameterValue->getParameterType());
         $this->assertEquals(42, $parameterValue->getValue());
         $this->assertFalse($parameterValue->isEmpty());
-        $this->assertEquals('42', (string)$parameterValue);
+        $this->assertEquals('42', (string) $parameterValue);
     }
 }

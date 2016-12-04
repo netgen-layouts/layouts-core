@@ -126,8 +126,8 @@ class BlockCollectionController extends Controller
         return new VersionedValue(
             $this->resultLoader->load(
                 $collectionReference->getCollection(),
-                (int)$offset,
-                (int)$limit,
+                (int) $offset,
+                (int) $limit,
                 ResultLoaderInterface::INCLUDE_INVISIBLE_ITEMS |
                 ResultLoaderInterface::INCLUDE_INVALID_ITEMS
             ),
