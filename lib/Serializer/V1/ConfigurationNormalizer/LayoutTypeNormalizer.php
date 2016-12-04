@@ -31,6 +31,23 @@ class LayoutTypeNormalizer implements NormalizerInterface
     }
 
     /**
+     * Checks whether the given class is supported for normalization by this normalizer.
+     *
+     * @param mixed $data
+     * @param string $format
+     *
+     * @return bool
+     */
+    public function supportsNormalization($data, $format = null)
+    {
+        if (!$data instanceof VersionedValue) {
+            return false;
+        }
+
+        return $data->getValue() instanceof LayoutType && $data->getVersion() === Version::API_V1;
+    }
+
+    /**
      * Returns the array with layout type zones.
      *
      * @param \Netgen\BlockManager\Configuration\LayoutType\LayoutType $layoutType
@@ -52,22 +69,5 @@ class LayoutTypeNormalizer implements NormalizerInterface
         }
 
         return $zones;
-    }
-
-    /**
-     * Checks whether the given class is supported for normalization by this normalizer.
-     *
-     * @param mixed $data
-     * @param string $format
-     *
-     * @return bool
-     */
-    public function supportsNormalization($data, $format = null)
-    {
-        if (!$data instanceof VersionedValue) {
-            return false;
-        }
-
-        return $data->getValue() instanceof LayoutType && $data->getVersion() === Version::API_V1;
     }
 }

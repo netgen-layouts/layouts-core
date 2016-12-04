@@ -2,12 +2,12 @@
 
 namespace Netgen\BlockManager\Collection\Result;
 
+use ArrayAccess;
+use ArrayIterator;
+use Countable;
+use IteratorAggregate;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\ValueObject;
-use IteratorAggregate;
-use ArrayIterator;
-use ArrayAccess;
-use Countable;
 
 class ResultSet extends ValueObject implements ArrayAccess, IteratorAggregate, Countable
 {

@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Parameters\ParameterType;
 
-use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\ParameterInterface;
+use Netgen\BlockManager\Parameters\ParameterType;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
@@ -58,6 +58,18 @@ class ChoiceType extends ParameterType
     }
 
     /**
+     * Returns if the parameter value is empty.
+     *
+     * @param mixed $value
+     *
+     * @return bool
+     */
+    public function isValueEmpty($value)
+    {
+        return $value === null;
+    }
+
+    /**
      * Returns constraints that will be used to validate the parameter value.
      *
      * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
@@ -82,17 +94,5 @@ class ChoiceType extends ParameterType
                 )
             ),
         );
-    }
-
-    /**
-     * Returns if the parameter value is empty.
-     *
-     * @param mixed $value
-     *
-     * @return bool
-     */
-    public function isValueEmpty($value)
-    {
-        return $value === null;
     }
 }

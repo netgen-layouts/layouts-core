@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Serializer\V1\ValueNormalizer;
 
+use DateTime;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\Layout;
@@ -10,7 +11,6 @@ use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use DateTime;
 
 class LayoutNormalizer implements NormalizerInterface
 {

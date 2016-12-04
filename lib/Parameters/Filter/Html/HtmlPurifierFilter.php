@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Parameters\Filter\Html;
 
-use Netgen\BlockManager\Parameters\ParameterFilterInterface;
-use HTMLPurifier_Config;
 use HTMLPurifier;
+use HTMLPurifier_Config;
+use Netgen\BlockManager\Parameters\ParameterFilterInterface;
 
 class HtmlPurifierFilter implements ParameterFilterInterface
 {

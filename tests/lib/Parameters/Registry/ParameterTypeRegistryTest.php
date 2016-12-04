@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\Registry;
 
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
+use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterType;
 use PHPUnit\Framework\TestCase;
 
 class ParameterTypeRegistryTest extends TestCase

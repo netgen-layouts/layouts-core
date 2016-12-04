@@ -3,16 +3,16 @@
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine;
 
 use Doctrine\DBAL\Connection;
-use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
-use Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Handler;
+use Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler;
+use Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler;
 use Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler;
 use Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler;
-use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper;
-use Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler;
+use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
+use Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper;
-use Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper;
+use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler;

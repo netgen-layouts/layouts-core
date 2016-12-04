@@ -2,16 +2,16 @@
 
 namespace Netgen\Bundle\BlockManagerAdminBundle\Tests\EventListener;
 
+use Exception;
 use Netgen\Bundle\BlockManagerAdminBundle\EventListener\AdminAuthenticationExceptionListener;
 use Netgen\Bundle\BlockManagerAdminBundle\EventListener\SetIsAdminRequestListener;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\HttpFoundation\Request;
-use PHPUnit\Framework\TestCase;
-use Exception;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 class AdminAuthenticationExceptionListenerTest extends TestCase
 {

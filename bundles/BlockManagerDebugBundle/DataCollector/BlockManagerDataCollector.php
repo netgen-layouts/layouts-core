@@ -2,15 +2,15 @@
 
 namespace Netgen\Bundle\BlockManagerDebugBundle\DataCollector;
 
-use Netgen\BlockManager\API\Values\Page\Layout;
+use Exception;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
+use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\View\View\BlockViewInterface;
 use Netgen\BlockManager\View\View\LayoutViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
-use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Exception;
+use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 
 class BlockManagerDataCollector extends DataCollector
 {

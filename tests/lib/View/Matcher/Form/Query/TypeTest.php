@@ -2,13 +2,13 @@
 
 namespace Netgen\BlockManager\Tests\View\Matcher\Form\Query;
 
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Core\Values\Collection\Query;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Matcher\Stubs\Form;
-use Netgen\BlockManager\View\View\FormView;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\Matcher\Form\Query\Type;
+use Netgen\BlockManager\View\View\FormView;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Forms;
 

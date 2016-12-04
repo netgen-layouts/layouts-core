@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Persistence\Handler;
 
+use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\LayoutCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\LayoutUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
 use Netgen\BlockManager\Persistence\Values\Page\ZoneCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\ZoneUpdateStruct;

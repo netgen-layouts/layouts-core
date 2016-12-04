@@ -2,11 +2,11 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration;
 
+use Netgen\BlockManager\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\Reference;
-use Netgen\BlockManager\Exception\RuntimeException;
 
 class BlockTypeGroupPass implements CompilerPassInterface
 {
@@ -65,7 +65,7 @@ class BlockTypeGroupPass implements CompilerPassInterface
                 }
 
                 foreach ($blockTypeGroups as $blockTypeGroup) {
-                    if (in_array($identifier, $blockTypeGroup['block_types'])) {
+                    if (in_array($identifier, $blockTypeGroup['block_types'], true)) {
                         continue 2;
                     }
                 }

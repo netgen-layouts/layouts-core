@@ -5,9 +5,9 @@ namespace Netgen\BlockManager\Tests\View\Matcher\RuleTarget;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
-use Netgen\BlockManager\View\View\RuleTargetView;
-use Netgen\BlockManager\View\Matcher\RuleTarget\Type;
 use Netgen\BlockManager\Tests\View\Stubs\View;
+use Netgen\BlockManager\View\Matcher\RuleTarget\Type;
+use Netgen\BlockManager\View\View\RuleTargetView;
 use PHPUnit\Framework\TestCase;
 
 class TypeTest extends TestCase

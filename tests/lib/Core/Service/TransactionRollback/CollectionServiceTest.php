@@ -2,19 +2,19 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
+use Exception;
 use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
+use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
+use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceCollection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item as PersistenceItem;
 use Netgen\BlockManager\Persistence\Values\Collection\Query as PersistenceQuery;
-use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
-use Exception;
 
 class CollectionServiceTest extends ServiceTestCase
 {

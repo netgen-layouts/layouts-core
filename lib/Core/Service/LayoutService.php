@@ -2,22 +2,22 @@
 
 namespace Netgen\BlockManager\Core\Service;
 
-use Netgen\BlockManager\API\Values\Page\LayoutUpdateStruct as APILayoutUpdateStruct;
-use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
-use Netgen\BlockManager\Persistence\Values\Page\LayoutUpdateStruct;
-use Netgen\BlockManager\API\Values\Page\Zone;
+use Exception;
 use Netgen\BlockManager\API\Service\LayoutService as LayoutServiceInterface;
-use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
-use Netgen\BlockManager\Persistence\Handler;
-use Netgen\BlockManager\Core\Service\Mapper\LayoutMapper;
-use Netgen\BlockManager\API\Values\Page\LayoutCreateStruct as APILayoutCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout;
+use Netgen\BlockManager\API\Values\Page\LayoutCreateStruct as APILayoutCreateStruct;
+use Netgen\BlockManager\API\Values\Page\LayoutUpdateStruct as APILayoutUpdateStruct;
+use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
+use Netgen\BlockManager\Core\Service\Mapper\LayoutMapper;
+use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Exception\BadStateException;
+use Netgen\BlockManager\Persistence\Handler;
+use Netgen\BlockManager\Persistence\Values\Page\LayoutCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\LayoutUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\ZoneCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\ZoneUpdateStruct;
-use Exception;
 
 class LayoutService implements LayoutServiceInterface
 {
@@ -265,7 +265,7 @@ class LayoutService implements LayoutServiceInterface
             throw new BadStateException('zone', 'Zone cannot be in the shared layout.');
         }
 
-        if ($persistenceZone->layoutId == $persistenceLinkedZone->layoutId) {
+        if ($persistenceZone->layoutId === $persistenceLinkedZone->layoutId) {
             throw new BadStateException('linkedZone', 'Linked zone needs to be in a different layout.');
         }
 

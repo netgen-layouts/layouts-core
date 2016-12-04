@@ -2,11 +2,11 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\FormMapper\ParameterMapper;
 
+use Netgen\BlockManager\Parameters\Form\Mapper\LinkMapper;
 use Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper;
+use Netgen\BlockManager\Parameters\Form\Type\LinkType;
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Parameters\ParameterType\LinkType as LinkParameterType;
-use Netgen\BlockManager\Parameters\Form\Mapper\LinkMapper;
-use Netgen\BlockManager\Parameters\Form\Type\LinkType;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormBuilder;

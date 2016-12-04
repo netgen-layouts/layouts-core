@@ -3,8 +3,8 @@
 namespace Netgen\Bundle\BlockManagerBundle;
 
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass;
-use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class NetgenBlockManagerBundle extends Bundle
 {

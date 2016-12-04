@@ -2,8 +2,8 @@
 
 namespace Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation;
 
-use Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener;
 use Netgen\Bundle\BlockManagerAdminBundle\EventListener\SetIsAdminRequestListener;
+use Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
 class AdminCsrfValidationListener extends CsrfValidationListener

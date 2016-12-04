@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Tests\Parameters\FormMapper\ParameterMapper;
 
 use Netgen\BlockManager\Parameters\Form\Mapper\TextLineMapper;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class TextLineMapperTest extends TestCase
 {

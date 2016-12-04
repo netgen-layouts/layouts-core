@@ -7,10 +7,10 @@ use Netgen\BlockManager\Serializer\Normalizer\ViewNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
-use Netgen\BlockManager\View\ViewInterface;
 use Netgen\BlockManager\View\RendererInterface;
-use Symfony\Component\Serializer\Serializer;
+use Netgen\BlockManager\View\ViewInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Serializer\Serializer;
 
 class ViewNormalizerTest extends TestCase
 {

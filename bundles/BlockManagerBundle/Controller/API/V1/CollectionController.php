@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
+use Exception;
 use Netgen\BlockManager\API\Repository;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\Item;
@@ -15,7 +16,6 @@ use Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\CollectionValid
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Exception;
 
 class CollectionController extends Controller
 {

@@ -2,12 +2,17 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Doctrine;
 
-use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\BlockManager\Tests\Core\Service\CollectionServiceTest as BaseCollectionServiceTest;
+use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 
 class CollectionServiceTest extends BaseCollectionServiceTest
 {
     use TestCaseTrait;
+
+    public function tearDown()
+    {
+        $this->closeDatabase();
+    }
 
     /**
      * Prepares the prerequisites for using services in tests.
@@ -15,10 +20,5 @@ class CollectionServiceTest extends BaseCollectionServiceTest
     public function preparePersistence()
     {
         $this->persistenceHandler = $this->createPersistenceHandler();
-    }
-
-    public function tearDown()
-    {
-        $this->closeDatabase();
     }
 }

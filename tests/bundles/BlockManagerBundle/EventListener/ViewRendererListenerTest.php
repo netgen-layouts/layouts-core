@@ -6,12 +6,12 @@ use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\Bundle\BlockManagerBundle\EventListener\ViewRendererListener;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\HttpFoundation\Request;
-use PHPUnit\Framework\TestCase;
 
 class ViewRendererListenerTest extends TestCase
 {

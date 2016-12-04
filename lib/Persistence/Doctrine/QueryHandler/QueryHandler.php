@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
 
-use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
-use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Type;
+use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 
 abstract class QueryHandler
 {

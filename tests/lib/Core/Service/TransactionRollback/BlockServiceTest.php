@@ -2,18 +2,18 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
+use Exception;
 use Netgen\BlockManager\API\Values\Page\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Core\Values\Page\CollectionReference;
+use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceCollection;
 use Netgen\BlockManager\Persistence\Values\Page\Block as PersistenceBlock;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReference as PersistenceCollectionReference;
 use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
-use Exception;
 
 class BlockServiceTest extends ServiceTestCase
 {

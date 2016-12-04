@@ -2,18 +2,18 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service;
 
-use Netgen\BlockManager\Parameters\ParameterValue;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
-use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
+use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
-use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
+use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
+use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
+use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Parameters\ParameterValue;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 
 abstract class CollectionServiceTest extends ServiceTestCase
 {

@@ -2,12 +2,12 @@
 
 namespace Netgen\BlockManager\API\Service;
 
-use Netgen\BlockManager\API\Values\Page\BlockCreateStruct;
-use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\API\Values\Page\Layout;
+use Netgen\BlockManager\API\Values\Page\BlockCreateStruct;
+use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\CollectionReference;
+use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Configuration\BlockType\BlockType;
 
 interface BlockService

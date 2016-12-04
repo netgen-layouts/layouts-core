@@ -2,14 +2,14 @@
 
 namespace Netgen\BlockManager\Collection\Query\Form;
 
-use Netgen\BlockManager\Validator\Constraint\Structs\QueryUpdateStruct as QueryUpdateStructConstraint;
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
-use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
 use Netgen\BlockManager\Form\AbstractType;
+use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
+use Netgen\BlockManager\Validator\Constraint\Structs\QueryUpdateStruct as QueryUpdateStructConstraint;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\FormBuilderInterface;
 
 class FullEditType extends AbstractType
 {

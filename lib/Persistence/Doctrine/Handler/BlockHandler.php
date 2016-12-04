@@ -2,18 +2,18 @@
 
 namespace Netgen\BlockManager\Persistence\Doctrine\Handler;
 
-use Netgen\BlockManager\Persistence\Values\Page\BlockCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\BlockUpdateStruct;
+use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler;
 use Netgen\BlockManager\Persistence\Handler\BlockHandler as BlockHandlerInterface;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandler as CollectionHandlerInterface;
-use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Persistence\Values\Page\Block;
+use Netgen\BlockManager\Persistence\Values\Page\BlockCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\BlockUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\Block;
-use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
 

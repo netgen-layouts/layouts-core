@@ -2,11 +2,11 @@
 
 namespace Netgen\BlockManager\Tests\Browser\Item\ColumnProvider\Layout;
 
-use Netgen\BlockManager\Core\Values\Page\Layout;
+use DateTime;
 use Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Created;
 use Netgen\BlockManager\Browser\Item\Layout\Item;
+use Netgen\BlockManager\Core\Values\Page\Layout;
 use PHPUnit\Framework\TestCase;
-use DateTime;
 
 class CreatedTest extends TestCase
 {

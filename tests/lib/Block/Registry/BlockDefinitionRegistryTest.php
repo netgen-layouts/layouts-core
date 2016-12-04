@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Block\Registry;
 
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use PHPUnit\Framework\TestCase;
 
 class BlockDefinitionRegistryTest extends TestCase

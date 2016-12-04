@@ -6,8 +6,8 @@ use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Item\UrlBuilderInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\ItemExtension;
-use Twig_SimpleFunction;
 use PHPUnit\Framework\TestCase;
+use Twig_SimpleFunction;
 
 class ItemExtensionTest extends TestCase
 {

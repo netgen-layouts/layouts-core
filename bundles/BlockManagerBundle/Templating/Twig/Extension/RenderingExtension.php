@@ -2,23 +2,23 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension;
 
+use Exception;
 use Netgen\BlockManager\API\Service\LayoutService;
+use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate;
 use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\View\RendererInterface;
-use Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate;
-use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone;
-use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderBlock;
-use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
-use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\View\ViewInterface;
-use Symfony\Component\HttpKernel\Controller\ControllerReference;
-use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
+use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
+use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderBlock;
+use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use Symfony\Component\HttpKernel\Controller\ControllerReference;
+use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
+use Twig_Extension;
 use Twig_Extension_GlobalsInterface;
 use Twig_SimpleFunction;
-use Twig_Extension;
-use Exception;
 
 class RenderingExtension extends Twig_Extension implements Twig_Extension_GlobalsInterface
 {

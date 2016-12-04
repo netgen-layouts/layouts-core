@@ -2,10 +2,10 @@
 
 namespace Netgen\Bundle\BlockManagerFixturesBundle\DependencyInjection;
 
+use Symfony\Component\Config\Resource\FileResource;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\Yaml\Yaml;
 
 class NetgenBlockManagerFixturesExtension extends Extension implements PrependExtensionInterface

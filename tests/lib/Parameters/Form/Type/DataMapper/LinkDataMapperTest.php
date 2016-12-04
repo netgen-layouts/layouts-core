@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\Form\Type\DataMapper;
 
+use ArrayIterator;
 use Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper;
 use Netgen\BlockManager\Parameters\ParameterType\LinkType;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
-use ArrayIterator;
 
 class LinkDataMapperTest extends DataMapperTest
 {

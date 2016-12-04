@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
 
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Types\Type;
 use Netgen\BlockManager\Persistence\Values\Page\BlockCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\BlockUpdateStruct;
-use Doctrine\DBAL\Types\Type;
-use Doctrine\DBAL\Connection;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceUpdateStruct;
 

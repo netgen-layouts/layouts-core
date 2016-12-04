@@ -2,10 +2,10 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter\Collection;
 
-use Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\ItemParamConverter;
-use Netgen\BlockManager\Core\Values\Collection\Item;
-use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\API\Service\CollectionService;
+use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
+use Netgen\BlockManager\Core\Values\Collection\Item;
+use Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\ItemParamConverter;
 use PHPUnit\Framework\TestCase;
 
 class ItemParamConverterTest extends TestCase

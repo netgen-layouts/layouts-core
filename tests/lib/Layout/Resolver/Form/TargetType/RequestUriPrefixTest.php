@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Tests\Layout\Resolver\Form\TargetType;
 
-use Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\RequestUriPrefix as RequestUriPrefixMapper;
-use Netgen\BlockManager\Layout\Resolver\TargetType\RequestUriPrefix;
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\BlockManager\Layout\Resolver\Form\TargetType;
+use Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\RequestUriPrefix as RequestUriPrefixMapper;
+use Netgen\BlockManager\Layout\Resolver\TargetType\RequestUriPrefix;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 

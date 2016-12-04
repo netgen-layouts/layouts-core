@@ -2,14 +2,14 @@
 
 namespace Netgen\BlockManager\Tests\View;
 
+use DateTime;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\Provider\ViewProviderInterface;
-use Netgen\BlockManager\View\ViewBuilder;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Netgen\BlockManager\View\TemplateResolverInterface;
-use DateTime;
+use Netgen\BlockManager\View\ViewBuilder;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ViewBuilderTest extends TestCase
 {

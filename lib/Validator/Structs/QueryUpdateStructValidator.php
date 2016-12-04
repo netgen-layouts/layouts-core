@@ -6,9 +6,9 @@ use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
 use Netgen\BlockManager\Validator\Constraint\Structs\QueryUpdateStruct as QueryUpdateStructConstraint;
-use Symfony\Component\Validator\ConstraintValidator;
-use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Constraints;
+use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class QueryUpdateStructValidator extends ConstraintValidator

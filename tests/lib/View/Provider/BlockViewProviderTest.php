@@ -2,11 +2,11 @@
 
 namespace Netgen\BlockManager\Tests\View\Provider;
 
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
-use Netgen\BlockManager\View\Provider\BlockViewProvider;
 use Netgen\BlockManager\Core\Values\Page\Block as CoreBlock;
 use Netgen\BlockManager\Core\Values\Page\Layout;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\View\Provider\BlockViewProvider;
 use Netgen\BlockManager\View\View\BlockView\Block;
 use Netgen\BlockManager\View\View\BlockViewInterface;
 use PHPUnit\Framework\TestCase;

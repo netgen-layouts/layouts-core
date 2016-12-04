@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Persistence\Doctrine\Mapper;
 
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
 
 class LayoutResolverMapper
 {

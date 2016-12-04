@@ -2,10 +2,10 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter\Page;
 
-use Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\ZoneParamConverter;
+use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\Zone as APIZone;
 use Netgen\BlockManager\Core\Values\Page\Zone;
-use Netgen\BlockManager\API\Service\LayoutService;
+use Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\ZoneParamConverter;
 use PHPUnit\Framework\TestCase;
 
 class ZoneParamConverterTest extends TestCase

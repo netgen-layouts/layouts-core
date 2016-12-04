@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Block\BlockDefinition\Twig;
 
-use Twig_Template;
 use Exception;
+use Twig_Template;
 
 class ContextualizedTwigTemplate
 {

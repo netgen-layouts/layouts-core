@@ -22,6 +22,6 @@ class ValueType implements MatcherInterface
             return false;
         }
 
-        return in_array($view->getItem()->getValueType(), $config);
+        return in_array($view->getItem()->getValueType(), $config, true);
     }
 }

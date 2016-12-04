@@ -5,8 +5,8 @@ namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 use Netgen\BlockManager\Core\Service\Validator\Validator;
 use Netgen\BlockManager\Exception\ValidationFailedException;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
-use Symfony\Component\Validator\Validation;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Validator\Validation;
 
 class ValidatorTest extends TestCase
 {

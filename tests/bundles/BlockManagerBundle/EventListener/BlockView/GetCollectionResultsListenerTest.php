@@ -2,19 +2,19 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener\BlockView;
 
-use Netgen\BlockManager\Core\Values\Collection\Collection;
-use Netgen\BlockManager\Core\Values\Page\CollectionReference;
-use Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener;
 use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Collection\Result\ResultLoaderInterface;
-use Netgen\BlockManager\Event\CollectViewParametersEvent;
+use Netgen\BlockManager\Collection\Result\ResultSet;
+use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Page\Block;
+use Netgen\BlockManager\Core\Values\Page\CollectionReference;
+use Netgen\BlockManager\Event\BlockManagerEvents;
+use Netgen\BlockManager\Event\CollectViewParametersEvent;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\View\BlockView;
-use Netgen\BlockManager\Event\BlockManagerEvents;
 use Netgen\BlockManager\View\ViewInterface;
+use Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener;
 use PHPUnit\Framework\TestCase;
 
 class GetCollectionResultsListenerTest extends TestCase

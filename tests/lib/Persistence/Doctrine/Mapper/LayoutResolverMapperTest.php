@@ -3,10 +3,10 @@
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Mapper;
 
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper;
-use Netgen\BlockManager\Persistence\Values\Value;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
+use Netgen\BlockManager\Persistence\Values\Value;
 use PHPUnit\Framework\TestCase;
 
 class LayoutResolverMapperTest extends TestCase

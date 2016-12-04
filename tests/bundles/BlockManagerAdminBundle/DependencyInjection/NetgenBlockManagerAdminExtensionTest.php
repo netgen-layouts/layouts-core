@@ -2,25 +2,12 @@
 
 namespace Netgen\Bundle\BlockManagerAdminBundle\Tests\DependencyInjection;
 
+use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection\NetgenBlockManagerAdminExtension;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
-use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 
 class NetgenBlockManagerAdminExtensionTest extends AbstractExtensionTestCase
 {
-    /**
-     * Return an array of container extensions that need to be registered for
-     * each test (usually just the container extension you are testing).
-     *
-     * @return \Symfony\Component\DependencyInjection\Extension\ExtensionInterface[]
-     */
-    protected function getContainerExtensions()
-    {
-        return array(
-            new NetgenBlockManagerAdminExtension(),
-        );
-    }
-
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection\NetgenBlockManagerAdminExtension::load
      */
@@ -87,5 +74,18 @@ class NetgenBlockManagerAdminExtensionTest extends AbstractExtensionTestCase
         $this->assertArrayHasKey('default_view_templates', $config);
         $this->assertArrayHasKey('layout_view', $config['default_view_templates']);
         $this->assertArrayHasKey('admin', $config['default_view_templates']['layout_view']);
+    }
+
+    /**
+     * Return an array of container extensions that need to be registered for
+     * each test (usually just the container extension you are testing).
+     *
+     * @return \Symfony\Component\DependencyInjection\Extension\ExtensionInterface[]
+     */
+    protected function getContainerExtensions()
+    {
+        return array(
+            new NetgenBlockManagerAdminExtension(),
+        );
     }
 }

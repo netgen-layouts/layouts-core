@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Block\BlockDefinition;
 
 use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
+use Netgen\BlockManager\Parameters\ParameterType;
 
 abstract class BlockDefinitionHandler implements BlockDefinitionHandlerInterface
 {

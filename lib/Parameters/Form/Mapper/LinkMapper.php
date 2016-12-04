@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Parameters\Form\Mapper;
 
-use Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper;
 use Netgen\BlockManager\Parameters\Form\Mapper;
-use Netgen\BlockManager\Parameters\ParameterInterface;
+use Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper;
 use Netgen\BlockManager\Parameters\Form\Type\LinkType;
+use Netgen\BlockManager\Parameters\ParameterInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class LinkMapper extends Mapper

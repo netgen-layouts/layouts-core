@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Parameters\Registry;
 
-use Netgen\BlockManager\Parameters\ParameterFilterInterface;
 use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Parameters\ParameterFilterInterface;
 
 class ParameterFilterRegistry implements ParameterFilterRegistryInterface
 {

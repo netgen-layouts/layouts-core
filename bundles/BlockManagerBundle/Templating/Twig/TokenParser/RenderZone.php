@@ -3,9 +3,9 @@
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser;
 
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderZone as RenderZoneNode;
-use Twig_TokenParser;
 use Twig_Error_Syntax;
 use Twig_Token;
+use Twig_TokenParser;
 
 class RenderZone extends Twig_TokenParser
 {

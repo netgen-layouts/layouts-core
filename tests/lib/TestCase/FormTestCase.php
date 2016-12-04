@@ -2,13 +2,13 @@
 
 namespace Netgen\BlockManager\Tests\TestCase;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
 use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\Forms;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Symfony\Component\Form\Forms;
-use PHPUnit\Framework\TestCase;
 
 abstract class FormTestCase extends TestCase
 {

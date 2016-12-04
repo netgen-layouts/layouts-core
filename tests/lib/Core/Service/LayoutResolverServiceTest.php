@@ -2,17 +2,17 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service;
 
+use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\ConditionUpdateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\API\Values\LayoutResolver\Target;
-use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\LayoutResolver\RuleCreateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\RuleMetadataUpdateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\RuleUpdateStruct;
+use Netgen\BlockManager\API\Values\LayoutResolver\Target;
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct;
+use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Exception\NotFoundException;

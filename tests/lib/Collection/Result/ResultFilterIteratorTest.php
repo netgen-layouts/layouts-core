@@ -2,13 +2,13 @@
 
 namespace Netgen\BlockManager\Tests\Collection\Result;
 
+use ArrayIterator;
 use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Collection\Result\ResultFilterIterator;
 use Netgen\BlockManager\Collection\Result\ResultLoaderInterface;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Item\NullItem;
 use PHPUnit\Framework\TestCase;
-use ArrayIterator;
 
 class ResultFilterIteratorTest extends TestCase
 {

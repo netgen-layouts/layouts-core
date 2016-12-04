@@ -2,11 +2,11 @@
 
 namespace Netgen\BlockManager\View;
 
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Netgen\BlockManager\Event\CollectViewParametersEvent;
 use Netgen\BlockManager\Event\BlockManagerEvents;
-use Netgen\BlockManager\View\Provider\ViewProviderInterface;
+use Netgen\BlockManager\Event\CollectViewParametersEvent;
 use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\View\Provider\ViewProviderInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class ViewBuilder implements ViewBuilderInterface
 {

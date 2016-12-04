@@ -2,19 +2,19 @@
 
 namespace Netgen\BlockManager\Block\Form;
 
-use Netgen\BlockManager\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
-use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
-use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
 use Netgen\BlockManager\Form\AbstractType;
+use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
+use Netgen\BlockManager\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\FormBuilderInterface;
 
 abstract class EditType extends AbstractType
 {

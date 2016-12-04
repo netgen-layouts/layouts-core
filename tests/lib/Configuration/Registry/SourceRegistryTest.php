@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Configuration\Registry;
 
-use Netgen\BlockManager\Configuration\Source\Source;
 use Netgen\BlockManager\Configuration\Registry\SourceRegistry;
+use Netgen\BlockManager\Configuration\Source\Source;
 use PHPUnit\Framework\TestCase;
 
 class SourceRegistryTest extends TestCase

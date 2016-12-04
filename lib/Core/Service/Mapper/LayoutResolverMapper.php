@@ -3,16 +3,16 @@
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
 use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
+use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
+use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface;
 use Netgen\BlockManager\Persistence\Handler;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition as PersistenceCondition;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule as PersistenceRule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition as PersistenceCondition;
-use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
-use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 
 class LayoutResolverMapper extends Mapper
 {

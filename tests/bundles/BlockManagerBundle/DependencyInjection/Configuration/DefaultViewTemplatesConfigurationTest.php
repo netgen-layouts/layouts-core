@@ -2,25 +2,14 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\Configuration;
 
-use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
-use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
+use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
+use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
 use PHPUnit\Framework\TestCase;
 
 class DefaultViewTemplatesConfigurationTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
-
-    /**
-     * Return the instance of ConfigurationInterface that should be used by the
-     * Configuration-specific assertions in this test-case.
-     *
-     * @return \Symfony\Component\Config\Definition\ConfigurationInterface
-     */
-    protected function getConfiguration()
-    {
-        return new Configuration(new NetgenBlockManagerExtension());
-    }
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
@@ -108,5 +97,16 @@ class DefaultViewTemplatesConfigurationTest extends TestCase
         );
 
         $this->assertConfigurationIsInvalid(array($config));
+    }
+
+    /**
+     * Return the instance of ConfigurationInterface that should be used by the
+     * Configuration-specific assertions in this test-case.
+     *
+     * @return \Symfony\Component\Config\Definition\ConfigurationInterface
+     */
+    protected function getConfiguration()
+    {
+        return new Configuration(new NetgenBlockManagerExtension());
     }
 }

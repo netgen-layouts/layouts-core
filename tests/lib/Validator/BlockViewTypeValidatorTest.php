@@ -6,8 +6,8 @@ use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\BlockViewTypeValidator;
 use Netgen\BlockManager\Validator\Constraint\BlockViewType;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use stdClass;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class BlockViewTypeValidatorTest extends ValidatorTestCase
 {

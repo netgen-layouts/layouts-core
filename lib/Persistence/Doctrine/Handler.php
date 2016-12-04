@@ -2,12 +2,12 @@
 
 namespace Netgen\BlockManager\Persistence\Doctrine;
 
+use Doctrine\DBAL\Connection;
 use Netgen\BlockManager\Persistence\Handler as HandlerInterface;
-use Netgen\BlockManager\Persistence\Handler\LayoutHandler;
 use Netgen\BlockManager\Persistence\Handler\BlockHandler;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandler;
+use Netgen\BlockManager\Persistence\Handler\LayoutHandler;
 use Netgen\BlockManager\Persistence\Handler\LayoutResolverHandler;
-use Doctrine\DBAL\Connection;
 
 class Handler implements HandlerInterface
 {

@@ -6,9 +6,9 @@ use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Matcher\Stubs\Form;
-use Netgen\BlockManager\View\View\FormView;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\Matcher\Form\Block\Definition;
+use Netgen\BlockManager\View\View\FormView;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Forms;
 

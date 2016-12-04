@@ -4,14 +4,14 @@ namespace Netgen\BlockManager\Layout\Form;
 
 use Netgen\BlockManager\API\Values\Page\LayoutCreateStruct;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
+use Netgen\BlockManager\Form\AbstractType;
 use Netgen\BlockManager\Layout\Form\DataTransformer\LayoutTypeTransformer;
 use Netgen\BlockManager\Validator\Constraint\LayoutName;
-use Netgen\BlockManager\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
 class CreateType extends AbstractType

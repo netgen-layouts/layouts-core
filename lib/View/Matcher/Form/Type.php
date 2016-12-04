@@ -22,6 +22,6 @@ class Type implements MatcherInterface
             return false;
         }
 
-        return in_array($view->getFormType(), $config);
+        return in_array($view->getFormType(), $config, true);
     }
 }

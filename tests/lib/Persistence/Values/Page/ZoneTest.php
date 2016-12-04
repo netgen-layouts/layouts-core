@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Persistence\Values;
 
-use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
+use Netgen\BlockManager\Persistence\Values\Value;
 use PHPUnit\Framework\TestCase;
 
 class ZoneTest extends TestCase

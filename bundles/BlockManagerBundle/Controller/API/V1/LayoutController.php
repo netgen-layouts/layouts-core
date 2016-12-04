@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
+use Exception;
 use Netgen\BlockManager\API\Repository;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\Layout;
@@ -9,15 +10,14 @@ use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Values\View;
-use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Version;
 use Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\LayoutValidator;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Exception;
 
 class LayoutController extends Controller
 {

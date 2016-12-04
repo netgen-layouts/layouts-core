@@ -3,9 +3,9 @@
 namespace Netgen\BlockManager\Validator;
 
 use Netgen\BlockManager\Validator\Constraint\ValueType;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
-use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class ValueTypeValidator extends ConstraintValidator
 {
@@ -40,7 +40,7 @@ class ValueTypeValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, 'string');
         }
 
-        if (!in_array($value, $this->valueTypes)) {
+        if (!in_array($value, $this->valueTypes, true)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('%valueType%', $value)
                 ->addViolation();

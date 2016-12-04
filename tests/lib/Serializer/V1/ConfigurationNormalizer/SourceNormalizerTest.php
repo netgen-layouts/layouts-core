@@ -8,8 +8,8 @@ use Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\SourceNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
-use Symfony\Component\Serializer\Serializer;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Serializer\Serializer;
 
 class SourceNormalizerTest extends TestCase
 {

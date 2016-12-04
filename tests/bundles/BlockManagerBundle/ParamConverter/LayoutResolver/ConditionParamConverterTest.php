@@ -2,10 +2,10 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter\LayoutResolver;
 
-use Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\ConditionParamConverter;
-use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\API\Values\LayoutResolver\Condition as APICondition;
 use Netgen\BlockManager\API\Service\LayoutResolverService;
+use Netgen\BlockManager\API\Values\LayoutResolver\Condition as APICondition;
+use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
+use Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\ConditionParamConverter;
 use PHPUnit\Framework\TestCase;
 
 class ConditionParamConverterTest extends TestCase

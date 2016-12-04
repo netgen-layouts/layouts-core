@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Persistence\Values\Collection;
 
-use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
+use Netgen\BlockManager\Persistence\Values\Value;
 use PHPUnit\Framework\TestCase;
 
 class QueryTest extends TestCase

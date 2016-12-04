@@ -2,11 +2,11 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\FormMapper\ParameterMapper;
 
-use Netgen\BlockManager\Parameters\ParameterType\ChoiceType as ChoiceParameterType;
 use Netgen\BlockManager\Parameters\Form\Mapper\ChoiceMapper;
+use Netgen\BlockManager\Parameters\ParameterType\ChoiceType as ChoiceParameterType;
 use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ChoiceMapperTest extends TestCase
 {

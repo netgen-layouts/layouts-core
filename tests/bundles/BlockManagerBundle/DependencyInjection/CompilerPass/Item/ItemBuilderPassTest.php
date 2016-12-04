@@ -11,16 +11,6 @@ use Symfony\Component\DependencyInjection\Reference;
 class ItemBuilderPassTest extends AbstractCompilerPassTestCase
 {
     /**
-     * Register the compiler pass under test.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    protected function registerCompilerPass(ContainerBuilder $container)
-    {
-        $container->addCompilerPass(new ItemBuilderPass());
-    }
-
-    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ItemBuilderPass::process
      */
     public function testProcess()
@@ -61,5 +51,15 @@ class ItemBuilderPassTest extends AbstractCompilerPassTestCase
         // The container has at least self ("service_container") as the service
         $this->assertCount(1, $this->container->getServiceIds());
         $this->assertEmpty($this->container->getParameterBag()->all());
+    }
+
+    /**
+     * Register the compiler pass under test.
+     *
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     */
+    protected function registerCompilerPass(ContainerBuilder $container)
+    {
+        $container->addCompilerPass(new ItemBuilderPass());
     }
 }

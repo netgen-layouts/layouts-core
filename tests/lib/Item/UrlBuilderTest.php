@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Tests\Item;
 
-use Netgen\BlockManager\Tests\Item\Stubs\ValueUrlBuilder;
-use Netgen\BlockManager\Item\UrlBuilder;
 use Netgen\BlockManager\Item\Item;
+use Netgen\BlockManager\Item\UrlBuilder;
+use Netgen\BlockManager\Tests\Item\Stubs\ValueUrlBuilder;
 use PHPUnit\Framework\TestCase;
 
 class UrlBuilderTest extends TestCase

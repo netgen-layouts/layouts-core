@@ -6,9 +6,9 @@ use Netgen\BlockManager\Exception\InvalidItemException;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Validator\Constraint\Parameters\ItemLink;
 use Netgen\BlockManager\Validator\Constraint\ValueType;
-use Symfony\Component\Validator\Exception\UnexpectedTypeException;
-use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class ItemLinkValidator extends ConstraintValidator
 {
@@ -68,7 +68,7 @@ class ItemLinkValidator extends ConstraintValidator
         }
 
         if (!empty($constraint->valueTypes) && is_array($constraint->valueTypes)) {
-            if (!in_array($valueType, $constraint->valueTypes)) {
+            if (!in_array($valueType, $constraint->valueTypes, true)) {
                 $this->context->buildViolation($constraint->valueTypeNotAllowedMessage)
                     ->setParameter('%valueType%', $valueType)
                     ->addViolation();

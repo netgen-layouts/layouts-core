@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Persistence\Values;
 
-use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
+use Netgen\BlockManager\Persistence\Values\Value;
 use PHPUnit\Framework\TestCase;
 
 class LayoutTest extends TestCase

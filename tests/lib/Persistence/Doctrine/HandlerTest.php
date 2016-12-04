@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine;
 
-use Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler;
+use Doctrine\DBAL\Connection;
 use Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler;
 use Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler;
-use Doctrine\DBAL\Connection;
+use Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler;
 use Netgen\BlockManager\Persistence\Handler\LayoutResolverHandler;
 use PHPUnit\Framework\TestCase;
 

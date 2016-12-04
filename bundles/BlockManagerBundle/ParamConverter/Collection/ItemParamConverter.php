@@ -2,9 +2,9 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection;
 
-use Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter;
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Collection\Item;
+use Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter;
 
 class ItemParamConverter extends ParamConverter
 {

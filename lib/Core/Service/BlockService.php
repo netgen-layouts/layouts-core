@@ -2,28 +2,28 @@
 
 namespace Netgen\BlockManager\Core\Service;
 
+use Exception;
 use Netgen\BlockManager\API\Service\BlockService as BlockServiceInterface;
-use Netgen\BlockManager\API\Values\Page\CollectionReference;
-use Netgen\BlockManager\Configuration\BlockType\BlockType;
-use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
-use Netgen\BlockManager\Core\Service\Mapper\ParameterMapper;
-use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
-use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Persistence\Handler;
-use Netgen\BlockManager\Core\Service\Mapper\BlockMapper;
+use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\BlockCreateStruct as APIBlockCreateStruct;
 use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct as APIBlockUpdateStruct;
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\API\Values\Page\CollectionReference;
 use Netgen\BlockManager\API\Values\Page\Layout;
-use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\Configuration\BlockType\BlockType;
+use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
+use Netgen\BlockManager\Core\Service\Mapper\BlockMapper;
+use Netgen\BlockManager\Core\Service\Mapper\ParameterMapper;
+use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Exception\BadStateException;
+use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Persistence\Handler;
+use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\BlockCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\BlockUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceUpdateStruct;
-use Exception;
 
 class BlockService implements BlockServiceInterface
 {

@@ -2,13 +2,13 @@
 
 namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
 
-use Netgen\BlockManager\Item\ItemLoaderInterface;
-use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Core\Values\Collection\Item as CollectionItem;
+use Netgen\BlockManager\Exception\InvalidItemException;
+use Netgen\BlockManager\Item\Item;
+use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionItemNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value as APIValue;
-use Netgen\BlockManager\Exception\InvalidItemException;
 use PHPUnit\Framework\TestCase;
 
 class CollectionItemNormalizerTest extends TestCase

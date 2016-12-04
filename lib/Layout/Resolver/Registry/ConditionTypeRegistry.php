@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Layout\Resolver\Registry;
 
-use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
 
 class ConditionTypeRegistry implements ConditionTypeRegistryInterface
 {

@@ -2,12 +2,12 @@
 
 namespace Netgen\BlockManager\Tests\View\Matcher\Parameter;
 
-use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Parameters\ParameterType\TextType;
+use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
-use Netgen\BlockManager\View\View\ParameterView;
-use Netgen\BlockManager\View\Matcher\Parameter\Type;
 use Netgen\BlockManager\Tests\View\Stubs\View;
+use Netgen\BlockManager\View\Matcher\Parameter\Type;
+use Netgen\BlockManager\View\View\ParameterView;
 use PHPUnit\Framework\TestCase;
 
 class TypeTest extends TestCase

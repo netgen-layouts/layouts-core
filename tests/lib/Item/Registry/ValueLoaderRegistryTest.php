@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Item\Registry;
 
-use Netgen\BlockManager\Tests\Item\Stubs\ValueLoader;
 use Netgen\BlockManager\Item\Registry\ValueLoaderRegistry;
+use Netgen\BlockManager\Tests\Item\Stubs\ValueLoader;
 use PHPUnit\Framework\TestCase;
 
 class ValueLoaderRegistryTest extends TestCase

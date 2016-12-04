@@ -2,17 +2,17 @@
 
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
 
+use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\Query;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryUpdateStruct;
-use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\BlockManager\Persistence\Values\Value;
-use Netgen\BlockManager\Persistence\Values\Collection\Collection;
-use Netgen\BlockManager\Persistence\Values\Collection\Item;
-use Netgen\BlockManager\Persistence\Values\Collection\Query;
-use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 use PHPUnit\Framework\TestCase;
 
 class CollectionHandlerTest extends TestCase

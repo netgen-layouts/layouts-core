@@ -4,9 +4,9 @@ namespace Netgen\BlockManager\Tests\Collection\Stubs;
 
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
+use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 use Netgen\BlockManager\Parameters\ParameterType\IntegerType;
 use Netgen\BlockManager\Parameters\ParameterType\TextLineType;
-use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 
 class QueryTypeHandler implements QueryTypeHandlerInterface

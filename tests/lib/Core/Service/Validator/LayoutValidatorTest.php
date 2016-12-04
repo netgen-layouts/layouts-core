@@ -8,8 +8,8 @@ use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Exception\ValidationFailedException;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
-use Symfony\Component\Validator\Validation;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Validator\Validation;
 
 class LayoutValidatorTest extends TestCase
 {

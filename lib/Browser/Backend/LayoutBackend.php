@@ -4,11 +4,11 @@ namespace Netgen\BlockManager\Browser\Backend;
 
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\Layout;
-use Netgen\BlockManager\Exception\NotFoundException as BaseNotFoundException;
-use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\BlockManager\Browser\Item\Layout\Item;
 use Netgen\BlockManager\Browser\Item\Layout\RootLocation;
+use Netgen\BlockManager\Exception\NotFoundException as BaseNotFoundException;
 use Netgen\ContentBrowser\Backend\BackendInterface;
+use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\ContentBrowser\Item\LocationInterface;
 
 class LayoutBackend implements BackendInterface

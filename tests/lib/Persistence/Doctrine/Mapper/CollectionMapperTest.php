@@ -3,10 +3,10 @@
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Mapper;
 
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper;
-use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
+use Netgen\BlockManager\Persistence\Values\Value;
 use PHPUnit\Framework\TestCase;
 
 class CollectionMapperTest extends TestCase

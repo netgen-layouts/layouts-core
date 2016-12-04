@@ -5,8 +5,8 @@ namespace Netgen\BlockManager\Tests\Serializer\Values;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\ViewInterface;
-use Symfony\Component\HttpFoundation\Response;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Response;
 
 class ViewTest extends TestCase
 {

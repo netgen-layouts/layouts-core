@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Collection\Result;
 
-use Netgen\BlockManager\API\Values\Collection\Collection;
 use Countable;
 use Iterator;
+use Netgen\BlockManager\API\Values\Collection\Collection;
 
 class CollectionIterator implements Iterator, Countable
 {

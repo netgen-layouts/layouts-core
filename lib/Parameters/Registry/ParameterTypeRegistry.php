@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Parameters\Registry;
 
-use Netgen\BlockManager\Parameters\ParameterTypeInterface;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Parameters\ParameterTypeInterface;
 
 class ParameterTypeRegistry implements ParameterTypeRegistryInterface
 {

@@ -2,13 +2,13 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service;
 
+use Exception;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Core\Repository;
 use Netgen\BlockManager\Persistence\Handler;
-use Exception;
 use PHPUnit\Framework\TestCase;
 
 class RepositoryTest extends TestCase

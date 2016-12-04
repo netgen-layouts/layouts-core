@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Configuration;
 
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
 class ContainerConfiguration implements ConfigurationInterface
 {

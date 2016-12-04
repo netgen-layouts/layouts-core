@@ -4,10 +4,10 @@ namespace Netgen\Bundle\BlockManagerBundle\EventListener\BlockView;
 
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\Collection\Result\ResultLoaderInterface;
+use Netgen\BlockManager\Event\BlockManagerEvents;
+use Netgen\BlockManager\Event\CollectViewParametersEvent;
 use Netgen\BlockManager\View\View\BlockViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Netgen\BlockManager\Event\CollectViewParametersEvent;
-use Netgen\BlockManager\Event\BlockManagerEvents;
 
 class GetCollectionResultsListener implements EventSubscriberInterface
 {
@@ -73,7 +73,7 @@ class GetCollectionResultsListener implements EventSubscriberInterface
             return;
         }
 
-        if (!in_array($view->getContext(), $this->enabledContexts)) {
+        if (!in_array($view->getContext(), $this->enabledContexts, true)) {
             return;
         }
 

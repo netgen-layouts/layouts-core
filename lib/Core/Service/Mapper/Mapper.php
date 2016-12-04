@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
-use Netgen\BlockManager\Persistence\Handler;
 use DateTime;
+use Netgen\BlockManager\Persistence\Handler;
 
 abstract class Mapper
 {

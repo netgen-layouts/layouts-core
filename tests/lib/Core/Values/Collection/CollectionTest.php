@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Tests\Core\Values\Collection;
 
 use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
+use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use PHPUnit\Framework\TestCase;
 

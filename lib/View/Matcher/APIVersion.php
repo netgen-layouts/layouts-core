@@ -20,6 +20,6 @@ class APIVersion implements MatcherInterface
             return false;
         }
 
-        return in_array($view->getParameter('api_version'), $config);
+        return in_array($view->getParameter('api_version'), $config, true);
     }
 }

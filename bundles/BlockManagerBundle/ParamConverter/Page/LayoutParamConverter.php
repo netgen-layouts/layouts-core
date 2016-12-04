@@ -2,9 +2,9 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\ParamConverter\Page;
 
-use Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\Layout;
+use Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter;
 
 class LayoutParamConverter extends ParamConverter
 {

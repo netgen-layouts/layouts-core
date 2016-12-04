@@ -2,11 +2,11 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter as ParamConverterConfiguration;
 use Netgen\Bundle\BlockManagerBundle\Tests\Stubs\ParamConverter;
 use Netgen\Bundle\BlockManagerBundle\Tests\Stubs\Value;
-use Symfony\Component\HttpFoundation\Request;
 use PHPUnit\Framework\TestCase;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter as ParamConverterConfiguration;
+use Symfony\Component\HttpFoundation\Request;
 
 class ParamConverterTest extends TestCase
 {

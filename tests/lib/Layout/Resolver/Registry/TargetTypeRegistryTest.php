@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Layout\Resolver\Registry;
 
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry;
+use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
 use PHPUnit\Framework\TestCase;
 
 class TargetTypeRegistryTest extends TestCase

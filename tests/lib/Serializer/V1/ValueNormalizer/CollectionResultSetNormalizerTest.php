@@ -2,13 +2,13 @@
 
 namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
 
-use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Collection\Result\Result;
+use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionResultSetNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
-use Symfony\Component\Serializer\Serializer;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Serializer\Serializer;
 
 class CollectionResultSetNormalizerTest extends TestCase
 {

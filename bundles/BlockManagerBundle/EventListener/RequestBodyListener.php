@@ -2,13 +2,13 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 
-use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\Encoder\DecoderInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 
 class RequestBodyListener implements EventSubscriberInterface
@@ -84,7 +84,8 @@ class RequestBodyListener implements EventSubscriberInterface
         if (
             !in_array(
                 $request->getMethod(),
-                array(Request::METHOD_POST, Request::METHOD_PUT, Request::METHOD_PATCH, Request::METHOD_DELETE)
+                array(Request::METHOD_POST, Request::METHOD_PUT, Request::METHOD_PATCH, Request::METHOD_DELETE),
+                true
             )
         ) {
             return false;

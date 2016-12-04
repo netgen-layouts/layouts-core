@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Collection;
 
-use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
 use Netgen\BlockManager\Collection\QueryType;
+use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandler;
 use PHPUnit\Framework\TestCase;

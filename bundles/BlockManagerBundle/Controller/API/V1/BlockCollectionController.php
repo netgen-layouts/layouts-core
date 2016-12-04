@@ -2,13 +2,13 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
+use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\API\Values\Page\CollectionReference;
 use Netgen\BlockManager\Collection\Result\ResultLoaderInterface;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
-use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\API\Values\Page\CollectionReference;
 use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
@@ -194,7 +194,7 @@ class BlockCollectionController extends Controller
                 );
             }
 
-            if (in_array($collection->getType(), array(Collection::TYPE_MANUAL, Collection::TYPE_DYNAMIC))) {
+            if (in_array($collection->getType(), array(Collection::TYPE_MANUAL, Collection::TYPE_DYNAMIC), true)) {
                 // Updating the reference must come before discarding the draft, since discarding the draft
                 // would delete the reference itself
                 $this->blockService->updateCollectionReference($collectionReference, $newCollection);

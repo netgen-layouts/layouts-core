@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Core\Values\Page;
 
-use Netgen\BlockManager\API\Values\Page\Zone as APIZone;
-use Netgen\BlockManager\ValueObject;
-use Netgen\BlockManager\Exception\RuntimeException;
 use ArrayIterator;
+use Netgen\BlockManager\API\Values\Page\Zone as APIZone;
+use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\ValueObject;
 
 class Zone extends ValueObject implements APIZone
 {

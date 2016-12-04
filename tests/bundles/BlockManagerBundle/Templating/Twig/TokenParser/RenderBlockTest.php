@@ -2,15 +2,15 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig\TokenParser;
 
-use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderBlock;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderBlock as RenderBlockNode;
+use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderBlock;
 use PHPUnit\Framework\TestCase;
+use Twig_Environment;
+use Twig_LoaderInterface;
 use Twig_Node_Expression_Constant;
 use Twig_Node_Expression_Name;
-use Twig_LoaderInterface;
-use Twig_Environment;
-use Twig_Source;
 use Twig_Parser;
+use Twig_Source;
 
 class RenderBlockTest extends TestCase
 {

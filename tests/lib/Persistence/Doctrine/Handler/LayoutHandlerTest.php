@@ -3,15 +3,15 @@
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
 
 use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Persistence\Values\Page\ZoneCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\ZoneUpdateStruct;
-use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
+use Netgen\BlockManager\Persistence\Values\Page\Block;
+use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\LayoutCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\LayoutUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Value;
-use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
-use Netgen\BlockManager\Persistence\Values\Page\Block;
+use Netgen\BlockManager\Persistence\Values\Page\ZoneCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\ZoneUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Value;
+use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 use PHPUnit\Framework\TestCase;
 
 class LayoutHandlerTest extends TestCase

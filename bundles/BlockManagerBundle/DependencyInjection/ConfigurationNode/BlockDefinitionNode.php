@@ -5,8 +5,8 @@ namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode
 use Netgen\BlockManager\Block\Form\ContentEditType;
 use Netgen\BlockManager\Block\Form\DesignEditType;
 use Netgen\BlockManager\Block\Form\FullEditType;
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNodeInterface;
+use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
 class BlockDefinitionNode implements ConfigurationNodeInterface

@@ -2,10 +2,10 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter\Page;
 
-use Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutParamConverter;
-use Netgen\BlockManager\Core\Values\Page\Layout;
-use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 use Netgen\BlockManager\API\Service\LayoutService;
+use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
+use Netgen\BlockManager\Core\Values\Page\Layout;
+use Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutParamConverter;
 use PHPUnit\Framework\TestCase;
 
 class LayoutParamConverterTest extends TestCase

@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Core\Service\Validator;
 
+use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct;
-use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Validator\Constraint\BlockItemViewType;
 use Netgen\BlockManager\Validator\Constraint\BlockViewType;

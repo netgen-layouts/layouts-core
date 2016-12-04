@@ -2,14 +2,14 @@
 
 namespace Netgen\BlockManager\Tests\Core\Values\Page;
 
+use DateTime;
 use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Core\Values\Page\Zone;
-use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
+use Netgen\BlockManager\Core\Values\Page\Layout;
+use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Exception\RuntimeException;
 use PHPUnit\Framework\TestCase;
 use Traversable;
-use DateTime;
 
 class LayoutTest extends TestCase
 {

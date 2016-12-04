@@ -2,8 +2,8 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 
-use Netgen\BlockManager\View\ViewInterface;
 use Netgen\BlockManager\View\RendererInterface;
+use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\KernelEvents;

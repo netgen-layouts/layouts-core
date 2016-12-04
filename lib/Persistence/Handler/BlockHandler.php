@@ -2,12 +2,12 @@
 
 namespace Netgen\BlockManager\Persistence\Handler;
 
+use Netgen\BlockManager\Persistence\Values\Page\Block;
 use Netgen\BlockManager\Persistence\Values\Page\BlockCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\BlockUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\Block;
-use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
 

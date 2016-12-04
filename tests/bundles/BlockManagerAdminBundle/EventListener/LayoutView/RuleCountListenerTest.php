@@ -4,13 +4,13 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Tests\EventListener\LayoutView;
 
 use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\Core\Values\Page\Layout;
-use Netgen\Bundle\BlockManagerAdminBundle\EventListener\LayoutView\RuleCountListener;
+use Netgen\BlockManager\Event\BlockManagerEvents;
 use Netgen\BlockManager\Event\CollectViewParametersEvent;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\View\LayoutView;
-use Netgen\BlockManager\Event\BlockManagerEvents;
 use Netgen\BlockManager\View\ViewInterface;
+use Netgen\Bundle\BlockManagerAdminBundle\EventListener\LayoutView\RuleCountListener;
 use PHPUnit\Framework\TestCase;
 
 class RuleCountListenerTest extends TestCase

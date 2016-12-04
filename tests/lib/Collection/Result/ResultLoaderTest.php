@@ -2,16 +2,16 @@
 
 namespace Netgen\BlockManager\Tests\Collection\Result;
 
-use Netgen\BlockManager\Collection\Result\ResultIteratorFactory;
-use Netgen\BlockManager\Item\ItemLoader;
-use Netgen\BlockManager\Item\Registry\ValueLoaderRegistry;
-use Netgen\BlockManager\Collection\Result\ResultSet;
-use Netgen\BlockManager\Collection\Result\ResultLoader;
-use Netgen\BlockManager\Item\ItemBuilder;
 use Netgen\BlockManager\Collection\Result\Result;
+use Netgen\BlockManager\Collection\Result\ResultIteratorFactory;
+use Netgen\BlockManager\Collection\Result\ResultLoader;
+use Netgen\BlockManager\Collection\Result\ResultSet;
+use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
-use Netgen\BlockManager\Core\Values\Collection\Collection;
+use Netgen\BlockManager\Item\ItemBuilder;
+use Netgen\BlockManager\Item\ItemLoader;
+use Netgen\BlockManager\Item\Registry\ValueLoaderRegistry;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Item\Stubs\Value;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueConverter;

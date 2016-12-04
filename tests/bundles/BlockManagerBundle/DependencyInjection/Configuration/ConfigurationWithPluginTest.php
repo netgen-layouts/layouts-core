@@ -2,29 +2,15 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\Configuration;
 
-use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
-use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
+use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
+use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
 use Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\Stubs\ExtensionPlugin;
 use PHPUnit\Framework\TestCase;
 
 class ConfigurationWithPluginTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
-
-    /**
-     * Return the instance of ConfigurationInterface that should be used by the
-     * Configuration-specific assertions in this test-case.
-     *
-     * @return \Symfony\Component\Config\Definition\ConfigurationInterface
-     */
-    protected function getConfiguration()
-    {
-        $extension = new NetgenBlockManagerExtension();
-        $extension->addPlugin(new ExtensionPlugin());
-
-        return new Configuration($extension);
-    }
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
@@ -46,5 +32,19 @@ class ConfigurationWithPluginTest extends TestCase
             $expectedConfig,
             'test_config'
         );
+    }
+
+    /**
+     * Return the instance of ConfigurationInterface that should be used by the
+     * Configuration-specific assertions in this test-case.
+     *
+     * @return \Symfony\Component\Config\Definition\ConfigurationInterface
+     */
+    protected function getConfiguration()
+    {
+        $extension = new NetgenBlockManagerExtension();
+        $extension->addPlugin(new ExtensionPlugin());
+
+        return new Configuration($extension);
     }
 }

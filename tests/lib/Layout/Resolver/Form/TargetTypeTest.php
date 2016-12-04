@@ -3,11 +3,11 @@
 namespace Netgen\BlockManager\Tests\Layout\Resolver\Form;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct;
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
 use Netgen\BlockManager\Layout\Resolver\Form\TargetType as TargetTypeForm;
+use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use stdClass;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TargetTypeTest extends FormTestCase
 {

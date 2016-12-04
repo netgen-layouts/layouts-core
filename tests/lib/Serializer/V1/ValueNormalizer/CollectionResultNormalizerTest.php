@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
 
 use Netgen\BlockManager\Collection\Result\Result;
-use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Core\Values\Collection\Item as CollectionItem;
+use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionResultNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value as APIValue;

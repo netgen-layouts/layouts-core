@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Validator;
 
+use Exception;
 use Netgen\BlockManager\Exception\ValidationFailedException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Exception;
 
 trait ValidatorTrait
 {

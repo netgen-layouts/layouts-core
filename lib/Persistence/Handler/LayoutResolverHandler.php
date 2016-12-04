@@ -2,16 +2,16 @@
 
 namespace Netgen\BlockManager\Persistence\Handler;
 
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleMetadataUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 
 interface LayoutResolverHandler

@@ -2,15 +2,15 @@
 
 namespace Netgen\BlockManager\Validator\Structs;
 
-use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct;
 use Netgen\BlockManager\Validator\Constraint\BlockItemViewType;
 use Netgen\BlockManager\Validator\Constraint\BlockViewType;
-use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
 use Netgen\BlockManager\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
-use Symfony\Component\Validator\ConstraintValidator;
-use Symfony\Component\Validator\Constraints;
+use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Constraints;
+use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class BlockUpdateStructValidator extends ConstraintValidator

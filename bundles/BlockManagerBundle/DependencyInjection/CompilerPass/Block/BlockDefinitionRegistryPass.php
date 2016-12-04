@@ -6,11 +6,11 @@ use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Factory;
 use Netgen\BlockManager\Block\BlockDefinitionFactory;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
-use Netgen\BlockManager\Exception\RuntimeException;
 
 class BlockDefinitionRegistryPass implements CompilerPassInterface
 {

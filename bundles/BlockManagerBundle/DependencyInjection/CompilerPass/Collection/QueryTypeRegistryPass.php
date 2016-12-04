@@ -6,11 +6,11 @@ use Netgen\BlockManager\Collection\QueryType;
 use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
 use Netgen\BlockManager\Collection\QueryType\Configuration\Factory;
 use Netgen\BlockManager\Collection\QueryTypeFactory;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
-use Netgen\BlockManager\Exception\RuntimeException;
 
 class QueryTypeRegistryPass implements CompilerPassInterface
 {

@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\View\Provider;
 
-use Symfony\Component\Form\FormInterface;
 use Netgen\BlockManager\View\View\FormView;
+use Symfony\Component\Form\FormInterface;
 
 class FormViewProvider implements ViewProviderInterface
 {

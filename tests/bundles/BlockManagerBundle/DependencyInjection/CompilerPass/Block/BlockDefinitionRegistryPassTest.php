@@ -13,16 +13,6 @@ use Symfony\Component\DependencyInjection\Reference;
 class BlockDefinitionRegistryPassTest extends AbstractCompilerPassTestCase
 {
     /**
-     * Register the compiler pass under test.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    protected function registerCompilerPass(ContainerBuilder $container)
-    {
-        $container->addCompilerPass(new BlockDefinitionRegistryPass());
-    }
-
-    /**
      * @param string $handlerClass
      * @param string $definitionClass
      *
@@ -137,5 +127,15 @@ class BlockDefinitionRegistryPassTest extends AbstractCompilerPassTestCase
         return array(
             array(BlockDefinitionHandler::class, BlockDefinition::class),
         );
+    }
+
+    /**
+     * Register the compiler pass under test.
+     *
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     */
+    protected function registerCompilerPass(ContainerBuilder $container)
+    {
+        $container->addCompilerPass(new BlockDefinitionRegistryPass());
     }
 }

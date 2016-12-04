@@ -3,11 +3,11 @@
 namespace Netgen\Bundle\BlockManagerAdminBundle\Tests\Menu;
 
 use Knp\Menu\Integration\Symfony\RoutingExtension;
-use Netgen\Bundle\BlockManagerAdminBundle\Menu\MainMenuBuilder;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Knp\Menu\ItemInterface;
 use Knp\Menu\MenuFactory;
+use Netgen\Bundle\BlockManagerAdminBundle\Menu\MainMenuBuilder;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class MainMenuBuilderTest extends TestCase
 {

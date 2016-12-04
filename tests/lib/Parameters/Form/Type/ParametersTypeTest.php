@@ -4,13 +4,13 @@ namespace Netgen\BlockManager\Tests\Parameters\Form\Type;
 
 use Netgen\BlockManager\API\Values\ParameterStruct;
 use Netgen\BlockManager\Parameters\Form\Mapper\Compound\BooleanMapper;
+use Netgen\BlockManager\Parameters\Form\Mapper\TextLineMapper;
 use Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType;
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
-use Netgen\BlockManager\Parameters\Form\Mapper\TextLineMapper;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
-use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameter;
+use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterCollection;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\Extension\Core\Type\FormType;

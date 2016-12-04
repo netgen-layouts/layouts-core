@@ -10,8 +10,8 @@ use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterCollection;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterFilter;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
-use Netgen\BlockManager\Validator\Structs\ParameterStructValidator;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
+use Netgen\BlockManager\Validator\Structs\ParameterStructValidator;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ParameterStructValidatorTest extends ValidatorTestCase

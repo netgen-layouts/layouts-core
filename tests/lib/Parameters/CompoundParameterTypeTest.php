@@ -7,8 +7,8 @@ use Netgen\BlockManager\Parameters\ParameterBuilder;
 use Netgen\BlockManager\Parameters\ParameterType\Compound\BooleanType;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameterType;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class CompoundParameterTypeTest extends TestCase
 {

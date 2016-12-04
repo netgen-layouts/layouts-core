@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Collection\Registry;
 
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 
 class QueryTypeRegistryTest extends TestCase

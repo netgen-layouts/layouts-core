@@ -3,11 +3,11 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
 
 use Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\HttpFoundation\Request;
-use PHPUnit\Framework\TestCase;
 
 class SetIsApiRequestListenerTest extends TestCase
 {

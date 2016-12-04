@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\Form\Type\DataMapper;
 
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Form\FormConfigBuilder;
-use Symfony\Component\Form\Form;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormConfigBuilder;
 
 abstract class DataMapperTest extends TestCase
 {

@@ -2,11 +2,11 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\FormMapper\ParameterMapper;
 
-use Netgen\BlockManager\Parameters\ParameterType\RangeType as RangeParameterType;
 use Netgen\BlockManager\Parameters\Form\Mapper\RangeMapper;
+use Netgen\BlockManager\Parameters\ParameterType\RangeType as RangeParameterType;
 use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
-use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Form\Extension\Core\Type\RangeType;
 
 class RangeMapperTest extends TestCase
 {

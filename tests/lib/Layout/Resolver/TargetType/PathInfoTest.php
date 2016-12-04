@@ -3,9 +3,9 @@
 namespace Netgen\BlockManager\Tests\Layout\Resolver\TargetType;
 
 use Netgen\BlockManager\Layout\Resolver\TargetType\PathInfo;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Request;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Validator\Validation;
 
 class PathInfoTest extends TestCase
@@ -51,7 +51,7 @@ class PathInfoTest extends TestCase
         $validator = Validation::createValidator();
 
         $errors = $validator->validate($value, $this->targetType->getConstraints());
-        $this->assertEquals($isValid, $errors->count() == 0);
+        $this->assertEquals($isValid, $errors->count() === 0);
     }
 
     /**

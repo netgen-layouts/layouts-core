@@ -2,14 +2,14 @@
 
 namespace Netgen\BlockManager\Tests\Validator\Structs;
 
+use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
-use Netgen\BlockManager\Validator\Structs\QueryUpdateStructValidator;
-use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
 use Netgen\BlockManager\Validator\Constraint\Structs\QueryUpdateStruct as QueryUpdateStructConstraint;
-use Symfony\Component\Validator\Constraints\NotBlank;
+use Netgen\BlockManager\Validator\Structs\QueryUpdateStructValidator;
 use stdClass;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class QueryUpdateStructValidatorTest extends ValidatorTestCase
 {

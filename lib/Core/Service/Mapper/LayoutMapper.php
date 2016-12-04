@@ -4,13 +4,13 @@ namespace Netgen\BlockManager\Core\Service\Mapper;
 
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
+use Netgen\BlockManager\Core\Values\Page\Layout;
+use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Persistence\Values\Value as PersistenceValue;
+use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone as PersistenceZone;
-use Netgen\BlockManager\Core\Values\Page\Zone;
-use Netgen\BlockManager\Core\Values\Page\Layout;
-use Netgen\BlockManager\Persistence\Handler;
+use Netgen\BlockManager\Persistence\Values\Value as PersistenceValue;
 
 class LayoutMapper extends Mapper
 {

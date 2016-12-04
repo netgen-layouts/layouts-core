@@ -8,8 +8,8 @@ use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
-use Symfony\Component\Serializer\Serializer;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Serializer\Serializer;
 
 class CollectionNormalizerTest extends TestCase
 {

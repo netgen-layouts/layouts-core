@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Persistence\Doctrine\Helper;
 
-use Doctrine\DBAL\Query\QueryBuilder;
-use Netgen\BlockManager\Exception\BadStateException;
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Type;
+use Netgen\BlockManager\Exception\BadStateException;
 
 class PositionHelper
 {

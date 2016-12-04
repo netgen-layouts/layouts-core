@@ -2,14 +2,14 @@
 
 namespace Netgen\BlockManager\Core;
 
+use Exception;
 use Netgen\BlockManager\API\Repository as APIRepository;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Exception\RuntimeException;
-use Exception;
+use Netgen\BlockManager\Persistence\Handler;
 
 class Repository implements APIRepository
 {

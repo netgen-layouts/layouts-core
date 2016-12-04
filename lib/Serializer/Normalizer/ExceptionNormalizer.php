@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Serializer\Normalizer;
 
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpFoundation\Response;
 use Exception;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class ExceptionNormalizer implements NormalizerInterface
 {

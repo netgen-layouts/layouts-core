@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Tests\Parameters\FormMapper\ParameterMapper;
 
 use Netgen\BlockManager\Parameters\Form\Mapper\EmailMapper;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
 class EmailMapperTest extends TestCase
 {

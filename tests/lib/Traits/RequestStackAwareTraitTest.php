@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Tests\Traits;
 
 use Netgen\BlockManager\Tests\Traits\Stubs\RequestStackAwareValue;
-use Symfony\Component\HttpFoundation\RequestStack;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class RequestStackAwareTraitTest extends TestCase
 {

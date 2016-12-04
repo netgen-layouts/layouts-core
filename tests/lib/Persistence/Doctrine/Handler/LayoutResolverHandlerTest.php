@@ -2,19 +2,19 @@
 
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
 
+use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionCreateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleMetadataUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetCreateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionCreateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetUpdateStruct;
-use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
-use Netgen\BlockManager\Persistence\Values\Value;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetCreateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Value;
+use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 use PHPUnit\Framework\TestCase;
 
 class LayoutResolverHandlerTest extends TestCase

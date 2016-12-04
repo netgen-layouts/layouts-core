@@ -12,16 +12,16 @@ class HtmlSnippetTest extends BaseHtmlSnippetTest
 {
     use TestCaseTrait;
 
+    public function tearDown()
+    {
+        $this->closeDatabase();
+    }
+
     /**
      * Prepares the persistence handler used in tests.
      */
     public function preparePersistence()
     {
         $this->persistenceHandler = $this->createPersistenceHandler();
-    }
-
-    public function tearDown()
-    {
-        $this->closeDatabase();
     }
 }

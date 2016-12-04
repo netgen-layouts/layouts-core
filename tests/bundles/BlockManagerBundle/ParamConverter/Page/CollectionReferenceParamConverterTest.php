@@ -2,11 +2,11 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter\Page;
 
-use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\CollectionReferenceParamConverter;
-use Netgen\BlockManager\API\Values\Page\CollectionReference as APICollectionReference;
-use Netgen\BlockManager\Core\Values\Page\CollectionReference;
 use Netgen\BlockManager\API\Service\BlockService;
+use Netgen\BlockManager\API\Values\Page\CollectionReference as APICollectionReference;
+use Netgen\BlockManager\Core\Values\Page\Block;
+use Netgen\BlockManager\Core\Values\Page\CollectionReference;
+use Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\CollectionReferenceParamConverter;
 use PHPUnit\Framework\TestCase;
 
 class CollectionReferenceParamConverterTest extends TestCase

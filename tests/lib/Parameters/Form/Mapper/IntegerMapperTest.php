@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Tests\Parameters\FormMapper\ParameterMapper;
 
 use Netgen\BlockManager\Parameters\Form\Mapper\IntegerMapper;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class IntegerMapperTest extends TestCase
 {

@@ -1,7 +1,7 @@
 <?php
 
-use eZ\Publish\Core\Repository\Values\Content\Location;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use eZ\Publish\Core\Repository\Values\Content\Location;
 
 return array(
     new Location(

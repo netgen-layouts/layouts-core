@@ -5,8 +5,8 @@ namespace Netgen\BlockManager\Tests\Parameters;
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Parameters\ParameterType\TextType;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterType;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ParameterTypeTest extends TestCase
 {

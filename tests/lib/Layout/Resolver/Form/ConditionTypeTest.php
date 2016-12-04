@@ -3,11 +3,11 @@
 namespace Netgen\BlockManager\Tests\Layout\Resolver\Form;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct;
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType as ConditionTypeForm;
+use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use stdClass;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ConditionTypeTest extends FormTestCase
 {

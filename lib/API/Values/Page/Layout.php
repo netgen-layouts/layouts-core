@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\API\Values\Page;
 
-use Netgen\BlockManager\API\Values\Value;
-use IteratorAggregate;
 use ArrayAccess;
 use Countable;
+use IteratorAggregate;
+use Netgen\BlockManager\API\Values\Value;
 
 interface Layout extends Value, ArrayAccess, IteratorAggregate, Countable
 {

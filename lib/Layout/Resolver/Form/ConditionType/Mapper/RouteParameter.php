@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper;
 
+use Netgen\BlockManager\Form\KeyValuesType;
 use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper;
-use Netgen\BlockManager\Form\KeyValuesType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class RouteParameter extends Mapper

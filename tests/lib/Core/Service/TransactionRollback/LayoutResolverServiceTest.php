@@ -2,20 +2,20 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
+use Exception;
+use Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct;
+use Netgen\BlockManager\API\Values\LayoutResolver\ConditionUpdateStruct;
+use Netgen\BlockManager\API\Values\LayoutResolver\RuleCreateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\RuleMetadataUpdateStruct;
+use Netgen\BlockManager\API\Values\LayoutResolver\RuleUpdateStruct;
+use Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition as PersistenceCondition;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule as PersistenceRule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition as PersistenceCondition;
-use Netgen\BlockManager\API\Values\LayoutResolver\RuleCreateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\RuleUpdateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\ConditionUpdateStruct;
-use Exception;
 
 class LayoutResolverServiceTest extends ServiceTestCase
 {

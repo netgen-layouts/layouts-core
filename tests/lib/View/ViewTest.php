@@ -4,8 +4,8 @@ namespace Netgen\BlockManager\Tests\View;
 
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
-use Symfony\Component\HttpFoundation\Response;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Response;
 
 class ViewTest extends TestCase
 {

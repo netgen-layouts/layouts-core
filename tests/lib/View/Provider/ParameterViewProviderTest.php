@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Tests\View\Provider;
 
-use Netgen\BlockManager\View\Provider\ParameterViewProvider;
-use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Core\Values\Page\Block;
+use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\View\Provider\ParameterViewProvider;
 use Netgen\BlockManager\View\View\ParameterViewInterface;
 use PHPUnit\Framework\TestCase;
 

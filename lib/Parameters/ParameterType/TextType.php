@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Parameters\ParameterType;
 
-use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\ParameterInterface;
+use Netgen\BlockManager\Parameters\ParameterType;
 use Symfony\Component\Validator\Constraints;
 
 class TextType extends ParameterType

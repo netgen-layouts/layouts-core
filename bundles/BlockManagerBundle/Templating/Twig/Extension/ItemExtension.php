@@ -2,15 +2,15 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension;
 
+use Exception;
 use Netgen\BlockManager\Exception\InvalidItemException;
 use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Item\UrlBuilderInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use Twig_SimpleFunction;
 use Twig_Extension;
-use Exception;
+use Twig_SimpleFunction;
 
 class ItemExtension extends Twig_Extension
 {

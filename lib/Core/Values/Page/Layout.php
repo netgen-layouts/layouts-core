@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Core\Values\Page;
 
-use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
-use Netgen\BlockManager\ValueObject;
-use Netgen\BlockManager\Exception\RuntimeException;
 use ArrayIterator;
+use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
+use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\ValueObject;
 
 class Layout extends ValueObject implements APILayout
 {

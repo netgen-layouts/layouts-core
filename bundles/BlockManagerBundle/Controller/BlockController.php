@@ -2,12 +2,12 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller;
 
+use Exception;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\View\ViewInterface;
-use Symfony\Component\HttpFoundation\Response;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use Exception;
+use Symfony\Component\HttpFoundation\Response;
 
 class BlockController extends Controller
 {

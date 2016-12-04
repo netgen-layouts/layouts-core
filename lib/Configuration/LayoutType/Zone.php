@@ -64,6 +64,6 @@ class Zone extends ValueObject
             return true;
         }
 
-        return in_array($blockDefinition, $this->allowedBlockDefinitions);
+        return in_array($blockDefinition, $this->allowedBlockDefinitions, true);
     }
 }

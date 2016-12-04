@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\Registry;
 
-use Netgen\BlockManager\Tests\Parameters\Stubs\FormMapper;
 use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
+use Netgen\BlockManager\Tests\Parameters\Stubs\FormMapper;
 use PHPUnit\Framework\TestCase;
 
 class FormMapperRegistryTest extends TestCase

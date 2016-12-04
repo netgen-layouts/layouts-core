@@ -3,12 +3,12 @@
 namespace Netgen\BlockManager\Layout\Resolver\Form;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetStruct;
-use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;
-use Netgen\BlockManager\Layout\Resolver\Form\TargetType\MapperInterface;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Form\AbstractType;
+use Netgen\BlockManager\Layout\Resolver\Form\TargetType\MapperInterface;
+use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Netgen\BlockManager\Exception\RuntimeException;
 
 class TargetType extends AbstractType
 {

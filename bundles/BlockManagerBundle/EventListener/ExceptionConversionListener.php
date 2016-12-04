@@ -2,20 +2,20 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 
-use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Exception\InvalidArgumentException;
-use Netgen\BlockManager\Exception\ValidationFailedException;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Netgen\BlockManager\Exception\Exception;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Exception\ValidationFailedException;
+use Netgen\Bundle\BlockManagerBundle\Exception\InternalServerErrorHttpException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Netgen\Bundle\BlockManagerBundle\Exception\InternalServerErrorHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class ExceptionConversionListener implements EventSubscriberInterface
 {

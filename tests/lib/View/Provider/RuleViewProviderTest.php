@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Tests\View\Provider;
 
-use Netgen\BlockManager\View\Provider\RuleViewProvider;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\View\Provider\RuleViewProvider;
 use Netgen\BlockManager\View\View\RuleViewInterface;
 use PHPUnit\Framework\TestCase;
 

@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Tests\Item;
 
 use Netgen\BlockManager\Item\Item;
-use stdClass;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 class ItemTest extends TestCase
 {

@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Parameters\Registry;
 
-use Netgen\BlockManager\Parameters\Form\MapperInterface;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Parameters\Form\MapperInterface;
 
 class FormMapperRegistry implements FormMapperRegistryInterface
 {

@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Tests\Configuration\Registry;
 
-use Netgen\BlockManager\Tests\Configuration\Stubs\BlockType;
 use Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup;
 use Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry;
+use Netgen\BlockManager\Tests\Configuration\Stubs\BlockType;
 use PHPUnit\Framework\TestCase;
 
 class BlockTypeRegistryTest extends TestCase

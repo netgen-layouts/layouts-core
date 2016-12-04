@@ -32,6 +32,6 @@ class Type implements MatcherInterface
             return false;
         }
 
-        return in_array($query->getQueryType()->getType(), $config);
+        return in_array($query->getQueryType()->getType(), $config, true);
     }
 }

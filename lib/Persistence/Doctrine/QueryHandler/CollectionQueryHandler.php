@@ -2,12 +2,12 @@
 
 namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
 
+use Doctrine\DBAL\Types\Type;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryUpdateStruct;
-use Doctrine\DBAL\Types\Type;
 
 class CollectionQueryHandler extends QueryHandler
 {

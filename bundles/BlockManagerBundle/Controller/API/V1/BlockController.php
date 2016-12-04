@@ -5,13 +5,13 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Version;
 use Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
-use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Exception\NotFoundException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

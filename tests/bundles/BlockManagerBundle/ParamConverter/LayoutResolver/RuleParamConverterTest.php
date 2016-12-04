@@ -2,10 +2,10 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter\LayoutResolver;
 
-use Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\RuleParamConverter;
-use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\API\Values\LayoutResolver\Rule as APIRule;
 use Netgen\BlockManager\API\Service\LayoutResolverService;
+use Netgen\BlockManager\API\Values\LayoutResolver\Rule as APIRule;
+use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
+use Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\RuleParamConverter;
 use PHPUnit\Framework\TestCase;
 
 class RuleParamConverterTest extends TestCase

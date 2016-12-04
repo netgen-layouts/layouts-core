@@ -2,18 +2,18 @@
 
 namespace Netgen\BlockManager\Core\Service\Validator;
 
-use Netgen\BlockManager\Collection\QueryTypeInterface;
-use Netgen\BlockManager\Validator\Constraint\Structs\QueryUpdateStruct as QueryUpdateStructConstraint;
 use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
+use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
+use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
+use Netgen\BlockManager\Collection\QueryTypeInterface;
 use Netgen\BlockManager\Exception\ValidationFailedException;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
+use Netgen\BlockManager\Validator\Constraint\Structs\QueryUpdateStruct as QueryUpdateStructConstraint;
 use Netgen\BlockManager\Validator\Constraint\ValueType;
 use Symfony\Component\Validator\Constraints;
 

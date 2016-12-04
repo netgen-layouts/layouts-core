@@ -4,8 +4,8 @@ namespace Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer;
 
 use Netgen\BlockManager\Configuration\Source\Query;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Netgen\BlockManager\Serializer\Version;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class SourceQueryNormalizer implements NormalizerInterface
 {

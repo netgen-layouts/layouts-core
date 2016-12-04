@@ -111,7 +111,7 @@ class ItemLinkTypeTest extends TestCase
             ->getValidator();
 
         $errors = $validator->validate($value, $type->getConstraints($parameter, $value));
-        $this->assertEquals($isValid, $errors->count() == 0);
+        $this->assertEquals($isValid, $errors->count() === 0);
     }
 
     /**

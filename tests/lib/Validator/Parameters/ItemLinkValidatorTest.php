@@ -2,13 +2,13 @@
 
 namespace Netgen\BlockManager\Tests\Validator;
 
+use Netgen\BlockManager\Exception\InvalidItemException;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\Constraint\Parameters\ItemLink;
 use Netgen\BlockManager\Validator\Parameters\ItemLinkValidator;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Netgen\BlockManager\Exception\InvalidItemException;
 
 class ItemLinkValidatorTest extends ValidatorTestCase
 {

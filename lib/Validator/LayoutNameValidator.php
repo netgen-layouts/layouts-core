@@ -4,8 +4,8 @@ namespace Netgen\BlockManager\Validator;
 
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Validator\Constraint\LayoutName;
-use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class LayoutNameValidator extends ConstraintValidator

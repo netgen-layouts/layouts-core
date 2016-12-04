@@ -3,10 +3,10 @@
 namespace Netgen\BlockManager\Tests\Layout\Resolver\ConditionType;
 
 use Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Validator\Validation;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Validator\Validation;
 
 class RouteParameterTest extends TestCase
 {
@@ -60,7 +60,7 @@ class RouteParameterTest extends TestCase
         $validator = Validation::createValidator();
 
         $errors = $validator->validate($value, $this->conditionType->getConstraints());
-        $this->assertEquals($isValid, $errors->count() == 0);
+        $this->assertEquals($isValid, $errors->count() === 0);
     }
 
     /**

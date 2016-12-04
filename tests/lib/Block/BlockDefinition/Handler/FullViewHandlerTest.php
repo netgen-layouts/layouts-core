@@ -2,11 +2,11 @@
 
 namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Handler;
 
+use Closure;
 use Netgen\BlockManager\Block\BlockDefinition\Handler\FullViewHandler;
 use Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use PHPUnit\Framework\TestCase;
-use Closure;
 
 class FullViewHandlerTest extends TestCase
 {

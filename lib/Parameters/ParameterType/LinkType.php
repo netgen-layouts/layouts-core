@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Parameters\ParameterType;
 
-use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\ParameterInterface;
+use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
 use Netgen\BlockManager\Validator\Constraint\Parameters\Link as LinkConstraint;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -31,27 +31,6 @@ class LinkType extends ParameterType
         $optionsResolver->setRequired(array('value_types'));
         $optionsResolver->setAllowedTypes('value_types', 'array');
         $optionsResolver->setDefault('value_types', array());
-    }
-
-    /**
-     * Returns constraints that will be used to validate the parameter value.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
-     * @param mixed $value
-     *
-     * @return \Symfony\Component\Validator\Constraint[]
-     */
-    protected function getValueConstraints(ParameterInterface $parameter, $value)
-    {
-        return array(
-            new Constraints\Type(array('type' => LinkValue::class)),
-            new LinkConstraint(
-                array(
-                    'required' => $parameter->isRequired(),
-                    'valueTypes' => $parameter->getOptions()['value_types'],
-                )
-            ),
-        );
     }
 
     /**
@@ -130,5 +109,26 @@ class LinkType extends ParameterType
         }
 
         return empty($value->getLinkType()) || empty($value->getLink());
+    }
+
+    /**
+     * Returns constraints that will be used to validate the parameter value.
+     *
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
+     * @param mixed $value
+     *
+     * @return \Symfony\Component\Validator\Constraint[]
+     */
+    protected function getValueConstraints(ParameterInterface $parameter, $value)
+    {
+        return array(
+            new Constraints\Type(array('type' => LinkValue::class)),
+            new LinkConstraint(
+                array(
+                    'required' => $parameter->isRequired(),
+                    'valueTypes' => $parameter->getOptions()['value_types'],
+                )
+            ),
+        );
     }
 }

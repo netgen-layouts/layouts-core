@@ -3,9 +3,9 @@
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Mapper;
 
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper;
-use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
+use Netgen\BlockManager\Persistence\Values\Value;
 use PHPUnit\Framework\TestCase;
 
 class BlockMapperTest extends TestCase

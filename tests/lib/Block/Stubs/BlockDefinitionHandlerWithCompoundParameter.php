@@ -2,11 +2,11 @@
 
 namespace Netgen\BlockManager\Tests\Block\Stubs;
 
-use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler as BaseBlockDefinitionHandler;
 use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler as BaseBlockDefinitionHandler;
 use Netgen\BlockManager\Parameters\ParameterType;
-use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameter;
+use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 
 class BlockDefinitionHandlerWithCompoundParameter extends BaseBlockDefinitionHandler
 {

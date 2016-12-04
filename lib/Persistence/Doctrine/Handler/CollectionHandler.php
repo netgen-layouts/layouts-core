@@ -2,19 +2,19 @@
 
 namespace Netgen\BlockManager\Persistence\Doctrine\Handler;
 
-use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler;
-use Netgen\BlockManager\Persistence\Values\Collection\Collection;
-use Netgen\BlockManager\Persistence\Values\Collection\Item;
-use Netgen\BlockManager\Persistence\Values\Collection\Query;
-use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\QueryUpdateStruct;
+use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper;
+use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandler as CollectionHandlerInterface;
-use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Persistence\Values\Collection\Collection;
+use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\Item;
+use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\Query;
+use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\QueryUpdateStruct;
 
 class CollectionHandler implements CollectionHandlerInterface
 {

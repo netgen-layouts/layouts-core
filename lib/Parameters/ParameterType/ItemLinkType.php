@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Parameters\ParameterType;
 
-use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\ParameterInterface;
+use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Validator\Constraint\Parameters\ItemLink as ItemLinkConstraint;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
@@ -33,6 +33,20 @@ class ItemLinkType extends ParameterType
     }
 
     /**
+     * Returns if the parameter value is empty.
+     *
+     * @param mixed $value
+     *
+     * @return bool
+     */
+    public function isValueEmpty($value)
+    {
+        $parsedValue = parse_url($value);
+
+        return empty($parsedValue['scheme']) || empty($parsedValue['host']);
+    }
+
+    /**
      * Returns constraints that will be used to validate the parameter value.
      *
      * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
@@ -46,19 +60,5 @@ class ItemLinkType extends ParameterType
             new Constraints\Type(array('type' => 'string')),
             new ItemLinkConstraint(),
         );
-    }
-
-    /**
-     * Returns if the parameter value is empty.
-     *
-     * @param mixed $value
-     *
-     * @return bool
-     */
-    public function isValueEmpty($value)
-    {
-        $parsedValue = parse_url($value);
-
-        return empty($parsedValue['scheme']) || empty($parsedValue['host']);
     }
 }

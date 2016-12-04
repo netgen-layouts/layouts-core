@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Tests\View\Provider;
 
-use Netgen\BlockManager\View\Provider\LayoutViewProvider;
-use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Core\Values\Page\Block;
+use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\View\Provider\LayoutViewProvider;
 use Netgen\BlockManager\View\View\LayoutViewInterface;
 use PHPUnit\Framework\TestCase;
 

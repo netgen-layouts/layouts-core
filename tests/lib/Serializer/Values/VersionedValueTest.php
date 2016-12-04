@@ -4,8 +4,8 @@ namespace Netgen\BlockManager\Tests\Serializer\Values;
 
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
-use Symfony\Component\HttpFoundation\Response;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Response;
 
 class VersionedValueTest extends TestCase
 {

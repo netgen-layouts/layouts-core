@@ -2,10 +2,10 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter\Collection;
 
-use Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\QueryParamConverter;
-use Netgen\BlockManager\Core\Values\Collection\Query;
-use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
 use Netgen\BlockManager\API\Service\CollectionService;
+use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
+use Netgen\BlockManager\Core\Values\Collection\Query;
+use Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\QueryParamConverter;
 use PHPUnit\Framework\TestCase;
 
 class QueryParamConverterTest extends TestCase

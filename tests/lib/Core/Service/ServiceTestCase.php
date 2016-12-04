@@ -2,7 +2,11 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service;
 
+use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
+use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
+use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Configuration\LayoutType\Zone;
+use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Core\Service\BlockService;
 use Netgen\BlockManager\Core\Service\CollectionService;
 use Netgen\BlockManager\Core\Service\LayoutResolverService;
@@ -20,13 +24,9 @@ use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
-use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
-use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithoutCollection;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
-use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
-use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
 use PHPUnit\Framework\TestCase;
@@ -115,6 +115,11 @@ abstract class ServiceTestCase extends TestCase
     }
 
     /**
+     * Prepares the persistence handler used in tests.
+     */
+    abstract public function preparePersistence();
+
+    /**
      * Prepares the registries used in tests.
      */
     protected function prepareRegistries()
@@ -185,11 +190,6 @@ abstract class ServiceTestCase extends TestCase
         $this->parameterTypeRegistry->addParameterType(new ParameterType\TextLineType());
         $this->parameterTypeRegistry->addParameterType(new ParameterType\IntegerType());
     }
-
-    /**
-     * Prepares the persistence handler used in tests.
-     */
-    abstract public function preparePersistence();
 
     /**
      * Creates a layout service under test.

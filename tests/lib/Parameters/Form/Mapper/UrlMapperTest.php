@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Tests\Parameters\FormMapper\ParameterMapper;
 
 use Netgen\BlockManager\Parameters\Form\Mapper\UrlMapper;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 
 class UrlMapperTest extends TestCase
 {

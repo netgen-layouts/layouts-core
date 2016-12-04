@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Parameters\ParameterType\Compound;
 
-use Netgen\BlockManager\Parameters\ParameterInterface;
 use Netgen\BlockManager\Parameters\CompoundParameterType;
+use Netgen\BlockManager\Parameters\ParameterInterface;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
@@ -38,6 +38,18 @@ class BooleanType extends CompoundParameterType
 
             return $previousValue;
         });
+    }
+
+    /**
+     * Returns if the parameter value is empty.
+     *
+     * @param mixed $value
+     *
+     * @return bool
+     */
+    public function isValueEmpty($value)
+    {
+        return $value === null;
     }
 
     /**
@@ -76,17 +88,5 @@ class BooleanType extends CompoundParameterType
                 )
             ),
         );
-    }
-
-    /**
-     * Returns if the parameter value is empty.
-     *
-     * @param mixed $value
-     *
-     * @return bool
-     */
-    public function isValueEmpty($value)
-    {
-        return $value === null;
     }
 }

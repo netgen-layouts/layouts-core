@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Block;
 
-use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
 use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
+use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
 use Netgen\BlockManager\Collection\QueryTypeFactory;
 use Netgen\BlockManager\Collection\QueryTypeInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;

@@ -32,6 +32,6 @@ class Definition implements MatcherInterface
             return false;
         }
 
-        return in_array($block->getBlockDefinition()->getIdentifier(), $config);
+        return in_array($block->getBlockDefinition()->getIdentifier(), $config, true);
     }
 }

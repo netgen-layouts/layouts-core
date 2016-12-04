@@ -3,10 +3,10 @@
 namespace Netgen\BlockManager\Tests\View\View;
 
 use Netgen\BlockManager\View\View\FormView;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\FormView as SymfonyFormView;
-use Symfony\Component\Form\Forms;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Forms;
+use Symfony\Component\Form\FormView as SymfonyFormView;
 
 class FormViewTest extends TestCase
 {

@@ -2,9 +2,9 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Exception;
 
+use Exception;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Exception;
 
 class InternalServerErrorHttpException extends HttpException
 {

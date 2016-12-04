@@ -4,8 +4,8 @@ namespace Netgen\BlockManager\Tests\Serializer\Values;
 
 use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Tests\Core\Stubs\Value as StubValue;
-use Symfony\Component\HttpFoundation\Response;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Response;
 
 class ValueTest extends TestCase
 {

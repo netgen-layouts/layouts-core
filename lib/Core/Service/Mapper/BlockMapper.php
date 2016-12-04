@@ -4,11 +4,11 @@ namespace Netgen\BlockManager\Core\Service\Mapper;
 
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
-use Netgen\BlockManager\Persistence\Values\Page\Block as PersistenceBlock;
-use Netgen\BlockManager\Persistence\Values\Page\CollectionReference as PersistenceCollectionReference;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\CollectionReference;
 use Netgen\BlockManager\Persistence\Handler;
+use Netgen\BlockManager\Persistence\Values\Page\Block as PersistenceBlock;
+use Netgen\BlockManager\Persistence\Values\Page\CollectionReference as PersistenceCollectionReference;
 
 class BlockMapper extends Mapper
 {

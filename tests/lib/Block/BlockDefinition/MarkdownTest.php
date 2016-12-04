@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Block\BlockDefinition;
 
-use Netgen\BlockManager\Block\BlockDefinition\Handler\MarkdownHandler;
 use Michelf\Markdown;
+use Netgen\BlockManager\Block\BlockDefinition\Handler\MarkdownHandler;
 
 abstract class MarkdownTest extends BlockTest
 {

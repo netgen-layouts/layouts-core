@@ -2,12 +2,12 @@
 
 namespace Netgen\BlockManager\Collection\Result;
 
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use IteratorAggregate;
 use AppendIterator;
 use ArrayIterator;
-use LimitIterator;
 use Countable;
+use IteratorAggregate;
+use LimitIterator;
+use Netgen\BlockManager\API\Values\Collection\Collection;
 
 class CollectionQueryIterator implements IteratorAggregate, Countable
 {
@@ -36,8 +36,8 @@ class CollectionQueryIterator implements IteratorAggregate, Countable
     public function __construct(Collection $collection, $offset = 0, $limit = null)
     {
         $this->collection = $collection;
-        $this->offset = $offset;
-        $this->limit = $limit;
+        $this->offset = (int) $offset;
+        $this->limit = $limit !== null ? (int) $limit : null;
     }
 
     /**
@@ -47,7 +47,7 @@ class CollectionQueryIterator implements IteratorAggregate, Countable
      */
     public function getIterator()
     {
-        if ($this->limit !== null && $this->limit == 0) {
+        if ($this->limit !== null && $this->limit === 0) {
             return new ArrayIterator();
         }
 

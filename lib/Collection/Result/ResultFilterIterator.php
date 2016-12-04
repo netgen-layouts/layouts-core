@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Collection\Result;
 
-use Netgen\BlockManager\Item\NullItem;
 use FilterIterator;
 use Iterator;
+use Netgen\BlockManager\Item\NullItem;
 
 class ResultFilterIterator extends FilterIterator
 {

@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Tests\Configuration;
 
 use Netgen\BlockManager\Configuration\ContainerConfiguration;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ContainerConfigurationTest extends TestCase
 {

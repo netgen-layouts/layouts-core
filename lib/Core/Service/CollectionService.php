@@ -2,28 +2,28 @@
 
 namespace Netgen\BlockManager\Core\Service;
 
-use Netgen\BlockManager\Collection\QueryTypeInterface;
-use Netgen\BlockManager\Core\Service\Mapper\ParameterMapper;
-use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Persistence\Handler;
+use Exception;
 use Netgen\BlockManager\API\Service\CollectionService as APICollectionService;
-use Netgen\BlockManager\Core\Service\Mapper\CollectionMapper;
-use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
-use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct as APICollectionCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct as APICollectionUpdateStruct;
+use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct as APIItemCreateStruct;
+use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct as APIQueryCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct as APIQueryUpdateStruct;
+use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\Collection\QueryTypeInterface;
+use Netgen\BlockManager\Core\Service\Mapper\CollectionMapper;
+use Netgen\BlockManager\Core\Service\Mapper\ParameterMapper;
+use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
+use Netgen\BlockManager\Exception\BadStateException;
+use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryUpdateStruct;
-use Exception;
 
 class CollectionService implements APICollectionService
 {
@@ -367,7 +367,7 @@ class CollectionService implements APICollectionService
 
         $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
 
-        if (!in_array($newType, array(Collection::TYPE_MANUAL, Collection::TYPE_DYNAMIC))) {
+        if (!in_array($newType, array(Collection::TYPE_MANUAL, Collection::TYPE_DYNAMIC), true)) {
             throw new BadStateException('newType', 'New collection type must be manual or dynamic.');
         }
 

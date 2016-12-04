@@ -2,12 +2,12 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node;
 
+use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension;
-use Netgen\BlockManager\API\Values\Page\Zone;
-use Twig_Node_Expression;
 use Twig_Compiler;
 use Twig_Node;
+use Twig_Node_Expression;
 
 class RenderZone extends Twig_Node
 {

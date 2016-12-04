@@ -2,14 +2,14 @@
 
 namespace Netgen\BlockManager\Validator\Structs;
 
-use Netgen\BlockManager\Parameters\CompoundParameterInterface;
 use Netgen\BlockManager\API\Values\ParameterStruct;
+use Netgen\BlockManager\Parameters\CompoundParameterInterface;
 use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
 use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistryInterface;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct as ParameterStructConstraint;
-use Symfony\Component\Validator\ConstraintValidator;
-use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Constraints;
+use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class ParameterStructValidator extends ConstraintValidator

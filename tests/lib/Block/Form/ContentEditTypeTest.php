@@ -2,16 +2,16 @@
 
 namespace Netgen\BlockManager\Tests\Block\Form;
 
+use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct;
+use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Form;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
-use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
-use Netgen\BlockManager\Parameters\Form\Mapper\TextLineMapper;
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct;
 use Netgen\BlockManager\Block\Form\ContentEditType;
+use Netgen\BlockManager\Core\Values\Page\Block;
+use Netgen\BlockManager\Parameters\Form\Mapper\TextLineMapper;
+use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
 use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;

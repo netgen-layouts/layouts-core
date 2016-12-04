@@ -2,16 +2,16 @@
 
 namespace Netgen\BlockManager\Tests\Collection\Result;
 
+use ArrayIterator;
 use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Collection\Result\ResultBuilderIterator;
 use Netgen\BlockManager\Core\Values\Collection\Item as CollectionItem;
 use Netgen\BlockManager\Exception\InvalidItemException;
+use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Item\ItemBuilderInterface;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
-use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Item\NullItem;
 use PHPUnit\Framework\TestCase;
-use ArrayIterator;
 use stdClass;
 
 class ResultBuilderIteratorTest extends TestCase

@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Layout\Resolver\Form\ConditionType;
 
-use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper;
 use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
+use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper;
 use PHPUnit\Framework\TestCase;
 
 class MapperTest extends TestCase

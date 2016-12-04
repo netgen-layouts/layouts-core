@@ -2,14 +2,14 @@
 
 namespace Netgen\BlockManager\Persistence\Handler;
 
+use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\Query;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\Collection;
-use Netgen\BlockManager\Persistence\Values\Collection\Item;
-use Netgen\BlockManager\Persistence\Values\Collection\Query;
 
 interface CollectionHandler
 {

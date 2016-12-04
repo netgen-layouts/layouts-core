@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Parameters\Form\Mapper;
 
-use Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType;
-use Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper;
 use Netgen\BlockManager\Parameters\Form\Mapper;
+use Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper;
 use Netgen\BlockManager\Parameters\ParameterInterface;
+use Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class ItemLinkMapper extends Mapper

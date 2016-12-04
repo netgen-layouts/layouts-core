@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Twig;
 
+use Exception;
 use Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate;
 use PHPUnit\Framework\TestCase;
 use Twig_Template;
-use Exception;
 
 class ContextualizedTwigTemplateTest extends TestCase
 {

@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Layout\Resolver\Registry;
 
-use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;
 
 class TargetTypeRegistry implements TargetTypeRegistryInterface
 {

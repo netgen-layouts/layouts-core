@@ -4,8 +4,8 @@ namespace Netgen\BlockManager\Validator;
 
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Validator\Constraint\BlockViewType;
-use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class BlockViewTypeValidator extends ConstraintValidator

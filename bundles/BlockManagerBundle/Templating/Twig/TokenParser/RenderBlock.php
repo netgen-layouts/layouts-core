@@ -3,9 +3,9 @@
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser;
 
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderBlock as RenderBlockNode;
-use Twig_TokenParser;
 use Twig_Error_Syntax;
 use Twig_Token;
+use Twig_TokenParser;
 
 class RenderBlock extends Twig_TokenParser
 {

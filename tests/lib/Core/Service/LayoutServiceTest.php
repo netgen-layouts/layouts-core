@@ -2,12 +2,12 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service;
 
+use Netgen\BlockManager\API\Values\Page\Layout;
+use Netgen\BlockManager\API\Values\Page\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Page\LayoutUpdateStruct;
+use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\API\Values\Page\LayoutCreateStruct;
-use Netgen\BlockManager\API\Values\Page\Layout;
-use Netgen\BlockManager\API\Values\Page\Zone;
 
 abstract class LayoutServiceTest extends ServiceTestCase
 {

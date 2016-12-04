@@ -3,14 +3,14 @@
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
 use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
-use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceCollection;
-use Netgen\BlockManager\Persistence\Values\Collection\Item as PersistenceItem;
-use Netgen\BlockManager\Persistence\Values\Collection\Query as PersistenceQuery;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
+use Netgen\BlockManager\Persistence\Handler;
+use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceCollection;
+use Netgen\BlockManager\Persistence\Values\Collection\Item as PersistenceItem;
+use Netgen\BlockManager\Persistence\Values\Collection\Query as PersistenceQuery;
 
 class CollectionMapper extends Mapper
 {

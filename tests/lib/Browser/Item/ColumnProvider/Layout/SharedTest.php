@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Tests\Browser\Item\ColumnProvider\Layout;
 
-use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Shared;
 use Netgen\BlockManager\Browser\Item\Layout\Item;
+use Netgen\BlockManager\Core\Values\Page\Layout;
 use PHPUnit\Framework\TestCase;
 
 class SharedTest extends TestCase

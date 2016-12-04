@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Configuration\Factory;
 
-use Netgen\BlockManager\Configuration\Source\Source;
 use Netgen\BlockManager\Configuration\Source\Query;
+use Netgen\BlockManager\Configuration\Source\Source;
 
 class SourceFactory
 {

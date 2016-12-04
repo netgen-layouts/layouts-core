@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
+use Exception;
 use Netgen\BlockManager\API\Values\Page\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Page\LayoutUpdateStruct;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
@@ -9,7 +10,6 @@ use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone as PersistenceZone;
-use Exception;
 
 class LayoutServiceTest extends ServiceTestCase
 {

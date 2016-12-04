@@ -2,13 +2,13 @@
 
 namespace Netgen\BlockManager\Tests\Block\Form;
 
-use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
-use Netgen\BlockManager\Parameters\Form\Mapper\TextLineMapper;
-use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct;
 use Netgen\BlockManager\Block\Form\FullEditType;
+use Netgen\BlockManager\Core\Values\Page\Block;
+use Netgen\BlockManager\Parameters\Form\Mapper\TextLineMapper;
+use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
+use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 

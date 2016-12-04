@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Parameters\Form\Type;
 
-use Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper;
-use Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType;
-use Netgen\BlockManager\Parameters\Value\LinkValue;
 use Netgen\BlockManager\Form\AbstractType;
+use Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper;
+use Netgen\BlockManager\Parameters\Value\LinkValue;
+use Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;

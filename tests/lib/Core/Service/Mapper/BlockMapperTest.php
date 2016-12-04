@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 
-use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
 use Netgen\BlockManager\API\Values\Page\CollectionReference as APICollectionReference;
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;

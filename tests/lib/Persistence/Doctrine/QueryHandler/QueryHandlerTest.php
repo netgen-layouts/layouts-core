@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\QueryHandler;
 
-use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\QueryHandler;
 use Doctrine\DBAL\DriverManager;
+use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\QueryHandler;
 use PHPUnit\Framework\TestCase;
 
 class QueryHandlerTest extends TestCase

@@ -4,9 +4,9 @@ namespace Netgen\BlockManager\Tests\View\Matcher\Layout;
 
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
-use Netgen\BlockManager\View\View\LayoutView;
-use Netgen\BlockManager\View\Matcher\Layout\Shared;
 use Netgen\BlockManager\Tests\View\Stubs\View;
+use Netgen\BlockManager\View\Matcher\Layout\Shared;
+use Netgen\BlockManager\View\View\LayoutView;
 use PHPUnit\Framework\TestCase;
 
 class SharedTest extends TestCase

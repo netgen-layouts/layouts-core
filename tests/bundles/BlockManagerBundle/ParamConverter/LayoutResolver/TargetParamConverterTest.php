@@ -2,10 +2,10 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter\LayoutResolver;
 
-use Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\TargetParamConverter;
-use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
-use Netgen\BlockManager\API\Values\LayoutResolver\Target as APITarget;
 use Netgen\BlockManager\API\Service\LayoutResolverService;
+use Netgen\BlockManager\API\Values\LayoutResolver\Target as APITarget;
+use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
+use Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\TargetParamConverter;
 use PHPUnit\Framework\TestCase;
 
 class TargetParamConverterTest extends TestCase

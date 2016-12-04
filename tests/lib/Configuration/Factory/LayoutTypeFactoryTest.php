@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Tests\Configuration\Factory;
 
 use Netgen\BlockManager\Configuration\Factory\LayoutTypeFactory;
-use Netgen\BlockManager\Configuration\LayoutType\Zone;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
+use Netgen\BlockManager\Configuration\LayoutType\Zone;
 use PHPUnit\Framework\TestCase;
 
 class LayoutTypeFactoryTest extends TestCase

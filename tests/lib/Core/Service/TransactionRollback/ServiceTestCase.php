@@ -2,12 +2,12 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
+use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Persistence\Handler\BlockHandler;
-use Netgen\BlockManager\Persistence\Handler\LayoutHandler;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandler;
+use Netgen\BlockManager\Persistence\Handler\LayoutHandler;
 use Netgen\BlockManager\Persistence\Handler\LayoutResolverHandler;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase as BaseServiceTestCase;
-use Netgen\BlockManager\Persistence\Handler;
 
 abstract class ServiceTestCase extends BaseServiceTestCase
 {

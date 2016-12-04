@@ -2,25 +2,25 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
 
+use Netgen\BlockManager\Exception\BadStateException;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Exception\ValidationFailedException;
 use Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener;
 use Netgen\Bundle\BlockManagerBundle\Exception\InternalServerErrorHttpException;
 use Netgen\Bundle\BlockManagerBundle\Tests\EventListener\Stubs\ExceptionStub;
+use PHPUnit\Framework\TestCase;
+use RuntimeException;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\HttpFoundation\Request;
-use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Exception\InvalidArgumentException;
-use Netgen\BlockManager\Exception\BadStateException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use RuntimeException;
-use PHPUnit\Framework\TestCase;
 
 class ExceptionConversionListenerTest extends TestCase
 {

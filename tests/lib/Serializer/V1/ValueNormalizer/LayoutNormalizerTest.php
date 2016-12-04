@@ -2,15 +2,15 @@
 
 namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
 
+use DateTime;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Configuration\Factory\LayoutTypeFactory;
 use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Core\Values\Page\Layout;
+use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
-use DateTime;
 use PHPUnit\Framework\TestCase;
 
 class LayoutNormalizerTest extends TestCase

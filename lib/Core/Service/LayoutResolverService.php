@@ -2,23 +2,24 @@
 
 namespace Netgen\BlockManager\Core\Service;
 
+use Exception;
 use Netgen\BlockManager\API\Service\LayoutResolverService as APILayoutResolverService;
-use Netgen\BlockManager\API\Values\Page\Layout;
-use Netgen\BlockManager\API\Values\LayoutResolver\RuleMetadataUpdateStruct as APIRuleMetadataUpdateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct as APITargetUpdateStruct;
-use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
-use Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper;
+use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct as APIConditionCreateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\ConditionUpdateStruct as APIConditionUpdateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\API\Values\LayoutResolver\Target;
 use Netgen\BlockManager\API\Values\LayoutResolver\RuleCreateStruct as APIRuleCreateStruct;
+use Netgen\BlockManager\API\Values\LayoutResolver\RuleMetadataUpdateStruct as APIRuleMetadataUpdateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\RuleUpdateStruct as APIRuleUpdateStruct;
+use Netgen\BlockManager\API\Values\LayoutResolver\Target;
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct as APITargetCreateStruct;
-use Netgen\BlockManager\Persistence\Handler;
+use Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct as APITargetUpdateStruct;
+use Netgen\BlockManager\API\Values\Page\Layout;
+use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper;
+use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Exception\BadStateException;
+use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleCreateStruct;
@@ -26,7 +27,6 @@ use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleMetadataUpdateStru
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetUpdateStruct;
-use Exception;
 
 class LayoutResolverService implements APILayoutResolverService
 {

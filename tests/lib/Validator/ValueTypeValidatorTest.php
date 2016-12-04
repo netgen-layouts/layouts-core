@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Tests\Validator;
 
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
-use Netgen\BlockManager\Validator\ValueTypeValidator;
 use Netgen\BlockManager\Validator\Constraint\ValueType;
+use Netgen\BlockManager\Validator\ValueTypeValidator;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ValueTypeValidatorTest extends ValidatorTestCase

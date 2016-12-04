@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Configuration\Factory;
 
-use Netgen\BlockManager\Configuration\Factory\BlockTypeFactory;
 use Netgen\BlockManager\Configuration\BlockType\BlockType;
+use Netgen\BlockManager\Configuration\Factory\BlockTypeFactory;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use PHPUnit\Framework\TestCase;
 

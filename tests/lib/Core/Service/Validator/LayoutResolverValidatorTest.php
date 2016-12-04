@@ -18,8 +18,8 @@ use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
-use Symfony\Component\Validator\Validation;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Validator\Validation;
 
 class LayoutResolverValidatorTest extends TestCase
 {

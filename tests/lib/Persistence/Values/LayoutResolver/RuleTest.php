@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Persistence\Values\LayoutResolver;
 
-use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
+use Netgen\BlockManager\Persistence\Values\Value;
 use PHPUnit\Framework\TestCase;
 
 class RuleTest extends TestCase

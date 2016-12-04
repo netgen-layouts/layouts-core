@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Tests\Parameters\FormMapper\ParameterMapper;
 
 use Netgen\BlockManager\Parameters\Form\Mapper\HtmlMapper;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class HtmlMapperTest extends TestCase
 {

@@ -3,18 +3,18 @@
 namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Types\Type;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver\TargetHandler;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleCreateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleMetadataUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetCreateStruct;
-use Doctrine\DBAL\Types\Type;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetUpdateStruct;
-use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Persistence\Values\Value;
 
 class LayoutResolverQueryHandler extends QueryHandler
 {

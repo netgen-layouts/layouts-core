@@ -2,8 +2,8 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener\Stubs;
 
-use Netgen\BlockManager\Exception\Exception;
 use Exception as BaseException;
+use Netgen\BlockManager\Exception\Exception;
 
 class ExceptionStub extends BaseException implements Exception
 {

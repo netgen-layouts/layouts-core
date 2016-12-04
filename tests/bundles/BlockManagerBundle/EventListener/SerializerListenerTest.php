@@ -6,13 +6,13 @@ use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\Bundle\BlockManagerBundle\EventListener\SerializerListener;
 use Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\HttpFoundation\Request;
-use PHPUnit\Framework\TestCase;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class SerializerListenerTest extends TestCase
 {

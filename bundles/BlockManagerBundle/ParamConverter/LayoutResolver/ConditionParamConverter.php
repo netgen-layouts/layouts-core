@@ -2,9 +2,9 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver;
 
-use Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter;
 use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
+use Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter;
 
 class ConditionParamConverter extends ParamConverter
 {

@@ -88,7 +88,8 @@ class RouteParameter implements ConditionTypeInterface
 
         return in_array(
             $routeParameters[$value['parameter_name']],
-            $value['parameter_values']
+            $value['parameter_values'],
+            true
         );
     }
 }

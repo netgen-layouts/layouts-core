@@ -3,8 +3,8 @@
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode;
 
 use Netgen\BlockManager\Collection\Query\Form\FullEditType;
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNodeInterface;
+use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 class QueryTypeNode implements ConfigurationNodeInterface
 {

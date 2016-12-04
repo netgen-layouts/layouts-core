@@ -2,12 +2,12 @@
 
 namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Handler;
 
+use Closure;
 use Netgen\BlockManager\Block\BlockDefinition\Handler\TwigBlockHandler;
 use Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Parameters\ParameterValue;
 use PHPUnit\Framework\TestCase;
-use Closure;
 
 class TwigBlockHandlerTest extends TestCase
 {

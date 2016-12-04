@@ -2,13 +2,13 @@
 
 namespace Netgen\BlockManager\Collection\Result;
 
+use Iterator;
+use IteratorIterator;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\Exception\InvalidItemException;
 use Netgen\BlockManager\Item\ItemBuilderInterface;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Item\NullItem;
-use IteratorIterator;
-use Iterator;
 
 class ResultBuilderIterator extends IteratorIterator
 {

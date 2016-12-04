@@ -40,6 +40,18 @@ class BooleanType extends ParameterType
     }
 
     /**
+     * Returns if the parameter value is empty.
+     *
+     * @param mixed $value
+     *
+     * @return bool
+     */
+    public function isValueEmpty($value)
+    {
+        return $value === null;
+    }
+
+    /**
      * Returns constraints that will be used when parameter is required.
      *
      * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
@@ -75,17 +87,5 @@ class BooleanType extends ParameterType
                 )
             ),
         );
-    }
-
-    /**
-     * Returns if the parameter value is empty.
-     *
-     * @param mixed $value
-     *
-     * @return bool
-     */
-    public function isValueEmpty($value)
-    {
-        return $value === null;
     }
 }

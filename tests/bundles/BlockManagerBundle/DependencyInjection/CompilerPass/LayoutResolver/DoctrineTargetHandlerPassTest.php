@@ -11,16 +11,6 @@ use Symfony\Component\DependencyInjection\Reference;
 class DoctrineTargetHandlerPassTest extends AbstractCompilerPassTestCase
 {
     /**
-     * Register the compiler pass under test.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    protected function registerCompilerPass(ContainerBuilder $container)
-    {
-        $container->addCompilerPass(new DoctrineTargetHandlerPass());
-    }
-
-    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\LayoutResolver\DoctrineTargetHandlerPass::process
      */
     public function testProcess()
@@ -78,5 +68,15 @@ class DoctrineTargetHandlerPassTest extends AbstractCompilerPassTestCase
         // The container has at least self ("service_container") as the service
         $this->assertCount(1, $this->container->getServiceIds());
         $this->assertEmpty($this->container->getParameterBag()->all());
+    }
+
+    /**
+     * Register the compiler pass under test.
+     *
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     */
+    protected function registerCompilerPass(ContainerBuilder $container)
+    {
+        $container->addCompilerPass(new DoctrineTargetHandlerPass());
     }
 }

@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Tests\Collection\Result;
 
-use Netgen\BlockManager\Core\Values\Collection\Collection;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Collection\Result\CollectionQueryIterator;
+use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Query;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 
 class CollectionQueryIteratorTest extends TestCase

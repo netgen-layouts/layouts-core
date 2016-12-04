@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Tests\View\Provider;
 
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
+use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
 use Netgen\BlockManager\View\Provider\RuleTargetViewProvider;
 use Netgen\BlockManager\View\View\RuleTargetViewInterface;
 use PHPUnit\Framework\TestCase;

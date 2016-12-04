@@ -4,13 +4,13 @@ namespace Netgen\BlockManager\Tests\Serializer\Normalizer;
 
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Serializer\Normalizer\FormViewNormalizer;
-use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Values\FormView;
+use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
-use Netgen\BlockManager\View\ViewInterface;
 use Netgen\BlockManager\View\RendererInterface;
-use Symfony\Component\Form\FormInterface;
+use Netgen\BlockManager\View\ViewInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Form\FormInterface;
 
 class FormViewNormalizerTest extends TestCase
 {

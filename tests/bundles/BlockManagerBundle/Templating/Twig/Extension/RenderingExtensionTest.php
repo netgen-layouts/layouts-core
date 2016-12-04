@@ -2,21 +2,21 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig;
 
+use Exception;
 use Netgen\BlockManager\API\Service\LayoutService;
+use Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\View\RendererInterface;
-use Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
 use Twig_SimpleFunction;
 use Twig_TokenParser;
-use Exception;
-use PHPUnit\Framework\TestCase;
 
 class RenderingExtensionTest extends TestCase
 {

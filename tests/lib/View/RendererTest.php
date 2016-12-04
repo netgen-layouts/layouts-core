@@ -3,12 +3,12 @@
 namespace Netgen\BlockManager\Tests\View\Renderer;
 
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
-use Netgen\BlockManager\View\Renderer;
 use Netgen\BlockManager\Tests\View\Stubs\View;
+use Netgen\BlockManager\View\Renderer;
 use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\BlockManager\View\ViewInterface;
-use Twig_Environment;
 use PHPUnit\Framework\TestCase;
+use Twig_Environment;
 
 class RendererTest extends TestCase
 {

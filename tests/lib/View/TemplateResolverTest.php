@@ -2,12 +2,12 @@
 
 namespace Netgen\BlockManager\Tests\View;
 
-use Netgen\BlockManager\Tests\Core\Stubs\Value;
-use Netgen\BlockManager\Tests\View\Stubs\ViewWithFallbackContext;
-use Netgen\BlockManager\View\TemplateResolver;
-use Netgen\BlockManager\Tests\View\Stubs\View;
-use Netgen\BlockManager\View\Matcher\MatcherInterface;
 use DateTime;
+use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\Tests\View\Stubs\View;
+use Netgen\BlockManager\Tests\View\Stubs\ViewWithFallbackContext;
+use Netgen\BlockManager\View\Matcher\MatcherInterface;
+use Netgen\BlockManager\View\TemplateResolver;
 use PHPUnit\Framework\TestCase;
 
 class TemplateResolverTest extends TestCase

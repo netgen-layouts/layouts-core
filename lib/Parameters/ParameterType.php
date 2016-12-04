@@ -51,35 +51,6 @@ abstract class ParameterType implements ParameterTypeInterface
     }
 
     /**
-     * Returns constraints that will be used when parameter is required.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
-     * @param mixed $value
-     *
-     * @return \Symfony\Component\Validator\Constraint[]
-     */
-    protected function getRequiredConstraints(ParameterInterface $parameter, $value)
-    {
-        if ($parameter->isRequired()) {
-            return array(
-                new Constraints\NotBlank(),
-            );
-        }
-
-        return array();
-    }
-
-    /**
-     * Returns constraints that will be used to validate the parameter value.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
-     * @param mixed $value
-     *
-     * @return \Symfony\Component\Validator\Constraint[]
-     */
-    abstract protected function getValueConstraints(ParameterInterface $parameter, $value);
-
-    /**
      * Converts the parameter value to from a domain format to scalar/hash format.
      *
      * This is a trivial implementation, just returning the provided value, usable by parameters
@@ -137,4 +108,33 @@ abstract class ParameterType implements ParameterTypeInterface
     {
         return empty($value);
     }
+
+    /**
+     * Returns constraints that will be used when parameter is required.
+     *
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
+     * @param mixed $value
+     *
+     * @return \Symfony\Component\Validator\Constraint[]
+     */
+    protected function getRequiredConstraints(ParameterInterface $parameter, $value)
+    {
+        if ($parameter->isRequired()) {
+            return array(
+                new Constraints\NotBlank(),
+            );
+        }
+
+        return array();
+    }
+
+    /**
+     * Returns constraints that will be used to validate the parameter value.
+     *
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
+     * @param mixed $value
+     *
+     * @return \Symfony\Component\Validator\Constraint[]
+     */
+    abstract protected function getValueConstraints(ParameterInterface $parameter, $value);
 }

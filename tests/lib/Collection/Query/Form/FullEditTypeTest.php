@@ -2,13 +2,13 @@
 
 namespace Netgen\BlockManager\Tests\Collection\Query\Form;
 
-use Netgen\BlockManager\Core\Values\Collection\Query;
-use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
-use Netgen\BlockManager\Parameters\Form\Mapper;
-use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
 use Netgen\BlockManager\Collection\Query\Form\FullEditType;
+use Netgen\BlockManager\Core\Values\Collection\Query;
+use Netgen\BlockManager\Parameters\Form\Mapper;
+use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
+use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 

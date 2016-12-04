@@ -2,28 +2,14 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection;
 
+use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
 use Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\Stubs\ExtensionPlugin;
 use Netgen\Bundle\ContentBrowserBundle\DependencyInjection\NetgenContentBrowserExtension;
-use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 
 class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
 {
-    /**
-     * Return an array of container extensions that need to be registered for
-     * each test (usually just the container extension you are testing).
-     *
-     * @return \Symfony\Component\DependencyInjection\Extension\ExtensionInterface[]
-     */
-    protected function getContainerExtensions()
-    {
-        $extension = new NetgenBlockManagerExtension();
-        $extension->addPlugin(new ExtensionPlugin());
-
-        return array($extension);
-    }
-
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::addPlugin
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::hasPlugin
@@ -221,5 +207,19 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
             ),
             $config['block_types']['test_type']
         );
+    }
+
+    /**
+     * Return an array of container extensions that need to be registered for
+     * each test (usually just the container extension you are testing).
+     *
+     * @return \Symfony\Component\DependencyInjection\Extension\ExtensionInterface[]
+     */
+    protected function getContainerExtensions()
+    {
+        $extension = new NetgenBlockManagerExtension();
+        $extension->addPlugin(new ExtensionPlugin());
+
+        return array($extension);
     }
 }

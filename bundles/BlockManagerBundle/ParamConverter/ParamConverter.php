@@ -2,10 +2,10 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\ParamConverter;
 
-use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter as ParamConverterConfiguration;
-use Symfony\Component\HttpFoundation\Request;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter as ParamConverterConfiguration;
+use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 abstract class ParamConverter implements ParamConverterInterface
 {
@@ -48,7 +48,7 @@ abstract class ParamConverter implements ParamConverterInterface
         $queryPublishedParam = $request->query->get('published');
 
         $values['published'] = false;
-        if (in_array($routeStatusParam, array('published', 'draft'))) {
+        if (in_array($routeStatusParam, array('published', 'draft'), true)) {
             $values['published'] = $routeStatusParam === 'published';
         } elseif ($queryPublishedParam === 'true') {
             $values['published'] = true;

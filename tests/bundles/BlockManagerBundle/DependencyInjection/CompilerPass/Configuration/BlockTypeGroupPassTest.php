@@ -11,16 +11,6 @@ use Symfony\Component\DependencyInjection\Reference;
 class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
 {
     /**
-     * Register the compiler pass under test.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
-    protected function registerCompilerPass(ContainerBuilder $container)
-    {
-        $container->addCompilerPass(new BlockTypeGroupPass());
-    }
-
-    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeGroupPass::process
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeGroupPass::generateBlockTypeGroupConfig
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeGroupPass::buildBlockTypeGroups
@@ -174,5 +164,15 @@ class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
         // The container has at least self ("service_container") as the service
         $this->assertCount(1, $this->container->getServiceIds());
         $this->assertEmpty($this->container->getParameterBag()->all());
+    }
+
+    /**
+     * Register the compiler pass under test.
+     *
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     */
+    protected function registerCompilerPass(ContainerBuilder $container)
+    {
+        $container->addCompilerPass(new BlockTypeGroupPass());
     }
 }

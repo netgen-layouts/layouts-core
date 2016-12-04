@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Tests\View\Matcher;
 
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
-use Netgen\BlockManager\View\Matcher\APIVersion;
 use Netgen\BlockManager\Tests\View\Stubs\View;
+use Netgen\BlockManager\View\Matcher\APIVersion;
 use PHPUnit\Framework\TestCase;
 
 class APIVersionTest extends TestCase

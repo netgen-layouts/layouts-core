@@ -3,13 +3,13 @@
 namespace Netgen\BlockManager\Core\Service\Validator;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\API\Values\LayoutResolver\Target;
+use Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct;
+use Netgen\BlockManager\API\Values\LayoutResolver\ConditionUpdateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\RuleCreateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\RuleMetadataUpdateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\RuleUpdateStruct;
+use Netgen\BlockManager\API\Values\LayoutResolver\Target;
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\ConditionUpdateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct;
 use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface;

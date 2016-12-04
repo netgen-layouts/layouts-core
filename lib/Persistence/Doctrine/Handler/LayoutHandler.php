@@ -2,14 +2,14 @@
 
 namespace Netgen\BlockManager\Persistence\Doctrine\Handler;
 
+use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler;
 use Netgen\BlockManager\Persistence\Handler\BlockHandler as BaseBlockHandler;
 use Netgen\BlockManager\Persistence\Handler\LayoutHandler as LayoutHandlerInterface;
-use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper;
+use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\LayoutCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\LayoutUpdateStruct;
-use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
 use Netgen\BlockManager\Persistence\Values\Page\ZoneCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\ZoneUpdateStruct;

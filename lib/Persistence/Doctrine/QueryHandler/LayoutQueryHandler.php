@@ -2,12 +2,12 @@
 
 namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
 
+use Doctrine\DBAL\Types\Type;
 use Netgen\BlockManager\Persistence\Values\Page\LayoutCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\LayoutUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Value;
-use Doctrine\DBAL\Types\Type;
 use Netgen\BlockManager\Persistence\Values\Page\ZoneCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\ZoneUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Value;
 
 class LayoutQueryHandler extends QueryHandler
 {

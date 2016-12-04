@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Core\Values\Collection;
 
-use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\Item;
+use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
 use PHPUnit\Framework\TestCase;
 
 class ItemCreateStructTest extends TestCase

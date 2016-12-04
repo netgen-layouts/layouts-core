@@ -2,11 +2,11 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration;
 
+use Netgen\BlockManager\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\Reference;
-use Netgen\BlockManager\Exception\RuntimeException;
 
 class BlockTypePass implements CompilerPassInterface
 {

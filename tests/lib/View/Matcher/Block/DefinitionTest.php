@@ -5,9 +5,9 @@ namespace Netgen\BlockManager\Tests\View\Matcher\Block;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
-use Netgen\BlockManager\View\View\BlockView;
-use Netgen\BlockManager\View\Matcher\Block\Definition;
 use Netgen\BlockManager\Tests\View\Stubs\View;
+use Netgen\BlockManager\View\Matcher\Block\Definition;
+use Netgen\BlockManager\View\View\BlockView;
 use PHPUnit\Framework\TestCase;
 
 class DefinitionTest extends TestCase

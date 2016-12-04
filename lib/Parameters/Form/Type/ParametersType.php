@@ -7,8 +7,8 @@ use Netgen\BlockManager\Parameters\CompoundParameterInterface;
 use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
 use Netgen\BlockManager\Parameters\ParameterInterface;
 use Netgen\BlockManager\Parameters\Registry\FormMapperRegistryInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ParametersType extends AbstractType
 {

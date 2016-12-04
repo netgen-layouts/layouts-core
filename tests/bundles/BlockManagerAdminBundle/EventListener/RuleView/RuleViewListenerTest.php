@@ -3,17 +3,17 @@
 namespace Netgen\Bundle\BlockManagerAdminBundle\Tests\EventListener\RuleView;
 
 use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
+use Netgen\BlockManager\Event\BlockManagerEvents;
+use Netgen\BlockManager\Event\CollectViewParametersEvent;
 use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry;
+use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
-use Netgen\Bundle\BlockManagerAdminBundle\EventListener\RuleView\RuleViewListener;
-use Netgen\BlockManager\Event\CollectViewParametersEvent;
-use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\View\RuleView;
-use Netgen\BlockManager\Event\BlockManagerEvents;
 use Netgen\BlockManager\View\ViewInterface;
+use Netgen\Bundle\BlockManagerAdminBundle\EventListener\RuleView\RuleViewListener;
 use PHPUnit\Framework\TestCase;
 
 class RuleViewListenerTest extends TestCase

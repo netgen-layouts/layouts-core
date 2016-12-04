@@ -6,12 +6,12 @@ use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
+use Netgen\BlockManager\Configuration\BlockType\BlockType;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Exception\ValidationFailedException;
 use Netgen\BlockManager\Parameters\ParameterBuilder;
 use Netgen\BlockManager\Parameters\ParameterType;
-use Netgen\BlockManager\Configuration\BlockType\BlockType;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use Symfony\Component\Validator\Validation;
@@ -143,6 +143,16 @@ abstract class BlockTest extends ServiceTestCase
     }
 
     /**
+     * @return \Symfony\Component\Validator\Validator\ValidatorInterface
+     */
+    public function getValidator()
+    {
+        return Validation::createValidatorBuilder()
+            ->setConstraintValidatorFactory(new ValidatorFactory($this))
+            ->getValidator();
+    }
+
+    /**
      * @param array $parameterNames
      *
      * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
@@ -159,7 +169,7 @@ abstract class BlockTest extends ServiceTestCase
         $filteredParameters = array();
         if (!empty($parameterNames)) {
             foreach ($parameters as $parameterName => $parameter) {
-                if (in_array($parameterName, $parameterNames)) {
+                if (in_array($parameterName, $parameterNames, true)) {
                     $filteredParameters[$parameterName] = $parameter;
                 }
             }
@@ -219,15 +229,5 @@ abstract class BlockTest extends ServiceTestCase
         foreach ($this->getParameterTypes() as $parameterType) {
             $this->parameterTypeRegistry->addParameterType($parameterType);
         }
-    }
-
-    /**
-     * @return \Symfony\Component\Validator\Validator\ValidatorInterface
-     */
-    public function getValidator()
-    {
-        return Validation::createValidatorBuilder()
-            ->setConstraintValidatorFactory(new ValidatorFactory($this))
-            ->getValidator();
     }
 }

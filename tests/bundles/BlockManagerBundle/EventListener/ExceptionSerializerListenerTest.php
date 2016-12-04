@@ -2,16 +2,16 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
 
+use Exception;
 use Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionSerializerListener;
 use Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\HttpFoundation\Request;
-use Exception;
-use PHPUnit\Framework\TestCase;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class ExceptionSerializerListenerTest extends TestCase
 {

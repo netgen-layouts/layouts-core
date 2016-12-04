@@ -3,10 +3,10 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection;
 
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\ExtensionPlugin;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class ExtensionPluginText extends TestCase
+class ExtensionPluginTest extends TestCase
 {
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ExtensionPlugin

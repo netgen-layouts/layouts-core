@@ -2,11 +2,11 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\FormMapper\ParameterMapper;
 
+use Netgen\BlockManager\Parameters\Form\Mapper\NumberMapper;
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Parameters\ParameterType\NumberType as NumberParameterType;
-use Netgen\BlockManager\Parameters\Form\Mapper\NumberMapper;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 class NumberMapperTest extends TestCase
 {

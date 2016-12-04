@@ -4,11 +4,11 @@ namespace Netgen\BlockManager\Tests\Serializer\Normalizer;
 
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Serializer\Normalizer\ValueNormalizer;
-use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Values\Value;
+use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value as StubValue;
-use Symfony\Component\Serializer\Serializer;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Serializer\Serializer;
 
 class ValueNormalizerTest extends TestCase
 {

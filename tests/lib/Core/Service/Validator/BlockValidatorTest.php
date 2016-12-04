@@ -2,20 +2,20 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
+use Netgen\BlockManager\API\Values\Page\BlockCreateStruct;
+use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct;
+use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
-use Netgen\BlockManager\API\Values\Page\BlockCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
-use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Exception\ValidationFailedException;
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithRequiredParameter;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition as BlockDefinitionStub;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithRequiredParameter;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
-use Symfony\Component\Validator\Validation;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Validator\Validation;
 
 class BlockValidatorTest extends TestCase
 {

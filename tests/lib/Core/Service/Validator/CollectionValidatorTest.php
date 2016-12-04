@@ -3,22 +3,22 @@
 namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
 use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
+use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
+use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
+use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
+use Netgen\BlockManager\Collection\QueryType;
 use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
-use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
-use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
 use Netgen\BlockManager\Exception\ValidationFailedException;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandlerWithRequiredParameter;
-use Netgen\BlockManager\Collection\QueryType;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType as QueryTypeStub;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandlerWithRequiredParameter;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
-use Symfony\Component\Validator\Validation;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Validator\Validation;
 
 class CollectionValidatorTest extends TestCase
 {

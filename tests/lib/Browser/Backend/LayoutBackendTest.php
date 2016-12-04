@@ -2,12 +2,12 @@
 
 namespace Netgen\BlockManager\Tests\Browser\Backend;
 
-use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\Core\Values\Page\Layout;
-use Netgen\BlockManager\Browser\Item\Layout\RootLocation;
-use Netgen\ContentBrowser\Item\ItemInterface;
 use Netgen\BlockManager\Browser\Backend\LayoutBackend;
+use Netgen\BlockManager\Browser\Item\Layout\RootLocation;
+use Netgen\BlockManager\Core\Values\Page\Layout;
+use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\ContentBrowser\Item\ItemInterface;
 use PHPUnit\Framework\TestCase;
 
 class LayoutBackendTest extends TestCase

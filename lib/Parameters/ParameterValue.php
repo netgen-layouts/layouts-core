@@ -32,6 +32,16 @@ class ParameterValue extends ValueObject
     protected $isEmpty;
 
     /**
+     * Returns the string representation of the parameter value.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string) $this->value;
+    }
+
+    /**
      * Returns the parameter name.
      *
      * @return string
@@ -79,15 +89,5 @@ class ParameterValue extends ValueObject
     public function isEmpty()
     {
         return $this->isEmpty;
-    }
-
-    /**
-     * Returns the string representation of the parameter value.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return (string) $this->value;
     }
 }

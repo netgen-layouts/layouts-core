@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin;
 
+use Exception;
 use Netgen\BlockManager\API\Repository;
 use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\API\Service\LayoutService;
@@ -19,7 +20,6 @@ use Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Validator\LayoutResol
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Exception;
 
 class LayoutResolverController extends Controller
 {

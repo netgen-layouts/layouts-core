@@ -3,13 +3,13 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API;
 
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use Netgen\BlockManager\Ez\Collection\QueryType\Handler\ContentSearchHandler;
 use eZ\Publish\Core\Helper\TranslationHelper;
+use Lakion\ApiTestCase\JsonApiTestCase as BaseJsonApiTestCase;
+use Lakion\ApiTestCase\MediaTypes;
+use Netgen\BlockManager\Ez\Collection\QueryType\Handler\ContentSearchHandler;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\DatabaseTrait;
 use Symfony\Component\HttpFoundation\Response;
-use Lakion\ApiTestCase\JsonApiTestCase as BaseJsonApiTestCase;
-use Lakion\ApiTestCase\MediaTypes;
 
 abstract class JsonApiTestCase extends BaseJsonApiTestCase
 {
@@ -27,16 +27,16 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         $this->expectedResponsesPath = __DIR__ . '/responses/expected';
     }
 
+    public function tearDown()
+    {
+        $this->closeDatabase();
+    }
+
     public function setUpClient()
     {
         parent::setUpClient();
 
         $this->client->setServerParameter('CONTENT_TYPE', 'application/json');
-    }
-
-    public function tearDown()
-    {
-        $this->closeDatabase();
     }
 
     protected function mockItemLoader()

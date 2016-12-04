@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\Form;
 
-use Netgen\BlockManager\Parameters\ParameterType\TextLineType;
 use Netgen\BlockManager\Parameters\Form\Mapper;
+use Netgen\BlockManager\Parameters\ParameterType\TextLineType;
 use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use PHPUnit\Framework\TestCase;
 

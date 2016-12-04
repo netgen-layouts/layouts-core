@@ -2,10 +2,10 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter\Page;
 
-use Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\BlockParamConverter;
-use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
 use Netgen\BlockManager\API\Service\BlockService;
+use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
+use Netgen\BlockManager\Core\Values\Page\Block;
+use Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\BlockParamConverter;
 use PHPUnit\Framework\TestCase;
 
 class BlockParamConverterTest extends TestCase

@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Tests\Layout\Resolver\Form\TargetType\Mapper;
 
 use Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\RoutePrefix;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class RoutePrefixTest extends TestCase
 {

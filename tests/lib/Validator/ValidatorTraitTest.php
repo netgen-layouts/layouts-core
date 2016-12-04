@@ -2,13 +2,13 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
+use Exception;
 use Netgen\BlockManager\Tests\Validator\Stubs\ValidatorValue;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\ConstraintViolationList;
-use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use PHPUnit\Framework\TestCase;
-use Exception;
 
 class ValidatorTraitTest extends TestCase
 {

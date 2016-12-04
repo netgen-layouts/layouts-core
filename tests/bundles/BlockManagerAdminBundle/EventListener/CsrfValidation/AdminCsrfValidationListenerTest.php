@@ -4,12 +4,12 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Tests\EventListener;
 
 use Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener;
 use Netgen\Bundle\BlockManagerAdminBundle\EventListener\SetIsAdminRequestListener;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\HttpFoundation\Request;
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
