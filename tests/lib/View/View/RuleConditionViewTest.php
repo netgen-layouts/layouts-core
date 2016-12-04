@@ -24,10 +24,7 @@ class RuleConditionViewTest extends TestCase
 
         $this->view = new RuleConditionView(
             array(
-                'valueObject' => $this->condition,
-                'parameters' => array(
-                    'condition' => $this->condition,
-                ),
+                'condition' => $this->condition,
             )
         );
 

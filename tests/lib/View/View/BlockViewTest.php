@@ -24,10 +24,7 @@ class BlockViewTest extends TestCase
 
         $this->view = new BlockView(
             array(
-                'valueObject' => $this->block,
-                'parameters' => array(
-                    'block' => $this->block,
-                ),
+                'block' => $this->block,
             )
         );
 

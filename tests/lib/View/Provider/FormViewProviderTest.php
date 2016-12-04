@@ -42,6 +42,7 @@ class FormViewProviderTest extends TestCase
         $this->assertNull($view->getTemplate());
         $this->assertEquals(
             array(
+                'formObject' => $form,
                 'form' => $formView,
             ),
             $view->getParameters()

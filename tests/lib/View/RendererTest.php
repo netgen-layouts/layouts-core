@@ -44,7 +44,7 @@ class RendererTest extends TestCase
      */
     public function testRenderValueObject()
     {
-        $view = new View(array('valueObject' => new Value()));
+        $view = new View(array('value' => new Value()));
         $view->setContext(ViewInterface::CONTEXT_API);
         $view->setTemplate('some_template.html.twig');
         $view->addParameter('some_param', 'some_value');
@@ -60,7 +60,12 @@ class RendererTest extends TestCase
             ->method('render')
             ->with(
                 $this->equalTo('some_template.html.twig'),
-                $this->equalTo(array('some_param' => 'some_value'))
+                $this->equalTo(
+                    array(
+                        'value' => new Value(),
+                        'some_param' => 'some_value',
+                    )
+                )
             )
             ->will($this->returnValue('rendered template'));
 
@@ -79,7 +84,7 @@ class RendererTest extends TestCase
      */
     public function testRenderView()
     {
-        $view = new View(array('valueObject' => new Value()));
+        $view = new View(array('value' => new Value()));
         $view->setTemplate('some_template.html.twig');
         $view->addParameter('some_param', 'some_value');
 
@@ -88,7 +93,12 @@ class RendererTest extends TestCase
             ->method('render')
             ->with(
                 $this->equalTo('some_template.html.twig'),
-                $this->equalTo(array('some_param' => 'some_value'))
+                $this->equalTo(
+                    array(
+                        'some_param' => 'some_value',
+                        'value' => new Value(),
+                    )
+                )
             )
             ->will($this->returnValue('rendered template'));
 

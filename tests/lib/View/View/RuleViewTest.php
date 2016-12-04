@@ -24,10 +24,7 @@ class RuleViewTest extends TestCase
 
         $this->view = new RuleView(
             array(
-                'valueObject' => $this->rule,
-                'parameters' => array(
-                    'rule' => $this->rule,
-                ),
+                'rule' => $this->rule,
             )
         );
 

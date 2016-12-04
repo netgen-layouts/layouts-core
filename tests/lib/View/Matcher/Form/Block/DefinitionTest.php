@@ -53,7 +53,7 @@ class DefinitionTest extends TestCase
             )
         );
 
-        $this->assertEquals($expected, $this->matcher->match(new FormView(array('valueObject' => $form)), $config));
+        $this->assertEquals($expected, $this->matcher->match(new FormView(array('formObject' => $form)), $config));
     }
 
     /**
@@ -77,7 +77,7 @@ class DefinitionTest extends TestCase
      */
     public function testMatchWithNoFormView()
     {
-        $this->assertFalse($this->matcher->match(new View(array('valueObject' => new Value())), array()));
+        $this->assertFalse($this->matcher->match(new View(array('value' => new Value())), array()));
     }
 
     /**
@@ -87,7 +87,7 @@ class DefinitionTest extends TestCase
     {
         $form = $this->formFactory->create(Form::class);
 
-        $this->assertFalse($this->matcher->match(new FormView(array('valueObject' => $form)), array('block')));
+        $this->assertFalse($this->matcher->match(new FormView(array('formObject' => $form)), array('block')));
     }
 
     /**
@@ -97,6 +97,6 @@ class DefinitionTest extends TestCase
     {
         $form = $this->formFactory->create(Form::class, null, array('block' => 'block'));
 
-        $this->assertFalse($this->matcher->match(new FormView(array('valueObject' => $form)), array('block')));
+        $this->assertFalse($this->matcher->match(new FormView(array('formObject' => $form)), array('block')));
     }
 }

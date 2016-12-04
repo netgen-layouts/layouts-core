@@ -41,7 +41,7 @@ class ViewBuilderTest extends TestCase
      */
     public function testConstructorThrowsRuntimeExceptionWithNoViewProviderInterface()
     {
-        $viewBuilder = new ViewBuilder(
+        new ViewBuilder(
             $this->templateResolverMock,
             $this->eventDispatcherMock,
             array($this->createMock(DateTime::class))
@@ -56,7 +56,7 @@ class ViewBuilderTest extends TestCase
     public function testBuildView()
     {
         $value = new Value();
-        $view = new View(array('valueObject' => $value));
+        $view = new View(array('value' => $value));
 
         $this->viewProviderMock
             ->expects($this->once())
@@ -91,7 +91,10 @@ class ViewBuilderTest extends TestCase
         $this->assertInstanceOf(View::class, $builtView);
         $this->assertEquals('context', $builtView->getContext());
         $this->assertEquals(
-            array('view_context' => $builtView->getContext()) + $viewParameters,
+            array(
+                'value' => new Value(),
+                'view_context' => $builtView->getContext(),
+            ) + $viewParameters,
             $builtView->getParameters()
         );
     }

@@ -19,7 +19,7 @@ class TemplateResolverTest extends TestCase
 
     public function setUp()
     {
-        $this->view = new View(array('valueObject' => new Value()));
+        $this->view = new View(array('value' => new Value()));
         $this->view->setContext('context');
     }
 
@@ -76,7 +76,8 @@ class TemplateResolverTest extends TestCase
         $templateResolver->resolveTemplate($this->view);
 
         $this->assertEquals('some_template.html.twig', $this->view->getTemplate());
-        $this->assertEquals(array('param' => 'value'), $this->view->getParameters());
+        $this->assertTrue($this->view->hasParameter('param'));
+        $this->assertEquals('value', $this->view->getParameter('param'));
     }
 
     /**
@@ -107,7 +108,8 @@ class TemplateResolverTest extends TestCase
         $templateResolver->resolveTemplate($this->view);
 
         $this->assertEquals('some_template.html.twig', $this->view->getTemplate());
-        $this->assertEquals(array('param' => 'value'), $this->view->getParameters());
+        $this->assertTrue($this->view->hasParameter('param'));
+        $this->assertEquals('value', $this->view->getParameter('param'));
     }
 
     /**
@@ -150,9 +152,9 @@ class TemplateResolverTest extends TestCase
     public function testResolveTemplateWithFallbackContext()
     {
         $this->view = new ViewWithFallbackContext(
+            'fallback',
             array(
-                'valueObject' => new Value(),
-                'fallbackContext' => 'fallback',
+                'value' => new Value(),
             )
         );
 

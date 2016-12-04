@@ -13,7 +13,7 @@ class LayoutView extends View implements LayoutViewInterface
      */
     public function getLayout()
     {
-        return $this->valueObject;
+        return $this->parameters['layout'];
     }
 
     /**

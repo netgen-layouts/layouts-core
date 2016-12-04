@@ -24,10 +24,7 @@ class LayoutViewTest extends TestCase
 
         $this->view = new LayoutView(
             array(
-                'valueObject' => $this->layout,
-                'parameters' => array(
-                    'layout' => $this->layout,
-                ),
+                'layout' => $this->layout,
             )
         );
 

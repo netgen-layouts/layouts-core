@@ -13,7 +13,7 @@ class RuleConditionView extends View implements RuleConditionViewInterface
      */
     public function getCondition()
     {
-        return $this->valueObject;
+        return $this->parameters['condition'];
     }
 
     /**

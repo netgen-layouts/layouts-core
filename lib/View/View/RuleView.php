@@ -13,7 +13,7 @@ class RuleView extends View implements RuleViewInterface
      */
     public function getRule()
     {
-        return $this->valueObject;
+        return $this->parameters['rule'];
     }
 
     /**

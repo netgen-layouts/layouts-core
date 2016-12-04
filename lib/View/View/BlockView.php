@@ -13,7 +13,7 @@ class BlockView extends View implements BlockViewInterface
      */
     public function getBlock()
     {
-        return $this->valueObject;
+        return $this->parameters['block'];
     }
 
     /**

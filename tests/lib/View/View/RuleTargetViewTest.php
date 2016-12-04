@@ -24,10 +24,7 @@ class RuleTargetViewTest extends TestCase
 
         $this->view = new RuleTargetView(
             array(
-                'valueObject' => $this->target,
-                'parameters' => array(
-                    'target' => $this->target,
-                ),
+                'target' => $this->target,
             )
         );
 

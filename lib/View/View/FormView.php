@@ -13,7 +13,7 @@ class FormView extends View implements FormViewInterface
      */
     public function getForm()
     {
-        return $this->valueObject;
+        return $this->parameters['formObject'];
     }
 
     /**
@@ -23,7 +23,7 @@ class FormView extends View implements FormViewInterface
      */
     public function getFormType()
     {
-        return get_class($this->valueObject->getConfig()->getType()->getInnerType());
+        return get_class($this->parameters['formObject']->getConfig()->getType()->getInnerType());
     }
 
     /**

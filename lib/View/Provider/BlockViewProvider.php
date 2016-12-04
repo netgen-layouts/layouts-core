@@ -25,10 +25,7 @@ class BlockViewProvider implements ViewProviderInterface
 
         return new BlockView(
             array(
-                'valueObject' => $block,
-                'parameters' => array(
-                    'block' => $block,
-                ),
+                'block' => $block,
             )
         );
     }

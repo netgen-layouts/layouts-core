@@ -19,10 +19,7 @@ class RuleTargetViewProvider implements ViewProviderInterface
     {
         return new RuleTargetView(
             array(
-                'valueObject' => $valueObject,
-                'parameters' => array(
-                    'target' => $valueObject,
-                ),
+                'target' => $valueObject,
             )
         );
     }

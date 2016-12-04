@@ -24,11 +24,8 @@ class ItemViewTest extends TestCase
 
         $this->view = new ItemView(
             array(
-                'valueObject' => $this->item,
-                'parameters' => array(
-                    'item' => $this->item,
-                    'viewType' => 'view_type',
-                ),
+                'item' => $this->item,
+                'viewType' => 'view_type',
             )
         );
 

@@ -13,7 +13,7 @@ class RuleTargetView extends View implements RuleTargetViewInterface
      */
     public function getTarget()
     {
-        return $this->valueObject;
+        return $this->parameters['target'];
     }
 
     /**

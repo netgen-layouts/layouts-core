@@ -25,10 +25,7 @@ class ParameterViewTest extends TestCase
 
         $this->view = new ParameterView(
             array(
-                'valueObject' => $this->parameterValue,
-                'parameters' => array(
-                    'parameter' => $this->parameterValue,
-                ),
+                'parameter' => $this->parameterValue,
             )
         );
 

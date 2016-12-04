@@ -12,6 +12,19 @@ class ViewWithFallbackContext extends BaseView
     protected $fallbackContext;
 
     /**
+     * Constructor.
+     *
+     * @param string $fallbackContext
+     * @param array $parameters
+     */
+    public function __construct($fallbackContext, array $parameters = array())
+    {
+        $this->fallbackContext = $fallbackContext;
+
+        parent::__construct($parameters);
+    }
+
+    /**
      * Returns the view identifier.
      *
      * @return string

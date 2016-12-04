@@ -16,7 +16,7 @@ class ViewTest extends TestCase
 
     public function setUp()
     {
-        $this->view = new View(array('valueObject' => new Value()));
+        $this->view = new View(array('value' => new Value()));
     }
 
     /**
@@ -139,6 +139,7 @@ class ViewTest extends TestCase
                 'some_param' => 'new_value',
                 'some_other_param' => 'some_other_value',
                 'third_param' => 'third_value',
+                'value' => new Value(),
             ),
             $this->view->getParameters()
         );

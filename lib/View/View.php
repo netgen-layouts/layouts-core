@@ -2,17 +2,11 @@
 
 namespace Netgen\BlockManager\View;
 
-use Netgen\BlockManager\ValueObject;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Symfony\Component\HttpFoundation\Response;
 
-abstract class View extends ValueObject implements ViewInterface
+abstract class View implements ViewInterface
 {
-    /**
-     * @var mixed
-     */
-    protected $valueObject;
-
     /**
      * @var string
      */
@@ -37,6 +31,16 @@ abstract class View extends ValueObject implements ViewInterface
      * @var array
      */
     protected $customParameters = array();
+
+    /**
+     * Constructor.
+     *
+     * @param array $parameters
+     */
+    public function __construct(array $parameters = array())
+    {
+        $this->parameters = $parameters;
+    }
 
     /**
      * Returns the view context.

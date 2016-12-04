@@ -13,7 +13,7 @@ class ItemView extends View implements ItemViewInterface
      */
     public function getItem()
     {
-        return $this->valueObject;
+        return $this->parameters['item'];
     }
 
     /**

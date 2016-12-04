@@ -19,10 +19,7 @@ class RuleConditionViewProvider implements ViewProviderInterface
     {
         return new RuleConditionView(
             array(
-                'valueObject' => $valueObject,
-                'parameters' => array(
-                    'condition' => $valueObject,
-                ),
+                'condition' => $valueObject,
             )
         );
     }

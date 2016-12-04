@@ -28,11 +28,8 @@ class ItemViewProvider implements ViewProviderInterface
 
         return new ItemView(
             array(
-                'valueObject' => $valueObject,
-                'parameters' => array(
-                    'item' => $valueObject,
-                    'viewType' => $parameters['viewType'],
-                ),
+                'item' => $valueObject,
+                'viewType' => $parameters['viewType'],
             )
         );
     }

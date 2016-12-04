@@ -87,7 +87,7 @@ class GetCollectionResultsListenerTest extends TestCase
             )
         );
 
-        $view = new BlockView(array('valueObject' => new Block()));
+        $view = new BlockView(array('block' => new Block()));
         $view->setContext(ViewInterface::CONTEXT_DEFAULT);
         $event = new CollectViewParametersEvent($view);
 
@@ -145,7 +145,7 @@ class GetCollectionResultsListenerTest extends TestCase
             )
         );
 
-        $view = new BlockView(array('valueObject' => new Block()));
+        $view = new BlockView(array('block' => new Block()));
         $view->setContext(ViewInterface::CONTEXT_DEFAULT);
         $event = new CollectViewParametersEvent($view);
 
@@ -192,7 +192,7 @@ class GetCollectionResultsListenerTest extends TestCase
             )
         );
 
-        $view = new BlockView(array('valueObject' => new Block()));
+        $view = new BlockView(array('block' => new Block()));
         $view->setContext(ViewInterface::CONTEXT_DEFAULT);
         $event = new CollectViewParametersEvent($view);
 
@@ -230,7 +230,7 @@ class GetCollectionResultsListenerTest extends TestCase
      */
     public function testOnBuildViewWithNoBlockView()
     {
-        $view = new View(array('valueObject' => new Value()));
+        $view = new View(array('value' => new Value()));
         $event = new CollectViewParametersEvent($view);
         $this->listener->onBuildView($event);
 
@@ -243,7 +243,7 @@ class GetCollectionResultsListenerTest extends TestCase
      */
     public function testOnBuildViewWithWrongContext()
     {
-        $view = new BlockView(array('valueObject' => new Block()));
+        $view = new BlockView(array('block' => new Block()));
         $view->setContext(ViewInterface::CONTEXT_API);
         $event = new CollectViewParametersEvent($view);
 

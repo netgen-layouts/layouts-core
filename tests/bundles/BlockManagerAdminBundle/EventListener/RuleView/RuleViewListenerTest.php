@@ -67,7 +67,7 @@ class RuleViewListenerTest extends TestCase
      */
     public function testOnBuildView()
     {
-        $view = new RuleView(array('valueObject' => new Rule()));
+        $view = new RuleView(array('rule' => new Rule()));
         $view->setContext(ViewInterface::CONTEXT_ADMIN);
         $event = new CollectViewParametersEvent($view);
 
@@ -87,7 +87,7 @@ class RuleViewListenerTest extends TestCase
      */
     public function testOnBuildViewWithNoRuleView()
     {
-        $view = new View(array('valueObject' => new Value()));
+        $view = new View(array('value' => new Value()));
         $event = new CollectViewParametersEvent($view);
         $this->listener->onBuildView($event);
 
@@ -99,7 +99,7 @@ class RuleViewListenerTest extends TestCase
      */
     public function testOnBuildViewWithWrongContext()
     {
-        $view = new RuleView(array('valueObject' => new Rule()));
+        $view = new RuleView(array('rule' => new Rule()));
         $view->setContext(ViewInterface::CONTEXT_API);
         $event = new CollectViewParametersEvent($view);
 

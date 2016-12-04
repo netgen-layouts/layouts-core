@@ -38,7 +38,7 @@ class ViewTypeTest extends TestCase
 
         $view = new BlockView(
             array(
-                'valueObject' => $block,
+                'block' => $block,
             )
         );
 
@@ -66,6 +66,6 @@ class ViewTypeTest extends TestCase
      */
     public function testMatchWithNoBlockView()
     {
-        $this->assertFalse($this->matcher->match(new View(array('valueObject' => new Value())), array()));
+        $this->assertFalse($this->matcher->match(new View(array('value' => new Value())), array()));
     }
 }

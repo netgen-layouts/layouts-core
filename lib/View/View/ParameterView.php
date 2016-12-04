@@ -13,7 +13,7 @@ class ParameterView extends View implements ParameterViewInterface
      */
     public function getParameterValue()
     {
-        return $this->valueObject;
+        return $this->parameters['parameter'];
     }
 
     /**
