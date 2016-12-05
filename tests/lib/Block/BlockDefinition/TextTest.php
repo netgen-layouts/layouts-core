@@ -11,13 +11,7 @@ abstract class TextTest extends BlockTest
      */
     public function createBlockDefinitionHandler()
     {
-        return new TextHandler(
-            array(
-                'h1' => 'Heading 1',
-                'h2' => 'Heading 2',
-            ),
-            array('value')
-        );
+        return new TextHandler();
     }
 
     /**

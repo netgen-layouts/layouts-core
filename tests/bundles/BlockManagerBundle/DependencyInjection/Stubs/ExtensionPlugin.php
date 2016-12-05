@@ -3,16 +3,16 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\Stubs;
 
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\ExtensionPlugin as BaseExtensionPlugin;
-use Symfony\Component\Config\Definition\Builder\NodeDefinition;
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 
 class ExtensionPlugin extends BaseExtensionPlugin
 {
     /**
      * Processes the configuration for the bundle.
      *
-     * @param \Symfony\Component\Config\Definition\Builder\NodeDefinition
+     * @param \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition
      */
-    public function addConfiguration(NodeDefinition $rootNode)
+    public function addConfiguration(ArrayNodeDefinition $rootNode)
     {
         $rootNode
             ->children()

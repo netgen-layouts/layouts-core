@@ -22,7 +22,7 @@ class ConditionTypeRegistryTest extends TestCase
     {
         $this->registry = new ConditionTypeRegistry();
 
-        $this->conditionType = new ConditionType('type', 'value');
+        $this->conditionType = new ConditionType('type');
         $this->registry->addConditionType($this->conditionType);
     }
 

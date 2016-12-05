@@ -339,8 +339,6 @@ abstract class ServiceTestCase extends TestCase
      */
     protected function createParameterMapper()
     {
-        return new ParameterMapper(
-            $this->parameterTypeRegistry
-        );
+        return new ParameterMapper();
     }
 }

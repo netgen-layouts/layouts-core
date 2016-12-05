@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormView as SymfonyFormView;
 class FormViewTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\LayoutResolver\Condition
+     * @var \Symfony\Component\Form\FormInterface
      */
     protected $form;
 

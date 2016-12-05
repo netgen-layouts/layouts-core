@@ -3,6 +3,8 @@
 namespace Netgen\BlockManager\Tests\Parameters;
 
 use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Parameters\ParameterType\TextType;
+use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterCollection;
 use PHPUnit\Framework\TestCase;
 
@@ -29,11 +31,16 @@ class ParameterCollectionTraitTest extends TestCase
     {
         $parameterCollection = new ParameterCollection(
             array(
-                'name' => 'value',
+                'name' => new Parameter('name', new TextType()),
             )
         );
 
-        $this->assertEquals(array('name' => 'value'), $parameterCollection->getParameters());
+        $this->assertEquals(
+            array(
+                'name' => new Parameter('name', new TextType()),
+            ),
+            $parameterCollection->getParameters()
+        );
 
         $this->assertFalse($parameterCollection->hasParameter('test'));
         $this->assertTrue($parameterCollection->hasParameter('name'));
@@ -45,6 +52,9 @@ class ParameterCollectionTraitTest extends TestCase
             // Do nothing
         }
 
-        $this->assertEquals('value', $parameterCollection->getParameter('name'));
+        $this->assertEquals(
+            new Parameter('name', new TextType()),
+            $parameterCollection->getParameter('name')
+        );
     }
 }

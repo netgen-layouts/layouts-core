@@ -46,7 +46,7 @@ class ConditionType implements ConditionTypeInterface
      */
     public function getConstraints()
     {
-        return new Constraints\NotBlank();
+        return array(new Constraints\NotBlank());
     }
 
     /**

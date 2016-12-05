@@ -23,7 +23,7 @@ class QueryUpdateStructValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @return \Symfony\Component\Validator\Validator\ValidatorInterface
+     * @return \Symfony\Component\Validator\ConstraintValidator
      */
     public function getValidator()
     {
@@ -31,7 +31,7 @@ class QueryUpdateStructValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @param string $value
+     * @param array $value
      * @param bool $isValid
      *
      * @covers \Netgen\BlockManager\Validator\Structs\QueryUpdateStructValidator::validate

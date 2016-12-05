@@ -4,7 +4,6 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection;
 
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\ExtensionPlugin;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class ExtensionPluginTest extends TestCase
 {
@@ -23,7 +22,7 @@ class ExtensionPluginTest extends TestCase
      */
     public function testPreProcessConfiguration()
     {
-        $processedConfig = $this->plugin->preProcessConfiguration(array(), new ContainerBuilder());
+        $processedConfig = $this->plugin->preProcessConfiguration(array());
         $this->assertEquals(array(), $processedConfig);
     }
 
@@ -32,7 +31,7 @@ class ExtensionPluginTest extends TestCase
      */
     public function testPostProcessConfiguration()
     {
-        $processedConfig = $this->plugin->postProcessConfiguration(array(), new ContainerBuilder());
+        $processedConfig = $this->plugin->postProcessConfiguration(array());
         $this->assertEquals(array(), $processedConfig);
     }
 

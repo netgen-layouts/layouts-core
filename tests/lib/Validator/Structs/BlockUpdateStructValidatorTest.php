@@ -31,7 +31,7 @@ class BlockUpdateStructValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @return \Symfony\Component\Validator\Validator\ValidatorInterface
+     * @return \Symfony\Component\Validator\ConstraintValidator
      */
     public function getValidator()
     {
@@ -39,7 +39,7 @@ class BlockUpdateStructValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @param string $value
+     * @param array $value
      * @param bool $isValid
      *
      * @covers \Netgen\BlockManager\Validator\Structs\BlockUpdateStructValidator::validate

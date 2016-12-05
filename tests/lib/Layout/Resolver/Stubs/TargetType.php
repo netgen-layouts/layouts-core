@@ -46,7 +46,7 @@ class TargetType implements TargetTypeInterface
      */
     public function getConstraints()
     {
-        return new Constraints\NotBlank();
+        return array(new Constraints\NotBlank());
     }
 
     /**

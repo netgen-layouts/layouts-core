@@ -15,7 +15,7 @@ abstract class ValidatorTestCase extends TestCase
     protected $executionContext;
 
     /**
-     * @var \Symfony\Component\Validator\Validator\ValidatorInterface
+     * @var \Symfony\Component\Validator\ConstraintValidatorInterface
      */
     protected $validator;
 
@@ -62,7 +62,7 @@ abstract class ValidatorTestCase extends TestCase
     }
 
     /**
-     * @return \Symfony\Component\Validator\Validator\ValidatorInterface
+     * @return \Symfony\Component\Validator\ConstraintValidatorInterface
      */
     abstract public function getValidator();
 }
