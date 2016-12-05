@@ -3,6 +3,7 @@ services:
         class: Netgen\Bundle\BlockManagerDebugBundle\DataCollector\BlockManagerDataCollector
         arguments:
             - "@netgen_block_manager.templating.global_variable"
+            - "@netgen_block_manager.api.repository"
         tags:
             - { name: data_collector, template: 'NetgenBlockManagerDebugBundle:data_collector:ngbm.html.twig', id: ngbm }
 
