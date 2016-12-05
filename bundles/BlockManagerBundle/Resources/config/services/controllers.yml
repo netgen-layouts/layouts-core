@@ -9,7 +9,6 @@ services:
         class: Netgen\Bundle\BlockManagerBundle\Controller\BlockController
         parent: netgen_block_manager.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.block"
             - "@?logger"
         calls:
             - [setDebug, ["%kernel.debug%"]]

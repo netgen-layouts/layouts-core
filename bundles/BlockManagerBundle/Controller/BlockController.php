@@ -3,7 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Controller;
 
 use Exception;
-use Netgen\BlockManager\API\Service\BlockService;
+use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\View\ViewInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -11,11 +11,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class BlockController extends Controller
 {
-    /**
-     * @var \Netgen\BlockManager\API\Service\BlockService
-     */
-    protected $blockService;
-
     /**
      * @var \Psr\Log\LoggerInterface
      */
@@ -29,12 +24,10 @@ class BlockController extends Controller
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\API\Service\BlockService $blockService
      * @param \Psr\Log\LoggerInterface $logger
      */
-    public function __construct(BlockService $blockService, LoggerInterface $logger = null)
+    public function __construct(LoggerInterface $logger = null)
     {
-        $this->blockService = $blockService;
         $this->logger = $logger ?: new NullLogger();
     }
 
@@ -52,21 +45,19 @@ class BlockController extends Controller
      * Renders the provided block. Used by ESI rendering strategy, so if rendering fails,
      * we log an error and just return an empty response in order not to crash the page.
      *
-     * @param int|string $blockId
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param string $context
      *
      * @throws \Exception If rendering fails
      *
      * @return \Netgen\BlockManager\View\View\BlockViewInterface|\Symfony\Component\HttpFoundation\Response
      */
-    public function viewBlock($blockId, $context = ViewInterface::CONTEXT_DEFAULT)
+    public function viewBlock(Block $block, $context = ViewInterface::CONTEXT_DEFAULT)
     {
         try {
-            $block = $this->blockService->loadBlock($blockId);
-
             return $this->buildView($block, array(), $context);
         } catch (Exception $e) {
-            $errorMessage = sprintf('Error rendering a block with ID %d', $blockId);
+            $errorMessage = sprintf('Error rendering a block with ID %d', $block->getId());
 
             $this->logger->error($errorMessage . ': ' . $e->getMessage());
 

@@ -269,6 +269,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
                         array(
                             'blockId' => $block->getId(),
                             'context' => $viewContext,
+                            '_ngbm_status' => 'published',
                         )
                     ),
                     'esi'
