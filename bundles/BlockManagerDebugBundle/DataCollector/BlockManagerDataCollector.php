@@ -79,6 +79,7 @@ class BlockManagerDataCollector extends DataCollector
             'id' => $layout->getId(),
             'name' => $layout->getName(),
             'type' => $layout->getLayoutType()->getName(),
+            'context' => $layoutView->getContext(),
             'template' => $layoutView->getTemplate(),
         );
     }
