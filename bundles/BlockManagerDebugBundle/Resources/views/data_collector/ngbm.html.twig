@@ -183,7 +183,8 @@
                         <thead>
                             <tr>
                                 <th scope="col">Block ID</th>
-                                <th scope="col">Layout ID</th>
+                                <th scope="col">Layout name</th>
+                                <th scope="col">Layout type</th>
                                 <th scope="col">Shared</th>
                                 <th scope="col">Block info</th>
                                 <th scope="col">Template</th>
@@ -198,6 +199,7 @@
                                         {{ block.layout_name }}
                                     </a>
                                 </td>
+                                <td class="font-normal">{{ block.layout_type }}</td>
                                 <td class="font-normal">{{ block.layout_shared ? 'Yes' : 'No' }}</td>
                                 <td class="font-normal">
                                     <div class="metadata">

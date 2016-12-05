@@ -136,6 +136,7 @@ class BlockManagerDataCollector extends DataCollector
             'id' => $block->getId(),
             'layout_id' => $layout->getId(),
             'layout_name' => $layout->getName(),
+            'layout_type' => $layout->getLayoutType()->getName(),
             'layout_shared' => $layout->isShared(),
             'zone' => $layout->getLayoutType()->getZone(
                 $block->getZoneIdentifier()
