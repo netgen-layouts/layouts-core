@@ -34,7 +34,7 @@ class SetIsApiRequestListener implements EventSubscriberInterface
 
         $request = $event->getRequest();
         $currentRoute = $request->attributes->get('_route');
-        if (stripos($currentRoute, self::API_ROUTE_PREFIX) !== 0) {
+        if (mb_stripos($currentRoute, self::API_ROUTE_PREFIX) !== 0) {
             return;
         }
 

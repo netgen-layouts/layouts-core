@@ -34,7 +34,7 @@ class SetIsAdminRequestListener implements EventSubscriberInterface
 
         $request = $event->getRequest();
         $currentRoute = $request->attributes->get('_route');
-        if (stripos($currentRoute, self::ADMIN_ROUTE_PREFIX) !== 0) {
+        if (mb_stripos($currentRoute, self::ADMIN_ROUTE_PREFIX) !== 0) {
             return;
         }
 
