@@ -3,11 +3,14 @@
 namespace Netgen\BlockManager\Serializer\Normalizer;
 
 use Netgen\BlockManager\Serializer\Values\Value;
+use Netgen\BlockManager\Traits\SerializerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\Normalizer\SerializerAwareNormalizer;
+use Symfony\Component\Serializer\SerializerAwareInterface;
 
-class ValueNormalizer extends SerializerAwareNormalizer implements NormalizerInterface
+class ValueNormalizer implements NormalizerInterface, SerializerAwareInterface
 {
+    use SerializerAwareTrait;
+
     /**
      * Normalizes an object into a set of arrays/scalars.
      *

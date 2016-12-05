@@ -6,11 +6,14 @@ use Netgen\BlockManager\Configuration\Source\Query;
 use Netgen\BlockManager\Configuration\Source\Source;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
+use Netgen\BlockManager\Traits\SerializerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\Normalizer\SerializerAwareNormalizer;
+use Symfony\Component\Serializer\SerializerAwareInterface;
 
-class SourceNormalizer extends SerializerAwareNormalizer implements NormalizerInterface
+class SourceNormalizer implements NormalizerInterface, SerializerAwareInterface
 {
+    use SerializerAwareTrait;
+
     /**
      * Normalizes an object into a set of arrays/scalars.
      *

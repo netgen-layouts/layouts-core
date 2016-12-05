@@ -5,11 +5,14 @@ namespace Netgen\BlockManager\Serializer\V1\ValueNormalizer;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
+use Netgen\BlockManager\Traits\SerializerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\Normalizer\SerializerAwareNormalizer;
+use Symfony\Component\Serializer\SerializerAwareInterface;
 
-class CollectionNormalizer extends SerializerAwareNormalizer implements NormalizerInterface
+class CollectionNormalizer implements NormalizerInterface, SerializerAwareInterface
 {
+    use SerializerAwareTrait;
+
     /**
      * Normalizes an object into a set of arrays/scalars.
      *

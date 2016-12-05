@@ -6,11 +6,14 @@ use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
+use Netgen\BlockManager\Traits\SerializerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\Normalizer\SerializerAwareNormalizer;
+use Symfony\Component\Serializer\SerializerAwareInterface;
 
-class BlockNormalizer extends SerializerAwareNormalizer implements NormalizerInterface
+class BlockNormalizer implements NormalizerInterface, SerializerAwareInterface
 {
+    use SerializerAwareTrait;
+
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService
      */
