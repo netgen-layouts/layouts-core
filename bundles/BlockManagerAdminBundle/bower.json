@@ -1,7 +1,7 @@
 {
-  "name": "netgen-layouts-admin",
-  "homepage": "http://www.netgenlabs.com",
-  "dependencies": {
-    "normalize.scss": "^5.0.3"
-  }
+    "name": "netgen-layouts-admin",
+    "homepage": "http://www.netgenlabs.com",
+    "dependencies": {
+        "normalize.scss": "^5.0.3"
+    }
 }
