@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection;
 
-use Symfony\Component\Config\Definition\Builder\NodeDefinition;
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 
 interface ExtensionPluginInterface
 {
@@ -18,9 +18,9 @@ interface ExtensionPluginInterface
     /**
      * Processes the configuration for the bundle.
      *
-     * @param \Symfony\Component\Config\Definition\Builder\NodeDefinition
+     * @param \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition
      */
-    public function addConfiguration(NodeDefinition $rootNode);
+    public function addConfiguration(ArrayNodeDefinition $rootNode);
 
     /**
      * Post-processes the resolved configuration.

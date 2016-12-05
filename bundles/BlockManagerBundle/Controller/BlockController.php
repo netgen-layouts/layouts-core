@@ -64,7 +64,7 @@ class BlockController extends Controller
         try {
             $block = $this->blockService->loadBlock($blockId);
 
-            return $this->buildView($block, $context);
+            return $this->buildView($block, array(), $context);
         } catch (Exception $e) {
             $errorMessage = sprintf('Error rendering a block with ID %d', $blockId);
 
