@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
-class BlockDefinitionRegistryPass implements CompilerPassInterface
+class BlockDefinitionPass implements CompilerPassInterface
 {
     const SERVICE_NAME = 'netgen_block_manager.block.registry.block_definition';
     const TAG_NAME = 'netgen_block_manager.block.block_definition_handler';
