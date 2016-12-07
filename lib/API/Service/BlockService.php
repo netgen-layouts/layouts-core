@@ -8,6 +8,7 @@ use Netgen\BlockManager\API\Values\Page\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\CollectionReference;
 use Netgen\BlockManager\API\Values\Page\Layout;
+use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\BlockManager\Configuration\BlockType\BlockType;
 
 interface BlockService
@@ -66,18 +67,16 @@ interface BlockService
      * Creates a block in specified layout and zone.
      *
      * @param \Netgen\BlockManager\API\Values\Page\BlockCreateStruct $blockCreateStruct
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
-     * @param string $zoneIdentifier
+     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
-     *                                                          If zone does not exist in the layout
+     * @throws \Netgen\BlockManager\Exception\BadStateException If zone is not a draft
      *                                                          If provided position is out of range
      *                                                          If block cannot be placed in specified zone
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function createBlock(BlockCreateStruct $blockCreateStruct, Layout $layout, $zoneIdentifier, $position = null);
+    public function createBlock(BlockCreateStruct $blockCreateStruct, Zone $zone, $position = null);
 
     /**
      * Updates a specified block.

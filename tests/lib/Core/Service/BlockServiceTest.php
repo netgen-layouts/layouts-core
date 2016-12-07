@@ -157,8 +157,7 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $block = $this->blockService->createBlock(
             $blockCreateStruct,
-            $this->layoutService->loadLayoutDraft(1),
-            'right',
+            $this->layoutService->loadZoneDraft(1, 'right'),
             0
         );
 
@@ -195,8 +194,7 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $block = $this->blockService->createBlock(
             $blockCreateStruct,
-            $this->layoutService->loadLayoutDraft(1),
-            'right',
+            $this->layoutService->loadZoneDraft(1, 'right'),
             0
         );
 
@@ -226,8 +224,7 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $block = $this->blockService->createBlock(
             $blockCreateStruct,
-            $this->layoutService->loadLayoutDraft(7),
-            'center',
+            $this->layoutService->loadZoneDraft(7, 'center'),
             0
         );
 
@@ -239,7 +236,7 @@ abstract class BlockServiceTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testCreateBlockThrowsBadStateExceptionWithNonDraftLayout()
+    public function testCreateBlockThrowsBadStateExceptionWithNonDraftZone()
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             new BlockType(
@@ -251,8 +248,7 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $this->blockService->createBlock(
             $blockCreateStruct,
-            $this->layoutService->loadLayout(1),
-            'right',
+            $this->layoutService->loadZone(1, 'right'),
             0
         );
     }
@@ -273,8 +269,7 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $block = $this->blockService->createBlock(
             $blockCreateStruct,
-            $this->layoutService->loadLayoutDraft(2),
-            'top'
+            $this->layoutService->loadZoneDraft(2, 'top')
         );
 
         $this->assertFalse($block->isPublished());
@@ -297,8 +292,7 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $block = $this->blockService->createBlock(
             $blockCreateStruct,
-            $this->layoutService->loadLayoutDraft(1),
-            'right'
+            $this->layoutService->loadZoneDraft(1, 'right')
         );
 
         $this->assertFalse($block->isPublished());
@@ -323,31 +317,8 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $this->blockService->createBlock(
             $blockCreateStruct,
-            $this->layoutService->loadLayoutDraft(1),
-            'right',
+            $this->layoutService->loadZoneDraft(1, 'right'),
             9999
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     */
-    public function testCreateBlockWithNonExistingZoneThrowsBadStateException()
-    {
-        $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            new BlockType(
-                array(
-                    'blockDefinition' => $this->blockDefinitionRegistry->getBlockDefinition('title'),
-                )
-            )
-        );
-
-        $this->blockService->createBlock(
-            $blockCreateStruct,
-            $this->layoutService->loadLayoutDraft(1),
-            'non_existing'
         );
     }
 
@@ -368,8 +339,7 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $this->blockService->createBlock(
             $blockCreateStruct,
-            $this->layoutService->loadLayoutDraft(1),
-            'right'
+            $this->layoutService->loadZoneDraft(1, 'right')
         );
     }
 

@@ -9,7 +9,7 @@ use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\BlockCreateStruct as APIBlockCreateStruct;
 use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct as APIBlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\CollectionReference;
-use Netgen\BlockManager\API\Values\Page\Layout;
+use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Configuration\BlockType\BlockType;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
@@ -199,34 +199,34 @@ class BlockService implements BlockServiceInterface
      * Creates a block in specified layout and zone.
      *
      * @param \Netgen\BlockManager\API\Values\Page\BlockCreateStruct $blockCreateStruct
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
-     * @param string $zoneIdentifier
+     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
-     *                                                          If zone does not exist in the layout
+     * @throws \Netgen\BlockManager\Exception\BadStateException If zone is not a draft
      *                                                          If provided position is out of range
      *                                                          If block cannot be placed in specified zone
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function createBlock(APIBlockCreateStruct $blockCreateStruct, Layout $layout, $zoneIdentifier, $position = null)
+    public function createBlock(APIBlockCreateStruct $blockCreateStruct, Zone $zone, $position = null)
     {
-        if ($layout->isPublished()) {
-            throw new BadStateException('layout', 'Blocks can only be created in layouts in draft status.');
+        if ($zone->isPublished()) {
+            throw new BadStateException('zone', 'Blocks can only be created in zones in draft status.');
         }
 
-        $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Value::STATUS_DRAFT);
+        $persistenceZone = $this->layoutHandler->loadZone($zone->getLayoutId(), Value::STATUS_DRAFT, $zone->getIdentifier());
+        $persistenceLayout = $this->layoutHandler->loadLayout($zone->getLayoutId(), Value::STATUS_DRAFT);
 
-        $this->blockValidator->validateIdentifier($zoneIdentifier, 'zoneIdentifier', true);
         $this->blockValidator->validatePosition($position, 'position');
         $this->blockValidator->validateBlockCreateStruct($blockCreateStruct);
 
-        if (!$this->layoutHandler->zoneExists($persistenceLayout->id, $persistenceLayout->status, $zoneIdentifier)) {
-            throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
-        }
-
-        if (!$this->isBlockAllowedWithinZone($blockCreateStruct->blockDefinition->getIdentifier(), $persistenceLayout->type, $zoneIdentifier)) {
+        if (
+            !$this->isBlockAllowedWithinZone(
+                $blockCreateStruct->blockDefinition->getIdentifier(),
+                $persistenceLayout->type,
+                $persistenceZone->identifier
+            )
+        ) {
             throw new BadStateException('zoneIdentifier', 'Block cannot be created in specified zone.');
         }
 
@@ -237,7 +237,7 @@ class BlockService implements BlockServiceInterface
                 new BlockCreateStruct(
                     array(
                         'layoutId' => $persistenceLayout->id,
-                        'zoneIdentifier' => $zoneIdentifier,
+                        'zoneIdentifier' => $persistenceZone->identifier,
                         'status' => $persistenceLayout->status,
                         'position' => $position,
                         'definitionIdentifier' => $blockCreateStruct->blockDefinition->getIdentifier(),

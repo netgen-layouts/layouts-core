@@ -82,15 +82,17 @@ class BlockController extends Controller
         }
 
         try {
-            $layout = $this->layoutService->loadLayoutDraft($request->request->get('layout_id'));
+            $zone = $this->layoutService->loadZoneDraft(
+                $request->request->get('layout_id'),
+                $request->request->get('zone_identifier')
+            );
         } catch (NotFoundException $e) {
-            throw new BadStateException('layout_id', 'Layout draft does not exist.', $e);
+            throw new BadStateException('zone_identifier', 'Zone draft does not exist.', $e);
         }
 
         $createdBlock = $this->blockService->createBlock(
             $this->blockService->newBlockCreateStruct($blockType),
-            $layout,
-            $request->request->get('zone_identifier'),
+            $zone,
             $request->request->get('position')
         );
 

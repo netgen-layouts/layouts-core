@@ -8,11 +8,12 @@ use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\CollectionReference;
-use Netgen\BlockManager\Core\Values\Page\Layout;
+use Netgen\BlockManager\Core\Values\Page\Zone;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceCollection;
 use Netgen\BlockManager\Persistence\Values\Page\Block as PersistenceBlock;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReference as PersistenceCollectionReference;
 use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
+use Netgen\BlockManager\Persistence\Values\Page\Zone as PersistenceZone;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 
 class BlockServiceTest extends ServiceTestCase
@@ -40,13 +41,13 @@ class BlockServiceTest extends ServiceTestCase
     {
         $this->layoutHandlerMock
             ->expects($this->at(0))
-            ->method('loadLayout')
-            ->will($this->returnValue(new PersistenceLayout(array('type' => '4_zones_b'))));
+            ->method('loadZone')
+            ->will($this->returnValue(new PersistenceZone()));
 
         $this->layoutHandlerMock
             ->expects($this->at(1))
-            ->method('zoneExists')
-            ->will($this->returnValue(true));
+            ->method('loadLayout')
+            ->will($this->returnValue(new PersistenceLayout(array('type' => '4_zones_b'))));
 
         $this->blockHandlerMock
             ->expects($this->at(0))
@@ -59,8 +60,7 @@ class BlockServiceTest extends ServiceTestCase
 
         $this->blockService->createBlock(
             new BlockCreateStruct(array('blockDefinition' => new BlockDefinition('blockDef'))),
-            new Layout(array('published' => false)),
-            'zone'
+            new Zone(array('published' => false))
         );
     }
 
