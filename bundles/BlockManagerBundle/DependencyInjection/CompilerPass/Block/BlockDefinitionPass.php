@@ -37,6 +37,11 @@ class BlockDefinitionPass implements CompilerPassInterface
                 continue;
             }
 
+            $handlerIdentifier = $identifier;
+            if (!empty($blockDefinition['handler'])) {
+                $handlerIdentifier = $blockDefinition['handler'];
+            }
+
             $configServiceName = sprintf('netgen_block_manager.block.block_definition.configuration.%s', $identifier);
             $configService = new Definition(Configuration::class);
 
@@ -54,7 +59,7 @@ class BlockDefinitionPass implements CompilerPassInterface
                     );
                 }
 
-                if ($tag[0]['identifier'] === $identifier) {
+                if ($tag[0]['identifier'] === $handlerIdentifier) {
                     $foundHandler = $blockDefinitionHandler;
                     break;
                 }
@@ -63,7 +68,8 @@ class BlockDefinitionPass implements CompilerPassInterface
             if ($foundHandler === null) {
                 throw new RuntimeException(
                     sprintf(
-                        'Block definition handler for "%s" block definition does not exist.',
+                        'Block definition handler "%s" for "%s" block definition does not exist.',
+                        $handlerIdentifier,
                         $identifier
                     )
                 );

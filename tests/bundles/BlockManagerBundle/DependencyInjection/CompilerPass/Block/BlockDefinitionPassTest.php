@@ -57,6 +57,50 @@ class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
     }
 
     /**
+     * @param string $handlerClass
+     * @param string $definitionClass
+     *
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::process
+     * @dataProvider processDataProvider
+     */
+    public function testProcessWithCustomHandler($handlerClass, $definitionClass)
+    {
+        $this->setParameter(
+            'netgen_block_manager.block_definitions',
+            array('block_definition' => array('enabled' => true, 'handler' => 'custom'))
+        );
+
+        $this->setDefinition('netgen_block_manager.block.registry.block_definition', new Definition());
+
+        $blockDefinitionHandler = new Definition($handlerClass);
+        $blockDefinitionHandler->addTag(
+            'netgen_block_manager.block.block_definition_handler',
+            array('identifier' => 'custom')
+        );
+
+        $this->setDefinition(
+            'netgen_block_manager.block.block_definition.handler.test',
+            $blockDefinitionHandler
+        );
+
+        $this->compile();
+
+        $this->assertContainerBuilderHasService(
+            'netgen_block_manager.block.block_definition.block_definition',
+            $definitionClass
+        );
+
+        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+            'netgen_block_manager.block.registry.block_definition',
+            'addBlockDefinition',
+            array(
+                'block_definition',
+                new Reference('netgen_block_manager.block.block_definition.block_definition'),
+            )
+        );
+    }
+
+    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::process
      */
     public function testProcessWithDisabledBlockDefinition()
@@ -102,6 +146,22 @@ class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
         $this->setParameter(
             'netgen_block_manager.block_definitions',
             array('block_definition' => array('enabled' => true))
+        );
+
+        $this->setDefinition('netgen_block_manager.block.registry.block_definition', new Definition());
+
+        $this->compile();
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::process
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     */
+    public function testProcessThrowsExceptionWithNoCustomHandler()
+    {
+        $this->setParameter(
+            'netgen_block_manager.block_definitions',
+            array('block_definition' => array('enabled' => true, 'handler' => 'custom'))
         );
 
         $this->setDefinition('netgen_block_manager.block.registry.block_definition', new Definition());

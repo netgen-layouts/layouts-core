@@ -25,6 +25,7 @@ class BlockDefinitionConfigurationTest extends TestCase
                 'block_definitions' => array(
                     'block' => array(
                         'name' => 'Block',
+                        'handler' => 'handler',
                         'forms' => array(
                             'full' => array(
                                 'type' => 'test_form',
@@ -73,6 +74,7 @@ class BlockDefinitionConfigurationTest extends TestCase
             'block_definitions' => array(
                 'block' => array(
                     'name' => 'Block',
+                    'handler' => 'handler',
                     'enabled' => true,
                     'forms' => array(
                         'full' => array(
@@ -124,6 +126,34 @@ class BlockDefinitionConfigurationTest extends TestCase
             $config,
             $expectedConfig,
             'block_definitions'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
+     */
+    public function testBlockDefinitionSettingsWithNoHandler()
+    {
+        $config = array(
+            array(
+                'block_definitions' => array(
+                    'block' => array(),
+                ),
+            ),
+        );
+
+        $expectedConfig = array(
+            'block_definitions' => array(
+                'block' => array(),
+            ),
+        );
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'block_definitions.*.handler'
         );
     }
 

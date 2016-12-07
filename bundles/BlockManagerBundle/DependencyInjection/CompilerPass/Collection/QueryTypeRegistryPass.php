@@ -33,6 +33,11 @@ class QueryTypeRegistryPass implements CompilerPassInterface
 
         $queryTypes = $container->getParameter('netgen_block_manager.query_types');
         foreach ($queryTypes as $type => $queryType) {
+            $handlerIdentifier = $type;
+            if (!empty($queryType['handler'])) {
+                $handlerIdentifier = $queryType['handler'];
+            }
+
             $configServiceName = sprintf('netgen_block_manager.collection.query_type.configuration.%s', $type);
             $configService = new Definition(Configuration::class);
 
@@ -50,7 +55,7 @@ class QueryTypeRegistryPass implements CompilerPassInterface
                     );
                 }
 
-                if ($tag[0]['type'] === $type) {
+                if ($tag[0]['type'] === $handlerIdentifier) {
                     $foundHandler = $queryTypeHandler;
                     break;
                 }
@@ -59,7 +64,8 @@ class QueryTypeRegistryPass implements CompilerPassInterface
             if ($foundHandler === null) {
                 throw new RuntimeException(
                     sprintf(
-                        'Query type handler for "%s" query type does not exist.',
+                        'Query type handler "%s" for "%s" query type does not exist.',
+                        $handlerIdentifier,
                         $type
                     )
                 );

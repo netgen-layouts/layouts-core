@@ -24,6 +24,7 @@ class QueryTypeConfigurationTest extends TestCase
                 'query_types' => array(
                     'type' => array(
                         'name' => 'Type',
+                        'handler' => 'handler',
                         'forms' => array(
                             'full' => array(
                                 'type' => 'full_edit',
@@ -44,6 +45,7 @@ class QueryTypeConfigurationTest extends TestCase
             'query_types' => array(
                 'type' => array(
                     'name' => 'Type',
+                    'handler' => 'handler',
                     'forms' => array(
                         'full' => array(
                             'type' => 'full_edit',
@@ -63,6 +65,34 @@ class QueryTypeConfigurationTest extends TestCase
             $config,
             $expectedConfig,
             'query_types'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\QueryTypeNode::getConfigurationNode
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
+     */
+    public function testQueryTypeSettingsWithNoHandler()
+    {
+        $config = array(
+            array(
+                'query_types' => array(
+                    'type' => array(),
+                ),
+            ),
+        );
+
+        $expectedConfig = array(
+            'query_types' => array(
+                'type' => array(),
+            ),
+        );
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'query_types.*.handler'
         );
     }
 
