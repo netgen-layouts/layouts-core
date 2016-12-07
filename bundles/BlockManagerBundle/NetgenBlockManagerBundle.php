@@ -27,7 +27,7 @@ class NetgenBlockManagerBundle extends Bundle
         $container->addCompilerPass(new CompilerPass\Parameters\FormMapperRegistryPass());
         $container->addCompilerPass(new CompilerPass\Parameters\ParameterFilterRegistryPass());
         $container->addCompilerPass(new CompilerPass\Parameters\ParameterTypeRegistryPass());
-        $container->addCompilerPass(new CompilerPass\Collection\QueryTypeRegistryPass());
+        $container->addCompilerPass(new CompilerPass\Collection\QueryTypePass());
         $container->addCompilerPass(new CompilerPass\Item\ValueLoaderRegistryPass());
         $container->addCompilerPass(new CompilerPass\Item\ItemBuilderPass());
         $container->addCompilerPass(new CompilerPass\Item\UrlBuilderPass());
