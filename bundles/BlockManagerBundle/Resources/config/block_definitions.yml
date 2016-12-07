@@ -15,7 +15,7 @@ block_definitions:
         name: 'Button / Link'
         view_types:
             button:
-                name: 'Button'
+                name: 'Button / Link'
 
     markdown:
         name: 'Markdown'
