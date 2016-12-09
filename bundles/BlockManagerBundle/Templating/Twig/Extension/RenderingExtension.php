@@ -3,7 +3,6 @@
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension;
 
 use Exception;
-use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate;
 use Netgen\BlockManager\Item\ItemInterface;
@@ -22,11 +21,6 @@ use Twig_SimpleFunction;
 
 class RenderingExtension extends Twig_Extension implements Twig_Extension_GlobalsInterface
 {
-    /**
-     * @var \Netgen\BlockManager\API\Service\LayoutService
-     */
-    protected $layoutService;
-
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable
      */
@@ -60,7 +54,6 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
      * @param \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable $globalVariable
      * @param \Netgen\BlockManager\View\RendererInterface $viewRenderer
      * @param \Symfony\Component\HttpKernel\Fragment\FragmentHandler $fragmentHandler
@@ -68,14 +61,12 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
-        LayoutService $layoutService,
         GlobalVariable $globalVariable,
         RendererInterface $viewRenderer,
         FragmentHandler $fragmentHandler,
         $blockController,
         LoggerInterface $logger = null
     ) {
-        $this->layoutService = $layoutService;
         $this->globalVariable = $globalVariable;
         $this->viewRenderer = $viewRenderer;
         $this->fragmentHandler = $fragmentHandler;

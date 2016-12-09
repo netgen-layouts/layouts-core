@@ -2,7 +2,6 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig;
 
-use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension;
@@ -11,11 +10,6 @@ use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
 
 class RenderingExtensionTwigTest extends \Twig_Test_IntegrationTestCase
 {
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $layoutServiceMock;
-
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
@@ -38,7 +32,6 @@ class RenderingExtensionTwigTest extends \Twig_Test_IntegrationTestCase
 
     public function setUp()
     {
-        $this->layoutServiceMock = $this->createMock(LayoutService::class);
         $this->globalVariableMock = $this->createMock(GlobalVariable::class);
         $this->viewRendererMock = $this->createMock(RendererInterface::class);
         $this->fragmentHandlerMock = $this->createMock(FragmentHandler::class);
@@ -63,7 +56,6 @@ class RenderingExtensionTwigTest extends \Twig_Test_IntegrationTestCase
             );
 
         $this->extension = new RenderingExtension(
-            $this->layoutServiceMock,
             $this->globalVariableMock,
             $this->viewRendererMock,
             $this->fragmentHandlerMock,
