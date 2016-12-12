@@ -182,6 +182,16 @@ class BlockServiceTest extends ServiceTestCase
             ->method('loadBlock')
             ->will($this->returnValue(new PersistenceBlock()));
 
+        $this->layoutHandlerMock
+            ->expects($this->at(0))
+            ->method('loadZone')
+            ->will($this->returnValue(new PersistenceZone()));
+
+        $this->layoutHandlerMock
+            ->expects($this->at(1))
+            ->method('loadLayout')
+            ->will($this->returnValue(new PersistenceLayout(array('type' => '4_zones_b'))));
+
         $this->blockHandlerMock
             ->expects($this->at(1))
             ->method('moveBlock')
@@ -191,7 +201,11 @@ class BlockServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->blockService->moveBlock(new Block(array('published' => false)), 0);
+        $this->blockService->moveBlock(
+            new Block(array('published' => false)),
+            new Zone(array('published' => false)),
+            0
+        );
     }
 
     /**

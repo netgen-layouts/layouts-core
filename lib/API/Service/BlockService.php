@@ -116,17 +116,17 @@ interface BlockService
      * Moves a block to specified position inside the zone.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
      * @param int $position
-     * @param string $zoneIdentifier
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If block is not a draft
-     *                                                          If zone does not exist in the layout
+     * @throws \Netgen\BlockManager\Exception\BadStateException If block or zone are not drafts
+     *                                                          If zone is in a different layout
      *                                                          If provided position is out of range
      *                                                          If block cannot be placed in specified zone
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function moveBlock(Block $block, $position, $zoneIdentifier = null);
+    public function moveBlock(Block $block, Zone $zone, $position);
 
     /**
      * Restores the specified block from the published status. Zone and position are kept as is.

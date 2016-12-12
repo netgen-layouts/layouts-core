@@ -169,10 +169,15 @@ class BlockController extends Controller
      */
     public function move(Block $block, Request $request)
     {
+        $zone = $this->layoutService->loadZoneDraft(
+            $request->request->get('layout_id'),
+            $request->request->get('zone_identifier')
+        );
+
         $this->blockService->moveBlock(
             $block,
-            $request->request->get('position'),
-            $request->request->get('zone_identifier')
+            $zone,
+            $request->request->get('position')
         );
 
         return new Response(null, Response::HTTP_NO_CONTENT);

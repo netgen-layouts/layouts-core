@@ -397,7 +397,7 @@ class BlockService implements BlockServiceInterface
         }
 
         if ($zone->isPublished()) {
-            throw new BadStateException('zone', 'You can only copy blocks in draft zones.');
+            throw new BadStateException('zone', 'You can only copy blocks to draft zones.');
         }
 
         $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
@@ -429,42 +429,44 @@ class BlockService implements BlockServiceInterface
      * Moves a block to specified position inside the zone.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
      * @param int $position
-     * @param string $zoneIdentifier
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If block is not a draft
-     *                                                          If zone does not exist in the layout
+     * @throws \Netgen\BlockManager\Exception\BadStateException If block or zone are not drafts
+     *                                                          If zone is in a different layout
      *                                                          If provided position is out of range
      *                                                          If block cannot be placed in specified zone
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function moveBlock(Block $block, $position, $zoneIdentifier = null)
+    public function moveBlock(Block $block, Zone $zone, $position)
     {
         if ($block->isPublished()) {
             throw new BadStateException('block', 'Only draft blocks can be moved.');
         }
 
-        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
-        $persistenceLayout = $this->layoutHandler->loadLayout($block->getLayoutId(), Value::STATUS_DRAFT);
+        if ($zone->isPublished()) {
+            throw new BadStateException('zone', 'You can only move blocks to draft zones.');
+        }
 
         $this->blockValidator->validatePosition($position, 'position', true);
-        $this->blockValidator->validateIdentifier($zoneIdentifier, 'zoneIdentifier');
 
-        if ($zoneIdentifier !== null) {
-            if (!$this->layoutHandler->zoneExists($persistenceLayout->id, $persistenceLayout->status, $zoneIdentifier)) {
-                throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
-            }
+        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
+        $persistenceZone = $this->layoutHandler->loadZone($zone->getLayoutId(), Value::STATUS_DRAFT, $zone->getIdentifier());
+        $persistenceLayout = $this->layoutHandler->loadLayout($zone->getLayoutId(), Value::STATUS_DRAFT);
 
-            if (!$this->isBlockAllowedWithinZone($persistenceBlock->definitionIdentifier, $persistenceLayout->type, $zoneIdentifier)) {
-                throw new BadStateException('zoneIdentifier', 'Block cannot be placed in specified zone.');
-            }
+        if ($persistenceBlock->layoutId !== $persistenceZone->layoutId) {
+            throw new BadStateException('zone', 'You can only move block to zone in the same layout.');
+        }
+
+        if (!$this->isBlockAllowedWithinZone($persistenceBlock->definitionIdentifier, $persistenceLayout->type, $persistenceZone->identifier)) {
+            throw new BadStateException('zoneIdentifier', 'Block cannot be placed in specified zone.');
         }
 
         $this->persistenceHandler->beginTransaction();
 
         try {
-            if ($zoneIdentifier === null || $zoneIdentifier === $persistenceBlock->zoneIdentifier) {
+            if ($persistenceZone->identifier === $persistenceBlock->zoneIdentifier) {
                 $movedBlock = $this->blockHandler->moveBlock(
                     $persistenceBlock,
                     $position
@@ -472,7 +474,7 @@ class BlockService implements BlockServiceInterface
             } else {
                 $movedBlock = $this->blockHandler->moveBlockToZone(
                     $persistenceBlock,
-                    $zoneIdentifier,
+                    $persistenceZone->identifier,
                     $position
                 );
             }

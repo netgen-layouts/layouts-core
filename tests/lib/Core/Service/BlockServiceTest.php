@@ -577,29 +577,9 @@ abstract class BlockServiceTest extends ServiceTestCase
     public function testMoveBlock()
     {
         $movedBlock = $this->blockService->moveBlock(
-            $this->blockService->loadBlockDraft(1),
-            1
-        );
-
-        $this->assertFalse($movedBlock->isPublished());
-        $this->assertInstanceOf(Block::class, $movedBlock);
-        $this->assertEquals(1, $movedBlock->getId());
-        $this->assertEquals(1, $movedBlock->getPosition());
-
-        $secondBlock = $this->blockService->loadBlockDraft(2);
-        $this->assertEquals(0, $secondBlock->getPosition());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
-     */
-    public function testMoveBlockToDifferentZone()
-    {
-        $movedBlock = $this->blockService->moveBlock(
             $this->blockService->loadBlockDraft(2),
-            0,
-            'left'
+            $this->layoutService->loadZoneDraft(1, 'left'),
+            0
         );
 
         $this->assertFalse($movedBlock->isPublished());
@@ -617,6 +597,20 @@ abstract class BlockServiceTest extends ServiceTestCase
     {
         $this->blockService->moveBlock(
             $this->blockService->loadBlock(1),
+            $this->layoutService->loadZoneDraft(1, 'left'),
+            0
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testMoveBlockThrowsBadStateExceptionWithNonDraftZone()
+    {
+        $this->blockService->moveBlock(
+            $this->blockService->loadBlockDraft(1),
+            $this->layoutService->loadZone(1, 'left'),
             0
         );
     }
@@ -630,8 +624,8 @@ abstract class BlockServiceTest extends ServiceTestCase
     {
         $this->blockService->moveBlock(
             $this->blockService->loadBlockDraft(2),
-            9999,
-            'bottom'
+            $this->layoutService->loadZoneDraft(1, 'bottom'),
+            9999
         );
     }
 
@@ -640,12 +634,12 @@ abstract class BlockServiceTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testMoveBlockThrowsBadStateExceptionWhenZoneDoesNotExist()
+    public function testMoveBlockThrowsBadStateExceptionWhenZoneIsInDifferentLayout()
     {
         $this->blockService->moveBlock(
             $this->blockService->loadBlockDraft(2),
-            0,
-            'non_existing'
+            $this->layoutService->loadZoneDraft(2, 'bottom'),
+            0
         );
     }
 
@@ -658,8 +652,8 @@ abstract class BlockServiceTest extends ServiceTestCase
     {
         $this->blockService->moveBlock(
             $this->blockService->loadBlockDraft(1),
-            0,
-            'bottom'
+            $this->layoutService->loadZoneDraft(1, 'bottom'),
+            0
         );
     }
 
