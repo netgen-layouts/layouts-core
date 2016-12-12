@@ -1,7 +1,7 @@
-<div class="col-lg-2 col-md-3 col-sm-4">
+<div class="col-sm-4 col-md-3 col-lg-2">
    {{ ngbm_render_item(result.item, block.itemViewType) }}
 </div>
 
-{% if loop.index0 % number_of_columns == 2 %}<div class="clearfix visible-sm-block"></div>{% endif %}
-{% if loop.index0 % number_of_columns == 3 %}<div class="clearfix visible-md-block"></div>{% endif %}
+{% if loop.index0 % 3 == 2 %}<div class="clearfix visible-sm-block"></div>{% endif %}
+{% if loop.index0 % 4 == 3 %}<div class="clearfix visible-md-block"></div>{% endif %}
 {% if loop.index0 % number_of_columns == 5 %}<div class="clearfix visible-lg-block"></div>{% endif %}
