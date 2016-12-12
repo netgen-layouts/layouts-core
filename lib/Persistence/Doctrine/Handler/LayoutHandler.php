@@ -306,14 +306,22 @@ class LayoutHandler implements LayoutHandlerInterface
         );
 
         $copiedLayout = $this->loadLayout($copiedLayoutId, $layout->status);
+        $copiedLayoutZones = array();
 
         foreach ($layoutZones as $layoutZone) {
+            if (!isset($copiedLayoutZones[$layoutZone->identifier])) {
+                $copiedLayoutZones[$layoutZone->identifier] = $this->loadZone(
+                    $copiedLayout->id,
+                    $copiedLayout->status,
+                    $layoutZone->identifier
+                );
+            }
+
             $zoneBlocks = $this->blockHandler->loadZoneBlocks($layoutZone);
             foreach ($zoneBlocks as $block) {
                 $this->blockHandler->copyBlock(
                     $block,
-                    $copiedLayout,
-                    $layoutZone->identifier
+                    $copiedLayoutZones[$layoutZone->identifier]
                 );
             }
         }

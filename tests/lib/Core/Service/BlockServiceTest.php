@@ -519,27 +519,8 @@ abstract class BlockServiceTest extends ServiceTestCase
     public function testCopyBlock()
     {
         $copiedBlock = $this->blockService->copyBlock(
-            $this->blockService->loadBlockDraft(1)
-        );
-
-        $this->assertFalse($copiedBlock->isPublished());
-        $this->assertInstanceOf(Block::class, $copiedBlock);
-        $this->assertEquals(7, $copiedBlock->getId());
-
-        $copiedCollection = $this->collectionService->loadCollectionDraft(4);
-        $this->assertFalse($copiedCollection->isPublished());
-        $this->assertInstanceOf(Collection::class, $copiedCollection);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
-     */
-    public function testCopyBlockToDifferentZone()
-    {
-        $copiedBlock = $this->blockService->copyBlock(
             $this->blockService->loadBlockDraft(1),
-            'left'
+            $this->layoutService->loadZoneDraft(1, 'left')
         );
 
         $this->assertFalse($copiedBlock->isPublished());
@@ -559,20 +540,20 @@ abstract class BlockServiceTest extends ServiceTestCase
     public function testCopyBlockThrowsBadStateExceptionWithNonDraftBlock()
     {
         $this->blockService->copyBlock(
-            $this->blockService->loadBlock(1)
+            $this->blockService->loadBlock(1),
+            $this->layoutService->loadZoneDraft(1, 'left')
         );
     }
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testCopyBlockWithNonExistingZoneThrowsBadStateException()
+    public function testCopyBlockThrowsBadStateExceptionWithNonDraftZone()
     {
         $this->blockService->copyBlock(
-            $this->blockService->loadBlockDraft(2),
-            'non_existing'
+            $this->blockService->loadBlockDraft(1),
+            $this->layoutService->loadZone(1, 'left')
         );
     }
 
@@ -585,7 +566,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     {
         $this->blockService->copyBlock(
             $this->blockService->loadBlockDraft(1),
-            'bottom'
+            $this->layoutService->loadZoneDraft(1, 'bottom')
         );
     }
 

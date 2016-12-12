@@ -149,10 +149,12 @@ class BlockController extends Controller
      */
     public function copy(Block $block, Request $request)
     {
-        $copiedBlock = $this->blockService->copyBlock(
-            $block,
+        $zone = $this->layoutService->loadZoneDraft(
+            $request->request->get('layout_id'),
             $request->request->get('zone_identifier')
         );
+
+        $copiedBlock = $this->blockService->copyBlock($block, $zone);
 
         return new View($copiedBlock, Version::API_V1, Response::HTTP_CREATED);
     }

@@ -100,19 +100,17 @@ interface BlockService
     public function updateCollectionReference(CollectionReference $collectionReference, Collection $collection);
 
     /**
-     * Copies a specified block. If zone is specified, copied block will be
-     * placed in it, otherwise, it will be placed in the same zone where source block is.
+     * Copies a block to a specified zone.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     * @param string $zoneIdentifier
+     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If block is not a draft
-     *                                                          If zone does not exist in the layout
+     * @throws \Netgen\BlockManager\Exception\BadStateException If block or zone are not drafts
      *                                                          If block cannot be placed in specified zone
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function copyBlock(Block $block, $zoneIdentifier = null);
+    public function copyBlock(Block $block, Zone $zone);
 
     /**
      * Moves a block to specified position inside the zone.

@@ -8,7 +8,6 @@ use Netgen\BlockManager\Persistence\Values\Page\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
 
 interface BlockHandler
@@ -105,15 +104,14 @@ interface BlockHandler
     public function updateCollectionReference(CollectionReference $collectionReference, CollectionReferenceUpdateStruct $updateStruct);
 
     /**
-     * Copies a block to a specified layout.
+     * Copies a block to a specified zone.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
-     * @param string $zoneIdentifier
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $zone
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function copyBlock(Block $block, Layout $layout, $zoneIdentifier);
+    public function copyBlock(Block $block, Zone $zone);
 
     /**
      * Copies all block collections to another block.

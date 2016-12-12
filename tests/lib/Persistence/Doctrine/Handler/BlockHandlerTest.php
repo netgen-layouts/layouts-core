@@ -515,8 +515,7 @@ class BlockHandlerTest extends TestCase
     {
         $copiedBlock = $this->blockHandler->copyBlock(
             $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT),
-            $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
-            'right'
+            $this->layoutHandler->loadZone(1, Value::STATUS_DRAFT, 'right')
         );
 
         $this->assertEquals(
@@ -620,8 +619,7 @@ class BlockHandlerTest extends TestCase
     {
         $copiedBlock = $this->blockHandler->copyBlock(
             $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT),
-            $this->layoutHandler->loadLayout(2, Value::STATUS_DRAFT),
-            'bottom'
+            $this->layoutHandler->loadZone(2, Value::STATUS_DRAFT, 'bottom')
         );
 
         $this->assertEquals(

@@ -14,7 +14,6 @@ use Netgen\BlockManager\Persistence\Values\Page\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
 
 class BlockHandler implements BlockHandlerInterface
@@ -253,30 +252,29 @@ class BlockHandler implements BlockHandlerInterface
     }
 
     /**
-     * Copies a block to a specified layout.
+     * Copies a block to a specified zone.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
-     * @param string $zoneIdentifier
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $zone
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function copyBlock(Block $block, Layout $layout, $zoneIdentifier)
+    public function copyBlock(Block $block, Zone $zone)
     {
         $position = $this->positionHelper->getNextPosition(
             $this->getPositionHelperConditions(
-                $layout->id,
-                $layout->status,
-                $zoneIdentifier
+                $zone->layoutId,
+                $zone->status,
+                $zone->identifier
             )
         );
 
         $createdBlockId = $this->queryHandler->createBlock(
             new BlockCreateStruct(
                 array(
-                    'layoutId' => $layout->id,
-                    'zoneIdentifier' => $zoneIdentifier,
-                    'status' => $layout->status,
+                    'layoutId' => $zone->layoutId,
+                    'zoneIdentifier' => $zone->identifier,
+                    'status' => $zone->status,
                     'position' => $position,
                     'definitionIdentifier' => $block->definitionIdentifier,
                     'viewType' => $block->viewType,
@@ -287,7 +285,7 @@ class BlockHandler implements BlockHandlerInterface
             )
         );
 
-        $copiedBlock = $this->loadBlock($createdBlockId, $layout->status);
+        $copiedBlock = $this->loadBlock($createdBlockId, $zone->status);
 
         $this->copyBlockCollections($block, $copiedBlock);
 

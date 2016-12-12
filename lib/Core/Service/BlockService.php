@@ -380,37 +380,32 @@ class BlockService implements BlockServiceInterface
     }
 
     /**
-     * Copies a specified block. If zone is specified, copied block will be
-     * placed in it, otherwise, it will be placed in the same zone where source block is.
+     * Copies a block to a specified zone.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     * @param string $zoneIdentifier
+     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If block is not a draft
-     *                                                          If zone does not exist in the layout
+     * @throws \Netgen\BlockManager\Exception\BadStateException If block or zone are not drafts
      *                                                          If block cannot be placed in specified zone
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function copyBlock(Block $block, $zoneIdentifier = null)
+    public function copyBlock(Block $block, Zone $zone)
     {
         if ($block->isPublished()) {
             throw new BadStateException('block', 'Only draft blocks can be copied.');
         }
 
+        if ($zone->isPublished()) {
+            throw new BadStateException('zone', 'You can only copy blocks in draft zones.');
+        }
+
         $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
-        $persistenceLayout = $this->layoutHandler->loadLayout($block->getLayoutId(), Value::STATUS_DRAFT);
+        $persistenceZone = $this->layoutHandler->loadZone($zone->getLayoutId(), Value::STATUS_DRAFT, $zone->getIdentifier());
+        $persistenceLayout = $this->layoutHandler->loadLayout($zone->getLayoutId(), Value::STATUS_DRAFT);
 
-        $this->blockValidator->validateIdentifier($zoneIdentifier, 'zoneIdentifier');
-
-        if ($zoneIdentifier !== null) {
-            if (!$this->layoutHandler->zoneExists($persistenceLayout->id, $persistenceLayout->status, $zoneIdentifier)) {
-                throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
-            }
-
-            if (!$this->isBlockAllowedWithinZone($block->getBlockDefinition()->getIdentifier(), $persistenceLayout->type, $zoneIdentifier)) {
-                throw new BadStateException('zoneIdentifier', 'Block cannot be placed in specified zone.');
-            }
+        if (!$this->isBlockAllowedWithinZone($persistenceBlock->definitionIdentifier, $persistenceLayout->type, $persistenceZone->identifier)) {
+            throw new BadStateException('zoneIdentifier', 'Block cannot be placed in specified zone.');
         }
 
         $this->persistenceHandler->beginTransaction();
@@ -418,8 +413,7 @@ class BlockService implements BlockServiceInterface
         try {
             $copiedBlock = $this->blockHandler->copyBlock(
                 $persistenceBlock,
-                $persistenceLayout,
-                $zoneIdentifier !== null ? $zoneIdentifier : $persistenceBlock->zoneIdentifier
+                $persistenceZone
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
@@ -462,7 +456,7 @@ class BlockService implements BlockServiceInterface
                 throw new BadStateException('zoneIdentifier', 'Zone with provided identifier does not exist in the layout.');
             }
 
-            if (!$this->isBlockAllowedWithinZone($block->getBlockDefinition()->getIdentifier(), $persistenceLayout->type, $zoneIdentifier)) {
+            if (!$this->isBlockAllowedWithinZone($persistenceBlock->definitionIdentifier, $persistenceLayout->type, $zoneIdentifier)) {
                 throw new BadStateException('zoneIdentifier', 'Block cannot be placed in specified zone.');
             }
         }
