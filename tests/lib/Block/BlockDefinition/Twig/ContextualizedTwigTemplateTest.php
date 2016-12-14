@@ -19,6 +19,12 @@ class ContextualizedTwigTemplateTest extends TestCase
 
         $templateMock
             ->expects($this->any())
+            ->method('hasBlock')
+            ->with($this->equalTo('block_name'))
+            ->will($this->returnValue(true));
+
+        $templateMock
+            ->expects($this->any())
             ->method('displayBlock')
             ->with($this->equalTo('block_name'))
             ->will($this->returnCallback(
@@ -34,12 +40,41 @@ class ContextualizedTwigTemplateTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate::__construct
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate::renderBlock
+     */
+    public function testRenderBlockNonExistingBlock()
+    {
+        $templateMock = $this->createMock(Twig_Template::class);
+
+        $templateMock
+            ->expects($this->any())
+            ->method('hasBlock')
+            ->with($this->equalTo('block_name'))
+            ->will($this->returnValue(false));
+
+        $templateMock
+            ->expects($this->never())
+            ->method('displayBlock');
+
+        $template = new ContextualizedTwigTemplate($templateMock);
+
+        $this->assertEquals('', $template->renderBlock('block_name'));
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate::renderBlock
      * @expectedException \Exception
      */
     public function testRenderBlockWithException()
     {
         $templateMock = $this->createMock(Twig_Template::class);
+
+        $templateMock
+            ->expects($this->any())
+            ->method('hasBlock')
+            ->with($this->equalTo('block_name'))
+            ->will($this->returnValue(true));
 
         $templateMock
             ->expects($this->any())

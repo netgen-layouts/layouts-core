@@ -37,7 +37,7 @@ class ContextualizedTwigTemplate
     }
 
     /**
-     * Renders the provided block.
+     * Renders the provided block. If block does not exist, an empty string will be returned.
      *
      * @param string $blockName
      *
@@ -47,6 +47,10 @@ class ContextualizedTwigTemplate
      */
     public function renderBlock($blockName)
     {
+        if (!$this->template->hasBlock($blockName, $this->context, $this->blocks)) {
+            return '';
+        }
+
         $level = ob_get_level();
         ob_start();
 
