@@ -49,7 +49,7 @@ abstract class BlockDefinitionHandler implements BlockDefinitionHandlerInterface
      * @param array $groups
      * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $builder
      */
-    public function buildCommonParameters(ParameterBuilderInterface $builder, array $groups = array())
+    protected function buildCommonParameters(ParameterBuilderInterface $builder, array $groups = array())
     {
         $builder->add(
             'css_class',
