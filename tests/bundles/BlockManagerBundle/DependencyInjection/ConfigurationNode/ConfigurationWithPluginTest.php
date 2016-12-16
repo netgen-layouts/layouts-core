@@ -1,38 +1,36 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\Configuration;
+namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\ConfigurationNode;
 
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
+use Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\Stubs\ExtensionPlugin;
 use PHPUnit\Framework\TestCase;
 
-class PageLayoutConfigurationTest extends TestCase
+class ConfigurationWithPluginTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\PageLayoutNode::getConfigurationNode
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
      */
-    public function testPagelayoutSettings()
+    public function testSettings()
     {
         $config = array(
-            array(
-                'pagelayout' => 'pagelayout.html.twig',
-            ),
+            array(),
         );
 
         $expectedConfig = array(
-            'pagelayout' => 'pagelayout.html.twig',
+            'test_config' => 'test',
         );
 
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'pagelayout'
+            'test_config'
         );
     }
 
@@ -44,6 +42,9 @@ class PageLayoutConfigurationTest extends TestCase
      */
     protected function getConfiguration()
     {
-        return new Configuration(new NetgenBlockManagerExtension());
+        $extension = new NetgenBlockManagerExtension();
+        $extension->addPlugin(new ExtensionPlugin());
+
+        return new Configuration($extension);
     }
 }

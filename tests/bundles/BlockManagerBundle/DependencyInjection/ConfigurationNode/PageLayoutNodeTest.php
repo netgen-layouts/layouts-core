@@ -1,36 +1,38 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\Configuration;
+namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\ConfigurationNode;
 
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
-use Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\Stubs\ExtensionPlugin;
 use PHPUnit\Framework\TestCase;
 
-class ConfigurationWithPluginTest extends TestCase
+class PageLayoutNodeTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\PageLayoutNode::getConfigurationNode
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
      */
-    public function testSettings()
+    public function testPagelayoutSettings()
     {
         $config = array(
-            array(),
+            array(
+                'pagelayout' => 'pagelayout.html.twig',
+            ),
         );
 
         $expectedConfig = array(
-            'test_config' => 'test',
+            'pagelayout' => 'pagelayout.html.twig',
         );
 
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'test_config'
+            'pagelayout'
         );
     }
 
@@ -42,9 +44,6 @@ class ConfigurationWithPluginTest extends TestCase
      */
     protected function getConfiguration()
     {
-        $extension = new NetgenBlockManagerExtension();
-        $extension->addPlugin(new ExtensionPlugin());
-
-        return new Configuration($extension);
+        return new Configuration(new NetgenBlockManagerExtension());
     }
 }
