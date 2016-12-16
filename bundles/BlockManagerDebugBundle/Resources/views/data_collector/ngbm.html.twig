@@ -2,6 +2,7 @@
 
 {% block toolbar %}
     {% set layout = collector.data.layout %}
+    {% set rule = collector.data.rule %}
 
     {% set status = 'yellow' %}
     {% if layout %}
@@ -32,6 +33,18 @@
                         {{ layout.name }}
                     </a>
                 </span>
+            </div>
+
+            <div class="sf-toolbar-info-piece">
+                <b>Layout type</b>
+
+                <span>{{ layout.type }}</span>
+            </div>
+
+            <div class="sf-toolbar-info-piece">
+                <b>Rule ID</b>
+
+                <span>{{ rule.id }}</span>
             </div>
         {% endset %}
     {% endif %}
