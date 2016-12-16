@@ -7,6 +7,7 @@ use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 
 /**
  * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\MarkdownHandler::buildParameters
+ * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::buildCommonParameters
  */
 class MarkdownTest extends BaseMarkdownTest
 {

@@ -8,6 +8,7 @@ use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 /**
  * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\TitleHandler::__construct
  * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\TitleHandler::buildParameters
+ * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::buildCommonParameters
  */
 class TitleTest extends BaseTitleTest
 {

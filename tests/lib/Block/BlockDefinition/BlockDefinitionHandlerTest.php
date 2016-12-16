@@ -57,20 +57,4 @@ class BlockDefinitionHandlerTest extends TestCase
     {
         $this->assertEquals(false, $this->handler->hasCollection());
     }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::buildCommonParameters
-     */
-    public function testBuildCommonParameters()
-    {
-        $builder = new ParameterBuilder($this->parameterTypeRegistry);
-
-        $this->handler->buildCommonParameters($builder);
-
-        $this->assertCount(3, $builder);
-
-        $this->assertTrue($builder->has('css_class'));
-        $this->assertTrue($builder->has('css_id'));
-        $this->assertTrue($builder->has('set_container'));
-    }
 }
