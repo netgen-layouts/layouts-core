@@ -116,14 +116,6 @@ class BlockDefinition implements BlockDefinitionInterface
     }
 
     /**
-     * @return \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface
-     */
-    public function getHandler()
-    {
-        return $this->handler;
-    }
-
-    /**
      * Returns the block definition configuration.
      *
      * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration

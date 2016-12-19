@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\Tests\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Parameters\ParameterBuilder;
-use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
 use PHPUnit\Framework\TestCase;
 
@@ -26,8 +25,6 @@ class BlockDefinitionHandlerTest extends TestCase
         $this->handler = $this->getMockForAbstractClass(BlockDefinitionHandler::class);
 
         $this->parameterTypeRegistry = new ParameterTypeRegistry();
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\TextLineType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\BooleanType());
     }
 
     /**

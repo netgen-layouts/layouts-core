@@ -1,0 +1,16 @@
+container_definitions:
+    dynamic:
+        name: 'Dynamic'
+        view_types:
+            dynamic:
+                name: 'Dynamic'
+
+    two_columns:
+        name: 'Two columns'
+        view_types:
+            50_50:
+                name: '50:50'
+            33_66:
+                name: '33:66'
+            66_33:
+                name: '66_33'

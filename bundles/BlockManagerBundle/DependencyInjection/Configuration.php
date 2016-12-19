@@ -61,6 +61,8 @@ class Configuration implements ConfigurationInterface
             new ConfigurationNode\BlockTypeNode(),
             new ConfigurationNode\BlockTypeGroupNode(),
             new ConfigurationNode\LayoutTypeNode(),
+            new ConfigurationNode\ContainerDefinitionNode(),
+            new ConfigurationNode\ContainerTypeNode(),
             new ConfigurationNode\SourceNode(),
             new ConfigurationNode\QueryTypeNode(),
             new ConfigurationNode\PageLayoutNode(),
