@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 
 use DateTime;
-use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
 use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
 use Netgen\BlockManager\API\Values\Page\Zone as APIZone;
 use Netgen\BlockManager\API\Values\Value;
@@ -53,13 +52,6 @@ abstract class LayoutMapperTest extends ServiceTestCase
         $this->assertTrue($zone->isPublished());
 
         $this->assertNotEmpty($zone->getBlocks());
-
-        $position = 0;
-        foreach ($zone->getBlocks() as $block) {
-            $this->assertEquals($position, $block->getPosition());
-            $this->assertInstanceOf(APIBlock::class, $block);
-            ++$position;
-        }
     }
 
     /**
@@ -87,13 +79,6 @@ abstract class LayoutMapperTest extends ServiceTestCase
         $this->assertTrue($zone->isPublished());
 
         $this->assertNotEmpty($zone->getBlocks());
-
-        $position = 0;
-        foreach ($zone->getBlocks() as $block) {
-            $this->assertEquals($position, $block->getPosition());
-            $this->assertInstanceOf(APIBlock::class, $block);
-            ++$position;
-        }
     }
 
     /**

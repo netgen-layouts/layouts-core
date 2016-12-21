@@ -15,27 +15,6 @@ interface Block extends Value, ParameterBasedValue
     public function getId();
 
     /**
-     * Returns layout ID to which this block belongs.
-     *
-     * @return int|string
-     */
-    public function getLayoutId();
-
-    /**
-     * Returns zone identifier to which this block belongs.
-     *
-     * @return string
-     */
-    public function getZoneIdentifier();
-
-    /**
-     * Returns the position of this block in the zone.
-     *
-     * @return int
-     */
-    public function getPosition();
-
-    /**
      * Returns the block definition.
      *
      * @return \Netgen\BlockManager\Block\BlockDefinitionInterface

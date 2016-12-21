@@ -188,9 +188,6 @@
                         <thead>
                             <tr>
                                 <th scope="col">Block ID</th>
-                                <th scope="col">Layout name</th>
-                                <th scope="col">Layout type</th>
-                                <th scope="col">Shared</th>
                                 <th scope="col">Block info</th>
                                 <th scope="col">Template</th>
                             </tr>
@@ -200,16 +197,6 @@
                             <tr>
                                 <th>{{ block.id }}</th>
                                 <td class="font-normal">
-                                    <a href="{{ macros.layout_path(block.layout_id) }}" target="_blank">
-                                        {{ block.layout_name }}
-                                    </a>
-                                </td>
-                                <td class="font-normal">{{ block.layout_type }}</td>
-                                <td class="font-normal">{{ block.layout_shared ? 'Yes' : 'No' }}</td>
-                                <td class="font-normal">
-                                    <div class="metadata">
-                                        <strong>Zone</strong>: {{ block.zone }}
-                                    </div>
                                     <div class="metadata">
                                         <strong>Block definition</strong>: {{ block.definition }}
                                     </div>

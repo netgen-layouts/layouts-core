@@ -32,9 +32,6 @@ abstract class BlockMapperTest extends ServiceTestCase
         $persistenceBlock = new Block(
             array(
                 'id' => 1,
-                'layoutId' => 1,
-                'zoneIdentifier' => 'right',
-                'position' => 3,
                 'definitionIdentifier' => 'text',
                 'parameters' => array(
                     'some_param' => 'some_value',
@@ -55,9 +52,6 @@ abstract class BlockMapperTest extends ServiceTestCase
 
         $this->assertInstanceOf(APIBlock::class, $block);
         $this->assertEquals(1, $block->getId());
-        $this->assertEquals(1, $block->getLayoutId());
-        $this->assertEquals('right', $block->getZoneIdentifier());
-        $this->assertEquals(3, $block->getPosition());
         $this->assertEquals('default', $block->getViewType());
         $this->assertEquals('standard', $block->getItemViewType());
         $this->assertEquals('My block', $block->getName());

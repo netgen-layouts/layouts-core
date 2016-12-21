@@ -10,7 +10,6 @@ use Netgen\BlockManager\API\Values\Page\CollectionReference;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
-use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Parameters\ParameterValue;
 
 abstract class BlockServiceTest extends ServiceTestCase
@@ -156,11 +155,13 @@ abstract class BlockServiceTest extends ServiceTestCase
             0
         );
 
+        $zone = $this->layoutService->loadZoneDraft(1, 'right');
+
         $this->assertFalse($block->isPublished());
         $this->assertInstanceOf(Block::class, $block);
+        $this->assertEquals($block->getId(), $zone->getBlocks()[0]->getId());
 
-        $secondBlock = $this->blockService->loadBlockDraft(1);
-        $this->assertEquals(1, $secondBlock->getPosition());
+        $this->assertEquals(1, $zone->getBlocks()[1]->getId());
 
         $collectionReferences = $this->blockService->loadCollectionReferences($block);
         $this->assertCount(1, $collectionReferences);
@@ -189,11 +190,13 @@ abstract class BlockServiceTest extends ServiceTestCase
             0
         );
 
+        $zone = $this->layoutService->loadZoneDraft(1, 'right');
+
         $this->assertFalse($block->isPublished());
         $this->assertInstanceOf(Block::class, $block);
+        $this->assertEquals($block->getId(), $zone->getBlocks()[0]->getId());
 
-        $secondBlock = $this->blockService->loadBlockDraft(1);
-        $this->assertEquals(1, $secondBlock->getPosition());
+        $this->assertEquals(1, $zone->getBlocks()[1]->getId());
 
         $collectionReferences = $this->blockService->loadCollectionReferences($block);
         $this->assertCount(0, $collectionReferences);
@@ -270,9 +273,11 @@ abstract class BlockServiceTest extends ServiceTestCase
             $this->layoutService->loadZoneDraft(1, 'right')
         );
 
+        $zone = $this->layoutService->loadZoneDraft(1, 'right');
+
         $this->assertFalse($block->isPublished());
         $this->assertInstanceOf(Block::class, $block);
-        $this->assertEquals(2, $block->getPosition());
+        $this->assertEquals($block->getId(), $zone->getBlocks()[2]->getId());
     }
 
     /**
@@ -493,7 +498,6 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertFalse($copiedBlock->isPublished());
         $this->assertInstanceOf(Block::class, $copiedBlock);
         $this->assertEquals(7, $copiedBlock->getId());
-        $this->assertEquals('left', $copiedBlock->getZoneIdentifier());
 
         $copiedCollection = $this->collectionService->loadCollectionDraft(4);
         $this->assertFalse($copiedCollection->isPublished());
@@ -552,8 +556,10 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertFalse($movedBlock->isPublished());
         $this->assertInstanceOf(Block::class, $movedBlock);
         $this->assertEquals(2, $movedBlock->getId());
-        $this->assertEquals('left', $movedBlock->getZoneIdentifier());
-        $this->assertEquals(0, $movedBlock->getPosition());
+
+        $zone = $this->layoutService->loadZoneDraft(1, 'left');
+
+        $this->assertEquals($movedBlock->getId(), $zone->getBlocks()[0]->getId());
     }
 
     /**
@@ -637,8 +643,6 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertEquals('grid', $restoredBlock->getViewType());
         $this->assertEquals('standard_with_intro', $restoredBlock->getItemViewType());
         $this->assertEquals('My published block', $restoredBlock->getName());
-        $this->assertEquals($block->getPosition(), $restoredBlock->getPosition());
-        $this->assertEquals($block->getZoneIdentifier(), $restoredBlock->getZoneIdentifier());
 
         $this->assertEquals(
             array(
@@ -695,21 +699,14 @@ abstract class BlockServiceTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::deleteBlock
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      */
     public function testDeleteBlock()
     {
         $block = $this->blockService->loadBlockDraft(1);
         $this->blockService->deleteBlock($block);
 
-        try {
-            $this->blockService->loadBlockDraft($block->getId());
-            self::fail('Block still exists after deleting.');
-        } catch (NotFoundException $e) {
-            // Do nothing
-        }
-
-        $secondBlock = $this->blockService->loadBlockDraft(2);
-        $this->assertEquals(0, $secondBlock->getPosition());
+        $this->blockService->loadBlockDraft($block->getId());
     }
 
     /**

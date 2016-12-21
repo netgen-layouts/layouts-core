@@ -39,36 +39,6 @@ class Block implements APIBlock
     }
 
     /**
-     * Returns layout ID to which this block belongs.
-     *
-     * @return int|string
-     */
-    public function getLayoutId()
-    {
-        return $this->innerBlock->getLayoutId();
-    }
-
-    /**
-     * Returns zone identifier to which this block belongs.
-     *
-     * @return string
-     */
-    public function getZoneIdentifier()
-    {
-        return $this->innerBlock->getZoneIdentifier();
-    }
-
-    /**
-     * Returns the position of this block in the zone.
-     *
-     * @return int
-     */
-    public function getPosition()
-    {
-        return $this->innerBlock->getPosition();
-    }
-
-    /**
      * Returns the block definition.
      *
      * @return \Netgen\BlockManager\Block\BlockDefinitionInterface

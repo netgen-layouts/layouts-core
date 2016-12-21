@@ -71,36 +71,6 @@ class Block extends ValueObject implements APIBlock
     }
 
     /**
-     * Returns layout ID to which this block belongs.
-     *
-     * @return int|string
-     */
-    public function getLayoutId()
-    {
-        return $this->layoutId;
-    }
-
-    /**
-     * Returns zone identifier to which this block belongs.
-     *
-     * @return string
-     */
-    public function getZoneIdentifier()
-    {
-        return $this->zoneIdentifier;
-    }
-
-    /**
-     * Returns the position of this block in the zone.
-     *
-     * @return int
-     */
-    public function getPosition()
-    {
-        return $this->position;
-    }
-
-    /**
      * Returns the block definition.
      *
      * @return \Netgen\BlockManager\Block\BlockDefinitionInterface

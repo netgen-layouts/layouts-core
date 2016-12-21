@@ -13,9 +13,6 @@ class BlockTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::__construct
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getId
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getLayoutId
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getZoneIdentifier
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getPosition
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getDefinition
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getParameters
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getParameter
@@ -31,9 +28,6 @@ class BlockTest extends TestCase
         $block = new Block();
 
         $this->assertNull($block->getId());
-        $this->assertNull($block->getLayoutId());
-        $this->assertNull($block->getZoneIdentifier());
-        $this->assertNull($block->getPosition());
         $this->assertNull($block->getDefinition());
         $this->assertEquals(array(), $block->getParameters());
         $this->assertFalse($block->hasParameter('test'));
@@ -53,9 +47,6 @@ class BlockTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::__construct
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getId
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getLayoutId
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getZoneIdentifier
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getPosition
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getDefinition
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getParameters
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getParameter
@@ -88,9 +79,6 @@ class BlockTest extends TestCase
         );
 
         $this->assertEquals(42, $block->getId());
-        $this->assertEquals(84, $block->getLayoutId());
-        $this->assertEquals('left', $block->getZoneIdentifier());
-        $this->assertEquals(3, $block->getPosition());
         $this->assertEquals(new BlockDefinition('text'), $block->getDefinition());
         $this->assertEquals('some_value', $block->getParameter('some_param'));
         $this->assertFalse($block->hasParameter('test'));

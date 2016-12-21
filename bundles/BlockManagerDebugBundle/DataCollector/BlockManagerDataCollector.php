@@ -3,7 +3,6 @@
 namespace Netgen\Bundle\BlockManagerDebugBundle\DataCollector;
 
 use Exception;
-use Netgen\BlockManager\API\Repository;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\View\View\BlockViewInterface;
 use Netgen\BlockManager\View\View\LayoutViewInterface;
@@ -20,25 +19,13 @@ class BlockManagerDataCollector extends DataCollector
     protected $globalVariable;
 
     /**
-     * @var \Netgen\BlockManager\API\Repository
-     */
-    protected $repository;
-
-    /**
-     * @var \Netgen\BlockManager\API\Values\Page\Layout[]
-     */
-    protected $loadedLayouts;
-
-    /**
      * Constructor.
      *
      * @param \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable $globalVariable
-     * @param \Netgen\BlockManager\API\Repository $repository
      */
-    public function __construct(GlobalVariable $globalVariable, Repository $repository)
+    public function __construct(GlobalVariable $globalVariable)
     {
         $this->globalVariable = $globalVariable;
-        $this->repository = $repository;
 
         $this->data['rule'] = null;
         $this->data['layout'] = null;
@@ -118,29 +105,10 @@ class BlockManagerDataCollector extends DataCollector
     public function collectBlockView(BlockViewInterface $blockView)
     {
         $block = $blockView->getBlock();
-
-        $layoutCacheKey = $block->getStatus() . '-' . $block->getLayoutId();
-        if (!isset($this->loadedLayouts[$layoutCacheKey])) {
-            $method = $block->isPublished() ? 'loadLayout' : 'loadLayoutDraft';
-
-            $this->loadedLayouts[$layoutCacheKey] = $this
-                ->repository
-                ->getLayoutService()
-                ->$method($block->getLayoutId());
-        }
-
-        $layout = $this->loadedLayouts[$layoutCacheKey];
         $blockDefinition = $block->getDefinition();
 
         $this->data['blocks'][] = array(
             'id' => $block->getId(),
-            'layout_id' => $layout->getId(),
-            'layout_name' => $layout->getName(),
-            'layout_type' => $layout->getLayoutType()->getName(),
-            'layout_shared' => $layout->isShared(),
-            'zone' => $layout->getLayoutType()->getZone(
-                $block->getZoneIdentifier()
-            )->getName(),
             'definition' => $blockDefinition->getConfig()->getName(),
             'view_type' => $blockDefinition->getConfig()->getViewType(
                 $block->getViewType()
