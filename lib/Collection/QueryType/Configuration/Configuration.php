@@ -23,11 +23,6 @@ class Configuration extends ValueObject
     protected $forms = array();
 
     /**
-     * @var array
-     */
-    protected $defaults = array();
-
-    /**
      * Returns the query type name.
      *
      * @return string
@@ -82,25 +77,5 @@ class Configuration extends ValueObject
         }
 
         return $this->forms[$formName];
-    }
-
-    /**
-     * Returns the default query values.
-     *
-     * @return array
-     */
-    public function getDefaults()
-    {
-        return $this->defaults;
-    }
-
-    /**
-     * Returns the default query parameters.
-     *
-     * @return array
-     */
-    public function getDefaultParameters()
-    {
-        return isset($this->defaults['parameters']) ? $this->defaults['parameters'] : array();
     }
 }

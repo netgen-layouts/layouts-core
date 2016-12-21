@@ -31,11 +31,6 @@ class QueryTypeNodeTest extends TestCase
                                 'enabled' => true,
                             ),
                         ),
-                        'defaults' => array(
-                            'parameters' => array(
-                                'param' => 'value',
-                            ),
-                        ),
                     ),
                 ),
             ),
@@ -50,11 +45,6 @@ class QueryTypeNodeTest extends TestCase
                         'full' => array(
                             'type' => 'full_edit',
                             'enabled' => true,
-                        ),
-                    ),
-                    'defaults' => array(
-                        'parameters' => array(
-                            'param' => 'value',
                         ),
                     ),
                 ),
@@ -97,124 +87,6 @@ class QueryTypeNodeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\QueryTypeNode::getConfigurationNode
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
-     */
-    public function testQueryTypeSettingsWithNoDefaultParameters()
-    {
-        $config = array(
-            array(
-                'query_types' => array(
-                    'type' => array(
-                        'defaults' => array(),
-                    ),
-                ),
-            ),
-        );
-
-        $expectedConfig = array(
-            'query_types' => array(
-                'type' => array(
-                    'defaults' => array(
-                        'parameters' => array(),
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertProcessedConfigurationEquals(
-            $config,
-            $expectedConfig,
-            'query_types.*.defaults.parameters'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\QueryTypeNode::getConfigurationNode
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
-     */
-    public function testQueryTypeSettingsWithNoParametersMerge()
-    {
-        $config = array(
-            array(
-                'query_types' => array(
-                    'type' => array(
-                        'defaults' => array(
-                            'parameters' => array(
-                                'param1' => 'value1',
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-            array(
-                'query_types' => array(
-                    'type' => array(
-                        'defaults' => array(
-                            'parameters' => array(
-                                'param2' => 'value2',
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
-
-        $expectedConfig = array(
-            'query_types' => array(
-                'type' => array(
-                    'defaults' => array(
-                        'parameters' => array(
-                            'param2' => 'value2',
-                        ),
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertProcessedConfigurationEquals(
-            $config,
-            $expectedConfig,
-            'query_types.*.defaults.parameters'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\QueryTypeNode::getConfigurationNode
-     */
-    public function testQueryTypeSettingsWithNoDefaults()
-    {
-        $config = array(
-            array(
-                'query_types' => array(
-                    'type' => array(),
-                ),
-            ),
-        );
-
-        $expectedConfig = array(
-            'query_types' => array(
-                'type' => array(
-                    'defaults' => array(
-                        'parameters' => array(),
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertProcessedConfigurationEquals(
-            $config,
-            $expectedConfig,
-            'query_types.*.defaults.parameters'
-        );
-    }
-
-    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\QueryTypeNode::getConfigurationNode
      */
@@ -235,9 +107,7 @@ class QueryTypeNodeTest extends TestCase
     {
         $config = array(
             'query_types' => array(
-                'type' => array(
-                    'defaults' => array(),
-                ),
+                'type' => array(),
             ),
         );
 
@@ -254,7 +124,6 @@ class QueryTypeNodeTest extends TestCase
             'query_types' => array(
                 'type' => array(
                     'name' => '',
-                    'defaults' => array(),
                 ),
             ),
         );

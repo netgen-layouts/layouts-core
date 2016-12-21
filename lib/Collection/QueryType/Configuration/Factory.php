@@ -34,7 +34,6 @@ class Factory
                 'type' => $identifier,
                 'name' => $config['name'],
                 'forms' => $forms,
-                'defaults' => $config['defaults'],
             )
         );
     }

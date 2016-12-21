@@ -37,11 +37,6 @@ class FactoryTest extends TestCase
                     'enabled' => false,
                 ),
             ),
-            'defaults' => array(
-                'parameters' => array(
-                    'param' => 'value',
-                ),
-            ),
         );
 
         $queryType = $this->factory->buildConfig(
@@ -60,11 +55,6 @@ class FactoryTest extends TestCase
                                 'identifier' => 'full',
                                 'type' => 'form_type',
                             )
-                        ),
-                    ),
-                    'defaults' => array(
-                        'parameters' => array(
-                            'param' => 'value',
                         ),
                     ),
                 )
