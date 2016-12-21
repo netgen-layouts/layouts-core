@@ -91,7 +91,7 @@ class DesignEditTypeTest extends FormTestCase
             )
         );
 
-        $this->block = new Block(array('blockDefinition' => $blockDefinition));
+        $this->block = new Block(array('definition' => $blockDefinition));
     }
 
     /**

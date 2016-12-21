@@ -42,7 +42,7 @@ class RenderingExtensionTwigTest extends \Twig_Test_IntegrationTestCase
             ->will(
                 $this->returnCallback(
                     function ($block, $parameters, $context) {
-                        if ($block->getBlockDefinition()->getIdentifier() === 'twig_block') {
+                        if ($block->getDefinition()->getIdentifier() === 'twig_block') {
                             return 'rendered twig block' . PHP_EOL;
                         } elseif ($context === ViewInterface::CONTEXT_DEFAULT) {
                             return 'rendered block' . PHP_EOL;

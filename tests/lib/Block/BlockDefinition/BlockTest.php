@@ -56,7 +56,7 @@ abstract class BlockTest extends ServiceTestCase
         $blockDefinition = $this->createBlockDefinition(array_keys($expectedParameters));
         $blockType = new BlockType(
             array(
-                'blockDefinition' => $blockDefinition,
+                'definition' => $blockDefinition,
             )
         );
 
@@ -97,7 +97,7 @@ abstract class BlockTest extends ServiceTestCase
 
         $blockType = new BlockType(
             array(
-                'blockDefinition' => $blockDefinition,
+                'definition' => $blockDefinition,
             )
         );
 

@@ -20,7 +20,7 @@ class BlockUpdateStructValidatorTest extends ValidatorTestCase
         $this->constraint->payload = new Block(
             array(
                 'viewType' => 'large',
-                'blockDefinition' => new BlockDefinition(
+                'definition' => new BlockDefinition(
                     'block_definition',
                     array('large' => array('standard'))
                 ),

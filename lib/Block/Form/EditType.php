@@ -85,7 +85,7 @@ abstract class EditType extends AbstractType
     protected function addViewTypeForm(FormBuilderInterface $builder, array $options)
     {
         /** @var \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition */
-        $blockDefinition = $options['block']->getBlockDefinition();
+        $blockDefinition = $options['block']->getDefinition();
 
         $this->processViewTypeConfig($blockDefinition);
 
@@ -150,7 +150,7 @@ abstract class EditType extends AbstractType
     protected function addParametersForm(FormBuilderInterface $builder, array $options, array $groups = array())
     {
         /** @var \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition */
-        $blockDefinition = $options['block']->getBlockDefinition();
+        $blockDefinition = $options['block']->getDefinition();
 
         $builder->add(
             'parameters',

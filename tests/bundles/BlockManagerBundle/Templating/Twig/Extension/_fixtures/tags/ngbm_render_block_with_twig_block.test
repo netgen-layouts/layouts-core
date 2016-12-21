@@ -9,7 +9,7 @@
 return array(
     'block' => new \Netgen\BlockManager\Core\Values\Page\Block(
         array(
-            'blockDefinition' => new \Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition(
+            'definition' => new \Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition(
                 'twig_block'
             ),
             'parameters' => array(

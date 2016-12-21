@@ -33,7 +33,7 @@ class Block extends ValueObject implements APIBlock
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
-    protected $blockDefinition;
+    protected $definition;
 
     /**
      * @var bool
@@ -105,9 +105,9 @@ class Block extends ValueObject implements APIBlock
      *
      * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
-    public function getBlockDefinition()
+    public function getDefinition()
     {
-        return $this->blockDefinition;
+        return $this->definition;
     }
 
     /**

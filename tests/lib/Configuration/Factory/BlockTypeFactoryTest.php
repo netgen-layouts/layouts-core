@@ -33,7 +33,7 @@ class BlockTypeFactoryTest extends TestCase
                 array(
                     'identifier' => 'title',
                     'name' => 'Title',
-                    'blockDefinition' => $blockDefinition,
+                    'definition' => $blockDefinition,
                     'defaults' => array(
                         'viewType' => 'default',
                     ),

@@ -15,7 +15,7 @@ class BlockType extends BaseBlockType
     public function __construct(array $properties = array())
     {
         $properties['name'] = $properties['identifier'];
-        $properties['blockDefinition'] = new BlockDefinition($properties['identifier']);
+        $properties['definition'] = new BlockDefinition($properties['identifier']);
 
         parent::__construct($properties);
     }

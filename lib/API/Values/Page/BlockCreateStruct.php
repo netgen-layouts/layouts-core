@@ -9,7 +9,7 @@ class BlockCreateStruct extends ParameterStruct
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
-    public $blockDefinition;
+    public $definition;
 
     /**
      * @var string

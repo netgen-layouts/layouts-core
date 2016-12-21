@@ -50,7 +50,7 @@ class BlockNormalizerTest extends TestCase
                 'layoutId' => 24,
                 'zoneIdentifier' => 'bottom',
                 'position' => 2,
-                'blockDefinition' => new BlockDefinition('text'),
+                'definition' => new BlockDefinition('text'),
                 'parameters' => array(
                     'some_param' => new ParameterValue(
                         array(
@@ -92,7 +92,7 @@ class BlockNormalizerTest extends TestCase
         $this->assertEquals(
             array(
                 'id' => $block->getId(),
-                'definition_identifier' => $block->getBlockDefinition()->getIdentifier(),
+                'definition_identifier' => $block->getDefinition()->getIdentifier(),
                 'name' => $block->getName(),
                 'parameters' => $serializedParams,
                 'view_type' => $block->getViewType(),

@@ -222,7 +222,7 @@ class BlockService implements BlockServiceInterface
 
         if (
             !$this->isBlockAllowedWithinZone(
-                $blockCreateStruct->blockDefinition->getIdentifier(),
+                $blockCreateStruct->definition->getIdentifier(),
                 $persistenceLayout->type,
                 $persistenceZone->identifier
             )
@@ -240,19 +240,19 @@ class BlockService implements BlockServiceInterface
                         'zoneIdentifier' => $persistenceZone->identifier,
                         'status' => $persistenceLayout->status,
                         'position' => $position,
-                        'definitionIdentifier' => $blockCreateStruct->blockDefinition->getIdentifier(),
+                        'definitionIdentifier' => $blockCreateStruct->definition->getIdentifier(),
                         'viewType' => $blockCreateStruct->viewType,
                         'itemViewType' => $blockCreateStruct->itemViewType,
                         'name' => $blockCreateStruct->name,
                         'parameters' => $this->parameterMapper->serializeValues(
-                            $blockCreateStruct->blockDefinition,
+                            $blockCreateStruct->definition,
                             $blockCreateStruct->getParameterValues()
                         ),
                     )
                 )
             );
 
-            if ($blockCreateStruct->blockDefinition->hasCollection()) {
+            if ($blockCreateStruct->definition->hasCollection()) {
                 $collectionCreateStruct = new CollectionCreateStruct();
                 $collectionCreateStruct->type = Collection::TYPE_MANUAL;
 
@@ -319,7 +319,7 @@ class BlockService implements BlockServiceInterface
                         'itemViewType' => $blockUpdateStruct->itemViewType,
                         'name' => $blockUpdateStruct->name,
                         'parameters' => $this->parameterMapper->serializeValues(
-                            $block->getBlockDefinition(),
+                            $block->getDefinition(),
                             $blockUpdateStruct->getParameterValues()
                         ) + $persistenceBlock->parameters,
                     )
@@ -575,7 +575,7 @@ class BlockService implements BlockServiceInterface
      */
     public function newBlockCreateStruct(BlockType $blockType)
     {
-        $blockDefinition = $blockType->getBlockDefinition();
+        $blockDefinition = $blockType->getDefinition();
         $config = $blockDefinition->getConfig();
 
         $viewTypeIdentifier = $blockType->getDefaultViewType();
@@ -592,7 +592,7 @@ class BlockService implements BlockServiceInterface
 
         $blockCreateStruct = new APIBlockCreateStruct(
             array(
-                'blockDefinition' => $blockDefinition,
+                'definition' => $blockDefinition,
                 'name' => $blockType->getDefaultName(),
                 'viewType' => $viewTypeIdentifier,
                 'itemViewType' => $itemViewTypeIdentifier,
@@ -626,7 +626,7 @@ class BlockService implements BlockServiceInterface
         $blockUpdateStruct->itemViewType = $block->getItemViewType();
         $blockUpdateStruct->name = $block->getName();
 
-        $blockDefinition = $block->getBlockDefinition();
+        $blockDefinition = $block->getDefinition();
 
         $blockUpdateStruct->fillValues(
             $blockDefinition,

@@ -12,7 +12,7 @@ class BlockCreateStructTest extends TestCase
     {
         $blockCreateStruct = new BlockCreateStruct();
 
-        $this->assertNull($blockCreateStruct->blockDefinition);
+        $this->assertNull($blockCreateStruct->definition);
         $this->assertNull($blockCreateStruct->viewType);
         $this->assertNull($blockCreateStruct->itemViewType);
         $this->assertNull($blockCreateStruct->name);
@@ -22,14 +22,14 @@ class BlockCreateStructTest extends TestCase
     {
         $blockCreateStruct = new BlockCreateStruct(
             array(
-                'blockDefinition' => new BlockDefinition(),
+                'definition' => new BlockDefinition(),
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
                 'name' => 'My block',
             )
         );
 
-        $this->assertEquals(new BlockDefinition(), $blockCreateStruct->blockDefinition);
+        $this->assertEquals(new BlockDefinition(), $blockCreateStruct->definition);
         $this->assertEquals('default', $blockCreateStruct->viewType);
         $this->assertEquals('standard', $blockCreateStruct->itemViewType);
         $this->assertEquals('My block', $blockCreateStruct->name);

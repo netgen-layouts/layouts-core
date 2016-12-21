@@ -105,7 +105,7 @@ class RenderingExtensionTest extends TestCase
      */
     public function testDisplayBlockReturnsEmptyStringOnException()
     {
-        $block = new Block(array('blockDefinition' => new BlockDefinition('block')));
+        $block = new Block(array('definition' => new BlockDefinition('block')));
 
         $this->viewRendererMock
             ->expects($this->once())
@@ -132,7 +132,7 @@ class RenderingExtensionTest extends TestCase
     public function testDisplayBlockThrowsExceptionInDebug()
     {
         $this->extension->setDebug(true);
-        $block = new Block(array('blockDefinition' => new BlockDefinition('block')));
+        $block = new Block(array('definition' => new BlockDefinition('block')));
 
         $this->viewRendererMock
             ->expects($this->once())

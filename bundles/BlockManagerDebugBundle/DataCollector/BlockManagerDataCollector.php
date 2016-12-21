@@ -130,7 +130,7 @@ class BlockManagerDataCollector extends DataCollector
         }
 
         $layout = $this->loadedLayouts[$layoutCacheKey];
-        $blockDefinition = $block->getBlockDefinition();
+        $blockDefinition = $block->getDefinition();
 
         $this->data['blocks'][] = array(
             'id' => $block->getId(),

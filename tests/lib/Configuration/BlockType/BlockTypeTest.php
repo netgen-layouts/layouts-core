@@ -26,7 +26,7 @@ class BlockTypeTest extends TestCase
             array(
                 'identifier' => 'title',
                 'name' => 'Title',
-                'blockDefinition' => $this->blockDefinition,
+                'definition' => $this->blockDefinition,
                 'defaults' => array(
                     'name' => 'Name',
                     'view_type' => 'default',
@@ -55,11 +55,11 @@ class BlockTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::getBlockDefinition
+     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::getDefinition
      */
-    public function testGetBlockDefinition()
+    public function testGetDefinition()
     {
-        $this->assertEquals($this->blockDefinition, $this->blockType->getBlockDefinition());
+        $this->assertEquals($this->blockDefinition, $this->blockType->getDefinition());
     }
 
     /**

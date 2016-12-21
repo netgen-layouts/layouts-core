@@ -59,7 +59,7 @@ class BlockServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->blockService->createBlock(
-            new BlockCreateStruct(array('blockDefinition' => new BlockDefinition('blockDef'))),
+            new BlockCreateStruct(array('definition' => new BlockDefinition('blockDef'))),
             new Zone(array('published' => false))
         );
     }
@@ -88,7 +88,7 @@ class BlockServiceTest extends ServiceTestCase
             new Block(
                 array(
                     'published' => false,
-                    'blockDefinition' => new BlockDefinition('block_definition'),
+                    'definition' => new BlockDefinition('block_definition'),
                 )
             ),
             new BlockUpdateStruct()

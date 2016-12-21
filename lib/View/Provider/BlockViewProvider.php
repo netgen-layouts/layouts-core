@@ -19,7 +19,7 @@ class BlockViewProvider implements ViewProviderInterface
     public function provideView($valueObject, array $parameters = array())
     {
         /** @var \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition */
-        $blockDefinition = $valueObject->getBlockDefinition();
+        $blockDefinition = $valueObject->getDefinition();
         $dynamicParameters = $blockDefinition->getDynamicParameters($valueObject, $parameters);
         $block = new Block($valueObject, $dynamicParameters);
 

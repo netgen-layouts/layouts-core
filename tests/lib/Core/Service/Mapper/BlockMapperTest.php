@@ -50,7 +50,7 @@ abstract class BlockMapperTest extends ServiceTestCase
 
         $this->assertEquals(
             $this->blockDefinitionRegistry->getBlockDefinition('text'),
-            $block->getBlockDefinition()
+            $block->getDefinition()
         );
 
         $this->assertInstanceOf(APIBlock::class, $block);
@@ -69,7 +69,7 @@ abstract class BlockMapperTest extends ServiceTestCase
                 'css_class' => new ParameterValue(
                     array(
                         'name' => 'css_class',
-                        'parameter' => $block->getBlockDefinition()->getParameters()['css_class'],
+                        'parameter' => $block->getDefinition()->getParameters()['css_class'],
                         'parameterType' => $this->parameterTypeRegistry->getParameterType('text_line'),
                         'value' => null,
                         'isEmpty' => true,
@@ -78,7 +78,7 @@ abstract class BlockMapperTest extends ServiceTestCase
                 'css_id' => new ParameterValue(
                     array(
                         'name' => 'css_id',
-                        'parameter' => $block->getBlockDefinition()->getParameters()['css_id'],
+                        'parameter' => $block->getDefinition()->getParameters()['css_id'],
                         'parameterType' => $this->parameterTypeRegistry->getParameterType('text_line'),
                         'value' => null,
                         'isEmpty' => true,

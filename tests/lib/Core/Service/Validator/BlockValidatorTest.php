@@ -77,7 +77,7 @@ class BlockValidatorTest extends TestCase
             new Block(
                 array(
                     'viewType' => 'large',
-                    'blockDefinition' => new BlockDefinitionStub(
+                    'definition' => new BlockDefinitionStub(
                         'block_definition',
                         array('large' => array('standard'))
                     ),
@@ -92,7 +92,7 @@ class BlockValidatorTest extends TestCase
         return array(
             array(
                 array(
-                    'blockDefinition' => $this->getBlockDefinition(),
+                    'definition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -105,7 +105,7 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'blockDefinition' => null,
+                    'definition' => null,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -118,7 +118,7 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'blockDefinition' => 42,
+                    'definition' => 42,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -131,7 +131,7 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'blockDefinition' => $this->getBlockDefinition(),
+                    'definition' => $this->getBlockDefinition(),
                     'viewType' => 'nonexistent',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -144,7 +144,7 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'blockDefinition' => $this->getBlockDefinition(),
+                    'definition' => $this->getBlockDefinition(),
                     'viewType' => '',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -157,7 +157,7 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'blockDefinition' => $this->getBlockDefinition(),
+                    'definition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'nonexistent',
                     'name' => 'My block',
@@ -170,7 +170,7 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'blockDefinition' => $this->getBlockDefinition(),
+                    'definition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => '',
                     'name' => 'My block',
@@ -183,7 +183,7 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'blockDefinition' => $this->getBlockDefinition(),
+                    'definition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => null,
@@ -196,7 +196,7 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'blockDefinition' => $this->getBlockDefinition(),
+                    'definition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => '',
@@ -209,7 +209,7 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'blockDefinition' => $this->getBlockDefinition(),
+                    'definition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 42,
@@ -222,7 +222,7 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'blockDefinition' => $this->getBlockDefinition(),
+                    'definition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -235,7 +235,7 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'blockDefinition' => $this->getBlockDefinition(),
+                    'definition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -248,7 +248,7 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'blockDefinition' => $this->getBlockDefinition(),
+                    'definition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -260,7 +260,7 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'blockDefinition' => $this->getBlockDefinition(),
+                    'definition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -273,7 +273,7 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'blockDefinition' => $this->getBlockDefinition(),
+                    'definition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -286,7 +286,7 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'blockDefinition' => $this->getBlockDefinition(),
+                    'definition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -298,7 +298,7 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'blockDefinition' => $this->getBlockDefinition(),
+                    'definition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -307,7 +307,7 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'blockDefinition' => $this->getBlockDefinition(),
+                    'definition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -317,7 +317,7 @@ class BlockValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'blockDefinition' => $this->getBlockDefinition(),
+                    'definition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',

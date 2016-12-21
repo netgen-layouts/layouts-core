@@ -47,7 +47,7 @@ class DefinitionTest extends TestCase
             array(
                 'block' => new Block(
                     array(
-                        'blockDefinition' => new BlockDefinition('block'),
+                        'definition' => new BlockDefinition('block'),
                     )
                 ),
             )

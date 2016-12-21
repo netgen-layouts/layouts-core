@@ -37,7 +37,7 @@ class BlockTypeNormalizerTest extends TestCase
             array(
                 'identifier' => 'identifier',
                 'name' => 'Block type',
-                'blockDefinition' => $this->blockDefinition,
+                'definition' => $this->blockDefinition,
                 'defaults' => array(
                     'name' => 'Default name',
                     'view_type' => 'Default view type',

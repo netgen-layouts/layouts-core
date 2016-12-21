@@ -33,7 +33,7 @@ class DefinitionTest extends TestCase
     {
         $block = new Block(
             array(
-                'blockDefinition' => new BlockDefinition('text'),
+                'definition' => new BlockDefinition('text'),
             )
         );
 

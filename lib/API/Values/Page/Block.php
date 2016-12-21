@@ -40,7 +40,7 @@ interface Block extends Value, ParameterBasedValue
      *
      * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
-    public function getBlockDefinition();
+    public function getDefinition();
 
     /**
      * Returns if the block is published.

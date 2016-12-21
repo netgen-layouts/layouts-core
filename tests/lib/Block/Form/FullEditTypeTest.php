@@ -31,7 +31,7 @@ class FullEditTypeTest extends FormTestCase
             array('large' => array('standard'), 'small' => array('standard'))
         );
 
-        $this->block = new Block(array('blockDefinition' => $blockDefinition));
+        $this->block = new Block(array('definition' => $blockDefinition));
     }
 
     /**

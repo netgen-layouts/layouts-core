@@ -22,7 +22,7 @@ class BlockTypeFactory
             array(
                 'identifier' => $identifier,
                 'name' => $config['name'],
-                'blockDefinition' => $blockDefinition,
+                'definition' => $blockDefinition,
                 'defaults' => $config['defaults'],
             )
         );

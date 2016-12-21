@@ -73,9 +73,9 @@ class Block implements APIBlock
      *
      * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
-    public function getBlockDefinition()
+    public function getDefinition()
     {
-        return $this->innerBlock->getBlockDefinition();
+        return $this->innerBlock->getDefinition();
     }
 
     /**

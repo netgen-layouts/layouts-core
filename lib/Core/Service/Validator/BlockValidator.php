@@ -24,12 +24,12 @@ class BlockValidator extends Validator
     public function validateBlockCreateStruct(BlockCreateStruct $blockCreateStruct)
     {
         $this->validate(
-            $blockCreateStruct->blockDefinition,
+            $blockCreateStruct->definition,
             array(
                 new Constraints\NotNull(),
                 new Constraints\Type(array('type' => BlockDefinitionInterface::class)),
             ),
-            'blockDefinition'
+            'definition'
         );
 
         $this->validate(
@@ -37,7 +37,7 @@ class BlockValidator extends Validator
             array(
                 new Constraints\NotBlank(),
                 new Constraints\Type(array('type' => 'string')),
-                new BlockViewType(array('definition' => $blockCreateStruct->blockDefinition)),
+                new BlockViewType(array('definition' => $blockCreateStruct->definition)),
             ),
             'viewType'
         );
@@ -50,7 +50,7 @@ class BlockValidator extends Validator
                 new BlockItemViewType(
                     array(
                         'viewType' => $blockCreateStruct->viewType,
-                        'definition' => $blockCreateStruct->blockDefinition,
+                        'definition' => $blockCreateStruct->definition,
                     )
                 ),
             ),
@@ -72,7 +72,7 @@ class BlockValidator extends Validator
             array(
                 new ParameterStruct(
                     array(
-                        'parameterCollection' => $blockCreateStruct->blockDefinition,
+                        'parameterCollection' => $blockCreateStruct->definition,
                     )
                 ),
             ),

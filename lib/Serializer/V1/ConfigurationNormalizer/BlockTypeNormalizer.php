@@ -26,7 +26,7 @@ class BlockTypeNormalizer implements NormalizerInterface
         return array(
             'identifier' => $blockType->getIdentifier(),
             'name' => $blockType->getName(),
-            'definition_identifier' => $blockType->getBlockDefinition()->getIdentifier(),
+            'definition_identifier' => $blockType->getDefinition()->getIdentifier(),
             'defaults' => $blockType->getDefaults(),
         );
     }

@@ -37,7 +37,7 @@ class BlockUpdateStructValidator extends ConstraintValidator
 
         /** @var \Symfony\Component\Validator\Validator\ContextualValidatorInterface $validator */
         $block = $constraint->payload;
-        $blockDefinition = $block->getBlockDefinition();
+        $blockDefinition = $block->getDefinition();
         $validator = $this->context->getValidator()->inContext($this->context);
 
         if ($value->viewType !== null) {

@@ -19,7 +19,7 @@ class BlockType extends ValueObject
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
-    protected $blockDefinition;
+    protected $definition;
 
     /**
      * @var array
@@ -51,9 +51,9 @@ class BlockType extends ValueObject
      *
      * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
-    public function getBlockDefinition()
+    public function getDefinition()
     {
-        return $this->blockDefinition;
+        return $this->definition;
     }
 
     /**
