@@ -90,8 +90,24 @@ class BlockController extends Controller
             throw new BadStateException('zone_identifier', 'Zone draft does not exist.', $e);
         }
 
+        $blockDefinition = $blockType->getDefinition();
+        $blockDefinitionConfig = $blockDefinition->getConfig();
+
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
+        $blockCreateStruct->name = $blockType->getDefaultName();
+        $blockCreateStruct->fillValues($blockDefinition, $blockType->getDefaultParameters());
+
+        if ($blockDefinitionConfig->hasViewType($blockType->getDefaultViewType())) {
+            $viewType = $blockDefinitionConfig->getViewType($blockType->getDefaultViewType());
+
+            $blockCreateStruct->viewType = $blockType->getDefaultViewType();
+            $blockCreateStruct->itemViewType = $viewType->hasItemViewType($blockType->getDefaultItemViewType()) ?
+                $blockType->getDefaultItemViewType() :
+                $viewType->getItemViewTypeIdentifiers()[0];
+        }
+
         $createdBlock = $this->blockService->createBlock(
-            $this->blockService->newBlockCreateStruct($blockType),
+            $blockCreateStruct,
             $zone,
             $request->request->get('position')
         );

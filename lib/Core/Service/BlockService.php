@@ -11,7 +11,7 @@ use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct as APIBlockUpdateStruc
 use Netgen\BlockManager\API\Values\Page\CollectionReference;
 use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Configuration\BlockType\BlockType;
+use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Core\Service\Mapper\BlockMapper;
 use Netgen\BlockManager\Core\Service\Mapper\ParameterMapper;
@@ -569,39 +569,24 @@ class BlockService implements BlockServiceInterface
     /**
      * Creates a new block create struct.
      *
-     * @param \Netgen\BlockManager\Configuration\BlockType\BlockType $blockType
+     * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition
      *
      * @return \Netgen\BlockManager\API\Values\Page\BlockCreateStruct
      */
-    public function newBlockCreateStruct(BlockType $blockType)
+    public function newBlockCreateStruct(BlockDefinitionInterface $blockDefinition)
     {
-        $blockDefinition = $blockType->getDefinition();
         $config = $blockDefinition->getConfig();
 
-        $viewTypeIdentifier = $blockType->getDefaultViewType();
-        $itemViewTypeIdentifier = $blockType->getDefaultItemViewType();
-
-        if (!$config->hasViewType($viewTypeIdentifier)) {
-            $viewTypeIdentifier = $config->getViewTypeIdentifiers()[0];
-        }
-
+        $viewTypeIdentifier = $config->getViewTypeIdentifiers()[0];
         $viewType = $config->getViewType($viewTypeIdentifier);
-        if (!$viewType->hasItemViewType($itemViewTypeIdentifier)) {
-            $itemViewTypeIdentifier = $viewType->getItemViewTypeIdentifiers()[0];
-        }
+        $itemViewTypeIdentifier = $viewType->getItemViewTypeIdentifiers()[0];
 
         $blockCreateStruct = new APIBlockCreateStruct(
             array(
                 'definition' => $blockDefinition,
-                'name' => $blockType->getDefaultName(),
                 'viewType' => $viewTypeIdentifier,
                 'itemViewType' => $itemViewTypeIdentifier,
             )
-        );
-
-        $blockCreateStruct->fillValues(
-            $blockDefinition,
-            $blockType->getDefaultParameters()
         );
 
         return $blockCreateStruct;

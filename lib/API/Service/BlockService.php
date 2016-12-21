@@ -8,7 +8,7 @@ use Netgen\BlockManager\API\Values\Page\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\CollectionReference;
 use Netgen\BlockManager\API\Values\Page\Zone;
-use Netgen\BlockManager\Configuration\BlockType\BlockType;
+use Netgen\BlockManager\Block\BlockDefinitionInterface;
 
 interface BlockService
 {
@@ -152,11 +152,11 @@ interface BlockService
     /**
      * Creates a new block create struct.
      *
-     * @param \Netgen\BlockManager\Configuration\BlockType\BlockType $blockType
+     * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition
      *
      * @return \Netgen\BlockManager\API\Values\Page\BlockCreateStruct
      */
-    public function newBlockCreateStruct(BlockType $blockType);
+    public function newBlockCreateStruct(BlockDefinitionInterface $blockDefinition);
 
     /**
      * Creates a new block update struct.

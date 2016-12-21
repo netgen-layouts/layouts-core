@@ -6,7 +6,6 @@ use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
-use Netgen\BlockManager\Configuration\BlockType\BlockType;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Exception\ValidationFailedException;
@@ -54,13 +53,7 @@ abstract class BlockTest extends ServiceTestCase
     public function testCreateBlock(array $parameters, array $expectedParameters)
     {
         $blockDefinition = $this->createBlockDefinition(array_keys($expectedParameters));
-        $blockType = new BlockType(
-            array(
-                'definition' => $blockDefinition,
-            )
-        );
-
-        $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockType);
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
         $blockCreateStruct->viewType = 'default';
         $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->fillValues($blockDefinition, $parameters);
@@ -95,13 +88,7 @@ abstract class BlockTest extends ServiceTestCase
             $testedParams !== null ? $testedParams : array_keys($parameters)
         );
 
-        $blockType = new BlockType(
-            array(
-                'definition' => $blockDefinition,
-            )
-        );
-
-        $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockType);
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
         $blockCreateStruct->viewType = 'default';
         $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->fillValues($blockDefinition, $parameters);
