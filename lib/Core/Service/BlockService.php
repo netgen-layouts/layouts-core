@@ -589,6 +589,8 @@ class BlockService implements BlockServiceInterface
             )
         );
 
+        $blockCreateStruct->fillValues($blockDefinition);
+
         return $blockCreateStruct;
     }
 

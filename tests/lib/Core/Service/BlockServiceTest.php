@@ -735,6 +735,10 @@ abstract class BlockServiceTest extends ServiceTestCase
                     'definition' => $blockDefinition,
                     'viewType' => 'small',
                     'itemViewType' => 'standard',
+                    'parameterValues' => array(
+                        'css_class' => null,
+                        'css_id' => null,
+                    ),
                 )
             ),
             $this->blockService->newBlockCreateStruct(
