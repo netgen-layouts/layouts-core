@@ -24,6 +24,33 @@ class BlockDefinitionFactory
         Configuration $config,
         ParameterBuilderInterface $parameterBuilder
     ) {
+        // Parameter builder is a one use object, hence the clone
+        $dynamicPlaceholderBuilder = clone $parameterBuilder;
+
+        $handler->buildDynamicPlaceholderParameters($dynamicPlaceholderBuilder);
+        $dynamicPlaceholderParameters = $dynamicPlaceholderBuilder->buildParameters();
+
+        $placeholderIdentifiers = $handler->getPlaceholderIdentifiers();
+
+        $placeholders = array();
+        $placeholderBuilders = array();
+
+        foreach ($placeholderIdentifiers as $placeholderIdentifier) {
+            // Parameter builder is a one use object, hence the clone
+            $placeholderBuilders[$placeholderIdentifier] = clone $parameterBuilder;
+        }
+
+        $handler->buildPlaceholderParameters($placeholderBuilders);
+
+        foreach ($placeholderIdentifiers as $placeholderIdentifier) {
+            $placeholders[$placeholderIdentifier] = new PlaceholderDefinition(
+                array(
+                    'identifier' => $placeholderIdentifier,
+                    'parameters' => $placeholderBuilders[$placeholderIdentifier]->buildParameters(),
+                )
+            );
+        }
+
         $handler->buildParameters($parameterBuilder);
         $parameters = $parameterBuilder->buildParameters();
 
@@ -32,6 +59,13 @@ class BlockDefinitionFactory
                 'identifier' => $identifier,
                 'handler' => $handler,
                 'config' => $config,
+                'placeholders' => $placeholders,
+                'dynamicPlaceholder' => new PlaceholderDefinition(
+                    array(
+                        'identifier' => 'dynamic',
+                        'parameters' => $dynamicPlaceholderParameters,
+                    )
+                ),
                 'parameters' => $parameters,
             )
         );

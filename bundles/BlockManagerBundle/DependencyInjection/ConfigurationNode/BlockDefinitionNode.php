@@ -5,6 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode
 use Netgen\BlockManager\Block\Form\ContentEditType;
 use Netgen\BlockManager\Block\Form\DesignEditType;
 use Netgen\BlockManager\Block\Form\FullEditType;
+use Netgen\BlockManager\Block\Form\PlaceholderEditType;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNodeInterface;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
@@ -87,6 +88,22 @@ class BlockDefinitionNode implements ConfigurationNodeInterface
                                     ->scalarNode('type')
                                         ->treatNullLike(ContentEditType::class)
                                         ->defaultValue(ContentEditType::class)
+                                        ->cannotBeEmpty()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                    ->arrayNode('placeholder_forms')
+                        ->addDefaultsIfNotSet()
+                        ->children()
+                            ->arrayNode('full')
+                                ->canBeDisabled()
+                                ->addDefaultsIfNotSet()
+                                ->children()
+                                    ->scalarNode('type')
+                                        ->treatNullLike(PlaceholderEditType::class)
+                                        ->defaultValue(PlaceholderEditType::class)
                                         ->cannotBeEmpty()
                                     ->end()
                                 ->end()

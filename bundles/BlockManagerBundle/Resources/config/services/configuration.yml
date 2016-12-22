@@ -15,9 +15,6 @@ services:
     netgen_block_manager.configuration.registry.layout_type:
         class: Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry
 
-    netgen_block_manager.configuration.registry.container_type:
-        class: Netgen\BlockManager\Configuration\Registry\ContainerTypeRegistry
-
     netgen_block_manager.configuration.registry.block_type:
         class: Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry
 
@@ -32,12 +29,6 @@ services:
     netgen_block_manager.configuration.layout_type:
         class: Netgen\BlockManager\Configuration\LayoutType\LayoutType
         factory: [Netgen\BlockManager\Configuration\Factory\LayoutTypeFactory, buildLayoutType]
-        abstract: true
-        synthetic: true
-
-    netgen_block_manager.configuration.container_type:
-        class: Netgen\BlockManager\Configuration\ContainerType\ContainerType
-        factory: [Netgen\BlockManager\Configuration\Factory\ContainerTypeFactory, buildContainerType]
         abstract: true
         synthetic: true
 

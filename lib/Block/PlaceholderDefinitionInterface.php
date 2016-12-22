@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Layout\Container;
+namespace Netgen\BlockManager\Block;
 
 use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
 

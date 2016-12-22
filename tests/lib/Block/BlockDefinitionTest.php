@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Block;
 
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
+use Netgen\BlockManager\Block\PlaceholderDefinition;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use PHPUnit\Framework\TestCase;
@@ -34,6 +35,11 @@ class BlockDefinitionTest extends TestCase
         $this->blockDefinition = new BlockDefinition(
             array(
                 'identifier' => 'block_definition',
+                'placeholders' => array(
+                    'left' => new PlaceholderDefinition(array('identifier' => 'left')),
+                    'right' => new PlaceholderDefinition(array('identifier' => 'right')),
+                ),
+                'dynamicPlaceholder' => new PlaceholderDefinition(array('identifier' => 'dynamic')),
                 'handler' => $this->handler,
                 'config' => $this->configMock,
             )
@@ -46,6 +52,60 @@ class BlockDefinitionTest extends TestCase
     public function testGetIdentifier()
     {
         $this->assertEquals('block_definition', $this->blockDefinition->getIdentifier());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition::getPlaceholders
+     */
+    public function testGetPlaceholders()
+    {
+        $this->assertEquals(
+            array(
+                'left' => new PlaceholderDefinition(array('identifier' => 'left')),
+                'right' => new PlaceholderDefinition(array('identifier' => 'right')),
+            ),
+            $this->blockDefinition->getPlaceholders()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition::getPlaceholder
+     */
+    public function testGetPlaceholder()
+    {
+        $this->assertEquals(
+            new PlaceholderDefinition(array('identifier' => 'left')),
+            $this->blockDefinition->getPlaceholder('left')
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition::getPlaceholder
+     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     */
+    public function testGetPlaceholderThrowsInvalidArgumentException()
+    {
+        $this->blockDefinition->getPlaceholder('unknown');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition::hasPlaceholder
+     */
+    public function testHasPlaceholder()
+    {
+        $this->assertTrue($this->blockDefinition->hasPlaceholder('left'));
+        $this->assertFalse($this->blockDefinition->hasPlaceholder('unknown'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition::getDynamicPlaceholder
+     */
+    public function testGetDynamicPlaceholder()
+    {
+        $this->assertEquals(
+            new PlaceholderDefinition(array('identifier' => 'dynamic')),
+            $this->blockDefinition->getDynamicPlaceholder()
+        );
     }
 
     /**

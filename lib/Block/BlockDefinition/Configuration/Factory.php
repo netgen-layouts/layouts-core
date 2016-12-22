@@ -15,6 +15,7 @@ class Factory
     public static function buildConfig($identifier, array $config)
     {
         $forms = array();
+        $placeholderForms = array();
         $viewTypes = array();
 
         foreach ($config['forms'] as $formIdentifier => $formConfig) {
@@ -23,6 +24,19 @@ class Factory
             }
 
             $forms[$formIdentifier] = new Form(
+                array(
+                    'identifier' => $formIdentifier,
+                    'type' => $formConfig['type'],
+                )
+            );
+        }
+
+        foreach ($config['placeholder_forms'] as $formIdentifier => $formConfig) {
+            if (!$formConfig['enabled']) {
+                continue;
+            }
+
+            $placeholderForms[$formIdentifier] = new Form(
                 array(
                     'identifier' => $formIdentifier,
                     'type' => $formConfig['type'],
@@ -60,6 +74,7 @@ class Factory
                 'identifier' => $identifier,
                 'name' => $config['name'],
                 'forms' => $forms,
+                'placeholderForms' => $placeholderForms,
                 'viewTypes' => $viewTypes,
             )
         );

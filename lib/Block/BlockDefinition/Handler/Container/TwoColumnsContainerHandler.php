@@ -1,11 +1,11 @@
 <?php
 
-namespace Netgen\BlockManager\Layout\Container\ContainerDefinition\Handler;
+namespace Netgen\BlockManager\Block\BlockDefinition\Handler\Container;
 
-use Netgen\BlockManager\Layout\Container\ContainerDefinition\ContainerDefinitionHandler;
+use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 
-class TwoColumnsContainerHandler extends ContainerDefinitionHandler
+class TwoColumnsContainerHandler extends BlockDefinitionHandler
 {
     /**
      * Builds the parameters by using provided parameter builder.
@@ -27,6 +27,16 @@ class TwoColumnsContainerHandler extends ContainerDefinitionHandler
         foreach ($builders as $builder) {
             $this->buildCommonParameters($builder);
         }
+    }
+
+    /**
+     * Returns if this block definition is a container.
+     *
+     * @return bool
+     */
+    public function isContainer()
+    {
+        return true;
     }
 
     /**

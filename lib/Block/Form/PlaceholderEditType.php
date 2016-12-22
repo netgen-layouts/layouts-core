@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Layout\Container\Form;
+namespace Netgen\BlockManager\Block\Form;
 
 use Netgen\BlockManager\Form\AbstractType;
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
@@ -43,7 +43,7 @@ class PlaceholderEditType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        /** @var \Netgen\BlockManager\Layout\Container\PlaceholderDefinitionInterface $placeholderDefinition */
+        /** @var \Netgen\BlockManager\Block\PlaceholderDefinitionInterface $placeholderDefinition */
         $placeholderDefinition = $options['placeholder']->getPlaceholderDefinition();
 
         $builder->add(

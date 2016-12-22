@@ -68,8 +68,6 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
         $this->load();
 
         $this->assertContainerBuilderHasParameter('netgen_block_manager.route_prefix', '/bm');
-        $this->assertContainerBuilderHasParameter('netgen_block_manager.container_definitions', array());
-        $this->assertContainerBuilderHasParameter('netgen_block_manager.container_types', array());
         $this->assertContainerBuilderHasParameter('netgen_block_manager.block_definitions', array());
         $this->assertContainerBuilderHasParameter('netgen_block_manager.block_types', array());
         $this->assertContainerBuilderHasParameter('netgen_block_manager.block_type_groups', array());
@@ -92,7 +90,6 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
     {
         $this->load();
 
-        $this->assertContainerBuilderHasService('netgen_block_manager.container.registry.container_definition');
         $this->assertContainerBuilderHasService('netgen_block_manager.block.registry.block_definition');
         $this->assertContainerBuilderHasService('netgen_block_manager.controller.base');
         $this->assertContainerBuilderHasService('netgen_block_manager.event_listener.exception_conversion');
@@ -163,9 +160,6 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
 
         $this->assertArrayHasKey('block_types', $config);
         $this->assertArrayHasKey('grid', $config['block_types']);
-
-        $this->assertArrayHasKey('container_definitions', $config);
-        $this->assertArrayHasKey('dynamic', $config['container_definitions']);
 
         $this->assertArrayHasKey('layout_types', $config);
         $this->assertArrayHasKey('layout_1', $config['layout_types']);

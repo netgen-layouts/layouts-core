@@ -1,14 +1,14 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Layout\Container;
+namespace Netgen\BlockManager\Tests\Block;
 
-use Netgen\BlockManager\Layout\Container\PlaceholderDefinition;
+use Netgen\BlockManager\Block\PlaceholderDefinition;
 use PHPUnit\Framework\TestCase;
 
 class PlaceholderDefinitionTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Container\PlaceholderDefinition
+     * @var \Netgen\BlockManager\Block\PlaceholderDefinition
      */
     protected $placeholderDefinition;
 
@@ -22,7 +22,7 @@ class PlaceholderDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Container\PlaceholderDefinition::getIdentifier
+     * @covers \Netgen\BlockManager\Block\PlaceholderDefinition::getIdentifier
      */
     public function testGetIdentifier()
     {

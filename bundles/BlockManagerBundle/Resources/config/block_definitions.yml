@@ -129,3 +129,19 @@ block_definitions:
                     - css_class
                     - css_id
                     - set_container
+
+    dynamic_container:
+        name: 'Dynamic container'
+        view_types:
+            dynamic_container:
+                name: 'Dynamic container'
+
+    two_columns_container:
+        name: 'Two columns container'
+        view_types:
+            50_50:
+                name: '50:50'
+            33_66:
+                name: '33:66'
+            66_33:
+                name: '66_33'

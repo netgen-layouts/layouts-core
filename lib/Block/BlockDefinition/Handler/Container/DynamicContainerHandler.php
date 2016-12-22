@@ -1,11 +1,11 @@
 <?php
 
-namespace Netgen\BlockManager\Layout\Container\ContainerDefinition\Handler;
+namespace Netgen\BlockManager\Block\BlockDefinition\Handler\Container;
 
-use Netgen\BlockManager\Layout\Container\ContainerDefinition\DynamicContainerDefinitionHandler;
+use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 
-class DynamicContainerHandler extends DynamicContainerDefinitionHandler
+class DynamicContainerHandler extends BlockDefinitionHandler
 {
     /**
      * Builds the parameters by using provided parameter builder.
@@ -28,12 +28,22 @@ class DynamicContainerHandler extends DynamicContainerDefinitionHandler
     }
 
     /**
-     * Returns placeholder identifiers.
+     * Returns if this block definition is a container.
      *
-     * @return array
+     * @return bool
      */
-    public function getPlaceholderIdentifiers()
+    public function isContainer()
     {
-        return array();
+        return true;
+    }
+
+    /**
+     * Returns if this block definition is a dynamic container.
+     *
+     * @return bool
+     */
+    public function isDynamicContainer()
+    {
+        return true;
     }
 }

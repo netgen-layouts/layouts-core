@@ -14,6 +14,11 @@ class BlockDefinitionFactoryTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
+    protected $handlerMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $configMock;
 
     /**
@@ -23,6 +28,7 @@ class BlockDefinitionFactoryTest extends TestCase
 
     public function setUp()
     {
+        $this->handlerMock = $this->createMock(BlockDefinitionHandlerInterface::class);
         $this->configMock = $this->createMock(Configuration::class);
         $this->parameterBuilderMock = $this->createMock(ParameterBuilderInterface::class);
     }
@@ -32,9 +38,14 @@ class BlockDefinitionFactoryTest extends TestCase
      */
     public function testBuildBlockDefinition()
     {
+        $this->handlerMock
+            ->expects($this->any())
+            ->method('getPlaceholderIdentifiers')
+            ->will($this->returnValue(array()));
+
         $blockDefinition = BlockDefinitionFactory::buildBlockDefinition(
             'definition',
-            $this->createMock(BlockDefinitionHandlerInterface::class),
+            $this->handlerMock,
             $this->configMock,
             $this->parameterBuilderMock
         );

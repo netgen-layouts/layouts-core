@@ -38,6 +38,16 @@ class FactoryTest extends TestCase
                     'enabled' => false,
                 ),
             ),
+            'placeholder_forms' => array(
+                'full' => array(
+                    'type' => 'placeholder_form_type',
+                    'enabled' => true,
+                ),
+                'other' => array(
+                    'type' => 'type',
+                    'enabled' => false,
+                ),
+            ),
             'view_types' => array(
                 'large' => array(
                     'name' => 'Large',
@@ -76,6 +86,14 @@ class FactoryTest extends TestCase
                             array(
                                 'identifier' => 'content',
                                 'type' => 'form_type',
+                            )
+                        ),
+                    ),
+                    'placeholderForms' => array(
+                        'full' => new Form(
+                            array(
+                                'identifier' => 'full',
+                                'type' => 'placeholder_form_type',
                             )
                         ),
                     ),
