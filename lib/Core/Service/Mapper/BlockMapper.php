@@ -63,9 +63,6 @@ class BlockMapper extends Mapper
 
         $blockData = array(
             'id' => $block->id,
-            'layoutId' => $block->layoutId,
-            'zoneIdentifier' => $block->zoneIdentifier,
-            'position' => $block->position,
             'definition' => $blockDefinition,
             'parameters' => $this->parameterMapper->mapParameters(
                 $blockDefinition,

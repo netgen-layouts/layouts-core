@@ -16,21 +16,6 @@ class Block extends ValueObject implements APIBlock
     protected $id;
 
     /**
-     * @var int|string
-     */
-    protected $layoutId;
-
-    /**
-     * @var string
-     */
-    protected $zoneIdentifier;
-
-    /**
-     * @var int
-     */
-    protected $position;
-
-    /**
      * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
     protected $definition;
