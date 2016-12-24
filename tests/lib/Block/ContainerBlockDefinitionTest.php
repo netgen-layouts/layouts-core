@@ -5,11 +5,10 @@ namespace Netgen\BlockManager\Tests\Block;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\PlaceholderDefinition;
-use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
+use Netgen\BlockManager\Tests\Block\Stubs\ContainerBlockDefinitionHandler;
 use PHPUnit\Framework\TestCase;
 
-class BlockDefinitionTest extends TestCase
+class ContainerBlockDefinitionTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface
@@ -28,7 +27,7 @@ class BlockDefinitionTest extends TestCase
 
     public function setUp()
     {
-        $this->handler = new BlockDefinitionHandler();
+        $this->handler = new ContainerBlockDefinitionHandler();
 
         $this->configMock = $this->createMock(Configuration::class);
 
@@ -47,28 +46,37 @@ class BlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::getIdentifier
-     */
-    public function testGetIdentifier()
-    {
-        $this->assertEquals('block_definition', $this->blockDefinition->getIdentifier());
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition::getPlaceholders
      */
     public function testGetPlaceholders()
     {
-        $this->assertEquals(array(), $this->blockDefinition->getPlaceholders());
+        $this->assertEquals(
+            array(
+                'left' => new PlaceholderDefinition(array('identifier' => 'left')),
+                'right' => new PlaceholderDefinition(array('identifier' => 'right')),
+            ),
+            $this->blockDefinition->getPlaceholders()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition::getPlaceholder
+     */
+    public function testGetPlaceholder()
+    {
+        $this->assertEquals(
+            new PlaceholderDefinition(array('identifier' => 'left')),
+            $this->blockDefinition->getPlaceholder('left')
+        );
     }
 
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition::getPlaceholder
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      */
-    public function testGetPlaceholder()
+    public function testGetPlaceholderThrowsInvalidArgumentException()
     {
-        $this->blockDefinition->getPlaceholder('left');
+        $this->blockDefinition->getPlaceholder('unknown');
     }
 
     /**
@@ -76,7 +84,8 @@ class BlockDefinitionTest extends TestCase
      */
     public function testHasPlaceholder()
     {
-        $this->assertFalse($this->blockDefinition->hasPlaceholder('left'));
+        $this->assertTrue($this->blockDefinition->hasPlaceholder('left'));
+        $this->assertFalse($this->blockDefinition->hasPlaceholder('unknown'));
     }
 
     /**
@@ -92,7 +101,7 @@ class BlockDefinitionTest extends TestCase
      */
     public function testIsContainer()
     {
-        $this->assertFalse($this->blockDefinition->isContainer());
+        $this->assertTrue($this->blockDefinition->isContainer());
     }
 
     /**
@@ -101,34 +110,5 @@ class BlockDefinitionTest extends TestCase
     public function testIsDynamicContainer()
     {
         $this->assertFalse($this->blockDefinition->isDynamicContainer());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::hasCollection
-     */
-    public function testHasCollection()
-    {
-        $this->assertTrue($this->blockDefinition->hasCollection());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::getDynamicParameters
-     */
-    public function testGetDynamicParameters()
-    {
-        $this->assertEquals(
-            array(
-                'definition_param' => 'definition_value',
-            ),
-            $this->blockDefinition->getDynamicParameters(new Block())
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::getConfig
-     */
-    public function testGetConfig()
-    {
-        $this->assertEquals($this->configMock, $this->blockDefinition->getConfig());
     }
 }

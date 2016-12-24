@@ -5,11 +5,10 @@ namespace Netgen\BlockManager\Tests\Block;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\PlaceholderDefinition;
-use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
+use Netgen\BlockManager\Tests\Block\Stubs\DynamicContainerBlockDefinitionHandler;
 use PHPUnit\Framework\TestCase;
 
-class BlockDefinitionTest extends TestCase
+class DynamicContainerBlockDefinitionTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface
@@ -28,30 +27,18 @@ class BlockDefinitionTest extends TestCase
 
     public function setUp()
     {
-        $this->handler = new BlockDefinitionHandler();
+        $this->handler = new DynamicContainerBlockDefinitionHandler();
 
         $this->configMock = $this->createMock(Configuration::class);
 
         $this->blockDefinition = new BlockDefinition(
             array(
                 'identifier' => 'block_definition',
-                'placeholders' => array(
-                    'left' => new PlaceholderDefinition(array('identifier' => 'left')),
-                    'right' => new PlaceholderDefinition(array('identifier' => 'right')),
-                ),
                 'dynamicPlaceholder' => new PlaceholderDefinition(array('identifier' => 'dynamic')),
                 'handler' => $this->handler,
                 'config' => $this->configMock,
             )
         );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::getIdentifier
-     */
-    public function testGetIdentifier()
-    {
-        $this->assertEquals('block_definition', $this->blockDefinition->getIdentifier());
     }
 
     /**
@@ -84,7 +71,10 @@ class BlockDefinitionTest extends TestCase
      */
     public function testGetDynamicPlaceholder()
     {
-        $this->assertNull($this->blockDefinition->getDynamicPlaceholder());
+        $this->assertEquals(
+            new PlaceholderDefinition(array('identifier' => 'dynamic')),
+            $this->blockDefinition->getDynamicPlaceholder()
+        );
     }
 
     /**
@@ -92,7 +82,7 @@ class BlockDefinitionTest extends TestCase
      */
     public function testIsContainer()
     {
-        $this->assertFalse($this->blockDefinition->isContainer());
+        $this->assertTrue($this->blockDefinition->isContainer());
     }
 
     /**
@@ -100,35 +90,6 @@ class BlockDefinitionTest extends TestCase
      */
     public function testIsDynamicContainer()
     {
-        $this->assertFalse($this->blockDefinition->isDynamicContainer());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::hasCollection
-     */
-    public function testHasCollection()
-    {
-        $this->assertTrue($this->blockDefinition->hasCollection());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::getDynamicParameters
-     */
-    public function testGetDynamicParameters()
-    {
-        $this->assertEquals(
-            array(
-                'definition_param' => 'definition_value',
-            ),
-            $this->blockDefinition->getDynamicParameters(new Block())
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::getConfig
-     */
-    public function testGetConfig()
-    {
-        $this->assertEquals($this->configMock, $this->blockDefinition->getConfig());
+        $this->assertTrue($this->blockDefinition->isDynamicContainer());
     }
 }

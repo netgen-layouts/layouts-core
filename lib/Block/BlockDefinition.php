@@ -53,6 +53,10 @@ class BlockDefinition extends ValueObject implements BlockDefinitionInterface
      */
     public function getPlaceholders()
     {
+        if (!$this->isContainer() || $this->isDynamicContainer()) {
+            return array();
+        }
+
         return $this->placeholders;
     }
 
@@ -67,14 +71,20 @@ class BlockDefinition extends ValueObject implements BlockDefinitionInterface
      */
     public function getPlaceholder($placeholderIdentifier)
     {
-        if (!$this->hasPlaceholder($placeholderIdentifier)) {
-            throw new InvalidArgumentException(
-                'placeholderIdentifier',
-                sprintf(
-                    'Placeholder with "%s" identifier does not exist in block definition.',
-                    $placeholderIdentifier
-                )
+        $exceptionMessage = null;
+        if (!$this->isContainer()) {
+            $exceptionMessage = 'Block definition is not a container and does not have any placeholders.';
+        } elseif ($this->isDynamicContainer()) {
+            $exceptionMessage = 'Block definition is a dynamic container and does not have any placeholders.';
+        } elseif (!$this->hasPlaceholder($placeholderIdentifier)) {
+            $exceptionMessage = sprintf(
+                'Placeholder with "%s" identifier does not exist in block definition.',
+                $placeholderIdentifier
             );
+        }
+
+        if ($exceptionMessage !== null) {
+            throw new InvalidArgumentException('placeholderIdentifier', $exceptionMessage);
         }
 
         return $this->placeholders[$placeholderIdentifier];
@@ -89,6 +99,10 @@ class BlockDefinition extends ValueObject implements BlockDefinitionInterface
      */
     public function hasPlaceholder($placeholderIdentifier)
     {
+        if (!$this->isContainer() || $this->isDynamicContainer()) {
+            return false;
+        }
+
         return isset($this->placeholders[$placeholderIdentifier]);
     }
 
@@ -99,6 +113,10 @@ class BlockDefinition extends ValueObject implements BlockDefinitionInterface
      */
     public function getDynamicPlaceholder()
     {
+        if (!$this->isDynamicContainer()) {
+            return null;
+        }
+
         return $this->dynamicPlaceholder;
     }
 
@@ -122,7 +140,11 @@ class BlockDefinition extends ValueObject implements BlockDefinitionInterface
      */
     public function isContainer()
     {
-        return $this->handler->isContainer();
+        if (!$this->handler->isContainer()) {
+            return false;
+        }
+
+        return !empty($this->placeholders) || $this->handler->isDynamicContainer();
     }
 
     /**
@@ -132,7 +154,11 @@ class BlockDefinition extends ValueObject implements BlockDefinitionInterface
      */
     public function isDynamicContainer()
     {
-        return $this->handler->isContainer() && $this->handler->isDynamicContainer();
+        if (!$this->handler->isContainer()) {
+            return false;
+        }
+
+        return $this->handler->isDynamicContainer() && empty($this->placeholders);
     }
 
     /**

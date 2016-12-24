@@ -76,6 +76,30 @@ class BlockDefinitionHandlerTest extends TestCase
      */
     public function testHasCollection()
     {
-        $this->assertEquals(false, $this->handler->hasCollection());
+        $this->assertFalse($this->handler->hasCollection());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::isContainer
+     */
+    public function testIsContainer()
+    {
+        $this->assertFalse($this->handler->isContainer());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::isDynamicContainer
+     */
+    public function testIsDynamicContainer()
+    {
+        $this->assertFalse($this->handler->isDynamicContainer());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::getPlaceholderIdentifiers
+     */
+    public function testGetPlaceholderIdentifiers()
+    {
+        $this->assertEquals(array(), $this->handler->getPlaceholderIdentifiers());
     }
 }
