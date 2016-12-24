@@ -582,6 +582,27 @@ abstract class BlockServiceTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
+     */
+    public function testMoveBlockToDifferentZone()
+    {
+        $movedBlock = $this->blockService->moveBlock(
+            $this->blockService->loadBlockDraft(32),
+            $this->layoutService->loadZoneDraft(1, 'right'),
+            0
+        );
+
+        $this->assertFalse($movedBlock->isPublished());
+        $this->assertInstanceOf(Block::class, $movedBlock);
+        $this->assertEquals(32, $movedBlock->getId());
+
+        $zone = $this->layoutService->loadZoneDraft(1, 'right');
+
+        $this->assertEquals($movedBlock->getId(), $zone->getBlocks()[0]->getId());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testMoveBlockThrowsBadStateExceptionWithNonDraftBlock()
