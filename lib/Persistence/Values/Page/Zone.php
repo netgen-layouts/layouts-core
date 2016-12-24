@@ -28,6 +28,13 @@ class Zone extends Value
     public $status;
 
     /**
+     * ID of the root block related to the zone.
+     *
+     * @var int
+     */
+    public $rootBlockId;
+
+    /**
      * ID of layout this zone is linked to.
      *
      * @var int

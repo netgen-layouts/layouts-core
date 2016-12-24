@@ -84,6 +84,7 @@ class LayoutMapperTest extends TestCase
                 'identifier' => 'left',
                 'layout_id' => 1,
                 'status' => Value::STATUS_PUBLISHED,
+                'root_block_id' => 3,
                 'linked_layout_id' => 3,
                 'linked_zone_identifier' => 'top',
             ),
@@ -91,6 +92,7 @@ class LayoutMapperTest extends TestCase
                 'identifier' => 'right',
                 'layout_id' => 1,
                 'status' => Value::STATUS_PUBLISHED,
+                'root_block_id' => 4,
                 'linked_layout_id' => null,
                 'linked_zone_identifier' => null,
             ),
@@ -102,6 +104,7 @@ class LayoutMapperTest extends TestCase
                     'identifier' => 'left',
                     'layoutId' => 1,
                     'status' => Value::STATUS_PUBLISHED,
+                    'rootBlockId' => 3,
                     'linkedLayoutId' => 3,
                     'linkedZoneIdentifier' => 'top',
                 )
@@ -111,6 +114,7 @@ class LayoutMapperTest extends TestCase
                     'identifier' => 'right',
                     'layoutId' => 1,
                     'status' => Value::STATUS_PUBLISHED,
+                    'rootBlockId' => 4,
                     'linkedLayoutId' => null,
                     'linkedZoneIdentifier' => null,
                 )

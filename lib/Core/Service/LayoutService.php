@@ -349,6 +349,15 @@ class LayoutService implements LayoutServiceInterface
             throw new BadStateException('name', 'Layout with provided name already exists.');
         }
 
+        $zoneCreateStructs = array();
+        foreach ($layoutCreateStruct->layoutType->getZoneIdentifiers() as $zoneIdentifier) {
+            $zoneCreateStructs[] = new ZoneCreateStruct(
+                array(
+                    'identifier' => $zoneIdentifier,
+                )
+            );
+        }
+
         $this->persistenceHandler->beginTransaction();
 
         try {
@@ -359,18 +368,9 @@ class LayoutService implements LayoutServiceInterface
                         'name' => $layoutCreateStruct->name,
                         'status' => Value::STATUS_DRAFT,
                         'shared' => $layoutCreateStruct->shared,
-                        'zoneCreateStructs' => array_map(
-                            function ($zoneIdentifier) {
-                                return new ZoneCreateStruct(
-                                    array(
-                                        'identifier' => $zoneIdentifier,
-                                    )
-                                );
-                            },
-                            $layoutCreateStruct->layoutType->getZoneIdentifiers()
-                        ),
                     )
-                )
+                ),
+                $zoneCreateStructs
             );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();

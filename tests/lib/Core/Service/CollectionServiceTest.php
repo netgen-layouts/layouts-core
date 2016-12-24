@@ -366,7 +366,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
 
         $this->assertEquals($collection->isPublished(), $copiedCollection->isPublished());
         $this->assertInstanceOf(Collection::class, $copiedCollection);
-        $this->assertEquals(6, $copiedCollection->getId());
+        $this->assertEquals(7, $copiedCollection->getId());
         $this->assertNull($copiedCollection->getName());
     }
 
@@ -380,7 +380,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
 
         $this->assertEquals($collection->isPublished(), $copiedCollection->isPublished());
         $this->assertInstanceOf(Collection::class, $copiedCollection);
-        $this->assertEquals(6, $copiedCollection->getId());
+        $this->assertEquals(7, $copiedCollection->getId());
         $this->assertEquals('New name', $copiedCollection->getName());
     }
 

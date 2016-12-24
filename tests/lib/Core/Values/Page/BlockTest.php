@@ -62,9 +62,6 @@ class BlockTest extends TestCase
         $block = new Block(
             array(
                 'id' => 42,
-                'layoutId' => 84,
-                'zoneIdentifier' => 'left',
-                'position' => 3,
                 'definition' => new BlockDefinition('text'),
                 'parameters' => array(
                     'some_param' => 'some_value',

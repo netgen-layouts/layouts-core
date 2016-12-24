@@ -51,6 +51,11 @@ class BlockServiceTest extends ServiceTestCase
 
         $this->blockHandlerMock
             ->expects($this->at(0))
+            ->method('loadBlock')
+            ->will($this->returnValue(new PersistenceBlock()));
+
+        $this->blockHandlerMock
+            ->expects($this->at(1))
             ->method('createBlock')
             ->will($this->throwException(new Exception()));
 
@@ -158,6 +163,11 @@ class BlockServiceTest extends ServiceTestCase
 
         $this->blockHandlerMock
             ->expects($this->at(1))
+            ->method('loadBlock')
+            ->will($this->returnValue(new PersistenceBlock()));
+
+        $this->blockHandlerMock
+            ->expects($this->at(2))
             ->method('copyBlock')
             ->will($this->throwException(new Exception()));
 
@@ -180,7 +190,7 @@ class BlockServiceTest extends ServiceTestCase
         $this->blockHandlerMock
             ->expects($this->at(0))
             ->method('loadBlock')
-            ->will($this->returnValue(new PersistenceBlock()));
+            ->will($this->returnValue(new PersistenceBlock(array('parentId' => 1, 'placeholder' => 'root'))));
 
         $this->layoutHandlerMock
             ->expects($this->at(0))
@@ -194,6 +204,11 @@ class BlockServiceTest extends ServiceTestCase
 
         $this->blockHandlerMock
             ->expects($this->at(1))
+            ->method('loadBlock')
+            ->will($this->returnValue(new PersistenceBlock(array('id' => 1))));
+
+        $this->blockHandlerMock
+            ->expects($this->at(2))
             ->method('moveBlock')
             ->will($this->throwException(new Exception()));
 

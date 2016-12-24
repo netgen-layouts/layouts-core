@@ -3,8 +3,11 @@
 namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\Types\Type;
+use Netgen\BlockManager\Persistence\Values\Page\Block;
+use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\LayoutCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\LayoutUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\Zone;
 use Netgen\BlockManager\Persistence\Values\Page\ZoneCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\ZoneUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Value;
@@ -239,11 +242,10 @@ class LayoutQueryHandler extends QueryHandler
      * Creates a layout.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\LayoutCreateStruct $layoutCreateStruct
-     * @param int|string $layoutId
      *
      * @return int
      */
-    public function createLayout(LayoutCreateStruct $layoutCreateStruct, $layoutId = null)
+    public function createLayout(LayoutCreateStruct $layoutCreateStruct)
     {
         $currentTimeStamp = time();
 
@@ -260,10 +262,7 @@ class LayoutQueryHandler extends QueryHandler
                     'shared' => ':shared',
                 )
             )
-            ->setValue(
-                'id',
-                $layoutId !== null ? (int) $layoutId : $this->connectionHelper->getAutoIncrementValue('ngbm_layout')
-            )
+            ->setValue('id', $this->connectionHelper->getAutoIncrementValue('ngbm_layout'))
             ->setParameter('status', $layoutCreateStruct->status, Type::INTEGER)
             ->setParameter('type', $layoutCreateStruct->type, Type::STRING)
             ->setParameter('name', trim($layoutCreateStruct->name), Type::STRING)
@@ -273,30 +272,17 @@ class LayoutQueryHandler extends QueryHandler
 
         $query->execute();
 
-        $createdLayoutId = $layoutId;
-        if ($createdLayoutId === null) {
-            $createdLayoutId = (int) $this->connectionHelper->lastInsertId('ngbm_layout');
-        }
-
-        foreach ($layoutCreateStruct->zoneCreateStructs as $zoneCreateStruct) {
-            $this->createZone(
-                $createdLayoutId,
-                $layoutCreateStruct->status,
-                $zoneCreateStruct
-            );
-        }
-
-        return $createdLayoutId;
+        return (int) $this->connectionHelper->lastInsertId('ngbm_layout');
     }
 
     /**
      * Creates a zone in specified layout.
      *
-     * @param int|string $layoutId
-     * @param int $status
      * @param \Netgen\BlockManager\Persistence\Values\Page\ZoneCreateStruct $zoneCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $rootBlock
      */
-    public function createZone($layoutId, $status, ZoneCreateStruct $zoneCreateStruct)
+    public function createZone(ZoneCreateStruct $zoneCreateStruct, Layout $layout, Block $rootBlock)
     {
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_zone')
@@ -305,13 +291,15 @@ class LayoutQueryHandler extends QueryHandler
                     'identifier' => ':identifier',
                     'layout_id' => ':layout_id',
                     'status' => ':status',
+                    'root_block_id' => ':root_block_id',
                     'linked_layout_id' => ':linked_layout_id',
                     'linked_zone_identifier' => ':linked_zone_identifier',
                 )
             )
             ->setParameter('identifier', $zoneCreateStruct->identifier, Type::STRING)
-            ->setParameter('layout_id', $layoutId, Type::INTEGER)
-            ->setParameter('status', $status, Type::INTEGER)
+            ->setParameter('layout_id', $layout->id, Type::INTEGER)
+            ->setParameter('status', $layout->status, Type::INTEGER)
+            ->setParameter('root_block_id', $rootBlock->id, Type::INTEGER)
             ->setParameter('linked_layout_id', $zoneCreateStruct->linkedLayoutId, Type::INTEGER)
             ->setParameter('linked_zone_identifier', $zoneCreateStruct->linkedZoneIdentifier, Type::STRING);
 
@@ -321,11 +309,10 @@ class LayoutQueryHandler extends QueryHandler
     /**
      * Updates a layout.
      *
-     * @param int|string $layoutId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
      * @param \Netgen\BlockManager\Persistence\Values\Page\LayoutUpdateStruct $layoutUpdateStruct
      */
-    public function updateLayout($layoutId, $status, LayoutUpdateStruct $layoutUpdateStruct)
+    public function updateLayout(Layout $layout, LayoutUpdateStruct $layoutUpdateStruct)
     {
         $query = $this->connection->createQueryBuilder();
         $query
@@ -335,11 +322,11 @@ class LayoutQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $layoutId, Type::INTEGER)
+            ->setParameter('id', $layout->id, Type::INTEGER)
             ->setParameter('name', $layoutUpdateStruct->name, Type::STRING)
             ->setParameter('modified', $layoutUpdateStruct->modified, Type::INTEGER);
 
-        $this->applyStatusCondition($query, $status);
+        $this->applyStatusCondition($query, $layout->status);
 
         $query->execute();
     }
@@ -347,12 +334,10 @@ class LayoutQueryHandler extends QueryHandler
     /**
      * Updates a zone.
      *
-     * @param int|string $layoutId
-     * @param int $status
-     * @param string $identifier
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $zone
      * @param \Netgen\BlockManager\Persistence\Values\Page\ZoneUpdateStruct $zoneUpdateStruct
      */
-    public function updateZone($layoutId, $status, $identifier, ZoneUpdateStruct $zoneUpdateStruct)
+    public function updateZone(Zone $zone, ZoneUpdateStruct $zoneUpdateStruct)
     {
         if ($zoneUpdateStruct->linkedZone !== null) {
             $linkedLayoutId = null;
@@ -374,15 +359,79 @@ class LayoutQueryHandler extends QueryHandler
                         $query->expr()->eq('identifier', ':identifier')
                     )
                 )
-                ->setParameter('layout_id', $layoutId, Type::INTEGER)
-                ->setParameter('identifier', $identifier, Type::STRING)
+                ->setParameter('layout_id', $zone->layoutId, Type::INTEGER)
+                ->setParameter('identifier', $zone->identifier, Type::STRING)
                 ->setParameter('linked_layout_id', $linkedLayoutId, Type::INTEGER)
                 ->setParameter('linked_zone_identifier', $linkedZoneIdentifier, Type::STRING);
 
-            $this->applyStatusCondition($query, $status);
+            $this->applyStatusCondition($query, $zone->status);
 
             $query->execute();
         }
+    }
+
+    /**
+     * Creates a layout status.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
+     * @param int $newStatus
+     */
+    public function createLayoutStatus(Layout $layout, $newStatus)
+    {
+        $currentTimeStamp = time();
+
+        $query = $this->connection->createQueryBuilder()
+            ->insert('ngbm_layout')
+            ->values(
+                array(
+                    'id' => ':id',
+                    'status' => ':status',
+                    'type' => ':type',
+                    'name' => ':name',
+                    'created' => ':created',
+                    'modified' => ':modified',
+                    'shared' => ':shared',
+                )
+            )
+            ->setValue('id', (int) $layout->id)
+            ->setParameter('status', $newStatus, Type::INTEGER)
+            ->setParameter('type', $layout->type, Type::STRING)
+            ->setParameter('name', $layout->name, Type::STRING)
+            ->setParameter('created', $currentTimeStamp, Type::INTEGER)
+            ->setParameter('modified', $currentTimeStamp, Type::INTEGER)
+            ->setParameter('shared', $layout->shared, Type::BOOLEAN);
+
+        $query->execute();
+    }
+
+    /**
+     * Creates a zone status.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $zone
+     * @param int $newStatus
+     */
+    public function createZoneStatus(Zone $zone, $newStatus)
+    {
+        $query = $this->connection->createQueryBuilder()
+            ->insert('ngbm_zone')
+            ->values(
+                array(
+                    'identifier' => ':identifier',
+                    'layout_id' => ':layout_id',
+                    'status' => ':status',
+                    'root_block_id' => ':root_block_id',
+                    'linked_layout_id' => ':linked_layout_id',
+                    'linked_zone_identifier' => ':linked_zone_identifier',
+                )
+            )
+            ->setParameter('identifier', $zone->identifier, Type::STRING)
+            ->setParameter('layout_id', $zone->layoutId, Type::INTEGER)
+            ->setParameter('status', $newStatus, Type::INTEGER)
+            ->setParameter('root_block_id', $zone->rootBlockId, Type::INTEGER)
+            ->setParameter('linked_layout_id', $zone->linkedLayoutId, Type::INTEGER)
+            ->setParameter('linked_zone_identifier', $zone->linkedZoneIdentifier, Type::STRING);
+
+        $query->execute();
     }
 
     /**

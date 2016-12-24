@@ -52,6 +52,7 @@ class LayoutMapper
                     'identifier' => $dataItem['identifier'],
                     'layoutId' => (int) $dataItem['layout_id'],
                     'status' => (int) $dataItem['status'],
+                    'rootBlockId' => (int) $dataItem['root_block_id'],
                     'linkedLayoutId' => $dataItem['linked_layout_id'] !== null ? (int) $dataItem['linked_layout_id'] : null,
                     'linkedZoneIdentifier' => $dataItem['linked_zone_identifier'],
                 )

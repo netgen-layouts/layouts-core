@@ -33,6 +33,7 @@ CREATE TABLE "ngbm_zone" (
   "identifier" character varying(255) NOT NULL,
   "layout_id" integer NOT NULL,
   "status" integer NOT NULL,
+  "root_block_id" integer NOT NULL,
   "linked_layout_id" integer,
   "linked_zone_identifier" character varying(255)
 );
@@ -41,12 +42,16 @@ CREATE TABLE "ngbm_block" (
   "id" integer NOT NULL,
   "status" integer NOT NULL,
   "layout_id" integer NOT NULL,
-  "zone_identifier" character varying(255) NOT NULL,
-  "position" integer NOT NULL,
+  "depth" integer NOT NULL,
+  "path" character varying(255) NOT NULL,
+  "parent_id" integer,
+  "placeholder" character varying(255),
+  "position" integer,
   "definition_identifier" character varying(255) NOT NULL,
   "view_type" character varying(255) NOT NULL,
   "item_view_type" character varying(255) NOT NULL,
   "name" character varying(255) NOT NULL,
+  "placeholder_parameters" text NOT NULL,
   "parameters" text NOT NULL
 );
 

@@ -8,7 +8,7 @@ use Netgen\BlockManager\Persistence\Values\Page\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\Zone;
+use Netgen\BlockManager\Persistence\Values\Page\Layout;
 
 interface BlockHandler
 {
@@ -35,13 +35,23 @@ interface BlockHandler
     public function blockExists($blockId, $status);
 
     /**
-     * Loads all blocks from zone with specified identifier.
+     * Loads all blocks from specified layout.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $zone
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block[]
      */
-    public function loadZoneBlocks(Zone $zone);
+    public function loadLayoutBlocks(Layout $layout);
+
+    /**
+     * Loads all blocks from specified block, optionally filtered by placeholder.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param string $placeholder
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Block[]
+     */
+    public function loadChildBlocks(Block $block, $placeholder = null);
 
     /**
      * Loads a collection reference.
@@ -65,15 +75,17 @@ interface BlockHandler
     public function loadCollectionReferences(Block $block);
 
     /**
-     * Creates a block in specified layout and zone.
+     * Creates a block in specified target block.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\BlockCreateStruct $blockCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $targetBlock
+     * @param string $placeholder
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function createBlock(BlockCreateStruct $blockCreateStruct);
+    public function createBlock(BlockCreateStruct $blockCreateStruct, Block $targetBlock = null, $placeholder = null);
 
     /**
      * Creates the collection reference.
@@ -104,14 +116,17 @@ interface BlockHandler
     public function updateCollectionReference(CollectionReference $collectionReference, CollectionReferenceUpdateStruct $updateStruct);
 
     /**
-     * Copies a block to a specified zone.
+     * Copies a block to a specified target block and placeholder.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $zone
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $targetBlock
+     * @param string $placeholder
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If target block is within the provided block
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function copyBlock(Block $block, Zone $zone);
+    public function copyBlock(Block $block, Block $targetBlock, $placeholder);
 
     /**
      * Copies all block collections to another block.
@@ -122,7 +137,7 @@ interface BlockHandler
     public function copyBlockCollections(Block $block, Block $targetBlock);
 
     /**
-     * Moves a block to specified position in the zone.
+     * Moves a block to specified position in the current placeholder.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
      * @param int $position
@@ -134,20 +149,26 @@ interface BlockHandler
     public function moveBlock(Block $block, $position);
 
     /**
-     * Moves a block to specified position in a specified zone.
+     * Moves a block to specified position in a specified target block and placeholder.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param string $zoneIdentifier
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $targetBlock
+     * @param string $placeholder
      * @param int $position
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
+     * @throws \Netgen\BlockManager\Exception\BadStateException If block is already in target block and placeholder
+     * @throws \Netgen\BlockManager\Exception\BadStateException If target block is within the provided block
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function moveBlockToZone(Block $block, $zoneIdentifier, $position);
+    public function moveBlockToBlock(Block $block, Block $targetBlock, $placeholder, $position);
 
     /**
      * Creates a new block status.
+     *
+     * This method does not create new status for sub-blocks,
+     * so any process that works with this method needs to take care of that.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
      * @param int $newStatus
@@ -156,6 +177,9 @@ interface BlockHandler
 
     /**
      * Creates a new status for all non shared collections in specified block.
+     *
+     * This method does not create new status for sub-block collections,
+     * so any process that works with this method needs to take care of that.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
      * @param int $newStatus
@@ -172,9 +196,8 @@ interface BlockHandler
     /**
      * Deletes blocks with specified IDs.
      *
-     * This method does not reorder blocks in the affected zones,
-     * so this should be used only when deleting the blocks for an entire zone
-     * or layout.
+     * This method does not reorder blocks or delete sub-blocks,
+     * so this should be used only when deleting the entire layout.
      *
      * @param array $blockIds
      * @param int $status
@@ -183,6 +206,9 @@ interface BlockHandler
 
     /**
      * Deletes block collections with specified block IDs.
+     *
+     * This method does not delete block collections from sub-blocks,
+     * so this should be used only when deleting the entire layout.
      *
      * @param array $blockIds
      * @param int $status

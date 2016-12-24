@@ -107,12 +107,14 @@ class BlockService implements BlockServiceInterface
     {
         $this->blockValidator->validateId($blockId, 'blockId');
 
-        return $this->blockMapper->mapBlock(
-            $this->blockHandler->loadBlock(
-                $blockId,
-                Value::STATUS_PUBLISHED
-            )
-        );
+        $block = $this->blockHandler->loadBlock($blockId, Value::STATUS_PUBLISHED);
+
+        if (empty($block->parentId)) {
+            // We do not allow loading root zone blocks
+            throw new NotFoundException('block', $blockId);
+        }
+
+        return $this->blockMapper->mapBlock($block);
     }
 
     /**
@@ -128,12 +130,14 @@ class BlockService implements BlockServiceInterface
     {
         $this->blockValidator->validateId($blockId, 'blockId');
 
-        return $this->blockMapper->mapBlock(
-            $this->blockHandler->loadBlock(
-                $blockId,
-                Value::STATUS_DRAFT
-            )
-        );
+        $block = $this->blockHandler->loadBlock($blockId, Value::STATUS_DRAFT);
+
+        if (empty($block->parentId)) {
+            // We do not allow loading root zone blocks
+            throw new NotFoundException('block', $blockId);
+        }
+
+        return $this->blockMapper->mapBlock($block);
     }
 
     /**
@@ -230,6 +234,11 @@ class BlockService implements BlockServiceInterface
             throw new BadStateException('zoneIdentifier', 'Block cannot be created in specified zone.');
         }
 
+        $rootBlock = $this->blockHandler->loadBlock(
+            $persistenceZone->rootBlockId,
+            $persistenceZone->status
+        );
+
         $this->persistenceHandler->beginTransaction();
 
         try {
@@ -237,19 +246,21 @@ class BlockService implements BlockServiceInterface
                 new BlockCreateStruct(
                     array(
                         'layoutId' => $persistenceLayout->id,
-                        'zoneIdentifier' => $persistenceZone->identifier,
                         'status' => $persistenceLayout->status,
                         'position' => $position,
                         'definitionIdentifier' => $blockCreateStruct->definition->getIdentifier(),
                         'viewType' => $blockCreateStruct->viewType,
                         'itemViewType' => $blockCreateStruct->itemViewType,
                         'name' => $blockCreateStruct->name,
+                        'placeholderParameters' => array(), // @todo
                         'parameters' => $this->parameterMapper->serializeValues(
                             $blockCreateStruct->definition,
                             $blockCreateStruct->getParameterValues()
                         ),
                     )
-                )
+                ),
+                $rootBlock,
+                'root'
             );
 
             if ($blockCreateStruct->definition->hasCollection()) {
@@ -408,13 +419,12 @@ class BlockService implements BlockServiceInterface
             throw new BadStateException('zoneIdentifier', 'Block cannot be placed in specified zone.');
         }
 
+        $rootBlock = $this->blockHandler->loadBlock($persistenceZone->rootBlockId, $persistenceZone->status);
+
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $copiedBlock = $this->blockHandler->copyBlock(
-                $persistenceBlock,
-                $persistenceZone
-            );
+            $copiedBlock = $this->blockHandler->copyBlock($persistenceBlock, $rootBlock, 'root');
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
@@ -463,18 +473,21 @@ class BlockService implements BlockServiceInterface
             throw new BadStateException('zoneIdentifier', 'Block cannot be placed in specified zone.');
         }
 
+        $rootBlock = $this->blockHandler->loadBlock($persistenceZone->rootBlockId, $persistenceZone->status);
+
         $this->persistenceHandler->beginTransaction();
 
         try {
-            if ($persistenceZone->identifier === $persistenceBlock->zoneIdentifier) {
+            if ($persistenceBlock->parentId === $rootBlock->id && $persistenceBlock->placeholder === 'root') {
                 $movedBlock = $this->blockHandler->moveBlock(
                     $persistenceBlock,
                     $position
                 );
             } else {
-                $movedBlock = $this->blockHandler->moveBlockToZone(
+                $movedBlock = $this->blockHandler->moveBlockToBlock(
                     $persistenceBlock,
-                    $persistenceZone->identifier,
+                    $rootBlock,
+                    'root',
                     $position
                 );
             }

@@ -23,18 +23,26 @@ class BlockMapper
                 json_decode($dataItem['parameters'], true) :
                 array();
 
+            $placeholderParameters = !empty($dataItem['placeholder_parameters']) ?
+                json_decode($dataItem['placeholder_parameters'], true) :
+                array();
+
             $blocks[] = new Block(
                 array(
                     'id' => (int) $dataItem['id'],
                     'layoutId' => (int) $dataItem['layout_id'],
-                    'zoneIdentifier' => $dataItem['zone_identifier'],
+                    'depth' => (int) $dataItem['depth'],
+                    'path' => $dataItem['path'],
+                    'parentId' => (int) $dataItem['parent_id'],
+                    'placeholder' => $dataItem['placeholder'],
                     'position' => (int) $dataItem['position'],
                     'definitionIdentifier' => $dataItem['definition_identifier'],
-                    'parameters' => is_array($parameters) ? $parameters : array(),
                     'viewType' => $dataItem['view_type'],
                     'itemViewType' => $dataItem['item_view_type'],
                     'name' => $dataItem['name'],
                     'status' => (int) $dataItem['status'],
+                    'placeholderParameters' => is_array($placeholderParameters) ? $placeholderParameters : array(),
+                    'parameters' => is_array($parameters) ? $parameters : array(),
                 )
             );
         }

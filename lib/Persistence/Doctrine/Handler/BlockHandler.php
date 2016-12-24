@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Persistence\Doctrine\Handler;
 
+use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper;
@@ -14,7 +15,7 @@ use Netgen\BlockManager\Persistence\Values\Page\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\Zone;
+use Netgen\BlockManager\Persistence\Values\Page\Layout;
 
 class BlockHandler implements BlockHandlerInterface
 {
@@ -95,15 +96,30 @@ class BlockHandler implements BlockHandlerInterface
     }
 
     /**
-     * Loads all blocks from zone with specified identifier.
+     * Loads all blocks from specified layout.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $zone
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block[]
      */
-    public function loadZoneBlocks(Zone $zone)
+    public function loadLayoutBlocks(Layout $layout)
     {
-        $data = $this->queryHandler->loadZoneBlocksData($zone->layoutId, $zone->identifier, $zone->status);
+        $data = $this->queryHandler->loadLayoutBlocksData($layout->id, $layout->status);
+
+        return $this->blockMapper->mapBlocks($data);
+    }
+
+    /**
+     * Loads all blocks from specified block, optionally filtered by placeholder.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param string $placeholder
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Block[]
+     */
+    public function loadChildBlocks(Block $block, $placeholder = null)
+    {
+        $data = $this->queryHandler->loadChildBlocksData($block->id, $block->status, $placeholder);
 
         return $this->blockMapper->mapBlocks($data);
     }
@@ -146,28 +162,36 @@ class BlockHandler implements BlockHandlerInterface
     }
 
     /**
-     * Creates a block in specified layout and zone.
+     * Creates a block in specified target block.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\BlockCreateStruct $blockCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $targetBlock
+     * @param string $placeholder
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function createBlock(BlockCreateStruct $blockCreateStruct)
+    public function createBlock(BlockCreateStruct $blockCreateStruct, Block $targetBlock = null, $placeholder = null)
     {
         $blockCreateStruct->name = trim($blockCreateStruct->name);
 
-        $blockCreateStruct->position = $this->positionHelper->createPosition(
-            $this->getPositionHelperConditions(
-                $blockCreateStruct->layoutId,
-                $blockCreateStruct->status,
-                $blockCreateStruct->zoneIdentifier
-            ),
-            $blockCreateStruct->position
-        );
+        if ($targetBlock !== null && $placeholder !== null) {
+            $blockCreateStruct->position = $this->positionHelper->createPosition(
+                $this->getPositionHelperConditions(
+                    $targetBlock->id,
+                    $targetBlock->status,
+                    $placeholder
+                ),
+                $blockCreateStruct->position
+            );
+        }
 
-        $createdBlockId = $this->queryHandler->createBlock($blockCreateStruct);
+        $createdBlockId = $this->queryHandler->createBlock(
+            $blockCreateStruct,
+            $targetBlock,
+            $placeholder
+        );
 
         return $this->loadBlock($createdBlockId, $blockCreateStruct->status);
     }
@@ -208,11 +232,11 @@ class BlockHandler implements BlockHandlerInterface
             $blockUpdateStruct->parameters :
             $block->parameters;
 
-        $this->queryHandler->updateBlock(
-            $block->id,
-            $block->status,
-            $blockUpdateStruct
-        );
+        $blockUpdateStruct->placeholderParameters = is_array($blockUpdateStruct->placeholderParameters) ?
+            $blockUpdateStruct->placeholderParameters :
+            $block->placeholderParameters;
+
+        $this->queryHandler->updateBlock($block, $blockUpdateStruct);
 
         return $this->loadBlock($block->id, $block->status);
     }
@@ -235,12 +259,7 @@ class BlockHandler implements BlockHandlerInterface
             $updateStruct->limit :
             $collectionReference->limit;
 
-        $this->queryHandler->updateCollectionReference(
-            $collectionReference->blockId,
-            $collectionReference->blockStatus,
-            $collectionReference->identifier,
-            $updateStruct
-        );
+        $this->queryHandler->updateCollectionReference($collectionReference, $updateStruct);
 
         return $this->loadCollectionReference(
             $this->loadBlock(
@@ -252,42 +271,54 @@ class BlockHandler implements BlockHandlerInterface
     }
 
     /**
-     * Copies a block to a specified zone.
+     * Copies a block to a specified target block and placeholder.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $zone
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $targetBlock
+     * @param string $placeholder
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If target block is within the provided block
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function copyBlock(Block $block, Zone $zone)
+    public function copyBlock(Block $block, Block $targetBlock, $placeholder)
     {
+        if (strpos($targetBlock->path, $block->path) === 0) {
+            throw new BadStateException('targetBlock', 'Block cannot be copied below itself or its children.');
+        }
+
         $position = $this->positionHelper->getNextPosition(
             $this->getPositionHelperConditions(
-                $zone->layoutId,
-                $zone->status,
-                $zone->identifier
+                $targetBlock->id,
+                $targetBlock->status,
+                $placeholder
             )
         );
 
         $createdBlockId = $this->queryHandler->createBlock(
             new BlockCreateStruct(
                 array(
-                    'layoutId' => $zone->layoutId,
-                    'zoneIdentifier' => $zone->identifier,
-                    'status' => $zone->status,
+                    'layoutId' => $targetBlock->layoutId,
+                    'status' => $targetBlock->status,
                     'position' => $position,
                     'definitionIdentifier' => $block->definitionIdentifier,
                     'viewType' => $block->viewType,
                     'itemViewType' => $block->itemViewType,
                     'name' => $block->name,
+                    'placeholderParameters' => $block->placeholderParameters,
                     'parameters' => $block->parameters,
                 )
-            )
+            ),
+            $targetBlock,
+            $placeholder
         );
 
-        $copiedBlock = $this->loadBlock($createdBlockId, $zone->status);
-
+        $copiedBlock = $this->loadBlock($createdBlockId, $targetBlock->status);
         $this->copyBlockCollections($block, $copiedBlock);
+
+        foreach ($this->loadChildBlocks($block) as $childBlock) {
+            $this->copyBlock($childBlock, $copiedBlock, $childBlock->placeholder);
+        }
 
         return $copiedBlock;
     }
@@ -328,7 +359,7 @@ class BlockHandler implements BlockHandlerInterface
     }
 
     /**
-     * Moves a block to specified position in the zone.
+     * Moves a block to specified position in the current placeholder.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
      * @param int $position
@@ -341,48 +372,59 @@ class BlockHandler implements BlockHandlerInterface
     {
         $position = $this->positionHelper->moveToPosition(
             $this->getPositionHelperConditions(
-                $block->layoutId,
+                $block->parentId,
                 $block->status,
-                $block->zoneIdentifier
+                $block->placeholder
             ),
             $block->position,
             $position
         );
 
-        $this->queryHandler->moveBlock($block->id, $block->status, $position);
+        $this->queryHandler->moveBlock($block, $position);
 
         return $this->loadBlock($block->id, $block->status);
     }
 
     /**
-     * Moves a block to specified position in a specified zone.
+     * Moves a block to specified position in a specified target block and placeholder.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param string $zoneIdentifier
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $targetBlock
+     * @param string $placeholder
      * @param int $position
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
+     * @throws \Netgen\BlockManager\Exception\BadStateException If block is already in target block and placeholder
+     * @throws \Netgen\BlockManager\Exception\BadStateException If target block is within the provided block
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function moveBlockToZone(Block $block, $zoneIdentifier, $position)
+    public function moveBlockToBlock(Block $block, Block $targetBlock, $placeholder, $position)
     {
+        if ($block->parentId === $targetBlock->id && $block->placeholder === $placeholder) {
+            throw new BadStateException('targetBlock', 'Block is already in specified target block and placeholder.');
+        }
+
+        if (strpos($targetBlock->path, $block->path) === 0) {
+            throw new BadStateException('targetBlock', 'Block cannot be moved below itself or its children.');
+        }
+
         $position = $this->positionHelper->createPosition(
             $this->getPositionHelperConditions(
-                $block->layoutId,
-                $block->status,
-                $zoneIdentifier
+                $targetBlock->id,
+                $targetBlock->status,
+                $placeholder
             ),
             $position
         );
 
-        $this->queryHandler->moveBlock($block->id, $block->status, $position, $zoneIdentifier);
+        $this->queryHandler->moveBlock($block, $position, $targetBlock, $placeholder);
 
         $this->positionHelper->removePosition(
             $this->getPositionHelperConditions(
-                $block->layoutId,
+                $block->parentId,
                 $block->status,
-                $block->zoneIdentifier
+                $block->placeholder
             ),
             $block->position
         );
@@ -393,33 +435,23 @@ class BlockHandler implements BlockHandlerInterface
     /**
      * Creates a new block status.
      *
+     * This method does not create new status for sub-blocks,
+     * so any process that works with this method needs to take care of that.
+     *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
      * @param int $newStatus
      */
     public function createBlockStatus(Block $block, $newStatus)
     {
-        $this->queryHandler->createBlock(
-            new BlockCreateStruct(
-                array(
-                    'layoutId' => $block->layoutId,
-                    'zoneIdentifier' => $block->zoneIdentifier,
-                    'status' => $newStatus,
-                    'position' => $block->position,
-                    'definitionIdentifier' => $block->definitionIdentifier,
-                    'viewType' => $block->viewType,
-                    'itemViewType' => $block->itemViewType,
-                    'name' => $block->name,
-                    'parameters' => $block->parameters,
-                )
-            ),
-            $block->id
-        );
-
+        $this->queryHandler->createBlockStatus($block, $newStatus);
         $this->createBlockCollectionsStatus($block, $newStatus);
     }
 
     /**
      * Creates a new status for all non shared collections in specified block.
+     *
+     * This method does not create new status for sub-block collections,
+     * so any process that works with this method needs to take care of that.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
      * @param int $newStatus
@@ -463,13 +495,14 @@ class BlockHandler implements BlockHandlerInterface
      */
     public function deleteBlock(Block $block)
     {
-        $this->deleteBlocks(array($block->id), $block->status);
+        $blockIds = $this->queryHandler->loadSubBlockIds($block->id, $block->status);
+        $this->deleteBlocks($blockIds, $block->status);
 
         $this->positionHelper->removePosition(
             $this->getPositionHelperConditions(
-                $block->layoutId,
+                $block->parentId,
                 $block->status,
-                $block->zoneIdentifier
+                $block->placeholder
             ),
             $block->position
         );
@@ -478,9 +511,8 @@ class BlockHandler implements BlockHandlerInterface
     /**
      * Deletes blocks with specified IDs.
      *
-     * This method does not reorder blocks in the affected zones,
-     * so this should be used only when deleting the blocks for an entire zone
-     * or layout.
+     * This method does not reorder blocks or delete sub-blocks,
+     * so this should be used only when deleting the entire layout.
      *
      * @param array $blockIds
      * @param int $status
@@ -493,6 +525,9 @@ class BlockHandler implements BlockHandlerInterface
 
     /**
      * Deletes block collections with specified block IDs.
+     *
+     * This method does not delete block collections from sub-blocks,
+     * so this should be used only when deleting the entire layout.
      *
      * @param array $blockIds
      * @param int $status
@@ -510,21 +545,21 @@ class BlockHandler implements BlockHandlerInterface
     /**
      * Builds the condition array that will be used with position helper.
      *
-     * @param int|string $layoutId
+     * @param int|string $parentId
      * @param int $status
-     * @param string $zoneIdentifier
+     * @param string $placeholder
      *
      * @return array
      */
-    protected function getPositionHelperConditions($layoutId, $status, $zoneIdentifier)
+    protected function getPositionHelperConditions($parentId, $status, $placeholder)
     {
         return array(
             'table' => 'ngbm_block',
             'column' => 'position',
             'conditions' => array(
-                'layout_id' => $layoutId,
+                'parent_id' => $parentId,
                 'status' => $status,
-                'zone_identifier' => $zoneIdentifier,
+                'placeholder' => $placeholder,
             ),
         );
     }

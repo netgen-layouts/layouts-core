@@ -101,6 +101,7 @@ class LayoutHandlerTest extends TestCase
                     'identifier' => 'top',
                     'layoutId' => 2,
                     'status' => Value::STATUS_PUBLISHED,
+                    'rootBlockId' => 5,
                     'linkedLayoutId' => 3,
                     'linkedZoneIdentifier' => 'top',
                 )
@@ -369,6 +370,7 @@ class LayoutHandlerTest extends TestCase
                         'identifier' => 'bottom',
                         'layoutId' => 2,
                         'status' => Value::STATUS_PUBLISHED,
+                        'rootBlockId' => 8,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
                     )
@@ -378,6 +380,7 @@ class LayoutHandlerTest extends TestCase
                         'identifier' => 'left',
                         'layoutId' => 2,
                         'status' => Value::STATUS_PUBLISHED,
+                        'rootBlockId' => 6,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
                     )
@@ -387,6 +390,7 @@ class LayoutHandlerTest extends TestCase
                         'identifier' => 'right',
                         'layoutId' => 2,
                         'status' => Value::STATUS_PUBLISHED,
+                        'rootBlockId' => 7,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
                     )
@@ -396,6 +400,7 @@ class LayoutHandlerTest extends TestCase
                         'identifier' => 'top',
                         'layoutId' => 2,
                         'status' => Value::STATUS_PUBLISHED,
+                        'rootBlockId' => 5,
                         'linkedLayoutId' => 3,
                         'linkedZoneIdentifier' => 'top',
                     )
@@ -431,6 +436,7 @@ class LayoutHandlerTest extends TestCase
                     'identifier' => 'top',
                     'layoutId' => 1,
                     'status' => Value::STATUS_DRAFT,
+                    'rootBlockId' => 1,
                     'linkedLayoutId' => 3,
                     'linkedZoneIdentifier' => 'top',
                 )
@@ -462,6 +468,7 @@ class LayoutHandlerTest extends TestCase
                     'identifier' => 'left',
                     'layoutId' => 1,
                     'status' => Value::STATUS_DRAFT,
+                    'rootBlockId' => 2,
                     'linkedLayoutId' => null,
                     'linkedZoneIdentifier' => null,
                 )
@@ -481,12 +488,16 @@ class LayoutHandlerTest extends TestCase
         $layoutCreateStruct->name = 'New layout';
         $layoutCreateStruct->shared = true;
         $layoutCreateStruct->status = Value::STATUS_DRAFT;
-        $layoutCreateStruct->zoneCreateStructs = array(
+
+        $zoneCreateStructs = array(
             new ZoneCreateStruct(array('identifier' => 'first_zone')),
             new ZoneCreateStruct(array('identifier' => 'second_zone')),
         );
 
-        $createdLayout = $this->layoutHandler->createLayout($layoutCreateStruct);
+        $createdLayout = $this->layoutHandler->createLayout(
+            $layoutCreateStruct,
+            $zoneCreateStructs
+        );
 
         $this->assertInstanceOf(Layout::class, $createdLayout);
 
@@ -509,6 +520,7 @@ class LayoutHandlerTest extends TestCase
                         'identifier' => 'first_zone',
                         'layoutId' => $createdLayout->id,
                         'status' => Value::STATUS_DRAFT,
+                        'rootBlockId' => 38,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
                     )
@@ -518,6 +530,7 @@ class LayoutHandlerTest extends TestCase
                         'identifier' => 'second_zone',
                         'layoutId' => $createdLayout->id,
                         'status' => Value::STATUS_DRAFT,
+                        'rootBlockId' => 39,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
                     )
@@ -525,6 +538,30 @@ class LayoutHandlerTest extends TestCase
             ),
             $this->layoutHandler->loadLayoutZones($createdLayout)
         );
+
+        foreach (array(38, 39) as $blockId) {
+            $this->assertEquals(
+                new Block(
+                    array(
+                        'id' => $blockId,
+                        'layoutId' => $createdLayout->id,
+                        'depth' => 0,
+                        'path' => "/{$blockId}/",
+                        'parentId' => null,
+                        'placeholder' => null,
+                        'position' => null,
+                        'definitionIdentifier' => '',
+                        'viewType' => '',
+                        'itemViewType' => '',
+                        'name' => '',
+                        'status' => Value::STATUS_DRAFT,
+                        'placeholderParameters' => array(),
+                        'parameters' => array(),
+                    )
+                ),
+                $this->blockHandler->loadBlock($blockId, Value::STATUS_DRAFT)
+            );
+        }
     }
 
     /**
@@ -539,8 +576,8 @@ class LayoutHandlerTest extends TestCase
         $zoneCreateStruct->linkedZoneIdentifier = 'linked_zone';
 
         $createdZone = $this->layoutHandler->createZone(
-            $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
-            $zoneCreateStruct
+            $zoneCreateStruct,
+            $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT)
         );
 
         $this->assertInstanceOf(Zone::class, $createdZone);
@@ -548,8 +585,31 @@ class LayoutHandlerTest extends TestCase
         $this->assertEquals(1, $createdZone->layoutId);
         $this->assertEquals(Value::STATUS_DRAFT, $createdZone->status);
         $this->assertEquals('new_zone', $createdZone->identifier);
+        $this->assertEquals(38, $createdZone->rootBlockId);
         $this->assertEquals(3, $createdZone->linkedLayoutId);
         $this->assertEquals('linked_zone', $createdZone->linkedZoneIdentifier);
+
+        $this->assertEquals(
+            new Block(
+                array(
+                    'id' => 38,
+                    'layoutId' => $createdZone->layoutId,
+                    'depth' => 0,
+                    'path' => '/38/',
+                    'parentId' => null,
+                    'placeholder' => null,
+                    'position' => null,
+                    'definitionIdentifier' => '',
+                    'viewType' => '',
+                    'itemViewType' => '',
+                    'name' => '',
+                    'status' => Value::STATUS_DRAFT,
+                    'placeholderParameters' => array(),
+                    'parameters' => array(),
+                )
+            ),
+            $this->blockHandler->loadBlock(38, Value::STATUS_DRAFT)
+        );
     }
 
     /**
@@ -594,12 +654,8 @@ class LayoutHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::copyLayout
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutData
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutZonesData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::createZone
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayout
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadZoneBlocksData
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadCollectionReferencesData
      */
     public function testCopyLayout()
     {
@@ -636,6 +692,7 @@ class LayoutHandlerTest extends TestCase
                         'identifier' => 'bottom',
                         'layoutId' => $copiedLayout->id,
                         'status' => Value::STATUS_PUBLISHED,
+                        'rootBlockId' => 38,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
                     )
@@ -645,6 +702,7 @@ class LayoutHandlerTest extends TestCase
                         'identifier' => 'left',
                         'layoutId' => $copiedLayout->id,
                         'status' => Value::STATUS_PUBLISHED,
+                        'rootBlockId' => 39,
                         'linkedLayoutId' => 3,
                         'linkedZoneIdentifier' => 'left',
                     )
@@ -654,6 +712,7 @@ class LayoutHandlerTest extends TestCase
                         'identifier' => 'right',
                         'layoutId' => $copiedLayout->id,
                         'status' => Value::STATUS_PUBLISHED,
+                        'rootBlockId' => 41,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
                     )
@@ -663,6 +722,7 @@ class LayoutHandlerTest extends TestCase
                         'identifier' => 'top',
                         'layoutId' => $copiedLayout->id,
                         'status' => Value::STATUS_PUBLISHED,
+                        'rootBlockId' => 44,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
                     )
@@ -675,27 +735,27 @@ class LayoutHandlerTest extends TestCase
             array(
                 new Block(
                     array(
-                        'id' => 7,
+                        'id' => 40,
                         'layoutId' => $copiedLayout->id,
-                        'zoneIdentifier' => 'left',
+                        'depth' => 1,
+                        'path' => '/39/40/',
+                        'parentId' => 39,
+                        'placeholder' => 'root',
                         'position' => 0,
                         'definitionIdentifier' => 'list',
-                        'parameters' => array(
-                            'number_of_columns' => 3,
-                        ),
                         'viewType' => 'grid',
                         'itemViewType' => 'standard',
                         'name' => 'My other block',
                         'status' => Value::STATUS_PUBLISHED,
+                        'placeholderParameters' => array(),
+                        'parameters' => array(
+                            'number_of_columns' => 3,
+                        ),
                     )
                 ),
             ),
-            $this->blockHandler->loadZoneBlocks(
-                $this->layoutHandler->loadZone(
-                    $copiedLayout->id,
-                    $copiedLayout->status,
-                    'left'
-                )
+            $this->blockHandler->loadChildBlocks(
+                $this->blockHandler->loadBlock(39, Value::STATUS_PUBLISHED)
             )
         );
 
@@ -703,55 +763,59 @@ class LayoutHandlerTest extends TestCase
             array(
                 new Block(
                     array(
-                        'id' => 8,
+                        'id' => 42,
                         'layoutId' => $copiedLayout->id,
-                        'zoneIdentifier' => 'right',
+                        'depth' => 1,
+                        'path' => '/41/42/',
+                        'parentId' => 41,
+                        'placeholder' => 'root',
                         'position' => 0,
                         'definitionIdentifier' => 'list',
-                        'parameters' => array(
-                            'number_of_columns' => 3,
-                        ),
                         'viewType' => 'grid',
                         'itemViewType' => 'standard_with_intro',
                         'name' => 'My published block',
                         'status' => Value::STATUS_PUBLISHED,
+                        'placeholderParameters' => array(),
+                        'parameters' => array(
+                            'number_of_columns' => 3,
+                        ),
                     )
                 ),
                 new Block(
                     array(
-                        'id' => 9,
+                        'id' => 43,
                         'layoutId' => $copiedLayout->id,
-                        'zoneIdentifier' => 'right',
+                        'depth' => 1,
+                        'path' => '/41/43/',
+                        'parentId' => 41,
+                        'placeholder' => 'root',
                         'position' => 1,
                         'definitionIdentifier' => 'list',
-                        'parameters' => array(
-                            'number_of_columns' => 3,
-                        ),
                         'viewType' => 'grid',
                         'itemViewType' => 'standard',
                         'name' => 'My fourth block',
                         'status' => Value::STATUS_PUBLISHED,
+                        'placeholderParameters' => array(),
+                        'parameters' => array(
+                            'number_of_columns' => 3,
+                        ),
                     )
                 ),
             ),
-            $this->blockHandler->loadZoneBlocks(
-                $this->layoutHandler->loadZone(
-                    $copiedLayout->id,
-                    $copiedLayout->status,
-                    'right'
-                )
+            $this->blockHandler->loadChildBlocks(
+                $this->blockHandler->loadBlock(41, Value::STATUS_PUBLISHED)
             )
         );
 
         // Verify that non shared collections were copied
-        $this->collectionHandler->loadCollection(6, Value::STATUS_PUBLISHED);
         $this->collectionHandler->loadCollection(7, Value::STATUS_PUBLISHED);
+        $this->collectionHandler->loadCollection(8, Value::STATUS_PUBLISHED);
 
         // Verify the state of the collection references
 
         // First block
         $references = $this->blockHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(7, Value::STATUS_PUBLISHED)
+            $this->blockHandler->loadBlock(40, Value::STATUS_PUBLISHED)
         );
 
         $this->assertCount(1, $references);
@@ -759,30 +823,26 @@ class LayoutHandlerTest extends TestCase
 
         // Second block
         $references = $this->blockHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(8, Value::STATUS_PUBLISHED)
+            $this->blockHandler->loadBlock(42, Value::STATUS_PUBLISHED)
         );
 
         $this->assertCount(2, $references);
-        $this->assertContains($references[0]->collectionId, array(3, 6));
-        $this->assertContains($references[1]->collectionId, array(3, 6));
+        $this->assertContains($references[0]->collectionId, array(3, 7));
+        $this->assertContains($references[1]->collectionId, array(3, 7));
 
-        // Second block
+        // Third block
         $references = $this->blockHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(9, Value::STATUS_PUBLISHED)
+            $this->blockHandler->loadBlock(43, Value::STATUS_PUBLISHED)
         );
 
         $this->assertCount(1, $references);
-        $this->assertEquals($references[0]->collectionId, 7);
+        $this->assertEquals($references[0]->collectionId, 8);
     }
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::createLayoutStatus
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutData
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutZonesData
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayout
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadZoneBlocksData
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadCollectionReferencesData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayoutStatus
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createZoneStatus
      */
     public function testCreateLayoutStatus()
     {
@@ -819,6 +879,7 @@ class LayoutHandlerTest extends TestCase
                         'identifier' => 'bottom',
                         'layoutId' => 1,
                         'status' => Value::STATUS_ARCHIVED,
+                        'rootBlockId' => 4,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
                     )
@@ -828,6 +889,7 @@ class LayoutHandlerTest extends TestCase
                         'identifier' => 'left',
                         'layoutId' => 1,
                         'status' => Value::STATUS_ARCHIVED,
+                        'rootBlockId' => 2,
                         'linkedLayoutId' => 3,
                         'linkedZoneIdentifier' => 'left',
                     )
@@ -837,6 +899,7 @@ class LayoutHandlerTest extends TestCase
                         'identifier' => 'right',
                         'layoutId' => 1,
                         'status' => Value::STATUS_ARCHIVED,
+                        'rootBlockId' => 3,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
                     )
@@ -846,6 +909,7 @@ class LayoutHandlerTest extends TestCase
                         'identifier' => 'top',
                         'layoutId' => 1,
                         'status' => Value::STATUS_ARCHIVED,
+                        'rootBlockId' => 1,
                         'linkedLayoutId' => null,
                         'linkedZoneIdentifier' => null,
                     )
@@ -858,23 +922,27 @@ class LayoutHandlerTest extends TestCase
             array(
                 new Block(
                     array(
-                        'id' => 2,
+                        'id' => 32,
                         'layoutId' => 1,
-                        'zoneIdentifier' => 'left',
+                        'depth' => 1,
+                        'path' => '/2/32/',
+                        'parentId' => 2,
+                        'placeholder' => 'root',
                         'position' => 0,
                         'definitionIdentifier' => 'list',
-                        'parameters' => array(
-                            'number_of_columns' => 3,
-                        ),
                         'viewType' => 'grid',
                         'itemViewType' => 'standard',
                         'name' => 'My other block',
                         'status' => Value::STATUS_ARCHIVED,
+                        'placeholderParameters' => array(),
+                        'parameters' => array(
+                            'number_of_columns' => 3,
+                        ),
                     )
                 ),
             ),
-            $this->blockHandler->loadZoneBlocks(
-                $this->layoutHandler->loadZone($copiedLayout->id, $copiedLayout->status, 'left')
+            $this->blockHandler->loadChildBlocks(
+                $this->blockHandler->loadBlock(2, Value::STATUS_ARCHIVED)
             )
         );
 
@@ -882,39 +950,47 @@ class LayoutHandlerTest extends TestCase
             array(
                 new Block(
                     array(
-                        'id' => 1,
+                        'id' => 31,
                         'layoutId' => 1,
-                        'zoneIdentifier' => 'right',
+                        'depth' => 1,
+                        'path' => '/3/31/',
+                        'parentId' => 3,
+                        'placeholder' => 'root',
                         'position' => 0,
                         'definitionIdentifier' => 'list',
-                        'parameters' => array(
-                            'number_of_columns' => 3,
-                        ),
                         'viewType' => 'grid',
                         'itemViewType' => 'standard_with_intro',
                         'name' => 'My published block',
                         'status' => Value::STATUS_ARCHIVED,
+                        'placeholderParameters' => array(),
+                        'parameters' => array(
+                            'number_of_columns' => 3,
+                        ),
                     )
                 ),
                 new Block(
                     array(
-                        'id' => 5,
+                        'id' => 35,
                         'layoutId' => 1,
-                        'zoneIdentifier' => 'right',
+                        'depth' => 1,
+                        'path' => '/3/35/',
+                        'parentId' => 3,
+                        'placeholder' => 'root',
                         'position' => 1,
                         'definitionIdentifier' => 'list',
-                        'parameters' => array(
-                            'number_of_columns' => 3,
-                        ),
                         'viewType' => 'grid',
                         'itemViewType' => 'standard',
                         'name' => 'My fourth block',
                         'status' => Value::STATUS_ARCHIVED,
+                        'placeholderParameters' => array(),
+                        'parameters' => array(
+                            'number_of_columns' => 3,
+                        ),
                     )
                 ),
             ),
-            $this->blockHandler->loadZoneBlocks(
-                $this->layoutHandler->loadZone($copiedLayout->id, $copiedLayout->status, 'right')
+            $this->blockHandler->loadChildBlocks(
+                $this->blockHandler->loadBlock(3, Value::STATUS_ARCHIVED)
             )
         );
 
@@ -923,16 +999,18 @@ class LayoutHandlerTest extends TestCase
 
         // Verify the state of the collection references
         $archivedReferences = $this->blockHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(1, Value::STATUS_ARCHIVED)
+            $this->blockHandler->loadBlock(31, Value::STATUS_ARCHIVED)
         );
+
         $this->assertCount(2, $archivedReferences);
         $this->assertContains($archivedReferences[0]->collectionId, array(2, 3));
         $this->assertContains($archivedReferences[1]->collectionId, array(2, 3));
 
         // Second block
         $archivedReferences = $this->blockHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(2, Value::STATUS_ARCHIVED)
+            $this->blockHandler->loadBlock(32, Value::STATUS_ARCHIVED)
         );
+
         $this->assertCount(1, $archivedReferences);
         $this->assertEquals(3, $archivedReferences[0]->collectionId);
     }
@@ -997,7 +1075,7 @@ class LayoutHandlerTest extends TestCase
 
         // Verify the state of the collection references
         $publishedReferences = $this->blockHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(1, Value::STATUS_PUBLISHED)
+            $this->blockHandler->loadBlock(31, Value::STATUS_PUBLISHED)
         );
 
         $this->assertCount(2, $publishedReferences);
@@ -1006,7 +1084,7 @@ class LayoutHandlerTest extends TestCase
 
         // Second block
         $publishedReferences = $this->blockHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(2, Value::STATUS_PUBLISHED)
+            $this->blockHandler->loadBlock(32, Value::STATUS_PUBLISHED)
         );
 
         $this->assertCount(1, $publishedReferences);

@@ -35,6 +35,7 @@ class Version010000 extends AbstractMigration
         $zoneTable->addColumn('identifier', 'string', array('length' => 255));
         $zoneTable->addColumn('layout_id', 'integer');
         $zoneTable->addColumn('status', 'integer');
+        $zoneTable->addColumn('root_block_id', 'integer');
         $zoneTable->addColumn('linked_layout_id', 'integer', array('notnull' => false));
         $zoneTable->addColumn('linked_zone_identifier', 'string', array('length' => 255, 'notnull' => false));
 
@@ -48,18 +49,22 @@ class Version010000 extends AbstractMigration
         $blockTable->addColumn('id', 'integer', array('autoincrement' => true));
         $blockTable->addColumn('status', 'integer');
         $blockTable->addColumn('layout_id', 'integer');
-        $blockTable->addColumn('zone_identifier', 'string', array('length' => 255));
-        $blockTable->addColumn('position', 'integer');
+        $blockTable->addColumn('depth', 'integer');
+        $blockTable->addColumn('path', 'string', array('length' => 255));
+        $blockTable->addColumn('parent_id', 'integer', array('notnull' => false));
+        $blockTable->addColumn('placeholder', 'string', array('length' => 255, 'notnull' => false));
+        $blockTable->addColumn('position', 'integer', array('notnull' => false));
         $blockTable->addColumn('definition_identifier', 'string', array('length' => 255));
         $blockTable->addColumn('view_type', 'string', array('length' => 255));
         $blockTable->addColumn('item_view_type', 'string', array('length' => 255));
         $blockTable->addColumn('name', 'string', array('length' => 255));
+        $blockTable->addColumn('placeholder_parameters', 'text', array('length' => 65535));
         $blockTable->addColumn('parameters', 'text', array('length' => 65535));
 
         $blockTable->setPrimaryKey(array('id', 'status'));
         $blockTable->addForeignKeyConstraint('ngbm_layout', array('layout_id', 'status'), array('id', 'status'));
 
-        $blockTable->addIndex(array('layout_id', 'zone_identifier', 'status'));
+        $blockTable->addIndex(array('parent_id', 'placeholder', 'status'));
 
         // ngbm_rule table
 

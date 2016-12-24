@@ -25,9 +25,4 @@ class LayoutCreateStruct extends ValueObject
      * @var bool
      */
     public $shared;
-
-    /**
-     * @var \Netgen\BlockManager\Persistence\Values\Page\ZoneCreateStruct[]
-     */
-    public $zoneCreateStructs;
 }

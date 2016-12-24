@@ -90,7 +90,7 @@ abstract class BlockMapperTest extends ServiceTestCase
     {
         $persistenceReference = new CollectionReference(
             array(
-                'blockId' => 1,
+                'blockId' => 31,
                 'blockStatus' => Value::STATUS_PUBLISHED,
                 'collectionId' => 2,
                 'collectionStatus' => Value::STATUS_PUBLISHED,
@@ -104,7 +104,7 @@ abstract class BlockMapperTest extends ServiceTestCase
 
         $this->assertInstanceOf(APICollectionReference::class, $reference);
 
-        $this->assertEquals(1, $reference->getBlock()->getId());
+        $this->assertEquals(31, $reference->getBlock()->getId());
         $this->assertEquals(Value::STATUS_PUBLISHED, $reference->getBlock()->getStatus());
         $this->assertEquals(2, $reference->getCollection()->getId());
         $this->assertEquals(Value::STATUS_PUBLISHED, $reference->getCollection()->getStatus());

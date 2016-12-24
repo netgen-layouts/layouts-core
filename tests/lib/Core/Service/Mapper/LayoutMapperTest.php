@@ -34,6 +34,7 @@ abstract class LayoutMapperTest extends ServiceTestCase
                 'identifier' => 'right',
                 'layoutId' => 1,
                 'status' => Value::STATUS_PUBLISHED,
+                'rootBlockId' => 3,
                 'linkedLayoutId' => 3,
                 'linkedZoneIdentifier' => 'right',
             )
@@ -64,6 +65,7 @@ abstract class LayoutMapperTest extends ServiceTestCase
                 'identifier' => 'right',
                 'layoutId' => 1,
                 'status' => Value::STATUS_PUBLISHED,
+                'rootBlockId' => 3,
                 'linkedLayoutId' => 9999,
                 'linkedZoneIdentifier' => 'unknown',
             )

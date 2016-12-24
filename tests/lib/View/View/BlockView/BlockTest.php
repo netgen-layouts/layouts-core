@@ -14,9 +14,6 @@ class BlockTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\View\BlockView\Block::__construct
      * @covers \Netgen\BlockManager\View\View\BlockView\Block::getId
-     * @covers \Netgen\BlockManager\View\View\BlockView\Block::getLayoutId
-     * @covers \Netgen\BlockManager\View\View\BlockView\Block::getZoneIdentifier
-     * @covers \Netgen\BlockManager\View\View\BlockView\Block::getPosition
      * @covers \Netgen\BlockManager\View\View\BlockView\Block::getDefinition
      * @covers \Netgen\BlockManager\View\View\BlockView\Block::getParameters
      * @covers \Netgen\BlockManager\View\View\BlockView\Block::getParameter

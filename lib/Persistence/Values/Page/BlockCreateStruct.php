@@ -12,11 +12,6 @@ class BlockCreateStruct extends ValueObject
     public $layoutId;
 
     /**
-     * @var string
-     */
-    public $zoneIdentifier;
-
-    /**
      * @var int
      */
     public $status;
@@ -45,6 +40,11 @@ class BlockCreateStruct extends ValueObject
      * @var string
      */
     public $name;
+
+    /**
+     * @var array
+     */
+    public $placeholderParameters;
 
     /**
      * @var array

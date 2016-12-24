@@ -29,9 +29,13 @@ class BlockMapperTest extends TestCase
             array(
                 'id' => 42,
                 'layout_id' => 24,
-                'zone_identifier' => 'bottom',
+                'depth' => 1,
+                'path' => '/22/42/',
+                'parent_id' => 22,
+                'placeholder' => 'root',
                 'position' => 4,
                 'definition_identifier' => 'text',
+                'placeholder_parameters' => '{"some": "value"}',
                 'parameters' => '{"param1": "param2"}',
                 'view_type' => 'default',
                 'item_view_type' => 'standard',
@@ -41,9 +45,13 @@ class BlockMapperTest extends TestCase
             array(
                 'id' => 84,
                 'layout_id' => 48,
-                'zone_identifier' => 'top',
+                'depth' => 1,
+                'path' => '/23/84/',
+                'parent_id' => 23,
+                'placeholder' => 'root',
                 'position' => 3,
                 'definition_identifier' => 'title',
+                'placeholder_parameters' => '{"other": "value"}',
                 'parameters' => '{"param1": 42}',
                 'view_type' => 'small',
                 'item_view_type' => 'standard',
@@ -57,32 +65,44 @@ class BlockMapperTest extends TestCase
                 array(
                     'id' => 42,
                     'layoutId' => 24,
-                    'zoneIdentifier' => 'bottom',
+                    'depth' => 1,
+                    'path' => '/22/42/',
+                    'parentId' => 22,
+                    'placeholder' => 'root',
                     'position' => 4,
                     'definitionIdentifier' => 'text',
-                    'parameters' => array(
-                        'param1' => 'param2',
-                    ),
                     'viewType' => 'default',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
                     'status' => Value::STATUS_PUBLISHED,
+                    'placeholderParameters' => array(
+                        'some' => 'value',
+                    ),
+                    'parameters' => array(
+                        'param1' => 'param2',
+                    ),
                 )
             ),
             new Block(
                 array(
                     'id' => 84,
                     'layoutId' => 48,
-                    'zoneIdentifier' => 'top',
+                    'depth' => 1,
+                    'path' => '/23/84/',
+                    'parentId' => 23,
+                    'placeholder' => 'root',
                     'position' => 3,
                     'definitionIdentifier' => 'title',
-                    'parameters' => array(
-                        'param1' => 42,
-                    ),
                     'viewType' => 'small',
                     'itemViewType' => 'standard',
                     'name' => 'My other block',
                     'status' => Value::STATUS_PUBLISHED,
+                    'placeholderParameters' => array(
+                        'other' => 'value',
+                    ),
+                    'parameters' => array(
+                        'param1' => 42,
+                    ),
                 )
             ),
         );

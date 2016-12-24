@@ -47,9 +47,6 @@ class BlockNormalizerTest extends TestCase
         $block = new Block(
             array(
                 'id' => 42,
-                'layoutId' => 24,
-                'zoneIdentifier' => 'bottom',
-                'position' => 2,
                 'definition' => new BlockDefinition('text'),
                 'parameters' => array(
                     'some_param' => new ParameterValue(

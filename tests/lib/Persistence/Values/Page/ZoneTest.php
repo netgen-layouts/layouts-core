@@ -15,6 +15,7 @@ class ZoneTest extends TestCase
         $this->assertNull($zone->identifier);
         $this->assertNull($zone->layoutId);
         $this->assertNull($zone->status);
+        $this->assertNull($zone->rootBlockId);
         $this->assertNull($zone->linkedLayoutId);
         $this->assertNull($zone->linkedZoneIdentifier);
     }
@@ -26,6 +27,7 @@ class ZoneTest extends TestCase
                 'identifier' => 'left',
                 'layoutId' => 84,
                 'status' => Value::STATUS_PUBLISHED,
+                'rootBlockId' => 42,
                 'linkedLayoutId' => 24,
                 'linkedZoneIdentifier' => 'top',
             )
@@ -34,6 +36,7 @@ class ZoneTest extends TestCase
         $this->assertEquals('left', $zone->identifier);
         $this->assertEquals(84, $zone->layoutId);
         $this->assertEquals(Value::STATUS_PUBLISHED, $zone->status);
+        $this->assertEquals(42, $zone->rootBlockId);
         $this->assertEquals(24, $zone->linkedLayoutId);
         $this->assertEquals('top', $zone->linkedZoneIdentifier);
     }

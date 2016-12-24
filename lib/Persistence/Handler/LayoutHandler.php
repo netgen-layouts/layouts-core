@@ -105,20 +105,21 @@ interface LayoutHandler
      * Creates a layout.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\LayoutCreateStruct $layoutCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Page\ZoneCreateStruct[] $zoneCreateStructs
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
-    public function createLayout(LayoutCreateStruct $layoutCreateStruct);
+    public function createLayout(LayoutCreateStruct $layoutCreateStruct, array $zoneCreateStructs);
 
     /**
      * Creates a zone in provided layout.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
      * @param \Netgen\BlockManager\Persistence\Values\Page\ZoneCreateStruct $zoneCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Zone
      */
-    public function createZone(Layout $layout, ZoneCreateStruct $zoneCreateStruct);
+    public function createZone(ZoneCreateStruct $zoneCreateStruct, Layout $layout);
 
     /**
      * Updates a layout with specified ID.

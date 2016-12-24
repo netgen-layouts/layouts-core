@@ -48,7 +48,12 @@ class LayoutMapper extends Mapper
      */
     public function mapZone(PersistenceZone $zone)
     {
-        $persistenceBlocks = $this->persistenceHandler->getBlockHandler()->loadZoneBlocks($zone);
+        $blockHandler = $this->persistenceHandler->getBlockHandler();
+
+        $persistenceBlocks = $blockHandler->loadChildBlocks(
+            $blockHandler->loadBlock($zone->rootBlockId, $zone->status),
+            'root'
+        );
 
         $linkedZone = null;
 

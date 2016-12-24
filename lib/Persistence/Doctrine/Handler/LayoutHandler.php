@@ -7,6 +7,7 @@ use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler;
 use Netgen\BlockManager\Persistence\Handler\BlockHandler as BaseBlockHandler;
 use Netgen\BlockManager\Persistence\Handler\LayoutHandler as LayoutHandlerInterface;
+use Netgen\BlockManager\Persistence\Values\Page\BlockCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\LayoutCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\LayoutUpdateStruct;
@@ -191,34 +192,52 @@ class LayoutHandler implements LayoutHandlerInterface
      * Creates a layout.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\LayoutCreateStruct $layoutCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Page\ZoneCreateStruct[] $zoneCreateStructs
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
-    public function createLayout(LayoutCreateStruct $layoutCreateStruct)
+    public function createLayout(LayoutCreateStruct $layoutCreateStruct, array $zoneCreateStructs)
     {
         $layoutCreateStruct->name = trim($layoutCreateStruct->name);
         $layoutCreateStruct->shared = $layoutCreateStruct->shared ? true : false;
 
         $createdLayoutId = $this->queryHandler->createLayout($layoutCreateStruct);
 
-        return $this->loadLayout($createdLayoutId, $layoutCreateStruct->status);
+        $layout = $this->loadLayout($createdLayoutId, $layoutCreateStruct->status);
+
+        foreach ($zoneCreateStructs as $zoneCreateStruct) {
+            $this->createZone($zoneCreateStruct, $layout);
+        }
+
+        return $layout;
     }
 
     /**
      * Creates a zone in provided layout.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
      * @param \Netgen\BlockManager\Persistence\Values\Page\ZoneCreateStruct $zoneCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Zone
      */
-    public function createZone(Layout $layout, ZoneCreateStruct $zoneCreateStruct)
+    public function createZone(ZoneCreateStruct $zoneCreateStruct, Layout $layout)
     {
-        $this->queryHandler->createZone(
-            $layout->id,
-            $layout->status,
-            $zoneCreateStruct
+        $rootBlock = $this->blockHandler->createBlock(
+            new BlockCreateStruct(
+                array(
+                    'layoutId' => $layout->id,
+                    'status' => $layout->status,
+                    'definitionIdentifier' => '',
+                    'viewType' => '',
+                    'itemViewType' => '',
+                    'name' => '',
+                    'placeholderParameters' => array(),
+                    'parameters' => array(),
+                )
+            )
         );
+
+        $this->queryHandler->createZone($zoneCreateStruct, $layout, $rootBlock);
 
         return $this->loadZone($layout->id, $layout->status, $zoneCreateStruct->identifier);
     }
@@ -241,11 +260,7 @@ class LayoutHandler implements LayoutHandlerInterface
             trim($layoutUpdateStruct->name) :
             $layout->name;
 
-        $this->queryHandler->updateLayout(
-            $layout->id,
-            $layout->status,
-            $layoutUpdateStruct
-        );
+        $this->queryHandler->updateLayout($layout, $layoutUpdateStruct);
 
         return $this->loadLayout($layout->id, $layout->status);
     }
@@ -260,12 +275,7 @@ class LayoutHandler implements LayoutHandlerInterface
      */
     public function updateZone(Zone $zone, ZoneUpdateStruct $zoneUpdateStruct)
     {
-        $this->queryHandler->updateZone(
-            $zone->layoutId,
-            $zone->status,
-            $zone->identifier,
-            $zoneUpdateStruct
-        );
+        $this->queryHandler->updateZone($zone, $zoneUpdateStruct);
 
         return $this->loadZone($zone->layoutId, $zone->status, $zone->identifier);
     }
@@ -280,19 +290,6 @@ class LayoutHandler implements LayoutHandlerInterface
      */
     public function copyLayout(Layout $layout, $newName)
     {
-        $layoutZones = $this->loadLayoutZones($layout);
-
-        $zoneCreateStructs = array();
-        foreach ($layoutZones as $layoutZone) {
-            $zoneCreateStructs[] = new ZoneCreateStruct(
-                array(
-                    'identifier' => $layoutZone->identifier,
-                    'linkedLayoutId' => $layoutZone->linkedLayoutId,
-                    'linkedZoneIdentifier' => $layoutZone->linkedZoneIdentifier,
-                )
-            );
-        }
-
         $copiedLayoutId = $this->queryHandler->createLayout(
             new LayoutCreateStruct(
                 array(
@@ -300,29 +297,34 @@ class LayoutHandler implements LayoutHandlerInterface
                     'name' => $newName,
                     'status' => $layout->status,
                     'shared' => $layout->shared,
-                    'zoneCreateStructs' => $zoneCreateStructs,
                 )
             )
         );
 
         $copiedLayout = $this->loadLayout($copiedLayoutId, $layout->status);
-        $copiedLayoutZones = array();
 
+        $layoutZones = $this->loadLayoutZones($layout);
         foreach ($layoutZones as $layoutZone) {
-            if (!isset($copiedLayoutZones[$layoutZone->identifier])) {
-                $copiedLayoutZones[$layoutZone->identifier] = $this->loadZone(
-                    $copiedLayout->id,
-                    $copiedLayout->status,
-                    $layoutZone->identifier
-                );
-            }
+            $zoneCreateStruct = new ZoneCreateStruct(
+                array(
+                    'identifier' => $layoutZone->identifier,
+                    'linkedLayoutId' => $layoutZone->linkedLayoutId,
+                    'linkedZoneIdentifier' => $layoutZone->linkedZoneIdentifier,
+                )
+            );
 
-            $zoneBlocks = $this->blockHandler->loadZoneBlocks($layoutZone);
+            $createdZone = $this->createZone($zoneCreateStruct, $copiedLayout);
+            $rootBlock = $this->blockHandler->loadBlock(
+                $createdZone->rootBlockId,
+                $createdZone->status
+            );
+
+            $zoneBlocks = $this->blockHandler->loadChildBlocks(
+                $this->blockHandler->loadBlock($layoutZone->rootBlockId, $layoutZone->status)
+            );
+
             foreach ($zoneBlocks as $block) {
-                $this->blockHandler->copyBlock(
-                    $block,
-                    $copiedLayoutZones[$layoutZone->identifier]
-                );
+                $this->blockHandler->copyBlock($block, $rootBlock, 'root');
             }
         }
 
@@ -339,40 +341,17 @@ class LayoutHandler implements LayoutHandlerInterface
      */
     public function createLayoutStatus(Layout $layout, $newStatus)
     {
-        $layoutZones = $this->loadLayoutZones($layout);
+        $this->queryHandler->createLayoutStatus($layout, $newStatus);
 
-        $zoneCreateStructs = array();
+        $layoutZones = $this->loadLayoutZones($layout);
         foreach ($layoutZones as $layoutZone) {
-            $zoneCreateStructs[] = new ZoneCreateStruct(
-                array(
-                    'identifier' => $layoutZone->identifier,
-                    'linkedLayoutId' => $layoutZone->linkedLayoutId,
-                    'linkedZoneIdentifier' => $layoutZone->linkedZoneIdentifier,
-                )
-            );
+            $this->queryHandler->createZoneStatus($layoutZone, $newStatus);
         }
 
-        $this->queryHandler->createLayout(
-            new LayoutCreateStruct(
-                array(
-                    'type' => $layout->type,
-                    'name' => $layout->name,
-                    'status' => $newStatus,
-                    'shared' => $layout->shared,
-                    'zoneCreateStructs' => $zoneCreateStructs,
-                )
-            ),
-            $layout->id
-        );
+        $layoutBlocks = $this->blockHandler->loadLayoutBlocks($layout);
 
-        foreach ($layoutZones as $layoutZone) {
-            $zoneBlocks = $this->blockHandler->loadZoneBlocks($layoutZone);
-            foreach ($zoneBlocks as $block) {
-                $this->blockHandler->createBlockStatus(
-                    $block,
-                    $newStatus
-                );
-            }
+        foreach ($layoutBlocks as $block) {
+            $this->blockHandler->createBlockStatus($block, $newStatus);
         }
 
         return $this->loadLayout($layout->id, $newStatus);

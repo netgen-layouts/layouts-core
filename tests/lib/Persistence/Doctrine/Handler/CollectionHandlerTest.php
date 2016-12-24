@@ -287,7 +287,7 @@ class CollectionHandlerTest extends TestCase
 
         $this->assertInstanceOf(Collection::class, $createdCollection);
 
-        $this->assertEquals(6, $createdCollection->id);
+        $this->assertEquals(7, $createdCollection->id);
         $this->assertEquals(Collection::TYPE_DYNAMIC, $createdCollection->type);
         $this->assertFalse($createdCollection->shared);
         $this->assertEquals('New collection', $createdCollection->name);
@@ -308,7 +308,7 @@ class CollectionHandlerTest extends TestCase
 
         $this->assertInstanceOf(Collection::class, $createdCollection);
 
-        $this->assertEquals(6, $createdCollection->id);
+        $this->assertEquals(7, $createdCollection->id);
         $this->assertEquals(Collection::TYPE_DYNAMIC, $createdCollection->type);
         $this->assertFalse($createdCollection->shared);
         $this->assertNull($createdCollection->name);
@@ -377,7 +377,7 @@ class CollectionHandlerTest extends TestCase
             'New name'
         );
 
-        $this->assertEquals(6, $copiedCollection->id);
+        $this->assertEquals(7, $copiedCollection->id);
         $this->assertInstanceOf(Collection::class, $copiedCollection);
         $this->assertEquals(Collection::TYPE_DYNAMIC, $copiedCollection->type);
         $this->assertTrue($copiedCollection->shared);

@@ -21,14 +21,35 @@ class Block extends Value
     public $layoutId;
 
     /**
-     * Zone identifier to which this block belongs.
+     * The depth of the block in the tree.
+     *
+     * @var int
+     */
+    public $depth;
+
+    /**
+     * Materialized path of the block.
      *
      * @var string
      */
-    public $zoneIdentifier;
+    public $path;
 
     /**
-     * Position of the block in the zone.
+     * ID of the parent block.
+     *
+     * @var int
+     */
+    public $parentId;
+
+    /**
+     * Placeholder to which this block belongs in the parent block.
+     *
+     * @var string
+     */
+    public $placeholder;
+
+    /**
+     * Position of the block in the parent block.
      *
      * @var int
      */
@@ -40,6 +61,13 @@ class Block extends Value
      * @var string
      */
     public $definitionIdentifier;
+
+    /**
+     * Block placeholder parameters.
+     *
+     * @var array
+     */
+    public $placeholderParameters;
 
     /**
      * Block parameters.

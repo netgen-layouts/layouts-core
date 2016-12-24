@@ -40,7 +40,7 @@ abstract class BlockServiceTest extends ServiceTestCase
      */
     public function testLoadBlock()
     {
-        $block = $this->blockService->loadBlock(1);
+        $block = $this->blockService->loadBlock(31);
 
         $this->assertTrue($block->isPublished());
         $this->assertInstanceOf(Block::class, $block);
@@ -56,12 +56,21 @@ abstract class BlockServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::loadBlock
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     */
+    public function testLoadBlockThrowsNotFoundExceptionOnLoadingInternalBlock()
+    {
+        $this->blockService->loadBlock(1);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::__construct
      * @covers \Netgen\BlockManager\Core\Service\BlockService::loadBlockDraft
      */
     public function testLoadBlockDraft()
     {
-        $block = $this->blockService->loadBlockDraft(1);
+        $block = $this->blockService->loadBlockDraft(31);
 
         $this->assertFalse($block->isPublished());
         $this->assertInstanceOf(Block::class, $block);
@@ -77,11 +86,20 @@ abstract class BlockServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::loadBlockDraft
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     */
+    public function testLoadBlockDraftThrowsNotFoundExceptionOnLoadingInternalBlock()
+    {
+        $this->blockService->loadBlockDraft(1);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::hasPublishedState
      */
     public function testHasPublishedState()
     {
-        $block = $this->blockService->loadBlock(1);
+        $block = $this->blockService->loadBlock(31);
 
         $this->assertTrue($this->blockService->hasPublishedState($block));
     }
@@ -91,7 +109,7 @@ abstract class BlockServiceTest extends ServiceTestCase
      */
     public function testHasPublishedStateReturnsFalse()
     {
-        $block = $this->blockService->loadBlockDraft(6);
+        $block = $this->blockService->loadBlockDraft(36);
 
         $this->assertFalse($this->blockService->hasPublishedState($block));
     }
@@ -102,7 +120,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     public function testLoadCollectionReference()
     {
         $collection = $this->blockService->loadCollectionReference(
-            $this->blockService->loadBlock(1),
+            $this->blockService->loadBlock(31),
             'default'
         );
 
@@ -116,7 +134,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     public function testLoadCollectionReferenceThrowsNotFoundException()
     {
         $collection = $this->blockService->loadCollectionReference(
-            $this->blockService->loadBlock(1),
+            $this->blockService->loadBlock(31),
             'non_existing'
         );
 
@@ -129,7 +147,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     public function testLoadCollectionReferences()
     {
         $collections = $this->blockService->loadCollectionReferences(
-            $this->blockService->loadBlock(1)
+            $this->blockService->loadBlock(31)
         );
 
         $this->assertNotEmpty($collections);
@@ -161,7 +179,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertInstanceOf(Block::class, $block);
         $this->assertEquals($block->getId(), $zone->getBlocks()[0]->getId());
 
-        $this->assertEquals(1, $zone->getBlocks()[1]->getId());
+        $this->assertEquals(31, $zone->getBlocks()[1]->getId());
 
         $collectionReferences = $this->blockService->loadCollectionReferences($block);
         $this->assertCount(1, $collectionReferences);
@@ -196,7 +214,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertInstanceOf(Block::class, $block);
         $this->assertEquals($block->getId(), $zone->getBlocks()[0]->getId());
 
-        $this->assertEquals(1, $zone->getBlocks()[1]->getId());
+        $this->assertEquals(31, $zone->getBlocks()[1]->getId());
 
         $collectionReferences = $this->blockService->loadCollectionReferences($block);
         $this->assertCount(0, $collectionReferences);
@@ -320,7 +338,7 @@ abstract class BlockServiceTest extends ServiceTestCase
      */
     public function testUpdateBlock()
     {
-        $block = $this->blockService->loadBlockDraft(1);
+        $block = $this->blockService->loadBlockDraft(31);
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct();
         $blockUpdateStruct->viewType = 'small';
@@ -364,7 +382,7 @@ abstract class BlockServiceTest extends ServiceTestCase
      */
     public function testUpdateBlockWithBlankName()
     {
-        $block = $this->blockService->loadBlockDraft(1);
+        $block = $this->blockService->loadBlockDraft(31);
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct();
         $blockUpdateStruct->viewType = 'small';
@@ -407,7 +425,7 @@ abstract class BlockServiceTest extends ServiceTestCase
      */
     public function testUpdateBlockWithBlankViewType()
     {
-        $block = $this->blockService->loadBlockDraft(1);
+        $block = $this->blockService->loadBlockDraft(31);
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct();
         $blockUpdateStruct->name = 'Super cool block';
@@ -451,7 +469,7 @@ abstract class BlockServiceTest extends ServiceTestCase
      */
     public function testUpdateBlockThrowsBadStateExceptionWithNonDraftBlock()
     {
-        $block = $this->blockService->loadBlock(1);
+        $block = $this->blockService->loadBlock(31);
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct();
         $blockUpdateStruct->viewType = 'small';
@@ -468,7 +486,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     public function testUpdateCollectionReference()
     {
         $collectionReference = $this->blockService->loadCollectionReference(
-            $this->blockService->loadBlockDraft(1),
+            $this->blockService->loadBlockDraft(31),
             'default'
         );
 
@@ -491,13 +509,13 @@ abstract class BlockServiceTest extends ServiceTestCase
     public function testCopyBlock()
     {
         $copiedBlock = $this->blockService->copyBlock(
-            $this->blockService->loadBlockDraft(1),
+            $this->blockService->loadBlockDraft(31),
             $this->layoutService->loadZoneDraft(1, 'left')
         );
 
         $this->assertFalse($copiedBlock->isPublished());
         $this->assertInstanceOf(Block::class, $copiedBlock);
-        $this->assertEquals(7, $copiedBlock->getId());
+        $this->assertEquals(38, $copiedBlock->getId());
 
         $copiedCollection = $this->collectionService->loadCollectionDraft(4);
         $this->assertFalse($copiedCollection->isPublished());
@@ -511,7 +529,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     public function testCopyBlockThrowsBadStateExceptionWithNonDraftBlock()
     {
         $this->blockService->copyBlock(
-            $this->blockService->loadBlock(1),
+            $this->blockService->loadBlock(31),
             $this->layoutService->loadZoneDraft(1, 'left')
         );
     }
@@ -523,7 +541,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     public function testCopyBlockThrowsBadStateExceptionWithNonDraftZone()
     {
         $this->blockService->copyBlock(
-            $this->blockService->loadBlockDraft(1),
+            $this->blockService->loadBlockDraft(31),
             $this->layoutService->loadZone(1, 'left')
         );
     }
@@ -536,7 +554,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     public function testCopyBlockWithDisallowedIdentifierThrowsBadStateException()
     {
         $this->blockService->copyBlock(
-            $this->blockService->loadBlockDraft(1),
+            $this->blockService->loadBlockDraft(31),
             $this->layoutService->loadZoneDraft(1, 'bottom')
         );
     }
@@ -548,14 +566,14 @@ abstract class BlockServiceTest extends ServiceTestCase
     public function testMoveBlock()
     {
         $movedBlock = $this->blockService->moveBlock(
-            $this->blockService->loadBlockDraft(2),
+            $this->blockService->loadBlockDraft(32),
             $this->layoutService->loadZoneDraft(1, 'left'),
             0
         );
 
         $this->assertFalse($movedBlock->isPublished());
         $this->assertInstanceOf(Block::class, $movedBlock);
-        $this->assertEquals(2, $movedBlock->getId());
+        $this->assertEquals(32, $movedBlock->getId());
 
         $zone = $this->layoutService->loadZoneDraft(1, 'left');
 
@@ -569,7 +587,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     public function testMoveBlockThrowsBadStateExceptionWithNonDraftBlock()
     {
         $this->blockService->moveBlock(
-            $this->blockService->loadBlock(1),
+            $this->blockService->loadBlock(31),
             $this->layoutService->loadZoneDraft(1, 'left'),
             0
         );
@@ -582,7 +600,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     public function testMoveBlockThrowsBadStateExceptionWithNonDraftZone()
     {
         $this->blockService->moveBlock(
-            $this->blockService->loadBlockDraft(1),
+            $this->blockService->loadBlockDraft(31),
             $this->layoutService->loadZone(1, 'left'),
             0
         );
@@ -596,7 +614,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     public function testMoveBlockThrowsBadStateExceptionWhenPositionIsTooLarge()
     {
         $this->blockService->moveBlock(
-            $this->blockService->loadBlockDraft(2),
+            $this->blockService->loadBlockDraft(32),
             $this->layoutService->loadZoneDraft(1, 'bottom'),
             9999
         );
@@ -610,7 +628,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     public function testMoveBlockThrowsBadStateExceptionWhenZoneIsInDifferentLayout()
     {
         $this->blockService->moveBlock(
-            $this->blockService->loadBlockDraft(2),
+            $this->blockService->loadBlockDraft(32),
             $this->layoutService->loadZoneDraft(2, 'bottom'),
             0
         );
@@ -624,7 +642,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     public function testMoveBlockWithDisallowedIdentifierThrowsBadStateException()
     {
         $this->blockService->moveBlock(
-            $this->blockService->loadBlockDraft(1),
+            $this->blockService->loadBlockDraft(31),
             $this->layoutService->loadZoneDraft(1, 'bottom'),
             0
         );
@@ -635,7 +653,7 @@ abstract class BlockServiceTest extends ServiceTestCase
      */
     public function testRestoreBlock()
     {
-        $block = $this->blockService->loadBlockDraft(1);
+        $block = $this->blockService->loadBlockDraft(31);
         $restoredBlock = $this->blockService->restoreBlock($block);
 
         $this->assertFalse($restoredBlock->isPublished());
@@ -681,7 +699,7 @@ abstract class BlockServiceTest extends ServiceTestCase
      */
     public function testRestoreBlockThrowsBadStateExceptionWithNonDraftBlock()
     {
-        $block = $this->blockService->loadBlock(1);
+        $block = $this->blockService->loadBlock(31);
 
         $this->blockService->restoreBlock($block);
     }
@@ -692,7 +710,7 @@ abstract class BlockServiceTest extends ServiceTestCase
      */
     public function testRestoreBlockThrowsBadStateExceptionWithNoPublishedStatus()
     {
-        $block = $this->blockService->loadBlockDraft(6);
+        $block = $this->blockService->loadBlockDraft(36);
 
         $this->blockService->restoreBlock($block);
     }
@@ -703,7 +721,7 @@ abstract class BlockServiceTest extends ServiceTestCase
      */
     public function testDeleteBlock()
     {
-        $block = $this->blockService->loadBlockDraft(1);
+        $block = $this->blockService->loadBlockDraft(31);
         $this->blockService->deleteBlock($block);
 
         $this->blockService->loadBlockDraft($block->getId());
@@ -715,7 +733,7 @@ abstract class BlockServiceTest extends ServiceTestCase
      */
     public function testDeleteThrowsBadStateExceptionBlockWithNonDraftBlock()
     {
-        $block = $this->blockService->loadBlock(1);
+        $block = $this->blockService->loadBlock(31);
         $this->blockService->deleteBlock($block);
     }
 
@@ -760,7 +778,7 @@ abstract class BlockServiceTest extends ServiceTestCase
      */
     public function testNewBlockUpdateStructFromBlock()
     {
-        $block = $this->blockService->loadBlockDraft(6);
+        $block = $this->blockService->loadBlockDraft(36);
 
         $this->assertEquals(
             new BlockUpdateStruct(
