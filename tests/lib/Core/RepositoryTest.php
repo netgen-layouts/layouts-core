@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Service;
+namespace Netgen\BlockManager\Tests\Core;
 
 use Exception;
 use Netgen\BlockManager\API\Service\BlockService;
