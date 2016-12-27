@@ -22,7 +22,7 @@ class LayoutQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadLayoutData($layoutId, $status = null)
+    public function loadLayoutData($layoutId, $status)
     {
         $query = $this->getLayoutSelectQuery();
         $query->where(
@@ -30,10 +30,7 @@ class LayoutQueryHandler extends QueryHandler
         )
         ->setParameter('id', $layoutId, Type::INTEGER);
 
-        if ($status !== null) {
-            $this->applyStatusCondition($query, $status);
-            $query->addOrderBy('status', 'ASC');
-        }
+        $this->applyStatusCondition($query, $status);
 
         return $query->execute()->fetchAll();
     }
@@ -49,7 +46,7 @@ class LayoutQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadLayoutsData($includeDrafts = false, $shared = null, $offset = 0, $limit = null)
+    public function loadLayoutsData($includeDrafts, $shared, $offset = 0, $limit = null)
     {
         $query = $this->getLayoutSelectQuery();
 
@@ -65,11 +62,9 @@ class LayoutQueryHandler extends QueryHandler
             );
         }
 
-        if ($shared !== null) {
-            $query->where(
-                $query->expr()->eq('ngbm_layout.shared', ':shared')
-            );
-        }
+        $query->where(
+            $query->expr()->eq('ngbm_layout.shared', ':shared')
+        );
 
         if ($includeDrafts) {
             $query->andWhere(
@@ -84,10 +79,7 @@ class LayoutQueryHandler extends QueryHandler
             );
         }
 
-        if ($shared !== null) {
-            $query->setParameter('shared', (bool) $shared, Type::BOOLEAN);
-        }
-
+        $query->setParameter('shared', (bool) $shared, Type::BOOLEAN);
         $query->setParameter('status', Value::STATUS_PUBLISHED, Type::INTEGER);
 
         $this->applyOffsetAndLimit($query, $offset, $limit);
@@ -123,27 +115,22 @@ class LayoutQueryHandler extends QueryHandler
     }
 
     /**
-     * Loads all data for zones that belong to layout with specified ID.
+     * Loads all data for zones that belong to provided layout.
      *
-     * @param int|string $layoutId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
      *
      * @return array
      */
-    public function loadLayoutZonesData($layoutId, $status = null)
+    public function loadLayoutZonesData(Layout $layout)
     {
         $query = $this->getZoneSelectQuery();
         $query->where(
             $query->expr()->eq('layout_id', ':layout_id')
         )
-        ->setParameter('layout_id', $layoutId, Type::INTEGER);
+        ->setParameter('layout_id', $layout->id, Type::INTEGER)
+        ->orderBy('identifier', 'ASC');
 
-        if ($status !== null) {
-            $this->applyStatusCondition($query, $status);
-            $query->addOrderBy('status', 'ASC');
-        }
-
-        $query->addOrderBy('identifier', 'ASC');
+        $this->applyStatusCondition($query, $layout->status);
 
         return $query->execute()->fetchAll();
     }
@@ -208,11 +195,10 @@ class LayoutQueryHandler extends QueryHandler
      *
      * @param string $name
      * @param int|string $excludedLayoutId
-     * @param int $status
      *
      * @return bool
      */
-    public function layoutNameExists($name, $excludedLayoutId = null, $status = null)
+    public function layoutNameExists($name, $excludedLayoutId = null)
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
@@ -227,10 +213,6 @@ class LayoutQueryHandler extends QueryHandler
         if ($excludedLayoutId !== null) {
             $query->andWhere($query->expr()->neq('id', ':layout_id'))
                 ->setParameter('layout_id', $excludedLayoutId, Type::INTEGER);
-        }
-
-        if ($status !== null) {
-            $this->applyStatusCondition($query, $status);
         }
 
         $data = $query->execute()->fetchAll();

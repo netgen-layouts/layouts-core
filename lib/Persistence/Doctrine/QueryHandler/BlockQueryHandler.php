@@ -10,6 +10,7 @@ use Netgen\BlockManager\Persistence\Values\Page\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\Layout;
 
 class BlockQueryHandler extends QueryHandler
 {
@@ -21,7 +22,7 @@ class BlockQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadBlockData($blockId, $status = null)
+    public function loadBlockData($blockId, $status)
     {
         $query = $this->getBlockSelectQuery();
         $query->where(
@@ -29,9 +30,7 @@ class BlockQueryHandler extends QueryHandler
         )
         ->setParameter('id', $blockId, Type::INTEGER);
 
-        if ($status !== null) {
-            $this->applyStatusCondition($query, $status);
-        }
+        $this->applyStatusCondition($query, $status);
 
         return $query->execute()->fetchAll();
     }
@@ -39,13 +38,12 @@ class BlockQueryHandler extends QueryHandler
     /**
      * Loads all collection reference data.
      *
-     * @param int|string $blockId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
      * @param string $identifier
      *
      * @return array
      */
-    public function loadCollectionReferencesData($blockId, $status = null, $identifier = null)
+    public function loadCollectionReferencesData(Block $block, $identifier = null)
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('block_id', 'block_status', 'collection_id', 'collection_status', 'identifier', 'start', 'length')
@@ -53,19 +51,15 @@ class BlockQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('block_id', ':block_id')
             )
-            ->setParameter('block_id', $blockId, Type::INTEGER);
+            ->setParameter('block_id', $block->id, Type::INTEGER)
+            ->orderBy('identifier', 'ASC');
 
-        if ($status !== null) {
-            $this->applyStatusCondition($query, $status, 'block_status');
-            $query->addOrderBy('block_status', 'ASC');
-        }
+        $this->applyStatusCondition($query, $block->status, 'block_status');
 
         if ($identifier !== null) {
             $query->andWhere($query->expr()->eq('identifier', ':identifier'))
                 ->setParameter('identifier', $identifier, Type::STRING);
         }
-
-        $query->addOrderBy('identifier', 'ASC');
 
         return $query->execute()->fetchAll();
     }
@@ -73,23 +67,19 @@ class BlockQueryHandler extends QueryHandler
     /**
      * Loads all layout block data.
      *
-     * @param int|string $layoutId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
      *
      * @return array
      */
-    public function loadLayoutBlocksData($layoutId, $status = null)
+    public function loadLayoutBlocksData(Layout $layout)
     {
         $query = $this->getBlockSelectQuery();
         $query->where(
             $query->expr()->eq('layout_id', ':layout_id')
         )
-        ->setParameter('layout_id', $layoutId, Type::INTEGER);
+        ->setParameter('layout_id', $layout->id, Type::INTEGER);
 
-        if ($status !== null) {
-            $this->applyStatusCondition($query, $status);
-            $query->addOrderBy('status', 'ASC');
-        }
+        $this->applyStatusCondition($query, $layout->status);
 
         return $query->execute()->fetchAll();
     }
@@ -97,19 +87,18 @@ class BlockQueryHandler extends QueryHandler
     /**
      * Loads all child block data from specified block, optionally filtered by placeholder.
      *
-     * @param int|string $blockId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
      * @param string $placeholder
      *
      * @return array
      */
-    public function loadChildBlocksData($blockId, $status = null, $placeholder = null)
+    public function loadChildBlocksData(Block $block, $placeholder = null)
     {
         $query = $this->getBlockSelectQuery();
         $query->where(
             $query->expr()->eq('parent_id', ':parent_id')
         )
-        ->setParameter('parent_id', $blockId, Type::INTEGER)
+        ->setParameter('parent_id', $block->id, Type::INTEGER)
         ->addOrderBy('placeholder', 'ASC')
         ->addOrderBy('position', 'ASC');
 
@@ -120,10 +109,7 @@ class BlockQueryHandler extends QueryHandler
             ->setParameter('placeholder', $placeholder, Type::STRING);
         }
 
-        if ($status !== null) {
-            $this->applyStatusCondition($query, $status);
-            $query->addOrderBy('status', 'ASC');
-        }
+        $this->applyStatusCondition($query, $block->status);
 
         return $query->execute()->fetchAll();
     }

@@ -93,11 +93,10 @@ interface CollectionHandler
      *
      * @param string $name
      * @param int|string $excludedCollectionId
-     * @param int $status
      *
      * @return bool
      */
-    public function collectionNameExists($name, $excludedCollectionId = null, $status = null);
+    public function collectionNameExists($name, $excludedCollectionId = null);
 
     /**
      * Creates a collection.

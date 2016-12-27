@@ -3,9 +3,12 @@
 namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\Types\Type;
+use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\Query;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryUpdateStruct;
 
@@ -19,7 +22,7 @@ class CollectionQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadCollectionData($collectionId, $status = null)
+    public function loadCollectionData($collectionId, $status)
     {
         $query = $this->getCollectionSelectQuery();
         $query->where(
@@ -27,10 +30,7 @@ class CollectionQueryHandler extends QueryHandler
         )
         ->setParameter('id', $collectionId, Type::INTEGER);
 
-        if ($status !== null) {
-            $this->applyStatusCondition($query, $status);
-            $query->addOrderBy('status', 'ASC');
-        }
+        $this->applyStatusCondition($query, $status);
 
         return $query->execute()->fetchAll();
     }
@@ -43,7 +43,7 @@ class CollectionQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadItemData($itemId, $status = null)
+    public function loadItemData($itemId, $status)
     {
         $query = $this->getItemSelectQuery();
         $query->where(
@@ -51,9 +51,7 @@ class CollectionQueryHandler extends QueryHandler
         )
         ->setParameter('id', $itemId, Type::INTEGER);
 
-        if ($status !== null) {
-            $this->applyStatusCondition($query, $status);
-        }
+        $this->applyStatusCondition($query, $status);
 
         return $query->execute()->fetchAll();
     }
@@ -89,7 +87,7 @@ class CollectionQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadQueryData($queryId, $status = null)
+    public function loadQueryData($queryId, $status)
     {
         $query = $this->getQuerySelectQuery();
         $query->where(
@@ -97,9 +95,7 @@ class CollectionQueryHandler extends QueryHandler
         )
         ->setParameter('id', $queryId, Type::INTEGER);
 
-        if ($status !== null) {
-            $this->applyStatusCondition($query, $status);
-        }
+        $this->applyStatusCondition($query, $status);
 
         return $query->execute()->fetchAll();
     }
@@ -107,23 +103,19 @@ class CollectionQueryHandler extends QueryHandler
     /**
      * Loads all data for items that belong to collection with specified ID.
      *
-     * @param int|string $collectionId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      *
      * @return array
      */
-    public function loadCollectionItemsData($collectionId, $status = null)
+    public function loadCollectionItemsData(Collection $collection)
     {
         $query = $this->getItemSelectQuery();
         $query->where(
             $query->expr()->eq('collection_id', ':collection_id')
         )
-        ->setParameter('collection_id', $collectionId, Type::INTEGER);
+        ->setParameter('collection_id', $collection->id, Type::INTEGER);
 
-        if ($status !== null) {
-            $this->applyStatusCondition($query, $status);
-            $query->addOrderBy('status', 'ASC');
-        }
+        $this->applyStatusCondition($query, $collection->status);
 
         $query->addOrderBy('position', 'ASC');
 
@@ -133,23 +125,19 @@ class CollectionQueryHandler extends QueryHandler
     /**
      * Loads all data for queries that belong to collection with specified ID.
      *
-     * @param int|string $collectionId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      *
      * @return array
      */
-    public function loadCollectionQueriesData($collectionId, $status = null)
+    public function loadCollectionQueriesData(Collection $collection)
     {
         $query = $this->getQuerySelectQuery();
         $query->where(
             $query->expr()->eq('collection_id', ':collection_id')
         )
-        ->setParameter('collection_id', $collectionId, Type::INTEGER);
+        ->setParameter('collection_id', $collection->id, Type::INTEGER);
 
-        if ($status !== null) {
-            $this->applyStatusCondition($query, $status);
-            $query->addOrderBy('status', 'ASC');
-        }
+        $this->applyStatusCondition($query, $collection->status);
 
         $query->addOrderBy('position', 'ASC');
 
@@ -186,11 +174,10 @@ class CollectionQueryHandler extends QueryHandler
      *
      * @param string $name
      * @param int|string $excludedCollectionId
-     * @param int $status
      *
      * @return bool
      */
-    public function collectionNameExists($name, $excludedCollectionId = null, $status = null)
+    public function collectionNameExists($name, $excludedCollectionId = null)
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
@@ -203,10 +190,6 @@ class CollectionQueryHandler extends QueryHandler
         if ($excludedCollectionId !== null) {
             $query->andWhere($query->expr()->neq('id', ':collection_id'))
                 ->setParameter('collection_id', $excludedCollectionId, Type::INTEGER);
-        }
-
-        if ($status !== null) {
-            $this->applyStatusCondition($query, $status);
         }
 
         $data = $query->execute()->fetchAll();
@@ -252,11 +235,10 @@ class CollectionQueryHandler extends QueryHandler
     /**
      * Updates a collection.
      *
-     * @param int|string $collectionId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      * @param \Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct $collectionUpdateStruct
      */
-    public function updateCollection($collectionId, $status, CollectionUpdateStruct $collectionUpdateStruct)
+    public function updateCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct)
     {
         $query = $this->connection->createQueryBuilder();
         $query
@@ -266,11 +248,11 @@ class CollectionQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $collectionId, Type::INTEGER)
+            ->setParameter('id', $collection->id, Type::INTEGER)
             ->setParameter('type', $collectionUpdateStruct->type, Type::INTEGER)
             ->setParameter('name', $collectionUpdateStruct->name, Type::STRING);
 
-        $this->applyStatusCondition($query, $status);
+        $this->applyStatusCondition($query, $collection->status);
 
         $query->execute();
     }
@@ -359,11 +341,10 @@ class CollectionQueryHandler extends QueryHandler
     /**
      * Moves an item.
      *
-     * @param int|string $itemId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Item $item
      * @param int $position
      */
-    public function moveItem($itemId, $status, $position)
+    public function moveItem(Item $item, $position)
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -373,10 +354,10 @@ class CollectionQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $itemId, Type::INTEGER)
+            ->setParameter('id', $item->id, Type::INTEGER)
             ->setParameter('position', $position, Type::INTEGER);
 
-        $this->applyStatusCondition($query, $status);
+        $this->applyStatusCondition($query, $item->status);
 
         $query->execute();
     }
@@ -428,13 +409,12 @@ class CollectionQueryHandler extends QueryHandler
     /**
      * Returns if the query with specified identifier exists.
      *
-     * @param int|string $collectionId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      * @param string $identifier
      *
      * @return bool
      */
-    public function queryExists($collectionId, $status, $identifier)
+    public function queryExists(Collection $collection, $identifier)
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
@@ -445,10 +425,10 @@ class CollectionQueryHandler extends QueryHandler
                     $query->expr()->eq('identifier', ':identifier')
                 )
             )
-            ->setParameter('collection_id', $collectionId, Type::INTEGER)
+            ->setParameter('collection_id', $collection->id, Type::INTEGER)
             ->setParameter('identifier', $identifier, Type::STRING);
 
-        $this->applyStatusCondition($query, $status);
+        $this->applyStatusCondition($query, $collection->status);
 
         $data = $query->execute()->fetchAll();
 
@@ -499,52 +479,50 @@ class CollectionQueryHandler extends QueryHandler
     /**
      * Updates a query.
      *
-     * @param int|string $queryId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
      * @param \Netgen\BlockManager\Persistence\Values\Collection\QueryUpdateStruct $queryUpdateStruct
      */
-    public function updateQuery($queryId, $status, QueryUpdateStruct $queryUpdateStruct)
+    public function updateQuery(Query $query, QueryUpdateStruct $queryUpdateStruct)
     {
-        $query = $this->connection->createQueryBuilder();
-        $query
+        $queryBuilder = $this->connection->createQueryBuilder();
+        $queryBuilder
             ->update('ngbm_collection_query')
             ->set('identifier', ':identifier')
             ->set('parameters', ':parameters')
             ->where(
-                $query->expr()->eq('id', ':id')
+                $queryBuilder->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $queryId, Type::INTEGER)
+            ->setParameter('id', $query->id, Type::INTEGER)
             ->setParameter('identifier', $queryUpdateStruct->identifier, Type::STRING)
             ->setParameter('parameters', $queryUpdateStruct->parameters, Type::JSON_ARRAY);
 
-        $this->applyStatusCondition($query, $status);
+        $this->applyStatusCondition($queryBuilder, $query->status);
 
-        $query->execute();
+        $queryBuilder->execute();
     }
 
     /**
      * Moves a query.
      *
-     * @param int|string $queryId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
      * @param int $position
      */
-    public function moveQuery($queryId, $status, $position)
+    public function moveQuery(Query $query, $position)
     {
-        $query = $this->connection->createQueryBuilder();
+        $queryBuilder = $this->connection->createQueryBuilder();
 
-        $query
+        $queryBuilder
             ->update('ngbm_collection_query')
             ->set('position', ':position')
             ->where(
-                $query->expr()->eq('id', ':id')
+                $queryBuilder->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $queryId, Type::INTEGER)
+            ->setParameter('id', $query->id, Type::INTEGER)
             ->setParameter('position', $position, Type::INTEGER);
 
-        $this->applyStatusCondition($query, $status);
+        $this->applyStatusCondition($queryBuilder, $query->status);
 
-        $query->execute();
+        $queryBuilder->execute();
     }
 
     /**

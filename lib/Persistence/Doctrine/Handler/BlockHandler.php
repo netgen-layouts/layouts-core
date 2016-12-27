@@ -104,7 +104,7 @@ class BlockHandler implements BlockHandlerInterface
      */
     public function loadLayoutBlocks(Layout $layout)
     {
-        $data = $this->queryHandler->loadLayoutBlocksData($layout->id, $layout->status);
+        $data = $this->queryHandler->loadLayoutBlocksData($layout);
 
         return $this->blockMapper->mapBlocks($data);
     }
@@ -119,7 +119,7 @@ class BlockHandler implements BlockHandlerInterface
      */
     public function loadChildBlocks(Block $block, $placeholder = null)
     {
-        $data = $this->queryHandler->loadChildBlocksData($block->id, $block->status, $placeholder);
+        $data = $this->queryHandler->loadChildBlocksData($block, $placeholder);
 
         return $this->blockMapper->mapBlocks($data);
     }
@@ -136,7 +136,7 @@ class BlockHandler implements BlockHandlerInterface
      */
     public function loadCollectionReference(Block $block, $identifier)
     {
-        $data = $this->queryHandler->loadCollectionReferencesData($block->id, $block->status, $identifier);
+        $data = $this->queryHandler->loadCollectionReferencesData($block, $identifier);
 
         if (empty($data)) {
             throw new NotFoundException('collection', $identifier);
@@ -156,7 +156,7 @@ class BlockHandler implements BlockHandlerInterface
      */
     public function loadCollectionReferences(Block $block)
     {
-        $data = $this->queryHandler->loadCollectionReferencesData($block->id, $block->status);
+        $data = $this->queryHandler->loadCollectionReferencesData($block);
 
         return $this->blockMapper->mapCollectionReferences($data);
     }

@@ -7,11 +7,14 @@ use Doctrine\DBAL\Types\Type;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver\TargetHandler;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleMetadataUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Value;
@@ -66,7 +69,7 @@ class LayoutResolverQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadRuleData($ruleId, $status = null)
+    public function loadRuleData($ruleId, $status)
     {
         $query = $this->getRuleSelectQuery();
         $query->where(
@@ -74,10 +77,7 @@ class LayoutResolverQueryHandler extends QueryHandler
         )
         ->setParameter('id', $ruleId, Type::INTEGER);
 
-        if ($status !== null) {
-            $this->applyStatusCondition($query, $status, 'r.status');
-            $query->addOrderBy('r.status', 'ASC');
-        }
+        $this->applyStatusCondition($query, $status, 'r.status');
 
         return $query->execute()->fetchAll();
     }
@@ -178,7 +178,7 @@ class LayoutResolverQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadTargetData($targetId, $status = null)
+    public function loadTargetData($targetId, $status)
     {
         $query = $this->getTargetSelectQuery();
         $query->where(
@@ -186,9 +186,7 @@ class LayoutResolverQueryHandler extends QueryHandler
         )
         ->setParameter('id', $targetId, Type::INTEGER);
 
-        if ($status !== null) {
-            $this->applyStatusCondition($query, $status);
-        }
+        $this->applyStatusCondition($query, $status);
 
         return $query->execute()->fetchAll();
     }
@@ -196,23 +194,19 @@ class LayoutResolverQueryHandler extends QueryHandler
     /**
      * Returns all data for all rule targets.
      *
-     * @param int|string $ruleId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
      *
      * @return array
      */
-    public function loadRuleTargetsData($ruleId, $status = null)
+    public function loadRuleTargetsData(Rule $rule)
     {
         $query = $this->getTargetSelectQuery();
         $query->where(
             $query->expr()->eq('rule_id', ':rule_id')
         )
-        ->setParameter('rule_id', $ruleId, Type::INTEGER);
+        ->setParameter('rule_id', $rule->id, Type::INTEGER);
 
-        if ($status !== null) {
-            $this->applyStatusCondition($query, $status);
-            $query->addOrderBy('status', 'ASC');
-        }
+        $this->applyStatusCondition($query, $rule->status);
 
         return $query->execute()->fetchAll();
     }
@@ -220,12 +214,11 @@ class LayoutResolverQueryHandler extends QueryHandler
     /**
      * Returns the number of targets within the rule.
      *
-     * @param int|string $ruleId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
      *
      * @return int
      */
-    public function getTargetCount($ruleId, $status)
+    public function getTargetCount(Rule $rule)
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
@@ -233,9 +226,9 @@ class LayoutResolverQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('rule_id', ':rule_id')
             )
-            ->setParameter('rule_id', $ruleId, Type::INTEGER);
+            ->setParameter('rule_id', $rule->id, Type::INTEGER);
 
-        $this->applyStatusCondition($query, $status);
+        $this->applyStatusCondition($query, $rule->status);
 
         $data = $query->execute()->fetchAll();
 
@@ -250,7 +243,7 @@ class LayoutResolverQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadConditionData($conditionId, $status = null)
+    public function loadConditionData($conditionId, $status)
     {
         $query = $this->getConditionSelectQuery();
         $query->where(
@@ -258,9 +251,7 @@ class LayoutResolverQueryHandler extends QueryHandler
         )
         ->setParameter('id', $conditionId, Type::INTEGER);
 
-        if ($status !== null) {
-            $this->applyStatusCondition($query, $status);
-        }
+        $this->applyStatusCondition($query, $status);
 
         return $query->execute()->fetchAll();
     }
@@ -268,23 +259,19 @@ class LayoutResolverQueryHandler extends QueryHandler
     /**
      * Returns all data for for all rule conditions.
      *
-     * @param int|string $ruleId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
      *
      * @return array
      */
-    public function loadRuleConditionsData($ruleId, $status = null)
+    public function loadRuleConditionsData(Rule $rule)
     {
         $query = $this->getConditionSelectQuery();
         $query->where(
             $query->expr()->eq('rule_id', ':rule_id')
         )
-        ->setParameter('rule_id', $ruleId, Type::INTEGER);
+        ->setParameter('rule_id', $rule->id, Type::INTEGER);
 
-        if ($status !== null) {
-            $this->applyStatusCondition($query, $status);
-            $query->addOrderBy('status', 'ASC');
-        }
+        $this->applyStatusCondition($query, $rule->status);
 
         return $query->execute()->fetchAll();
     }
@@ -371,11 +358,10 @@ class LayoutResolverQueryHandler extends QueryHandler
     /**
      * Updates a rule.
      *
-     * @param int|string $ruleId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleUpdateStruct $ruleUpdateStruct
      */
-    public function updateRule($ruleId, $status, RuleUpdateStruct $ruleUpdateStruct)
+    public function updateRule(Rule $rule, RuleUpdateStruct $ruleUpdateStruct)
     {
         $query = $this->connection->createQueryBuilder();
         $query
@@ -385,11 +371,11 @@ class LayoutResolverQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $ruleId, Type::INTEGER)
+            ->setParameter('id', $rule->id, Type::INTEGER)
             ->setParameter('layout_id', $ruleUpdateStruct->layoutId !== 0 ? $ruleUpdateStruct->layoutId : null, Type::INTEGER)
             ->setParameter('comment', $ruleUpdateStruct->comment, Type::STRING);
 
-        $this->applyStatusCondition($query, $status);
+        $this->applyStatusCondition($query, $rule->status);
 
         $query->execute();
     }
@@ -397,10 +383,10 @@ class LayoutResolverQueryHandler extends QueryHandler
     /**
      * Updates rule data which is independent of statuses.
      *
-     * @param int|string $ruleId
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleMetadataUpdateStruct $ruleMetadataUpdateStruct
      */
-    public function updateRuleData($ruleId, RuleMetadataUpdateStruct $ruleMetadataUpdateStruct)
+    public function updateRuleData(Rule $rule, RuleMetadataUpdateStruct $ruleMetadataUpdateStruct)
     {
         $query = $this->connection->createQueryBuilder();
         $query
@@ -410,7 +396,7 @@ class LayoutResolverQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('rule_id', ':rule_id')
             )
-            ->setParameter('rule_id', $ruleId, Type::INTEGER)
+            ->setParameter('rule_id', $rule->id, Type::INTEGER)
             ->setParameter('enabled', $ruleMetadataUpdateStruct->enabled, Type::BOOLEAN)
             ->setParameter('priority', $ruleMetadataUpdateStruct->priority, Type::INTEGER);
 
@@ -536,11 +522,10 @@ class LayoutResolverQueryHandler extends QueryHandler
     /**
      * Updates a target.
      *
-     * @param int|string $targetId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target $target
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetUpdateStruct $targetUpdateStruct
      */
-    public function updateTarget($targetId, $status, TargetUpdateStruct $targetUpdateStruct)
+    public function updateTarget(Target $target, TargetUpdateStruct $targetUpdateStruct)
     {
         $query = $this->connection->createQueryBuilder();
         $query
@@ -549,10 +534,10 @@ class LayoutResolverQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $targetId, Type::INTEGER)
+            ->setParameter('id', $target->id, Type::INTEGER)
             ->setParameter('value', $targetUpdateStruct->value, is_array($targetUpdateStruct->value) ? Type::JSON_ARRAY : Type::STRING);
 
-        $this->applyStatusCondition($query, $status);
+        $this->applyStatusCondition($query, $target->status);
 
         $query->execute();
     }
@@ -618,11 +603,10 @@ class LayoutResolverQueryHandler extends QueryHandler
     /**
      * Updates a condition.
      *
-     * @param int|string $conditionId
-     * @param int $status
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition $condition
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionUpdateStruct $conditionUpdateStruct
      */
-    public function updateCondition($conditionId, $status, ConditionUpdateStruct $conditionUpdateStruct)
+    public function updateCondition(Condition $condition, ConditionUpdateStruct $conditionUpdateStruct)
     {
         $query = $this->connection->createQueryBuilder();
         $query
@@ -631,10 +615,10 @@ class LayoutResolverQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $conditionId, Type::INTEGER)
+            ->setParameter('id', $condition->id, Type::INTEGER)
             ->setParameter('value', json_encode($conditionUpdateStruct->value), Type::STRING);
 
-        $this->applyStatusCondition($query, $status);
+        $this->applyStatusCondition($query, $condition->status);
 
         $query->execute();
     }

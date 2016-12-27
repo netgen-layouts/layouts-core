@@ -95,11 +95,10 @@ interface LayoutHandler
      *
      * @param string $name
      * @param int|string $excludedLayoutId
-     * @param int $status
      *
      * @return bool
      */
-    public function layoutNameExists($name, $excludedLayoutId = null, $status = null);
+    public function layoutNameExists($name, $excludedLayoutId = null);
 
     /**
      * Creates a layout.

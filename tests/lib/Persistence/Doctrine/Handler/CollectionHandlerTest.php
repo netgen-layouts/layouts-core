@@ -241,7 +241,7 @@ class CollectionHandlerTest extends TestCase
      */
     public function testCollectionNameExists()
     {
-        $this->assertTrue($this->collectionHandler->collectionNameExists('My collection', null, Value::STATUS_PUBLISHED));
+        $this->assertTrue($this->collectionHandler->collectionNameExists('My collection'));
     }
 
     /**
@@ -250,7 +250,7 @@ class CollectionHandlerTest extends TestCase
      */
     public function testCollectionNameNotExists()
     {
-        $this->assertFalse($this->collectionHandler->collectionNameExists('Non existent', null, Value::STATUS_PUBLISHED));
+        $this->assertFalse($this->collectionHandler->collectionNameExists('Non existent'));
     }
 
     /**
@@ -259,16 +259,7 @@ class CollectionHandlerTest extends TestCase
      */
     public function testCollectionNameNotExistsWithExcludedId()
     {
-        $this->assertFalse($this->collectionHandler->collectionNameExists('My collection', 3, Value::STATUS_PUBLISHED));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::collectionNameExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::collectionNameExists
-     */
-    public function testCollectionNameNotExistsInStatus()
-    {
-        $this->assertFalse($this->collectionHandler->collectionNameExists('My collection', null, Value::STATUS_ARCHIVED));
+        $this->assertFalse($this->collectionHandler->collectionNameExists('My collection', 3));
     }
 
     /**

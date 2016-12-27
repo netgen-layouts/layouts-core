@@ -154,7 +154,7 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
     public function loadRuleTargets(Rule $rule)
     {
         return $this->mapper->mapTargets(
-            $this->queryHandler->loadRuleTargetsData($rule->id, $rule->status)
+            $this->queryHandler->loadRuleTargetsData($rule)
         );
     }
 
@@ -167,7 +167,7 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
      */
     public function getTargetCount(Rule $rule)
     {
-        return $this->queryHandler->getTargetCount($rule->id, $rule->status);
+        return $this->queryHandler->getTargetCount($rule);
     }
 
     /**
@@ -203,7 +203,7 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
     public function loadRuleConditions(Rule $rule)
     {
         return $this->mapper->mapConditions(
-            $this->queryHandler->loadRuleConditionsData($rule->id, $rule->status)
+            $this->queryHandler->loadRuleConditionsData($rule)
         );
     }
 
@@ -260,11 +260,7 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
             trim($ruleUpdateStruct->comment) :
             $rule->comment;
 
-        $this->queryHandler->updateRule(
-            $rule->id,
-            $rule->status,
-            $ruleUpdateStruct
-        );
+        $this->queryHandler->updateRule($rule, $ruleUpdateStruct);
 
         return $this->loadRule($rule->id, $rule->status);
     }
@@ -287,10 +283,7 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
             $ruleUpdateStruct->enabled :
             $rule->enabled;
 
-        $this->queryHandler->updateRuleData(
-            $rule->id,
-            $ruleUpdateStruct
-        );
+        $this->queryHandler->updateRuleData($rule, $ruleUpdateStruct);
 
         return $this->loadRule($rule->id, $rule->status);
     }
@@ -461,11 +454,7 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
      */
     public function updateTarget(Target $target, TargetUpdateStruct $targetUpdateStruct)
     {
-        $this->queryHandler->updateTarget(
-            $target->id,
-            $target->status,
-            $targetUpdateStruct
-        );
+        $this->queryHandler->updateTarget($target, $targetUpdateStruct);
 
         return $this->loadTarget($target->id, $target->status);
     }
@@ -509,11 +498,7 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
      */
     public function updateCondition(Condition $condition, ConditionUpdateStruct $conditionUpdateStruct)
     {
-        $this->queryHandler->updateCondition(
-            $condition->id,
-            $condition->status,
-            $conditionUpdateStruct
-        );
+        $this->queryHandler->updateCondition($condition, $conditionUpdateStruct);
 
         return $this->loadCondition($condition->id, $condition->status);
     }

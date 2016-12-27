@@ -128,10 +128,7 @@ class CollectionHandler implements CollectionHandlerInterface
     public function loadCollectionItems(Collection $collection)
     {
         return $this->collectionMapper->mapItems(
-            $this->queryHandler->loadCollectionItemsData(
-                $collection->id,
-                $collection->status
-            )
+            $this->queryHandler->loadCollectionItemsData($collection)
         );
     }
 
@@ -168,10 +165,7 @@ class CollectionHandler implements CollectionHandlerInterface
     public function loadCollectionQueries(Collection $collection)
     {
         return $this->collectionMapper->mapQueries(
-            $this->queryHandler->loadCollectionQueriesData(
-                $collection->id,
-                $collection->status
-            )
+            $this->queryHandler->loadCollectionQueriesData($collection)
         );
     }
 
@@ -193,13 +187,12 @@ class CollectionHandler implements CollectionHandlerInterface
      *
      * @param string $name
      * @param int|string $excludedCollectionId
-     * @param int $status
      *
      * @return bool
      */
-    public function collectionNameExists($name, $excludedCollectionId = null, $status = null)
+    public function collectionNameExists($name, $excludedCollectionId = null)
     {
-        return $this->queryHandler->collectionNameExists($name, $excludedCollectionId, $status);
+        return $this->queryHandler->collectionNameExists($name, $excludedCollectionId);
     }
 
     /**
@@ -240,11 +233,7 @@ class CollectionHandler implements CollectionHandlerInterface
             trim($collectionUpdateStruct->name) :
             $collection->name;
 
-        $this->queryHandler->updateCollection(
-            $collection->id,
-            $collection->status,
-            $collectionUpdateStruct
-        );
+        $this->queryHandler->updateCollection($collection, $collectionUpdateStruct);
 
         return $this->loadCollection($collection->id, $collection->status);
     }
@@ -435,7 +424,7 @@ class CollectionHandler implements CollectionHandlerInterface
             $collection->type !== Collection::TYPE_MANUAL
         );
 
-        $this->queryHandler->moveItem($item->id, $item->status, $position);
+        $this->queryHandler->moveItem($item, $position);
 
         return $this->loadItem($item->id, $item->status);
     }
@@ -468,7 +457,7 @@ class CollectionHandler implements CollectionHandlerInterface
      */
     public function queryExists(Collection $collection, $identifier)
     {
-        return $this->queryHandler->queryExists($collection->id, $collection->status, $identifier);
+        return $this->queryHandler->queryExists($collection, $identifier);
     }
 
     /**
@@ -516,11 +505,7 @@ class CollectionHandler implements CollectionHandlerInterface
             $queryUpdateStruct->parameters :
             $query->parameters;
 
-        $this->queryHandler->updateQuery(
-            $query->id,
-            $query->status,
-            $queryUpdateStruct
-        );
+        $this->queryHandler->updateQuery($query, $queryUpdateStruct);
 
         return $this->loadQuery($query->id, $query->status);
     }
@@ -546,7 +531,7 @@ class CollectionHandler implements CollectionHandlerInterface
             $position
         );
 
-        $this->queryHandler->moveQuery($query->id, $query->status, $position);
+        $this->queryHandler->moveQuery($query, $position);
 
         return $this->loadQuery($query->id, $query->status);
     }

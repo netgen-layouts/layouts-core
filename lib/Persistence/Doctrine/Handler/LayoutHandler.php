@@ -167,10 +167,7 @@ class LayoutHandler implements LayoutHandlerInterface
     public function loadLayoutZones(Layout $layout)
     {
         return $this->layoutMapper->mapZones(
-            $this->queryHandler->loadLayoutZonesData(
-                $layout->id,
-                $layout->status
-            )
+            $this->queryHandler->loadLayoutZonesData($layout)
         );
     }
 
@@ -179,13 +176,12 @@ class LayoutHandler implements LayoutHandlerInterface
      *
      * @param string $name
      * @param int|string $excludedLayoutId
-     * @param int $status
      *
      * @return bool
      */
-    public function layoutNameExists($name, $excludedLayoutId = null, $status = null)
+    public function layoutNameExists($name, $excludedLayoutId = null)
     {
-        return $this->queryHandler->layoutNameExists($name, $excludedLayoutId, $status);
+        return $this->queryHandler->layoutNameExists($name, $excludedLayoutId);
     }
 
     /**
