@@ -343,15 +343,14 @@ class LayoutHandler implements LayoutHandlerInterface
     {
         $this->queryHandler->createLayoutStatus($layout, $newStatus);
 
+        $layoutBlocks = $this->blockHandler->loadLayoutBlocks($layout);
+        foreach ($layoutBlocks as $block) {
+            $this->blockHandler->createBlockStatus($block, $newStatus);
+        }
+
         $layoutZones = $this->loadLayoutZones($layout);
         foreach ($layoutZones as $layoutZone) {
             $this->queryHandler->createZoneStatus($layoutZone, $newStatus);
-        }
-
-        $layoutBlocks = $this->blockHandler->loadLayoutBlocks($layout);
-
-        foreach ($layoutBlocks as $block) {
-            $this->blockHandler->createBlockStatus($block, $newStatus);
         }
 
         return $this->loadLayout($layout->id, $newStatus);
@@ -366,6 +365,7 @@ class LayoutHandler implements LayoutHandlerInterface
     public function deleteLayout($layoutId, $status = null)
     {
         $blockIds = $this->queryHandler->loadLayoutBlockIds($layoutId, $status);
+        $this->queryHandler->deleteLayoutZones($layoutId, $status);
         $this->blockHandler->deleteBlocks($blockIds, $status);
         $this->queryHandler->deleteLayout($layoutId, $status);
     }

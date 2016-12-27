@@ -28,20 +28,6 @@ class Version010000 extends AbstractMigration
 
         $layoutTable->addIndex(array('name'));
 
-        // ngbm_zone table
-
-        $zoneTable = $schema->createTable('ngbm_zone');
-
-        $zoneTable->addColumn('identifier', 'string', array('length' => 255));
-        $zoneTable->addColumn('layout_id', 'integer');
-        $zoneTable->addColumn('status', 'integer');
-        $zoneTable->addColumn('root_block_id', 'integer');
-        $zoneTable->addColumn('linked_layout_id', 'integer', array('notnull' => false));
-        $zoneTable->addColumn('linked_zone_identifier', 'string', array('length' => 255, 'notnull' => false));
-
-        $zoneTable->setPrimaryKey(array('identifier', 'layout_id', 'status'));
-        $zoneTable->addForeignKeyConstraint('ngbm_layout', array('layout_id', 'status'), array('id', 'status'));
-
         // ngbm_block table
 
         $blockTable = $schema->createTable('ngbm_block');
@@ -65,6 +51,21 @@ class Version010000 extends AbstractMigration
         $blockTable->addForeignKeyConstraint('ngbm_layout', array('layout_id', 'status'), array('id', 'status'));
 
         $blockTable->addIndex(array('parent_id', 'placeholder', 'status'));
+
+        // ngbm_zone table
+
+        $zoneTable = $schema->createTable('ngbm_zone');
+
+        $zoneTable->addColumn('identifier', 'string', array('length' => 255));
+        $zoneTable->addColumn('layout_id', 'integer');
+        $zoneTable->addColumn('status', 'integer');
+        $zoneTable->addColumn('root_block_id', 'integer');
+        $zoneTable->addColumn('linked_layout_id', 'integer', array('notnull' => false));
+        $zoneTable->addColumn('linked_zone_identifier', 'string', array('length' => 255, 'notnull' => false));
+
+        $zoneTable->setPrimaryKey(array('identifier', 'layout_id', 'status'));
+        $zoneTable->addForeignKeyConstraint('ngbm_layout', array('layout_id', 'status'), array('id', 'status'));
+        $zoneTable->addForeignKeyConstraint('ngbm_block', array('root_block_id', 'status'), array('id', 'status'));
 
         // ngbm_rule table
 
@@ -196,8 +197,8 @@ class Version010000 extends AbstractMigration
         $schema->dropTable('ngbm_collection_query');
         $schema->dropTable('ngbm_collection');
 
-        $schema->dropTable('ngbm_block');
         $schema->dropTable('ngbm_zone');
+        $schema->dropTable('ngbm_block');
         $schema->dropTable('ngbm_layout');
 
         $schema->dropTable('ngbm_rule_target');

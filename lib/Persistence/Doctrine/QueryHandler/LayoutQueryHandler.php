@@ -435,15 +435,13 @@ class LayoutQueryHandler extends QueryHandler
     }
 
     /**
-     * Deletes the layout.
+     * Deletes all layout zones.
      *
      * @param int|string $layoutId
      * @param int $status
      */
-    public function deleteLayout($layoutId, $status = null)
+    public function deleteLayoutZones($layoutId, $status = null)
     {
-        // Delete all zones
-
         $query = $this->connection->createQueryBuilder();
         $query->delete('ngbm_zone')
             ->where(
@@ -456,9 +454,16 @@ class LayoutQueryHandler extends QueryHandler
         }
 
         $query->execute();
+    }
 
-        // Then delete the layout itself
-
+    /**
+     * Deletes the layout.
+     *
+     * @param int|string $layoutId
+     * @param int $status
+     */
+    public function deleteLayout($layoutId, $status = null)
+    {
         $query = $this->connection->createQueryBuilder();
         $query->delete('ngbm_layout')
             ->where(

@@ -2,11 +2,11 @@ DROP TABLE IF EXISTS "ngbm_block_collection";
 DROP TABLE IF EXISTS "ngbm_collection_item";
 DROP TABLE IF EXISTS "ngbm_collection_query";
 DROP TABLE IF EXISTS "ngbm_collection";
-DROP TABLE IF EXISTS "ngbm_block";
 DROP TABLE IF EXISTS "ngbm_zone";
+DROP TABLE IF EXISTS "ngbm_block";
 DROP TABLE IF EXISTS "ngbm_layout";
-DROP TABLE IF EXISTS "ngbm_rule_condition";
 DROP TABLE IF EXISTS "ngbm_rule_target";
+DROP TABLE IF EXISTS "ngbm_rule_condition";
 DROP TABLE IF EXISTS "ngbm_rule_data";
 DROP TABLE IF EXISTS "ngbm_rule";
 
@@ -29,15 +29,6 @@ CREATE TABLE "ngbm_layout" (
   "shared" boolean NOT NULL
 );
 
-CREATE TABLE "ngbm_zone" (
-  "identifier" character varying(255) NOT NULL,
-  "layout_id" integer NOT NULL,
-  "status" integer NOT NULL,
-  "root_block_id" integer NOT NULL,
-  "linked_layout_id" integer,
-  "linked_zone_identifier" character varying(255)
-);
-
 CREATE TABLE "ngbm_block" (
   "id" integer NOT NULL,
   "status" integer NOT NULL,
@@ -53,6 +44,15 @@ CREATE TABLE "ngbm_block" (
   "name" character varying(255) NOT NULL,
   "placeholder_parameters" text NOT NULL,
   "parameters" text NOT NULL
+);
+
+CREATE TABLE "ngbm_zone" (
+  "identifier" character varying(255) NOT NULL,
+  "layout_id" integer NOT NULL,
+  "status" integer NOT NULL,
+  "root_block_id" integer NOT NULL,
+  "linked_layout_id" integer,
+  "linked_zone_identifier" character varying(255)
 );
 
 CREATE TABLE "ngbm_collection" (
@@ -127,14 +127,15 @@ ALTER TABLE ONLY ngbm_layout ALTER COLUMN id SET DEFAULT nextval('ngbm_layout_id
 
 ALTER TABLE ONLY ngbm_layout ADD CONSTRAINT ngbm_layout_pkey PRIMARY KEY ("id", "status");
 
-ALTER TABLE ONLY ngbm_zone ADD CONSTRAINT ngbm_zone_pkey PRIMARY KEY ("identifier", "layout_id", "status");
-ALTER TABLE ONLY ngbm_zone ADD FOREIGN KEY ("layout_id", "status") REFERENCES ngbm_layout ("id", "status");
-
 CREATE SEQUENCE ngbm_block_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE ONLY ngbm_block ALTER COLUMN id SET DEFAULT nextval('ngbm_block_id_seq'::regclass);
 
 ALTER TABLE ONLY ngbm_block ADD CONSTRAINT ngbm_block_pkey PRIMARY KEY ("id", "status");
 ALTER TABLE ONLY ngbm_block ADD FOREIGN KEY ("layout_id", "status") REFERENCES ngbm_layout ("id", "status");
+
+ALTER TABLE ONLY ngbm_zone ADD CONSTRAINT ngbm_zone_pkey PRIMARY KEY ("identifier", "layout_id", "status");
+ALTER TABLE ONLY ngbm_zone ADD FOREIGN KEY ("layout_id", "status") REFERENCES ngbm_layout ("id", "status");
+ALTER TABLE ONLY ngbm_zone ADD FOREIGN KEY ("root_block_id", "status") REFERENCES ngbm_block ("id", "status");
 
 CREATE SEQUENCE ngbm_collection_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE ONLY ngbm_collection ALTER COLUMN id SET DEFAULT nextval('ngbm_collection_id_seq'::regclass);

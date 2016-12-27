@@ -10,19 +10,6 @@ CREATE TABLE `ngbm_layout` (
   PRIMARY KEY (`id`, `status`)
 );
 
-DROP TABLE IF EXISTS `ngbm_zone`;
-CREATE TABLE `ngbm_zone` (
-  `identifier` text(255) NOT NULL,
-  `layout_id` integer NOT NULL,
-  `status` integer NOT NULL,
-  `root_block_id` integer NOT NULL,
-  `linked_layout_id` integer,
-  `linked_zone_identifier` text(255),
-  PRIMARY KEY (`identifier`, `layout_id`, `status`),
-  FOREIGN KEY (`layout_id`, `status`)
-    REFERENCES `ngbm_layout` (`id`, `status`)
-);
-
 DROP TABLE IF EXISTS `ngbm_block`;
 CREATE TABLE `ngbm_block` (
   `id` integer NOT NULL,
@@ -42,6 +29,21 @@ CREATE TABLE `ngbm_block` (
   PRIMARY KEY (`id`, `status`),
   FOREIGN KEY (`layout_id`, `status`)
     REFERENCES `ngbm_layout` (`id`, `status`)
+);
+
+DROP TABLE IF EXISTS `ngbm_zone`;
+CREATE TABLE `ngbm_zone` (
+  `identifier` text(255) NOT NULL,
+  `layout_id` integer NOT NULL,
+  `status` integer NOT NULL,
+  `root_block_id` integer NOT NULL,
+  `linked_layout_id` integer,
+  `linked_zone_identifier` text(255),
+  PRIMARY KEY (`identifier`, `layout_id`, `status`),
+  FOREIGN KEY (`layout_id`, `status`)
+    REFERENCES `ngbm_layout` (`id`, `status`),
+  FOREIGN KEY (`root_block_id`, `status`)
+    REFERENCES `ngbm_block` (`id`, `status`)
 );
 
 DROP TABLE IF EXISTS `ngbm_collection`;

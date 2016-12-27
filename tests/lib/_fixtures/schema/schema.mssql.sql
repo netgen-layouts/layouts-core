@@ -2,8 +2,8 @@ IF OBJECT_ID('dbo.ngbm_block_collection', 'U') IS NOT NULL DROP TABLE dbo.ngbm_b
 IF OBJECT_ID('dbo.ngbm_collection_item', 'U') IS NOT NULL DROP TABLE dbo.ngbm_collection_item;
 IF OBJECT_ID('dbo.ngbm_collection_query', 'U') IS NOT NULL DROP TABLE dbo.ngbm_collection_query;
 IF OBJECT_ID('dbo.ngbm_collection', 'U') IS NOT NULL DROP TABLE dbo.ngbm_collection;
-IF OBJECT_ID('dbo.ngbm_block', 'U') IS NOT NULL DROP TABLE dbo.ngbm_block;
 IF OBJECT_ID('dbo.ngbm_zone', 'U') IS NOT NULL DROP TABLE dbo.ngbm_zone;
+IF OBJECT_ID('dbo.ngbm_block', 'U') IS NOT NULL DROP TABLE dbo.ngbm_block;
 IF OBJECT_ID('dbo.ngbm_layout', 'U') IS NOT NULL DROP TABLE dbo.ngbm_layout;
 IF OBJECT_ID('dbo.ngbm_rule_target', 'U') IS NOT NULL DROP TABLE dbo.ngbm_rule_target;
 IF OBJECT_ID('dbo.ngbm_rule_condition', 'U') IS NOT NULL DROP TABLE dbo.ngbm_rule_condition;
@@ -19,18 +19,6 @@ CREATE TABLE ngbm_layout (
   modified int NOT NULL,
   shared tinyint NOT NULL,
   PRIMARY KEY (id, status)
-);
-
-CREATE TABLE ngbm_zone (
-  identifier nvarchar(255) NOT NULL,
-  layout_id int NOT NULL,
-  status int NOT NULL,
-  root_block_id int NOT NULL,
-  linked_layout_id int,
-  linked_zone_identifier nvarchar(255),
-  PRIMARY KEY (identifier, layout_id, status),
-  FOREIGN KEY (layout_id, status)
-    REFERENCES ngbm_layout (id, status)
 );
 
 CREATE TABLE ngbm_block (
@@ -51,6 +39,20 @@ CREATE TABLE ngbm_block (
   PRIMARY KEY (id, status),
   FOREIGN KEY (layout_id, status)
     REFERENCES ngbm_layout (id, status)
+);
+
+CREATE TABLE ngbm_zone (
+  identifier nvarchar(255) NOT NULL,
+  layout_id int NOT NULL,
+  status int NOT NULL,
+  root_block_id int NOT NULL,
+  linked_layout_id int,
+  linked_zone_identifier nvarchar(255),
+  PRIMARY KEY (identifier, layout_id, status),
+  FOREIGN KEY (layout_id, status)
+    REFERENCES ngbm_layout (id, status),
+  FOREIGN KEY (root_block_id, status)
+    REFERENCES ngbm_block (id, status)
 );
 
 CREATE TABLE ngbm_collection (

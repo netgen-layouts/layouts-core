@@ -2,8 +2,8 @@ DROP TABLE IF EXISTS `ngbm_block_collection`;
 DROP TABLE IF EXISTS `ngbm_collection_item`;
 DROP TABLE IF EXISTS `ngbm_collection_query`;
 DROP TABLE IF EXISTS `ngbm_collection`;
-DROP TABLE IF EXISTS `ngbm_block`;
 DROP TABLE IF EXISTS `ngbm_zone`;
+DROP TABLE IF EXISTS `ngbm_block`;
 DROP TABLE IF EXISTS `ngbm_layout`;
 DROP TABLE IF EXISTS `ngbm_rule_target`;
 DROP TABLE IF EXISTS `ngbm_rule_condition`;
@@ -19,18 +19,6 @@ CREATE TABLE `ngbm_layout` (
   `modified` int(11) NOT NULL,
   `shared` tinyint NOT NULL,
   PRIMARY KEY (`id`, `status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE `ngbm_zone` (
-  `identifier` varchar(255) NOT NULL,
-  `layout_id` int(11) NOT NULL,
-  `status` int(11) NOT NULL,
-  `root_block_id` int(11) NOT NULL,
-  `linked_layout_id` int(11),
-  `linked_zone_identifier` varchar(255),
-  PRIMARY KEY (`identifier`, `layout_id`, `status`),
-  FOREIGN KEY (`layout_id`, `status`)
-    REFERENCES ngbm_layout (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `ngbm_block` (
@@ -51,6 +39,20 @@ CREATE TABLE `ngbm_block` (
   PRIMARY KEY (`id`, `status`),
   FOREIGN KEY (`layout_id`, `status`)
     REFERENCES ngbm_layout (`id`, `status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `ngbm_zone` (
+  `identifier` varchar(255) NOT NULL,
+  `layout_id` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  `root_block_id` int(11) NOT NULL,
+  `linked_layout_id` int(11),
+  `linked_zone_identifier` varchar(255),
+  PRIMARY KEY (`identifier`, `layout_id`, `status`),
+  FOREIGN KEY (`layout_id`, `status`)
+    REFERENCES ngbm_layout (`id`, `status`),
+  FOREIGN KEY (`root_block_id`, `status`)
+    REFERENCES ngbm_block (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `ngbm_collection` (
