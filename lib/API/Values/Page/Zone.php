@@ -2,12 +2,9 @@
 
 namespace Netgen\BlockManager\API\Values\Page;
 
-use ArrayAccess;
-use Countable;
-use IteratorAggregate;
 use Netgen\BlockManager\API\Values\Value;
 
-interface Zone extends Value, ArrayAccess, IteratorAggregate, Countable
+interface Zone extends Value
 {
     /**
      * Returns zone identifier.
@@ -43,11 +40,4 @@ interface Zone extends Value, ArrayAccess, IteratorAggregate, Countable
      * @return \Netgen\BlockManager\API\Values\Page\Zone
      */
     public function getLinkedZone();
-
-    /**
-     * Returns zone blocks.
-     *
-     * @return \Netgen\BlockManager\API\Values\Page\Block[]
-     */
-    public function getBlocks();
 }

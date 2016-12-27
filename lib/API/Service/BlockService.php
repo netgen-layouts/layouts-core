@@ -35,6 +35,15 @@ interface BlockService
     public function loadBlockDraft($blockId);
 
     /**
+     * Loads all blocks belonging to provided zone.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Block[]
+     */
+    public function loadZoneBlocks(Zone $zone);
+
+    /**
      * Returns if provided block has a published status.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block

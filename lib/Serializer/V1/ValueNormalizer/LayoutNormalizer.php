@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Serializer\V1\ValueNormalizer;
 
 use DateTime;
+use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\Layout;
@@ -20,13 +21,20 @@ class LayoutNormalizer implements NormalizerInterface
     protected $layoutService;
 
     /**
+     * @var \Netgen\BlockManager\API\Service\BlockService
+     */
+    protected $blockService;
+
+    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
+     * @param \Netgen\BlockManager\API\Service\BlockService $blockService
      */
-    public function __construct(LayoutService $layoutService)
+    public function __construct(LayoutService $layoutService, BlockService $blockService)
     {
         $this->layoutService = $layoutService;
+        $this->blockService = $blockService;
     }
 
     /**
@@ -98,7 +106,7 @@ class LayoutNormalizer implements NormalizerInterface
                     function (Block $block) {
                         return $block->getId();
                     },
-                    $zone->getBlocks()
+                    $this->blockService->loadZoneBlocks($zone)
                 ),
                 'allowed_block_definitions' => $this->getAllowedBlocks(
                     $zone,

@@ -13,6 +13,7 @@ services:
     netgen_block_manager.templating.twig.extension.rendering:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension
         arguments:
+            - "@netgen_block_manager.api.service.block"
             - "@netgen_block_manager.templating.global_variable"
             - "@netgen_block_manager.view.renderer"
             - "@fragment.handler"

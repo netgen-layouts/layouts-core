@@ -15,11 +15,6 @@ use Netgen\BlockManager\Persistence\Values\Value as PersistenceValue;
 class LayoutMapper extends Mapper
 {
     /**
-     * @var \Netgen\BlockManager\Core\Service\Mapper\BlockMapper
-     */
-    protected $blockMapper;
-
-    /**
      * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface
      */
     protected $layoutTypeRegistry;
@@ -27,15 +22,13 @@ class LayoutMapper extends Mapper
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Core\Service\Mapper\BlockMapper $blockMapper
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
      * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
      */
-    public function __construct(BlockMapper $blockMapper, Handler $persistenceHandler, LayoutTypeRegistryInterface $layoutTypeRegistry)
+    public function __construct(Handler $persistenceHandler, LayoutTypeRegistryInterface $layoutTypeRegistry)
     {
         parent::__construct($persistenceHandler);
 
-        $this->blockMapper = $blockMapper;
         $this->layoutTypeRegistry = $layoutTypeRegistry;
     }
 
@@ -48,13 +41,6 @@ class LayoutMapper extends Mapper
      */
     public function mapZone(PersistenceZone $zone)
     {
-        $blockHandler = $this->persistenceHandler->getBlockHandler();
-
-        $persistenceBlocks = $blockHandler->loadChildBlocks(
-            $blockHandler->loadBlock($zone->rootBlockId, $zone->status),
-            'root'
-        );
-
         $linkedZone = null;
 
         if ($zone->linkedLayoutId !== null && $zone->linkedZoneIdentifier !== null) {
@@ -72,17 +58,11 @@ class LayoutMapper extends Mapper
             }
         }
 
-        $blocks = array();
-        foreach ($persistenceBlocks as $persistenceBlock) {
-            $blocks[] = $this->blockMapper->mapBlock($persistenceBlock);
-        }
-
         $zoneData = array(
             'identifier' => $zone->identifier,
             'layoutId' => $zone->layoutId,
             'status' => $zone->status,
             'linkedZone' => $linkedZone,
-            'blocks' => $blocks,
             'published' => $zone->status === Value::STATUS_PUBLISHED,
         );
 

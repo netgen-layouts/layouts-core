@@ -3,7 +3,9 @@
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension;
 
 use Exception;
+use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate;
 use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\View\RendererInterface;
@@ -21,6 +23,11 @@ use Twig_SimpleFunction;
 
 class RenderingExtension extends Twig_Extension implements Twig_Extension_GlobalsInterface
 {
+    /**
+     * @var \Netgen\BlockManager\API\Service\BlockService
+     */
+    protected $blockService;
+
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable
      */
@@ -54,6 +61,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
     /**
      * Constructor.
      *
+     * @param \Netgen\BlockManager\API\Service\BlockService $blockService
      * @param \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable $globalVariable
      * @param \Netgen\BlockManager\View\RendererInterface $viewRenderer
      * @param \Symfony\Component\HttpKernel\Fragment\FragmentHandler $fragmentHandler
@@ -61,12 +69,14 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
+        BlockService $blockService,
         GlobalVariable $globalVariable,
         RendererInterface $viewRenderer,
         FragmentHandler $fragmentHandler,
         $blockController,
         LoggerInterface $logger = null
     ) {
+        $this->blockService = $blockService;
         $this->globalVariable = $globalVariable;
         $this->viewRenderer = $viewRenderer;
         $this->fragmentHandler = $fragmentHandler;
@@ -238,6 +248,23 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
             );
 
             return $this->handleException($e, $errorMessage);
+        }
+    }
+
+    /**
+     * Displays the provided zone.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
+     * @param string $viewContext
+     * @param \Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate $twigTemplate
+     *
+     * @throws \Exception If an error occurred
+     */
+    public function displayZone(Zone $zone, $viewContext, ContextualizedTwigTemplate $twigTemplate)
+    {
+        $blocks = $this->blockService->loadZoneBlocks($zone);
+        foreach ($blocks as $block) {
+            $this->displayBlock($block, $viewContext, $twigTemplate);
         }
     }
 

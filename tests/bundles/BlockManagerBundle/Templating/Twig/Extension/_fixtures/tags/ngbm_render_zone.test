@@ -7,41 +7,7 @@
 {% ngbm_render_zone zone %}
 --DATA--
 return array(
-    'zone' => new \Netgen\BlockManager\Core\Values\Page\Zone(
-        array(
-            'blocks' => array(
-                new \Netgen\BlockManager\Core\Values\Page\Block(
-                    array(
-                        'definition' => new \Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition(
-                            'block_definition'
-                        )
-                    )
-                ),
-                new \Netgen\BlockManager\Core\Values\Page\Block(
-                    array(
-                        'definition' => new \Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition(
-                            'twig_block'
-                        ),
-                        'parameters' => array(
-                            'block_name' => new \Netgen\BlockManager\Parameters\ParameterValue(
-                                array(
-                                    'name' => 'block_name',
-                                    'value' => 'my_block',
-                                )
-                            ),
-                        ),
-                    )
-                ),
-                new \Netgen\BlockManager\Core\Values\Page\Block(
-                    array(
-                        'definition' => new \Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition(
-                            'block_definition'
-                        )
-                    )
-                ),
-            )
-        )
-    ),
+    'zone' => new \Netgen\BlockManager\Core\Values\Page\Zone(),
 )
 --CONFIG--
 return array()

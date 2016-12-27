@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
 
 use DateTime;
+use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Configuration\Factory\LayoutTypeFactory;
 use Netgen\BlockManager\Core\Values\Page\Block;
@@ -21,6 +22,11 @@ class LayoutNormalizerTest extends TestCase
     protected $layoutServiceMock;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $blockServiceMock;
+
+    /**
      * @var \Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer
      */
     protected $normalizer;
@@ -28,9 +34,11 @@ class LayoutNormalizerTest extends TestCase
     public function setUp()
     {
         $this->layoutServiceMock = $this->createMock(LayoutService::class);
+        $this->blockServiceMock = $this->createMock(BlockService::class);
 
         $this->normalizer = new LayoutNormalizer(
-            $this->layoutServiceMock
+            $this->layoutServiceMock,
+            $this->blockServiceMock
         );
     }
 
@@ -83,7 +91,6 @@ class LayoutNormalizerTest extends TestCase
                         array(
                             'identifier' => 'left',
                             'linkedZone' => null,
-                            'blocks' => array($block),
                         )
                     ),
                     'right' => new Zone(
@@ -95,7 +102,6 @@ class LayoutNormalizerTest extends TestCase
                                     'identifier' => 'top',
                                 )
                             ),
-                            'blocks' => array(),
                         )
                     ),
                     'missing' => new Zone(
@@ -106,6 +112,21 @@ class LayoutNormalizerTest extends TestCase
                 ),
             )
         );
+
+        $this->blockServiceMock
+            ->expects($this->at(0))
+            ->method('loadZoneBlocks')
+            ->will($this->returnValue(array($block)));
+
+        $this->blockServiceMock
+            ->expects($this->at(1))
+            ->method('loadZoneBlocks')
+            ->will($this->returnValue(array()));
+
+        $this->blockServiceMock
+            ->expects($this->at(2))
+            ->method('loadZoneBlocks')
+            ->will($this->returnValue(array()));
 
         $this->layoutServiceMock
             ->expects($this->once())

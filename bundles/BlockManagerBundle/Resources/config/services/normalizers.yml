@@ -46,6 +46,7 @@ services:
         class: Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer
         arguments:
             - "@netgen_block_manager.api.service.layout"
+            - "@netgen_block_manager.api.service.block"
         tags:
             - { name: serializer.normalizer }
 

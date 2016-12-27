@@ -4,6 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
 use Exception;
 use Netgen\BlockManager\API\Repository;
+use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\Page\Zone;
@@ -32,6 +33,11 @@ class LayoutController extends Controller
     protected $layoutService;
 
     /**
+     * @var \Netgen\BlockManager\API\Service\BlockService
+     */
+    protected $blockService;
+
+    /**
      * @var \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\LayoutValidator
      */
     protected $validator;
@@ -41,12 +47,14 @@ class LayoutController extends Controller
      *
      * @param \Netgen\BlockManager\API\Repository $repository
      * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
+     * @param \Netgen\BlockManager\API\Service\BlockService $blockService
      * @param \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\LayoutValidator $validator
      */
-    public function __construct(Repository $repository, LayoutService $layoutService, LayoutValidator $validator)
+    public function __construct(Repository $repository, LayoutService $layoutService, BlockService $blockService, LayoutValidator $validator)
     {
         $this->repository = $repository;
         $this->layoutService = $layoutService;
+        $this->blockService = $blockService;
         $this->validator = $validator;
     }
 
@@ -91,7 +99,7 @@ class LayoutController extends Controller
     {
         $blocks = array();
         foreach ($layout as $zone) {
-            foreach ($zone as $block) {
+            foreach ($this->blockService->loadZoneBlocks($zone) as $block) {
                 $blocks[] = new View($block, Version::API_V1);
             }
         }
@@ -109,7 +117,7 @@ class LayoutController extends Controller
     public function viewZoneBlocks(Zone $zone)
     {
         $blocks = array();
-        foreach ($zone as $block) {
+        foreach ($this->blockService->loadZoneBlocks($zone) as $block) {
             $blocks[] = new View($block, Version::API_V1);
         }
 

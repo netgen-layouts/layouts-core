@@ -95,6 +95,21 @@ abstract class BlockServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::loadZoneBlocks
+     */
+    public function testLoadZoneBlocks()
+    {
+        $blocks = $this->blockService->loadZoneBlocks(
+            $this->layoutService->loadZone(1, 'right')
+        );
+
+        $this->assertCount(2, $blocks);
+        foreach ($blocks as $block) {
+            $this->assertInstanceOf(Block::class, $block);
+        }
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::hasPublishedState
      */
     public function testHasPublishedState()
@@ -174,12 +189,13 @@ abstract class BlockServiceTest extends ServiceTestCase
         );
 
         $zone = $this->layoutService->loadZoneDraft(1, 'right');
+        $blocks = $this->blockService->loadZoneBlocks($zone);
 
         $this->assertFalse($block->isPublished());
         $this->assertInstanceOf(Block::class, $block);
-        $this->assertEquals($block->getId(), $zone->getBlocks()[0]->getId());
+        $this->assertEquals($block->getId(), $blocks[0]->getId());
 
-        $this->assertEquals(31, $zone->getBlocks()[1]->getId());
+        $this->assertEquals(31, $blocks[1]->getId());
 
         $collectionReferences = $this->blockService->loadCollectionReferences($block);
         $this->assertCount(1, $collectionReferences);
@@ -209,12 +225,13 @@ abstract class BlockServiceTest extends ServiceTestCase
         );
 
         $zone = $this->layoutService->loadZoneDraft(1, 'right');
+        $blocks = $this->blockService->loadZoneBlocks($zone);
 
         $this->assertFalse($block->isPublished());
         $this->assertInstanceOf(Block::class, $block);
-        $this->assertEquals($block->getId(), $zone->getBlocks()[0]->getId());
+        $this->assertEquals($block->getId(), $blocks[0]->getId());
 
-        $this->assertEquals(31, $zone->getBlocks()[1]->getId());
+        $this->assertEquals(31, $blocks[1]->getId());
 
         $collectionReferences = $this->blockService->loadCollectionReferences($block);
         $this->assertCount(0, $collectionReferences);
@@ -292,10 +309,11 @@ abstract class BlockServiceTest extends ServiceTestCase
         );
 
         $zone = $this->layoutService->loadZoneDraft(1, 'right');
+        $blocks = $this->blockService->loadZoneBlocks($zone);
 
         $this->assertFalse($block->isPublished());
         $this->assertInstanceOf(Block::class, $block);
-        $this->assertEquals($block->getId(), $zone->getBlocks()[2]->getId());
+        $this->assertEquals($block->getId(), $blocks[2]->getId());
     }
 
     /**
@@ -576,8 +594,9 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertEquals(32, $movedBlock->getId());
 
         $zone = $this->layoutService->loadZoneDraft(1, 'left');
+        $blocks = $this->blockService->loadZoneBlocks($zone);
 
-        $this->assertEquals($movedBlock->getId(), $zone->getBlocks()[0]->getId());
+        $this->assertEquals($movedBlock->getId(), $blocks[0]->getId());
     }
 
     /**
@@ -597,8 +616,9 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertEquals(32, $movedBlock->getId());
 
         $zone = $this->layoutService->loadZoneDraft(1, 'right');
+        $blocks = $this->blockService->loadZoneBlocks($zone);
 
-        $this->assertEquals($movedBlock->getId(), $zone->getBlocks()[0]->getId());
+        $this->assertEquals($movedBlock->getId(), $blocks[0]->getId());
     }
 
     /**

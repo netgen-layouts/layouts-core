@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig;
 
 use Exception;
+use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Core\Values\Page\Block;
@@ -19,6 +20,11 @@ use Twig_TokenParser;
 
 class RenderingExtensionTest extends TestCase
 {
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $blockServiceMock;
+
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
@@ -41,11 +47,13 @@ class RenderingExtensionTest extends TestCase
 
     public function setUp()
     {
+        $this->blockServiceMock = $this->createMock(BlockService::class);
         $this->globalVariableMock = $this->createMock(GlobalVariable::class);
         $this->viewRendererMock = $this->createMock(RendererInterface::class);
         $this->fragmentHandlerMock = $this->createMock(FragmentHandler::class);
 
         $this->extension = new RenderingExtension(
+            $this->blockServiceMock,
             $this->globalVariableMock,
             $this->viewRendererMock,
             $this->fragmentHandlerMock,

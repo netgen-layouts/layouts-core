@@ -282,7 +282,6 @@ abstract class ServiceTestCase extends TestCase
     protected function createLayoutMapper()
     {
         return new LayoutMapper(
-            $this->createBlockMapper(),
             $this->persistenceHandler,
             $this->layoutTypeRegistry
         );
