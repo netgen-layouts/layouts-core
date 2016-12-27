@@ -365,6 +365,20 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::createDraft
+     */
+    public function testCreateDraftWithDiscardingExistingDraft()
+    {
+        $rule = $this->layoutResolverService->loadRule(3);
+        $this->layoutResolverService->createDraft($rule);
+
+        $draftRule = $this->layoutResolverService->createDraft($rule, true);
+
+        $this->assertFalse($draftRule->isPublished());
+        $this->assertInstanceOf(Rule::class, $draftRule);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::createDraft
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testCreateDraftThrowsBadStateExceptionWithNonPublishedRule()

@@ -34,7 +34,6 @@ services:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController
         parent: netgen_block_manager.controller.base
         arguments:
-            - "@netgen_block_manager.api.repository"
             - "@netgen_block_manager.api.service.layout"
             - "@netgen_block_manager.api.service.block"
             - "@netgen_block_manager.controller.api.v1.layout.validator"

@@ -157,13 +157,14 @@ interface LayoutResolverService
      * Creates a rule draft.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
+     * @param bool $discardExisting
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not published
-     *                                                          If draft already exists for the rule
+     *                                                          If draft already exists for the rule and $discardExisting is set to false
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
-    public function createDraft(Rule $rule);
+    public function createDraft(Rule $rule, $discardExisting = false);
 
     /**
      * Discards a rule draft.

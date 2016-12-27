@@ -144,13 +144,14 @@ interface CollectionService
      * Creates a collection draft.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     * @param bool $discardExisting
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not published
-     *                                                          If draft already exists for collection
+     *                                                          If draft already exists for collection and $discardExisting is set to false
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function createDraft(Collection $collection);
+    public function createDraft(Collection $collection, $discardExisting = false);
 
     /**
      * Discards a collection draft.

@@ -408,6 +408,18 @@ abstract class CollectionServiceTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::createDraft
+     */
+    public function testCreateDraftWithDiscardingExistingDraft()
+    {
+        $collection = $this->collectionService->loadCollection(3);
+        $draftCollection = $this->collectionService->createDraft($collection, true);
+
+        $this->assertFalse($draftCollection->isPublished());
+        $this->assertInstanceOf(Collection::class, $draftCollection);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::createDraft
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testCreateDraftThrowsBadStateExceptionWithNonPublishedCollection()

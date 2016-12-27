@@ -166,13 +166,14 @@ interface LayoutService
      * Creates a layout draft.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param bool $discardExisting
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not published
-     *                                                          If draft already exists for layout
+     *                                                          If draft already exists for layout and $discardExisting is set to false
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
-    public function createDraft(Layout $layout);
+    public function createDraft(Layout $layout, $discardExisting = false);
 
     /**
      * Discards a layout draft.

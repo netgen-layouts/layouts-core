@@ -249,37 +249,13 @@ class LayoutResolverController extends Controller
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If an error occurred
-     *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
     public function createRuleDraft(Rule $rule)
     {
-        $ruleDraft = null;
+        $createdDraft = $this->layoutResolverService->createDraft($rule, true);
 
-        try {
-            $ruleDraft = $this->layoutResolverService->loadRuleDraft($rule->getId());
-        } catch (NotFoundException $e) {
-            // Do nothing
-        }
-
-        $this->repository->beginTransaction();
-
-        try {
-            if ($ruleDraft instanceof Rule) {
-                $this->layoutResolverService->discardDraft($ruleDraft);
-            }
-
-            $createdDraft = $this->layoutResolverService->createDraft($rule);
-
-            $this->repository->commitTransaction();
-
-            return $this->buildView($createdDraft, array(), ViewInterface::CONTEXT_ADMIN);
-        } catch (Exception $e) {
-            $this->repository->rollbackTransaction();
-
-            throw new BadStateException('rule', $e->getMessage());
-        }
+        return $this->buildView($createdDraft, array(), ViewInterface::CONTEXT_ADMIN);
     }
 
     /**

@@ -2,8 +2,6 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
-use Exception;
-use Netgen\BlockManager\API\Repository;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\Layout;
@@ -23,11 +21,6 @@ use Symfony\Component\HttpFoundation\Response;
 class LayoutController extends Controller
 {
     /**
-     * @var \Netgen\BlockManager\API\Repository
-     */
-    protected $repository;
-
-    /**
      * @var \Netgen\BlockManager\API\Service\LayoutService
      */
     protected $layoutService;
@@ -45,14 +38,12 @@ class LayoutController extends Controller
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\API\Repository $repository
      * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
      * @param \Netgen\BlockManager\API\Service\BlockService $blockService
      * @param \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\LayoutValidator $validator
      */
-    public function __construct(Repository $repository, LayoutService $layoutService, BlockService $blockService, LayoutValidator $validator)
+    public function __construct(LayoutService $layoutService, BlockService $blockService, LayoutValidator $validator)
     {
-        $this->repository = $repository;
         $this->layoutService = $layoutService;
         $this->blockService = $blockService;
         $this->validator = $validator;
@@ -241,31 +232,9 @@ class LayoutController extends Controller
      */
     public function createDraft(Layout $layout)
     {
-        $layoutDraft = null;
+        $createdDraft = $this->layoutService->createDraft($layout, true);
 
-        try {
-            $layoutDraft = $this->layoutService->loadLayoutDraft($layout->getId());
-        } catch (NotFoundException $e) {
-            // Do nothing
-        }
-
-        $this->repository->beginTransaction();
-
-        try {
-            if ($layoutDraft instanceof Layout) {
-                $this->layoutService->discardDraft($layoutDraft);
-            }
-
-            $createdDraft = $this->layoutService->createDraft($layout);
-
-            $this->repository->commitTransaction();
-
-            return new View($createdDraft, Version::API_V1, Response::HTTP_CREATED);
-        } catch (Exception $e) {
-            $this->repository->rollbackTransaction();
-
-            throw $e;
-        }
+        return new View($createdDraft, Version::API_V1, Response::HTTP_CREATED);
     }
 
     /**

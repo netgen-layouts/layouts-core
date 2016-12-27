@@ -461,13 +461,14 @@ class CollectionService implements APICollectionService
      * Creates a collection draft.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     * @param bool $discardExisting
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not published
-     *                                                          If draft already exists for collection
+     *                                                          If draft already exists for collection and $discardExisting is set to false
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function createDraft(Collection $collection)
+    public function createDraft(Collection $collection, $discardExisting = false)
     {
         if (!$collection->isPublished()) {
             throw new BadStateException('collection', 'Draft can be created only from published collections.');
@@ -476,7 +477,9 @@ class CollectionService implements APICollectionService
         $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Value::STATUS_PUBLISHED);
 
         if ($this->collectionHandler->collectionExists($persistenceCollection->id, Value::STATUS_DRAFT)) {
-            throw new BadStateException('collection', 'The provided collection already has a draft.');
+            if (!$discardExisting) {
+                throw new BadStateException('collection', 'The provided collection already has a draft.');
+            }
         }
 
         $this->persistenceHandler->beginTransaction();

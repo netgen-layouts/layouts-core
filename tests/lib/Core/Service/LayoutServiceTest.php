@@ -441,6 +441,19 @@ abstract class LayoutServiceTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::createDraft
+     */
+    public function testCreateDraftWithDiscardingExistingDraft()
+    {
+        $layout = $this->layoutService->loadLayout(1);
+        $draftLayout = $this->layoutService->createDraft($layout, true);
+
+        $this->assertFalse($draftLayout->isPublished());
+        $this->assertInstanceOf(Layout::class, $draftLayout);
+        $this->assertGreaterThan($layout->getModified(), $draftLayout->getModified());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createDraft
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testCreateDraftThrowsBadStateExceptionWithNonPublishedLayout()

@@ -407,13 +407,14 @@ class LayoutResolverService implements APILayoutResolverService
      * Creates a rule draft.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
+     * @param bool $discardExisting
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not published
-     *                                                          If draft already exists for the rule
+     *                                                          If draft already exists for the rule and $discardExisting is set to false
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
-    public function createDraft(Rule $rule)
+    public function createDraft(Rule $rule, $discardExisting = false)
     {
         if (!$rule->isPublished()) {
             throw new BadStateException('rule', 'Drafts can only be created from published rules.');
@@ -422,7 +423,9 @@ class LayoutResolverService implements APILayoutResolverService
         $persistenceRule = $this->handler->loadRule($rule->getId(), Value::STATUS_PUBLISHED);
 
         if ($this->handler->ruleExists($persistenceRule->id, Value::STATUS_DRAFT)) {
-            throw new BadStateException('rule', 'The provided rule already has a draft.');
+            if (!$discardExisting) {
+                throw new BadStateException('rule', 'The provided rule already has a draft.');
+            }
         }
 
         $this->persistenceHandler->beginTransaction();

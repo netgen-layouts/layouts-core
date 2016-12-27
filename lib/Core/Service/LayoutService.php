@@ -469,13 +469,14 @@ class LayoutService implements LayoutServiceInterface
      * Creates a layout draft.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param bool $discardExisting
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not published
-     *                                                          If draft already exists for layout
+     *                                                          If draft already exists for layout and $discardExisting is set to false
      *
      * @return \Netgen\BlockManager\API\Values\Page\Layout
      */
-    public function createDraft(Layout $layout)
+    public function createDraft(Layout $layout, $discardExisting = false)
     {
         if (!$layout->isPublished()) {
             throw new BadStateException('layout', 'Drafts can only be created from published layouts.');
@@ -484,7 +485,9 @@ class LayoutService implements LayoutServiceInterface
         $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Value::STATUS_PUBLISHED);
 
         if ($this->layoutHandler->layoutExists($persistenceLayout->id, Value::STATUS_DRAFT)) {
-            throw new BadStateException('layout', 'The provided layout already has a draft.');
+            if (!$discardExisting) {
+                throw new BadStateException('layout', 'The provided layout already has a draft.');
+            }
         }
 
         $this->persistenceHandler->beginTransaction();
