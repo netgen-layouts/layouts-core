@@ -5,6 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\Configuration\BlockType\BlockType;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Exception\NotFoundException;
@@ -62,7 +63,7 @@ class BlockController extends Controller
     }
 
     /**
-     * Creates the block.
+     * Creates the block in specified block.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
@@ -82,6 +83,46 @@ class BlockController extends Controller
         }
 
         try {
+            $targetBlock = $this->blockService->loadBlockDraft(
+                $request->request->get('block_id')
+            );
+        } catch (NotFoundException $e) {
+            throw new BadStateException('block_id', 'Block draft does not exist.', $e);
+        }
+
+        $blockCreateStruct = $this->createBlockCreateStruct($blockType);
+
+        $createdBlock = $this->blockService->createBlock(
+            $blockCreateStruct,
+            $targetBlock,
+            $request->request->get('placeholder'),
+            $request->request->get('position')
+        );
+
+        return new View($createdBlock, Version::API_V1, Response::HTTP_CREATED);
+    }
+
+    /**
+     * Creates the block in specified zone.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If block type does not exist
+     *                                                          If layout with specified ID does not exist
+     *
+     * @return \Netgen\BlockManager\Serializer\Values\View
+     */
+    public function createInZone(Request $request)
+    {
+        $this->validator->validateCreateBlock($request);
+
+        try {
+            $blockType = $this->getBlockType($request->request->get('block_type'));
+        } catch (InvalidArgumentException $e) {
+            throw new BadStateException('block_type', 'Block type does not exist.', $e);
+        }
+
+        try {
             $zone = $this->layoutService->loadZoneDraft(
                 $request->request->get('layout_id'),
                 $request->request->get('zone_identifier')
@@ -90,21 +131,7 @@ class BlockController extends Controller
             throw new BadStateException('zone_identifier', 'Zone draft does not exist.', $e);
         }
 
-        $blockDefinition = $blockType->getDefinition();
-        $blockDefinitionConfig = $blockDefinition->getConfig();
-
-        $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
-        $blockCreateStruct->name = $blockType->getDefaultName();
-        $blockCreateStruct->fillValues($blockDefinition, $blockType->getDefaultParameters());
-
-        if ($blockDefinitionConfig->hasViewType($blockType->getDefaultViewType())) {
-            $viewType = $blockDefinitionConfig->getViewType($blockType->getDefaultViewType());
-
-            $blockCreateStruct->viewType = $blockType->getDefaultViewType();
-            $blockCreateStruct->itemViewType = $viewType->hasItemViewType($blockType->getDefaultItemViewType()) ?
-                $blockType->getDefaultItemViewType() :
-                $viewType->getItemViewTypeIdentifiers()[0];
-        }
+        $blockCreateStruct = $this->createBlockCreateStruct($blockType);
 
         $createdBlock = $this->blockService->createBlockInZone(
             $blockCreateStruct,
@@ -156,7 +183,7 @@ class BlockController extends Controller
     }
 
     /**
-     * Copies the block draft.
+     * Copies the block draft to specified block.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -164,6 +191,29 @@ class BlockController extends Controller
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
     public function copy(Block $block, Request $request)
+    {
+        $targetBlock = $this->blockService->loadBlockDraft(
+            $request->request->get('block_id')
+        );
+
+        $copiedBlock = $this->blockService->copyBlock(
+            $block,
+            $targetBlock,
+            $request->request->get('placeholder')
+        );
+
+        return new View($copiedBlock, Version::API_V1, Response::HTTP_CREATED);
+    }
+
+    /**
+     * Copies the block draft to specified zone.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Netgen\BlockManager\Serializer\Values\View
+     */
+    public function copyToZone(Block $block, Request $request)
     {
         $zone = $this->layoutService->loadZoneDraft(
             $request->request->get('layout_id'),
@@ -176,7 +226,7 @@ class BlockController extends Controller
     }
 
     /**
-     * Moves the block draft.
+     * Moves the block draft to specified block.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -184,6 +234,30 @@ class BlockController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function move(Block $block, Request $request)
+    {
+        $targetBlock = $this->blockService->loadBlockDraft(
+            $request->request->get('block_id')
+        );
+
+        $this->blockService->moveBlock(
+            $block,
+            $targetBlock,
+            $request->request->get('placeholder'),
+            $request->request->get('position')
+        );
+
+        return new Response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Moves the block draft to specified zone.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function moveToZone(Block $block, Request $request)
     {
         $zone = $this->layoutService->loadZoneDraft(
             $request->request->get('layout_id'),
@@ -225,5 +299,33 @@ class BlockController extends Controller
         $this->blockService->deleteBlock($block);
 
         return new Response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Creates a new block create struct.
+     *
+     * @param \Netgen\BlockManager\Configuration\BlockType\BlockType $blockType
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\BlockCreateStruct
+     */
+    protected function createBlockCreateStruct(BlockType $blockType)
+    {
+        $blockDefinition = $blockType->getDefinition();
+        $blockDefinitionConfig = $blockDefinition->getConfig();
+
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
+        $blockCreateStruct->name = $blockType->getDefaultName();
+        $blockCreateStruct->fillValues($blockDefinition, $blockType->getDefaultParameters());
+
+        if ($blockDefinitionConfig->hasViewType($blockType->getDefaultViewType())) {
+            $viewType = $blockDefinitionConfig->getViewType($blockType->getDefaultViewType());
+
+            $blockCreateStruct->viewType = $blockType->getDefaultViewType();
+            $blockCreateStruct->itemViewType = $viewType->hasItemViewType($blockType->getDefaultItemViewType()) ?
+                $blockType->getDefaultItemViewType() :
+                $viewType->getItemViewTypeIdentifiers()[0];
+        }
+
+        return $blockCreateStruct;
     }
 }

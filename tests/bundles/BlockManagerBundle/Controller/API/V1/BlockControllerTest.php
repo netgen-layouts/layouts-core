@@ -50,10 +50,10 @@ class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::create
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
      */
-    public function testCreate()
+    public function testCreateInZone()
     {
         $data = $this->jsonEncode(
             array(
@@ -81,10 +81,10 @@ class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::create
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
      */
-    public function testCreateWithNoPosition()
+    public function testCreateInZoneWithNoPosition()
     {
         $data = $this->jsonEncode(
             array(
@@ -111,10 +111,10 @@ class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::create
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
      */
-    public function testCreateWithInvalidBlockType()
+    public function testCreateInZoneWithInvalidBlockType()
     {
         $data = $this->jsonEncode(
             array(
@@ -141,10 +141,10 @@ class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::create
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
      */
-    public function testCreateWithMissingBlockType()
+    public function testCreateInZoneWithMissingBlockType()
     {
         $data = $this->jsonEncode(
             array(
@@ -170,10 +170,10 @@ class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::create
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
      */
-    public function testCreateWithInvalidLayoutId()
+    public function testCreateInZoneWithInvalidLayoutId()
     {
         $data = $this->jsonEncode(
             array(
@@ -200,10 +200,10 @@ class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::create
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
      */
-    public function testCreateWithMissingLayoutId()
+    public function testCreateInZoneWithMissingLayoutId()
     {
         $data = $this->jsonEncode(
             array(
@@ -229,10 +229,10 @@ class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::create
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
      */
-    public function testCreateWithInvalidZoneIdentifier()
+    public function testCreateInZoneWithInvalidZoneIdentifier()
     {
         $data = $this->jsonEncode(
             array(
@@ -259,10 +259,10 @@ class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::create
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
      */
-    public function testCreateWithMissingZoneIdentifier()
+    public function testCreateInZoneWithMissingZoneIdentifier()
     {
         $data = $this->jsonEncode(
             array(
@@ -288,10 +288,10 @@ class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::create
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
      */
-    public function testCreateWithInvalidPosition()
+    public function testCreateInZoneWithInvalidPosition()
     {
         $data = $this->jsonEncode(
             array(
@@ -318,10 +318,10 @@ class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::create
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
      */
-    public function testCreateWithNonExistentBlockType()
+    public function testCreateInZoneWithNonExistentBlockType()
     {
         $data = $this->jsonEncode(
             array(
@@ -348,10 +348,10 @@ class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::create
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
      */
-    public function testCreateWithNonExistentLayout()
+    public function testCreateInZoneWithNonExistentLayout()
     {
         $data = $this->jsonEncode(
             array(
@@ -378,10 +378,10 @@ class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::create
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
      */
-    public function testCreateWithNonExistentLayoutZone()
+    public function testCreateInZoneWithNonExistentLayoutZone()
     {
         $data = $this->jsonEncode(
             array(
@@ -408,10 +408,10 @@ class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::create
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
      */
-    public function testCreateWithOutOfRangePosition()
+    public function testCreateInZoneWithOutOfRangePosition()
     {
         $data = $this->jsonEncode(
             array(
@@ -438,10 +438,10 @@ class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::create
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
      */
-    public function testCreateWithNotAllowedBlockDefinition()
+    public function testCreateInZoneWithNotAllowedBlockDefinition()
     {
         $data = $this->jsonEncode(
             array(
@@ -468,9 +468,9 @@ class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copy
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copyToZone
      */
-    public function testCopy()
+    public function testCopyToZone()
     {
         $data = $this->jsonEncode(
             array(
@@ -495,9 +495,9 @@ class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copy
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copyToZone
      */
-    public function testCopyWithNoZoneIdentifier()
+    public function testCopyToZoneWithNoZoneIdentifier()
     {
         $data = $this->jsonEncode(array());
 
@@ -518,9 +518,9 @@ class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copy
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copyToZone
      */
-    public function testCopyWithNonExistentBlock()
+    public function testCopyToZoneWithNonExistentBlock()
     {
         $data = $this->jsonEncode(array());
 
@@ -540,9 +540,9 @@ class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copy
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copyToZone
      */
-    public function testCopyWithNonExistentZoneIdentifier()
+    public function testCopyToZoneWithNonExistentZoneIdentifier()
     {
         $data = $this->jsonEncode(
             array(
@@ -566,9 +566,9 @@ class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copy
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copyToZone
      */
-    public function testCopyWithNotAllowedBlockDefinition()
+    public function testCopyToZoneWithNotAllowedBlockDefinition()
     {
         $data = $this->jsonEncode(
             array(
@@ -592,9 +592,9 @@ class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copy
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copyToZone
      */
-    public function testCopyWithInvalidZoneIdentifier()
+    public function testCopyToZoneWithInvalidZoneIdentifier()
     {
         $data = $this->jsonEncode(
             array(
@@ -618,9 +618,9 @@ class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::moveToZone
      */
-    public function testMove()
+    public function testMoveToZone()
     {
         $data = $this->jsonEncode(
             array(
@@ -642,9 +642,9 @@ class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::moveToZone
      */
-    public function testMoveWithNoZoneIdentifier()
+    public function testMoveToZoneWithNoZoneIdentifier()
     {
         $data = $this->jsonEncode(
             array(
@@ -665,9 +665,9 @@ class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::moveToZone
      */
-    public function testMoveWithNonExistentBlock()
+    public function testMoveToZoneWithNonExistentBlock()
     {
         $data = $this->jsonEncode(array());
 
@@ -687,9 +687,9 @@ class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::moveToZone
      */
-    public function testMoveWithNonExistentZoneIdentifier()
+    public function testMoveToZoneWithNonExistentZoneIdentifier()
     {
         $data = $this->jsonEncode(
             array(
@@ -714,9 +714,9 @@ class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::moveToZone
      */
-    public function testMoveWithNotAllowedBlockDefinition()
+    public function testMoveToZoneWithNotAllowedBlockDefinition()
     {
         $data = $this->jsonEncode(
             array(
@@ -741,9 +741,9 @@ class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::moveToZone
      */
-    public function testMoveWithOutOfRangePosition()
+    public function testMoveToZoneWithOutOfRangePosition()
     {
         $data = $this->jsonEncode(
             array(
@@ -768,9 +768,9 @@ class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::moveToZone
      */
-    public function testMoveWithInvalidZoneIdentifier()
+    public function testMoveToZoneWithInvalidZoneIdentifier()
     {
         $data = $this->jsonEncode(
             array(
@@ -795,9 +795,9 @@ class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::moveToZone
      */
-    public function testMoveWithInvalidPosition()
+    public function testMoveToZoneWithInvalidPosition()
     {
         $data = $this->jsonEncode(
             array(
@@ -822,9 +822,9 @@ class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::moveToZone
      */
-    public function testMoveWithMissingPosition()
+    public function testMoveToZoneWithMissingPosition()
     {
         $data = $this->jsonEncode(
             array(
