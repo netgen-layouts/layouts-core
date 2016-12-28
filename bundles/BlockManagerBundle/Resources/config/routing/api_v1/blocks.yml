@@ -5,6 +5,12 @@ ngbm_api_v1_blocks_load:
         _controller: "netgen_block_manager.controller.api.v1.block:view"
 
 ngbm_api_v1_blocks_create:
+    path: /blocks/{blockId}
+    methods: [POST]
+    defaults:
+        _controller: "netgen_block_manager.controller.api.v1.block:create"
+
+ngbm_api_v1_blocks_create_in_zone:
     path: /blocks
     methods: [POST]
     defaults:
@@ -21,11 +27,25 @@ ngbm_api_v1_blocks_copy:
     path: /blocks/{blockId}/copy
     methods: [POST]
     defaults:
+        _controller: "netgen_block_manager.controller.api.v1.block:copy"
+        _ngbm_status: draft
+
+ngbm_api_v1_blocks_copy_to_zone:
+    path: /blocks/{blockId}/copy/zone
+    methods: [POST]
+    defaults:
         _controller: "netgen_block_manager.controller.api.v1.block:copyToZone"
         _ngbm_status: draft
 
 ngbm_api_v1_blocks_move:
     path: /blocks/{blockId}/move
+    methods: [POST]
+    defaults:
+        _controller: "netgen_block_manager.controller.api.v1.block:move"
+        _ngbm_status: draft
+
+ngbm_api_v1_blocks_move_to_zone:
+    path: /blocks/{blockId}/move/zone
     methods: [POST]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.block:moveToZone"

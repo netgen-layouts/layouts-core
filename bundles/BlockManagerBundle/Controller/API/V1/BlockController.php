@@ -65,14 +65,14 @@ class BlockController extends Controller
     /**
      * Creates the block in specified block.
      *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $targetBlock
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If block type does not exist
-     *                                                          If layout with specified ID does not exist
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
-    public function create(Request $request)
+    public function create(Block $targetBlock, Request $request)
     {
         $this->validator->validateCreateBlock($request);
 
@@ -80,14 +80,6 @@ class BlockController extends Controller
             $blockType = $this->getBlockType($request->request->get('block_type'));
         } catch (InvalidArgumentException $e) {
             throw new BadStateException('block_type', 'Block type does not exist.', $e);
-        }
-
-        try {
-            $targetBlock = $this->blockService->loadBlockDraft(
-                $request->request->get('block_id')
-            );
-        } catch (NotFoundException $e) {
-            throw new BadStateException('block_id', 'Block draft does not exist.', $e);
         }
 
         $blockCreateStruct = $this->createBlockCreateStruct($blockType);
@@ -108,7 +100,7 @@ class BlockController extends Controller
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If block type does not exist
-     *                                                          If layout with specified ID does not exist
+     *                                                          If zone with specified ID does not exist
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
