@@ -20,6 +20,7 @@ use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Page\Block as PersistenceBlock;
 use Netgen\BlockManager\Persistence\Values\Page\BlockCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceCreateStruct;
@@ -230,6 +231,49 @@ class BlockService implements BlockServiceInterface
     }
 
     /**
+     * Creates a block in specified block and placeholder.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\BlockCreateStruct $blockCreateStruct
+     * @param \Netgen\BlockManager\API\Values\Page\Block $targetBlock
+     * @param string $placeholder
+     * @param int $position
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If target block is not a draft
+     *                                                          If target block is not a container
+     *                                                          If placeholder does not exist in the target block
+     *                                                          If new block is a container
+     *                                                          If provided position is out of range
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Block
+     */
+    public function createBlockInBlock(APIBlockCreateStruct $blockCreateStruct, Block $targetBlock, $placeholder, $position = null)
+    {
+        if ($targetBlock->isPublished()) {
+            throw new BadStateException('targetBlock', 'Blocks can only be created in blocks in draft status.');
+        }
+
+        $this->blockValidator->validateIdentifier($placeholder, 'placeholder', true);
+        $this->blockValidator->validatePosition($position, 'position');
+        $this->blockValidator->validateBlockCreateStruct($blockCreateStruct);
+
+        if (!$targetBlock->getDefinition()->isContainer()) {
+            throw new BadStateException('targetBlock', 'Target block is not a container.');
+        }
+
+        if (!$targetBlock->getDefinition()->hasPlaceholder($placeholder)) {
+            throw new BadStateException('placeholder', 'Target block does not have the specified placeholder.');
+        }
+
+        if ($blockCreateStruct->definition->isContainer()) {
+            throw new BadStateException('blockCreateStruct', 'Containers cannot be placed inside containers.');
+        }
+
+        $persistenceBlock = $this->blockHandler->loadBlock($targetBlock->getId(), Value::STATUS_DRAFT);
+
+        return $this->internalCreateBlock($blockCreateStruct, $persistenceBlock, $placeholder, $position);
+    }
+
+    /**
      * Creates a block in specified layout and zone.
      *
      * @param \Netgen\BlockManager\API\Values\Page\BlockCreateStruct $blockCreateStruct
@@ -269,64 +313,7 @@ class BlockService implements BlockServiceInterface
             $persistenceZone->status
         );
 
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $createdBlock = $this->blockHandler->createBlock(
-                new BlockCreateStruct(
-                    array(
-                        'layoutId' => $persistenceLayout->id,
-                        'status' => $persistenceLayout->status,
-                        'position' => $position,
-                        'definitionIdentifier' => $blockCreateStruct->definition->getIdentifier(),
-                        'viewType' => $blockCreateStruct->viewType,
-                        'itemViewType' => $blockCreateStruct->itemViewType,
-                        'name' => $blockCreateStruct->name,
-                        'placeholderParameters' => array(), // @todo
-                        'parameters' => $this->parameterMapper->serializeValues(
-                            $blockCreateStruct->definition,
-                            $blockCreateStruct->getParameterValues()
-                        ),
-                    )
-                ),
-                $rootBlock,
-                'root'
-            );
-
-            if ($blockCreateStruct->definition->hasCollection()) {
-                $collectionCreateStruct = new CollectionCreateStruct();
-                $collectionCreateStruct->type = Collection::TYPE_MANUAL;
-
-                $createdCollection = $this->collectionHandler->createCollection(
-                    new CollectionCreateStruct(
-                        array(
-                            'status' => Value::STATUS_DRAFT,
-                            'type' => Collection::TYPE_MANUAL,
-                            'shared' => false,
-                        )
-                    )
-                );
-
-                $this->blockHandler->createCollectionReference(
-                    $createdBlock,
-                    new CollectionReferenceCreateStruct(
-                        array(
-                            'identifier' => 'default',
-                            'collection' => $createdCollection,
-                            'offset' => 0,
-                            'limit' => null,
-                        )
-                    )
-                );
-            }
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
-
-        return $this->blockMapper->mapBlock($createdBlock);
+        return $this->internalCreateBlock($blockCreateStruct, $rootBlock, 'root', $position);
     }
 
     /**
@@ -421,6 +408,62 @@ class BlockService implements BlockServiceInterface
     }
 
     /**
+     * Copies a block to a specified target block.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Page\Block $targetBlock
+     * @param string $placeholder
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If source or target block is not a draft
+     *                                                          If target block is not a container
+     *                                                          If placeholder does not exist in the target block
+     *                                                          If new block is a container
+     *                                                          If target block is within the provided block
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Block
+     */
+    public function copyBlockInBlock(Block $block, Block $targetBlock, $placeholder)
+    {
+        if ($block->isPublished()) {
+            throw new BadStateException('block', 'Only draft blocks can be copied.');
+        }
+
+        if ($targetBlock->isPublished()) {
+            throw new BadStateException('targetBlock', 'You can only copy blocks to draft blocks.');
+        }
+
+        $this->blockValidator->validateIdentifier($placeholder, 'placeholder', true);
+
+        if (!$targetBlock->getDefinition()->isContainer()) {
+            throw new BadStateException('targetBlock', 'Target block is not a container.');
+        }
+
+        if (!$targetBlock->getDefinition()->hasPlaceholder($placeholder)) {
+            throw new BadStateException('placeholder', 'Target block does not have the specified placeholder.');
+        }
+
+        if ($block->getDefinition()->isContainer()) {
+            throw new BadStateException('block', 'Containers cannot be placed inside containers.');
+        }
+
+        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
+        $persistenceTargetBlock = $this->blockHandler->loadBlock($targetBlock->getId(), Value::STATUS_DRAFT);
+
+        $this->persistenceHandler->beginTransaction();
+
+        try {
+            $copiedBlock = $this->blockHandler->copyBlock($persistenceBlock, $persistenceTargetBlock, $placeholder);
+        } catch (Exception $e) {
+            $this->persistenceHandler->rollbackTransaction();
+            throw $e;
+        }
+
+        $this->persistenceHandler->commitTransaction();
+
+        return $this->blockMapper->mapBlock($copiedBlock);
+    }
+
+    /**
      * Copies a block to a specified zone.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
@@ -466,6 +509,54 @@ class BlockService implements BlockServiceInterface
     }
 
     /**
+     * Moves a block to specified target block.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Page\Block $targetBlock
+     * @param string $placeholder
+     * @param int $position
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If source or target block is not a draft
+     *                                                          If target block is not a container
+     *                                                          If placeholder does not exist in the target block
+     *                                                          If new block is a container
+     *                                                          If target block is within the provided block
+     *                                                          If provided position is out of range
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Block
+     */
+    public function moveBlockToBlock(Block $block, Block $targetBlock, $placeholder, $position)
+    {
+        if ($block->isPublished()) {
+            throw new BadStateException('block', 'Only draft blocks can be copied.');
+        }
+
+        if ($targetBlock->isPublished()) {
+            throw new BadStateException('targetBlock', 'You can only copy blocks to draft blocks.');
+        }
+
+        $this->blockValidator->validateIdentifier($placeholder, 'placeholder', true);
+        $this->blockValidator->validatePosition($position, 'position', true);
+
+        if (!$targetBlock->getDefinition()->isContainer()) {
+            throw new BadStateException('targetBlock', 'Target block is not a container.');
+        }
+
+        if (!$targetBlock->getDefinition()->hasPlaceholder($placeholder)) {
+            throw new BadStateException('placeholder', 'Target block does not have the specified placeholder.');
+        }
+
+        if ($block->getDefinition()->isContainer()) {
+            throw new BadStateException('block', 'Containers cannot be placed inside containers.');
+        }
+
+        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
+        $persistenceTargetBlock = $this->blockHandler->loadBlock($targetBlock->getId(), Value::STATUS_DRAFT);
+
+        return $this->internalMoveBlock($persistenceBlock, $persistenceTargetBlock, $placeholder, $position);
+    }
+
+    /**
      * Moves a block to specified position inside the zone.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
@@ -505,30 +596,7 @@ class BlockService implements BlockServiceInterface
 
         $rootBlock = $this->blockHandler->loadBlock($persistenceZone->rootBlockId, $persistenceZone->status);
 
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            if ($persistenceBlock->parentId === $rootBlock->id && $persistenceBlock->placeholder === 'root') {
-                $movedBlock = $this->blockHandler->moveBlock(
-                    $persistenceBlock,
-                    $position
-                );
-            } else {
-                $movedBlock = $this->blockHandler->moveBlockToBlock(
-                    $persistenceBlock,
-                    $rootBlock,
-                    'root',
-                    $position
-                );
-            }
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
-
-        return $this->blockMapper->mapBlock($movedBlock);
+        return $this->internalMoveBlock($persistenceBlock, $rootBlock, 'root', $position);
     }
 
     /**
@@ -665,6 +733,128 @@ class BlockService implements BlockServiceInterface
         );
 
         return $blockUpdateStruct;
+    }
+
+    /**
+     * Creates a block. Internal method unifying creating a block in a zone and a parent block.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\BlockCreateStruct $blockCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $targetBlock
+     * @param string $placeholder
+     * @param int $position
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Block
+     */
+    protected function internalCreateBlock(
+        APIBlockCreateStruct $blockCreateStruct,
+        PersistenceBlock $targetBlock,
+        $placeholder,
+        $position = null
+    ) {
+        $this->persistenceHandler->beginTransaction();
+
+        $placeholderParameters = array();
+        if ($blockCreateStruct->definition->isContainer()) {
+            foreach ($blockCreateStruct->definition->getPlaceholders() as $identifier => $placeholder) {
+                $placeholderParameters[$identifier] = $this->parameterMapper->serializeValues(
+                    $blockCreateStruct->definition->getPlaceholder($identifier),
+                    // @todo Make it possible to provide placeholder parameters
+                    array()
+                );
+            }
+        }
+
+        try {
+            $createdBlock = $this->blockHandler->createBlock(
+                new BlockCreateStruct(
+                    array(
+                        'layoutId' => $targetBlock->layoutId,
+                        'status' => $targetBlock->status,
+                        'position' => $position,
+                        'definitionIdentifier' => $blockCreateStruct->definition->getIdentifier(),
+                        'viewType' => $blockCreateStruct->viewType,
+                        'itemViewType' => $blockCreateStruct->itemViewType,
+                        'name' => $blockCreateStruct->name,
+                        'placeholderParameters' => $placeholderParameters,
+                        'parameters' => $this->parameterMapper->serializeValues(
+                            $blockCreateStruct->definition,
+                            $blockCreateStruct->getParameterValues()
+                        ),
+                    )
+                ),
+                $targetBlock,
+                $placeholder
+            );
+
+            if ($blockCreateStruct->definition->hasCollection()) {
+                $collectionCreateStruct = new CollectionCreateStruct();
+                $collectionCreateStruct->type = Collection::TYPE_MANUAL;
+
+                $createdCollection = $this->collectionHandler->createCollection(
+                    new CollectionCreateStruct(
+                        array(
+                            'status' => Value::STATUS_DRAFT,
+                            'type' => Collection::TYPE_MANUAL,
+                            'shared' => false,
+                        )
+                    )
+                );
+
+                $this->blockHandler->createCollectionReference(
+                    $createdBlock,
+                    new CollectionReferenceCreateStruct(
+                        array(
+                            'identifier' => 'default',
+                            'collection' => $createdCollection,
+                            'offset' => 0,
+                            'limit' => null,
+                        )
+                    )
+                );
+            }
+        } catch (Exception $e) {
+            $this->persistenceHandler->rollbackTransaction();
+            throw $e;
+        }
+
+        $this->persistenceHandler->commitTransaction();
+
+        return $this->blockMapper->mapBlock($createdBlock);
+    }
+
+    /**
+     * Moves a block. Internal method unifying moving a block to a zone and to a parent block.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $targetBlock
+     * @param string $placeholder
+     * @param int $position
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Block
+     */
+    protected function internalMoveBlock(PersistenceBlock $block, PersistenceBlock $targetBlock, $placeholder, $position)
+    {
+        $this->persistenceHandler->beginTransaction();
+
+        try {
+            if ($block->parentId === $targetBlock->id && $block->placeholder === $placeholder) {
+                $movedBlock = $this->blockHandler->moveBlock($block, $position);
+            } else {
+                $movedBlock = $this->blockHandler->moveBlockToBlock(
+                    $block,
+                    $targetBlock,
+                    $placeholder,
+                    $position
+                );
+            }
+        } catch (Exception $e) {
+            $this->persistenceHandler->rollbackTransaction();
+            throw $e;
+        }
+
+        $this->persistenceHandler->commitTransaction();
+
+        return $this->blockMapper->mapBlock($movedBlock);
     }
 
     /**

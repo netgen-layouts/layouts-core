@@ -174,6 +174,7 @@ abstract class BlockServiceTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      */
     public function testCreateBlock()
@@ -210,6 +211,7 @@ abstract class BlockServiceTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      */
     public function testCreateBlockWithoutCollection()
@@ -239,6 +241,7 @@ abstract class BlockServiceTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      */
     public function testCreateBlockInZoneWhichDoesNotExistInLayoutType()
@@ -276,6 +279,7 @@ abstract class BlockServiceTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      */
     public function testCreateBlockWithNonExistentLayoutType()
@@ -295,6 +299,7 @@ abstract class BlockServiceTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      */
     public function testCreateBlockWithNoPosition()
@@ -318,7 +323,6 @@ abstract class BlockServiceTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testCreateBlockThrowsBadStateExceptionWhenPositionIsTooLarge()
@@ -579,6 +583,7 @@ abstract class BlockServiceTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalMoveBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      */
     public function testMoveBlock()
@@ -601,6 +606,7 @@ abstract class BlockServiceTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalMoveBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      */
     public function testMoveBlockToDifferentZone()
@@ -649,7 +655,6 @@ abstract class BlockServiceTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testMoveBlockThrowsBadStateExceptionWhenPositionIsTooLarge()
@@ -663,7 +668,6 @@ abstract class BlockServiceTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
     public function testMoveBlockThrowsBadStateExceptionWhenZoneIsInDifferentLayout()

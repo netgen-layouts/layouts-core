@@ -72,6 +72,24 @@ interface BlockService
     public function loadCollectionReferences(Block $block);
 
     /**
+     * Creates a block in specified block and placeholder.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\BlockCreateStruct $blockCreateStruct
+     * @param \Netgen\BlockManager\API\Values\Page\Block $targetBlock
+     * @param string $placeholder
+     * @param int $position
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If target block is not a draft
+     *                                                          If target block is not a container
+     *                                                          If placeholder does not exist in the target block
+     *                                                          If new block is a container
+     *                                                          If provided position is out of range
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Block
+     */
+    public function createBlockInBlock(BlockCreateStruct $blockCreateStruct, Block $targetBlock, $placeholder, $position = null);
+
+    /**
      * Creates a block in specified layout and zone.
      *
      * @param \Netgen\BlockManager\API\Values\Page\BlockCreateStruct $blockCreateStruct
@@ -109,6 +127,23 @@ interface BlockService
     public function updateCollectionReference(CollectionReference $collectionReference, Collection $collection);
 
     /**
+     * Copies a block to a specified target block.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Page\Block $targetBlock
+     * @param string $placeholder
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If source or target block is not a draft
+     *                                                          If target block is not a container
+     *                                                          If placeholder does not exist in the target block
+     *                                                          If new block is a container
+     *                                                          If target block is within the provided block
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Block
+     */
+    public function copyBlockInBlock(Block $block, Block $targetBlock, $placeholder);
+
+    /**
      * Copies a block to a specified zone.
      *
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
@@ -120,6 +155,25 @@ interface BlockService
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
     public function copyBlock(Block $block, Zone $zone);
+
+    /**
+     * Moves a block to specified target block.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Page\Block $targetBlock
+     * @param string $placeholder
+     * @param int $position
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If source or target block is not a draft
+     *                                                          If target block is not a container
+     *                                                          If placeholder does not exist in the target block
+     *                                                          If new block is a container
+     *                                                          If target block is within the provided block
+     *                                                          If provided position is out of range
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Block
+     */
+    public function moveBlockToBlock(Block $block, Block $targetBlock, $placeholder, $position);
 
     /**
      * Moves a block to specified position inside the zone.
