@@ -34,10 +34,10 @@ class BlockServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
      * @expectedException \Exception
      */
-    public function testCreateBlock()
+    public function testCreateBlockInZone()
     {
         $this->layoutHandlerMock
             ->expects($this->at(0))
@@ -63,7 +63,7 @@ class BlockServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->blockService->createBlock(
+        $this->blockService->createBlockInZone(
             new BlockCreateStruct(array('definition' => new BlockDefinition('blockDef'))),
             new Zone(array('published' => false))
         );
@@ -141,10 +141,10 @@ class BlockServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
      * @expectedException \Exception
      */
-    public function testCopyBlock()
+    public function testCopyBlockToZone()
     {
         $this->blockHandlerMock
             ->expects($this->at(0))
@@ -175,17 +175,17 @@ class BlockServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->blockService->copyBlock(
+        $this->blockService->copyBlockToZone(
             new Block(array('published' => false)),
             new Zone(array('published' => false))
         );
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
      * @expectedException \Exception
      */
-    public function testMoveBlock()
+    public function testMoveBlockToZone()
     {
         $this->blockHandlerMock
             ->expects($this->at(0))
@@ -216,7 +216,7 @@ class BlockServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->blockService->moveBlock(
+        $this->blockService->moveBlockToZone(
             new Block(array('published' => false)),
             new Zone(array('published' => false)),
             0

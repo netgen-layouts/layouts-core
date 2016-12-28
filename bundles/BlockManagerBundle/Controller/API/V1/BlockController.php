@@ -106,7 +106,7 @@ class BlockController extends Controller
                 $viewType->getItemViewTypeIdentifiers()[0];
         }
 
-        $createdBlock = $this->blockService->createBlock(
+        $createdBlock = $this->blockService->createBlockInZone(
             $blockCreateStruct,
             $zone,
             $request->request->get('position')
@@ -170,7 +170,7 @@ class BlockController extends Controller
             $request->request->get('zone_identifier')
         );
 
-        $copiedBlock = $this->blockService->copyBlock($block, $zone);
+        $copiedBlock = $this->blockService->copyBlockToZone($block, $zone);
 
         return new View($copiedBlock, Version::API_V1, Response::HTTP_CREATED);
     }
@@ -190,7 +190,7 @@ class BlockController extends Controller
             $request->request->get('zone_identifier')
         );
 
-        $this->blockService->moveBlock(
+        $this->blockService->moveBlockToZone(
             $block,
             $zone,
             $request->request->get('position')

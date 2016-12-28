@@ -173,17 +173,17 @@ abstract class BlockServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      */
-    public function testCreateBlock()
+    public function testCreateBlockInZone()
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             $this->blockDefinitionRegistry->getBlockDefinition('list')
         );
 
-        $block = $this->blockService->createBlock(
+        $block = $this->blockService->createBlockInZone(
             $blockCreateStruct,
             $this->layoutService->loadZoneDraft(1, 'right'),
             0
@@ -210,17 +210,17 @@ abstract class BlockServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      */
-    public function testCreateBlockWithoutCollection()
+    public function testCreateBlockInZoneWithoutCollection()
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             $this->blockDefinitionRegistry->getBlockDefinition('title')
         );
 
-        $block = $this->blockService->createBlock(
+        $block = $this->blockService->createBlockInZone(
             $blockCreateStruct,
             $this->layoutService->loadZoneDraft(1, 'right'),
             0
@@ -240,7 +240,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      */
@@ -250,7 +250,7 @@ abstract class BlockServiceTest extends ServiceTestCase
             $this->blockDefinitionRegistry->getBlockDefinition('title')
         );
 
-        $block = $this->blockService->createBlock(
+        $block = $this->blockService->createBlockInZone(
             $blockCreateStruct,
             $this->layoutService->loadZoneDraft(7, 'center'),
             0
@@ -261,16 +261,16 @@ abstract class BlockServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testCreateBlockThrowsBadStateExceptionWithNonDraftZone()
+    public function testCreateBlockInZoneThrowsBadStateExceptionWithNonDraftZone()
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             $this->blockDefinitionRegistry->getBlockDefinition('title')
         );
 
-        $this->blockService->createBlock(
+        $this->blockService->createBlockInZone(
             $blockCreateStruct,
             $this->layoutService->loadZone(1, 'right'),
             0
@@ -278,17 +278,17 @@ abstract class BlockServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      */
-    public function testCreateBlockWithNonExistentLayoutType()
+    public function testCreateBlockInZoneWithNonExistentLayoutType()
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             $this->blockDefinitionRegistry->getBlockDefinition('title')
         );
 
-        $block = $this->blockService->createBlock(
+        $block = $this->blockService->createBlockInZone(
             $blockCreateStruct,
             $this->layoutService->loadZoneDraft(2, 'top')
         );
@@ -298,17 +298,17 @@ abstract class BlockServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      */
-    public function testCreateBlockWithNoPosition()
+    public function testCreateBlockInZoneWithNoPosition()
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             $this->blockDefinitionRegistry->getBlockDefinition('title')
         );
 
-        $block = $this->blockService->createBlock(
+        $block = $this->blockService->createBlockInZone(
             $blockCreateStruct,
             $this->layoutService->loadZoneDraft(1, 'right')
         );
@@ -322,16 +322,16 @@ abstract class BlockServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testCreateBlockThrowsBadStateExceptionWhenPositionIsTooLarge()
+    public function testCreateBlockInZoneThrowsBadStateExceptionWhenPositionIsTooLarge()
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             $this->blockDefinitionRegistry->getBlockDefinition('title')
         );
 
-        $this->blockService->createBlock(
+        $this->blockService->createBlockInZone(
             $blockCreateStruct,
             $this->layoutService->loadZoneDraft(1, 'right'),
             9999
@@ -339,17 +339,17 @@ abstract class BlockServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testCreateBlockWithWithDisallowedIdentifierThrowsBadStateException()
+    public function testCreateBlockInZoneWithWithDisallowedIdentifierThrowsBadStateException()
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             $this->blockDefinitionRegistry->getBlockDefinition('gallery')
         );
 
-        $this->blockService->createBlock(
+        $this->blockService->createBlockInZone(
             $blockCreateStruct,
             $this->layoutService->loadZoneDraft(1, 'right')
         );
@@ -525,12 +525,12 @@ abstract class BlockServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      */
-    public function testCopyBlock()
+    public function testCopyBlockToZone()
     {
-        $copiedBlock = $this->blockService->copyBlock(
+        $copiedBlock = $this->blockService->copyBlockToZone(
             $this->blockService->loadBlockDraft(31),
             $this->layoutService->loadZoneDraft(1, 'left')
         );
@@ -545,50 +545,50 @@ abstract class BlockServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testCopyBlockThrowsBadStateExceptionWithNonDraftBlock()
+    public function testCopyBlockToZoneThrowsBadStateExceptionWithNonDraftBlock()
     {
-        $this->blockService->copyBlock(
+        $this->blockService->copyBlockToZone(
             $this->blockService->loadBlock(31),
             $this->layoutService->loadZoneDraft(1, 'left')
         );
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testCopyBlockThrowsBadStateExceptionWithNonDraftZone()
+    public function testCopyBlockToZoneThrowsBadStateExceptionWithNonDraftZone()
     {
-        $this->blockService->copyBlock(
+        $this->blockService->copyBlockToZone(
             $this->blockService->loadBlockDraft(31),
             $this->layoutService->loadZone(1, 'left')
         );
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testCopyBlockWithDisallowedIdentifierThrowsBadStateException()
+    public function testCopyBlockToZoneWithDisallowedIdentifierThrowsBadStateException()
     {
-        $this->blockService->copyBlock(
+        $this->blockService->copyBlockToZone(
             $this->blockService->loadBlockDraft(31),
             $this->layoutService->loadZoneDraft(1, 'bottom')
         );
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalMoveBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      */
-    public function testMoveBlock()
+    public function testMoveBlockToZone()
     {
-        $movedBlock = $this->blockService->moveBlock(
+        $movedBlock = $this->blockService->moveBlockToZone(
             $this->blockService->loadBlockDraft(32),
             $this->layoutService->loadZoneDraft(1, 'left'),
             0
@@ -605,13 +605,13 @@ abstract class BlockServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalMoveBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      */
     public function testMoveBlockToDifferentZone()
     {
-        $movedBlock = $this->blockService->moveBlock(
+        $movedBlock = $this->blockService->moveBlockToZone(
             $this->blockService->loadBlockDraft(32),
             $this->layoutService->loadZoneDraft(1, 'right'),
             0
@@ -628,12 +628,12 @@ abstract class BlockServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testMoveBlockThrowsBadStateExceptionWithNonDraftBlock()
+    public function testMoveBlockToZoneThrowsBadStateExceptionWithNonDraftBlock()
     {
-        $this->blockService->moveBlock(
+        $this->blockService->moveBlockToZone(
             $this->blockService->loadBlock(31),
             $this->layoutService->loadZoneDraft(1, 'left'),
             0
@@ -641,12 +641,12 @@ abstract class BlockServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testMoveBlockThrowsBadStateExceptionWithNonDraftZone()
+    public function testMoveBlockToZoneThrowsBadStateExceptionWithNonDraftZone()
     {
-        $this->blockService->moveBlock(
+        $this->blockService->moveBlockToZone(
             $this->blockService->loadBlockDraft(31),
             $this->layoutService->loadZone(1, 'left'),
             0
@@ -654,12 +654,12 @@ abstract class BlockServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testMoveBlockThrowsBadStateExceptionWhenPositionIsTooLarge()
+    public function testMoveBlockToZoneThrowsBadStateExceptionWhenPositionIsTooLarge()
     {
-        $this->blockService->moveBlock(
+        $this->blockService->moveBlockToZone(
             $this->blockService->loadBlockDraft(32),
             $this->layoutService->loadZoneDraft(1, 'bottom'),
             9999
@@ -667,12 +667,12 @@ abstract class BlockServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testMoveBlockThrowsBadStateExceptionWhenZoneIsInDifferentLayout()
+    public function testMoveBlockToZoneThrowsBadStateExceptionWhenZoneIsInDifferentLayout()
     {
-        $this->blockService->moveBlock(
+        $this->blockService->moveBlockToZone(
             $this->blockService->loadBlockDraft(32),
             $this->layoutService->loadZoneDraft(2, 'bottom'),
             0
@@ -680,13 +680,13 @@ abstract class BlockServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testMoveBlockWithDisallowedIdentifierThrowsBadStateException()
+    public function testMoveBlockToZoneWithDisallowedIdentifierThrowsBadStateException()
     {
-        $this->blockService->moveBlock(
+        $this->blockService->moveBlockToZone(
             $this->blockService->loadBlockDraft(31),
             $this->layoutService->loadZoneDraft(1, 'bottom'),
             0

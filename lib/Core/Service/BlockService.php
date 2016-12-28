@@ -246,7 +246,7 @@ class BlockService implements BlockServiceInterface
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function createBlockInBlock(APIBlockCreateStruct $blockCreateStruct, Block $targetBlock, $placeholder, $position = null)
+    public function createBlock(APIBlockCreateStruct $blockCreateStruct, Block $targetBlock, $placeholder, $position = null)
     {
         if ($targetBlock->isPublished()) {
             throw new BadStateException('targetBlock', 'Blocks can only be created in blocks in draft status.');
@@ -286,7 +286,7 @@ class BlockService implements BlockServiceInterface
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function createBlock(APIBlockCreateStruct $blockCreateStruct, Zone $zone, $position = null)
+    public function createBlockInZone(APIBlockCreateStruct $blockCreateStruct, Zone $zone, $position = null)
     {
         if ($zone->isPublished()) {
             throw new BadStateException('zone', 'Blocks can only be created in zones in draft status.');
@@ -422,7 +422,7 @@ class BlockService implements BlockServiceInterface
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function copyBlockInBlock(Block $block, Block $targetBlock, $placeholder)
+    public function copyBlock(Block $block, Block $targetBlock, $placeholder)
     {
         if ($block->isPublished()) {
             throw new BadStateException('block', 'Only draft blocks can be copied.');
@@ -474,7 +474,7 @@ class BlockService implements BlockServiceInterface
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function copyBlock(Block $block, Zone $zone)
+    public function copyBlockToZone(Block $block, Zone $zone)
     {
         if ($block->isPublished()) {
             throw new BadStateException('block', 'Only draft blocks can be copied.');
@@ -525,7 +525,7 @@ class BlockService implements BlockServiceInterface
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function moveBlockToBlock(Block $block, Block $targetBlock, $placeholder, $position)
+    public function moveBlock(Block $block, Block $targetBlock, $placeholder, $position)
     {
         if ($block->isPublished()) {
             throw new BadStateException('block', 'Only draft blocks can be copied.');
@@ -570,7 +570,7 @@ class BlockService implements BlockServiceInterface
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function moveBlock(Block $block, Zone $zone, $position)
+    public function moveBlockToZone(Block $block, Zone $zone, $position)
     {
         if ($block->isPublished()) {
             throw new BadStateException('block', 'Only draft blocks can be moved.');

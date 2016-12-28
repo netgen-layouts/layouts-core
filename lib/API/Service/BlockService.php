@@ -87,7 +87,7 @@ interface BlockService
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function createBlockInBlock(BlockCreateStruct $blockCreateStruct, Block $targetBlock, $placeholder, $position = null);
+    public function createBlock(BlockCreateStruct $blockCreateStruct, Block $targetBlock, $placeholder, $position = null);
 
     /**
      * Creates a block in specified layout and zone.
@@ -102,7 +102,7 @@ interface BlockService
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function createBlock(BlockCreateStruct $blockCreateStruct, Zone $zone, $position = null);
+    public function createBlockInZone(BlockCreateStruct $blockCreateStruct, Zone $zone, $position = null);
 
     /**
      * Updates a specified block.
@@ -141,7 +141,7 @@ interface BlockService
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function copyBlockInBlock(Block $block, Block $targetBlock, $placeholder);
+    public function copyBlock(Block $block, Block $targetBlock, $placeholder);
 
     /**
      * Copies a block to a specified zone.
@@ -154,7 +154,7 @@ interface BlockService
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function copyBlock(Block $block, Zone $zone);
+    public function copyBlockToZone(Block $block, Zone $zone);
 
     /**
      * Moves a block to specified target block.
@@ -173,7 +173,7 @@ interface BlockService
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function moveBlockToBlock(Block $block, Block $targetBlock, $placeholder, $position);
+    public function moveBlock(Block $block, Block $targetBlock, $placeholder, $position);
 
     /**
      * Moves a block to specified position inside the zone.
@@ -189,7 +189,7 @@ interface BlockService
      *
      * @return \Netgen\BlockManager\API\Values\Page\Block
      */
-    public function moveBlock(Block $block, Zone $zone, $position);
+    public function moveBlockToZone(Block $block, Zone $zone, $position);
 
     /**
      * Restores the specified block from the published status. Zone and position are kept as is.
