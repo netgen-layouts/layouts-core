@@ -1046,108 +1046,6 @@ class BlockHandlerTest extends TestCase
         $this->assertEquals(
             new Block(
                 array(
-                    'id' => 31,
-                    'layoutId' => 1,
-                    'depth' => 1,
-                    'path' => '/3/31/',
-                    'parentId' => 3,
-                    'placeholder' => 'root',
-                    'position' => 1,
-                    'definitionIdentifier' => 'list',
-                    'viewType' => 'list',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'status' => Value::STATUS_DRAFT,
-                    'placeholderParameters' => array(),
-                    'parameters' => array(
-                        'number_of_columns' => 2,
-                    ),
-                )
-            ),
-            $this->blockHandler->moveBlock(
-                $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-                1
-            )
-        );
-
-        $firstBlock = $this->blockHandler->loadBlock(32, Value::STATUS_DRAFT);
-        $this->assertEquals(0, $firstBlock->position);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
-     */
-    public function testMoveBlockToLowerPosition()
-    {
-        $this->assertEquals(
-            new Block(
-                array(
-                    'id' => 35,
-                    'layoutId' => 1,
-                    'depth' => 1,
-                    'path' => '/3/35/',
-                    'parentId' => 3,
-                    'placeholder' => 'root',
-                    'position' => 0,
-                    'definitionIdentifier' => 'list',
-                    'viewType' => 'grid',
-                    'itemViewType' => 'standard',
-                    'name' => 'My fourth block',
-                    'status' => Value::STATUS_DRAFT,
-                    'placeholderParameters' => array(),
-                    'parameters' => array(
-                        'number_of_columns' => 3,
-                    ),
-                )
-            ),
-            $this->blockHandler->moveBlock(
-                $this->blockHandler->loadBlock(35, Value::STATUS_DRAFT),
-                0
-            )
-        );
-
-        $firstBlock = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
-        $this->assertEquals(1, $firstBlock->position);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     */
-    public function testMoveBlockThrowsBadStateExceptionOnNegativePosition()
-    {
-        $this->blockHandler->moveBlock(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-            -1
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     */
-    public function testMoveBlockThrowsBadStateExceptionOnTooLargePosition()
-    {
-        $this->blockHandler->moveBlock(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-            9999
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlockToBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
-     */
-    public function testMoveBlockToBlock()
-    {
-        $this->assertEquals(
-            new Block(
-                array(
                     'id' => 33,
                     'layoutId' => 1,
                     'depth' => 1,
@@ -1168,7 +1066,7 @@ class BlockHandlerTest extends TestCase
                     ),
                 )
             ),
-            $this->blockHandler->moveBlockToBlock(
+            $this->blockHandler->moveBlock(
                 $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
                 $this->blockHandler->loadBlock(4, Value::STATUS_DRAFT),
                 'root',
@@ -1202,12 +1100,12 @@ class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlockToBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testMoveBlockToBlockThrowsBadStateExceptionOnMovingToSamePlace()
+    public function testMoveBlockThrowsBadStateExceptionOnMovingToSamePlace()
     {
-        $this->blockHandler->moveBlockToBlock(
+        $this->blockHandler->moveBlock(
             $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
             $this->blockHandler->loadBlock(7, Value::STATUS_DRAFT),
             'root',
@@ -1216,12 +1114,12 @@ class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlockToBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testMoveBlockToBlockThrowsBadStateExceptionOnMovingToSelf()
+    public function testMoveBlockThrowsBadStateExceptionOnMovingToSelf()
     {
-        $this->blockHandler->moveBlockToBlock(
+        $this->blockHandler->moveBlock(
             $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
             $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
             'main',
@@ -1230,12 +1128,12 @@ class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlockToBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testMoveBlockToBlockThrowsBadStateExceptionOnMovingToChildren()
+    public function testMoveBlockThrowsBadStateExceptionOnMovingToChildren()
     {
-        $this->blockHandler->moveBlockToBlock(
+        $this->blockHandler->moveBlock(
             $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
             $this->blockHandler->loadBlock(37, Value::STATUS_DRAFT),
             'main',
@@ -1244,12 +1142,12 @@ class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlockToBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testMoveBlockToBlockThrowsBadStateExceptionOnNegativePosition()
+    public function testMoveBlockThrowsBadStateExceptionOnNegativePosition()
     {
-        $this->blockHandler->moveBlockToBlock(
+        $this->blockHandler->moveBlock(
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
             $this->blockHandler->loadBlock(4, Value::STATUS_DRAFT),
             'root',
@@ -1258,15 +1156,117 @@ class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlockToBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testMoveBlockToBlockThrowsBadStateExceptionOnTooLargePosition()
+    public function testMoveBlockThrowsBadStateExceptionOnTooLargePosition()
     {
-        $this->blockHandler->moveBlockToBlock(
+        $this->blockHandler->moveBlock(
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
             $this->blockHandler->loadBlock(4, Value::STATUS_DRAFT),
             'root',
+            9999
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlockToPosition
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
+     */
+    public function testMoveBlockToPosition()
+    {
+        $this->assertEquals(
+            new Block(
+                array(
+                    'id' => 31,
+                    'layoutId' => 1,
+                    'depth' => 1,
+                    'path' => '/3/31/',
+                    'parentId' => 3,
+                    'placeholder' => 'root',
+                    'position' => 1,
+                    'definitionIdentifier' => 'list',
+                    'viewType' => 'list',
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
+                    'status' => Value::STATUS_DRAFT,
+                    'placeholderParameters' => array(),
+                    'parameters' => array(
+                        'number_of_columns' => 2,
+                    ),
+                )
+            ),
+            $this->blockHandler->moveBlockToPosition(
+                $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+                1
+            )
+        );
+
+        $firstBlock = $this->blockHandler->loadBlock(32, Value::STATUS_DRAFT);
+        $this->assertEquals(0, $firstBlock->position);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlockToPosition
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
+     */
+    public function testMoveBlockToLowerPosition()
+    {
+        $this->assertEquals(
+            new Block(
+                array(
+                    'id' => 35,
+                    'layoutId' => 1,
+                    'depth' => 1,
+                    'path' => '/3/35/',
+                    'parentId' => 3,
+                    'placeholder' => 'root',
+                    'position' => 0,
+                    'definitionIdentifier' => 'list',
+                    'viewType' => 'grid',
+                    'itemViewType' => 'standard',
+                    'name' => 'My fourth block',
+                    'status' => Value::STATUS_DRAFT,
+                    'placeholderParameters' => array(),
+                    'parameters' => array(
+                        'number_of_columns' => 3,
+                    ),
+                )
+            ),
+            $this->blockHandler->moveBlockToPosition(
+                $this->blockHandler->loadBlock(35, Value::STATUS_DRAFT),
+                0
+            )
+        );
+
+        $firstBlock = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
+        $this->assertEquals(1, $firstBlock->position);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlockToPosition
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testMoveBlockToPositionThrowsBadStateExceptionOnNegativePosition()
+    {
+        $this->blockHandler->moveBlockToPosition(
+            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            -1
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlockToPosition
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testMoveBlockToPositionThrowsBadStateExceptionOnTooLargePosition()
+    {
+        $this->blockHandler->moveBlockToPosition(
+            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
             9999
         );
     }

@@ -838,9 +838,9 @@ class BlockService implements BlockServiceInterface
 
         try {
             if ($block->parentId === $targetBlock->id && $block->placeholder === $placeholder) {
-                $movedBlock = $this->blockHandler->moveBlock($block, $position);
+                $movedBlock = $this->blockHandler->moveBlockToPosition($block, $position);
             } else {
-                $movedBlock = $this->blockHandler->moveBlockToBlock(
+                $movedBlock = $this->blockHandler->moveBlock(
                     $block,
                     $targetBlock,
                     $placeholder,

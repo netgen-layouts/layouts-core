@@ -137,18 +137,6 @@ interface BlockHandler
     public function copyBlockCollections(Block $block, Block $targetBlock);
 
     /**
-     * Moves a block to specified position in the current placeholder.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param int $position
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Block
-     */
-    public function moveBlock(Block $block, $position);
-
-    /**
      * Moves a block to specified position in a specified target block and placeholder.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
@@ -162,7 +150,19 @@ interface BlockHandler
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function moveBlockToBlock(Block $block, Block $targetBlock, $placeholder, $position);
+    public function moveBlock(Block $block, Block $targetBlock, $placeholder, $position);
+
+    /**
+     * Moves a block to specified position in the current placeholder.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param int $position
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Block
+     */
+    public function moveBlockToPosition(Block $block, $position);
 
     /**
      * Creates a new block status.

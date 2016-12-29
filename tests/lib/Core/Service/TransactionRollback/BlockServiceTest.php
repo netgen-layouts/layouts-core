@@ -209,7 +209,7 @@ class BlockServiceTest extends ServiceTestCase
 
         $this->blockHandlerMock
             ->expects($this->at(2))
-            ->method('moveBlock')
+            ->method('moveBlockToPosition')
             ->will($this->throwException(new Exception()));
 
         $this->persistenceHandler

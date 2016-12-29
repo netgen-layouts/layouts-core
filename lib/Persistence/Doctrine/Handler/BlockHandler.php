@@ -359,33 +359,6 @@ class BlockHandler implements BlockHandlerInterface
     }
 
     /**
-     * Moves a block to specified position in the current placeholder.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param int $position
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Block
-     */
-    public function moveBlock(Block $block, $position)
-    {
-        $position = $this->positionHelper->moveToPosition(
-            $this->getPositionHelperConditions(
-                $block->parentId,
-                $block->status,
-                $block->placeholder
-            ),
-            $block->position,
-            $position
-        );
-
-        $this->queryHandler->moveBlock($block, $position);
-
-        return $this->loadBlock($block->id, $block->status);
-    }
-
-    /**
      * Moves a block to specified position in a specified target block and placeholder.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
@@ -399,7 +372,7 @@ class BlockHandler implements BlockHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block
      */
-    public function moveBlockToBlock(Block $block, Block $targetBlock, $placeholder, $position)
+    public function moveBlock(Block $block, Block $targetBlock, $placeholder, $position)
     {
         if ($block->parentId === $targetBlock->id && $block->placeholder === $placeholder) {
             throw new BadStateException('targetBlock', 'Block is already in specified target block and placeholder.');
@@ -428,6 +401,33 @@ class BlockHandler implements BlockHandlerInterface
             ),
             $block->position
         );
+
+        return $this->loadBlock($block->id, $block->status);
+    }
+
+    /**
+     * Moves a block to specified position in the current placeholder.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param int $position
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Block
+     */
+    public function moveBlockToPosition(Block $block, $position)
+    {
+        $position = $this->positionHelper->moveToPosition(
+            $this->getPositionHelperConditions(
+                $block->parentId,
+                $block->status,
+                $block->placeholder
+            ),
+            $block->position,
+            $position
+        );
+
+        $this->queryHandler->moveBlock($block, $position);
 
         return $this->loadBlock($block->id, $block->status);
     }
