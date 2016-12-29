@@ -31,7 +31,7 @@ abstract class BlockMapperTest extends ServiceTestCase
     {
         $persistenceBlock = new Block(
             array(
-                'id' => 1,
+                'id' => 31,
                 'definitionIdentifier' => 'text',
                 'parameters' => array(
                     'some_param' => 'some_value',
@@ -51,7 +51,7 @@ abstract class BlockMapperTest extends ServiceTestCase
         );
 
         $this->assertInstanceOf(APIBlock::class, $block);
-        $this->assertEquals(1, $block->getId());
+        $this->assertEquals(31, $block->getId());
         $this->assertEquals('default', $block->getViewType());
         $this->assertEquals('standard', $block->getItemViewType());
         $this->assertEquals('My block', $block->getName());
@@ -88,6 +88,20 @@ abstract class BlockMapperTest extends ServiceTestCase
      */
     public function testMapCollectionReference()
     {
+        $persistenceBlock = new Block(
+            array(
+                'id' => 31,
+                'definitionIdentifier' => 'text',
+                'parameters' => array(
+                    'some_param' => 'some_value',
+                ),
+                'viewType' => 'default',
+                'itemViewType' => 'standard',
+                'name' => 'My block',
+                'status' => Value::STATUS_PUBLISHED,
+            )
+        );
+
         $persistenceReference = new CollectionReference(
             array(
                 'blockId' => 31,
@@ -100,7 +114,10 @@ abstract class BlockMapperTest extends ServiceTestCase
             )
         );
 
-        $reference = $this->blockMapper->mapCollectionReference($persistenceReference);
+        $reference = $this->blockMapper->mapCollectionReference(
+            $persistenceBlock,
+            $persistenceReference
+        );
 
         $this->assertInstanceOf(APICollectionReference::class, $reference);
 

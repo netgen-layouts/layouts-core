@@ -195,12 +195,12 @@ class BlockService implements BlockServiceInterface
     {
         $this->blockValidator->validateIdentifier($identifier, null, true);
 
+        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), $block->getStatus());
+
         return $this->blockMapper->mapCollectionReference(
+            $persistenceBlock,
             $this->blockHandler->loadCollectionReference(
-                $this->blockHandler->loadBlock(
-                    $block->getId(),
-                    $block->getStatus()
-                ),
+                $persistenceBlock,
                 $identifier
             )
         );
@@ -215,16 +215,15 @@ class BlockService implements BlockServiceInterface
      */
     public function loadCollectionReferences(Block $block)
     {
-        $persistenceCollections = $this->blockHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(
-                $block->getId(),
-                $block->getStatus()
-            )
-        );
+        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), $block->getStatus());
+        $persistenceCollections = $this->blockHandler->loadCollectionReferences($persistenceBlock);
 
         $collections = array();
         foreach ($persistenceCollections as $persistenceCollection) {
-            $collections[] = $this->blockMapper->mapCollectionReference($persistenceCollection);
+            $collections[] = $this->blockMapper->mapCollectionReference(
+                $persistenceBlock,
+                $persistenceCollection
+            );
         }
 
         return $collections;
@@ -404,7 +403,7 @@ class BlockService implements BlockServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->blockMapper->mapCollectionReference($updatedReference);
+        return $this->blockMapper->mapCollectionReference($persistenceBlock, $updatedReference);
     }
 
     /**

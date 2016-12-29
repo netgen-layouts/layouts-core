@@ -81,17 +81,13 @@ class BlockMapper extends Mapper
     /**
      * Builds the API collection reference value object from persistence one.
      *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
      * @param \Netgen\BlockManager\Persistence\Values\Page\CollectionReference $collectionReference
      *
      * @return \Netgen\BlockManager\API\Values\Page\CollectionReference
      */
-    public function mapCollectionReference(PersistenceCollectionReference $collectionReference)
+    public function mapCollectionReference(PersistenceBlock $block, PersistenceCollectionReference $collectionReference)
     {
-        $block = $this->persistenceHandler->getBlockHandler()->loadBlock(
-            $collectionReference->blockId,
-            $collectionReference->blockStatus
-        );
-
         $collection = $this->persistenceHandler->getCollectionHandler()->loadCollection(
             $collectionReference->collectionId,
             $collectionReference->collectionStatus
