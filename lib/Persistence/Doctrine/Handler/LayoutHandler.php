@@ -192,7 +192,7 @@ class LayoutHandler implements LayoutHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
      */
-    public function createLayout(LayoutCreateStruct $layoutCreateStruct, array $zoneCreateStructs)
+    public function createLayout(LayoutCreateStruct $layoutCreateStruct, array $zoneCreateStructs = array())
     {
         $layoutCreateStruct->name = trim($layoutCreateStruct->name);
         $layoutCreateStruct->shared = $layoutCreateStruct->shared ? true : false;
@@ -286,7 +286,7 @@ class LayoutHandler implements LayoutHandlerInterface
      */
     public function copyLayout(Layout $layout, $newName)
     {
-        $copiedLayoutId = $this->queryHandler->createLayout(
+        $copiedLayout = $this->createLayout(
             new LayoutCreateStruct(
                 array(
                     'type' => $layout->type,
@@ -296,8 +296,6 @@ class LayoutHandler implements LayoutHandlerInterface
                 )
             )
         );
-
-        $copiedLayout = $this->loadLayout($copiedLayoutId, $layout->status);
 
         $layoutZones = $this->loadLayoutZones($layout);
         foreach ($layoutZones as $layoutZone) {
