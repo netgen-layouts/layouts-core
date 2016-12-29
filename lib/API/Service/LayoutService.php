@@ -178,7 +178,6 @@ interface LayoutService
     /**
      * Discards a layout draft.
      *
-     *
      * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
