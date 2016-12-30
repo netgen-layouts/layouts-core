@@ -3,7 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
 use Exception;
-use Netgen\BlockManager\API\Repository;
+use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\Query;
@@ -19,11 +19,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CollectionController extends Controller
 {
-    /**
-     * @var \Netgen\BlockManager\API\Repository
-     */
-    protected $repository;
-
     /**
      * @var \Netgen\BlockManager\API\Service\CollectionService
      */
@@ -47,23 +42,21 @@ class CollectionController extends Controller
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\API\Repository $repository
+     * @param \Netgen\BlockManager\API\Service\CollectionService $collectionService
      * @param \Netgen\BlockManager\Collection\Result\ResultLoaderInterface $resultLoader
      * @param \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\CollectionValidator $validator
      * @param int $maxLimit
      */
     public function __construct(
-        Repository $repository,
+        CollectionService $collectionService,
         ResultLoaderInterface $resultLoader,
         CollectionValidator $validator,
         $maxLimit
     ) {
-        $this->repository = $repository;
+        $this->collectionService = $collectionService;
         $this->resultLoader = $resultLoader;
         $this->validator = $validator;
         $this->maxLimit = $maxLimit;
-
-        $this->collectionService = $repository->getCollectionService();
     }
 
     /**
@@ -173,7 +166,7 @@ class CollectionController extends Controller
 
         $items = $request->request->get('items');
 
-        $this->repository->beginTransaction();
+        $this->collectionService->beginTransaction();
 
         try {
             foreach ($items as $item) {
@@ -190,11 +183,11 @@ class CollectionController extends Controller
                 );
             }
 
-            $this->repository->commitTransaction();
+            $this->collectionService->commitTransaction();
 
             return new Response(null, Response::HTTP_NO_CONTENT);
         } catch (Exception $e) {
-            $this->repository->rollbackTransaction();
+            $this->collectionService->rollbackTransaction();
 
             throw $e;
         }

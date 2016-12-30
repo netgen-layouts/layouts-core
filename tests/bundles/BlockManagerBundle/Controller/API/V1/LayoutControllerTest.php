@@ -2,7 +2,6 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1;
 
-use Netgen\BlockManager\Core\Repository;
 use Netgen\BlockManager\Core\Service\LayoutService;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Exception\BadStateException;
@@ -886,24 +885,19 @@ class LayoutControllerTest extends JsonApiTestCase
         $clientContainer = $this->client->getContainer();
 
         /** @var \Mockery\MockInterface $locationMock */
-        $repositoryMock = $clientContainer->mock(
-            'netgen_block_manager.core.repository',
-            Repository::class
-        );
-
-        /** @var \Mockery\MockInterface $locationMock */
         $layoutServiceMock = $clientContainer->mock(
             'netgen_block_manager.core.service.layout',
             LayoutService::class
         );
 
-        $repositoryMock
+        $layoutServiceMock
             ->shouldReceive('beginTransaction')
             ->getMock()
-                ->shouldReceive('rollbackTransaction')->once();
-
-        $layoutServiceMock
-            ->shouldReceive('loadLayout')->andReturn(new Layout())
+                ->shouldReceive('rollbackTransaction')
+                ->once()
+            ->getMock()
+                ->shouldReceive('loadLayout')
+                ->andReturn(new Layout())
             ->getMock()
                 ->shouldReceive('loadLayoutDraft')
             ->getMock()
@@ -929,7 +923,6 @@ class LayoutControllerTest extends JsonApiTestCase
         );
 
         $clientContainer->unmock('netgen_block_manager.core.service.layout');
-        $clientContainer->unmock('netgen_block_manager.core.repository');
     }
 
     /**

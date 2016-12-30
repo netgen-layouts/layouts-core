@@ -8,7 +8,7 @@ use Netgen\BlockManager\API\Values\Page\LayoutUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 
-interface LayoutService
+interface LayoutService extends Service
 {
     /**
      * Loads a layout with specified ID.

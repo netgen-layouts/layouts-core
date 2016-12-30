@@ -28,7 +28,7 @@ use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetUpdateStruct;
 
-class LayoutResolverService implements APILayoutResolverService
+class LayoutResolverService extends Service implements APILayoutResolverService
 {
     /**
      * @var \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator
@@ -41,11 +41,6 @@ class LayoutResolverService implements APILayoutResolverService
     protected $mapper;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler
-     */
-    protected $persistenceHandler;
-
-    /**
      * @var \Netgen\BlockManager\Persistence\Handler\LayoutResolverHandler
      */
     protected $handler;
@@ -53,18 +48,19 @@ class LayoutResolverService implements APILayoutResolverService
     /**
      * Constructor.
      *
+     * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
      * @param \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator $validator
      * @param \Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper $mapper
-     * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
      */
     public function __construct(
+        Handler $persistenceHandler,
         LayoutResolverValidator $validator,
-        LayoutResolverMapper $mapper,
-        Handler $persistenceHandler
+        LayoutResolverMapper $mapper
     ) {
+        parent::__construct($persistenceHandler);
+
         $this->validator = $validator;
         $this->mapper = $mapper;
-        $this->persistenceHandler = $persistenceHandler;
 
         $this->handler = $persistenceHandler->getLayoutResolverHandler();
     }

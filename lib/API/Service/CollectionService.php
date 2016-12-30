@@ -12,7 +12,7 @@ use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
 use Netgen\BlockManager\Collection\QueryTypeInterface;
 
-interface CollectionService
+interface CollectionService extends Service
 {
     /**
      * Loads a collection with specified ID.

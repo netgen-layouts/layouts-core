@@ -10,7 +10,7 @@ use Netgen\BlockManager\API\Values\Page\CollectionReference;
 use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 
-interface BlockService
+interface BlockService extends Service
 {
     /**
      * Loads a block with specified ID.

@@ -3,7 +3,6 @@ services:
         class: Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\LayoutResolverController
         parent: netgen_block_manager.controller.base
         arguments:
-            - "@netgen_block_manager.api.repository"
             - "@netgen_block_manager.api.service.layout_resolver"
             - "@netgen_block_manager.api.service.layout"
             - "@netgen_block_manager.layout.resolver.registry.target_type"

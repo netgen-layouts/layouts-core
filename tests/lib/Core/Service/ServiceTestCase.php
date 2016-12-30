@@ -205,9 +205,9 @@ abstract class ServiceTestCase extends TestCase
         }
 
         return new LayoutService(
+            $this->persistenceHandler,
             $validator,
-            $this->createLayoutMapper(),
-            $this->persistenceHandler
+            $this->createLayoutMapper()
         );
     }
 
@@ -225,10 +225,10 @@ abstract class ServiceTestCase extends TestCase
         }
 
         return new BlockService(
+            $this->persistenceHandler,
             $validator,
             $this->createBlockMapper(),
             $this->createParameterMapper(),
-            $this->persistenceHandler,
             $this->layoutTypeRegistry
         );
     }
@@ -247,10 +247,10 @@ abstract class ServiceTestCase extends TestCase
         }
 
         return new CollectionService(
+            $this->persistenceHandler,
             $validator,
             $this->createCollectionMapper(),
-            $this->createParameterMapper(),
-            $this->persistenceHandler
+            $this->createParameterMapper()
         );
     }
 
@@ -268,9 +268,9 @@ abstract class ServiceTestCase extends TestCase
         }
 
         return new LayoutResolverService(
+            $this->persistenceHandler,
             $validator,
-            $this->createLayoutResolverMapper(),
-            $this->persistenceHandler
+            $this->createLayoutResolverMapper()
         );
     }
 

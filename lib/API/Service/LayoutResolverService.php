@@ -14,7 +14,7 @@ use Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\Layout;
 
-interface LayoutResolverService
+interface LayoutResolverService extends Service
 {
     /**
      * Loads a rule by its' ID.

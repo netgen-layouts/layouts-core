@@ -26,7 +26,7 @@ use Netgen\BlockManager\Persistence\Values\Page\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceUpdateStruct;
 
-class BlockService implements BlockServiceInterface
+class BlockService extends Service implements BlockServiceInterface
 {
     /**
      * @var \Netgen\BlockManager\Core\Service\Validator\BlockValidator
@@ -42,11 +42,6 @@ class BlockService implements BlockServiceInterface
      * @var \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper
      */
     protected $parameterMapper;
-
-    /**
-     * @var \Netgen\BlockManager\Persistence\Handler
-     */
-    protected $persistenceHandler;
 
     /**
      * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface
@@ -71,23 +66,24 @@ class BlockService implements BlockServiceInterface
     /**
      * Constructor.
      *
+     * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
      * @param \Netgen\BlockManager\Core\Service\Validator\BlockValidator $blockValidator
      * @param \Netgen\BlockManager\Core\Service\Mapper\BlockMapper $blockMapper
      * @param \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper $parameterMapper
-     * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
      * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
      */
     public function __construct(
+        Handler $persistenceHandler,
         BlockValidator $blockValidator,
         BlockMapper $blockMapper,
         ParameterMapper $parameterMapper,
-        Handler $persistenceHandler,
         LayoutTypeRegistryInterface $layoutTypeRegistry
     ) {
+        parent::__construct($persistenceHandler);
+
         $this->blockValidator = $blockValidator;
         $this->blockMapper = $blockMapper;
         $this->parameterMapper = $parameterMapper;
-        $this->persistenceHandler = $persistenceHandler;
         $this->layoutTypeRegistry = $layoutTypeRegistry;
 
         $this->blockHandler = $persistenceHandler->getBlockHandler();

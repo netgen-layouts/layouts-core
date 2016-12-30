@@ -108,17 +108,6 @@ services:
             - "@netgen_block_manager.persistence.doctrine.layout_resolver.query_handler"
             - "@netgen_block_manager.persistence.doctrine.layout_resolver.mapper"
 
-    # Repository
-
-    netgen_block_manager.core.repository:
-        class: Netgen\BlockManager\Core\Repository
-        arguments:
-            - "@netgen_block_manager.core.service.layout"
-            - "@netgen_block_manager.core.service.block"
-            - "@netgen_block_manager.core.service.collection"
-            - "@netgen_block_manager.core.service.layout_resolver"
-            - "@netgen_block_manager.persistence.doctrine.handler"
-
     # Layout related APIs
 
     netgen_block_manager.core.service.layout.validator:
@@ -135,9 +124,9 @@ services:
     netgen_block_manager.core.service.layout:
         class: Netgen\BlockManager\Core\Service\LayoutService
         arguments:
+            - "@netgen_block_manager.persistence.handler"
             - "@netgen_block_manager.core.service.layout.validator"
             - "@netgen_block_manager.core.service.layout.mapper"
-            - "@netgen_block_manager.persistence.handler"
 
     # Block related APIs
 
@@ -157,10 +146,10 @@ services:
     netgen_block_manager.core.service.block:
         class: Netgen\BlockManager\Core\Service\BlockService
         arguments:
+            - "@netgen_block_manager.persistence.handler"
             - "@netgen_block_manager.core.service.block.validator"
             - "@netgen_block_manager.core.service.block.mapper"
             - "@netgen_block_manager.core.service.parameter_mapper"
-            - "@netgen_block_manager.persistence.handler"
             - "@netgen_block_manager.configuration.registry.layout_type"
 
     # Collection related APIs
@@ -180,10 +169,10 @@ services:
     netgen_block_manager.core.service.collection:
         class: Netgen\BlockManager\Core\Service\CollectionService
         arguments:
+            - "@netgen_block_manager.persistence.handler"
             - "@netgen_block_manager.core.service.collection.validator"
             - "@netgen_block_manager.core.service.collection.mapper"
             - "@netgen_block_manager.core.service.parameter_mapper"
-            - "@netgen_block_manager.persistence.handler"
 
     # Layout resolver related APIs
 
@@ -206,17 +195,14 @@ services:
     netgen_block_manager.core.service.layout_resolver:
         class: Netgen\BlockManager\Core\Service\LayoutResolverService
         arguments:
+            - "@netgen_block_manager.persistence.handler"
             - "@netgen_block_manager.core.service.layout_resolver.validator"
             - "@netgen_block_manager.core.service.layout_resolver.mapper"
-            - "@netgen_block_manager.persistence.handler"
 
     netgen_block_manager.core.service.parameter_mapper:
         class: Netgen\BlockManager\Core\Service\Mapper\ParameterMapper
 
     # Service aliases
-
-    netgen_block_manager.api.repository:
-        alias: netgen_block_manager.core.repository
 
     netgen_block_manager.api.service.layout:
         alias: netgen_block_manager.core.service.layout

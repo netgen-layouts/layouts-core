@@ -3,7 +3,6 @@
 namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin;
 
 use Exception;
-use Netgen\BlockManager\API\Repository;
 use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
@@ -23,11 +22,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class LayoutResolverController extends Controller
 {
-    /**
-     * @var \Netgen\BlockManager\API\Repository
-     */
-    protected $repository;
-
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutResolverService
      */
@@ -56,7 +50,6 @@ class LayoutResolverController extends Controller
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\API\Repository $repository
      * @param \Netgen\BlockManager\API\Service\LayoutResolverService $layoutResolverService
      * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
      * @param \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface $targetTypeRegistry
@@ -64,14 +57,12 @@ class LayoutResolverController extends Controller
      * @param \Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Validator\LayoutResolverValidator $validator
      */
     public function __construct(
-        Repository $repository,
         LayoutResolverService $layoutResolverService,
         LayoutService $layoutService,
         TargetTypeRegistryInterface $targetTypeRegistry,
         ConditionTypeRegistryInterface $conditionTypeRegistry,
         LayoutResolverValidator $validator
     ) {
-        $this->repository = $repository;
         $this->layoutResolverService = $layoutResolverService;
         $this->layoutService = $layoutService;
         $this->targetTypeRegistry = $targetTypeRegistry;
@@ -174,7 +165,7 @@ class LayoutResolverController extends Controller
     {
         $this->validator->validatePriorities($request);
 
-        $this->repository->beginTransaction();
+        $this->layoutResolverService->beginTransaction();
 
         try {
             // Rules are ordered by descending priority
@@ -206,11 +197,11 @@ class LayoutResolverController extends Controller
                 $ruleUpdateStruct->priority += 10;
             }
 
-            $this->repository->commitTransaction();
+            $this->layoutResolverService->commitTransaction();
 
             return new Response(null, Response::HTTP_NO_CONTENT);
         } catch (Exception $e) {
-            $this->repository->rollbackTransaction();
+            $this->layoutResolverService->rollbackTransaction();
 
             throw new BadStateException('rule', $e->getMessage());
         }

@@ -19,7 +19,7 @@ use Netgen\BlockManager\Persistence\Values\Page\LayoutUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\ZoneCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\ZoneUpdateStruct;
 
-class LayoutService implements LayoutServiceInterface
+class LayoutService extends Service implements LayoutServiceInterface
 {
     /**
      * @var \Netgen\BlockManager\Core\Service\Validator\LayoutValidator
@@ -32,11 +32,6 @@ class LayoutService implements LayoutServiceInterface
     protected $layoutMapper;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler
-     */
-    protected $persistenceHandler;
-
-    /**
      * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandler
      */
     protected $layoutHandler;
@@ -44,18 +39,19 @@ class LayoutService implements LayoutServiceInterface
     /**
      * Constructor.
      *
+     * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
      * @param \Netgen\BlockManager\Core\Service\Validator\LayoutValidator $layoutValidator
      * @param \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper $layoutMapper
-     * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
      */
     public function __construct(
+        Handler $persistenceHandler,
         LayoutValidator $layoutValidator,
-        LayoutMapper $layoutMapper,
-        Handler $persistenceHandler
+        LayoutMapper $layoutMapper
     ) {
+        parent::__construct($persistenceHandler);
+
         $this->layoutValidator = $layoutValidator;
         $this->layoutMapper = $layoutMapper;
-        $this->persistenceHandler = $persistenceHandler;
 
         $this->layoutHandler = $persistenceHandler->getLayoutHandler();
     }

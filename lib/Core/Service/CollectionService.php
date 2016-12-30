@@ -25,7 +25,7 @@ use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryUpdateStruct;
 
-class CollectionService implements APICollectionService
+class CollectionService extends Service implements APICollectionService
 {
     /**
      * @var \Netgen\BlockManager\Core\Service\Validator\CollectionValidator
@@ -43,11 +43,6 @@ class CollectionService implements APICollectionService
     protected $parameterMapper;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler
-     */
-    protected $persistenceHandler;
-
-    /**
      * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandler
      */
     protected $collectionHandler;
@@ -55,21 +50,22 @@ class CollectionService implements APICollectionService
     /**
      * Constructor.
      *
+     * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
      * @param \Netgen\BlockManager\Core\Service\Validator\CollectionValidator $collectionValidator
      * @param \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper $collectionMapper
      * @param \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper $parameterMapper
-     * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
      */
     public function __construct(
+        Handler $persistenceHandler,
         CollectionValidator $collectionValidator,
         CollectionMapper $collectionMapper,
-        ParameterMapper $parameterMapper,
-        Handler $persistenceHandler
+        ParameterMapper $parameterMapper
     ) {
+        parent::__construct($persistenceHandler);
+
         $this->collectionValidator = $collectionValidator;
         $this->collectionMapper = $collectionMapper;
         $this->parameterMapper = $parameterMapper;
-        $this->persistenceHandler = $persistenceHandler;
 
         $this->collectionHandler = $persistenceHandler->getCollectionHandler();
     }
