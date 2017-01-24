@@ -12,6 +12,7 @@ block_type_groups:
         name: 'Containers'
         block_types:
             - dynamic_container
+            - div_container
             - two_columns_container_50_50
             - two_columns_container_33_66
             - two_columns_container_66_33

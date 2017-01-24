@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Block\BlockDefinition\Handler\Container;
 
-class TwoColumnsContainerHandler extends ContainerHandler
+class DivContainerHandler extends ContainerHandler
 {
     /**
      * Returns placeholder identifiers.
@@ -11,6 +11,6 @@ class TwoColumnsContainerHandler extends ContainerHandler
      */
     public function getPlaceholderIdentifiers()
     {
-        return array('left', 'right');
+        return array('main');
     }
 }

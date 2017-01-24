@@ -147,6 +147,11 @@ services:
         tags:
             - { name: netgen_block_manager.block.block_definition_handler, identifier: dynamic_container }
 
+    netgen_block_manager.block.block_definition.handler.div_container:
+        class: Netgen\BlockManager\Block\BlockDefinition\Handler\Container\DivContainerHandler
+        tags:
+            - { name: netgen_block_manager.block.block_definition_handler, identifier: div_container }
+
     netgen_block_manager.block.block_definition.handler.two_columns:
         class: Netgen\BlockManager\Block\BlockDefinition\Handler\Container\TwoColumnsContainerHandler
         tags:

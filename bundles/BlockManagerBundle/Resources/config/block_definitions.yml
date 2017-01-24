@@ -136,6 +136,12 @@ block_definitions:
             dynamic_container:
                 name: 'Dynamic container'
 
+    div_container:
+        name: '<div> container'
+        view_types:
+            div_container:
+                name: '<div> container'
+
     two_columns_container:
         name: 'Two columns container'
         view_types:
