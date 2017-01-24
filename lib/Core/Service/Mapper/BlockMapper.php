@@ -68,7 +68,11 @@ class BlockMapper extends Mapper
             foreach ($blockDefinition->getPlaceholders() as $identifier => $placeholderDefinition) {
                 $placeholders[$identifier] = $this->mapPlaceholder(
                     $placeholderDefinition,
-                    $block->placeholderParameters
+                    // @todo Map the placeholder blocks
+                    array(),
+                    isset($block->placeholderParameters[$identifier]) ?
+                        $block->placeholderParameters[$identifier] :
+                        array()
                 );
             }
         }
@@ -95,22 +99,23 @@ class BlockMapper extends Mapper
      * Maps the placeholder from persistence parameters.
      *
      * @param \Netgen\BlockManager\Block\PlaceholderDefinitionInterface $placeholderDefinition
+     * @param \Netgen\BlockManager\API\Values\Page\Block[] $blocks
      * @param array $placeholderParameters
      *
      * @return \Netgen\BlockManager\Core\Values\Page\Placeholder
      */
-    public function mapPlaceholder(PlaceholderDefinitionInterface $placeholderDefinition, array $placeholderParameters)
-    {
+    public function mapPlaceholder(
+        PlaceholderDefinitionInterface $placeholderDefinition,
+        array $blocks,
+        array $placeholderParameters
+    ) {
         return new Placeholder(
             array(
                 'identifier' => $placeholderDefinition->getIdentifier(),
-                // @todo Map the placeholder blocks
-                'blocks' => array(),
+                'blocks' => $blocks,
                 'parameters' => $this->parameterMapper->mapParameters(
                     $placeholderDefinition,
-                    isset($placeholderParameters[$placeholderDefinition->getIdentifier()]) ?
-                        isset($placeholderParameters[$placeholderDefinition->getIdentifier()]) :
-                        array()
+                    $placeholderParameters
                 ),
             )
         );
