@@ -7,7 +7,6 @@ use Netgen\BlockManager\Configuration\Factory\BlockTypeGroupFactory;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\Reference;
 
 class BlockTypeGroupPass implements CompilerPassInterface
