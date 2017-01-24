@@ -15,13 +15,20 @@ class ContainerBlockDefinitionHandler extends BaseBlockDefinitionHandler
     protected $parameterGroups = array();
 
     /**
+     * @var array
+     */
+    protected $placeholderIdentifiers = array();
+
+    /**
      * Constructor.
      *
      * @param array $parameterGroups
+     * @param array $placeholderIdentifiers
      */
-    public function __construct($parameterGroups = array())
+    public function __construct($parameterGroups = array(), $placeholderIdentifiers = array('left', 'right'))
     {
         $this->parameterGroups = $parameterGroups;
+        $this->placeholderIdentifiers = $placeholderIdentifiers;
     }
 
     /**
@@ -66,7 +73,7 @@ class ContainerBlockDefinitionHandler extends BaseBlockDefinitionHandler
      */
     public function getPlaceholderIdentifiers()
     {
-        return array('left', 'right');
+        return $this->placeholderIdentifiers;
     }
 
     /**

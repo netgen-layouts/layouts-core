@@ -854,17 +854,15 @@ class BlockHandlerTest extends TestCase
                     'parentId' => 7,
                     'placeholder' => 'root',
                     'position' => 2,
-                    'definitionIdentifier' => 'text',
-                    'viewType' => 'text',
+                    'definitionIdentifier' => 'div_container',
+                    'viewType' => 'div_container',
                     'itemViewType' => 'standard',
                     'name' => 'My third block',
                     'status' => Value::STATUS_DRAFT,
                     'placeholderParameters' => array(
                         'main' => array(),
                     ),
-                    'parameters' => array(
-                        'content' => 'Text',
-                    ),
+                    'parameters' => array(),
                 )
             ),
             $copiedBlock
@@ -1066,17 +1064,15 @@ class BlockHandlerTest extends TestCase
                     'parentId' => 4,
                     'placeholder' => 'root',
                     'position' => 0,
-                    'definitionIdentifier' => 'text',
-                    'viewType' => 'text',
+                    'definitionIdentifier' => 'div_container',
+                    'viewType' => 'div_container',
                     'itemViewType' => 'standard',
                     'name' => 'My third block',
                     'status' => Value::STATUS_DRAFT,
                     'placeholderParameters' => array(
                         'main' => array(),
                     ),
-                    'parameters' => array(
-                        'content' => 'Text',
-                    ),
+                    'parameters' => array(),
                 )
             ),
             $this->blockHandler->moveBlock(

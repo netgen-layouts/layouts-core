@@ -26,6 +26,7 @@ use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithoutCollection;
+use Netgen\BlockManager\Tests\Block\Stubs\ContainerBlockDefinitionHandler;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
@@ -159,12 +160,18 @@ abstract class ServiceTestCase extends TestCase
         $blockDefinition2 = new BlockDefinition('text', array('standard' => array('standard')), new BlockDefinitionHandlerWithoutCollection());
         $blockDefinition3 = new BlockDefinition('gallery', array('standard' => array('standard')));
         $blockDefinition4 = new BlockDefinition('list', array('standard' => array('standard')));
+        $blockDefinition5 = new BlockDefinition(
+            'div_container',
+            array('div_container' => array('standard')),
+            new ContainerBlockDefinitionHandler(array(), array('main'))
+        );
 
         $this->blockDefinitionRegistry = new BlockDefinitionRegistry();
         $this->blockDefinitionRegistry->addBlockDefinition('title', $blockDefinition1);
         $this->blockDefinitionRegistry->addBlockDefinition('text', $blockDefinition2);
         $this->blockDefinitionRegistry->addBlockDefinition('gallery', $blockDefinition3);
         $this->blockDefinitionRegistry->addBlockDefinition('list', $blockDefinition4);
+        $this->blockDefinitionRegistry->addBlockDefinition('div_container', $blockDefinition5);
 
         $this->targetTypeRegistry = new TargetTypeRegistry();
         $this->targetTypeRegistry->addTargetType(new TargetType('target'));
