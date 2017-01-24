@@ -17,29 +17,3 @@ services:
 
     netgen_block_manager.configuration.registry.block_type:
         class: Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry
-
-    # Synthetic services
-
-    netgen_block_manager.configuration.source:
-        class: Netgen\BlockManager\Configuration\Source\Source
-        factory: [Netgen\BlockManager\Configuration\Factory\SourceFactory, buildSource]
-        abstract: true
-        synthetic: true
-
-    netgen_block_manager.configuration.layout_type:
-        class: Netgen\BlockManager\Configuration\LayoutType\LayoutType
-        factory: [Netgen\BlockManager\Configuration\Factory\LayoutTypeFactory, buildLayoutType]
-        abstract: true
-        synthetic: true
-
-    netgen_block_manager.configuration.block_type:
-        class: Netgen\BlockManager\Configuration\BlockType\BlockType
-        factory: [Netgen\BlockManager\Configuration\Factory\BlockTypeFactory, buildBlockType]
-        abstract: true
-        synthetic: true
-
-    netgen_block_manager.configuration.block_type_group:
-        class: Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup
-        factory: [Netgen\BlockManager\Configuration\Factory\BlockTypeGroupFactory, buildBlockTypeGroup]
-        abstract: true
-        synthetic: true

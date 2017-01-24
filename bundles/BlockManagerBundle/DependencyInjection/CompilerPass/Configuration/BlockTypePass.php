@@ -2,10 +2,11 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration;
 
+use Netgen\BlockManager\Configuration\BlockType\BlockType;
+use Netgen\BlockManager\Configuration\Factory\BlockTypeFactory;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\Reference;
 
 class BlockTypePass implements CompilerPassInterface
@@ -100,11 +101,7 @@ class BlockTypePass implements CompilerPassInterface
 
             $serviceIdentifier = sprintf('netgen_block_manager.configuration.block_type.%s', $identifier);
 
-            $container
-                ->setDefinition(
-                    $serviceIdentifier,
-                    new DefinitionDecorator('netgen_block_manager.configuration.block_type')
-                )
+            $container->register($serviceIdentifier, BlockType::class)
                 ->setArguments(
                     array(
                         $identifier,
@@ -118,7 +115,7 @@ class BlockTypePass implements CompilerPassInterface
                     )
                 )
                 ->addTag('netgen_block_manager.configuration.block_type')
-                ->setAbstract(false);
+                ->setFactory(array(BlockTypeFactory::class, 'buildBlockType'));
         }
     }
 

@@ -2,10 +2,11 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration;
 
+use Netgen\BlockManager\Configuration\Factory\LayoutTypeFactory;
+use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\Reference;
 
 class LayoutTypePass implements CompilerPassInterface
@@ -56,14 +57,10 @@ class LayoutTypePass implements CompilerPassInterface
 
             $serviceIdentifier = sprintf('netgen_block_manager.configuration.layout_type.%s', $identifier);
 
-            $container
-                ->setDefinition(
-                    $serviceIdentifier,
-                    new DefinitionDecorator('netgen_block_manager.configuration.layout_type')
-                )
+            $container->register($serviceIdentifier, LayoutType::class)
                 ->setArguments(array($identifier, $layoutType))
                 ->addTag('netgen_block_manager.configuration.layout_type')
-                ->setAbstract(false);
+                ->setFactory(array(LayoutTypeFactory::class, 'buildLayoutType'));
         }
     }
 

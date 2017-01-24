@@ -2,10 +2,11 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration;
 
+use Netgen\BlockManager\Configuration\Factory\SourceFactory;
+use Netgen\BlockManager\Configuration\Source\Source;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\Reference;
 
 class SourcePass implements CompilerPassInterface
@@ -66,14 +67,10 @@ class SourcePass implements CompilerPassInterface
                 );
             }
 
-            $container
-                ->setDefinition(
-                    $serviceIdentifier,
-                    new DefinitionDecorator('netgen_block_manager.configuration.source')
-                )
+            $container->register($serviceIdentifier, Source::class)
                 ->setArguments(array($identifier, $source, $queryTypeReferences))
                 ->addTag('netgen_block_manager.configuration.source')
-                ->setAbstract(false);
+                ->setFactory(array(SourceFactory::class, 'buildSource'));
         }
     }
 

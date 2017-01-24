@@ -2,6 +2,8 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration;
 
+use Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup;
+use Netgen\BlockManager\Configuration\Factory\BlockTypeGroupFactory;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -107,14 +109,10 @@ class BlockTypeGroupPass implements CompilerPassInterface
                 );
             }
 
-            $container
-                ->setDefinition(
-                    $serviceIdentifier,
-                    new DefinitionDecorator('netgen_block_manager.configuration.block_type_group')
-                )
+            $container->register($serviceIdentifier, BlockTypeGroup::class)
                 ->setArguments(array($identifier, $blockTypeGroup, $blockTypeReferences))
                 ->addTag('netgen_block_manager.configuration.block_type_group')
-                ->setAbstract(false);
+                ->setFactory(array(BlockTypeGroupFactory::class, 'buildBlockTypeGroup'));
         }
     }
 
