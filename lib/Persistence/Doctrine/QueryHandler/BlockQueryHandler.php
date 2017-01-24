@@ -11,6 +11,7 @@ use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
+use Netgen\BlockManager\Persistence\Values\Page\Zone;
 
 class BlockQueryHandler extends QueryHandler
 {
@@ -80,6 +81,26 @@ class BlockQueryHandler extends QueryHandler
         ->setParameter('layout_id', $layout->id, Type::INTEGER);
 
         $this->applyStatusCondition($query, $layout->status);
+
+        return $query->execute()->fetchAll();
+    }
+
+    /**
+     * Loads all zone block data.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $zone
+     *
+     * @return array
+     */
+    public function loadZoneBlocksData(Zone $zone)
+    {
+        $query = $this->getBlockSelectQuery();
+        $query->where(
+            $query->expr()->like('path', ':path')
+        )
+        ->setParameter('path', '%/' . $zone->rootBlockId . '/%', Type::STRING);
+
+        $this->applyStatusCondition($query, $zone->status);
 
         return $query->execute()->fetchAll();
     }

@@ -9,6 +9,7 @@ use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
+use Netgen\BlockManager\Persistence\Values\Page\Zone;
 
 interface BlockHandler
 {
@@ -42,6 +43,15 @@ interface BlockHandler
      * @return \Netgen\BlockManager\Persistence\Values\Page\Block[]
      */
     public function loadLayoutBlocks(Layout $layout);
+
+    /**
+     * Loads all blocks from specified zone.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $zone
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Block[]
+     */
+    public function loadZoneBlocks(Zone $zone);
 
     /**
      * Loads all blocks from specified block, optionally filtered by placeholder.

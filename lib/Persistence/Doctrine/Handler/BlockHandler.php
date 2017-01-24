@@ -16,6 +16,7 @@ use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
+use Netgen\BlockManager\Persistence\Values\Page\Zone;
 
 class BlockHandler implements BlockHandlerInterface
 {
@@ -105,6 +106,20 @@ class BlockHandler implements BlockHandlerInterface
     public function loadLayoutBlocks(Layout $layout)
     {
         $data = $this->queryHandler->loadLayoutBlocksData($layout);
+
+        return $this->blockMapper->mapBlocks($data);
+    }
+
+    /**
+     * Loads all blocks from specified zone.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $zone
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Page\Block[]
+     */
+    public function loadZoneBlocks(Zone $zone)
+    {
+        $data = $this->queryHandler->loadZoneBlocksData($zone);
 
         return $this->blockMapper->mapBlocks($data);
     }
