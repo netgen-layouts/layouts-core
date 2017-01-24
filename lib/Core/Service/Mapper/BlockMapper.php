@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
 use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Block\PlaceholderDefinitionInterface;
+use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\CollectionReference;
@@ -28,6 +28,11 @@ class BlockMapper extends Mapper
      * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface
      */
     protected $blockDefinitionRegistry;
+
+    /**
+     * @var \Netgen\BlockManager\Persistence\Handler\BlockHandler
+     */
+    protected $blockHandler;
 
     /**
      * Constructor.
@@ -63,20 +68,6 @@ class BlockMapper extends Mapper
             $block->definitionIdentifier
         );
 
-        $placeholders = array();
-        if ($blockDefinition->isContainer()) {
-            foreach ($blockDefinition->getPlaceholders() as $identifier => $placeholderDefinition) {
-                $placeholders[$identifier] = $this->mapPlaceholder(
-                    $placeholderDefinition,
-                    // @todo Map the placeholder blocks
-                    array(),
-                    isset($block->placeholderParameters[$identifier]) ?
-                        $block->placeholderParameters[$identifier] :
-                        array()
-                );
-            }
-        }
-
         $blockData = array(
             'id' => $block->id,
             'definition' => $blockDefinition,
@@ -85,7 +76,7 @@ class BlockMapper extends Mapper
             'name' => $block->name,
             'status' => $block->status,
             'published' => $block->status === Value::STATUS_PUBLISHED,
-            'placeholders' => $placeholders,
+            'placeholders' => $this->mapPlaceholders($block, $blockDefinition),
             'parameters' => $this->parameterMapper->mapParameters(
                 $blockDefinition,
                 $block->parameters
@@ -98,27 +89,45 @@ class BlockMapper extends Mapper
     /**
      * Maps the placeholder from persistence parameters.
      *
-     * @param \Netgen\BlockManager\Block\PlaceholderDefinitionInterface $placeholderDefinition
-     * @param \Netgen\BlockManager\API\Values\Page\Block[] $blocks
-     * @param array $placeholderParameters
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition
      *
-     * @return \Netgen\BlockManager\Core\Values\Page\Placeholder
+     * @return \Netgen\BlockManager\Core\Values\Page\Placeholder[]
      */
-    public function mapPlaceholder(
-        PlaceholderDefinitionInterface $placeholderDefinition,
-        array $blocks,
-        array $placeholderParameters
-    ) {
-        return new Placeholder(
-            array(
-                'identifier' => $placeholderDefinition->getIdentifier(),
-                'blocks' => $blocks,
-                'parameters' => $this->parameterMapper->mapParameters(
-                    $placeholderDefinition,
-                    $placeholderParameters
-                ),
-            )
-        );
+    public function mapPlaceholders(PersistenceBlock $block, BlockDefinitionInterface $blockDefinition)
+    {
+        if (!$blockDefinition->isContainer()) {
+            return array();
+        }
+
+        $childBlocks = $this->persistenceHandler->getBlockHandler()->loadChildBlocks($block);
+
+        $placeholders = array();
+        foreach ($blockDefinition->getPlaceholders() as $identifier => $placeholderDefinition) {
+            $placeholderBlocks = array();
+            foreach ($childBlocks as $childBlock) {
+                if ($childBlock->placeholder !== $identifier) {
+                    continue;
+                }
+
+                $placeholderBlocks[] = $this->mapBlock($childBlock);
+            }
+
+            $placeholders[$identifier] = new Placeholder(
+                array(
+                    'identifier' => $placeholderDefinition->getIdentifier(),
+                    'blocks' => $placeholderBlocks,
+                    'parameters' => $this->parameterMapper->mapParameters(
+                        $placeholderDefinition,
+                        isset($block->placeholderParameters[$identifier]) ?
+                            $block->placeholderParameters[$identifier] :
+                            array()
+                    ),
+                )
+            );
+        }
+
+        return $placeholders;
     }
 
     /**
