@@ -41,6 +41,11 @@ class Block extends ValueObject implements APIBlock
     protected $name;
 
     /**
+     * @var \Netgen\BlockManager\API\Values\Page\Placeholder[]
+     */
+    protected $placeholders;
+
+    /**
      * @var int
      */
     protected $status;
@@ -103,6 +108,44 @@ class Block extends ValueObject implements APIBlock
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Returns all placeholders from this block.
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Placeholder[]
+     */
+    public function getPlaceholders()
+    {
+        return $this->placeholders;
+    }
+
+    /**
+     * Returns the specified placeholder or null if placeholder does not exist.
+     *
+     * @param string $identifier
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Placeholder
+     */
+    public function getPlaceholder($identifier)
+    {
+        if (!$this->hasPlaceholder($identifier)) {
+            return null;
+        }
+
+        return $this->placeholders[$identifier];
+    }
+
+    /**
+     * Returns if blocks has a specified placeholder.
+     *
+     * @param string $identifier
+     *
+     * @return bool
+     */
+    public function hasPlaceholder($identifier)
+    {
+        return isset($this->placeholders[$identifier]);
     }
 
     /**

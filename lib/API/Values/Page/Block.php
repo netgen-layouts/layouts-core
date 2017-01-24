@@ -50,6 +50,31 @@ interface Block extends Value, ParameterBasedValue
     public function getName();
 
     /**
+     * Returns all placeholders from this block.
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Placeholder[]
+     */
+    public function getPlaceholders();
+
+    /**
+     * Returns the specified placeholder or null if placeholder does not exist.
+     *
+     * @param string $identifier
+     *
+     * @return \Netgen\BlockManager\API\Values\Page\Placeholder
+     */
+    public function getPlaceholder($identifier);
+
+    /**
+     * Returns if blocks has a specified placeholder.
+     *
+     * @param string $identifier
+     *
+     * @return bool
+     */
+    public function hasPlaceholder($identifier);
+
+    /**
      * Returns the status of the block.
      *
      * @return int
