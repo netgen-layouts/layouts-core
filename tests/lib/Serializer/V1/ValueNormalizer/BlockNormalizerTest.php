@@ -96,6 +96,8 @@ class BlockNormalizerTest extends TestCase
                 'item_view_type' => $block->getItemViewType(),
                 'published' => true,
                 'has_published_state' => true,
+                'is_container' => false,
+                'is_dynamic_container' => false,
             ),
             $this->normalizer->normalize(new VersionedValue($block, 1))
         );

@@ -42,6 +42,7 @@ class BlockNormalizer implements NormalizerInterface, SerializerAwareInterface
     {
         /** @var \Netgen\BlockManager\API\Values\Page\Block $block */
         $block = $object->getValue();
+        $blockDefinition = $block->getDefinition();
 
         $parameters = array();
         foreach ($block->getParameters() as $parameter) {
@@ -50,13 +51,15 @@ class BlockNormalizer implements NormalizerInterface, SerializerAwareInterface
 
         return array(
             'id' => $block->getId(),
-            'definition_identifier' => $block->getDefinition()->getIdentifier(),
+            'definition_identifier' => $blockDefinition->getIdentifier(),
             'name' => $block->getName(),
             'parameters' => $this->serializer->normalize($parameters, $format, $context),
             'view_type' => $block->getViewType(),
             'item_view_type' => $block->getItemViewType(),
             'published' => $block->isPublished(),
             'has_published_state' => $this->blockService->hasPublishedState($block),
+            'is_container' => $blockDefinition->isContainer(),
+            'is_dynamic_container' => $blockDefinition->isDynamicContainer(),
         );
     }
 
