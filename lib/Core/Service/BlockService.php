@@ -750,11 +750,19 @@ class BlockService extends Service implements BlockServiceInterface
 
         $placeholderParameters = array();
         if ($blockCreateStruct->definition->isContainer()) {
-            foreach ($blockCreateStruct->definition->getPlaceholders() as $identifier => $placeholderDefinition) {
-                $placeholderParameters[$identifier] = $this->parameterMapper->serializeValues(
+            foreach ($blockCreateStruct->definition->getPlaceholders() as $placeholderDefinition) {
+                $placeholderIdentifier = $placeholderDefinition->getIdentifier();
+
+                $placeholderParameterValues = array();
+                if ($blockCreateStruct->hasPlaceholderStruct($placeholderIdentifier)) {
+                    $placeholderParameterValues = $blockCreateStruct
+                        ->getPlaceholderStruct($placeholderIdentifier)
+                        ->getParameterValues();
+                }
+
+                $placeholderParameters[$placeholderIdentifier] = $this->parameterMapper->serializeValues(
                     $placeholderDefinition,
-                    // @todo Make it possible to provide placeholder parameters
-                    array()
+                    $placeholderParameterValues
                 );
             }
         }

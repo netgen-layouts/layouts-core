@@ -5,7 +5,9 @@ namespace Netgen\BlockManager\Core\Service\Validator;
 use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct;
+use Netgen\BlockManager\API\Values\Page\PlaceholderCreateStruct;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
+use Netgen\BlockManager\Block\PlaceholderDefinitionInterface;
 use Netgen\BlockManager\Validator\Constraint\BlockItemViewType;
 use Netgen\BlockManager\Validator\Constraint\BlockViewType;
 use Netgen\BlockManager\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
@@ -78,6 +80,19 @@ class BlockValidator extends Validator
             ),
             'parameterValues'
         );
+
+        if ($blockCreateStruct->definition->isContainer()) {
+            foreach ($blockCreateStruct->definition->getPlaceholders() as $placeholderDefinition) {
+                if (!$blockCreateStruct->hasPlaceholderStruct($placeholderDefinition->getIdentifier())) {
+                    continue;
+                }
+
+                $this->validatePlaceholderCreateStruct(
+                    $blockCreateStruct->getPlaceholderStruct($placeholderDefinition->getIdentifier()),
+                    $placeholderDefinition
+                );
+            }
+        }
     }
 
     /**
@@ -99,6 +114,31 @@ class BlockValidator extends Validator
                     )
                 ),
             )
+        );
+    }
+
+    /**
+     * Validates placeholder create struct.
+     *
+     * @param \Netgen\BlockManager\API\Values\Page\PlaceholderCreateStruct $placeholderCreateStruct
+     * @param \Netgen\BlockManager\Block\PlaceholderDefinitionInterface $placeholderDefinition
+     *
+     * @throws \Netgen\BlockManager\Exception\ValidationFailedException If the validation failed
+     */
+    public function validatePlaceholderCreateStruct(
+        PlaceholderCreateStruct $placeholderCreateStruct,
+        PlaceholderDefinitionInterface $placeholderDefinition
+    ) {
+        $this->validate(
+            $placeholderCreateStruct,
+            array(
+                new ParameterStruct(
+                    array(
+                        'parameterCollection' => $placeholderDefinition,
+                    )
+                ),
+            ),
+            'parameterValues'
         );
     }
 }
