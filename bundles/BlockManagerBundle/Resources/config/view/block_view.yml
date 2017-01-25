@@ -67,6 +67,10 @@ view:
                 template: "NetgenBlockManagerBundle:block:full_view.html.twig"
                 match:
                     block\definition: full_view
+            div_container:
+                template: "NetgenBlockManagerBundle:block:div_container.html.twig"
+                match:
+                    block\definition: div_container
         api:
             title:
                 template: "NetgenBlockManagerBundle:api/block:title.html.twig"
@@ -134,4 +138,9 @@ view:
                 template: "NetgenBlockManagerBundle:api/block:full_view.html.twig"
                 match:
                     block\definition: full_view
+                    api_version: 1
+            div_container:
+                template: "NetgenBlockManagerBundle:api/block:div_container.html.twig"
+                match:
+                    block\definition: div_container
                     api_version: 1

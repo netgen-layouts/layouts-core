@@ -111,7 +111,7 @@ class RenderingExtensionTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::displayBlock
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::handleException
      */
-    public function testDisplayBlockReturnsEmptyStringOnException()
+    public function testRenderBlockReturnsEmptyStringOnException()
     {
         $block = new Block(array('definition' => new BlockDefinition('block')));
 
@@ -120,15 +120,16 @@ class RenderingExtensionTest extends TestCase
             ->method('renderValueObject')
             ->will($this->throwException(new Exception()));
 
-        ob_start();
-
-        $this->extension->displayBlock(
+        $renderedBlock = $this->extension->renderBlock(
+            array(
+                'twigTemplate' => $this->createMock(ContextualizedTwigTemplate::class),
+            ),
             $block,
-            ViewInterface::CONTEXT_DEFAULT,
-            $this->createMock(ContextualizedTwigTemplate::class)
+            array(),
+            ViewInterface::CONTEXT_DEFAULT
         );
 
-        $this->assertEquals('', ob_get_clean());
+        $this->assertEquals('', $renderedBlock);
     }
 
     /**
@@ -137,7 +138,7 @@ class RenderingExtensionTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::handleException
      * @expectedException \Exception
      */
-    public function testDisplayBlockThrowsExceptionInDebug()
+    public function testRenderBlockThrowsExceptionInDebug()
     {
         $this->extension->setDebug(true);
         $block = new Block(array('definition' => new BlockDefinition('block')));
@@ -147,10 +148,13 @@ class RenderingExtensionTest extends TestCase
             ->method('renderValueObject')
             ->will($this->throwException(new Exception()));
 
-        $this->extension->displayBlock(
+        $this->extension->renderBlock(
+            array(
+                'twigTemplate' => $this->createMock(ContextualizedTwigTemplate::class),
+            ),
             $block,
-            ViewInterface::CONTEXT_DEFAULT,
-            $this->createMock(ContextualizedTwigTemplate::class)
+            array(),
+            ViewInterface::CONTEXT_DEFAULT
         );
     }
 

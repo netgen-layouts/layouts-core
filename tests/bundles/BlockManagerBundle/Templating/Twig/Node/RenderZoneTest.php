@@ -38,8 +38,8 @@ class RenderZoneTest extends NodeTest
     /**
      * Overriden to enable 'covers' annotation.
      *
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\ContextTrait::compileContextNode
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderZone::compile
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderZone::compileContextNode
      *
      * @param \Twig_Node $node
      * @param string $source

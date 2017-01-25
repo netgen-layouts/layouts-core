@@ -4,6 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node;
 
 use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate;
+use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension;
 use Twig_Compiler;
 use Twig_Node;
@@ -11,8 +12,6 @@ use Twig_Node_Expression;
 
 class RenderZone extends Twig_Node
 {
-    use ContextTrait;
-
     /**
      * Constructor.
      *
@@ -55,5 +54,29 @@ class RenderZone extends Twig_Node
                 ->raw('$ngbmContext, $ngbmTemplate);' . PHP_EOL)
             ->outdent()
             ->write('}' . PHP_EOL);
+    }
+
+    /**
+     * Compiles the context node.
+     *
+     * @param \Twig_Compiler $compiler
+     */
+    protected function compileContextNode(Twig_Compiler $compiler)
+    {
+        $contextNode = null;
+        if ($this->hasNode('context')) {
+            $contextNode = $this->getNode('context');
+        }
+
+        if ($contextNode instanceof Twig_Node) {
+            $compiler
+                ->write('$ngbmContext = ')
+                    ->subcompile($this->getNode('context'))
+                ->write(';' . PHP_EOL);
+
+            return;
+        }
+
+        $compiler->write('$ngbmContext = ' . ViewInterface::class . '::CONTEXT_DEFAULT;' . PHP_EOL);
     }
 }

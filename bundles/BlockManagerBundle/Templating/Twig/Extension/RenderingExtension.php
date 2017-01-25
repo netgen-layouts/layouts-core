@@ -5,6 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension;
 use Exception;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\API\Values\Page\Placeholder;
 use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate;
 use Netgen\BlockManager\Item\ItemInterface;
@@ -137,6 +138,22 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
                 )
             ),
             new Twig_SimpleFunction(
+                'ngbm_render_block',
+                array($this, 'renderBlock'),
+                array(
+                    'needs_context' => true,
+                    'is_safe' => array('html'),
+                )
+            ),
+            new Twig_SimpleFunction(
+                'ngbm_render_placeholder',
+                array($this, 'renderPlaceholder'),
+                array(
+                    'needs_context' => true,
+                    'is_safe' => array('html'),
+                )
+            ),
+            new Twig_SimpleFunction(
                 'ngbm_render_rule',
                 array($this, 'renderValueObject'),
                 array(
@@ -178,10 +195,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      */
     public function getTokenParsers()
     {
-        return array(
-            new RenderZone(),
-            new RenderBlock(),
-        );
+        return array(new RenderZone());
     }
 
     /**
@@ -264,24 +278,37 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
     {
         $blocks = $this->blockService->loadZoneBlocks($zone);
         foreach ($blocks as $block) {
-            $this->displayBlock($block, $viewContext, $twigTemplate);
+            echo $this->renderBlock(
+                array(
+                    'twigTemplate' => $twigTemplate,
+                    'view_context' => $viewContext,
+                ),
+                $block
+            );
         }
     }
 
     /**
-     * Displays the provided block.
+     * Renders the provided block.
      *
+     * @param array $context
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param array $parameters
      * @param string $viewContext
-     * @param \Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate $twigTemplate
      *
-     * @throws \Exception If an error occurred
+     * @return string
      */
-    public function displayBlock(Block $block, $viewContext, ContextualizedTwigTemplate $twigTemplate)
+    public function renderBlock(array $context, Block $block, array $parameters = array(), $viewContext = null)
     {
+        if ($viewContext === null) {
+            $viewContext = !empty($context['view_context']) ?
+                $context['view_context'] :
+                ViewInterface::CONTEXT_DEFAULT;
+        }
+
         try {
             if ($this->isBlockCacheable($block)) {
-                echo $this->fragmentHandler->render(
+                return $this->fragmentHandler->render(
                     new ControllerReference(
                         $this->blockController,
                         array(
@@ -292,16 +319,49 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
                     ),
                     'esi'
                 );
-
-                return;
             }
 
-            echo $this->viewRenderer->renderValueObject($block, array('twigTemplate' => $twigTemplate), $viewContext);
+            return $this->viewRenderer->renderValueObject(
+                $block,
+                array(
+                    'twigTemplate' => $context['twigTemplate'],
+                ) + $parameters,
+                $viewContext
+            );
         } catch (Exception $e) {
             $errorMessage = sprintf('Error rendering a block with ID "%s"', $block->getId());
 
-            echo $this->handleException($e, $errorMessage);
+            return $this->handleException($e, $errorMessage);
         }
+    }
+
+    /**
+     * Renders the provided placeholder.
+     *
+     * @param array $context
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Page\Placeholder $placeholder
+     * @param array $parameters
+     * @param string $viewContext
+     *
+     * @return string
+     */
+    public function renderPlaceholder(array $context, Block $block, Placeholder $placeholder, array $parameters = array(), $viewContext = null)
+    {
+        if ($viewContext === null) {
+            $viewContext = !empty($context['view_context']) ?
+                $context['view_context'] :
+                ViewInterface::CONTEXT_DEFAULT;
+        }
+
+        return $this->viewRenderer->renderValueObject(
+            $placeholder,
+            array(
+                'block' => $block,
+                'twigTemplate' => $context['twigTemplate'],
+            ) + $parameters,
+            $viewContext
+        );
     }
 
     /**

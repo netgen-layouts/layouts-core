@@ -7,3 +7,5 @@ default_view_templates:
         api: 'NetgenBlockManagerBundle:api/item:item.html.twig'
     parameter_view:
         default: 'NetgenBlockManagerBundle:parameter:parameter.html.twig'
+    placeholder_view:
+        default: 'NetgenBlockManagerBundle:placeholder:placeholder.html.twig'

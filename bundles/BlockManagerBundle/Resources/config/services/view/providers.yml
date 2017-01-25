@@ -9,6 +9,11 @@ services:
         tags:
             - { name: netgen_block_manager.view.provider }
 
+    netgen_block_manager.view.provider.placeholder:
+        class: Netgen\BlockManager\View\Provider\PlaceholderViewProvider
+        tags:
+            - { name: netgen_block_manager.view.provider }
+
     netgen_block_manager.view.provider.item:
         class: Netgen\BlockManager\View\Provider\ItemViewProvider
         tags:
