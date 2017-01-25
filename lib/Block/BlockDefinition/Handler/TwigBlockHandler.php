@@ -49,15 +49,15 @@ class TwigBlockHandler extends BlockDefinitionHandler
     {
         return array(
             'content' => function () use ($block, $parameters) {
-                if (!isset($parameters['twigTemplate'])) {
+                if (!isset($parameters['twig_template'])) {
                     return '';
                 }
 
-                if (!$parameters['twigTemplate'] instanceof ContextualizedTwigTemplate) {
+                if (!$parameters['twig_template'] instanceof ContextualizedTwigTemplate) {
                     return '';
                 }
 
-                return $parameters['twigTemplate']->renderBlock(
+                return $parameters['twig_template']->renderBlock(
                     $this->getTwigBlockName($block)
                 );
             },

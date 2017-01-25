@@ -280,7 +280,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
         foreach ($blocks as $block) {
             echo $this->renderBlock(
                 array(
-                    'twigTemplate' => $twigTemplate,
+                    'twig_template' => $twigTemplate,
                     'view_context' => $viewContext,
                 ),
                 $block
@@ -324,7 +324,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
             return $this->viewRenderer->renderValueObject(
                 $block,
                 array(
-                    'twigTemplate' => $context['twigTemplate'],
+                    'twig_template' => $context['twig_template'],
                 ) + $parameters,
                 $viewContext
             );
@@ -358,7 +358,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
             $placeholder,
             array(
                 'block' => $block,
-                'twigTemplate' => $context['twigTemplate'],
+                'twig_template' => $context['twig_template'],
             ) + $parameters,
             $viewContext
         );

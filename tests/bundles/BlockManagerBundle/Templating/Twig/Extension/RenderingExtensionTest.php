@@ -122,7 +122,7 @@ class RenderingExtensionTest extends TestCase
 
         $renderedBlock = $this->extension->renderBlock(
             array(
-                'twigTemplate' => $this->createMock(ContextualizedTwigTemplate::class),
+                'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
             ),
             $block,
             array(),
@@ -150,7 +150,7 @@ class RenderingExtensionTest extends TestCase
 
         $this->extension->renderBlock(
             array(
-                'twigTemplate' => $this->createMock(ContextualizedTwigTemplate::class),
+                'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
             ),
             $block,
             array(),

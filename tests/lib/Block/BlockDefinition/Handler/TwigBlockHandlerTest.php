@@ -49,7 +49,7 @@ class TwigBlockHandlerTest extends TestCase
 
         $dynamicParameters = $this->handler->getDynamicParameters(
             $block,
-            array('twigTemplate' => $twigTemplate)
+            array('twig_template' => $twigTemplate)
         );
 
         $this->assertInternalType('array', $dynamicParameters);
@@ -102,7 +102,7 @@ class TwigBlockHandlerTest extends TestCase
 
         $dynamicParameters = $this->handler->getDynamicParameters(
             $block,
-            array('twigTemplate' => 42)
+            array('twig_template' => 42)
         );
 
         $this->assertInternalType('array', $dynamicParameters);

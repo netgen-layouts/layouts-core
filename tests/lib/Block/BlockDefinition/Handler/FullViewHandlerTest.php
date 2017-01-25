@@ -37,7 +37,7 @@ class FullViewHandlerTest extends TestCase
 
         $dynamicParameters = $this->handler->getDynamicParameters(
             new Block(),
-            array('twigTemplate' => $twigTemplate)
+            array('twig_template' => $twigTemplate)
         );
 
         $this->assertInternalType('array', $dynamicParameters);
@@ -66,7 +66,7 @@ class FullViewHandlerTest extends TestCase
     {
         $dynamicParameters = $this->handler->getDynamicParameters(
             new Block(),
-            array('twigTemplate' => 42)
+            array('twig_template' => 42)
         );
 
         $this->assertInternalType('array', $dynamicParameters);
