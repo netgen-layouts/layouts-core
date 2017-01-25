@@ -56,6 +56,11 @@
             "**/Tests/"
         ]
     },
+    "autoload-dev": {
+        "files": [
+            "vendor/symfony/symfony/src/Symfony/Component/VarDumper/Resources/functions/dump.php"
+        ]
+    },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "extra": {
