@@ -18,18 +18,18 @@ class ItemViewProvider implements ViewProviderInterface
      */
     public function provideView($valueObject, array $parameters = array())
     {
-        if (!isset($parameters['viewType'])) {
-            throw new RuntimeException('To build the item view, you need to provide the "viewType" parameter.');
+        if (!isset($parameters['view_type'])) {
+            throw new RuntimeException('To build the item view, you need to provide the "view_type" parameter.');
         }
 
-        if (!is_string($parameters['viewType'])) {
-            throw new RuntimeException('To build the item view, "viewType" parameter needs to be a string.');
+        if (!is_string($parameters['view_type'])) {
+            throw new RuntimeException('To build the item view, "view_type" parameter needs to be a string.');
         }
 
         return new ItemView(
             array(
                 'item' => $valueObject,
-                'viewType' => $parameters['viewType'],
+                'view_type' => $parameters['view_type'],
             )
         );
     }

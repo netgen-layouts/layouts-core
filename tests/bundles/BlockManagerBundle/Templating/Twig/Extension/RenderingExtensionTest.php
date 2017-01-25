@@ -164,7 +164,7 @@ class RenderingExtensionTest extends TestCase
             ->method('renderValueObject')
             ->with(
                 $this->equalTo(new Item()),
-                $this->equalTo(array('viewType' => 'viewType', 'param' => 'value')),
+                $this->equalTo(array('view_type' => 'view_type', 'param' => 'value')),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT)
             )
             ->will($this->returnValue('rendered item'));
@@ -174,7 +174,7 @@ class RenderingExtensionTest extends TestCase
             $this->extension->renderItem(
                 array(),
                 new Item(),
-                'viewType',
+                'view_type',
                 array('param' => 'value'),
                 ViewInterface::CONTEXT_DEFAULT
             )
@@ -192,7 +192,7 @@ class RenderingExtensionTest extends TestCase
             ->method('renderValueObject')
             ->with(
                 $this->equalTo(new Item()),
-                $this->equalTo(array('viewType' => 'viewType', 'param' => 'value')),
+                $this->equalTo(array('view_type' => 'view_type', 'param' => 'value')),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT)
             )
             ->will($this->throwException(new Exception()));
@@ -202,7 +202,7 @@ class RenderingExtensionTest extends TestCase
             $this->extension->renderItem(
                 array(),
                 new Item(),
-                'viewType',
+                'view_type',
                 array('param' => 'value'),
                 ViewInterface::CONTEXT_DEFAULT
             )
@@ -224,7 +224,7 @@ class RenderingExtensionTest extends TestCase
             ->method('renderValueObject')
             ->with(
                 $this->equalTo(new Item()),
-                $this->equalTo(array('viewType' => 'viewType', 'param' => 'value')),
+                $this->equalTo(array('view_type' => 'view_type', 'param' => 'value')),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT)
             )
             ->will($this->throwException(new Exception()));
@@ -232,7 +232,7 @@ class RenderingExtensionTest extends TestCase
         $this->extension->renderItem(
             array(),
             new Item(),
-            'viewType',
+            'view_type',
             array('param' => 'value'),
             ViewInterface::CONTEXT_DEFAULT
         );

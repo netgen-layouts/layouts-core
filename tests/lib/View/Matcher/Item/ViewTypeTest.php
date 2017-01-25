@@ -33,7 +33,7 @@ class ViewTypeTest extends TestCase
         $view = new ItemView(
             array(
                 'item' => new Item(),
-                'viewType' => 'view_type',
+                'view_type' => 'view_type',
             )
         );
 

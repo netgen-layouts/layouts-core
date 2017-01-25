@@ -23,7 +23,7 @@ class ItemView extends View implements ItemViewInterface
      */
     public function getViewType()
     {
-        return $this->parameters['viewType'];
+        return $this->parameters['view_type'];
     }
 
     /**

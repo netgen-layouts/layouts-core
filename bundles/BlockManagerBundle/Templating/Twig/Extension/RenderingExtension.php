@@ -211,7 +211,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
         return $this->renderValueObject(
             $context,
             $item,
-            array('viewType' => $viewType) + $parameters,
+            array('view_type' => $viewType) + $parameters,
             $viewContext
         );
     }
