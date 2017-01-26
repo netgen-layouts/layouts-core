@@ -49,6 +49,11 @@ class BlockNormalizer implements NormalizerInterface, SerializerAwareInterface
             $parameters[$parameter->getName()] = new VersionedValue($parameter, $object->getVersion());
         }
 
+        $placeholders = array();
+        foreach ($block->getPlaceholders() as $placeholder) {
+            $placeholders[] = new VersionedValue($placeholder, $object->getVersion());
+        }
+
         return array(
             'id' => $block->getId(),
             'definition_identifier' => $blockDefinition->getIdentifier(),
@@ -60,6 +65,7 @@ class BlockNormalizer implements NormalizerInterface, SerializerAwareInterface
             'has_published_state' => $this->blockService->hasPublishedState($block),
             'is_container' => $blockDefinition->isContainer(),
             'is_dynamic_container' => $blockDefinition->isDynamicContainer(),
+            'placeholders' => $this->serializer->normalize($placeholders, $format, $context),
         );
     }
 

@@ -37,6 +37,11 @@ services:
         tags:
             - { name: serializer.normalizer }
 
+    netgen_block_manager.normalizer.v1.placeholder:
+        class: Netgen\BlockManager\Serializer\V1\ValueNormalizer\PlaceholderNormalizer
+        tags:
+            - { name: serializer.normalizer }
+
     netgen_block_manager.normalizer.v1.collection_reference:
         class: Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionReferenceNormalizer
         tags:
