@@ -22,11 +22,14 @@ class BlockTypeNormalizer implements NormalizerInterface
     {
         /** @var \Netgen\BlockManager\Configuration\BlockType\BlockType $blockType */
         $blockType = $object->getValue();
+        $blockDefinition = $blockType->getDefinition();
 
         return array(
             'identifier' => $blockType->getIdentifier(),
             'name' => $blockType->getName(),
-            'definition_identifier' => $blockType->getDefinition()->getIdentifier(),
+            'definition_identifier' => $blockDefinition->getIdentifier(),
+            'is_container' => $blockDefinition->isContainer(),
+            'is_dynamic_container' => $blockDefinition->isDynamicContainer(),
             'defaults' => $blockType->getDefaults(),
         );
     }
