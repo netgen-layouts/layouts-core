@@ -4,10 +4,22 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller;
 
 use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class Controller extends BaseController
 {
+    /**
+     * Initializes the controller by setting the container and performing basic access checks.
+     *
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+     */
+    public function initialize(ContainerInterface $container)
+    {
+        $this->setContainer($container);
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+    }
+
     /**
      * Builds the view from provided value object.
      *
