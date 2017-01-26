@@ -48,6 +48,12 @@ class BlockNormalizerTest extends TestCase
             array(
                 'id' => 42,
                 'definition' => new BlockDefinition('text'),
+                'viewType' => 'default',
+                'itemViewType' => 'standard',
+                'status' => Value::STATUS_PUBLISHED,
+                'published' => true,
+                'name' => 'My block',
+                'placeholders' => array(),
                 'parameters' => array(
                     'some_param' => new ParameterValue(
                         array(
@@ -62,11 +68,6 @@ class BlockNormalizerTest extends TestCase
                         )
                     ),
                 ),
-                'viewType' => 'default',
-                'itemViewType' => 'standard',
-                'status' => Value::STATUS_PUBLISHED,
-                'published' => true,
-                'name' => 'My block',
             )
         );
 
@@ -76,9 +77,14 @@ class BlockNormalizerTest extends TestCase
         );
 
         $this->serializerMock
-            ->expects($this->once())
+            ->expects($this->at(0))
             ->method('normalize')
             ->will($this->returnValue($serializedParams));
+
+        $this->serializerMock
+            ->expects($this->at(1))
+            ->method('normalize')
+            ->will($this->returnValue(array()));
 
         $this->blockServiceMock
             ->expects($this->once())
@@ -98,6 +104,7 @@ class BlockNormalizerTest extends TestCase
                 'has_published_state' => true,
                 'is_container' => false,
                 'is_dynamic_container' => false,
+                'placeholders' => array(),
             ),
             $this->normalizer->normalize(new VersionedValue($block, 1))
         );

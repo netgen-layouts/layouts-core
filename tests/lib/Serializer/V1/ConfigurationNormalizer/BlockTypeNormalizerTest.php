@@ -51,6 +51,8 @@ class BlockTypeNormalizerTest extends TestCase
                 'identifier' => $blockType->getIdentifier(),
                 'name' => $blockType->getName(),
                 'definition_identifier' => $this->blockDefinition->getIdentifier(),
+                'is_container' => false,
+                'is_dynamic_container' => false,
                 'defaults' => $blockType->getDefaults(),
             ),
             $this->normalizer->normalize(new VersionedValue($blockType, 1))
