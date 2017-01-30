@@ -108,7 +108,7 @@ class RenderingExtensionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::displayBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderBlock
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::handleException
      */
     public function testRenderBlockReturnsEmptyStringOnException()
@@ -133,7 +133,7 @@ class RenderingExtensionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::displayBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderBlock
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::setDebug
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::handleException
      * @expectedException \Exception
