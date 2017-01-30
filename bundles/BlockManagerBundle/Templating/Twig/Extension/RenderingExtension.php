@@ -8,6 +8,7 @@ use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\Placeholder;
 use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\BlockManager\View\ViewInterface;
@@ -354,14 +355,24 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
                 ViewInterface::CONTEXT_DEFAULT;
         }
 
-        return $this->viewRenderer->renderValueObject(
-            $block->getPlaceholder($placeholder),
-            array(
-                'block' => $block,
-                'twig_template' => $context['twig_template'],
-            ) + $parameters,
-            $viewContext
-        );
+        try {
+            return $this->viewRenderer->renderValueObject(
+                $block->getPlaceholder($placeholder),
+                array(
+                    'block' => $block,
+                    'twig_template' => $context['twig_template'],
+                ) + $parameters,
+                $viewContext
+            );
+        } catch (Exception $e) {
+            $errorMessage = sprintf(
+                'Error rendering a placeholder "%s" in block with ID "%s"',
+                $placeholder,
+                $block->getId()
+            );
+
+            return $this->handleException($e, $errorMessage);
+        }
     }
 
     /**

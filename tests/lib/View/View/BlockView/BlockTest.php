@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\View\View\BlockView;
 
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\Page\Block as CoreBlock;
+use Netgen\BlockManager\Core\Values\Page\Placeholder;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\View\View\BlockView\Block;
@@ -23,6 +24,9 @@ class BlockTest extends TestCase
      * @covers \Netgen\BlockManager\View\View\BlockView\Block::getName
      * @covers \Netgen\BlockManager\View\View\BlockView\Block::getStatus
      * @covers \Netgen\BlockManager\View\View\BlockView\Block::isPublished
+     * @covers \Netgen\BlockManager\View\View\BlockView\Block::hasPlaceholder
+     * @covers \Netgen\BlockManager\View\View\BlockView\Block::getPlaceholders
+     * @covers \Netgen\BlockManager\View\View\BlockView\Block::getPlaceholder
      * @covers \Netgen\BlockManager\View\View\BlockView\Block::getDynamicParameter
      * @covers \Netgen\BlockManager\View\View\BlockView\Block::hasDynamicParameter
      */
@@ -39,11 +43,19 @@ class BlockTest extends TestCase
         $this->assertNull($block->getName());
         $this->assertNull($block->getStatus());
         $this->assertNull($block->isPublished());
+        $this->assertFalse($block->hasPlaceholder('test'));
+        $this->assertNull($block->getPlaceholders());
         $this->assertNull($block->getDynamicParameter('dynamic'));
         $this->assertFalse($block->hasDynamicParameter('dynamic'));
 
         try {
             $block->getParameter('test');
+        } catch (InvalidArgumentException $e) {
+            // Do nothing
+        }
+
+        try {
+            $block->getPlaceholder('test');
         } catch (InvalidArgumentException $e) {
             // Do nothing
         }
@@ -61,6 +73,9 @@ class BlockTest extends TestCase
      * @covers \Netgen\BlockManager\View\View\BlockView\Block::getName
      * @covers \Netgen\BlockManager\View\View\BlockView\Block::getStatus
      * @covers \Netgen\BlockManager\View\View\BlockView\Block::isPublished
+     * @covers \Netgen\BlockManager\View\View\BlockView\Block::hasPlaceholder
+     * @covers \Netgen\BlockManager\View\View\BlockView\Block::getPlaceholders
+     * @covers \Netgen\BlockManager\View\View\BlockView\Block::getPlaceholder
      * @covers \Netgen\BlockManager\View\View\BlockView\Block::getDynamicParameter
      * @covers \Netgen\BlockManager\View\View\BlockView\Block::hasDynamicParameter
      */
@@ -79,6 +94,9 @@ class BlockTest extends TestCase
                 'name' => 'My block',
                 'status' => Value::STATUS_PUBLISHED,
                 'published' => true,
+                'placeholders' => array(
+                    'main' => new Placeholder(),
+                ),
             )
         );
 
@@ -94,6 +112,9 @@ class BlockTest extends TestCase
         $this->assertEquals('My block', $block->getName());
         $this->assertTrue($block->isPublished());
         $this->assertTrue($block->isPublished());
+        $this->assertEquals(new Placeholder(), $block->getPlaceholder('main'));
+        $this->assertFalse($block->hasPlaceholder('test'));
+        $this->assertTrue($block->hasPlaceholder('main'));
         $this->assertEquals('value', $block->getDynamicParameter('dynamic'));
         $this->assertTrue($block->hasDynamicParameter('dynamic'));
         $this->assertFalse($block->hasDynamicParameter('test'));
@@ -108,6 +129,19 @@ class BlockTest extends TestCase
 
         try {
             $block->getParameter('test');
+        } catch (InvalidArgumentException $e) {
+            // Do nothing
+        }
+
+        $this->assertEquals(
+            array(
+                'main' => new Placeholder(),
+            ),
+            $block->getPlaceholders()
+        );
+
+        try {
+            $block->getPlaceholder('test');
         } catch (InvalidArgumentException $e) {
             // Do nothing
         }
