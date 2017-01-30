@@ -57,9 +57,11 @@ interface Block extends Value, ParameterBasedValue
     public function getPlaceholders();
 
     /**
-     * Returns the specified placeholder or null if placeholder does not exist.
+     * Returns the specified placeholder.
      *
      * @param string $identifier
+     *
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the placeholder does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Page\Placeholder
      */

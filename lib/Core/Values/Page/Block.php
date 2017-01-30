@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Core\Values\Page;
 
 use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
 use Netgen\BlockManager\Core\Values\ParameterBasedValueTrait;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\ValueObject;
 
 class Block extends ValueObject implements APIBlock
@@ -121,19 +122,27 @@ class Block extends ValueObject implements APIBlock
     }
 
     /**
-     * Returns the specified placeholder or null if placeholder does not exist.
+     * Returns the specified placeholder.
      *
      * @param string $identifier
+     *
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the placeholder does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Page\Placeholder
      */
     public function getPlaceholder($identifier)
     {
-        if (!$this->hasPlaceholder($identifier)) {
-            return null;
+        if ($this->hasPlaceholder($identifier)) {
+            return $this->placeholders[$identifier];
         }
 
-        return $this->placeholders[$identifier];
+        throw new InvalidArgumentException(
+            'identifier',
+            sprintf(
+                'Placeholder with "%s" identifier does not exist in the block.',
+                $identifier
+            )
+        );
     }
 
     /**

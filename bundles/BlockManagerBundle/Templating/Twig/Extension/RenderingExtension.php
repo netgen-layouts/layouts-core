@@ -340,13 +340,13 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      *
      * @param array $context
      * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     * @param \Netgen\BlockManager\API\Values\Page\Placeholder $placeholder
+     * @param string $placeholder
      * @param array $parameters
      * @param string $viewContext
      *
      * @return string
      */
-    public function renderPlaceholder(array $context, Block $block, Placeholder $placeholder, array $parameters = array(), $viewContext = null)
+    public function renderPlaceholder(array $context, Block $block, $placeholder, array $parameters = array(), $viewContext = null)
     {
         if ($viewContext === null) {
             $viewContext = !empty($context['view_context']) ?
@@ -355,7 +355,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
         }
 
         return $this->viewRenderer->renderValueObject(
-            $placeholder,
+            $block->getPlaceholder($placeholder),
             array(
                 'block' => $block,
                 'twig_template' => $context['twig_template'],
