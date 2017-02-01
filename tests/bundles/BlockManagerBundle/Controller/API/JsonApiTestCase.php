@@ -15,6 +15,11 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
 {
     use DatabaseTrait;
 
+    /**
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     */
+    protected $clientContainer;
+
     public function setUp()
     {
         parent::setUp();
@@ -23,7 +28,8 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         $this->mockItemLoader();
         $this->mockSearchHandler();
         $this->mockTranslationHelper();
-        $this->createDatabase(__DIR__ . '/../../../../lib/_fixtures');
+        $this->createDatabase();
+
         $this->expectedResponsesPath = __DIR__ . '/responses/expected';
     }
 
@@ -36,13 +42,17 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
     {
         parent::setUpClient();
 
+        $this->clientContainer = $this->client->getContainer();
+
         $this->client->setServerParameter('CONTENT_TYPE', 'application/json');
+        $this->client->setServerParameter('PHP_AUTH_USER', getenv('EZ_USERNAME'));
+        $this->client->setServerParameter('PHP_AUTH_PW', getenv('EZ_PASSWORD'));
     }
 
     protected function mockItemLoader()
     {
         /** @var \Mockery\MockInterface $locationMock */
-        $itemLoaderMock = $this->client->getContainer()->mock(
+        $itemLoaderMock = $this->clientContainer->mock(
             'netgen_block_manager.item.item_loader',
             ItemLoaderInterface::class
         );
@@ -60,7 +70,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
     protected function mockSearchHandler()
     {
         /** @var \Mockery\MockInterface $locationMock */
-        $searchHandlerMock = $this->client->getContainer()->mock(
+        $searchHandlerMock = $this->clientContainer->mock(
             'netgen_block_manager.collection.query_type.handler.ezcontent_search',
             ContentSearchHandler::class
         );
@@ -81,7 +91,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
     protected function mockTranslationHelper()
     {
         /** @var \Mockery\MockInterface $translationHelperMock */
-        $translationHelperMock = $this->client->getContainer()->mock(
+        $translationHelperMock = $this->clientContainer->mock(
             'ezpublish.translation_helper',
             TranslationHelper::class
         );

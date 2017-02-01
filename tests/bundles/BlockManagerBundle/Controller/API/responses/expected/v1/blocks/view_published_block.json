@@ -1,10 +1,7 @@
 {
-    "id": 1,
+    "id": 31,
     "definition_identifier": "list",
     "name": "My published block",
-    "zone_identifier": "right",
-    "position": 0,
-    "layout_id": 1,
     "parameters": {
         "number_of_columns": 3,
         "css_class": null,
@@ -14,5 +11,8 @@
     "view_type": "grid",
     "item_view_type": "standard_with_intro",
     "published": true,
-    "has_published_state": true
+    "has_published_state": true,
+    "is_container": false,
+    "is_dynamic_container": false,
+    "placeholders": []
 }

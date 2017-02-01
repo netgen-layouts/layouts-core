@@ -13,7 +13,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
      */
     public function testLoadCollectionReference()
     {
-        $this->client->request('GET', '/bm/api/v1/blocks/1/collections/default');
+        $this->client->request('GET', '/bm/api/v1/blocks/31/collections/default');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -27,7 +27,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
      */
     public function testLoadCollectionReferences()
     {
-        $this->client->request('GET', '/bm/api/v1/blocks/1/collections');
+        $this->client->request('GET', '/bm/api/v1/blocks/31/collections');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -55,7 +55,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
      */
     public function testLoadCollectionResult()
     {
-        $this->client->request('GET', '/bm/api/v1/blocks/5/collections/default/result');
+        $this->client->request('GET', '/bm/api/v1/blocks/35/collections/default/result');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -70,7 +70,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
      */
     public function testLoadCollectionResultWithOffsetAndLimit()
     {
-        $this->client->request('GET', '/bm/api/v1/blocks/5/collections/default/result?offset=2&limit=2');
+        $this->client->request('GET', '/bm/api/v1/blocks/35/collections/default/result?offset=2&limit=2');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -97,7 +97,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
      */
     public function testLoadCollectionResultWithNonExistentCollectionReference()
     {
-        $this->client->request('GET', '/bm/api/v1/blocks/1/collections/unknown/result');
+        $this->client->request('GET', '/bm/api/v1/blocks/31/collections/unknown/result');
 
         $this->assertException(
             $this->client->getResponse(),

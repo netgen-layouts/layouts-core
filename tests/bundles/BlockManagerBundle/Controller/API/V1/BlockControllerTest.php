@@ -13,7 +13,7 @@ class BlockControllerTest extends JsonApiTestCase
      */
     public function testView()
     {
-        $this->client->request('GET', '/bm/api/v1/blocks/1?html=false');
+        $this->client->request('GET', '/bm/api/v1/blocks/31?html=false');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -27,7 +27,7 @@ class BlockControllerTest extends JsonApiTestCase
      */
     public function testViewInPublishedState()
     {
-        $this->client->request('GET', '/bm/api/v1/blocks/1?published=true&html=false');
+        $this->client->request('GET', '/bm/api/v1/blocks/31?published=true&html=false');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -51,6 +51,7 @@ class BlockControllerTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createBlockCreateStruct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
      */
     public function testCreateInZone()
@@ -75,13 +76,14 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertResponse(
             $this->client->getResponse(),
-            'v1/blocks/create_block',
+            'v1/blocks/create_block_in_zone',
             Response::HTTP_CREATED
         );
     }
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createInZone
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createBlockCreateStruct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
      */
     public function testCreateInZoneWithNoPosition()
@@ -105,7 +107,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertResponse(
             $this->client->getResponse(),
-            'v1/blocks/create_block_at_end',
+            'v1/blocks/create_block_in_zone_at_end',
             Response::HTTP_CREATED
         );
     }
@@ -474,13 +476,14 @@ class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             array(
+                'layout_id' => 1,
                 'zone_identifier' => 'left',
             )
         );
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/1/copy?html=false',
+            '/bm/api/v1/blocks/31/copy/zone?html=false',
             array(),
             array(),
             array(),
@@ -489,30 +492,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertResponse(
             $this->client->getResponse(),
-            'v1/blocks/copy_block',
-            Response::HTTP_CREATED
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copyToZone
-     */
-    public function testCopyToZoneWithNoZoneIdentifier()
-    {
-        $data = $this->jsonEncode(array());
-
-        $this->client->request(
-            'POST',
-            '/bm/api/v1/blocks/1/copy?html=false',
-            array(),
-            array(),
-            array(),
-            $data
-        );
-
-        $this->assertResponse(
-            $this->client->getResponse(),
-            'v1/blocks/copy_block_in_same_zone',
+            'v1/blocks/copy_block_to_zone',
             Response::HTTP_CREATED
         );
     }
@@ -526,7 +506,34 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/9999/copy',
+            '/bm/api/v1/blocks/9999/copy/zone',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_NOT_FOUND
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copyToZone
+     */
+    public function testCopyToZoneWithNonExistentLayout()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'layout_id' => 9999,
+                'zone_identifier' => 'left',
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/31/copy/zone',
             array(),
             array(),
             array(),
@@ -546,13 +553,14 @@ class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             array(
+                'layout_id' => 1,
                 'zone_identifier' => 'unknown',
             )
         );
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/1/copy',
+            '/bm/api/v1/blocks/31/copy/zone',
             array(),
             array(),
             array(),
@@ -561,7 +569,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            Response::HTTP_NOT_FOUND
         );
     }
 
@@ -572,13 +580,14 @@ class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             array(
+                'layout_id' => 1,
                 'zone_identifier' => 'top',
             )
         );
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/1/copy',
+            '/bm/api/v1/blocks/31/copy/zone',
             array(),
             array(),
             array(),
@@ -594,17 +603,98 @@ class BlockControllerTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copyToZone
      */
+    public function testCopyToZoneWithInvalidLayoutId()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'layout_id' => array(),
+                'zone_identifier' => 'left',
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/31/copy/zone',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_BAD_REQUEST
+        );
+    }
+
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copyToZone
+     */
     public function testCopyToZoneWithInvalidZoneIdentifier()
     {
         $data = $this->jsonEncode(
             array(
+                'layout_id' => 1,
                 'zone_identifier' => 42,
             )
         );
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/1/copy',
+            '/bm/api/v1/blocks/31/copy/zone',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_BAD_REQUEST
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copyToZone
+     */
+    public function testCopyToZoneWithMissingLayoutId()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'zone_identifier' => 'left',
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/31/copy/zone',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_BAD_REQUEST
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copyToZone
+     */
+    public function testCopyToZoneWithMissingZoneIdentifier()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'layout_id' => 1,
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/31/copy/zone',
             array(),
             array(),
             array(),
@@ -624,6 +714,7 @@ class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             array(
+                'layout_id' => 1,
                 'zone_identifier' => 'left',
                 'position' => 0,
             )
@@ -631,30 +722,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/1/move',
-            array(),
-            array(),
-            array(),
-            $data
-        );
-
-        $this->assertEmptyResponse($this->client->getResponse());
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::moveToZone
-     */
-    public function testMoveToZoneWithNoZoneIdentifier()
-    {
-        $data = $this->jsonEncode(
-            array(
-                'position' => 1,
-            )
-        );
-
-        $this->client->request(
-            'POST',
-            '/bm/api/v1/blocks/1/move',
+            '/bm/api/v1/blocks/31/move/zone',
             array(),
             array(),
             array(),
@@ -673,7 +741,35 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/9999/move',
+            '/bm/api/v1/blocks/9999/move/zone',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_NOT_FOUND
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::moveToZone
+     */
+    public function testMoveToZoneWithNonExistentLayout()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'layout_id' => 9999,
+                'zone_identifier' => 'left',
+                'position' => 1,
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/31/move/zone',
             array(),
             array(),
             array(),
@@ -693,6 +789,7 @@ class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             array(
+                'layout_id' => 1,
                 'zone_identifier' => 'unknown',
                 'position' => 1,
             )
@@ -700,7 +797,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/1/move',
+            '/bm/api/v1/blocks/31/move/zone',
             array(),
             array(),
             array(),
@@ -709,7 +806,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            Response::HTTP_NOT_FOUND
         );
     }
 
@@ -720,6 +817,7 @@ class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             array(
+                'layout_id' => 1,
                 'zone_identifier' => 'top',
                 'position' => 0,
             )
@@ -727,7 +825,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/1/move',
+            '/bm/api/v1/blocks/31/move/zone',
             array(),
             array(),
             array(),
@@ -747,6 +845,7 @@ class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             array(
+                'layout_id' => 1,
                 'zone_identifier' => 'left',
                 'position' => 9999,
             )
@@ -754,7 +853,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/1/move',
+            '/bm/api/v1/blocks/31/move/zone',
             array(),
             array(),
             array(),
@@ -770,10 +869,39 @@ class BlockControllerTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::moveToZone
      */
+    public function testMoveToZoneWithInvalidLayoutId()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'layout_id' => array(),
+                'zone_identifier' => 'left',
+                'position' => 1,
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/31/move/zone',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_BAD_REQUEST
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::moveToZone
+     */
     public function testMoveToZoneWithInvalidZoneIdentifier()
     {
         $data = $this->jsonEncode(
             array(
+                'layout_id' => 1,
                 'zone_identifier' => 42,
                 'position' => 1,
             )
@@ -781,7 +909,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/1/move',
+            '/bm/api/v1/blocks/31/move/zone',
             array(),
             array(),
             array(),
@@ -801,6 +929,7 @@ class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             array(
+                'layout_id' => 1,
                 'zone_identifier' => 'left',
                 'position' => '1',
             )
@@ -808,7 +937,61 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/1/move',
+            '/bm/api/v1/blocks/31/move/zone',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_BAD_REQUEST
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::moveToZone
+     */
+    public function testMoveToZoneWithMissingLayoutId()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'zone_identifier' => 'left',
+                'position' => 1,
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/31/move/zone',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_BAD_REQUEST
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::moveToZone
+     */
+    public function testMoveToZoneWithMissingZoneIdentifier()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'layout_id' => 1,
+                'position' => 1,
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/31/move/zone',
             array(),
             array(),
             array(),
@@ -828,13 +1011,14 @@ class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             array(
+                'layout_id' => 1,
                 'zone_identifier' => 'left',
             )
         );
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/1/move',
+            '/bm/api/v1/blocks/31/move',
             array(),
             array(),
             array(),
@@ -856,7 +1040,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/1/restore?html=false',
+            '/bm/api/v1/blocks/31/restore?html=false',
             array(),
             array(),
             array(),
@@ -901,7 +1085,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'DELETE',
-            '/bm/api/v1/blocks/1',
+            '/bm/api/v1/blocks/31',
             array(),
             array(),
             array(),

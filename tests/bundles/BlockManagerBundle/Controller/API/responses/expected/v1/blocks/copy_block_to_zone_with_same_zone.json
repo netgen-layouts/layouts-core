@@ -1,10 +1,7 @@
 {
-    "id": 7,
+    "id": 39,
     "definition_identifier": "list",
-    "name": "",
-    "zone_identifier": "right",
-    "position": 2,
-    "layout_id": 1,
+    "name": "My block",
     "parameters": {
         "number_of_columns": 2,
         "css_class": null,
@@ -14,5 +11,8 @@
     "view_type": "list",
     "item_view_type": "standard",
     "published": false,
-    "has_published_state": false
+    "has_published_state": false,
+    "is_container": false,
+    "is_dynamic_container": false,
+    "placeholders": []
 }

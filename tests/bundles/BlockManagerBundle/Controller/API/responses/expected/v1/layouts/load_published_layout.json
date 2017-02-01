@@ -19,7 +19,9 @@
         {
             "identifier": "left",
             "name": "Left",
-            "block_ids": [2],
+            "block_ids": [
+                32
+            ],
             "allowed_block_definitions": true,
             "linked_layout_id": null,
             "linked_zone_identifier": null
@@ -27,7 +29,10 @@
         {
             "identifier": "right",
             "name": "Right",
-            "block_ids": [1, 5],
+            "block_ids": [
+                31,
+                35
+            ],
             "allowed_block_definitions": true,
             "linked_layout_id": null,
             "linked_zone_identifier": null
@@ -36,7 +41,9 @@
             "identifier": "top",
             "name": "Top",
             "block_ids": [],
-            "allowed_block_definitions": ["title"],
+            "allowed_block_definitions": [
+                "title"
+            ],
             "linked_layout_id": null,
             "linked_zone_identifier": null
         }
