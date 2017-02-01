@@ -39,7 +39,7 @@ class SqliteTest extends TestCase
      */
     public function testGetAutoIncrementValue()
     {
-        $this->assertEquals(38, $this->helper->getAutoIncrementValue('ngbm_block'));
+        $this->assertEquals(39, $this->helper->getAutoIncrementValue('ngbm_block'));
     }
 
     /**
@@ -48,6 +48,6 @@ class SqliteTest extends TestCase
      */
     public function testLastInsertId()
     {
-        $this->assertEquals(37, $this->helper->lastInsertId('ngbm_block'));
+        $this->assertEquals(38, $this->helper->lastInsertId('ngbm_block'));
     }
 }

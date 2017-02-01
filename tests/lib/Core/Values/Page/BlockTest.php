@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Core\Values\Page;
 
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\Page\Block;
+use Netgen\BlockManager\Core\Values\Page\Placeholder;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use PHPUnit\Framework\TestCase;
@@ -17,6 +18,9 @@ class BlockTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getParameters
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getParameter
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::hasParameter
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getPlaceholders
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getPlaceholder
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::hasPlaceholder
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getViewType
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getItemViewType
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getName
@@ -31,6 +35,8 @@ class BlockTest extends TestCase
         $this->assertNull($block->getDefinition());
         $this->assertEquals(array(), $block->getParameters());
         $this->assertFalse($block->hasParameter('test'));
+        $this->assertEquals(array(), $block->getPlaceholders());
+        $this->assertFalse($block->hasPlaceholder('test'));
         $this->assertNull($block->getViewType());
         $this->assertNull($block->getItemViewType());
         $this->assertNull($block->getName());
@@ -39,6 +45,12 @@ class BlockTest extends TestCase
 
         try {
             $block->getParameter('test');
+        } catch (InvalidArgumentException $e) {
+            // Do nothing
+        }
+
+        try {
+            $block->getPlaceholder('test');
         } catch (InvalidArgumentException $e) {
             // Do nothing
         }
@@ -51,6 +63,9 @@ class BlockTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getParameters
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getParameter
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::hasParameter
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getPlaceholders
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getPlaceholder
+     * @covers \Netgen\BlockManager\Core\Values\Page\Block::hasPlaceholder
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getViewType
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getItemViewType
      * @covers \Netgen\BlockManager\Core\Values\Page\Block::getName
@@ -63,15 +78,18 @@ class BlockTest extends TestCase
             array(
                 'id' => 42,
                 'definition' => new BlockDefinition('text'),
-                'parameters' => array(
-                    'some_param' => 'some_value',
-                    'some_other_param' => 'some_other_value',
-                ),
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
                 'name' => 'My block',
                 'status' => Value::STATUS_PUBLISHED,
                 'published' => true,
+                'placeholders' => array(
+                    'main' => new Placeholder(array('identifier' => 'main')),
+                ),
+                'parameters' => array(
+                    'some_param' => 'some_value',
+                    'some_other_param' => 'some_other_value',
+                ),
             )
         );
 
@@ -80,6 +98,9 @@ class BlockTest extends TestCase
         $this->assertEquals('some_value', $block->getParameter('some_param'));
         $this->assertFalse($block->hasParameter('test'));
         $this->assertTrue($block->hasParameter('some_param'));
+        $this->assertEquals(new Placeholder(array('identifier' => 'main')), $block->getPlaceholder('main'));
+        $this->assertFalse($block->hasPlaceholder('test'));
+        $this->assertTrue($block->hasPlaceholder('main'));
         $this->assertEquals('default', $block->getViewType());
         $this->assertEquals('standard', $block->getItemViewType());
         $this->assertEquals('My block', $block->getName());
@@ -96,6 +117,19 @@ class BlockTest extends TestCase
 
         try {
             $block->getParameter('test');
+        } catch (InvalidArgumentException $e) {
+            // Do nothing
+        }
+
+        $this->assertEquals(
+            array(
+                'main' => new Placeholder(array('identifier' => 'main')),
+            ),
+            $block->getPlaceholders()
+        );
+
+        try {
+            $block->getPlaceholder('test');
         } catch (InvalidArgumentException $e) {
             // Do nothing
         }

@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 
 use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
 use Netgen\BlockManager\API\Values\Page\CollectionReference as APICollectionReference;
+use Netgen\BlockManager\API\Values\Page\Placeholder;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Persistence\Values\Page\Block;
@@ -26,6 +27,7 @@ abstract class BlockMapperTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\Mapper\Mapper::__construct
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::__construct
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlock
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapPlaceholders
      */
     public function testMapBlock()
     {
@@ -33,13 +35,14 @@ abstract class BlockMapperTest extends ServiceTestCase
             array(
                 'id' => 31,
                 'definitionIdentifier' => 'text',
-                'parameters' => array(
-                    'some_param' => 'some_value',
-                ),
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
                 'name' => 'My block',
                 'status' => Value::STATUS_PUBLISHED,
+                'parameters' => array(
+                    'css_class' => 'test',
+                    'some_param' => 'some_value',
+                ),
             )
         );
 
@@ -65,8 +68,8 @@ abstract class BlockMapperTest extends ServiceTestCase
                         'name' => 'css_class',
                         'parameter' => $block->getDefinition()->getParameters()['css_class'],
                         'parameterType' => $this->parameterTypeRegistry->getParameterType('text_line'),
-                        'value' => null,
-                        'isEmpty' => true,
+                        'value' => 'test',
+                        'isEmpty' => false,
                     )
                 ),
                 'css_id' => new ParameterValue(
@@ -80,6 +83,71 @@ abstract class BlockMapperTest extends ServiceTestCase
                 ),
             ),
             $block->getParameters()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\Mapper::__construct
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::__construct
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlock
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapPlaceholders
+     */
+    public function testMapContainerBlock()
+    {
+        $persistenceBlock = new Block(
+            array(
+                'id' => 33,
+                'definitionIdentifier' => 'div_container',
+                'status' => Value::STATUS_PUBLISHED,
+                'parameters' => array(),
+                'placeholderParameters' => array(
+                    'main' => array(
+                        'css_class' => 'test2',
+                        'some_param' => 'some_value2',
+                    ),
+                ),
+            )
+        );
+
+        $block = $this->blockMapper->mapBlock($persistenceBlock);
+
+        $this->assertEquals(
+            $this->blockDefinitionRegistry->getBlockDefinition('div_container'),
+            $block->getDefinition()
+        );
+
+        $this->assertTrue($block->hasPlaceholder('main'));
+        $this->assertInstanceOf(Placeholder::class, $block->getPlaceholder('main'));
+
+        $placeholder = $block->getPlaceholder('main');
+        $placeholderDefinition = $block->getDefinition()->getPlaceholder('main');
+
+        $this->assertEquals('main', $placeholder->getIdentifier());
+        $this->assertCount(1, $placeholder->getBlocks());
+        $this->assertInstanceOf(APIBlock::class, $placeholder->getBlocks()[0]);
+
+        $this->assertEquals(
+            array(
+                'css_class' => new ParameterValue(
+                    array(
+                        'name' => 'css_class',
+                        'parameter' => $placeholderDefinition->getParameters()['css_class'],
+                        'parameterType' => $this->parameterTypeRegistry->getParameterType('text_line'),
+                        'value' => 'test2',
+                        'isEmpty' => false,
+                    )
+                ),
+                'css_id' => new ParameterValue(
+                    array(
+                        'name' => 'css_id',
+                        'parameter' => $placeholderDefinition->getParameters()['css_id'],
+                        'parameterType' => $this->parameterTypeRegistry->getParameterType('text_line'),
+                        'value' => null,
+                        'isEmpty' => true,
+                    )
+                ),
+            ),
+            $placeholder->getParameters()
         );
     }
 

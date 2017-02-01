@@ -33,6 +33,7 @@ class ServiceTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\Service::__construct
      * @covers \Netgen\BlockManager\Core\Service\Service::beginTransaction
      */
     public function testBeginTransaction()

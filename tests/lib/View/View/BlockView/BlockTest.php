@@ -44,7 +44,7 @@ class BlockTest extends TestCase
         $this->assertNull($block->getStatus());
         $this->assertNull($block->isPublished());
         $this->assertFalse($block->hasPlaceholder('test'));
-        $this->assertNull($block->getPlaceholders());
+        $this->assertEquals(array(), $block->getPlaceholders());
         $this->assertNull($block->getDynamicParameter('dynamic'));
         $this->assertFalse($block->hasDynamicParameter('dynamic'));
 

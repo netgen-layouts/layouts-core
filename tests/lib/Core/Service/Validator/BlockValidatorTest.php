@@ -4,15 +4,13 @@ namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
 use Netgen\BlockManager\API\Values\Page\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct;
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
+use Netgen\BlockManager\API\Values\Page\PlaceholderCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Exception\ValidationFailedException;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition as BlockDefinitionStub;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithRequiredParameter;
+use Netgen\BlockManager\Tests\Block\Stubs\ContainerBlockDefinitionHandler;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
@@ -47,6 +45,7 @@ class BlockValidatorTest extends TestCase
      * @param bool $isValid
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\BlockValidator::validateBlockCreateStruct
+     * @covers \Netgen\BlockManager\Core\Service\Validator\BlockValidator::validatePlaceholderCreateStruct
      * @dataProvider validateBlockCreateStructDataProvider
      * @doesNotPerformAssertions
      */
@@ -325,6 +324,32 @@ class BlockValidatorTest extends TestCase
                 ),
                 false,
             ),
+
+            // Container block definitions
+
+            array(
+                array(
+                    'definition' => $this->getContainerBlockDefinition(),
+                    'viewType' => 'large',
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
+                    'parameterValues' => array(
+                        'css_class' => 'class',
+                        'css_id' => 'id',
+                    ),
+                    'placeholderStructs' => array(
+                        'main' => new PlaceholderCreateStruct(
+                            array(
+                                'parameterValues' => array(
+                                    'css_class' => 'class',
+                                    'css_id' => 'id',
+                                ),
+                            )
+                        ),
+                    ),
+                ),
+                true,
+            ),
         );
     }
 
@@ -539,42 +564,30 @@ class BlockValidatorTest extends TestCase
     }
 
     /**
-     * @return \Netgen\BlockManager\Block\BlockDefinition
+     * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
     protected function getBlockDefinition()
     {
-        $config = new Configuration(
-            array(
-                'identifier' => 'def',
-                'forms' => array(),
-                'viewTypes' => array(
-                    'large' => new ViewType(
-                        array(
-                            'identifier' => 'large',
-                            'name' => 'Large',
-                            'itemViewTypes' => array(
-                                'standard' => new ItemViewType(
-                                    array(
-                                        'identifier' => 'standard',
-                                        'name' => 'Standard',
-                                    )
-                                ),
-                            ),
-                        )
-                    ),
-                ),
-            )
-        );
-
         $handler = new BlockDefinitionHandlerWithRequiredParameter();
 
-        return new BlockDefinition(
-            array(
-                'identifier' => 'block',
-                'handler' => $handler,
-                'config' => $config,
-                'parameters' => $handler->getParameters(),
-            )
+        return new BlockDefinitionStub(
+            'block',
+            array('large' => array('standard')),
+            $handler
+        );
+    }
+
+    /**
+     * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
+     */
+    protected function getContainerBlockDefinition()
+    {
+        $handler = new ContainerBlockDefinitionHandler(array(), array('main'));
+
+        return new BlockDefinitionStub(
+            'block',
+            array('large' => array('standard')),
+            $handler
         );
     }
 }

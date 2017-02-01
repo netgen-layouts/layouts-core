@@ -523,11 +523,11 @@ class BlockService extends Service implements BlockServiceInterface
     public function moveBlock(Block $block, Block $targetBlock, $placeholder, $position)
     {
         if ($block->isPublished()) {
-            throw new BadStateException('block', 'Only draft blocks can be copied.');
+            throw new BadStateException('block', 'Only draft blocks can be moved.');
         }
 
         if ($targetBlock->isPublished()) {
-            throw new BadStateException('targetBlock', 'You can only copy blocks to draft blocks.');
+            throw new BadStateException('targetBlock', 'You can only move blocks to draft blocks.');
         }
 
         $this->blockValidator->validateIdentifier($placeholder, 'placeholder', true);

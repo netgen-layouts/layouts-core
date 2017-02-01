@@ -83,14 +83,12 @@ class BlockValidator extends Validator
 
         if ($blockCreateStruct->definition->isContainer()) {
             foreach ($blockCreateStruct->definition->getPlaceholders() as $placeholderDefinition) {
-                if (!$blockCreateStruct->hasPlaceholderStruct($placeholderDefinition->getIdentifier())) {
-                    continue;
+                if ($blockCreateStruct->hasPlaceholderStruct($placeholderDefinition->getIdentifier())) {
+                    $this->validatePlaceholderCreateStruct(
+                        $blockCreateStruct->getPlaceholderStruct($placeholderDefinition->getIdentifier()),
+                        $placeholderDefinition
+                    );
                 }
-
-                $this->validatePlaceholderCreateStruct(
-                    $blockCreateStruct->getPlaceholderStruct($placeholderDefinition->getIdentifier()),
-                    $placeholderDefinition
-                );
             }
         }
     }
@@ -125,7 +123,7 @@ class BlockValidator extends Validator
      *
      * @throws \Netgen\BlockManager\Exception\ValidationFailedException If the validation failed
      */
-    public function validatePlaceholderCreateStruct(
+    protected function validatePlaceholderCreateStruct(
         PlaceholderCreateStruct $placeholderCreateStruct,
         PlaceholderDefinitionInterface $placeholderDefinition
     ) {

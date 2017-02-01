@@ -18,7 +18,7 @@ class Placeholder extends ValueObject implements APIPlaceholder
     /**
      * @var \Netgen\BlockManager\API\Values\Page\Block[]
      */
-    protected $blocks;
+    protected $blocks = array();
 
     /**
      * Returns the placeholder identifier.

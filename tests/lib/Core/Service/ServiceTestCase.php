@@ -163,7 +163,7 @@ abstract class ServiceTestCase extends TestCase
         $blockDefinition5 = new BlockDefinition(
             'div_container',
             array('div_container' => array('standard')),
-            new ContainerBlockDefinitionHandler(array(), array('main'))
+            new ContainerBlockDefinitionHandler(array(), array('main', 'other'))
         );
 
         $this->blockDefinitionRegistry = new BlockDefinitionRegistry();

@@ -2,18 +2,17 @@
 
 namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
 
-use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\Core\Values\Page\Block;
 use Netgen\BlockManager\Core\Values\Page\Placeholder;
 use Netgen\BlockManager\Parameters\ParameterValue;
-use Netgen\BlockManager\Serializer\V1\ValueNormalizer\BlockNormalizer;
+use Netgen\BlockManager\Serializer\V1\ValueNormalizer\PlaceholderNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
+use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Serializer;
 
-class BlockNormalizerTest extends TestCase
+class PlaceholderNormalizerTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -21,41 +20,28 @@ class BlockNormalizerTest extends TestCase
     protected $serializerMock;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $blockServiceMock;
-
-    /**
-     * @var \Netgen\BlockManager\Serializer\V1\ValueNormalizer\BlockNormalizer
+     * @var \Netgen\BlockManager\Serializer\V1\ValueNormalizer\PlaceholderNormalizer
      */
     protected $normalizer;
 
     public function setUp()
     {
         $this->serializerMock = $this->createMock(Serializer::class);
-        $this->blockServiceMock = $this->createMock(BlockService::class);
 
-        $this->normalizer = new BlockNormalizer($this->blockServiceMock);
+        $this->normalizer = new PlaceholderNormalizer();
         $this->normalizer->setSerializer($this->serializerMock);
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\BlockNormalizer::__construct
-     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\BlockNormalizer::normalize
+     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\PlaceholderNormalizer::normalize
      */
     public function testNormalize()
     {
-        $block = new Block(
+        $placeholder = new Placeholder(
             array(
-                'id' => 42,
-                'definition' => new BlockDefinition('text'),
-                'viewType' => 'default',
-                'itemViewType' => 'standard',
-                'status' => Value::STATUS_PUBLISHED,
-                'published' => true,
-                'name' => 'My block',
-                'placeholders' => array(
-                    'main' => new Placeholder(array('identifier' => 'main')),
+                'identifier' => 'main',
+                'blocks' => array(
+                    new Block(),
                 ),
                 'parameters' => array(
                     'some_param' => new ParameterValue(
@@ -87,30 +73,16 @@ class BlockNormalizerTest extends TestCase
         $this->serializerMock
             ->expects($this->at(1))
             ->method('normalize')
-            ->with($this->equalTo(array(new VersionedValue(new Placeholder(array('identifier' => 'main')), 1))))
-            ->will($this->returnValue(array('normalized placeholders')));
-
-        $this->blockServiceMock
-            ->expects($this->once())
-            ->method('hasPublishedState')
-            ->with($this->equalTo($block))
-            ->will($this->returnValue(true));
+            ->with($this->equalTo(array(new View(new Block(), 1))))
+            ->will($this->returnValue(array('normalized blocks')));
 
         $this->assertEquals(
             array(
-                'id' => $block->getId(),
-                'definition_identifier' => $block->getDefinition()->getIdentifier(),
-                'name' => $block->getName(),
+                'identifier' => 'main',
                 'parameters' => $serializedParams,
-                'view_type' => $block->getViewType(),
-                'item_view_type' => $block->getItemViewType(),
-                'published' => true,
-                'has_published_state' => true,
-                'is_container' => false,
-                'is_dynamic_container' => false,
-                'placeholders' => array('normalized placeholders'),
+                'blocks' => array('normalized blocks'),
             ),
-            $this->normalizer->normalize(new VersionedValue($block, 1))
+            $this->normalizer->normalize(new VersionedValue($placeholder, 1))
         );
     }
 
@@ -118,7 +90,7 @@ class BlockNormalizerTest extends TestCase
      * @param mixed $data
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\BlockNormalizer::supportsNormalization
+     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\PlaceholderNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
     public function testSupportsNormalization($data, $expected)
@@ -137,15 +109,15 @@ class BlockNormalizerTest extends TestCase
             array(null, false),
             array(true, false),
             array(false, false),
-            array('block', false),
+            array('placeholder', false),
             array(array(), false),
             array(42, false),
             array(42.12, false),
             array(new Value(), false),
-            array(new Block(), false),
+            array(new Placeholder(), false),
             array(new VersionedValue(new Value(), 1), false),
-            array(new VersionedValue(new Block(), 2), false),
-            array(new VersionedValue(new Block(), 1), true),
+            array(new VersionedValue(new Placeholder(), 2), false),
+            array(new VersionedValue(new Placeholder(), 1), true),
         );
     }
 }

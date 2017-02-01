@@ -7,6 +7,8 @@ use Netgen\BlockManager\API\Values\Page\Block;
 use Netgen\BlockManager\API\Values\Page\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Page\CollectionReference;
+use Netgen\BlockManager\API\Values\Page\Placeholder;
+use Netgen\BlockManager\API\Values\Page\PlaceholderCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
@@ -173,6 +175,149 @@ abstract class BlockServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
+     */
+    public function testCreateBlock()
+    {
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct(
+            $this->blockDefinitionRegistry->getBlockDefinition('list')
+        );
+
+        $targetBlock = $this->blockService->loadBlockDraft(33);
+
+        $block = $this->blockService->createBlock($blockCreateStruct, $targetBlock, 'main', 0);
+
+        $targetBlock = $this->blockService->loadBlockDraft(33);
+        $mainPlaceholder = $targetBlock->getPlaceholder('main');
+
+        $this->assertFalse($block->isPublished());
+        $this->assertInstanceOf(Block::class, $block);
+        $this->assertEquals($block->getId(), $mainPlaceholder->getBlocks()[0]->getId());
+
+        $this->assertEquals(37, $mainPlaceholder->getBlocks()[1]->getId());
+
+        $collectionReferences = $this->blockService->loadCollectionReferences($block);
+        $this->assertCount(1, $collectionReferences);
+
+        $this->assertEquals('default', $collectionReferences[0]->getIdentifier());
+        $this->assertEquals(0, $collectionReferences[0]->getOffset());
+        $this->assertNull($collectionReferences[0]->getLimit());
+
+        $collection = $this->collectionService->loadCollectionDraft(6);
+        $this->assertEquals(Collection::TYPE_MANUAL, $collection->getType());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testCreateBlockThrowsBadStateExceptionWithNonDraftTargetBlock()
+    {
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct(
+            $this->blockDefinitionRegistry->getBlockDefinition('title')
+        );
+
+        $this->blockService->createBlock(
+            $blockCreateStruct,
+            $this->blockService->loadBlock(33),
+            'main',
+            0
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testCreateBlockThrowsBadStateExceptionWithNonContainerTargetBlock()
+    {
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct(
+            $this->blockDefinitionRegistry->getBlockDefinition('title')
+        );
+
+        $this->blockService->createBlock(
+            $blockCreateStruct,
+            $this->blockService->loadBlockDraft(31),
+            'main'
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testCreateBlockThrowsBadStateExceptionWithNoPlaceholder()
+    {
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct(
+            $this->blockDefinitionRegistry->getBlockDefinition('title')
+        );
+
+        $this->blockService->createBlock(
+            $blockCreateStruct,
+            $this->blockService->loadBlockDraft(33),
+            'non_existing'
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
+     */
+    public function testCreateBlockWithNoPosition()
+    {
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct(
+            $this->blockDefinitionRegistry->getBlockDefinition('title')
+        );
+
+        $targetBlock = $this->blockService->loadBlockDraft(33);
+
+        $block = $this->blockService->createBlock($blockCreateStruct, $targetBlock, 'main');
+
+        $targetBlock = $this->blockService->loadBlockDraft(33);
+        $mainPlaceholder = $targetBlock->getPlaceholder('main');
+
+        $this->assertFalse($block->isPublished());
+        $this->assertInstanceOf(Block::class, $block);
+        $this->assertEquals($block->getId(), $mainPlaceholder->getBlocks()[1]->getId());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testCreateBlockThrowsBadStateExceptionWhenPositionIsTooLarge()
+    {
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct(
+            $this->blockDefinitionRegistry->getBlockDefinition('title')
+        );
+
+        $this->blockService->createBlock(
+            $blockCreateStruct,
+            $this->blockService->loadBlockDraft(33),
+            'main',
+            9999
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testCreateBlockThrowsBadStateExceptionWithContainerInsideContainer()
+    {
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct(
+            $this->blockDefinitionRegistry->getBlockDefinition('div_container')
+        );
+
+        $this->blockService->createBlock(
+            $blockCreateStruct,
+            $this->blockService->loadBlockDraft(33),
+            'main'
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
@@ -207,6 +352,34 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $collection = $this->collectionService->loadCollectionDraft(6);
         $this->assertEquals(Collection::TYPE_MANUAL, $collection->getType());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
+     */
+    public function testCreateBlockInZoneWithContainerBlock()
+    {
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct(
+            $this->blockDefinitionRegistry->getBlockDefinition('div_container')
+        );
+
+        $blockCreateStruct->setPlaceholderStruct('main', new PlaceholderCreateStruct());
+
+        $block = $this->blockService->createBlockInZone(
+            $blockCreateStruct,
+            $this->layoutService->loadZoneDraft(1, 'left'),
+            0
+        );
+
+        $this->assertCount(2, $block->getPlaceholders());
+
+        $this->assertTrue($block->hasPlaceholder('main'));
+        $this->assertTrue($block->hasPlaceholder('other'));
+
+        $this->assertInstanceOf(Placeholder::class, $block->getPlaceholder('main'));
+        $this->assertInstanceOf(Placeholder::class, $block->getPlaceholder('other'));
     }
 
     /**
@@ -343,7 +516,7 @@ abstract class BlockServiceTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testCreateBlockInZoneWithWithDisallowedIdentifierThrowsBadStateException()
+    public function testCreateBlockInZoneThrowsBadStateExceptionWithWithDisallowedIdentifier()
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             $this->blockDefinitionRegistry->getBlockDefinition('gallery')
@@ -525,6 +698,91 @@ abstract class BlockServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
+     */
+    public function testCopyBlock()
+    {
+        $copiedBlock = $this->blockService->copyBlock(
+            $this->blockService->loadBlockDraft(31),
+            $this->blockService->loadBlockDraft(33),
+            'main'
+        );
+
+        $this->assertFalse($copiedBlock->isPublished());
+        $this->assertInstanceOf(Block::class, $copiedBlock);
+        $this->assertEquals(39, $copiedBlock->getId());
+
+        $copiedCollection = $this->collectionService->loadCollectionDraft(4);
+        $this->assertFalse($copiedCollection->isPublished());
+        $this->assertInstanceOf(Collection::class, $copiedCollection);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testCopyBlockThrowsBadStateExceptionWithNonDraftBlock()
+    {
+        $this->blockService->copyBlock(
+            $this->blockService->loadBlock(31),
+            $this->blockService->loadBlockDraft(33),
+            'main'
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testCopyBlockThrowsBadStateExceptionWithNonDraftTargetBlock()
+    {
+        $this->blockService->copyBlock(
+            $this->blockService->loadBlockDraft(31),
+            $this->blockService->loadBlock(33),
+            'main'
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testCopyBlockThrowsBadStateExceptionWithNonContainerTargetBlock()
+    {
+        $this->blockService->copyBlock(
+            $this->blockService->loadBlockDraft(31),
+            $this->blockService->loadBlockDraft(32),
+            'main'
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testCopyBlockThrowsBadStateExceptionWithNoPalceholder()
+    {
+        $this->blockService->copyBlock(
+            $this->blockService->loadBlockDraft(31),
+            $this->blockService->loadBlockDraft(33),
+            'non_existing'
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testCopyBlockThrowsBadStateExceptionWithContainerInsideContainer()
+    {
+        $this->blockService->copyBlock(
+            $this->blockService->loadBlockDraft(33),
+            $this->blockService->loadBlockDraft(38),
+            'main'
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      */
@@ -537,7 +795,7 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $this->assertFalse($copiedBlock->isPublished());
         $this->assertInstanceOf(Block::class, $copiedBlock);
-        $this->assertEquals(38, $copiedBlock->getId());
+        $this->assertEquals(39, $copiedBlock->getId());
 
         $copiedCollection = $this->collectionService->loadCollectionDraft(4);
         $this->assertFalse($copiedCollection->isPublished());
@@ -573,11 +831,169 @@ abstract class BlockServiceTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testCopyBlockToZoneWithDisallowedIdentifierThrowsBadStateException()
+    public function testCopyBlockToZoneThrowsBadStateExceptionWithDisallowedIdentifier()
     {
         $this->blockService->copyBlockToZone(
             $this->blockService->loadBlockDraft(31),
             $this->layoutService->loadZoneDraft(1, 'bottom')
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalMoveBlock
+     */
+    public function testMoveBlock()
+    {
+        $movedBlock = $this->blockService->moveBlock(
+            $this->blockService->loadBlockDraft(32),
+            $this->blockService->loadBlockDraft(33),
+            'main',
+            0
+        );
+
+        $this->assertFalse($movedBlock->isPublished());
+        $this->assertInstanceOf(Block::class, $movedBlock);
+        $this->assertEquals(32, $movedBlock->getId());
+
+        $targetBlock = $this->blockService->loadBlockDraft(33);
+        $mainPlaceholder = $targetBlock->getPlaceholder('main');
+
+        $this->assertEquals($movedBlock->getId(), $mainPlaceholder->getBlocks()[0]->getId());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalMoveBlock
+     */
+    public function testMoveBlockToDifferentPlaceholder()
+    {
+        $movedBlock = $this->blockService->moveBlock(
+            $this->blockService->loadBlockDraft(37),
+            $this->blockService->loadBlockDraft(33),
+            'other',
+            0
+        );
+
+        $this->assertFalse($movedBlock->isPublished());
+        $this->assertInstanceOf(Block::class, $movedBlock);
+        $this->assertEquals(37, $movedBlock->getId());
+
+        $targetBlock = $this->blockService->loadBlockDraft(33);
+        $mainPlaceholder = $targetBlock->getPlaceholder('main');
+        $otherPlaceholder = $targetBlock->getPlaceholder('other');
+
+        $this->assertEmpty($mainPlaceholder->getBlocks());
+        $this->assertEquals($movedBlock->getId(), $otherPlaceholder->getBlocks()[0]->getId());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalMoveBlock
+     */
+    public function testMoveBlockToDifferentBlock()
+    {
+        $movedBlock = $this->blockService->moveBlock(
+            $this->blockService->loadBlockDraft(37),
+            $this->blockService->loadBlockDraft(38),
+            'main',
+            0
+        );
+
+        $this->assertFalse($movedBlock->isPublished());
+        $this->assertInstanceOf(Block::class, $movedBlock);
+        $this->assertEquals(37, $movedBlock->getId());
+
+        $originalBlock = $this->blockService->loadBlockDraft(33);
+        $targetBlock = $this->blockService->loadBlockDraft(38);
+        $originalPlaceholder = $originalBlock->getPlaceholder('main');
+        $targetPlaceholder = $targetBlock->getPlaceholder('main');
+
+        $this->assertEmpty($originalPlaceholder->getBlocks());
+        $this->assertEquals($movedBlock->getId(), $targetPlaceholder->getBlocks()[0]->getId());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testMoveBlockThrowsBadStateExceptionWithNonDraftBlock()
+    {
+        $this->blockService->moveBlock(
+            $this->blockService->loadBlock(31),
+            $this->blockService->loadBlockDraft(33),
+            'main',
+            0
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testMoveBlockThrowsBadStateExceptionWithNonDraftTargetBlock()
+    {
+        $this->blockService->moveBlock(
+            $this->blockService->loadBlockDraft(31),
+            $this->blockService->loadBlock(33),
+            'main',
+            0
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testMoveBlockThrowsBadStateExceptionWhenTargetBlockIsNotContainer()
+    {
+        $this->blockService->moveBlock(
+            $this->blockService->loadBlockDraft(32),
+            $this->blockService->loadBlockDraft(31),
+            'main',
+            0
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testMoveBlockThrowsBadStateExceptionWithNoPlaceholder()
+    {
+        $this->blockService->moveBlock(
+            $this->blockService->loadBlockDraft(31),
+            $this->blockService->loadBlockDraft(33),
+            'non_existing',
+            0
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testMoveBlockThrowsBadStateExceptionWithContainerInsideContainer()
+    {
+        $this->blockService->moveBlock(
+            $this->blockService->loadBlockDraft(33),
+            $this->blockService->loadBlockDraft(38),
+            'main',
+            0
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     */
+    public function testMoveBlockThrowsBadStateExceptionWhenPositionIsTooLarge()
+    {
+        $this->blockService->moveBlock(
+            $this->blockService->loadBlockDraft(32),
+            $this->blockService->loadBlockDraft(33),
+            'main',
+            9999
         );
     }
 
@@ -684,7 +1100,7 @@ abstract class BlockServiceTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testMoveBlockToZoneWithDisallowedIdentifierThrowsBadStateException()
+    public function testMoveBlockToZoneThrowsBadStateExceptionWithDisallowedIdentifier()
     {
         $this->blockService->moveBlockToZone(
             $this->blockService->loadBlockDraft(31),

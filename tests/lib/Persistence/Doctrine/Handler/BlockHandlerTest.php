@@ -359,10 +359,10 @@ class BlockHandlerTest extends TestCase
         $this->assertEquals(
             new Block(
                 array(
-                    'id' => 38,
+                    'id' => 39,
                     'layoutId' => 1,
                     'depth' => 1,
-                    'path' => '/3/38/',
+                    'path' => '/3/39/',
                     'parentId' => 3,
                     'placeholder' => 'root',
                     'position' => 0,
@@ -421,10 +421,10 @@ class BlockHandlerTest extends TestCase
         $this->assertEquals(
             new Block(
                 array(
-                    'id' => 38,
+                    'id' => 39,
                     'layoutId' => 1,
                     'depth' => 0,
-                    'path' => '/38/',
+                    'path' => '/39/',
                     'parentId' => null,
                     'placeholder' => null,
                     'position' => null,
@@ -475,10 +475,10 @@ class BlockHandlerTest extends TestCase
         $this->assertEquals(
             new Block(
                 array(
-                    'id' => 38,
+                    'id' => 39,
                     'layoutId' => 1,
                     'depth' => 1,
-                    'path' => '/3/38/',
+                    'path' => '/3/39/',
                     'parentId' => 3,
                     'placeholder' => 'root',
                     'position' => 2,
@@ -781,10 +781,10 @@ class BlockHandlerTest extends TestCase
         $this->assertEquals(
             new Block(
                 array(
-                    'id' => 38,
+                    'id' => 39,
                     'layoutId' => 1,
                     'depth' => 1,
-                    'path' => '/3/38/',
+                    'path' => '/3/39/',
                     'parentId' => 3,
                     'placeholder' => 'root',
                     'position' => 2,
@@ -806,7 +806,7 @@ class BlockHandlerTest extends TestCase
             array(
                 new CollectionReference(
                     array(
-                        'blockId' => 38,
+                        'blockId' => 39,
                         'blockStatus' => Value::STATUS_DRAFT,
                         'collectionId' => 7,
                         'collectionStatus' => Value::STATUS_DRAFT,
@@ -817,7 +817,7 @@ class BlockHandlerTest extends TestCase
                 ),
                 new CollectionReference(
                     array(
-                        'blockId' => 38,
+                        'blockId' => 39,
                         'blockStatus' => Value::STATUS_DRAFT,
                         'collectionId' => 3,
                         'collectionStatus' => Value::STATUS_PUBLISHED,
@@ -847,13 +847,13 @@ class BlockHandlerTest extends TestCase
         $this->assertEquals(
             new Block(
                 array(
-                    'id' => 38,
+                    'id' => 39,
                     'layoutId' => 2,
                     'depth' => 1,
-                    'path' => '/7/38/',
+                    'path' => '/7/39/',
                     'parentId' => 7,
                     'placeholder' => 'root',
-                    'position' => 2,
+                    'position' => 3,
                     'definitionIdentifier' => 'div_container',
                     'viewType' => 'div_container',
                     'itemViewType' => 'standard',
@@ -868,16 +868,16 @@ class BlockHandlerTest extends TestCase
             $copiedBlock
         );
 
-        $copiedSubBlock = $this->blockHandler->loadBlock(39, Value::STATUS_DRAFT);
+        $copiedSubBlock = $this->blockHandler->loadBlock(40, Value::STATUS_DRAFT);
 
         $this->assertEquals(
             new Block(
                 array(
-                    'id' => 39,
+                    'id' => 40,
                     'layoutId' => 2,
                     'depth' => 2,
-                    'path' => '/7/38/39/',
-                    'parentId' => 38,
+                    'path' => '/7/39/40/',
+                    'parentId' => 39,
                     'placeholder' => 'main',
                     'position' => 0,
                     'definitionIdentifier' => 'text',
@@ -898,7 +898,7 @@ class BlockHandlerTest extends TestCase
             array(
                 new CollectionReference(
                     array(
-                        'blockId' => 39,
+                        'blockId' => 40,
                         'blockStatus' => Value::STATUS_DRAFT,
                         'collectionId' => 7,
                         'collectionStatus' => Value::STATUS_DRAFT,
@@ -928,10 +928,10 @@ class BlockHandlerTest extends TestCase
         $this->assertEquals(
             new Block(
                 array(
-                    'id' => 38,
+                    'id' => 39,
                     'layoutId' => 2,
                     'depth' => 1,
-                    'path' => '/8/38/',
+                    'path' => '/8/39/',
                     'parentId' => 8,
                     'placeholder' => 'root',
                     'position' => 0,
@@ -953,7 +953,7 @@ class BlockHandlerTest extends TestCase
             array(
                 new CollectionReference(
                     array(
-                        'blockId' => 38,
+                        'blockId' => 39,
                         'blockStatus' => Value::STATUS_DRAFT,
                         'collectionId' => 7,
                         'collectionStatus' => Value::STATUS_DRAFT,
@@ -964,7 +964,7 @@ class BlockHandlerTest extends TestCase
                 ),
                 new CollectionReference(
                     array(
-                        'blockId' => 38,
+                        'blockId' => 39,
                         'blockStatus' => Value::STATUS_DRAFT,
                         'collectionId' => 3,
                         'collectionStatus' => Value::STATUS_PUBLISHED,

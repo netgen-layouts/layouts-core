@@ -87,50 +87,6 @@ class BlockMapper extends Mapper
     }
 
     /**
-     * Maps the placeholder from persistence parameters.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition
-     *
-     * @return \Netgen\BlockManager\Core\Values\Page\Placeholder[]
-     */
-    public function mapPlaceholders(PersistenceBlock $block, BlockDefinitionInterface $blockDefinition)
-    {
-        if (!$blockDefinition->isContainer()) {
-            return array();
-        }
-
-        $childBlocks = $this->persistenceHandler->getBlockHandler()->loadChildBlocks($block);
-
-        $placeholders = array();
-        foreach ($blockDefinition->getPlaceholders() as $identifier => $placeholderDefinition) {
-            $placeholderBlocks = array();
-            foreach ($childBlocks as $childBlock) {
-                if ($childBlock->placeholder !== $identifier) {
-                    continue;
-                }
-
-                $placeholderBlocks[] = $this->mapBlock($childBlock);
-            }
-
-            $placeholders[$identifier] = new Placeholder(
-                array(
-                    'identifier' => $placeholderDefinition->getIdentifier(),
-                    'blocks' => $placeholderBlocks,
-                    'parameters' => $this->parameterMapper->mapParameters(
-                        $placeholderDefinition,
-                        isset($block->placeholderParameters[$identifier]) ?
-                            $block->placeholderParameters[$identifier] :
-                            array()
-                    ),
-                )
-            );
-        }
-
-        return $placeholders;
-    }
-
-    /**
      * Builds the API collection reference value object from persistence one.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
@@ -154,5 +110,47 @@ class BlockMapper extends Mapper
                 'limit' => $collectionReference->limit,
             )
         );
+    }
+
+    /**
+     * Maps the placeholder from persistence parameters.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition
+     *
+     * @return \Netgen\BlockManager\Core\Values\Page\Placeholder[]
+     */
+    protected function mapPlaceholders(PersistenceBlock $block, BlockDefinitionInterface $blockDefinition)
+    {
+        if (!$blockDefinition->isContainer()) {
+            return array();
+        }
+
+        $childBlocks = $this->persistenceHandler->getBlockHandler()->loadChildBlocks($block);
+
+        $placeholders = array();
+        foreach ($blockDefinition->getPlaceholders() as $identifier => $placeholderDefinition) {
+            $placeholderBlocks = array();
+            foreach ($childBlocks as $childBlock) {
+                if ($childBlock->placeholder === $identifier) {
+                    $placeholderBlocks[] = $this->mapBlock($childBlock);
+                }
+            }
+
+            $placeholders[$identifier] = new Placeholder(
+                array(
+                    'identifier' => $placeholderDefinition->getIdentifier(),
+                    'blocks' => $placeholderBlocks,
+                    'parameters' => $this->parameterMapper->mapParameters(
+                        $placeholderDefinition,
+                        isset($block->placeholderParameters[$identifier]) ?
+                            $block->placeholderParameters[$identifier] :
+                            array()
+                    ),
+                )
+            );
+        }
+
+        return $placeholders;
     }
 }

@@ -44,7 +44,7 @@ class Block extends ValueObject implements APIBlock
     /**
      * @var \Netgen\BlockManager\API\Values\Page\Placeholder[]
      */
-    protected $placeholders;
+    protected $placeholders = array();
 
     /**
      * @var int

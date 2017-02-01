@@ -15,6 +15,7 @@ use Netgen\BlockManager\Persistence\Values\Page\CollectionReference as Persisten
 use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone as PersistenceZone;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
+use Netgen\BlockManager\Tests\Block\Stubs\ContainerBlockDefinitionHandler;
 
 class BlockServiceTest extends ServiceTestCase
 {
@@ -34,7 +35,45 @@ class BlockServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
+     * @expectedException \Exception
+     */
+    public function testCreateBlock()
+    {
+        $this->blockHandlerMock
+            ->expects($this->at(0))
+            ->method('loadBlock')
+            ->will($this->returnValue(new PersistenceBlock()));
+
+        $this->blockHandlerMock
+            ->expects($this->at(1))
+            ->method('createBlock')
+            ->will($this->throwException(new Exception()));
+
+        $this->persistenceHandler
+            ->expects($this->once())
+            ->method('rollbackTransaction');
+
+        $this->blockService->createBlock(
+            new BlockCreateStruct(array('definition' => new BlockDefinition('blockDef'))),
+            new Block(
+                array(
+                    'published' => false,
+                    'definition' => new BlockDefinition(
+                        'blockDef',
+                        array(),
+                        new ContainerBlockDefinitionHandler(array(), array('main'))
+                    ),
+                )
+            ),
+            'main'
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
      * @expectedException \Exception
      */
     public function testCreateBlockInZone()
@@ -141,6 +180,47 @@ class BlockServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
+     * @expectedException \Exception
+     */
+    public function testCopyBlock()
+    {
+        $this->blockHandlerMock
+            ->expects($this->at(0))
+            ->method('loadBlock')
+            ->will($this->returnValue(new PersistenceBlock()));
+
+        $this->blockHandlerMock
+            ->expects($this->at(1))
+            ->method('loadBlock')
+            ->will($this->returnValue(new PersistenceBlock()));
+
+        $this->blockHandlerMock
+            ->expects($this->at(2))
+            ->method('copyBlock')
+            ->will($this->throwException(new Exception()));
+
+        $this->persistenceHandler
+            ->expects($this->once())
+            ->method('rollbackTransaction');
+
+        $this->blockService->copyBlock(
+            new Block(array('published' => false, 'definition' => new BlockDefinition('blockDef'))),
+            new Block(
+                array(
+                    'published' => false,
+                    'definition' => new BlockDefinition(
+                        'blockDef',
+                        array(),
+                        new ContainerBlockDefinitionHandler(array(), array('main'))
+                    ),
+                )
+            ),
+            'main'
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
      * @expectedException \Exception
      */
@@ -183,6 +263,50 @@ class BlockServiceTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalMoveBlock
+     * @expectedException \Exception
+     */
+    public function testMoveBlock()
+    {
+        $this->blockHandlerMock
+            ->expects($this->at(0))
+            ->method('loadBlock')
+            ->will($this->returnValue(new PersistenceBlock(array('parentId' => 1, 'placeholder' => 'main'))));
+
+        $this->blockHandlerMock
+            ->expects($this->at(1))
+            ->method('loadBlock')
+            ->will($this->returnValue(new PersistenceBlock(array('id' => 1))));
+
+        $this->blockHandlerMock
+            ->expects($this->at(2))
+            ->method('moveBlockToPosition')
+            ->will($this->throwException(new Exception()));
+
+        $this->persistenceHandler
+            ->expects($this->once())
+            ->method('rollbackTransaction');
+
+        $this->blockService->moveBlock(
+            new Block(array('published' => false, 'definition' => new BlockDefinition('blockDef'))),
+            new Block(
+                array(
+                    'published' => false,
+                    'definition' => new BlockDefinition(
+                        'blockDef',
+                        array(),
+                        new ContainerBlockDefinitionHandler(array(), array('main'))
+                    ),
+                )
+            ),
+            'main',
+            0
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalMoveBlock
      * @expectedException \Exception
      */
     public function testMoveBlockToZone()
