@@ -4,15 +4,11 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller;
 
 use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-abstract class Controller extends BaseController implements ContainerAwareInterface
+abstract class Controller extends BaseController
 {
-    use ContainerAwareTrait;
-
     /**
      * Initializes the controller by setting the container and performing basic access checks.
      *
