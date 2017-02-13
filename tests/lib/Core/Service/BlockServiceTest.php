@@ -760,7 +760,7 @@ abstract class BlockServiceTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      */
-    public function testCopyBlockThrowsBadStateExceptionWithNoPalceholder()
+    public function testCopyBlockThrowsBadStateExceptionWithNoPlaceholder()
     {
         $this->blockService->copyBlock(
             $this->blockService->loadBlockDraft(31),

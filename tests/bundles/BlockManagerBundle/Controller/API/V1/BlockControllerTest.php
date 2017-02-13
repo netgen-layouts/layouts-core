@@ -819,6 +819,270 @@ class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copy
+     */
+    public function testCopy()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'block_id' => 33,
+                'placeholder' => 'main',
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/31/copy?html=false',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertResponse(
+            $this->client->getResponse(),
+            'v1/blocks/copy_block',
+            Response::HTTP_CREATED
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copy
+     */
+    public function testCopyWithNonExistentBlock()
+    {
+        $data = $this->jsonEncode(array());
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/9999/copy',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_NOT_FOUND
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copy
+     */
+    public function testCopyWithNonExistentTargetBlock()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'block_id' => 9999,
+                'placeholder' => 'main',
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/31/copy',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_NOT_FOUND
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copy
+     */
+    public function testCopyWithNonExistentPlaceholder()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'block_id' => 33,
+                'placeholder' => 'unknown',
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/31/copy',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_UNPROCESSABLE_ENTITY
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copy
+     */
+    public function testCopyWithNonContainerTargetBlock()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'block_id' => 37,
+                'placeholder' => 'main',
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/31/copy',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_UNPROCESSABLE_ENTITY
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copy
+     */
+    public function testCopyWithContainerInsideContainer()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'block_id' => 38,
+                'placeholder' => 'main',
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/33/copy',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_UNPROCESSABLE_ENTITY
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copy
+     */
+    public function testCopyWithInvalidBlockId()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'block_id' => array(),
+                'placeholder' => 'main',
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/31/copy',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_BAD_REQUEST
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copy
+     */
+    public function testCopyWithInvalidPlaceholder()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'block_id' => 33,
+                'placeholder' => 42,
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/31/copy',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_BAD_REQUEST
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copy
+     */
+    public function testCopyWithMissingBlockId()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'placeholder' => 'main',
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/31/copy',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_BAD_REQUEST
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copy
+     */
+    public function testCopyWithMissingPlaceholder()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'block_id' => 33,
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/31/copy',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_BAD_REQUEST
+        );
+    }
+
+    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::copyToZone
      */
     public function testCopyToZone()
@@ -1301,8 +1565,8 @@ class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             array(
-                'block_id' => '33',
-                'placeholder' => 42,
+                'block_id' => array(),
+                'placeholder' => 'main',
                 'position' => 1,
             )
         );
