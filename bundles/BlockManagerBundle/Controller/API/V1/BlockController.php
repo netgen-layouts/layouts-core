@@ -65,14 +65,14 @@ class BlockController extends Controller
     /**
      * Creates the block in specified block.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $targetBlock
+     * @param \Netgen\BlockManager\API\Values\Page\Block $block
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If block type does not exist
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
-    public function create(Block $targetBlock, Request $request)
+    public function create(Block $block, Request $request)
     {
         $this->validator->validateCreateBlock($request);
 
@@ -86,7 +86,7 @@ class BlockController extends Controller
 
         $createdBlock = $this->blockService->createBlock(
             $blockCreateStruct,
-            $targetBlock,
+            $block,
             $request->request->get('placeholder'),
             $request->request->get('position')
         );
