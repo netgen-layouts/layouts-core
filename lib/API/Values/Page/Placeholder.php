@@ -2,10 +2,13 @@
 
 namespace Netgen\BlockManager\API\Values\Page;
 
+use ArrayAccess;
+use Countable;
+use IteratorAggregate;
 use Netgen\BlockManager\API\Values\ParameterBasedValue;
 use Netgen\BlockManager\API\Values\Value;
 
-interface Placeholder extends Value, ParameterBasedValue
+interface Placeholder extends Value, ParameterBasedValue, ArrayAccess, IteratorAggregate, Countable
 {
     /**
      * Returns the placeholder identifier.

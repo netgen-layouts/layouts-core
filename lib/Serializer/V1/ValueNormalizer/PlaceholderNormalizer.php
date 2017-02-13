@@ -34,7 +34,7 @@ class PlaceholderNormalizer implements NormalizerInterface, SerializerAwareInter
         }
 
         $blocks = array();
-        foreach ($placeholder->getBlocks() as $block) {
+        foreach ($placeholder as $block) {
             $blocks[] = new View($block, $object->getVersion());
         }
 
