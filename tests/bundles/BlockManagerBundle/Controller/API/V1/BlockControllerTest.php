@@ -1056,6 +1056,410 @@ class BlockControllerTest extends JsonApiTestCase
     }
 
     /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     */
+    public function testMove()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'block_id' => 33,
+                'placeholder' => 'main',
+                'position' => 0,
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/32/move',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertEmptyResponse($this->client->getResponse());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     */
+    public function testMoveToDifferentPlaceholder()
+    {
+        $this->markTestIncomplete('No block with two placeholders yet');
+
+        $data = $this->jsonEncode(
+            array(
+                'block_id' => 33,
+                'placeholder' => 'other',
+                'position' => 0,
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/37/move',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertEmptyResponse($this->client->getResponse());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     */
+    public function testMoveToDifferentBlock()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'block_id' => 38,
+                'placeholder' => 'main',
+                'position' => 0,
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/37/move',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertEmptyResponse($this->client->getResponse());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     */
+    public function testMoveWithNonExistentBlock()
+    {
+        $data = $this->jsonEncode(array());
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/9999/move/zone',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_NOT_FOUND
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     */
+    public function testMoveWithNonExistentTargetBlock()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'block_id' => 9999,
+                'placeholder' => 'main',
+                'position' => 1,
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/32/move',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_NOT_FOUND
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     */
+    public function testMoveWithNonExistentPlaceholder()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'block_id' => 33,
+                'placeholder' => 'unknown',
+                'position' => 1,
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/32/move',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_UNPROCESSABLE_ENTITY
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     */
+    public function testMoveWithNonContainerTargetBlock()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'block_id' => 32,
+                'placeholder' => 'main',
+                'position' => 0,
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/31/move',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_UNPROCESSABLE_ENTITY
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     */
+    public function testMoveWithOutOfRangePosition()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'block_id' => 33,
+                'placeholder' => 'main',
+                'position' => 9999,
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/32/move',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_UNPROCESSABLE_ENTITY
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     */
+    public function testMoveWithContainerInsideContainer()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'block_id' => 38,
+                'placeholder' => 'main',
+                'position' => 0,
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/33/move',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_UNPROCESSABLE_ENTITY
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     */
+    public function testMoveWithInvalidBlockId()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'block_id' => '33',
+                'placeholder' => 42,
+                'position' => 1,
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/32/move',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_BAD_REQUEST
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     */
+    public function testMoveWithInvalidPlaceholder()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'block_id' => 33,
+                'placeholder' => 42,
+                'position' => 1,
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/32/move',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_BAD_REQUEST
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     */
+    public function testMoveWithInvalidPosition()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'block_id' => 33,
+                'placeholder' => 'main',
+                'position' => '1',
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/32/move',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_BAD_REQUEST
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     */
+    public function testMoveWithMissingBlockId()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'placeholder' => 'main',
+                'position' => 1,
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/32/move',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_BAD_REQUEST
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     */
+    public function testMoveWithMissingPlaceholder()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'block_id' => 33,
+                'position' => 1,
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/32/move',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_BAD_REQUEST
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::move
+     */
+    public function testMoveWithMissingPosition()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'block_id' => 33,
+                'placeholder' => 'main',
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/31/move',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_BAD_REQUEST
+        );
+    }
+
+    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::moveToZone
      */
     public function testMoveToZone()
