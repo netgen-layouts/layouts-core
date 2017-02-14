@@ -132,6 +132,7 @@ block_definitions:
 
     dynamic_container:
         name: 'Dynamic container'
+        enabled: false
         view_types:
             dynamic_container:
                 name: 'Dynamic container'
