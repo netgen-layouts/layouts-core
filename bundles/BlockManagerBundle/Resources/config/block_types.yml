@@ -52,7 +52,7 @@ block_types:
             view_type: 33_66
 
     two_columns_container_66_33:
-        name: 'Two columns container (66_33)'
+        name: 'Two columns container (66:33)'
         definition_identifier: two_columns_container
         defaults:
             view_type: 66_33
