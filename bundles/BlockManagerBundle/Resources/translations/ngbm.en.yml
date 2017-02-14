@@ -90,6 +90,10 @@ block.div_container.css_class: 'CSS class'
 block.div_container.css_id: 'CSS ID'
 block.div_container.set_container: 'Wrap in container'
 
+block.two_columns_container.css_class: 'CSS class'
+block.two_columns_container.css_id: 'CSS ID'
+block.two_columns_container.set_container: 'Wrap in container'
+
 layout_resolver.target.path_info: 'Path info'
 layout_resolver.target.path_info_prefix: 'Path info prefix'
 layout_resolver.target.request_uri: 'Request URI'
