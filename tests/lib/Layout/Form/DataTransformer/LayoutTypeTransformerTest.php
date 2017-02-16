@@ -47,6 +47,7 @@ class LayoutTypeTransformerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Form\DataTransformer\LayoutTypeTransformer::transform
      * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
+     * @expectedExceptionMessage Provided value is not a layout type.
      */
     public function testTransformThrowsException()
     {
@@ -75,6 +76,7 @@ class LayoutTypeTransformerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Form\DataTransformer\LayoutTypeTransformer::reverseTransform
      * @expectedException \Symfony\Component\Form\Exception\TransformationFailedException
+     * @expectedExceptionMessage Provided value is not a layout type.
      */
     public function testReverseTransformThrowsException()
     {

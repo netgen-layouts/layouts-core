@@ -50,6 +50,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadRule
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find rule with identifier "999999"
      */
     public function testLoadRuleThrowsNotFoundException()
     {
@@ -71,6 +72,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadRuleDraft
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find rule with identifier "999999"
      */
     public function testLoadRuleDraftThrowsNotFoundException()
     {
@@ -107,6 +109,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::getRuleCount
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "layout" has an invalid state. Only published layouts can be used in rules.
      */
     public function testGetRuleCountThrowsBadStateExceptionWithNonPublishedLayout()
     {
@@ -144,6 +147,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadTarget
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find target with identifier "999999"
      */
     public function testLoadTargetThrowsNotFoundException()
     {
@@ -164,6 +168,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadTargetDraft
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find target with identifier "999999"
      */
     public function testLoadTargetDraftThrowsNotFoundException()
     {
@@ -184,6 +189,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadCondition
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find condition with identifier "999999"
      */
     public function testLoadConditionThrowsNotFoundException()
     {
@@ -204,6 +210,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadConditionDraft
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find condition with identifier "999999"
      */
     public function testLoadConditionDraftThrowsNotFoundException()
     {
@@ -286,6 +293,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateRule
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "rule" has an invalid state. Only draft rules can be updated.
      */
     public function testUpdateRuleThrowsBadStateExceptionWithNonDraftRule()
     {
@@ -322,6 +330,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateRuleMetadata
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "rule" has an invalid state. Metadata can be updated only for published rules.
      */
     public function testUpdateRuleMetadataThrowsBadStateExceptionWithNonPublishedRule()
     {
@@ -380,6 +389,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::createDraft
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "rule" has an invalid state. Drafts can only be created from published rules.
      */
     public function testCreateDraftThrowsBadStateExceptionWithNonPublishedRule()
     {
@@ -391,6 +401,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::createDraft
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "rule" has an invalid state. The provided rule already has a draft.
      */
     public function testCreateDraftThrowsBadStateExceptionIfDraftAlreadyExists()
     {
@@ -403,6 +414,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::discardDraft
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find rule with identifier "5"
      */
     public function testDiscardDraft()
     {
@@ -415,6 +427,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::discardDraft
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "rule" has an invalid state. Only draft rules can be discarded.
      */
     public function testDiscardDraftThrowsBadStateExceptionWithNonDraftRule()
     {
@@ -499,6 +512,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::publishRule
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "rule" has an invalid state. Only draft rules can be published.
      */
     public function testPublishRuleThrowsBadStateExceptionWithNonDraftRule()
     {
@@ -509,6 +523,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteRule
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find rule with identifier "5"
      */
     public function testDeleteRule()
     {
@@ -536,6 +551,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::enableRule
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "rule" has an invalid state. Only published rules can be enabled.
      */
     public function testEnableRuleThrowsBadStateExceptionWithNonPublishedRule()
     {
@@ -547,6 +563,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::enableRule
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "rule" has an invalid state. Rule is already enabled.
      */
     public function testEnableRuleThrowsBadStateExceptionIfRuleIsAlreadyEnabled()
     {
@@ -558,6 +575,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::enableRule
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "rule" has an invalid state. Rule is missing a layout and cannot be enabled.
      */
     public function testEnableRuleThrowsBadStateExceptionIfRuleHasNoLayout()
     {
@@ -569,6 +587,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::enableRule
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "rule" has an invalid state. Rule is missing targets and cannot be enabled.
      */
     public function testEnableRuleThrowsBadStateExceptionIfRuleHasNoTargets()
     {
@@ -594,6 +613,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::disableRule
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "rule" has an invalid state. Only published rules can be disabled.
      */
     public function testDisableRuleThrowsBadStateExceptionWithNonPublishedRule()
     {
@@ -605,6 +625,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::disableRule
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "rule" has an invalid state. Rule is already disabled.
      */
     public function testDisableRuleThrowsBadStateExceptionIfRuleIsAlreadyDisabled()
     {
@@ -638,6 +659,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::addTarget
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "rule" has an invalid state. Targets can be added only to draft rules.
      */
     public function testAddTargetThrowsBadStateExceptionOnNonDraftRule()
     {
@@ -658,6 +680,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::addTarget
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "rule" has an invalid state. Rule with ID "5" only accepts targets with "route_prefix" target type.
      */
     public function testAddTargetOfDifferentKindThrowsBadStateException()
     {
@@ -696,6 +719,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateTarget
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "target" has an invalid state. Only draft targets can be updated.
      */
     public function testUpdateTargetThrowsBadStateExceptionOnNonDraftTarget()
     {
@@ -710,6 +734,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteTarget
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find target with identifier "9"
      */
     public function testDeleteTarget()
     {
@@ -723,6 +748,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteTarget
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "target" has an invalid state. Only draft targets can be deleted.
      */
     public function testDeleteTargetThrowsBadStateExceptionOnNonDraftTarget()
     {
@@ -756,6 +782,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::addCondition
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "rule" has an invalid state. Conditions can be added only to draft rules.
      */
     public function testAddConditionThrowsBadStateExceptionOnNonDraftRule()
     {
@@ -794,6 +821,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateCondition
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "condition" has an invalid state. Only draft conditions can be updated.
      */
     public function testUpdateConditionThrowsBadStateExceptionOnNonDraftCondition()
     {
@@ -808,6 +836,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteCondition
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find condition with identifier "4"
      */
     public function testDeleteCondition()
     {
@@ -820,6 +849,7 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteCondition
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "condition" has an invalid state. Only draft conditions can be deleted.
      */
     public function testDeleteConditionThrowsBadStateExceptionOnNonDraftCondition()
     {

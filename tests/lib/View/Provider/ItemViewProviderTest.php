@@ -47,6 +47,7 @@ class ItemViewProviderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Provider\ItemViewProvider::provideView
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage To build the item view, you need to provide the "view_type" parameter.
      */
     public function testProvideViewThrowsRuntimeExceptionOnMissingViewType()
     {
@@ -56,6 +57,7 @@ class ItemViewProviderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Provider\ItemViewProvider::provideView
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage To build the item view, "view_type" parameter needs to be a string.
      */
     public function testProvideViewThrowsRuntimeExceptionOnInvalidViewType()
     {

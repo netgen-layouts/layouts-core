@@ -15,6 +15,7 @@ class ItemBuilderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Item\ItemBuilder::__construct
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage At least one value converter needs to be defined.
      */
     public function testConstructorThrowsRuntimeExceptionWithNoValueConverters()
     {
@@ -24,6 +25,7 @@ class ItemBuilderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Item\ItemBuilder::__construct
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Value converter "stdClass" needs to implement ValueConverterInterface.
      */
     public function testConstructorThrowsRuntimeExceptionWithWrongInterface()
     {
@@ -56,6 +58,7 @@ class ItemBuilderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Item\ItemBuilder::build
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Value converter for "Netgen\BlockManager\Tests\Item\Stubs\Value" type does not exist.
      */
     public function testBuildThrowsRuntimeException()
     {

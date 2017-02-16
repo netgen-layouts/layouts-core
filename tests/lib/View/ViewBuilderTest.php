@@ -38,13 +38,14 @@ class ViewBuilderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\ViewBuilder::__construct
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage View provider "DateTime" needs to implement ViewProviderInterface.
      */
     public function testConstructorThrowsRuntimeExceptionWithNoViewProviderInterface()
     {
         new ViewBuilder(
             $this->templateResolverMock,
             $this->eventDispatcherMock,
-            array($this->createMock(DateTime::class))
+            array(new DateTime())
         );
     }
 
@@ -103,6 +104,7 @@ class ViewBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\View\ViewBuilder::buildView
      * @covers \Netgen\BlockManager\View\ViewBuilder::getViewProvider
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage No view providers found for "Netgen\BlockManager\Tests\Core\Stubs\Value" value object.
      */
     public function testBuildViewWithNoViewProviders()
     {
@@ -124,6 +126,7 @@ class ViewBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\View\ViewBuilder::buildView
      * @covers \Netgen\BlockManager\View\ViewBuilder::getViewProvider
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage No view providers found for "Netgen\BlockManager\Tests\Core\Stubs\Value" value object.
      */
     public function testBuildViewWithNoViewProvidersThatSupportValue()
     {

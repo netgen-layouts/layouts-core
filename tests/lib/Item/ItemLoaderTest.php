@@ -67,6 +67,7 @@ class ItemLoaderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Item\ItemLoader::load
      * @expectedException \Netgen\BlockManager\Exception\InvalidItemException
+     * @expectedExceptionMessage Value type "value" does not exist.
      */
     public function testLoadItemThrowsInvalidItemException()
     {
@@ -76,6 +77,7 @@ class ItemLoaderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Item\ItemLoader::load
      * @expectedException \Netgen\BlockManager\Exception\InvalidItemException
+     * @expectedExceptionMessage Value with ID 42 does not exist.
      */
     public function testLoadItemThrowsInvalidItemExceptionWithNoItem()
     {

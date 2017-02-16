@@ -38,6 +38,7 @@ class UrlBuilderPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\UrlBuilderPass::process
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Value URL builder service definition must have a 'value_type' attribute in its' tag.
      */
     public function testProcessThrowsRuntimeExceptionWithNoTagValueType()
     {

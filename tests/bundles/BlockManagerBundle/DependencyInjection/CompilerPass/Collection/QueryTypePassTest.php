@@ -73,6 +73,7 @@ class QueryTypePassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\QueryTypePass::process
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Query type handler definition must have a 'type' attribute in its' tag.
      */
     public function testProcessThrowsExceptionWithNoTagType()
     {
@@ -91,6 +92,7 @@ class QueryTypePassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\QueryTypePass::process
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Query type handler for "query_type" query type does not exist.
      */
     public function testProcessThrowsExceptionWithNoHandler()
     {
@@ -109,6 +111,7 @@ class QueryTypePassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\QueryTypePass::process
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Query type handler for "query_type" query type does not exist.
      */
     public function testProcessThrowsExceptionWithNoCustomHandler()
     {

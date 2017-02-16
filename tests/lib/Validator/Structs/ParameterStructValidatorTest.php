@@ -79,6 +79,7 @@ class ParameterStructValidatorTest extends ValidatorTestCase
     /**
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::validate
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
+     * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct", "Symfony\Component\Validator\Constraints\NotBlank" given
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint()
     {
@@ -89,6 +90,7 @@ class ParameterStructValidatorTest extends ValidatorTestCase
     /**
      * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::validate
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
+     * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\API\Values\ParameterStruct", "integer" given
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue()
     {

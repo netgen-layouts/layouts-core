@@ -46,6 +46,7 @@ class TargetTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::getTargetType
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedExceptionMessage Target type "other_type" does not exist.
      */
     public function testGetTargetTypeThrowsInvalidArgumentException()
     {

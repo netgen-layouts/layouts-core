@@ -34,6 +34,7 @@ class TargetTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType::__construct
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage "type" target type form mapper must implement FormMapperInterface interface.
      */
     public function testConstructorThrowsRuntimeException()
     {
@@ -43,6 +44,7 @@ class TargetTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType::buildForm
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Form mapper for "type" target type does not exist.
      */
     public function testBuildFormThrowsRuntimeException()
     {

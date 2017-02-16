@@ -73,6 +73,7 @@ class ItemLinkValidatorTest extends ValidatorTestCase
     /**
      * @covers \Netgen\BlockManager\Validator\Parameters\ItemLinkValidator::validate
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
+     * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\Validator\Constraint\Parameters\ItemLink", "Symfony\Component\Validator\Constraints\NotBlank" given
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint()
     {
@@ -83,6 +84,7 @@ class ItemLinkValidatorTest extends ValidatorTestCase
     /**
      * @covers \Netgen\BlockManager\Validator\Parameters\ItemLinkValidator::validate
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
+     * @expectedExceptionMessage Expected argument of type "string", "integer" given
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue()
     {

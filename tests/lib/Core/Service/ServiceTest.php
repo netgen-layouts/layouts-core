@@ -60,13 +60,14 @@ class ServiceTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Service::commitTransaction
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Test exception text
      */
     public function testCommitTransactionThrowsRuntimeException()
     {
         $this->persistenceHandlerMock
             ->expects($this->once())
             ->method('commitTransaction')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->service->commitTransaction();
     }
@@ -86,13 +87,14 @@ class ServiceTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Service::rollbackTransaction
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Test exception text
      */
     public function testRollbackTransactionThrowsRuntimeException()
     {
         $this->persistenceHandlerMock
             ->expects($this->once())
             ->method('rollbackTransaction')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->service->rollbackTransaction();
     }

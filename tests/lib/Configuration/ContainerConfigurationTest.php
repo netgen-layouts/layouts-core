@@ -76,6 +76,7 @@ class ContainerConfigurationTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Configuration\ContainerConfiguration::getParameter
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedExceptionMessage Parameter "some_param" does not exist in configuration.
      */
     public function testGetParameterThrowsOutOfBoundsException()
     {

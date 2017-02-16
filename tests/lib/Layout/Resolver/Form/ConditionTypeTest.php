@@ -34,6 +34,7 @@ class ConditionTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::__construct
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage "type" condition type form mapper must implement FormMapperInterface interface.
      */
     public function testConstructorThrowsRuntimeException()
     {
@@ -43,6 +44,7 @@ class ConditionTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::buildForm
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Form mapper for "type" condition type does not exist.
      */
     public function testBuildFormThrowsRuntimeException()
     {

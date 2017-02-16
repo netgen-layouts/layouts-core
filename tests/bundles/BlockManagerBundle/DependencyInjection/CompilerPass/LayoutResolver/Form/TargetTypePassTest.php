@@ -37,6 +37,7 @@ class TargetTypePassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\LayoutResolver\Form\TargetTypePass::process
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Target type form mapper service tags should have an "target_type" attribute.
      */
     public function testProcessThrowsExceptionWithNoTagIdentifier()
     {

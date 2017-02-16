@@ -44,6 +44,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadCollection
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find collection with identifier "999999"
      */
     public function testLoadCollectionThrowsNotFoundException()
     {
@@ -65,6 +66,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadCollectionDraft
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find collection with identifier "999999"
      */
     public function testLoadCollectionDraftThrowsNotFoundException()
     {
@@ -101,6 +103,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadItem
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find item with identifier "999999"
      */
     public function testLoadItemThrowsNotFoundException()
     {
@@ -121,6 +124,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadItemDraft
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find item with identifier "999999"
      */
     public function testLoadItemDraftThrowsNotFoundException()
     {
@@ -141,6 +145,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadQuery
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find query with identifier "999999"
      */
     public function testLoadQueryThrowsNotFoundException()
     {
@@ -161,6 +166,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadQueryDraft
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find query with identifier "999999"
      */
     public function testLoadQueryDraftThrowsNotFoundException()
     {
@@ -201,8 +207,9 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::createCollection
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "name" has an invalid state. Collection with provided name already exists.
      */
-    public function testCreateCollectionThrowsBadStateException()
+    public function testCreateCollectionThrowsBadStateExceptionWithExistingName()
     {
         $collectionCreateStruct = $this->collectionService->newCollectionCreateStruct(
             Collection::TYPE_MANUAL,
@@ -232,6 +239,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateCollection
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "collection" has an invalid state. Only draft collections can be updated.
      */
     public function testUpdateCollectionThrowsBadStateExceptionWithNonDraftCollection()
     {
@@ -249,6 +257,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateCollection
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "name" has an invalid state. Collection with provided name already exists.
      */
     public function testUpdateCollectionWithExistingNameThrowsBadStateException()
     {
@@ -313,6 +322,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::changeCollectionType
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "collection" has an invalid state. Type can be changed only for draft collections.
      */
     public function testChangeCollectionTypeThrowsBadStateExceptionWithNonDraftCollection()
     {
@@ -327,6 +337,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::changeCollectionType
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "newType" has an invalid state. New collection type must be manual or dynamic.
      */
     public function testChangeCollectionTypeThrowsBadStateExceptionWithInvalidType()
     {
@@ -345,6 +356,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::changeCollectionType
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "queryCreateStruct" has an invalid state. Query create struct must be defined when converting to dynamic collection.
      */
     public function testChangeCollectionTypeThrowsBadStateExceptionOnChangingToDynamicCollectionWithoutQueryCreateStruct()
     {
@@ -387,6 +399,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::copyCollection
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "newName" has an invalid state. Collection with provided name already exists.
      */
     public function testCopyCollectionWithNameThrowsBadStateException()
     {
@@ -421,6 +434,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::createDraft
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "collection" has an invalid state. Draft can be created only from published collections.
      */
     public function testCreateDraftThrowsBadStateExceptionWithNonPublishedCollection()
     {
@@ -431,6 +445,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::createDraft
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "collection" has an invalid state. The provided collection already has a draft.
      */
     public function testCreateDraftThrowsBadStateExceptionIfDraftAlreadyExists()
     {
@@ -441,6 +456,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::discardDraft
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find collection with identifier "3"
      */
     public function testDiscardDraft()
     {
@@ -453,6 +469,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::discardDraft
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "collection" has an invalid state. Only draft collections can be discarded.
      */
     public function testDiscardDraftThrowsBadStateExceptionWithNonDraftCollection()
     {
@@ -482,6 +499,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::publishCollection
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "collection" has an invalid state. Only draft collections can be published.
      */
     public function testPublishCollectionThrowsBadStateExceptionWithNonDraftCollection()
     {
@@ -492,6 +510,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteCollection
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find collection with identifier "3"
      */
     public function testDeleteCollection()
     {
@@ -523,6 +542,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::addItem
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "collection" has an invalid state. Items can only be added to draft collections.
      */
     public function testAddItemThrowsBadStateExceptionWithNonDraftCollection()
     {
@@ -539,6 +559,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::addItem
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
      */
     public function testAddItemThrowsBadStateExceptionWhenPositionIsTooLarge()
     {
@@ -571,6 +592,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::moveItem
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "item" has an invalid state. Only draft items can be moved.
      */
     public function testMoveItemThrowsBadStateExceptionWithNonDraftItem()
     {
@@ -583,6 +605,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::moveItem
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
      */
     public function testMoveItemThrowsBadStateExceptionWhenPositionIsTooLarge()
     {
@@ -614,6 +637,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteItem
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "item" has an invalid state. Only draft items can be deleted.
      */
     public function testDeleteItemThrowsBadStateExceptionWithNonDraftItem()
     {
@@ -649,6 +673,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::addQuery
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "collection" has an invalid state. Queries can be added only to draft collections.
      */
     public function testAddQueryThrowsBadStateExceptionInNonDraftCollection()
     {
@@ -669,8 +694,9 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::addQuery
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "collection" has an invalid state. Queries can be added only to dynamic collections
      */
-    public function testAddQueryInManualCollectionThrowsBadStateException()
+    public function testAddQueryInNonDynamicCollectionThrowsBadStateException()
     {
         $queryCreateStruct = $this->collectionService->newQueryCreateStruct(
             new QueryType('ezcontent_search'),
@@ -685,6 +711,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::addQuery
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "identifier" has an invalid state. Query with specified identifier already exists.
      */
     public function testAddQueryWithExistingIdentifierThrowsBadStateException()
     {
@@ -701,6 +728,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::addQuery
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
      */
     public function testAddQueryThrowsBadStateExceptionWhenPositionIsTooLarge()
     {
@@ -760,6 +788,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateQuery
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "query" has an invalid state. Only draft queries can be updated.
      */
     public function testUpdateQueryThrowsBadStateExceptionWithNonDraftQuery()
     {
@@ -776,6 +805,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateQuery
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "identifier" has an invalid state. Query with specified identifier already exists.
      */
     public function testUpdateQueryWithExistingIdentifierThrowsBadStateException()
     {
@@ -810,6 +840,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::moveQuery
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "query" has an invalid state. Only draft queries can be moved.
      */
     public function testMoveQueryThrowsBadStateExceptionWithNonDraftQuery()
     {
@@ -822,6 +853,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::moveQuery
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
      */
     public function testMoveQueryThrowsBadStateExceptionWhenPositionIsTooLarge()
     {
@@ -859,6 +891,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteQuery
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "query" has an invalid state. Only draft queries can be deleted.
      */
     public function testDeleteQueryThrowsBadStateExceptionWithNonDraftQuery()
     {

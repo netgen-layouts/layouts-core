@@ -69,6 +69,7 @@ class CollectionHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollection
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionData
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find collection with identifier "999999"
      */
     public function testLoadCollectionThrowsNotFoundException()
     {
@@ -129,6 +130,7 @@ class CollectionHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadItem
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadItemData
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find item with identifier "999999"
      */
     public function testLoadItemThrowsNotFoundException()
     {
@@ -185,6 +187,7 @@ class CollectionHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadQueryData
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find query with identifier "999999"
      */
     public function testLoadQueryThrowsNotFoundException()
     {
@@ -565,6 +568,7 @@ class CollectionHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionQueries
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollection
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find collection with identifier "3"
      */
     public function testDeleteCollection()
     {
@@ -579,6 +583,7 @@ class CollectionHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionQueries
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollection
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find collection with identifier "3"
      */
     public function testDeleteCollectionInOneStatus()
     {
@@ -662,6 +667,7 @@ class CollectionHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addItem
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "position" has an invalid state. Position cannot be negative.
      */
     public function testAddItemThrowsBadStateExceptionOnNegativePosition()
     {
@@ -681,12 +687,13 @@ class CollectionHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addItem
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
      */
     public function testAddItemThrowsBadStateExceptionOnTooLargePosition()
     {
         $itemCreateStruct = new ItemCreateStruct();
         $itemCreateStruct->type = Item::TYPE_MANUAL;
-        $itemCreateStruct->position = -9999;
+        $itemCreateStruct->position = 9999;
         $itemCreateStruct->valueId = '42';
         $itemCreateStruct->valueType = 'ezcontent';
 
@@ -759,6 +766,7 @@ class CollectionHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::moveItem
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "position" has an invalid state. Position cannot be negative.
      */
     public function testMoveItemThrowsBadStateExceptionOnNegativePosition()
     {
@@ -773,6 +781,7 @@ class CollectionHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::moveItem
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
      */
     public function testMoveItemThrowsBadStateExceptionOnTooLargePosition()
     {
@@ -904,6 +913,7 @@ class CollectionHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addQuery
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "position" has an invalid state. Position cannot be negative.
      */
     public function testAddQueryThrowsBadStateExceptionOnNegativePosition()
     {
@@ -925,13 +935,14 @@ class CollectionHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addQuery
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
      */
     public function testAddQueryThrowsBadStateExceptionOnTooLargePosition()
     {
         $queryCreateStruct = new QueryCreateStruct();
         $queryCreateStruct->identifier = 'new_query';
         $queryCreateStruct->type = 'ezcontent_search';
-        $queryCreateStruct->position = -9999;
+        $queryCreateStruct->position = 9999;
         $queryCreateStruct->parameters = array(
             'param' => 'value',
         );
@@ -1085,6 +1096,7 @@ class CollectionHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::moveQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperQueryConditions
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "position" has an invalid state. Position cannot be negative.
      */
     public function testMoveQueryThrowsBadStateExceptionOnNegativePosition()
     {
@@ -1099,6 +1111,7 @@ class CollectionHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::moveQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperQueryConditions
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
      */
     public function testMoveQueryThrowsBadStateExceptionOnTooLargePosition()
     {

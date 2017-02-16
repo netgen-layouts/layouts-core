@@ -222,6 +222,7 @@ interface CollectionService extends Service
      * @param int $position
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
+     *                                                          If collection is not dynamic
      *                                                          If query with specified identifier already exists within the collection
      *                                                          If position is out of range
      *

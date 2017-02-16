@@ -40,6 +40,7 @@ class FormMapperRegistryPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Parameters\FormMapperRegistryPass::process
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Parameter form mapper service definition must have a 'type' attribute in its' tag.
      */
     public function testProcessThrowsRuntimeExceptionWithNoTagType()
     {

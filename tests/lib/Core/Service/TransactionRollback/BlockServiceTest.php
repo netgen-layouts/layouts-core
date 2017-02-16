@@ -38,6 +38,7 @@ class BlockServiceTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testCreateBlock()
     {
@@ -49,7 +50,7 @@ class BlockServiceTest extends ServiceTestCase
         $this->blockHandlerMock
             ->expects($this->at(1))
             ->method('createBlock')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -75,6 +76,7 @@ class BlockServiceTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testCreateBlockInZone()
     {
@@ -96,7 +98,7 @@ class BlockServiceTest extends ServiceTestCase
         $this->blockHandlerMock
             ->expects($this->at(1))
             ->method('createBlock')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -111,6 +113,7 @@ class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testUpdateBlock()
     {
@@ -122,7 +125,7 @@ class BlockServiceTest extends ServiceTestCase
         $this->blockHandlerMock
             ->expects($this->at(1))
             ->method('updateBlock')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -142,6 +145,7 @@ class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::updateCollectionReference
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testUpdateCollectionReference()
     {
@@ -163,7 +167,7 @@ class BlockServiceTest extends ServiceTestCase
         $this->blockHandlerMock
             ->expects($this->at(2))
             ->method('updateCollectionReference')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -182,6 +186,7 @@ class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testCopyBlock()
     {
@@ -198,7 +203,7 @@ class BlockServiceTest extends ServiceTestCase
         $this->blockHandlerMock
             ->expects($this->at(2))
             ->method('copyBlock')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -223,6 +228,7 @@ class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testCopyBlockToZone()
     {
@@ -249,7 +255,7 @@ class BlockServiceTest extends ServiceTestCase
         $this->blockHandlerMock
             ->expects($this->at(2))
             ->method('copyBlock')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -265,6 +271,7 @@ class BlockServiceTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalMoveBlock
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testMoveBlock()
     {
@@ -281,7 +288,7 @@ class BlockServiceTest extends ServiceTestCase
         $this->blockHandlerMock
             ->expects($this->at(2))
             ->method('moveBlockToPosition')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -308,6 +315,7 @@ class BlockServiceTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalMoveBlock
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testMoveBlockToZone()
     {
@@ -334,7 +342,7 @@ class BlockServiceTest extends ServiceTestCase
         $this->blockHandlerMock
             ->expects($this->at(2))
             ->method('moveBlockToPosition')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -350,6 +358,7 @@ class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::restoreBlock
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testRestoreBlock()
     {
@@ -366,7 +375,7 @@ class BlockServiceTest extends ServiceTestCase
         $this->blockHandlerMock
             ->expects($this->at(2))
             ->method('updateBlock')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -378,6 +387,7 @@ class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::deleteBlock
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testDeleteBlock()
     {
@@ -389,7 +399,7 @@ class BlockServiceTest extends ServiceTestCase
         $this->blockHandlerMock
             ->expects($this->at(1))
             ->method('deleteBlock')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())

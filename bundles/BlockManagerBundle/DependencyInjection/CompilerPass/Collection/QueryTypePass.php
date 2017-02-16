@@ -64,8 +64,7 @@ class QueryTypePass implements CompilerPassInterface
             if ($foundHandler === null) {
                 throw new RuntimeException(
                     sprintf(
-                        'Query type handler "%s" for "%s" query type does not exist.',
-                        $handlerIdentifier,
+                        'Query type handler for "%s" query type does not exist.',
                         $type
                     )
                 );

@@ -59,6 +59,7 @@ class RenderZoneTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone::parse
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone::getTag
      * @expectedException \Twig_Error_Syntax
+     * @expectedExceptionMessage Unexpected token "name" of value "foo" at line 1.
      */
     public function testCompileThrowsTwigErrorSyntaxException()
     {

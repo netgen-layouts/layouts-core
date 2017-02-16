@@ -120,6 +120,7 @@ class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::process
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Block definition handler definition must have an 'identifier' attribute in its' tag.
      */
     public function testProcessThrowsExceptionWithNoTagIdentifier()
     {
@@ -140,6 +141,7 @@ class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::process
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Block definition handler for "block_definition" block definition does not exist.
      */
     public function testProcessThrowsExceptionWithNoHandler()
     {
@@ -156,6 +158,7 @@ class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::process
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Block definition handler for "block_definition" block definition does not exist.
      */
     public function testProcessThrowsExceptionWithNoCustomHandler()
     {

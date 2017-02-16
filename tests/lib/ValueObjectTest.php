@@ -26,10 +26,11 @@ class ValueObjectTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\ValueObject::__construct
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedExceptionMessage Property "someNonExistingProperty" does not exist in "Netgen\BlockManager\Tests\Stubs\ValueObject" class.
      */
     public function testSetNonExistingProperties()
     {
-        $value = new ValueObject(
+        new ValueObject(
             array(
                 'someNonExistingProperty' => 42,
             )

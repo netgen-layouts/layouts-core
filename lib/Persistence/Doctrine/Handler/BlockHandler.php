@@ -154,7 +154,7 @@ class BlockHandler implements BlockHandlerInterface
         $data = $this->queryHandler->loadCollectionReferencesData($block, $identifier);
 
         if (empty($data)) {
-            throw new NotFoundException('collection', $identifier);
+            throw new NotFoundException('collection reference', $identifier);
         }
 
         $data = $this->blockMapper->mapCollectionReferences($data);

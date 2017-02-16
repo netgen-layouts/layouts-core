@@ -78,6 +78,7 @@ class PositionHelperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::createPosition
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Position is out of range.
      */
     public function testCreatePositionThrowsBadStateExceptionOnTooLargePosition()
     {
@@ -87,6 +88,7 @@ class PositionHelperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::createPosition
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Position cannot be negative.
      */
     public function testCreatePositionThrowsBadStateExceptionOnNegativePosition()
     {
@@ -124,6 +126,7 @@ class PositionHelperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::moveToPosition
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Position is out of range.
      */
     public function testMoveToPositionBadStateExceptionOnTooLargePosition()
     {
@@ -133,6 +136,7 @@ class PositionHelperTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::moveToPosition
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Position cannot be negative.
      */
     public function testMoveToPositionBadStateExceptionOnNegativePosition()
     {

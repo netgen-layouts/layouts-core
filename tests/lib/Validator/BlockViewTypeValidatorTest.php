@@ -51,6 +51,7 @@ class BlockViewTypeValidatorTest extends ValidatorTestCase
     /**
      * @covers \Netgen\BlockManager\Validator\BlockViewTypeValidator::validate
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
+     * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\Validator\Constraint\BlockViewType", "Symfony\Component\Validator\Constraints\NotBlank" given
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint()
     {
@@ -61,6 +62,7 @@ class BlockViewTypeValidatorTest extends ValidatorTestCase
     /**
      * @covers \Netgen\BlockManager\Validator\BlockViewTypeValidator::validate
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
+     * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\Block\BlockDefinitionInterface", "stdClass" given
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidBlockDefinition()
     {
@@ -71,6 +73,7 @@ class BlockViewTypeValidatorTest extends ValidatorTestCase
     /**
      * @covers \Netgen\BlockManager\Validator\BlockViewTypeValidator::validate
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
+     * @expectedExceptionMessage Expected argument of type "string", "integer" given
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue()
     {

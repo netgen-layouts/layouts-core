@@ -52,6 +52,7 @@ class DynamicContainerBlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition::getPlaceholder
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedExceptionMessage Block definition is a dynamic container and does not have any placeholders.
      */
     public function testGetPlaceholder()
     {

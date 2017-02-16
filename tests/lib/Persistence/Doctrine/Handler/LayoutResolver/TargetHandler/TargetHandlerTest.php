@@ -24,6 +24,7 @@ class TargetHandlerTest extends AbstractTargetHandlerTest
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::matchRules
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::matchRules
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Doctrine target handler for "non_existent" target type does not exist.
      */
     public function testMatchRulesWithNonExistentTargetHandler()
     {

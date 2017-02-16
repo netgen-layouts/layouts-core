@@ -80,6 +80,7 @@ class LayoutBackendTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::loadItem
      * @expectedException \Netgen\ContentBrowser\Exceptions\NotFoundException
+     * @expectedExceptionMessage Item with ID 1 not found.
      */
     public function testLoadItemThrowsNotFoundException()
     {

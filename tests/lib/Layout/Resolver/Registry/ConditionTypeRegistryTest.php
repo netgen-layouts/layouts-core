@@ -46,6 +46,7 @@ class ConditionTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry::getConditionType
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedExceptionMessage Condition type "other_type" does not exist.
      */
     public function testGetConditionTypeThrowsInvalidArgumentException()
     {

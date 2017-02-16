@@ -430,7 +430,7 @@ class CollectionService extends Service implements APICollectionService
     {
         if ($newName !== null) {
             if ($this->collectionHandler->collectionNameExists($newName, $collection->getId())) {
-                throw new BadStateException('name', 'Collection with provided name already exists.');
+                throw new BadStateException('newName', 'Collection with provided name already exists.');
             }
         }
 
@@ -715,6 +715,7 @@ class CollectionService extends Service implements APICollectionService
      * @param int $position
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
+     *                                                          If collection is not dynamic
      *                                                          If query with specified identifier already exists within the collection
      *                                                          If position is out of range
      *
@@ -723,10 +724,14 @@ class CollectionService extends Service implements APICollectionService
     public function addQuery(Collection $collection, APIQueryCreateStruct $queryCreateStruct, $position = null)
     {
         if ($collection->isPublished()) {
-            throw new BadStateException('query', 'Queries can be added only to draft collections.');
+            throw new BadStateException('collection', 'Queries can be added only to draft collections.');
         }
 
         $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
+
+        if ($persistenceCollection->type !== Collection::TYPE_DYNAMIC) {
+            throw new BadStateException('collection', 'Queries can be added only to dynamic collections.');
+        }
 
         $this->collectionValidator->validatePosition($position, 'position');
         $this->collectionValidator->validateQueryCreateStruct($queryCreateStruct);

@@ -67,6 +67,7 @@ class CollectionValidatorTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateCollectionCreateStruct
      * @expectedException \Netgen\BlockManager\Exception\ValidationFailedException
+     * @expectedExceptionMessage All query create structs must have a unique identifier.
      */
     public function testValidateCollectionCreateStructWithNonUniqueQueryIdentifiers()
     {
@@ -74,8 +75,23 @@ class CollectionValidatorTest extends TestCase
         $collectionCreateStruct->type = Collection::TYPE_DYNAMIC;
 
         $collectionCreateStruct->queryCreateStructs = array(
-            new QueryCreateStruct(array('queryType' => $this->getQueryType(), 'identifier' => 'new')),
-            new QueryCreateStruct(array('queryType' => $this->getQueryType(), 'identifier' => 'new')),
+            new QueryCreateStruct(
+                array('queryType' => $this->getQueryType(),
+                    'identifier' => 'new',
+                    'parameterValues' => array(
+                        'param' => 'value',
+                    ),
+                )
+            ),
+            new QueryCreateStruct(
+                array(
+                    'queryType' => $this->getQueryType(),
+                    'identifier' => 'new',
+                    'parameterValues' => array(
+                        'param' => 'value',
+                    ),
+                )
+            ),
         );
 
         $this->collectionValidator->validateCollectionCreateStruct($collectionCreateStruct);
@@ -84,6 +100,7 @@ class CollectionValidatorTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateCollectionCreateStruct
      * @expectedException \Netgen\BlockManager\Exception\ValidationFailedException
+     * @expectedExceptionMessage Manual collection cannot have any queries.
      */
     public function testValidateCollectionCreateStructWithQueriesInManualCollection()
     {
@@ -91,7 +108,15 @@ class CollectionValidatorTest extends TestCase
         $collectionCreateStruct->type = Collection::TYPE_MANUAL;
 
         $collectionCreateStruct->queryCreateStructs = array(
-            new QueryCreateStruct(array('queryType' => $this->getQueryType(), 'identifier' => 'new')),
+            new QueryCreateStruct(
+                array(
+                    'queryType' => $this->getQueryType(),
+                    'identifier' => 'new',
+                    'parameterValues' => array(
+                        'param' => 'value',
+                    ),
+                )
+            ),
         );
 
         $this->collectionValidator->validateCollectionCreateStruct($collectionCreateStruct);
@@ -100,6 +125,7 @@ class CollectionValidatorTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateCollectionCreateStruct
      * @expectedException \Netgen\BlockManager\Exception\ValidationFailedException
+     * @expectedExceptionMessage Dynamic collection needs to have at least one query.
      */
     public function testValidateCollectionCreateStructWithNoQueriesInDynamicCollection()
     {

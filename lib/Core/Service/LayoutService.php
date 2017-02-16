@@ -442,7 +442,7 @@ class LayoutService extends Service implements LayoutServiceInterface
         $this->layoutValidator->validateLayoutName($newName);
 
         if ($this->layoutHandler->layoutNameExists($newName, $layout->getId())) {
-            throw new BadStateException('name', 'Layout with provided name already exists.');
+            throw new BadStateException('newName', 'Layout with provided name already exists.');
         }
 
         $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), $layout->getStatus());

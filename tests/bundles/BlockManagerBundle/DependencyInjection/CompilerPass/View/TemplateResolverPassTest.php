@@ -37,6 +37,7 @@ class TemplateResolverPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\View\TemplateResolverPass::process
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Matcher service definition must have an 'identifier' attribute in its' tag.
      */
     public function testProcessThrowsExceptionWithNoTagIdentifier()
     {

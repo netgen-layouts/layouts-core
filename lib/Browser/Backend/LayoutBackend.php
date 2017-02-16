@@ -67,7 +67,7 @@ class LayoutBackend implements BackendInterface
             $layout = $this->layoutService->loadLayout($id);
         } catch (BaseNotFoundException $e) {
             throw new NotFoundException(
-                sprintf('Item with ID "%s" not found.', $id),
+                sprintf('Item with ID %s not found.', $id),
                 0,
                 $e
             );

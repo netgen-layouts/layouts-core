@@ -37,6 +37,7 @@ class ConditionTypePassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\LayoutResolver\Form\ConditionTypePass::process
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Condition type form mapper service tags should have an "condition_type" attribute.
      */
     public function testProcessThrowsExceptionWithNoTagIdentifier()
     {

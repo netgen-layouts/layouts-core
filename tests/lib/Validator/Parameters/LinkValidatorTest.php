@@ -45,6 +45,7 @@ class LinkValidatorTest extends ValidatorTestCase
     /**
      * @covers \Netgen\BlockManager\Validator\Parameters\LinkValidator::validate
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
+     * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\Validator\Constraint\Parameters\Link", "Symfony\Component\Validator\Constraints\NotBlank" given
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint()
     {
@@ -55,6 +56,7 @@ class LinkValidatorTest extends ValidatorTestCase
     /**
      * @covers \Netgen\BlockManager\Validator\Parameters\LinkValidator::validate
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
+     * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\Parameters\Value\LinkValue", "integer" given
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue()
     {

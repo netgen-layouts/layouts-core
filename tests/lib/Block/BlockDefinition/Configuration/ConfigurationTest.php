@@ -79,6 +79,7 @@ class ConfigurationTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration::getForm
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedExceptionMessage Form "unknown" does not exist in "block_definition" block definition.
      */
     public function testGetFormThrowsInvalidArgumentException()
     {
@@ -121,6 +122,7 @@ class ConfigurationTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration::getPlaceholderForm
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedExceptionMessage Placeholder form "unknown" does not exist in "block_definition" block definition.
      */
     public function testGetPlaceholderFormThrowsInvalidArgumentException()
     {
@@ -175,6 +177,7 @@ class ConfigurationTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration::getViewType
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedExceptionMessage View type "unknown" does not exist in "block_definition" block definition.
      */
     public function testGetViewTypeThrowsInvalidArgumentException()
     {

@@ -91,6 +91,7 @@ class BlockHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadBlockData
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find block with identifier "999999"
      */
     public function testLoadBlockThrowsNotFoundException()
     {
@@ -284,6 +285,7 @@ class BlockHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadCollectionReference
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadCollectionReferencesData
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find collection reference with identifier "non_existing"
      */
     public function testLoadCollectionReferenceThrowsNotFoundException()
     {
@@ -509,6 +511,7 @@ class BlockHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "position" has an invalid state. Position cannot be negative.
      */
     public function testCreateBlockThrowsBadStateExceptionOnNegativePosition()
     {
@@ -544,6 +547,7 @@ class BlockHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
      */
     public function testCreateBlockThrowsBadStateExceptionOnTooLargePosition()
     {
@@ -981,6 +985,7 @@ class BlockHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "targetBlock" has an invalid state. Block cannot be copied below itself or its children.
      */
     public function testCopyBlockBelowSelf()
     {
@@ -994,6 +999,7 @@ class BlockHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "targetBlock" has an invalid state. Block cannot be copied below itself or its children.
      */
     public function testCopyBlockBelowChildren()
     {
@@ -1111,6 +1117,7 @@ class BlockHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "targetBlock" has an invalid state. Block is already in specified target block and placeholder.
      */
     public function testMoveBlockThrowsBadStateExceptionOnMovingToSamePlace()
     {
@@ -1125,6 +1132,7 @@ class BlockHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "targetBlock" has an invalid state. Block cannot be moved below itself or its children.
      */
     public function testMoveBlockThrowsBadStateExceptionOnMovingToSelf()
     {
@@ -1139,6 +1147,7 @@ class BlockHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "targetBlock" has an invalid state. Block cannot be moved below itself or its children.
      */
     public function testMoveBlockThrowsBadStateExceptionOnMovingToChildren()
     {
@@ -1153,6 +1162,7 @@ class BlockHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "position" has an invalid state. Position cannot be negative.
      */
     public function testMoveBlockThrowsBadStateExceptionOnNegativePosition()
     {
@@ -1167,6 +1177,7 @@ class BlockHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
      */
     public function testMoveBlockThrowsBadStateExceptionOnTooLargePosition()
     {
@@ -1258,6 +1269,7 @@ class BlockHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlockToPosition
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "position" has an invalid state. Position cannot be negative.
      */
     public function testMoveBlockToPositionThrowsBadStateExceptionOnNegativePosition()
     {
@@ -1271,6 +1283,7 @@ class BlockHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlockToPosition
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
      */
     public function testMoveBlockToPositionThrowsBadStateExceptionOnTooLargePosition()
     {
@@ -1408,6 +1421,7 @@ class BlockHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadBlockCollectionIds
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteCollectionReferences
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find collection with identifier "1"
      */
     public function testDeleteBlocks()
     {
@@ -1442,6 +1456,7 @@ class BlockHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadBlockCollectionIds
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteCollectionReferences
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find collection with identifier "1"
      */
     public function testDeleteBlockCollections()
     {

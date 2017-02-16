@@ -76,6 +76,7 @@ class ConfigurationTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\QueryType\Configuration\Configuration::getForm
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedExceptionMessage Form "unknown" does not exist in "query_type" query type.
      */
     public function testGetFormThrowsInvalidArgumentException()
     {

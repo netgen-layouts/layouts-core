@@ -47,6 +47,7 @@ class QueryTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::getQueryType
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedExceptionMessage Query type "other_query_type" does not exist.
      */
     public function testGetQueryTypeThrowsInvalidArgumentException()
     {

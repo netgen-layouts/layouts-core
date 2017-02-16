@@ -252,6 +252,7 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::buildBlockTypes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::validateBlockTypes
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Block definition "title" used in "test" block type does not exist.
      */
     public function testProcessThrowsRuntimeExceptionWithNoBlockDefinition()
     {

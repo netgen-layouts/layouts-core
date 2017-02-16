@@ -100,6 +100,7 @@ class ApiCsrfValidationListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::validateCsrfToken
      * @expectedException \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
+     * @expectedExceptionMessage Missing or invalid CSRF token
      */
     public function testOnKernelRequestThrowsAccessDeniedExceptionOnInvalidToken()
     {
@@ -130,6 +131,7 @@ class ApiCsrfValidationListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::validateCsrfToken
      * @expectedException \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
+     * @expectedExceptionMessage Missing or invalid CSRF token
      */
     public function testOnKernelRequestThrowsAccessDeniedExceptionOnMissingTokenHeader()
     {

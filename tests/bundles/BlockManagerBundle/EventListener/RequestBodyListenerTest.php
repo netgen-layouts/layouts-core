@@ -152,6 +152,7 @@ class RequestBodyListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\RequestBodyListener::onKernelRequest
      * @expectedException \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
+     * @expectedExceptionMessage Request body has an invalid format
      */
     public function testOnKernelRequestWithInvalidJson()
     {
@@ -176,6 +177,7 @@ class RequestBodyListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\RequestBodyListener::onKernelRequest
      * @expectedException \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
+     * @expectedExceptionMessage Request body has an invalid format
      */
     public function testOnKernelRequestWithNonArrayJson()
     {

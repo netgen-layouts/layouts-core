@@ -45,6 +45,7 @@ class DoctrineTargetHandlerPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\LayoutResolver\DoctrineTargetHandlerPass::process
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Doctrine target handler service tags should have an "target_type" attribute.
      */
     public function testProcessThrowsRuntimeExceptionWhenNoIdentifier()
     {

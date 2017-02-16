@@ -234,6 +234,7 @@ class RenderingExtensionTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::setDebug
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::handleException
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testRenderBlockThrowsExceptionInDebug()
     {
@@ -243,7 +244,7 @@ class RenderingExtensionTest extends TestCase
         $this->viewRendererMock
             ->expects($this->once())
             ->method('renderValueObject')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->extension->renderBlock(
             array(
@@ -419,6 +420,7 @@ class RenderingExtensionTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::setDebug
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::handleException
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testRenderPlaceholderThrowsExceptionInDebug()
     {
@@ -428,7 +430,7 @@ class RenderingExtensionTest extends TestCase
         $this->viewRendererMock
             ->expects($this->once())
             ->method('renderValueObject')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->extension->renderPlaceholder(
             array(
@@ -552,6 +554,7 @@ class RenderingExtensionTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::setDebug
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::handleException
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testRenderItemThrowsExceptionInDebug()
     {
@@ -565,7 +568,7 @@ class RenderingExtensionTest extends TestCase
                 $this->equalTo(array('view_type' => 'view_type', 'param' => 'value')),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT)
             )
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->extension->renderItem(
             array(),
@@ -684,6 +687,7 @@ class RenderingExtensionTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::setDebug
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::handleException
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testRenderValueObjectThrowsExceptionInDebug()
     {
@@ -697,7 +701,7 @@ class RenderingExtensionTest extends TestCase
                 $this->equalTo(array('param' => 'value')),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT)
             )
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->extension->renderValueObject(
             array(),

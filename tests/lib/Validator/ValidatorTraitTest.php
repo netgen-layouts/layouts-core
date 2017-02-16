@@ -53,6 +53,7 @@ class ValidatorTraitTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Validator\ValidatorTrait::validate
      * @expectedException \Netgen\BlockManager\Exception\ValidationFailedException
+     * @expectedExceptionMessage There was an error validating "value": Value should not be blank
      */
     public function testValidateThrowsValidationFailedException()
     {
@@ -66,20 +67,22 @@ class ValidatorTraitTest extends TestCase
                 $this->returnValue(
                     new ConstraintViolationList(
                         array(
-                            $this->createMock(
-                                ConstraintViolationInterface::class
+                            $this->createConfiguredMock(
+                                ConstraintViolationInterface::class,
+                                array('getMessage' => 'Value should not be blank')
                             ),
                         )
                     )
                 )
             );
 
-        $this->validator->validate('some value', array(new Constraints\NotBlank()));
+        $this->validator->validate('some value', array(new Constraints\NotBlank()), 'value');
     }
 
     /**
      * @covers \Netgen\BlockManager\Validator\ValidatorTrait::validate
      * @expectedException \Netgen\BlockManager\Exception\ValidationFailedException
+     * @expectedExceptionMessage Test exception text
      */
     public function testValidateThrowsValidationFailedExceptionOnOtherException()
     {
@@ -87,7 +90,7 @@ class ValidatorTraitTest extends TestCase
             ->expects($this->once())
             ->method('validate')
             ->will(
-                $this->throwException(new Exception())
+                $this->throwException(new Exception('Test exception text'))
             );
 
         $this->validator->validate('some value', array(new Constraints\NotBlank()));

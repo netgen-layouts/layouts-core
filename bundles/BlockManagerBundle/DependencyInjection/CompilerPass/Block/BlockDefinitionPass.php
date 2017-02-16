@@ -68,8 +68,7 @@ class BlockDefinitionPass implements CompilerPassInterface
             if ($foundHandler === null) {
                 throw new RuntimeException(
                     sprintf(
-                        'Block definition handler "%s" for "%s" block definition does not exist.',
-                        $handlerIdentifier,
+                        'Block definition handler for "%s" block definition does not exist.',
                         $identifier
                     )
                 );

@@ -73,6 +73,7 @@ class ContainerBlockDefinitionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition::getPlaceholder
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedExceptionMessage Placeholder with "unknown" identifier does not exist in block definition.
      */
     public function testGetPlaceholderThrowsInvalidArgumentException()
     {

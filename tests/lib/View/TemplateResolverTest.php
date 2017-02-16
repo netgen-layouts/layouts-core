@@ -26,12 +26,13 @@ class TemplateResolverTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\TemplateResolver::__construct
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Template matcher "DateTime" needs to implement MatcherInterface.
      */
     public function testConstructorThrowsRuntimeExceptionIfNoMatcherInterface()
     {
         new TemplateResolver(
             array(
-                'definition_identifier' => $this->createMock(DateTime::class),
+                'definition_identifier' => new DateTime(),
             )
         );
     }
@@ -185,6 +186,7 @@ class TemplateResolverTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage View context expected to be of string type, got integer.
      */
     public function testResolveTemplateThrowsRuntimeExceptionIfInvalidContext()
     {
@@ -196,6 +198,7 @@ class TemplateResolverTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage No template match could be found for "view" view and context "context".
      */
     public function testResolveTemplateThrowsRuntimeExceptionIfNoContext()
     {
@@ -206,6 +209,7 @@ class TemplateResolverTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage No template match could be found for "view" view and context "context".
      */
     public function testResolveTemplateThrowsRuntimeExceptionIfEmptyContext()
     {
@@ -221,6 +225,7 @@ class TemplateResolverTest extends TestCase
      * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      * @covers \Netgen\BlockManager\View\TemplateResolver::matches
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage No template match could be found for "view" view and context "context".
      */
     public function testResolveTemplateThrowsRuntimeExceptionIfNoMatch()
     {
@@ -258,6 +263,7 @@ class TemplateResolverTest extends TestCase
      * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      * @covers \Netgen\BlockManager\View\TemplateResolver::matches
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage No template matcher could be found with identifier "definition_identifier".
      */
     public function testResolveTemplateThrowsRuntimeExceptionIfNoMatcher()
     {

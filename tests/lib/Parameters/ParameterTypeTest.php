@@ -64,6 +64,7 @@ class ParameterTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType::getConstraints
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedExceptionMessage Parameter with "text" type is not supported
      */
     public function testGetConstraintsThrowsInvalidArgumentException()
     {

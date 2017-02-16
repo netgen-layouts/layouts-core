@@ -51,6 +51,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::loadBlock
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find block with identifier "999999"
      */
     public function testLoadBlockThrowsNotFoundException()
     {
@@ -60,6 +61,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::loadBlock
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find block with identifier "1"
      */
     public function testLoadBlockThrowsNotFoundExceptionOnLoadingInternalBlock()
     {
@@ -81,6 +83,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::loadBlockDraft
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find block with identifier "999999"
      */
     public function testLoadBlockDraftThrowsNotFoundException()
     {
@@ -90,6 +93,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::loadBlockDraft
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find block with identifier "1"
      */
     public function testLoadBlockDraftThrowsNotFoundExceptionOnLoadingInternalBlock()
     {
@@ -147,6 +151,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::loadCollectionReference
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find collection reference with identifier "non_existing"
      */
     public function testLoadCollectionReferenceThrowsNotFoundException()
     {
@@ -211,6 +216,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "targetBlock" has an invalid state. Blocks can only be created in blocks in draft status.
      */
     public function testCreateBlockThrowsBadStateExceptionWithNonDraftTargetBlock()
     {
@@ -229,6 +235,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "targetBlock" has an invalid state. Target block is not a container.
      */
     public function testCreateBlockThrowsBadStateExceptionWithNonContainerTargetBlock()
     {
@@ -246,6 +253,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "placeholder" has an invalid state. Target block does not have the specified placeholder.
      */
     public function testCreateBlockThrowsBadStateExceptionWithNoPlaceholder()
     {
@@ -285,6 +293,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
      */
     public function testCreateBlockThrowsBadStateExceptionWhenPositionIsTooLarge()
     {
@@ -303,6 +312,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "blockCreateStruct" has an invalid state. Containers cannot be placed inside containers.
      */
     public function testCreateBlockThrowsBadStateExceptionWithContainerInsideContainer()
     {
@@ -436,6 +446,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "zone" has an invalid state. Blocks can only be created in zones in draft status.
      */
     public function testCreateBlockInZoneThrowsBadStateExceptionWithNonDraftZone()
     {
@@ -497,6 +508,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
      */
     public function testCreateBlockInZoneThrowsBadStateExceptionWhenPositionIsTooLarge()
     {
@@ -515,6 +527,7 @@ abstract class BlockServiceTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "zone" has an invalid state. Block is not allowed in specified zone.
      */
     public function testCreateBlockInZoneThrowsBadStateExceptionWithWithDisallowedIdentifier()
     {
@@ -661,6 +674,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "block" has an invalid state. Only draft blocks can be updated.
      */
     public function testUpdateBlockThrowsBadStateExceptionWithNonDraftBlock()
     {
@@ -720,6 +734,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "block" has an invalid state. Only draft blocks can be copied.
      */
     public function testCopyBlockThrowsBadStateExceptionWithNonDraftBlock()
     {
@@ -733,6 +748,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "targetBlock" has an invalid state. You can only copy blocks to draft blocks.
      */
     public function testCopyBlockThrowsBadStateExceptionWithNonDraftTargetBlock()
     {
@@ -746,6 +762,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "targetBlock" has an invalid state. Target block is not a container.
      */
     public function testCopyBlockThrowsBadStateExceptionWithNonContainerTargetBlock()
     {
@@ -759,6 +776,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "placeholder" has an invalid state. Target block does not have the specified placeholder.
      */
     public function testCopyBlockThrowsBadStateExceptionWithNoPlaceholder()
     {
@@ -772,6 +790,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "block" has an invalid state. Containers cannot be placed inside containers.
      */
     public function testCopyBlockThrowsBadStateExceptionWithContainerInsideContainer()
     {
@@ -805,6 +824,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "block" has an invalid state. Only draft blocks can be copied.
      */
     public function testCopyBlockToZoneThrowsBadStateExceptionWithNonDraftBlock()
     {
@@ -817,6 +837,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "zone" has an invalid state. You can only copy blocks to draft zones.
      */
     public function testCopyBlockToZoneThrowsBadStateExceptionWithNonDraftZone()
     {
@@ -830,6 +851,7 @@ abstract class BlockServiceTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "zone" has an invalid state. Block is not allowed in specified zone.
      */
     public function testCopyBlockToZoneThrowsBadStateExceptionWithDisallowedIdentifier()
     {
@@ -916,6 +938,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "block" has an invalid state. Only draft blocks can be moved.
      */
     public function testMoveBlockThrowsBadStateExceptionWithNonDraftBlock()
     {
@@ -930,6 +953,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "targetBlock" has an invalid state. You can only move blocks to draft blocks.
      */
     public function testMoveBlockThrowsBadStateExceptionWithNonDraftTargetBlock()
     {
@@ -944,6 +968,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "targetBlock" has an invalid state. Target block is not a container.
      */
     public function testMoveBlockThrowsBadStateExceptionWhenTargetBlockIsNotContainer()
     {
@@ -958,6 +983,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "placeholder" has an invalid state. Target block does not have the specified placeholder.
      */
     public function testMoveBlockThrowsBadStateExceptionWithNoPlaceholder()
     {
@@ -972,6 +998,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "block" has an invalid state. Containers cannot be placed inside containers.
      */
     public function testMoveBlockThrowsBadStateExceptionWithContainerInsideContainer()
     {
@@ -986,6 +1013,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
      */
     public function testMoveBlockThrowsBadStateExceptionWhenPositionIsTooLarge()
     {
@@ -1046,6 +1074,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "block" has an invalid state. Only draft blocks can be moved.
      */
     public function testMoveBlockToZoneThrowsBadStateExceptionWithNonDraftBlock()
     {
@@ -1059,6 +1088,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "zone" has an invalid state. You can only move blocks to draft zones.
      */
     public function testMoveBlockToZoneThrowsBadStateExceptionWithNonDraftZone()
     {
@@ -1072,12 +1102,13 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
      */
     public function testMoveBlockToZoneThrowsBadStateExceptionWhenPositionIsTooLarge()
     {
         $this->blockService->moveBlockToZone(
-            $this->blockService->loadBlockDraft(32),
-            $this->layoutService->loadZoneDraft(1, 'bottom'),
+            $this->blockService->loadBlockDraft(31),
+            $this->layoutService->loadZoneDraft(1, 'left'),
             9999
         );
     }
@@ -1085,6 +1116,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "zone" has an invalid state. You can only move block to zone in the same layout.
      */
     public function testMoveBlockToZoneThrowsBadStateExceptionWhenZoneIsInDifferentLayout()
     {
@@ -1099,6 +1131,7 @@ abstract class BlockServiceTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "zone" has an invalid state. Block is not allowed in specified zone.
      */
     public function testMoveBlockToZoneThrowsBadStateExceptionWithDisallowedIdentifier()
     {
@@ -1157,6 +1190,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::restoreBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "block" has an invalid state. Only draft blocks can be restored.
      */
     public function testRestoreBlockThrowsBadStateExceptionWithNonDraftBlock()
     {
@@ -1168,6 +1202,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::restoreBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "block" has an invalid state. Block does not have a published status.
      */
     public function testRestoreBlockThrowsBadStateExceptionWithNoPublishedStatus()
     {
@@ -1179,6 +1214,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::deleteBlock
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find block with identifier "31"
      */
     public function testDeleteBlock()
     {
@@ -1191,6 +1227,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::deleteBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "block" has an invalid state. Only draft blocks can be deleted.
      */
     public function testDeleteThrowsBadStateExceptionBlockWithNonDraftBlock()
     {

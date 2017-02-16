@@ -82,6 +82,7 @@ class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayout
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutData
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find layout with identifier "999999"
      */
     public function testLoadLayoutThrowsNotFoundException()
     {
@@ -114,6 +115,7 @@ class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadZone
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadZoneData
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find zone with identifier "non_existing"
      */
     public function testLoadZoneThrowsNotFoundException()
     {
@@ -1012,6 +1014,7 @@ class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutZones
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayout
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find layout with identifier "1"
      */
     public function testDeleteLayout()
     {

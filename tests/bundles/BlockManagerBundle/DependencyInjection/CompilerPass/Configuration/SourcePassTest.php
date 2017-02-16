@@ -82,6 +82,7 @@ class SourcePassTest extends AbstractCompilerPassTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\SourcePass::buildSources
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\SourcePass::validateSources
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Query type "type" used in "test" source does not exist.
      */
     public function testProcessThrowsRuntimeExceptionWithNoQueryType()
     {

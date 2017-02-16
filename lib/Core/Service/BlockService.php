@@ -300,7 +300,7 @@ class BlockService extends Service implements BlockServiceInterface
                 $persistenceZone->identifier
             )
         ) {
-            throw new BadStateException('zoneIdentifier', 'Block cannot be created in specified zone.');
+            throw new BadStateException('zone', 'Block is not allowed in specified zone.');
         }
 
         $rootBlock = $this->blockHandler->loadBlock(
@@ -484,7 +484,7 @@ class BlockService extends Service implements BlockServiceInterface
         $persistenceLayout = $this->layoutHandler->loadLayout($zone->getLayoutId(), Value::STATUS_DRAFT);
 
         if (!$this->isBlockAllowedWithinZone($persistenceBlock->definitionIdentifier, $persistenceLayout->type, $persistenceZone->identifier)) {
-            throw new BadStateException('zoneIdentifier', 'Block cannot be placed in specified zone.');
+            throw new BadStateException('zone', 'Block is not allowed in specified zone.');
         }
 
         $rootBlock = $this->blockHandler->loadBlock($persistenceZone->rootBlockId, $persistenceZone->status);
@@ -586,7 +586,7 @@ class BlockService extends Service implements BlockServiceInterface
         }
 
         if (!$this->isBlockAllowedWithinZone($persistenceBlock->definitionIdentifier, $persistenceLayout->type, $persistenceZone->identifier)) {
-            throw new BadStateException('zoneIdentifier', 'Block cannot be placed in specified zone.');
+            throw new BadStateException('zone', 'Block is not allowed in specified zone.');
         }
 
         $rootBlock = $this->blockHandler->loadBlock($persistenceZone->rootBlockId, $persistenceZone->status);

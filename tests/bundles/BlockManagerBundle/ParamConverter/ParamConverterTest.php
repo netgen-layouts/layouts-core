@@ -142,6 +142,7 @@ class ParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter::apply
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedExceptionMessage Required request attribute is empty.
      */
     public function testApplyWithEmptyAndNonOptionalAttribute()
     {

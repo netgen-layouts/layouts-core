@@ -41,7 +41,12 @@ class ValueLoader implements ValueLoaderInterface
     public function load($id)
     {
         if ($this->throwException) {
-            throw new InvalidItemException();
+            throw new InvalidItemException(
+                sprintf(
+                    'Value with ID %s does not exist.',
+                    $id
+                )
+            );
         }
 
         return new Value($id);

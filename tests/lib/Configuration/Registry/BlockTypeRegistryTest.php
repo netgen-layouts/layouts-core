@@ -72,6 +72,7 @@ class BlockTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry::getBlockType
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedExceptionMessage Block type with "other_block_type" identifier does not exist.
      */
     public function testGetBlockTypeThrowsInvalidArgumentException()
     {
@@ -114,6 +115,7 @@ class BlockTypeRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry::getBlockTypeGroup
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedExceptionMessage Block type group with "other_block_type_group" identifier does not exist.
      */
     public function testGetBlockTypeGroupThrowsInvalidArgumentException()
     {

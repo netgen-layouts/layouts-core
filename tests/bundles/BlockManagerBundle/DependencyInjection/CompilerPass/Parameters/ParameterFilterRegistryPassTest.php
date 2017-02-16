@@ -45,6 +45,7 @@ class ParameterFilterRegistryPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Parameters\ParameterFilterRegistryPass::process
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Parameter filter service definition must have a 'type' attribute in its' tag.
      */
     public function testProcessThrowsExceptionWithNoTypeIdentifier()
     {

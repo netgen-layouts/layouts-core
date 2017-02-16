@@ -47,6 +47,7 @@ class BlockDefinitionRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::getBlockDefinition
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedExceptionMessage Block definition with "title" identifier does not exist.
      */
     public function testGetBlockDefinitionThrowsInvalidArgumentException()
     {

@@ -40,6 +40,7 @@ class ValueLoaderRegistryPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ValueLoaderRegistryPass::process
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Value type must begin with a letter and be followed by any combination of letters, digits and underscore.
      */
     public function testProcessThrowsRuntimeExceptionWithInvalidValueTypeTag()
     {
@@ -55,6 +56,7 @@ class ValueLoaderRegistryPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ValueLoaderRegistryPass::process
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Value loader service definition must have a 'value_type' attribute in its' tag.
      */
     public function testProcessThrowsRuntimeExceptionWithNoTagValueType()
     {

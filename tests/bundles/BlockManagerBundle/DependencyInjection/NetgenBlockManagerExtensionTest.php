@@ -36,6 +36,7 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::addPlugin
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::getPlugin
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedExceptionMessage Extension plugin "unknown" does not exist
      */
     public function testGetPluginThrowsInvalidArgumentException()
     {

@@ -37,13 +37,14 @@ class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::createRule
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testCreateRule()
     {
         $this->layoutResolverHandlerMock
             ->expects($this->at(0))
             ->method('createRule')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -55,6 +56,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateRule
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testUpdateRule()
     {
@@ -66,7 +68,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
         $this->layoutResolverHandlerMock
             ->expects($this->at(1))
             ->method('updateRule')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -81,6 +83,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateRuleMetadata
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testUpdateRuleMetadata()
     {
@@ -92,7 +95,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
         $this->layoutResolverHandlerMock
             ->expects($this->at(1))
             ->method('updateRuleMetadata')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -107,6 +110,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::copyRule
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testCopyRule()
     {
@@ -118,7 +122,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
         $this->layoutResolverHandlerMock
             ->expects($this->at(1))
             ->method('copyRule')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -130,6 +134,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::createDraft
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testCreateDraft()
     {
@@ -146,7 +151,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
         $this->layoutResolverHandlerMock
             ->expects($this->at(2))
             ->method('deleteRule')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -158,6 +163,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::discardDraft
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testDiscardDraft()
     {
@@ -169,7 +175,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
         $this->layoutResolverHandlerMock
             ->expects($this->at(1))
             ->method('deleteRule')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -181,6 +187,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::publishRule
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testPublishRule()
     {
@@ -192,7 +199,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
         $this->layoutResolverHandlerMock
             ->expects($this->at(1))
             ->method('deleteRule')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -204,6 +211,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteRule
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testDeleteRule()
     {
@@ -215,7 +223,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
         $this->layoutResolverHandlerMock
             ->expects($this->at(1))
             ->method('deleteRule')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -227,6 +235,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::enableRule
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testEnableRule()
     {
@@ -252,7 +261,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
         $this->layoutResolverHandlerMock
             ->expects($this->at(2))
             ->method('updateRuleMetadata')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -264,6 +273,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::disableRule
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testDisableRule()
     {
@@ -283,7 +293,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
         $this->layoutResolverHandlerMock
             ->expects($this->at(1))
             ->method('updateRuleMetadata')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -295,6 +305,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::addTarget
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testAddTarget()
     {
@@ -311,7 +322,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
         $this->layoutResolverHandlerMock
             ->expects($this->at(2))
             ->method('addTarget')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -326,6 +337,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateTarget
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testUpdateTarget()
     {
@@ -337,7 +349,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
         $this->layoutResolverHandlerMock
             ->expects($this->at(1))
             ->method('updateTarget')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -352,6 +364,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteTarget
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testDeleteTarget()
     {
@@ -363,7 +376,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
         $this->layoutResolverHandlerMock
             ->expects($this->at(1))
             ->method('deleteTarget')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -375,6 +388,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::addCondition
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testAddCondition()
     {
@@ -386,7 +400,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
         $this->layoutResolverHandlerMock
             ->expects($this->at(1))
             ->method('addCondition')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -401,6 +415,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateCondition
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testUpdateCondition()
     {
@@ -412,7 +427,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
         $this->layoutResolverHandlerMock
             ->expects($this->at(1))
             ->method('updateCondition')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -427,6 +442,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteCondition
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testDeleteCondition()
     {
@@ -438,7 +454,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
         $this->layoutResolverHandlerMock
             ->expects($this->at(1))
             ->method('deleteCondition')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())

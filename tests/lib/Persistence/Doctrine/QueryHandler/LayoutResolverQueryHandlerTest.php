@@ -13,11 +13,13 @@ class LayoutResolverQueryHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::__construct
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Target handler "stdClass" needs to implement TargetHandler interface.
      */
     public function testConstructorThrowsRuntimeException()
     {
         $connectionMock = $this->createMock(Connection::class);
-        $queryHandler = new LayoutResolverQueryHandler(
+
+        new LayoutResolverQueryHandler(
             $connectionMock,
             new ConnectionHelper($connectionMock),
             array(new stdClass())

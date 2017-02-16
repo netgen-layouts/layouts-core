@@ -56,6 +56,7 @@ class LayoutNameValidatorTest extends ValidatorTestCase
     /**
      * @covers \Netgen\BlockManager\Validator\LayoutNameValidator::validate
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
+     * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\Validator\Constraint\LayoutName", "Symfony\Component\Validator\Constraints\NotBlank" given
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint()
     {
@@ -66,6 +67,7 @@ class LayoutNameValidatorTest extends ValidatorTestCase
     /**
      * @covers \Netgen\BlockManager\Validator\LayoutNameValidator::validate
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
+     * @expectedExceptionMessage Expected argument of type "string", "integer" given
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue()
     {

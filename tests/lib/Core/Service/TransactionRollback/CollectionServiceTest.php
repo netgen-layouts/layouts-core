@@ -36,13 +36,14 @@ class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::createCollection
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testCreateCollection()
     {
         $this->collectionHandlerMock
             ->expects($this->at(0))
             ->method('createCollection')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -54,6 +55,7 @@ class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateCollection
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testUpdateCollection()
     {
@@ -69,7 +71,7 @@ class CollectionServiceTest extends ServiceTestCase
         $this->collectionHandlerMock
             ->expects($this->at(1))
             ->method('updateCollection')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -84,6 +86,7 @@ class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::changeCollectionType
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testChangeCollectionType()
     {
@@ -101,7 +104,7 @@ class CollectionServiceTest extends ServiceTestCase
         $this->collectionHandlerMock
             ->expects($this->at(1))
             ->method('loadCollectionQueries')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -116,6 +119,7 @@ class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::copyCollection
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testCopyCollection()
     {
@@ -138,7 +142,7 @@ class CollectionServiceTest extends ServiceTestCase
         $this->collectionHandlerMock
             ->expects($this->at(2))
             ->method('copyCollection')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -150,6 +154,7 @@ class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::createDraft
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testCreateDraft()
     {
@@ -166,7 +171,7 @@ class CollectionServiceTest extends ServiceTestCase
         $this->collectionHandlerMock
             ->expects($this->at(2))
             ->method('deleteCollection')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -178,6 +183,7 @@ class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::discardDraft
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testDiscardDraft()
     {
@@ -189,7 +195,7 @@ class CollectionServiceTest extends ServiceTestCase
         $this->collectionHandlerMock
             ->expects($this->at(1))
             ->method('deleteCollection')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -201,6 +207,7 @@ class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::publishCollection
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testPublishCollection()
     {
@@ -212,7 +219,7 @@ class CollectionServiceTest extends ServiceTestCase
         $this->collectionHandlerMock
             ->expects($this->at(1))
             ->method('deleteCollection')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -224,6 +231,7 @@ class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteCollection
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testDeleteCollection()
     {
@@ -241,7 +249,7 @@ class CollectionServiceTest extends ServiceTestCase
         $this->collectionHandlerMock
             ->expects($this->at(1))
             ->method('deleteCollection')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -253,6 +261,7 @@ class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::addItem
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testAddItem()
     {
@@ -270,7 +279,7 @@ class CollectionServiceTest extends ServiceTestCase
         $this->collectionHandlerMock
             ->expects($this->at(1))
             ->method('addItem')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -285,6 +294,7 @@ class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::moveItem
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testMoveItem()
     {
@@ -296,7 +306,7 @@ class CollectionServiceTest extends ServiceTestCase
         $this->collectionHandlerMock
             ->expects($this->at(1))
             ->method('moveItem')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -308,6 +318,7 @@ class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteItem
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testDeleteItem()
     {
@@ -319,7 +330,7 @@ class CollectionServiceTest extends ServiceTestCase
         $this->collectionHandlerMock
             ->expects($this->at(1))
             ->method('deleteItem')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -331,6 +342,7 @@ class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::addQuery
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testAddQuery()
     {
@@ -353,7 +365,7 @@ class CollectionServiceTest extends ServiceTestCase
         $this->collectionHandlerMock
             ->expects($this->at(2))
             ->method('addQuery')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -368,6 +380,7 @@ class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateQuery
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testUpdateQuery()
     {
@@ -384,7 +397,7 @@ class CollectionServiceTest extends ServiceTestCase
         $this->collectionHandlerMock
             ->expects($this->at(2))
             ->method('updateQuery')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -404,6 +417,7 @@ class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::moveQuery
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testMoveQuery()
     {
@@ -415,7 +429,7 @@ class CollectionServiceTest extends ServiceTestCase
         $this->collectionHandlerMock
             ->expects($this->at(1))
             ->method('moveQuery')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -427,6 +441,7 @@ class CollectionServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteQuery
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testDeleteQuery()
     {
@@ -438,7 +453,7 @@ class CollectionServiceTest extends ServiceTestCase
         $this->collectionHandlerMock
             ->expects($this->at(1))
             ->method('deleteQuery')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())

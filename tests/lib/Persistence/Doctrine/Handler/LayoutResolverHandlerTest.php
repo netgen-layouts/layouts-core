@@ -78,6 +78,7 @@ class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRule
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleData
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find rule with identifier "999999"
      */
     public function testLoadRuleThrowsNotFoundException()
     {
@@ -151,6 +152,7 @@ class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::loadTarget
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadTargetData
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find target with identifier "999999"
      */
     public function testLoadTargetThrowsNotFoundException()
     {
@@ -215,6 +217,7 @@ class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::loadCondition
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadConditionData
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find condition with identifier "999999"
      */
     public function testLoadConditionThrowsNotFoundException()
     {
@@ -543,6 +546,7 @@ class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleConditions
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRule
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find rule with identifier "3"
      */
     public function testDeleteRule()
     {
@@ -557,6 +561,7 @@ class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleConditions
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRule
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find rule with identifier "5"
      */
     public function testDeleteRuleInOneStatus()
     {
@@ -629,6 +634,7 @@ class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::deleteTarget
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteTarget
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find target with identifier "2"
      */
     public function testDeleteTarget()
     {
@@ -696,6 +702,7 @@ class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::deleteCondition
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteCondition
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find condition with identifier "2"
      */
     public function testDeleteCondition()
     {

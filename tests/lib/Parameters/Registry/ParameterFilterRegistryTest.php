@@ -39,6 +39,7 @@ class ParameterFilterRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry::addParameterFilters
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Parameter filter "stdClass" needs to implement ParameterFilterInterface.
      */
     public function testAddParameterFiltersThrowRuntimeException()
     {

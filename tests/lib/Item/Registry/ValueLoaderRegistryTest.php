@@ -46,6 +46,7 @@ class ValueLoaderRegistryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Item\Registry\ValueLoaderRegistry::getValueLoader
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedExceptionMessage Value loader for "other_value" value type does not exist.
      */
     public function testGetValueLoaderThrowsInvalidArgumentException()
     {

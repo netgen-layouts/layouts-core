@@ -72,6 +72,7 @@ class LayoutTypePassTest extends AbstractCompilerPassTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\LayoutTypePass::buildLayoutTypes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\LayoutTypePass::validateLayoutTypes
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Block definition "title" used in "test" layout type does not exist.
      */
     public function testProcessThrowsRuntimeExceptionWithNoBlockDefinition()
     {

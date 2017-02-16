@@ -31,6 +31,7 @@ class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::linkZone
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testLinkZone()
     {
@@ -57,7 +58,7 @@ class LayoutServiceTest extends ServiceTestCase
         $this->layoutHandlerMock
             ->expects($this->at(4))
             ->method('updateZone')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -72,6 +73,7 @@ class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::unlinkZone
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testUnlinkZone()
     {
@@ -83,7 +85,7 @@ class LayoutServiceTest extends ServiceTestCase
         $this->layoutHandlerMock
             ->expects($this->at(1))
             ->method('updateZone')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -95,6 +97,7 @@ class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayout
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testCreateLayout()
     {
@@ -106,7 +109,7 @@ class LayoutServiceTest extends ServiceTestCase
         $this->layoutHandlerMock
             ->expects($this->at(1))
             ->method('createLayout')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -122,6 +125,7 @@ class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::updateLayout
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testUpdateLayout()
     {
@@ -138,7 +142,7 @@ class LayoutServiceTest extends ServiceTestCase
         $this->layoutHandlerMock
             ->expects($this->at(2))
             ->method('updateLayout')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -153,6 +157,7 @@ class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::copyLayout
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testCopyLayout()
     {
@@ -169,7 +174,7 @@ class LayoutServiceTest extends ServiceTestCase
         $this->layoutHandlerMock
             ->expects($this->at(2))
             ->method('copyLayout')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -181,6 +186,7 @@ class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::createDraft
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testCreateDraft()
     {
@@ -197,7 +203,7 @@ class LayoutServiceTest extends ServiceTestCase
         $this->layoutHandlerMock
             ->expects($this->at(2))
             ->method('deleteLayout')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -209,6 +215,7 @@ class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::discardDraft
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testDiscardDraft()
     {
@@ -220,7 +227,7 @@ class LayoutServiceTest extends ServiceTestCase
         $this->layoutHandlerMock
             ->expects($this->at(1))
             ->method('deleteLayout')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -232,6 +239,7 @@ class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::publishLayout
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testPublishLayout()
     {
@@ -243,7 +251,7 @@ class LayoutServiceTest extends ServiceTestCase
         $this->layoutHandlerMock
             ->expects($this->at(1))
             ->method('deleteLayout')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())
@@ -255,6 +263,7 @@ class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::deleteLayout
      * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
      */
     public function testDeleteLayout()
     {
@@ -266,7 +275,7 @@ class LayoutServiceTest extends ServiceTestCase
         $this->layoutHandlerMock
             ->expects($this->at(1))
             ->method('deleteLayout')
-            ->will($this->throwException(new Exception()));
+            ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
             ->expects($this->once())

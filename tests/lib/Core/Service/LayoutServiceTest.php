@@ -36,6 +36,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayout
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find layout with identifier "999999"
      */
     public function testLoadLayoutThrowsNotFoundException()
     {
@@ -57,6 +58,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayoutDraft
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find layout with identifier "999999"
      */
     public function testLoadLayoutDraftThrowsNotFoundException()
     {
@@ -156,6 +158,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadZone
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find zone with identifier "bottom"
      */
     public function testLoadZoneThrowsNotFoundExceptionOnNonExistingLayout()
     {
@@ -165,10 +168,11 @@ abstract class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadZone
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find zone with identifier "non_existing"
      */
     public function testLoadZoneThrowsNotFoundExceptionOnNonExistingZone()
     {
-        $this->layoutService->loadZone(1, 'not_existing');
+        $this->layoutService->loadZone(1, 'non_existing');
     }
 
     /**
@@ -185,6 +189,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadZoneDraft
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find zone with identifier "bottom"
      */
     public function testLoadZoneDraftThrowsNotFoundExceptionOnNonExistingLayout()
     {
@@ -194,10 +199,11 @@ abstract class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadZoneDraft
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find zone with identifier "non_existing"
      */
     public function testLoadZoneDraftThrowsNotFoundExceptionOnNonExistingZoneDraft()
     {
-        $this->layoutService->loadZoneDraft(1, 'not_existing');
+        $this->layoutService->loadZoneDraft(1, 'non_existing');
     }
 
     /**
@@ -243,6 +249,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::linkZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "zone" has an invalid state. Zone cannot be in the shared layout.
      */
     public function testLinkZoneThrowsBadStateExceptionWhenInSharedLayout()
     {
@@ -255,6 +262,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::linkZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "zone" has an invalid state. Only draft zones can be linked.
      */
     public function testLinkZoneThrowsBadStateExceptionWithNonDraftZone()
     {
@@ -267,6 +275,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::linkZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "linkedZone" has an invalid state. Zones can only be linked to published zones.
      */
     public function testLinkZoneThrowsBadStateExceptionWithNonPublishedLinkedZone()
     {
@@ -279,6 +288,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::linkZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "linkedZone" has an invalid state. Linked zone is not in the shared layout.
      */
     public function testLinkZoneThrowsBadStateExceptionWhenLinkedZoneNotInSharedLayout()
     {
@@ -291,6 +301,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::linkZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "linkedZone" has an invalid state. Linked zone needs to be in a different layout.
      */
     public function testLinkZoneThrowsBadStateExceptionWhenInTheSameLayout()
     {
@@ -315,6 +326,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::unlinkZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "zone" has an invalid state. Only draft zones can be unlinked.
      */
     public function testUnlinkZoneThrowsBadStateExceptionWithNonDraftZone()
     {
@@ -342,8 +354,9 @@ abstract class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayout
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "name" has an invalid state. Layout with provided name already exists.
      */
-    public function testCreateLayoutThrowsBadStateException()
+    public function testCreateLayoutThrowsBadStateExceptionOnExistingName()
     {
         $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
             $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
@@ -373,6 +386,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::updateLayout
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "layout" has an invalid state. Only draft layouts can be updated.
      */
     public function testUpdateLayoutThrowsBadStateExceptionWithNonDraftLayout()
     {
@@ -387,6 +401,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::updateLayout
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "name" has an invalid state. Layout with provided name already exists.
      */
     public function testUpdateLayoutThrowsBadStateExceptionWithExistingLayoutName()
     {
@@ -419,8 +434,9 @@ abstract class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::copyLayout
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "newName" has an invalid state. Layout with provided name already exists.
      */
-    public function testCopyLayoutThrowsBadStateException()
+    public function testCopyLayoutThrowsBadStateExceptionOnExistingLayoutName()
     {
         $layout = $this->layoutService->loadLayout(1);
         $this->layoutService->copyLayout($layout, 'My other layout');
@@ -455,6 +471,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::createDraft
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "layout" has an invalid state. Drafts can only be created from published layouts.
      */
     public function testCreateDraftThrowsBadStateExceptionWithNonPublishedLayout()
     {
@@ -465,6 +482,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::createDraft
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "layout" has an invalid state. The provided layout already has a draft.
      */
     public function testCreateDraftThrowsBadStateExceptionIfDraftAlreadyExists()
     {
@@ -475,6 +493,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::discardDraft
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find layout with identifier "1"
      */
     public function testDiscardDraft()
     {
@@ -487,6 +506,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::discardDraft
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "layout" has an invalid state. Only drafts can be discarded.
      */
     public function testDiscardDraftThrowsBadStateExceptionWithNonDraftLayout()
     {
@@ -516,6 +536,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::publishLayout
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "layout" has an invalid state. Only drafts can be published.
      */
     public function testPublishLayoutThrowsBadStateExceptionWithNonDraftLayout()
     {
@@ -526,6 +547,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::deleteLayout
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find layout with identifier "1"
      */
     public function testDeleteLayout()
     {

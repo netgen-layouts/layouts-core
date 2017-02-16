@@ -115,6 +115,7 @@ class ParameterBuilderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::getOption
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedExceptionMessage Option "unknown" does not exist in builder for "test" parameter
      */
     public function testGetOptionThrowsInvalidArgumentException()
     {
@@ -267,6 +268,7 @@ class ParameterBuilderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::add
      * @expectedException \Netgen\BlockManager\Exception\BadMethodCallException
+     * @expectedExceptionMessage Parameters cannot be added after they have been built.
      */
     public function testAddAfterBuildingParameters()
     {
@@ -296,6 +298,7 @@ class ParameterBuilderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::add
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedExceptionMessage Parameters cannot be added to non-compound parameters.
      */
     public function testAddThrowsInvalidArgumentExceptionOnAddingParameterToNonCompoundParameter()
     {
@@ -323,6 +326,7 @@ class ParameterBuilderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::add
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedExceptionMessage Compound parameters cannot be added to compound parameters.
      */
     public function testAddThrowsInvalidArgumentExceptionOnAddingCompoundParameterToCompoundParameter()
     {
@@ -393,6 +397,7 @@ class ParameterBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::add
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::get
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedExceptionMessage Parameter with "unknown" name does not exist in the builder.
      */
     public function testGetThrowsInvalidArgumentExceptionWithNonExistingParameter()
     {
@@ -413,6 +418,7 @@ class ParameterBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::add
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::get
      * @expectedException \Netgen\BlockManager\Exception\BadMethodCallException
+     * @expectedExceptionMessage Accessing parameter builders is not possible after parameters have been built.
      */
     public function testGetAfterBuildingParameters()
     {
@@ -457,6 +463,7 @@ class ParameterBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::add
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::remove
      * @expectedException \Netgen\BlockManager\Exception\BadMethodCallException
+     * @expectedExceptionMessage Removing parameters is not possible after parameters have been built.
      */
     public function testRemoveAfterBuildingParameters()
     {

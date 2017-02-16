@@ -133,6 +133,7 @@ class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeGroupPass::buildBlockTypeGroups
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeGroupPass::validateBlockTypeGroups
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Block type "title" used in "test" block type group does not exist.
      */
     public function testProcessThrowsRuntimeExceptionWithNoBlockType()
     {
