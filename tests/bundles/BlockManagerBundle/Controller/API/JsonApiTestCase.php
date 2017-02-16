@@ -149,8 +149,9 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
      *
      * @param \Symfony\Component\HttpFoundation\Response $response
      * @param int $statusCode
+     * @param string $message
      */
-    protected function assertException(Response $response, $statusCode = Response::HTTP_BAD_REQUEST)
+    protected function assertException(Response $response, $statusCode = Response::HTTP_BAD_REQUEST, $message = null)
     {
         if (isset($_SERVER['OPEN_ERROR_IN_BROWSER']) && true === $_SERVER['OPEN_ERROR_IN_BROWSER']) {
             $this->showErrorInBrowserIfOccurred($response);
@@ -158,7 +159,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
 
         $this->assertResponseCode($response, $statusCode);
         $this->assertHeader($response, MediaTypes::JSON);
-        $this->assertExceptionResponseMessage($response, $statusCode);
+        $this->assertExceptionResponse($response, $statusCode, $message);
     }
 
     /**
@@ -166,8 +167,9 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
      *
      * @param \Symfony\Component\HttpFoundation\Response $response
      * @param int $statusCode
+     * @param string $message
      */
-    protected function assertExceptionResponseMessage(Response $response, $statusCode = Response::HTTP_BAD_REQUEST)
+    protected function assertExceptionResponse(Response $response, $statusCode = Response::HTTP_BAD_REQUEST, $message = null)
     {
         $responseContent = json_decode($response->getContent(), true);
         $this->assertInternalType('array', $responseContent);
@@ -177,6 +179,10 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
 
         $this->assertEquals($responseContent['status_code'], $statusCode);
         $this->assertEquals($responseContent['status_text'], Response::$statusTexts[$statusCode]);
+
+        if ($message !== null) {
+            $this->assertEquals($responseContent['message'], $message);
+        }
     }
 
     /**
