@@ -86,7 +86,7 @@ class LayoutValidatorTest extends TestCase
             $this->expectException(ValidationFailedException::class);
         }
 
-        $this->layoutValidator->validateLayoutName($layoutName);
+        $this->layoutValidator->validateLayoutName($layoutName, 'name');
     }
 
     public function validateLayoutCreateStructDataProvider()

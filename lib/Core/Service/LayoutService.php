@@ -439,7 +439,7 @@ class LayoutService extends Service implements LayoutServiceInterface
     public function copyLayout(Layout $layout, $newName)
     {
         $newName = is_string($newName) ? trim($newName) : $newName;
-        $this->layoutValidator->validateLayoutName($newName);
+        $this->layoutValidator->validateLayoutName($newName, 'newName');
 
         if ($this->layoutHandler->layoutNameExists($newName, $layout->getId())) {
             throw new BadStateException('newName', 'Layout with provided name already exists.');
