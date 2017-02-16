@@ -62,7 +62,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find layout with identifier "9999"'
         );
     }
 
@@ -103,7 +104,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find layout with identifier "9999"'
         );
     }
 
@@ -144,7 +146,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find zone with identifier "unknown"'
         );
     }
 
@@ -157,7 +160,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find zone with identifier "right"'
         );
     }
 
@@ -203,7 +207,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find zone with identifier "unknown"'
         );
     }
 
@@ -225,7 +230,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find zone with identifier "right"'
         );
     }
 
@@ -251,7 +257,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "layoutId": This value should not be blank.'
         );
     }
 
@@ -262,7 +269,7 @@ class LayoutControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             array(
-                'linked_layout_id' => array(),
+                'linked_layout_id' => array(42),
                 'linked_zone_identifier' => 'right',
             )
         );
@@ -278,7 +285,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "layoutId": This value should be of type scalar.'
         );
     }
 
@@ -304,7 +312,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "identifier": This value should not be blank.'
         );
     }
 
@@ -331,7 +340,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "identifier": This value should be of type string.'
         );
     }
 
@@ -358,7 +368,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            'Argument "linked_zone_identifier" has an invalid state. Specified linked layout or zone do not exist'
         );
     }
 
@@ -385,7 +396,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            'Argument "linked_zone_identifier" has an invalid state. Specified linked layout or zone do not exist'
         );
     }
 
@@ -412,7 +424,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            'Argument "linkedZone" has an invalid state. Linked zone is not in the shared layout.'
         );
     }
 
@@ -453,7 +466,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find zone with identifier "unknown"'
         );
     }
 
@@ -475,7 +489,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find zone with identifier "right"'
         );
     }
 
@@ -533,7 +548,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "layout_type": This value should be of type string.'
         );
     }
 
@@ -560,7 +576,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "layout_type": This value should not be blank.'
         );
     }
 
@@ -588,7 +605,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "name": This value should be of type string.'
         );
     }
 
@@ -615,7 +633,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "name": This value should not be blank.'
         );
     }
 
@@ -643,7 +662,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            'Argument "layout_type" has an invalid state. Layout type does not exist.'
         );
     }
 
@@ -671,7 +691,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            'Argument "name" has an invalid state. Layout with provided name already exists.'
         );
     }
 
@@ -753,7 +774,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find layout with identifier "9999"'
         );
     }
 
@@ -779,7 +801,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "newName": This value should be of type string.'
         );
     }
 
@@ -801,7 +824,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "newName": This value should not be blank.'
         );
     }
 
@@ -827,7 +851,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            'Argument "newName" has an invalid state. Layout with provided name already exists.'
         );
     }
 
@@ -873,7 +898,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find layout with identifier "9999"'
         );
     }
 
@@ -904,7 +930,7 @@ class LayoutControllerTest extends JsonApiTestCase
                 ->shouldReceive('discardDraft')
             ->getMock()
                 ->shouldReceive('createDraft')
-                ->andThrow(new BadStateException('test', 'test'));
+                ->andThrow(new BadStateException('test', 'Test message.'));
 
         $data = $this->jsonEncode(array());
 
@@ -919,7 +945,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            'Argument "test" has an invalid state. Test message.'
         );
 
         $clientContainer->unmock('netgen_block_manager.core.service.layout');
@@ -970,7 +997,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find layout with identifier "9999"'
         );
     }
 
@@ -996,7 +1024,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "name": This value should be of type string.'
         );
     }
 
@@ -1018,7 +1047,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "name": This value should not be blank.'
         );
     }
 
@@ -1044,7 +1074,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            'Argument "name" has an invalid state. Layout with provided name already exists.'
         );
     }
 
@@ -1085,7 +1116,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find layout with identifier "9999"'
         );
     }
 
@@ -1126,7 +1158,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find layout with identifier "9999"'
         );
     }
 
@@ -1167,7 +1200,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find layout with identifier "9999"'
         );
     }
 }
