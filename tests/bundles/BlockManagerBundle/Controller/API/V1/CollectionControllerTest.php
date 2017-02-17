@@ -32,7 +32,8 @@ class CollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find collection with identifier "9999"'
         );
     }
 
@@ -75,7 +76,8 @@ class CollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find collection with identifier "9999"'
         );
     }
 
@@ -102,7 +104,8 @@ class CollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find collection with identifier "9999"'
         );
     }
 
@@ -129,7 +132,8 @@ class CollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find collection with identifier "9999"'
         );
     }
 
@@ -156,7 +160,8 @@ class CollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find item with identifier "9999"'
         );
     }
 
@@ -231,7 +236,8 @@ class CollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find collection with identifier "9999"'
         );
     }
 
@@ -258,7 +264,8 @@ class CollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "items": This value should not be blank.'
         );
     }
 
@@ -285,7 +292,8 @@ class CollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "items": "Expected argument of type "array or Traversable", "integer" given"'
         );
     }
 
@@ -308,7 +316,8 @@ class CollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "items": This value should not be blank.'
         );
     }
 
@@ -342,7 +351,8 @@ class CollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "[0][type]": This value should be of type int.'
         );
     }
 
@@ -375,7 +385,8 @@ class CollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "[0][type]": This field is missing.'
         );
     }
 
@@ -390,7 +401,7 @@ class CollectionControllerTest extends JsonApiTestCase
                 'items' => array(
                     array(
                         'type' => Item::TYPE_MANUAL,
-                        'value_id' => array(),
+                        'value_id' => array(42),
                         'value_type' => 'ezcontent',
                         'position' => 3,
                     ),
@@ -409,7 +420,8 @@ class CollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "[0][value_id]": This value should be of type scalar.'
         );
     }
 
@@ -442,7 +454,8 @@ class CollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "[0][value_id]": This field is missing.'
         );
     }
 
@@ -476,7 +489,8 @@ class CollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "[0][value_type]": This value should be of type string.'
         );
     }
 
@@ -509,7 +523,8 @@ class CollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "[0][value_type]": This field is missing.'
         );
     }
 
@@ -543,7 +558,8 @@ class CollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "[0][position]": This value should be of type int.'
         );
     }
 
@@ -576,7 +592,8 @@ class CollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "position": This value should not be blank.'
         );
     }
 
@@ -610,7 +627,8 @@ class CollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            'Argument "position" has an invalid state. Position is out of range.'
         );
     }
 
@@ -655,7 +673,8 @@ class CollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find item with identifier "9999"'
         );
     }
 
@@ -681,7 +700,8 @@ class CollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            'Argument "position" has an invalid state. Position is out of range.'
         );
     }
 
@@ -707,7 +727,8 @@ class CollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "position": This value should be of type int.'
         );
     }
 
@@ -729,7 +750,8 @@ class CollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "position": This value should not be blank.'
         );
     }
 
@@ -770,7 +792,8 @@ class CollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find item with identifier "9999"'
         );
     }
 
@@ -797,7 +820,8 @@ class CollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find query with identifier "9999"'
         );
     }
 
@@ -842,7 +866,8 @@ class CollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find query with identifier "9999"'
         );
     }
 
@@ -868,7 +893,8 @@ class CollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            'Argument "position" has an invalid state. Position is out of range.'
         );
     }
 
@@ -894,7 +920,8 @@ class CollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "position": This value should be of type int.'
         );
     }
 
@@ -916,7 +943,8 @@ class CollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "position": This value should not be blank.'
         );
     }
 
@@ -957,7 +985,8 @@ class CollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find query with identifier "9999"'
         );
     }
 }

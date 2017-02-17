@@ -45,7 +45,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find block with identifier "9999"'
         );
     }
 
@@ -135,7 +136,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            'Argument "targetBlock" has an invalid state. Target block is not a container.'
         );
     }
 
@@ -143,7 +145,7 @@ class BlockControllerTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::create
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
      */
-    public function testCreateWithNonContainerInsideContainer()
+    public function testCreateWithContainerInsideContainer()
     {
         $data = $this->jsonEncode(
             array(
@@ -164,7 +166,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            'Argument "blockCreateStruct" has an invalid state. Containers cannot be placed inside containers.'
         );
     }
 
@@ -193,7 +196,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "block_type": This value should be of type string.'
         );
     }
 
@@ -221,7 +225,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "block_type": This value should not be blank.'
         );
     }
 
@@ -250,7 +255,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "placeholder": This value should be of type string.'
         );
     }
 
@@ -278,7 +284,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "placeholder": This value should not be blank.'
         );
     }
 
@@ -307,7 +314,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "position": This value should be of type int.'
         );
     }
 
@@ -336,7 +344,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            'Argument "block_type" has an invalid state. Block type does not exist.'
         );
     }
 
@@ -365,7 +374,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            'Argument "placeholder" has an invalid state. Target block does not have the specified placeholder.'
         );
     }
 
@@ -394,7 +404,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            'Argument "position" has an invalid state. Position is out of range.'
         );
     }
 
@@ -487,7 +498,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "block_type": This value should be of type string.'
         );
     }
 
@@ -516,7 +528,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "block_type": This value should not be blank.'
         );
     }
 
@@ -529,7 +542,7 @@ class BlockControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             array(
                 'block_type' => 'title',
-                'layout_id' => array(),
+                'layout_id' => array(42),
                 'zone_identifier' => 'bottom',
                 'position' => 0,
             )
@@ -546,7 +559,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "layoutId": This value should be of type scalar.'
         );
     }
 
@@ -575,7 +589,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "layoutId": This value should not be blank.'
         );
     }
 
@@ -605,7 +620,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "identifier": This value should be of type string.'
         );
     }
 
@@ -634,7 +650,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "identifier": This value should not be blank.'
         );
     }
 
@@ -664,7 +681,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "position": This value should be of type int.'
         );
     }
 
@@ -694,7 +712,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            'Argument "block_type" has an invalid state. Block type does not exist.'
         );
     }
 
@@ -724,7 +743,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            'Argument "zone_identifier" has an invalid state. Zone draft does not exist.'
         );
     }
 
@@ -754,7 +774,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            'Argument "zone_identifier" has an invalid state. Zone draft does not exist.'
         );
     }
 
@@ -784,7 +805,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            'Argument "position" has an invalid state. Position is out of range.'
         );
     }
 
@@ -814,7 +836,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            'Argument "zone" has an invalid state. Block is not allowed in specified zone.'
         );
     }
 
@@ -864,7 +887,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find block with identifier "9999"'
         );
     }
 
@@ -891,7 +915,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find block with identifier "9999"'
         );
     }
 
@@ -918,7 +943,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            'Argument "placeholder" has an invalid state. Target block does not have the specified placeholder.'
         );
     }
 
@@ -945,7 +971,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            'Argument "targetBlock" has an invalid state. Target block is not a container.'
         );
     }
 
@@ -972,7 +999,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            'Argument "block" has an invalid state. Containers cannot be placed inside containers.'
         );
     }
 
@@ -983,7 +1011,7 @@ class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             array(
-                'block_id' => array(),
+                'block_id' => array(42),
                 'placeholder' => 'main',
             )
         );
@@ -999,7 +1027,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "blockId": This value should be of type scalar.'
         );
     }
 
@@ -1026,7 +1055,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "placeholder": This value should be of type string.'
         );
     }
 
@@ -1052,7 +1082,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "blockId": This value should not be blank.'
         );
     }
 
@@ -1078,7 +1109,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "placeholder": This value should not be blank.'
         );
     }
 
@@ -1128,7 +1160,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find block with identifier "9999"'
         );
     }
 
@@ -1155,7 +1188,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find zone with identifier "left"'
         );
     }
 
@@ -1182,7 +1216,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find zone with identifier "unknown"'
         );
     }
 
@@ -1209,7 +1244,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            'Argument "zone" has an invalid state. Block is not allowed in specified zone.'
         );
     }
 
@@ -1220,7 +1256,7 @@ class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             array(
-                'layout_id' => array(),
+                'layout_id' => array(42),
                 'zone_identifier' => 'left',
             )
         );
@@ -1236,7 +1272,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "layoutId": This value should be of type scalar.'
         );
     }
 
@@ -1263,7 +1300,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "identifier": This value should be of type string.'
         );
     }
 
@@ -1289,7 +1327,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "layoutId": This value should not be blank.'
         );
     }
 
@@ -1315,7 +1354,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "identifier": This value should not be blank.'
         );
     }
 
@@ -1414,7 +1454,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find block with identifier "9999"'
         );
     }
 
@@ -1442,7 +1483,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find block with identifier "9999"'
         );
     }
 
@@ -1470,7 +1512,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            'Argument "placeholder" has an invalid state. Target block does not have the specified placeholder.'
         );
     }
 
@@ -1498,7 +1541,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            'Argument "targetBlock" has an invalid state. Target block is not a container.'
         );
     }
 
@@ -1526,7 +1570,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            'Argument "position" has an invalid state. Position is out of range.'
         );
     }
 
@@ -1554,7 +1599,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            'Argument "block" has an invalid state. Containers cannot be placed inside containers.'
         );
     }
 
@@ -1565,7 +1611,7 @@ class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             array(
-                'block_id' => array(),
+                'block_id' => array(42),
                 'placeholder' => 'main',
                 'position' => 1,
             )
@@ -1582,7 +1628,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "blockId": This value should be of type scalar.'
         );
     }
 
@@ -1610,7 +1657,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "placeholder": This value should be of type string.'
         );
     }
 
@@ -1638,7 +1686,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "position": This value should be of type int.'
         );
     }
 
@@ -1665,7 +1714,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "blockId": This value should not be blank.'
         );
     }
 
@@ -1692,7 +1742,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "placeholder": This value should not be blank.'
         );
     }
 
@@ -1719,7 +1770,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "position": This value should not be blank.'
         );
     }
 
@@ -1766,7 +1818,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find block with identifier "9999"'
         );
     }
 
@@ -1794,7 +1847,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find zone with identifier "left"'
         );
     }
 
@@ -1822,7 +1876,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find zone with identifier "unknown"'
         );
     }
 
@@ -1850,7 +1905,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            'Argument "zone" has an invalid state. Block is not allowed in specified zone.'
         );
     }
 
@@ -1878,7 +1934,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            'Argument "position" has an invalid state. Position is out of range.'
         );
     }
 
@@ -1889,7 +1946,7 @@ class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             array(
-                'layout_id' => array(),
+                'layout_id' => array(42),
                 'zone_identifier' => 'left',
                 'position' => 1,
             )
@@ -1906,7 +1963,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "layoutId": This value should be of type scalar.'
         );
     }
 
@@ -1934,7 +1992,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "identifier": This value should be of type string.'
         );
     }
 
@@ -1962,7 +2021,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "position": This value should be of type int.'
         );
     }
 
@@ -1989,7 +2049,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "layoutId": This value should not be blank.'
         );
     }
 
@@ -2016,7 +2077,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "identifier": This value should not be blank.'
         );
     }
 
@@ -2034,7 +2096,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/move',
+            '/bm/api/v1/blocks/31/move/zone',
             array(),
             array(),
             array(),
@@ -2043,7 +2105,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "position": This value should not be blank.'
         );
     }
 
@@ -2088,7 +2151,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find block with identifier "9999"'
         );
     }
 
@@ -2129,7 +2193,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find block with identifier "9999"'
         );
     }
 }

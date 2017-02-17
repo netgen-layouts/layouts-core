@@ -49,7 +49,8 @@ class CollectionValidator extends Validator
                         ),
                     )
                 ),
-            )
+            ),
+            'items'
         );
     }
 }

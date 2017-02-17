@@ -45,7 +45,8 @@ class BlockCollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find block with identifier "9999"'
         );
     }
 
@@ -88,7 +89,8 @@ class BlockCollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find block with identifier "9999"'
         );
     }
 
@@ -101,7 +103,8 @@ class BlockCollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND
+            Response::HTTP_NOT_FOUND,
+            'Could not find collection reference with identifier "unknown"'
         );
     }
 }
