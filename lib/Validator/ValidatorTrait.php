@@ -37,14 +37,27 @@ trait ValidatorTrait
         try {
             $violations = $this->validator->validate($value, $constraints);
         } catch (Exception $e) {
-            throw new ValidationFailedException($e->getMessage(), 0, $e);
+            throw new ValidationFailedException(
+                sprintf(
+                    'There was an error validating "%s": "%s"',
+                    (string) $propertyPath,
+                    $e->getMessage()
+                ),
+                0,
+                $e
+            );
         }
 
         if (count($violations) > 0) {
+            $propertyName = $violations[0]->getPropertyPath();
+            if (empty($propertyName)) {
+                $propertyName = (string) $propertyPath;
+            }
+
             throw new ValidationFailedException(
                 sprintf(
                     'There was an error validating "%s": %s',
-                    $propertyPath !== null ? $propertyPath : $violations[0]->getPropertyPath(),
+                    $propertyName,
                     $violations[0]->getMessage()
                 )
             );
