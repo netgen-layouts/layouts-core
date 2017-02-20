@@ -33,26 +33,3 @@ block_types:
         definition_identifier: gallery
         defaults:
             view_type: sushi_bar
-
-    # All two_columns_container blocks are specified via 3 view type specific
-    # configs below, so we disable the one which is automatically created
-    two_columns_container:
-        enabled: false
-
-    two_columns_container_50_50:
-        name: 'Two columns container (50:50)'
-        definition_identifier: two_columns_container
-        defaults:
-            view_type: 50_50
-
-    two_columns_container_33_66:
-        name: 'Two columns container (33:66)'
-        definition_identifier: two_columns_container
-        defaults:
-            view_type: 33_66
-
-    two_columns_container_66_33:
-        name: 'Two columns container (66:33)'
-        definition_identifier: two_columns_container
-        defaults:
-            view_type: 66_33
