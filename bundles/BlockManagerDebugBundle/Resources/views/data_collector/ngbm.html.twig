@@ -21,8 +21,8 @@
         </span>
     {% endset %}
 
-    {% if layout %}
-        {% set text %}
+    {% set text %}
+        {% if layout %}
             {% import 'NetgenBlockManagerAdminBundle:admin:macros.html.twig' as macros %}
 
             <div class="sf-toolbar-info-piece">
@@ -46,14 +46,14 @@
 
                 <span>{{ rule.id }}</span>
             </div>
+        {% endif %}
 
-            <div class="sf-toolbar-info-piece">
-                <b>Netgen Layouts version</b>
+        <div class="sf-toolbar-info-piece">
+            <b>Netgen Layouts version</b>
 
-                <span>{{ constant('Netgen\\BlockManager\\Version::VERSION') }}</span>
-            </div>
-        {% endset %}
-    {% endif %}
+            <span>{{ constant('Netgen\\BlockManager\\Version::VERSION') }}</span>
+        </div>
+    {% endset %}
 
     {{ include('WebProfilerBundle:Profiler:toolbar_item.html.twig') }}
 {% endblock %}
