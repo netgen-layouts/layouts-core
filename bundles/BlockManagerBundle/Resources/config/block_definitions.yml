@@ -137,14 +137,14 @@ block_definitions:
             dynamic_container:
                 name: 'Dynamic container'
 
-    div_container:
-        name: '<div> container'
+    column:
+        name: 'Column'
         view_types:
-            div_container:
-                name: '<div> container'
+            column:
+                name: 'Column'
 
-    two_columns_container:
-        name: 'Two columns container'
+    two_columns:
+        name: 'Two columns'
         view_types:
             50_50:
                 name: '50:50'

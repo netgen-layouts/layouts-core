@@ -11,8 +11,8 @@ block_type_groups:
     containers:
         name: 'Containers'
         block_types:
-            - div_container
-            - two_columns_container
+            - column
+            - two_columns
     placeholders:
         name: 'Placeholders'
         block_types: [twig_block, full_view]

@@ -67,24 +67,24 @@ view:
                 template: "NetgenBlockManagerBundle:block:full_view.html.twig"
                 match:
                     block\definition: full_view
-            div_container:
-                template: "NetgenBlockManagerBundle:block:div_container.html.twig"
+            column:
+                template: "NetgenBlockManagerBundle:block:column.html.twig"
                 match:
-                    block\definition: div_container
-            two_columns_container_50_50:
-                template: "NetgenBlockManagerBundle:block:two_columns_container/50_50.html.twig"
+                    block\definition: column
+            two_columns_50_50:
+                template: "NetgenBlockManagerBundle:block:two_columns/50_50.html.twig"
                 match:
-                    block\definition: two_columns_container
+                    block\definition: two_columns
                     block\view_type: 50_50
-            two_columns_container_33_66:
-                template: "NetgenBlockManagerBundle:block:two_columns_container/33_66.html.twig"
+            two_columns_33_66:
+                template: "NetgenBlockManagerBundle:block:two_columns/33_66.html.twig"
                 match:
-                    block\definition: two_columns_container
+                    block\definition: two_columns
                     block\view_type: 33_66
-            two_columns_container_66_33:
-                template: "NetgenBlockManagerBundle:block:two_columns_container/66_33.html.twig"
+            two_columns_66_33:
+                template: "NetgenBlockManagerBundle:block:two_columns/66_33.html.twig"
                 match:
-                    block\definition: two_columns_container
+                    block\definition: two_columns
                     block\view_type: 66_33
         api:
             title:
@@ -154,26 +154,26 @@ view:
                 match:
                     block\definition: full_view
                     api_version: 1
-            div_container:
-                template: "NetgenBlockManagerBundle:api/block:div_container.html.twig"
+            column:
+                template: "NetgenBlockManagerBundle:api/block:column.html.twig"
                 match:
-                    block\definition: div_container
+                    block\definition: column
                     api_version: 1
-            two_columns_container_50_50:
-                template: "NetgenBlockManagerBundle:api/block:two_columns_container/50_50.html.twig"
+            two_columns_50_50:
+                template: "NetgenBlockManagerBundle:api/block:two_columns/50_50.html.twig"
                 match:
-                    block\definition: two_columns_container
+                    block\definition: two_columns
                     block\view_type: 50_50
                     api_version: 1
-            two_columns_container_33_66:
-                template: "NetgenBlockManagerBundle:api/block:two_columns_container/33_66.html.twig"
+            two_columns_33_66:
+                template: "NetgenBlockManagerBundle:api/block:two_columns/33_66.html.twig"
                 match:
-                    block\definition: two_columns_container
+                    block\definition: two_columns
                     block\view_type: 33_66
                     api_version: 1
-            two_columns_container_66_33:
-                template: "NetgenBlockManagerBundle:api/block:two_columns_container/66_33.html.twig"
+            two_columns_66_33:
+                template: "NetgenBlockManagerBundle:api/block:two_columns/66_33.html.twig"
                 match:
-                    block\definition: two_columns_container
+                    block\definition: two_columns
                     block\view_type: 66_33
                     api_version: 1
