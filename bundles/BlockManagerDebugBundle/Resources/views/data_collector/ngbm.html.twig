@@ -46,6 +46,12 @@
 
                 <span>{{ rule.id }}</span>
             </div>
+
+            <div class="sf-toolbar-info-piece">
+                <b>Netgen Layouts version</b>
+
+                <span>{{ constant('Netgen\\BlockManager\\Version::VERSION') }}</span>
+            </div>
         {% endset %}
     {% endif %}
 
@@ -90,6 +96,11 @@
             <div class="tab-content nl-container">
                 {% if layout %}
                     <div class="metrics">
+                        <div class="metric">
+                            <span class="value">{{ constant('Netgen\\BlockManager\\Version::VERSION') }}</span>
+                            <span class="label">Netgen Layouts version</span>
+                        </div>
+
                         <div class="metric">
                             <span class="value">
                                 <a href="{{ macros.layout_path(layout.id) }}" target="_blank">
@@ -165,6 +176,13 @@
                         </p>
                     {% endif %}
                 {% else %}
+                    <div class="metrics">
+                        <div class="metric">
+                            <span class="value">{{ constant('Netgen\\BlockManager\\Version::VERSION') }}</span>
+                            <span class="label">Netgen Layouts version</span>
+                        </div>
+                    </div>
+
                     <div class="empty">
                         <p>No layout was resolved for this request.</p>
                     </div>
