@@ -317,7 +317,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     public function testCreateBlockThrowsBadStateExceptionWithContainerInsideContainer()
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            $this->blockDefinitionRegistry->getBlockDefinition('div_container')
+            $this->blockDefinitionRegistry->getBlockDefinition('column')
         );
 
         $this->blockService->createBlock(
@@ -372,7 +372,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     public function testCreateBlockInZoneWithContainerBlock()
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            $this->blockDefinitionRegistry->getBlockDefinition('div_container')
+            $this->blockDefinitionRegistry->getBlockDefinition('column')
         );
 
         $blockCreateStruct->setPlaceholderStruct('main', new PlaceholderCreateStruct());

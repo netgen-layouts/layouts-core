@@ -161,8 +161,8 @@ abstract class ServiceTestCase extends TestCase
         $blockDefinition3 = new BlockDefinition('gallery', array('standard' => array('standard')));
         $blockDefinition4 = new BlockDefinition('list', array('standard' => array('standard')));
         $blockDefinition5 = new BlockDefinition(
-            'div_container',
-            array('div_container' => array('standard')),
+            'column',
+            array('column' => array('standard')),
             new ContainerBlockDefinitionHandler(array(), array('main', 'other'))
         );
 
@@ -171,7 +171,7 @@ abstract class ServiceTestCase extends TestCase
         $this->blockDefinitionRegistry->addBlockDefinition('text', $blockDefinition2);
         $this->blockDefinitionRegistry->addBlockDefinition('gallery', $blockDefinition3);
         $this->blockDefinitionRegistry->addBlockDefinition('list', $blockDefinition4);
-        $this->blockDefinitionRegistry->addBlockDefinition('div_container', $blockDefinition5);
+        $this->blockDefinitionRegistry->addBlockDefinition('column', $blockDefinition5);
 
         $this->targetTypeRegistry = new TargetTypeRegistry();
         $this->targetTypeRegistry->addTargetType(new TargetType('target'));

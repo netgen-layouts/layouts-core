@@ -97,7 +97,7 @@ abstract class BlockMapperTest extends ServiceTestCase
         $persistenceBlock = new Block(
             array(
                 'id' => 33,
-                'definitionIdentifier' => 'div_container',
+                'definitionIdentifier' => 'column',
                 'status' => Value::STATUS_PUBLISHED,
                 'parameters' => array(),
                 'placeholderParameters' => array(
@@ -112,7 +112,7 @@ abstract class BlockMapperTest extends ServiceTestCase
         $block = $this->blockMapper->mapBlock($persistenceBlock);
 
         $this->assertEquals(
-            $this->blockDefinitionRegistry->getBlockDefinition('div_container'),
+            $this->blockDefinitionRegistry->getBlockDefinition('column'),
             $block->getDefinition()
         );
 
