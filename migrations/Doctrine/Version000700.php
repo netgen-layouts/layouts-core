@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Migrations\Doctrine;
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
 
-class Version010000 extends AbstractMigration
+class Version000700 extends AbstractMigration
 {
     /**
      * @param \Doctrine\DBAL\Schema\Schema $schema
