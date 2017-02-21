@@ -72,20 +72,20 @@ view:
                 match:
                     block\definition: column
             two_columns_50_50:
-                template: "NetgenBlockManagerBundle:block:two_columns/50_50.html.twig"
+                template: "NetgenBlockManagerBundle:block:two_columns/two_columns_50_50.html.twig"
                 match:
                     block\definition: two_columns
-                    block\view_type: 50_50
+                    block\view_type: two_columns_50_50
             two_columns_33_66:
-                template: "NetgenBlockManagerBundle:block:two_columns/33_66.html.twig"
+                template: "NetgenBlockManagerBundle:block:two_columns/two_columns_33_66.html.twig"
                 match:
                     block\definition: two_columns
-                    block\view_type: 33_66
+                    block\view_type: two_columns_33_66
             two_columns_66_33:
-                template: "NetgenBlockManagerBundle:block:two_columns/66_33.html.twig"
+                template: "NetgenBlockManagerBundle:block:two_columns/two_columns_66_33.html.twig"
                 match:
                     block\definition: two_columns
-                    block\view_type: 66_33
+                    block\view_type: two_columns_66_33
         api:
             title:
                 template: "NetgenBlockManagerBundle:api/block:title.html.twig"
@@ -160,20 +160,20 @@ view:
                     block\definition: column
                     api_version: 1
             two_columns_50_50:
-                template: "NetgenBlockManagerBundle:api/block:two_columns/50_50.html.twig"
+                template: "NetgenBlockManagerBundle:api/block:two_columns/two_columns_50_50.html.twig"
                 match:
                     block\definition: two_columns
-                    block\view_type: 50_50
+                    block\view_type: two_columns_50_50
                     api_version: 1
             two_columns_33_66:
-                template: "NetgenBlockManagerBundle:api/block:two_columns/33_66.html.twig"
+                template: "NetgenBlockManagerBundle:api/block:two_columns/two_columns_33_66.html.twig"
                 match:
                     block\definition: two_columns
-                    block\view_type: 33_66
+                    block\view_type: two_columns_33_66
                     api_version: 1
             two_columns_66_33:
-                template: "NetgenBlockManagerBundle:api/block:two_columns/66_33.html.twig"
+                template: "NetgenBlockManagerBundle:api/block:two_columns/two_columns_66_33.html.twig"
                 match:
                     block\definition: two_columns
-                    block\view_type: 66_33
+                    block\view_type: two_columns_66_33
                     api_version: 1
