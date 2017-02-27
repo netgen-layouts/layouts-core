@@ -102,23 +102,6 @@ class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::process
-     */
-    public function testProcessWithDisabledBlockDefinition()
-    {
-        $this->setParameter(
-            'netgen_block_manager.block_definitions',
-            array('block_definition' => array('enabled' => false))
-        );
-
-        $this->setDefinition('netgen_block_manager.block.registry.block_definition', new Definition());
-
-        $this->compile();
-
-        $this->assertContainerBuilderNotHasService('netgen_block_manager.block.block_definition.block_definition');
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::process
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Block definition handler definition must have an 'identifier' attribute in its' tag.
      */

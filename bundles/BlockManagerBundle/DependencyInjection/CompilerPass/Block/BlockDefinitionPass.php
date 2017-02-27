@@ -33,10 +33,6 @@ class BlockDefinitionPass implements CompilerPassInterface
 
         $blockDefinitions = $container->getParameter('netgen_block_manager.block_definitions');
         foreach ($blockDefinitions as $identifier => $blockDefinition) {
-            if (!$blockDefinition['enabled']) {
-                continue;
-            }
-
             $handlerIdentifier = $identifier;
             if (!empty($blockDefinition['handler'])) {
                 $handlerIdentifier = $blockDefinition['handler'];
