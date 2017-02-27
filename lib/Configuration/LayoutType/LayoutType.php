@@ -13,6 +13,11 @@ class LayoutType extends ValueObject
     protected $identifier;
 
     /**
+     * @var bool
+     */
+    protected $isEnabled;
+
+    /**
      * @var string
      */
     protected $name;
@@ -30,6 +35,16 @@ class LayoutType extends ValueObject
     public function getIdentifier()
     {
         return $this->identifier;
+    }
+
+    /**
+     * Returns if the layout type is enabled or not.
+     *
+     * @return bool
+     */
+    public function isEnabled()
+    {
+        return $this->isEnabled;
     }
 
     /**

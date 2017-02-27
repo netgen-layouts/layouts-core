@@ -51,10 +51,6 @@ class LayoutTypePass implements CompilerPassInterface
     protected function buildLayoutTypes(ContainerBuilder $container, array $layoutTypes)
     {
         foreach ($layoutTypes as $identifier => $layoutType) {
-            if (!$layoutType['enabled']) {
-                continue;
-            }
-
             $serviceIdentifier = sprintf('netgen_block_manager.configuration.layout_type.%s', $identifier);
 
             $container->register($serviceIdentifier, LayoutType::class)

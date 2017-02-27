@@ -17,7 +17,14 @@ class CreateTypeTest extends FormTestCase
     public function getMainType()
     {
         $layoutTypeRegistry = new LayoutTypeRegistry();
-        $layoutTypeRegistry->addLayoutType(new LayoutType(array('identifier' => '4_zones_a')));
+        $layoutTypeRegistry->addLayoutType(
+            new LayoutType(
+                array(
+                    'identifier' => '4_zones_a',
+                    'isEnabled' => true,
+                )
+            )
+        );
 
         return new CreateType($layoutTypeRegistry);
     }
@@ -36,7 +43,12 @@ class CreateTypeTest extends FormTestCase
 
         $updatedStruct = new LayoutCreateStruct();
         $updatedStruct->name = 'My layout';
-        $updatedStruct->layoutType = new LayoutType(array('identifier' => '4_zones_a'));
+        $updatedStruct->layoutType = new LayoutType(
+            array(
+                'identifier' => '4_zones_a',
+                'isEnabled' => true,
+            )
+        );
         $updatedStruct->shared = true;
 
         $form = $this->factory->create(

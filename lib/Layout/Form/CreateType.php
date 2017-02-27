@@ -53,6 +53,10 @@ class CreateType extends AbstractType
     {
         $choices = array();
         foreach ($this->layoutTypeRegistry->getLayoutTypes() as $layoutType) {
+            if (!$layoutType->isEnabled()) {
+                continue;
+            }
+
             $choices[$layoutType->getName()] = $layoutType->getIdentifier();
         }
 

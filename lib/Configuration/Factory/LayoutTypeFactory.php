@@ -32,6 +32,7 @@ class LayoutTypeFactory
         return new LayoutType(
             array(
                 'identifier' => $identifier,
+                'isEnabled' => $config['enabled'],
                 'name' => $config['name'],
                 'zones' => $zones,
             )

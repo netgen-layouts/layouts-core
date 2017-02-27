@@ -32,6 +32,7 @@ class LayoutTypeNormalizerTest extends TestCase
             '4_zones_a',
             array(
                 'name' => 'Layout type',
+                'enabled' => true,
                 'zones' => array(
                     'zone1' => array(
                         'name' => 'Zone 1',

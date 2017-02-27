@@ -46,31 +46,6 @@ class LayoutTypePassTest extends AbstractCompilerPassTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\LayoutTypePass::process
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\LayoutTypePass::buildLayoutTypes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\LayoutTypePass::validateLayoutTypes
-     */
-    public function testProcessWithDisabledLayout()
-    {
-        $this->setParameter('netgen_block_manager.block_definitions', array());
-        $this->setParameter(
-            'netgen_block_manager.layout_types',
-            array(
-                'test' => array(
-                    'enabled' => false,
-                    'zones' => array(),
-                ),
-            )
-        );
-
-        $this->setDefinition('netgen_block_manager.configuration.registry.layout_type', new Definition());
-
-        $this->compile();
-
-        $this->assertContainerBuilderNotHasService('netgen_block_manager.configuration.layout_type.test');
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\LayoutTypePass::process
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\LayoutTypePass::buildLayoutTypes
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\LayoutTypePass::validateLayoutTypes
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Block definition "title" used in "test" layout type does not exist.
      */

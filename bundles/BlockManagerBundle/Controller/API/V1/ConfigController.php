@@ -111,6 +111,10 @@ class ConfigController extends Controller
     {
         $layoutTypes = array();
         foreach ($this->layoutTypeRegistry->getLayoutTypes() as $layoutType) {
+            if (!$layoutType->isEnabled()) {
+                continue;
+            }
+
             $layoutTypes[] = new VersionedValue($layoutType, Version::API_V1);
         }
 
