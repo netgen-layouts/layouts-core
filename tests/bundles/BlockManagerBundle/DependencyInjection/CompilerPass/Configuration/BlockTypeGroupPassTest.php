@@ -50,6 +50,47 @@ class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeGroupPass::buildBlockTypeGroups
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeGroupPass::validateBlockTypeGroups
      */
+    public function testProcessWithNoBlockType()
+    {
+        $this->setParameter(
+            'netgen_block_manager.block_type_groups',
+            array(
+                'test' => array(
+                    'enabled' => true,
+                    'block_types' => array('test1', 'test2'),
+                ),
+            )
+        );
+
+        $this->setParameter(
+            'netgen_block_manager.block_types',
+            array(
+                'test1' => array(
+                    'enabled' => true,
+                ),
+            )
+        );
+
+        $this->setDefinition('netgen_block_manager.configuration.registry.block_type', new Definition());
+
+        $this->compile();
+
+        $this->assertContainerBuilderHasService('netgen_block_manager.configuration.block_type_group.test');
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+            'netgen_block_manager.configuration.block_type_group.test',
+            2,
+            array(
+                new Reference('netgen_block_manager.configuration.block_type.test1'),
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeGroupPass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeGroupPass::generateBlockTypeGroupConfig
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeGroupPass::buildBlockTypeGroups
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeGroupPass::validateBlockTypeGroups
+     */
     public function testProcessWithPopulatingCustomGroup()
     {
         $this->setParameter(
@@ -125,33 +166,6 @@ class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
         $this->compile();
 
         $this->assertContainerBuilderNotHasService('netgen_block_manager.configuration.block_type_group.test');
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeGroupPass::process
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeGroupPass::generateBlockTypeGroupConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeGroupPass::buildBlockTypeGroups
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeGroupPass::validateBlockTypeGroups
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Block type "title" used in "test" block type group does not exist.
-     */
-    public function testProcessThrowsRuntimeExceptionWithNoBlockType()
-    {
-        $this->setParameter(
-            'netgen_block_manager.block_type_groups',
-            array(
-                'test' => array(
-                    'enabled' => true,
-                    'block_types' => array('title'),
-                ),
-            )
-        );
-
-        $this->setParameter('netgen_block_manager.block_types', array());
-
-        $this->setDefinition('netgen_block_manager.configuration.registry.block_type', new Definition());
-
-        $this->compile();
     }
 
     /**

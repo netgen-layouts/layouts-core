@@ -4,7 +4,6 @@ namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Conf
 
 use Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup;
 use Netgen\BlockManager\Configuration\Factory\BlockTypeGroupFactory;
-use Netgen\BlockManager\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -31,8 +30,7 @@ class BlockTypeGroupPass implements CompilerPassInterface
         $blockTypeGroups = $this->generateBlockTypeGroupConfig($blockTypeGroups, $blockTypes);
         $container->setParameter('netgen_block_manager.block_type_groups', $blockTypeGroups);
 
-        $this->validateBlockTypeGroups($blockTypeGroups, $blockTypes);
-        $this->buildBlockTypeGroups($container, $blockTypeGroups);
+        $this->buildBlockTypeGroups($container, $blockTypeGroups, $blockTypes);
 
         $registry = $container->findDefinition(self::SERVICE_NAME);
         $blockTypeGroupServices = $container->findTaggedServiceIds(self::TAG_NAME);
@@ -88,8 +86,9 @@ class BlockTypeGroupPass implements CompilerPassInterface
      *
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @param array $blockTypeGroups
+     * @param array $blockTypes
      */
-    protected function buildBlockTypeGroups(ContainerBuilder $container, array $blockTypeGroups)
+    protected function buildBlockTypeGroups(ContainerBuilder $container, array $blockTypeGroups, array $blockTypes)
     {
         foreach ($blockTypeGroups as $identifier => $blockTypeGroup) {
             if (!$blockTypeGroup['enabled']) {
@@ -100,43 +99,20 @@ class BlockTypeGroupPass implements CompilerPassInterface
 
             $blockTypeReferences = array();
             foreach ($blockTypeGroup['block_types'] as $blockTypeIdentifier) {
-                $blockTypeReferences[] = new Reference(
-                    sprintf(
-                        'netgen_block_manager.configuration.block_type.%s',
-                        $blockTypeIdentifier
-                    )
-                );
+                if (isset($blockTypes[$blockTypeIdentifier]) && $blockTypes[$blockTypeIdentifier]['enabled']) {
+                    $blockTypeReferences[] = new Reference(
+                        sprintf(
+                            'netgen_block_manager.configuration.block_type.%s',
+                            $blockTypeIdentifier
+                        )
+                    );
+                }
             }
 
             $container->register($serviceIdentifier, BlockTypeGroup::class)
                 ->setArguments(array($identifier, $blockTypeGroup, $blockTypeReferences))
                 ->addTag('netgen_block_manager.configuration.block_type_group')
                 ->setFactory(array(BlockTypeGroupFactory::class, 'buildBlockTypeGroup'));
-        }
-    }
-
-    /**
-     * Validates block type group config.
-     *
-     * @param array $blockTypeGroups
-     * @param array $blockTypes
-     *
-     * @throws \RuntimeException If validation failed
-     */
-    protected function validateBlockTypeGroups(array $blockTypeGroups, array $blockTypes)
-    {
-        foreach ($blockTypeGroups as $identifier => $blockTypeGroup) {
-            foreach ($blockTypeGroup['block_types'] as $blockTypeIdentifier) {
-                if (!isset($blockTypes[$blockTypeIdentifier])) {
-                    throw new RuntimeException(
-                        sprintf(
-                            'Block type "%s" used in "%s" block type group does not exist.',
-                            $blockTypeIdentifier,
-                            $identifier
-                        )
-                    );
-                }
-            }
         }
     }
 }
