@@ -2,12 +2,12 @@
 
 namespace Netgen\BlockManager\Persistence\Handler;
 
-use Netgen\BlockManager\Persistence\Values\Page\Layout;
-use Netgen\BlockManager\Persistence\Values\Page\LayoutCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\LayoutUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\Zone;
-use Netgen\BlockManager\Persistence\Values\Page\ZoneCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\ZoneUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Layout\Layout;
+use Netgen\BlockManager\Persistence\Values\Layout\LayoutCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Layout\LayoutUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Layout\Zone;
+use Netgen\BlockManager\Persistence\Values\Layout\ZoneCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Layout\ZoneUpdateStruct;
 
 interface LayoutHandler
 {
@@ -19,7 +19,7 @@ interface LayoutHandler
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
+     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
      */
     public function loadLayout($layoutId, $status);
 
@@ -32,7 +32,7 @@ interface LayoutHandler
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID or zone with specified identifier do not exist
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Zone
+     * @return \Netgen\BlockManager\Persistence\Values\Layout\Zone
      */
     public function loadZone($layoutId, $status, $identifier);
 
@@ -44,7 +44,7 @@ interface LayoutHandler
      * @param int $offset
      * @param int $limit
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout[]
+     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout[]
      */
     public function loadLayouts($includeDrafts = false, $offset = 0, $limit = null);
 
@@ -56,7 +56,7 @@ interface LayoutHandler
      * @param int $offset
      * @param int $limit
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout[]
+     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout[]
      */
     public function loadSharedLayouts($includeDrafts = false, $offset = 0, $limit = null);
 
@@ -84,9 +84,9 @@ interface LayoutHandler
     /**
      * Loads all zones that belong to layout with specified ID.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Zone[]
+     * @return \Netgen\BlockManager\Persistence\Values\Layout\Zone[]
      */
     public function loadLayoutZones(Layout $layout);
 
@@ -103,60 +103,60 @@ interface LayoutHandler
     /**
      * Creates a layout.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\LayoutCreateStruct $layoutCreateStruct
-     * @param \Netgen\BlockManager\Persistence\Values\Page\ZoneCreateStruct[] $zoneCreateStructs
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\LayoutCreateStruct $layoutCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\ZoneCreateStruct[] $zoneCreateStructs
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
+     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
      */
     public function createLayout(LayoutCreateStruct $layoutCreateStruct, array $zoneCreateStructs = array());
 
     /**
      * Creates a zone in provided layout.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\ZoneCreateStruct $zoneCreateStruct
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\ZoneCreateStruct $zoneCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Zone
+     * @return \Netgen\BlockManager\Persistence\Values\Layout\Zone
      */
     public function createZone(ZoneCreateStruct $zoneCreateStruct, Layout $layout);
 
     /**
      * Updates a layout with specified ID.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
-     * @param \Netgen\BlockManager\Persistence\Values\Page\LayoutUpdateStruct $layoutUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\LayoutUpdateStruct $layoutUpdateStruct
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
+     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
      */
     public function updateLayout(Layout $layout, LayoutUpdateStruct $layoutUpdateStruct);
 
     /**
      * Updates a specified zone.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $zone
-     * @param \Netgen\BlockManager\Persistence\Values\Page\ZoneUpdateStruct $zoneUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Zone $zone
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\ZoneUpdateStruct $zoneUpdateStruct
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Zone
+     * @return \Netgen\BlockManager\Persistence\Values\Layout\Zone
      */
     public function updateZone(Zone $zone, ZoneUpdateStruct $zoneUpdateStruct);
 
     /**
      * Copies the layout.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
      * @param string $newName
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
+     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
      */
     public function copyLayout(Layout $layout, $newName);
 
     /**
      * Creates a new layout status.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout $layout
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout $layout
      * @param int $newStatus
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout
+     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
      */
     public function createLayoutStatus(Layout $layout, $newStatus);
 

@@ -3,7 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1;
 
 use Netgen\BlockManager\Core\Service\LayoutService;
-use Netgen\BlockManager\Core\Values\Page\Layout;
+use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
 use Symfony\Component\HttpFoundation\Response;

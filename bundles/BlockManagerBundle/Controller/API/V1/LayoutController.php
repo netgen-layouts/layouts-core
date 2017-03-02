@@ -4,8 +4,8 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\Page\Layout;
-use Netgen\BlockManager\API\Values\Page\Zone;
+use Netgen\BlockManager\API\Values\Layout\Layout;
+use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Exception\NotFoundException;
@@ -70,7 +70,7 @@ class LayoutController extends Controller
      * If a query param "published" with value of "true" is provided, published
      * state will be loaded directly, without first loading the draft.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
@@ -82,7 +82,7 @@ class LayoutController extends Controller
     /**
      * Loads all layout blocks.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      *
      * @return \Netgen\BlockManager\Serializer\Values\Value
      */
@@ -101,7 +101,7 @@ class LayoutController extends Controller
     /**
      * Loads all zone blocks.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
+     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
      *
      * @return \Netgen\BlockManager\Serializer\Values\Value
      */
@@ -118,7 +118,7 @@ class LayoutController extends Controller
     /**
      * Links the provided zone to zone from shared layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
+     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If linked layout or zone do not exist
@@ -147,7 +147,7 @@ class LayoutController extends Controller
     /**
      * Removes the zone link, if any exists.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
+     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -190,7 +190,7 @@ class LayoutController extends Controller
     /**
      * Updates the layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -208,7 +208,7 @@ class LayoutController extends Controller
     /**
      * Copies the layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
@@ -226,7 +226,7 @@ class LayoutController extends Controller
     /**
      * Creates a new layout draft.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
@@ -240,7 +240,7 @@ class LayoutController extends Controller
     /**
      * Discards a layout draft.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -254,7 +254,7 @@ class LayoutController extends Controller
     /**
      * Publishes a layout draft.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -268,7 +268,7 @@ class LayoutController extends Controller
     /**
      * Deletes a layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */

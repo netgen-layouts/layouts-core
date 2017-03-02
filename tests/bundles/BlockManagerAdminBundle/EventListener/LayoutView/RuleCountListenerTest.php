@@ -3,7 +3,7 @@
 namespace Netgen\Bundle\BlockManagerAdminBundle\Tests\EventListener\LayoutView;
 
 use Netgen\BlockManager\API\Service\LayoutResolverService;
-use Netgen\BlockManager\Core\Values\Page\Layout;
+use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Event\BlockManagerEvents;
 use Netgen\BlockManager\Event\CollectViewParametersEvent;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;

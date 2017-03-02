@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
-use Netgen\BlockManager\API\Values\Page\LayoutCreateStruct;
-use Netgen\BlockManager\API\Values\Page\LayoutUpdateStruct;
+use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
+use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Exception\ValidationFailedException;

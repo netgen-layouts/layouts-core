@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\LayoutResolver\Condition as APICondition;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule as APIRule;
 use Netgen\BlockManager\API\Values\LayoutResolver\Target as APITarget;
-use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;

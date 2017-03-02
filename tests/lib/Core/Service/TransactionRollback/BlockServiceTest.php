@@ -8,12 +8,12 @@ use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\CollectionReference;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
-use Netgen\BlockManager\Core\Values\Page\Zone;
+use Netgen\BlockManager\Core\Values\Layout\Zone;
 use Netgen\BlockManager\Persistence\Values\Block\Block as PersistenceBlock;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReference as PersistenceCollectionReference;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceCollection;
-use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
-use Netgen\BlockManager\Persistence\Values\Page\Zone as PersistenceZone;
+use Netgen\BlockManager\Persistence\Values\Layout\Layout as PersistenceLayout;
+use Netgen\BlockManager\Persistence\Values\Layout\Zone as PersistenceZone;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerBlockDefinitionHandler;
 

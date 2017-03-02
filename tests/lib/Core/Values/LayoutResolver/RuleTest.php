@@ -3,10 +3,10 @@
 namespace Netgen\BlockManager\Tests\Core\Values\LayoutResolver;
 
 use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
-use Netgen\BlockManager\Core\Values\Page\Layout;
 use PHPUnit\Framework\TestCase;
 
 class RuleTest extends TestCase

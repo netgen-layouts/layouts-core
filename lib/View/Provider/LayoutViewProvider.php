@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\View\Provider;
 
-use Netgen\BlockManager\API\Values\Page\Layout;
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\View\View\LayoutView;
 
 class LayoutViewProvider implements ViewProviderInterface

@@ -3,13 +3,13 @@
 namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
 use Exception;
-use Netgen\BlockManager\API\Values\Page\LayoutCreateStruct;
-use Netgen\BlockManager\API\Values\Page\LayoutUpdateStruct;
+use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
+use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
-use Netgen\BlockManager\Core\Values\Page\Layout;
-use Netgen\BlockManager\Core\Values\Page\Zone;
-use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
-use Netgen\BlockManager\Persistence\Values\Page\Zone as PersistenceZone;
+use Netgen\BlockManager\Core\Values\Layout\Layout;
+use Netgen\BlockManager\Core\Values\Layout\Zone;
+use Netgen\BlockManager\Persistence\Values\Layout\Layout as PersistenceLayout;
+use Netgen\BlockManager\Persistence\Values\Layout\Zone as PersistenceZone;
 
 class LayoutServiceTest extends ServiceTestCase
 {

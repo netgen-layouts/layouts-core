@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Core\Values\LayoutResolver;
 
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule as APIRule;
-use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\ValueObject;
 
 class Rule extends ValueObject implements APIRule
@@ -19,7 +19,7 @@ class Rule extends ValueObject implements APIRule
     protected $status;
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Page\Layout
+     * @var \Netgen\BlockManager\API\Values\Layout\Layout
      */
     protected $layout;
 
@@ -76,7 +76,7 @@ class Rule extends ValueObject implements APIRule
     /**
      * Returns resolved layout.
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout
+     * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
     public function getLayout()
     {

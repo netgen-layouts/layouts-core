@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Persistence\Handler;
 
+use Netgen\BlockManager\Persistence\Values\Layout\Layout;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionUpdateStruct;
@@ -12,7 +13,6 @@ use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\Layout;
 
 interface LayoutResolverHandler
 {
@@ -42,7 +42,7 @@ interface LayoutResolverHandler
     /**
      * Returns the number of rules pointing to provided layout.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
      *
      * @return int
      */

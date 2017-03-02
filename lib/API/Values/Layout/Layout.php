@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\API\Values\Page;
+namespace Netgen\BlockManager\API\Values\Layout;
 
 use ArrayAccess;
 use Countable;
@@ -68,7 +68,7 @@ interface Layout extends Value, ArrayAccess, IteratorAggregate, Countable
     /**
      * Returns all zones from the layout.
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Zone[]
+     * @return \Netgen\BlockManager\API\Values\Layout\Zone[]
      */
     public function getZones();
 
@@ -80,7 +80,7 @@ interface Layout extends Value, ArrayAccess, IteratorAggregate, Countable
      * @param string $zoneIdentifier
      * @param bool $ignoreLinkedZone
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Zone
+     * @return \Netgen\BlockManager\API\Values\Layout\Zone
      */
     public function getZone($zoneIdentifier, $ignoreLinkedZone = false);
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter\Page;
+namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter\Layout;
 
 use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\Page\Zone as APIZone;
-use Netgen\BlockManager\Core\Values\Page\Zone;
-use Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\ZoneParamConverter;
+use Netgen\BlockManager\API\Values\Layout\Zone as APIZone;
+use Netgen\BlockManager\Core\Values\Layout\Zone;
+use Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\ZoneParamConverter;
 use PHPUnit\Framework\TestCase;
 
 class ZoneParamConverterTest extends TestCase
@@ -16,7 +16,7 @@ class ZoneParamConverterTest extends TestCase
     protected $layoutServiceMock;
 
     /**
-     * @var \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\ZoneParamConverter
+     * @var \Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\ZoneParamConverter
      */
     protected $paramConverter;
 
@@ -28,8 +28,8 @@ class ZoneParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\ZoneParamConverter::__construct
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\ZoneParamConverter::getSourceAttributeNames
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\ZoneParamConverter::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\ZoneParamConverter::getSourceAttributeNames
      */
     public function testGetSourceAttributeName()
     {
@@ -37,7 +37,7 @@ class ZoneParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\ZoneParamConverter::getDestinationAttributeName
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\ZoneParamConverter::getDestinationAttributeName
      */
     public function testGetDestinationAttributeName()
     {
@@ -45,7 +45,7 @@ class ZoneParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\ZoneParamConverter::getSupportedClass
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\ZoneParamConverter::getSupportedClass
      */
     public function testGetSupportedClass()
     {
@@ -53,7 +53,7 @@ class ZoneParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\ZoneParamConverter::loadValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\ZoneParamConverter::loadValueObject
      */
     public function testLoadValueObject()
     {
@@ -78,7 +78,7 @@ class ZoneParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\ZoneParamConverter::loadValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\ZoneParamConverter::loadValueObject
      */
     public function testLoadValueObjectDraft()
     {

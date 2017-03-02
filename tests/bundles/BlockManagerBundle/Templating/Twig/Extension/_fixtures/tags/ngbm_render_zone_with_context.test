@@ -7,7 +7,7 @@
 {% ngbm_render_zone zone context='json' %}
 --DATA--
 return array(
-    'zone' => new \Netgen\BlockManager\Core\Values\Page\Zone(),
+    'zone' => new \Netgen\BlockManager\Core\Values\Layout\Zone(),
 )
 --CONFIG--
 return array()

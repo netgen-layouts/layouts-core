@@ -6,8 +6,8 @@ use DateTime;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Page\Layout;
-use Netgen\BlockManager\API\Values\Page\Zone;
+use Netgen\BlockManager\API\Values\Layout\Layout;
+use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
@@ -48,7 +48,7 @@ class LayoutNormalizer implements NormalizerInterface
      */
     public function normalize($object, $format = null, array $context = array())
     {
-        /** @var \Netgen\BlockManager\API\Values\Page\Layout $layout */
+        /** @var \Netgen\BlockManager\API\Values\Layout\Layout $layout */
         $layout = $object->getValue();
         $layoutType = $layout->getLayoutType();
 
@@ -87,7 +87,7 @@ class LayoutNormalizer implements NormalizerInterface
     /**
      * Returns the array with layout zones.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      * @param \Netgen\BlockManager\Configuration\LayoutType\LayoutType $layoutType
      *
      * @return array
@@ -123,7 +123,7 @@ class LayoutNormalizer implements NormalizerInterface
     /**
      * Returns provided zone name.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
+     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
      * @param \Netgen\BlockManager\Configuration\LayoutType\LayoutType $layoutType
      *
      * @return string
@@ -141,7 +141,7 @@ class LayoutNormalizer implements NormalizerInterface
      * Returns all allowed block definitions from provided zone or
      * true if all block definitions are allowed.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
+     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
      * @param \Netgen\BlockManager\Configuration\LayoutType\LayoutType $layoutType
      *
      * @return array|bool

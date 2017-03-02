@@ -4,12 +4,12 @@ namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
 
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Values\Block\Block;
-use Netgen\BlockManager\Persistence\Values\Page\Layout;
-use Netgen\BlockManager\Persistence\Values\Page\LayoutCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\LayoutUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\Zone;
-use Netgen\BlockManager\Persistence\Values\Page\ZoneCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\ZoneUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Layout\Layout;
+use Netgen\BlockManager\Persistence\Values\Layout\LayoutCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Layout\LayoutUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Layout\Zone;
+use Netgen\BlockManager\Persistence\Values\Layout\ZoneCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Layout\ZoneUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 use PHPUnit\Framework\TestCase;

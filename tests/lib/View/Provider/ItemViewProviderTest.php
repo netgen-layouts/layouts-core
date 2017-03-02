@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\View\Provider;
 
-use Netgen\BlockManager\Core\Values\Page\Layout;
+use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\Provider\ItemViewProvider;

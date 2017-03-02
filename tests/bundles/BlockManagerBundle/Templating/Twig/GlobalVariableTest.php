@@ -3,8 +3,8 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig;
 
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
+use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface;
 use Netgen\BlockManager\View\View\LayoutView;
 use Netgen\BlockManager\View\ViewBuilderInterface;

@@ -9,7 +9,7 @@ class LayoutView extends View implements LayoutViewInterface
     /**
      * Returns the layout.
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout
+     * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
     public function getLayout()
     {

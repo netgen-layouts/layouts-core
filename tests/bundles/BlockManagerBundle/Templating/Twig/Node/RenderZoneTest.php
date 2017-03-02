@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig\Node;
 
-use Netgen\BlockManager\API\Values\Page\Zone;
+use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderZone;

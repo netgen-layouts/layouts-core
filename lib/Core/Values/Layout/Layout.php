@@ -1,9 +1,9 @@
 <?php
 
-namespace Netgen\BlockManager\Core\Values\Page;
+namespace Netgen\BlockManager\Core\Values\Layout;
 
 use ArrayIterator;
-use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
+use Netgen\BlockManager\API\Values\Layout\Layout as APILayout;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\ValueObject;
 
@@ -50,7 +50,7 @@ class Layout extends ValueObject implements APILayout
     protected $shared;
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Page\Zone[]
+     * @var \Netgen\BlockManager\API\Values\Layout\Zone[]
      */
     protected $zones = array();
 
@@ -137,7 +137,7 @@ class Layout extends ValueObject implements APILayout
     /**
      * Returns all zones from the layout.
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Zone[]
+     * @return \Netgen\BlockManager\API\Values\Layout\Zone[]
      */
     public function getZones()
     {
@@ -152,7 +152,7 @@ class Layout extends ValueObject implements APILayout
      * @param string $zoneIdentifier
      * @param bool $ignoreLinkedZone
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Zone
+     * @return \Netgen\BlockManager\API\Values\Layout\Zone
      */
     public function getZone($zoneIdentifier, $ignoreLinkedZone = false)
     {

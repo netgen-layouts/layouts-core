@@ -4,12 +4,12 @@ namespace Netgen\BlockManager\Core\Service\Mapper;
 
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
-use Netgen\BlockManager\Core\Values\Page\Layout;
-use Netgen\BlockManager\Core\Values\Page\Zone;
+use Netgen\BlockManager\Core\Values\Layout\Layout;
+use Netgen\BlockManager\Core\Values\Layout\Zone;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Handler;
-use Netgen\BlockManager\Persistence\Values\Page\Layout as PersistenceLayout;
-use Netgen\BlockManager\Persistence\Values\Page\Zone as PersistenceZone;
+use Netgen\BlockManager\Persistence\Values\Layout\Layout as PersistenceLayout;
+use Netgen\BlockManager\Persistence\Values\Layout\Zone as PersistenceZone;
 use Netgen\BlockManager\Persistence\Values\Value as PersistenceValue;
 
 class LayoutMapper extends Mapper
@@ -35,9 +35,9 @@ class LayoutMapper extends Mapper
     /**
      * Builds the API zone value object from persistence one.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $zone
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Zone $zone
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Zone
+     * @return \Netgen\BlockManager\API\Values\Layout\Zone
      */
     public function mapZone(PersistenceZone $zone)
     {
@@ -72,9 +72,9 @@ class LayoutMapper extends Mapper
     /**
      * Builds the API layout value object from persistence one.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout
+     * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
     public function mapLayout(PersistenceLayout $layout)
     {

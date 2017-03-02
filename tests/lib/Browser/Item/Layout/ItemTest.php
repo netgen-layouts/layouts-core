@@ -3,13 +3,13 @@
 namespace Netgen\BlockManager\Tests\Browser\Item\Layout;
 
 use Netgen\BlockManager\Browser\Item\Layout\Item;
-use Netgen\BlockManager\Core\Values\Page\Layout;
+use Netgen\BlockManager\Core\Values\Layout\Layout;
 use PHPUnit\Framework\TestCase;
 
 class ItemTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Page\Layout
+     * @var \Netgen\BlockManager\API\Values\Layout\Layout
      */
     protected $layout;
 

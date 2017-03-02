@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension;
 use Exception;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Page\Zone;
+use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate;
 use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\View\RendererInterface;
@@ -266,7 +266,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
     /**
      * Displays the provided zone.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
+     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
      * @param string $viewContext
      * @param \Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate $twigTemplate
      *

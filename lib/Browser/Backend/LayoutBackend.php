@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Browser\Backend;
 
 use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\Page\Layout;
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\Browser\Item\Layout\Item;
 use Netgen\BlockManager\Browser\Item\Layout\RootLocation;
 use Netgen\BlockManager\Exception\NotFoundException as BaseNotFoundException;
@@ -159,7 +159,7 @@ class LayoutBackend implements BackendInterface
     /**
      * Builds the item from provided layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      *
      * @return \Netgen\BlockManager\Browser\Item\Layout\Item
      */
@@ -171,7 +171,7 @@ class LayoutBackend implements BackendInterface
     /**
      * Builds the items from provided layouts.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout[] $layouts
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout[] $layouts
      *
      * @return \Netgen\BlockManager\Browser\Item\Layout\Item[]
      */

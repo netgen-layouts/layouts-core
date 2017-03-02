@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Core\Service\Validator;
 
-use Netgen\BlockManager\API\Values\Page\LayoutCreateStruct;
-use Netgen\BlockManager\API\Values\Page\LayoutUpdateStruct;
+use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
+use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Symfony\Component\Validator\Constraints;
 
@@ -12,7 +12,7 @@ class LayoutValidator extends Validator
     /**
      * Validates layout create struct.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\LayoutCreateStruct $layoutCreateStruct
+     * @param \Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct $layoutCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\ValidationFailedException If the validation failed
      */
@@ -54,7 +54,7 @@ class LayoutValidator extends Validator
     /**
      * Validates layout update struct.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\LayoutUpdateStruct $layoutUpdateStruct
+     * @param \Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct $layoutUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\ValidationFailedException If the validation failed
      */

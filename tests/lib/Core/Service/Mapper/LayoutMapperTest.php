@@ -3,11 +3,11 @@
 namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 
 use DateTime;
-use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
-use Netgen\BlockManager\API\Values\Page\Zone as APIZone;
+use Netgen\BlockManager\API\Values\Layout\Layout as APILayout;
+use Netgen\BlockManager\API\Values\Layout\Zone as APIZone;
 use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Persistence\Values\Page\Layout;
-use Netgen\BlockManager\Persistence\Values\Page\Zone;
+use Netgen\BlockManager\Persistence\Values\Layout\Layout;
+use Netgen\BlockManager\Persistence\Values\Layout\Zone;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
 
 abstract class LayoutMapperTest extends ServiceTestCase

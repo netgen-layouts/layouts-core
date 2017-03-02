@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Browser\Item\Serializer;
 
 use Netgen\BlockManager\Browser\Item\Layout\Item;
 use Netgen\BlockManager\Browser\Item\Serializer\LayoutSerializerHandler;
-use Netgen\BlockManager\Core\Values\Page\Layout;
+use Netgen\BlockManager\Core\Values\Layout\Layout;
 use PHPUnit\Framework\TestCase;
 
 class LayoutSerializerHandlerTest extends TestCase

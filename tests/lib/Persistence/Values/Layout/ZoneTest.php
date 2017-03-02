@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Persistence\Values\Page;
+namespace Netgen\BlockManager\Tests\Persistence\Values\Layout;
 
-use Netgen\BlockManager\Persistence\Values\Page\Zone;
+use Netgen\BlockManager\Persistence\Values\Layout\Zone;
 use Netgen\BlockManager\Persistence\Values\Value;
 use PHPUnit\Framework\TestCase;
 

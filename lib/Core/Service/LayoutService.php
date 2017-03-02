@@ -4,20 +4,20 @@ namespace Netgen\BlockManager\Core\Service;
 
 use Exception;
 use Netgen\BlockManager\API\Service\LayoutService as LayoutServiceInterface;
-use Netgen\BlockManager\API\Values\Page\Layout;
-use Netgen\BlockManager\API\Values\Page\LayoutCreateStruct as APILayoutCreateStruct;
-use Netgen\BlockManager\API\Values\Page\LayoutUpdateStruct as APILayoutUpdateStruct;
-use Netgen\BlockManager\API\Values\Page\Zone;
+use Netgen\BlockManager\API\Values\Layout\Layout;
+use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct as APILayoutCreateStruct;
+use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct as APILayoutUpdateStruct;
+use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Core\Service\Mapper\LayoutMapper;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Persistence\Handler;
-use Netgen\BlockManager\Persistence\Values\Page\LayoutCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\LayoutUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\ZoneCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\ZoneUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Layout\LayoutCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Layout\LayoutUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Layout\ZoneCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Layout\ZoneUpdateStruct;
 
 class LayoutService extends Service implements LayoutServiceInterface
 {
@@ -63,7 +63,7 @@ class LayoutService extends Service implements LayoutServiceInterface
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout
+     * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
     public function loadLayout($layoutId)
     {
@@ -84,7 +84,7 @@ class LayoutService extends Service implements LayoutServiceInterface
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout
+     * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
     public function loadLayoutDraft($layoutId)
     {
@@ -106,7 +106,7 @@ class LayoutService extends Service implements LayoutServiceInterface
      * @param int $offset
      * @param int $limit
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout[]
+     * @return \Netgen\BlockManager\API\Values\Layout\Layout[]
      */
     public function loadLayouts($includeDrafts = false, $offset = 0, $limit = null)
     {
@@ -134,7 +134,7 @@ class LayoutService extends Service implements LayoutServiceInterface
      * @param int $offset
      * @param int $limit
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout[]
+     * @return \Netgen\BlockManager\API\Values\Layout\Layout[]
      */
     public function loadSharedLayouts($includeDrafts = false, $offset = 0, $limit = null)
     {
@@ -157,7 +157,7 @@ class LayoutService extends Service implements LayoutServiceInterface
     /**
      * Returns if provided layout has a published status.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      *
      * @return bool
      */
@@ -174,7 +174,7 @@ class LayoutService extends Service implements LayoutServiceInterface
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID or zone with specified identifier do not exist
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Zone
+     * @return \Netgen\BlockManager\API\Values\Layout\Zone
      */
     public function loadZone($layoutId, $identifier)
     {
@@ -198,7 +198,7 @@ class LayoutService extends Service implements LayoutServiceInterface
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID or zone with specified identifier do not exist
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Zone
+     * @return \Netgen\BlockManager\API\Values\Layout\Zone
      */
     public function loadZoneDraft($layoutId, $identifier)
     {
@@ -230,8 +230,8 @@ class LayoutService extends Service implements LayoutServiceInterface
     /**
      * Links the zone to provided linked zone. If zone had a previous link, it will be overwritten.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
-     * @param \Netgen\BlockManager\API\Values\Page\Zone $linkedZone
+     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
+     * @param \Netgen\BlockManager\API\Values\Layout\Zone $linkedZone
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If zone is not a draft
      * @throws \Netgen\BlockManager\Exception\BadStateException If linked zone is not published
@@ -239,7 +239,7 @@ class LayoutService extends Service implements LayoutServiceInterface
      * @throws \Netgen\BlockManager\Exception\BadStateException If linked zone is not in the shared layout
      * @throws \Netgen\BlockManager\Exception\BadStateException If zone and linked zone belong to the same layout
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Zone
+     * @return \Netgen\BlockManager\API\Values\Layout\Zone
      */
     public function linkZone(Zone $zone, Zone $linkedZone)
     {
@@ -293,11 +293,11 @@ class LayoutService extends Service implements LayoutServiceInterface
     /**
      * Removes the link in the zone.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
+     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If zone is not a draft
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Zone
+     * @return \Netgen\BlockManager\API\Values\Layout\Zone
      */
     public function unlinkZone(Zone $zone)
     {
@@ -331,11 +331,11 @@ class LayoutService extends Service implements LayoutServiceInterface
     /**
      * Creates a layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\LayoutCreateStruct $layoutCreateStruct
+     * @param \Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct $layoutCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If layout with provided name already exists
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout
+     * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
     public function createLayout(APILayoutCreateStruct $layoutCreateStruct)
     {
@@ -381,13 +381,13 @@ class LayoutService extends Service implements LayoutServiceInterface
     /**
      * Updates a specified layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
-     * @param \Netgen\BlockManager\API\Values\Page\LayoutUpdateStruct $layoutUpdateStruct
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
+     * @param \Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct $layoutUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
      *                                                          If layout with provided name already exists
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout
+     * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
     public function updateLayout(Layout $layout, APILayoutUpdateStruct $layoutUpdateStruct)
     {
@@ -429,12 +429,12 @@ class LayoutService extends Service implements LayoutServiceInterface
     /**
      * Copies a specified layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      * @param string $newName
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If layout with provided name already exists
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout
+     * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
     public function copyLayout(Layout $layout, $newName)
     {
@@ -464,13 +464,13 @@ class LayoutService extends Service implements LayoutServiceInterface
     /**
      * Creates a layout draft.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      * @param bool $discardExisting
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not published
      *                                                          If draft already exists for layout and $discardExisting is set to false
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout
+     * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
     public function createDraft(Layout $layout, $discardExisting = false)
     {
@@ -513,7 +513,7 @@ class LayoutService extends Service implements LayoutServiceInterface
     /**
      * Discards a layout draft.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
      */
@@ -543,11 +543,11 @@ class LayoutService extends Service implements LayoutServiceInterface
     /**
      * Publishes a layout draft.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout
+     * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
     public function publishLayout(Layout $layout)
     {
@@ -586,7 +586,7 @@ class LayoutService extends Service implements LayoutServiceInterface
     /**
      * Deletes a specified layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      */
     public function deleteLayout(Layout $layout)
     {
@@ -612,7 +612,7 @@ class LayoutService extends Service implements LayoutServiceInterface
      * @param \Netgen\BlockManager\Configuration\LayoutType\LayoutType $layoutType
      * @param string $name
      *
-     * @return \Netgen\BlockManager\API\Values\Page\LayoutCreateStruct
+     * @return \Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct
      */
     public function newLayoutCreateStruct(LayoutType $layoutType, $name)
     {
@@ -627,7 +627,7 @@ class LayoutService extends Service implements LayoutServiceInterface
     /**
      * Creates a new layout update struct.
      *
-     * @return \Netgen\BlockManager\API\Values\Page\LayoutUpdateStruct
+     * @return \Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct
      */
     public function newLayoutUpdateStruct()
     {

@@ -1,11 +1,11 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter\Page;
+namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter\Layout;
 
 use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\Page\Layout as APILayout;
-use Netgen\BlockManager\Core\Values\Page\Layout;
-use Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutParamConverter;
+use Netgen\BlockManager\API\Values\Layout\Layout as APILayout;
+use Netgen\BlockManager\Core\Values\Layout\Layout;
+use Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\LayoutParamConverter;
 use PHPUnit\Framework\TestCase;
 
 class LayoutParamConverterTest extends TestCase
@@ -16,7 +16,7 @@ class LayoutParamConverterTest extends TestCase
     protected $layoutServiceMock;
 
     /**
-     * @var \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutParamConverter
+     * @var \Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\LayoutParamConverter
      */
     protected $paramConverter;
 
@@ -28,8 +28,8 @@ class LayoutParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutParamConverter::__construct
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutParamConverter::getSourceAttributeNames
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\LayoutParamConverter::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\LayoutParamConverter::getSourceAttributeNames
      */
     public function testGetSourceAttributeName()
     {
@@ -37,7 +37,7 @@ class LayoutParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutParamConverter::getDestinationAttributeName
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\LayoutParamConverter::getDestinationAttributeName
      */
     public function testGetDestinationAttributeName()
     {
@@ -45,7 +45,7 @@ class LayoutParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutParamConverter::getSupportedClass
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\LayoutParamConverter::getSupportedClass
      */
     public function testGetSupportedClass()
     {
@@ -53,7 +53,7 @@ class LayoutParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutParamConverter::loadValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\LayoutParamConverter::loadValueObject
      */
     public function testLoadValueObject()
     {
@@ -72,7 +72,7 @@ class LayoutParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutParamConverter::loadValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\LayoutParamConverter::loadValueObject
      */
     public function testLoadValueObjectDraft()
     {

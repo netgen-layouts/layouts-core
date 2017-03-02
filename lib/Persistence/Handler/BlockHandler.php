@@ -8,8 +8,8 @@ use Netgen\BlockManager\Persistence\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\Layout;
-use Netgen\BlockManager\Persistence\Values\Page\Zone;
+use Netgen\BlockManager\Persistence\Values\Layout\Layout;
+use Netgen\BlockManager\Persistence\Values\Layout\Zone;
 
 interface BlockHandler
 {
@@ -38,7 +38,7 @@ interface BlockHandler
     /**
      * Loads all blocks from specified layout.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\Block[]]
      */
@@ -47,7 +47,7 @@ interface BlockHandler
     /**
      * Loads all blocks from specified zone.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $zone
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Zone $zone
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\Block[]]
      */

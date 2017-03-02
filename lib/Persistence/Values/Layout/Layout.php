@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Persistence\Values\Page;
+namespace Netgen\BlockManager\Persistence\Values\Layout;
 
 use Netgen\BlockManager\Persistence\Values\Value;
 

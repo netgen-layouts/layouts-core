@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Values\Page;
+namespace Netgen\BlockManager\Tests\Core\Values\Layout;
 
-use Netgen\BlockManager\API\Values\Page\LayoutCreateStruct;
+use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use PHPUnit\Framework\TestCase;
 

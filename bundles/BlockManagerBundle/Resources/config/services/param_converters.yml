@@ -13,15 +13,15 @@ services:
         tags:
             - { name: request.param_converter, priority: 0 }
 
-    netgen_block_manager.param_converter.page.zone:
-        class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\ZoneParamConverter
+    netgen_block_manager.param_converter.layout.zone:
+        class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\ZoneParamConverter
         arguments:
             - "@netgen_block_manager.api.service.layout"
         tags:
             - { name: request.param_converter, priority: 0 }
 
-    netgen_block_manager.param_converter.page.layout:
-        class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutParamConverter
+    netgen_block_manager.param_converter.layout.layout:
+        class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\LayoutParamConverter
         arguments:
             - "@netgen_block_manager.api.service.layout"
         tags:

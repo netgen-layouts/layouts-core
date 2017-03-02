@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Core\Values\Page;
+namespace Netgen\BlockManager\Core\Values\Layout;
 
-use Netgen\BlockManager\API\Values\Page\Zone as APIZone;
+use Netgen\BlockManager\API\Values\Layout\Zone as APIZone;
 use Netgen\BlockManager\ValueObject;
 
 class Zone extends ValueObject implements APIZone
@@ -28,7 +28,7 @@ class Zone extends ValueObject implements APIZone
     protected $published;
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Page\Zone
+     * @var \Netgen\BlockManager\API\Values\Layout\Zone
      */
     protected $linkedZone;
 
@@ -75,7 +75,7 @@ class Zone extends ValueObject implements APIZone
     /**
      * Returns the linked zone.
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Zone
+     * @return \Netgen\BlockManager\API\Values\Layout\Zone
      */
     public function getLinkedZone()
     {

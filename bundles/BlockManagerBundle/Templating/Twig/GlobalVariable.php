@@ -2,8 +2,8 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig;
 
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface;
 use Netgen\BlockManager\View\View\LayoutViewInterface;
@@ -34,7 +34,7 @@ class GlobalVariable
     protected $viewBuilder;
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Page\Layout
+     * @var \Netgen\BlockManager\API\Values\Layout\Layout
      */
     protected $layout;
 
@@ -76,7 +76,7 @@ class GlobalVariable
     /**
      * Returns the currently resolved layout.
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Layout
+     * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
     public function getLayout()
     {

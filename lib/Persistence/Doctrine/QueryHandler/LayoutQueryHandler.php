@@ -4,12 +4,12 @@ namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\Types\Type;
 use Netgen\BlockManager\Persistence\Values\Block\Block;
-use Netgen\BlockManager\Persistence\Values\Page\Layout;
-use Netgen\BlockManager\Persistence\Values\Page\LayoutCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\LayoutUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\Zone;
-use Netgen\BlockManager\Persistence\Values\Page\ZoneCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\ZoneUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Layout\Layout;
+use Netgen\BlockManager\Persistence\Values\Layout\LayoutCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Layout\LayoutUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Layout\Zone;
+use Netgen\BlockManager\Persistence\Values\Layout\ZoneCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Layout\ZoneUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Value;
 
 class LayoutQueryHandler extends QueryHandler
@@ -117,7 +117,7 @@ class LayoutQueryHandler extends QueryHandler
     /**
      * Loads all data for zones that belong to provided layout.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
      *
      * @return array
      */
@@ -223,7 +223,7 @@ class LayoutQueryHandler extends QueryHandler
     /**
      * Creates a layout.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\LayoutCreateStruct $layoutCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\LayoutCreateStruct $layoutCreateStruct
      *
      * @return int
      */
@@ -260,8 +260,8 @@ class LayoutQueryHandler extends QueryHandler
     /**
      * Creates a zone in specified layout.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\ZoneCreateStruct $zoneCreateStruct
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\ZoneCreateStruct $zoneCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $rootBlock
      */
     public function createZone(ZoneCreateStruct $zoneCreateStruct, Layout $layout, Block $rootBlock)
@@ -291,8 +291,8 @@ class LayoutQueryHandler extends QueryHandler
     /**
      * Updates a layout.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
-     * @param \Netgen\BlockManager\Persistence\Values\Page\LayoutUpdateStruct $layoutUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\LayoutUpdateStruct $layoutUpdateStruct
      */
     public function updateLayout(Layout $layout, LayoutUpdateStruct $layoutUpdateStruct)
     {
@@ -316,8 +316,8 @@ class LayoutQueryHandler extends QueryHandler
     /**
      * Updates a zone.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $zone
-     * @param \Netgen\BlockManager\Persistence\Values\Page\ZoneUpdateStruct $zoneUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Zone $zone
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\ZoneUpdateStruct $zoneUpdateStruct
      */
     public function updateZone(Zone $zone, ZoneUpdateStruct $zoneUpdateStruct)
     {
@@ -355,7 +355,7 @@ class LayoutQueryHandler extends QueryHandler
     /**
      * Creates a layout status.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
      * @param int $newStatus
      */
     public function createLayoutStatus(Layout $layout, $newStatus)
@@ -389,7 +389,7 @@ class LayoutQueryHandler extends QueryHandler
     /**
      * Creates a zone status.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $zone
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Zone $zone
      * @param int $newStatus
      */
     public function createZoneStatus(Zone $zone, $newStatus)

@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Browser\Item\ColumnProvider\Layout;
 use DateTime;
 use Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Modified;
 use Netgen\BlockManager\Browser\Item\Layout\Item;
-use Netgen\BlockManager\Core\Values\Page\Layout;
+use Netgen\BlockManager\Core\Values\Layout\Layout;
 use PHPUnit\Framework\TestCase;
 
 class ModifiedTest extends TestCase

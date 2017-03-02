@@ -10,8 +10,8 @@ use Netgen\BlockManager\Persistence\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\Layout;
-use Netgen\BlockManager\Persistence\Values\Page\Zone;
+use Netgen\BlockManager\Persistence\Values\Layout\Layout;
+use Netgen\BlockManager\Persistence\Values\Layout\Zone;
 
 class BlockQueryHandler extends QueryHandler
 {
@@ -68,7 +68,7 @@ class BlockQueryHandler extends QueryHandler
     /**
      * Loads all layout block data.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
      *
      * @return array
      */
@@ -88,7 +88,7 @@ class BlockQueryHandler extends QueryHandler
     /**
      * Loads all zone block data.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $zone
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Zone $zone
      *
      * @return array
      */

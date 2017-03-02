@@ -7,7 +7,7 @@ use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Block\CollectionReference;
 use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Page\Zone;
+use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 
 interface BlockService extends Service
@@ -37,7 +37,7 @@ interface BlockService extends Service
     /**
      * Loads all blocks belonging to provided zone.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
+     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block[]]
      */
@@ -93,7 +93,7 @@ interface BlockService extends Service
      * Creates a block in specified layout and zone.
      *
      * @param \Netgen\BlockManager\API\Values\Block\BlockCreateStruct $blockCreateStruct
-     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
+     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
      * @param int $position
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If zone is not a draft
@@ -147,7 +147,7 @@ interface BlockService extends Service
      * Copies a block to a specified zone.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
+     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If block or zone are not drafts
      *                                                          If block cannot be placed in specified zone
@@ -179,7 +179,7 @@ interface BlockService extends Service
      * Moves a block to specified position inside the zone.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param \Netgen\BlockManager\API\Values\Page\Zone $zone
+     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
      * @param int $position
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If block or zone are not drafts

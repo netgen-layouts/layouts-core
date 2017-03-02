@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\API\Service;
 
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\ConditionUpdateStruct;
@@ -12,7 +13,6 @@ use Netgen\BlockManager\API\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\Target;
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct;
-use Netgen\BlockManager\API\Values\Page\Layout;
 
 interface LayoutResolverService extends Service
 {
@@ -51,7 +51,7 @@ interface LayoutResolverService extends Service
     /**
      * Returns the number of rules pointing to provided layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      *
      * @return int
      */

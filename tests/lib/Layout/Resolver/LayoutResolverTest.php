@@ -3,9 +3,9 @@
 namespace Netgen\BlockManager\Tests\Layout\Resolver;
 
 use Netgen\BlockManager\API\Service\LayoutResolverService;
+use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Layout\Resolver\LayoutResolver;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;

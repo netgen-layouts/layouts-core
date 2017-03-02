@@ -1,20 +1,20 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Values\Page;
+namespace Netgen\BlockManager\Tests\Core\Values\Layout;
 
 use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Core\Values\Page\Zone;
+use Netgen\BlockManager\Core\Values\Layout\Zone;
 use PHPUnit\Framework\TestCase;
 
 class ZoneTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::__construct
-     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getIdentifier
-     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getLayoutId
-     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getStatus
-     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getLinkedZone
-     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::isPublished
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::__construct
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::getIdentifier
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::getLayoutId
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::getStatus
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::getLinkedZone
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::isPublished
      */
     public function testSetDefaultProperties()
     {
@@ -28,12 +28,12 @@ class ZoneTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::__construct
-     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getIdentifier
-     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getLayoutId
-     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getStatus
-     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::getLinkedZone
-     * @covers \Netgen\BlockManager\Core\Values\Page\Zone::isPublished
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::__construct
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::getIdentifier
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::getLayoutId
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::getStatus
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::getLinkedZone
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::isPublished
      */
     public function testSetProperties()
     {

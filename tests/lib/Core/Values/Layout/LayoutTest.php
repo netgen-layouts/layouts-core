@@ -1,12 +1,12 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Values\Page;
+namespace Netgen\BlockManager\Tests\Core\Values\Layout;
 
 use DateTime;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
-use Netgen\BlockManager\Core\Values\Page\Layout;
-use Netgen\BlockManager\Core\Values\Page\Zone;
+use Netgen\BlockManager\Core\Values\Layout\Layout;
+use Netgen\BlockManager\Core\Values\Layout\Zone;
 use Netgen\BlockManager\Exception\RuntimeException;
 use PHPUnit\Framework\TestCase;
 use Traversable;
@@ -14,18 +14,18 @@ use Traversable;
 class LayoutTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::__construct
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getId
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getLayoutType
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getName
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getCreated
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getModified
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getStatus
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::isShared
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getZones
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getZone
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::hasZone
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::isPublished
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::__construct
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getId
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getLayoutType
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getName
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getCreated
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getModified
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getStatus
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::isShared
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getZones
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getZone
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::hasZone
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::isPublished
      */
     public function testSetDefaultProperties()
     {
@@ -45,24 +45,24 @@ class LayoutTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::__construct
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getId
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getLayoutType
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getName
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getCreated
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getModified
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getStatus
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::isShared
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getZones
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getZone
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::hasZone
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::isPublished
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::getIterator
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::count
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::offsetExists
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::offsetGet
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::offsetSet
-     * @covers \Netgen\BlockManager\Core\Values\Page\Layout::offsetUnset
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::__construct
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getId
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getLayoutType
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getName
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getCreated
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getModified
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getStatus
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::isShared
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getZones
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getZone
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::hasZone
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::isPublished
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getIterator
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::count
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::offsetExists
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::offsetGet
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::offsetSet
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::offsetUnset
      */
     public function testSetProperties()
     {

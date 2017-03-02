@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Core\Service;
 
 use Exception;
 use Netgen\BlockManager\API\Service\LayoutResolverService as APILayoutResolverService;
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct as APIConditionCreateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\ConditionUpdateStruct as APIConditionUpdateStruct;
@@ -14,7 +15,6 @@ use Netgen\BlockManager\API\Values\LayoutResolver\RuleUpdateStruct as APIRuleUpd
 use Netgen\BlockManager\API\Values\LayoutResolver\Target;
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct as APITargetCreateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct as APITargetUpdateStruct;
-use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper;
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
@@ -134,7 +134,7 @@ class LayoutResolverService extends Service implements APILayoutResolverService
     /**
      * Returns the number of rules pointing to provided layout.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Layout $layout
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      *
      * @return int
      */

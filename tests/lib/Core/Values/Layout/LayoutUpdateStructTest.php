@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Values\Page;
+namespace Netgen\BlockManager\Tests\Core\Values\Layout;
 
-use Netgen\BlockManager\API\Values\Page\LayoutUpdateStruct;
+use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
 use PHPUnit\Framework\TestCase;
 
 class LayoutUpdateStructTest extends TestCase

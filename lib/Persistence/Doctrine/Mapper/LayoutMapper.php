@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Persistence\Doctrine\Mapper;
 
-use Netgen\BlockManager\Persistence\Values\Page\Layout;
-use Netgen\BlockManager\Persistence\Values\Page\Zone;
+use Netgen\BlockManager\Persistence\Values\Layout\Layout;
+use Netgen\BlockManager\Persistence\Values\Layout\Zone;
 
 class LayoutMapper
 {
@@ -12,7 +12,7 @@ class LayoutMapper
      *
      * @param array $data
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Layout[]
+     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout[]
      */
     public function mapLayouts(array $data = array())
     {
@@ -40,7 +40,7 @@ class LayoutMapper
      *
      * @param array $data
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Zone[]
+     * @return \Netgen\BlockManager\Persistence\Values\Layout\Zone[]
      */
     public function mapZones(array $data = array())
     {

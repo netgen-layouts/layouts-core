@@ -1,9 +1,9 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\ParamConverter\Page;
+namespace Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout;
 
 use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\Page\Layout;
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter;
 
 class LayoutParamConverter extends ParamConverter

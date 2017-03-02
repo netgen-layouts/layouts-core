@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\API\Values\Page;
+namespace Netgen\BlockManager\API\Values\Layout;
 
 use Netgen\BlockManager\API\Values\Value;
 
@@ -37,7 +37,7 @@ interface Zone extends Value
     /**
      * Returns the linked zone.
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Zone
+     * @return \Netgen\BlockManager\API\Values\Layout\Zone
      */
     public function getLinkedZone();
 }

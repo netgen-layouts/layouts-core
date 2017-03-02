@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Layout\Resolver;
 
 use Netgen\BlockManager\API\Service\LayoutResolverService;
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface;
 
 class LayoutResolver implements LayoutResolverInterface
