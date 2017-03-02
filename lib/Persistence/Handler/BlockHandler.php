@@ -204,15 +204,12 @@ interface BlockHandler
     public function deleteBlock(Block $block);
 
     /**
-     * Deletes blocks with specified IDs.
+     * Deletes all blocks belonging to specified layout.
      *
-     * This method does not reorder blocks or delete sub-blocks,
-     * so this should be used only when deleting the entire layout.
-     *
-     * @param array $blockIds
+     * @param int|string $layoutId
      * @param int $status
      */
-    public function deleteBlocks(array $blockIds, $status = null);
+    public function deleteLayoutBlocks($layoutId, $status = null);
 
     /**
      * Deletes block collections with specified block IDs.

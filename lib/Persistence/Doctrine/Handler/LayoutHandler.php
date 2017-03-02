@@ -358,9 +358,8 @@ class LayoutHandler implements LayoutHandlerInterface
      */
     public function deleteLayout($layoutId, $status = null)
     {
-        $blockIds = $this->queryHandler->loadLayoutBlockIds($layoutId, $status);
         $this->queryHandler->deleteLayoutZones($layoutId, $status);
-        $this->blockHandler->deleteBlocks($blockIds, $status);
+        $this->blockHandler->deleteLayoutBlocks($layoutId, $status);
         $this->queryHandler->deleteLayout($layoutId, $status);
     }
 }

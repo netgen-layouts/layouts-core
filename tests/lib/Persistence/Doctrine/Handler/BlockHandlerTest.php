@@ -1416,39 +1416,19 @@ class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::deleteBlocks
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::deleteLayoutBlocks
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlocks
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadLayoutBlockIds
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadBlockCollectionIds
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteCollectionReferences
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find collection with identifier "1"
      */
-    public function testDeleteBlocks()
+    public function testDeleteLayoutBlocks()
     {
-        $this->blockHandler->deleteBlocks(
-            array(31, 32),
-            Value::STATUS_DRAFT
-        );
+        $layout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
 
-        try {
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
-            self::fail('Block still exists after deleting');
-        } catch (NotFoundException $e) {
-            // Do nothing
-        }
+        $this->blockHandler->deleteLayoutBlocks($layout->id, $layout->status);
 
-        try {
-            $this->blockHandler->loadBlock(32, Value::STATUS_DRAFT);
-            self::fail('Block still exists after deleting');
-        } catch (NotFoundException $e) {
-            // Do nothing
-        }
-
-        // Verify that shared collection still exists
-        $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED);
-
-        // This should throw NotFoundException
-        $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT);
+        $this->assertEmpty($this->blockHandler->loadLayoutBlocks($layout));
     }
 
     /**

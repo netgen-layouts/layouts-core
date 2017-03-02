@@ -531,6 +531,38 @@ class BlockQueryHandler extends QueryHandler
     }
 
     /**
+     * Loads all layout block IDs.
+     *
+     * @param int|string $layoutId
+     * @param int $status
+     *
+     * @return array
+     */
+    public function loadLayoutBlockIds($layoutId, $status = null)
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->select('DISTINCT id')
+            ->from('ngbm_block')
+            ->where(
+                $query->expr()->eq('layout_id', ':layout_id')
+            )
+            ->setParameter('layout_id', $layoutId, Type::INTEGER);
+
+        if ($status !== null) {
+            $this->applyStatusCondition($query, $status);
+        }
+
+        $result = $query->execute()->fetchAll();
+
+        return array_map(
+            function (array $row) {
+                return $row['id'];
+            },
+            $result
+        );
+    }
+
+    /**
      * Loads all block collection IDs.
      *
      * @param array $blockIds

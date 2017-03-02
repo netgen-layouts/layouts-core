@@ -511,7 +511,9 @@ class BlockHandler implements BlockHandlerInterface
     public function deleteBlock(Block $block)
     {
         $blockIds = $this->queryHandler->loadSubBlockIds($block->id, $block->status);
-        $this->deleteBlocks($blockIds, $block->status);
+
+        $this->deleteBlockCollections($blockIds, $block->status);
+        $this->queryHandler->deleteBlocks($blockIds, $block->status);
 
         $this->positionHelper->removePosition(
             $this->getPositionHelperConditions(
@@ -524,16 +526,15 @@ class BlockHandler implements BlockHandlerInterface
     }
 
     /**
-     * Deletes blocks with specified IDs.
+     * Deletes all blocks belonging to specified layout.
      *
-     * This method does not reorder blocks or delete sub-blocks,
-     * so this should be used only when deleting the entire layout.
-     *
-     * @param array $blockIds
+     * @param int|string $layoutId
      * @param int $status
      */
-    public function deleteBlocks(array $blockIds, $status = null)
+    public function deleteLayoutBlocks($layoutId, $status = null)
     {
+        $blockIds = $this->queryHandler->loadLayoutBlockIds($layoutId, $status);
+
         $this->deleteBlockCollections($blockIds, $status);
         $this->queryHandler->deleteBlocks($blockIds, $status);
     }
