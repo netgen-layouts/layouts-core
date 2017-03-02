@@ -1,11 +1,11 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter\Page;
+namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter\Block;
 
 use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
-use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\BlockParamConverter;
+use Netgen\BlockManager\API\Values\Block\Block as APIBlock;
+use Netgen\BlockManager\Core\Values\Block\Block;
+use Netgen\Bundle\BlockManagerBundle\ParamConverter\Block\BlockParamConverter;
 use PHPUnit\Framework\TestCase;
 
 class BlockParamConverterTest extends TestCase
@@ -16,7 +16,7 @@ class BlockParamConverterTest extends TestCase
     protected $blockServiceMock;
 
     /**
-     * @var \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\BlockParamConverter
+     * @var \Netgen\Bundle\BlockManagerBundle\ParamConverter\Block\BlockParamConverter
      */
     protected $paramConverter;
 
@@ -28,8 +28,8 @@ class BlockParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\BlockParamConverter::__construct
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\BlockParamConverter::getSourceAttributeNames
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Block\BlockParamConverter::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Block\BlockParamConverter::getSourceAttributeNames
      */
     public function testGetSourceAttributeName()
     {
@@ -37,7 +37,7 @@ class BlockParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\BlockParamConverter::getDestinationAttributeName
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Block\BlockParamConverter::getDestinationAttributeName
      */
     public function testGetDestinationAttributeName()
     {
@@ -45,7 +45,7 @@ class BlockParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\BlockParamConverter::getSupportedClass
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Block\BlockParamConverter::getSupportedClass
      */
     public function testGetSupportedClass()
     {
@@ -53,7 +53,7 @@ class BlockParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\BlockParamConverter::loadValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Block\BlockParamConverter::loadValueObject
      */
     public function testLoadValueObject()
     {
@@ -77,7 +77,7 @@ class BlockParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\BlockParamConverter::loadValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Block\BlockParamConverter::loadValueObject
      */
     public function testLoadValueObjectDraft()
     {

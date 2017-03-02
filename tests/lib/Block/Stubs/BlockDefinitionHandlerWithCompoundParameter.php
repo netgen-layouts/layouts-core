@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Block\Stubs;
 
-use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler as BaseBlockDefinitionHandler;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameter;
@@ -61,7 +61,7 @@ class BlockDefinitionHandlerWithCompoundParameter extends BaseBlockDefinitionHan
     /**
      * Returns the array of dynamic parameters provided by this block definition.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param array $parameters
      *
      * @return array

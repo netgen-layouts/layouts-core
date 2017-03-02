@@ -1,12 +1,12 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\ParamConverter\Page;
+namespace Netgen\Bundle\BlockManagerBundle\ParamConverter\Block;
 
 use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\API\Values\Block\CollectionReference;
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter;
 
-class BlockParamConverter extends ParamConverter
+class CollectionReferenceParamConverter extends ParamConverter
 {
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService
@@ -30,7 +30,7 @@ class BlockParamConverter extends ParamConverter
      */
     public function getSourceAttributeNames()
     {
-        return array('blockId');
+        return array('blockId', 'collectionIdentifier');
     }
 
     /**
@@ -40,7 +40,7 @@ class BlockParamConverter extends ParamConverter
      */
     public function getDestinationAttributeName()
     {
-        return 'block';
+        return 'collectionReference';
     }
 
     /**
@@ -50,7 +50,7 @@ class BlockParamConverter extends ParamConverter
      */
     public function getSupportedClass()
     {
-        return Block::class;
+        return CollectionReference::class;
     }
 
     /**
@@ -62,10 +62,11 @@ class BlockParamConverter extends ParamConverter
      */
     public function loadValueObject(array $values)
     {
-        if ($values['published']) {
-            return $this->blockService->loadBlock($values['blockId']);
-        }
-
-        return $this->blockService->loadBlockDraft($values['blockId']);
+        return $this->blockService->loadCollectionReference(
+            $values['published'] ?
+                $this->blockService->loadBlock($values['blockId']) :
+                $this->blockService->loadBlockDraft($values['blockId']),
+            $values['collectionIdentifier']
+        );
     }
 }

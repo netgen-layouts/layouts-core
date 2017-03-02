@@ -3,7 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig;
 
 use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\Core\Values\Page\Block;
+use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\View\RendererInterface;

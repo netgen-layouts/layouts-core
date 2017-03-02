@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\API\Values\Page;
+namespace Netgen\BlockManager\API\Values\Block;
 
 use Netgen\BlockManager\API\Values\ParameterStruct;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
@@ -28,7 +28,7 @@ class BlockCreateStruct extends ParameterStruct
     public $name;
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Page\PlaceholderCreateStruct[]
+     * @var \Netgen\BlockManager\API\Values\Block\PlaceholderCreateStruct[]
      */
     protected $placeholderStructs = array();
 
@@ -36,7 +36,7 @@ class BlockCreateStruct extends ParameterStruct
      * Sets the placeholder create struct to block create struct.
      *
      * @param $identifier
-     * @param \Netgen\BlockManager\API\Values\Page\PlaceholderCreateStruct $placeholderStruct
+     * @param \Netgen\BlockManager\API\Values\Block\PlaceholderCreateStruct $placeholderStruct
      */
     public function setPlaceholderStruct($identifier, PlaceholderCreateStruct $placeholderStruct)
     {
@@ -62,7 +62,7 @@ class BlockCreateStruct extends ParameterStruct
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If placeholder struct does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\Page\PlaceholderCreateStruct
+     * @return \Netgen\BlockManager\API\Values\Block\PlaceholderCreateStruct
      */
     public function getPlaceholderStruct($identifier)
     {
@@ -82,7 +82,7 @@ class BlockCreateStruct extends ParameterStruct
     /**
      * Returns all placeholder create structs from the struct.
      *
-     * @return \Netgen\BlockManager\API\Values\Page\PlaceholderCreateStruct[]
+     * @return \Netgen\BlockManager\API\Values\Block\PlaceholderCreateStruct[]
      */
     public function getPlaceholderStructs()
     {

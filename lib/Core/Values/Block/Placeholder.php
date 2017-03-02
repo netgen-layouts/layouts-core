@@ -1,9 +1,9 @@
 <?php
 
-namespace Netgen\BlockManager\Core\Values\Page;
+namespace Netgen\BlockManager\Core\Values\Block;
 
 use ArrayIterator;
-use Netgen\BlockManager\API\Values\Page\Placeholder as APIPlaceholder;
+use Netgen\BlockManager\API\Values\Block\Placeholder as APIPlaceholder;
 use Netgen\BlockManager\Core\Values\ParameterBasedValueTrait;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\ValueObject;
@@ -18,7 +18,7 @@ class Placeholder extends ValueObject implements APIPlaceholder
     protected $identifier;
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Page\Block[]
+     * @var \Netgen\BlockManager\API\Values\Block\Block[]]
      */
     protected $blocks = array();
 
@@ -35,7 +35,7 @@ class Placeholder extends ValueObject implements APIPlaceholder
     /**
      * Returns all blocks in this placeholder.
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Block[]
+     * @return \Netgen\BlockManager\API\Values\Block\Block[]]
      */
     public function getBlocks()
     {

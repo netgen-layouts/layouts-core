@@ -4,12 +4,12 @@ namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Type;
-use Netgen\BlockManager\Persistence\Values\Page\Block;
-use Netgen\BlockManager\Persistence\Values\Page\BlockCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\BlockUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
-use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Block\Block;
+use Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Block\BlockUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
+use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
 
@@ -39,7 +39,7 @@ class BlockQueryHandler extends QueryHandler
     /**
      * Loads all collection reference data.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      * @param string $identifier
      *
      * @return array
@@ -108,7 +108,7 @@ class BlockQueryHandler extends QueryHandler
     /**
      * Loads all child block data from specified block, optionally filtered by placeholder.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      * @param string $placeholder
      *
      * @return array
@@ -163,8 +163,8 @@ class BlockQueryHandler extends QueryHandler
     /**
      * Creates a block.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\BlockCreateStruct $blockCreateStruct
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $targetBlock
+     * @param \Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct $blockCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $targetBlock
      * @param string $placeholder
      *
      * @return int
@@ -249,7 +249,7 @@ class BlockQueryHandler extends QueryHandler
      *
      * @param int|string $blockId
      * @param int $blockStatus
-     * @param \Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceCreateStruct $createStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceCreateStruct $createStruct
      */
     public function createCollectionReference($blockId, $blockStatus, CollectionReferenceCreateStruct $createStruct)
     {
@@ -281,8 +281,8 @@ class BlockQueryHandler extends QueryHandler
     /**
      * Updates a block.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param \Netgen\BlockManager\Persistence\Values\Page\BlockUpdateStruct $blockUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Block\BlockUpdateStruct $blockUpdateStruct
      */
     public function updateBlock(Block $block, BlockUpdateStruct $blockUpdateStruct)
     {
@@ -312,8 +312,8 @@ class BlockQueryHandler extends QueryHandler
     /**
      * Updates a collection reference with specified identifier.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\CollectionReference $collectionReference
-     * @param \Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceUpdateStruct $updateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Block\CollectionReference $collectionReference
+     * @param \Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceUpdateStruct $updateStruct
      */
     public function updateCollectionReference(CollectionReference $collectionReference, CollectionReferenceUpdateStruct $updateStruct)
     {
@@ -351,9 +351,9 @@ class BlockQueryHandler extends QueryHandler
      * Moves a block. If the target block is not provided, the block is only moved within its
      * current parent ID and placeholder.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      * @param int $position
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $targetBlock
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $targetBlock
      * @param string $placeholder
      */
     public function moveBlock(Block $block, $position, Block $targetBlock = null, $placeholder = null)
@@ -409,7 +409,7 @@ class BlockQueryHandler extends QueryHandler
     /**
      * Creates a block status.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      * @param int $newStatus
      */
     public function createBlockStatus(Block $block, $newStatus)

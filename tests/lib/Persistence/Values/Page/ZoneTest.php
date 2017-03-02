@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Persistence\Values;
+namespace Netgen\BlockManager\Tests\Persistence\Values\Page;
 
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
 use Netgen\BlockManager\Persistence\Values\Value;

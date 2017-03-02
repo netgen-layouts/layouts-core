@@ -4,7 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension;
 
 use Exception;
 use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate;
 use Netgen\BlockManager\Item\ItemInterface;
@@ -290,7 +290,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      * Renders the provided block.
      *
      * @param array $context
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param array $parameters
      * @param string $viewContext
      *
@@ -337,7 +337,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      * Renders the provided placeholder.
      *
      * @param array $context
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param string $placeholder
      * @param array $parameters
      * @param string $viewContext
@@ -400,7 +400,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      *
      * @todo Refactor out to separate service
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
      *
      * @return bool
      */

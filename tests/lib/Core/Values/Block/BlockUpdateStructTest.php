@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Values\Page;
+namespace Netgen\BlockManager\Tests\Core\Values\Block;
 
-use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct;
+use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use PHPUnit\Framework\TestCase;
 
 class BlockUpdateStructTest extends TestCase

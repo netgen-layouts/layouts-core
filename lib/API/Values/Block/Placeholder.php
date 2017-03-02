@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\API\Values\Page;
+namespace Netgen\BlockManager\API\Values\Block;
 
 use ArrayAccess;
 use Countable;
@@ -20,7 +20,7 @@ interface Placeholder extends Value, ParameterBasedValue, ArrayAccess, IteratorA
     /**
      * Returns all blocks in this placeholder.
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Block[]
+     * @return \Netgen\BlockManager\API\Values\Block\Block[]]
      */
     public function getBlocks();
 }

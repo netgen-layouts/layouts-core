@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\API\Values\Page;
+namespace Netgen\BlockManager\API\Values\Block;
 
 use Netgen\BlockManager\API\Values\Value;
 
@@ -9,7 +9,7 @@ interface CollectionReference extends Value
     /**
      * Returns the block to which the collection is attached.
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Block
+     * @return \Netgen\BlockManager\API\Values\Block\Block
      */
     public function getBlock();
 

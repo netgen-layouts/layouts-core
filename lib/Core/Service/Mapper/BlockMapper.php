@@ -5,12 +5,12 @@ namespace Netgen\BlockManager\Core\Service\Mapper;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
-use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\BlockManager\Core\Values\Page\CollectionReference;
-use Netgen\BlockManager\Core\Values\Page\Placeholder;
+use Netgen\BlockManager\Core\Values\Block\Block;
+use Netgen\BlockManager\Core\Values\Block\CollectionReference;
+use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\Persistence\Handler;
-use Netgen\BlockManager\Persistence\Values\Page\Block as PersistenceBlock;
-use Netgen\BlockManager\Persistence\Values\Page\CollectionReference as PersistenceCollectionReference;
+use Netgen\BlockManager\Persistence\Values\Block\Block as PersistenceBlock;
+use Netgen\BlockManager\Persistence\Values\Block\CollectionReference as PersistenceCollectionReference;
 
 class BlockMapper extends Mapper
 {
@@ -58,9 +58,9 @@ class BlockMapper extends Mapper
     /**
      * Builds the API block value object from persistence one.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Block
+     * @return \Netgen\BlockManager\API\Values\Block\Block
      */
     public function mapBlock(PersistenceBlock $block)
     {
@@ -89,10 +89,10 @@ class BlockMapper extends Mapper
     /**
      * Builds the API collection reference value object from persistence one.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param \Netgen\BlockManager\Persistence\Values\Page\CollectionReference $collectionReference
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Block\CollectionReference $collectionReference
      *
-     * @return \Netgen\BlockManager\API\Values\Page\CollectionReference
+     * @return \Netgen\BlockManager\API\Values\Block\CollectionReference
      */
     public function mapCollectionReference(PersistenceBlock $block, PersistenceCollectionReference $collectionReference)
     {
@@ -115,10 +115,10 @@ class BlockMapper extends Mapper
     /**
      * Maps the placeholder from persistence parameters.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition
      *
-     * @return \Netgen\BlockManager\Core\Values\Page\Placeholder[]
+     * @return \Netgen\BlockManager\Core\Values\Block\Placeholder[]
      */
     protected function mapPlaceholders(PersistenceBlock $block, BlockDefinitionInterface $blockDefinition)
     {

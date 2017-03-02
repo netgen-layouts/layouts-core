@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Block\BlockDefinition;
 
-use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 use Netgen\BlockManager\Parameters\ParameterType;
 
@@ -41,7 +41,7 @@ abstract class BlockDefinitionHandler implements BlockDefinitionHandlerInterface
     /**
      * Returns the array of dynamic parameters provided by this block definition.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param array $parameters
      *
      * @return array

@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\View\Provider;
 
-use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
+use Netgen\BlockManager\API\Values\Block\Block as APIBlock;
 use Netgen\BlockManager\View\View\BlockView;
 use Netgen\BlockManager\View\View\BlockView\Block;
 

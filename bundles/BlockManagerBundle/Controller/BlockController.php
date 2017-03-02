@@ -3,7 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Controller;
 
 use Exception;
-use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\View\ViewInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
@@ -45,7 +45,7 @@ class BlockController extends Controller
      * Renders the provided block. Used by ESI rendering strategy, so if rendering fails,
      * we log an error and just return an empty response in order not to crash the page.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param string $context
      *
      * @throws \Exception If rendering fails

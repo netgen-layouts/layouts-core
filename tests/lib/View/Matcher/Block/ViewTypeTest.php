@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\View\Matcher\Block;
 
-use Netgen\BlockManager\Core\Values\Page\Block;
+use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\Matcher\Block\ViewType;

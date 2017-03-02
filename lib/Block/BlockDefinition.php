@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Block;
 
-use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Parameters\ParameterCollectionTrait;
 use Netgen\BlockManager\ValueObject;
@@ -123,7 +123,7 @@ class BlockDefinition extends ValueObject implements BlockDefinitionInterface
     /**
      * Returns the array of dynamic parameters provided by this block definition.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param array $parameters
      *
      * @return array

@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
 
-use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\BlockManager\Core\Values\Page\Placeholder;
+use Netgen\BlockManager\Core\Values\Block\Block;
+use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\PlaceholderNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;

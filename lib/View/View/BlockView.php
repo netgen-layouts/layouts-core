@@ -9,7 +9,7 @@ class BlockView extends View implements BlockViewInterface
     /**
      * Returns the block.
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Block
+     * @return \Netgen\BlockManager\API\Values\Block\Block
      */
     public function getBlock()
     {

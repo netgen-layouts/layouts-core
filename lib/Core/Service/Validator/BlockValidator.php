@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Core\Service\Validator;
 
-use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\API\Values\Page\BlockCreateStruct;
-use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct;
-use Netgen\BlockManager\API\Values\Page\PlaceholderCreateStruct;
+use Netgen\BlockManager\API\Values\Block\Block;
+use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
+use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
+use Netgen\BlockManager\API\Values\Block\PlaceholderCreateStruct;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Block\PlaceholderDefinitionInterface;
 use Netgen\BlockManager\Validator\Constraint\BlockItemViewType;
@@ -19,7 +19,7 @@ class BlockValidator extends Validator
     /**
      * Validates block create struct.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\BlockCreateStruct $blockCreateStruct
+     * @param \Netgen\BlockManager\API\Values\Block\BlockCreateStruct $blockCreateStruct
      *
      * @throws \Netgen\BlockManager\Exception\ValidationFailedException If the validation failed
      */
@@ -96,8 +96,8 @@ class BlockValidator extends Validator
     /**
      * Validates block update struct.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
-     * @param \Netgen\BlockManager\API\Values\Page\BlockUpdateStruct $blockUpdateStruct
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
+     * @param \Netgen\BlockManager\API\Values\Block\BlockUpdateStruct $blockUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\ValidationFailedException If the validation failed
      */
@@ -118,7 +118,7 @@ class BlockValidator extends Validator
     /**
      * Validates placeholder create struct.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\PlaceholderCreateStruct $placeholderCreateStruct
+     * @param \Netgen\BlockManager\API\Values\Block\PlaceholderCreateStruct $placeholderCreateStruct
      * @param \Netgen\BlockManager\Block\PlaceholderDefinitionInterface $placeholderDefinition
      *
      * @throws \Netgen\BlockManager\Exception\ValidationFailedException If the validation failed

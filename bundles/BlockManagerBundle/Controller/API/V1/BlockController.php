@@ -4,7 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Configuration\BlockType\BlockType;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
@@ -53,7 +53,7 @@ class BlockController extends Controller
     /**
      * Loads a block.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
@@ -65,7 +65,7 @@ class BlockController extends Controller
     /**
      * Creates the block in specified block.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If block type does not exist
@@ -137,7 +137,7 @@ class BlockController extends Controller
     /**
      * Updates the block.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If some of the parameters do not exist in the block
@@ -177,7 +177,7 @@ class BlockController extends Controller
     /**
      * Copies the block draft to specified block.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
@@ -200,7 +200,7 @@ class BlockController extends Controller
     /**
      * Copies the block draft to specified zone.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
@@ -220,7 +220,7 @@ class BlockController extends Controller
     /**
      * Moves the block draft to specified block.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -244,7 +244,7 @@ class BlockController extends Controller
     /**
      * Moves the block draft to specified zone.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -268,7 +268,7 @@ class BlockController extends Controller
     /**
      * Restores the block draft to the published state.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
@@ -282,7 +282,7 @@ class BlockController extends Controller
     /**
      * Deletes the block draft.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -298,7 +298,7 @@ class BlockController extends Controller
      *
      * @param \Netgen\BlockManager\Configuration\BlockType\BlockType $blockType
      *
-     * @return \Netgen\BlockManager\API\Values\Page\BlockCreateStruct
+     * @return \Netgen\BlockManager\API\Values\Block\BlockCreateStruct
      */
     protected function createBlockCreateStruct(BlockType $blockType)
     {

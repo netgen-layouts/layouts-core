@@ -1,9 +1,9 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Values\Page;
+namespace Netgen\BlockManager\Tests\Core\Values\Block;
 
-use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\BlockManager\Core\Values\Page\Placeholder;
+use Netgen\BlockManager\Core\Values\Block\Block;
+use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Exception\RuntimeException;
 use PHPUnit\Framework\TestCase;
@@ -12,12 +12,12 @@ use Traversable;
 class PlaceholderTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Core\Values\Page\Placeholder::__construct
-     * @covers \Netgen\BlockManager\Core\Values\Page\Placeholder::getIdentifier
-     * @covers \Netgen\BlockManager\Core\Values\Page\Placeholder::getBlocks
-     * @covers \Netgen\BlockManager\Core\Values\Page\Placeholder::getParameters
-     * @covers \Netgen\BlockManager\Core\Values\Page\Placeholder::getParameter
-     * @covers \Netgen\BlockManager\Core\Values\Page\Placeholder::hasParameter
+     * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::__construct
+     * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::getIdentifier
+     * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::getBlocks
+     * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::getParameters
+     * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::getParameter
+     * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::hasParameter
      */
     public function testSetDefaultProperties()
     {
@@ -36,18 +36,18 @@ class PlaceholderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\Page\Placeholder::__construct
-     * @covers \Netgen\BlockManager\Core\Values\Page\Placeholder::getIdentifier
-     * @covers \Netgen\BlockManager\Core\Values\Page\Placeholder::getBlocks
-     * @covers \Netgen\BlockManager\Core\Values\Page\Placeholder::getParameters
-     * @covers \Netgen\BlockManager\Core\Values\Page\Placeholder::getParameter
-     * @covers \Netgen\BlockManager\Core\Values\Page\Placeholder::hasParameter
-     * @covers \Netgen\BlockManager\Core\Values\Page\Placeholder::getIterator
-     * @covers \Netgen\BlockManager\Core\Values\Page\Placeholder::count
-     * @covers \Netgen\BlockManager\Core\Values\Page\Placeholder::offsetExists
-     * @covers \Netgen\BlockManager\Core\Values\Page\Placeholder::offsetGet
-     * @covers \Netgen\BlockManager\Core\Values\Page\Placeholder::offsetSet
-     * @covers \Netgen\BlockManager\Core\Values\Page\Placeholder::offsetUnset
+     * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::__construct
+     * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::getIdentifier
+     * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::getBlocks
+     * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::getParameters
+     * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::getParameter
+     * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::hasParameter
+     * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::getIterator
+     * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::count
+     * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::offsetExists
+     * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::offsetGet
+     * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::offsetSet
+     * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::offsetUnset
      */
     public function testSetProperties()
     {

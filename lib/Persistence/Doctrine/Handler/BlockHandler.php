@@ -9,12 +9,12 @@ use Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler;
 use Netgen\BlockManager\Persistence\Handler\BlockHandler as BlockHandlerInterface;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandler as CollectionHandlerInterface;
-use Netgen\BlockManager\Persistence\Values\Page\Block;
-use Netgen\BlockManager\Persistence\Values\Page\BlockCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\BlockUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
-use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Block\Block;
+use Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Block\BlockUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
+use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\Zone;
 
@@ -68,7 +68,7 @@ class BlockHandler implements BlockHandlerInterface
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If block with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Block
+     * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
     public function loadBlock($blockId, $status)
     {
@@ -101,7 +101,7 @@ class BlockHandler implements BlockHandlerInterface
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Block[]
+     * @return \Netgen\BlockManager\Persistence\Values\Block\Block[]]
      */
     public function loadLayoutBlocks(Layout $layout)
     {
@@ -115,7 +115,7 @@ class BlockHandler implements BlockHandlerInterface
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\Zone $zone
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Block[]
+     * @return \Netgen\BlockManager\Persistence\Values\Block\Block[]]
      */
     public function loadZoneBlocks(Zone $zone)
     {
@@ -127,10 +127,10 @@ class BlockHandler implements BlockHandlerInterface
     /**
      * Loads all blocks from specified block, optionally filtered by placeholder.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      * @param string $placeholder
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Block[]
+     * @return \Netgen\BlockManager\Persistence\Values\Block\Block[]]
      */
     public function loadChildBlocks(Block $block, $placeholder = null)
     {
@@ -142,12 +142,12 @@ class BlockHandler implements BlockHandlerInterface
     /**
      * Loads a collection reference.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      * @param string $identifier
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If collection reference with specified identifier does not exist
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\CollectionReference
+     * @return \Netgen\BlockManager\Persistence\Values\Block\CollectionReference
      */
     public function loadCollectionReference(Block $block, $identifier)
     {
@@ -165,9 +165,9 @@ class BlockHandler implements BlockHandlerInterface
     /**
      * Loads all collection references belonging to the provided block.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\CollectionReference[]
+     * @return \Netgen\BlockManager\Persistence\Values\Block\CollectionReference[]
      */
     public function loadCollectionReferences(Block $block)
     {
@@ -179,13 +179,13 @@ class BlockHandler implements BlockHandlerInterface
     /**
      * Creates a block in specified target block.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\BlockCreateStruct $blockCreateStruct
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $targetBlock
+     * @param \Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct $blockCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $targetBlock
      * @param string $placeholder
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Block
+     * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
     public function createBlock(BlockCreateStruct $blockCreateStruct, Block $targetBlock = null, $placeholder = null)
     {
@@ -214,8 +214,8 @@ class BlockHandler implements BlockHandlerInterface
     /**
      * Creates the collection reference.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param \Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceCreateStruct $createStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceCreateStruct $createStruct
      */
     public function createCollectionReference(Block $block, CollectionReferenceCreateStruct $createStruct)
     {
@@ -229,10 +229,10 @@ class BlockHandler implements BlockHandlerInterface
     /**
      * Updates a block with specified ID.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param \Netgen\BlockManager\Persistence\Values\Page\BlockUpdateStruct $blockUpdateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Block\BlockUpdateStruct $blockUpdateStruct
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Block
+     * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
     public function updateBlock(Block $block, BlockUpdateStruct $blockUpdateStruct)
     {
@@ -259,10 +259,10 @@ class BlockHandler implements BlockHandlerInterface
     /**
      * Updates a collection reference with specified identifier.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\CollectionReference $collectionReference
-     * @param \Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceUpdateStruct $updateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Block\CollectionReference $collectionReference
+     * @param \Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceUpdateStruct $updateStruct
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\CollectionReference
+     * @return \Netgen\BlockManager\Persistence\Values\Block\CollectionReference
      */
     public function updateCollectionReference(CollectionReference $collectionReference, CollectionReferenceUpdateStruct $updateStruct)
     {
@@ -288,13 +288,13 @@ class BlockHandler implements BlockHandlerInterface
     /**
      * Copies a block to a specified target block and placeholder.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $targetBlock
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $targetBlock
      * @param string $placeholder
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If target block is within the provided block
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Block
+     * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
     public function copyBlock(Block $block, Block $targetBlock, $placeholder)
     {
@@ -341,8 +341,8 @@ class BlockHandler implements BlockHandlerInterface
     /**
      * Copies all block collections to another block.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $targetBlock
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $targetBlock
      */
     public function copyBlockCollections(Block $block, Block $targetBlock)
     {
@@ -376,8 +376,8 @@ class BlockHandler implements BlockHandlerInterface
     /**
      * Moves a block to specified position in a specified target block and placeholder.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $targetBlock
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $targetBlock
      * @param string $placeholder
      * @param int $position
      *
@@ -385,7 +385,7 @@ class BlockHandler implements BlockHandlerInterface
      * @throws \Netgen\BlockManager\Exception\BadStateException If block is already in target block and placeholder
      * @throws \Netgen\BlockManager\Exception\BadStateException If target block is within the provided block
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Block
+     * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
     public function moveBlock(Block $block, Block $targetBlock, $placeholder, $position)
     {
@@ -423,12 +423,12 @@ class BlockHandler implements BlockHandlerInterface
     /**
      * Moves a block to specified position in the current placeholder.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      * @param int $position
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Block
+     * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
     public function moveBlockToPosition(Block $block, $position)
     {
@@ -453,7 +453,7 @@ class BlockHandler implements BlockHandlerInterface
      * This method does not create new status for sub-blocks,
      * so any process that works with this method needs to take care of that.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      * @param int $newStatus
      */
     public function createBlockStatus(Block $block, $newStatus)
@@ -468,7 +468,7 @@ class BlockHandler implements BlockHandlerInterface
      * This method does not create new status for sub-block collections,
      * so any process that works with this method needs to take care of that.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      * @param int $newStatus
      */
     public function createBlockCollectionsStatus(Block $block, $newStatus)
@@ -506,7 +506,7 @@ class BlockHandler implements BlockHandlerInterface
     /**
      * Deletes a block with specified ID.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      */
     public function deleteBlock(Block $block)
     {

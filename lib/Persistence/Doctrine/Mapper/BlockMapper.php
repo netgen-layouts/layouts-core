@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Persistence\Doctrine\Mapper;
 
-use Netgen\BlockManager\Persistence\Values\Page\Block;
-use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
+use Netgen\BlockManager\Persistence\Values\Block\Block;
+use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
 
 class BlockMapper
 {
@@ -12,7 +12,7 @@ class BlockMapper
      *
      * @param array $data
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\Block[]
+     * @return \Netgen\BlockManager\Persistence\Values\Block\Block[]]
      */
     public function mapBlocks(array $data = array())
     {
@@ -55,7 +55,7 @@ class BlockMapper
      *
      * @param array $data
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Page\CollectionReference[]
+     * @return \Netgen\BlockManager\Persistence\Values\Block\CollectionReference[]
      */
     public function mapCollectionReferences(array $data = array())
     {

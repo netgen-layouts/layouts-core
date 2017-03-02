@@ -9,7 +9,7 @@ class PlaceholderView extends View implements PlaceholderViewInterface
     /**
      * Returns the placeholder.
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Placeholder
+     * @return \Netgen\BlockManager\API\Values\Block\Placeholder
      */
     public function getPlaceholder()
     {
@@ -19,7 +19,7 @@ class PlaceholderView extends View implements PlaceholderViewInterface
     /**
      * Returns the block.
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Block
+     * @return \Netgen\BlockManager\API\Values\Block\Block
      */
     public function getBlock()
     {

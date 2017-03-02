@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Tests\Block\Form;
 
-use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct;
+use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Block\Form\FullEditType;
-use Netgen\BlockManager\Core\Values\Page\Block;
+use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Parameters\Form\Mapper\TextLineMapper;
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
 use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
@@ -15,7 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class FullEditTypeTest extends FormTestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Page\Block
+     * @var \Netgen\BlockManager\API\Values\Block\Block
      */
     protected $block;
 

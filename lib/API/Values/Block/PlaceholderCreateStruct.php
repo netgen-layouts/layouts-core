@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\API\Values\Page;
+namespace Netgen\BlockManager\API\Values\Block;
 
 use Netgen\BlockManager\API\Values\ParameterStruct;
 

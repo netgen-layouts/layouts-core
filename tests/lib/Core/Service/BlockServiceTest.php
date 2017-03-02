@@ -2,13 +2,13 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service;
 
+use Netgen\BlockManager\API\Values\Block\Block;
+use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
+use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
+use Netgen\BlockManager\API\Values\Block\CollectionReference;
+use Netgen\BlockManager\API\Values\Block\Placeholder;
+use Netgen\BlockManager\API\Values\Block\PlaceholderCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\API\Values\Page\BlockCreateStruct;
-use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct;
-use Netgen\BlockManager\API\Values\Page\CollectionReference;
-use Netgen\BlockManager\API\Values\Page\Placeholder;
-use Netgen\BlockManager\API\Values\Page\PlaceholderCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;

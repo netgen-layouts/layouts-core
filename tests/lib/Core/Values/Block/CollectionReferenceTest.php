@@ -1,21 +1,21 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Values\Page;
+namespace Netgen\BlockManager\Tests\Core\Values\Block;
 
+use Netgen\BlockManager\Core\Values\Block\Block;
+use Netgen\BlockManager\Core\Values\Block\CollectionReference;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
-use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\BlockManager\Core\Values\Page\CollectionReference;
 use PHPUnit\Framework\TestCase;
 
 class CollectionReferenceTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Core\Values\Page\CollectionReference::__construct
-     * @covers \Netgen\BlockManager\Core\Values\Page\CollectionReference::getBlock
-     * @covers \Netgen\BlockManager\Core\Values\Page\CollectionReference::getCollection
-     * @covers \Netgen\BlockManager\Core\Values\Page\CollectionReference::getIdentifier
-     * @covers \Netgen\BlockManager\Core\Values\Page\CollectionReference::getOffset
-     * @covers \Netgen\BlockManager\Core\Values\Page\CollectionReference::getLimit
+     * @covers \Netgen\BlockManager\Core\Values\Block\CollectionReference::__construct
+     * @covers \Netgen\BlockManager\Core\Values\Block\CollectionReference::getBlock
+     * @covers \Netgen\BlockManager\Core\Values\Block\CollectionReference::getCollection
+     * @covers \Netgen\BlockManager\Core\Values\Block\CollectionReference::getIdentifier
+     * @covers \Netgen\BlockManager\Core\Values\Block\CollectionReference::getOffset
+     * @covers \Netgen\BlockManager\Core\Values\Block\CollectionReference::getLimit
      */
     public function testSetDefaultProperties()
     {
@@ -29,12 +29,12 @@ class CollectionReferenceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\Page\CollectionReference::__construct
-     * @covers \Netgen\BlockManager\Core\Values\Page\CollectionReference::getBlock
-     * @covers \Netgen\BlockManager\Core\Values\Page\CollectionReference::getCollection
-     * @covers \Netgen\BlockManager\Core\Values\Page\CollectionReference::getIdentifier
-     * @covers \Netgen\BlockManager\Core\Values\Page\CollectionReference::getOffset
-     * @covers \Netgen\BlockManager\Core\Values\Page\CollectionReference::getLimit
+     * @covers \Netgen\BlockManager\Core\Values\Block\CollectionReference::__construct
+     * @covers \Netgen\BlockManager\Core\Values\Block\CollectionReference::getBlock
+     * @covers \Netgen\BlockManager\Core\Values\Block\CollectionReference::getCollection
+     * @covers \Netgen\BlockManager\Core\Values\Block\CollectionReference::getIdentifier
+     * @covers \Netgen\BlockManager\Core\Values\Block\CollectionReference::getOffset
+     * @covers \Netgen\BlockManager\Core\Values\Block\CollectionReference::getLimit
      */
     public function testSetProperties()
     {

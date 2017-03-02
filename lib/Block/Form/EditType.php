@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Block\Form;
 
-use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct;
+use Netgen\BlockManager\API\Values\Block\Block;
+use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Form\AbstractType;
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;

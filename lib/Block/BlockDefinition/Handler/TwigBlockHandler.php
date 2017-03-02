@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Block\BlockDefinition\Handler;
 
-use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
 use Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
@@ -28,7 +28,7 @@ class TwigBlockHandler extends BlockDefinitionHandler
     /**
      * Returns the name of the Twig block to use.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
      *
      * @return string
      */
@@ -40,7 +40,7 @@ class TwigBlockHandler extends BlockDefinitionHandler
     /**
      * Returns the array of dynamic parameters provided by this block definition.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param array $parameters
      *
      * @return array

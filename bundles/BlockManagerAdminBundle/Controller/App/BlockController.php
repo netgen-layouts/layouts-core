@@ -4,7 +4,7 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\App;
 
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\CollectionService;
-use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
@@ -48,7 +48,7 @@ class BlockController extends Controller
     /**
      * Displays block edit interface.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -75,7 +75,7 @@ class BlockController extends Controller
     /**
      * Displays and processes block draft edit form.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param string $formName
      * @param \Symfony\Component\HttpFoundation\Request $request
      *

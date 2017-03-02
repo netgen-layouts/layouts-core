@@ -1,11 +1,31 @@
 <?php
 
-namespace Netgen\BlockManager\Persistence\Values\Page;
+namespace Netgen\BlockManager\Persistence\Values\Block;
 
 use Netgen\BlockManager\ValueObject;
 
-class BlockUpdateStruct extends ValueObject
+class BlockCreateStruct extends ValueObject
 {
+    /**
+     * @var int|string
+     */
+    public $layoutId;
+
+    /**
+     * @var int
+     */
+    public $status;
+
+    /**
+     * @var int
+     */
+    public $position;
+
+    /**
+     * @var string
+     */
+    public $definitionIdentifier;
+
     /**
      * @var string
      */

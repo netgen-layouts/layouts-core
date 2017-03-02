@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
 
 use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Persistence\Values\Page\Block;
+use Netgen\BlockManager\Persistence\Values\Block\Block;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\LayoutCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\LayoutUpdateStruct;

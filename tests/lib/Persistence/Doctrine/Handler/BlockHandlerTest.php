@@ -3,13 +3,13 @@
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
 
 use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Persistence\Values\Block\Block;
+use Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Block\BlockUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
+use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
-use Netgen\BlockManager\Persistence\Values\Page\Block;
-use Netgen\BlockManager\Persistence\Values\Page\BlockCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\BlockUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
-use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Page\CollectionReferenceUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 use PHPUnit\Framework\TestCase;

@@ -1,11 +1,16 @@
 <?php
 
-namespace Netgen\BlockManager\Persistence\Values\Page;
+namespace Netgen\BlockManager\Persistence\Values\Block;
 
 use Netgen\BlockManager\ValueObject;
 
-class CollectionReferenceUpdateStruct extends ValueObject
+class CollectionReferenceCreateStruct extends ValueObject
 {
+    /**
+     * @var string
+     */
+    public $identifier;
+
     /**
      * @var \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */

@@ -1,14 +1,14 @@
 <?php
 
-namespace Netgen\BlockManager\Core\Values\Page;
+namespace Netgen\BlockManager\Core\Values\Block;
 
-use Netgen\BlockManager\API\Values\Page\CollectionReference as APICollectionReference;
+use Netgen\BlockManager\API\Values\Block\CollectionReference as APICollectionReference;
 use Netgen\BlockManager\ValueObject;
 
 class CollectionReference extends ValueObject implements APICollectionReference
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Page\Block
+     * @var \Netgen\BlockManager\API\Values\Block\Block
      */
     protected $block;
 
@@ -35,7 +35,7 @@ class CollectionReference extends ValueObject implements APICollectionReference
     /**
      * Returns the block to which the collection is attached.
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Block
+     * @return \Netgen\BlockManager\API\Values\Block\Block
      */
     public function getBlock()
     {

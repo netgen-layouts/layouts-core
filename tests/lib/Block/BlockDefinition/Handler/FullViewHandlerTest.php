@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Handler;
 use Closure;
 use Netgen\BlockManager\Block\BlockDefinition\Handler\FullViewHandler;
 use Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate;
-use Netgen\BlockManager\Core\Values\Page\Block;
+use Netgen\BlockManager\Core\Values\Block\Block;
 use PHPUnit\Framework\TestCase;
 
 class FullViewHandlerTest extends TestCase

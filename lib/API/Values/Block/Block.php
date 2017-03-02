@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\API\Values\Page;
+namespace Netgen\BlockManager\API\Values\Block;
 
 use Netgen\BlockManager\API\Values\ParameterBasedValue;
 use Netgen\BlockManager\API\Values\Value;
@@ -52,7 +52,7 @@ interface Block extends Value, ParameterBasedValue
     /**
      * Returns all placeholders from this block.
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Placeholder[]
+     * @return \Netgen\BlockManager\API\Values\Block\Placeholder[]
      */
     public function getPlaceholders();
 
@@ -63,7 +63,7 @@ interface Block extends Value, ParameterBasedValue
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the placeholder does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Placeholder
+     * @return \Netgen\BlockManager\API\Values\Block\Placeholder
      */
     public function getPlaceholder($identifier);
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Core\Values\Page;
+namespace Netgen\BlockManager\Core\Values\Block;
 
-use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
+use Netgen\BlockManager\API\Values\Block\Block as APIBlock;
 use Netgen\BlockManager\Core\Values\ParameterBasedValueTrait;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\ValueObject;
@@ -42,7 +42,7 @@ class Block extends ValueObject implements APIBlock
     protected $name;
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Page\Placeholder[]
+     * @var \Netgen\BlockManager\API\Values\Block\Placeholder[]
      */
     protected $placeholders = array();
 
@@ -114,7 +114,7 @@ class Block extends ValueObject implements APIBlock
     /**
      * Returns all placeholders from this block.
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Placeholder[]
+     * @return \Netgen\BlockManager\API\Values\Block\Placeholder[]
      */
     public function getPlaceholders()
     {
@@ -128,7 +128,7 @@ class Block extends ValueObject implements APIBlock
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the placeholder does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Placeholder
+     * @return \Netgen\BlockManager\API\Values\Block\Placeholder
      */
     public function getPlaceholder($identifier)
     {

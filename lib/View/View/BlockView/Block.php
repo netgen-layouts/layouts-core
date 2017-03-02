@@ -2,12 +2,12 @@
 
 namespace Netgen\BlockManager\View\View\BlockView;
 
-use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
+use Netgen\BlockManager\API\Values\Block\Block as APIBlock;
 
 class Block implements APIBlock
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Page\Block
+     * @var \Netgen\BlockManager\API\Values\Block\Block
      */
     protected $innerBlock;
 
@@ -19,7 +19,7 @@ class Block implements APIBlock
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $innerBlock
+     * @param \Netgen\BlockManager\API\Values\Block\Block $innerBlock
      * @param array $dynamicParameters
      */
     public function __construct(APIBlock $innerBlock, $dynamicParameters = array())
@@ -91,7 +91,7 @@ class Block implements APIBlock
     /**
      * Returns all placeholders from this block.
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Placeholder[]
+     * @return \Netgen\BlockManager\API\Values\Block\Placeholder[]
      */
     public function getPlaceholders()
     {
@@ -103,7 +103,7 @@ class Block implements APIBlock
      *
      * @param string $identifier
      *
-     * @return \Netgen\BlockManager\API\Values\Page\Placeholder
+     * @return \Netgen\BlockManager\API\Values\Block\Placeholder
      */
     public function getPlaceholder($identifier)
     {

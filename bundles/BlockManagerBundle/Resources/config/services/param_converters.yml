@@ -1,6 +1,13 @@
 services:
-    netgen_block_manager.param_converter.page.block:
-        class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\BlockParamConverter
+    netgen_block_manager.param_converter.block.block:
+        class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Block\BlockParamConverter
+        arguments:
+            - "@netgen_block_manager.api.service.block"
+        tags:
+            - { name: request.param_converter, priority: 0 }
+
+    netgen_block_manager.param_converter.block.collection_reference:
+        class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Block\CollectionReferenceParamConverter
         arguments:
             - "@netgen_block_manager.api.service.block"
         tags:
@@ -17,13 +24,6 @@ services:
         class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\LayoutParamConverter
         arguments:
             - "@netgen_block_manager.api.service.layout"
-        tags:
-            - { name: request.param_converter, priority: 0 }
-
-    netgen_block_manager.param_converter.page.collection_reference:
-        class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Page\CollectionReferenceParamConverter
-        arguments:
-            - "@netgen_block_manager.api.service.block"
         tags:
             - { name: request.param_converter, priority: 0 }
 

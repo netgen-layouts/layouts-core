@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Tests\View\View\BlockView;
 
 use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Core\Values\Page\Block as CoreBlock;
-use Netgen\BlockManager\Core\Values\Page\Placeholder;
+use Netgen\BlockManager\Core\Values\Block\Block as CoreBlock;
+use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\View\View\BlockView\Block;

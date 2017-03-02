@@ -4,9 +4,9 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\CollectionService;
+use Netgen\BlockManager\API\Values\Block\Block;
+use Netgen\BlockManager\API\Values\Block\CollectionReference;
 use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\API\Values\Page\CollectionReference;
 use Netgen\BlockManager\Collection\Result\ResultLoaderInterface;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Serializer\Values\Value;
@@ -76,7 +76,7 @@ class BlockCollectionController extends Controller
     /**
      * Loads the collection reference.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\CollectionReference $collectionReference
+     * @param \Netgen\BlockManager\API\Values\Block\CollectionReference $collectionReference
      *
      * @return \Netgen\BlockManager\Serializer\Values\VersionedValue
      */
@@ -88,7 +88,7 @@ class BlockCollectionController extends Controller
     /**
      * Loads all block draft collection references.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\Block $block
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
      *
      * @return \Netgen\BlockManager\Serializer\Values\Value
      */
@@ -107,7 +107,7 @@ class BlockCollectionController extends Controller
     /**
      * Returns the collection result.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\CollectionReference $collectionReference
+     * @param \Netgen\BlockManager\API\Values\Block\CollectionReference $collectionReference
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Netgen\BlockManager\Serializer\Values\VersionedValue
@@ -138,7 +138,7 @@ class BlockCollectionController extends Controller
     /**
      * Changes the collection type within the block.
      *
-     * @param \Netgen\BlockManager\API\Values\Page\CollectionReference $collectionReference
+     * @param \Netgen\BlockManager\API\Values\Block\CollectionReference $collectionReference
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If new collection type is not valid

@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\Block\BlockDefinition;
 
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
-use Netgen\BlockManager\Core\Values\Page\Block;
+use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Parameters\ParameterBuilder;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
 use PHPUnit\Framework\TestCase;

@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Validator\Structs;
 
-use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct;
-use Netgen\BlockManager\Core\Values\Page\Block;
+use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
+use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
@@ -64,7 +64,7 @@ class BlockUpdateStructValidatorTest extends ValidatorTestCase
     /**
      * @covers \Netgen\BlockManager\Validator\Structs\BlockUpdateStructValidator::validate
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
-     * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\API\Values\Page\Block", "stdClass" given
+     * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\API\Values\Block\Block", "stdClass" given
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidBlock()
     {
@@ -75,7 +75,7 @@ class BlockUpdateStructValidatorTest extends ValidatorTestCase
     /**
      * @covers \Netgen\BlockManager\Validator\Structs\BlockUpdateStructValidator::validate
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
-     * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\API\Values\Page\BlockUpdateStruct", "integer" given
+     * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\API\Values\Block\BlockUpdateStruct", "integer" given
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue()
     {

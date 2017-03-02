@@ -2,15 +2,15 @@
 
 namespace Netgen\BlockManager\Tests\View\View;
 
-use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\BlockManager\Core\Values\Page\Placeholder;
+use Netgen\BlockManager\Core\Values\Block\Block;
+use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\View\View\PlaceholderView;
 use PHPUnit\Framework\TestCase;
 
 class PlaceholderViewTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Page\Placeholder
+     * @var \Netgen\BlockManager\API\Values\Block\Placeholder
      */
     protected $placeholder;
 

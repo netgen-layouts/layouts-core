@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Persistence\Values\LayoutResolver\Rule;
+namespace Netgen\BlockManager\Tests\Persistence\Values\LayoutResolver;
 
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Persistence\Values\Value;

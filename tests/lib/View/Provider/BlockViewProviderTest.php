@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\View\Provider;
 
-use Netgen\BlockManager\Core\Values\Page\Block as CoreBlock;
+use Netgen\BlockManager\Core\Values\Block\Block as CoreBlock;
 use Netgen\BlockManager\Core\Values\Page\Layout;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;

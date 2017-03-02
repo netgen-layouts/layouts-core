@@ -2,13 +2,13 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 
-use Netgen\BlockManager\API\Values\Page\Block as APIBlock;
-use Netgen\BlockManager\API\Values\Page\CollectionReference as APICollectionReference;
-use Netgen\BlockManager\API\Values\Page\Placeholder;
+use Netgen\BlockManager\API\Values\Block\Block as APIBlock;
+use Netgen\BlockManager\API\Values\Block\CollectionReference as APICollectionReference;
+use Netgen\BlockManager\API\Values\Block\Placeholder;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Parameters\ParameterValue;
-use Netgen\BlockManager\Persistence\Values\Page\Block;
-use Netgen\BlockManager\Persistence\Values\Page\CollectionReference;
+use Netgen\BlockManager\Persistence\Values\Block\Block;
+use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
 
 abstract class BlockMapperTest extends ServiceTestCase

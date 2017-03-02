@@ -1,10 +1,10 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Values\Page;
+namespace Netgen\BlockManager\Tests\Core\Values\Block;
 
 use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\BlockManager\Core\Values\Page\Placeholder;
+use Netgen\BlockManager\Core\Values\Block\Block;
+use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use PHPUnit\Framework\TestCase;
@@ -12,20 +12,20 @@ use PHPUnit\Framework\TestCase;
 class BlockTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::__construct
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getId
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getDefinition
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getParameters
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getParameter
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::hasParameter
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getPlaceholders
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getPlaceholder
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::hasPlaceholder
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getViewType
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getItemViewType
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getName
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getStatus
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::isPublished
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::__construct
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getId
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getDefinition
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getParameters
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getParameter
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasParameter
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getPlaceholders
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getPlaceholder
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasPlaceholder
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getViewType
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getItemViewType
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getName
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getStatus
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::isPublished
      */
     public function testSetDefaultProperties()
     {
@@ -57,20 +57,20 @@ class BlockTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::__construct
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getId
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getDefinition
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getParameters
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getParameter
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::hasParameter
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getPlaceholders
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getPlaceholder
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::hasPlaceholder
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getViewType
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getItemViewType
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getName
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::getStatus
-     * @covers \Netgen\BlockManager\Core\Values\Page\Block::isPublished
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::__construct
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getId
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getDefinition
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getParameters
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getParameter
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasParameter
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getPlaceholders
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getPlaceholder
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasPlaceholder
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getViewType
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getItemViewType
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getName
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getStatus
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::isPublished
      */
     public function testSetProperties()
     {

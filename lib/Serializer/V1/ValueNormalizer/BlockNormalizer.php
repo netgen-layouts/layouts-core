@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Serializer\V1\ValueNormalizer;
 
 use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Netgen\BlockManager\Traits\SerializerAwareTrait;
@@ -40,7 +40,7 @@ class BlockNormalizer implements NormalizerInterface, SerializerAwareInterface
      */
     public function normalize($object, $format = null, array $context = array())
     {
-        /** @var \Netgen\BlockManager\API\Values\Page\Block $block */
+        /** @var \Netgen\BlockManager\API\Values\Block\Block $block */
         $block = $object->getValue();
         $blockDefinition = $block->getDefinition();
 

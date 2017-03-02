@@ -2,14 +2,14 @@
 
 namespace Netgen\BlockManager\Tests\View\View;
 
-use Netgen\BlockManager\Core\Values\Page\Block;
+use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\View\View\BlockView;
 use PHPUnit\Framework\TestCase;
 
 class BlockViewTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Page\Block
+     * @var \Netgen\BlockManager\API\Values\Block\Block
      */
     protected $block;
 

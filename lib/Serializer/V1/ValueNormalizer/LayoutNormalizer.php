@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Serializer\V1\ValueNormalizer;
 use DateTime;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\Page\Block;
+use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Page\Layout;
 use Netgen\BlockManager\API\Values\Page\Zone;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;

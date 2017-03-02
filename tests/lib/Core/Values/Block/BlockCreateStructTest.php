@@ -1,9 +1,9 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Values\Page;
+namespace Netgen\BlockManager\Tests\Core\Values\Block;
 
-use Netgen\BlockManager\API\Values\Page\BlockCreateStruct;
-use Netgen\BlockManager\API\Values\Page\PlaceholderCreateStruct;
+use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
+use Netgen\BlockManager\API\Values\Block\PlaceholderCreateStruct;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
@@ -38,10 +38,10 @@ class BlockCreateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Page\BlockCreateStruct::setPlaceholderStruct
-     * @covers \Netgen\BlockManager\API\Values\Page\BlockCreateStruct::getPlaceholderStruct
-     * @covers \Netgen\BlockManager\API\Values\Page\BlockCreateStruct::hasPlaceholderStruct
-     * @covers \Netgen\BlockManager\API\Values\Page\BlockCreateStruct::getPlaceholderStructs
+     * @covers \Netgen\BlockManager\API\Values\Block\BlockCreateStruct::setPlaceholderStruct
+     * @covers \Netgen\BlockManager\API\Values\Block\BlockCreateStruct::getPlaceholderStruct
+     * @covers \Netgen\BlockManager\API\Values\Block\BlockCreateStruct::hasPlaceholderStruct
+     * @covers \Netgen\BlockManager\API\Values\Block\BlockCreateStruct::getPlaceholderStructs
      */
     public function testGetSetPlaceholderStruct()
     {

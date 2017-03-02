@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Handler;
 use Closure;
 use Michelf\MarkdownInterface;
 use Netgen\BlockManager\Block\BlockDefinition\Handler\MarkdownHandler;
-use Netgen\BlockManager\Core\Values\Page\Block;
+use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Parameters\ParameterValue;
 use PHPUnit\Framework\TestCase;
 

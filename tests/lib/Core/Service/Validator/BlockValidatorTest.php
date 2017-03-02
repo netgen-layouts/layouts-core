@@ -2,11 +2,11 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
-use Netgen\BlockManager\API\Values\Page\BlockCreateStruct;
-use Netgen\BlockManager\API\Values\Page\BlockUpdateStruct;
-use Netgen\BlockManager\API\Values\Page\PlaceholderCreateStruct;
+use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
+use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
+use Netgen\BlockManager\API\Values\Block\PlaceholderCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
-use Netgen\BlockManager\Core\Values\Page\Block;
+use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Exception\ValidationFailedException;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition as BlockDefinitionStub;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithRequiredParameter;

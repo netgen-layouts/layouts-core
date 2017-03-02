@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\Types\Type;
-use Netgen\BlockManager\Persistence\Values\Page\Block;
+use Netgen\BlockManager\Persistence\Values\Block\Block;
 use Netgen\BlockManager\Persistence\Values\Page\Layout;
 use Netgen\BlockManager\Persistence\Values\Page\LayoutCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Page\LayoutUpdateStruct;
@@ -262,7 +262,7 @@ class LayoutQueryHandler extends QueryHandler
      *
      * @param \Netgen\BlockManager\Persistence\Values\Page\ZoneCreateStruct $zoneCreateStruct
      * @param \Netgen\BlockManager\Persistence\Values\Page\Layout $layout
-     * @param \Netgen\BlockManager\Persistence\Values\Page\Block $rootBlock
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $rootBlock
      */
     public function createZone(ZoneCreateStruct $zoneCreateStruct, Layout $layout, Block $rootBlock)
     {

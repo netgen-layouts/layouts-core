@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\View\Provider;
 
-use Netgen\BlockManager\API\Values\Page\Block;
-use Netgen\BlockManager\API\Values\Page\Placeholder;
+use Netgen\BlockManager\API\Values\Block\Block;
+use Netgen\BlockManager\API\Values\Block\Placeholder;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\View\View\PlaceholderView;
 

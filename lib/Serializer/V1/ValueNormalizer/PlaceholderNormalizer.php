@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Serializer\V1\ValueNormalizer;
 
-use Netgen\BlockManager\API\Values\Page\Placeholder;
+use Netgen\BlockManager\API\Values\Block\Placeholder;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Version;
@@ -25,7 +25,7 @@ class PlaceholderNormalizer implements NormalizerInterface, SerializerAwareInter
      */
     public function normalize($object, $format = null, array $context = array())
     {
-        /** @var \Netgen\BlockManager\API\Values\Page\Placeholder $placeholder */
+        /** @var \Netgen\BlockManager\API\Values\Block\Placeholder $placeholder */
         $placeholder = $object->getValue();
 
         $parameters = array();

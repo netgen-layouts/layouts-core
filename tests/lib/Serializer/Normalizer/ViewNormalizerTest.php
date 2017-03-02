@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Serializer\Normalizer;
 
-use Netgen\BlockManager\Core\Values\Page\Block;
+use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Serializer\Normalizer\ViewNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Values\View;

@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\View\Provider;
 
-use Netgen\BlockManager\Core\Values\Page\Block;
-use Netgen\BlockManager\Core\Values\Page\Placeholder;
+use Netgen\BlockManager\Core\Values\Block\Block;
+use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\Provider\PlaceholderViewProvider;
 use Netgen\BlockManager\View\View\PlaceholderViewInterface;
@@ -63,7 +63,7 @@ class PlaceholderViewProviderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\Provider\PlaceholderViewProvider::provideView
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage To build the placeholder view, "block" parameter needs to be an instance of Netgen\BlockManager\API\Values\Page\Block class.
+     * @expectedExceptionMessage To build the placeholder view, "block" parameter needs to be an instance of Netgen\BlockManager\API\Values\Block\Block class.
      */
     public function testProvideViewThrowsRuntimeExceptionOnInvalidBlock()
     {
