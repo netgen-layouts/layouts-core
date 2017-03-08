@@ -251,6 +251,41 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::generateBlockTypeConfig
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::buildBlockTypes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::validateBlockTypes
+     */
+    public function testProcessWithDisabledBlockDefinition()
+    {
+        $this->setParameter(
+            'netgen_block_manager.block_types',
+            array(
+                'type' => array(
+                    'enabled' => true,
+                    'definition_identifier' => 'title',
+                ),
+            )
+        );
+
+        $this->setParameter(
+            'netgen_block_manager.block_definitions',
+            array(
+                'title' => array(
+                    'name' => 'Title',
+                    'enabled' => false,
+                ),
+            )
+        );
+
+        $this->setDefinition('netgen_block_manager.configuration.registry.block_type', new Definition());
+
+        $this->compile();
+
+        $this->assertContainerBuilderNotHasService('netgen_block_manager.configuration.block_type.type');
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::generateBlockTypeConfig
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::buildBlockTypes
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::validateBlockTypes
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Block definition "title" used in "test" block type does not exist.
      */

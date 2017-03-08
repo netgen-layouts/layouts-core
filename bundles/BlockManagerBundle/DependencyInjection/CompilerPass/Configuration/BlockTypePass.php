@@ -32,7 +32,7 @@ class BlockTypePass implements CompilerPassInterface
         $container->setParameter('netgen_block_manager.block_types', $blockTypes);
 
         $this->validateBlockTypes($blockTypes, $blockDefinitions);
-        $this->buildBlockTypes($container, $blockTypes);
+        $this->buildBlockTypes($container, $blockTypes, $blockDefinitions);
 
         $registry = $container->findDefinition(self::SERVICE_NAME);
         $blockTypeServices = $container->findTaggedServiceIds(self::TAG_NAME);
@@ -91,11 +91,13 @@ class BlockTypePass implements CompilerPassInterface
      *
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @param array $blockTypes
+     * @param array $blockDefinitions
      */
-    protected function buildBlockTypes(ContainerBuilder $container, array $blockTypes)
+    protected function buildBlockTypes(ContainerBuilder $container, array $blockTypes, array $blockDefinitions)
     {
         foreach ($blockTypes as $identifier => $blockType) {
-            if (!$blockType['enabled']) {
+            $definitionIdentifier = $blockType['definition_identifier'];
+            if (!$blockType['enabled'] || !$blockDefinitions[$definitionIdentifier]['enabled']) {
                 continue;
             }
 
@@ -109,7 +111,7 @@ class BlockTypePass implements CompilerPassInterface
                         new Reference(
                             sprintf(
                                 'netgen_block_manager.block.block_definition.%s',
-                                $blockType['definition_identifier']
+                                $definitionIdentifier
                             )
                         ),
                     )
