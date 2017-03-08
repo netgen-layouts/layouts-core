@@ -24,20 +24,20 @@ abstract class Controller extends BaseController
      * Builds the view from provided value object.
      *
      * @param mixed $value
-     * @param array $parameters
      * @param string $context
+     * @param array $parameters
      * @param \Symfony\Component\HttpFoundation\Response $response
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
     protected function buildView(
         $value,
-        array $parameters = array(),
         $context = ViewInterface::CONTEXT_DEFAULT,
+        array $parameters = array(),
         Response $response = null
     ) {
         $viewBuilder = $this->get('netgen_block_manager.view.builder');
-        $view = $viewBuilder->buildView($value, $parameters, $context);
+        $view = $viewBuilder->buildView($value, $context, $parameters);
 
         if ($response instanceof Response) {
             $view->setResponse($response);

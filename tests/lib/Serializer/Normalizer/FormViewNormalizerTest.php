@@ -44,12 +44,12 @@ class FormViewNormalizerTest extends TestCase
             ->method('renderValueObject')
             ->with(
                 $this->equalTo($form),
+                $this->equalTo(ViewInterface::CONTEXT_API),
                 $this->equalTo(
                     array(
                         'api_version' => 1,
                     )
-                ),
-                $this->equalTo(ViewInterface::CONTEXT_API)
+                )
             )
             ->will($this->returnValue('rendered form view'));
 

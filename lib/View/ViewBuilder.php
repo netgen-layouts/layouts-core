@@ -54,12 +54,12 @@ class ViewBuilder implements ViewBuilderInterface
      * Builds the view.
      *
      * @param mixed $valueObject
-     * @param array $parameters
      * @param string $context
+     * @param array $parameters
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
-    public function buildView($valueObject, array $parameters = array(), $context = ViewInterface::CONTEXT_DEFAULT)
+    public function buildView($valueObject, $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = array())
     {
         $viewProvider = $this->getViewProvider($valueObject);
 

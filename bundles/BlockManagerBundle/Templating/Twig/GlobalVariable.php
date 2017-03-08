@@ -162,7 +162,7 @@ class GlobalVariable
             $this->rule = $resolvedRule;
             $this->layout = $resolvedRule->getLayout();
 
-            $this->layoutView = $this->viewBuilder->buildView($this->layout, array(), $context);
+            $this->layoutView = $this->viewBuilder->buildView($this->layout, $context);
         }
     }
 }

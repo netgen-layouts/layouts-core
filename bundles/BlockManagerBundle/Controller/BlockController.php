@@ -55,7 +55,7 @@ class BlockController extends Controller
     public function viewBlock(Block $block, $context = ViewInterface::CONTEXT_DEFAULT)
     {
         try {
-            return $this->buildView($block, array(), $context);
+            return $this->buildView($block, $context);
         } catch (Exception $e) {
             $errorMessage = sprintf('Error rendering a block with ID %d', $block->getId());
 

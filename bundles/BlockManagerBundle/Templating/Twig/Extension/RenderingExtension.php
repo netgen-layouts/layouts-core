@@ -250,8 +250,8 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
         try {
             return $this->viewRenderer->renderValueObject(
                 $valueObject,
-                $parameters,
-                $viewContext
+                $viewContext,
+                $parameters
             );
         } catch (Exception $e) {
             $errorMessage = sprintf(
@@ -321,10 +321,10 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
 
             return $this->viewRenderer->renderValueObject(
                 $block,
+                $viewContext,
                 array(
                     'twig_template' => $context['twig_template'],
-                ) + $parameters,
-                $viewContext
+                ) + $parameters
             );
         } catch (Exception $e) {
             $errorMessage = sprintf('Error rendering a block with ID "%s"', $block->getId());
@@ -355,11 +355,11 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
         try {
             return $this->viewRenderer->renderValueObject(
                 $block->getPlaceholder($placeholder),
+                $viewContext,
                 array(
                     'block' => $block,
                     'twig_template' => $context['twig_template'],
-                ) + $parameters,
-                $viewContext
+                ) + $parameters
             );
         } catch (Exception $e) {
             $errorMessage = sprintf(

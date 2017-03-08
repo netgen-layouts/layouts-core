@@ -68,7 +68,7 @@ class LayoutsController extends Controller
         $form->handleRequest($request);
 
         if (!$form->isSubmitted()) {
-            return $this->buildView($form, array(), ViewInterface::CONTEXT_ADMIN);
+            return $this->buildView($form, ViewInterface::CONTEXT_ADMIN);
         }
 
         if ($form->isValid()) {
@@ -77,13 +77,13 @@ class LayoutsController extends Controller
                 $form->getData()['name']
             );
 
-            return $this->buildView($copiedLayout, array(), ViewInterface::CONTEXT_ADMIN);
+            return $this->buildView($copiedLayout, ViewInterface::CONTEXT_ADMIN);
         }
 
         return $this->buildView(
             $form,
-            array(),
             ViewInterface::CONTEXT_ADMIN,
+            array(),
             new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
         );
     }

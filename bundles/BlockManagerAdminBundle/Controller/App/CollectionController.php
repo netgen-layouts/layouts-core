@@ -59,7 +59,7 @@ class CollectionController extends Controller
         $form->handleRequest($request);
 
         if (!$form->isSubmitted()) {
-            return $this->buildView($form, array(), ViewInterface::CONTEXT_API);
+            return $this->buildView($form, ViewInterface::CONTEXT_API);
         }
 
         if ($form->isValid()) {
@@ -70,8 +70,8 @@ class CollectionController extends Controller
 
         return $this->buildView(
             $form,
-            array(),
             ViewInterface::CONTEXT_API,
+            array(),
             new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
         );
     }

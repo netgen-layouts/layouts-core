@@ -52,10 +52,10 @@ class ViewNormalizer implements NormalizerInterface, SerializerAwareInterface
         if (!isset($context['disable_html']) || $context['disable_html'] !== true) {
             $normalizedData['html'] = $this->viewRenderer->renderValueObject(
                 $object->getValue(),
+                $object->getContext(),
                 array(
                     'api_version' => $object->getVersion(),
-                ) + $object->getViewParameters(),
-                $object->getContext()
+                ) + $object->getViewParameters()
             );
         }
 

@@ -118,13 +118,13 @@ class RenderingExtensionTest extends TestCase
             ->method('renderValueObject')
             ->with(
                 $this->equalTo(new Block()),
+                $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
                 $this->equalTo(
                     array(
                         'param' => 'value',
                         'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
                     )
-                ),
-                $this->equalTo(ViewInterface::CONTEXT_DEFAULT)
+                )
             )
             ->will($this->returnValue('rendered block'));
 
@@ -150,13 +150,13 @@ class RenderingExtensionTest extends TestCase
             ->method('renderValueObject')
             ->with(
                 $this->equalTo(new Block()),
+                $this->equalTo(ViewInterface::CONTEXT_API),
                 $this->equalTo(
                     array(
                         'param' => 'value',
                         'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
                     )
-                ),
-                $this->equalTo(ViewInterface::CONTEXT_API)
+                )
             )
             ->will($this->returnValue('rendered block'));
 
@@ -183,13 +183,13 @@ class RenderingExtensionTest extends TestCase
             ->method('renderValueObject')
             ->with(
                 $this->equalTo(new Block()),
+                $this->equalTo(ViewInterface::CONTEXT_API),
                 $this->equalTo(
                     array(
                         'param' => 'value',
                         'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
                     )
-                ),
-                $this->equalTo(ViewInterface::CONTEXT_API)
+                )
             )
             ->will($this->returnValue('rendered block'));
 
@@ -272,14 +272,14 @@ class RenderingExtensionTest extends TestCase
             ->method('renderValueObject')
             ->with(
                 $this->equalTo(new Placeholder()),
+                $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
                 $this->equalTo(
                     array(
                         'block' => $block,
                         'param' => 'value',
                         'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
                     )
-                ),
-                $this->equalTo(ViewInterface::CONTEXT_DEFAULT)
+                )
             )
             ->will($this->returnValue('rendered placeholder'));
 
@@ -317,14 +317,14 @@ class RenderingExtensionTest extends TestCase
             ->method('renderValueObject')
             ->with(
                 $this->equalTo(new Placeholder()),
+                $this->equalTo(ViewInterface::CONTEXT_API),
                 $this->equalTo(
                     array(
                         'block' => $block,
                         'param' => 'value',
                         'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
                     )
-                ),
-                $this->equalTo(ViewInterface::CONTEXT_API)
+                )
             )
             ->will($this->returnValue('rendered placeholder'));
 
@@ -363,14 +363,14 @@ class RenderingExtensionTest extends TestCase
             ->method('renderValueObject')
             ->with(
                 $this->equalTo(new Placeholder()),
+                $this->equalTo(ViewInterface::CONTEXT_API),
                 $this->equalTo(
                     array(
                         'block' => $block,
                         'param' => 'value',
                         'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
                     )
-                ),
-                $this->equalTo(ViewInterface::CONTEXT_API)
+                )
             )
             ->will($this->returnValue('rendered placeholder'));
 
@@ -451,8 +451,8 @@ class RenderingExtensionTest extends TestCase
             ->method('renderValueObject')
             ->with(
                 $this->equalTo(new Item()),
-                $this->equalTo(array('view_type' => 'view_type', 'param' => 'value')),
-                $this->equalTo(ViewInterface::CONTEXT_DEFAULT)
+                $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
+                $this->equalTo(array('view_type' => 'view_type', 'param' => 'value'))
             )
             ->will($this->returnValue('rendered item'));
 
@@ -477,8 +477,8 @@ class RenderingExtensionTest extends TestCase
             ->method('renderValueObject')
             ->with(
                 $this->equalTo(new Item()),
-                $this->equalTo(array('view_type' => 'view_type', 'param' => 'value')),
-                $this->equalTo(ViewInterface::CONTEXT_API)
+                $this->equalTo(ViewInterface::CONTEXT_API),
+                $this->equalTo(array('view_type' => 'view_type', 'param' => 'value'))
             )
             ->will($this->returnValue('rendered item'));
 
@@ -504,8 +504,8 @@ class RenderingExtensionTest extends TestCase
             ->method('renderValueObject')
             ->with(
                 $this->equalTo(new Item()),
-                $this->equalTo(array('view_type' => 'view_type', 'param' => 'value')),
-                $this->equalTo(ViewInterface::CONTEXT_API)
+                $this->equalTo(ViewInterface::CONTEXT_API),
+                $this->equalTo(array('view_type' => 'view_type', 'param' => 'value'))
             )
             ->will($this->returnValue('rendered item'));
 
@@ -533,8 +533,8 @@ class RenderingExtensionTest extends TestCase
             ->method('renderValueObject')
             ->with(
                 $this->equalTo(new Item()),
-                $this->equalTo(array('view_type' => 'view_type', 'param' => 'value')),
-                $this->equalTo(ViewInterface::CONTEXT_DEFAULT)
+                $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
+                $this->equalTo(array('view_type' => 'view_type', 'param' => 'value'))
             )
             ->will($this->throwException(new Exception()));
 
@@ -565,8 +565,8 @@ class RenderingExtensionTest extends TestCase
             ->method('renderValueObject')
             ->with(
                 $this->equalTo(new Item()),
-                $this->equalTo(array('view_type' => 'view_type', 'param' => 'value')),
-                $this->equalTo(ViewInterface::CONTEXT_DEFAULT)
+                $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
+                $this->equalTo(array('view_type' => 'view_type', 'param' => 'value'))
             )
             ->will($this->throwException(new Exception('Test exception text')));
 
@@ -588,8 +588,8 @@ class RenderingExtensionTest extends TestCase
             ->method('renderValueObject')
             ->with(
                 $this->equalTo(new Condition()),
-                $this->equalTo(array('param' => 'value')),
-                $this->equalTo(ViewInterface::CONTEXT_DEFAULT)
+                $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
+                $this->equalTo(array('param' => 'value'))
             )
             ->will($this->returnValue('rendered value'));
 
@@ -613,8 +613,8 @@ class RenderingExtensionTest extends TestCase
             ->method('renderValueObject')
             ->with(
                 $this->equalTo(new Condition()),
-                $this->equalTo(array('param' => 'value')),
-                $this->equalTo(ViewInterface::CONTEXT_API)
+                $this->equalTo(ViewInterface::CONTEXT_API),
+                $this->equalTo(array('param' => 'value'))
             )
             ->will($this->returnValue('rendered value'));
 
@@ -639,8 +639,8 @@ class RenderingExtensionTest extends TestCase
             ->method('renderValueObject')
             ->with(
                 $this->equalTo(new Condition()),
-                $this->equalTo(array('param' => 'value')),
-                $this->equalTo(ViewInterface::CONTEXT_API)
+                $this->equalTo(ViewInterface::CONTEXT_API),
+                $this->equalTo(array('param' => 'value'))
             )
             ->will($this->returnValue('rendered value'));
 
@@ -667,8 +667,8 @@ class RenderingExtensionTest extends TestCase
             ->method('renderValueObject')
             ->with(
                 $this->equalTo(new Condition()),
-                $this->equalTo(array('param' => 'value')),
-                $this->equalTo(ViewInterface::CONTEXT_DEFAULT)
+                $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
+                $this->equalTo(array('param' => 'value'))
             )
             ->will($this->throwException(new Exception()));
 
@@ -698,8 +698,8 @@ class RenderingExtensionTest extends TestCase
             ->method('renderValueObject')
             ->with(
                 $this->equalTo(new Condition()),
-                $this->equalTo(array('param' => 'value')),
-                $this->equalTo(ViewInterface::CONTEXT_DEFAULT)
+                $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
+                $this->equalTo(array('param' => 'value'))
             )
             ->will($this->throwException(new Exception('Test exception text')));
 

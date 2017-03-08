@@ -87,7 +87,7 @@ class ViewBuilderTest extends TestCase
         );
 
         $viewParameters = array('some_param' => 'some_value');
-        $builtView = $viewBuilder->buildView($value, $viewParameters, 'context');
+        $builtView = $viewBuilder->buildView($value, 'context', $viewParameters);
 
         $this->assertInstanceOf(View::class, $builtView);
         $this->assertEquals('context', $builtView->getContext());
