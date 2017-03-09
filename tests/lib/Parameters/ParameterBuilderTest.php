@@ -186,6 +186,22 @@ class ParameterBuilderTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::getLabel
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setLabel
+     */
+    public function testGetSetLabel()
+    {
+        $this->builder->add(
+            'test',
+            ParameterType\TextType::class
+        );
+
+        $this->builder->get('test')->setLabel('Custom label');
+
+        $this->assertEquals('Custom label', $this->builder->get('test')->getLabel());
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::getGroups
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setGroups
      */
@@ -495,6 +511,7 @@ class ParameterBuilderTest extends TestCase
             array(
                 'required' => true,
                 'default_value' => 'test value',
+                'label' => null,
                 'groups' => array('group'),
             )
         );
@@ -505,6 +522,7 @@ class ParameterBuilderTest extends TestCase
             array(
                 'required' => false,
                 'default_value' => true,
+                'label' => false,
                 'groups' => array('group 2'),
             )
         );
@@ -515,6 +533,7 @@ class ParameterBuilderTest extends TestCase
             array(
                 'required' => true,
                 'default_value' => 'test value 2',
+                'label' => 'Custom label',
                 'groups' => array('group'),
             )
         );
@@ -531,6 +550,7 @@ class ParameterBuilderTest extends TestCase
                         'options' => array(),
                         'isRequired' => true,
                         'defaultValue' => 'test value',
+                        'label' => null,
                         'groups' => array('group'),
                     )
                 ),
@@ -541,6 +561,7 @@ class ParameterBuilderTest extends TestCase
                         'options' => array('reverse' => false),
                         'isRequired' => false,
                         'defaultValue' => true,
+                        'label' => false,
                         'groups' => array('group 2'),
                         'parameters' => array(
                             'test2' => new Parameter(
@@ -550,6 +571,7 @@ class ParameterBuilderTest extends TestCase
                                     'options' => array(),
                                     'isRequired' => true,
                                     'defaultValue' => 'test value 2',
+                                    'label' => 'Custom label',
                                     'groups' => array('group 2'),
                                 )
                             ),
@@ -573,6 +595,7 @@ class ParameterBuilderTest extends TestCase
             array(
                 'required' => true,
                 'default_value' => 'test value',
+                'label' => null,
                 'groups' => array('group'),
             )
         );
@@ -591,6 +614,7 @@ class ParameterBuilderTest extends TestCase
                         'options' => array(),
                         'isRequired' => true,
                         'defaultValue' => 'test value',
+                        'label' => null,
                         'groups' => array('group'),
                     )
                 ),
@@ -619,6 +643,7 @@ class ParameterBuilderTest extends TestCase
                         'options' => array(),
                         'isRequired' => false,
                         'defaultValue' => null,
+                        'label' => null,
                         'groups' => array(),
                     )
                 ),
@@ -658,6 +683,25 @@ class ParameterBuilderTest extends TestCase
             ParameterType\TextType::class,
             array(
                 'groups' => 'group',
+            )
+        );
+
+        $this->builder->buildParameters();
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameters
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameter
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
+     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     */
+    public function testBuildParametersWithInvalidLabel()
+    {
+        $this->builder->add(
+            'test',
+            ParameterType\TextType::class,
+            array(
+                'label' => true,
             )
         );
 

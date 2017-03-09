@@ -40,6 +40,11 @@ class ParameterBuilder implements ParameterBuilderInterface
     protected $defaultValue;
 
     /**
+     * @var string
+     */
+    protected $label;
+
+    /**
      * @var array
      */
     protected $groups;
@@ -88,11 +93,13 @@ class ParameterBuilder implements ParameterBuilderInterface
 
         $this->isRequired = $this->options['required'];
         $this->defaultValue = $this->options['default_value'];
+        $this->label = $this->options['label'];
         $this->groups = $this->options['groups'];
 
         unset(
             $this->options['required'],
             $this->options['default_value'],
+            $this->options['label'],
             $this->options['groups']
         );
 
@@ -210,6 +217,30 @@ class ParameterBuilder implements ParameterBuilderInterface
     public function setDefaultValue($defaultValue)
     {
         $this->defaultValue = $defaultValue;
+
+        return $this;
+    }
+
+    /**
+     * Returns the parameter label.
+     *
+     * @return string
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
+    /**
+     * Sets the parameter label.
+     *
+     * @param string $label
+     *
+     * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface
+     */
+    public function setLabel($label)
+    {
+        $this->label = $label;
 
         return $this;
     }
@@ -403,6 +434,7 @@ class ParameterBuilder implements ParameterBuilderInterface
             'options' => $builder->getOptions(),
             'isRequired' => $builder->isRequired(),
             'defaultValue' => $builder->getDefaultValue(),
+            'label' => $builder->getLabel(),
             'groups' => $builder->getGroups(),
         );
 
@@ -428,16 +460,29 @@ class ParameterBuilder implements ParameterBuilderInterface
 
         $optionsResolver->setDefault('default_value', null);
         $optionsResolver->setDefault('required', false);
+        $optionsResolver->setDefault('label', null);
         $optionsResolver->setDefault('groups', array());
 
         if ($this->type instanceof ParameterTypeInterface) {
             $this->type->configureOptions($optionsResolver);
         }
 
-        $optionsResolver->setRequired(array('required', 'default_value', 'groups'));
+        $optionsResolver->setRequired(array('required', 'default_value', 'label', 'groups'));
 
         $optionsResolver->setAllowedTypes('required', 'bool');
+        $optionsResolver->setAllowedTypes('label', array('string', 'null', 'bool'));
         $optionsResolver->setAllowedTypes('groups', 'array');
+
+        $optionsResolver->setAllowedValues(
+            'label',
+            function ($value) {
+                if (!is_bool($value)) {
+                    return true;
+                }
+
+                return $value === false;
+            }
+        );
 
         return $optionsResolver->resolve($options);
     }

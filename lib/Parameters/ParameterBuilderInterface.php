@@ -80,6 +80,22 @@ interface ParameterBuilderInterface extends Countable
     public function setDefaultValue($defaultValue);
 
     /**
+     * Returns the parameter label.
+     *
+     * @return string
+     */
+    public function getLabel();
+
+    /**
+     * Sets the parameter label.
+     *
+     * @param string $label
+     *
+     * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface
+     */
+    public function setLabel($label);
+
+    /**
      * Returns the parameter groups.
      *
      * @return array

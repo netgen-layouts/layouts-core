@@ -32,6 +32,11 @@ class Parameter extends ValueObject implements ParameterInterface
     protected $defaultValue;
 
     /**
+     * @var string
+     */
+    protected $label;
+
+    /**
      * @var array
      */
     protected $groups;
@@ -84,6 +89,16 @@ class Parameter extends ValueObject implements ParameterInterface
     public function getDefaultValue()
     {
         return $this->defaultValue;
+    }
+
+    /**
+     * Returns the parameter label.
+     *
+     * @return string
+     */
+    public function getLabel()
+    {
+        return $this->label;
     }
 
     /**

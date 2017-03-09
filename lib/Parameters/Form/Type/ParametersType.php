@@ -69,10 +69,16 @@ class ParametersType extends AbstractType
             }
 
             $parameterName = $parameter->getName();
-            $mapper = $this->formMapperRegistry->getFormMapper($parameter->getType()->getIdentifier());
+            $parameterLabel = $parameter->getLabel();
+
+            $mapper = $this->formMapperRegistry->getFormMapper(
+                $parameter->getType()->getIdentifier()
+            );
 
             $defaultOptions = array(
-                'label' => $options['label_prefix'] . '.' . $parameterName,
+                'label' => $parameterLabel === null ?
+                    $options['label_prefix'] . '.' . $parameterName :
+                    $parameterLabel,
                 'property_path' => $options['property_path'] . '[' . $parameterName . ']',
             );
 

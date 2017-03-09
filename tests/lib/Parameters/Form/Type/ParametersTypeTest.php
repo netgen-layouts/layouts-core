@@ -70,8 +70,8 @@ class ParametersTypeTest extends FormTestCase
 
         $parameterCollection = new ParameterCollection(
             array(
-                'css_class' => new Parameter('css_class', new ParameterType\TextLineType()),
-                'css_id' => new Parameter('css_id', new ParameterType\TextLineType()),
+                'css_class' => new Parameter('css_class', new ParameterType\TextLineType(), array(), false, null, array(), false),
+                'css_id' => new Parameter('css_id', new ParameterType\TextLineType(), array(), false, null, array(), 'custom label'),
                 'compound' => $compoundParameter,
             )
         );
@@ -97,10 +97,16 @@ class ParametersTypeTest extends FormTestCase
             $paramForm = $parentForm->get('parameter_values')->get($key);
 
             $this->assertEquals('parameterValues[' . $key . ']', $paramForm->getPropertyPath());
-            $this->assertEquals('label.' . $key, $paramForm->getConfig()->getOption('label'));
             $this->assertInstanceOf(
                 $key === 'compound' ? CompoundBooleanType::class : TextType::class,
                 $paramForm->getConfig()->getType()->getInnerType()
+            );
+
+            $this->assertEquals(
+                $parameterCollection->getParameter($key)->getLabel() === null ?
+                    'label.' . $key :
+                    $parameterCollection->getParameter($key)->getLabel(),
+                $paramForm->getConfig()->getOption('label')
             );
         }
 

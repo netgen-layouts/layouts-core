@@ -40,6 +40,13 @@ interface ParameterInterface
     public function getDefaultValue();
 
     /**
+     * Returns the parameter label.
+     *
+     * @return string
+     */
+    public function getLabel();
+
+    /**
      * @return array
      */
     public function getGroups();
