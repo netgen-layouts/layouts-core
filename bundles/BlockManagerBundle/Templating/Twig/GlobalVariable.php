@@ -2,7 +2,6 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig;
 
-use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface;
