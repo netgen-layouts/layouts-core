@@ -3,20 +3,9 @@
 namespace Netgen\BlockManager\Block\BlockDefinition\Handler\Container;
 
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
-use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 
 abstract class ContainerHandler extends BlockDefinitionHandler
 {
-    /**
-     * Builds the parameters by using provided parameter builder.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $builder
-     */
-    public function buildParameters(ParameterBuilderInterface $builder)
-    {
-        $this->buildCommonParameters($builder);
-    }
-
     /**
      * Builds the placeholder parameters by using provided parameter builders.
      *

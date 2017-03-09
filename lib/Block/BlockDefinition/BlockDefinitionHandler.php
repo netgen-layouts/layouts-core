@@ -18,6 +18,7 @@ abstract class BlockDefinitionHandler implements BlockDefinitionHandlerInterface
      */
     public function buildParameters(ParameterBuilderInterface $builder)
     {
+        $this->buildCommonParameters($builder);
     }
 
     /**
@@ -104,6 +105,7 @@ abstract class BlockDefinitionHandler implements BlockDefinitionHandlerInterface
             ParameterType\TextLineType::class,
             array(
                 'groups' => $groups,
+                'label' => 'block.common_params.css_class',
             )
         );
 
@@ -112,6 +114,7 @@ abstract class BlockDefinitionHandler implements BlockDefinitionHandlerInterface
             ParameterType\TextLineType::class,
             array(
                 'groups' => $groups,
+                'label' => 'block.common_params.css_id',
             )
         );
 
@@ -120,6 +123,7 @@ abstract class BlockDefinitionHandler implements BlockDefinitionHandlerInterface
             ParameterType\BooleanType::class,
             array(
                 'groups' => $groups,
+                'label' => 'block.common_params.set_container',
             )
         );
     }
