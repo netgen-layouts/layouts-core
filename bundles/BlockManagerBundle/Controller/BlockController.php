@@ -68,4 +68,12 @@ class BlockController extends Controller
             return new Response();
         }
     }
+
+    /**
+     * Performs access checks on the controller.
+     */
+    protected function checkPermissions()
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_ANONYMOUSLY');
+    }
 }

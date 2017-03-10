@@ -17,6 +17,14 @@ abstract class Controller extends BaseController
     public function initialize(ContainerInterface $container)
     {
         $this->setContainer($container);
+        $this->checkPermissions();
+    }
+
+    /**
+     * Performs access checks on the controller.
+     */
+    protected function checkPermissions()
+    {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
     }
 
