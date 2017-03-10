@@ -323,7 +323,9 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
                 $block,
                 $viewContext,
                 array(
-                    'twig_template' => $context['twig_template'],
+                    'twig_template' => isset($context['twig_template']) ?
+                        $context['twig_template'] :
+                        null,
                 ) + $parameters
             );
         } catch (Exception $e) {
@@ -358,7 +360,9 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
                 $viewContext,
                 array(
                     'block' => $block,
-                    'twig_template' => $context['twig_template'],
+                    'twig_template' => isset($context['twig_template']) ?
+                        $context['twig_template'] :
+                        null,
                 ) + $parameters
             );
         } catch (Exception $e) {

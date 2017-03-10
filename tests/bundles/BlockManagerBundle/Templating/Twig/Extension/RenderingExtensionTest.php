@@ -143,6 +143,36 @@ class RenderingExtensionTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderBlock
      */
+    public function testRenderBlockWithoutTwigTemplate()
+    {
+        $this->viewRendererMock
+            ->expects($this->once())
+            ->method('renderValueObject')
+            ->with(
+                $this->equalTo(new Block()),
+                $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
+                $this->equalTo(
+                    array(
+                        'param' => 'value',
+                        'twig_template' => null,
+                    )
+                )
+            )
+            ->will($this->returnValue('rendered block'));
+
+        $this->assertEquals(
+            'rendered block',
+            $this->extension->renderBlock(
+                array(),
+                new Block(),
+                array('param' => 'value')
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderBlock
+     */
     public function testRenderBlockWithViewContext()
     {
         $this->viewRendererMock
@@ -289,6 +319,49 @@ class RenderingExtensionTest extends TestCase
                 array(
                     'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
                 ),
+                $block,
+                'main',
+                array(
+                    'block' => $block,
+                    'param' => 'value',
+                )
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderPlaceholder
+     */
+    public function testRenderPlaceholderWithoutTwigTemplate()
+    {
+        $block = new Block(
+            array(
+                'placeholders' => array(
+                    'main' => new Placeholder(),
+                ),
+            )
+        );
+
+        $this->viewRendererMock
+            ->expects($this->once())
+            ->method('renderValueObject')
+            ->with(
+                $this->equalTo(new Placeholder()),
+                $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
+                $this->equalTo(
+                    array(
+                        'block' => $block,
+                        'param' => 'value',
+                        'twig_template' => null,
+                    )
+                )
+            )
+            ->will($this->returnValue('rendered placeholder'));
+
+        $this->assertEquals(
+            'rendered placeholder',
+            $this->extension->renderPlaceholder(
+                array(),
                 $block,
                 'main',
                 array(
