@@ -51,7 +51,7 @@
         <div class="sf-toolbar-info-piece">
             <b>Netgen Layouts version</b>
 
-            <span>{{ constant('Netgen\\BlockManager\\Version::VERSION') }}</span>
+            <span>{{ collector.data.version }}</span>
         </div>
     {% endset %}
 
@@ -97,7 +97,7 @@
                 {% if layout %}
                     <div class="metrics">
                         <div class="metric">
-                            <span class="value">{{ constant('Netgen\\BlockManager\\Version::VERSION') }}</span>
+                            <span class="value">{{ collector.data.version }}</span>
                             <span class="label">Netgen Layouts version</span>
                         </div>
 
@@ -178,7 +178,7 @@
                 {% else %}
                     <div class="metrics">
                         <div class="metric">
-                            <span class="value">{{ constant('Netgen\\BlockManager\\Version::VERSION') }}</span>
+                            <span class="value">{{ collector.data.version }}</span>
                             <span class="label">Netgen Layouts version</span>
                         </div>
                     </div>

@@ -4,6 +4,7 @@ namespace Netgen\Bundle\BlockManagerDebugBundle\DataCollector;
 
 use Exception;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
+use Netgen\BlockManager\Version;
 use Netgen\BlockManager\View\View\BlockViewInterface;
 use Netgen\BlockManager\View\View\LayoutViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
@@ -30,6 +31,7 @@ class BlockManagerDataCollector extends DataCollector
         $this->data['rule'] = null;
         $this->data['layout'] = null;
         $this->data['blocks'] = array();
+        $this->data['version'] = Version::VERSION;
     }
 
     /**
