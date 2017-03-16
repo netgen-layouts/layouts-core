@@ -2,7 +2,9 @@
 
 namespace Netgen\BlockManager\Block\BlockDefinition\Handler\Container;
 
-class TwoColumnsHandler extends ContainerHandler
+use Netgen\BlockManager\Block\BlockDefinition\ContainerDefinitionHandler;
+
+class TwoColumnsHandler extends ContainerDefinitionHandler
 {
     /**
      * Returns placeholder identifiers.

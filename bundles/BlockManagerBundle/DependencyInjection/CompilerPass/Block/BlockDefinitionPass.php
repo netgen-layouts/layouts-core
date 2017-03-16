@@ -5,7 +5,11 @@ namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Bloc
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Factory;
+use Netgen\BlockManager\Block\BlockDefinition\ContainerDefinitionHandlerInterface;
+use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinitionFactory;
+use Netgen\BlockManager\Block\ContainerDefinition;
+use Netgen\BlockManager\Block\TwigBlockDefinition;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -70,15 +74,33 @@ class BlockDefinitionPass implements CompilerPassInterface
                 );
             }
 
+            $handlerClass = $container->findDefinition($foundHandler)->getClass();
+            if (strpos($handlerClass, '%') === 0) {
+                $handlerClass = $container->getParameter(
+                    str_replace('%', '', $handlerClass)
+                );
+            }
+
+            $factoryMethod = 'buildBlockDefinition';
+            $definitionClass = BlockDefinition::class;
+
+            if (is_a($handlerClass, ContainerDefinitionHandlerInterface::class, true)) {
+                $factoryMethod = 'buildContainerDefinition';
+                $definitionClass = ContainerDefinition::class;
+            } elseif (is_a($handlerClass, TwigBlockDefinitionHandlerInterface::class, true)) {
+                $factoryMethod = 'buildTwigBlockDefinition';
+                $definitionClass = TwigBlockDefinition::class;
+            }
+
             $blockDefinitionServiceName = sprintf('netgen_block_manager.block.block_definition.%s', $identifier);
-            $blockDefinitionService = new Definition(BlockDefinition::class);
+            $blockDefinitionService = new Definition($definitionClass);
 
             $blockDefinitionService->setLazy(true);
             $blockDefinitionService->addArgument($identifier);
             $blockDefinitionService->addArgument(new Reference($foundHandler));
             $blockDefinitionService->addArgument(new Reference($configServiceName));
             $blockDefinitionService->addArgument(new Reference('netgen_block_manager.parameters.parameter_builder'));
-            $blockDefinitionService->setFactory(array(BlockDefinitionFactory::class, 'buildBlockDefinition'));
+            $blockDefinitionService->setFactory(array(BlockDefinitionFactory::class, $factoryMethod));
 
             $container->setDefinition($blockDefinitionServiceName, $blockDefinitionService);
 

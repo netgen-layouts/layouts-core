@@ -10,7 +10,8 @@ use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Exception\ValidationFailedException;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition as BlockDefinitionStub;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithRequiredParameter;
-use Netgen\BlockManager\Tests\Block\Stubs\ContainerBlockDefinitionHandler;
+use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinition as ContainerDefinitionStub;
+use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
@@ -329,7 +330,7 @@ class BlockValidatorTest extends TestCase
 
             array(
                 array(
-                    'definition' => $this->getContainerBlockDefinition(),
+                    'definition' => $this->getContainerDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -580,11 +581,11 @@ class BlockValidatorTest extends TestCase
     /**
      * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
-    protected function getContainerBlockDefinition()
+    protected function getContainerDefinition()
     {
-        $handler = new ContainerBlockDefinitionHandler(array(), array('main'));
+        $handler = new ContainerDefinitionHandler(array(), array('main'));
 
-        return new BlockDefinitionStub(
+        return new ContainerDefinitionStub(
             'block',
             array('large' => array('standard')),
             $handler

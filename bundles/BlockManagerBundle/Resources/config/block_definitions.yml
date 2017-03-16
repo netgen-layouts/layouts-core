@@ -130,13 +130,6 @@ block_definitions:
                     - css_id
                     - set_container
 
-    dynamic_container:
-        name: 'Dynamic container'
-        enabled: false
-        view_types:
-            dynamic_container:
-                name: 'Dynamic container'
-
     column:
         name: 'Column'
         view_types:

@@ -4,13 +4,14 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig;
 
 use Exception;
 use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
+use Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\View\RendererInterface;
+use Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
@@ -42,6 +43,11 @@ class RenderingExtensionTest extends TestCase
     protected $fragmentHandlerMock;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $cacheableResolverMock;
+
+    /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension
      */
     protected $extension;
@@ -52,11 +58,18 @@ class RenderingExtensionTest extends TestCase
         $this->globalVariableMock = $this->createMock(GlobalVariable::class);
         $this->viewRendererMock = $this->createMock(RendererInterface::class);
         $this->fragmentHandlerMock = $this->createMock(FragmentHandler::class);
+        $this->cacheableResolverMock = $this->createConfiguredMock(
+            CacheableResolverInterface::class,
+            array(
+                'isCacheable' => false,
+            )
+        );
 
         $this->extension = new RenderingExtension(
             $this->blockServiceMock,
             $this->globalVariableMock,
             $this->viewRendererMock,
+            $this->cacheableResolverMock,
             $this->fragmentHandlerMock,
             'ngbm_block:viewBlockById'
         );

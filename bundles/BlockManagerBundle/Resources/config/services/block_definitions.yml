@@ -104,14 +104,14 @@ services:
             - { name: netgen_block_manager.block.block_definition_handler, identifier: html_snippet }
 
     netgen_block_manager.block.block_definition.handler.full_view:
-        class: Netgen\BlockManager\Block\BlockDefinition\Handler\FullViewHandler
+        class: Netgen\BlockManager\Block\BlockDefinition\Handler\Twig\FullViewHandler
         arguments:
             - "%netgen_block_manager.block.block_definition.handler.full_view.twig_block_name%"
         tags:
             - { name: netgen_block_manager.block.block_definition_handler, identifier: full_view }
 
     netgen_block_manager.block.block_definition.handler.twig_block:
-        class: Netgen\BlockManager\Block\BlockDefinition\Handler\TwigBlockHandler
+        class: Netgen\BlockManager\Block\BlockDefinition\Handler\Twig\TwigBlockHandler
         tags:
             - { name: netgen_block_manager.block.block_definition_handler, identifier: twig_block }
 
@@ -141,11 +141,6 @@ services:
             - "%netgen_block_manager.block.block_definition.handler.gallery.aspect_ratios%"
         tags:
             - { name: netgen_block_manager.block.block_definition_handler, identifier: gallery }
-
-    netgen_block_manager.block.block_definition.handler.dynamic:
-        class: Netgen\BlockManager\Block\BlockDefinition\Handler\Container\DynamicContainerHandler
-        tags:
-            - { name: netgen_block_manager.block.block_definition_handler, identifier: dynamic_container }
 
     netgen_block_manager.block.block_definition.handler.column:
         class: Netgen\BlockManager\Block\BlockDefinition\Handler\Container\ColumnHandler

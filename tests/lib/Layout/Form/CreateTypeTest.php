@@ -17,11 +17,23 @@ class CreateTypeTest extends FormTestCase
     public function getMainType()
     {
         $layoutTypeRegistry = new LayoutTypeRegistry();
+
         $layoutTypeRegistry->addLayoutType(
             new LayoutType(
                 array(
+                    'name' => '4 zones A',
                     'identifier' => '4_zones_a',
                     'isEnabled' => true,
+                )
+            )
+        );
+
+        $layoutTypeRegistry->addLayoutType(
+            new LayoutType(
+                array(
+                    'name' => '4 zones B',
+                    'identifier' => '4_zones_b',
+                    'isEnabled' => false,
                 )
             )
         );
@@ -45,6 +57,7 @@ class CreateTypeTest extends FormTestCase
         $updatedStruct->name = 'My layout';
         $updatedStruct->layoutType = new LayoutType(
             array(
+                'name' => '4 zones A',
                 'identifier' => '4_zones_a',
                 'isEnabled' => true,
             )
@@ -67,6 +80,11 @@ class CreateTypeTest extends FormTestCase
         foreach (array_keys($submittedData) as $key) {
             $this->assertArrayHasKey($key, $children);
         }
+
+        $this->assertEquals(
+            array('4 zones A' => '4_zones_a'),
+            $form->get('layoutType')->getConfig()->getOption('choices')
+        );
     }
 
     /**

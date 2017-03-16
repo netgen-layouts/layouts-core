@@ -295,26 +295,17 @@ class ParameterBuilder implements ParameterBuilderInterface
 
         $type = $this->parameterTypeRegistry->getParameterTypeByClass($type);
 
-        if (
-            $this->type instanceof CompoundParameterTypeInterface &&
-            $type instanceof CompoundParameterTypeInterface
-        ) {
+        if ($this->type instanceof CompoundParameterTypeInterface && $type instanceof CompoundParameterTypeInterface) {
             throw new InvalidArgumentException(
                 'name',
-                sprintf(
-                    'Compound parameters cannot be added to compound parameters.',
-                    $name
-                )
+                'Compound parameters cannot be added to compound parameters.'
             );
         }
 
         if ($this->type !== null && !$this->type instanceof CompoundParameterTypeInterface) {
             throw new InvalidArgumentException(
                 'name',
-                sprintf(
-                    'Parameters cannot be added to non-compound parameters.',
-                    $name
-                )
+                'Parameters cannot be added to non-compound parameters.'
             );
         }
 

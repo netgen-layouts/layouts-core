@@ -12,6 +12,7 @@ use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
+use Netgen\BlockManager\Block\ContainerDefinitionInterface;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Core\Service\Mapper\BlockMapper;
 use Netgen\BlockManager\Core\Service\Mapper\ParameterMapper;
@@ -251,15 +252,17 @@ class BlockService extends Service implements BlockServiceInterface
         $this->blockValidator->validatePosition($position, 'position');
         $this->blockValidator->validateBlockCreateStruct($blockCreateStruct);
 
-        if (!$targetBlock->getDefinition()->isContainer()) {
+        $targetBlockDefinition = $targetBlock->getDefinition();
+
+        if (!$targetBlockDefinition instanceof ContainerDefinitionInterface) {
             throw new BadStateException('targetBlock', 'Target block is not a container.');
         }
 
-        if (!$targetBlock->getDefinition()->hasPlaceholder($placeholder)) {
+        if (!$targetBlockDefinition->hasPlaceholder($placeholder)) {
             throw new BadStateException('placeholder', 'Target block does not have the specified placeholder.');
         }
 
-        if ($blockCreateStruct->definition->isContainer()) {
+        if ($blockCreateStruct->definition instanceof ContainerDefinitionInterface) {
             throw new BadStateException('blockCreateStruct', 'Containers cannot be placed inside containers.');
         }
 
@@ -429,15 +432,17 @@ class BlockService extends Service implements BlockServiceInterface
 
         $this->blockValidator->validateIdentifier($placeholder, 'placeholder', true);
 
-        if (!$targetBlock->getDefinition()->isContainer()) {
+        $targetBlockDefinition = $targetBlock->getDefinition();
+
+        if (!$targetBlockDefinition instanceof ContainerDefinitionInterface) {
             throw new BadStateException('targetBlock', 'Target block is not a container.');
         }
 
-        if (!$targetBlock->getDefinition()->hasPlaceholder($placeholder)) {
+        if (!$targetBlockDefinition->hasPlaceholder($placeholder)) {
             throw new BadStateException('placeholder', 'Target block does not have the specified placeholder.');
         }
 
-        if ($block->getDefinition()->isContainer()) {
+        if ($block->getDefinition() instanceof ContainerDefinitionInterface) {
             throw new BadStateException('block', 'Containers cannot be placed inside containers.');
         }
 
@@ -533,15 +538,17 @@ class BlockService extends Service implements BlockServiceInterface
         $this->blockValidator->validateIdentifier($placeholder, 'placeholder', true);
         $this->blockValidator->validatePosition($position, 'position', true);
 
-        if (!$targetBlock->getDefinition()->isContainer()) {
+        $targetBlockDefinition = $targetBlock->getDefinition();
+
+        if (!$targetBlockDefinition instanceof ContainerDefinitionInterface) {
             throw new BadStateException('targetBlock', 'Target block is not a container.');
         }
 
-        if (!$targetBlock->getDefinition()->hasPlaceholder($placeholder)) {
+        if (!$targetBlockDefinition->hasPlaceholder($placeholder)) {
             throw new BadStateException('placeholder', 'Target block does not have the specified placeholder.');
         }
 
-        if ($block->getDefinition()->isContainer()) {
+        if ($block->getDefinition() instanceof ContainerDefinitionInterface) {
             throw new BadStateException('block', 'Containers cannot be placed inside containers.');
         }
 
@@ -749,7 +756,7 @@ class BlockService extends Service implements BlockServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         $placeholderParameters = array();
-        if ($blockCreateStruct->definition->isContainer()) {
+        if ($blockCreateStruct->definition instanceof ContainerDefinitionInterface) {
             foreach ($blockCreateStruct->definition->getPlaceholders() as $placeholderDefinition) {
                 $placeholderIdentifier = $placeholderDefinition->getIdentifier();
 

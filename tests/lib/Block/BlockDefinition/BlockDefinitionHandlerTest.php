@@ -53,30 +53,6 @@ class BlockDefinitionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::buildPlaceholderParameters
-     */
-    public function testBuildPlaceholderParameters()
-    {
-        $builder = new ParameterBuilder($this->parameterTypeRegistry);
-
-        $this->handler->buildPlaceholderParameters(array('left' => $builder));
-
-        $this->assertCount(0, $builder);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::buildDynamicPlaceholderParameters
-     */
-    public function testBuildDynamicPlaceholderParameters()
-    {
-        $builder = new ParameterBuilder($this->parameterTypeRegistry);
-
-        $this->handler->buildDynamicPlaceholderParameters($builder);
-
-        $this->assertCount(0, $builder);
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::getDynamicParameters
      */
     public function testGetDynamicParameters()
@@ -90,29 +66,5 @@ class BlockDefinitionHandlerTest extends TestCase
     public function testHasCollection()
     {
         $this->assertFalse($this->handler->hasCollection());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::isContainer
-     */
-    public function testIsContainer()
-    {
-        $this->assertFalse($this->handler->isContainer());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::isDynamicContainer
-     */
-    public function testIsDynamicContainer()
-    {
-        $this->assertFalse($this->handler->isDynamicContainer());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::getPlaceholderIdentifiers
-     */
-    public function testGetPlaceholderIdentifiers()
-    {
-        $this->assertEquals(array(), $this->handler->getPlaceholderIdentifiers());
     }
 }

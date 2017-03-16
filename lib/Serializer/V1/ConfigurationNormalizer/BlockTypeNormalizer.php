@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer;
 
+use Netgen\BlockManager\Block\ContainerDefinitionInterface;
 use Netgen\BlockManager\Configuration\BlockType\BlockType;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
@@ -24,12 +25,14 @@ class BlockTypeNormalizer implements NormalizerInterface
         $blockType = $object->getValue();
         $blockDefinition = $blockType->getDefinition();
 
+        $isContainer = $blockDefinition instanceof ContainerDefinitionInterface;
+
         return array(
             'identifier' => $blockType->getIdentifier(),
             'name' => $blockType->getName(),
             'definition_identifier' => $blockDefinition->getIdentifier(),
-            'is_container' => $blockDefinition->isContainer(),
-            'is_dynamic_container' => $blockDefinition->isDynamicContainer(),
+            'is_container' => $isContainer,
+            'is_dynamic_container' => $isContainer && $blockDefinition->isDynamicContainer(),
             'defaults' => $blockType->getDefaults(),
         );
     }

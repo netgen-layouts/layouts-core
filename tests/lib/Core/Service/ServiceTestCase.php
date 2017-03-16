@@ -26,7 +26,8 @@ use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithoutCollection;
-use Netgen\BlockManager\Tests\Block\Stubs\ContainerBlockDefinitionHandler;
+use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinition;
+use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
@@ -160,10 +161,10 @@ abstract class ServiceTestCase extends TestCase
         $blockDefinition2 = new BlockDefinition('text', array('standard' => array('standard')), new BlockDefinitionHandlerWithoutCollection());
         $blockDefinition3 = new BlockDefinition('gallery', array('standard' => array('standard')));
         $blockDefinition4 = new BlockDefinition('list', array('standard' => array('standard')));
-        $blockDefinition5 = new BlockDefinition(
+        $blockDefinition5 = new ContainerDefinition(
             'column',
             array('column' => array('standard')),
-            new ContainerBlockDefinitionHandler(array(), array('main', 'other'))
+            new ContainerDefinitionHandler(array(), array('main', 'other'))
         );
 
         $this->blockDefinitionRegistry = new BlockDefinitionRegistry();

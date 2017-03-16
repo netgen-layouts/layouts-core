@@ -24,7 +24,7 @@ class ViewRendererListenerTest extends TestCase
         $eventListener = new ViewRendererListener($viewRendererMock);
 
         $this->assertEquals(
-            array(KernelEvents::VIEW => 'onView'),
+            array(KernelEvents::VIEW => array('onView', -255)),
             $eventListener->getSubscribedEvents()
         );
     }

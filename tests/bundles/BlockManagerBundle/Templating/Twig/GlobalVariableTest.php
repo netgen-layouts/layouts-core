@@ -11,6 +11,8 @@ use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolverInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class GlobalVariableTest extends TestCase
 {
@@ -39,6 +41,11 @@ class GlobalVariableTest extends TestCase
      */
     protected $globalVariable;
 
+    /**
+     * @var \Symfony\Component\HttpFoundation\RequestStack
+     */
+    protected $requestStack;
+
     public function setUp()
     {
         $this->configMock = $this->createMock(ConfigurationInterface::class);
@@ -52,6 +59,11 @@ class GlobalVariableTest extends TestCase
             $this->pageLayoutResolverMock,
             $this->viewBuilderMock
         );
+
+        $this->requestStack = new RequestStack();
+        $this->requestStack->push(Request::create('/'));
+
+        $this->globalVariable->setRequestStack($this->requestStack);
     }
 
     /**
@@ -244,6 +256,11 @@ class GlobalVariableTest extends TestCase
             ->method('resolvePageLayout');
 
         $this->assertEquals('layout.html.twig', $this->globalVariable->getLayoutTemplate());
+
+        $this->assertEquals(
+            $layoutView,
+            $this->requestStack->getCurrentRequest()->attributes->get('layoutView')
+        );
     }
 
     /**
@@ -265,6 +282,10 @@ class GlobalVariableTest extends TestCase
         $this->assertEquals(
             'pagelayout.html.twig',
             $this->globalVariable->getLayoutTemplate()
+        );
+
+        $this->assertFalse(
+            $this->requestStack->getCurrentRequest()->attributes->has('layoutView')
         );
     }
 

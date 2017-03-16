@@ -6,9 +6,9 @@ use Exception;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate;
 use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\View\RendererInterface;
+use Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone;
@@ -268,7 +268,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
      * @param string $viewContext
-     * @param \Netgen\BlockManager\Block\BlockDefinition\Twig\ContextualizedTwigTemplate $twigTemplate
+     * @param \Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate $twigTemplate
      *
      * @throws \Exception If an error occurred
      */

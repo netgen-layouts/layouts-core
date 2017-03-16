@@ -7,6 +7,7 @@ use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Block\PlaceholderCreateStruct;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
+use Netgen\BlockManager\Block\ContainerDefinitionInterface;
 use Netgen\BlockManager\Block\PlaceholderDefinitionInterface;
 use Netgen\BlockManager\Validator\Constraint\BlockItemViewType;
 use Netgen\BlockManager\Validator\Constraint\BlockViewType;
@@ -81,7 +82,7 @@ class BlockValidator extends Validator
             'parameterValues'
         );
 
-        if ($blockCreateStruct->definition->isContainer()) {
+        if ($blockCreateStruct->definition instanceof ContainerDefinitionInterface) {
             foreach ($blockCreateStruct->definition->getPlaceholders() as $placeholderDefinition) {
                 if ($blockCreateStruct->hasPlaceholderStruct($placeholderDefinition->getIdentifier())) {
                     $this->validatePlaceholderCreateStruct(

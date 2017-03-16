@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Core\Service\Mapper;
 
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
+use Netgen\BlockManager\Block\ContainerDefinitionInterface;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\CollectionReference;
@@ -122,7 +123,7 @@ class BlockMapper extends Mapper
      */
     protected function mapPlaceholders(PersistenceBlock $block, BlockDefinitionInterface $blockDefinition)
     {
-        if (!$blockDefinition->isContainer()) {
+        if (!$blockDefinition instanceof ContainerDefinitionInterface) {
             return array();
         }
 

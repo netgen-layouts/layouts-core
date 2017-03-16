@@ -14,7 +14,6 @@ class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeGroupPass::process
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeGroupPass::generateBlockTypeGroupConfig
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeGroupPass::buildBlockTypeGroups
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeGroupPass::validateBlockTypeGroups
      */
     public function testProcess()
     {
@@ -48,7 +47,6 @@ class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeGroupPass::process
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeGroupPass::generateBlockTypeGroupConfig
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeGroupPass::buildBlockTypeGroups
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeGroupPass::validateBlockTypeGroups
      */
     public function testProcessWithNoBlockType()
     {
@@ -89,7 +87,6 @@ class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeGroupPass::process
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeGroupPass::generateBlockTypeGroupConfig
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeGroupPass::buildBlockTypeGroups
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeGroupPass::validateBlockTypeGroups
      */
     public function testProcessWithPopulatingCustomGroup()
     {
@@ -145,7 +142,6 @@ class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeGroupPass::process
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeGroupPass::generateBlockTypeGroupConfig
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeGroupPass::buildBlockTypeGroups
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypeGroupPass::validateBlockTypeGroups
      */
     public function testProcessWithDisabledGroup()
     {

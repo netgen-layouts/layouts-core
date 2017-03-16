@@ -4,6 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig;
 
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\Core\Values\Block\Block;
+use Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface;
 use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\View\RendererInterface;
@@ -32,6 +33,11 @@ class RenderingExtensionTwigTest extends \Twig_Test_IntegrationTestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
+    protected $cacheableResolverMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     protected $fragmentHandlerMock;
 
     /**
@@ -45,6 +51,12 @@ class RenderingExtensionTwigTest extends \Twig_Test_IntegrationTestCase
         $this->globalVariableMock = $this->createMock(GlobalVariable::class);
         $this->viewRendererMock = $this->createMock(RendererInterface::class);
         $this->fragmentHandlerMock = $this->createMock(FragmentHandler::class);
+        $this->cacheableResolverMock = $this->createConfiguredMock(
+            CacheableResolverInterface::class,
+            array(
+                'isCacheable' => false,
+            )
+        );
 
         $this->blockServiceMock
             ->expects($this->any())
@@ -108,6 +120,7 @@ class RenderingExtensionTwigTest extends \Twig_Test_IntegrationTestCase
             $this->blockServiceMock,
             $this->globalVariableMock,
             $this->viewRendererMock,
+            $this->cacheableResolverMock,
             $this->fragmentHandlerMock,
             'ngbm_block:viewBlockById'
         );

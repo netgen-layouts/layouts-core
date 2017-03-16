@@ -15,7 +15,8 @@ use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceC
 use Netgen\BlockManager\Persistence\Values\Layout\Layout as PersistenceLayout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone as PersistenceZone;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
-use Netgen\BlockManager\Tests\Block\Stubs\ContainerBlockDefinitionHandler;
+use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinition;
+use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
 
 class BlockServiceTest extends ServiceTestCase
 {
@@ -61,10 +62,10 @@ class BlockServiceTest extends ServiceTestCase
             new Block(
                 array(
                     'published' => false,
-                    'definition' => new BlockDefinition(
+                    'definition' => new ContainerDefinition(
                         'blockDef',
                         array(),
-                        new ContainerBlockDefinitionHandler(array(), array('main'))
+                        new ContainerDefinitionHandler(array(), array('main'))
                     ),
                 )
             ),
@@ -214,10 +215,10 @@ class BlockServiceTest extends ServiceTestCase
             new Block(
                 array(
                     'published' => false,
-                    'definition' => new BlockDefinition(
+                    'definition' => new ContainerDefinition(
                         'blockDef',
                         array(),
-                        new ContainerBlockDefinitionHandler(array(), array('main'))
+                        new ContainerDefinitionHandler(array(), array('main'))
                     ),
                 )
             ),
@@ -299,10 +300,10 @@ class BlockServiceTest extends ServiceTestCase
             new Block(
                 array(
                     'published' => false,
-                    'definition' => new BlockDefinition(
+                    'definition' => new ContainerDefinition(
                         'blockDef',
                         array(),
-                        new ContainerBlockDefinitionHandler(array(), array('main'))
+                        new ContainerDefinitionHandler(array(), array('main'))
                     ),
                 )
             ),

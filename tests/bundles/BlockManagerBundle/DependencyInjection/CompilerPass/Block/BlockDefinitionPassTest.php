@@ -5,6 +5,10 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\CompilerPas
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
+use Netgen\BlockManager\Block\BlockDefinition\ContainerDefinitionHandler;
+use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
+use Netgen\BlockManager\Block\ContainerDefinition;
+use Netgen\BlockManager\Block\TwigBlockDefinition;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -21,6 +25,8 @@ class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
      */
     public function testProcess($handlerClass, $definitionClass)
     {
+        $this->setParameter('test.class', BlockDefinitionHandler::class);
+
         $this->setParameter(
             'netgen_block_manager.block_definitions',
             array('block_definition' => array('enabled' => true))
@@ -65,6 +71,8 @@ class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
      */
     public function testProcessWithCustomHandler($handlerClass, $definitionClass)
     {
+        $this->setParameter('test.class', BlockDefinitionHandler::class);
+
         $this->setParameter(
             'netgen_block_manager.block_definitions',
             array('block_definition' => array('enabled' => true, 'handler' => 'custom'))
@@ -171,7 +179,10 @@ class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
     public function processDataProvider()
     {
         return array(
+            array('%test.class%', BlockDefinition::class),
             array(BlockDefinitionHandler::class, BlockDefinition::class),
+            array(TwigBlockDefinitionHandlerInterface::class, TwigBlockDefinition::class),
+            array(ContainerDefinitionHandler::class, ContainerDefinition::class),
         );
     }
 
