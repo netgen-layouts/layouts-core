@@ -8,6 +8,9 @@ use Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface;
 use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\View\RendererInterface;
+use Netgen\BlockManager\View\View\BlockView;
+use Netgen\BlockManager\View\View\BlockViewInterface;
+use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
@@ -24,6 +27,11 @@ class RenderingExtensionTwigTest extends \Twig_Test_IntegrationTestCase
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $globalVariableMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $viewBuilderMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -49,6 +57,7 @@ class RenderingExtensionTwigTest extends \Twig_Test_IntegrationTestCase
     {
         $this->blockServiceMock = $this->createMock(BlockService::class);
         $this->globalVariableMock = $this->createMock(GlobalVariable::class);
+        $this->viewBuilderMock = $this->createMock(ViewBuilderInterface::class);
         $this->viewRendererMock = $this->createMock(RendererInterface::class);
         $this->fragmentHandlerMock = $this->createMock(FragmentHandler::class);
         $this->cacheableResolverMock = $this->createConfiguredMock(
@@ -97,17 +106,31 @@ class RenderingExtensionTwigTest extends \Twig_Test_IntegrationTestCase
                 )
             );
 
-        $this->viewRendererMock
+        $this->viewBuilderMock
             ->expects($this->any())
-            ->method('renderValueObject')
+            ->method('buildView')
             ->will(
                 $this->returnCallback(
                     function ($block, $context, $parameters) {
-                        if ($block->getDefinition()->getIdentifier() === 'twig_block') {
+                        $blockView = new BlockView(array('block' => $block) + $parameters);
+                        $blockView->setContext($context);
+
+                        return $blockView;
+                    }
+                )
+            );
+
+        $this->viewRendererMock
+            ->expects($this->any())
+            ->method('renderView')
+            ->will(
+                $this->returnCallback(
+                    function (BlockViewInterface $blockView) {
+                        if ($blockView->getBlock()->getDefinition()->getIdentifier() === 'twig_block') {
                             return 'rendered twig block' . PHP_EOL;
-                        } elseif ($context === ViewInterface::CONTEXT_DEFAULT) {
+                        } elseif ($blockView->getContext() === ViewInterface::CONTEXT_DEFAULT) {
                             return 'rendered block' . PHP_EOL;
-                        } elseif ($context === 'json') {
+                        } elseif ($blockView->getContext() === 'json') {
                             return '{"block_id": 5}' . PHP_EOL;
                         }
 
@@ -119,6 +142,7 @@ class RenderingExtensionTwigTest extends \Twig_Test_IntegrationTestCase
         $this->extension = new RenderingExtension(
             $this->blockServiceMock,
             $this->globalVariableMock,
+            $this->viewBuilderMock,
             $this->viewRendererMock,
             $this->cacheableResolverMock,
             $this->fragmentHandlerMock,

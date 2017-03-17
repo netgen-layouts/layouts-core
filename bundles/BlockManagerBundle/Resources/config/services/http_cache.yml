@@ -1,0 +1,74 @@
+services:
+    netgen_block_manager.http_cache.fos.cache_manager:
+        class: FOS\HttpCacheBundle\CacheManager
+        parent: fos_http_cache.cache_manager
+
+    netgen_block_manager.http_cache.client:
+        class: Netgen\BlockManager\HttpCache\Client
+        arguments:
+            - "@netgen_block_manager.http_cache.layout.invalidator"
+            - "@netgen_block_manager.http_cache.block.invalidator"
+
+    netgen_block_manager.http_cache.client.null:
+        class: Netgen\BlockManager\HttpCache\NullClient
+
+    # BLOCK
+
+    netgen_block_manager.http_cache.block.cacheable_resolver:
+        class: Netgen\BlockManager\HttpCache\Block\CacheableResolver
+        arguments:
+            - []
+
+    netgen_block_manager.http_cache.block.cacheable_resolver.voter.twig_block:
+        class: Netgen\BlockManager\HttpCache\Block\CacheableResolver\TwigBlockVoter
+        tags:
+            - { name: netgen_block_manager.http_cache.block.cacheable_resolver.voter }
+
+    netgen_block_manager.http_cache.block.cacheable_resolver.voter.container_with_twig_block:
+        class: Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContainerWithTwigBlockVoter
+        tags:
+            - { name: netgen_block_manager.http_cache.block.cacheable_resolver.voter }
+
+    # Synthetic services that will receive currently selected tagger, invalidator and ID provider
+
+    netgen_block_manager.http_cache.block.tagger:
+        synthetic: true
+
+    netgen_block_manager.http_cache.block.invalidator:
+        synthetic: true
+
+    # Ban strategy
+
+    netgen_block_manager.http_cache.block.ban.tagger:
+        class: Netgen\BlockManager\HttpCache\Block\Strategy\Ban\Tagger
+
+    netgen_block_manager.http_cache.block.ban.invalidator:
+        class: Netgen\BlockManager\HttpCache\Block\Strategy\Ban\Invalidator
+        arguments:
+            - "@netgen_block_manager.http_cache.fos.cache_manager"
+
+    # LAYOUT
+
+    # Synthetic services that will receive currently selected tagger, invalidator and ID provider
+
+    netgen_block_manager.http_cache.layout.tagger:
+        synthetic: true
+
+    netgen_block_manager.http_cache.layout.invalidator:
+        synthetic: true
+
+    # Ban strategy
+
+    netgen_block_manager.http_cache.layout.ban.tagger:
+        class: Netgen\BlockManager\HttpCache\Layout\Strategy\Ban\Tagger
+
+    netgen_block_manager.http_cache.layout.ban.id_provider:
+        class: Netgen\BlockManager\HttpCache\Layout\Strategy\Ban\IdProvider
+        arguments:
+            - "@netgen_block_manager.api.service.layout"
+
+    netgen_block_manager.http_cache.layout.ban.invalidator:
+        class: Netgen\BlockManager\HttpCache\Layout\Strategy\Ban\Invalidator
+        arguments:
+            - "@netgen_block_manager.http_cache.fos.cache_manager"
+            - "@netgen_block_manager.http_cache.layout.ban.id_provider"

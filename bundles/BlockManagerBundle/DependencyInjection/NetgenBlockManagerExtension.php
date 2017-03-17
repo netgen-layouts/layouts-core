@@ -97,6 +97,8 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
             $config = $plugin->postProcessConfiguration($config);
         }
 
+        $this->processHttpCacheConfiguration($config['http_cache'], $container);
+
         $this->loadConfigFiles($container);
 
         foreach ($config as $key => $value) {
@@ -115,6 +117,7 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
     {
         $prependConfigs = array(
             'framework/framework.yml' => 'framework',
+            'http_cache.yml' => 'netgen_block_manager',
             'block_definitions.yml' => 'netgen_block_manager',
             'block_type_groups.yml' => 'netgen_block_manager',
             'block_types.yml' => 'netgen_block_manager',
@@ -193,7 +196,37 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
         $loader->load('services/validators.yml');
         $loader->load('services/templating.yml');
         $loader->load('services/parameters.yml');
+        $loader->load('services/http_cache.yml');
 
         $loader->load('services/api.yml');
+    }
+
+    /**
+     * Processes configuration for HTTP cache.
+     *
+     * @param array $config
+     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     */
+    protected function processHttpCacheConfiguration(array $config, ContainerBuilder $container)
+    {
+        $container->setParameter(
+            'netgen_block_manager.http_cache.ttl.default.layout',
+            $config['ttl']['default']['layout']
+        );
+
+        $container->setParameter(
+            'netgen_block_manager.http_cache.ttl.layout_type',
+            $config['ttl']['layout_type']
+        );
+
+        $container->setParameter(
+            'netgen_block_manager.http_cache.ttl.default.block',
+            $config['ttl']['default']['block']
+        );
+
+        $container->setParameter(
+            'netgen_block_manager.http_cache.ttl.block_definition',
+            $config['ttl']['block_definition']
+        );
     }
 }

@@ -54,3 +54,29 @@ services:
             - "%netgen_block_manager.block_view.collection_results_contexts%"
         tags:
             - { name: kernel.event_subscriber }
+
+    netgen_block_manager.event_listener.http_cache.invalidation:
+        class: Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\InvalidationListener
+        arguments:
+            - "@netgen_block_manager.http_cache.fos.cache_manager"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_block_manager.event_listener.http_cache.cacheable_view:
+        class: Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewListener
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_block_manager.event_listener.http_cache.layout_response:
+        class: Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\LayoutResponseListener
+        arguments:
+            - "@netgen_block_manager.http_cache.layout.tagger"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_block_manager.event_listener.http_cache.block_response:
+        class: Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\BlockResponseListener
+        arguments:
+            - "@netgen_block_manager.http_cache.block.tagger"
+        tags:
+            - { name: kernel.event_subscriber }

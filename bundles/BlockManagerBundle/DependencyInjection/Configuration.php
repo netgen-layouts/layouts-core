@@ -57,6 +57,7 @@ class Configuration implements ConfigurationInterface
         return array(
             new ConfigurationNode\ViewNode(),
             new ConfigurationNode\DefaultViewTemplatesNode(),
+            new ConfigurationNode\HttpCacheNode(),
             new ConfigurationNode\BlockDefinitionNode(),
             new ConfigurationNode\BlockTypeNode(),
             new ConfigurationNode\BlockTypeGroupNode(),

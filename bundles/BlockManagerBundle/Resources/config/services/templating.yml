@@ -9,13 +9,17 @@ services:
             - "@netgen_block_manager.layout.resolver"
             - "@netgen_block_manager.templating.pagelayout_resolver"
             - "@netgen_block_manager.view.builder"
+        calls:
+            - [setRequestStack, ["@request_stack"]]
 
     netgen_block_manager.templating.twig.extension.rendering:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension
         arguments:
             - "@netgen_block_manager.api.service.block"
             - "@netgen_block_manager.templating.global_variable"
+            - "@netgen_block_manager.view.builder"
             - "@netgen_block_manager.view.renderer"
+            - "@netgen_block_manager.http_cache.block.cacheable_resolver"
             - "@fragment.handler"
             - "%netgen_block_manager.controller.block_controller%"
             - "@?logger"

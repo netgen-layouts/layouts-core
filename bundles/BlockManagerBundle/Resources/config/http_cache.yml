@@ -1,0 +1,12 @@
+http_cache:
+    invalidation:
+        enabled: "%kernel.debug%"
+        default_strategy: ban
+        strategies:
+            ban:
+                block:
+                    tagger: netgen_block_manager.http_cache.block.ban.tagger
+                    invalidator: netgen_block_manager.http_cache.block.ban.invalidator
+                layout:
+                    tagger: netgen_block_manager.http_cache.layout.ban.tagger
+                    invalidator: netgen_block_manager.http_cache.layout.ban.invalidator

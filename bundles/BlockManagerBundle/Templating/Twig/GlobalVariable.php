@@ -5,13 +5,17 @@ namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface;
+use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Netgen\BlockManager\View\View\LayoutViewInterface;
 use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolverInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class GlobalVariable
 {
+    use RequestStackAwareTrait;
+
     /**
      * @var \Netgen\BlockManager\Configuration\ConfigurationInterface
      */
@@ -162,6 +166,11 @@ class GlobalVariable
             $this->layout = $resolvedRule->getLayout();
 
             $this->layoutView = $this->viewBuilder->buildView($this->layout, $context);
+
+            $currentRequest = $this->requestStack->getCurrentRequest();
+            if ($currentRequest instanceof Request) {
+                $currentRequest->attributes->set('layoutView', $this->layoutView);
+            }
         }
     }
 }

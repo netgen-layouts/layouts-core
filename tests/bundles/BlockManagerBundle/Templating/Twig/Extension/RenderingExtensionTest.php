@@ -12,6 +12,8 @@ use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate;
+use Netgen\BlockManager\View\View\BlockView;
+use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
@@ -31,6 +33,11 @@ class RenderingExtensionTest extends TestCase
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $globalVariableMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $viewBuilderMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -56,18 +63,15 @@ class RenderingExtensionTest extends TestCase
     {
         $this->blockServiceMock = $this->createMock(BlockService::class);
         $this->globalVariableMock = $this->createMock(GlobalVariable::class);
+        $this->viewBuilderMock = $this->createMock(ViewBuilderInterface::class);
         $this->viewRendererMock = $this->createMock(RendererInterface::class);
         $this->fragmentHandlerMock = $this->createMock(FragmentHandler::class);
-        $this->cacheableResolverMock = $this->createConfiguredMock(
-            CacheableResolverInterface::class,
-            array(
-                'isCacheable' => false,
-            )
-        );
+        $this->cacheableResolverMock = $this->createMock(CacheableResolverInterface::class);
 
         $this->extension = new RenderingExtension(
             $this->blockServiceMock,
             $this->globalVariableMock,
+            $this->viewBuilderMock,
             $this->viewRendererMock,
             $this->cacheableResolverMock,
             $this->fragmentHandlerMock,
@@ -123,12 +127,19 @@ class RenderingExtensionTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getViewContext
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getTwigTemplate
      */
     public function testRenderBlock()
     {
-        $this->viewRendererMock
+        $this->cacheableResolverMock
+            ->expects($this->any())
+            ->method('isCacheable')
+            ->will($this->returnValue(false));
+
+        $this->viewBuilderMock
             ->expects($this->once())
-            ->method('renderValueObject')
+            ->method('buildView')
             ->with(
                 $this->equalTo(new Block()),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
@@ -139,6 +150,12 @@ class RenderingExtensionTest extends TestCase
                     )
                 )
             )
+            ->will($this->returnValue(new BlockView()));
+
+        $this->viewRendererMock
+            ->expects($this->once())
+            ->method('renderView')
+            ->with($this->equalTo(new BlockView()))
             ->will($this->returnValue('rendered block'));
 
         $this->assertEquals(
@@ -155,12 +172,115 @@ class RenderingExtensionTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getViewContext
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getTwigTemplate
+     */
+    public function testRenderCacheableBlockWithDisabledCache()
+    {
+        $this->cacheableResolverMock
+            ->expects($this->any())
+            ->method('isCacheable')
+            ->will($this->returnValue(true));
+
+        $blockView = new BlockView();
+        $blockView->setIsCacheable(false);
+
+        $this->viewBuilderMock
+            ->expects($this->once())
+            ->method('buildView')
+            ->with(
+                $this->equalTo(new Block()),
+                $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
+                $this->equalTo(
+                    array(
+                        'param' => 'value',
+                        'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
+                    )
+                )
+            )
+            ->will($this->returnValue($blockView));
+
+        $this->viewRendererMock
+            ->expects($this->once())
+            ->method('renderView')
+            ->with($this->equalTo($blockView))
+            ->will($this->returnValue('rendered block'));
+
+        $this->assertEquals(
+            'rendered block',
+            $this->extension->renderBlock(
+                array(
+                    'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
+                ),
+                new Block(),
+                array('param' => 'value')
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getViewContext
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getTwigTemplate
+     */
+    public function testRenderCacheableBlock()
+    {
+        $this->cacheableResolverMock
+            ->expects($this->any())
+            ->method('isCacheable')
+            ->will($this->returnValue(true));
+
+        $this->viewBuilderMock
+            ->expects($this->once())
+            ->method('buildView')
+            ->with(
+                $this->equalTo(new Block()),
+                $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
+                $this->equalTo(
+                    array(
+                        'param' => 'value',
+                        'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
+                    )
+                )
+            )
+            ->will($this->returnValue(new BlockView()));
+
+        $this->viewRendererMock
+            ->expects($this->never())
+            ->method('renderView');
+
+        $this->fragmentHandlerMock
+            ->expects($this->once())
+            ->method('render')
+            ->will($this->returnValue('esi rendered block'));
+
+        $this->assertEquals(
+            'esi rendered block',
+            $this->extension->renderBlock(
+                array(
+                    'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
+                ),
+                new Block(),
+                array('param' => 'value')
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getViewContext
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getTwigTemplate
      */
     public function testRenderBlockWithoutTwigTemplate()
     {
-        $this->viewRendererMock
+        $this->cacheableResolverMock
+            ->expects($this->any())
+            ->method('isCacheable')
+            ->will($this->returnValue(false));
+
+        $this->viewBuilderMock
             ->expects($this->once())
-            ->method('renderValueObject')
+            ->method('buildView')
             ->with(
                 $this->equalTo(new Block()),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
@@ -171,6 +291,12 @@ class RenderingExtensionTest extends TestCase
                     )
                 )
             )
+            ->will($this->returnValue(new BlockView()));
+
+        $this->viewRendererMock
+            ->expects($this->once())
+            ->method('renderView')
+            ->with($this->equalTo(new BlockView()))
             ->will($this->returnValue('rendered block'));
 
         $this->assertEquals(
@@ -185,12 +311,19 @@ class RenderingExtensionTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getViewContext
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getTwigTemplate
      */
     public function testRenderBlockWithViewContext()
     {
-        $this->viewRendererMock
+        $this->cacheableResolverMock
+            ->expects($this->any())
+            ->method('isCacheable')
+            ->will($this->returnValue(false));
+
+        $this->viewBuilderMock
             ->expects($this->once())
-            ->method('renderValueObject')
+            ->method('buildView')
             ->with(
                 $this->equalTo(new Block()),
                 $this->equalTo(ViewInterface::CONTEXT_API),
@@ -201,6 +334,12 @@ class RenderingExtensionTest extends TestCase
                     )
                 )
             )
+            ->will($this->returnValue(new BlockView()));
+
+        $this->viewRendererMock
+            ->expects($this->once())
+            ->method('renderView')
+            ->with($this->equalTo(new BlockView()))
             ->will($this->returnValue('rendered block'));
 
         $this->assertEquals(
@@ -218,12 +357,19 @@ class RenderingExtensionTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getViewContext
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getTwigTemplate
      */
     public function testRenderBlockWithViewContextFromTwigContext()
     {
-        $this->viewRendererMock
+        $this->cacheableResolverMock
+            ->expects($this->any())
+            ->method('isCacheable')
+            ->will($this->returnValue(false));
+
+        $this->viewBuilderMock
             ->expects($this->once())
-            ->method('renderValueObject')
+            ->method('buildView')
             ->with(
                 $this->equalTo(new Block()),
                 $this->equalTo(ViewInterface::CONTEXT_API),
@@ -234,6 +380,12 @@ class RenderingExtensionTest extends TestCase
                     )
                 )
             )
+            ->will($this->returnValue(new BlockView()));
+
+        $this->viewRendererMock
+            ->expects($this->once())
+            ->method('renderView')
+            ->with($this->equalTo(new BlockView()))
             ->will($this->returnValue('rendered block'));
 
         $this->assertEquals(
@@ -251,15 +403,17 @@ class RenderingExtensionTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getViewContext
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getTwigTemplate
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::handleException
      */
     public function testRenderBlockReturnsEmptyStringOnException()
     {
         $block = new Block(array('definition' => new BlockDefinition('block')));
 
-        $this->viewRendererMock
+        $this->viewBuilderMock
             ->expects($this->once())
-            ->method('renderValueObject')
+            ->method('buildView')
             ->will($this->throwException(new Exception()));
 
         $renderedBlock = $this->extension->renderBlock(
@@ -274,6 +428,8 @@ class RenderingExtensionTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderBlock
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getViewContext
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getTwigTemplate
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::setDebug
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::handleException
      * @expectedException \Exception
@@ -284,9 +440,9 @@ class RenderingExtensionTest extends TestCase
         $this->extension->setDebug(true);
         $block = new Block(array('definition' => new BlockDefinition('block')));
 
-        $this->viewRendererMock
+        $this->viewBuilderMock
             ->expects($this->once())
-            ->method('renderValueObject')
+            ->method('buildView')
             ->will($this->throwException(new Exception('Test exception text')));
 
         $this->extension->renderBlock(
@@ -299,6 +455,8 @@ class RenderingExtensionTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderPlaceholder
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getViewContext
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getTwigTemplate
      */
     public function testRenderPlaceholder()
     {
@@ -344,6 +502,8 @@ class RenderingExtensionTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderPlaceholder
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getViewContext
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getTwigTemplate
      */
     public function testRenderPlaceholderWithoutTwigTemplate()
     {
@@ -387,6 +547,8 @@ class RenderingExtensionTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderPlaceholder
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getViewContext
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getTwigTemplate
      */
     public function testRenderPlaceholderWithViewContext()
     {
@@ -433,6 +595,8 @@ class RenderingExtensionTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderPlaceholder
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getViewContext
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getTwigTemplate
      */
     public function testRenderPlaceholderWithViewContextFromTwigContext()
     {
@@ -479,6 +643,8 @@ class RenderingExtensionTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderPlaceholder
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getViewContext
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getTwigTemplate
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::handleException
      */
     public function testRenderPlaceholderReturnsEmptyStringOnException()
@@ -503,6 +669,8 @@ class RenderingExtensionTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderPlaceholder
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getViewContext
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getTwigTemplate
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::setDebug
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::handleException
      * @expectedException \Exception
@@ -666,6 +834,7 @@ class RenderingExtensionTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getViewContext
      */
     public function testRenderValueObject()
     {
@@ -691,6 +860,7 @@ class RenderingExtensionTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getViewContext
      */
     public function testRenderValueObjectWithViewContext()
     {
@@ -717,6 +887,7 @@ class RenderingExtensionTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getViewContext
      */
     public function testRenderValueObjectWithContextFromTwigContext()
     {
@@ -744,6 +915,7 @@ class RenderingExtensionTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getViewContext
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::handleException
      */
     public function testRenderValueObjectReturnsEmptyStringOnException()
@@ -770,6 +942,7 @@ class RenderingExtensionTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getViewContext
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::setDebug
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::handleException
      * @expectedException \Exception

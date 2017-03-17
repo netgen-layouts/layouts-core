@@ -19,6 +19,7 @@ Activate the Block Manager in your kernel class together will all other required
 ...
 
 $bundles[] = new Knp\Bundle\MenuBundle\KnpMenuBundle();
+$bundles[] = new FOS\HttpCacheBundle\FOSHttpCacheBundle();
 $bundles[] = new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle();
 $bundles[] = new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle();
 $bundles[] = new Netgen\Bundle\CoreUIBundle\NetgenCoreUIBundle();

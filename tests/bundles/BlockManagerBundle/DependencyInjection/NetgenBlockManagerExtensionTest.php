@@ -76,6 +76,7 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasParameter('netgen_block_manager.sources', array());
         $this->assertContainerBuilderHasParameter('netgen_block_manager.query_types', array());
         $this->assertContainerBuilderHasParameter('netgen_block_manager.view', array());
+        $this->assertContainerBuilderHasParameter('netgen_block_manager.http_cache');
         $this->assertContainerBuilderHasParameter('netgen_block_manager.pagelayout',
             'NetgenBlockManagerBundle::empty_pagelayout.html.twig'
         );
@@ -109,6 +110,7 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasService('netgen_block_manager.parameters.registry.parameter_type');
         $this->assertContainerBuilderHasService('netgen_block_manager.collection.result_loader');
         $this->assertContainerBuilderHasService('netgen_block_manager.item.item_builder');
+        $this->assertContainerBuilderHasService('netgen_block_manager.http_cache.client');
 
         $this->assertContainerBuilderHasService('netgen_block_manager.core.service.block');
         $this->assertContainerBuilderHasAlias(
@@ -207,6 +209,42 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
                 'definition_identifier' => 'title',
             ),
             $config['block_types']['test_type']
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::processHttpCacheConfiguration
+     */
+    public function testHttpCacheConfiguration()
+    {
+        $this->load();
+
+        $this->assertContainerBuilderHasParameter(
+            'netgen_block_manager.http_cache.ttl.default.layout',
+            array(
+                'max_age' => 0,
+                'shared_max_age' => 300,
+                'overwrite_headers' => false,
+            )
+        );
+
+        $this->assertContainerBuilderHasParameter(
+            'netgen_block_manager.http_cache.ttl.default.block',
+            array(
+                'max_age' => 0,
+                'shared_max_age' => 300,
+                'overwrite_headers' => false,
+            )
+        );
+
+        $this->assertContainerBuilderHasParameter(
+            'netgen_block_manager.http_cache.ttl.block_definition',
+            array()
+        );
+
+        $this->assertContainerBuilderHasParameter(
+            'netgen_block_manager.http_cache.ttl.layout_type',
+            array()
         );
     }
 

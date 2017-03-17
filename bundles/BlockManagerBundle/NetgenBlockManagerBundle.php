@@ -35,5 +35,8 @@ class NetgenBlockManagerBundle extends Bundle
         $container->addCompilerPass(new CompilerPass\Configuration\LayoutTypePass());
         $container->addCompilerPass(new CompilerPass\Configuration\BlockTypePass());
         $container->addCompilerPass(new CompilerPass\Configuration\BlockTypeGroupPass());
+        $container->addCompilerPass(new CompilerPass\HttpCache\CacheManagerPass());
+        $container->addCompilerPass(new CompilerPass\HttpCache\ConfigureHttpCachePass());
+        $container->addCompilerPass(new CompilerPass\HttpCache\Block\CacheableResolverPass());
     }
 }
