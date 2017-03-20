@@ -135,14 +135,30 @@ class BlockDefinitionNode implements ConfigurationNodeInterface
                                     ->cannotBeEmpty()
                                 ->end()
                                 ->arrayNode('item_view_types')
-                                    ->defaultValue(array('standard' => array('name' => 'Standard')))
-                                    ->performNoDeepMerging()
+                                    ->defaultValue(array('standard' => array('name' => 'Standard', 'enabled' => true)))
                                     ->requiresAtLeastOneElement()
                                     ->useAttributeAsKey('item_view_type')
                                     ->prototype('array')
+                                        ->canBeDisabled()
+                                        ->validate()
+                                            ->ifTrue(function ($v) {
+                                                return $v['enabled'] === true && !isset($v['name']);
+                                            })
+                                            ->thenInvalid('Item view type name must be specified')
+                                        ->end()
+                                        ->validate()
+                                            ->ifTrue(function ($v) {
+                                                return $v['enabled'] !== true;
+                                            })
+                                            ->then(function ($v) {
+                                                return array(
+                                                    'name' => 'Disabled',
+                                                    'enabled' => false,
+                                                );
+                                            })
+                                        ->end()
                                         ->children()
                                             ->scalarNode('name')
-                                                ->isRequired()
                                                 ->cannotBeEmpty()
                                             ->end()
                                         ->end()

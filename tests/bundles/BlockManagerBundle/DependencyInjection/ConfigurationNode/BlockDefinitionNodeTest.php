@@ -53,6 +53,10 @@ class BlockDefinitionNodeTest extends TestCase
                                     'standard' => array(
                                         'name' => 'Standard',
                                     ),
+                                    'other' => array(
+                                        'name' => 'Other',
+                                        'enabled' => false,
+                                    ),
                                 ),
                                 'valid_parameters' => array('param1', 'param2'),
                             ),
@@ -65,6 +69,15 @@ class BlockDefinitionNodeTest extends TestCase
                                     ),
                                 ),
                                 'valid_parameters' => null,
+                            ),
+                            'medium' => array(
+                                'name' => 'Medium',
+                                'enabled' => true,
+                                'item_view_types' => array(
+                                    'standard_with_intro' => array(
+                                        'name' => 'Standard (with intro)',
+                                    ),
+                                ),
                             ),
                             'small' => array(
                                 'name' => 'Small',
@@ -109,6 +122,11 @@ class BlockDefinitionNodeTest extends TestCase
                             'item_view_types' => array(
                                 'standard' => array(
                                     'name' => 'Standard',
+                                    'enabled' => true,
+                                ),
+                                'other' => array(
+                                    'name' => 'Disabled',
+                                    'enabled' => false,
                                 ),
                             ),
                             'valid_parameters' => array('param1', 'param2'),
@@ -119,12 +137,24 @@ class BlockDefinitionNodeTest extends TestCase
                             'item_view_types' => array(),
                             'valid_parameters' => null,
                         ),
+                        'medium' => array(
+                            'name' => 'Medium',
+                            'enabled' => true,
+                            'item_view_types' => array(
+                                'standard_with_intro' => array(
+                                    'name' => 'Standard (with intro)',
+                                    'enabled' => true,
+                                ),
+                            ),
+                            'valid_parameters' => null,
+                        ),
                         'small' => array(
                             'name' => 'Small',
                             'enabled' => true,
                             'item_view_types' => array(
                                 'standard' => array(
                                     'name' => 'Standard',
+                                    'enabled' => true,
                                 ),
                             ),
                             'valid_parameters' => null,
@@ -327,6 +357,7 @@ class BlockDefinitionNodeTest extends TestCase
                             'item_view_types' => array(
                                 'standard' => array(
                                     'name' => 'Standard',
+                                    'enabled' => true,
                                 ),
                             ),
                             'valid_parameters' => array('param1', 'param2'),
@@ -337,6 +368,7 @@ class BlockDefinitionNodeTest extends TestCase
                             'item_view_types' => array(
                                 'standard' => array(
                                     'name' => 'Standard',
+                                    'enabled' => true,
                                 ),
                             ),
                             'valid_parameters' => array('param5', 'param6'),
@@ -345,6 +377,82 @@ class BlockDefinitionNodeTest extends TestCase
                             'name' => 'Disabled',
                             'enabled' => false,
                             'item_view_types' => array(),
+                            'valid_parameters' => null,
+                        ),
+                    ),
+                ),
+            ),
+        );
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'block_definitions.*.view_types'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
+     */
+    public function testBlockDefinitionSettingsItemViewTypesMerge()
+    {
+        $config = array(
+            array(
+                'block_definitions' => array(
+                    'block' => array(
+                        'view_types' => array(
+                            'default' => array(
+                                'name' => 'Default',
+                                'enabled' => true,
+                                'item_view_types' => array(
+                                    'standard' => array(
+                                        'name' => 'Standard',
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+            array(
+                'block_definitions' => array(
+                    'block' => array(
+                        'view_types' => array(
+                            'default' => array(
+                                'name' => 'Default',
+                                'enabled' => true,
+                                'item_view_types' => array(
+                                    'other' => array(
+                                        'name' => 'Other',
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+
+        $expectedConfig = array(
+            'block_definitions' => array(
+                'block' => array(
+                    'view_types' => array(
+                        'default' => array(
+                            'name' => 'Default',
+                            'enabled' => true,
+                            'item_view_types' => array(
+                                'standard' => array(
+                                    'name' => 'Standard',
+                                    'enabled' => true,
+                                ),
+                                'other' => array(
+                                    'name' => 'Other',
+                                    'enabled' => true,
+                                ),
+                            ),
                             'valid_parameters' => null,
                         ),
                     ),
@@ -397,6 +505,7 @@ class BlockDefinitionNodeTest extends TestCase
                             'item_view_types' => array(
                                 'standard' => array(
                                     'name' => 'Standard',
+                                    'enabled' => true,
                                 ),
                             ),
                             'valid_parameters' => null,
