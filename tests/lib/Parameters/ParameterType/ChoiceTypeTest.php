@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\ParameterType\ChoiceType;
 use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Validation;
 
 class ChoiceTypeTest extends TestCase
@@ -70,7 +71,15 @@ class ChoiceTypeTest extends TestCase
      */
     public function getParameter(array $options = array(), $required = false, $defaultValue = null)
     {
-        return new Parameter('name', new ChoiceType(), $options, $required, $defaultValue);
+        return new Parameter(
+            array(
+                'name' => 'name',
+                'type' => new ChoiceType(),
+                'options' => $options,
+                'isRequired' => $required,
+                'defaultValue' => $defaultValue,
+            )
+        );
     }
 
     /**

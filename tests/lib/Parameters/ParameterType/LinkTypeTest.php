@@ -54,7 +54,13 @@ class LinkTypeTest extends TestCase
      */
     public function getParameter($options = array())
     {
-        return new Parameter('name', new LinkType(), $options);
+        return new Parameter(
+            array(
+                'name' => 'name',
+                'type' => new LinkType(),
+                'options' => $options,
+            )
+        );
     }
 
     /**

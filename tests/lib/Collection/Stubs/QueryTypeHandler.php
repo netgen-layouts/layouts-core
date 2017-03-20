@@ -59,8 +59,18 @@ class QueryTypeHandler implements QueryTypeHandlerInterface
     public function getParameters()
     {
         return array(
-            'offset' => new Parameter('offset', new IntegerType()),
-            'param' => new Parameter('param', new TextLineType()),
+            'offset' => new Parameter(
+                array(
+                    'name' => 'offset',
+                    'type' => new IntegerType(),
+                )
+            ),
+            'param' => new Parameter(
+                array(
+                    'name' => 'param',
+                    'type' => new TextLineType(),
+                )
+            ),
         );
     }
 

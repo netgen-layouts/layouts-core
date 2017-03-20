@@ -53,7 +53,14 @@ class IdentifierTypeTest extends TestCase
      */
     public function getParameter(array $options = array(), $required = false)
     {
-        return new Parameter('name', new IdentifierType(), $options, $required);
+        return new Parameter(
+            array(
+                'name' => 'name',
+                'type' => new IdentifierType(),
+                'options' => $options,
+                'isRequired' => $required,
+            )
+        );
     }
 
     /**

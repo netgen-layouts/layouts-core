@@ -34,11 +34,10 @@ class RangeMapperTest extends TestCase
     public function testMapOptions()
     {
         $parameter = new Parameter(
-            'name',
-            new RangeParameterType(),
             array(
-                'min' => 3,
-                'max' => 5,
+                'name' => 'name',
+                'type' => new RangeParameterType(),
+                'options' => array('min' => 3, 'max' => 5),
             )
         );
 

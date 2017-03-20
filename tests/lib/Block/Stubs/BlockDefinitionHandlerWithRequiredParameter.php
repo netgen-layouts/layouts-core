@@ -19,8 +19,19 @@ class BlockDefinitionHandlerWithRequiredParameter extends BaseBlockDefinitionHan
     public function getParameters()
     {
         return array(
-            'css_class' => new Parameter('css_class', new ParameterType\TextLineType(), array(), true),
-            'css_id' => new Parameter('css_id', new ParameterType\TextLineType()),
+            'css_class' => new Parameter(
+                array(
+                    'name' => 'css_class',
+                    'type' => new ParameterType\TextLineType(),
+                    'isRequired' => true,
+                )
+            ),
+            'css_id' => new Parameter(
+                array(
+                    'name' => 'css_id',
+                    'type' => new ParameterType\TextLineType(),
+                )
+            ),
         );
     }
 

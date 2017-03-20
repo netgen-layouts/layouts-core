@@ -1163,8 +1163,8 @@ abstract class BlockServiceTest extends ServiceTestCase
                         'name' => 'css_class',
                         'parameter' => $block->getDefinition()->getParameters()['css_class'],
                         'parameterType' => $this->parameterTypeRegistry->getParameterType('text_line'),
-                        'value' => null,
-                        'isEmpty' => true,
+                        'value' => 'some-class',
+                        'isEmpty' => false,
                     )
                 ),
                 'css_id' => new ParameterValue(
@@ -1249,7 +1249,7 @@ abstract class BlockServiceTest extends ServiceTestCase
                     'viewType' => 'small',
                     'itemViewType' => 'standard',
                     'parameterValues' => array(
-                        'css_class' => null,
+                        'css_class' => 'some-class',
                         'css_id' => null,
                     ),
                 )

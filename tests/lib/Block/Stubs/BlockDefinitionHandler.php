@@ -34,8 +34,21 @@ class BlockDefinitionHandler extends BaseBlockDefinitionHandler
     public function getParameters()
     {
         return array(
-            'css_class' => new Parameter('css_class', new ParameterType\TextLineType(), array(), false, null, $this->parameterGroups),
-            'css_id' => new Parameter('css_id', new ParameterType\TextLineType(), array(), false, null, $this->parameterGroups),
+            'css_class' => new Parameter(
+                array(
+                    'name' => 'css_class',
+                    'type' => new ParameterType\TextLineType(),
+                    'defaultValue' => 'some-class',
+                    'groups' => $this->parameterGroups,
+                )
+            ),
+            'css_id' => new Parameter(
+                array(
+                    'name' => 'css_id',
+                    'type' => new ParameterType\TextLineType(),
+                    'groups' => $this->parameterGroups,
+                )
+            ),
         );
     }
 

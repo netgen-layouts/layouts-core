@@ -70,7 +70,15 @@ class BooleanTypeTest extends TestCase
      */
     public function getParameter(array $options = array(), $required = false, $defaultValue = null)
     {
-        return new Parameter('name', new BooleanType(), $options, $required, $defaultValue);
+        return new Parameter(
+            array(
+                'name' => 'name',
+                'type' => new BooleanType(),
+                'options' => $options,
+                'isRequired' => $required,
+                'defaultValue' => $defaultValue,
+            )
+        );
     }
 
     /**

@@ -61,17 +61,40 @@ class ParametersTypeTest extends FormTestCase
             $this->getMockForAbstractClass(ParameterStruct::class)
         );
 
-        $compoundParameter = new CompoundParameter('compound', new ParameterType\Compound\BooleanType());
+        $compoundParameter = new CompoundParameter(
+            array(
+                'name' => 'compound',
+                'type' => new ParameterType\Compound\BooleanType(),
+            )
+        );
+
         $compoundParameter->setParameters(
             array(
-                'inner' => new Parameter('inner', new ParameterType\TextLineType()),
+                'inner' => new Parameter(
+                    array(
+                        'name' => 'inner',
+                        'type' => new ParameterType\TextLineType(),
+                    )
+                ),
             )
         );
 
         $parameterCollection = new ParameterCollection(
             array(
-                'css_class' => new Parameter('css_class', new ParameterType\TextLineType(), array(), false, null, array(), false),
-                'css_id' => new Parameter('css_id', new ParameterType\TextLineType(), array(), false, null, array(), 'custom label'),
+                'css_class' => new Parameter(
+                    array(
+                        'name' => 'css_class',
+                        'type' => new ParameterType\TextLineType(),
+                        'label' => false,
+                    )
+                ),
+                'css_id' => new Parameter(
+                    array(
+                        'name' => 'css_id',
+                        'type' => new ParameterType\TextLineType(),
+                        'label' => 'custom label',
+                    )
+                ),
                 'compound' => $compoundParameter,
             )
         );
@@ -144,8 +167,19 @@ class ParametersTypeTest extends FormTestCase
 
         $parameterCollection = new ParameterCollection(
             array(
-                'excluded' => new Parameter('excluded', new ParameterType\TextLineType()),
-                'css_id' => new Parameter('css_id', new ParameterType\TextLineType(), array(), false, null, array('group')),
+                'excluded' => new Parameter(
+                    array(
+                        'name' => 'excluded',
+                        'type' => new ParameterType\TextLineType(),
+                    )
+                ),
+                'css_id' => new Parameter(
+                    array(
+                        'name' => 'css_id',
+                        'type' => new ParameterType\TextLineType(),
+                        'groups' => array('group'),
+                    )
+                ),
             )
         );
 

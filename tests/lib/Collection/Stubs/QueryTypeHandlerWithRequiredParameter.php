@@ -44,7 +44,13 @@ class QueryTypeHandlerWithRequiredParameter implements QueryTypeHandlerInterface
     public function getParameters()
     {
         return array(
-            'param' => new Parameter('param', new TextLineType(), array(), true),
+            'param' => new Parameter(
+                array(
+                    'name' => 'param',
+                    'type' => new TextLineType(),
+                    'isRequired' => true,
+                )
+            ),
         );
     }
 

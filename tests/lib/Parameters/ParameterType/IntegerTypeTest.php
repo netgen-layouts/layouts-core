@@ -70,7 +70,15 @@ class IntegerTypeTest extends TestCase
      */
     public function getParameter(array $options = array(), $required = false, $defaultValue = null)
     {
-        return new Parameter('name', new IntegerType(), $options, $required, $defaultValue);
+        return new Parameter(
+            array(
+                'name' => 'name',
+                'type' => new IntegerType(),
+                'options' => $options,
+                'isRequired' => $required,
+                'defaultValue' => $defaultValue,
+            )
+        );
     }
 
     /**

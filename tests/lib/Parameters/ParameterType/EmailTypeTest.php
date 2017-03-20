@@ -52,7 +52,13 @@ class EmailTypeTest extends TestCase
      */
     public function getParameter($options = array())
     {
-        return new Parameter('name', new EmailType(), $options);
+        return new Parameter(
+            array(
+                'name' => 'name',
+                'type' => new EmailType(),
+                'options' => $options,
+            )
+        );
     }
 
     /**

@@ -34,13 +34,15 @@ class ChoiceMapperTest extends TestCase
     public function testMapOptions()
     {
         $parameter = new Parameter(
-            'name',
-            new ChoiceParameterType(),
             array(
-                'multiple' => true,
+                'name' => 'name',
+                'type' => new ChoiceParameterType(),
                 'options' => array(
-                    'Option 1' => 'option1',
-                    'Option 2' => 'option2',
+                    'multiple' => true,
+                    'options' => array(
+                        'Option 1' => 'option1',
+                        'Option 2' => 'option2',
+                    ),
                 ),
             )
         );
@@ -64,16 +66,18 @@ class ChoiceMapperTest extends TestCase
     public function testMapOptionsWithClosure()
     {
         $parameter = new Parameter(
-            'name',
-            new ChoiceParameterType(),
             array(
-                'multiple' => true,
-                'options' => function () {
-                    return array(
-                        'Option 1' => 'option1',
-                        'Option 2' => 'option2',
-                    );
-                },
+                'name' => 'name',
+                'type' => new ChoiceParameterType(),
+                'options' => array(
+                    'multiple' => true,
+                    'options' => function () {
+                        return array(
+                            'Option 1' => 'option1',
+                            'Option 2' => 'option2',
+                        );
+                    },
+                ),
             )
         );
 

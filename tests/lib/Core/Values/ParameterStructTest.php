@@ -215,22 +215,40 @@ class ParameterStructTest extends TestCase
     protected function buildParameterCollection()
     {
         $compoundParameter = new CompoundParameter(
-            'compound',
-            new ParameterType\Compound\BooleanType(),
-            array(),
-            false,
-            true
+            array(
+                'name' => 'compound',
+                'type' => new ParameterType\Compound\BooleanType(),
+                'defaultValue' => true,
+            )
         );
 
         $compoundParameter->setParameters(
             array(
-                'inner' => new Parameter('inner', new ParameterType\TextLineType(), array(), false, 'inner_default'),
+                'inner' => new Parameter(
+                    array(
+                        'name' => 'inner',
+                        'type' => new ParameterType\TextLineType(),
+                        'defaultValue' => 'inner_default',
+                    )
+                ),
             )
         );
 
         $parameters = array(
-            'css_class' => new Parameter('css_class', new ParameterType\TextLineType(), array(), false, 'css'),
-            'css_id' => new Parameter('css_id', new ParameterType\TextLineType(), array(), false, 'id'),
+            'css_class' => new Parameter(
+                array(
+                    'name' => 'css_class',
+                    'type' => new ParameterType\TextLineType(),
+                    'defaultValue' => 'css',
+                )
+            ),
+            'css_id' => new Parameter(
+                array(
+                    'name' => 'css_id',
+                    'type' => new ParameterType\TextLineType(),
+                    'defaultValue' => 'id',
+                )
+            ),
             'compound' => $compoundParameter,
         );
 

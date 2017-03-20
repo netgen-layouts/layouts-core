@@ -19,13 +19,21 @@ class ParameterStructValidatorTest extends ValidatorTestCase
     public function setUp()
     {
         $compoundParameter = new CompoundParameter(
-            'checkbox',
-            new ParameterType\Compound\BooleanType()
+            array(
+                'name' => 'checkbox',
+                'type' => new ParameterType\Compound\BooleanType(),
+            )
         );
 
         $compoundParameter->setParameters(
             array(
-                'param' => new Parameter('param', new ParameterType\IdentifierType(), array(), true),
+                'param' => new Parameter(
+                    array(
+                        'name' => 'param',
+                        'type' => new ParameterType\IdentifierType(),
+                        'isRequired' => true,
+                    )
+                ),
             )
         );
 
@@ -33,7 +41,13 @@ class ParameterStructValidatorTest extends ValidatorTestCase
             array(
                 'parameterCollection' => new ParameterCollection(
                     array(
-                        'css_id' => new Parameter('css_id', new ParameterType\TextLineType(), array(), true),
+                        'css_id' => new Parameter(
+                            array(
+                                'name' => 'css_id',
+                                'type' => new ParameterType\TextLineType(),
+                                'isRequired' => true,
+                            )
+                        ),
                         'checkbox' => $compoundParameter,
                     )
                 ),

@@ -53,7 +53,13 @@ class ItemLinkTypeTest extends TestCase
      */
     public function getParameter($options = array())
     {
-        return new Parameter('name', new ItemLinkType(), $options);
+        return new Parameter(
+            array(
+                'name' => 'name',
+                'type' => new ItemLinkType(),
+                'options' => $options,
+            )
+        );
     }
 
     /**

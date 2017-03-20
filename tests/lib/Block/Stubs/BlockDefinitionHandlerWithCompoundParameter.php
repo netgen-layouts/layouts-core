@@ -34,16 +34,42 @@ class BlockDefinitionHandlerWithCompoundParameter extends BaseBlockDefinitionHan
      */
     public function getParameters()
     {
-        $compoundParam = new CompoundParameter('compound', new ParameterType\Compound\BooleanType(), array(), false, null, $this->parameterGroups);
+        $compoundParam = new CompoundParameter(
+            array(
+                'name' => 'compound',
+                'type' => new ParameterType\Compound\BooleanType(),
+                'groups' => $this->parameterGroups,
+            )
+        );
+
         $compoundParam->setParameters(
             array(
-                'inner' => new Parameter('inner', new ParameterType\TextLineType(), array(), false, null, $this->parameterGroups),
+                'inner' => new Parameter(
+                    array(
+                        'name' => 'inner',
+                        'type' => new ParameterType\TextLineType(),
+                        'groups' => $this->parameterGroups,
+                    )
+                ),
             )
         );
 
         return array(
-            'css_class' => new Parameter('css_class', new ParameterType\TextLineType(), array(), false, 'some-class', $this->parameterGroups),
-            'css_id' => new Parameter('css_id', new ParameterType\TextLineType(), array(), false, null, $this->parameterGroups),
+            'css_class' => new Parameter(
+                array(
+                    'name' => 'css_class',
+                    'type' => new ParameterType\TextLineType(),
+                    'defaultValue' => 'some-class',
+                    'groups' => $this->parameterGroups,
+                )
+            ),
+            'css_id' => new Parameter(
+                array(
+                    'name' => 'css_id',
+                    'type' => new ParameterType\TextLineType(),
+                    'groups' => $this->parameterGroups,
+                )
+            ),
             'compound' => $compoundParam,
         );
     }

@@ -52,7 +52,13 @@ class HtmlTypeTest extends TestCase
      */
     public function getParameter($options = array())
     {
-        return new Parameter('name', new HtmlType(), $options);
+        return new Parameter(
+            array(
+                'name' => 'name',
+                'type' => new HtmlType(),
+                'options' => $options,
+            )
+        );
     }
 
     /**

@@ -52,7 +52,13 @@ class TextTypeTest extends TestCase
      */
     public function getParameter($options = array())
     {
-        return new Parameter('name', new TextType(), $options);
+        return new Parameter(
+            array(
+                'name' => 'name',
+                'type' => new TextType(),
+                'options' => $options,
+            )
+        );
     }
 
     /**

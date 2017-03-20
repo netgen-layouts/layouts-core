@@ -27,7 +27,12 @@ class MapperTest extends TestCase
         $this->assertEquals(
             array(),
             $this->mapper->mapOptions(
-                new Parameter('name', new TextLineType())
+                new Parameter(
+                    array(
+                        'name' => 'name',
+                        'type' => new TextLineType(),
+                    )
+                )
             )
         );
     }

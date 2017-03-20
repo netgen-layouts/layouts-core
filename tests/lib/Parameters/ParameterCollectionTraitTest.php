@@ -29,18 +29,18 @@ class ParameterCollectionTraitTest extends TestCase
      */
     public function testSetProperties()
     {
-        $parameterCollection = new ParameterCollection(
-            array(
-                'name' => new Parameter('name', new TextType()),
-            )
+        $parameters = array(
+            'name' => new Parameter(
+                array(
+                    'name' => 'name',
+                    'type' => new TextType(),
+                )
+            ),
         );
 
-        $this->assertEquals(
-            array(
-                'name' => new Parameter('name', new TextType()),
-            ),
-            $parameterCollection->getParameters()
-        );
+        $parameterCollection = new ParameterCollection($parameters);
+
+        $this->assertEquals($parameters, $parameterCollection->getParameters());
 
         $this->assertFalse($parameterCollection->hasParameter('test'));
         $this->assertTrue($parameterCollection->hasParameter('name'));
@@ -52,9 +52,6 @@ class ParameterCollectionTraitTest extends TestCase
             // Do nothing
         }
 
-        $this->assertEquals(
-            new Parameter('name', new TextType()),
-            $parameterCollection->getParameter('name')
-        );
+        $this->assertEquals($parameters['name'], $parameterCollection->getParameter('name'));
     }
 }
