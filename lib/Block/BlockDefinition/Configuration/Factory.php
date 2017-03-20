@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\Block\BlockDefinition\Configuration;
 
+use Netgen\BlockManager\Exception\RuntimeException;
+
 class Factory
 {
     /**
@@ -50,11 +52,35 @@ class Factory
             }
 
             $itemViewTypes = array();
+
+            if (!isset($viewTypeConfig['item_view_types']['standard'])) {
+                $viewTypeConfig['item_view_types'] = array(
+                    'standard' => array(
+                        'name' => 'Standard',
+                        'enabled' => true,
+                    ),
+                ) + $viewTypeConfig['item_view_types'];
+            }
+
             foreach ($viewTypeConfig['item_view_types'] as $itemViewTypeIdentifier => $itemViewTypeConfig) {
+                if (!$itemViewTypeConfig['enabled']) {
+                    continue;
+                }
+
                 $itemViewTypes[$itemViewTypeIdentifier] = new ItemViewType(
                     array(
                         'identifier' => $itemViewTypeIdentifier,
                         'name' => $itemViewTypeConfig['name'],
+                    )
+                );
+            }
+
+            if (empty($itemViewTypes)) {
+                throw new RuntimeException(
+                    sprintf(
+                        'You need to specify at least one enabled item view type for "%s" view type and "%s" block definition.',
+                        $viewTypeIdentifier,
+                        $identifier
                     )
                 );
             }
