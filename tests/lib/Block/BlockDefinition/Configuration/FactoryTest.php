@@ -184,6 +184,41 @@ class FactoryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Factory::buildConfig
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage You need to specify at least one enabled view type for "block_definition" block definition.
+     */
+    public function testBuildConfigWithNoViewTypes()
+    {
+        $config = array(
+            'name' => 'Block definition',
+            'forms' => array(
+                'full' => array(
+                    'type' => 'form_type',
+                    'enabled' => true,
+                ),
+            ),
+            'placeholder_forms' => array(
+                'full' => array(
+                    'type' => 'placeholder_form_type',
+                    'enabled' => true,
+                ),
+            ),
+            'view_types' => array(
+                'large' => array(
+                    'enabled' => false,
+                    'valid_parameters' => null,
+                ),
+            ),
+        );
+
+        $this->factory->buildConfig(
+            'block_definition',
+            $config
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Factory::buildConfig
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage You need to specify at least one enabled item view type for "large" view type and "block_definition" block definition.
      */
     public function testBuildConfigWithNoItemViewTypes()

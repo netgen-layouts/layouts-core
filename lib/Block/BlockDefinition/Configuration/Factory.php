@@ -95,6 +95,15 @@ class Factory
             );
         }
 
+        if (empty($viewTypes)) {
+            throw new RuntimeException(
+                sprintf(
+                    'You need to specify at least one enabled view type for "%s" block definition.',
+                    $identifier
+                )
+            );
+        }
+
         return new Configuration(
             array(
                 'identifier' => $identifier,
