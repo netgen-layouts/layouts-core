@@ -1,4 +1,14 @@
 http_cache:
+    ttl:
+        default:
+            block:
+                max_age: 0
+                shared_max_age: 300
+                overwrite_headers: false
+            layout:
+                max_age: 0
+                shared_max_age: 300
+                overwrite_headers: false
     invalidation:
         enabled: "%kernel.debug%"
         default_strategy: ban

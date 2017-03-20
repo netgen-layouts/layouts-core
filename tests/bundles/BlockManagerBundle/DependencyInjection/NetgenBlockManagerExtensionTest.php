@@ -221,20 +221,12 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
 
         $this->assertContainerBuilderHasParameter(
             'netgen_block_manager.http_cache.ttl.default.layout',
-            array(
-                'max_age' => 0,
-                'shared_max_age' => 300,
-                'overwrite_headers' => false,
-            )
+            array()
         );
 
         $this->assertContainerBuilderHasParameter(
             'netgen_block_manager.http_cache.ttl.default.block',
-            array(
-                'max_age' => 0,
-                'shared_max_age' => 300,
-                'overwrite_headers' => false,
-            )
+            array()
         );
 
         $this->assertContainerBuilderHasParameter(

@@ -113,18 +113,12 @@ class HttpCacheNode implements ConfigurationNodeInterface
             ->addDefaultsIfNotSet()
             ->children()
                 ->integerNode('max_age')
-                    ->isRequired()
-                    ->defaultValue(0)
                     ->min(0)
                 ->end()
                 ->integerNode('shared_max_age')
-                    ->isRequired()
-                    ->defaultValue(300)
                     ->min(0)
                 ->end()
                 ->booleanNode('overwrite_headers')
-                    ->isRequired()
-                    ->defaultFalse()
                 ->end()
             ->end();
 
