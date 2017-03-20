@@ -22,13 +22,12 @@ class ParameterMapper
 
         foreach ($parameterCollection->getParameters() as $parameter) {
             $parameterName = $parameter->getName();
-            $rawValue = array_key_exists($parameterName, $parameterValues) ?
-                $parameterValues[$parameterName] :
-                null;
-
             $parameterType = $parameter->getType();
 
-            $value = $parameterType->fromHash($rawValue);
+            $value = array_key_exists($parameterName, $parameterValues) ?
+                $parameterType->fromHash($parameterValues[$parameterName]) :
+                $parameter->getDefaultValue();
+
             $mappedValues[$parameterName] = new ParameterValue(
                 array(
                     'name' => $parameterName,

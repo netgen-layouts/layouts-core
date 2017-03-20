@@ -40,7 +40,6 @@ class ParameterMapperTest extends TestCase
             $blockDefinition,
             array(
                 'css_id' => 'some-id',
-                'css_class' => 'some-class',
                 'compound' => true,
                 'inner' => 'inner-value',
             )

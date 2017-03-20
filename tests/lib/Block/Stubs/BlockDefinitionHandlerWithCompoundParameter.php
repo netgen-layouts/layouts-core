@@ -42,7 +42,7 @@ class BlockDefinitionHandlerWithCompoundParameter extends BaseBlockDefinitionHan
         );
 
         return array(
-            'css_class' => new Parameter('css_class', new ParameterType\TextLineType(), array(), false, null, $this->parameterGroups),
+            'css_class' => new Parameter('css_class', new ParameterType\TextLineType(), array(), false, 'some-class', $this->parameterGroups),
             'css_id' => new Parameter('css_id', new ParameterType\TextLineType(), array(), false, null, $this->parameterGroups),
             'compound' => $compoundParam,
         );
