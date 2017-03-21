@@ -206,6 +206,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">Block ID</th>
+                                <th scope="col">Layout ID</th>
                                 <th scope="col">Block info</th>
                                 <th scope="col">Template</th>
                             </tr>
@@ -214,6 +215,7 @@
                         {% for block in blocks %}
                             <tr>
                                 <th>{{ block.id }}</th>
+                                <th>{{ block.layout_id }}</th>
                                 <td class="font-normal">
                                     <div class="metadata">
                                         <strong>Block definition</strong>: {{ block.definition }}

@@ -111,6 +111,7 @@ class BlockManagerDataCollector extends DataCollector
 
         $this->data['blocks'][] = array(
             'id' => $block->getId(),
+            'layout_id' => $block->getLayoutId(),
             'definition' => $blockDefinition->getConfig()->getName(),
             'view_type' => $blockDefinition->getConfig()->getViewType(
                 $block->getViewType()
