@@ -48,6 +48,7 @@ class BlockNormalizerTest extends TestCase
         $block = new Block(
             array(
                 'id' => 42,
+                'layoutId' => 24,
                 'definition' => new BlockDefinition('text'),
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
@@ -99,6 +100,7 @@ class BlockNormalizerTest extends TestCase
         $this->assertEquals(
             array(
                 'id' => $block->getId(),
+                'layout_id' => $block->getLayoutId(),
                 'definition_identifier' => $block->getDefinition()->getIdentifier(),
                 'name' => $block->getName(),
                 'parameters' => $serializedParams,

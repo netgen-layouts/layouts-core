@@ -71,6 +71,7 @@ class BlockMapper extends Mapper
 
         $blockData = array(
             'id' => $block->id,
+            'layoutId' => $block->layoutId,
             'definition' => $blockDefinition,
             'viewType' => $block->viewType,
             'itemViewType' => $block->itemViewType,

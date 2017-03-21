@@ -15,6 +15,7 @@ class BlockTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\View\BlockView\Block::__construct
      * @covers \Netgen\BlockManager\View\View\BlockView\Block::getId
+     * @covers \Netgen\BlockManager\View\View\BlockView\Block::getLayoutId
      * @covers \Netgen\BlockManager\View\View\BlockView\Block::getDefinition
      * @covers \Netgen\BlockManager\View\View\BlockView\Block::getParameters
      * @covers \Netgen\BlockManager\View\View\BlockView\Block::getParameter
@@ -35,6 +36,7 @@ class BlockTest extends TestCase
         $block = new Block(new CoreBlock());
 
         $this->assertNull($block->getId());
+        $this->assertNull($block->getLayoutId());
         $this->assertNull($block->getDefinition());
         $this->assertEquals(array(), $block->getParameters());
         $this->assertFalse($block->hasParameter('test'));
@@ -64,6 +66,7 @@ class BlockTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\View\BlockView\Block::__construct
      * @covers \Netgen\BlockManager\View\View\BlockView\Block::getId
+     * @covers \Netgen\BlockManager\View\View\BlockView\Block::getLayoutId
      * @covers \Netgen\BlockManager\View\View\BlockView\Block::getDefinition
      * @covers \Netgen\BlockManager\View\View\BlockView\Block::getParameters
      * @covers \Netgen\BlockManager\View\View\BlockView\Block::getParameter
@@ -84,6 +87,7 @@ class BlockTest extends TestCase
         $block = new CoreBlock(
             array(
                 'id' => 42,
+                'layoutId' => 24,
                 'definition' => new BlockDefinition('text'),
                 'parameters' => array(
                     'some_param' => 'some_value',
@@ -103,6 +107,7 @@ class BlockTest extends TestCase
         $block = new Block($block, array('dynamic' => 'value'));
 
         $this->assertEquals(42, $block->getId());
+        $this->assertEquals(24, $block->getLayoutId());
         $this->assertEquals(new BlockDefinition('text'), $block->getDefinition());
         $this->assertEquals('some_value', $block->getParameter('some_param'));
         $this->assertFalse($block->hasParameter('test'));

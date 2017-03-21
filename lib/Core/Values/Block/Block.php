@@ -17,6 +17,11 @@ class Block extends ValueObject implements APIBlock
     protected $id;
 
     /**
+     * @var int|string
+     */
+    protected $layoutId;
+
+    /**
      * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
     protected $definition;
@@ -59,6 +64,16 @@ class Block extends ValueObject implements APIBlock
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Returns the ID of the layout where the block is located.
+     *
+     * @return int|string
+     */
+    public function getLayoutId()
+    {
+        return $this->layoutId;
     }
 
     /**

@@ -14,6 +14,7 @@ class BlockTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::__construct
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getId
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getLayoutId
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getDefinition
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getParameters
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getParameter
@@ -32,6 +33,7 @@ class BlockTest extends TestCase
         $block = new Block();
 
         $this->assertNull($block->getId());
+        $this->assertNull($block->getLayoutId());
         $this->assertNull($block->getDefinition());
         $this->assertEquals(array(), $block->getParameters());
         $this->assertFalse($block->hasParameter('test'));
@@ -59,6 +61,7 @@ class BlockTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::__construct
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getId
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getLayoutId
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getDefinition
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getParameters
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getParameter
@@ -77,6 +80,7 @@ class BlockTest extends TestCase
         $block = new Block(
             array(
                 'id' => 42,
+                'layoutId' => 24,
                 'definition' => new BlockDefinition('text'),
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
@@ -94,6 +98,7 @@ class BlockTest extends TestCase
         );
 
         $this->assertEquals(42, $block->getId());
+        $this->assertEquals(24, $block->getLayoutId());
         $this->assertEquals(new BlockDefinition('text'), $block->getDefinition());
         $this->assertEquals('some_value', $block->getParameter('some_param'));
         $this->assertFalse($block->hasParameter('test'));

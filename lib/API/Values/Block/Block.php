@@ -15,6 +15,13 @@ interface Block extends Value, ParameterBasedValue
     public function getId();
 
     /**
+     * Returns the ID of the layout where the block is located.
+     *
+     * @return int|string
+     */
+    public function getLayoutId();
+
+    /**
      * Returns the block definition.
      *
      * @return \Netgen\BlockManager\Block\BlockDefinitionInterface

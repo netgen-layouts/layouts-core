@@ -39,6 +39,16 @@ class Block implements APIBlock
     }
 
     /**
+     * Returns the ID of the layout where the block is located.
+     *
+     * @return int|string
+     */
+    public function getLayoutId()
+    {
+        return $this->innerBlock->getLayoutId();
+    }
+
+    /**
      * Returns the block definition.
      *
      * @return \Netgen\BlockManager\Block\BlockDefinitionInterface

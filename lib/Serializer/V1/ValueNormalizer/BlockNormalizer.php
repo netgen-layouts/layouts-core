@@ -59,6 +59,7 @@ class BlockNormalizer implements NormalizerInterface, SerializerAwareInterface
 
         return array(
             'id' => $block->getId(),
+            'layout_id' => $block->getLayoutId(),
             'definition_identifier' => $blockDefinition->getIdentifier(),
             'name' => $block->getName(),
             'parameters' => $this->serializer->normalize($parameters, $format, $context),
