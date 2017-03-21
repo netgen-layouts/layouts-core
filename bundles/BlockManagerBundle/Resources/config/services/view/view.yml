@@ -11,6 +11,7 @@ services:
         lazy: true
         arguments:
             - "@netgen_block_manager.view.builder"
+            - "@event_dispatcher"
             - "@twig"
 
     netgen_block_manager.view.template_resolver:

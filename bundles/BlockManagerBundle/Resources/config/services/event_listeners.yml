@@ -55,6 +55,11 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
+    netgen_block_manager.event_listener.block_view.get_twig_block_content:
+        class: Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetTwigBlockContentListener
+        tags:
+            - { name: kernel.event_subscriber }
+
     netgen_block_manager.event_listener.http_cache.invalidation:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\InvalidationListener
         arguments:

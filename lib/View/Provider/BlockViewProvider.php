@@ -3,8 +3,6 @@
 namespace Netgen\BlockManager\View\Provider;
 
 use Netgen\BlockManager\API\Values\Block\Block as APIBlock;
-use Netgen\BlockManager\Block\TwigBlockDefinitionInterface;
-use Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate;
 use Netgen\BlockManager\View\View\BlockView;
 use Netgen\BlockManager\View\View\BlockView\Block;
 
@@ -26,19 +24,11 @@ class BlockViewProvider implements ViewProviderInterface
 
         $block = new Block($valueObject, $dynamicParameters);
 
-        $viewParameters = array(
-            'block' => $block,
+        return new BlockView(
+            array(
+                'block' => $block,
+            )
         );
-
-        if ($blockDefinition instanceof TwigBlockDefinitionInterface) {
-            $viewParameters['twig_content'] = $this->getTwigBlockContent(
-                $blockDefinition,
-                $block,
-                $parameters
-            );
-        }
-
-        return new BlockView($viewParameters);
     }
 
     /**
@@ -51,32 +41,5 @@ class BlockViewProvider implements ViewProviderInterface
     public function supports($valueObject)
     {
         return $valueObject instanceof APIBlock;
-    }
-
-    /**
-     * Returns the Twig block content from the provided block.
-     *
-     * @param \Netgen\BlockManager\Block\TwigBlockDefinitionInterface $blockDefinition
-     * @param \Netgen\BlockManager\View\View\BlockView\Block $block
-     * @param array $parameters
-     *
-     * @return string
-     */
-    protected function getTwigBlockContent(
-        TwigBlockDefinitionInterface $blockDefinition,
-        Block $block,
-        array $parameters = array()
-    ) {
-        if (!isset($parameters['twig_template'])) {
-            return '';
-        }
-
-        if (!$parameters['twig_template'] instanceof ContextualizedTwigTemplate) {
-            return '';
-        }
-
-        return $parameters['twig_template']->renderBlock(
-            $blockDefinition->getTwigBlockName($block)
-        );
     }
 }

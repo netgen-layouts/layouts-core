@@ -58,7 +58,7 @@ class GetCollectionResultsListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return array(BlockManagerEvents::BUILD_VIEW => 'onBuildView');
+        return array(BlockManagerEvents::RENDER_VIEW => 'onRenderView');
     }
 
     /**
@@ -66,7 +66,7 @@ class GetCollectionResultsListener implements EventSubscriberInterface
      *
      * @param \Netgen\BlockManager\Event\CollectViewParametersEvent $event
      */
-    public function onBuildView(CollectViewParametersEvent $event)
+    public function onRenderView(CollectViewParametersEvent $event)
     {
         $view = $event->getView();
         if (!$view instanceof BlockViewInterface) {

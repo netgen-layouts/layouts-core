@@ -56,16 +56,16 @@ class GetCollectionResultsListenerTest extends TestCase
     public function testGetSubscribedEvents()
     {
         $this->assertEquals(
-            array(BlockManagerEvents::BUILD_VIEW => 'onBuildView'),
+            array(BlockManagerEvents::RENDER_VIEW => 'onRenderView'),
             $this->listener->getSubscribedEvents()
         );
     }
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::__construct
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::onBuildView
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::onRenderView
      */
-    public function testOnBuildView()
+    public function testOnRenderView()
     {
         $collectionReference1 = new CollectionReference(
             array(
@@ -117,7 +117,7 @@ class GetCollectionResultsListenerTest extends TestCase
             )
             ->will($this->returnValue(new ResultSet(array('collection' => new Collection()))));
 
-        $this->listener->onBuildView($event);
+        $this->listener->onRenderView($event);
 
         $this->assertEquals(
             array(
@@ -131,9 +131,9 @@ class GetCollectionResultsListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::onBuildView
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::onRenderView
      */
-    public function testOnBuildViewWithEmptyLimit()
+    public function testOnRenderViewWithEmptyLimit()
     {
         $collectionReference = new CollectionReference(
             array(
@@ -165,7 +165,7 @@ class GetCollectionResultsListenerTest extends TestCase
             )
             ->will($this->returnValue(new ResultSet(array('collection' => new Collection()))));
 
-        $this->listener->onBuildView($event);
+        $this->listener->onRenderView($event);
 
         $this->assertEquals(
             array(
@@ -178,9 +178,9 @@ class GetCollectionResultsListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::onBuildView
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::onRenderView
      */
-    public function testOnBuildViewWithTooLargeLimit()
+    public function testOnRenderViewWithTooLargeLimit()
     {
         $collectionReference = new CollectionReference(
             array(
@@ -212,7 +212,7 @@ class GetCollectionResultsListenerTest extends TestCase
             )
             ->will($this->returnValue(new ResultSet(array('collection' => new Collection()))));
 
-        $this->listener->onBuildView($event);
+        $this->listener->onRenderView($event);
 
         $this->assertEquals(
             array(
@@ -226,28 +226,28 @@ class GetCollectionResultsListenerTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::__construct
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::onBuildView
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::onRenderView
      */
-    public function testOnBuildViewWithNoBlockView()
+    public function testOnRenderViewWithNoBlockView()
     {
         $view = new View(array('value' => new Value()));
         $event = new CollectViewParametersEvent($view);
-        $this->listener->onBuildView($event);
+        $this->listener->onRenderView($event);
 
         $this->assertEquals(array(), $event->getParameters());
     }
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::__construct
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::onBuildView
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::onRenderView
      */
-    public function testOnBuildViewWithWrongContext()
+    public function testOnRenderViewWithWrongContext()
     {
         $view = new BlockView(array('block' => new Block()));
         $view->setContext(ViewInterface::CONTEXT_API);
         $event = new CollectViewParametersEvent($view);
 
-        $this->listener->onBuildView($event);
+        $this->listener->onRenderView($event);
 
         $this->assertEquals(array(), $event->getParameters());
     }

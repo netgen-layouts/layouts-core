@@ -2,6 +2,9 @@
 
 namespace Netgen\BlockManager\View;
 
+use Netgen\BlockManager\Event\BlockManagerEvents;
+use Netgen\BlockManager\Event\CollectViewParametersEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Twig_Environment;
 
 class Renderer implements RendererInterface
@@ -12,6 +15,11 @@ class Renderer implements RendererInterface
     protected $viewBuilder;
 
     /**
+     * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
+     */
+    protected $eventDispatcher;
+
+    /**
      * @var \Twig_Environment
      */
     protected $twig;
@@ -20,11 +28,16 @@ class Renderer implements RendererInterface
      * Constructor.
      *
      * @param \Netgen\BlockManager\View\ViewBuilderInterface $viewBuilder
+     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
      * @param \Twig_Environment $twig
      */
-    public function __construct(ViewBuilderInterface $viewBuilder, Twig_Environment $twig)
-    {
+    public function __construct(
+        ViewBuilderInterface $viewBuilder,
+        EventDispatcherInterface $eventDispatcher,
+        Twig_Environment $twig
+    ) {
         $this->viewBuilder = $viewBuilder;
+        $this->eventDispatcher = $eventDispatcher;
         $this->twig = $twig;
     }
 
@@ -53,6 +66,10 @@ class Renderer implements RendererInterface
      */
     public function renderView(ViewInterface $view)
     {
+        $event = new CollectViewParametersEvent($view);
+        $this->eventDispatcher->dispatch(BlockManagerEvents::RENDER_VIEW, $event);
+        $view->addParameters($event->getParameters());
+
         return $this->twig->render($view->getTemplate(), $view->getParameters());
     }
 }
