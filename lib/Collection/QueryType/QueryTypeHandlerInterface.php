@@ -7,6 +7,8 @@ use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 
 interface QueryTypeHandlerInterface
 {
+    const GROUP_ADVANCED = 'advanced';
+
     /**
      * Builds the parameters by using provided parameter builder.
      *

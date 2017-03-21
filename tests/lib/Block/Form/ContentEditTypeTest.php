@@ -10,6 +10,7 @@ use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Block\Form\ContentEditType;
 use Netgen\BlockManager\Core\Values\Block\Block;
+use Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension;
 use Netgen\BlockManager\Parameters\Form\Mapper\TextLineMapper;
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
 use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
@@ -94,6 +95,14 @@ class ContentEditTypeTest extends FormTestCase
     public function getMainType()
     {
         return new ContentEditType();
+    }
+
+    /**
+     * @return \Symfony\Component\Form\FormTypeExtensionInterface[]
+     */
+    public function getTypeExtensions()
+    {
+        return array(new ParametersTypeExtension());
     }
 
     /**

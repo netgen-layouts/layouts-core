@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Block\Form;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Block\Form\FullEditType;
 use Netgen\BlockManager\Core\Values\Block\Block;
+use Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension;
 use Netgen\BlockManager\Parameters\Form\Mapper\TextLineMapper;
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
 use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
@@ -40,6 +41,14 @@ class FullEditTypeTest extends FormTestCase
     public function getMainType()
     {
         return new FullEditType();
+    }
+
+    /**
+     * @return \Symfony\Component\Form\FormTypeExtensionInterface[]
+     */
+    public function getTypeExtensions()
+    {
+        return array(new ParametersTypeExtension());
     }
 
     /**

@@ -55,8 +55,13 @@ abstract class FormTestCase extends TestCase
         $this->factory = Forms::createFormFactoryBuilder()
             ->addType($this->formType)
             ->addTypes($this->getTypes())
-            ->addTypeExtension(new FormTypeValidatorExtension($this->validatorMock))
-            ->getFormFactory();
+            ->addTypeExtension(new FormTypeValidatorExtension($this->validatorMock));
+
+        foreach ($this->getTypeExtensions() as $typeExtension) {
+            $this->factory->addTypeExtension($typeExtension);
+        }
+
+        $this->factory = $this->factory->getFormFactory();
 
         $this->dispatcher = $this->createMock(EventDispatcherInterface::class);
         $this->builder = new FormBuilder(null, null, $this->dispatcher, $this->factory);
@@ -66,6 +71,14 @@ abstract class FormTestCase extends TestCase
      * @return \Symfony\Component\Form\FormTypeInterface
      */
     abstract public function getMainType();
+
+    /**
+     * @return \Symfony\Component\Form\FormTypeExtensionInterface[]
+     */
+    public function getTypeExtensions()
+    {
+        return array();
+    }
 
     /**
      * @return \Symfony\Component\Form\FormTypeInterface[]

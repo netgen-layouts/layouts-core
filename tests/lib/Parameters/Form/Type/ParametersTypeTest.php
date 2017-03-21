@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Parameters\Form\Type;
 
 use Netgen\BlockManager\API\Values\ParameterStruct;
+use Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension;
 use Netgen\BlockManager\Parameters\Form\Mapper\Compound\BooleanMapper;
 use Netgen\BlockManager\Parameters\Form\Mapper\TextLineMapper;
 use Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType;
@@ -29,6 +30,14 @@ class ParametersTypeTest extends FormTestCase
         $formMapperRegistry->addFormMapper('compound_boolean', new BooleanMapper());
 
         return new ParametersType($formMapperRegistry);
+    }
+
+    /**
+     * @return \Symfony\Component\Form\FormTypeExtensionInterface[]
+     */
+    public function getTypeExtensions()
+    {
+        return array(new ParametersTypeExtension());
     }
 
     /**
@@ -171,6 +180,7 @@ class ParametersTypeTest extends FormTestCase
                     array(
                         'name' => 'excluded',
                         'type' => new ParameterType\TextLineType(),
+                        'groups' => array('excluded'),
                     )
                 ),
                 'css_id' => new Parameter(

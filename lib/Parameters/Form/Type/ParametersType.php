@@ -80,6 +80,7 @@ class ParametersType extends AbstractType
                     $options['label_prefix'] . '.' . $parameterName :
                     $parameterLabel,
                 'property_path' => $options['property_path'] . '[' . $parameterName . ']',
+                'ngbm_parameter' => $parameter,
             );
 
             $parameterForm = $builder->create(
@@ -117,7 +118,7 @@ class ParametersType extends AbstractType
     {
         $parameterGroups = $parameter->getGroups();
 
-        if (empty($parameterGroups) && empty($groups)) {
+        if (empty($parameterGroups) || empty($groups)) {
             return true;
         }
 

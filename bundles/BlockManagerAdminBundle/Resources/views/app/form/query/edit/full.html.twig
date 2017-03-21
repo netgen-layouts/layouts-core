@@ -1,5 +1,29 @@
 {% extends 'NetgenBlockManagerAdminBundle:form:form.html.twig' %}
 
+{% trans_default_domain 'ngbm_forms' %}
+
 {% block children %}
-    {{ form_row(form.parameters) }}
+    {% set has_advanced_params = false %}
+
+    {% for child in form.parameters %}
+        {% if 'advanced' not in child.vars.ngbm_parameter.groups %}
+            {{ form_row(child) }}
+        {% elseif not has_advanced_params %}
+            {% set has_advanced_params = true %}
+        {% endif %}
+    {% endfor %}
+
+    {% if has_advanced_params %}
+        <a class="toggle-link sub-toggle" role="button" data-toggle="collapse" href="#collapseAdvanced" aria-expanded="true" aria-controls="collapseAdvanced">
+            {{ 'query.advanced_options'|trans }}
+        </a>
+
+        <div class="collapse in" id="collapseAdvanced">
+    {% endif %}
+
+    {{ form_rest(form.parameters) }}
+
+    {% if has_advanced_params %}
+        </div>
+    {% endif %}
 {% endblock %}
