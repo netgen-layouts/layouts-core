@@ -112,9 +112,6 @@ class HttpCacheNode implements ConfigurationNodeInterface
         $node
             ->addDefaultsIfNotSet()
             ->children()
-                ->integerNode('max_age')
-                    ->min(0)
-                ->end()
                 ->integerNode('shared_max_age')
                     ->min(0)
                 ->end()

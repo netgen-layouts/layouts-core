@@ -12,11 +12,6 @@ trait CacheableViewTrait
     /**
      * @var int
      */
-    protected $maxAge;
-
-    /**
-     * @var int
-     */
     protected $sharedMaxAge;
 
     /**
@@ -42,26 +37,6 @@ trait CacheableViewTrait
     public function setIsCacheable($isCacheable)
     {
         $this->isCacheable = (bool) $isCacheable;
-    }
-
-    /**
-     * Returns the max age.
-     *
-     * @return int
-     */
-    public function getMaxAge()
-    {
-        return $this->maxAge;
-    }
-
-    /**
-     * Sets the max age.
-     *
-     * @param int $maxAge
-     */
-    public function setMaxAge($maxAge)
-    {
-        $this->maxAge = (int) $maxAge;
     }
 
     /**

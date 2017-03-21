@@ -19,20 +19,6 @@ interface CacheableViewInterface extends ViewInterface
     public function setIsCacheable($isCacheable);
 
     /**
-     * Returns the max age.
-     *
-     * @return int
-     */
-    public function getMaxAge();
-
-    /**
-     * Sets the max age.
-     *
-     * @param int $maxAge
-     */
-    public function setMaxAge($maxAge);
-
-    /**
      * Returns the shared max age.
      *
      * @return int

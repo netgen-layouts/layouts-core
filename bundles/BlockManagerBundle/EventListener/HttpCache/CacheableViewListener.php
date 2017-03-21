@@ -69,16 +69,7 @@ class CacheableViewListener implements EventSubscriberInterface
             return;
         }
 
-        $overwriteHeaders = $cacheableView->overwriteHeaders();
-
-        if (!$response->headers->hasCacheControlDirective('max-age') || $overwriteHeaders) {
-            $maxAge = (int) $cacheableView->getMaxAge();
-            if ($maxAge > 0) {
-                $response->setMaxAge($maxAge);
-            }
-        }
-
-        if (!$response->headers->hasCacheControlDirective('s-maxage') || $overwriteHeaders) {
+        if (!$response->headers->hasCacheControlDirective('s-maxage') || $cacheableView->overwriteHeaders()) {
             $sharedMaxAge = (int) $cacheableView->getSharedMaxAge();
             if ($sharedMaxAge > 0) {
                 $response->setSharedMaxAge($sharedMaxAge);

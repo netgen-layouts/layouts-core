@@ -50,7 +50,6 @@ class CacheableViewListenerTest extends TestCase
 
         $blockView = new BlockView();
         $blockView->setSharedMaxAge(42);
-        $blockView->setMaxAge(24);
 
         $event = new GetResponseForControllerResultEvent(
             $kernelMock,
@@ -76,7 +75,6 @@ class CacheableViewListenerTest extends TestCase
         $blockView = new BlockView();
         $blockView->setIsCacheable(false);
         $blockView->setSharedMaxAge(42);
-        $blockView->setMaxAge(24);
 
         $event = new GetResponseForControllerResultEvent(
             $kernelMock,
@@ -102,11 +100,9 @@ class CacheableViewListenerTest extends TestCase
         $blockView = new BlockView();
 
         $blockView->getResponse()->setSharedMaxAge(41);
-        $blockView->getResponse()->setMaxAge(23);
 
         $blockView->setOverwriteHeaders(true);
         $blockView->setSharedMaxAge(42);
-        $blockView->setMaxAge(24);
 
         $event = new GetResponseForControllerResultEvent(
             $kernelMock,
@@ -132,10 +128,8 @@ class CacheableViewListenerTest extends TestCase
         $blockView = new BlockView();
 
         $blockView->getResponse()->setSharedMaxAge(41);
-        $blockView->getResponse()->setMaxAge(23);
 
         $blockView->setSharedMaxAge(42);
-        $blockView->setMaxAge(24);
 
         $event = new GetResponseForControllerResultEvent(
             $kernelMock,
@@ -159,7 +153,6 @@ class CacheableViewListenerTest extends TestCase
 
         $blockView = new BlockView();
         $blockView->setSharedMaxAge(42);
-        $blockView->setMaxAge(24);
 
         $event = new GetResponseForControllerResultEvent(
             $kernelMock,
@@ -204,7 +197,6 @@ class CacheableViewListenerTest extends TestCase
 
         $layoutView = new LayoutView();
         $layoutView->setSharedMaxAge(42);
-        $layoutView->setMaxAge(24);
 
         $request->attributes->set('layoutView', $layoutView);
 
@@ -232,7 +224,6 @@ class CacheableViewListenerTest extends TestCase
         $layoutView = new LayoutView();
         $layoutView->setIsCacheable(false);
         $layoutView->setSharedMaxAge(42);
-        $layoutView->setMaxAge(24);
 
         $request->attributes->set('layoutView', $layoutView);
 
@@ -260,13 +251,11 @@ class CacheableViewListenerTest extends TestCase
         $layoutView = new LayoutView();
         $layoutView->setOverwriteHeaders(true);
         $layoutView->setSharedMaxAge(42);
-        $layoutView->setMaxAge(24);
 
         $request->attributes->set('layoutView', $layoutView);
 
         $response = new Response();
         $response->setSharedMaxAge(41);
-        $response->setMaxAge(23);
 
         $event = new FilterResponseEvent(
             $kernelMock,
@@ -291,13 +280,11 @@ class CacheableViewListenerTest extends TestCase
 
         $layoutView = new LayoutView();
         $layoutView->setSharedMaxAge(42);
-        $layoutView->setMaxAge(24);
 
         $request->attributes->set('layoutView', $layoutView);
 
         $response = new Response();
         $response->setSharedMaxAge(41);
-        $response->setMaxAge(23);
 
         $event = new FilterResponseEvent(
             $kernelMock,
@@ -321,7 +308,6 @@ class CacheableViewListenerTest extends TestCase
 
         $layoutView = new LayoutView();
         $layoutView->setSharedMaxAge(42);
-        $layoutView->setMaxAge(24);
 
         $request->attributes->set('layoutView', $layoutView);
 

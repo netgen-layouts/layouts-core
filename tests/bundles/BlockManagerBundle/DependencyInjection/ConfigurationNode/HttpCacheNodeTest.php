@@ -60,7 +60,6 @@ class HttpCacheNodeTest extends TestCase
                     'ttl' => array(
                         'default' => array(
                             'block' => array(
-                                'max_age' => 24,
                                 'shared_max_age' => 42,
                                 'overwrite_headers' => true,
                             ),
@@ -75,7 +74,6 @@ class HttpCacheNodeTest extends TestCase
                 'ttl' => array(
                     'default' => array(
                         'block' => array(
-                            'max_age' => 24,
                             'shared_max_age' => 42,
                             'overwrite_headers' => true,
                         ),
@@ -105,7 +103,6 @@ class HttpCacheNodeTest extends TestCase
                     'ttl' => array(
                         'block_definition' => array(
                             'block' => array(
-                                'max_age' => 24,
                                 'shared_max_age' => 42,
                                 'overwrite_headers' => true,
                             ),
@@ -120,7 +117,6 @@ class HttpCacheNodeTest extends TestCase
                 'ttl' => array(
                     'block_definition' => array(
                         'block' => array(
-                            'max_age' => 24,
                             'shared_max_age' => 42,
                             'overwrite_headers' => true,
                         ),
@@ -150,7 +146,6 @@ class HttpCacheNodeTest extends TestCase
                     'ttl' => array(
                         'default' => array(
                             'layout' => array(
-                                'max_age' => 24,
                                 'shared_max_age' => 42,
                                 'overwrite_headers' => true,
                             ),
@@ -165,7 +160,6 @@ class HttpCacheNodeTest extends TestCase
                 'ttl' => array(
                     'default' => array(
                         'layout' => array(
-                            'max_age' => 24,
                             'shared_max_age' => 42,
                             'overwrite_headers' => true,
                         ),
@@ -195,7 +189,6 @@ class HttpCacheNodeTest extends TestCase
                     'ttl' => array(
                         'layout_type' => array(
                             'layout' => array(
-                                'max_age' => 24,
                                 'shared_max_age' => 42,
                                 'overwrite_headers' => true,
                             ),
@@ -210,7 +203,6 @@ class HttpCacheNodeTest extends TestCase
                 'ttl' => array(
                     'layout_type' => array(
                         'layout' => array(
-                            'max_age' => 24,
                             'shared_max_age' => 42,
                             'overwrite_headers' => true,
                         ),
@@ -320,28 +312,6 @@ class HttpCacheNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\HttpCacheNode::getConfigurationNode
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\HttpCacheNode::configureTtlNode
      */
-    public function testDefaultBlockTtlSettingsWithInvalidMaxAge()
-    {
-        $config = array(
-            'http_cache' => array(
-                'ttl' => array(
-                    'default' => array(
-                        'block' => array(
-                            'max_age' => 'invalid',
-                        ),
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\HttpCacheNode::getConfigurationNode
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\HttpCacheNode::configureTtlNode
-     */
     public function testDefaultBlockTtlSettingsWithInvalidSharedMaxAge()
     {
         $config = array(
@@ -372,28 +342,6 @@ class HttpCacheNodeTest extends TestCase
                     'default' => array(
                         'block' => array(
                             'overwrite_headers' => 'invalid',
-                        ),
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\HttpCacheNode::getConfigurationNode
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\HttpCacheNode::configureTtlNode
-     */
-    public function testDefaultLayoutTtlSettingsWithInvalidMaxAge()
-    {
-        $config = array(
-            'http_cache' => array(
-                'ttl' => array(
-                    'default' => array(
-                        'layout' => array(
-                            'max_age' => 'invalid',
                         ),
                     ),
                 ),
@@ -452,28 +400,6 @@ class HttpCacheNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\HttpCacheNode::getConfigurationNode
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\HttpCacheNode::configureTtlNode
      */
-    public function testLayoutTypeTtlSettingsWithInvalidMaxAge()
-    {
-        $config = array(
-            'http_cache' => array(
-                'ttl' => array(
-                    'default' => array(
-                        'layout' => array(
-                            'max_age' => 'invalid',
-                        ),
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\HttpCacheNode::getConfigurationNode
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\HttpCacheNode::configureTtlNode
-     */
     public function testLayoutTypeTtlSettingsWithInvalidSharedMaxAge()
     {
         $config = array(
@@ -504,28 +430,6 @@ class HttpCacheNodeTest extends TestCase
                     'default' => array(
                         'layout' => array(
                             'overwrite_headers' => 'invalid',
-                        ),
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\HttpCacheNode::getConfigurationNode
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\HttpCacheNode::configureTtlNode
-     */
-    public function testBlockDefinitionTtlSettingsWithInvalidMaxAge()
-    {
-        $config = array(
-            'http_cache' => array(
-                'ttl' => array(
-                    'default' => array(
-                        'layout' => array(
-                            'max_age' => 'invalid',
                         ),
                     ),
                 ),
