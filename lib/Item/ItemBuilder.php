@@ -18,10 +18,6 @@ class ItemBuilder implements ItemBuilderInterface
      */
     public function __construct(array $valueConverters = array())
     {
-        if (empty($valueConverters)) {
-            throw new RuntimeException('At least one value converter needs to be defined.');
-        }
-
         foreach ($valueConverters as $valueConverter) {
             if (!$valueConverter instanceof ValueConverterInterface) {
                 throw new RuntimeException(

@@ -15,16 +15,6 @@ class ItemBuilderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Item\ItemBuilder::__construct
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage At least one value converter needs to be defined.
-     */
-    public function testConstructorThrowsRuntimeExceptionWithNoValueConverters()
-    {
-        new ItemBuilder();
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Item\ItemBuilder::__construct
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Value converter "stdClass" needs to implement ValueConverterInterface.
      */
     public function testConstructorThrowsRuntimeExceptionWithWrongInterface()
