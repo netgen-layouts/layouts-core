@@ -25,19 +25,14 @@ class TaggerTest extends TestCase
     public function testTag()
     {
         $response = new Response();
-        $block = new Block(array('id' => 42));
+        $block = new Block(array('id' => 42, 'layoutId' => 24));
 
         $this->tagger->tag($response, $block);
 
         $this->assertTrue($response->headers->has('X-Block-Id'));
         $this->assertEquals(42, $response->headers->get('X-Block-Id'));
-    }
 
-    /**
-     * @covers \Netgen\BlockManager\HttpCache\Block\Strategy\Ban\Tagger::tag
-     */
-    public function testTagWhenDependantOnLayout()
-    {
-        $this->markTestIncomplete('Test for block tagger with dependency on layout is not implemented yet.');
+        $this->assertTrue($response->headers->has('X-Origin-Layout-Id'));
+        $this->assertEquals(24, $response->headers->get('X-Origin-Layout-Id'));
     }
 }

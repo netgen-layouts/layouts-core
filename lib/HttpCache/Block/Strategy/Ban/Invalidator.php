@@ -41,6 +41,24 @@ class Invalidator implements InvalidatorInterface
     }
 
     /**
+     * Invalidates all blocks in provided layouts.
+     *
+     * @param int[]|string[] $layoutIds
+     */
+    public function invalidateLayoutBlocks(array $layoutIds)
+    {
+        if (empty($layoutIds)) {
+            return;
+        }
+
+        $this->cacheManager->invalidate(
+            array(
+                'X-Origin-Layout-Id' => '^(' . implode('|', $layoutIds) . ')$',
+            )
+        );
+    }
+
+    /**
      * Invalidates all blocks.
      */
     public function invalidateAll()

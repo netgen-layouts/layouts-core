@@ -12,6 +12,13 @@ interface InvalidatorInterface
     public function invalidate(array $blockIds);
 
     /**
+     * Invalidates all blocks in provided layouts.
+     *
+     * @param int[]|string[] $layoutIds
+     */
+    public function invalidateLayoutBlocks(array $layoutIds);
+
+    /**
      * Invalidates all blocks.
      */
     public function invalidateAll();

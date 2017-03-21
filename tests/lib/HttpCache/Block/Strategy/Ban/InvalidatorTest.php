@@ -58,6 +58,37 @@ class InvalidatorTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\HttpCache\Block\Strategy\Ban\Invalidator::invalidateLayoutBlocks
+     */
+    public function testInvalidateLayoutBlocks()
+    {
+        $this->cacheManagerMock
+            ->expects($this->once())
+            ->method('invalidate')
+            ->with(
+                $this->equalTo(
+                    array(
+                        'X-Origin-Layout-Id' => '^(24|42)$',
+                    )
+                )
+            );
+
+        $this->invalidator->invalidateLayoutBlocks(array(24, 42));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\HttpCache\Block\Strategy\Ban\Invalidator::invalidateLayoutBlocks
+     */
+    public function testInvalidateLayoutBlocksWithEmptyLayoutIds()
+    {
+        $this->cacheManagerMock
+            ->expects($this->never())
+            ->method('invalidate');
+
+        $this->invalidator->invalidateLayoutBlocks(array());
+    }
+
+    /**
      * @covers \Netgen\BlockManager\HttpCache\Block\Strategy\Ban\Invalidator::invalidateAll
      */
     public function testInvalidateAll()

@@ -17,7 +17,6 @@ class Tagger implements TaggerInterface
     public function tag(Response $response, Block $block)
     {
         $response->headers->set('X-Block-Id', $block->getId());
-
-        // @todo: Tag with X-Layout-Id if configured
+        $response->headers->set('X-Origin-Layout-Id', $block->getLayoutId());
     }
 }

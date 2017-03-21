@@ -72,6 +72,19 @@ class ClientTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\HttpCache\Client::invalidateLayoutBlocks
+     */
+    public function testInvalidateLayoutBlocks()
+    {
+        $this->blockInvalidatorMock
+            ->expects($this->once())
+            ->method('invalidateLayoutBlocks')
+            ->with($this->equalTo(array(24, 42)));
+
+        $this->client->invalidateLayoutBlocks(array(24, 42));
+    }
+
+    /**
      * @covers \Netgen\BlockManager\HttpCache\Client::invalidateAllBlocks
      */
     public function testInvalidateAllBlocks()
