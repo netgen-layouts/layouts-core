@@ -2,11 +2,6 @@
 
 namespace Netgen\BlockManager\View;
 
-use Netgen\BlockManager\Event\BlockManagerEvents;
-use Netgen\BlockManager\Event\CollectViewParametersEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Twig_Environment;
-
 class Renderer implements RendererInterface
 {
     /**
@@ -15,30 +10,22 @@ class Renderer implements RendererInterface
     protected $viewBuilder;
 
     /**
-     * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
+     * @var \Netgen\BlockManager\View\ViewRendererInterface
      */
-    protected $eventDispatcher;
-
-    /**
-     * @var \Twig_Environment
-     */
-    protected $twig;
+    protected $viewRenderer;
 
     /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\View\ViewBuilderInterface $viewBuilder
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     * @param \Twig_Environment $twig
+     * @param \Netgen\BlockManager\View\ViewRendererInterface $viewRenderer
      */
     public function __construct(
         ViewBuilderInterface $viewBuilder,
-        EventDispatcherInterface $eventDispatcher,
-        Twig_Environment $twig
+        ViewRendererInterface $viewRenderer
     ) {
         $this->viewBuilder = $viewBuilder;
-        $this->eventDispatcher = $eventDispatcher;
-        $this->twig = $twig;
+        $this->viewRenderer = $viewRenderer;
     }
 
     /**
@@ -52,24 +39,8 @@ class Renderer implements RendererInterface
      */
     public function renderValueObject($valueObject, $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = array())
     {
-        return $this->renderView(
+        return $this->viewRenderer->renderView(
             $this->viewBuilder->buildView($valueObject, $context, $parameters)
         );
-    }
-
-    /**
-     * Renders the view.
-     *
-     * @param \Netgen\BlockManager\View\ViewInterface $view
-     *
-     * @return string
-     */
-    public function renderView(ViewInterface $view)
-    {
-        $event = new CollectViewParametersEvent($view);
-        $this->eventDispatcher->dispatch(BlockManagerEvents::RENDER_VIEW, $event);
-        $view->addParameters($event->getParameters());
-
-        return $this->twig->render($view->getTemplate(), $view->getParameters());
     }
 }

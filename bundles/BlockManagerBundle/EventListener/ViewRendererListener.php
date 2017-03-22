@@ -2,8 +2,8 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 
-use Netgen\BlockManager\View\RendererInterface;
 use Netgen\BlockManager\View\ViewInterface;
+use Netgen\BlockManager\View\ViewRendererInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -11,16 +11,16 @@ use Symfony\Component\HttpKernel\KernelEvents;
 class ViewRendererListener implements EventSubscriberInterface
 {
     /**
-     * @var \Netgen\BlockManager\View\RendererInterface
+     * @var \Netgen\BlockManager\View\ViewRendererInterface
      */
     protected $viewRenderer;
 
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\View\RendererInterface $viewRenderer
+     * @param \Netgen\BlockManager\View\ViewRendererInterface $viewRenderer
      */
-    public function __construct(RendererInterface $viewRenderer)
+    public function __construct(ViewRendererInterface $viewRenderer)
     {
         $this->viewRenderer = $viewRenderer;
     }

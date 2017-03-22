@@ -8,7 +8,7 @@ services:
             - "@netgen_block_manager.configuration"
             - "@netgen_block_manager.layout.resolver"
             - "@netgen_block_manager.templating.pagelayout_resolver"
-            - "@netgen_block_manager.view.builder"
+            - "@netgen_block_manager.view.view_builder"
         calls:
             - [setRequestStack, ["@request_stack"]]
 
@@ -17,11 +17,7 @@ services:
         arguments:
             - "@netgen_block_manager.api.service.block"
             - "@netgen_block_manager.templating.global_variable"
-            - "@netgen_block_manager.view.builder"
-            - "@netgen_block_manager.view.renderer"
-            - "@netgen_block_manager.http_cache.block.cacheable_resolver"
-            - "@fragment.handler"
-            - "%netgen_block_manager.controller.block_controller%"
+            - "@netgen_block_manager.view.renderer.fragment"
             - "@?logger"
         calls:
             - [setDebug, ["%kernel.debug%"]]

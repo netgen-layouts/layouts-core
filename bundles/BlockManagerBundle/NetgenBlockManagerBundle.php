@@ -23,6 +23,7 @@ class NetgenBlockManagerBundle extends Bundle
         $container->addCompilerPass(new CompilerPass\LayoutResolver\Form\TargetTypePass());
         $container->addCompilerPass(new CompilerPass\View\TemplateResolverPass());
         $container->addCompilerPass(new CompilerPass\View\ViewBuilderPass());
+        $container->addCompilerPass(new CompilerPass\View\FragmentRendererPass());
         $container->addCompilerPass(new CompilerPass\View\DefaultViewTemplatesPass());
         $container->addCompilerPass(new CompilerPass\Parameters\FormMapperRegistryPass());
         $container->addCompilerPass(new CompilerPass\Parameters\ParameterFilterRegistryPass());

@@ -28,7 +28,7 @@ services:
     netgen_block_manager.event_listener.view_renderer:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\ViewRendererListener
         arguments:
-            - "@netgen_block_manager.view.renderer"
+            - "@netgen_block_manager.view.view_renderer"
         tags:
             - { name: kernel.event_subscriber }
 

@@ -7,18 +7,14 @@ use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate;
-use Netgen\BlockManager\View\View\BlockView;
-use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
 use Twig_SimpleFunction;
 use Twig_TokenParser;
 
@@ -37,22 +33,7 @@ class RenderingExtensionTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $viewBuilderMock;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $viewRendererMock;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $fragmentHandlerMock;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $cacheableResolverMock;
+    protected $rendererMock;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension
@@ -63,19 +44,12 @@ class RenderingExtensionTest extends TestCase
     {
         $this->blockServiceMock = $this->createMock(BlockService::class);
         $this->globalVariableMock = $this->createMock(GlobalVariable::class);
-        $this->viewBuilderMock = $this->createMock(ViewBuilderInterface::class);
-        $this->viewRendererMock = $this->createMock(RendererInterface::class);
-        $this->fragmentHandlerMock = $this->createMock(FragmentHandler::class);
-        $this->cacheableResolverMock = $this->createMock(CacheableResolverInterface::class);
+        $this->rendererMock = $this->createMock(RendererInterface::class);
 
         $this->extension = new RenderingExtension(
             $this->blockServiceMock,
             $this->globalVariableMock,
-            $this->viewBuilderMock,
-            $this->viewRendererMock,
-            $this->cacheableResolverMock,
-            $this->fragmentHandlerMock,
-            'ngbm_block:viewBlockById'
+            $this->rendererMock
         );
     }
 
@@ -132,14 +106,9 @@ class RenderingExtensionTest extends TestCase
      */
     public function testRenderBlock()
     {
-        $this->cacheableResolverMock
-            ->expects($this->any())
-            ->method('isCacheable')
-            ->will($this->returnValue(false));
-
-        $this->viewBuilderMock
+        $this->rendererMock
             ->expects($this->once())
-            ->method('buildView')
+            ->method('renderValueObject')
             ->with(
                 $this->equalTo(new Block()),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
@@ -150,112 +119,10 @@ class RenderingExtensionTest extends TestCase
                     )
                 )
             )
-            ->will($this->returnValue(new BlockView()));
-
-        $this->viewRendererMock
-            ->expects($this->once())
-            ->method('renderView')
-            ->with($this->equalTo(new BlockView()))
             ->will($this->returnValue('rendered block'));
 
         $this->assertEquals(
             'rendered block',
-            $this->extension->renderBlock(
-                array(
-                    'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
-                ),
-                new Block(),
-                array('param' => 'value')
-            )
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderBlock
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getViewContext
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getTwigTemplate
-     */
-    public function testRenderCacheableBlockWithDisabledCache()
-    {
-        $this->cacheableResolverMock
-            ->expects($this->any())
-            ->method('isCacheable')
-            ->will($this->returnValue(true));
-
-        $blockView = new BlockView();
-        $blockView->setIsCacheable(false);
-
-        $this->viewBuilderMock
-            ->expects($this->once())
-            ->method('buildView')
-            ->with(
-                $this->equalTo(new Block()),
-                $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
-                $this->equalTo(
-                    array(
-                        'param' => 'value',
-                        'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
-                    )
-                )
-            )
-            ->will($this->returnValue($blockView));
-
-        $this->viewRendererMock
-            ->expects($this->once())
-            ->method('renderView')
-            ->with($this->equalTo($blockView))
-            ->will($this->returnValue('rendered block'));
-
-        $this->assertEquals(
-            'rendered block',
-            $this->extension->renderBlock(
-                array(
-                    'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
-                ),
-                new Block(),
-                array('param' => 'value')
-            )
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::renderBlock
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getViewContext
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getTwigTemplate
-     */
-    public function testRenderCacheableBlock()
-    {
-        $this->cacheableResolverMock
-            ->expects($this->any())
-            ->method('isCacheable')
-            ->will($this->returnValue(true));
-
-        $this->viewBuilderMock
-            ->expects($this->once())
-            ->method('buildView')
-            ->with(
-                $this->equalTo(new Block()),
-                $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
-                $this->equalTo(
-                    array(
-                        'param' => 'value',
-                        'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
-                    )
-                )
-            )
-            ->will($this->returnValue(new BlockView()));
-
-        $this->viewRendererMock
-            ->expects($this->never())
-            ->method('renderView');
-
-        $this->fragmentHandlerMock
-            ->expects($this->once())
-            ->method('render')
-            ->will($this->returnValue('esi rendered block'));
-
-        $this->assertEquals(
-            'esi rendered block',
             $this->extension->renderBlock(
                 array(
                     'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
@@ -273,14 +140,9 @@ class RenderingExtensionTest extends TestCase
      */
     public function testRenderBlockWithoutTwigTemplate()
     {
-        $this->cacheableResolverMock
-            ->expects($this->any())
-            ->method('isCacheable')
-            ->will($this->returnValue(false));
-
-        $this->viewBuilderMock
+        $this->rendererMock
             ->expects($this->once())
-            ->method('buildView')
+            ->method('renderValueObject')
             ->with(
                 $this->equalTo(new Block()),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
@@ -291,12 +153,6 @@ class RenderingExtensionTest extends TestCase
                     )
                 )
             )
-            ->will($this->returnValue(new BlockView()));
-
-        $this->viewRendererMock
-            ->expects($this->once())
-            ->method('renderView')
-            ->with($this->equalTo(new BlockView()))
             ->will($this->returnValue('rendered block'));
 
         $this->assertEquals(
@@ -316,14 +172,9 @@ class RenderingExtensionTest extends TestCase
      */
     public function testRenderBlockWithViewContext()
     {
-        $this->cacheableResolverMock
-            ->expects($this->any())
-            ->method('isCacheable')
-            ->will($this->returnValue(false));
-
-        $this->viewBuilderMock
+        $this->rendererMock
             ->expects($this->once())
-            ->method('buildView')
+            ->method('renderValueObject')
             ->with(
                 $this->equalTo(new Block()),
                 $this->equalTo(ViewInterface::CONTEXT_API),
@@ -334,12 +185,6 @@ class RenderingExtensionTest extends TestCase
                     )
                 )
             )
-            ->will($this->returnValue(new BlockView()));
-
-        $this->viewRendererMock
-            ->expects($this->once())
-            ->method('renderView')
-            ->with($this->equalTo(new BlockView()))
             ->will($this->returnValue('rendered block'));
 
         $this->assertEquals(
@@ -362,14 +207,9 @@ class RenderingExtensionTest extends TestCase
      */
     public function testRenderBlockWithViewContextFromTwigContext()
     {
-        $this->cacheableResolverMock
-            ->expects($this->any())
-            ->method('isCacheable')
-            ->will($this->returnValue(false));
-
-        $this->viewBuilderMock
+        $this->rendererMock
             ->expects($this->once())
-            ->method('buildView')
+            ->method('renderValueObject')
             ->with(
                 $this->equalTo(new Block()),
                 $this->equalTo(ViewInterface::CONTEXT_API),
@@ -380,12 +220,6 @@ class RenderingExtensionTest extends TestCase
                     )
                 )
             )
-            ->will($this->returnValue(new BlockView()));
-
-        $this->viewRendererMock
-            ->expects($this->once())
-            ->method('renderView')
-            ->with($this->equalTo(new BlockView()))
             ->will($this->returnValue('rendered block'));
 
         $this->assertEquals(
@@ -411,9 +245,9 @@ class RenderingExtensionTest extends TestCase
     {
         $block = new Block(array('definition' => new BlockDefinition('block')));
 
-        $this->viewBuilderMock
+        $this->rendererMock
             ->expects($this->once())
-            ->method('buildView')
+            ->method('renderValueObject')
             ->will($this->throwException(new Exception()));
 
         $renderedBlock = $this->extension->renderBlock(
@@ -440,9 +274,9 @@ class RenderingExtensionTest extends TestCase
         $this->extension->setDebug(true);
         $block = new Block(array('definition' => new BlockDefinition('block')));
 
-        $this->viewBuilderMock
+        $this->rendererMock
             ->expects($this->once())
-            ->method('buildView')
+            ->method('renderValueObject')
             ->will($this->throwException(new Exception('Test exception text')));
 
         $this->extension->renderBlock(
@@ -468,7 +302,7 @@ class RenderingExtensionTest extends TestCase
             )
         );
 
-        $this->viewRendererMock
+        $this->rendererMock
             ->expects($this->once())
             ->method('renderValueObject')
             ->with(
@@ -515,7 +349,7 @@ class RenderingExtensionTest extends TestCase
             )
         );
 
-        $this->viewRendererMock
+        $this->rendererMock
             ->expects($this->once())
             ->method('renderValueObject')
             ->with(
@@ -560,7 +394,7 @@ class RenderingExtensionTest extends TestCase
             )
         );
 
-        $this->viewRendererMock
+        $this->rendererMock
             ->expects($this->once())
             ->method('renderValueObject')
             ->with(
@@ -608,7 +442,7 @@ class RenderingExtensionTest extends TestCase
             )
         );
 
-        $this->viewRendererMock
+        $this->rendererMock
             ->expects($this->once())
             ->method('renderValueObject')
             ->with(
@@ -651,7 +485,7 @@ class RenderingExtensionTest extends TestCase
     {
         $block = new Block(array('placeholders' => array('main' => new Placeholder())));
 
-        $this->viewRendererMock
+        $this->rendererMock
             ->expects($this->once())
             ->method('renderValueObject')
             ->will($this->throwException(new Exception()));
@@ -681,7 +515,7 @@ class RenderingExtensionTest extends TestCase
         $this->extension->setDebug(true);
         $block = new Block(array('placeholders' => array('main' => new Placeholder())));
 
-        $this->viewRendererMock
+        $this->rendererMock
             ->expects($this->once())
             ->method('renderValueObject')
             ->will($this->throwException(new Exception('Test exception text')));
@@ -700,7 +534,7 @@ class RenderingExtensionTest extends TestCase
      */
     public function testRenderItem()
     {
-        $this->viewRendererMock
+        $this->rendererMock
             ->expects($this->once())
             ->method('renderValueObject')
             ->with(
@@ -726,7 +560,7 @@ class RenderingExtensionTest extends TestCase
      */
     public function testRenderItemWithViewContext()
     {
-        $this->viewRendererMock
+        $this->rendererMock
             ->expects($this->once())
             ->method('renderValueObject')
             ->with(
@@ -753,7 +587,7 @@ class RenderingExtensionTest extends TestCase
      */
     public function testRenderItemWithViewContextFromTwigContext()
     {
-        $this->viewRendererMock
+        $this->rendererMock
             ->expects($this->once())
             ->method('renderValueObject')
             ->with(
@@ -782,7 +616,7 @@ class RenderingExtensionTest extends TestCase
      */
     public function testRenderItemReturnsEmptyStringOnException()
     {
-        $this->viewRendererMock
+        $this->rendererMock
             ->expects($this->once())
             ->method('renderValueObject')
             ->with(
@@ -814,7 +648,7 @@ class RenderingExtensionTest extends TestCase
     {
         $this->extension->setDebug(true);
 
-        $this->viewRendererMock
+        $this->rendererMock
             ->expects($this->once())
             ->method('renderValueObject')
             ->with(
@@ -838,7 +672,7 @@ class RenderingExtensionTest extends TestCase
      */
     public function testRenderValueObject()
     {
-        $this->viewRendererMock
+        $this->rendererMock
             ->expects($this->once())
             ->method('renderValueObject')
             ->with(
@@ -864,7 +698,7 @@ class RenderingExtensionTest extends TestCase
      */
     public function testRenderValueObjectWithViewContext()
     {
-        $this->viewRendererMock
+        $this->rendererMock
             ->expects($this->once())
             ->method('renderValueObject')
             ->with(
@@ -891,7 +725,7 @@ class RenderingExtensionTest extends TestCase
      */
     public function testRenderValueObjectWithContextFromTwigContext()
     {
-        $this->viewRendererMock
+        $this->rendererMock
             ->expects($this->once())
             ->method('renderValueObject')
             ->with(
@@ -920,7 +754,7 @@ class RenderingExtensionTest extends TestCase
      */
     public function testRenderValueObjectReturnsEmptyStringOnException()
     {
-        $this->viewRendererMock
+        $this->rendererMock
             ->expects($this->once())
             ->method('renderValueObject')
             ->with(
@@ -952,7 +786,7 @@ class RenderingExtensionTest extends TestCase
     {
         $this->extension->setDebug(true);
 
-        $this->viewRendererMock
+        $this->rendererMock
             ->expects($this->once())
             ->method('renderValueObject')
             ->with(

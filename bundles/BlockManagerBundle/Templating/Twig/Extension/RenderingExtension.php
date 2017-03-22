@@ -6,18 +6,14 @@ use Exception;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface;
 use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate;
-use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
-use Symfony\Component\HttpKernel\Controller\ControllerReference;
-use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
 use Twig_Extension;
 use Twig_Extension_GlobalsInterface;
 use Twig_SimpleFunction;
@@ -35,34 +31,14 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
     protected $globalVariable;
 
     /**
-     * @var \Netgen\BlockManager\View\ViewBuilderInterface
-     */
-    protected $viewBuilder;
-
-    /**
      * @var \Netgen\BlockManager\View\RendererInterface
      */
-    protected $viewRenderer;
-
-    /**
-     * @var \Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface
-     */
-    protected $cacheableResolver;
-
-    /**
-     * @var \Symfony\Component\HttpKernel\Fragment\FragmentHandler
-     */
-    protected $fragmentHandler;
+    protected $renderer;
 
     /**
      * @var \Psr\Log\NullLogger
      */
     protected $logger;
-
-    /**
-     * @var string
-     */
-    protected $blockController;
 
     /**
      * @var bool
@@ -74,30 +50,18 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      *
      * @param \Netgen\BlockManager\API\Service\BlockService $blockService
      * @param \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable $globalVariable
-     * @param \Netgen\BlockManager\View\ViewBuilderInterface $viewBuilder
-     * @param \Netgen\BlockManager\View\RendererInterface $viewRenderer
-     * @param \Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface $cacheableResolver
-     * @param \Symfony\Component\HttpKernel\Fragment\FragmentHandler $fragmentHandler
-     * @param string $blockController
+     * @param \Netgen\BlockManager\View\RendererInterface $renderer
      * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
         BlockService $blockService,
         GlobalVariable $globalVariable,
-        ViewBuilderInterface $viewBuilder,
-        RendererInterface $viewRenderer,
-        CacheableResolverInterface $cacheableResolver,
-        FragmentHandler $fragmentHandler,
-        $blockController,
+        RendererInterface $renderer,
         LoggerInterface $logger = null
     ) {
         $this->blockService = $blockService;
         $this->globalVariable = $globalVariable;
-        $this->viewBuilder = $viewBuilder;
-        $this->viewRenderer = $viewRenderer;
-        $this->cacheableResolver = $cacheableResolver;
-        $this->fragmentHandler = $fragmentHandler;
-        $this->blockController = $blockController;
+        $this->renderer = $renderer;
         $this->logger = $logger ?: new NullLogger();
     }
 
@@ -260,7 +224,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
     public function renderValueObject(array $context, $valueObject, array $parameters = array(), $viewContext = null)
     {
         try {
-            return $this->viewRenderer->renderValueObject(
+            return $this->renderer->renderValueObject(
                 $valueObject,
                 $this->getViewContext($context, $viewContext),
                 $parameters
@@ -313,29 +277,12 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
         $viewContext = $this->getViewContext($context, $viewContext);
 
         try {
-            /** @var \Netgen\BlockManager\View\View\BlockViewInterface $blockView */
-            $blockView = $this->viewBuilder->buildView(
+            return $this->renderer->renderValueObject(
                 $block,
-                $viewContext,
+                $this->getViewContext($context, $viewContext),
                 array(
                     'twig_template' => $this->getTwigTemplate($context),
                 ) + $parameters
-            );
-
-            if (!$this->cacheableResolver->isCacheable($block) || !$blockView->isCacheable()) {
-                return $this->viewRenderer->renderView($blockView);
-            }
-
-            return $this->fragmentHandler->render(
-                new ControllerReference(
-                    $this->blockController,
-                    array(
-                        'blockId' => $block->getId(),
-                        'context' => $viewContext,
-                        '_ngbm_status' => 'published',
-                    )
-                ),
-                'esi'
             );
         } catch (Exception $e) {
             $errorMessage = sprintf('Error rendering a block with ID "%s"', $block->getId());
@@ -358,7 +305,7 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
     public function renderPlaceholder(array $context, Block $block, $placeholder, array $parameters = array(), $viewContext = null)
     {
         try {
-            return $this->viewRenderer->renderValueObject(
+            return $this->renderer->renderValueObject(
                 $block->getPlaceholder($placeholder),
                 $this->getViewContext($context, $viewContext),
                 array(

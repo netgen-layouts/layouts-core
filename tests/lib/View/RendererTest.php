@@ -7,9 +7,8 @@ use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\Renderer;
 use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\BlockManager\View\ViewInterface;
+use Netgen\BlockManager\View\ViewRendererInterface;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Twig_Environment;
 
 class RendererTest extends TestCase
 {
@@ -21,33 +20,24 @@ class RendererTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $eventDispatcherMock;
+    protected $viewRendererMock;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \Netgen\BlockManager\View\Renderer
      */
-    protected $twigEnvironmentMock;
-
-    /**
-     * @var \Netgen\BlockManager\View\RendererInterface
-     */
-    protected $viewRenderer;
+    protected $renderer;
 
     public function setUp()
     {
         $this->viewBuilderMock = $this
             ->createMock(ViewBuilderInterface::class);
 
-        $this->eventDispatcherMock = $this
-            ->createMock(EventDispatcherInterface::class);
+        $this->viewRendererMock = $this
+            ->createMock(ViewRendererInterface::class);
 
-        $this->twigEnvironmentMock = $this
-            ->createMock(Twig_Environment::class);
-
-        $this->viewRenderer = new Renderer(
+        $this->renderer = new Renderer(
             $this->viewBuilderMock,
-            $this->eventDispatcherMock,
-            $this->twigEnvironmentMock
+            $this->viewRendererMock
         );
     }
 
@@ -68,62 +58,17 @@ class RendererTest extends TestCase
             ->with(new Value(), ViewInterface::CONTEXT_API, array('some_param' => 'some_value'))
             ->will($this->returnValue($view));
 
-        $this->eventDispatcherMock
+        $this->viewRendererMock
             ->expects($this->once())
-            ->method('dispatch');
-
-        $this->twigEnvironmentMock
-            ->expects($this->once())
-            ->method('render')
-            ->with(
-                $this->equalTo('some_template.html.twig'),
-                $this->equalTo(
-                    array(
-                        'value' => new Value(),
-                        'some_param' => 'some_value',
-                    )
-                )
-            )
+            ->method('renderView')
+            ->with($this->equalTo($view))
             ->will($this->returnValue('rendered template'));
 
-        $renderedTemplate = $this->viewRenderer->renderValueObject(
+        $renderedTemplate = $this->renderer->renderValueObject(
             new Value(),
             ViewInterface::CONTEXT_API,
             array('some_param' => 'some_value')
         );
-
-        $this->assertEquals('rendered template', $renderedTemplate);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\View\Renderer::__construct
-     * @covers \Netgen\BlockManager\View\Renderer::renderView
-     */
-    public function testRenderView()
-    {
-        $view = new View(array('value' => new Value()));
-        $view->setTemplate('some_template.html.twig');
-        $view->addParameter('some_param', 'some_value');
-
-        $this->eventDispatcherMock
-            ->expects($this->once())
-            ->method('dispatch');
-
-        $this->twigEnvironmentMock
-            ->expects($this->once())
-            ->method('render')
-            ->with(
-                $this->equalTo('some_template.html.twig'),
-                $this->equalTo(
-                    array(
-                        'some_param' => 'some_value',
-                        'value' => new Value(),
-                    )
-                )
-            )
-            ->will($this->returnValue('rendered template'));
-
-        $renderedTemplate = $this->viewRenderer->renderView($view);
 
         $this->assertEquals('rendered template', $renderedTemplate);
     }

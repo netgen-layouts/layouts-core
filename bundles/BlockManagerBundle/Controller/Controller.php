@@ -44,7 +44,7 @@ abstract class Controller extends BaseController
         array $parameters = array(),
         Response $response = null
     ) {
-        $viewBuilder = $this->get('netgen_block_manager.view.builder');
+        $viewBuilder = $this->get('netgen_block_manager.view.view_builder');
         $view = $viewBuilder->buildView($value, $context, $parameters);
 
         if ($response instanceof Response) {

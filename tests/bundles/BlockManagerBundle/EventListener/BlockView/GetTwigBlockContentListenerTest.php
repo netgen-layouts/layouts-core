@@ -5,6 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener\BlockView;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Event\BlockManagerEvents;
 use Netgen\BlockManager\Event\CollectViewParametersEvent;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\TwigBlockDefinition;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
@@ -42,6 +43,7 @@ class GetTwigBlockContentListenerTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetTwigBlockContentListener::onRenderView
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetTwigBlockContentListener::getTwigBlockContent
      */
     public function testOnRenderView()
     {
@@ -72,6 +74,26 @@ class GetTwigBlockContentListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetTwigBlockContentListener::onRenderView
      */
+    public function testOnRenderViewWithNoTwigBlock()
+    {
+        $block = new Block(
+            array(
+                'id' => 42,
+                'definition' => new BlockDefinition('block_definition'),
+            )
+        );
+
+        $blockView = new BlockView(array('block' => $block));
+        $event = new CollectViewParametersEvent($blockView);
+        $this->listener->onRenderView($event);
+
+        $this->assertEquals(array(), $event->getParameters());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetTwigBlockContentListener::onRenderView
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetTwigBlockContentListener::getTwigBlockContent
+     */
     public function testOnRenderViewInvalidTwigTemplate()
     {
         $block = new Block(
@@ -93,6 +115,7 @@ class GetTwigBlockContentListenerTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetTwigBlockContentListener::onRenderView
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetTwigBlockContentListener::getTwigBlockContent
      */
     public function testOnRenderViewWithNoTwigTemplate()
     {
@@ -113,7 +136,6 @@ class GetTwigBlockContentListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetTwigBlockContentListener::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetTwigBlockContentListener::onRenderView
      */
     public function testOnRenderViewWithNoBlockView()
