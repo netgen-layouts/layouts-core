@@ -29,7 +29,7 @@ services:
         tags:
             - { name: netgen_block_manager.http_cache.block.cacheable_resolver.voter }
 
-    # Synthetic services that will receive currently selected tagger, invalidator and ID provider
+    # Synthetic services that will receive currently selected tagger and invalidator
 
     netgen_block_manager.http_cache.block.tagger:
         synthetic: true
@@ -49,7 +49,7 @@ services:
 
     # LAYOUT
 
-    # Synthetic services that will receive currently selected tagger, invalidator and ID provider
+    # Synthetic services that will receive currently selected tagger and invalidator
 
     netgen_block_manager.http_cache.layout.tagger:
         synthetic: true
