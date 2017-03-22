@@ -2,15 +2,15 @@
 
 namespace Netgen\BlockManager\HttpCache\Layout\Strategy\Ban;
 
-use FOS\HttpCacheBundle\CacheManager;
+use FOS\HttpCache\CacheInvalidator;
 use Netgen\BlockManager\HttpCache\Layout\InvalidatorInterface;
 
 class Invalidator implements InvalidatorInterface
 {
     /**
-     * @var \FOS\HttpCacheBundle\CacheManager
+     * @var \FOS\HttpCache\CacheInvalidator
      */
-    protected $cacheManager;
+    protected $fosInvalidator;
 
     /**
      * @var \Netgen\BlockManager\HttpCache\Layout\Strategy\Ban\IdProviderInterface
@@ -20,12 +20,12 @@ class Invalidator implements InvalidatorInterface
     /**
      * Constructor.
      *
-     * @param \FOS\HttpCacheBundle\CacheManager $cacheManager
+     * @param \FOS\HttpCache\CacheInvalidator $fosInvalidator
      * @param \Netgen\BlockManager\HttpCache\Layout\Strategy\Ban\IdProviderInterface $layoutIdProvider
      */
-    public function __construct(CacheManager $cacheManager, IdProviderInterface $layoutIdProvider)
+    public function __construct(CacheInvalidator $fosInvalidator, IdProviderInterface $layoutIdProvider)
     {
-        $this->cacheManager = $cacheManager;
+        $this->fosInvalidator = $fosInvalidator;
         $this->layoutIdProvider = $layoutIdProvider;
     }
 
@@ -48,7 +48,7 @@ class Invalidator implements InvalidatorInterface
             );
         }
 
-        $this->cacheManager->invalidate(
+        $this->fosInvalidator->invalidate(
             array(
                 'X-Layout-Id' => '^(' . implode('|', $allLayoutIds) . ')$',
             )
@@ -60,7 +60,7 @@ class Invalidator implements InvalidatorInterface
      */
     public function invalidateAll()
     {
-        $this->cacheManager->invalidate(
+        $this->fosInvalidator->invalidate(
             array(
                 'X-Layout-Id' => '.*',
             )

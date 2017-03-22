@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\HttpCache\Block\Strategy\Ban;
 
-use FOS\HttpCacheBundle\CacheManager;
+use FOS\HttpCache\CacheInvalidator;
 use Netgen\BlockManager\HttpCache\Block\Strategy\Ban\Invalidator;
 use PHPUnit\Framework\TestCase;
 
@@ -11,7 +11,7 @@ class InvalidatorTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $cacheManagerMock;
+    protected $fosInvalidatorMock;
 
     /**
      * @var \Netgen\BlockManager\HttpCache\Block\Strategy\Ban\Invalidator
@@ -20,9 +20,9 @@ class InvalidatorTest extends TestCase
 
     public function setUp()
     {
-        $this->cacheManagerMock = $this->createMock(CacheManager::class);
+        $this->fosInvalidatorMock = $this->createMock(CacheInvalidator::class);
 
-        $this->invalidator = new Invalidator($this->cacheManagerMock);
+        $this->invalidator = new Invalidator($this->fosInvalidatorMock);
     }
 
     /**
@@ -31,7 +31,7 @@ class InvalidatorTest extends TestCase
      */
     public function testInvalidate()
     {
-        $this->cacheManagerMock
+        $this->fosInvalidatorMock
             ->expects($this->once())
             ->method('invalidate')
             ->with(
@@ -50,7 +50,7 @@ class InvalidatorTest extends TestCase
      */
     public function testInvalidateWithEmptyBlockIds()
     {
-        $this->cacheManagerMock
+        $this->fosInvalidatorMock
             ->expects($this->never())
             ->method('invalidate');
 
@@ -62,7 +62,7 @@ class InvalidatorTest extends TestCase
      */
     public function testInvalidateLayoutBlocks()
     {
-        $this->cacheManagerMock
+        $this->fosInvalidatorMock
             ->expects($this->once())
             ->method('invalidate')
             ->with(
@@ -81,7 +81,7 @@ class InvalidatorTest extends TestCase
      */
     public function testInvalidateLayoutBlocksWithEmptyLayoutIds()
     {
-        $this->cacheManagerMock
+        $this->fosInvalidatorMock
             ->expects($this->never())
             ->method('invalidate');
 
@@ -93,7 +93,7 @@ class InvalidatorTest extends TestCase
      */
     public function testInvalidateAll()
     {
-        $this->cacheManagerMock
+        $this->fosInvalidatorMock
             ->expects($this->once())
             ->method('invalidate')
             ->with(

@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\HttpCache\Layout\Strategy\Ban;
 
-use FOS\HttpCacheBundle\CacheManager;
+use FOS\HttpCache\CacheInvalidator;
 use Netgen\BlockManager\HttpCache\Layout\Strategy\Ban\IdProviderInterface;
 use Netgen\BlockManager\HttpCache\Layout\Strategy\Ban\Invalidator;
 use PHPUnit\Framework\TestCase;
@@ -12,7 +12,7 @@ class InvalidatorTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $cacheManagerMock;
+    protected $fosInvalidatorMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -26,11 +26,11 @@ class InvalidatorTest extends TestCase
 
     public function setUp()
     {
-        $this->cacheManagerMock = $this->createMock(CacheManager::class);
+        $this->fosInvalidatorMock = $this->createMock(CacheInvalidator::class);
         $this->idProviderMock = $this->createMock(IdProviderInterface::class);
 
         $this->invalidator = new Invalidator(
-            $this->cacheManagerMock,
+            $this->fosInvalidatorMock,
             $this->idProviderMock
         );
     }
@@ -53,7 +53,7 @@ class InvalidatorTest extends TestCase
             ->with($this->equalTo(42))
             ->will($this->returnValue(array(42)));
 
-        $this->cacheManagerMock
+        $this->fosInvalidatorMock
             ->expects($this->once())
             ->method('invalidate')
             ->with(
@@ -76,7 +76,7 @@ class InvalidatorTest extends TestCase
             ->expects($this->never())
             ->method('provideIds');
 
-        $this->cacheManagerMock
+        $this->fosInvalidatorMock
             ->expects($this->never())
             ->method('invalidate');
 
@@ -92,7 +92,7 @@ class InvalidatorTest extends TestCase
             ->expects($this->never())
             ->method('provideIds');
 
-        $this->cacheManagerMock
+        $this->fosInvalidatorMock
             ->expects($this->once())
             ->method('invalidate')
             ->with(

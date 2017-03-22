@@ -2,24 +2,24 @@
 
 namespace Netgen\BlockManager\HttpCache\Block\Strategy\Ban;
 
-use FOS\HttpCacheBundle\CacheManager;
+use FOS\HttpCache\CacheInvalidator;
 use Netgen\BlockManager\HttpCache\Block\InvalidatorInterface;
 
 class Invalidator implements InvalidatorInterface
 {
     /**
-     * @var \FOS\HttpCacheBundle\CacheManager
+     * @var \FOS\HttpCache\CacheInvalidator
      */
-    protected $cacheManager;
+    protected $fosInvalidator;
 
     /**
      * Constructor.
      *
-     * @param \FOS\HttpCacheBundle\CacheManager $cacheManager
+     * @param \FOS\HttpCache\CacheInvalidator $fosInvalidator
      */
-    public function __construct(CacheManager $cacheManager)
+    public function __construct(CacheInvalidator $fosInvalidator)
     {
-        $this->cacheManager = $cacheManager;
+        $this->fosInvalidator = $fosInvalidator;
     }
 
     /**
@@ -33,7 +33,7 @@ class Invalidator implements InvalidatorInterface
             return;
         }
 
-        $this->cacheManager->invalidate(
+        $this->fosInvalidator->invalidate(
             array(
                 'X-Block-Id' => '^(' . implode('|', $blockIds) . ')$',
             )
@@ -51,7 +51,7 @@ class Invalidator implements InvalidatorInterface
             return;
         }
 
-        $this->cacheManager->invalidate(
+        $this->fosInvalidator->invalidate(
             array(
                 'X-Origin-Layout-Id' => '^(' . implode('|', $layoutIds) . ')$',
             )
@@ -63,7 +63,7 @@ class Invalidator implements InvalidatorInterface
      */
     public function invalidateAll()
     {
-        $this->cacheManager->invalidate(
+        $this->fosInvalidator->invalidate(
             array(
                 'X-Block-Id' => '.*',
             )
