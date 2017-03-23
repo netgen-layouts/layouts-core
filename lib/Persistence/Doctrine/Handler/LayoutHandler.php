@@ -358,8 +358,20 @@ class LayoutHandler implements LayoutHandlerInterface
      */
     public function deleteLayout($layoutId, $status = null)
     {
-        $this->queryHandler->deleteLayoutZones($layoutId, $status);
+        $this->deleteLayoutZones($layoutId, $status);
+
         $this->blockHandler->deleteLayoutBlocks($layoutId, $status);
         $this->queryHandler->deleteLayout($layoutId, $status);
+    }
+
+    /**
+     * Deletes all zones from a layout.
+     *
+     * @param int|string $layoutId
+     * @param int $status
+     */
+    public function deleteLayoutZones($layoutId, $status = null)
+    {
+        $this->queryHandler->deleteLayoutZones($layoutId, $status);
     }
 }

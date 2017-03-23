@@ -427,9 +427,9 @@ class BlockHandlerTest extends TestCase
                     'layoutId' => 1,
                     'depth' => 0,
                     'path' => '/39/',
-                    'parentId' => null,
+                    'parentId' => 0,
                     'placeholder' => null,
-                    'position' => null,
+                    'position' => 0,
                     'definitionIdentifier' => 'new_block',
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
@@ -1426,6 +1426,8 @@ class BlockHandlerTest extends TestCase
     {
         $layout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
 
+        // First we need to delete all zones to correctly delete the blocks
+        $this->layoutHandler->deleteLayoutZones($layout->id, $layout->status);
         $this->blockHandler->deleteLayoutBlocks($layout->id, $layout->status);
 
         $this->assertEmpty($this->blockHandler->loadLayoutBlocks($layout));
