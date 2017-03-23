@@ -1,6 +1,7 @@
 [
     {
         "id": 32,
+        "layout_id": 1,
         "definition_identifier": "list",
         "name": "My other block",
         "parameters": {
@@ -19,6 +20,7 @@
     },
     {
         "id": 31,
+        "layout_id": 1,
         "definition_identifier": "list",
         "name": "My block",
         "parameters": {
@@ -37,6 +39,7 @@
     },
     {
         "id": 35,
+        "layout_id": 1,
         "definition_identifier": "list",
         "name": "My fourth block",
         "parameters": {
