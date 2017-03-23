@@ -15,6 +15,6 @@
         "only_main_locations": true,
         "filter_by_content_type": null,
         "content_types": null,
-        "content_types_filter": null
+        "content_types_filter": "include"
     }
 }
