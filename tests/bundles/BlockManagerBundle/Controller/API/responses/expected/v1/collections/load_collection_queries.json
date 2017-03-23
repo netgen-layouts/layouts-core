@@ -8,11 +8,12 @@
         "parameters": {
             "use_current_location": null,
             "parent_location_id": 2,
-            "sort_direction": "descending",
             "sort_type": "date_published",
+            "sort_direction": "descending",
             "limit": null,
             "offset": 0,
             "query_type": "list",
+            "only_main_locations": true,
             "filter_by_content_type": null,
             "content_types": null,
             "content_types_filter": null
@@ -27,11 +28,12 @@
         "parameters": {
             "use_current_location": null,
             "parent_location_id": 2,
-            "sort_direction": "descending",
             "sort_type": "date_published",
+            "sort_direction": "descending",
             "limit": null,
             "offset": 0,
             "query_type": "list",
+            "only_main_locations": true,
             "filter_by_content_type": null,
             "content_types": null,
             "content_types_filter": null
