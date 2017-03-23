@@ -204,7 +204,8 @@ class LayoutResolverQueryHandler extends QueryHandler
         $query->where(
             $query->expr()->eq('rule_id', ':rule_id')
         )
-        ->setParameter('rule_id', $rule->id, Type::INTEGER);
+        ->setParameter('rule_id', $rule->id, Type::INTEGER)
+        ->orderBy('id', 'ASC');
 
         $this->applyStatusCondition($query, $rule->status);
 
@@ -269,7 +270,8 @@ class LayoutResolverQueryHandler extends QueryHandler
         $query->where(
             $query->expr()->eq('rule_id', ':rule_id')
         )
-        ->setParameter('rule_id', $rule->id, Type::INTEGER);
+        ->setParameter('rule_id', $rule->id, Type::INTEGER)
+        ->orderBy('id', 'ASC');
 
         $this->applyStatusCondition($query, $rule->status);
 
