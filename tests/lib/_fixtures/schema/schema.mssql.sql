@@ -36,6 +36,7 @@ CREATE TABLE ngbm_block (
   name nvarchar(255) NOT NULL,
   placeholder_parameters nvarchar(max) NOT NULL,
   parameters nvarchar(max) NOT NULL,
+  config nvarchar(max) NOT NULL,
   PRIMARY KEY (id, status),
   FOREIGN KEY (layout_id, status)
     REFERENCES ngbm_layout (id, status)

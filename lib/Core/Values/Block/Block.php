@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Core\Values\Block;
 
 use Netgen\BlockManager\API\Values\Block\Block as APIBlock;
+use Netgen\BlockManager\Core\Values\Config\ConfigAwareValueTrait;
 use Netgen\BlockManager\Core\Values\ParameterBasedValueTrait;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\ValueObject;
@@ -10,6 +11,7 @@ use Netgen\BlockManager\ValueObject;
 class Block extends ValueObject implements APIBlock
 {
     use ParameterBasedValueTrait;
+    use ConfigAwareValueTrait;
 
     /**
      * @var int|string

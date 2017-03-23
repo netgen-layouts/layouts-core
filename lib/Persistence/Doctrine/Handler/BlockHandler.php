@@ -247,6 +247,10 @@ class BlockHandler implements BlockHandlerInterface
             $blockUpdateStruct->parameters :
             $block->parameters;
 
+        $blockUpdateStruct->config = is_array($blockUpdateStruct->config) ?
+            $blockUpdateStruct->config :
+            $block->config;
+
         $blockUpdateStruct->placeholderParameters = is_array($blockUpdateStruct->placeholderParameters) ?
             $blockUpdateStruct->placeholderParameters :
             $block->placeholderParameters;
@@ -322,6 +326,7 @@ class BlockHandler implements BlockHandlerInterface
                     'name' => $block->name,
                     'placeholderParameters' => $block->placeholderParameters,
                     'parameters' => $block->parameters,
+                    'config' => $block->config,
                 )
             ),
             $targetBlock,

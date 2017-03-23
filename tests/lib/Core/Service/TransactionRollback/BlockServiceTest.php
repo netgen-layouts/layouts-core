@@ -118,10 +118,17 @@ class BlockServiceTest extends ServiceTestCase
      */
     public function testUpdateBlock()
     {
+        $persistenceBlock = new PersistenceBlock(
+            array(
+                'config' => array(),
+                'parameters' => array(),
+            )
+        );
+
         $this->blockHandlerMock
             ->expects($this->at(0))
             ->method('loadBlock')
-            ->will($this->returnValue(new PersistenceBlock(array('parameters' => array()))));
+            ->will($this->returnValue($persistenceBlock));
 
         $this->blockHandlerMock
             ->expects($this->at(1))

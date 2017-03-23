@@ -3,7 +3,9 @@
 namespace Netgen\BlockManager\Tests\View\Provider;
 
 use Netgen\BlockManager\Core\Values\Block\Block as CoreBlock;
+use Netgen\BlockManager\Core\Values\Config\Config;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
+use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\Provider\BlockViewProvider;
@@ -31,6 +33,16 @@ class BlockViewProviderTest extends TestCase
         $block = new CoreBlock(
             array(
                 'id' => 42,
+                'configs' => array(
+                    'http_cache' => new Config(
+                        array(
+                            'parameters' => array(
+                                'use_http_cache' => new ParameterValue(array('value' => true)),
+                                'shared_max_age' => new ParameterValue(array('value' => 400)),
+                            ),
+                        )
+                    ),
+                ),
                 'definition' => new BlockDefinition('block_definition'),
             )
         );
@@ -49,6 +61,9 @@ class BlockViewProviderTest extends TestCase
             ),
             $view->getParameters()
         );
+
+        $this->assertTrue($view->isCacheable());
+        $this->assertEquals(400, $view->getSharedMaxAge());
     }
 
     /**

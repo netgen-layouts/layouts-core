@@ -77,6 +77,7 @@ class BlockHandlerTest extends TestCase
                     'parameters' => array(
                         'number_of_columns' => 3,
                     ),
+                    'config' => array(),
                     'viewType' => 'grid',
                     'itemViewType' => 'standard_with_intro',
                     'name' => 'My published block',
@@ -177,6 +178,7 @@ class BlockHandlerTest extends TestCase
                         'parameters' => array(
                             'number_of_columns' => 3,
                         ),
+                        'config' => array(),
                     )
                 ),
                 new Block(
@@ -197,6 +199,7 @@ class BlockHandlerTest extends TestCase
                         'parameters' => array(
                             'number_of_columns' => 3,
                         ),
+                        'config' => array(),
                     )
                 ),
             ),
@@ -232,6 +235,7 @@ class BlockHandlerTest extends TestCase
                         'parameters' => array(
                             'content' => 'Text',
                         ),
+                        'config' => array(),
                     )
                 ),
             ),
@@ -358,6 +362,10 @@ class BlockHandlerTest extends TestCase
             'a_param' => 'A value',
         );
 
+        $blockCreateStruct->config = array(
+            'config_param' => 'Config value',
+        );
+
         $this->assertEquals(
             new Block(
                 array(
@@ -380,6 +388,9 @@ class BlockHandlerTest extends TestCase
                         'left' => array(
                             'param' => 'Value',
                         ),
+                    ),
+                    'config' => array(
+                        'config_param' => 'Config value',
                     ),
                 )
             ),
@@ -420,6 +431,10 @@ class BlockHandlerTest extends TestCase
             'a_param' => 'A value',
         );
 
+        $blockCreateStruct->config = array(
+            'config_param' => 'Config value',
+        );
+
         $this->assertEquals(
             new Block(
                 array(
@@ -442,6 +457,9 @@ class BlockHandlerTest extends TestCase
                         'left' => array(
                             'param' => 'Value',
                         ),
+                    ),
+                    'config' => array(
+                        'config_param' => 'Config value',
                     ),
                 )
             ),
@@ -474,6 +492,10 @@ class BlockHandlerTest extends TestCase
             'a_param' => 'A value',
         );
 
+        $blockCreateStruct->config = array(
+            'config' => 'Config value',
+        );
+
         $this->assertEquals(
             new Block(
                 array(
@@ -496,6 +518,9 @@ class BlockHandlerTest extends TestCase
                         'left' => array(
                             'param' => 'Value',
                         ),
+                    ),
+                    'config' => array(
+                        'config' => 'Config value',
                     ),
                 )
             ),
@@ -662,6 +687,7 @@ class BlockHandlerTest extends TestCase
                             'param' => 'Value',
                         ),
                     ),
+                    'config' => array(),
                 )
             ),
             $this->blockHandler->updateBlock(
@@ -698,6 +724,7 @@ class BlockHandlerTest extends TestCase
                     'parameters' => array(
                         'number_of_columns' => 2,
                     ),
+                    'config' => array(),
                 )
             ),
             $this->blockHandler->updateBlock(
@@ -801,6 +828,7 @@ class BlockHandlerTest extends TestCase
                     'parameters' => array(
                         'number_of_columns' => 2,
                     ),
+                    'config' => array(),
                 )
             ),
             $copiedBlock
@@ -867,6 +895,7 @@ class BlockHandlerTest extends TestCase
                         'main' => array(),
                     ),
                     'parameters' => array(),
+                    'config' => array(),
                 )
             ),
             $copiedBlock
@@ -893,6 +922,7 @@ class BlockHandlerTest extends TestCase
                     'parameters' => array(
                         'content' => 'Text',
                     ),
+                    'config' => array(),
                 )
             ),
             $copiedSubBlock
@@ -948,6 +978,7 @@ class BlockHandlerTest extends TestCase
                     'parameters' => array(
                         'number_of_columns' => 2,
                     ),
+                    'config' => array(),
                 )
             ),
             $copiedBlock
@@ -1079,6 +1110,7 @@ class BlockHandlerTest extends TestCase
                         'main' => array(),
                     ),
                     'parameters' => array(),
+                    'config' => array(),
                 )
             ),
             $this->blockHandler->moveBlock(
@@ -1108,6 +1140,7 @@ class BlockHandlerTest extends TestCase
                     'parameters' => array(
                         'content' => 'Text',
                     ),
+                    'config' => array(),
                 )
             ),
             $this->blockHandler->loadBlock(37, Value::STATUS_DRAFT)
@@ -1215,6 +1248,7 @@ class BlockHandlerTest extends TestCase
                     'parameters' => array(
                         'number_of_columns' => 2,
                     ),
+                    'config' => array(),
                 )
             ),
             $this->blockHandler->moveBlockToPosition(
@@ -1253,6 +1287,7 @@ class BlockHandlerTest extends TestCase
                     'parameters' => array(
                         'number_of_columns' => 3,
                     ),
+                    'config' => array(),
                 )
             ),
             $this->blockHandler->moveBlockToPosition(
@@ -1328,6 +1363,7 @@ class BlockHandlerTest extends TestCase
                     'parameters' => array(
                         'number_of_columns' => 3,
                     ),
+                    'config' => array(),
                 )
             ),
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT)

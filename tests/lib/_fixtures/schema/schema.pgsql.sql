@@ -43,7 +43,8 @@ CREATE TABLE "ngbm_block" (
   "item_view_type" character varying(255) NOT NULL,
   "name" character varying(255) NOT NULL,
   "placeholder_parameters" text NOT NULL,
-  "parameters" text NOT NULL
+  "parameters" text NOT NULL,
+  "config" text NOT NULL
 );
 
 CREATE TABLE "ngbm_zone" (

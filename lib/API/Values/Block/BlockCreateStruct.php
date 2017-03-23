@@ -2,11 +2,15 @@
 
 namespace Netgen\BlockManager\API\Values\Block;
 
+use Netgen\BlockManager\API\Values\Config\ConfigCreateAwareStruct;
+use Netgen\BlockManager\API\Values\Config\ConfigCreateAwareStructTrait;
 use Netgen\BlockManager\API\Values\ParameterStruct;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 
-class BlockCreateStruct extends ParameterStruct
+class BlockCreateStruct extends ParameterStruct implements ConfigCreateAwareStruct
 {
+    use ConfigCreateAwareStructTrait;
+
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
      */

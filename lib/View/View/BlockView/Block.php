@@ -209,4 +209,38 @@ class Block implements APIBlock
     {
         return array_key_exists($parameter, $this->dynamicParameters);
     }
+
+    /**
+     * Returns all available configurations.
+     *
+     * @return \Netgen\BlockManager\API\Values\Configuration[]
+     */
+    public function getAllConfigs()
+    {
+        return $this->innerBlock->getAllConfigs();
+    }
+
+    /**
+     * Returns the configuration with specified identifier.
+     *
+     * @param string $identifier
+     *
+     * @return \Netgen\BlockManager\API\Values\Configuration
+     */
+    public function getConfig($identifier)
+    {
+        return $this->innerBlock->getConfig($identifier);
+    }
+
+    /**
+     * Returns if the configuration with specified identifier exists.
+     *
+     * @param string $identifier
+     *
+     * @return bool
+     */
+    public function hasConfig($identifier)
+    {
+        return $this->innerBlock->hasConfig($identifier);
+    }
 }

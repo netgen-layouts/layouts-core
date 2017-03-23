@@ -5,8 +5,8 @@ namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 use Netgen\BlockManager\API\Values\Block\Block as APIBlock;
 use Netgen\BlockManager\API\Values\Block\CollectionReference as APICollectionReference;
 use Netgen\BlockManager\API\Values\Block\Placeholder;
+use Netgen\BlockManager\API\Values\Config\Config;
 use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Persistence\Values\Block\Block;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
@@ -44,6 +44,12 @@ abstract class BlockMapperTest extends ServiceTestCase
                     'css_class' => 'test',
                     'some_param' => 'some_value',
                 ),
+                'config' => array(
+                    'http_cache' => array(
+                        'use_http_cache' => true,
+                        'shared_max_age' => 400,
+                    ),
+                ),
             )
         );
 
@@ -63,29 +69,16 @@ abstract class BlockMapperTest extends ServiceTestCase
         $this->assertEquals(Value::STATUS_PUBLISHED, $block->getStatus());
         $this->assertTrue($block->isPublished());
 
-        $this->assertEquals(
-            array(
-                'css_class' => new ParameterValue(
-                    array(
-                        'name' => 'css_class',
-                        'parameter' => $block->getDefinition()->getParameters()['css_class'],
-                        'parameterType' => $this->parameterTypeRegistry->getParameterType('text_line'),
-                        'value' => 'test',
-                        'isEmpty' => false,
-                    )
-                ),
-                'css_id' => new ParameterValue(
-                    array(
-                        'name' => 'css_id',
-                        'parameter' => $block->getDefinition()->getParameters()['css_id'],
-                        'parameterType' => $this->parameterTypeRegistry->getParameterType('text_line'),
-                        'value' => null,
-                        'isEmpty' => true,
-                    )
-                ),
-            ),
-            $block->getParameters()
-        );
+        $this->assertEquals('test', $block->getParameter('css_class')->getValue());
+        $this->assertNull($block->getParameter('css_id')->getValue());
+
+        $this->assertTrue($block->hasConfig('http_cache'));
+        $this->assertInstanceOf(Config::class, $block->getConfig('http_cache'));
+
+        $httpCacheConfig = $block->getConfig('http_cache');
+
+        $this->assertTrue($httpCacheConfig->getParameter('use_http_cache')->getValue());
+        $this->assertEquals(400, $httpCacheConfig->getParameter('shared_max_age')->getValue());
     }
 
     /**
@@ -108,6 +101,12 @@ abstract class BlockMapperTest extends ServiceTestCase
                         'some_param' => 'some_value2',
                     ),
                 ),
+                'config' => array(
+                    'http_cache' => array(
+                        'use_http_cache' => true,
+                        'shared_max_age' => 400,
+                    ),
+                ),
             )
         );
 
@@ -122,35 +121,12 @@ abstract class BlockMapperTest extends ServiceTestCase
         $this->assertInstanceOf(Placeholder::class, $block->getPlaceholder('main'));
 
         $placeholder = $block->getPlaceholder('main');
-        $placeholderDefinition = $block->getDefinition()->getPlaceholder('main');
-
         $this->assertEquals('main', $placeholder->getIdentifier());
         $this->assertCount(1, $placeholder->getBlocks());
         $this->assertInstanceOf(APIBlock::class, $placeholder->getBlocks()[0]);
 
-        $this->assertEquals(
-            array(
-                'css_class' => new ParameterValue(
-                    array(
-                        'name' => 'css_class',
-                        'parameter' => $placeholderDefinition->getParameters()['css_class'],
-                        'parameterType' => $this->parameterTypeRegistry->getParameterType('text_line'),
-                        'value' => 'test2',
-                        'isEmpty' => false,
-                    )
-                ),
-                'css_id' => new ParameterValue(
-                    array(
-                        'name' => 'css_id',
-                        'parameter' => $placeholderDefinition->getParameters()['css_id'],
-                        'parameterType' => $this->parameterTypeRegistry->getParameterType('text_line'),
-                        'value' => null,
-                        'isEmpty' => true,
-                    )
-                ),
-            ),
-            $placeholder->getParameters()
-        );
+        $this->assertEquals('test2', $placeholder->getParameter('css_class')->getValue());
+        $this->assertNull($placeholder->getParameter('css_id')->getValue());
     }
 
     /**
@@ -169,6 +145,12 @@ abstract class BlockMapperTest extends ServiceTestCase
                 'itemViewType' => 'standard',
                 'name' => 'My block',
                 'status' => Value::STATUS_PUBLISHED,
+                'config' => array(
+                    'http_cache' => array(
+                        'use_http_cache' => true,
+                        'shared_max_age' => 400,
+                    ),
+                ),
             )
         );
 

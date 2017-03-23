@@ -550,6 +550,7 @@ class LayoutHandlerTest extends TestCase
                         'status' => Value::STATUS_DRAFT,
                         'placeholderParameters' => array(),
                         'parameters' => array(),
+                        'config' => array(),
                     )
                 ),
                 $this->blockHandler->loadBlock($blockId, Value::STATUS_DRAFT)
@@ -599,6 +600,7 @@ class LayoutHandlerTest extends TestCase
                     'status' => Value::STATUS_DRAFT,
                     'placeholderParameters' => array(),
                     'parameters' => array(),
+                    'config' => array(),
                 )
             ),
             $this->blockHandler->loadBlock(39, Value::STATUS_DRAFT)
@@ -744,6 +746,11 @@ class LayoutHandlerTest extends TestCase
                         'parameters' => array(
                             'number_of_columns' => 3,
                         ),
+                        'config' => array(
+                            'http_cache' => array(
+                                'use_http_cache' => false,
+                            ),
+                        ),
                     )
                 ),
             ),
@@ -772,6 +779,7 @@ class LayoutHandlerTest extends TestCase
                         'parameters' => array(
                             'number_of_columns' => 3,
                         ),
+                        'config' => array(),
                     )
                 ),
                 new Block(
@@ -792,6 +800,7 @@ class LayoutHandlerTest extends TestCase
                         'parameters' => array(
                             'number_of_columns' => 3,
                         ),
+                        'config' => array(),
                     )
                 ),
             ),
@@ -931,6 +940,11 @@ class LayoutHandlerTest extends TestCase
                         'parameters' => array(
                             'number_of_columns' => 3,
                         ),
+                        'config' => array(
+                            'http_cache' => array(
+                                'use_http_cache' => false,
+                            ),
+                        ),
                     )
                 ),
             ),
@@ -959,6 +973,7 @@ class LayoutHandlerTest extends TestCase
                         'parameters' => array(
                             'number_of_columns' => 3,
                         ),
+                        'config' => array(),
                     )
                 ),
                 new Block(
@@ -979,6 +994,7 @@ class LayoutHandlerTest extends TestCase
                         'parameters' => array(
                             'number_of_columns' => 3,
                         ),
+                        'config' => array(),
                     )
                 ),
             ),

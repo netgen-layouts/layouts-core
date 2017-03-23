@@ -77,6 +77,13 @@ class Block extends Value
     public $parameters;
 
     /**
+     * Block configuration.
+     *
+     * @var array
+     */
+    public $config;
+
+    /**
      * View type which will be used to render this block.
      *
      * @var string

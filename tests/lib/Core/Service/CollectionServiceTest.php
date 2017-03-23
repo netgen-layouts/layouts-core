@@ -12,7 +12,6 @@ use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 
 abstract class CollectionServiceTest extends ServiceTestCase
@@ -760,29 +759,9 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $this->assertInstanceOf(Query::class, $updatedQuery);
 
         $this->assertEquals('new_identifier', $updatedQuery->getIdentifier());
-        $this->assertEquals(
-            array(
-                'offset' => new ParameterValue(
-                    array(
-                        'name' => 'offset',
-                        'parameter' => $query->getQueryType()->getParameters()['offset'],
-                        'parameterType' => $this->parameterTypeRegistry->getParameterType('integer'),
-                        'value' => '0',
-                        'isEmpty' => false,
-                    )
-                ),
-                'param' => new ParameterValue(
-                    array(
-                        'name' => 'param',
-                        'parameter' => $query->getQueryType()->getParameters()['param'],
-                        'parameterType' => $this->parameterTypeRegistry->getParameterType('text_line'),
-                        'value' => 'value',
-                        'isEmpty' => false,
-                    )
-                ),
-            ),
-            $updatedQuery->getParameters()
-        );
+
+        $this->assertEquals(0, $updatedQuery->getParameter('offset')->getValue());
+        $this->assertEquals('value', $updatedQuery->getParameter('param')->getValue());
     }
 
     /**

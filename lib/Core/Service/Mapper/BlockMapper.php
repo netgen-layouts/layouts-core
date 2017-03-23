@@ -26,6 +26,11 @@ class BlockMapper extends Mapper
     protected $parameterMapper;
 
     /**
+     * @var \Netgen\BlockManager\Core\Service\Mapper\ConfigMapper
+     */
+    protected $configMapper;
+
+    /**
      * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface
      */
     protected $blockDefinitionRegistry;
@@ -41,18 +46,21 @@ class BlockMapper extends Mapper
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
      * @param \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper $collectionMapper
      * @param \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper $parameterMapper
+     * @param \Netgen\BlockManager\Core\Service\Mapper\ConfigMapper $configMapper
      * @param \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface $blockDefinitionRegistry
      */
     public function __construct(
         Handler $persistenceHandler,
         CollectionMapper $collectionMapper,
         ParameterMapper $parameterMapper,
+        ConfigMapper $configMapper,
         BlockDefinitionRegistryInterface $blockDefinitionRegistry
     ) {
         parent::__construct($persistenceHandler);
 
         $this->collectionMapper = $collectionMapper;
         $this->parameterMapper = $parameterMapper;
+        $this->configMapper = $configMapper;
         $this->blockDefinitionRegistry = $blockDefinitionRegistry;
     }
 
@@ -79,10 +87,8 @@ class BlockMapper extends Mapper
             'status' => $block->status,
             'published' => $block->status === Value::STATUS_PUBLISHED,
             'placeholders' => $this->mapPlaceholders($block, $blockDefinition),
-            'parameters' => $this->parameterMapper->mapParameters(
-                $blockDefinition,
-                $block->parameters
-            ),
+            'parameters' => $this->parameterMapper->mapParameters($blockDefinition, $block->parameters),
+            'configs' => $this->configMapper->mapConfig('block', $block->config),
         );
 
         return new Block($blockData);

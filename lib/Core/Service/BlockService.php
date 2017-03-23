@@ -15,6 +15,7 @@ use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Block\ContainerDefinitionInterface;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Core\Service\Mapper\BlockMapper;
+use Netgen\BlockManager\Core\Service\Mapper\ConfigMapper;
 use Netgen\BlockManager\Core\Service\Mapper\ParameterMapper;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Exception\BadStateException;
@@ -45,6 +46,11 @@ class BlockService extends Service implements BlockServiceInterface
     protected $parameterMapper;
 
     /**
+     * @var \Netgen\BlockManager\Core\Service\Mapper\ConfigMapper
+     */
+    protected $configMapper;
+
+    /**
      * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface
      */
     protected $layoutTypeRegistry;
@@ -71,6 +77,7 @@ class BlockService extends Service implements BlockServiceInterface
      * @param \Netgen\BlockManager\Core\Service\Validator\BlockValidator $blockValidator
      * @param \Netgen\BlockManager\Core\Service\Mapper\BlockMapper $blockMapper
      * @param \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper $parameterMapper
+     * @param \Netgen\BlockManager\Core\Service\Mapper\ConfigMapper $configMapper
      * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
      */
     public function __construct(
@@ -78,6 +85,7 @@ class BlockService extends Service implements BlockServiceInterface
         BlockValidator $blockValidator,
         BlockMapper $blockMapper,
         ParameterMapper $parameterMapper,
+        ConfigMapper $configMapper,
         LayoutTypeRegistryInterface $layoutTypeRegistry
     ) {
         parent::__construct($persistenceHandler);
@@ -85,6 +93,7 @@ class BlockService extends Service implements BlockServiceInterface
         $this->blockValidator = $blockValidator;
         $this->blockMapper = $blockMapper;
         $this->parameterMapper = $parameterMapper;
+        $this->configMapper = $configMapper;
         $this->layoutTypeRegistry = $layoutTypeRegistry;
 
         $this->blockHandler = $persistenceHandler->getBlockHandler();
@@ -348,6 +357,13 @@ class BlockService extends Service implements BlockServiceInterface
                             $block->getDefinition(),
                             $blockUpdateStruct->getParameterValues()
                         ) + $persistenceBlock->parameters,
+                        'config' => array_replace_recursive(
+                            $persistenceBlock->config,
+                            $this->configMapper->serializeValues(
+                                'block',
+                                $blockUpdateStruct->getConfigUpdateStructs()
+                            )
+                        ),
                     )
                 )
             );
@@ -789,6 +805,10 @@ class BlockService extends Service implements BlockServiceInterface
                         'parameters' => $this->parameterMapper->serializeValues(
                             $blockCreateStruct->definition,
                             $blockCreateStruct->getParameterValues()
+                        ),
+                        'config' => $this->configMapper->serializeValues(
+                            'block',
+                            $blockCreateStruct->getConfigCreateStructs()
                         ),
                     )
                 ),

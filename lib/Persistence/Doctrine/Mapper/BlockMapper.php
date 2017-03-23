@@ -23,6 +23,10 @@ class BlockMapper
                 json_decode($dataItem['parameters'], true) :
                 array();
 
+            $config = !empty($dataItem['config']) ?
+                json_decode($dataItem['config'], true) :
+                array();
+
             $placeholderParameters = !empty($dataItem['placeholder_parameters']) ?
                 json_decode($dataItem['placeholder_parameters'], true) :
                 array();
@@ -43,6 +47,7 @@ class BlockMapper
                     'status' => (int) $dataItem['status'],
                     'placeholderParameters' => is_array($placeholderParameters) ? $placeholderParameters : array(),
                     'parameters' => is_array($parameters) ? $parameters : array(),
+                    'config' => is_array($config) ? $config : array(),
                 )
             );
         }

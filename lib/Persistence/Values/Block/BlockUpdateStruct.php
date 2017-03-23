@@ -30,4 +30,9 @@ class BlockUpdateStruct extends ValueObject
      * @var array
      */
     public $parameters;
+
+    /**
+     * @var array
+     */
+    public $config;
 }

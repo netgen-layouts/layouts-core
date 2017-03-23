@@ -18,6 +18,21 @@ use Symfony\Component\Validator\Constraints;
 class BlockValidator extends Validator
 {
     /**
+     * @var \Netgen\BlockManager\Core\Service\Validator\ConfigValidator
+     */
+    protected $configValidator;
+
+    /**
+     * Constructor.
+     *
+     * @param \Netgen\BlockManager\Core\Service\Validator\ConfigValidator $configValidator
+     */
+    public function __construct(ConfigValidator $configValidator)
+    {
+        $this->configValidator = $configValidator;
+    }
+
+    /**
      * Validates block create struct.
      *
      * @param \Netgen\BlockManager\API\Values\Block\BlockCreateStruct $blockCreateStruct
@@ -92,6 +107,11 @@ class BlockValidator extends Validator
                 }
             }
         }
+
+        $this->configValidator->validateConfigStructs(
+            'block',
+            $blockCreateStruct->getConfigCreateStructs()
+        );
     }
 
     /**
@@ -113,6 +133,11 @@ class BlockValidator extends Validator
                     )
                 ),
             )
+        );
+
+        $this->configValidator->validateConfigStructs(
+            'block',
+            $blockUpdateStruct->getConfigUpdateStructs()
         );
     }
 

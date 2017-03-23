@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
+use Netgen\BlockManager\Config\Registry\ConfigDefinitionRegistry;
 use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Configuration\LayoutType\Zone;
 use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
@@ -13,6 +14,7 @@ use Netgen\BlockManager\Core\Service\LayoutResolverService;
 use Netgen\BlockManager\Core\Service\LayoutService;
 use Netgen\BlockManager\Core\Service\Mapper\BlockMapper;
 use Netgen\BlockManager\Core\Service\Mapper\CollectionMapper;
+use Netgen\BlockManager\Core\Service\Mapper\ConfigMapper;
 use Netgen\BlockManager\Core\Service\Mapper\LayoutMapper;
 use Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper;
 use Netgen\BlockManager\Core\Service\Mapper\ParameterMapper;
@@ -29,6 +31,8 @@ use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithoutCollectio
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
+use Netgen\BlockManager\Tests\Config\Stubs\Block\HttpCacheConfigHandler;
+use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinition;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
 use PHPUnit\Framework\TestCase;
@@ -49,6 +53,11 @@ abstract class ServiceTestCase extends TestCase
      * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface
      */
     protected $blockDefinitionRegistry;
+
+    /**
+     * @var \Netgen\BlockManager\Config\Registry\ConfigDefinitionRegistryInterface
+     */
+    protected $configDefinitionRegistry;
 
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface
@@ -174,6 +183,11 @@ abstract class ServiceTestCase extends TestCase
         $this->blockDefinitionRegistry->addBlockDefinition('list', $blockDefinition4);
         $this->blockDefinitionRegistry->addBlockDefinition('column', $blockDefinition5);
 
+        $configDefinition1 = new ConfigDefinition('block', 'http_cache', new HttpCacheConfigHandler());
+
+        $this->configDefinitionRegistry = new ConfigDefinitionRegistry();
+        $this->configDefinitionRegistry->addConfigDefinition('block', 'http_cache', $configDefinition1);
+
         $this->targetTypeRegistry = new TargetTypeRegistry();
         $this->targetTypeRegistry->addTargetType(new TargetType('target'));
         $this->targetTypeRegistry->addTargetType(new TargetType('route'));
@@ -195,6 +209,7 @@ abstract class ServiceTestCase extends TestCase
         $this->conditionTypeRegistry->addConditionType(new ConditionType('route_parameter'));
 
         $this->parameterTypeRegistry = new ParameterTypeRegistry();
+        $this->parameterTypeRegistry->addParameterType(new ParameterType\Compound\BooleanType());
         $this->parameterTypeRegistry->addParameterType(new ParameterType\TextLineType());
         $this->parameterTypeRegistry->addParameterType(new ParameterType\IntegerType());
     }
@@ -237,6 +252,7 @@ abstract class ServiceTestCase extends TestCase
             $validator,
             $this->createBlockMapper(),
             $this->createParameterMapper(),
+            $this->createConfigMapper(),
             $this->layoutTypeRegistry
         );
     }
@@ -306,6 +322,7 @@ abstract class ServiceTestCase extends TestCase
             $this->persistenceHandler,
             $this->createCollectionMapper(),
             $this->createParameterMapper(),
+            $this->createConfigMapper(),
             $this->blockDefinitionRegistry
         );
     }
@@ -347,5 +364,18 @@ abstract class ServiceTestCase extends TestCase
     protected function createParameterMapper()
     {
         return new ParameterMapper();
+    }
+
+    /**
+     * Creates the config mapper under test.
+     *
+     * @return \Netgen\BlockManager\Core\Service\Mapper\ConfigMapper
+     */
+    protected function createConfigMapper()
+    {
+        return new ConfigMapper(
+            $this->createParameterMapper(),
+            $this->configDefinitionRegistry
+        );
     }
 }

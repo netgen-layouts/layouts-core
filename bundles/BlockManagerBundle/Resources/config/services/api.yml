@@ -132,6 +132,8 @@ services:
 
     netgen_block_manager.core.service.block.validator:
         class: Netgen\BlockManager\Core\Service\Validator\BlockValidator
+        arguments:
+            - "@netgen_block_manager.core.validator.config"
         calls:
             - [setValidator, ["@validator"]]
 
@@ -141,6 +143,7 @@ services:
             - "@netgen_block_manager.persistence.handler"
             - "@netgen_block_manager.core.service.collection.mapper"
             - "@netgen_block_manager.core.service.parameter_mapper"
+            - "@netgen_block_manager.core.service.config_mapper"
             - "@netgen_block_manager.block.registry.block_definition"
 
     netgen_block_manager.core.service.block:
@@ -150,6 +153,7 @@ services:
             - "@netgen_block_manager.core.service.block.validator"
             - "@netgen_block_manager.core.service.block.mapper"
             - "@netgen_block_manager.core.service.parameter_mapper"
+            - "@netgen_block_manager.core.service.config_mapper"
             - "@netgen_block_manager.configuration.registry.layout_type"
 
     # Collection related APIs
@@ -201,6 +205,21 @@ services:
 
     netgen_block_manager.core.service.parameter_mapper:
         class: Netgen\BlockManager\Core\Service\Mapper\ParameterMapper
+
+    netgen_block_manager.core.service.config_mapper:
+        class: Netgen\BlockManager\Core\Service\Mapper\ConfigMapper
+        arguments:
+            - "@netgen_block_manager.core.service.parameter_mapper"
+            - "@netgen_block_manager.config.registry.config_definition"
+
+    # Generic API services
+
+    netgen_block_manager.core.validator.config:
+        class: Netgen\BlockManager\Core\Service\Validator\ConfigValidator
+        arguments:
+            - "@netgen_block_manager.config.registry.config_definition"
+        calls:
+            - [setValidator, ["@validator"]]
 
     # Service aliases
 

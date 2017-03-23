@@ -1,0 +1,8 @@
+services:
+    netgen_block_manager.config.registry.config_definition:
+        class: Netgen\BlockManager\Config\Registry\ConfigDefinitionRegistry
+
+    netgen_block_manager.config.config_definition.handler.block.http_cache:
+        class: Netgen\BlockManager\Config\ConfigDefinition\Block\HttpCacheConfigHandler
+        tags:
+            - { name: netgen_block_manager.config.config_definition_handler, type: block, identifier: http_cache }

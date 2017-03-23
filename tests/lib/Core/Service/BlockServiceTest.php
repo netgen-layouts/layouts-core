@@ -9,10 +9,12 @@ use Netgen\BlockManager\API\Values\Block\CollectionReference;
 use Netgen\BlockManager\API\Values\Block\Placeholder;
 use Netgen\BlockManager\API\Values\Block\PlaceholderCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Config\Config;
+use Netgen\BlockManager\API\Values\Config\ConfigCreateStruct;
+use Netgen\BlockManager\API\Values\Config\ConfigUpdateStruct;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
-use Netgen\BlockManager\Parameters\ParameterValue;
 
 abstract class BlockServiceTest extends ServiceTestCase
 {
@@ -211,6 +213,39 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $collection = $this->collectionService->loadCollectionDraft(6);
         $this->assertEquals(Collection::TYPE_MANUAL, $collection->getType());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
+     */
+    public function testCreateBlockWithConfig()
+    {
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct(
+            $this->blockDefinitionRegistry->getBlockDefinition('list')
+        );
+
+        $httpCacheConfigCreateStruct = new ConfigCreateStruct();
+        $httpCacheConfigCreateStruct->setParameterValue('use_http_cache', true);
+        $httpCacheConfigCreateStruct->setParameterValue('shared_max_age', 400);
+
+        $blockCreateStruct->setConfigCreateStruct(
+            'http_cache',
+            $httpCacheConfigCreateStruct
+        );
+
+        $targetBlock = $this->blockService->loadBlockDraft(33);
+        $block = $this->blockService->createBlock($blockCreateStruct, $targetBlock, 'main', 0);
+
+        $this->assertFalse($block->isPublished());
+        $this->assertInstanceOf(Block::class, $block);
+
+        $this->assertTrue($block->hasConfig('http_cache'));
+        $httpCacheConfig = $block->getConfig('http_cache');
+
+        $this->assertInstanceOf(Config::class, $httpCacheConfig);
+        $this->assertTrue($httpCacheConfig->getParameter('use_http_cache')->getValue());
+        $this->assertEquals(400, $httpCacheConfig->getParameter('shared_max_age')->getValue());
     }
 
     /**
@@ -560,29 +595,37 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertInstanceOf(Block::class, $block);
         $this->assertEquals('small', $block->getViewType());
         $this->assertEquals('Super cool block', $block->getName());
-        $this->assertEquals(
-            array(
-                'css_class' => new ParameterValue(
-                    array(
-                        'name' => 'css_class',
-                        'parameter' => $block->getDefinition()->getParameters()['css_class'],
-                        'parameterType' => $this->parameterTypeRegistry->getParameterType('text_line'),
-                        'value' => 'test_value',
-                        'isEmpty' => false,
-                    )
-                ),
-                'css_id' => new ParameterValue(
-                    array(
-                        'name' => 'css_id',
-                        'parameter' => $block->getDefinition()->getParameters()['css_id'],
-                        'parameterType' => $this->parameterTypeRegistry->getParameterType('text_line'),
-                        'value' => 'some_other_test_value',
-                        'isEmpty' => false,
-                    )
-                ),
-            ),
-            $block->getParameters()
-        );
+
+        $this->assertEquals('test_value', $block->getParameter('css_class')->getValue());
+        $this->assertEquals('some_other_test_value', $block->getParameter('css_id')->getValue());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
+     */
+    public function testUpdateBlockWithConfig()
+    {
+        $block = $this->blockService->loadBlockDraft(32);
+
+        $blockUpdateStruct = $this->blockService->newBlockUpdateStruct();
+
+        $httpCacheConfigUpdateStruct = new ConfigUpdateStruct();
+        $httpCacheConfigUpdateStruct->setParameterValue('use_http_cache', true);
+        $httpCacheConfigUpdateStruct->setParameterValue('shared_max_age', 400);
+
+        $blockUpdateStruct->setConfigUpdateStruct('http_cache', $httpCacheConfigUpdateStruct);
+
+        $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
+
+        $this->assertFalse($block->isPublished());
+        $this->assertInstanceOf(Block::class, $block);
+
+        $this->assertTrue($block->hasConfig('http_cache'));
+        $httpCacheConfig = $block->getConfig('http_cache');
+
+        $this->assertInstanceOf(Config::class, $httpCacheConfig);
+        $this->assertTrue($httpCacheConfig->getParameter('use_http_cache')->getValue());
+        $this->assertEquals(400, $httpCacheConfig->getParameter('shared_max_age')->getValue());
     }
 
     /**
@@ -603,29 +646,9 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertInstanceOf(Block::class, $block);
         $this->assertEquals('small', $block->getViewType());
         $this->assertEquals('My block', $block->getName());
-        $this->assertEquals(
-            array(
-                'css_class' => new ParameterValue(
-                    array(
-                        'name' => 'css_class',
-                        'parameter' => $block->getDefinition()->getParameters()['css_class'],
-                        'parameterType' => $this->parameterTypeRegistry->getParameterType('text_line'),
-                        'value' => 'test_value',
-                        'isEmpty' => false,
-                    )
-                ),
-                'css_id' => new ParameterValue(
-                    array(
-                        'name' => 'css_id',
-                        'parameter' => $block->getDefinition()->getParameters()['css_id'],
-                        'parameterType' => $this->parameterTypeRegistry->getParameterType('text_line'),
-                        'value' => 'some_other_test_value',
-                        'isEmpty' => false,
-                    )
-                ),
-            ),
-            $block->getParameters()
-        );
+
+        $this->assertEquals('test_value', $block->getParameter('css_class')->getValue());
+        $this->assertEquals('some_other_test_value', $block->getParameter('css_id')->getValue());
     }
 
     /**
@@ -646,29 +669,9 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertInstanceOf(Block::class, $block);
         $this->assertEquals('list', $block->getViewType());
         $this->assertEquals('Super cool block', $block->getName());
-        $this->assertEquals(
-            array(
-                'css_class' => new ParameterValue(
-                    array(
-                        'name' => 'css_class',
-                        'parameter' => $block->getDefinition()->getParameters()['css_class'],
-                        'parameterType' => $this->parameterTypeRegistry->getParameterType('text_line'),
-                        'value' => 'test_value',
-                        'isEmpty' => false,
-                    )
-                ),
-                'css_id' => new ParameterValue(
-                    array(
-                        'name' => 'css_id',
-                        'parameter' => $block->getDefinition()->getParameters()['css_id'],
-                        'parameterType' => $this->parameterTypeRegistry->getParameterType('text_line'),
-                        'value' => 'some_other_test_value',
-                        'isEmpty' => false,
-                    )
-                ),
-            ),
-            $block->getParameters()
-        );
+
+        $this->assertEquals('test_value', $block->getParameter('css_class')->getValue());
+        $this->assertEquals('some_other_test_value', $block->getParameter('css_id')->getValue());
     }
 
     /**
@@ -1156,29 +1159,8 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertEquals('standard_with_intro', $restoredBlock->getItemViewType());
         $this->assertEquals('My published block', $restoredBlock->getName());
 
-        $this->assertEquals(
-            array(
-                'css_class' => new ParameterValue(
-                    array(
-                        'name' => 'css_class',
-                        'parameter' => $block->getDefinition()->getParameters()['css_class'],
-                        'parameterType' => $this->parameterTypeRegistry->getParameterType('text_line'),
-                        'value' => 'some-class',
-                        'isEmpty' => false,
-                    )
-                ),
-                'css_id' => new ParameterValue(
-                    array(
-                        'name' => 'css_id',
-                        'parameter' => $block->getDefinition()->getParameters()['css_id'],
-                        'parameterType' => $this->parameterTypeRegistry->getParameterType('text_line'),
-                        'value' => null,
-                        'isEmpty' => true,
-                    )
-                ),
-            ),
-            $block->getParameters()
-        );
+        $this->assertEquals('some-class', $block->getParameter('css_class')->getValue());
+        $this->assertNull($block->getParameter('css_id')->getValue());
 
         $collectionReferences = $this->blockService->loadCollectionReferences($restoredBlock);
         $this->assertCount(2, $collectionReferences);

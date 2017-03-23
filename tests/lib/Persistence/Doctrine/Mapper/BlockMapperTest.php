@@ -37,6 +37,7 @@ class BlockMapperTest extends TestCase
                 'definition_identifier' => 'text',
                 'placeholder_parameters' => '{"some": "value"}',
                 'parameters' => '{"param1": "param2"}',
+                'config' => '{"config1": "config2"}',
                 'view_type' => 'default',
                 'item_view_type' => 'standard',
                 'name' => 'My block',
@@ -53,6 +54,7 @@ class BlockMapperTest extends TestCase
                 'definition_identifier' => 'title',
                 'placeholder_parameters' => '{"other": "value"}',
                 'parameters' => '{"param1": 42}',
+                'config' => '{"config1": 42}',
                 'view_type' => 'small',
                 'item_view_type' => 'standard',
                 'name' => 'My other block',
@@ -81,6 +83,9 @@ class BlockMapperTest extends TestCase
                     'parameters' => array(
                         'param1' => 'param2',
                     ),
+                    'config' => array(
+                        'config1' => 'config2',
+                    ),
                 )
             ),
             new Block(
@@ -102,6 +107,9 @@ class BlockMapperTest extends TestCase
                     ),
                     'parameters' => array(
                         'param1' => 42,
+                    ),
+                    'config' => array(
+                        'config1' => 42,
                     ),
                 )
             ),

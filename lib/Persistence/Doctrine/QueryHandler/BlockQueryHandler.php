@@ -203,6 +203,7 @@ class BlockQueryHandler extends QueryHandler
                     'name' => ':name',
                     'placeholder_parameters' => ':placeholder_parameters',
                     'parameters' => ':parameters',
+                    'config' => ':config',
                 )
             )
             ->setValue('id', $this->connectionHelper->getAutoIncrementValue('ngbm_block'))
@@ -219,7 +220,8 @@ class BlockQueryHandler extends QueryHandler
             ->setParameter('item_view_type', $blockCreateStruct->itemViewType, Type::STRING)
             ->setParameter('name', trim($blockCreateStruct->name), Type::STRING)
             ->setParameter('placeholder_parameters', $blockCreateStruct->placeholderParameters, Type::JSON_ARRAY)
-            ->setParameter('parameters', $blockCreateStruct->parameters, Type::JSON_ARRAY);
+            ->setParameter('parameters', $blockCreateStruct->parameters, Type::JSON_ARRAY)
+            ->setParameter('config', $blockCreateStruct->config, Type::JSON_ARRAY);
 
         $query->execute();
 
@@ -294,6 +296,7 @@ class BlockQueryHandler extends QueryHandler
             ->set('name', ':name')
             ->set('placeholder_parameters', ':placeholder_parameters')
             ->set('parameters', ':parameters')
+            ->set('config', ':config')
             ->where(
                 $query->expr()->eq('id', ':id')
             )
@@ -302,7 +305,8 @@ class BlockQueryHandler extends QueryHandler
             ->setParameter('item_view_type', $blockUpdateStruct->itemViewType, Type::STRING)
             ->setParameter('name', $blockUpdateStruct->name, Type::STRING)
             ->setParameter('placeholder_parameters', $blockUpdateStruct->placeholderParameters, Type::JSON_ARRAY)
-            ->setParameter('parameters', $blockUpdateStruct->parameters, Type::JSON_ARRAY);
+            ->setParameter('parameters', $blockUpdateStruct->parameters, Type::JSON_ARRAY)
+            ->setParameter('config', $blockUpdateStruct->config, Type::JSON_ARRAY);
 
         $this->applyStatusCondition($query, $block->status);
 
@@ -432,6 +436,7 @@ class BlockQueryHandler extends QueryHandler
                     'name' => ':name',
                     'placeholder_parameters' => ':placeholder_parameters',
                     'parameters' => ':parameters',
+                    'config' => ':config',
                 )
             )
             ->setValue('id', (int) $block->id)
@@ -447,7 +452,8 @@ class BlockQueryHandler extends QueryHandler
             ->setParameter('item_view_type', $block->itemViewType, Type::STRING)
             ->setParameter('name', trim($block->name), Type::STRING)
             ->setParameter('placeholder_parameters', $block->placeholderParameters, Type::JSON_ARRAY)
-            ->setParameter('parameters', $block->parameters, Type::JSON_ARRAY);
+            ->setParameter('parameters', $block->parameters, Type::JSON_ARRAY)
+            ->setParameter('config', $block->config, Type::JSON_ARRAY);
 
         $query->execute();
     }

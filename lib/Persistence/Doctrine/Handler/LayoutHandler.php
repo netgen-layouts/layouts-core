@@ -229,6 +229,7 @@ class LayoutHandler implements LayoutHandlerInterface
                     'name' => '',
                     'placeholderParameters' => array(),
                     'parameters' => array(),
+                    'config' => array(),
                 )
             )
         );

@@ -6,7 +6,9 @@ use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
+use Netgen\BlockManager\Config\Registry\ConfigDefinitionRegistry;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
+use Netgen\BlockManager\Core\Service\Validator\ConfigValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Exception\ValidationFailedException;
 use Netgen\BlockManager\Parameters\ParameterBuilder;
@@ -35,7 +37,10 @@ abstract class BlockTest extends ServiceTestCase
 
         $validator = $this->getValidator();
 
-        $blockValidator = new BlockValidator();
+        $configValidator = new ConfigValidator(new ConfigDefinitionRegistry());
+        $configValidator->setValidator($validator);
+
+        $blockValidator = new BlockValidator($configValidator);
         $blockValidator->setValidator($validator);
 
         $layoutValidator = new LayoutValidator();

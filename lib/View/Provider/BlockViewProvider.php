@@ -24,11 +24,23 @@ class BlockViewProvider implements ViewProviderInterface
 
         $block = new Block($valueObject, $dynamicParameters);
 
-        return new BlockView(
+        $blockView = new BlockView(
             array(
                 'block' => $block,
             )
         );
+
+        $httpCacheConfig = $block->getConfig('http_cache');
+
+        $blockView->setIsCacheable(
+            $httpCacheConfig->getParameter('use_http_cache')->getValue()
+        );
+
+        $blockView->setSharedMaxAge(
+            $httpCacheConfig->getParameter('shared_max_age')->getValue()
+        );
+
+        return $blockView;
     }
 
     /**

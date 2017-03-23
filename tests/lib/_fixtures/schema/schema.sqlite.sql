@@ -26,6 +26,7 @@ CREATE TABLE `ngbm_block` (
   `name` text(255) NOT NULL,
   `placeholder_parameters` text NOT NULL,
   `parameters` text NOT NULL,
+  `config` text NOT NULL,
   PRIMARY KEY (`id`, `status`),
   FOREIGN KEY (`layout_id`, `status`)
     REFERENCES `ngbm_layout` (`id`, `status`)

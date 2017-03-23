@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Block\PlaceholderCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
+use Netgen\BlockManager\Core\Service\Validator\ConfigValidator;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Exception\ValidationFailedException;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition as BlockDefinitionStub;
@@ -24,6 +25,11 @@ class BlockValidatorTest extends TestCase
     protected $validator;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $configValidatorMock;
+
+    /**
      * @var \Netgen\BlockManager\Core\Service\Validator\BlockValidator
      */
     protected $blockValidator;
@@ -37,7 +43,9 @@ class BlockValidatorTest extends TestCase
             ->setConstraintValidatorFactory(new ValidatorFactory($this))
             ->getValidator();
 
-        $this->blockValidator = new BlockValidator();
+        $this->configValidatorMock = $this->createMock(ConfigValidator::class);
+
+        $this->blockValidator = new BlockValidator($this->configValidatorMock);
         $this->blockValidator->setValidator($this->validator);
     }
 
