@@ -32,6 +32,14 @@ ngbm_app_block_form_edit:
         _controller: "netgen_block_manager.controller.app.block:editForm"
         _ngbm_status: draft
 
+ngbm_app_block_form_edit_config:
+    path: /app/blocks/{blockId}/config/edit/{identifier}
+    methods: [GET, POST]
+    defaults:
+        _controller: "netgen_block_manager.controller.app.block:editConfigForm"
+        _ngbm_status: draft
+        identifier: null
+
 ngbm_app_collection_query_form_edit:
     path: /app/collections/queries/{queryId}/form/edit/{formName}
     methods: [GET, POST]
