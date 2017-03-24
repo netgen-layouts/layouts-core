@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Core\Service\Validator;
 
 use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
-use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
+use Netgen\BlockManager\Layout\Type\LayoutType;
 use Symfony\Component\Validator\Constraints;
 
 class LayoutValidator extends Validator

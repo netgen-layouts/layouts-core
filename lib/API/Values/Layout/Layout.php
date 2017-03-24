@@ -19,7 +19,7 @@ interface Layout extends Value, ArrayAccess, IteratorAggregate, Countable
     /**
      * Returns the layout type.
      *
-     * @return \Netgen\BlockManager\Configuration\LayoutType\LayoutType
+     * @return \Netgen\BlockManager\Layout\Type\LayoutType
      */
     public function getLayoutType();
 

@@ -1,9 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Configuration\Factory;
-
-use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
-use Netgen\BlockManager\Configuration\LayoutType\Zone;
+namespace Netgen\BlockManager\Layout\Type;
 
 class LayoutTypeFactory
 {
@@ -13,7 +10,7 @@ class LayoutTypeFactory
      * @param string $identifier
      * @param array $config
      *
-     * @return \Netgen\BlockManager\Configuration\LayoutType\LayoutType
+     * @return \Netgen\BlockManager\Layout\Type\LayoutType
      */
     public static function buildLayoutType($identifier, array $config)
     {

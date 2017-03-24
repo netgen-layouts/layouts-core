@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Configuration\LayoutType;
+namespace Netgen\BlockManager\Layout\Type;
 
 use Netgen\BlockManager\ValueObject;
 

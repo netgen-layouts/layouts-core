@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Tests\Block\Form;
 
-use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
-use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Layout\Form\DataTransformer\LayoutTypeTransformer;
+use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry;
+use Netgen\BlockManager\Layout\Type\LayoutType;
 use PHPUnit\Framework\TestCase;
 
 class LayoutTypeTransformerTest extends TestCase

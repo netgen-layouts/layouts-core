@@ -1,9 +1,9 @@
 <?php
 
-namespace Netgen\BlockManager\Configuration\Registry;
+namespace Netgen\BlockManager\Layout\Registry;
 
-use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Layout\Type\LayoutType;
 
 class LayoutTypeRegistry implements LayoutTypeRegistryInterface
 {
@@ -15,7 +15,7 @@ class LayoutTypeRegistry implements LayoutTypeRegistryInterface
     /**
      * Adds a layout type to registry.
      *
-     * @param \Netgen\BlockManager\Configuration\LayoutType\LayoutType $layoutType
+     * @param \Netgen\BlockManager\Layout\Type\LayoutType $layoutType
      */
     public function addLayoutType(LayoutType $layoutType)
     {
@@ -41,7 +41,7 @@ class LayoutTypeRegistry implements LayoutTypeRegistryInterface
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If layout type with provided identifier does not exist
      *
-     * @return \Netgen\BlockManager\Configuration\LayoutType\LayoutType
+     * @return \Netgen\BlockManager\Layout\Type\LayoutType
      */
     public function getLayoutType($identifier)
     {
@@ -61,7 +61,7 @@ class LayoutTypeRegistry implements LayoutTypeRegistryInterface
     /**
      * Returns all layout types.
      *
-     * @return \Netgen\BlockManager\Configuration\LayoutType\LayoutType[]
+     * @return \Netgen\BlockManager\Layout\Type\LayoutType[]
      */
     public function getLayoutTypes()
     {

@@ -2,22 +2,22 @@
 
 namespace Netgen\BlockManager\Layout\Form\DataTransformer;
 
-use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
-use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
+use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
+use Netgen\BlockManager\Layout\Type\LayoutType;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class LayoutTypeTransformer implements DataTransformerInterface
 {
     /**
-     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface
+     * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface
      */
     protected $layoutTypeRegistry;
 
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
+     * @param \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
      */
     public function __construct(LayoutTypeRegistryInterface $layoutTypeRegistry)
     {

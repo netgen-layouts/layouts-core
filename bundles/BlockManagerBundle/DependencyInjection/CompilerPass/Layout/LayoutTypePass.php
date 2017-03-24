@@ -1,18 +1,18 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration;
+namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Layout;
 
-use Netgen\BlockManager\Configuration\Factory\LayoutTypeFactory;
-use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Layout\Type\LayoutType;
+use Netgen\BlockManager\Layout\Type\LayoutTypeFactory;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 class LayoutTypePass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_block_manager.configuration.registry.layout_type';
-    const TAG_NAME = 'netgen_block_manager.configuration.layout_type';
+    const SERVICE_NAME = 'netgen_block_manager.layout.registry.layout_type';
+    const TAG_NAME = 'netgen_block_manager.layout.layout_type';
 
     /**
      * You can modify the container here before it is dumped to PHP code.
@@ -51,11 +51,11 @@ class LayoutTypePass implements CompilerPassInterface
     protected function buildLayoutTypes(ContainerBuilder $container, array $layoutTypes)
     {
         foreach ($layoutTypes as $identifier => $layoutType) {
-            $serviceIdentifier = sprintf('netgen_block_manager.configuration.layout_type.%s', $identifier);
+            $serviceIdentifier = sprintf('netgen_block_manager.layout.layout_type.%s', $identifier);
 
             $container->register($serviceIdentifier, LayoutType::class)
                 ->setArguments(array($identifier, $layoutType))
-                ->addTag('netgen_block_manager.configuration.layout_type')
+                ->addTag('netgen_block_manager.layout.layout_type')
                 ->setFactory(array(LayoutTypeFactory::class, 'buildLayoutType'));
         }
     }

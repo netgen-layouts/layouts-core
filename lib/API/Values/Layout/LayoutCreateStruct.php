@@ -7,7 +7,7 @@ use Netgen\BlockManager\ValueObject;
 class LayoutCreateStruct extends ValueObject
 {
     /**
-     * @var \Netgen\BlockManager\Configuration\LayoutType\LayoutType
+     * @var \Netgen\BlockManager\Layout\Type\LayoutType
      */
     public $layoutType;
 

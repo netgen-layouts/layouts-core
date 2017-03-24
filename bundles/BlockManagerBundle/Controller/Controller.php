@@ -73,11 +73,11 @@ abstract class Controller extends BaseController
      *
      * @param string $identifier
      *
-     * @return \Netgen\BlockManager\Configuration\LayoutType\LayoutType
+     * @return \Netgen\BlockManager\Layout\Type\LayoutType
      */
     protected function getLayoutType($identifier)
     {
-        $layoutTypeRegistry = $this->get('netgen_block_manager.configuration.registry.layout_type');
+        $layoutTypeRegistry = $this->get('netgen_block_manager.layout.registry.layout_type');
 
         return $layoutTypeRegistry->getLayoutType($identifier);
     }

@@ -8,7 +8,7 @@ use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
+use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -88,7 +88,7 @@ class LayoutNormalizer implements NormalizerInterface
      * Returns the array with layout zones.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param \Netgen\BlockManager\Configuration\LayoutType\LayoutType $layoutType
+     * @param \Netgen\BlockManager\Layout\Type\LayoutType $layoutType
      *
      * @return array
      */
@@ -124,7 +124,7 @@ class LayoutNormalizer implements NormalizerInterface
      * Returns provided zone name.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
-     * @param \Netgen\BlockManager\Configuration\LayoutType\LayoutType $layoutType
+     * @param \Netgen\BlockManager\Layout\Type\LayoutType $layoutType
      *
      * @return string
      */
@@ -142,7 +142,7 @@ class LayoutNormalizer implements NormalizerInterface
      * true if all block definitions are allowed.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
-     * @param \Netgen\BlockManager\Configuration\LayoutType\LayoutType $layoutType
+     * @param \Netgen\BlockManager\Layout\Type\LayoutType $layoutType
      *
      * @return array|bool
      */

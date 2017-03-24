@@ -3,9 +3,9 @@
 namespace Netgen\BlockManager\Tests\Block\Form;
 
 use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
-use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
-use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Layout\Form\CreateType;
+use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry;
+use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 

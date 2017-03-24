@@ -6,8 +6,8 @@ use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Layout\Type\LayoutType;
 
 abstract class LayoutServiceTest extends ServiceTestCase
 {

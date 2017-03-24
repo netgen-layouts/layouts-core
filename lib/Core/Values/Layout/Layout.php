@@ -15,7 +15,7 @@ class Layout extends ValueObject implements APILayout
     protected $id;
 
     /**
-     * @var \Netgen\BlockManager\Configuration\LayoutType\LayoutType
+     * @var \Netgen\BlockManager\Layout\Type\LayoutType
      */
     protected $layoutType;
 
@@ -67,7 +67,7 @@ class Layout extends ValueObject implements APILayout
     /**
      * Returns the layout type.
      *
-     * @return \Netgen\BlockManager\Configuration\LayoutType\LayoutType
+     * @return \Netgen\BlockManager\Layout\Type\LayoutType
      */
     public function getLayoutType()
     {

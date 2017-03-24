@@ -1,15 +1,15 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Configuration\LayoutType;
+namespace Netgen\BlockManager\Tests\Layout\Type;
 
-use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
-use Netgen\BlockManager\Configuration\LayoutType\Zone;
+use Netgen\BlockManager\Layout\Type\LayoutType;
+use Netgen\BlockManager\Layout\Type\Zone;
 use PHPUnit\Framework\TestCase;
 
 class LayoutTypeTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Configuration\LayoutType\LayoutType
+     * @var \Netgen\BlockManager\Layout\Type\LayoutType
      */
     protected $layoutType;
 
@@ -34,8 +34,8 @@ class LayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\LayoutType\LayoutType::__construct
-     * @covers \Netgen\BlockManager\Configuration\LayoutType\LayoutType::getIdentifier
+     * @covers \Netgen\BlockManager\Layout\Type\LayoutType::__construct
+     * @covers \Netgen\BlockManager\Layout\Type\LayoutType::getIdentifier
      */
     public function testGetIdentifier()
     {
@@ -43,7 +43,7 @@ class LayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\LayoutType\LayoutType::isEnabled
+     * @covers \Netgen\BlockManager\Layout\Type\LayoutType::isEnabled
      */
     public function testIsEnabled()
     {
@@ -51,7 +51,7 @@ class LayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\LayoutType\LayoutType::getName
+     * @covers \Netgen\BlockManager\Layout\Type\LayoutType::getName
      */
     public function testGetName()
     {
@@ -59,7 +59,7 @@ class LayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\LayoutType\LayoutType::getZones
+     * @covers \Netgen\BlockManager\Layout\Type\LayoutType::getZones
      */
     public function testGetZones()
     {
@@ -78,7 +78,7 @@ class LayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\LayoutType\LayoutType::getZoneIdentifiers
+     * @covers \Netgen\BlockManager\Layout\Type\LayoutType::getZoneIdentifiers
      */
     public function testGetZoneIdentifiers()
     {
@@ -86,7 +86,7 @@ class LayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\LayoutType\LayoutType::hasZone
+     * @covers \Netgen\BlockManager\Layout\Type\LayoutType::hasZone
      */
     public function testHasZone()
     {
@@ -94,7 +94,7 @@ class LayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\LayoutType\LayoutType::hasZone
+     * @covers \Netgen\BlockManager\Layout\Type\LayoutType::hasZone
      */
     public function testHasZoneReturnsFalse()
     {
@@ -102,7 +102,7 @@ class LayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\LayoutType\LayoutType::getZone
+     * @covers \Netgen\BlockManager\Layout\Type\LayoutType::getZone
      */
     public function testGetZone()
     {
@@ -119,7 +119,7 @@ class LayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\LayoutType\LayoutType::getZone
+     * @covers \Netgen\BlockManager\Layout\Type\LayoutType::getZone
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      * @expectedExceptionMessage Zone "right" does not exist in "4_zones_a" layout type.
      */

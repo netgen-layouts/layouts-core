@@ -1,20 +1,20 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Configuration\Registry;
+namespace Netgen\BlockManager\Tests\Layout\Registry;
 
-use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
-use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry;
+use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry;
+use Netgen\BlockManager\Layout\Type\LayoutType;
 use PHPUnit\Framework\TestCase;
 
 class LayoutTypeRegistryTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Configuration\LayoutType\LayoutType
+     * @var \Netgen\BlockManager\Layout\Type\LayoutType
      */
     protected $layoutType;
 
     /**
-     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry
+     * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry
      */
     protected $registry;
 
@@ -28,8 +28,8 @@ class LayoutTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry::addLayoutType
-     * @covers \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry::getLayoutTypes
+     * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::addLayoutType
+     * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::getLayoutTypes
      */
     public function testAddLayoutType()
     {
@@ -37,7 +37,7 @@ class LayoutTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry::hasLayoutType
+     * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::hasLayoutType
      */
     public function testHasLayoutType()
     {
@@ -45,7 +45,7 @@ class LayoutTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry::hasLayoutType
+     * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::hasLayoutType
      */
     public function testHasLayoutTypeWithNoLayoutType()
     {
@@ -53,7 +53,7 @@ class LayoutTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry::getLayoutType
+     * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::getLayoutType
      */
     public function testGetLayoutType()
     {
@@ -61,7 +61,7 @@ class LayoutTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistry::getLayoutType
+     * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::getLayoutType
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      * @expectedExceptionMessage Layout type with "other_layout_type" identifier does not exist.
      */

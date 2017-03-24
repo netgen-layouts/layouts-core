@@ -3,10 +3,10 @@
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
 use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Core\Values\Layout\Zone;
 use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout as PersistenceLayout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone as PersistenceZone;
@@ -15,7 +15,7 @@ use Netgen\BlockManager\Persistence\Values\Value as PersistenceValue;
 class LayoutMapper extends Mapper
 {
     /**
-     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface
+     * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface
      */
     protected $layoutTypeRegistry;
 
@@ -23,7 +23,7 @@ class LayoutMapper extends Mapper
      * Constructor.
      *
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
-     * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
+     * @param \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
      */
     public function __construct(Handler $persistenceHandler, LayoutTypeRegistryInterface $layoutTypeRegistry)
     {

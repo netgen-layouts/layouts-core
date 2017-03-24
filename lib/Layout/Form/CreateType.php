@@ -3,9 +3,9 @@
 namespace Netgen\BlockManager\Layout\Form;
 
 use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
-use Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Form\AbstractType;
 use Netgen\BlockManager\Layout\Form\DataTransformer\LayoutTypeTransformer;
+use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Validator\Constraint\LayoutName;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -17,14 +17,14 @@ use Symfony\Component\Validator\Constraints;
 class CreateType extends AbstractType
 {
     /**
-     * @var \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface
+     * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface
      */
     protected $layoutTypeRegistry;
 
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Configuration\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
+     * @param \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
      */
     public function __construct(LayoutTypeRegistryInterface $layoutTypeRegistry)
     {

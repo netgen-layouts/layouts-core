@@ -4,10 +4,10 @@ namespace Netgen\BlockManager\Tests\Core\Values\Layout;
 
 use DateTime;
 use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Core\Values\Layout\Zone;
 use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Layout\Type\LayoutType;
 use PHPUnit\Framework\TestCase;
 use Traversable;
 

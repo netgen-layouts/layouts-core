@@ -1,9 +1,9 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\CompilerPass\Configuration;
+namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\CompilerPass\Layout;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
-use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\LayoutTypePass;
+use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Layout\LayoutTypePass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
@@ -11,9 +11,9 @@ use Symfony\Component\DependencyInjection\Reference;
 class LayoutTypePassTest extends AbstractCompilerPassTestCase
 {
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\LayoutTypePass::process
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\LayoutTypePass::buildLayoutTypes
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\LayoutTypePass::validateLayoutTypes
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Layout\LayoutTypePass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Layout\LayoutTypePass::buildLayoutTypes
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Layout\LayoutTypePass::validateLayoutTypes
      */
     public function testProcess()
     {
@@ -28,24 +28,24 @@ class LayoutTypePassTest extends AbstractCompilerPassTestCase
             )
         );
 
-        $this->container->setDefinition('netgen_block_manager.configuration.registry.layout_type', new Definition());
+        $this->container->setDefinition('netgen_block_manager.layout.registry.layout_type', new Definition());
 
         $this->compile();
 
-        $this->assertContainerBuilderHasService('netgen_block_manager.configuration.layout_type.test');
+        $this->assertContainerBuilderHasService('netgen_block_manager.layout.layout_type.test');
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
-            'netgen_block_manager.configuration.registry.layout_type',
+            'netgen_block_manager.layout.registry.layout_type',
             'addLayoutType',
             array(
-                new Reference('netgen_block_manager.configuration.layout_type.test'),
+                new Reference('netgen_block_manager.layout.layout_type.test'),
             )
         );
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\LayoutTypePass::process
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\LayoutTypePass::buildLayoutTypes
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\LayoutTypePass::validateLayoutTypes
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Layout\LayoutTypePass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Layout\LayoutTypePass::buildLayoutTypes
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Layout\LayoutTypePass::validateLayoutTypes
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Block definition "title" used in "test" layout type does not exist.
      */
@@ -66,13 +66,13 @@ class LayoutTypePassTest extends AbstractCompilerPassTestCase
             )
         );
 
-        $this->setDefinition('netgen_block_manager.configuration.registry.layout_type', new Definition());
+        $this->setDefinition('netgen_block_manager.layout.registry.layout_type', new Definition());
 
         $this->compile();
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\LayoutTypePass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Layout\LayoutTypePass::process
      */
     public function testProcessWithEmptyContainer()
     {

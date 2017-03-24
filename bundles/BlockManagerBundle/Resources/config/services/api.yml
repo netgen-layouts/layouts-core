@@ -119,7 +119,7 @@ services:
         class: Netgen\BlockManager\Core\Service\Mapper\LayoutMapper
         arguments:
             - "@netgen_block_manager.persistence.handler"
-            - "@netgen_block_manager.configuration.registry.layout_type"
+            - "@netgen_block_manager.layout.registry.layout_type"
 
     netgen_block_manager.core.service.layout:
         class: Netgen\BlockManager\Core\Service\LayoutService
@@ -154,7 +154,7 @@ services:
             - "@netgen_block_manager.core.service.block.mapper"
             - "@netgen_block_manager.core.service.parameter_mapper"
             - "@netgen_block_manager.core.service.config_mapper"
-            - "@netgen_block_manager.configuration.registry.layout_type"
+            - "@netgen_block_manager.layout.registry.layout_type"
 
     # Collection related APIs
 

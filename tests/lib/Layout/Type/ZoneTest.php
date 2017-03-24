@@ -1,14 +1,14 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Configuration\LayoutType;
+namespace Netgen\BlockManager\Tests\Layout\Type;
 
-use Netgen\BlockManager\Configuration\LayoutType\Zone;
+use Netgen\BlockManager\Layout\Type\Zone;
 use PHPUnit\Framework\TestCase;
 
 class ZoneTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Configuration\LayoutType\Zone
+     * @var \Netgen\BlockManager\Layout\Type\Zone
      */
     protected $zone;
 
@@ -24,8 +24,8 @@ class ZoneTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\LayoutType\Zone::__construct
-     * @covers \Netgen\BlockManager\Configuration\LayoutType\Zone::getIdentifier
+     * @covers \Netgen\BlockManager\Layout\Type\Zone::__construct
+     * @covers \Netgen\BlockManager\Layout\Type\Zone::getIdentifier
      */
     public function testGetIdentifier()
     {
@@ -33,7 +33,7 @@ class ZoneTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\LayoutType\Zone::getName
+     * @covers \Netgen\BlockManager\Layout\Type\Zone::getName
      */
     public function testGetName()
     {
@@ -41,7 +41,7 @@ class ZoneTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\LayoutType\Zone::getAllowedBlockDefinitions
+     * @covers \Netgen\BlockManager\Layout\Type\Zone::getAllowedBlockDefinitions
      */
     public function testGetAllowedBlockDefinitions()
     {
@@ -49,7 +49,7 @@ class ZoneTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\LayoutType\Zone::isBlockDefinitionAllowed
+     * @covers \Netgen\BlockManager\Layout\Type\Zone::isBlockDefinitionAllowed
      */
     public function testIsBlockDefinitionAllowed()
     {
@@ -57,7 +57,7 @@ class ZoneTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\LayoutType\Zone::isBlockDefinitionAllowed
+     * @covers \Netgen\BlockManager\Layout\Type\Zone::isBlockDefinitionAllowed
      */
     public function testIsBlockDefinitionAllowedWithEmptyList()
     {
@@ -67,7 +67,7 @@ class ZoneTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\LayoutType\Zone::isBlockDefinitionAllowed
+     * @covers \Netgen\BlockManager\Layout\Type\Zone::isBlockDefinitionAllowed
      */
     public function testIsBlockDefinitionAllowedReturnsFalse()
     {

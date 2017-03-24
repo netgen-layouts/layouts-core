@@ -1,16 +1,16 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Configuration\Factory;
+namespace Netgen\BlockManager\Tests\Layout\Type;
 
-use Netgen\BlockManager\Configuration\Factory\LayoutTypeFactory;
-use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
-use Netgen\BlockManager\Configuration\LayoutType\Zone;
+use Netgen\BlockManager\Layout\Type\LayoutType;
+use Netgen\BlockManager\Layout\Type\LayoutTypeFactory;
+use Netgen\BlockManager\Layout\Type\Zone;
 use PHPUnit\Framework\TestCase;
 
 class LayoutTypeFactoryTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Configuration\Factory\LayoutTypeFactory::buildLayoutType
+     * @covers \Netgen\BlockManager\Layout\Type\LayoutTypeFactory::buildLayoutType
      */
     public function testBuildLayoutType()
     {

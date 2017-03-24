@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Configuration\LayoutType;
+namespace Netgen\BlockManager\Layout\Type;
 
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\ValueObject;
@@ -23,7 +23,7 @@ class LayoutType extends ValueObject
     protected $name;
 
     /**
-     * @var \Netgen\BlockManager\Configuration\LayoutType\Zone[]
+     * @var \Netgen\BlockManager\Layout\Type\Zone[]
      */
     protected $zones = array();
 
@@ -60,7 +60,7 @@ class LayoutType extends ValueObject
     /**
      * Returns the layout type zones.
      *
-     * @return \Netgen\BlockManager\Configuration\LayoutType\Zone[]
+     * @return \Netgen\BlockManager\Layout\Type\Zone[]
      */
     public function getZones()
     {
@@ -96,7 +96,7 @@ class LayoutType extends ValueObject
      *
      * @throws \InvalidArgumentException If zone does not exist
      *
-     * @return \Netgen\BlockManager\Configuration\LayoutType\Zone
+     * @return \Netgen\BlockManager\Layout\Type\Zone
      */
     public function getZone($zoneIdentifier)
     {

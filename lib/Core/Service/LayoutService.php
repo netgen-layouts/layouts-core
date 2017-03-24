@@ -9,10 +9,10 @@ use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct as APILayoutCreateS
 use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct as APILayoutUpdateStruct;
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Configuration\LayoutType\LayoutType;
 use Netgen\BlockManager\Core\Service\Mapper\LayoutMapper;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Exception\BadStateException;
+use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Persistence\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\LayoutUpdateStruct;
@@ -609,7 +609,7 @@ class LayoutService extends Service implements LayoutServiceInterface
     /**
      * Creates a new layout create struct.
      *
-     * @param \Netgen\BlockManager\Configuration\LayoutType\LayoutType $layoutType
+     * @param \Netgen\BlockManager\Layout\Type\LayoutType $layoutType
      * @param string $name
      *
      * @return \Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct
