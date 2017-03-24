@@ -2,14 +2,14 @@
 
 namespace Netgen\BlockManager\API\Values\Config;
 
-interface ConfigAwareValue
+interface ConfigCollection
 {
     /**
-     * Returns the config collection.
+     * Returns the config type.
      *
-     * @return \Netgen\BlockManager\API\Values\Config\ConfigCollection
+     * @return string
      */
-    public function getConfigCollection();
+    public function getConfigType();
 
     /**
      * Returns all available configs.
@@ -22,6 +22,8 @@ interface ConfigAwareValue
      * Returns the config with specified identifier.
      *
      * @param string $identifier
+     *
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the config does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Config\Config
      */

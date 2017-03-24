@@ -2,27 +2,35 @@
 
 namespace Netgen\BlockManager\Core\Values\Config;
 
-use Netgen\BlockManager\Exception\InvalidArgumentException;
-
 trait ConfigAwareValueTrait
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Config\Config[]
+     * @var \Netgen\BlockManager\API\Values\Config\ConfigCollection
      */
-    protected $configs = array();
+    protected $configCollection;
 
     /**
-     * Returns all available configurations.
+     * Returns the config collection.
+     *
+     * @return \Netgen\BlockManager\API\Values\Config\ConfigCollection
+     */
+    public function getConfigCollection()
+    {
+        return $this->configCollection;
+    }
+
+    /**
+     * Returns all available configs.
      *
      * @return \Netgen\BlockManager\API\Values\Config\Config[]
      */
     public function getConfigs()
     {
-        return $this->configs;
+        return $this->configCollection->getConfigs();
     }
 
     /**
-     * Returns the configuration with specified identifier.
+     * Returns the config with specified identifier.
      *
      * @param string $identifier
      *
@@ -30,21 +38,11 @@ trait ConfigAwareValueTrait
      */
     public function getConfig($identifier)
     {
-        if (isset($this->configs[$identifier])) {
-            return $this->configs[$identifier];
-        }
-
-        throw new InvalidArgumentException(
-            'identifier',
-            sprintf(
-                'Configuration with "%s" identifier does not exist.',
-                $identifier
-            )
-        );
+        return $this->configCollection->getConfig($identifier);
     }
 
     /**
-     * Returns if the configuration with specified identifier exists.
+     * Returns if the config with specified identifier exists.
      *
      * @param string $identifier
      *
@@ -52,6 +50,6 @@ trait ConfigAwareValueTrait
      */
     public function hasConfig($identifier)
     {
-        return isset($this->configs[$identifier]);
+        return $this->configCollection->hasConfig($identifier);
     }
 }

@@ -211,6 +211,16 @@ class Block implements APIBlock
     }
 
     /**
+     * Returns the config collection.
+     *
+     * @return \Netgen\BlockManager\API\Values\Config\ConfigCollection
+     */
+    public function getConfigCollection()
+    {
+        return $this->innerBlock->getConfigCollection();
+    }
+
+    /**
      * Returns all available configurations.
      *
      * @return \Netgen\BlockManager\API\Values\Config\Config[]

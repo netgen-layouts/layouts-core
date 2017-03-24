@@ -8,6 +8,7 @@ use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\CollectionReference;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
+use Netgen\BlockManager\Core\Values\Config\ConfigCollection;
 use Netgen\BlockManager\Core\Values\Layout\Zone;
 use Netgen\BlockManager\Persistence\Values\Block\Block as PersistenceBlock;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReference as PersistenceCollectionReference;
@@ -144,6 +145,11 @@ class BlockServiceTest extends ServiceTestCase
                 array(
                     'published' => false,
                     'definition' => new BlockDefinition('block_definition'),
+                    'configCollection' => new ConfigCollection(
+                        array(
+                            'configType' => 'block',
+                        )
+                    ),
                 )
             ),
             new BlockUpdateStruct()

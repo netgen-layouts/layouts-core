@@ -22,9 +22,8 @@ class EditType extends AbstractType
     {
         parent::configureOptions($resolver);
 
-        $resolver->setRequired(array('configurable', 'configType'));
+        $resolver->setRequired('configurable');
         $resolver->setAllowedTypes('configurable', ConfigAwareValue::class);
-        $resolver->setAllowedTypes('configType', 'string');
         $resolver->setAllowedTypes('data', ConfigAwareStruct::class);
 
         $resolver->setDefault('constraints', function (Options $options) {
@@ -50,7 +49,7 @@ class EditType extends AbstractType
         $configAwareValue = $options['configurable'];
         $configs = $configAwareValue->getConfigs();
 
-        $configType = $options['configType'];
+        $configType = $configAwareValue->getConfigCollection()->getConfigType();
 
         /** @var \Netgen\BlockManager\API\Values\Config\ConfigAwareStruct $configAwareStruct */
         $configAwareStruct = $options['data'];

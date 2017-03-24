@@ -360,7 +360,7 @@ class BlockService extends Service implements BlockServiceInterface
                         'config' => array_replace_recursive(
                             $persistenceBlock->config,
                             $this->configMapper->serializeValues(
-                                'block',
+                                $block->getConfigCollection()->getConfigType(),
                                 $blockUpdateStruct->getConfigStructs()
                             )
                         ),

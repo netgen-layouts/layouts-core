@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\View\Provider;
 
 use Netgen\BlockManager\Core\Values\Block\Block as CoreBlock;
 use Netgen\BlockManager\Core\Values\Config\Config;
+use Netgen\BlockManager\Core\Values\Config\ConfigCollection;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
@@ -33,15 +34,19 @@ class BlockViewProviderTest extends TestCase
         $block = new CoreBlock(
             array(
                 'id' => 42,
-                'configs' => array(
-                    'http_cache' => new Config(
-                        array(
-                            'parameters' => array(
-                                'use_http_cache' => new ParameterValue(array('value' => true)),
-                                'shared_max_age' => new ParameterValue(array('value' => 400)),
+                'configCollection' => new ConfigCollection(
+                    array(
+                        'configs' => array(
+                            'http_cache' => new Config(
+                                array(
+                                    'parameters' => array(
+                                        'use_http_cache' => new ParameterValue(array('value' => true)),
+                                        'shared_max_age' => new ParameterValue(array('value' => 400)),
+                                    ),
+                                )
                             ),
-                        )
-                    ),
+                        ),
+                    )
                 ),
                 'definition' => new BlockDefinition('block_definition'),
             )

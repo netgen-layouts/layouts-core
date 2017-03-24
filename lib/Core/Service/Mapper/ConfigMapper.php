@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Core\Service\Mapper;
 use Netgen\BlockManager\API\Values\ParameterStruct;
 use Netgen\BlockManager\Config\Registry\ConfigDefinitionRegistryInterface;
 use Netgen\BlockManager\Core\Values\Config\Config;
+use Netgen\BlockManager\Core\Values\Config\ConfigCollection;
 
 class ConfigMapper extends Mapper
 {
@@ -38,7 +39,7 @@ class ConfigMapper extends Mapper
      * @param string $type
      * @param array $config
      *
-     * @return \Netgen\BlockManager\API\Values\Config\Config[]
+     * @return \Netgen\BlockManager\API\Values\Config\ConfigCollection
      */
     public function mapConfig($type, array $config)
     {
@@ -62,7 +63,12 @@ class ConfigMapper extends Mapper
             );
         }
 
-        return $configs;
+        return new ConfigCollection(
+            array(
+                'configType' => $type,
+                'configs' => $configs,
+            )
+        );
     }
 
     /**
