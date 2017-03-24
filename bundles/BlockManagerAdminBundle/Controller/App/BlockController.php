@@ -138,7 +138,7 @@ class BlockController extends Controller
     {
         $updateStruct = $this->blockService->newBlockUpdateStruct($block);
 
-        foreach ($block->getAllConfigs() as $configIdentifier => $config) {
+        foreach ($block->getConfigs() as $configIdentifier => $config) {
             if ($identifier !== null && $configIdentifier !== $identifier) {
                 continue;
             }

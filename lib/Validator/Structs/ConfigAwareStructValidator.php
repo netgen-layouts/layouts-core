@@ -34,7 +34,7 @@ class ConfigAwareStructValidator extends ConstraintValidator
 
         /** @var \Symfony\Component\Validator\Validator\ContextualValidatorInterface $validator */
         $validator = $this->context->getValidator()->inContext($this->context);
-        $configs = $constraint->payload->getAllConfigs();
+        $configs = $constraint->payload->getConfigs();
 
         foreach ($value->getConfigStructs() as $identifier => $configStruct) {
             $validator->atPath('configStructs[' . $identifier . '].parameterValues')->validate(

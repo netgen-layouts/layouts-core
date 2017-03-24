@@ -16,7 +16,7 @@ trait ConfigAwareValueTrait
      *
      * @return \Netgen\BlockManager\API\Values\Config\Config[]
      */
-    public function getAllConfigs()
+    public function getConfigs()
     {
         return $this->configs;
     }

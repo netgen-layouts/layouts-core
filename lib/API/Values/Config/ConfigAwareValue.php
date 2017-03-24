@@ -9,7 +9,7 @@ interface ConfigAwareValue
      *
      * @return \Netgen\BlockManager\API\Values\Config\Config[]
      */
-    public function getAllConfigs();
+    public function getConfigs();
 
     /**
      * Returns the configuration with specified identifier.

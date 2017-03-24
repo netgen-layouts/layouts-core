@@ -48,7 +48,7 @@ class EditType extends AbstractType
     {
         /** @var \Netgen\BlockManager\API\Values\Config\ConfigAwareValue $configAwareValue */
         $configAwareValue = $options['configurable'];
-        $configs = $configAwareValue->getAllConfigs();
+        $configs = $configAwareValue->getConfigs();
 
         $configType = $options['configType'];
 
