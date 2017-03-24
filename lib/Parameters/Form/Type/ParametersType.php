@@ -49,7 +49,6 @@ class ParametersType extends AbstractType
         $resolver->setAllowedTypes('label_prefix', 'string');
 
         $resolver->setDefault('groups', array());
-        $resolver->setDefault('inherit_data', true);
     }
 
     /**

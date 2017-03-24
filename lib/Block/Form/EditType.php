@@ -157,6 +157,7 @@ abstract class EditType extends AbstractType
             ParametersType::class,
             array(
                 'label' => false,
+                'inherit_data' => true,
                 'property_path' => 'parameterValues',
                 'parameter_collection' => $blockDefinition,
                 'label_prefix' => 'block.' . $blockDefinition->getIdentifier(),
