@@ -1,9 +1,9 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration;
+namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection;
 
-use Netgen\BlockManager\Configuration\Factory\SourceFactory;
-use Netgen\BlockManager\Configuration\Source\Source;
+use Netgen\BlockManager\Collection\Source\Source;
+use Netgen\BlockManager\Collection\Source\SourceFactory;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -11,8 +11,8 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class SourcePass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_block_manager.configuration.registry.source';
-    const TAG_NAME = 'netgen_block_manager.configuration.source';
+    const SERVICE_NAME = 'netgen_block_manager.collection.registry.source';
+    const TAG_NAME = 'netgen_block_manager.collection.source';
 
     /**
      * You can modify the container here before it is dumped to PHP code.
@@ -55,7 +55,7 @@ class SourcePass implements CompilerPassInterface
                 continue;
             }
 
-            $serviceIdentifier = sprintf('netgen_block_manager.configuration.source.%s', $identifier);
+            $serviceIdentifier = sprintf('netgen_block_manager.collection.source.%s', $identifier);
 
             $queryTypeReferences = array();
             foreach ($source['queries'] as $queryIdentifier => $queryConfig) {
@@ -69,7 +69,7 @@ class SourcePass implements CompilerPassInterface
 
             $container->register($serviceIdentifier, Source::class)
                 ->setArguments(array($identifier, $source, $queryTypeReferences))
-                ->addTag('netgen_block_manager.configuration.source')
+                ->addTag('netgen_block_manager.collection.source')
                 ->setFactory(array(SourceFactory::class, 'buildSource'));
         }
     }

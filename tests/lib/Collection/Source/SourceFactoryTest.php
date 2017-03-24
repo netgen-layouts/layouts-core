@@ -1,17 +1,17 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Configuration\Factory;
+namespace Netgen\BlockManager\Tests\Collection\Source;
 
-use Netgen\BlockManager\Configuration\Factory\SourceFactory;
-use Netgen\BlockManager\Configuration\Source\Query;
-use Netgen\BlockManager\Configuration\Source\Source;
+use Netgen\BlockManager\Collection\Source\Query;
+use Netgen\BlockManager\Collection\Source\Source;
+use Netgen\BlockManager\Collection\Source\SourceFactory;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 
 class SourceFactoryTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Configuration\Factory\SourceFactory::buildSource
+     * @covers \Netgen\BlockManager\Collection\Source\SourceFactory::buildSource
      */
     public function testBuildSource()
     {

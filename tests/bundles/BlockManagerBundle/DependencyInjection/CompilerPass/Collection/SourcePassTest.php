@@ -1,9 +1,9 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\CompilerPass\Configuration;
+namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\CompilerPass\Collection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
-use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\SourcePass;
+use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\SourcePass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
@@ -11,9 +11,9 @@ use Symfony\Component\DependencyInjection\Reference;
 class SourcePassTest extends AbstractCompilerPassTestCase
 {
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\SourcePass::process
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\SourcePass::buildSources
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\SourcePass::validateSources
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\SourcePass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\SourcePass::buildSources
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\SourcePass::validateSources
      */
     public function testProcess()
     {
@@ -38,24 +38,24 @@ class SourcePassTest extends AbstractCompilerPassTestCase
             )
         );
 
-        $this->setDefinition('netgen_block_manager.configuration.registry.source', new Definition());
+        $this->setDefinition('netgen_block_manager.collection.registry.source', new Definition());
 
         $this->compile();
 
-        $this->assertContainerBuilderHasService('netgen_block_manager.configuration.source.test');
+        $this->assertContainerBuilderHasService('netgen_block_manager.collection.source.test');
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
-            'netgen_block_manager.configuration.registry.source',
+            'netgen_block_manager.collection.registry.source',
             'addSource',
             array(
-                new Reference('netgen_block_manager.configuration.source.test'),
+                new Reference('netgen_block_manager.collection.source.test'),
             )
         );
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\SourcePass::process
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\SourcePass::buildSources
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\SourcePass::validateSources
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\SourcePass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\SourcePass::buildSources
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\SourcePass::validateSources
      */
     public function testProcessWithDisabledSource()
     {
@@ -70,17 +70,17 @@ class SourcePassTest extends AbstractCompilerPassTestCase
             )
         );
 
-        $this->setDefinition('netgen_block_manager.configuration.registry.source', new Definition());
+        $this->setDefinition('netgen_block_manager.collection.registry.source', new Definition());
 
         $this->compile();
 
-        $this->assertContainerBuilderNotHasService('netgen_block_manager.configuration.source.test');
+        $this->assertContainerBuilderNotHasService('netgen_block_manager.collection.source.test');
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\SourcePass::process
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\SourcePass::buildSources
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\SourcePass::validateSources
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\SourcePass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\SourcePass::buildSources
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\SourcePass::validateSources
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Query type "type" used in "test" source does not exist.
      */
@@ -101,13 +101,13 @@ class SourcePassTest extends AbstractCompilerPassTestCase
             )
         );
 
-        $this->setDefinition('netgen_block_manager.configuration.registry.source', new Definition());
+        $this->setDefinition('netgen_block_manager.collection.registry.source', new Definition());
 
         $this->compile();
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\SourcePass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\SourcePass::process
      */
     public function testProcessWithEmptyContainer()
     {

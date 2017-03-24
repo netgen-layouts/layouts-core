@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer;
 
-use Netgen\BlockManager\Configuration\Source\Query;
-use Netgen\BlockManager\Configuration\Source\Source;
+use Netgen\BlockManager\Collection\Source\Query;
+use Netgen\BlockManager\Collection\Source\Source;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Netgen\BlockManager\Traits\SerializerAwareTrait;
@@ -25,7 +25,7 @@ class SourceNormalizer implements NormalizerInterface, SerializerAwareInterface
      */
     public function normalize($object, $format = null, array $context = array())
     {
-        /** @var \Netgen\BlockManager\Configuration\Source\Source $source */
+        /** @var \Netgen\BlockManager\Collection\Source\Source $source */
         $source = $object->getValue();
 
         $queries = array_map(

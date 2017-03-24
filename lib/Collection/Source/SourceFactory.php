@@ -1,9 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Configuration\Factory;
-
-use Netgen\BlockManager\Configuration\Source\Query;
-use Netgen\BlockManager\Configuration\Source\Source;
+namespace Netgen\BlockManager\Collection\Source;
 
 class SourceFactory
 {
@@ -14,7 +11,7 @@ class SourceFactory
      * @param array $config
      * @param \Netgen\BlockManager\Collection\QueryTypeInterface[] $queryTypes
      *
-     * @return \Netgen\BlockManager\Configuration\Source\Source
+     * @return \Netgen\BlockManager\Collection\Source\Source
      */
     public static function buildSource($identifier, array $config, array $queryTypes)
     {

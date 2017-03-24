@@ -3,7 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
 use Netgen\BlockManager\Block\Registry\BlockTypeRegistryInterface;
-use Netgen\BlockManager\Configuration\Registry\SourceRegistryInterface;
+use Netgen\BlockManager\Collection\Registry\SourceRegistryInterface;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
@@ -24,7 +24,7 @@ class ConfigController extends Controller
     protected $layoutTypeRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Configuration\Registry\SourceRegistryInterface
+     * @var \Netgen\BlockManager\Collection\Registry\SourceRegistryInterface
      */
     protected $sourceRegistry;
 
@@ -43,7 +43,7 @@ class ConfigController extends Controller
      *
      * @param \Netgen\BlockManager\Block\Registry\BlockTypeRegistryInterface $blockTypeRegistry
      * @param \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
-     * @param \Netgen\BlockManager\Configuration\Registry\SourceRegistryInterface $sourceRegistry
+     * @param \Netgen\BlockManager\Collection\Registry\SourceRegistryInterface $sourceRegistry
      * @param \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface $csrfTokenManager
      * @param string $csrfTokenId
      */

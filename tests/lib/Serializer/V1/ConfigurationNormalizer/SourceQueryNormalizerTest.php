@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Serializer\V1\ConfigurationNormalizer;
 
-use Netgen\BlockManager\Configuration\Source\Query;
+use Netgen\BlockManager\Collection\Source\Query;
 use Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\SourceQueryNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;

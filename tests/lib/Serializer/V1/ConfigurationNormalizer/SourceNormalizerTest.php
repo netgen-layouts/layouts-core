@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Serializer\V1\ConfigurationNormalizer;
 
-use Netgen\BlockManager\Configuration\Factory\SourceFactory;
-use Netgen\BlockManager\Configuration\Source\Source;
+use Netgen\BlockManager\Collection\Source\Source;
+use Netgen\BlockManager\Collection\Source\SourceFactory;
 use Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\SourceNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;

@@ -1,15 +1,15 @@
 <?php
 
-namespace Netgen\BlockManager\Configuration\Registry;
+namespace Netgen\BlockManager\Collection\Registry;
 
-use Netgen\BlockManager\Configuration\Source\Source;
+use Netgen\BlockManager\Collection\Source\Source;
 
 interface SourceRegistryInterface
 {
     /**
      * Adds a source to registry.
      *
-     * @param \Netgen\BlockManager\Configuration\Source\Source $source
+     * @param \Netgen\BlockManager\Collection\Source\Source $source
      */
     public function addSource(Source $source);
 
@@ -29,14 +29,14 @@ interface SourceRegistryInterface
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If source with provided identifier does not exist
      *
-     * @return \Netgen\BlockManager\Configuration\Source\Source
+     * @return \Netgen\BlockManager\Collection\Source\Source
      */
     public function getSource($identifier);
 
     /**
      * Returns all sources.
      *
-     * @return \Netgen\BlockManager\Configuration\Source\Source[]
+     * @return \Netgen\BlockManager\Collection\Source\Source[]
      */
     public function getSources();
 }

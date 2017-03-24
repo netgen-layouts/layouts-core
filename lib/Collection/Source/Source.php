@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Configuration\Source;
+namespace Netgen\BlockManager\Collection\Source;
 
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\ValueObject;
@@ -18,7 +18,7 @@ class Source extends ValueObject
     protected $name;
 
     /**
-     * @var \Netgen\BlockManager\Configuration\Source\Query[]
+     * @var \Netgen\BlockManager\Collection\Source\Query[]
      */
     protected $queries = array();
 
@@ -45,7 +45,7 @@ class Source extends ValueObject
     /**
      * Returns the source queries.
      *
-     * @return \Netgen\BlockManager\Configuration\Source\Query[]
+     * @return \Netgen\BlockManager\Collection\Source\Query[]
      */
     public function getQueries()
     {
@@ -71,7 +71,7 @@ class Source extends ValueObject
      *
      * @throws \InvalidArgumentException If query does not exist
      *
-     * @return \Netgen\BlockManager\Configuration\Source\Query
+     * @return \Netgen\BlockManager\Collection\Source\Query
      */
     public function getQuery($queryIdentifier)
     {

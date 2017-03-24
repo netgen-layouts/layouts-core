@@ -26,7 +26,7 @@ services:
         arguments:
             - "@netgen_block_manager.block.registry.block_type"
             - "@netgen_block_manager.layout.registry.layout_type"
-            - "@netgen_block_manager.configuration.registry.source"
+            - "@netgen_block_manager.collection.registry.source"
             - "@?security.csrf.token_manager"
             - "%netgen_block_manager.api.csrf_token_id%"
 

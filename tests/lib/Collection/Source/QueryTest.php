@@ -1,15 +1,15 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Configuration\Source;
+namespace Netgen\BlockManager\Tests\Collection\Source;
 
-use Netgen\BlockManager\Configuration\Source\Query;
+use Netgen\BlockManager\Collection\Source\Query;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 
 class QueryTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Configuration\Source\Query
+     * @var \Netgen\BlockManager\Collection\Source\Query
      */
     protected $query;
 
@@ -25,8 +25,8 @@ class QueryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\Source\Query::__construct
-     * @covers \Netgen\BlockManager\Configuration\Source\Query::getIdentifier
+     * @covers \Netgen\BlockManager\Collection\Source\Query::__construct
+     * @covers \Netgen\BlockManager\Collection\Source\Query::getIdentifier
      */
     public function testGetIdentifier()
     {
@@ -34,7 +34,7 @@ class QueryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\Source\Query::getQueryType
+     * @covers \Netgen\BlockManager\Collection\Source\Query::getQueryType
      */
     public function testGetQueryType()
     {
@@ -42,7 +42,7 @@ class QueryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\Source\Query::getDefaultParameters
+     * @covers \Netgen\BlockManager\Collection\Source\Query::getDefaultParameters
      */
     public function testGetDefaultParameters()
     {

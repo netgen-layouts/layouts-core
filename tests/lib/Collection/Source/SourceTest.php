@@ -1,21 +1,21 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Configuration\Source;
+namespace Netgen\BlockManager\Tests\Collection\Source;
 
-use Netgen\BlockManager\Configuration\Source\Query;
-use Netgen\BlockManager\Configuration\Source\Source;
+use Netgen\BlockManager\Collection\Source\Query;
+use Netgen\BlockManager\Collection\Source\Source;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 
 class SourceTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Configuration\Source\Query
+     * @var \Netgen\BlockManager\Collection\Source\Query
      */
     protected $query;
 
     /**
-     * @var \Netgen\BlockManager\Configuration\Source\Source
+     * @var \Netgen\BlockManager\Collection\Source\Source
      */
     protected $source;
 
@@ -41,8 +41,8 @@ class SourceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\Source\Source::__construct
-     * @covers \Netgen\BlockManager\Configuration\Source\Source::getIdentifier
+     * @covers \Netgen\BlockManager\Collection\Source\Source::__construct
+     * @covers \Netgen\BlockManager\Collection\Source\Source::getIdentifier
      */
     public function testGetIdentifier()
     {
@@ -50,7 +50,7 @@ class SourceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\Source\Source::getName
+     * @covers \Netgen\BlockManager\Collection\Source\Source::getName
      */
     public function testGetName()
     {
@@ -58,7 +58,7 @@ class SourceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\Source\Source::getQueries
+     * @covers \Netgen\BlockManager\Collection\Source\Source::getQueries
      */
     public function testGetQueries()
     {
@@ -71,7 +71,7 @@ class SourceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\Source\Source::hasQuery
+     * @covers \Netgen\BlockManager\Collection\Source\Source::hasQuery
      */
     public function testHasQuery()
     {
@@ -79,7 +79,7 @@ class SourceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\Source\Source::hasQuery
+     * @covers \Netgen\BlockManager\Collection\Source\Source::hasQuery
      */
     public function testHasQueryReturnsFalse()
     {
@@ -87,7 +87,7 @@ class SourceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\Source\Source::getQuery
+     * @covers \Netgen\BlockManager\Collection\Source\Source::getQuery
      */
     public function testGetQuery()
     {
@@ -95,7 +95,7 @@ class SourceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\Source\Source::getQuery
+     * @covers \Netgen\BlockManager\Collection\Source\Source::getQuery
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      * @expectedExceptionMessage Query with "other" identifier does not exist in "source" source.
      */

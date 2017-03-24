@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer;
 
-use Netgen\BlockManager\Configuration\Source\Query;
+use Netgen\BlockManager\Collection\Source\Query;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -20,7 +20,7 @@ class SourceQueryNormalizer implements NormalizerInterface
      */
     public function normalize($object, $format = null, array $context = array())
     {
-        /** @var \Netgen\BlockManager\Configuration\Source\Query $query */
+        /** @var \Netgen\BlockManager\Collection\Source\Query $query */
         $query = $object->getValue();
 
         return array(

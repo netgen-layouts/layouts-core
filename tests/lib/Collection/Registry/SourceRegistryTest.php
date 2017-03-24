@@ -1,20 +1,20 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Configuration\Registry;
+namespace Netgen\BlockManager\Tests\Collection\Registry;
 
-use Netgen\BlockManager\Configuration\Registry\SourceRegistry;
-use Netgen\BlockManager\Configuration\Source\Source;
+use Netgen\BlockManager\Collection\Registry\SourceRegistry;
+use Netgen\BlockManager\Collection\Source\Source;
 use PHPUnit\Framework\TestCase;
 
 class SourceRegistryTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Configuration\Source\Source
+     * @var \Netgen\BlockManager\Collection\Source\Source
      */
     protected $source;
 
     /**
-     * @var \Netgen\BlockManager\Configuration\Registry\SourceRegistry
+     * @var \Netgen\BlockManager\Collection\Registry\SourceRegistry
      */
     protected $registry;
 
@@ -28,8 +28,8 @@ class SourceRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\Registry\SourceRegistry::addSource
-     * @covers \Netgen\BlockManager\Configuration\Registry\SourceRegistry::getSources
+     * @covers \Netgen\BlockManager\Collection\Registry\SourceRegistry::addSource
+     * @covers \Netgen\BlockManager\Collection\Registry\SourceRegistry::getSources
      */
     public function testAddSource()
     {
@@ -37,7 +37,7 @@ class SourceRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\Registry\SourceRegistry::hasSource
+     * @covers \Netgen\BlockManager\Collection\Registry\SourceRegistry::hasSource
      */
     public function testHasSource()
     {
@@ -45,7 +45,7 @@ class SourceRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\Registry\SourceRegistry::hasSource
+     * @covers \Netgen\BlockManager\Collection\Registry\SourceRegistry::hasSource
      */
     public function testHasSourceWithNoSource()
     {
@@ -53,7 +53,7 @@ class SourceRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\Registry\SourceRegistry::getSource
+     * @covers \Netgen\BlockManager\Collection\Registry\SourceRegistry::getSource
      */
     public function testGetSource()
     {
@@ -61,7 +61,7 @@ class SourceRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\Registry\SourceRegistry::getSource
+     * @covers \Netgen\BlockManager\Collection\Registry\SourceRegistry::getSource
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      * @expectedExceptionMessage Source with "other_source" identifier does not exist.
      */

@@ -12,3 +12,6 @@ services:
 
     netgen_block_manager.collection.registry.query_type:
         class: Netgen\BlockManager\Collection\Registry\QueryTypeRegistry
+
+    netgen_block_manager.collection.registry.source:
+        class: Netgen\BlockManager\Collection\Registry\SourceRegistry
