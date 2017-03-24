@@ -65,11 +65,9 @@ class ParametersTypeTest extends FormTestCase
         $updatedStruct->setParameterValue('compound', true);
         $updatedStruct->setParameterValue('inner', 'Inner value');
 
-        $formData = $this->getMockForAbstractClass(ParameterStruct::class);
-
         $parentForm = $this->factory->create(
             FormType::class,
-            $formData
+            $this->getMockForAbstractClass(ParameterStruct::class)
         );
 
         $compoundParameter = new CompoundParameter(
@@ -114,7 +112,6 @@ class ParametersTypeTest extends FormTestCase
             'parameter_values',
             ParametersType::class,
             array(
-                'data' => $formData,
                 'inherit_data' => true,
                 'parameter_collection' => $parameterCollection,
                 'label_prefix' => 'label',
@@ -201,6 +198,7 @@ class ParametersTypeTest extends FormTestCase
             'parameter_values',
             ParametersType::class,
             array(
+                'inherit_data' => true,
                 'parameter_collection' => $parameterCollection,
                 'label_prefix' => 'label',
                 'property_path' => 'parameterValues',
@@ -224,6 +222,7 @@ class ParametersTypeTest extends FormTestCase
     public function testConfigureOptions()
     {
         $optionsResolver = new OptionsResolver();
+        $optionsResolver->setDefined('data');
 
         $this->formType->configureOptions($optionsResolver);
 
@@ -239,7 +238,6 @@ class ParametersTypeTest extends FormTestCase
                 'parameter_collection' => new ParameterCollection(),
                 'label_prefix' => 'label',
                 'groups' => array(),
-                'inherit_data' => true,
                 'translation_domain' => 'ngbm',
             ),
             $resolvedOptions
@@ -253,6 +251,7 @@ class ParametersTypeTest extends FormTestCase
     public function testConfigureOptionsWithMissingParameters()
     {
         $optionsResolver = new OptionsResolver();
+        $optionsResolver->setDefined('data');
 
         $this->formType->configureOptions($optionsResolver);
 
@@ -266,6 +265,7 @@ class ParametersTypeTest extends FormTestCase
     public function testConfigureOptionsWithInvalidParameters()
     {
         $optionsResolver = new OptionsResolver();
+        $optionsResolver->setDefined('data');
 
         $this->formType->configureOptions($optionsResolver);
 
