@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Core\Service\Validator;
 
+use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Config\Registry\ConfigDefinitionRegistryInterface;
 use Netgen\BlockManager\Exception\ValidationFailedException;
-use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
-use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
+use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct as ParameterStructConstraint;
 use Symfony\Component\Validator\Constraints;
 
 class ConfigValidator extends Validator
@@ -56,14 +56,14 @@ class ConfigValidator extends Validator
             $this->validate(
                 $configStructs[$identifier],
                 array(
-                    new Constraints\Type(array('type' => ParameterCollectionInterface::class)),
+                    new Constraints\Type(array('type' => ConfigStruct::class)),
                 )
             );
 
             $this->validate(
                 $configStructs[$identifier],
                 array(
-                    new ParameterStruct(
+                    new ParameterStructConstraint(
                         array(
                             'parameterCollection' => $configDefinition,
                         )

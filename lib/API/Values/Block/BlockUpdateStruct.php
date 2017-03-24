@@ -2,13 +2,13 @@
 
 namespace Netgen\BlockManager\API\Values\Block;
 
-use Netgen\BlockManager\API\Values\Config\ConfigUpdateAwareStruct;
-use Netgen\BlockManager\API\Values\Config\ConfigUpdateAwareStructTrait;
+use Netgen\BlockManager\API\Values\Config\ConfigAwareStruct;
+use Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait;
 use Netgen\BlockManager\API\Values\ParameterStruct;
 
-class BlockUpdateStruct extends ParameterStruct implements ConfigUpdateAwareStruct
+class BlockUpdateStruct extends ParameterStruct implements ConfigAwareStruct
 {
-    use ConfigUpdateAwareStructTrait;
+    use ConfigAwareStructTrait;
 
     /**
      * @var string

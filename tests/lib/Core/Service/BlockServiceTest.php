@@ -10,8 +10,7 @@ use Netgen\BlockManager\API\Values\Block\Placeholder;
 use Netgen\BlockManager\API\Values\Block\PlaceholderCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Config\Config;
-use Netgen\BlockManager\API\Values\Config\ConfigCreateStruct;
-use Netgen\BlockManager\API\Values\Config\ConfigUpdateStruct;
+use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
@@ -225,13 +224,13 @@ abstract class BlockServiceTest extends ServiceTestCase
             $this->blockDefinitionRegistry->getBlockDefinition('list')
         );
 
-        $httpCacheConfigCreateStruct = new ConfigCreateStruct();
-        $httpCacheConfigCreateStruct->setParameterValue('use_http_cache', true);
-        $httpCacheConfigCreateStruct->setParameterValue('shared_max_age', 400);
+        $httpCacheConfigStruct = new ConfigStruct();
+        $httpCacheConfigStruct->setParameterValue('use_http_cache', true);
+        $httpCacheConfigStruct->setParameterValue('shared_max_age', 400);
 
-        $blockCreateStruct->setConfigCreateStruct(
+        $blockCreateStruct->setConfigStruct(
             'http_cache',
-            $httpCacheConfigCreateStruct
+            $httpCacheConfigStruct
         );
 
         $targetBlock = $this->blockService->loadBlockDraft(33);
@@ -609,11 +608,11 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct();
 
-        $httpCacheConfigUpdateStruct = new ConfigUpdateStruct();
-        $httpCacheConfigUpdateStruct->setParameterValue('use_http_cache', true);
-        $httpCacheConfigUpdateStruct->setParameterValue('shared_max_age', 400);
+        $httpCacheConfigStruct = new ConfigStruct();
+        $httpCacheConfigStruct->setParameterValue('use_http_cache', true);
+        $httpCacheConfigStruct->setParameterValue('shared_max_age', 400);
 
-        $blockUpdateStruct->setConfigUpdateStruct('http_cache', $httpCacheConfigUpdateStruct);
+        $blockUpdateStruct->setConfigStruct('http_cache', $httpCacheConfigStruct);
 
         $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
 

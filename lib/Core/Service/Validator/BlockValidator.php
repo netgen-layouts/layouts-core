@@ -110,7 +110,7 @@ class BlockValidator extends Validator
 
         $this->configValidator->validateConfigStructs(
             'block',
-            $blockCreateStruct->getConfigCreateStructs()
+            $blockCreateStruct->getConfigStructs()
         );
     }
 
@@ -137,7 +137,7 @@ class BlockValidator extends Validator
 
         $this->configValidator->validateConfigStructs(
             'block',
-            $blockUpdateStruct->getConfigUpdateStructs()
+            $blockUpdateStruct->getConfigStructs()
         );
     }
 
