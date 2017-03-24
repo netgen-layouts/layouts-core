@@ -28,16 +28,6 @@ class HttpCacheNode implements ConfigurationNodeInterface
                 ->arrayNode('default')
                     ->addDefaultsIfNotSet();
 
-        $this->configureTtlNode($defaultTtlNode->children()->arrayNode('layout'));
-
-        $this->configureTtlNode(
-            $ttlNode
-                ->children()
-                    ->arrayNode('layout_type')
-                        ->useAttributeAsKey('layout_type')
-                        ->prototype('array')
-        );
-
         $this->configureTtlNode($defaultTtlNode->children()->arrayNode('block'));
 
         $this->configureTtlNode(
@@ -114,8 +104,6 @@ class HttpCacheNode implements ConfigurationNodeInterface
             ->children()
                 ->integerNode('shared_max_age')
                     ->min(0)
-                ->end()
-                ->booleanNode('overwrite_headers')
                 ->end()
             ->end();
 

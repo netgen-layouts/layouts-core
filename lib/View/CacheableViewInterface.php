@@ -31,20 +31,4 @@ interface CacheableViewInterface extends ViewInterface
      * @param int $sharedMaxAge
      */
     public function setSharedMaxAge($sharedMaxAge);
-
-    /**
-     * Returns if this view should overwrite already existing caching headers
-     * that might've been set in the response.
-     *
-     * @return int
-     */
-    public function overwriteHeaders();
-
-    /**
-     * Sets if this view should overwrite already existing caching headers
-     * that might've been set in the response.
-     *
-     * @param bool $overwriteHeaders
-     */
-    public function setOverwriteHeaders($overwriteHeaders);
 }

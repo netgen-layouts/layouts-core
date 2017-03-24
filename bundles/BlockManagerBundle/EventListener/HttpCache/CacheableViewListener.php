@@ -3,7 +3,6 @@
 namespace Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache;
 
 use Netgen\BlockManager\View\CacheableViewInterface;
-use Netgen\BlockManager\View\View\LayoutViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
@@ -51,12 +50,12 @@ class CacheableViewListener implements EventSubscriberInterface
             return;
         }
 
-        $layoutView = $event->getRequest()->attributes->get('layoutView');
-        if (!$layoutView instanceof LayoutViewInterface) {
+        $view = $event->getRequest()->attributes->get('ngbmView');
+        if (!$view instanceof CacheableViewInterface) {
             return;
         }
 
-        $this->setUpCachingHeaders($layoutView, $event->getResponse());
+        $this->setUpCachingHeaders($view, $event->getResponse());
     }
 
     /**
@@ -69,7 +68,7 @@ class CacheableViewListener implements EventSubscriberInterface
             return;
         }
 
-        if (!$response->headers->hasCacheControlDirective('s-maxage') || $cacheableView->overwriteHeaders()) {
+        if (!$response->headers->hasCacheControlDirective('s-maxage')) {
             $sharedMaxAge = (int) $cacheableView->getSharedMaxAge();
             if ($sharedMaxAge > 0) {
                 $response->setSharedMaxAge($sharedMaxAge);

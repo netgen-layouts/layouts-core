@@ -2,10 +2,9 @@
 
 namespace Netgen\BlockManager\View\View;
 
-use Netgen\BlockManager\View\CacheableViewInterface;
 use Netgen\BlockManager\View\ViewInterface;
 
-interface LayoutViewInterface extends ViewInterface, CacheableViewInterface
+interface LayoutViewInterface extends ViewInterface
 {
     /**
      * Returns the layout.

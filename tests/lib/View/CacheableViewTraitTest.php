@@ -20,13 +20,11 @@ class CacheableViewTraitTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\CacheableViewTrait::isCacheable
      * @covers \Netgen\BlockManager\View\CacheableViewTrait::getSharedMaxAge
-     * @covers \Netgen\BlockManager\View\CacheableViewTrait::overwriteHeaders
      */
     public function testDefaultValues()
     {
         $this->assertTrue($this->view->isCacheable());
         $this->assertEquals(0, $this->view->getSharedMaxAge());
-        $this->assertFalse($this->view->overwriteHeaders());
     }
 
     /**
@@ -47,15 +45,5 @@ class CacheableViewTraitTest extends TestCase
     {
         $this->view->setSharedMaxAge(42);
         $this->assertEquals(42, $this->view->getSharedMaxAge());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\View\CacheableViewTrait::setOverwriteHeaders
-     * @covers \Netgen\BlockManager\View\CacheableViewTrait::overwriteHeaders
-     */
-    public function testGetSetOverwriteHeaders()
-    {
-        $this->view->setOverwriteHeaders(true);
-        $this->assertTrue($this->view->overwriteHeaders());
     }
 }

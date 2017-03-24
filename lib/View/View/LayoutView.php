@@ -2,13 +2,10 @@
 
 namespace Netgen\BlockManager\View\View;
 
-use Netgen\BlockManager\View\CacheableViewTrait;
 use Netgen\BlockManager\View\View;
 
 class LayoutView extends View implements LayoutViewInterface
 {
-    use CacheableViewTrait;
-
     /**
      * Returns the layout.
      *

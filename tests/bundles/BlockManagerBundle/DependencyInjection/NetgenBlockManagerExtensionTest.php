@@ -221,22 +221,12 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
         $this->load();
 
         $this->assertContainerBuilderHasParameter(
-            'netgen_block_manager.http_cache.ttl.default.layout',
-            array()
-        );
-
-        $this->assertContainerBuilderHasParameter(
             'netgen_block_manager.http_cache.ttl.default.block',
             array()
         );
 
         $this->assertContainerBuilderHasParameter(
             'netgen_block_manager.http_cache.ttl.block_definition',
-            array()
-        );
-
-        $this->assertContainerBuilderHasParameter(
-            'netgen_block_manager.http_cache.ttl.layout_type',
             array()
         );
     }

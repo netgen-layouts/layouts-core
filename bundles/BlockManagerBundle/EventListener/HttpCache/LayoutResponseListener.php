@@ -44,7 +44,7 @@ class LayoutResponseListener implements EventSubscriberInterface
             return;
         }
 
-        $layoutView = $event->getRequest()->attributes->get('layoutView');
+        $layoutView = $event->getRequest()->attributes->get('ngbmView');
         if (!$layoutView instanceof LayoutViewInterface) {
             return;
         }

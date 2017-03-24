@@ -211,16 +211,6 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
     protected function processHttpCacheConfiguration(array $config, ContainerBuilder $container)
     {
         $container->setParameter(
-            'netgen_block_manager.http_cache.ttl.default.layout',
-            $config['ttl']['default']['layout']
-        );
-
-        $container->setParameter(
-            'netgen_block_manager.http_cache.ttl.layout_type',
-            $config['ttl']['layout_type']
-        );
-
-        $container->setParameter(
             'netgen_block_manager.http_cache.ttl.default.block',
             $config['ttl']['default']['block']
         );

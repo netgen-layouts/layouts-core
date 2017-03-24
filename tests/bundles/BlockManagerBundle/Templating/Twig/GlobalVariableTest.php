@@ -259,7 +259,7 @@ class GlobalVariableTest extends TestCase
 
         $this->assertEquals(
             $layoutView,
-            $this->requestStack->getCurrentRequest()->attributes->get('layoutView')
+            $this->requestStack->getCurrentRequest()->attributes->get('ngbmView')
         );
     }
 
@@ -285,7 +285,7 @@ class GlobalVariableTest extends TestCase
         );
 
         $this->assertFalse(
-            $this->requestStack->getCurrentRequest()->attributes->has('layoutView')
+            $this->requestStack->getCurrentRequest()->attributes->has('ngbmView')
         );
     }
 

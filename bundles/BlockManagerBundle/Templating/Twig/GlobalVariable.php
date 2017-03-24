@@ -169,7 +169,7 @@ class GlobalVariable
 
             $currentRequest = $this->requestStack->getCurrentRequest();
             if ($currentRequest instanceof Request) {
-                $currentRequest->attributes->set('layoutView', $this->layoutView);
+                $currentRequest->attributes->set('ngbmView', $this->layoutView);
             }
         }
     }

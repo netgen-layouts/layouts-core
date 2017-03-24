@@ -3,10 +3,6 @@ http_cache:
         default:
             block:
                 shared_max_age: 300
-                overwrite_headers: false
-            layout:
-                shared_max_age: 300
-                overwrite_headers: false
     invalidation:
         enabled: "%kernel.debug%"
         default_strategy: ban

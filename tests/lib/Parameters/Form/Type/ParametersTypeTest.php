@@ -65,9 +65,11 @@ class ParametersTypeTest extends FormTestCase
         $updatedStruct->setParameterValue('compound', true);
         $updatedStruct->setParameterValue('inner', 'Inner value');
 
+        $formData = $this->getMockForAbstractClass(ParameterStruct::class);
+
         $parentForm = $this->factory->create(
             FormType::class,
-            $this->getMockForAbstractClass(ParameterStruct::class)
+            $formData
         );
 
         $compoundParameter = new CompoundParameter(
@@ -112,6 +114,8 @@ class ParametersTypeTest extends FormTestCase
             'parameter_values',
             ParametersType::class,
             array(
+                'data' => $formData,
+                'inherit_data' => true,
                 'parameter_collection' => $parameterCollection,
                 'label_prefix' => 'label',
                 'property_path' => 'parameterValues',

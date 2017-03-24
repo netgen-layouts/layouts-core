@@ -3,7 +3,6 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener\HttpCache;
 
 use Netgen\BlockManager\View\View\BlockView;
-use Netgen\BlockManager\View\View\LayoutView;
 use Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewListener;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -92,35 +91,7 @@ class CacheableViewListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewListener::onView
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewListener::setUpCachingHeaders
      */
-    public function testOnViewWithOverwritingHeaders()
-    {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
-        $request = Request::create('/');
-
-        $blockView = new BlockView();
-
-        $blockView->getResponse()->setSharedMaxAge(41);
-
-        $blockView->setOverwriteHeaders(true);
-        $blockView->setSharedMaxAge(42);
-
-        $event = new GetResponseForControllerResultEvent(
-            $kernelMock,
-            $request,
-            HttpKernelInterface::MASTER_REQUEST,
-            $blockView
-        );
-
-        $this->listener->onView($event);
-
-        $this->assertEquals(42, $blockView->getResponse()->getMaxAge());
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewListener::onView
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewListener::setUpCachingHeaders
-     */
-    public function testOnViewWithoutOverwritingHeaders()
+    public function testOnViewWithExistingHeaders()
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -195,10 +166,10 @@ class CacheableViewListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $layoutView = new LayoutView();
-        $layoutView->setSharedMaxAge(42);
+        $blockView = new BlockView();
+        $blockView->setSharedMaxAge(42);
 
-        $request->attributes->set('layoutView', $layoutView);
+        $request->attributes->set('ngbmView', $blockView);
 
         $event = new FilterResponseEvent(
             $kernelMock,
@@ -221,11 +192,11 @@ class CacheableViewListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $layoutView = new LayoutView();
-        $layoutView->setIsCacheable(false);
-        $layoutView->setSharedMaxAge(42);
+        $blockView = new BlockView();
+        $blockView->setIsCacheable(false);
+        $blockView->setSharedMaxAge(42);
 
-        $request->attributes->set('layoutView', $layoutView);
+        $request->attributes->set('blockView', $blockView);
 
         $event = new FilterResponseEvent(
             $kernelMock,
@@ -243,45 +214,15 @@ class CacheableViewListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewListener::onKernelResponse
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewListener::setUpCachingHeaders
      */
-    public function testOnKernelResponseWithOverwritingHeaders()
+    public function testOnKernelResponseWithExistingHeaders()
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $layoutView = new LayoutView();
-        $layoutView->setOverwriteHeaders(true);
-        $layoutView->setSharedMaxAge(42);
+        $blockView = new BlockView();
+        $blockView->setSharedMaxAge(42);
 
-        $request->attributes->set('layoutView', $layoutView);
-
-        $response = new Response();
-        $response->setSharedMaxAge(41);
-
-        $event = new FilterResponseEvent(
-            $kernelMock,
-            $request,
-            HttpKernelInterface::MASTER_REQUEST,
-            $response
-        );
-
-        $this->listener->onKernelResponse($event);
-
-        $this->assertEquals(42, $event->getResponse()->getMaxAge());
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewListener::onKernelResponse
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewListener::setUpCachingHeaders
-     */
-    public function testOnKernelResponseWithoutOverwritingHeaders()
-    {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
-        $request = Request::create('/');
-
-        $layoutView = new LayoutView();
-        $layoutView->setSharedMaxAge(42);
-
-        $request->attributes->set('layoutView', $layoutView);
+        $request->attributes->set('blockView', $blockView);
 
         $response = new Response();
         $response->setSharedMaxAge(41);
@@ -306,10 +247,10 @@ class CacheableViewListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $layoutView = new LayoutView();
-        $layoutView->setSharedMaxAge(42);
+        $blockView = new BlockView();
+        $blockView->setSharedMaxAge(42);
 
-        $request->attributes->set('layoutView', $layoutView);
+        $request->attributes->set('blockView', $blockView);
 
         $event = new FilterResponseEvent(
             $kernelMock,
