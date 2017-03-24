@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Parameters\Form\Type;
 
+use Netgen\BlockManager\API\Values\ParameterStruct;
 use Netgen\BlockManager\Form\AbstractType;
 use Netgen\BlockManager\Parameters\CompoundParameterInterface;
 use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
@@ -45,6 +46,7 @@ class ParametersType extends AbstractType
         );
 
         $resolver->setAllowedTypes('groups', 'array');
+        $resolver->setAllowedTypes('data', ParameterStruct::class);
         $resolver->setAllowedTypes('parameter_collection', ParameterCollectionInterface::class);
         $resolver->setAllowedTypes('label_prefix', 'string');
 
@@ -78,7 +80,7 @@ class ParametersType extends AbstractType
                 'label' => $parameterLabel === null ?
                     $options['label_prefix'] . '.' . $parameterName :
                     $parameterLabel,
-                'property_path' => $options['property_path'] . '[' . $parameterName . ']',
+                'property_path' => 'parameterValues[' . $parameterName . ']',
                 'ngbm_parameter' => $parameter,
             );
 
