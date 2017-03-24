@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Serializer\V1\ConfigurationNormalizer;
 
-use Netgen\BlockManager\Configuration\BlockType\BlockType;
+use Netgen\BlockManager\Block\BlockType\BlockType;
 use Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\BlockTypeNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;

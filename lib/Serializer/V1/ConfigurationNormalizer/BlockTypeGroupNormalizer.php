@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer;
 
-use Netgen\BlockManager\Configuration\BlockType\BlockType;
-use Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup;
+use Netgen\BlockManager\Block\BlockType\BlockType;
+use Netgen\BlockManager\Block\BlockType\BlockTypeGroup;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -21,7 +21,7 @@ class BlockTypeGroupNormalizer implements NormalizerInterface
      */
     public function normalize($object, $format = null, array $context = array())
     {
-        /** @var \Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup $blockTypeGroup */
+        /** @var \Netgen\BlockManager\Block\BlockType\BlockTypeGroup $blockTypeGroup */
         $blockTypeGroup = $object->getValue();
 
         return array(

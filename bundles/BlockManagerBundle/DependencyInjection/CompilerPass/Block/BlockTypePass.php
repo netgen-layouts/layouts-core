@@ -1,9 +1,9 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration;
+namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block;
 
-use Netgen\BlockManager\Configuration\BlockType\BlockType;
-use Netgen\BlockManager\Configuration\Factory\BlockTypeFactory;
+use Netgen\BlockManager\Block\BlockType\BlockType;
+use Netgen\BlockManager\Block\BlockType\BlockTypeFactory;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -11,8 +11,8 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class BlockTypePass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_block_manager.configuration.registry.block_type';
-    const TAG_NAME = 'netgen_block_manager.configuration.block_type';
+    const SERVICE_NAME = 'netgen_block_manager.block.registry.block_type';
+    const TAG_NAME = 'netgen_block_manager.block.block_type';
 
     /**
      * You can modify the container here before it is dumped to PHP code.
@@ -101,7 +101,7 @@ class BlockTypePass implements CompilerPassInterface
                 continue;
             }
 
-            $serviceIdentifier = sprintf('netgen_block_manager.configuration.block_type.%s', $identifier);
+            $serviceIdentifier = sprintf('netgen_block_manager.block.block_type.%s', $identifier);
 
             $container->register($serviceIdentifier, BlockType::class)
                 ->setArguments(
@@ -116,7 +116,7 @@ class BlockTypePass implements CompilerPassInterface
                         ),
                     )
                 )
-                ->addTag('netgen_block_manager.configuration.block_type')
+                ->addTag('netgen_block_manager.block.block_type')
                 ->setFactory(array(BlockTypeFactory::class, 'buildBlockType'));
         }
     }

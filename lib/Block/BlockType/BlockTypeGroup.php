@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Configuration\BlockType;
+namespace Netgen\BlockManager\Block\BlockType;
 
 use Netgen\BlockManager\ValueObject;
 
@@ -17,7 +17,7 @@ class BlockTypeGroup extends ValueObject
     protected $name;
 
     /**
-     * @var \Netgen\BlockManager\Configuration\BlockType\BlockType[]
+     * @var \Netgen\BlockManager\Block\BlockType\BlockType[]
      */
     protected $blockTypes = array();
 
@@ -44,7 +44,7 @@ class BlockTypeGroup extends ValueObject
     /**
      * Returns the block types in this group.
      *
-     * @return \Netgen\BlockManager\Configuration\BlockType\BlockType[]
+     * @return \Netgen\BlockManager\Block\BlockType\BlockType[]
      */
     public function getBlockTypes()
     {

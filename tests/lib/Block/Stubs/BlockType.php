@@ -1,9 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Configuration\Stubs;
+namespace Netgen\BlockManager\Tests\Block\Stubs;
 
-use Netgen\BlockManager\Configuration\BlockType\BlockType as BaseBlockType;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
+use Netgen\BlockManager\Block\BlockType\BlockType as BaseBlockType;
 
 class BlockType extends BaseBlockType
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\CompilerPass\Configuration;
+namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\CompilerPass\Block;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
-use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass;
+use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
@@ -11,10 +11,10 @@ use Symfony\Component\DependencyInjection\Reference;
 class BlockTypePassTest extends AbstractCompilerPassTestCase
 {
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::process
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::generateBlockTypeConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::buildBlockTypes
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::validateBlockTypes
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::generateBlockTypeConfig
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::buildBlockTypes
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::validateBlockTypes
      */
     public function testProcess()
     {
@@ -38,25 +38,25 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
             )
         );
 
-        $this->setDefinition('netgen_block_manager.configuration.registry.block_type', new Definition());
+        $this->setDefinition('netgen_block_manager.block.registry.block_type', new Definition());
 
         $this->compile();
 
-        $this->assertContainerBuilderHasService('netgen_block_manager.configuration.block_type.test');
+        $this->assertContainerBuilderHasService('netgen_block_manager.block.block_type.test');
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
-            'netgen_block_manager.configuration.registry.block_type',
+            'netgen_block_manager.block.registry.block_type',
             'addBlockType',
             array(
-                new Reference('netgen_block_manager.configuration.block_type.test'),
+                new Reference('netgen_block_manager.block.block_type.test'),
             )
         );
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::process
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::generateBlockTypeConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::buildBlockTypes
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::validateBlockTypes
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::generateBlockTypeConfig
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::buildBlockTypes
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::validateBlockTypes
      */
     public function testProcessWithRedefinedBlockType()
     {
@@ -84,7 +84,7 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
             )
         );
 
-        $this->setDefinition('netgen_block_manager.configuration.registry.block_type', new Definition());
+        $this->setDefinition('netgen_block_manager.block.registry.block_type', new Definition());
 
         $this->compile();
 
@@ -101,21 +101,21 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
             $blockTypes['test']
         );
 
-        $this->assertContainerBuilderHasService('netgen_block_manager.configuration.block_type.test');
+        $this->assertContainerBuilderHasService('netgen_block_manager.block.block_type.test');
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
-            'netgen_block_manager.configuration.registry.block_type',
+            'netgen_block_manager.block.registry.block_type',
             'addBlockType',
             array(
-                new Reference('netgen_block_manager.configuration.block_type.test'),
+                new Reference('netgen_block_manager.block.block_type.test'),
             )
         );
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::process
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::generateBlockTypeConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::buildBlockTypes
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::validateBlockTypes
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::generateBlockTypeConfig
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::buildBlockTypes
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::validateBlockTypes
      */
     public function testProcessWithDefaultConfigForBlockType()
     {
@@ -136,7 +136,7 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
             )
         );
 
-        $this->setDefinition('netgen_block_manager.configuration.registry.block_type', new Definition());
+        $this->setDefinition('netgen_block_manager.block.registry.block_type', new Definition());
 
         $this->compile();
 
@@ -154,21 +154,21 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
             $blockTypes['test']
         );
 
-        $this->assertContainerBuilderHasService('netgen_block_manager.configuration.block_type.test');
+        $this->assertContainerBuilderHasService('netgen_block_manager.block.block_type.test');
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
-            'netgen_block_manager.configuration.registry.block_type',
+            'netgen_block_manager.block.registry.block_type',
             'addBlockType',
             array(
-                new Reference('netgen_block_manager.configuration.block_type.test'),
+                new Reference('netgen_block_manager.block.block_type.test'),
             )
         );
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::process
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::generateBlockTypeConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::buildBlockTypes
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::validateBlockTypes
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::generateBlockTypeConfig
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::buildBlockTypes
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::validateBlockTypes
      */
     public function testProcessWithNonExistingBlockType()
     {
@@ -184,7 +184,7 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
             )
         );
 
-        $this->setDefinition('netgen_block_manager.configuration.registry.block_type', new Definition());
+        $this->setDefinition('netgen_block_manager.block.registry.block_type', new Definition());
 
         $this->compile();
 
@@ -201,21 +201,21 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
             $blockTypes['test']
         );
 
-        $this->assertContainerBuilderHasService('netgen_block_manager.configuration.block_type.test');
+        $this->assertContainerBuilderHasService('netgen_block_manager.block.block_type.test');
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
-            'netgen_block_manager.configuration.registry.block_type',
+            'netgen_block_manager.block.registry.block_type',
             'addBlockType',
             array(
-                new Reference('netgen_block_manager.configuration.block_type.test'),
+                new Reference('netgen_block_manager.block.block_type.test'),
             )
         );
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::process
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::generateBlockTypeConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::buildBlockTypes
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::validateBlockTypes
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::generateBlockTypeConfig
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::buildBlockTypes
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::validateBlockTypes
      */
     public function testProcessWithDisabledBlockType()
     {
@@ -239,18 +239,18 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
             )
         );
 
-        $this->setDefinition('netgen_block_manager.configuration.registry.block_type', new Definition());
+        $this->setDefinition('netgen_block_manager.block.registry.block_type', new Definition());
 
         $this->compile();
 
-        $this->assertContainerBuilderNotHasService('netgen_block_manager.configuration.block_type.type');
+        $this->assertContainerBuilderNotHasService('netgen_block_manager.block.block_type.type');
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::process
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::generateBlockTypeConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::buildBlockTypes
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::validateBlockTypes
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::generateBlockTypeConfig
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::buildBlockTypes
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::validateBlockTypes
      */
     public function testProcessWithDisabledBlockDefinition()
     {
@@ -274,18 +274,18 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
             )
         );
 
-        $this->setDefinition('netgen_block_manager.configuration.registry.block_type', new Definition());
+        $this->setDefinition('netgen_block_manager.block.registry.block_type', new Definition());
 
         $this->compile();
 
-        $this->assertContainerBuilderNotHasService('netgen_block_manager.configuration.block_type.type');
+        $this->assertContainerBuilderNotHasService('netgen_block_manager.block.block_type.type');
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::process
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::generateBlockTypeConfig
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::buildBlockTypes
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::validateBlockTypes
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::generateBlockTypeConfig
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::buildBlockTypes
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::validateBlockTypes
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Block definition "title" used in "test" block type does not exist.
      */
@@ -303,13 +303,13 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
 
         $this->setParameter('netgen_block_manager.block_definitions', array());
 
-        $this->setDefinition('netgen_block_manager.configuration.registry.block_type', new Definition());
+        $this->setDefinition('netgen_block_manager.block.registry.block_type', new Definition());
 
         $this->compile();
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration\BlockTypePass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::process
      */
     public function testProcessWithEmptyContainer()
     {

@@ -1,17 +1,17 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Configuration;
+namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block;
 
-use Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup;
-use Netgen\BlockManager\Configuration\Factory\BlockTypeGroupFactory;
+use Netgen\BlockManager\Block\BlockType\BlockTypeGroup;
+use Netgen\BlockManager\Block\BlockType\BlockTypeGroupFactory;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 class BlockTypeGroupPass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_block_manager.configuration.registry.block_type';
-    const TAG_NAME = 'netgen_block_manager.configuration.block_type_group';
+    const SERVICE_NAME = 'netgen_block_manager.block.registry.block_type';
+    const TAG_NAME = 'netgen_block_manager.block.block_type_group';
 
     /**
      * You can modify the container here before it is dumped to PHP code.
@@ -95,14 +95,14 @@ class BlockTypeGroupPass implements CompilerPassInterface
                 continue;
             }
 
-            $serviceIdentifier = sprintf('netgen_block_manager.configuration.block_type_group.%s', $identifier);
+            $serviceIdentifier = sprintf('netgen_block_manager.block.block_type_group.%s', $identifier);
 
             $blockTypeReferences = array();
             foreach ($blockTypeGroup['block_types'] as $blockTypeIdentifier) {
                 if (isset($blockTypes[$blockTypeIdentifier]) && $blockTypes[$blockTypeIdentifier]['enabled']) {
                     $blockTypeReferences[] = new Reference(
                         sprintf(
-                            'netgen_block_manager.configuration.block_type.%s',
+                            'netgen_block_manager.block.block_type.%s',
                             $blockTypeIdentifier
                         )
                     );
@@ -111,7 +111,7 @@ class BlockTypeGroupPass implements CompilerPassInterface
 
             $container->register($serviceIdentifier, BlockTypeGroup::class)
                 ->setArguments(array($identifier, $blockTypeGroup, $blockTypeReferences))
-                ->addTag('netgen_block_manager.configuration.block_type_group')
+                ->addTag('netgen_block_manager.block.block_type_group')
                 ->setFactory(array(BlockTypeGroupFactory::class, 'buildBlockTypeGroup'));
         }
     }

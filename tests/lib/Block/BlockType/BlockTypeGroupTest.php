@@ -1,15 +1,15 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Configuration\BlockType;
+namespace Netgen\BlockManager\Tests\Block\BlockType;
 
-use Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup;
-use Netgen\BlockManager\Tests\Configuration\Stubs\BlockType;
+use Netgen\BlockManager\Block\BlockType\BlockTypeGroup;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockType;
 use PHPUnit\Framework\TestCase;
 
 class BlockTypeGroupTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup
+     * @var \Netgen\BlockManager\Block\BlockType\BlockTypeGroup
      */
     protected $blockTypeGroup;
 
@@ -25,8 +25,8 @@ class BlockTypeGroupTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup::__construct
-     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup::getIdentifier
+     * @covers \Netgen\BlockManager\Block\BlockType\BlockTypeGroup::__construct
+     * @covers \Netgen\BlockManager\Block\BlockType\BlockTypeGroup::getIdentifier
      */
     public function testGetIdentifier()
     {
@@ -34,7 +34,7 @@ class BlockTypeGroupTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup::getName
+     * @covers \Netgen\BlockManager\Block\BlockType\BlockTypeGroup::getName
      */
     public function testGetName()
     {
@@ -42,7 +42,7 @@ class BlockTypeGroupTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup::getBlockTypes
+     * @covers \Netgen\BlockManager\Block\BlockType\BlockTypeGroup::getBlockTypes
      */
     public function testGetBlockTypes()
     {

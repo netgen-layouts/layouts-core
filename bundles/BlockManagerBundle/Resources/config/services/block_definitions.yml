@@ -55,6 +55,9 @@ services:
     netgen_block_manager.block.registry.block_definition:
         class: Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry
 
+    netgen_block_manager.block.registry.block_type:
+        class: Netgen\BlockManager\Block\Registry\BlockTypeRegistry
+
     netgen_block_manager.block.block_definition.handler.title:
         class: Netgen\BlockManager\Block\BlockDefinition\Handler\TitleHandler
         arguments:

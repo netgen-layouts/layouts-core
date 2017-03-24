@@ -1,9 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Configuration\Factory;
+namespace Netgen\BlockManager\Block\BlockType;
 
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
-use Netgen\BlockManager\Configuration\BlockType\BlockType;
 
 class BlockTypeFactory
 {
@@ -14,7 +13,7 @@ class BlockTypeFactory
      * @param array $config
      * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition
      *
-     * @return \Netgen\BlockManager\Configuration\BlockType\BlockType
+     * @return \Netgen\BlockManager\Block\BlockType\BlockType
      */
     public static function buildBlockType($identifier, array $config, BlockDefinitionInterface $blockDefinition)
     {

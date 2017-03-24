@@ -1,26 +1,26 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Configuration\Registry;
+namespace Netgen\BlockManager\Tests\Block\Registry;
 
-use Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup;
-use Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry;
-use Netgen\BlockManager\Tests\Configuration\Stubs\BlockType;
+use Netgen\BlockManager\Block\BlockType\BlockTypeGroup;
+use Netgen\BlockManager\Block\Registry\BlockTypeRegistry;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockType;
 use PHPUnit\Framework\TestCase;
 
 class BlockTypeRegistryTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Configuration\BlockType\BlockType
+     * @var \Netgen\BlockManager\Block\BlockType\BlockType
      */
     protected $blockType;
 
     /**
-     * @var \Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup
+     * @var \Netgen\BlockManager\Block\BlockType\BlockTypeGroup
      */
     protected $blockTypeGroup;
 
     /**
-     * @var \Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry
+     * @var \Netgen\BlockManager\Block\Registry\BlockTypeRegistry
      */
     protected $registry;
 
@@ -37,8 +37,8 @@ class BlockTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry::addBlockType
-     * @covers \Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry::getBlockTypes
+     * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::addBlockType
+     * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::getBlockTypes
      */
     public function testAddBlockType()
     {
@@ -46,7 +46,7 @@ class BlockTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry::hasBlockType
+     * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::hasBlockType
      */
     public function testHasBlockType()
     {
@@ -54,7 +54,7 @@ class BlockTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry::hasBlockType
+     * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::hasBlockType
      */
     public function testHasBlockTypeWithNoBlockType()
     {
@@ -62,7 +62,7 @@ class BlockTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry::getBlockType
+     * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::getBlockType
      */
     public function testGetBlockType()
     {
@@ -70,7 +70,7 @@ class BlockTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry::getBlockType
+     * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::getBlockType
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      * @expectedExceptionMessage Block type with "other_block_type" identifier does not exist.
      */
@@ -80,8 +80,8 @@ class BlockTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry::addBlockTypeGroup
-     * @covers \Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry::getBlockTypeGroups
+     * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::addBlockTypeGroup
+     * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::getBlockTypeGroups
      */
     public function testAddBlockTypeGroup()
     {
@@ -89,7 +89,7 @@ class BlockTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry::hasBlockTypeGroup
+     * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::hasBlockTypeGroup
      */
     public function testHasBlockTypeGroup()
     {
@@ -97,7 +97,7 @@ class BlockTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry::hasBlockTypeGroup
+     * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::hasBlockTypeGroup
      */
     public function testHasBlockTypeWithNoBlockTypeGroup()
     {
@@ -105,7 +105,7 @@ class BlockTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry::getBlockTypeGroup
+     * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::getBlockTypeGroup
      */
     public function testGetBlockTypeGroup()
     {
@@ -113,7 +113,7 @@ class BlockTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry::getBlockTypeGroup
+     * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::getBlockTypeGroup
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      * @expectedExceptionMessage Block type group with "other_block_type_group" identifier does not exist.
      */

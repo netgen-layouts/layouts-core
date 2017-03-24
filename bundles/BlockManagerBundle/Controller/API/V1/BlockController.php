@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\Configuration\BlockType\BlockType;
+use Netgen\BlockManager\Block\BlockType\BlockType;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Exception\NotFoundException;
@@ -296,7 +296,7 @@ class BlockController extends Controller
     /**
      * Creates a new block create struct.
      *
-     * @param \Netgen\BlockManager\Configuration\BlockType\BlockType $blockType
+     * @param \Netgen\BlockManager\Block\BlockType\BlockType $blockType
      *
      * @return \Netgen\BlockManager\API\Values\Block\BlockCreateStruct
      */

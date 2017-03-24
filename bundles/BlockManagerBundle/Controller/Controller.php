@@ -87,11 +87,11 @@ abstract class Controller extends BaseController
      *
      * @param string $identifier
      *
-     * @return \Netgen\BlockManager\Configuration\BlockType\BlockType
+     * @return \Netgen\BlockManager\Block\BlockType\BlockType
      */
     protected function getBlockType($identifier)
     {
-        $blockTypeRegistry = $this->get('netgen_block_manager.configuration.registry.block_type');
+        $blockTypeRegistry = $this->get('netgen_block_manager.block.registry.block_type');
 
         return $blockTypeRegistry->getBlockType($identifier);
     }

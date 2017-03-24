@@ -1,16 +1,16 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Configuration\Factory;
+namespace Netgen\BlockManager\Tests\Block\BlockType;
 
-use Netgen\BlockManager\Configuration\BlockType\BlockType;
-use Netgen\BlockManager\Configuration\Factory\BlockTypeFactory;
+use Netgen\BlockManager\Block\BlockType\BlockType;
+use Netgen\BlockManager\Block\BlockType\BlockTypeFactory;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use PHPUnit\Framework\TestCase;
 
 class BlockTypeFactoryTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Configuration\Factory\BlockTypeFactory::buildBlockType
+     * @covers \Netgen\BlockManager\Block\BlockType\BlockTypeFactory::buildBlockType
      */
     public function testBuildBlockType()
     {

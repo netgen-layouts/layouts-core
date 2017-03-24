@@ -1,15 +1,15 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Configuration\BlockType;
+namespace Netgen\BlockManager\Tests\Block\BlockType;
 
-use Netgen\BlockManager\Configuration\BlockType\BlockType;
+use Netgen\BlockManager\Block\BlockType\BlockType;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use PHPUnit\Framework\TestCase;
 
 class BlockTypeTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Configuration\BlockType\BlockType
+     * @var \Netgen\BlockManager\Block\BlockType\BlockType
      */
     protected $blockType;
 
@@ -38,8 +38,8 @@ class BlockTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::__construct
-     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::getIdentifier
+     * @covers \Netgen\BlockManager\Block\BlockType\BlockType::__construct
+     * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getIdentifier
      */
     public function testGetIdentifier()
     {
@@ -47,7 +47,7 @@ class BlockTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::getName
+     * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getName
      */
     public function testGetName()
     {
@@ -55,7 +55,7 @@ class BlockTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::getDefinition
+     * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getDefinition
      */
     public function testGetDefinition()
     {
@@ -63,7 +63,7 @@ class BlockTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::getDefaults
+     * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getDefaults
      */
     public function testGetDefaults()
     {
@@ -79,7 +79,7 @@ class BlockTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::getDefaultName
+     * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getDefaultName
      */
     public function testGetDefaultName()
     {
@@ -87,7 +87,7 @@ class BlockTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::getDefaultViewType
+     * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getDefaultViewType
      */
     public function testGetDefaultViewType()
     {
@@ -95,7 +95,7 @@ class BlockTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::getDefaultItemViewType
+     * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getDefaultItemViewType
      */
     public function testGetDefaultItemViewType()
     {
@@ -103,7 +103,7 @@ class BlockTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::getDefaultParameters
+     * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getDefaultParameters
      */
     public function testGetDefaultParameters()
     {
@@ -111,7 +111,7 @@ class BlockTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::getDefaultName
+     * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getDefaultName
      */
     public function testGetDefaultEmptyName()
     {
@@ -121,7 +121,7 @@ class BlockTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::getDefaultViewType
+     * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getDefaultViewType
      */
     public function testGetDefaultEmptyViewType()
     {
@@ -131,7 +131,7 @@ class BlockTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::getDefaultViewType
+     * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getDefaultViewType
      */
     public function testGetDefaultEmptyItemViewType()
     {
@@ -141,7 +141,7 @@ class BlockTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\BlockType\BlockType::getDefaultParameters
+     * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getDefaultParameters
      */
     public function testGetDefaultEmptyParameters()
     {

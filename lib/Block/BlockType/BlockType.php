@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Configuration\BlockType;
+namespace Netgen\BlockManager\Block\BlockType;
 
 use Netgen\BlockManager\ValueObject;
 

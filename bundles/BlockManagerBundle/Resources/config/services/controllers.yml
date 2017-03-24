@@ -24,7 +24,7 @@ services:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\ConfigController
         parent: netgen_block_manager.controller.base
         arguments:
-            - "@netgen_block_manager.configuration.registry.block_type"
+            - "@netgen_block_manager.block.registry.block_type"
             - "@netgen_block_manager.layout.registry.layout_type"
             - "@netgen_block_manager.configuration.registry.source"
             - "@?security.csrf.token_manager"

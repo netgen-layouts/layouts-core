@@ -11,6 +11,3 @@ services:
 
     netgen_block_manager.configuration.registry.source:
         class: Netgen\BlockManager\Configuration\Registry\SourceRegistry
-
-    netgen_block_manager.configuration.registry.block_type:
-        class: Netgen\BlockManager\Configuration\Registry\BlockTypeRegistry

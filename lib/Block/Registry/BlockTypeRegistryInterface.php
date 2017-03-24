@@ -1,16 +1,16 @@
 <?php
 
-namespace Netgen\BlockManager\Configuration\Registry;
+namespace Netgen\BlockManager\Block\Registry;
 
-use Netgen\BlockManager\Configuration\BlockType\BlockType;
-use Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup;
+use Netgen\BlockManager\Block\BlockType\BlockType;
+use Netgen\BlockManager\Block\BlockType\BlockTypeGroup;
 
 interface BlockTypeRegistryInterface
 {
     /**
      * Adds a block type to registry.
      *
-     * @param \Netgen\BlockManager\Configuration\BlockType\BlockType $blockType
+     * @param \Netgen\BlockManager\Block\BlockType\BlockType $blockType
      */
     public function addBlockType(BlockType $blockType);
 
@@ -30,21 +30,21 @@ interface BlockTypeRegistryInterface
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If block type with provided identifier does not exist
      *
-     * @return \Netgen\BlockManager\Configuration\BlockType\BlockType
+     * @return \Netgen\BlockManager\Block\BlockType\BlockType
      */
     public function getBlockType($identifier);
 
     /**
      * Returns all block types.
      *
-     * @return \Netgen\BlockManager\Configuration\BlockType\BlockType[]
+     * @return \Netgen\BlockManager\Block\BlockType\BlockType[]
      */
     public function getBlockTypes();
 
     /**
      * Adds a block type group to registry.
      *
-     * @param \Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup $blockTypeGroup
+     * @param \Netgen\BlockManager\Block\BlockType\BlockTypeGroup $blockTypeGroup
      */
     public function addBlockTypeGroup(BlockTypeGroup $blockTypeGroup);
 
@@ -64,14 +64,14 @@ interface BlockTypeRegistryInterface
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If block type group with provided identifier does not exist
      *
-     * @return \Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup
+     * @return \Netgen\BlockManager\Block\BlockType\BlockTypeGroup
      */
     public function getBlockTypeGroup($identifier);
 
     /**
      * Returns all block type groups.
      *
-     * @return \Netgen\BlockManager\Configuration\BlockType\BlockTypeGroup[]
+     * @return \Netgen\BlockManager\Block\BlockType\BlockTypeGroup[]
      */
     public function getBlockTypeGroups();
 }
