@@ -1,6 +1,6 @@
 {% form_theme form 'NetgenBlockManagerAdminBundle:form/theme:ngbm.html.twig' %}
 
-{{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
+{{ form_start(form) }}
     {{ form_errors(form) }}
 
     {% block children %}
@@ -10,6 +10,4 @@
     {% endblock %}
 
     {{ form_rest(form) }}
-
-    <button type="submit">Submit</button>
 {{ form_end(form) }}
