@@ -213,7 +213,7 @@ class Block implements APIBlock
     /**
      * Returns all available configurations.
      *
-     * @return \Netgen\BlockManager\API\Values\Configuration[]
+     * @return \Netgen\BlockManager\API\Values\Config\Config[]
      */
     public function getAllConfigs()
     {
@@ -225,7 +225,7 @@ class Block implements APIBlock
      *
      * @param string $identifier
      *
-     * @return \Netgen\BlockManager\API\Values\Configuration
+     * @return \Netgen\BlockManager\API\Values\Config\Config
      */
     public function getConfig($identifier)
     {
