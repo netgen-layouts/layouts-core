@@ -9,7 +9,6 @@ use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension;
-use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
 
 class RenderingExtensionTwigTest extends \Twig_Test_IntegrationTestCase
 {
@@ -17,11 +16,6 @@ class RenderingExtensionTwigTest extends \Twig_Test_IntegrationTestCase
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $blockServiceMock;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $globalVariableMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -36,7 +30,6 @@ class RenderingExtensionTwigTest extends \Twig_Test_IntegrationTestCase
     public function setUp()
     {
         $this->blockServiceMock = $this->createMock(BlockService::class);
-        $this->globalVariableMock = $this->createMock(GlobalVariable::class);
         $this->rendererMock = $this->createMock(RendererInterface::class);
 
         $this->blockServiceMock
@@ -97,11 +90,7 @@ class RenderingExtensionTwigTest extends \Twig_Test_IntegrationTestCase
                 )
             );
 
-        $this->extension = new RenderingExtension(
-            $this->blockServiceMock,
-            $this->globalVariableMock,
-            $this->rendererMock
-        );
+        $this->extension = new RenderingExtension($this->blockServiceMock, $this->rendererMock);
     }
 
     /**

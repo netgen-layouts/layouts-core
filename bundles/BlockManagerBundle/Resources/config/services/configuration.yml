@@ -1,6 +1,19 @@
 services:
     netgen_block_manager.configuration.container:
         class: Netgen\BlockManager\Configuration\ContainerConfiguration
+        lazy: true
+        arguments:
+            -
+                block_definitions: "@=service('netgen_block_manager.block.registry.block_definition').getBlockDefinitions()"
+                block_types: "@=service('netgen_block_manager.block.registry.block_type').getBlockTypes()"
+                block_type_groups: "@=service('netgen_block_manager.block.registry.block_type').getBlockTypeGroups()"
+                layout_types: "@=service('netgen_block_manager.layout.registry.layout_type').getLayoutTypes()"
+                query_types: "@=service('netgen_block_manager.collection.registry.query_type').getQueryTypes()"
+                sources: "@=service('netgen_block_manager.collection.registry.source').getSources()"
+                value_loaders: "@=service('netgen_block_manager.item.registry.value_loader').getValueLoaders()"
+                target_types: "@=service('netgen_block_manager.layout.resolver.registry.target_type').getTargetTypes()"
+                condition_types: "@=service('netgen_block_manager.layout.resolver.registry.condition_type').getConditionTypes()"
+                parameter_types: "@=service('netgen_block_manager.parameters.registry.parameter_type').getParameterTypes()"
         calls:
             - [setContainer, ["@service_container"]]
 

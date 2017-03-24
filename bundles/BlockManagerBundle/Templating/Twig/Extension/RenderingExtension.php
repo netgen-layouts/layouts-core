@@ -10,25 +10,18 @@ use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate;
 use Netgen\BlockManager\View\ViewInterface;
-use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Twig_Extension;
-use Twig_Extension_GlobalsInterface;
 use Twig_SimpleFunction;
 
-class RenderingExtension extends Twig_Extension implements Twig_Extension_GlobalsInterface
+class RenderingExtension extends Twig_Extension
 {
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService
      */
     protected $blockService;
-
-    /**
-     * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable
-     */
-    protected $globalVariable;
 
     /**
      * @var \Netgen\BlockManager\View\RendererInterface
@@ -49,18 +42,15 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
      * Constructor.
      *
      * @param \Netgen\BlockManager\API\Service\BlockService $blockService
-     * @param \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable $globalVariable
      * @param \Netgen\BlockManager\View\RendererInterface $renderer
      * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
         BlockService $blockService,
-        GlobalVariable $globalVariable,
         RendererInterface $renderer,
         LoggerInterface $logger = null
     ) {
         $this->blockService = $blockService;
-        $this->globalVariable = $globalVariable;
         $this->renderer = $renderer;
         $this->logger = $logger ?: new NullLogger();
     }
@@ -176,18 +166,6 @@ class RenderingExtension extends Twig_Extension implements Twig_Extension_Global
     public function getTokenParsers()
     {
         return array(new RenderZone());
-    }
-
-    /**
-     * Returns a list of global variables to add to the existing list.
-     *
-     * @return array
-     */
-    public function getGlobals()
-    {
-        return array(
-            'ngbm' => $this->globalVariable,
-        );
     }
 
     /**

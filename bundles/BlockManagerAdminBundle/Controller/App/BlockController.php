@@ -6,7 +6,6 @@ use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
-use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
 use Netgen\BlockManager\Config\Form\EditType as ConfigEditType;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
@@ -26,25 +25,15 @@ class BlockController extends Controller
     protected $collectionService;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface
-     */
-    protected $queryTypeRegistry;
-
-    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\API\Service\BlockService $blockService
      * @param \Netgen\BlockManager\API\Service\CollectionService $collectionService
-     * @param \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface $queryTypeRegistry
      */
-    public function __construct(
-        BlockService $blockService,
-        CollectionService $collectionService,
-        QueryTypeRegistryInterface $queryTypeRegistry
-    ) {
+    public function __construct(BlockService $blockService, CollectionService $collectionService)
+    {
         $this->blockService = $blockService;
         $this->collectionService = $collectionService;
-        $this->queryTypeRegistry = $queryTypeRegistry;
     }
 
     /**
@@ -69,7 +58,6 @@ class BlockController extends Controller
                 'block' => $block,
                 'collections' => $collections,
                 'shared_collections' => $this->collectionService->loadSharedCollections(),
-                'query_types' => $this->queryTypeRegistry->getQueryTypes(),
             )
         );
     }

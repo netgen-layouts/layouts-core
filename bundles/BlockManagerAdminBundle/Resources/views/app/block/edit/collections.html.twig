@@ -1,5 +1,6 @@
 {% trans_default_domain 'ngbm_app' %}
 
+{% set query_types = ngbm.config.parameter('query_types') %}
 {% set can_change_collection = query_types|length > 0 or shared_collections|length > 0 %}
 
 {% if collections.default is defined and can_change_collection %}

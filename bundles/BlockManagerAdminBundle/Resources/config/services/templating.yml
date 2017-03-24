@@ -3,10 +3,3 @@ services:
         class: Netgen\Bundle\BlockManagerAdminBundle\Templating\Twig\GlobalVariable
         arguments:
             - "%netgen_block_manager.admin.pagelayout%"
-
-    netgen_block_manager.templating.twig.extension.admin:
-        class: Netgen\Bundle\BlockManagerAdminBundle\Templating\Twig\Extension\AdminExtension
-        arguments:
-            - "@netgen_block_manager.templating.admin_global_variable"
-        tags:
-            - { name: twig.extension }

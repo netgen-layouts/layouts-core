@@ -117,6 +117,7 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
     {
         $prependConfigs = array(
             'framework/framework.yml' => 'framework',
+            'framework/twig.yml' => 'twig',
             'http_cache.yml' => 'netgen_block_manager',
             'block_definitions.yml' => 'netgen_block_manager',
             'block_type_groups.yml' => 'netgen_block_manager',

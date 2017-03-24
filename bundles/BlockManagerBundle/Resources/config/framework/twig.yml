@@ -1,0 +1,3 @@
+globals:
+    ngbm: "@netgen_block_manager.templating.global_variable"
+    ngbm_admin: "@netgen_block_manager.templating.admin_global_variable"

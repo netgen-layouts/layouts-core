@@ -55,6 +55,7 @@ class LayoutTypePass implements CompilerPassInterface
 
             $container->register($serviceIdentifier, LayoutType::class)
                 ->setArguments(array($identifier, $layoutType))
+                ->setLazy(true)
                 ->addTag('netgen_block_manager.layout.layout_type')
                 ->setFactory(array(LayoutTypeFactory::class, 'buildLayoutType'));
         }

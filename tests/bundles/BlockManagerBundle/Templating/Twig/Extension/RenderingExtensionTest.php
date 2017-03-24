@@ -13,7 +13,6 @@ use Netgen\BlockManager\View\RendererInterface;
 use Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension;
-use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
 use PHPUnit\Framework\TestCase;
 use Twig_SimpleFunction;
 use Twig_TokenParser;
@@ -28,11 +27,6 @@ class RenderingExtensionTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $globalVariableMock;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
     protected $rendererMock;
 
     /**
@@ -43,14 +37,9 @@ class RenderingExtensionTest extends TestCase
     public function setUp()
     {
         $this->blockServiceMock = $this->createMock(BlockService::class);
-        $this->globalVariableMock = $this->createMock(GlobalVariable::class);
         $this->rendererMock = $this->createMock(RendererInterface::class);
 
-        $this->extension = new RenderingExtension(
-            $this->blockServiceMock,
-            $this->globalVariableMock,
-            $this->rendererMock
-        );
+        $this->extension = new RenderingExtension($this->blockServiceMock, $this->rendererMock);
     }
 
     /**
@@ -59,20 +48,6 @@ class RenderingExtensionTest extends TestCase
     public function testGetName()
     {
         $this->assertEquals(get_class($this->extension), $this->extension->getName());
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::__construct
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getGlobals
-     */
-    public function testGetGlobals()
-    {
-        $this->assertEquals(
-            array(
-                'ngbm' => $this->globalVariableMock,
-            ),
-            $this->extension->getGlobals()
-        );
     }
 
     /**

@@ -116,6 +116,7 @@ class BlockTypePass implements CompilerPassInterface
                         ),
                     )
                 )
+                ->setLazy(true)
                 ->addTag('netgen_block_manager.block.block_type')
                 ->setFactory(array(BlockTypeFactory::class, 'buildBlockType'));
         }

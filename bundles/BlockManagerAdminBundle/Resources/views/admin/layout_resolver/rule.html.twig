@@ -87,6 +87,7 @@
                     <p>{{ 'layout_resolver.rule.no_targets'|trans }}</p>
                 {% endif %}
 
+                {% set target_types = ngbm.config.parameter('condition_types') %}
                 {% if target_types is not empty %}
                     <div class="settings-action">
                         <div class="settings-loader"><i class="loading-ng-icon"></i>{{ 'layout_resolver.rule.loading'|trans }}</div>
@@ -121,6 +122,7 @@
                     <p>{{ 'layout_resolver.rule.no_conditions'|trans }}</p>
                 {% endif %}
 
+                {% set condition_types = ngbm.config.parameter('condition_types') %}
                 {% if condition_types is not empty %}
                     <div class="settings-action">
                         <div class="settings-loader"><i class="loading-ng-icon"></i>{{ 'layout_resolver.rule.loading'|trans }}</div>

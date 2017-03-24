@@ -42,7 +42,6 @@ services:
         arguments:
             - "@netgen_block_manager.api.service.block"
             - "@netgen_block_manager.api.service.collection"
-            - "@netgen_block_manager.collection.registry.query_type"
 
     netgen_block_manager.controller.app.collection:
         class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\CollectionController

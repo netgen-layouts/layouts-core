@@ -33,7 +33,7 @@ class NetgenBlockManagerAdminExtensionTest extends AbstractExtensionTestCase
         $this->load();
 
         $this->assertContainerBuilderHasService('netgen_block_manager.menu.admin.main_menu');
-        $this->assertContainerBuilderHasService('netgen_block_manager.templating.twig.extension.admin');
+        $this->assertContainerBuilderHasService('netgen_block_manager.templating.admin_global_variable');
         $this->assertContainerBuilderHasService('netgen_block_manager.event_listener.set_is_admin_request');
         $this->assertContainerBuilderHasService('netgen_block_manager.controller.admin.layouts');
     }

@@ -111,6 +111,7 @@ class BlockTypeGroupPass implements CompilerPassInterface
 
             $container->register($serviceIdentifier, BlockTypeGroup::class)
                 ->setArguments(array($identifier, $blockTypeGroup, $blockTypeReferences))
+                ->setLazy(true)
                 ->addTag('netgen_block_manager.block.block_type_group')
                 ->setFactory(array(BlockTypeGroupFactory::class, 'buildBlockTypeGroup'));
         }

@@ -6,14 +6,6 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
-    netgen_block_manager.event_listener.rule_view.rule_view:
-        class: Netgen\Bundle\BlockManagerAdminBundle\EventListener\RuleView\RuleViewListener
-        arguments:
-            - "@netgen_block_manager.layout.resolver.registry.target_type"
-            - "@netgen_block_manager.layout.resolver.registry.condition_type"
-        tags:
-            - { name: kernel.event_subscriber }
-
     netgen_block_manager.event_listener.admin_authentication_exception:
         class: Netgen\Bundle\BlockManagerAdminBundle\EventListener\AdminAuthenticationExceptionListener
         tags:

@@ -69,6 +69,7 @@ class SourcePass implements CompilerPassInterface
 
             $container->register($serviceIdentifier, Source::class)
                 ->setArguments(array($identifier, $source, $queryTypeReferences))
+                ->setLazy(true)
                 ->addTag('netgen_block_manager.collection.source')
                 ->setFactory(array(SourceFactory::class, 'buildSource'));
         }

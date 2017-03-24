@@ -10,6 +10,21 @@ class ContainerConfiguration implements ConfigurationInterface
     use ContainerAwareTrait;
 
     /**
+     * @var array
+     */
+    protected $parameters;
+
+    /**
+     * Constructor.
+     *
+     * @param array $parameters
+     */
+    public function __construct(array $parameters = array())
+    {
+        $this->parameters = $parameters;
+    }
+
+    /**
      * Returns if parameter exists in configuration.
      *
      * @param string $parameterName
@@ -18,6 +33,10 @@ class ContainerConfiguration implements ConfigurationInterface
      */
     public function hasParameter($parameterName)
     {
+        if (array_key_exists($parameterName, $this->parameters)) {
+            return true;
+        }
+
         return $this->container->hasParameter(
             ConfigurationInterface::PARAMETER_NAMESPACE . '.' . $parameterName
         );
@@ -42,6 +61,10 @@ class ContainerConfiguration implements ConfigurationInterface
                     $parameterName
                 )
             );
+        }
+
+        if (array_key_exists($parameterName, $this->parameters)) {
+            return $this->parameters[$parameterName];
         }
 
         return $this->container->getParameter(
