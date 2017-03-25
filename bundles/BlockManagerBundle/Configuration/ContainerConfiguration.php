@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Configuration;
+namespace Netgen\Bundle\BlockManagerBundle\Configuration;
 
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;

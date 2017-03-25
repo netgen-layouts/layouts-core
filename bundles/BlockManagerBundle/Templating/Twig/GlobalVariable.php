@@ -3,12 +3,12 @@
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface;
 use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Netgen\BlockManager\View\View\LayoutViewInterface;
 use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\BlockManager\View\ViewInterface;
+use Netgen\Bundle\BlockManagerBundle\Configuration\ConfigurationInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolverInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -17,7 +17,7 @@ class GlobalVariable
     use RequestStackAwareTrait;
 
     /**
-     * @var \Netgen\BlockManager\Configuration\ConfigurationInterface
+     * @var \Netgen\Bundle\BlockManagerBundle\Configuration\ConfigurationInterface
      */
     protected $configuration;
 
@@ -59,7 +59,7 @@ class GlobalVariable
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Configuration\ConfigurationInterface $configuration
+     * @param \Netgen\Bundle\BlockManagerBundle\Configuration\ConfigurationInterface $configuration
      * @param \Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface $layoutResolver
      * @param \Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolverInterface $pageLayoutResolver
      * @param \Netgen\BlockManager\View\ViewBuilderInterface $viewBuilder
@@ -109,7 +109,7 @@ class GlobalVariable
     /**
      * Returns the configuration object.
      *
-     * @return \Netgen\BlockManager\Configuration\ConfigurationInterface
+     * @return \Netgen\Bundle\BlockManagerBundle\Configuration\ConfigurationInterface
      */
     public function getConfig()
     {

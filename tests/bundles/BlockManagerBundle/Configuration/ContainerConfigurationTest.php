@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Configuration;
+namespace Netgen\Bundle\BlockManagerBundle\Tests\Configuration;
 
-use Netgen\BlockManager\Configuration\ContainerConfiguration;
+use Netgen\Bundle\BlockManagerBundle\Configuration\ContainerConfiguration;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -14,7 +14,7 @@ class ContainerConfigurationTest extends TestCase
     protected $containerMock;
 
     /**
-     * @var \Netgen\BlockManager\Configuration\ContainerConfiguration
+     * @var \Netgen\Bundle\BlockManagerBundle\Configuration\ContainerConfiguration
      */
     protected $configuration;
 
@@ -24,7 +24,7 @@ class ContainerConfigurationTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\ContainerConfiguration::hasParameter
+     * @covers \Netgen\Bundle\BlockManagerBundle\Configuration\ContainerConfiguration::hasParameter
      */
     public function testHasParameter()
     {
@@ -38,7 +38,7 @@ class ContainerConfigurationTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\ContainerConfiguration::hasParameter
+     * @covers \Netgen\Bundle\BlockManagerBundle\Configuration\ContainerConfiguration::hasParameter
      */
     public function testHasParameterWithInjectedParameter()
     {
@@ -52,7 +52,7 @@ class ContainerConfigurationTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\ContainerConfiguration::hasParameter
+     * @covers \Netgen\Bundle\BlockManagerBundle\Configuration\ContainerConfiguration::hasParameter
      */
     public function testHasParameterWithNoParameter()
     {
@@ -66,7 +66,7 @@ class ContainerConfigurationTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\ContainerConfiguration::getParameter
+     * @covers \Netgen\Bundle\BlockManagerBundle\Configuration\ContainerConfiguration::getParameter
      */
     public function testGetParameter()
     {
@@ -86,7 +86,7 @@ class ContainerConfigurationTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\ContainerConfiguration::getParameter
+     * @covers \Netgen\Bundle\BlockManagerBundle\Configuration\ContainerConfiguration::getParameter
      */
     public function testGetParameterWithInjectedParameter()
     {
@@ -104,7 +104,7 @@ class ContainerConfigurationTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Configuration\ContainerConfiguration::getParameter
+     * @covers \Netgen\Bundle\BlockManagerBundle\Configuration\ContainerConfiguration::getParameter
      * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
      * @expectedExceptionMessage Parameter "some_param" does not exist in configuration.
      */

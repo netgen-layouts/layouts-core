@@ -2,12 +2,12 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig;
 
-use Netgen\BlockManager\Configuration\ConfigurationInterface;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface;
 use Netgen\BlockManager\View\View\LayoutView;
 use Netgen\BlockManager\View\ViewBuilderInterface;
+use Netgen\Bundle\BlockManagerBundle\Configuration\ConfigurationInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolverInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
 use PHPUnit\Framework\TestCase;

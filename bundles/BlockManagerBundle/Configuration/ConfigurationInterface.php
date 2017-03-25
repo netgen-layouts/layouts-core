@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Configuration;
+namespace Netgen\Bundle\BlockManagerBundle\Configuration;
 
 interface ConfigurationInterface
 {
