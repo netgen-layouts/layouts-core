@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Config\Form\EditType as ConfigEditType;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -119,10 +120,22 @@ class BlockController extends Controller
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param string $identifier
      *
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If config identifier does not exist
+     *
      * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
     public function editConfigForm(Request $request, Block $block, $identifier = null)
     {
+        if ($identifier !== null && !$block->hasConfig($identifier)) {
+            throw new InvalidArgumentException(
+                'identifier',
+                sprintf(
+                    'Config with "%s" identifier does not exist in provided block.',
+                    $identifier
+                )
+            );
+        }
+
         $updateStruct = $this->blockService->newBlockUpdateStruct($block);
 
         $form = $this->createForm(
