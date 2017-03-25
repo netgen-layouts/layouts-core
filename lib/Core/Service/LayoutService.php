@@ -25,12 +25,12 @@ class LayoutService extends Service implements LayoutServiceInterface
     /**
      * @var \Netgen\BlockManager\Core\Service\Validator\LayoutValidator
      */
-    protected $layoutValidator;
+    protected $validator;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper
      */
-    protected $layoutMapper;
+    protected $mapper;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\StructBuilder\LayoutStructBuilder
@@ -40,29 +40,29 @@ class LayoutService extends Service implements LayoutServiceInterface
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandler
      */
-    protected $layoutHandler;
+    protected $handler;
 
     /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
-     * @param \Netgen\BlockManager\Core\Service\Validator\LayoutValidator $layoutValidator
-     * @param \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper $layoutMapper
+     * @param \Netgen\BlockManager\Core\Service\Validator\LayoutValidator $validator
+     * @param \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper $mapper
      * @param \Netgen\BlockManager\Core\Service\StructBuilder\LayoutStructBuilder $structBuilder
      */
     public function __construct(
         Handler $persistenceHandler,
-        LayoutValidator $layoutValidator,
-        LayoutMapper $layoutMapper,
+        LayoutValidator $validator,
+        LayoutMapper $mapper,
         LayoutStructBuilder $structBuilder
     ) {
         parent::__construct($persistenceHandler);
 
-        $this->layoutValidator = $layoutValidator;
-        $this->layoutMapper = $layoutMapper;
+        $this->validator = $validator;
+        $this->mapper = $mapper;
         $this->structBuilder = $structBuilder;
 
-        $this->layoutHandler = $persistenceHandler->getLayoutHandler();
+        $this->handler = $persistenceHandler->getLayoutHandler();
     }
 
     /**
@@ -76,10 +76,10 @@ class LayoutService extends Service implements LayoutServiceInterface
      */
     public function loadLayout($layoutId)
     {
-        $this->layoutValidator->validateId($layoutId, 'layoutId');
+        $this->validator->validateId($layoutId, 'layoutId');
 
-        return $this->layoutMapper->mapLayout(
-            $this->layoutHandler->loadLayout(
+        return $this->mapper->mapLayout(
+            $this->handler->loadLayout(
                 $layoutId,
                 Value::STATUS_PUBLISHED
             )
@@ -97,10 +97,10 @@ class LayoutService extends Service implements LayoutServiceInterface
      */
     public function loadLayoutDraft($layoutId)
     {
-        $this->layoutValidator->validateId($layoutId, 'layoutId');
+        $this->validator->validateId($layoutId, 'layoutId');
 
-        return $this->layoutMapper->mapLayout(
-            $this->layoutHandler->loadLayout(
+        return $this->mapper->mapLayout(
+            $this->handler->loadLayout(
                 $layoutId,
                 Value::STATUS_DRAFT
             )
@@ -119,9 +119,9 @@ class LayoutService extends Service implements LayoutServiceInterface
      */
     public function loadLayouts($includeDrafts = false, $offset = 0, $limit = null)
     {
-        $this->layoutValidator->validateOffsetAndLimit($offset, $limit);
+        $this->validator->validateOffsetAndLimit($offset, $limit);
 
-        $persistenceLayouts = $this->layoutHandler->loadLayouts(
+        $persistenceLayouts = $this->handler->loadLayouts(
             $includeDrafts,
             $offset,
             $limit
@@ -129,7 +129,7 @@ class LayoutService extends Service implements LayoutServiceInterface
 
         $layouts = array();
         foreach ($persistenceLayouts as $persistenceLayout) {
-            $layouts[] = $this->layoutMapper->mapLayout($persistenceLayout);
+            $layouts[] = $this->mapper->mapLayout($persistenceLayout);
         }
 
         return $layouts;
@@ -147,9 +147,9 @@ class LayoutService extends Service implements LayoutServiceInterface
      */
     public function loadSharedLayouts($includeDrafts = false, $offset = 0, $limit = null)
     {
-        $this->layoutValidator->validateOffsetAndLimit($offset, $limit);
+        $this->validator->validateOffsetAndLimit($offset, $limit);
 
-        $persistenceLayouts = $this->layoutHandler->loadSharedLayouts(
+        $persistenceLayouts = $this->handler->loadSharedLayouts(
             $includeDrafts,
             $offset,
             $limit
@@ -157,7 +157,7 @@ class LayoutService extends Service implements LayoutServiceInterface
 
         $layouts = array();
         foreach ($persistenceLayouts as $persistenceLayout) {
-            $layouts[] = $this->layoutMapper->mapLayout($persistenceLayout);
+            $layouts[] = $this->mapper->mapLayout($persistenceLayout);
         }
 
         return $layouts;
@@ -172,7 +172,7 @@ class LayoutService extends Service implements LayoutServiceInterface
      */
     public function hasPublishedState(Layout $layout)
     {
-        return $this->layoutHandler->layoutExists($layout->getId(), Value::STATUS_PUBLISHED);
+        return $this->handler->layoutExists($layout->getId(), Value::STATUS_PUBLISHED);
     }
 
     /**
@@ -187,11 +187,11 @@ class LayoutService extends Service implements LayoutServiceInterface
      */
     public function loadZone($layoutId, $identifier)
     {
-        $this->layoutValidator->validateId($layoutId, 'layoutId');
-        $this->layoutValidator->validateIdentifier($identifier, 'identifier', true);
+        $this->validator->validateId($layoutId, 'layoutId');
+        $this->validator->validateIdentifier($identifier, 'identifier', true);
 
-        return $this->layoutMapper->mapZone(
-            $this->layoutHandler->loadZone(
+        return $this->mapper->mapZone(
+            $this->handler->loadZone(
                 $layoutId,
                 Value::STATUS_PUBLISHED,
                 $identifier
@@ -211,11 +211,11 @@ class LayoutService extends Service implements LayoutServiceInterface
      */
     public function loadZoneDraft($layoutId, $identifier)
     {
-        $this->layoutValidator->validateId($layoutId, 'layoutId');
-        $this->layoutValidator->validateIdentifier($identifier, 'identifier', true);
+        $this->validator->validateId($layoutId, 'layoutId');
+        $this->validator->validateIdentifier($identifier, 'identifier', true);
 
-        return $this->layoutMapper->mapZone(
-            $this->layoutHandler->loadZone(
+        return $this->mapper->mapZone(
+            $this->handler->loadZone(
                 $layoutId,
                 Value::STATUS_DRAFT,
                 $identifier
@@ -233,7 +233,7 @@ class LayoutService extends Service implements LayoutServiceInterface
      */
     public function layoutNameExists($name, $excludedLayoutId = null)
     {
-        return $this->layoutHandler->layoutNameExists($name, $excludedLayoutId);
+        return $this->handler->layoutNameExists($name, $excludedLayoutId);
     }
 
     /**
@@ -260,11 +260,11 @@ class LayoutService extends Service implements LayoutServiceInterface
             throw new BadStateException('linkedZone', 'Zones can only be linked to published zones.');
         }
 
-        $persistenceLayout = $this->layoutHandler->loadLayout($zone->getLayoutId(), Value::STATUS_DRAFT);
-        $persistenceZone = $this->layoutHandler->loadZone($zone->getLayoutId(), Value::STATUS_DRAFT, $zone->getIdentifier());
+        $persistenceLayout = $this->handler->loadLayout($zone->getLayoutId(), Value::STATUS_DRAFT);
+        $persistenceZone = $this->handler->loadZone($zone->getLayoutId(), Value::STATUS_DRAFT, $zone->getIdentifier());
 
-        $persistenceLinkedLayout = $this->layoutHandler->loadLayout($linkedZone->getLayoutId(), Value::STATUS_PUBLISHED);
-        $persistenceLinkedZone = $this->layoutHandler->loadZone($linkedZone->getLayoutId(), Value::STATUS_PUBLISHED, $linkedZone->getIdentifier());
+        $persistenceLinkedLayout = $this->handler->loadLayout($linkedZone->getLayoutId(), Value::STATUS_PUBLISHED);
+        $persistenceLinkedZone = $this->handler->loadZone($linkedZone->getLayoutId(), Value::STATUS_PUBLISHED, $linkedZone->getIdentifier());
 
         if ($persistenceLayout->shared) {
             throw new BadStateException('zone', 'Zone cannot be in the shared layout.');
@@ -281,7 +281,7 @@ class LayoutService extends Service implements LayoutServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $updatedZone = $this->layoutHandler->updateZone(
+            $updatedZone = $this->handler->updateZone(
                 $persistenceZone,
                 new ZoneUpdateStruct(
                     array(
@@ -296,7 +296,7 @@ class LayoutService extends Service implements LayoutServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->layoutMapper->mapZone($updatedZone);
+        return $this->mapper->mapZone($updatedZone);
     }
 
     /**
@@ -314,12 +314,12 @@ class LayoutService extends Service implements LayoutServiceInterface
             throw new BadStateException('zone', 'Only draft zones can be unlinked.');
         }
 
-        $persistenceZone = $this->layoutHandler->loadZone($zone->getLayoutId(), Value::STATUS_DRAFT, $zone->getIdentifier());
+        $persistenceZone = $this->handler->loadZone($zone->getLayoutId(), Value::STATUS_DRAFT, $zone->getIdentifier());
 
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $updatedZone = $this->layoutHandler->updateZone(
+            $updatedZone = $this->handler->updateZone(
                 $persistenceZone,
                 new ZoneUpdateStruct(
                     array(
@@ -334,7 +334,7 @@ class LayoutService extends Service implements LayoutServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->layoutMapper->mapZone($updatedZone);
+        return $this->mapper->mapZone($updatedZone);
     }
 
     /**
@@ -348,9 +348,9 @@ class LayoutService extends Service implements LayoutServiceInterface
      */
     public function createLayout(APILayoutCreateStruct $layoutCreateStruct)
     {
-        $this->layoutValidator->validateLayoutCreateStruct($layoutCreateStruct);
+        $this->validator->validateLayoutCreateStruct($layoutCreateStruct);
 
-        if ($this->layoutHandler->layoutNameExists($layoutCreateStruct->name)) {
+        if ($this->handler->layoutNameExists($layoutCreateStruct->name)) {
             throw new BadStateException('name', 'Layout with provided name already exists.');
         }
 
@@ -366,7 +366,7 @@ class LayoutService extends Service implements LayoutServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $createdLayout = $this->layoutHandler->createLayout(
+            $createdLayout = $this->handler->createLayout(
                 new LayoutCreateStruct(
                     array(
                         'type' => $layoutCreateStruct->layoutType->getIdentifier(),
@@ -384,7 +384,7 @@ class LayoutService extends Service implements LayoutServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->layoutMapper->mapLayout($createdLayout);
+        return $this->mapper->mapLayout($createdLayout);
     }
 
     /**
@@ -404,12 +404,12 @@ class LayoutService extends Service implements LayoutServiceInterface
             throw new BadStateException('layout', 'Only draft layouts can be updated.');
         }
 
-        $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Value::STATUS_DRAFT);
+        $persistenceLayout = $this->handler->loadLayout($layout->getId(), Value::STATUS_DRAFT);
 
-        $this->layoutValidator->validateLayoutUpdateStruct($layoutUpdateStruct);
+        $this->validator->validateLayoutUpdateStruct($layoutUpdateStruct);
 
         if ($layoutUpdateStruct->name !== null) {
-            if ($this->layoutHandler->layoutNameExists($layoutUpdateStruct->name, $persistenceLayout->id)) {
+            if ($this->handler->layoutNameExists($layoutUpdateStruct->name, $persistenceLayout->id)) {
                 throw new BadStateException('name', 'Layout with provided name already exists.');
             }
         }
@@ -417,7 +417,7 @@ class LayoutService extends Service implements LayoutServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $updatedLayout = $this->layoutHandler->updateLayout(
+            $updatedLayout = $this->handler->updateLayout(
                 $persistenceLayout,
                 new LayoutUpdateStruct(
                     array(
@@ -432,7 +432,7 @@ class LayoutService extends Service implements LayoutServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->layoutMapper->mapLayout($updatedLayout);
+        return $this->mapper->mapLayout($updatedLayout);
     }
 
     /**
@@ -448,18 +448,18 @@ class LayoutService extends Service implements LayoutServiceInterface
     public function copyLayout(Layout $layout, $newName)
     {
         $newName = is_string($newName) ? trim($newName) : $newName;
-        $this->layoutValidator->validateLayoutName($newName, 'newName');
+        $this->validator->validateLayoutName($newName, 'newName');
 
-        if ($this->layoutHandler->layoutNameExists($newName, $layout->getId())) {
+        if ($this->handler->layoutNameExists($newName, $layout->getId())) {
             throw new BadStateException('newName', 'Layout with provided name already exists.');
         }
 
-        $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), $layout->getStatus());
+        $persistenceLayout = $this->handler->loadLayout($layout->getId(), $layout->getStatus());
 
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $copiedLayout = $this->layoutHandler->copyLayout($persistenceLayout, $newName);
+            $copiedLayout = $this->handler->copyLayout($persistenceLayout, $newName);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
@@ -467,7 +467,7 @@ class LayoutService extends Service implements LayoutServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->layoutMapper->mapLayout($copiedLayout);
+        return $this->mapper->mapLayout($copiedLayout);
     }
 
     /**
@@ -487,9 +487,9 @@ class LayoutService extends Service implements LayoutServiceInterface
             throw new BadStateException('layout', 'Drafts can only be created from published layouts.');
         }
 
-        $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Value::STATUS_PUBLISHED);
+        $persistenceLayout = $this->handler->loadLayout($layout->getId(), Value::STATUS_PUBLISHED);
 
-        if ($this->layoutHandler->layoutExists($persistenceLayout->id, Value::STATUS_DRAFT)) {
+        if ($this->handler->layoutExists($persistenceLayout->id, Value::STATUS_DRAFT)) {
             if (!$discardExisting) {
                 throw new BadStateException('layout', 'The provided layout already has a draft.');
             }
@@ -498,10 +498,10 @@ class LayoutService extends Service implements LayoutServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $this->layoutHandler->deleteLayout($persistenceLayout->id, Value::STATUS_DRAFT);
-            $layoutDraft = $this->layoutHandler->createLayoutStatus($persistenceLayout, Value::STATUS_DRAFT);
+            $this->handler->deleteLayout($persistenceLayout->id, Value::STATUS_DRAFT);
+            $layoutDraft = $this->handler->createLayoutStatus($persistenceLayout, Value::STATUS_DRAFT);
 
-            $layoutDraft = $this->layoutHandler->updateLayout(
+            $layoutDraft = $this->handler->updateLayout(
                 $layoutDraft,
                 new LayoutUpdateStruct(
                     array(
@@ -516,7 +516,7 @@ class LayoutService extends Service implements LayoutServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->layoutMapper->mapLayout($layoutDraft);
+        return $this->mapper->mapLayout($layoutDraft);
     }
 
     /**
@@ -532,12 +532,12 @@ class LayoutService extends Service implements LayoutServiceInterface
             throw new BadStateException('layout', 'Only drafts can be discarded.');
         }
 
-        $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Value::STATUS_DRAFT);
+        $persistenceLayout = $this->handler->loadLayout($layout->getId(), Value::STATUS_DRAFT);
 
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $this->layoutHandler->deleteLayout(
+            $this->handler->deleteLayout(
                 $persistenceLayout->id,
                 Value::STATUS_DRAFT
             );
@@ -564,24 +564,24 @@ class LayoutService extends Service implements LayoutServiceInterface
             throw new BadStateException('layout', 'Only drafts can be published.');
         }
 
-        $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Value::STATUS_DRAFT);
+        $persistenceLayout = $this->handler->loadLayout($layout->getId(), Value::STATUS_DRAFT);
 
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $this->layoutHandler->deleteLayout($persistenceLayout->id, Value::STATUS_ARCHIVED);
+            $this->handler->deleteLayout($persistenceLayout->id, Value::STATUS_ARCHIVED);
 
-            if ($this->layoutHandler->layoutExists($persistenceLayout->id, Value::STATUS_PUBLISHED)) {
-                $this->layoutHandler->createLayoutStatus(
-                    $this->layoutHandler->loadLayout($persistenceLayout->id, Value::STATUS_PUBLISHED),
+            if ($this->handler->layoutExists($persistenceLayout->id, Value::STATUS_PUBLISHED)) {
+                $this->handler->createLayoutStatus(
+                    $this->handler->loadLayout($persistenceLayout->id, Value::STATUS_PUBLISHED),
                     Value::STATUS_ARCHIVED
                 );
 
-                $this->layoutHandler->deleteLayout($persistenceLayout->id, Value::STATUS_PUBLISHED);
+                $this->handler->deleteLayout($persistenceLayout->id, Value::STATUS_PUBLISHED);
             }
 
-            $publishedLayout = $this->layoutHandler->createLayoutStatus($persistenceLayout, Value::STATUS_PUBLISHED);
-            $this->layoutHandler->deleteLayout($persistenceLayout->id, Value::STATUS_DRAFT);
+            $publishedLayout = $this->handler->createLayoutStatus($persistenceLayout, Value::STATUS_PUBLISHED);
+            $this->handler->deleteLayout($persistenceLayout->id, Value::STATUS_DRAFT);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
@@ -589,7 +589,7 @@ class LayoutService extends Service implements LayoutServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->layoutMapper->mapLayout($publishedLayout);
+        return $this->mapper->mapLayout($publishedLayout);
     }
 
     /**
@@ -599,12 +599,12 @@ class LayoutService extends Service implements LayoutServiceInterface
      */
     public function deleteLayout(Layout $layout)
     {
-        $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), $layout->getStatus());
+        $persistenceLayout = $this->handler->loadLayout($layout->getId(), $layout->getStatus());
 
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $this->layoutHandler->deleteLayout(
+            $this->handler->deleteLayout(
                 $persistenceLayout->id
             );
         } catch (Exception $e) {

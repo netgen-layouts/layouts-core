@@ -34,12 +34,12 @@ class BlockService extends Service implements BlockServiceInterface
     /**
      * @var \Netgen\BlockManager\Core\Service\Validator\BlockValidator
      */
-    protected $blockValidator;
+    protected $validator;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\Mapper\BlockMapper
      */
-    protected $blockMapper;
+    protected $mapper;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\StructBuilder\BlockStructBuilder
@@ -80,8 +80,8 @@ class BlockService extends Service implements BlockServiceInterface
      * Constructor.
      *
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
-     * @param \Netgen\BlockManager\Core\Service\Validator\BlockValidator $blockValidator
-     * @param \Netgen\BlockManager\Core\Service\Mapper\BlockMapper $blockMapper
+     * @param \Netgen\BlockManager\Core\Service\Validator\BlockValidator $validator
+     * @param \Netgen\BlockManager\Core\Service\Mapper\BlockMapper $mapper
      * @param \Netgen\BlockManager\Core\Service\StructBuilder\BlockStructBuilder $structBuilder
      * @param \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper $parameterMapper
      * @param \Netgen\BlockManager\Core\Service\Mapper\ConfigMapper $configMapper
@@ -89,8 +89,8 @@ class BlockService extends Service implements BlockServiceInterface
      */
     public function __construct(
         Handler $persistenceHandler,
-        BlockValidator $blockValidator,
-        BlockMapper $blockMapper,
+        BlockValidator $validator,
+        BlockMapper $mapper,
         BlockStructBuilder $structBuilder,
         ParameterMapper $parameterMapper,
         ConfigMapper $configMapper,
@@ -98,8 +98,8 @@ class BlockService extends Service implements BlockServiceInterface
     ) {
         parent::__construct($persistenceHandler);
 
-        $this->blockValidator = $blockValidator;
-        $this->blockMapper = $blockMapper;
+        $this->validator = $validator;
+        $this->mapper = $mapper;
         $this->structBuilder = $structBuilder;
         $this->parameterMapper = $parameterMapper;
         $this->configMapper = $configMapper;
@@ -121,7 +121,7 @@ class BlockService extends Service implements BlockServiceInterface
      */
     public function loadBlock($blockId)
     {
-        $this->blockValidator->validateId($blockId, 'blockId');
+        $this->validator->validateId($blockId, 'blockId');
 
         $block = $this->blockHandler->loadBlock($blockId, Value::STATUS_PUBLISHED);
 
@@ -130,7 +130,7 @@ class BlockService extends Service implements BlockServiceInterface
             throw new NotFoundException('block', $blockId);
         }
 
-        return $this->blockMapper->mapBlock($block);
+        return $this->mapper->mapBlock($block);
     }
 
     /**
@@ -144,7 +144,7 @@ class BlockService extends Service implements BlockServiceInterface
      */
     public function loadBlockDraft($blockId)
     {
-        $this->blockValidator->validateId($blockId, 'blockId');
+        $this->validator->validateId($blockId, 'blockId');
 
         $block = $this->blockHandler->loadBlock($blockId, Value::STATUS_DRAFT);
 
@@ -153,7 +153,7 @@ class BlockService extends Service implements BlockServiceInterface
             throw new NotFoundException('block', $blockId);
         }
 
-        return $this->blockMapper->mapBlock($block);
+        return $this->mapper->mapBlock($block);
     }
 
     /**
@@ -180,7 +180,7 @@ class BlockService extends Service implements BlockServiceInterface
 
         $blocks = array();
         foreach ($persistenceBlocks as $persistenceBlock) {
-            $blocks[] = $this->blockMapper->mapBlock($persistenceBlock);
+            $blocks[] = $this->mapper->mapBlock($persistenceBlock);
         }
 
         return $blocks;
@@ -208,11 +208,11 @@ class BlockService extends Service implements BlockServiceInterface
      */
     public function loadCollectionReference(Block $block, $identifier)
     {
-        $this->blockValidator->validateIdentifier($identifier, null, true);
+        $this->validator->validateIdentifier($identifier, null, true);
 
         $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), $block->getStatus());
 
-        return $this->blockMapper->mapCollectionReference(
+        return $this->mapper->mapCollectionReference(
             $persistenceBlock,
             $this->blockHandler->loadCollectionReference(
                 $persistenceBlock,
@@ -235,7 +235,7 @@ class BlockService extends Service implements BlockServiceInterface
 
         $collections = array();
         foreach ($persistenceCollections as $persistenceCollection) {
-            $collections[] = $this->blockMapper->mapCollectionReference(
+            $collections[] = $this->mapper->mapCollectionReference(
                 $persistenceBlock,
                 $persistenceCollection
             );
@@ -266,9 +266,9 @@ class BlockService extends Service implements BlockServiceInterface
             throw new BadStateException('targetBlock', 'Blocks can only be created in blocks in draft status.');
         }
 
-        $this->blockValidator->validateIdentifier($placeholder, 'placeholder', true);
-        $this->blockValidator->validatePosition($position, 'position');
-        $this->blockValidator->validateBlockCreateStruct($blockCreateStruct);
+        $this->validator->validateIdentifier($placeholder, 'placeholder', true);
+        $this->validator->validatePosition($position, 'position');
+        $this->validator->validateBlockCreateStruct($blockCreateStruct);
 
         $targetBlockDefinition = $targetBlock->getDefinition();
 
@@ -311,8 +311,8 @@ class BlockService extends Service implements BlockServiceInterface
         $persistenceZone = $this->layoutHandler->loadZone($zone->getLayoutId(), Value::STATUS_DRAFT, $zone->getIdentifier());
         $persistenceLayout = $this->layoutHandler->loadLayout($zone->getLayoutId(), Value::STATUS_DRAFT);
 
-        $this->blockValidator->validatePosition($position, 'position');
-        $this->blockValidator->validateBlockCreateStruct($blockCreateStruct);
+        $this->validator->validatePosition($position, 'position');
+        $this->validator->validateBlockCreateStruct($blockCreateStruct);
 
         if (
             !$this->isBlockAllowedWithinZone(
@@ -350,7 +350,7 @@ class BlockService extends Service implements BlockServiceInterface
 
         $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
 
-        $this->blockValidator->validateBlockUpdateStruct($block, $blockUpdateStruct);
+        $this->validator->validateBlockUpdateStruct($block, $blockUpdateStruct);
 
         $this->persistenceHandler->beginTransaction();
 
@@ -383,7 +383,7 @@ class BlockService extends Service implements BlockServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->blockMapper->mapBlock($updatedBlock);
+        return $this->mapper->mapBlock($updatedBlock);
     }
 
     /**
@@ -427,7 +427,7 @@ class BlockService extends Service implements BlockServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->blockMapper->mapCollectionReference($persistenceBlock, $updatedReference);
+        return $this->mapper->mapCollectionReference($persistenceBlock, $updatedReference);
     }
 
     /**
@@ -455,7 +455,7 @@ class BlockService extends Service implements BlockServiceInterface
             throw new BadStateException('targetBlock', 'You can only copy blocks to draft blocks.');
         }
 
-        $this->blockValidator->validateIdentifier($placeholder, 'placeholder', true);
+        $this->validator->validateIdentifier($placeholder, 'placeholder', true);
 
         $targetBlockDefinition = $targetBlock->getDefinition();
 
@@ -485,7 +485,7 @@ class BlockService extends Service implements BlockServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->blockMapper->mapBlock($copiedBlock);
+        return $this->mapper->mapBlock($copiedBlock);
     }
 
     /**
@@ -530,7 +530,7 @@ class BlockService extends Service implements BlockServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->blockMapper->mapBlock($copiedBlock);
+        return $this->mapper->mapBlock($copiedBlock);
     }
 
     /**
@@ -560,8 +560,8 @@ class BlockService extends Service implements BlockServiceInterface
             throw new BadStateException('targetBlock', 'You can only move blocks to draft blocks.');
         }
 
-        $this->blockValidator->validateIdentifier($placeholder, 'placeholder', true);
-        $this->blockValidator->validatePosition($position, 'position', true);
+        $this->validator->validateIdentifier($placeholder, 'placeholder', true);
+        $this->validator->validatePosition($position, 'position', true);
 
         $targetBlockDefinition = $targetBlock->getDefinition();
 
@@ -607,7 +607,7 @@ class BlockService extends Service implements BlockServiceInterface
             throw new BadStateException('zone', 'You can only move blocks to draft zones.');
         }
 
-        $this->blockValidator->validatePosition($position, 'position', true);
+        $this->validator->validatePosition($position, 'position', true);
 
         $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
         $persistenceZone = $this->layoutHandler->loadZone($zone->getLayoutId(), Value::STATUS_DRAFT, $zone->getIdentifier());
@@ -674,7 +674,7 @@ class BlockService extends Service implements BlockServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->blockMapper->mapBlock($updatedBlock);
+        return $this->mapper->mapBlock($updatedBlock);
     }
 
     /**
@@ -824,7 +824,7 @@ class BlockService extends Service implements BlockServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->blockMapper->mapBlock($createdBlock);
+        return $this->mapper->mapBlock($createdBlock);
     }
 
     /**
@@ -859,7 +859,7 @@ class BlockService extends Service implements BlockServiceInterface
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->blockMapper->mapBlock($movedBlock);
+        return $this->mapper->mapBlock($movedBlock);
     }
 
     /**

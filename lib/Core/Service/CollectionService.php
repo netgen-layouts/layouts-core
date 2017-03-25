@@ -31,12 +31,12 @@ class CollectionService extends Service implements APICollectionService
     /**
      * @var \Netgen\BlockManager\Core\Service\Validator\CollectionValidator
      */
-    protected $collectionValidator;
+    protected $validator;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper
      */
-    protected $collectionMapper;
+    protected $mapper;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder
@@ -51,32 +51,32 @@ class CollectionService extends Service implements APICollectionService
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandler
      */
-    protected $collectionHandler;
+    protected $handler;
 
     /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
-     * @param \Netgen\BlockManager\Core\Service\Validator\CollectionValidator $collectionValidator
-     * @param \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper $collectionMapper
+     * @param \Netgen\BlockManager\Core\Service\Validator\CollectionValidator $validator
+     * @param \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper $mapper
      * @param \Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder $structBuilder
      * @param \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper $parameterMapper
      */
     public function __construct(
         Handler $persistenceHandler,
-        CollectionValidator $collectionValidator,
-        CollectionMapper $collectionMapper,
+        CollectionValidator $validator,
+        CollectionMapper $mapper,
         CollectionStructBuilder $structBuilder,
         ParameterMapper $parameterMapper
     ) {
         parent::__construct($persistenceHandler);
 
-        $this->collectionValidator = $collectionValidator;
-        $this->collectionMapper = $collectionMapper;
+        $this->validator = $validator;
+        $this->mapper = $mapper;
         $this->structBuilder = $structBuilder;
         $this->parameterMapper = $parameterMapper;
 
-        $this->collectionHandler = $persistenceHandler->getCollectionHandler();
+        $this->handler = $persistenceHandler->getCollectionHandler();
     }
 
     /**
@@ -90,10 +90,10 @@ class CollectionService extends Service implements APICollectionService
      */
     public function loadCollection($collectionId)
     {
-        $this->collectionValidator->validateId($collectionId, 'collectionId');
+        $this->validator->validateId($collectionId, 'collectionId');
 
-        return $this->collectionMapper->mapCollection(
-            $this->collectionHandler->loadCollection(
+        return $this->mapper->mapCollection(
+            $this->handler->loadCollection(
                 $collectionId,
                 Value::STATUS_PUBLISHED
             )
@@ -111,10 +111,10 @@ class CollectionService extends Service implements APICollectionService
      */
     public function loadCollectionDraft($collectionId)
     {
-        $this->collectionValidator->validateId($collectionId, 'collectionId');
+        $this->validator->validateId($collectionId, 'collectionId');
 
-        return $this->collectionMapper->mapCollection(
-            $this->collectionHandler->loadCollection(
+        return $this->mapper->mapCollection(
+            $this->handler->loadCollection(
                 $collectionId,
                 Value::STATUS_DRAFT
             )
@@ -131,9 +131,9 @@ class CollectionService extends Service implements APICollectionService
      */
     public function loadSharedCollections($offset = 0, $limit = null)
     {
-        $this->collectionValidator->validateOffsetAndLimit($offset, $limit);
+        $this->validator->validateOffsetAndLimit($offset, $limit);
 
-        $persistenceCollections = $this->collectionHandler->loadSharedCollections(
+        $persistenceCollections = $this->handler->loadSharedCollections(
             Value::STATUS_PUBLISHED,
             $offset,
             $limit
@@ -141,7 +141,7 @@ class CollectionService extends Service implements APICollectionService
 
         $collections = array();
         foreach ($persistenceCollections as $persistenceCollection) {
-            $collections[] = $this->collectionMapper->mapCollection($persistenceCollection);
+            $collections[] = $this->mapper->mapCollection($persistenceCollection);
         }
 
         return $collections;
@@ -158,10 +158,10 @@ class CollectionService extends Service implements APICollectionService
      */
     public function loadItem($itemId)
     {
-        $this->collectionValidator->validateId($itemId, 'itemId');
+        $this->validator->validateId($itemId, 'itemId');
 
-        return $this->collectionMapper->mapItem(
-            $this->collectionHandler->loadItem(
+        return $this->mapper->mapItem(
+            $this->handler->loadItem(
                 $itemId,
                 Value::STATUS_PUBLISHED
             )
@@ -179,10 +179,10 @@ class CollectionService extends Service implements APICollectionService
      */
     public function loadItemDraft($itemId)
     {
-        $this->collectionValidator->validateId($itemId, 'itemId');
+        $this->validator->validateId($itemId, 'itemId');
 
-        return $this->collectionMapper->mapItem(
-            $this->collectionHandler->loadItem(
+        return $this->mapper->mapItem(
+            $this->handler->loadItem(
                 $itemId,
                 Value::STATUS_DRAFT
             )
@@ -200,10 +200,10 @@ class CollectionService extends Service implements APICollectionService
      */
     public function loadQuery($queryId)
     {
-        $this->collectionValidator->validateId($queryId, 'queryId');
+        $this->validator->validateId($queryId, 'queryId');
 
-        return $this->collectionMapper->mapQuery(
-            $this->collectionHandler->loadQuery(
+        return $this->mapper->mapQuery(
+            $this->handler->loadQuery(
                 $queryId,
                 Value::STATUS_PUBLISHED
             )
@@ -221,10 +221,10 @@ class CollectionService extends Service implements APICollectionService
      */
     public function loadQueryDraft($queryId)
     {
-        $this->collectionValidator->validateId($queryId, 'queryId');
+        $this->validator->validateId($queryId, 'queryId');
 
-        return $this->collectionMapper->mapQuery(
-            $this->collectionHandler->loadQuery(
+        return $this->mapper->mapQuery(
+            $this->handler->loadQuery(
                 $queryId,
                 Value::STATUS_DRAFT
             )
@@ -242,10 +242,10 @@ class CollectionService extends Service implements APICollectionService
      */
     public function createCollection(APICollectionCreateStruct $collectionCreateStruct)
     {
-        $this->collectionValidator->validateCollectionCreateStruct($collectionCreateStruct);
+        $this->validator->validateCollectionCreateStruct($collectionCreateStruct);
 
         if ($collectionCreateStruct->name !== null) {
-            if ($this->collectionHandler->collectionNameExists($collectionCreateStruct->name)) {
+            if ($this->handler->collectionNameExists($collectionCreateStruct->name)) {
                 throw new BadStateException('name', 'Collection with provided name already exists.');
             }
         }
@@ -253,7 +253,7 @@ class CollectionService extends Service implements APICollectionService
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $createdCollection = $this->collectionHandler->createCollection(
+            $createdCollection = $this->handler->createCollection(
                 new CollectionCreateStruct(
                     array(
                         'status' => Value::STATUS_DRAFT,
@@ -265,7 +265,7 @@ class CollectionService extends Service implements APICollectionService
             );
 
             foreach ($collectionCreateStruct->itemCreateStructs as $position => $itemCreateStruct) {
-                $this->collectionHandler->addItem(
+                $this->handler->addItem(
                     $createdCollection,
                     new ItemCreateStruct(
                         array(
@@ -279,7 +279,7 @@ class CollectionService extends Service implements APICollectionService
             }
 
             foreach ($collectionCreateStruct->queryCreateStructs as $position => $queryCreateStruct) {
-                $this->collectionHandler->addQuery(
+                $this->handler->addQuery(
                     $createdCollection,
                     new QueryCreateStruct(
                         array(
@@ -301,7 +301,7 @@ class CollectionService extends Service implements APICollectionService
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->collectionMapper->mapCollection($createdCollection);
+        return $this->mapper->mapCollection($createdCollection);
     }
 
     /**
@@ -321,12 +321,12 @@ class CollectionService extends Service implements APICollectionService
             throw new BadStateException('collection', 'Only draft collections can be updated.');
         }
 
-        $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
+        $persistenceCollection = $this->handler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
 
-        $this->collectionValidator->validateCollectionUpdateStruct($collectionUpdateStruct);
+        $this->validator->validateCollectionUpdateStruct($collectionUpdateStruct);
 
         if ($collectionUpdateStruct->name !== null) {
-            if ($this->collectionHandler->collectionNameExists($collectionUpdateStruct->name, $persistenceCollection->id)) {
+            if ($this->handler->collectionNameExists($collectionUpdateStruct->name, $persistenceCollection->id)) {
                 throw new BadStateException('name', 'Collection with provided name already exists.');
             }
         }
@@ -334,7 +334,7 @@ class CollectionService extends Service implements APICollectionService
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $updatedCollection = $this->collectionHandler->updateCollection(
+            $updatedCollection = $this->handler->updateCollection(
                 $persistenceCollection,
                 new CollectionUpdateStruct(
                     array(
@@ -349,7 +349,7 @@ class CollectionService extends Service implements APICollectionService
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->collectionMapper->mapCollection($updatedCollection);
+        return $this->mapper->mapCollection($updatedCollection);
     }
 
     /**
@@ -370,7 +370,7 @@ class CollectionService extends Service implements APICollectionService
             throw new BadStateException('collection', 'Type can be changed only for draft collections.');
         }
 
-        $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
+        $persistenceCollection = $this->handler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
 
         if (!in_array($newType, array(Collection::TYPE_MANUAL, Collection::TYPE_DYNAMIC), true)) {
             throw new BadStateException('newType', 'New collection type must be manual or dynamic.');
@@ -383,16 +383,16 @@ class CollectionService extends Service implements APICollectionService
         $this->persistenceHandler->beginTransaction();
 
         try {
-            foreach ($this->collectionHandler->loadCollectionQueries($persistenceCollection) as $query) {
-                $this->collectionHandler->deleteQuery($query);
+            foreach ($this->handler->loadCollectionQueries($persistenceCollection) as $query) {
+                $this->handler->deleteQuery($query);
             }
 
             if ($newType === Collection::TYPE_MANUAL) {
-                foreach ($this->collectionHandler->loadCollectionItems($persistenceCollection) as $index => $item) {
-                    $this->collectionHandler->moveItem($item, $index);
+                foreach ($this->handler->loadCollectionItems($persistenceCollection) as $index => $item) {
+                    $this->handler->moveItem($item, $index);
                 }
             } elseif ($newType === Collection::TYPE_DYNAMIC) {
-                $this->collectionHandler->addQuery(
+                $this->handler->addQuery(
                     $persistenceCollection,
                     new QueryCreateStruct(
                         array(
@@ -407,7 +407,7 @@ class CollectionService extends Service implements APICollectionService
                 );
             }
 
-            $newCollection = $this->collectionHandler->updateCollection(
+            $newCollection = $this->handler->updateCollection(
                 $persistenceCollection,
                 new CollectionUpdateStruct(
                     array(
@@ -422,7 +422,7 @@ class CollectionService extends Service implements APICollectionService
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->collectionMapper->mapCollection($newCollection);
+        return $this->mapper->mapCollection($newCollection);
     }
 
     /**
@@ -438,17 +438,17 @@ class CollectionService extends Service implements APICollectionService
     public function copyCollection(Collection $collection, $newName = null)
     {
         if ($newName !== null) {
-            if ($this->collectionHandler->collectionNameExists($newName, $collection->getId())) {
+            if ($this->handler->collectionNameExists($newName, $collection->getId())) {
                 throw new BadStateException('newName', 'Collection with provided name already exists.');
             }
         }
 
-        $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), $collection->getStatus());
+        $persistenceCollection = $this->handler->loadCollection($collection->getId(), $collection->getStatus());
 
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $copiedCollection = $this->collectionHandler->copyCollection(
+            $copiedCollection = $this->handler->copyCollection(
                 $persistenceCollection,
                 $newName
             );
@@ -459,7 +459,7 @@ class CollectionService extends Service implements APICollectionService
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->collectionMapper->mapCollection($copiedCollection);
+        return $this->mapper->mapCollection($copiedCollection);
     }
 
     /**
@@ -479,9 +479,9 @@ class CollectionService extends Service implements APICollectionService
             throw new BadStateException('collection', 'Draft can be created only from published collections.');
         }
 
-        $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Value::STATUS_PUBLISHED);
+        $persistenceCollection = $this->handler->loadCollection($collection->getId(), Value::STATUS_PUBLISHED);
 
-        if ($this->collectionHandler->collectionExists($persistenceCollection->id, Value::STATUS_DRAFT)) {
+        if ($this->handler->collectionExists($persistenceCollection->id, Value::STATUS_DRAFT)) {
             if (!$discardExisting) {
                 throw new BadStateException('collection', 'The provided collection already has a draft.');
             }
@@ -490,8 +490,8 @@ class CollectionService extends Service implements APICollectionService
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $this->collectionHandler->deleteCollection($persistenceCollection->id, Value::STATUS_DRAFT);
-            $collectionDraft = $this->collectionHandler->createCollectionStatus($persistenceCollection, Value::STATUS_DRAFT);
+            $this->handler->deleteCollection($persistenceCollection->id, Value::STATUS_DRAFT);
+            $collectionDraft = $this->handler->createCollectionStatus($persistenceCollection, Value::STATUS_DRAFT);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
@@ -499,7 +499,7 @@ class CollectionService extends Service implements APICollectionService
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->collectionMapper->mapCollection($collectionDraft);
+        return $this->mapper->mapCollection($collectionDraft);
     }
 
     /**
@@ -515,12 +515,12 @@ class CollectionService extends Service implements APICollectionService
             throw new BadStateException('collection', 'Only draft collections can be discarded.');
         }
 
-        $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
+        $persistenceCollection = $this->handler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
 
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $this->collectionHandler->deleteCollection(
+            $this->handler->deleteCollection(
                 $persistenceCollection->id,
                 Value::STATUS_DRAFT
             );
@@ -547,27 +547,27 @@ class CollectionService extends Service implements APICollectionService
             throw new BadStateException('collection', 'Only draft collections can be published.');
         }
 
-        $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
+        $persistenceCollection = $this->handler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
 
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $this->collectionHandler->deleteCollection($persistenceCollection->id, Value::STATUS_ARCHIVED);
+            $this->handler->deleteCollection($persistenceCollection->id, Value::STATUS_ARCHIVED);
 
-            if ($this->collectionHandler->collectionExists($persistenceCollection->id, Value::STATUS_PUBLISHED)) {
-                $this->collectionHandler->createCollectionStatus(
-                    $this->collectionHandler->loadCollection(
+            if ($this->handler->collectionExists($persistenceCollection->id, Value::STATUS_PUBLISHED)) {
+                $this->handler->createCollectionStatus(
+                    $this->handler->loadCollection(
                         $persistenceCollection->id,
                         Value::STATUS_PUBLISHED
                     ),
                     Value::STATUS_ARCHIVED
                 );
 
-                $this->collectionHandler->deleteCollection($persistenceCollection->id, Value::STATUS_PUBLISHED);
+                $this->handler->deleteCollection($persistenceCollection->id, Value::STATUS_PUBLISHED);
             }
 
-            $publishedCollection = $this->collectionHandler->createCollectionStatus($persistenceCollection, Value::STATUS_PUBLISHED);
-            $this->collectionHandler->deleteCollection($persistenceCollection->id, Value::STATUS_DRAFT);
+            $publishedCollection = $this->handler->createCollectionStatus($persistenceCollection, Value::STATUS_PUBLISHED);
+            $this->handler->deleteCollection($persistenceCollection->id, Value::STATUS_DRAFT);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
@@ -575,7 +575,7 @@ class CollectionService extends Service implements APICollectionService
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->collectionMapper->mapCollection($publishedCollection);
+        return $this->mapper->mapCollection($publishedCollection);
     }
 
     /**
@@ -585,12 +585,12 @@ class CollectionService extends Service implements APICollectionService
      */
     public function deleteCollection(Collection $collection)
     {
-        $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), $collection->getStatus());
+        $persistenceCollection = $this->handler->loadCollection($collection->getId(), $collection->getStatus());
 
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $this->collectionHandler->deleteCollection(
+            $this->handler->deleteCollection(
                 $persistenceCollection->id
             );
         } catch (Exception $e) {
@@ -619,20 +619,20 @@ class CollectionService extends Service implements APICollectionService
             throw new BadStateException('collection', 'Items can only be added to draft collections.');
         }
 
-        $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
+        $persistenceCollection = $this->handler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
 
-        $this->collectionValidator->validatePosition(
+        $this->validator->validatePosition(
             $position,
             'position',
             $persistenceCollection->type !== Collection::TYPE_MANUAL
         );
 
-        $this->collectionValidator->validateItemCreateStruct($itemCreateStruct);
+        $this->validator->validateItemCreateStruct($itemCreateStruct);
 
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $createdItem = $this->collectionHandler->addItem(
+            $createdItem = $this->handler->addItem(
                 $persistenceCollection,
                 new ItemCreateStruct(
                     array(
@@ -650,7 +650,7 @@ class CollectionService extends Service implements APICollectionService
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->collectionMapper->mapItem($createdItem);
+        return $this->mapper->mapItem($createdItem);
     }
 
     /**
@@ -668,14 +668,14 @@ class CollectionService extends Service implements APICollectionService
             throw new BadStateException('item', 'Only draft items can be moved.');
         }
 
-        $persistenceItem = $this->collectionHandler->loadItem($item->getId(), Value::STATUS_DRAFT);
+        $persistenceItem = $this->handler->loadItem($item->getId(), Value::STATUS_DRAFT);
 
-        $this->collectionValidator->validatePosition($position, 'position', true);
+        $this->validator->validatePosition($position, 'position', true);
 
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $movedItem = $this->collectionHandler->moveItem(
+            $movedItem = $this->handler->moveItem(
                 $persistenceItem,
                 $position
             );
@@ -686,7 +686,7 @@ class CollectionService extends Service implements APICollectionService
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->collectionMapper->mapItem($movedItem);
+        return $this->mapper->mapItem($movedItem);
     }
 
     /**
@@ -702,12 +702,12 @@ class CollectionService extends Service implements APICollectionService
             throw new BadStateException('item', 'Only draft items can be deleted.');
         }
 
-        $persistenceItem = $this->collectionHandler->loadItem($item->getId(), Value::STATUS_DRAFT);
+        $persistenceItem = $this->handler->loadItem($item->getId(), Value::STATUS_DRAFT);
 
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $this->collectionHandler->deleteItem($persistenceItem);
+            $this->handler->deleteItem($persistenceItem);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
@@ -736,23 +736,23 @@ class CollectionService extends Service implements APICollectionService
             throw new BadStateException('collection', 'Queries can be added only to draft collections.');
         }
 
-        $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
+        $persistenceCollection = $this->handler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
 
         if ($persistenceCollection->type !== Collection::TYPE_DYNAMIC) {
             throw new BadStateException('collection', 'Queries can be added only to dynamic collections.');
         }
 
-        $this->collectionValidator->validatePosition($position, 'position');
-        $this->collectionValidator->validateQueryCreateStruct($queryCreateStruct);
+        $this->validator->validatePosition($position, 'position');
+        $this->validator->validateQueryCreateStruct($queryCreateStruct);
 
-        if ($this->collectionHandler->queryExists($persistenceCollection, $queryCreateStruct->identifier)) {
+        if ($this->handler->queryExists($persistenceCollection, $queryCreateStruct->identifier)) {
             throw new BadStateException('identifier', 'Query with specified identifier already exists.');
         }
 
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $createdQuery = $this->collectionHandler->addQuery(
+            $createdQuery = $this->handler->addQuery(
                 $persistenceCollection,
                 new QueryCreateStruct(
                     array(
@@ -773,7 +773,7 @@ class CollectionService extends Service implements APICollectionService
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->collectionMapper->mapQuery($createdQuery);
+        return $this->mapper->mapQuery($createdQuery);
     }
 
     /**
@@ -793,13 +793,13 @@ class CollectionService extends Service implements APICollectionService
             throw new BadStateException('query', 'Only draft queries can be updated.');
         }
 
-        $persistenceQuery = $this->collectionHandler->loadQuery($query->getId(), Value::STATUS_DRAFT);
-        $persistenceCollection = $this->collectionHandler->loadCollection($persistenceQuery->collectionId, Value::STATUS_DRAFT);
+        $persistenceQuery = $this->handler->loadQuery($query->getId(), Value::STATUS_DRAFT);
+        $persistenceCollection = $this->handler->loadCollection($persistenceQuery->collectionId, Value::STATUS_DRAFT);
 
-        $this->collectionValidator->validateQueryUpdateStruct($query, $queryUpdateStruct);
+        $this->validator->validateQueryUpdateStruct($query, $queryUpdateStruct);
 
         if ($queryUpdateStruct->identifier !== null && $queryUpdateStruct->identifier !== $persistenceQuery->identifier) {
-            if ($this->collectionHandler->queryExists($persistenceCollection, $queryUpdateStruct->identifier)) {
+            if ($this->handler->queryExists($persistenceCollection, $queryUpdateStruct->identifier)) {
                 throw new BadStateException('identifier', 'Query with specified identifier already exists.');
             }
         }
@@ -807,7 +807,7 @@ class CollectionService extends Service implements APICollectionService
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $updatedQuery = $this->collectionHandler->updateQuery(
+            $updatedQuery = $this->handler->updateQuery(
                 $persistenceQuery,
                 new QueryUpdateStruct(
                     array(
@@ -826,7 +826,7 @@ class CollectionService extends Service implements APICollectionService
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->collectionMapper->mapQuery($updatedQuery);
+        return $this->mapper->mapQuery($updatedQuery);
     }
 
     /**
@@ -844,14 +844,14 @@ class CollectionService extends Service implements APICollectionService
             throw new BadStateException('query', 'Only draft queries can be moved.');
         }
 
-        $persistenceQuery = $this->collectionHandler->loadQuery($query->getId(), Value::STATUS_DRAFT);
+        $persistenceQuery = $this->handler->loadQuery($query->getId(), Value::STATUS_DRAFT);
 
-        $this->collectionValidator->validatePosition($position, 'position', true);
+        $this->validator->validatePosition($position, 'position', true);
 
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $movedQuery = $this->collectionHandler->moveQuery(
+            $movedQuery = $this->handler->moveQuery(
                 $persistenceQuery,
                 $position
             );
@@ -862,7 +862,7 @@ class CollectionService extends Service implements APICollectionService
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->collectionMapper->mapQuery($movedQuery);
+        return $this->mapper->mapQuery($movedQuery);
     }
 
     /**
@@ -878,12 +878,12 @@ class CollectionService extends Service implements APICollectionService
             throw new BadStateException('query', 'Only draft queries can be deleted.');
         }
 
-        $persistenceQuery = $this->collectionHandler->loadQuery($query->getId(), Value::STATUS_DRAFT);
+        $persistenceQuery = $this->handler->loadQuery($query->getId(), Value::STATUS_DRAFT);
 
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $this->collectionHandler->deleteQuery($persistenceQuery);
+            $this->handler->deleteQuery($persistenceQuery);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
