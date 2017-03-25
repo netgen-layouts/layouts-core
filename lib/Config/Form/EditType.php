@@ -22,10 +22,13 @@ class EditType extends AbstractType
     {
         parent::configureOptions($resolver);
 
-        $resolver->setRequired('configurable');
+        $resolver->setRequired(array('configurable', 'configIdentifiers'));
+
+        $resolver->setAllowedTypes('configIdentifiers', 'array');
         $resolver->setAllowedTypes('configurable', ConfigAwareValue::class);
         $resolver->setAllowedTypes('data', ConfigAwareStruct::class);
 
+        $resolver->setDefault('configIdentifiers', array());
         $resolver->setDefault('constraints', function (Options $options) {
             return array(
                 new ConfigAwareStructConstraint(
@@ -51,15 +54,20 @@ class EditType extends AbstractType
 
         $configType = $configAwareValue->getConfigCollection()->getConfigType();
 
-        /** @var \Netgen\BlockManager\API\Values\Config\ConfigAwareStruct $configAwareStruct */
-        $configAwareStruct = $options['data'];
+        /** @var \Netgen\BlockManager\API\Values\Config\ConfigStruct[] $configStructs */
+        $configStructs = $options['data']->getConfigStructs();
 
-        foreach ($configAwareStruct->getConfigStructs() as $identifier => $configStruct) {
+        $configIdentifiers = $options['configIdentifiers'];
+        if (empty($configIdentifiers)) {
+            $configIdentifiers = array_keys($configStructs);
+        }
+
+        foreach ($configIdentifiers as $identifier) {
             $builder->add(
                 $identifier,
                 ParametersType::class,
                 array(
-                    'data' => $configStruct,
+                    'data' => $configStructs[$identifier],
                     'label' => 'config.' . $configType . '.' . $identifier,
                     'property_path' => 'configStructs[' . $identifier . ']',
                     'parameter_collection' => $configs[$identifier]->getDefinition(),

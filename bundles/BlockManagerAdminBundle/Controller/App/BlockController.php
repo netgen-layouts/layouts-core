@@ -5,7 +5,6 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\App;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Config\Form\EditType as ConfigEditType;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
@@ -126,21 +125,12 @@ class BlockController extends Controller
     {
         $updateStruct = $this->blockService->newBlockUpdateStruct($block);
 
-        foreach ($block->getConfigs() as $configIdentifier => $config) {
-            if ($identifier !== null && $configIdentifier !== $identifier) {
-                continue;
-            }
-
-            $configStruct = new ConfigStruct();
-            $configStruct->fillValues($config->getDefinition(), $config->getParameters(), false);
-            $updateStruct->setConfigStruct($configIdentifier, $configStruct);
-        }
-
         $form = $this->createForm(
             ConfigEditType::class,
             $updateStruct,
             array(
                 'configurable' => $block,
+                'configIdentifiers' => $identifier !== null ? array($identifier) : array(),
                 'action' => $this->generateUrl(
                     'ngbm_app_block_form_edit_config',
                     array(

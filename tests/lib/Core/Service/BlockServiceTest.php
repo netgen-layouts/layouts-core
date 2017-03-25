@@ -1269,6 +1269,16 @@ abstract class BlockServiceTest extends ServiceTestCase
                         'css_class' => 'CSS class',
                         'css_id' => null,
                     ),
+                    'configStructs' => array(
+                        'http_cache' => new ConfigStruct(
+                            array(
+                                'parameterValues' => array(
+                                    'use_http_cache' => null,
+                                    'shared_max_age' => null,
+                                ),
+                            )
+                        ),
+                    ),
                 )
             ),
             $this->blockService->newBlockUpdateStruct($block)

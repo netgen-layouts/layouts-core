@@ -16,6 +16,7 @@ use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Collection\QueryTypeInterface;
 use Netgen\BlockManager\Core\Service\Mapper\CollectionMapper;
 use Netgen\BlockManager\Core\Service\Mapper\ParameterMapper;
+use Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Persistence\Handler;
@@ -38,6 +39,11 @@ class CollectionService extends Service implements APICollectionService
     protected $collectionMapper;
 
     /**
+     * @var \Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder
+     */
+    protected $structBuilder;
+
+    /**
      * @var \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper
      */
     protected $parameterMapper;
@@ -53,18 +59,21 @@ class CollectionService extends Service implements APICollectionService
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
      * @param \Netgen\BlockManager\Core\Service\Validator\CollectionValidator $collectionValidator
      * @param \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper $collectionMapper
+     * @param \Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder $structBuilder
      * @param \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper $parameterMapper
      */
     public function __construct(
         Handler $persistenceHandler,
         CollectionValidator $collectionValidator,
         CollectionMapper $collectionMapper,
+        CollectionStructBuilder $structBuilder,
         ParameterMapper $parameterMapper
     ) {
         parent::__construct($persistenceHandler);
 
         $this->collectionValidator = $collectionValidator;
         $this->collectionMapper = $collectionMapper;
+        $this->structBuilder = $structBuilder;
         $this->parameterMapper = $parameterMapper;
 
         $this->collectionHandler = $persistenceHandler->getCollectionHandler();
@@ -893,12 +902,7 @@ class CollectionService extends Service implements APICollectionService
      */
     public function newCollectionCreateStruct($type, $name = null)
     {
-        return new APICollectionCreateStruct(
-            array(
-                'type' => $type,
-                'name' => $name,
-            )
-        );
+        return $this->structBuilder->newCollectionCreateStruct($type, $name);
     }
 
     /**
@@ -908,7 +912,7 @@ class CollectionService extends Service implements APICollectionService
      */
     public function newCollectionUpdateStruct()
     {
-        return new APICollectionUpdateStruct();
+        return $this->structBuilder->newCollectionUpdateStruct();
     }
 
     /**
@@ -922,13 +926,7 @@ class CollectionService extends Service implements APICollectionService
      */
     public function newItemCreateStruct($type, $valueId, $valueType)
     {
-        return new APIItemCreateStruct(
-            array(
-                'type' => $type,
-                'valueId' => $valueId,
-                'valueType' => $valueType,
-            )
-        );
+        return $this->structBuilder->newItemCreateStruct($type, $valueId, $valueType);
     }
 
     /**
@@ -941,16 +939,7 @@ class CollectionService extends Service implements APICollectionService
      */
     public function newQueryCreateStruct(QueryTypeInterface $queryType, $identifier)
     {
-        $queryCreateStruct = new APIQueryCreateStruct(
-            array(
-                'identifier' => $identifier,
-                'queryType' => $queryType,
-            )
-        );
-
-        $queryCreateStruct->fillValues($queryType);
-
-        return $queryCreateStruct;
+        return $this->structBuilder->newQueryCreateStruct($queryType, $identifier);
     }
 
     /**
@@ -962,21 +951,6 @@ class CollectionService extends Service implements APICollectionService
      */
     public function newQueryUpdateStruct(Query $query = null)
     {
-        $queryUpdateStruct = new APIQueryUpdateStruct();
-
-        if (!$query instanceof Query) {
-            return $queryUpdateStruct;
-        }
-
-        $queryUpdateStruct->identifier = $query->getIdentifier();
-
-        $queryType = $query->getQueryType();
-        $queryUpdateStruct->fillValues(
-            $queryType,
-            $query->getParameters(),
-            false
-        );
-
-        return $queryUpdateStruct;
+        return $this->structBuilder->newQueryUpdateStruct($query);
     }
 }

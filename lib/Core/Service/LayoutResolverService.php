@@ -17,6 +17,7 @@ use Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct as APITarge
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct as APITargetUpdateStruct;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper;
+use Netgen\BlockManager\Core\Service\StructBuilder\LayoutResolverStructBuilder;
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Persistence\Handler;
@@ -41,6 +42,11 @@ class LayoutResolverService extends Service implements APILayoutResolverService
     protected $mapper;
 
     /**
+     * @var \Netgen\BlockManager\Core\Service\StructBuilder\LayoutResolverStructBuilder
+     */
+    protected $structBuilder;
+
+    /**
      * @var \Netgen\BlockManager\Persistence\Handler\LayoutResolverHandler
      */
     protected $handler;
@@ -51,16 +57,19 @@ class LayoutResolverService extends Service implements APILayoutResolverService
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
      * @param \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator $validator
      * @param \Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper $mapper
+     * @param \Netgen\BlockManager\Core\Service\StructBuilder\LayoutResolverStructBuilder $structBuilder
      */
     public function __construct(
         Handler $persistenceHandler,
         LayoutResolverValidator $validator,
-        LayoutResolverMapper $mapper
+        LayoutResolverMapper $mapper,
+        LayoutResolverStructBuilder $structBuilder
     ) {
         parent::__construct($persistenceHandler);
 
         $this->validator = $validator;
         $this->mapper = $mapper;
+        $this->structBuilder = $structBuilder;
 
         $this->handler = $persistenceHandler->getLayoutResolverHandler();
     }
@@ -884,7 +893,7 @@ class LayoutResolverService extends Service implements APILayoutResolverService
      */
     public function newRuleCreateStruct()
     {
-        return new APIRuleCreateStruct();
+        return $this->structBuilder->newRuleCreateStruct();
     }
 
     /**
@@ -894,7 +903,7 @@ class LayoutResolverService extends Service implements APILayoutResolverService
      */
     public function newRuleUpdateStruct()
     {
-        return new APIRuleUpdateStruct();
+        return $this->structBuilder->newRuleUpdateStruct();
     }
 
     /**
@@ -904,7 +913,7 @@ class LayoutResolverService extends Service implements APILayoutResolverService
      */
     public function newRuleMetadataUpdateStruct()
     {
-        return new APIRuleMetadataUpdateStruct();
+        return $this->structBuilder->newRuleMetadataUpdateStruct();
     }
 
     /**
@@ -916,11 +925,7 @@ class LayoutResolverService extends Service implements APILayoutResolverService
      */
     public function newTargetCreateStruct($type)
     {
-        return new APITargetCreateStruct(
-            array(
-                'type' => $type,
-            )
-        );
+        return $this->structBuilder->newTargetCreateStruct($type);
     }
 
     /**
@@ -930,7 +935,7 @@ class LayoutResolverService extends Service implements APILayoutResolverService
      */
     public function newTargetUpdateStruct()
     {
-        return new APITargetUpdateStruct();
+        return $this->structBuilder->newTargetUpdateStruct();
     }
 
     /**
@@ -942,11 +947,7 @@ class LayoutResolverService extends Service implements APILayoutResolverService
      */
     public function newConditionCreateStruct($type)
     {
-        return new APIConditionCreateStruct(
-            array(
-                'type' => $type,
-            )
-        );
+        return $this->structBuilder->newConditionCreateStruct($type);
     }
 
     /**
@@ -956,6 +957,6 @@ class LayoutResolverService extends Service implements APILayoutResolverService
      */
     public function newConditionUpdateStruct()
     {
-        return new APIConditionUpdateStruct();
+        return $this->structBuilder->newConditionUpdateStruct();
     }
 }

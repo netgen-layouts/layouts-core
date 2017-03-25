@@ -15,6 +15,11 @@ use Netgen\BlockManager\Core\Service\Mapper\ConfigMapper;
 use Netgen\BlockManager\Core\Service\Mapper\LayoutMapper;
 use Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper;
 use Netgen\BlockManager\Core\Service\Mapper\ParameterMapper;
+use Netgen\BlockManager\Core\Service\StructBuilder\BlockStructBuilder;
+use Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder;
+use Netgen\BlockManager\Core\Service\StructBuilder\ConfigStructBuilder;
+use Netgen\BlockManager\Core\Service\StructBuilder\LayoutResolverStructBuilder;
+use Netgen\BlockManager\Core\Service\StructBuilder\LayoutStructBuilder;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
@@ -230,7 +235,8 @@ abstract class ServiceTestCase extends TestCase
         return new LayoutService(
             $this->persistenceHandler,
             $validator,
-            $this->createLayoutMapper()
+            $this->createLayoutMapper(),
+            new LayoutStructBuilder()
         );
     }
 
@@ -251,6 +257,9 @@ abstract class ServiceTestCase extends TestCase
             $this->persistenceHandler,
             $validator,
             $this->createBlockMapper(),
+            new BlockStructBuilder(
+                new ConfigStructBuilder()
+            ),
             $this->createParameterMapper(),
             $this->createConfigMapper(),
             $this->layoutTypeRegistry
@@ -274,6 +283,7 @@ abstract class ServiceTestCase extends TestCase
             $this->persistenceHandler,
             $validator,
             $this->createCollectionMapper(),
+            new CollectionStructBuilder(),
             $this->createParameterMapper()
         );
     }
@@ -294,7 +304,8 @@ abstract class ServiceTestCase extends TestCase
         return new LayoutResolverService(
             $this->persistenceHandler,
             $validator,
-            $this->createLayoutResolverMapper()
+            $this->createLayoutResolverMapper(),
+            new LayoutResolverStructBuilder()
         );
     }
 

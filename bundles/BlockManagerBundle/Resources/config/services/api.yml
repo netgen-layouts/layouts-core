@@ -121,12 +121,16 @@ services:
             - "@netgen_block_manager.persistence.handler"
             - "@netgen_block_manager.layout.registry.layout_type"
 
+    netgen_block_manager.core.service.layout.struct_builder:
+        class: Netgen\BlockManager\Core\Service\StructBuilder\LayoutStructBuilder
+
     netgen_block_manager.core.service.layout:
         class: Netgen\BlockManager\Core\Service\LayoutService
         arguments:
             - "@netgen_block_manager.persistence.handler"
             - "@netgen_block_manager.core.service.layout.validator"
             - "@netgen_block_manager.core.service.layout.mapper"
+            - "@netgen_block_manager.core.service.layout.struct_builder"
 
     # Block related APIs
 
@@ -146,12 +150,18 @@ services:
             - "@netgen_block_manager.core.service.config_mapper"
             - "@netgen_block_manager.block.registry.block_definition"
 
+    netgen_block_manager.core.service.block.struct_builder:
+        class: Netgen\BlockManager\Core\Service\StructBuilder\BlockStructBuilder
+        arguments:
+            - "@netgen_block_manager.core.struct_builder.config"
+
     netgen_block_manager.core.service.block:
         class: Netgen\BlockManager\Core\Service\BlockService
         arguments:
             - "@netgen_block_manager.persistence.handler"
             - "@netgen_block_manager.core.service.block.validator"
             - "@netgen_block_manager.core.service.block.mapper"
+            - "@netgen_block_manager.core.service.block.struct_builder"
             - "@netgen_block_manager.core.service.parameter_mapper"
             - "@netgen_block_manager.core.service.config_mapper"
             - "@netgen_block_manager.layout.registry.layout_type"
@@ -170,12 +180,16 @@ services:
             - "@netgen_block_manager.core.service.parameter_mapper"
             - "@netgen_block_manager.collection.registry.query_type"
 
+    netgen_block_manager.core.service.collection.struct_builder:
+        class: Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder
+
     netgen_block_manager.core.service.collection:
         class: Netgen\BlockManager\Core\Service\CollectionService
         arguments:
             - "@netgen_block_manager.persistence.handler"
             - "@netgen_block_manager.core.service.collection.validator"
             - "@netgen_block_manager.core.service.collection.mapper"
+            - "@netgen_block_manager.core.service.collection.struct_builder"
             - "@netgen_block_manager.core.service.parameter_mapper"
 
     # Layout resolver related APIs
@@ -196,12 +210,16 @@ services:
             - "@netgen_block_manager.layout.resolver.registry.target_type"
             - "@netgen_block_manager.layout.resolver.registry.condition_type"
 
+    netgen_block_manager.core.service.layout_resolver.struct_builder:
+        class: Netgen\BlockManager\Core\Service\StructBuilder\LayoutResolverStructBuilder
+
     netgen_block_manager.core.service.layout_resolver:
         class: Netgen\BlockManager\Core\Service\LayoutResolverService
         arguments:
             - "@netgen_block_manager.persistence.handler"
             - "@netgen_block_manager.core.service.layout_resolver.validator"
             - "@netgen_block_manager.core.service.layout_resolver.mapper"
+            - "@netgen_block_manager.core.service.layout_resolver.struct_builder"
 
     netgen_block_manager.core.service.parameter_mapper:
         class: Netgen\BlockManager\Core\Service\Mapper\ParameterMapper
@@ -212,7 +230,7 @@ services:
             - "@netgen_block_manager.core.service.parameter_mapper"
             - "@netgen_block_manager.config.registry.config_definition"
 
-    # Generic API services
+    # Config API services
 
     netgen_block_manager.core.validator.config:
         class: Netgen\BlockManager\Core\Service\Validator\ConfigValidator
@@ -220,6 +238,9 @@ services:
             - "@netgen_block_manager.config.registry.config_definition"
         calls:
             - [setValidator, ["@validator"]]
+
+    netgen_block_manager.core.struct_builder.config:
+        class: Netgen\BlockManager\Core\Service\StructBuilder\ConfigStructBuilder
 
     # Service aliases
 

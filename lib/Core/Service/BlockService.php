@@ -16,6 +16,7 @@ use Netgen\BlockManager\Block\ContainerDefinitionInterface;
 use Netgen\BlockManager\Core\Service\Mapper\BlockMapper;
 use Netgen\BlockManager\Core\Service\Mapper\ConfigMapper;
 use Netgen\BlockManager\Core\Service\Mapper\ParameterMapper;
+use Netgen\BlockManager\Core\Service\StructBuilder\BlockStructBuilder;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
@@ -39,6 +40,11 @@ class BlockService extends Service implements BlockServiceInterface
      * @var \Netgen\BlockManager\Core\Service\Mapper\BlockMapper
      */
     protected $blockMapper;
+
+    /**
+     * @var \Netgen\BlockManager\Core\Service\StructBuilder\BlockStructBuilder
+     */
+    protected $structBuilder;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper
@@ -76,6 +82,7 @@ class BlockService extends Service implements BlockServiceInterface
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
      * @param \Netgen\BlockManager\Core\Service\Validator\BlockValidator $blockValidator
      * @param \Netgen\BlockManager\Core\Service\Mapper\BlockMapper $blockMapper
+     * @param \Netgen\BlockManager\Core\Service\StructBuilder\BlockStructBuilder $structBuilder
      * @param \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper $parameterMapper
      * @param \Netgen\BlockManager\Core\Service\Mapper\ConfigMapper $configMapper
      * @param \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
@@ -84,6 +91,7 @@ class BlockService extends Service implements BlockServiceInterface
         Handler $persistenceHandler,
         BlockValidator $blockValidator,
         BlockMapper $blockMapper,
+        BlockStructBuilder $structBuilder,
         ParameterMapper $parameterMapper,
         ConfigMapper $configMapper,
         LayoutTypeRegistryInterface $layoutTypeRegistry
@@ -92,6 +100,7 @@ class BlockService extends Service implements BlockServiceInterface
 
         $this->blockValidator = $blockValidator;
         $this->blockMapper = $blockMapper;
+        $this->structBuilder = $structBuilder;
         $this->parameterMapper = $parameterMapper;
         $this->configMapper = $configMapper;
         $this->layoutTypeRegistry = $layoutTypeRegistry;
@@ -704,23 +713,7 @@ class BlockService extends Service implements BlockServiceInterface
      */
     public function newBlockCreateStruct(BlockDefinitionInterface $blockDefinition)
     {
-        $config = $blockDefinition->getConfig();
-
-        $viewTypeIdentifier = $config->getViewTypeIdentifiers()[0];
-        $viewType = $config->getViewType($viewTypeIdentifier);
-        $itemViewTypeIdentifier = $viewType->getItemViewTypeIdentifiers()[0];
-
-        $blockCreateStruct = new APIBlockCreateStruct(
-            array(
-                'definition' => $blockDefinition,
-                'viewType' => $viewTypeIdentifier,
-                'itemViewType' => $itemViewTypeIdentifier,
-            )
-        );
-
-        $blockCreateStruct->fillValues($blockDefinition);
-
-        return $blockCreateStruct;
+        return $this->structBuilder->newBlockCreateStruct($blockDefinition);
     }
 
     /**
@@ -732,25 +725,7 @@ class BlockService extends Service implements BlockServiceInterface
      */
     public function newBlockUpdateStruct(Block $block = null)
     {
-        $blockUpdateStruct = new APIBlockUpdateStruct();
-
-        if (!$block instanceof Block) {
-            return $blockUpdateStruct;
-        }
-
-        $blockUpdateStruct->viewType = $block->getViewType();
-        $blockUpdateStruct->itemViewType = $block->getItemViewType();
-        $blockUpdateStruct->name = $block->getName();
-
-        $blockDefinition = $block->getDefinition();
-
-        $blockUpdateStruct->fillValues(
-            $blockDefinition,
-            $block->getParameters(),
-            false
-        );
-
-        return $blockUpdateStruct;
+        return $this->structBuilder->newBlockUpdateStruct($block);
     }
 
     /**

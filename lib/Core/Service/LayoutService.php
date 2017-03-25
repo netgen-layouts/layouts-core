@@ -10,6 +10,7 @@ use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct as APILayoutUpdateS
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Service\Mapper\LayoutMapper;
+use Netgen\BlockManager\Core\Service\StructBuilder\LayoutStructBuilder;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Layout\Type\LayoutType;
@@ -32,6 +33,11 @@ class LayoutService extends Service implements LayoutServiceInterface
     protected $layoutMapper;
 
     /**
+     * @var \Netgen\BlockManager\Core\Service\StructBuilder\LayoutStructBuilder
+     */
+    protected $structBuilder;
+
+    /**
      * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandler
      */
     protected $layoutHandler;
@@ -42,16 +48,19 @@ class LayoutService extends Service implements LayoutServiceInterface
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
      * @param \Netgen\BlockManager\Core\Service\Validator\LayoutValidator $layoutValidator
      * @param \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper $layoutMapper
+     * @param \Netgen\BlockManager\Core\Service\StructBuilder\LayoutStructBuilder $structBuilder
      */
     public function __construct(
         Handler $persistenceHandler,
         LayoutValidator $layoutValidator,
-        LayoutMapper $layoutMapper
+        LayoutMapper $layoutMapper,
+        LayoutStructBuilder $structBuilder
     ) {
         parent::__construct($persistenceHandler);
 
         $this->layoutValidator = $layoutValidator;
         $this->layoutMapper = $layoutMapper;
+        $this->structBuilder = $structBuilder;
 
         $this->layoutHandler = $persistenceHandler->getLayoutHandler();
     }
@@ -616,12 +625,7 @@ class LayoutService extends Service implements LayoutServiceInterface
      */
     public function newLayoutCreateStruct(LayoutType $layoutType, $name)
     {
-        return new APILayoutCreateStruct(
-            array(
-                'layoutType' => $layoutType,
-                'name' => $name,
-            )
-        );
+        return $this->structBuilder->newLayoutCreateStruct($layoutType, $name);
     }
 
     /**
@@ -631,6 +635,6 @@ class LayoutService extends Service implements LayoutServiceInterface
      */
     public function newLayoutUpdateStruct()
     {
-        return new APILayoutUpdateStruct();
+        return $this->structBuilder->newLayoutUpdateStruct();
     }
 }
