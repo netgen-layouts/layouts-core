@@ -1,3 +1,6 @@
+parameters:
+    netgen_block_manager.debug.block_collector.enabled_contexts: ['default']
+
 services:
     netgen_block_manager.debug.data_collector:
         class: Netgen\Bundle\BlockManagerDebugBundle\DataCollector\BlockManagerDataCollector
@@ -10,5 +13,6 @@ services:
         class: Netgen\Bundle\BlockManagerDebugBundle\DataCollector\EventListener\BlockViewListener
         arguments:
             - "@netgen_block_manager.debug.data_collector"
+            - "%netgen_block_manager.debug.block_collector.enabled_contexts%"
         tags:
             - { name: kernel.event_subscriber }
