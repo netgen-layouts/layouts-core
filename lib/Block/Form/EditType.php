@@ -71,6 +71,7 @@ abstract class EditType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
+        $view->vars['block'] = $options['block'];
         $view->vars['parameter_view_types'] = $this->viewTypesByParameters;
     }
 

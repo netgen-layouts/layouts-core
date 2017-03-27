@@ -111,6 +111,9 @@ class FullEditTypeTest extends FormTestCase
             $this->assertArrayHasKey($key, $children['parameters']);
         }
 
+        $this->assertArrayHasKey('block', $view->vars);
+        $this->assertEquals($this->block, $view->vars['block']);
+
         $this->assertArrayHasKey('parameter_view_types', $view->vars);
     }
 

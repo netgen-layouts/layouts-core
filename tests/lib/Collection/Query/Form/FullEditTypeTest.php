@@ -95,6 +95,9 @@ class FullEditTypeTest extends FormTestCase
         foreach (array_keys($submittedData['parameters']) as $key) {
             $this->assertArrayHasKey($key, $children['parameters']);
         }
+
+        $this->assertArrayHasKey('query', $view->vars);
+        $this->assertEquals($this->query, $view->vars['query']);
     }
 
     /**
