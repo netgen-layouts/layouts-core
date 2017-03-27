@@ -141,8 +141,6 @@ class LinkType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        parent::buildView($view, $form, $options);
-
         $linkType = $form->get('link_type')->getData();
         if (!$form->has($linkType)) {
             return;

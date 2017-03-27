@@ -126,14 +126,26 @@ class BlockController extends Controller
      */
     public function editConfigForm(Request $request, Block $block, $identifier = null)
     {
-        if ($identifier !== null && !$block->hasConfig($identifier)) {
-            throw new InvalidArgumentException(
-                'identifier',
-                sprintf(
-                    'Config with "%s" identifier does not exist in provided block.',
-                    $identifier
-                )
-            );
+        if ($identifier !== null) {
+            if (!$block->hasConfig($identifier)) {
+                throw new InvalidArgumentException(
+                    'identifier',
+                    sprintf(
+                        'Config with "%s" identifier does not exist in provided block.',
+                        $identifier
+                    )
+                );
+            }
+
+            if (!$block->getConfig('http_cache')->getDefinition()->isEnabled($block)) {
+                throw new InvalidArgumentException(
+                    'identifier',
+                    sprintf(
+                        'Config with "%s" identifier is not enabled for provided block.',
+                        $identifier
+                    )
+                );
+            }
         }
 
         $updateStruct = $this->blockService->newBlockUpdateStruct($block);

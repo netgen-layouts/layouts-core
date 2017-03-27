@@ -30,6 +30,7 @@ class ConfigDefinitionFactory
             array(
                 'type' => $type,
                 'identifier' => $identifier,
+                'handler' => $handler,
                 'parameters' => $parameters,
             )
         );

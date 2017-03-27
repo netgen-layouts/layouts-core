@@ -88,8 +88,6 @@ class CompoundBooleanType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        parent::buildView($view, $form, $options);
-
         $view->vars['reverse'] = $options['reverse'];
     }
 
