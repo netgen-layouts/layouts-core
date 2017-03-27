@@ -39,7 +39,7 @@ interface BlockService extends Service
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
      *
-     * @return \Netgen\BlockManager\API\Values\Block\Block[]]
+     * @return \Netgen\BlockManager\API\Values\Block\Block[]
      */
     public function loadZoneBlocks(Zone $zone);
 
@@ -192,7 +192,7 @@ interface BlockService extends Service
     public function moveBlockToZone(Block $block, Zone $zone, $position);
 
     /**
-     * Restores the specified block from the published status. Zone and position are kept as is.
+     * Restores the specified block from the published status. Position of the block is kept as is.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      *

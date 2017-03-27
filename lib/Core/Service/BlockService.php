@@ -161,7 +161,7 @@ class BlockService extends Service implements BlockServiceInterface
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
      *
-     * @return \Netgen\BlockManager\API\Values\Block\Block[]]
+     * @return \Netgen\BlockManager\API\Values\Block\Block[]
      */
     public function loadZoneBlocks(Zone $zone)
     {
@@ -627,7 +627,7 @@ class BlockService extends Service implements BlockServiceInterface
     }
 
     /**
-     * Restores the specified block from the published status. Zone and position are kept as is.
+     * Restores the specified block from the published status. Position of the block is kept as is.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      *
