@@ -52,15 +52,6 @@ class TemplateResolver implements TemplateResolverInterface
         $viewContext = $view->getContext();
         $fallbackViewContext = $view->getFallbackContext();
 
-        if (!is_string($viewContext)) {
-            throw new RuntimeException(
-                sprintf(
-                    'View context expected to be of string type, got %s.',
-                    is_object($viewContext) ? get_class($viewContext) : gettype($viewContext)
-                )
-            );
-        }
-
         $contextList = array($viewContext);
         if (is_string($fallbackViewContext)) {
             $contextList[] = $fallbackViewContext;

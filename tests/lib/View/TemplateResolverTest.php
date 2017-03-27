@@ -186,18 +186,6 @@ class TemplateResolverTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage View context expected to be of string type, got integer.
-     */
-    public function testResolveTemplateThrowsRuntimeExceptionIfInvalidContext()
-    {
-        $this->view->setContext(42);
-        $templateResolver = new TemplateResolver();
-        $templateResolver->resolveTemplate($this->view);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage No template match could be found for "view" view and context "context".
      */
     public function testResolveTemplateThrowsRuntimeExceptionIfNoContext()
