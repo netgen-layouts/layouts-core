@@ -101,7 +101,7 @@ class BlockHandler implements BlockHandlerInterface
      *
      * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Block\Block[]]
+     * @return \Netgen\BlockManager\Persistence\Values\Block\Block[]
      */
     public function loadLayoutBlocks(Layout $layout)
     {
@@ -115,7 +115,7 @@ class BlockHandler implements BlockHandlerInterface
      *
      * @param \Netgen\BlockManager\Persistence\Values\Layout\Zone $zone
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Block\Block[]]
+     * @return \Netgen\BlockManager\Persistence\Values\Block\Block[]
      */
     public function loadZoneBlocks(Zone $zone)
     {
@@ -130,7 +130,7 @@ class BlockHandler implements BlockHandlerInterface
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      * @param string $placeholder
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Block\Block[]]
+     * @return \Netgen\BlockManager\Persistence\Values\Block\Block[]
      */
     public function loadChildBlocks(Block $block, $placeholder = null)
     {

@@ -12,7 +12,7 @@ class BlockMapper
      *
      * @param array $data
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Block\Block[]]
+     * @return \Netgen\BlockManager\Persistence\Values\Block\Block[]
      */
     public function mapBlocks(array $data = array())
     {
