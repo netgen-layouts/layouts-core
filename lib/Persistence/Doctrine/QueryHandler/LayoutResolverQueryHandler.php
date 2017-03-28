@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Type;
-use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Exception\Persistence\TargetHandlerException;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver\TargetHandler;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
@@ -47,12 +47,7 @@ class LayoutResolverQueryHandler extends QueryHandler
     {
         foreach ($targetHandlers as $targetHandler) {
             if (!$targetHandler instanceof TargetHandler) {
-                throw new RuntimeException(
-                    sprintf(
-                        'Target handler "%s" needs to implement TargetHandler interface.',
-                        get_class($targetHandler)
-                    )
-                );
+                throw TargetHandlerException::invalidTargetHandler(get_class($targetHandler));
             }
         }
 
@@ -157,12 +152,7 @@ class LayoutResolverQueryHandler extends QueryHandler
         $this->applyStatusCondition($query, Value::STATUS_PUBLISHED, 'rt.status');
 
         if (!isset($this->targetHandlers[$targetType])) {
-            throw new RuntimeException(
-                sprintf(
-                    'Doctrine target handler for "%s" target type does not exist.',
-                    $targetType
-                )
-            );
+            throw TargetHandlerException::noTargetHandler('Doctrine', $targetType);
         }
 
         $this->targetHandlers[$targetType]->handleQuery($query, $targetValue);

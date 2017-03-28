@@ -12,8 +12,8 @@ class LayoutResolverQueryHandlerTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::__construct
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Target handler "stdClass" needs to implement TargetHandler interface.
+     * @expectedException \Netgen\BlockManager\Exception\Persistence\TargetHandlerException
+     * @expectedExceptionMessage Target handler "stdClass" needs to implement "Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver\TargetHandler" interface.
      */
     public function testConstructorThrowsRuntimeException()
     {
