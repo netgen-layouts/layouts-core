@@ -115,19 +115,19 @@ class BlockController extends Controller
         }
 
         try {
-            $zone = $this->layoutService->loadZoneDraft(
-                $request->request->get('layout_id'),
-                $request->request->get('zone_identifier')
+            $layout = $this->layoutService->loadLayoutDraft(
+                $request->request->get('layout_id')
             );
         } catch (NotFoundException $e) {
-            throw new BadStateException('zone_identifier', 'Zone draft does not exist.', $e);
+            throw new BadStateException('layout_id', 'Layout draft does not exist.', $e);
         }
 
         $blockCreateStruct = $this->createBlockCreateStruct($blockType);
 
         $createdBlock = $this->blockService->createBlockInZone(
             $blockCreateStruct,
-            $zone,
+            $layout,
+            $request->request->get('zone_identifier'),
             $request->request->get('position')
         );
 
@@ -207,12 +207,15 @@ class BlockController extends Controller
      */
     public function copyToZone(Block $block, Request $request)
     {
-        $zone = $this->layoutService->loadZoneDraft(
-            $request->request->get('layout_id'),
-            $request->request->get('zone_identifier')
+        $layout = $this->layoutService->loadLayoutDraft(
+            $request->request->get('layout_id')
         );
 
-        $copiedBlock = $this->blockService->copyBlockToZone($block, $zone);
+        $copiedBlock = $this->blockService->copyBlockToZone(
+            $block,
+            $layout,
+            $request->request->get('zone_identifier')
+        );
 
         return new View($copiedBlock, Version::API_V1, Response::HTTP_CREATED);
     }
@@ -251,14 +254,14 @@ class BlockController extends Controller
      */
     public function moveToZone(Block $block, Request $request)
     {
-        $zone = $this->layoutService->loadZoneDraft(
-            $request->request->get('layout_id'),
-            $request->request->get('zone_identifier')
+        $layout = $this->layoutService->loadLayoutDraft(
+            $request->request->get('layout_id')
         );
 
         $this->blockService->moveBlockToZone(
             $block,
-            $zone,
+            $layout,
+            $request->request->get('zone_identifier'),
             $request->request->get('position')
         );
 

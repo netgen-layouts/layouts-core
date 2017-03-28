@@ -621,7 +621,7 @@ class BlockControllerTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "identifier": This value should be of type string.'
+            'There was an error validating "zoneIdentifier": This value should be of type string.'
         );
     }
 
@@ -651,7 +651,7 @@ class BlockControllerTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "identifier": This value should not be blank.'
+            'There was an error validating "zoneIdentifier": This value should not be blank.'
         );
     }
 
@@ -744,7 +744,7 @@ class BlockControllerTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
-            'Argument "zone_identifier" has an invalid state. Zone draft does not exist.'
+            'Argument "layout_id" has an invalid state. Layout draft does not exist.'
         );
     }
 
@@ -774,8 +774,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY,
-            'Argument "zone_identifier" has an invalid state. Zone draft does not exist.'
+            Response::HTTP_NOT_FOUND,
+            'Could not find zone with identifier "unknown"'
         );
     }
 
@@ -1189,7 +1189,7 @@ class BlockControllerTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find zone with identifier "left"'
+            'Could not find layout with identifier "9999"'
         );
     }
 
@@ -1245,7 +1245,7 @@ class BlockControllerTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
-            'Argument "zone" has an invalid state. Block is not allowed in specified zone.'
+            'Argument "zoneIdentifier" has an invalid state. Block is not allowed in specified zone.'
         );
     }
 
@@ -1301,7 +1301,7 @@ class BlockControllerTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "identifier": This value should be of type string.'
+            'There was an error validating "zoneIdentifier": This value should be of type string.'
         );
     }
 
@@ -1355,7 +1355,7 @@ class BlockControllerTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "identifier": This value should not be blank.'
+            'There was an error validating "zoneIdentifier": This value should not be blank.'
         );
     }
 
@@ -1848,7 +1848,7 @@ class BlockControllerTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find zone with identifier "left"'
+            'Could not find layout with identifier "9999"'
         );
     }
 
@@ -1906,7 +1906,7 @@ class BlockControllerTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
-            'Argument "zone" has an invalid state. Block is not allowed in specified zone.'
+            'Argument "zoneIdentifier" has an invalid state. Block is not allowed in specified zone.'
         );
     }
 
@@ -1993,7 +1993,7 @@ class BlockControllerTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "identifier": This value should be of type string.'
+            'There was an error validating "zoneIdentifier": This value should be of type string.'
         );
     }
 
@@ -2078,7 +2078,7 @@ class BlockControllerTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "identifier": This value should not be blank.'
+            'There was an error validating "zoneIdentifier": This value should not be blank.'
         );
     }
 

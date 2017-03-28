@@ -63,8 +63,8 @@ abstract class BlockTest extends ServiceTestCase
         $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->fillValues($blockDefinition, $parameters);
 
-        $zone = $this->layoutService->loadZoneDraft(1, 'left');
-        $createdBlock = $this->blockService->createBlockInZone($blockCreateStruct, $zone);
+        $layout = $this->layoutService->loadLayoutDraft(1);
+        $createdBlock = $this->blockService->createBlockInZone($blockCreateStruct, $layout, 'left');
 
         $createdParameters = array();
         foreach ($createdBlock->getParameters() as $parameterName => $parameterValue) {
@@ -98,8 +98,8 @@ abstract class BlockTest extends ServiceTestCase
         $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->fillValues($blockDefinition, $parameters);
 
-        $zone = $this->layoutService->loadZoneDraft(1, 'left');
-        $this->blockService->createBlockInZone($blockCreateStruct, $zone);
+        $layout = $this->layoutService->loadLayoutDraft(1);
+        $this->blockService->createBlockInZone($blockCreateStruct, $layout, 'left');
     }
 
     /**

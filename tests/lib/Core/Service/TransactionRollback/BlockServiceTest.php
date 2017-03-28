@@ -9,7 +9,8 @@ use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\CollectionReference;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Config\ConfigCollection;
-use Netgen\BlockManager\Core\Values\Layout\Zone;
+use Netgen\BlockManager\Core\Values\Layout\Layout;
+use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Persistence\Values\Block\Block as PersistenceBlock;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReference as PersistenceCollectionReference;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceCollection;
@@ -84,13 +85,13 @@ class BlockServiceTest extends ServiceTestCase
     {
         $this->layoutHandlerMock
             ->expects($this->at(0))
-            ->method('loadZone')
-            ->will($this->returnValue(new PersistenceZone()));
+            ->method('loadLayout')
+            ->will($this->returnValue(new PersistenceLayout()));
 
         $this->layoutHandlerMock
             ->expects($this->at(1))
-            ->method('loadLayout')
-            ->will($this->returnValue(new PersistenceLayout(array('type' => '4_zones_b'))));
+            ->method('loadZone')
+            ->will($this->returnValue(new PersistenceZone()));
 
         $this->blockHandlerMock
             ->expects($this->at(0))
@@ -107,8 +108,13 @@ class BlockServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->blockService->createBlockInZone(
-            new BlockCreateStruct(array('definition' => new BlockDefinition('blockDef'))),
-            new Zone(array('published' => false))
+            new BlockCreateStruct(
+                array(
+                    'definition' => new BlockDefinition('blockDef'),
+                )
+            ),
+            new Layout(array('published' => false, 'layoutType' => new LayoutType())),
+            'right'
         );
     }
 
@@ -253,13 +259,13 @@ class BlockServiceTest extends ServiceTestCase
 
         $this->layoutHandlerMock
             ->expects($this->at(0))
-            ->method('loadZone')
-            ->will($this->returnValue(new PersistenceZone()));
+            ->method('loadLayout')
+            ->will($this->returnValue(new PersistenceLayout()));
 
         $this->layoutHandlerMock
             ->expects($this->at(1))
-            ->method('loadLayout')
-            ->will($this->returnValue(new PersistenceLayout(array('type' => '4_zones_b'))));
+            ->method('loadZone')
+            ->will($this->returnValue(new PersistenceZone()));
 
         $this->blockHandlerMock
             ->expects($this->at(1))
@@ -276,8 +282,9 @@ class BlockServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->blockService->copyBlockToZone(
-            new Block(array('published' => false)),
-            new Zone(array('published' => false))
+            new Block(array('published' => false, 'definition' => new BlockDefinition('blockDef'))),
+            new Layout(array('published' => false, 'layoutType' => new LayoutType())),
+            'right'
         );
     }
 
@@ -340,13 +347,13 @@ class BlockServiceTest extends ServiceTestCase
 
         $this->layoutHandlerMock
             ->expects($this->at(0))
-            ->method('loadZone')
-            ->will($this->returnValue(new PersistenceZone()));
+            ->method('loadLayout')
+            ->will($this->returnValue(new PersistenceLayout()));
 
         $this->layoutHandlerMock
             ->expects($this->at(1))
-            ->method('loadLayout')
-            ->will($this->returnValue(new PersistenceLayout(array('type' => '4_zones_b'))));
+            ->method('loadZone')
+            ->will($this->returnValue(new PersistenceZone()));
 
         $this->blockHandlerMock
             ->expects($this->at(1))
@@ -363,8 +370,9 @@ class BlockServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->blockService->moveBlockToZone(
-            new Block(array('published' => false)),
-            new Zone(array('published' => false)),
+            new Block(array('published' => false, 'definition' => new BlockDefinition('blockDef'))),
+            new Layout(array('published' => false, 'layoutType' => new LayoutType())),
+            'right',
             0
         );
     }

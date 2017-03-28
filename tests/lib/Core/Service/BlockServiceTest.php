@@ -374,7 +374,8 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $block = $this->blockService->createBlockInZone(
             $blockCreateStruct,
-            $this->layoutService->loadZoneDraft(1, 'right'),
+            $this->layoutService->loadLayoutDraft(1),
+            'right',
             0
         );
 
@@ -413,7 +414,8 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $block = $this->blockService->createBlockInZone(
             $blockCreateStruct,
-            $this->layoutService->loadZoneDraft(1, 'left'),
+            $this->layoutService->loadLayoutDraft(1),
+            'left',
             0
         );
 
@@ -439,7 +441,8 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $block = $this->blockService->createBlockInZone(
             $blockCreateStruct,
-            $this->layoutService->loadZoneDraft(1, 'right'),
+            $this->layoutService->loadLayoutDraft(1),
+            'right',
             0
         );
 
@@ -469,7 +472,8 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $block = $this->blockService->createBlockInZone(
             $blockCreateStruct,
-            $this->layoutService->loadZoneDraft(7, 'center'),
+            $this->layoutService->loadLayoutDraft(7),
+            'center',
             0
         );
 
@@ -480,9 +484,9 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "zone" has an invalid state. Blocks can only be created in zones in draft status.
+     * @expectedExceptionMessage Argument "layout" has an invalid state. Blocks can only be created in layouts in draft status.
      */
-    public function testCreateBlockInZoneThrowsBadStateExceptionWithNonDraftZone()
+    public function testCreateBlockInZoneThrowsBadStateExceptionWithNonDraftLayout()
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             $this->blockDefinitionRegistry->getBlockDefinition('title')
@@ -490,7 +494,8 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $this->blockService->createBlockInZone(
             $blockCreateStruct,
-            $this->layoutService->loadZone(1, 'right'),
+            $this->layoutService->loadLayout(1),
+            'right',
             0
         );
     }
@@ -508,7 +513,8 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $block = $this->blockService->createBlockInZone(
             $blockCreateStruct,
-            $this->layoutService->loadZoneDraft(2, 'top')
+            $this->layoutService->loadLayoutDraft(2),
+            'top'
         );
 
         $this->assertFalse($block->isPublished());
@@ -528,7 +534,8 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $block = $this->blockService->createBlockInZone(
             $blockCreateStruct,
-            $this->layoutService->loadZoneDraft(1, 'right')
+            $this->layoutService->loadLayoutDraft(1),
+            'right'
         );
 
         $zone = $this->layoutService->loadZoneDraft(1, 'right');
@@ -552,7 +559,8 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $this->blockService->createBlockInZone(
             $blockCreateStruct,
-            $this->layoutService->loadZoneDraft(1, 'right'),
+            $this->layoutService->loadLayoutDraft(1),
+            'right',
             9999
         );
     }
@@ -571,7 +579,8 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $this->blockService->createBlockInZone(
             $blockCreateStruct,
-            $this->layoutService->loadZoneDraft(1, 'right')
+            $this->layoutService->loadLayoutDraft(1),
+            'right'
         );
     }
 
@@ -811,7 +820,8 @@ abstract class BlockServiceTest extends ServiceTestCase
     {
         $copiedBlock = $this->blockService->copyBlockToZone(
             $this->blockService->loadBlockDraft(31),
-            $this->layoutService->loadZoneDraft(1, 'left')
+            $this->layoutService->loadLayoutDraft(1),
+            'left'
         );
 
         $this->assertFalse($copiedBlock->isPublished());
@@ -832,20 +842,22 @@ abstract class BlockServiceTest extends ServiceTestCase
     {
         $this->blockService->copyBlockToZone(
             $this->blockService->loadBlock(31),
-            $this->layoutService->loadZoneDraft(1, 'left')
+            $this->layoutService->loadLayoutDraft(1),
+            'left'
         );
     }
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "zone" has an invalid state. You can only copy blocks to draft zones.
+     * @expectedExceptionMessage Argument "layout" has an invalid state. You can only copy blocks in draft layouts.
      */
     public function testCopyBlockToZoneThrowsBadStateExceptionWithNonDraftZone()
     {
         $this->blockService->copyBlockToZone(
             $this->blockService->loadBlockDraft(31),
-            $this->layoutService->loadZone(1, 'left')
+            $this->layoutService->loadLayout(1),
+            'left'
         );
     }
 
@@ -853,13 +865,14 @@ abstract class BlockServiceTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "zone" has an invalid state. Block is not allowed in specified zone.
+     * @expectedExceptionMessage Argument "zoneIdentifier" has an invalid state. Block is not allowed in specified zone.
      */
     public function testCopyBlockToZoneThrowsBadStateExceptionWithDisallowedIdentifier()
     {
         $this->blockService->copyBlockToZone(
             $this->blockService->loadBlockDraft(31),
-            $this->layoutService->loadZoneDraft(1, 'bottom')
+            $this->layoutService->loadLayoutDraft(1),
+            'bottom'
         );
     }
 
@@ -1036,7 +1049,8 @@ abstract class BlockServiceTest extends ServiceTestCase
     {
         $movedBlock = $this->blockService->moveBlockToZone(
             $this->blockService->loadBlockDraft(32),
-            $this->layoutService->loadZoneDraft(1, 'left'),
+            $this->layoutService->loadLayoutDraft(1),
+            'left',
             0
         );
 
@@ -1059,7 +1073,8 @@ abstract class BlockServiceTest extends ServiceTestCase
     {
         $movedBlock = $this->blockService->moveBlockToZone(
             $this->blockService->loadBlockDraft(32),
-            $this->layoutService->loadZoneDraft(1, 'right'),
+            $this->layoutService->loadLayoutDraft(1),
+            'right',
             0
         );
 
@@ -1082,7 +1097,8 @@ abstract class BlockServiceTest extends ServiceTestCase
     {
         $this->blockService->moveBlockToZone(
             $this->blockService->loadBlock(31),
-            $this->layoutService->loadZoneDraft(1, 'left'),
+            $this->layoutService->loadLayoutDraft(1),
+            'left',
             0
         );
     }
@@ -1090,13 +1106,14 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "zone" has an invalid state. You can only move blocks to draft zones.
+     * @expectedExceptionMessage Argument "layout" has an invalid state. You can only move blocks in draft layouts.
      */
     public function testMoveBlockToZoneThrowsBadStateExceptionWithNonDraftZone()
     {
         $this->blockService->moveBlockToZone(
             $this->blockService->loadBlockDraft(31),
-            $this->layoutService->loadZone(1, 'left'),
+            $this->layoutService->loadLayout(1),
+            'left',
             0
         );
     }
@@ -1110,7 +1127,8 @@ abstract class BlockServiceTest extends ServiceTestCase
     {
         $this->blockService->moveBlockToZone(
             $this->blockService->loadBlockDraft(31),
-            $this->layoutService->loadZoneDraft(1, 'left'),
+            $this->layoutService->loadLayoutDraft(1),
+            'left',
             9999
         );
     }
@@ -1118,13 +1136,14 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "zone" has an invalid state. You can only move block to zone in the same layout.
+     * @expectedExceptionMessage Argument "layout" has an invalid state. You can only move block to zone in the same layout.
      */
     public function testMoveBlockToZoneThrowsBadStateExceptionWhenZoneIsInDifferentLayout()
     {
         $this->blockService->moveBlockToZone(
             $this->blockService->loadBlockDraft(32),
-            $this->layoutService->loadZoneDraft(2, 'bottom'),
+            $this->layoutService->loadLayoutDraft(2),
+            'bottom',
             0
         );
     }
@@ -1133,13 +1152,14 @@ abstract class BlockServiceTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "zone" has an invalid state. Block is not allowed in specified zone.
+     * @expectedExceptionMessage Argument "zoneIdentifier" has an invalid state. Block is not allowed in specified zone.
      */
     public function testMoveBlockToZoneThrowsBadStateExceptionWithDisallowedIdentifier()
     {
         $this->blockService->moveBlockToZone(
             $this->blockService->loadBlockDraft(31),
-            $this->layoutService->loadZoneDraft(1, 'bottom'),
+            $this->layoutService->loadLayoutDraft(1),
+            'bottom',
             0
         );
     }

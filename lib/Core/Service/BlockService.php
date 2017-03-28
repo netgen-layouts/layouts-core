@@ -9,6 +9,7 @@ use Netgen\BlockManager\API\Values\Block\BlockCreateStruct as APIBlockCreateStru
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct as APIBlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Block\CollectionReference;
 use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
@@ -20,7 +21,7 @@ use Netgen\BlockManager\Core\Service\StructBuilder\BlockStructBuilder;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
+use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Persistence\Values\Block\Block as PersistenceBlock;
 use Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct;
@@ -57,11 +58,6 @@ class BlockService extends Service implements BlockServiceInterface
     protected $configMapper;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface
-     */
-    protected $layoutTypeRegistry;
-
-    /**
      * @var \Netgen\BlockManager\Persistence\Handler\BlockHandler
      */
     protected $blockHandler;
@@ -85,7 +81,6 @@ class BlockService extends Service implements BlockServiceInterface
      * @param \Netgen\BlockManager\Core\Service\StructBuilder\BlockStructBuilder $structBuilder
      * @param \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper $parameterMapper
      * @param \Netgen\BlockManager\Core\Service\Mapper\ConfigMapper $configMapper
-     * @param \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
      */
     public function __construct(
         Handler $persistenceHandler,
@@ -93,8 +88,7 @@ class BlockService extends Service implements BlockServiceInterface
         BlockMapper $mapper,
         BlockStructBuilder $structBuilder,
         ParameterMapper $parameterMapper,
-        ConfigMapper $configMapper,
-        LayoutTypeRegistryInterface $layoutTypeRegistry
+        ConfigMapper $configMapper
     ) {
         parent::__construct($persistenceHandler);
 
@@ -103,7 +97,6 @@ class BlockService extends Service implements BlockServiceInterface
         $this->structBuilder = $structBuilder;
         $this->parameterMapper = $parameterMapper;
         $this->configMapper = $configMapper;
-        $this->layoutTypeRegistry = $layoutTypeRegistry;
 
         $this->blockHandler = $persistenceHandler->getBlockHandler();
         $this->layoutHandler = $persistenceHandler->getLayoutHandler();
@@ -293,31 +286,34 @@ class BlockService extends Service implements BlockServiceInterface
      * Creates a block in specified layout and zone.
      *
      * @param \Netgen\BlockManager\API\Values\Block\BlockCreateStruct $blockCreateStruct
-     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
+     * @param string $zoneIdentifier
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If zone is not a draft
+     * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
      *                                                          If provided position is out of range
      *                                                          If block cannot be placed in specified zone
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function createBlockInZone(APIBlockCreateStruct $blockCreateStruct, Zone $zone, $position = null)
+    public function createBlockInZone(APIBlockCreateStruct $blockCreateStruct, Layout $layout, $zoneIdentifier, $position = null)
     {
-        if ($zone->isPublished()) {
-            throw new BadStateException('zone', 'Blocks can only be created in zones in draft status.');
+        if ($layout->isPublished()) {
+            throw new BadStateException('layout', 'Blocks can only be created in layouts in draft status.');
         }
 
-        $persistenceZone = $this->layoutHandler->loadZone($zone->getLayoutId(), Value::STATUS_DRAFT, $zone->getIdentifier());
-        $persistenceLayout = $this->layoutHandler->loadLayout($zone->getLayoutId(), Value::STATUS_DRAFT);
+        $this->validator->validateIdentifier($zoneIdentifier, 'zoneIdentifier', true);
+
+        $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Value::STATUS_DRAFT);
+        $persistenceZone = $this->layoutHandler->loadZone($persistenceLayout->id, Value::STATUS_DRAFT, $zoneIdentifier);
 
         $this->validator->validatePosition($position, 'position');
         $this->validator->validateBlockCreateStruct($blockCreateStruct);
 
         if (
             !$this->isBlockAllowedWithinZone(
-                $blockCreateStruct->definition->getIdentifier(),
-                $persistenceLayout->type,
+                $blockCreateStruct->definition,
+                $layout->getLayoutType(),
                 $persistenceZone->identifier
             )
         ) {
@@ -492,29 +488,32 @@ class BlockService extends Service implements BlockServiceInterface
      * Copies a block to a specified zone.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
+     * @param string $zoneIdentifier
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If block or zone are not drafts
+     * @throws \Netgen\BlockManager\Exception\BadStateException If block or layout are not drafts
      *                                                          If block cannot be placed in specified zone
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function copyBlockToZone(Block $block, Zone $zone)
+    public function copyBlockToZone(Block $block, Layout $layout, $zoneIdentifier)
     {
         if ($block->isPublished()) {
             throw new BadStateException('block', 'Only draft blocks can be copied.');
         }
 
-        if ($zone->isPublished()) {
-            throw new BadStateException('zone', 'You can only copy blocks to draft zones.');
+        if ($layout->isPublished()) {
+            throw new BadStateException('layout', 'You can only copy blocks in draft layouts.');
         }
 
-        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
-        $persistenceZone = $this->layoutHandler->loadZone($zone->getLayoutId(), Value::STATUS_DRAFT, $zone->getIdentifier());
-        $persistenceLayout = $this->layoutHandler->loadLayout($zone->getLayoutId(), Value::STATUS_DRAFT);
+        $this->validator->validateIdentifier($zoneIdentifier, 'zoneIdentifier', true);
 
-        if (!$this->isBlockAllowedWithinZone($persistenceBlock->definitionIdentifier, $persistenceLayout->type, $persistenceZone->identifier)) {
-            throw new BadStateException('zone', 'Block is not allowed in specified zone.');
+        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
+        $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Value::STATUS_DRAFT);
+        $persistenceZone = $this->layoutHandler->loadZone($persistenceLayout->id, Value::STATUS_DRAFT, $zoneIdentifier);
+
+        if (!$this->isBlockAllowedWithinZone($block->getDefinition(), $layout->getLayoutType(), $persistenceZone->identifier)) {
+            throw new BadStateException('zoneIdentifier', 'Block is not allowed in specified zone.');
         }
 
         $rootBlock = $this->blockHandler->loadBlock($persistenceZone->rootBlockId, $persistenceZone->status);
@@ -587,38 +586,40 @@ class BlockService extends Service implements BlockServiceInterface
      * Moves a block to specified position inside the zone.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
+     * @param string $zoneIdentifier
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If block or zone are not drafts
+     * @throws \Netgen\BlockManager\Exception\BadStateException If block or layout are not drafts
      *                                                          If zone is in a different layout
      *                                                          If provided position is out of range
      *                                                          If block cannot be placed in specified zone
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function moveBlockToZone(Block $block, Zone $zone, $position)
+    public function moveBlockToZone(Block $block, Layout $layout, $zoneIdentifier, $position)
     {
         if ($block->isPublished()) {
             throw new BadStateException('block', 'Only draft blocks can be moved.');
         }
 
-        if ($zone->isPublished()) {
-            throw new BadStateException('zone', 'You can only move blocks to draft zones.');
+        if ($layout->isPublished()) {
+            throw new BadStateException('layout', 'You can only move blocks in draft layouts.');
         }
 
+        $this->validator->validateIdentifier($zoneIdentifier, 'zoneIdentifier', true);
         $this->validator->validatePosition($position, 'position', true);
 
         $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
-        $persistenceZone = $this->layoutHandler->loadZone($zone->getLayoutId(), Value::STATUS_DRAFT, $zone->getIdentifier());
-        $persistenceLayout = $this->layoutHandler->loadLayout($zone->getLayoutId(), Value::STATUS_DRAFT);
+        $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Value::STATUS_DRAFT);
+        $persistenceZone = $this->layoutHandler->loadZone($persistenceLayout->id, Value::STATUS_DRAFT, $zoneIdentifier);
 
-        if ($persistenceBlock->layoutId !== $persistenceZone->layoutId) {
-            throw new BadStateException('zone', 'You can only move block to zone in the same layout.');
+        if ($persistenceBlock->layoutId !== $persistenceLayout->id) {
+            throw new BadStateException('layout', 'You can only move block to zone in the same layout.');
         }
 
-        if (!$this->isBlockAllowedWithinZone($persistenceBlock->definitionIdentifier, $persistenceLayout->type, $persistenceZone->identifier)) {
-            throw new BadStateException('zone', 'Block is not allowed in specified zone.');
+        if (!$this->isBlockAllowedWithinZone($block->getDefinition(), $layout->getLayoutType(), $persistenceZone->identifier)) {
+            throw new BadStateException('zoneIdentifier', 'Block is not allowed in specified zone.');
         }
 
         $rootBlock = $this->blockHandler->loadBlock($persistenceZone->rootBlockId, $persistenceZone->status);
@@ -865,21 +866,22 @@ class BlockService extends Service implements BlockServiceInterface
     /**
      * Returns if the block is allowed within the zone.
      *
-     * @param string $definitionIdentifier
-     * @param string $layoutType
+     * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $definition
+     * @param \Netgen\BlockManager\Layout\Type\LayoutType $layoutType
      * @param string $zoneIdentifier
      *
      * @return bool
+     *
+     * @internal param string $definitionIdentifier
      */
-    protected function isBlockAllowedWithinZone($definitionIdentifier, $layoutType, $zoneIdentifier)
+    protected function isBlockAllowedWithinZone(BlockDefinitionInterface $definition, LayoutType $layoutType, $zoneIdentifier)
     {
-        $layoutType = $this->layoutTypeRegistry->getLayoutType($layoutType);
         if (!$layoutType->hasZone($zoneIdentifier)) {
             return true;
         }
 
         $zone = $layoutType->getZone($zoneIdentifier);
 
-        return $zone->isBlockDefinitionAllowed($definitionIdentifier);
+        return $zone->isBlockDefinitionAllowed($definition->getIdentifier());
     }
 }
