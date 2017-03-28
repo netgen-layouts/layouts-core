@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\View;
 
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\View\ViewException;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class View implements ViewInterface
@@ -135,20 +135,14 @@ abstract class View implements ViewInterface
      *
      * @param string $identifier
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If view does not have the parameter
+     * @throws \Netgen\BlockManager\Exception\View\ViewException If view does not have the parameter
      *
      * @return mixed
      */
     public function getParameter($identifier)
     {
         if (!$this->hasParameter($identifier)) {
-            throw new InvalidArgumentException(
-                'identifier',
-                sprintf(
-                    'View does not have the "%s" parameter.',
-                    $identifier
-                )
-            );
+            throw ViewException::parameterNotFound($identifier, get_class($this));
         }
 
         $parameters = $this->getParameters();

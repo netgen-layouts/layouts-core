@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\View;
 
 use Netgen\BlockManager\Event\BlockManagerEvents;
 use Netgen\BlockManager\Event\CollectViewParametersEvent;
-use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Exception\View\ViewProviderException;
 use Netgen\BlockManager\View\Provider\ViewProviderInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -36,12 +36,7 @@ class ViewBuilder implements ViewBuilderInterface
     {
         foreach ($viewProviders as $viewProvider) {
             if (!$viewProvider instanceof ViewProviderInterface) {
-                throw new RuntimeException(
-                    sprintf(
-                        'View provider "%s" needs to implement ViewProviderInterface.',
-                        get_class($viewProvider)
-                    )
-                );
+                throw ViewProviderException::invalidViewProvider(get_class($viewProvider));
             }
         }
 
@@ -92,11 +87,6 @@ class ViewBuilder implements ViewBuilderInterface
             }
         }
 
-        throw new RuntimeException(
-            sprintf(
-                'No view providers found for "%s" value object.',
-                get_class($valueObject)
-            )
-        );
+        throw ViewProviderException::noViewProvider(get_class($valueObject));
     }
 }

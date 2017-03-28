@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\View;
 
-use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Exception\View\TemplateResolverException;
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
 
 class TemplateResolver implements TemplateResolverInterface
@@ -27,12 +27,7 @@ class TemplateResolver implements TemplateResolverInterface
     {
         foreach ($matchers as $matcher) {
             if (!$matcher instanceof MatcherInterface) {
-                throw new RuntimeException(
-                    sprintf(
-                        'Template matcher "%s" needs to implement MatcherInterface.',
-                        get_class($matcher)
-                    )
-                );
+                throw TemplateResolverException::invalidTemplateMatcher(get_class($matcher));
             }
         }
 
@@ -75,13 +70,7 @@ class TemplateResolver implements TemplateResolverInterface
             }
         }
 
-        throw new RuntimeException(
-            sprintf(
-                'No template match could be found for "%s" view and context "%s".',
-                $view->getIdentifier(),
-                $viewContext
-            )
-        );
+        throw TemplateResolverException::noTemplateMatch($view->getIdentifier(), $viewContext);
     }
 
     /**
@@ -96,12 +85,7 @@ class TemplateResolver implements TemplateResolverInterface
     {
         foreach ($matchConfig as $matcher => $matcherConfig) {
             if (!isset($this->matchers[$matcher])) {
-                throw new RuntimeException(
-                    sprintf(
-                        'No template matcher could be found with identifier "%s".',
-                        $matcher
-                    )
-                );
+                throw TemplateResolverException::noTemplateMatcher($matcher);
             }
 
             $matcherConfig = !is_array($matcherConfig) ? array($matcherConfig) : $matcherConfig;

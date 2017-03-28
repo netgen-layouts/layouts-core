@@ -106,10 +106,10 @@ class ViewTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\View::addParameter
      * @covers \Netgen\BlockManager\View\View::getParameter
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
-     * @expectedExceptionMessage View does not have the "other_param" parameter.
+     * @expectedException \Netgen\BlockManager\Exception\View\ViewException
+     * @expectedExceptionMessage Parameter with "other_param" name was not found in "Netgen\BlockManager\Tests\View\Stubs\View" view.
      */
-    public function testGetParameterThrowsInvalidArgumentException()
+    public function testGetParameterThrowsViewException()
     {
         $this->view->addParameter('param', 'value');
 

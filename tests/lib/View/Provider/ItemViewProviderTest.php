@@ -46,20 +46,20 @@ class ItemViewProviderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\View\Provider\ItemViewProvider::provideView
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage To build the item view, you need to provide the "view_type" parameter.
+     * @expectedException \Netgen\BlockManager\Exception\View\ViewProviderException
+     * @expectedExceptionMessage To build the item view, "view_type" parameter needs to be provided.
      */
-    public function testProvideViewThrowsRuntimeExceptionOnMissingViewType()
+    public function testProvideViewThrowsViewProviderExceptionOnMissingViewType()
     {
         $this->itemViewProvider->provideView(new Item());
     }
 
     /**
      * @covers \Netgen\BlockManager\View\Provider\ItemViewProvider::provideView
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage To build the item view, "view_type" parameter needs to be a string.
+     * @expectedException \Netgen\BlockManager\Exception\View\ViewProviderException
+     * @expectedExceptionMessage To build the item view, "view_type" parameter needs to be of "string" type.
      */
-    public function testProvideViewThrowsRuntimeExceptionOnInvalidViewType()
+    public function testProvideViewThrowsViewProviderExceptionOnInvalidViewType()
     {
         $this->itemViewProvider->provideView(new Item(), array('view_type' => 42));
     }

@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\View\Provider;
 
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Block\Placeholder;
-use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Exception\View\ViewProviderException;
 use Netgen\BlockManager\View\View\PlaceholderView;
 
 class PlaceholderViewProvider implements ViewProviderInterface
@@ -20,16 +20,11 @@ class PlaceholderViewProvider implements ViewProviderInterface
     public function provideView($valueObject, array $parameters = array())
     {
         if (!isset($parameters['block'])) {
-            throw new RuntimeException('To build the placeholder view, you need to provide the "block" parameter.');
+            throw ViewProviderException::noParameter('placeholder', 'block');
         }
 
         if (!$parameters['block'] instanceof Block) {
-            throw new RuntimeException(
-                sprintf(
-                    'To build the placeholder view, "block" parameter needs to be an instance of %s class.',
-                    Block::class
-                )
-            );
+            throw ViewProviderException::invalidParameter('placeholder', 'block', Block::class);
         }
 
         return new PlaceholderView(
