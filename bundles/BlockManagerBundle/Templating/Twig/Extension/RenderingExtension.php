@@ -228,8 +228,7 @@ class RenderingExtension extends Twig_Extension
      */
     public function displayZone(Zone $zone, $viewContext, ContextualizedTwigTemplate $twigTemplate)
     {
-        $blocks = $this->blockService->loadZoneBlocks($zone);
-        foreach ($blocks as $block) {
+        foreach ($this->blockService->loadZoneBlocks($zone) as $block) {
             echo $this->renderBlock(
                 array(
                     'twig_template' => $twigTemplate,
