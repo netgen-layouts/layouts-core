@@ -7,6 +7,9 @@ use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 
 interface BlockDefinitionHandlerInterface
 {
+    const GROUP_CONTENT = 'content';
+    const GROUP_DESIGN = 'design';
+
     /**
      * Builds the parameters by using provided parameter builder.
      *

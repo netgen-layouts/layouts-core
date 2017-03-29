@@ -8,9 +8,6 @@ use Netgen\BlockManager\Parameters\ParameterType;
 
 abstract class BlockDefinitionHandler implements BlockDefinitionHandlerInterface
 {
-    const GROUP_CONTENT = 'content';
-    const GROUP_DESIGN = 'design';
-
     /**
      * Builds the parameters by using provided parameter builder.
      *
