@@ -7,7 +7,6 @@ use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Block\CollectionReference;
 use Netgen\BlockManager\API\Values\Block\Placeholder;
-use Netgen\BlockManager\API\Values\Block\PlaceholderCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Config\Config;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
@@ -409,8 +408,6 @@ abstract class BlockServiceTest extends ServiceTestCase
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             $this->blockDefinitionRegistry->getBlockDefinition('column')
         );
-
-        $blockCreateStruct->setPlaceholderStruct('main', new PlaceholderCreateStruct());
 
         $block = $this->blockService->createBlockInZone(
             $blockCreateStruct,

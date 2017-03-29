@@ -747,25 +747,6 @@ class BlockService extends Service implements BlockServiceInterface
     ) {
         $this->persistenceHandler->beginTransaction();
 
-        $placeholderParameters = array();
-        if ($blockCreateStruct->definition instanceof ContainerDefinitionInterface) {
-            foreach ($blockCreateStruct->definition->getPlaceholders() as $placeholderDefinition) {
-                $placeholderIdentifier = $placeholderDefinition->getIdentifier();
-
-                $placeholderParameterValues = array();
-                if ($blockCreateStruct->hasPlaceholderStruct($placeholderIdentifier)) {
-                    $placeholderParameterValues = $blockCreateStruct
-                        ->getPlaceholderStruct($placeholderIdentifier)
-                        ->getParameterValues();
-                }
-
-                $placeholderParameters[$placeholderIdentifier] = $this->parameterMapper->serializeValues(
-                    $placeholderDefinition,
-                    $placeholderParameterValues
-                );
-            }
-        }
-
         try {
             $createdBlock = $this->blockHandler->createBlock(
                 new BlockCreateStruct(
@@ -777,7 +758,7 @@ class BlockService extends Service implements BlockServiceInterface
                         'viewType' => $blockCreateStruct->viewType,
                         'itemViewType' => $blockCreateStruct->itemViewType,
                         'name' => $blockCreateStruct->name,
-                        'placeholderParameters' => $placeholderParameters,
+                        'placeholderParameters' => array(),
                         'parameters' => $this->parameterMapper->serializeValues(
                             $blockCreateStruct->definition,
                             $blockCreateStruct->getParameterValues()

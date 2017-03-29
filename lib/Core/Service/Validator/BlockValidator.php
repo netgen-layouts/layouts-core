@@ -5,10 +5,7 @@ namespace Netgen\BlockManager\Core\Service\Validator;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
-use Netgen\BlockManager\API\Values\Block\PlaceholderCreateStruct;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
-use Netgen\BlockManager\Block\ContainerDefinitionInterface;
-use Netgen\BlockManager\Block\PlaceholderDefinitionInterface;
 use Netgen\BlockManager\Validator\Constraint\BlockItemViewType;
 use Netgen\BlockManager\Validator\Constraint\BlockViewType;
 use Netgen\BlockManager\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
@@ -97,17 +94,6 @@ class BlockValidator extends Validator
             'parameterValues'
         );
 
-        if ($blockCreateStruct->definition instanceof ContainerDefinitionInterface) {
-            foreach ($blockCreateStruct->definition->getPlaceholders() as $placeholderDefinition) {
-                if ($blockCreateStruct->hasPlaceholderStruct($placeholderDefinition->getIdentifier())) {
-                    $this->validatePlaceholderCreateStruct(
-                        $blockCreateStruct->getPlaceholderStruct($placeholderDefinition->getIdentifier()),
-                        $placeholderDefinition
-                    );
-                }
-            }
-        }
-
         $this->configValidator->validateConfigStructs(
             'block',
             $blockCreateStruct->getConfigStructs()
@@ -138,31 +124,6 @@ class BlockValidator extends Validator
         $this->configValidator->validateConfigStructs(
             'block',
             $blockUpdateStruct->getConfigStructs()
-        );
-    }
-
-    /**
-     * Validates placeholder create struct.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\PlaceholderCreateStruct $placeholderCreateStruct
-     * @param \Netgen\BlockManager\Block\PlaceholderDefinitionInterface $placeholderDefinition
-     *
-     * @throws \Netgen\BlockManager\Exception\ValidationFailedException If the validation failed
-     */
-    protected function validatePlaceholderCreateStruct(
-        PlaceholderCreateStruct $placeholderCreateStruct,
-        PlaceholderDefinitionInterface $placeholderDefinition
-    ) {
-        $this->validate(
-            $placeholderCreateStruct,
-            array(
-                new ParameterStruct(
-                    array(
-                        'parameterCollection' => $placeholderDefinition,
-                    )
-                ),
-            ),
-            'parameterValues'
         );
     }
 }

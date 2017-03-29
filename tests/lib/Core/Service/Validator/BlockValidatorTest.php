@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
 use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
-use Netgen\BlockManager\API\Values\Block\PlaceholderCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\ConfigValidator;
 use Netgen\BlockManager\Core\Values\Block\Block;
@@ -54,7 +53,6 @@ class BlockValidatorTest extends TestCase
      * @param bool $isValid
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\BlockValidator::validateBlockCreateStruct
-     * @covers \Netgen\BlockManager\Core\Service\Validator\BlockValidator::validatePlaceholderCreateStruct
      * @dataProvider validateBlockCreateStructDataProvider
      * @doesNotPerformAssertions
      */
@@ -345,16 +343,6 @@ class BlockValidatorTest extends TestCase
                     'parameterValues' => array(
                         'css_class' => 'class',
                         'css_id' => 'id',
-                    ),
-                    'placeholderStructs' => array(
-                        'main' => new PlaceholderCreateStruct(
-                            array(
-                                'parameterValues' => array(
-                                    'css_class' => 'class',
-                                    'css_id' => 'id',
-                                ),
-                            )
-                        ),
                     ),
                 ),
                 true,
