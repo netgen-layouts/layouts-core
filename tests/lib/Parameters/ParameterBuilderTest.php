@@ -502,6 +502,7 @@ class ParameterBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameters
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameter
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
      */
     public function testBuildParameters()
     {
@@ -586,6 +587,7 @@ class ParameterBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameters
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameter
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
      */
     public function testBuildParametersAfterBuildingParameters()
     {
@@ -626,6 +628,7 @@ class ParameterBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameters
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameter
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
      */
     public function testBuildParametersWithDefaultOptions()
     {
@@ -655,6 +658,7 @@ class ParameterBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameters
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameter
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function testBuildParametersWithInvalidRequiredOption()
@@ -674,6 +678,7 @@ class ParameterBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameters
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameter
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function testBuildParametersWithInvalidGroupsOption()
@@ -693,6 +698,7 @@ class ParameterBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameters
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameter
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function testBuildParametersWithInvalidLabel()
