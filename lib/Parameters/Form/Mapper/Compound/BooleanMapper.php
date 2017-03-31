@@ -29,8 +29,7 @@ class BooleanMapper extends Mapper
     {
         return array(
             'mapped' => false,
-
-            'reverse' => $parameter->getOptions()['reverse'],
+            'reverse' => $parameter->getOption('reverse'),
         );
     }
 }

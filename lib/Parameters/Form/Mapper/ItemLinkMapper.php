@@ -44,7 +44,7 @@ class ItemLinkMapper extends Mapper
      */
     public function mapOptions(ParameterInterface $parameter)
     {
-        $valueTypes = $parameter->getOptions()['value_types'];
+        $valueTypes = $parameter->getOption('value_types');
 
         return array(
             'item_types' => !empty($valueTypes) ? $valueTypes : $this->defaultValueTypes,

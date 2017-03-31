@@ -448,18 +448,7 @@ class ParameterBuilder implements ParameterBuilderInterface
     protected function resolveOptions(array $options)
     {
         $optionsResolver = new OptionsResolver();
-        $this->configureOptions($optionsResolver);
 
-        return $optionsResolver->resolve($options);
-    }
-
-    /**
-     * Configures the parameter options.
-     *
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
-     */
-    protected function configureOptions(OptionsResolver $optionsResolver)
-    {
         $optionsResolver->setDefault('default_value', null);
         $optionsResolver->setDefault('required', false);
         $optionsResolver->setDefault('label', null);
@@ -468,6 +457,8 @@ class ParameterBuilder implements ParameterBuilderInterface
         if ($this->type instanceof ParameterTypeInterface) {
             $this->type->configureOptions($optionsResolver);
         }
+
+        $this->configureOptions($optionsResolver);
 
         $optionsResolver->setRequired(array('required', 'default_value', 'label', 'groups'));
 
@@ -485,5 +476,16 @@ class ParameterBuilder implements ParameterBuilderInterface
                 return $value === false;
             }
         );
+
+        return $optionsResolver->resolve($options);
+    }
+
+    /**
+     * Configures the parameter options.
+     *
+     * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
+     */
+    protected function configureOptions(OptionsResolver $optionsResolver)
+    {
     }
 }

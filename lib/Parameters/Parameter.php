@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Parameters;
 
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\ValueObject;
 
 class Parameter extends ValueObject implements ParameterInterface
@@ -69,6 +70,42 @@ class Parameter extends ValueObject implements ParameterInterface
     public function getOptions()
     {
         return $this->options;
+    }
+
+    /**
+     * Returns if the provided parameter option exists.
+     *
+     * @param string $option
+     *
+     * @return bool
+     */
+    public function hasOption($option)
+    {
+        return array_key_exists($option, $this->options);
+    }
+
+    /**
+     * Returns the provided parameter option.
+     *
+     * @param string $option
+     *
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If option does not exist
+     *
+     * @return mixed
+     */
+    public function getOption($option)
+    {
+        if (!$this->hasOption($option)) {
+            throw new InvalidArgumentException(
+                'option',
+                sprintf(
+                    'Option "%s" does not exist in the parameter.',
+                    $option
+                )
+            );
+        }
+
+        return $this->options[$option];
     }
 
     /**

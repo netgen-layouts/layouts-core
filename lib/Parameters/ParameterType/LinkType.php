@@ -126,7 +126,7 @@ class LinkType extends ParameterType
             new LinkConstraint(
                 array(
                     'required' => $parameter->isRequired(),
-                    'valueTypes' => $parameter->getOptions()['value_types'],
+                    'valueTypes' => $parameter->getOption('value_types'),
                 )
             ),
         );

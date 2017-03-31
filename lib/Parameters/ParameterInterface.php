@@ -26,6 +26,26 @@ interface ParameterInterface
     public function getOptions();
 
     /**
+     * Returns if the provided parameter option exists.
+     *
+     * @param string $option
+     *
+     * @return bool
+     */
+    public function hasOption($option);
+
+    /**
+     * Returns the provided parameter option.
+     *
+     * @param string $option
+     *
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If option does not exist
+     *
+     * @return mixed
+     */
+    public function getOption($option);
+
+    /**
      * Returns if the parameter is required.
      *
      * @return bool

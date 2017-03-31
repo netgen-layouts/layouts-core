@@ -27,10 +27,8 @@ class NumberMapper extends Mapper
      */
     public function mapOptions(ParameterInterface $parameter)
     {
-        $options = $parameter->getOptions();
-
         return array(
-            'scale' => $options['scale'],
+            'scale' => $parameter->getOption('scale'),
         );
     }
 }
