@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\View\Matcher\Parameter;
 
+use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Parameters\ParameterType\TextType;
 use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
@@ -33,7 +34,11 @@ class TypeTest extends TestCase
     {
         $parameterValue = new ParameterValue(
             array(
-                'parameterType' => new TextType(),
+                'parameter' => new Parameter(
+                    array(
+                        'type' => new TextType(),
+                    )
+                ),
             )
         );
 

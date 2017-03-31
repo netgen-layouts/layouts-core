@@ -32,7 +32,6 @@ class ParameterMapper
                 array(
                     'name' => $parameterName,
                     'parameter' => $parameter,
-                    'parameterType' => $parameterType,
                     'value' => $value,
                     'isEmpty' => $parameterType->isValueEmpty($value),
                 )

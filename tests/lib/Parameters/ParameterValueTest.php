@@ -12,7 +12,6 @@ class ParameterValueTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterValue::getName
      * @covers \Netgen\BlockManager\Parameters\ParameterValue::getParameter
-     * @covers \Netgen\BlockManager\Parameters\ParameterValue::getParameterType
      * @covers \Netgen\BlockManager\Parameters\ParameterValue::getValue
      * @covers \Netgen\BlockManager\Parameters\ParameterValue::isEmpty
      * @covers \Netgen\BlockManager\Parameters\ParameterValue::__toString
@@ -23,7 +22,6 @@ class ParameterValueTest extends TestCase
 
         $this->assertNull($parameterValue->getName());
         $this->assertNull($parameterValue->getParameter());
-        $this->assertNull($parameterValue->getParameterType());
         $this->assertNull($parameterValue->getValue());
         $this->assertNull($parameterValue->isEmpty());
         $this->assertEquals('', (string) $parameterValue);
@@ -32,26 +30,29 @@ class ParameterValueTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterValue::getName
      * @covers \Netgen\BlockManager\Parameters\ParameterValue::getParameter
-     * @covers \Netgen\BlockManager\Parameters\ParameterValue::getParameterType
      * @covers \Netgen\BlockManager\Parameters\ParameterValue::getValue
      * @covers \Netgen\BlockManager\Parameters\ParameterValue::isEmpty
      * @covers \Netgen\BlockManager\Parameters\ParameterValue::__toString
      */
     public function testSetProperties()
     {
+        $parameter = new Parameter(
+            array(
+                'type' => new TextType(),
+            )
+        );
+
         $parameterValue = new ParameterValue(
             array(
                 'name' => 'param_name',
-                'parameter' => new Parameter(),
-                'parameterType' => new TextType(),
+                'parameter' => $parameter,
                 'value' => 42,
                 'isEmpty' => false,
             )
         );
 
         $this->assertEquals('param_name', $parameterValue->getName());
-        $this->assertEquals(new Parameter(), $parameterValue->getParameter());
-        $this->assertEquals(new TextType(), $parameterValue->getParameterType());
+        $this->assertEquals($parameter, $parameterValue->getParameter());
         $this->assertEquals(42, $parameterValue->getValue());
         $this->assertFalse($parameterValue->isEmpty());
         $this->assertEquals('42', (string) $parameterValue);
