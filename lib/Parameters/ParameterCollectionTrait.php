@@ -7,7 +7,7 @@ use Netgen\BlockManager\Exception\InvalidArgumentException;
 trait ParameterCollectionTrait
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterInterface[]|\Closure
+     * @var \Netgen\BlockManager\Parameters\ParameterInterface[]
      */
     protected $parameters;
 
