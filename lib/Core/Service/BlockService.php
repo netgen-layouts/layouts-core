@@ -360,14 +360,13 @@ class BlockService extends Service implements BlockServiceInterface
                         'name' => $blockUpdateStruct->name,
                         'parameters' => $this->parameterMapper->serializeValues(
                             $block->getDefinition(),
-                            $blockUpdateStruct->getParameterValues()
-                        ) + $persistenceBlock->parameters,
-                        'config' => array_replace_recursive(
-                            $persistenceBlock->config,
-                            $this->configMapper->serializeValues(
-                                $block->getConfigCollection()->getConfigType(),
-                                $blockUpdateStruct->getConfigStructs()
-                            )
+                            $blockUpdateStruct->getParameterValues(),
+                            $persistenceBlock->parameters
+                        ),
+                        'config' => $this->configMapper->serializeValues(
+                            $block->getConfigCollection()->getConfigType(),
+                            $blockUpdateStruct->getConfigStructs(),
+                            $persistenceBlock->config
                         ),
                     )
                 )

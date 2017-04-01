@@ -76,10 +76,11 @@ class ConfigMapper extends Mapper
      *
      * @param string $type
      * @param \Netgen\BlockManager\API\Values\ParameterStruct[] $configStructs
+     * @param array $fallbackValues
      *
      * @return array
      */
-    public function serializeValues($type, array $configStructs)
+    public function serializeValues($type, array $configStructs, array $fallbackValues = array())
     {
         $configs = array();
         $configDefinitions = $this->configDefinitionRegistry->getConfigDefinitions($type);
@@ -96,7 +97,10 @@ class ConfigMapper extends Mapper
 
             $configs[$identifier] = $this->parameterMapper->serializeValues(
                 $configDefinition,
-                $configValues
+                $configValues,
+                isset($fallbackValues[$identifier]) ?
+                    $fallbackValues[$identifier] :
+                    array()
             );
         }
 

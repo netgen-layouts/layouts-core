@@ -814,8 +814,9 @@ class CollectionService extends Service implements APICollectionService
                         'identifier' => $queryUpdateStruct->identifier,
                         'parameters' => $this->parameterMapper->serializeValues(
                             $query->getQueryType(),
-                            $queryUpdateStruct->getParameterValues()
-                        ) + $persistenceQuery->parameters,
+                            $queryUpdateStruct->getParameterValues(),
+                            $persistenceQuery->parameters
+                        ),
                     )
                 )
             );

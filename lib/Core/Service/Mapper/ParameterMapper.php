@@ -53,10 +53,11 @@ class ParameterMapper
      *
      * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
      * @param array $parameterValues
+     * @param array $fallbackValues
      *
      * @return array
      */
-    public function serializeValues(ParameterCollectionInterface $parameterCollection, array $parameterValues)
+    public function serializeValues(ParameterCollectionInterface $parameterCollection, array $parameterValues, array $fallbackValues = array())
     {
         $serializedValues = array();
 
@@ -78,6 +79,6 @@ class ParameterMapper
             }
         }
 
-        return $serializedValues;
+        return $serializedValues + $fallbackValues;
     }
 }
