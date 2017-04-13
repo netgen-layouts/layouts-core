@@ -548,7 +548,6 @@ class LayoutHandlerTest extends TestCase
                         'itemViewType' => '',
                         'name' => '',
                         'status' => Value::STATUS_DRAFT,
-                        'placeholderParameters' => array(),
                         'parameters' => array(),
                         'config' => array(),
                     )
@@ -598,7 +597,6 @@ class LayoutHandlerTest extends TestCase
                     'itemViewType' => '',
                     'name' => '',
                     'status' => Value::STATUS_DRAFT,
-                    'placeholderParameters' => array(),
                     'parameters' => array(),
                     'config' => array(),
                 )
@@ -742,7 +740,6 @@ class LayoutHandlerTest extends TestCase
                         'itemViewType' => 'standard',
                         'name' => 'My other block',
                         'status' => Value::STATUS_PUBLISHED,
-                        'placeholderParameters' => array(),
                         'parameters' => array(
                             'number_of_columns' => 3,
                         ),
@@ -775,7 +772,6 @@ class LayoutHandlerTest extends TestCase
                         'itemViewType' => 'standard_with_intro',
                         'name' => 'My published block',
                         'status' => Value::STATUS_PUBLISHED,
-                        'placeholderParameters' => array(),
                         'parameters' => array(
                             'number_of_columns' => 3,
                         ),
@@ -796,7 +792,6 @@ class LayoutHandlerTest extends TestCase
                         'itemViewType' => 'standard',
                         'name' => 'My fourth block',
                         'status' => Value::STATUS_PUBLISHED,
-                        'placeholderParameters' => array(),
                         'parameters' => array(
                             'number_of_columns' => 3,
                         ),
@@ -936,7 +931,6 @@ class LayoutHandlerTest extends TestCase
                         'itemViewType' => 'standard',
                         'name' => 'My other block',
                         'status' => Value::STATUS_ARCHIVED,
-                        'placeholderParameters' => array(),
                         'parameters' => array(
                             'number_of_columns' => 3,
                         ),
@@ -969,7 +963,6 @@ class LayoutHandlerTest extends TestCase
                         'itemViewType' => 'standard_with_intro',
                         'name' => 'My published block',
                         'status' => Value::STATUS_ARCHIVED,
-                        'placeholderParameters' => array(),
                         'parameters' => array(
                             'number_of_columns' => 3,
                         ),
@@ -990,7 +983,6 @@ class LayoutHandlerTest extends TestCase
                         'itemViewType' => 'standard',
                         'name' => 'My fourth block',
                         'status' => Value::STATUS_ARCHIVED,
-                        'placeholderParameters' => array(),
                         'parameters' => array(
                             'number_of_columns' => 3,
                         ),

@@ -24,7 +24,6 @@ CREATE TABLE `ngbm_block` (
   `view_type` text(255) NOT NULL,
   `item_view_type` text(255) NOT NULL,
   `name` text(255) NOT NULL,
-  `placeholder_parameters` text NOT NULL,
   `parameters` text NOT NULL,
   `config` text NOT NULL,
   PRIMARY KEY (`id`, `status`),

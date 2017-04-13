@@ -95,12 +95,6 @@ abstract class BlockMapperTest extends ServiceTestCase
                 'definitionIdentifier' => 'column',
                 'status' => Value::STATUS_PUBLISHED,
                 'parameters' => array(),
-                'placeholderParameters' => array(
-                    'main' => array(
-                        'css_class' => 'test2',
-                        'some_param' => 'some_value2',
-                    ),
-                ),
                 'config' => array(
                     'http_cache' => array(
                         'use_http_cache' => true,
@@ -124,9 +118,6 @@ abstract class BlockMapperTest extends ServiceTestCase
         $this->assertEquals('main', $placeholder->getIdentifier());
         $this->assertCount(1, $placeholder->getBlocks());
         $this->assertInstanceOf(APIBlock::class, $placeholder->getBlocks()[0]);
-
-        $this->assertEquals('test2', $placeholder->getParameter('css_class')->getValue());
-        $this->assertNull($placeholder->getParameter('css_id')->getValue());
     }
 
     /**

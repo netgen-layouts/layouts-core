@@ -269,7 +269,7 @@ class BlockService extends Service implements BlockServiceInterface
             throw new BadStateException('targetBlock', 'Target block is not a container.');
         }
 
-        if (!$targetBlockDefinition->hasPlaceholder($placeholder)) {
+        if (!in_array($placeholder, $targetBlockDefinition->getPlaceholders(), true)) {
             throw new BadStateException('placeholder', 'Target block does not have the specified placeholder.');
         }
 
@@ -458,7 +458,7 @@ class BlockService extends Service implements BlockServiceInterface
             throw new BadStateException('targetBlock', 'Target block is not a container.');
         }
 
-        if (!$targetBlockDefinition->hasPlaceholder($placeholder)) {
+        if (!in_array($placeholder, $targetBlockDefinition->getPlaceholders(), true)) {
             throw new BadStateException('placeholder', 'Target block does not have the specified placeholder.');
         }
 
@@ -567,7 +567,7 @@ class BlockService extends Service implements BlockServiceInterface
             throw new BadStateException('targetBlock', 'Target block is not a container.');
         }
 
-        if (!$targetBlockDefinition->hasPlaceholder($placeholder)) {
+        if (!in_array($placeholder, $targetBlockDefinition->getPlaceholders(), true)) {
             throw new BadStateException('placeholder', 'Target block does not have the specified placeholder.');
         }
 
@@ -757,7 +757,6 @@ class BlockService extends Service implements BlockServiceInterface
                         'viewType' => $blockCreateStruct->viewType,
                         'itemViewType' => $blockCreateStruct->itemViewType,
                         'name' => $blockCreateStruct->name,
-                        'placeholderParameters' => array(),
                         'parameters' => $this->parameterMapper->serializeValues(
                             $blockCreateStruct->definition,
                             $blockCreateStruct->getParameterValues()

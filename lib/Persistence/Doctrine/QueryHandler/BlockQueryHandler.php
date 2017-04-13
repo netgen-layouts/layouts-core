@@ -201,7 +201,6 @@ class BlockQueryHandler extends QueryHandler
                     'view_type' => ':view_type',
                     'item_view_type' => ':item_view_type',
                     'name' => ':name',
-                    'placeholder_parameters' => ':placeholder_parameters',
                     'parameters' => ':parameters',
                     'config' => ':config',
                 )
@@ -219,7 +218,6 @@ class BlockQueryHandler extends QueryHandler
             ->setParameter('view_type', $blockCreateStruct->viewType, Type::STRING)
             ->setParameter('item_view_type', $blockCreateStruct->itemViewType, Type::STRING)
             ->setParameter('name', trim($blockCreateStruct->name), Type::STRING)
-            ->setParameter('placeholder_parameters', $blockCreateStruct->placeholderParameters, Type::JSON_ARRAY)
             ->setParameter('parameters', $blockCreateStruct->parameters, Type::JSON_ARRAY)
             ->setParameter('config', $blockCreateStruct->config, Type::JSON_ARRAY);
 
@@ -294,7 +292,6 @@ class BlockQueryHandler extends QueryHandler
             ->set('view_type', ':view_type')
             ->set('item_view_type', ':item_view_type')
             ->set('name', ':name')
-            ->set('placeholder_parameters', ':placeholder_parameters')
             ->set('parameters', ':parameters')
             ->set('config', ':config')
             ->where(
@@ -304,7 +301,6 @@ class BlockQueryHandler extends QueryHandler
             ->setParameter('view_type', $blockUpdateStruct->viewType, Type::STRING)
             ->setParameter('item_view_type', $blockUpdateStruct->itemViewType, Type::STRING)
             ->setParameter('name', $blockUpdateStruct->name, Type::STRING)
-            ->setParameter('placeholder_parameters', $blockUpdateStruct->placeholderParameters, Type::JSON_ARRAY)
             ->setParameter('parameters', $blockUpdateStruct->parameters, Type::JSON_ARRAY)
             ->setParameter('config', $blockUpdateStruct->config, Type::JSON_ARRAY);
 
@@ -434,7 +430,6 @@ class BlockQueryHandler extends QueryHandler
                     'view_type' => ':view_type',
                     'item_view_type' => ':item_view_type',
                     'name' => ':name',
-                    'placeholder_parameters' => ':placeholder_parameters',
                     'parameters' => ':parameters',
                     'config' => ':config',
                 )
@@ -451,7 +446,6 @@ class BlockQueryHandler extends QueryHandler
             ->setParameter('view_type', $block->viewType, Type::STRING)
             ->setParameter('item_view_type', $block->itemViewType, Type::STRING)
             ->setParameter('name', trim($block->name), Type::STRING)
-            ->setParameter('placeholder_parameters', $block->placeholderParameters, Type::JSON_ARRAY)
             ->setParameter('parameters', $block->parameters, Type::JSON_ARRAY)
             ->setParameter('config', $block->config, Type::JSON_ARRAY);
 

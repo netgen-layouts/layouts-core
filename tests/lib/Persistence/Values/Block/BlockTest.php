@@ -20,7 +20,6 @@ class BlockTest extends TestCase
         $this->assertNull($block->placeholder);
         $this->assertNull($block->position);
         $this->assertNull($block->definitionIdentifier);
-        $this->assertNull($block->placeholderParameters);
         $this->assertNull($block->parameters);
         $this->assertNull($block->viewType);
         $this->assertNull($block->itemViewType);
@@ -40,12 +39,6 @@ class BlockTest extends TestCase
                 'placeholder' => 'top',
                 'position' => 4,
                 'definitionIdentifier' => 'text',
-                'placeholderParameters' => array(
-                    'left' => array(
-                        'param' => 'value',
-                        'other_param' => 'other_value',
-                    ),
-                ),
                 'parameters' => array(
                     'some_param' => 'some_value',
                     'some_other_param' => 'some_other_value',
@@ -69,16 +62,6 @@ class BlockTest extends TestCase
         $this->assertEquals('standard', $block->itemViewType);
         $this->assertEquals('My block', $block->name);
         $this->assertEquals(Value::STATUS_DRAFT, $block->status);
-
-        $this->assertEquals(
-            array(
-                'left' => array(
-                    'param' => 'value',
-                    'other_param' => 'other_value',
-                ),
-            ),
-            $block->placeholderParameters
-        );
 
         $this->assertEquals(
             array(

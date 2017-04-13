@@ -8,7 +8,6 @@ use Netgen\BlockManager\Block\BlockDefinition\ContainerDefinitionHandlerInterfac
 use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinitionFactory;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
-use Netgen\BlockManager\Block\PlaceholderDefinitionInterface;
 use Netgen\BlockManager\Block\TwigBlockDefinitionInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 use PHPUnit\Framework\TestCase;
@@ -101,9 +100,6 @@ class BlockDefinitionFactoryTest extends TestCase
         $this->assertEquals('definition', $blockDefinition->getIdentifier());
         $this->assertEquals($this->configMock, $blockDefinition->getConfig());
 
-        $this->assertCount(2, $blockDefinition->getPlaceholders());
-        foreach ($blockDefinition->getPlaceholders() as $placeholder) {
-            $this->assertInstanceOf(PlaceholderDefinitionInterface::class, $placeholder);
-        }
+        $this->assertEquals(array('left', 'right'), $blockDefinition->getPlaceholders());
     }
 }

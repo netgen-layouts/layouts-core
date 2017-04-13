@@ -34,7 +34,6 @@ CREATE TABLE ngbm_block (
   view_type nvarchar(255) NOT NULL,
   item_view_type nvarchar(255) NOT NULL,
   name nvarchar(255) NOT NULL,
-  placeholder_parameters nvarchar(max) NOT NULL,
   parameters nvarchar(max) NOT NULL,
   config nvarchar(max) NOT NULL,
   PRIMARY KEY (id, status),

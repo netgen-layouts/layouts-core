@@ -85,9 +85,7 @@ class BlockDefinitionFactory
             clone $parameterBuilder
         );
 
-        $data = static::getContainerDefinitionData($handler, clone $parameterBuilder);
-
-        return new ContainerDefinition($data + $commonData);
+        return new ContainerDefinition($commonData);
     }
 
     /**
@@ -114,53 +112,6 @@ class BlockDefinitionFactory
             'handler' => $handler,
             'config' => $config,
             'parameters' => $parameters,
-        );
-    }
-
-    /**
-     * Returns the data for building the container definition.
-     *
-     * @param \Netgen\BlockManager\Block\BlockDefinition\ContainerDefinitionHandlerInterface $handler
-     * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $parameterBuilder
-     *
-     * @return array
-     */
-    protected static function getContainerDefinitionData(
-        ContainerDefinitionHandlerInterface $handler,
-        ParameterBuilderInterface $parameterBuilder
-    ) {
-        $placeholderIdentifiers = $handler->getPlaceholderIdentifiers();
-
-        $placeholders = array();
-        $placeholderBuilders = array();
-
-        foreach ($placeholderIdentifiers as $placeholderIdentifier) {
-            // Parameter builder is a one use object, hence the clone
-            $placeholderBuilders[$placeholderIdentifier] = clone $parameterBuilder;
-        }
-
-        $handler->buildPlaceholderParameters($placeholderBuilders);
-
-        foreach ($placeholderIdentifiers as $placeholderIdentifier) {
-            $placeholders[$placeholderIdentifier] = new PlaceholderDefinition(
-                array(
-                    'identifier' => $placeholderIdentifier,
-                    'parameters' => $placeholderBuilders[$placeholderIdentifier]->buildParameters(),
-                )
-            );
-        }
-
-        $handler->buildDynamicPlaceholderParameters($parameterBuilder);
-        $dynamicPlaceholderParameters = $parameterBuilder->buildParameters();
-
-        return array(
-            'placeholders' => $placeholders,
-            'dynamicPlaceholder' => new PlaceholderDefinition(
-                array(
-                    'identifier' => 'dynamic',
-                    'parameters' => $dynamicPlaceholderParameters,
-                )
-            ),
         );
     }
 }

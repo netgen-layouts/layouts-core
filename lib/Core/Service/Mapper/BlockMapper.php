@@ -137,24 +137,18 @@ class BlockMapper extends Mapper
         $childBlocks = $this->persistenceHandler->getBlockHandler()->loadChildBlocks($block);
 
         $placeholders = array();
-        foreach ($blockDefinition->getPlaceholders() as $identifier => $placeholderDefinition) {
+        foreach ($blockDefinition->getPlaceholders() as $placeholderIdentifier) {
             $placeholderBlocks = array();
             foreach ($childBlocks as $childBlock) {
-                if ($childBlock->placeholder === $identifier) {
+                if ($childBlock->placeholder === $placeholderIdentifier) {
                     $placeholderBlocks[] = $this->mapBlock($childBlock);
                 }
             }
 
-            $placeholders[$identifier] = new Placeholder(
+            $placeholders[$placeholderIdentifier] = new Placeholder(
                 array(
-                    'identifier' => $placeholderDefinition->getIdentifier(),
+                    'identifier' => $placeholderIdentifier,
                     'blocks' => $placeholderBlocks,
-                    'parameters' => $this->parameterMapper->mapParameters(
-                        $placeholderDefinition,
-                        isset($block->placeholderParameters[$identifier]) ?
-                            $block->placeholderParameters[$identifier] :
-                            array()
-                    ),
                 )
             );
         }

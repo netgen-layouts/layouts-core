@@ -34,7 +34,6 @@ CREATE TABLE `ngbm_block` (
   `view_type` varchar(255) NOT NULL,
   `item_view_type` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `placeholder_parameters` text NOT NULL,
   `parameters` text NOT NULL,
   `config` text NOT NULL,
   PRIMARY KEY (`id`, `status`),

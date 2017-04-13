@@ -28,11 +28,6 @@ class PlaceholderNormalizer implements NormalizerInterface, SerializerAwareInter
         /** @var \Netgen\BlockManager\API\Values\Block\Placeholder $placeholder */
         $placeholder = $object->getValue();
 
-        $parameters = array();
-        foreach ($placeholder->getParameters() as $parameter) {
-            $parameters[$parameter->getName()] = new VersionedValue($parameter, $object->getVersion());
-        }
-
         $blocks = array();
         foreach ($placeholder as $block) {
             $blocks[] = new View($block, $object->getVersion());
@@ -40,7 +35,6 @@ class PlaceholderNormalizer implements NormalizerInterface, SerializerAwareInter
 
         return array(
             'identifier' => $placeholder->getIdentifier(),
-            'parameters' => $this->serializer->normalize($parameters, $format, $context),
             'blocks' => $this->serializer->normalize($blocks, $format, $context),
         );
     }

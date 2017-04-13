@@ -8,7 +8,6 @@ use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Block\BlockDefinition\ContainerDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\ContainerDefinitionInterface;
-use Netgen\BlockManager\Block\PlaceholderDefinition;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 
 class ContainerDefinition implements ContainerDefinitionInterface
@@ -29,11 +28,6 @@ class ContainerDefinition implements ContainerDefinitionInterface
     protected $viewTypes;
 
     /**
-     * @var \Netgen\BlockManager\Block\PlaceholderDefinitionInterface[]
-     */
-    protected $placeholders;
-
-    /**
      * Constructor.
      *
      * @param string $identifier
@@ -46,17 +40,6 @@ class ContainerDefinition implements ContainerDefinitionInterface
         $this->viewTypes = $viewTypes;
 
         $this->handler = $handler ?: new ContainerDefinitionHandler();
-
-        $this->placeholders = array();
-
-        foreach ($this->handler->getPlaceholderIdentifiers() as $placeholderIdentifier) {
-            $this->placeholders[$placeholderIdentifier] = new PlaceholderDefinition(
-                array(
-                    'identifier' => $placeholderIdentifier,
-                    'parameters' => $this->handler->getParameters(),
-                )
-            );
-        }
     }
 
     /**
@@ -70,48 +53,13 @@ class ContainerDefinition implements ContainerDefinitionInterface
     }
 
     /**
-     * Returns placeholder definitions.
+     * Returns placeholder identifiers.
      *
-     * @return \Netgen\BlockManager\Block\PlaceholderDefinitionInterface[]
+     * @return string[]
      */
     public function getPlaceholders()
     {
-        return $this->placeholders;
-    }
-
-    /**
-     * Returns a placeholder definition.
-     *
-     * @param string $placeholderIdentifier
-     *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException if the placeholder does not exist
-     *
-     * @return \Netgen\BlockManager\Block\PlaceholderDefinitionInterface
-     */
-    public function getPlaceholder($placeholderIdentifier)
-    {
-        return $this->placeholders[$placeholderIdentifier];
-    }
-
-    /**
-     * Returns if block definition has a placeholder definition.
-     *
-     * @param string $placeholderIdentifier
-     *
-     * @return bool
-     */
-    public function hasPlaceholder($placeholderIdentifier)
-    {
-        return isset($this->placeholders[$placeholderIdentifier]);
-    }
-
-    /**
-     * Returns dynamic placeholder definition.
-     *
-     * @return \Netgen\BlockManager\Block\PlaceholderDefinitionInterface
-     */
-    public function getDynamicPlaceholder()
-    {
+        return $this->handler->getPlaceholderIdentifiers();
     }
 
     /**
@@ -220,7 +168,7 @@ class ContainerDefinition implements ContainerDefinitionInterface
      */
     public function isContainer()
     {
-        return !empty($this->placeholders);
+        return !empty($this->handler->getPlaceholderIdentifiers());
     }
 
     /**

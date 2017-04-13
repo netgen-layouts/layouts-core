@@ -14,6 +14,7 @@ class Version000800 extends AbstractMigration
     {
         $blockTable = $schema->getTable('ngbm_block');
         $blockTable->addColumn('config', 'text', array('length' => 65535));
+        $blockTable->dropColumn('placeholder_parameters');
     }
 
     /**
@@ -22,6 +23,7 @@ class Version000800 extends AbstractMigration
     public function down(Schema $schema)
     {
         $blockTable = $schema->getTable('ngbm_block');
+        $blockTable->addColumn('placeholder_parameters', 'text', array('length' => 65535));
         $blockTable->dropColumn('config');
     }
 }

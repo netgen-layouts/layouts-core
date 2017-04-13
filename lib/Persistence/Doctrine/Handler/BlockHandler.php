@@ -251,10 +251,6 @@ class BlockHandler implements BlockHandlerInterface
             $blockUpdateStruct->config :
             $block->config;
 
-        $blockUpdateStruct->placeholderParameters = is_array($blockUpdateStruct->placeholderParameters) ?
-            $blockUpdateStruct->placeholderParameters :
-            $block->placeholderParameters;
-
         $this->queryHandler->updateBlock($block, $blockUpdateStruct);
 
         return $this->loadBlock($block->id, $block->status);
@@ -324,7 +320,6 @@ class BlockHandler implements BlockHandlerInterface
                     'viewType' => $block->viewType,
                     'itemViewType' => $block->itemViewType,
                     'name' => $block->name,
-                    'placeholderParameters' => $block->placeholderParameters,
                     'parameters' => $block->parameters,
                     'config' => $block->config,
                 )

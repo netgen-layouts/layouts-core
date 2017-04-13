@@ -63,13 +63,6 @@ class Block extends Value
     public $definitionIdentifier;
 
     /**
-     * Block placeholder parameters.
-     *
-     * @var array
-     */
-    public $placeholderParameters;
-
-    /**
      * Block parameters.
      *
      * @var array

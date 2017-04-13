@@ -4,14 +4,11 @@ namespace Netgen\BlockManager\Core\Values\Block;
 
 use ArrayIterator;
 use Netgen\BlockManager\API\Values\Block\Placeholder as APIPlaceholder;
-use Netgen\BlockManager\Core\Values\ParameterBasedValueTrait;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\ValueObject;
 
 class Placeholder extends ValueObject implements APIPlaceholder
 {
-    use ParameterBasedValueTrait;
-
     /**
      * @var string
      */

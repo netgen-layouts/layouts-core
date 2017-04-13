@@ -24,11 +24,6 @@ class BlockUpdateStruct extends ValueObject
     /**
      * @var array
      */
-    public $placeholderParameters;
-
-    /**
-     * @var array
-     */
     public $parameters;
 
     /**

@@ -73,7 +73,6 @@ class BlockHandlerTest extends TestCase
                     'placeholder' => 'root',
                     'position' => 0,
                     'definitionIdentifier' => 'list',
-                    'placeholderParameters' => array(),
                     'parameters' => array(
                         'number_of_columns' => 3,
                     ),
@@ -174,7 +173,6 @@ class BlockHandlerTest extends TestCase
                         'itemViewType' => 'standard_with_intro',
                         'name' => 'My published block',
                         'status' => Value::STATUS_PUBLISHED,
-                        'placeholderParameters' => array(),
                         'parameters' => array(
                             'number_of_columns' => 3,
                         ),
@@ -195,7 +193,6 @@ class BlockHandlerTest extends TestCase
                         'itemViewType' => 'standard',
                         'name' => 'My fourth block',
                         'status' => Value::STATUS_PUBLISHED,
-                        'placeholderParameters' => array(),
                         'parameters' => array(
                             'number_of_columns' => 3,
                         ),
@@ -231,7 +228,6 @@ class BlockHandlerTest extends TestCase
                         'itemViewType' => 'standard',
                         'name' => 'My seventh block',
                         'status' => Value::STATUS_DRAFT,
-                        'placeholderParameters' => array(),
                         'parameters' => array(
                             'content' => 'Text',
                         ),
@@ -352,12 +348,6 @@ class BlockHandlerTest extends TestCase
         $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->name = 'My block';
 
-        $blockCreateStruct->placeholderParameters = array(
-            'left' => array(
-                'param' => 'Value',
-            ),
-        );
-
         $blockCreateStruct->parameters = array(
             'a_param' => 'A value',
         );
@@ -383,11 +373,6 @@ class BlockHandlerTest extends TestCase
                     'status' => Value::STATUS_DRAFT,
                     'parameters' => array(
                         'a_param' => 'A value',
-                    ),
-                    'placeholderParameters' => array(
-                        'left' => array(
-                            'param' => 'Value',
-                        ),
                     ),
                     'config' => array(
                         'config_param' => 'Config value',
@@ -421,12 +406,6 @@ class BlockHandlerTest extends TestCase
         $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->name = 'My block';
 
-        $blockCreateStruct->placeholderParameters = array(
-            'left' => array(
-                'param' => 'Value',
-            ),
-        );
-
         $blockCreateStruct->parameters = array(
             'a_param' => 'A value',
         );
@@ -453,11 +432,6 @@ class BlockHandlerTest extends TestCase
                     'parameters' => array(
                         'a_param' => 'A value',
                     ),
-                    'placeholderParameters' => array(
-                        'left' => array(
-                            'param' => 'Value',
-                        ),
-                    ),
                     'config' => array(
                         'config_param' => 'Config value',
                     ),
@@ -481,12 +455,6 @@ class BlockHandlerTest extends TestCase
         $blockCreateStruct->viewType = 'large';
         $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->name = 'My block';
-
-        $blockCreateStruct->placeholderParameters = array(
-            'left' => array(
-                'param' => 'Value',
-            ),
-        );
 
         $blockCreateStruct->parameters = array(
             'a_param' => 'A value',
@@ -513,11 +481,6 @@ class BlockHandlerTest extends TestCase
                     'status' => Value::STATUS_DRAFT,
                     'parameters' => array(
                         'a_param' => 'A value',
-                    ),
-                    'placeholderParameters' => array(
-                        'left' => array(
-                            'param' => 'Value',
-                        ),
                     ),
                     'config' => array(
                         'config' => 'Config value',
@@ -549,14 +512,6 @@ class BlockHandlerTest extends TestCase
         $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->name = 'My block';
 
-        $blockCreateStruct->placeholderParameters = array(
-            'left' => array(
-                'parameters' => array(
-                    'param' => 'Value',
-                ),
-            ),
-        );
-
         $blockCreateStruct->parameters = array(
             'a_param' => 'A value',
         );
@@ -584,14 +539,6 @@ class BlockHandlerTest extends TestCase
         $blockCreateStruct->viewType = 'large';
         $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->name = 'My block';
-
-        $blockCreateStruct->placeholderParameters = array(
-            'left' => array(
-                'parameters' => array(
-                    'param' => 'Value',
-                ),
-            ),
-        );
 
         $blockCreateStruct->parameters = array(
             'a_param' => 'A value',
@@ -652,12 +599,6 @@ class BlockHandlerTest extends TestCase
         $blockUpdateStruct->viewType = 'large';
         $blockUpdateStruct->itemViewType = 'new';
 
-        $blockUpdateStruct->placeholderParameters = array(
-            'right' => array(
-                'param' => 'Value',
-            ),
-        );
-
         $blockUpdateStruct->parameters = array(
             'number_of_columns' => 4,
             'some_param' => 'Some value',
@@ -681,11 +622,6 @@ class BlockHandlerTest extends TestCase
                     'parameters' => array(
                         'number_of_columns' => 4,
                         'some_param' => 'Some value',
-                    ),
-                    'placeholderParameters' => array(
-                        'right' => array(
-                            'param' => 'Value',
-                        ),
                     ),
                     'config' => array(),
                 )
@@ -720,7 +656,6 @@ class BlockHandlerTest extends TestCase
                     'itemViewType' => 'standard',
                     'name' => 'My block',
                     'status' => Value::STATUS_DRAFT,
-                    'placeholderParameters' => array(),
                     'parameters' => array(
                         'number_of_columns' => 2,
                     ),
@@ -824,7 +759,6 @@ class BlockHandlerTest extends TestCase
                     'itemViewType' => 'standard',
                     'name' => 'My block',
                     'status' => Value::STATUS_DRAFT,
-                    'placeholderParameters' => array(),
                     'parameters' => array(
                         'number_of_columns' => 2,
                     ),
@@ -890,10 +824,6 @@ class BlockHandlerTest extends TestCase
                     'viewType' => 'column',
                     'itemViewType' => 'standard',
                     'name' => 'My third block',
-                    'status' => Value::STATUS_DRAFT,
-                    'placeholderParameters' => array(
-                        'main' => array(),
-                    ),
                     'parameters' => array(),
                     'config' => array(),
                 )
@@ -918,7 +848,6 @@ class BlockHandlerTest extends TestCase
                     'itemViewType' => 'standard',
                     'name' => 'My seventh block',
                     'status' => Value::STATUS_DRAFT,
-                    'placeholderParameters' => array(),
                     'parameters' => array(
                         'content' => 'Text',
                     ),
@@ -974,7 +903,6 @@ class BlockHandlerTest extends TestCase
                     'itemViewType' => 'standard',
                     'name' => 'My block',
                     'status' => Value::STATUS_DRAFT,
-                    'placeholderParameters' => array(),
                     'parameters' => array(
                         'number_of_columns' => 2,
                     ),
@@ -1106,9 +1034,6 @@ class BlockHandlerTest extends TestCase
                     'itemViewType' => 'standard',
                     'name' => 'My third block',
                     'status' => Value::STATUS_DRAFT,
-                    'placeholderParameters' => array(
-                        'main' => array(),
-                    ),
                     'parameters' => array(),
                     'config' => array(),
                 )
@@ -1136,7 +1061,6 @@ class BlockHandlerTest extends TestCase
                     'itemViewType' => 'standard',
                     'name' => 'My seventh block',
                     'status' => Value::STATUS_DRAFT,
-                    'placeholderParameters' => array(),
                     'parameters' => array(
                         'content' => 'Text',
                     ),
@@ -1244,7 +1168,6 @@ class BlockHandlerTest extends TestCase
                     'itemViewType' => 'standard',
                     'name' => 'My block',
                     'status' => Value::STATUS_DRAFT,
-                    'placeholderParameters' => array(),
                     'parameters' => array(
                         'number_of_columns' => 2,
                     ),
@@ -1283,7 +1206,6 @@ class BlockHandlerTest extends TestCase
                     'itemViewType' => 'standard',
                     'name' => 'My fourth block',
                     'status' => Value::STATUS_DRAFT,
-                    'placeholderParameters' => array(),
                     'parameters' => array(
                         'number_of_columns' => 3,
                     ),
@@ -1359,7 +1281,6 @@ class BlockHandlerTest extends TestCase
                     'itemViewType' => 'standard_with_intro',
                     'name' => 'My published block',
                     'status' => Value::STATUS_DRAFT,
-                    'placeholderParameters' => array(),
                     'parameters' => array(
                         'number_of_columns' => 3,
                     ),

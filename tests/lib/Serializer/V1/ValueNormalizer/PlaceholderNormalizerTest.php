@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
 
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
-use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\PlaceholderNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Values\View;
@@ -43,35 +42,11 @@ class PlaceholderNormalizerTest extends TestCase
                 'blocks' => array(
                     new Block(),
                 ),
-                'parameters' => array(
-                    'some_param' => new ParameterValue(
-                        array(
-                            'name' => 'some_param',
-                            'value' => 'some_value',
-                        )
-                    ),
-                    'some_other_param' => new ParameterValue(
-                        array(
-                            'name' => 'some_other_param',
-                            'value' => 'some_other_value',
-                        )
-                    ),
-                ),
             )
-        );
-
-        $serializedParams = array(
-            'some_param' => 'some_value',
-            'some_other_param' => 'some_other_value',
         );
 
         $this->serializerMock
             ->expects($this->at(0))
-            ->method('normalize')
-            ->will($this->returnValue($serializedParams));
-
-        $this->serializerMock
-            ->expects($this->at(1))
             ->method('normalize')
             ->with($this->equalTo(array(new View(new Block(), 1))))
             ->will($this->returnValue(array('normalized blocks')));
@@ -79,7 +54,6 @@ class PlaceholderNormalizerTest extends TestCase
         $this->assertEquals(
             array(
                 'identifier' => 'main',
-                'parameters' => $serializedParams,
                 'blocks' => array('normalized blocks'),
             ),
             $this->normalizer->normalize(new VersionedValue($placeholder, 1))
