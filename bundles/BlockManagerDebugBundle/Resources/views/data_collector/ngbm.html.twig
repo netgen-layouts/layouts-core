@@ -55,7 +55,7 @@
         </div>
     {% endset %}
 
-    {{ include('WebProfilerBundle:Profiler:toolbar_item.html.twig', { link: false }) }}
+    {{ include('WebProfilerBundle:Profiler:toolbar_item.html.twig', { link: profiler_url }) }}
 {% endblock %}
 
 {% block head %}
