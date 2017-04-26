@@ -10,14 +10,12 @@ services:
     netgen_block_manager.parameters.registry.parameter_filter:
         class: Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry
 
-    # Builders
+    # Builder factories
 
-    netgen_block_manager.parameters.parameter_builder:
-        class: Netgen\BlockManager\Parameters\ParameterBuilder
+    netgen_block_manager.parameters.parameter_builder_factory:
+        class: Netgen\BlockManager\Parameters\ParameterBuilderFactory
         arguments:
             - "@netgen_block_manager.parameters.registry.parameter_type"
-        # Builder is a one use & discard object, hence shared: false
-        shared: false
 
     # Filters
 

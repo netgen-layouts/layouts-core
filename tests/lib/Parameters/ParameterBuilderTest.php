@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Parameters;
 
 use Netgen\BlockManager\Parameters\CompoundParameter;
 use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\Parameters\ParameterBuilder;
+use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
@@ -18,6 +18,11 @@ class ParameterBuilderTest extends TestCase
     protected $registry;
 
     /**
+     * @var \Netgen\BlockManager\Parameters\ParameterBuilderFactory
+     */
+    protected $factory;
+
+    /**
      * @var \Netgen\BlockManager\Parameters\ParameterBuilder
      */
     protected $builder;
@@ -28,7 +33,9 @@ class ParameterBuilderTest extends TestCase
         $this->registry->addParameterType(new ParameterType\TextType());
         $this->registry->addParameterType(new ParameterType\Compound\BooleanType());
 
-        $this->builder = new ParameterBuilder($this->registry);
+        $this->factory = new ParameterBuilderFactory($this->registry);
+
+        $this->builder = $this->factory->createParameterBuilder();
     }
 
     /**

@@ -14,7 +14,7 @@ use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\ConfigValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
-use Netgen\BlockManager\Parameters\ParameterBuilder;
+use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
@@ -186,7 +186,8 @@ abstract class BlockTest extends ServiceTestCase
     {
         $handler = $this->createConfigDefinitionHandler();
 
-        $parameterBuilder = new ParameterBuilder($this->parameterTypeRegistry);
+        $builderFactory = new ParameterBuilderFactory($this->parameterTypeRegistry);
+        $parameterBuilder = $builderFactory->createParameterBuilder();
         $handler->buildParameters($parameterBuilder);
         $config = $parameterBuilder->buildParameters();
 

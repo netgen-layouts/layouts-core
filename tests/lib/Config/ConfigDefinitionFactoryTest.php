@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Config;
 use Netgen\BlockManager\Config\ConfigDefinition\ConfigDefinitionHandlerInterface;
 use Netgen\BlockManager\Config\ConfigDefinitionFactory;
 use Netgen\BlockManager\Config\ConfigDefinitionInterface;
+use Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -18,7 +19,7 @@ class ConfigDefinitionFactoryTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $parameterBuilderMock;
+    protected $parameterBuilderFactoryMock;
 
     /**
      * @var \Netgen\BlockManager\Config\ConfigDefinitionFactory
@@ -27,9 +28,17 @@ class ConfigDefinitionFactoryTest extends TestCase
 
     public function setUp()
     {
-        $this->parameterBuilderMock = $this->createMock(ParameterBuilderInterface::class);
+        $this->parameterBuilderFactoryMock = $this->createMock(ParameterBuilderFactoryInterface::class);
+        $this->parameterBuilderFactoryMock
+            ->expects($this->any())
+            ->method('createParameterBuilder')
+            ->will(
+                $this->returnValue(
+                    $this->createMock(ParameterBuilderInterface::class)
+                )
+            );
 
-        $this->factory = new ConfigDefinitionFactory();
+        $this->factory = new ConfigDefinitionFactory($this->parameterBuilderFactoryMock);
     }
 
     /**
@@ -43,8 +52,7 @@ class ConfigDefinitionFactoryTest extends TestCase
         $configDefinition = $this->factory->buildConfigDefinition(
             'type',
             'definition',
-            $this->handlerMock,
-            $this->parameterBuilderMock
+            $this->handlerMock
         );
 
         $this->assertInstanceOf(ConfigDefinitionInterface::class, $configDefinition);

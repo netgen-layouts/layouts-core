@@ -4,9 +4,9 @@ namespace Netgen\BlockManager\Tests\Block\BlockDefinition;
 
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
 use Netgen\BlockManager\Core\Values\Block\Block;
-use Netgen\BlockManager\Parameters\ParameterBuilder;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
+use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
 use PHPUnit\Framework\TestCase;
 
 class BlockDefinitionHandlerTest extends TestCase
@@ -21,6 +21,11 @@ class BlockDefinitionHandlerTest extends TestCase
      */
     protected $parameterTypeRegistry;
 
+    /**
+     * @var \Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface
+     */
+    protected $parameterBuilderFactory;
+
     public function setUp()
     {
         $this->handler = $this->getMockForAbstractClass(BlockDefinitionHandler::class);
@@ -28,6 +33,10 @@ class BlockDefinitionHandlerTest extends TestCase
         $this->parameterTypeRegistry = new ParameterTypeRegistry();
         $this->parameterTypeRegistry->addParameterType(new ParameterType\TextLineType());
         $this->parameterTypeRegistry->addParameterType(new ParameterType\BooleanType());
+
+        $this->parameterBuilderFactory = new ParameterBuilderFactory(
+            $this->parameterTypeRegistry
+        );
     }
 
     /**
@@ -36,8 +45,7 @@ class BlockDefinitionHandlerTest extends TestCase
      */
     public function testBuildParameters()
     {
-        $builder = new ParameterBuilder($this->parameterTypeRegistry);
-
+        $builder = $this->parameterBuilderFactory->createParameterBuilder();
         $this->handler->buildParameters($builder);
 
         $this->assertCount(3, $builder);

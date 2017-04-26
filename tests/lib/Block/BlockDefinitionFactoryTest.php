@@ -9,6 +9,7 @@ use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterfac
 use Netgen\BlockManager\Block\BlockDefinitionFactory;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Block\TwigBlockDefinitionInterface;
+use Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -27,15 +28,32 @@ class BlockDefinitionFactoryTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $parameterBuilderMock;
+    protected $parameterBuilderFactoryMock;
+
+    /**
+     * @var \Netgen\BlockManager\Block\BlockDefinitionFactory
+     */
+    protected $factory;
 
     public function setUp()
     {
         $this->configMock = $this->createMock(Configuration::class);
-        $this->parameterBuilderMock = $this->createMock(ParameterBuilderInterface::class);
+
+        $this->parameterBuilderFactoryMock = $this->createMock(ParameterBuilderFactoryInterface::class);
+        $this->parameterBuilderFactoryMock
+            ->expects($this->any())
+            ->method('createParameterBuilder')
+            ->will(
+                $this->returnValue(
+                    $this->createMock(ParameterBuilderInterface::class)
+                )
+            );
+
+        $this->factory = new BlockDefinitionFactory($this->parameterBuilderFactoryMock);
     }
 
     /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::__construct
      * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::buildBlockDefinition
      * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::getCommonBlockDefinitionData
      */
@@ -43,11 +61,10 @@ class BlockDefinitionFactoryTest extends TestCase
     {
         $this->handlerMock = $this->createMock(BlockDefinitionHandlerInterface::class);
 
-        $blockDefinition = BlockDefinitionFactory::buildBlockDefinition(
+        $blockDefinition = $this->factory->buildBlockDefinition(
             'definition',
             $this->handlerMock,
-            $this->configMock,
-            $this->parameterBuilderMock
+            $this->configMock
         );
 
         $this->assertInstanceOf(BlockDefinitionInterface::class, $blockDefinition);
@@ -63,11 +80,10 @@ class BlockDefinitionFactoryTest extends TestCase
     {
         $this->handlerMock = $this->createMock(TwigBlockDefinitionHandlerInterface::class);
 
-        $blockDefinition = BlockDefinitionFactory::buildTwigBlockDefinition(
+        $blockDefinition = $this->factory->buildTwigBlockDefinition(
             'definition',
             $this->handlerMock,
-            $this->configMock,
-            $this->parameterBuilderMock
+            $this->configMock
         );
 
         $this->assertInstanceOf(TwigBlockDefinitionInterface::class, $blockDefinition);
@@ -78,7 +94,6 @@ class BlockDefinitionFactoryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::buildContainerDefinition
      * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::getCommonBlockDefinitionData
-     * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::getContainerDefinitionData
      */
     public function testBuildContainerDefinition()
     {
@@ -89,11 +104,10 @@ class BlockDefinitionFactoryTest extends TestCase
             ->method('getPlaceholderIdentifiers')
             ->will($this->returnValue(array('left', 'right')));
 
-        $blockDefinition = BlockDefinitionFactory::buildContainerDefinition(
+        $blockDefinition = $this->factory->buildContainerDefinition(
             'definition',
             $this->handlerMock,
-            $this->configMock,
-            $this->parameterBuilderMock
+            $this->configMock
         );
 
         $this->assertInstanceOf(BlockDefinitionInterface::class, $blockDefinition);

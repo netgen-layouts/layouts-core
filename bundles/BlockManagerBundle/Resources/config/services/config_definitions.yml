@@ -1,4 +1,9 @@
 services:
+    netgen_block_manager.config.config_definition_factory:
+        class: Netgen\BlockManager\Config\ConfigDefinitionFactory
+        arguments:
+            - "@netgen_block_manager.parameters.parameter_builder_factory"
+
     netgen_block_manager.config.registry.config_definition:
         class: Netgen\BlockManager\Config\Registry\ConfigDefinitionRegistry
 

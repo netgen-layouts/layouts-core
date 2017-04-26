@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\Parameters;
 
 use Netgen\BlockManager\Parameters\CompoundParameter;
-use Netgen\BlockManager\Parameters\ParameterBuilder;
+use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
 use Netgen\BlockManager\Parameters\ParameterType\Compound\BooleanType;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameterType;
@@ -27,8 +27,9 @@ class CompoundParameterTypeTest extends TestCase
      */
     public function testBuildParameters()
     {
-        $parameterBuilder = new ParameterBuilder(new ParameterTypeRegistry());
+        $parameterBuilderFactory = new ParameterBuilderFactory(new ParameterTypeRegistry());
 
+        $parameterBuilder = $parameterBuilderFactory->createParameterBuilder();
         $this->parameterType->buildParameters($parameterBuilder);
 
         $this->assertCount(0, $parameterBuilder);

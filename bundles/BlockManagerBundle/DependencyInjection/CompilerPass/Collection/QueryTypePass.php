@@ -5,7 +5,6 @@ namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Coll
 use Netgen\BlockManager\Collection\QueryType;
 use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
 use Netgen\BlockManager\Collection\QueryType\Configuration\Factory;
-use Netgen\BlockManager\Collection\QueryTypeFactory;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -77,8 +76,7 @@ class QueryTypePass implements CompilerPassInterface
             $queryTypeService->addArgument($type);
             $queryTypeService->addArgument(new Reference($foundHandler));
             $queryTypeService->addArgument(new Reference($configServiceName));
-            $queryTypeService->addArgument(new Reference('netgen_block_manager.parameters.parameter_builder'));
-            $queryTypeService->setFactory(array(QueryTypeFactory::class, 'buildQueryType'));
+            $queryTypeService->setFactory(array(new Reference('netgen_block_manager.collection.query_type_factory'), 'buildQueryType'));
 
             $container->setDefinition($queryTypeServiceName, $queryTypeService);
 

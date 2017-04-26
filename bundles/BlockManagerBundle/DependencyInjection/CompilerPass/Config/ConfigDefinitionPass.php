@@ -3,7 +3,6 @@
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Config;
 
 use Netgen\BlockManager\Config\ConfigDefinition;
-use Netgen\BlockManager\Config\ConfigDefinitionFactory;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -63,8 +62,7 @@ class ConfigDefinitionPass implements CompilerPassInterface
             $configDefinitionService->addArgument($type);
             $configDefinitionService->addArgument($identifier);
             $configDefinitionService->addArgument(new Reference($configDefinitionHandler));
-            $configDefinitionService->addArgument(new Reference('netgen_block_manager.parameters.parameter_builder'));
-            $configDefinitionService->setFactory(array(ConfigDefinitionFactory::class, 'buildConfigDefinition'));
+            $configDefinitionService->setFactory(array(new Reference('netgen_block_manager.config.config_definition_factory'), 'buildConfigDefinition'));
 
             $container->setDefinition($configDefinitionServiceName, $configDefinitionService);
 

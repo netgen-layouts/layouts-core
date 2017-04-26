@@ -7,7 +7,6 @@ use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Factory;
 use Netgen\BlockManager\Block\BlockDefinition\ContainerDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
-use Netgen\BlockManager\Block\BlockDefinitionFactory;
 use Netgen\BlockManager\Block\ContainerDefinition;
 use Netgen\BlockManager\Block\TwigBlockDefinition;
 use Netgen\BlockManager\Exception\RuntimeException;
@@ -99,8 +98,7 @@ class BlockDefinitionPass implements CompilerPassInterface
             $blockDefinitionService->addArgument($identifier);
             $blockDefinitionService->addArgument(new Reference($foundHandler));
             $blockDefinitionService->addArgument(new Reference($configServiceName));
-            $blockDefinitionService->addArgument(new Reference('netgen_block_manager.parameters.parameter_builder'));
-            $blockDefinitionService->setFactory(array(BlockDefinitionFactory::class, $factoryMethod));
+            $blockDefinitionService->setFactory(array(new Reference('netgen_block_manager.block.block_definition_factory'), $factoryMethod));
 
             $container->setDefinition($blockDefinitionServiceName, $blockDefinitionService);
 

@@ -16,6 +16,11 @@ services:
             - "@netgen_block_manager.collection.result_iterator_factory"
             - "@netgen_block_manager.collection.collection_iterator_factory"
 
+    netgen_block_manager.collection.query_type_factory:
+        class: Netgen\BlockManager\Collection\QueryTypeFactory
+        arguments:
+            - "@netgen_block_manager.parameters.parameter_builder_factory"
+
     netgen_block_manager.collection.registry.query_type:
         class: Netgen\BlockManager\Collection\Registry\QueryTypeRegistry
 

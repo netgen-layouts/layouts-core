@@ -52,6 +52,11 @@ parameters:
         1_1: '1:1'
 
 services:
+    netgen_block_manager.block.block_definition_factory:
+        class: Netgen\BlockManager\Block\BlockDefinitionFactory
+        arguments:
+            - "@netgen_block_manager.parameters.parameter_builder_factory"
+
     netgen_block_manager.block.registry.block_definition:
         class: Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry
 

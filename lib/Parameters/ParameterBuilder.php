@@ -4,15 +4,14 @@ namespace Netgen\BlockManager\Parameters;
 
 use Netgen\BlockManager\Exception\BadMethodCallException;
 use Netgen\BlockManager\Exception\Parameters\ParameterBuilderException;
-use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ParameterBuilder implements ParameterBuilderInterface
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface
+     * @var \Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface
      */
-    protected $parameterTypeRegistry;
+    protected $builderFactory;
 
     /**
      * @var string
@@ -72,23 +71,25 @@ class ParameterBuilder implements ParameterBuilderInterface
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface $parameterTypeRegistry
+     * @param \Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface $builderFactory
      * @param string $name
      * @param \Netgen\BlockManager\Parameters\ParameterTypeInterface $type
      * @param array $options
      * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $parentBuilder
      */
     public function __construct(
-        ParameterTypeRegistryInterface $parameterTypeRegistry,
+        ParameterBuilderFactoryInterface $builderFactory,
         $name = null,
         ParameterTypeInterface $type = null,
         array $options = array(),
         ParameterBuilderInterface $parentBuilder = null
     ) {
-        $this->parameterTypeRegistry = $parameterTypeRegistry;
+        $this->builderFactory = $builderFactory;
 
         $this->name = $name;
         $this->type = $type;
+        $this->parentBuilder = $parentBuilder;
+
         $this->options = $this->resolveOptions($options);
 
         $this->isRequired = $this->options['required'];
@@ -102,8 +103,6 @@ class ParameterBuilder implements ParameterBuilderInterface
             $this->options['label'],
             $this->options['groups']
         );
-
-        $this->parentBuilder = $parentBuilder;
     }
 
     /**
@@ -286,9 +285,10 @@ class ParameterBuilder implements ParameterBuilderInterface
             throw new BadMethodCallException('Parameters cannot be added after they have been built.');
         }
 
-        $type = $this->parameterTypeRegistry->getParameterTypeByClass($type);
-
-        if ($this->type instanceof CompoundParameterTypeInterface && $type instanceof CompoundParameterTypeInterface) {
+        if (
+            $this->type instanceof CompoundParameterTypeInterface &&
+            is_a($type, CompoundParameterTypeInterface::class, true)
+        ) {
             throw ParameterBuilderException::subCompound();
         }
 
@@ -296,12 +296,13 @@ class ParameterBuilder implements ParameterBuilderInterface
             throw ParameterBuilderException::nonCompound();
         }
 
-        $this->unresolvedChildren[$name] = new self(
-            $this->parameterTypeRegistry,
-            $name,
-            $type,
-            $options,
-            $this
+        $this->unresolvedChildren[$name] = $this->builderFactory->createParameterBuilder(
+            array(
+                'name' => $name,
+                'type' => $type,
+                'options' => $options,
+                'parent' => $this,
+            )
         );
 
         return $this;
