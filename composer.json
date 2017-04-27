@@ -30,6 +30,9 @@
         "matthiasnoback/symfony-config-test": "^2.0|^3.0",
         "franzl/studio": "*"
     },
+    "config": {
+        "process-timeout": 600
+    },
     "scripts": {
         "test": "@php vendor/bin/phpunit --colors=always",
         "coverage": "@php -dzend_extension=xdebug.so vendor/bin/phpunit --coverage-html=coverage --colors=always"
