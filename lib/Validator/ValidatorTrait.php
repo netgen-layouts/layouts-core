@@ -48,19 +48,21 @@ trait ValidatorTrait
             );
         }
 
-        if (count($violations) > 0) {
-            $propertyName = $violations[0]->getPropertyPath();
-            if (empty($propertyName)) {
-                $propertyName = (string) $propertyPath;
-            }
-
-            throw new ValidationFailedException(
-                sprintf(
-                    'There was an error validating "%s": %s',
-                    $propertyName,
-                    $violations[0]->getMessage()
-                )
-            );
+        if (count($violations) === 0) {
+            return;
         }
+
+        $propertyName = $violations[0]->getPropertyPath();
+        if (empty($propertyName)) {
+            $propertyName = (string) $propertyPath;
+        }
+
+        throw new ValidationFailedException(
+            sprintf(
+                'There was an error validating "%s": %s',
+                $propertyName,
+                $violations[0]->getMessage()
+            )
+        );
     }
 }
