@@ -45,9 +45,7 @@ class HttpCacheConfigHandler implements ConfigDefinitionHandlerInterface
             'shared_max_age',
             ParameterType\IntegerType::class,
             array(
-                'required' => true,
-                'default_value' => 300,
-                'min' => 1,
+                'min' => 0,
             )
         );
     }
