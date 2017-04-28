@@ -6,7 +6,7 @@ use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\Exception;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Exception\ValidationFailedException;
+use Netgen\BlockManager\Exception\Validation\ValidationFailedException;
 use Netgen\Bundle\BlockManagerBundle\Exception\InternalServerErrorHttpException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;

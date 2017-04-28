@@ -12,7 +12,7 @@ class CollectionValidator extends Validator
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @throws \Netgen\BlockManager\Exception\ValidationFailedException If validation failed
+     * @throws \Netgen\BlockManager\Exception\Validation\ValidationFailedException If validation failed
      */
     public function validateAddItems(Request $request)
     {

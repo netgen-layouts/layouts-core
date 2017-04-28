@@ -13,7 +13,7 @@ use Netgen\BlockManager\Config\ConfigDefinition;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\ConfigValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
-use Netgen\BlockManager\Exception\ValidationFailedException;
+use Netgen\BlockManager\Exception\Validation\ValidationFailedException;
 use Netgen\BlockManager\Parameters\ParameterBuilder;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
@@ -92,12 +92,12 @@ abstract class BlockTest extends ServiceTestCase
      * @param array $config
      * @param array $testedParams
      * @dataProvider invalidConfigDataProvider
-     * @expectedException \Netgen\BlockManager\Exception\ValidationFailedException
+     * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationFailedException
      */
     public function testCreateBlockWithInvalidConfig(array $config, array $testedParams = null)
     {
         if (empty($config)) {
-            throw new ValidationFailedException();
+            throw new ValidationFailedException('config', 'Invalid config');
         }
 
         $blockDefinition = $this->createBlockDefinition();

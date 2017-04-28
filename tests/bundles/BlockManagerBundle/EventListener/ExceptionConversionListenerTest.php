@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Exception\ValidationFailedException;
+use Netgen\BlockManager\Exception\Validation\ValidationFailedException;
 use Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener;
 use Netgen\Bundle\BlockManagerBundle\Exception\InternalServerErrorHttpException;
 use Netgen\Bundle\BlockManagerBundle\Tests\EventListener\Stubs\ExceptionStub;
@@ -141,7 +141,7 @@ class ExceptionConversionListenerTest extends TestCase
                 true,
             ),
             array(
-                new ValidationFailedException('Some error'),
+                new ValidationFailedException('param', 'Some error'),
                 BadRequestHttpException::class,
                 Response::HTTP_BAD_REQUEST,
                 true,

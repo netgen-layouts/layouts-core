@@ -52,7 +52,7 @@ class ValidatorTraitTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Validator\ValidatorTrait::validate
-     * @expectedException \Netgen\BlockManager\Exception\ValidationFailedException
+     * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationFailedException
      * @expectedExceptionMessage There was an error validating "value": Value should not be blank
      */
     public function testValidateThrowsValidationFailedException()
@@ -81,7 +81,7 @@ class ValidatorTraitTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Validator\ValidatorTrait::validate
-     * @expectedException \Netgen\BlockManager\Exception\ValidationFailedException
+     * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationFailedException
      * @expectedExceptionMessage Test exception text
      */
     public function testValidateThrowsValidationFailedExceptionOnOtherException()

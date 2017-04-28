@@ -293,7 +293,7 @@ class CollectionControllerTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "items": "Expected argument of type "array or Traversable", "integer" given"'
+            'There was an error validating "items": Expected argument of type "array or Traversable", "integer" given'
         );
     }
 

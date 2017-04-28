@@ -16,7 +16,7 @@ class BlockCollectionValidator extends Validator
      * @param int $newType
      * @param string $queryType
      *
-     * @throws \Netgen\BlockManager\Exception\ValidationFailedException If validation failed
+     * @throws \Netgen\BlockManager\Exception\Validation\ValidationFailedException If validation failed
      */
     public function validateChangeCollectionType(CollectionReference $collectionReference, $newType, $queryType)
     {
