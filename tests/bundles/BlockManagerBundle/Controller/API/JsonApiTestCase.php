@@ -177,11 +177,11 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         $this->assertArrayHasKey('status_code', $responseContent);
         $this->assertArrayHasKey('status_text', $responseContent);
 
-        $this->assertEquals($responseContent['status_code'], $statusCode);
-        $this->assertEquals($responseContent['status_text'], Response::$statusTexts[$statusCode]);
+        $this->assertEquals($statusCode, $responseContent['status_code']);
+        $this->assertEquals(Response::$statusTexts[$statusCode], $responseContent['status_text']);
 
         if ($message !== null) {
-            $this->assertEquals($responseContent['message'], $message);
+            $this->assertEquals($message, $responseContent['message']);
         }
     }
 
