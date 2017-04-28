@@ -45,10 +45,10 @@ class ConditionTypeRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry::getConditionType
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\Exception\Layout\ConditionTypeException
      * @expectedExceptionMessage Condition type "other_type" does not exist.
      */
-    public function testGetConditionTypeThrowsInvalidArgumentException()
+    public function testGetConditionTypeThrowsConditionTypeException()
     {
         $this->registry->getConditionType('other_type');
     }

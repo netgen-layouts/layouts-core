@@ -28,7 +28,7 @@ interface LayoutTypeRegistryInterface
      *
      * @param string $identifier
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If layout type with provided identifier does not exist
+     * @throws \Netgen\BlockManager\Exception\Layout\LayoutTypeException If layout type with provided identifier does not exist
      *
      * @return \Netgen\BlockManager\Layout\Type\LayoutType
      */

@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Layout\Resolver\Registry;
 
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\Layout\TargetTypeException;
 use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;
 
 class TargetTypeRegistry implements TargetTypeRegistryInterface
@@ -39,20 +39,14 @@ class TargetTypeRegistry implements TargetTypeRegistryInterface
      *
      * @param string $type
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If target type does not exist
+     * @throws \Netgen\BlockManager\Exception\Layout\TargetTypeException If target type does not exist
      *
      * @return \Netgen\BlockManager\Layout\Resolver\TargetTypeInterface
      */
     public function getTargetType($type)
     {
         if (!$this->hasTargetType($type)) {
-            throw new InvalidArgumentException(
-                'type',
-                sprintf(
-                    'Target type "%s" does not exist.',
-                    $type
-                )
-            );
+            throw TargetTypeException::noTargetType($type);
         }
 
         return $this->targetTypes[$type];

@@ -45,7 +45,7 @@ interface LayoutResolverInterface
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param array $enabledConditions
      *
-     * @return bool If condition type does not exist for one of the conditions
+     * @return bool
      */
     public function matches(Rule $rule, Request $request, array $enabledConditions = null);
 }

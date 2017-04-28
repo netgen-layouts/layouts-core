@@ -27,7 +27,7 @@ interface TargetTypeRegistryInterface
      *
      * @param string $type
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If target type does not exist
+     * @throws \Netgen\BlockManager\Exception\Layout\TargetTypeException If target type does not exist
      *
      * @return \Netgen\BlockManager\Layout\Resolver\TargetTypeInterface
      */

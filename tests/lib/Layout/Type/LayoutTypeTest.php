@@ -120,10 +120,10 @@ class LayoutTypeTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Type\LayoutType::getZone
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\Exception\Layout\LayoutTypeException
      * @expectedExceptionMessage Zone "right" does not exist in "4_zones_a" layout type.
      */
-    public function testGetZoneThrowsInvalidArgumentException()
+    public function testGetZoneThrowsLayoutTypeException()
     {
         $this->layoutType->getZone('right');
     }

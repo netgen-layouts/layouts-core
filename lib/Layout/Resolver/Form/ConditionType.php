@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Layout\Resolver\Form;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\ConditionStruct;
+use Netgen\BlockManager\Exception\Layout\ConditionTypeException;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Form\AbstractType;
 use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
@@ -64,12 +65,7 @@ class ConditionType extends AbstractType
         $conditionType = $options['conditionType'];
 
         if (!isset($this->mappers[$conditionType->getType()])) {
-            throw new RuntimeException(
-                sprintf(
-                    'Form mapper for "%s" condition type does not exist.',
-                    $conditionType->getType()
-                )
-            );
+            throw ConditionTypeException::noFormMapper($conditionType->getType());
         }
 
         $mapper = $this->mappers[$conditionType->getType()];

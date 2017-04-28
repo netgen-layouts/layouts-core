@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Layout\Type;
 
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\Layout\LayoutTypeException;
 use Netgen\BlockManager\ValueObject;
 
 class LayoutType extends ValueObject
@@ -94,21 +94,14 @@ class LayoutType extends ValueObject
      *
      * @param $zoneIdentifier
      *
-     * @throws \InvalidArgumentException If zone does not exist
+     * @throws \Netgen\BlockManager\Exception\Layout\LayoutTypeException If zone does not exist
      *
      * @return \Netgen\BlockManager\Layout\Type\Zone
      */
     public function getZone($zoneIdentifier)
     {
         if (!$this->hasZone($zoneIdentifier)) {
-            throw new InvalidArgumentException(
-                'zoneIdentifier',
-                sprintf(
-                    'Zone "%s" does not exist in "%s" layout type.',
-                    $zoneIdentifier,
-                    $this->identifier
-                )
-            );
+            throw LayoutTypeException::noZone($this->identifier, $zoneIdentifier);
         }
 
         return $this->zones[$zoneIdentifier];

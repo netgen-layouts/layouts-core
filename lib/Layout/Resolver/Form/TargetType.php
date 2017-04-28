@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Layout\Resolver\Form;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetStruct;
+use Netgen\BlockManager\Exception\Layout\TargetTypeException;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Form\AbstractType;
 use Netgen\BlockManager\Layout\Resolver\Form\TargetType\MapperInterface;
@@ -64,12 +65,7 @@ class TargetType extends AbstractType
         $targetType = $options['targetType'];
 
         if (!isset($this->mappers[$targetType->getType()])) {
-            throw new RuntimeException(
-                sprintf(
-                    'Form mapper for "%s" target type does not exist.',
-                    $targetType->getType()
-                )
-            );
+            throw TargetTypeException::noFormMapper($targetType->getType());
         }
 
         $mapper = $this->mappers[$targetType->getType()];

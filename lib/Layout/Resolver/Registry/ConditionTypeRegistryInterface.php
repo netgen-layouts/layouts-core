@@ -27,7 +27,7 @@ interface ConditionTypeRegistryInterface
      *
      * @param string $type
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If condition type does not exist
+     * @throws \Netgen\BlockManager\Exception\Layout\ConditionTypeException If condition type does not exist
      *
      * @return \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface
      */

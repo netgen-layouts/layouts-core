@@ -43,10 +43,10 @@ class ConditionTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::buildForm
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\Layout\ConditionTypeException
      * @expectedExceptionMessage Form mapper for "type" condition type does not exist.
      */
-    public function testBuildFormThrowsRuntimeException()
+    public function testBuildFormThrowsConditionTypeException()
     {
         $this->factory->create(
             ConditionTypeForm::class,

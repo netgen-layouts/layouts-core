@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Layout\Resolver\Registry;
 
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\Layout\ConditionTypeException;
 use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
 
 class ConditionTypeRegistry implements ConditionTypeRegistryInterface
@@ -39,20 +39,14 @@ class ConditionTypeRegistry implements ConditionTypeRegistryInterface
      *
      * @param string $type
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If condition type does not exist
+     * @throws \Netgen\BlockManager\Exception\Layout\ConditionTypeException If condition type does not exist
      *
      * @return \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface
      */
     public function getConditionType($type)
     {
         if (!$this->hasConditionType($type)) {
-            throw new InvalidArgumentException(
-                'type',
-                sprintf(
-                    'Condition type "%s" does not exist.',
-                    $type
-                )
-            );
+            throw ConditionTypeException::noConditionType($type);
         }
 
         return $this->conditionTypes[$type];

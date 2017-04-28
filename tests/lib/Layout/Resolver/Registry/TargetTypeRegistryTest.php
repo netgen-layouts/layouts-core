@@ -45,10 +45,10 @@ class TargetTypeRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::getTargetType
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\Exception\Layout\TargetTypeException
      * @expectedExceptionMessage Target type "other_type" does not exist.
      */
-    public function testGetTargetTypeThrowsInvalidArgumentException()
+    public function testGetTargetTypeThrowsTargetTypeException()
     {
         $this->registry->getTargetType('other_type');
     }

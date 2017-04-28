@@ -43,10 +43,10 @@ class TargetTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType::buildForm
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\Layout\TargetTypeException
      * @expectedExceptionMessage Form mapper for "type" target type does not exist.
      */
-    public function testBuildFormThrowsRuntimeException()
+    public function testBuildFormThrowsTargetTypeException()
     {
         $this->factory->create(
             TargetTypeForm::class,

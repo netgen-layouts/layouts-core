@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Layout\Registry;
 
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\Layout\LayoutTypeException;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 
 class LayoutTypeRegistry implements LayoutTypeRegistryInterface
@@ -40,20 +40,14 @@ class LayoutTypeRegistry implements LayoutTypeRegistryInterface
      *
      * @param string $identifier
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If layout type with provided identifier does not exist
+     * @throws \Netgen\BlockManager\Exception\Layout\LayoutTypeException If layout type with provided identifier does not exist
      *
      * @return \Netgen\BlockManager\Layout\Type\LayoutType
      */
     public function getLayoutType($identifier)
     {
         if (!$this->hasLayoutType($identifier)) {
-            throw new InvalidArgumentException(
-                'identifier',
-                sprintf(
-                    'Layout type with "%s" identifier does not exist.',
-                    $identifier
-                )
-            );
+            throw LayoutTypeException::noLayoutType($identifier);
         }
 
         return $this->layoutTypes[$identifier];
