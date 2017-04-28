@@ -3,7 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension;
 
 use Exception;
-use Netgen\BlockManager\Exception\InvalidItemException;
+use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Item\UrlBuilderInterface;
@@ -101,7 +101,7 @@ class ItemExtension extends Twig_Extension
      * @param int|string|\Netgen\BlockManager\Item\ItemInterface $valueId
      * @param string|null $valueType
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidItemException If provided item or item reference is not valid
+     * @throws \Netgen\BlockManager\Exception\Item\ItemException If provided item or item reference is not valid
      *
      * @return string
      */
@@ -113,12 +113,7 @@ class ItemExtension extends Twig_Extension
             if (is_string($valueId) && $valueType === null) {
                 $itemUri = parse_url($valueId);
                 if (!is_array($itemUri) || empty($itemUri['scheme']) || empty($itemUri['host'])) {
-                    throw new InvalidItemException(
-                        sprintf(
-                            'Item "%s" is not valid.',
-                            $valueId
-                        )
-                    );
+                    throw ItemException::invalidValue($valueId);
                 }
 
                 $item = $this->itemLoader->load(
@@ -132,7 +127,7 @@ class ItemExtension extends Twig_Extension
             }
 
             if (!$item instanceof ItemInterface) {
-                throw new InvalidItemException(
+                throw new ItemException(
                     sprintf(
                         'Item could not be loaded.',
                         $valueId

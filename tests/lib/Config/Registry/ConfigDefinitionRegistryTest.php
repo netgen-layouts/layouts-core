@@ -59,7 +59,7 @@ class ConfigDefinitionRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Config\Registry\ConfigDefinitionRegistry::getConfigDefinition
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\Exception\Config\ConfigException
      * @expectedExceptionMessage Config definition for "block" type and "unknown" identifier does not exist.
      */
     public function testGetConfigDefinitionThrowsInvalidArgumentException()

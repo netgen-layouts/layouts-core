@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
 
 use Netgen\BlockManager\Core\Values\Collection\Item as CollectionItem;
-use Netgen\BlockManager\Exception\InvalidItemException;
+use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionItemNormalizer;
@@ -98,7 +98,7 @@ class CollectionItemNormalizerTest extends TestCase
             ->expects($this->any())
             ->method('load')
             ->with($this->equalTo(12), $this->equalTo('ezcontent'))
-            ->will($this->throwException(new InvalidItemException()));
+            ->will($this->throwException(new ItemException()));
 
         $this->assertEquals(
             array(

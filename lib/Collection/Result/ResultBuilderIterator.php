@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Collection\Result;
 use Iterator;
 use IteratorIterator;
 use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\Exception\InvalidItemException;
+use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Item\ItemBuilderInterface;
 use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
@@ -72,7 +72,7 @@ class ResultBuilderIterator extends IteratorIterator
                 $object->getValueId(),
                 $object->getValueType()
             );
-        } catch (InvalidItemException $e) {
+        } catch (ItemException $e) {
             $item = new NullItem(
                 array(
                     'valueId' => $object->getValueId(),

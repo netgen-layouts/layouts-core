@@ -141,10 +141,10 @@ class ItemExtensionTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\ItemExtension::getItemPath
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\ItemExtension::setDebug
-     * @expectedException \Netgen\BlockManager\Exception\InvalidItemException
+     * @expectedException \Netgen\BlockManager\Exception\Item\ItemException
      * @expectedExceptionMessage Item "value" is not valid.
      */
-    public function testGetItemPathThrowsInvalidItemExceptionInDebugModeWithInvalidValue()
+    public function testGetItemPathThrowsItemExceptionInDebugModeWithInvalidValue()
     {
         $this->extension->setDebug(true);
 
@@ -178,10 +178,10 @@ class ItemExtensionTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\ItemExtension::getItemPath
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\ItemExtension::setDebug
-     * @expectedException \Netgen\BlockManager\Exception\InvalidItemException
+     * @expectedException \Netgen\BlockManager\Exception\Item\ItemException
      * @expectedExceptionMessage Item could not be loaded.
      */
-    public function testGetItemPathThrowsInvalidItemExceptionInDebugModeWithUnsupportedValue()
+    public function testGetItemPathThrowsItemExceptionInDebugModeWithUnsupportedValue()
     {
         $this->extension->setDebug(true);
 

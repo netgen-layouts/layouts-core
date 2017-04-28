@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Item;
 
-use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Exception\Item\ValueException;
 
 class UrlBuilder implements UrlBuilderInterface
 {
@@ -26,17 +26,14 @@ class UrlBuilder implements UrlBuilderInterface
      *
      * @param \Netgen\BlockManager\Item\ItemInterface $item
      *
+     * @throws \Netgen\BlockManager\Exception\Item\ValueException if value URL builder does not exist
+     *
      * @return string
      */
     public function getUrl(ItemInterface $item)
     {
         if (!isset($this->valueUrlBuilders[$item->getValueType()])) {
-            throw new RuntimeException(
-                sprintf(
-                    'Value URL builder for "%s" value type does not exist.',
-                    $item->getValueType()
-                )
-            );
+            throw ValueException::noValueUrlBuilder($item->getValueType());
         }
 
         return $this->valueUrlBuilders[$item->getValueType()]->getUrl(

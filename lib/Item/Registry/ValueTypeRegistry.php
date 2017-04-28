@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Item\Registry;
 
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Item\ValueType\ValueType;
 
 class ValueTypeRegistry implements ValueTypeRegistryInterface
@@ -40,20 +40,14 @@ class ValueTypeRegistry implements ValueTypeRegistryInterface
      *
      * @param string $identifier
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If value type does not exist
+     * @throws \Netgen\BlockManager\Exception\Item\ItemException If value type does not exist
      *
      * @return \Netgen\BlockManager\Item\ValueType\ValueType
      */
     public function getValueType($identifier)
     {
         if (!$this->hasValueType($identifier)) {
-            throw new InvalidArgumentException(
-                'valueType',
-                sprintf(
-                    'Value type "%s" does not exist.',
-                    $identifier
-                )
-            );
+            throw ItemException::noValueType($identifier);
         }
 
         return $this->valueTypes[$identifier];

@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Item;
 
-use Netgen\BlockManager\Exception\InvalidItemException;
+use Netgen\BlockManager\Exception\Item\ItemException;
 
 class ItemLoader implements ItemLoaderInterface
 {
@@ -36,16 +36,14 @@ class ItemLoader implements ItemLoaderInterface
      * @param int|string $valueId
      * @param string $valueType
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidItemException If item could not be loaded
+     * @throws \Netgen\BlockManager\Exception\Item\ItemException If item could not be loaded
      *
      * @return \Netgen\BlockManager\Item\ItemInterface
      */
     public function load($valueId, $valueType)
     {
         if (!isset($this->valueLoaders[$valueType])) {
-            throw new InvalidItemException(
-                sprintf('Value type "%s" does not exist.', $valueType)
-            );
+            throw ItemException::noValueType($valueType);
         }
 
         return $this->itemBuilder->build(

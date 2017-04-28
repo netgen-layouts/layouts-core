@@ -9,7 +9,7 @@ interface ValueLoaderInterface
      *
      * @param int|string $id
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidItemException If value cannot be loaded
+     * @throws \Netgen\BlockManager\Exception\Item\ItemException If value cannot be loaded
      *
      * @return mixed
      */

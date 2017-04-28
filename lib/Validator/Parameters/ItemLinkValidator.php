@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Validator\Parameters;
 
-use Netgen\BlockManager\Exception\InvalidItemException;
+use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Validator\Constraint\Parameters\ItemLink;
 use Netgen\BlockManager\Validator\Constraint\ValueType;
@@ -79,7 +79,7 @@ class ItemLinkValidator extends ConstraintValidator
 
         try {
             $this->itemLoader->load($valueId, $valueType);
-        } catch (InvalidItemException $e) {
+        } catch (ItemException $e) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }

@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Validator;
 
-use Netgen\BlockManager\Exception\InvalidItemException;
+use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
@@ -65,7 +65,7 @@ class ItemLinkValidatorTest extends ValidatorTestCase
         $this->itemLoaderMock
             ->expects($this->once())
             ->method('load')
-            ->will($this->throwException(new InvalidItemException()));
+            ->will($this->throwException(new ItemException()));
 
         $this->assertValid(false, 'value://42');
     }

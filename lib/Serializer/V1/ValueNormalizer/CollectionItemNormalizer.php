@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Serializer\V1\ValueNormalizer;
 
 use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\Exception\InvalidItemException;
+use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
@@ -55,7 +55,7 @@ class CollectionItemNormalizer implements NormalizerInterface
             $value = $this->itemLoader->load($item->getValueId(), $item->getValueType());
             $data['name'] = $value->getName();
             $data['visible'] = $value->isVisible();
-        } catch (InvalidItemException $e) {
+        } catch (ItemException $e) {
             // Do nothing
         }
 

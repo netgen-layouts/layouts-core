@@ -28,7 +28,7 @@ interface ValueTypeRegistryInterface
      *
      * @param string $identifier
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If value type does not exist
+     * @throws \Netgen\BlockManager\Exception\Item\ItemException If value type does not exist
      *
      * @return \Netgen\BlockManager\Item\ValueType\ValueType
      */

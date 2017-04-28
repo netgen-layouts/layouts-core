@@ -9,7 +9,7 @@ interface ItemBuilderInterface
      *
      * @param mixed $object
      *
-     * @throws \Netgen\BlockManager\Exception\RuntimeException If value cannot be built
+     * @throws \Netgen\BlockManager\Exception\Item\ValueException if value converter does not exist
      *
      * @return \Netgen\BlockManager\Item\ItemInterface
      */

@@ -9,6 +9,8 @@ interface UrlBuilderInterface
      *
      * @param \Netgen\BlockManager\Item\ItemInterface $item
      *
+     * @throws \Netgen\BlockManager\Exception\Item\ValueException if value URL builder does not exist
+     *
      * @return string
      */
     public function getUrl(ItemInterface $item);

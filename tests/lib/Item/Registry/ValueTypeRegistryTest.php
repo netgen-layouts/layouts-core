@@ -73,7 +73,7 @@ class ValueTypeRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Item\Registry\ValueTypeRegistry::getValueType
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\Exception\Item\ItemException
      * @expectedExceptionMessage Value type "other_value" does not exist.
      */
     public function testGetValueTypeThrowsInvalidArgumentException()

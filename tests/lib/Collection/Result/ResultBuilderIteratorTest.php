@@ -6,7 +6,7 @@ use ArrayIterator;
 use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Collection\Result\ResultBuilderIterator;
 use Netgen\BlockManager\Core\Values\Collection\Item as CollectionItem;
-use Netgen\BlockManager\Exception\InvalidItemException;
+use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Item\ItemBuilderInterface;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
@@ -74,7 +74,7 @@ class ResultBuilderIteratorTest extends TestCase
             ->expects($this->at(1))
             ->method('load')
             ->with($this->equalTo(999), $this->equalTo('value'))
-            ->will($this->throwException(new InvalidItemException()));
+            ->will($this->throwException(new ItemException()));
 
         $iterator = new ResultBuilderIterator(
             new ArrayIterator($items),

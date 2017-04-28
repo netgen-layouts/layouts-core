@@ -37,7 +37,7 @@ class UrlBuilderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Item\UrlBuilder::getUrl
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\Item\ValueException
      * @expectedExceptionMessage Value URL builder for "unknown" value type does not exist.
      */
     public function testGetUrlWithNoUrlBuilder()

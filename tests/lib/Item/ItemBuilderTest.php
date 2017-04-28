@@ -47,10 +47,10 @@ class ItemBuilderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Item\ItemBuilder::build
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\Item\ValueException
      * @expectedExceptionMessage Value converter for "Netgen\BlockManager\Tests\Item\Stubs\Value" type does not exist.
      */
-    public function testBuildThrowsRuntimeException()
+    public function testBuildThrowsValueException()
     {
         $builder = new ItemBuilder(array(new UnsupportedValueConverter()));
 

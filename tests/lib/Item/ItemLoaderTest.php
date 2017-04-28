@@ -57,10 +57,10 @@ class ItemLoaderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Item\ItemLoader::load
-     * @expectedException \Netgen\BlockManager\Exception\InvalidItemException
+     * @expectedException \Netgen\BlockManager\Exception\Item\ItemException
      * @expectedExceptionMessage Value type "value" does not exist.
      */
-    public function testLoadItemThrowsInvalidItemException()
+    public function testLoadItemThrowsItemException()
     {
         $this->itemLoader = new ItemLoader($this->itemBuilderMock);
 
@@ -69,10 +69,10 @@ class ItemLoaderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Item\ItemLoader::load
-     * @expectedException \Netgen\BlockManager\Exception\InvalidItemException
+     * @expectedException \Netgen\BlockManager\Exception\Item\ItemException
      * @expectedExceptionMessage Value with ID 42 does not exist.
      */
-    public function testLoadItemThrowsInvalidItemExceptionWithNoItem()
+    public function testLoadItemThrowsItemExceptionWithNoItem()
     {
         $this->itemLoader = new ItemLoader(
             $this->itemBuilderMock,

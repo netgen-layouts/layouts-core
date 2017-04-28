@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Item;
 
+use Netgen\BlockManager\Exception\Item\ValueException;
 use Netgen\BlockManager\Exception\RuntimeException;
 
 class ItemBuilder implements ItemBuilderInterface
@@ -37,7 +38,7 @@ class ItemBuilder implements ItemBuilderInterface
      *
      * @param mixed $object
      *
-     * @throws \Netgen\BlockManager\Exception\RuntimeException If value cannot be built
+     * @throws \Netgen\BlockManager\Exception\Item\ValueException if value converter does not exist
      *
      * @return \Netgen\BlockManager\Item\ItemInterface
      */
@@ -61,11 +62,8 @@ class ItemBuilder implements ItemBuilderInterface
             return $value;
         }
 
-        throw new RuntimeException(
-            sprintf(
-                'Value converter for "%s" type does not exist.',
-                is_object($object) ? get_class($object) : gettype($object)
-            )
+        throw ValueException::noValueConverter(
+            is_object($object) ? get_class($object) : gettype($object)
         );
     }
 }
