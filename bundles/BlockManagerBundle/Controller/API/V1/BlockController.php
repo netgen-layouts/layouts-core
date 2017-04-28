@@ -7,7 +7,7 @@ use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Block\BlockType\BlockType;
 use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\Block\BlockTypeException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Version;
@@ -78,7 +78,7 @@ class BlockController extends Controller
 
         try {
             $blockType = $this->getBlockType($request->request->get('block_type'));
-        } catch (InvalidArgumentException $e) {
+        } catch (BlockTypeException $e) {
             throw new BadStateException('block_type', 'Block type does not exist.', $e);
         }
 
@@ -110,7 +110,7 @@ class BlockController extends Controller
 
         try {
             $blockType = $this->getBlockType($request->request->get('block_type'));
-        } catch (InvalidArgumentException $e) {
+        } catch (BlockTypeException $e) {
             throw new BadStateException('block_type', 'Block type does not exist.', $e);
         }
 

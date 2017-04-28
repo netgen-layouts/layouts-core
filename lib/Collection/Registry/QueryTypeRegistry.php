@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Collection\Registry;
 
 use Netgen\BlockManager\Collection\QueryTypeInterface;
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\Collection\QueryTypeException;
 
 class QueryTypeRegistry implements QueryTypeRegistryInterface
 {
@@ -40,20 +40,14 @@ class QueryTypeRegistry implements QueryTypeRegistryInterface
      *
      * @param string $type
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If query type does not exist
+     * @throws \Netgen\BlockManager\Exception\Collection\QueryTypeException If query type does not exist
      *
      * @return \Netgen\BlockManager\Collection\QueryTypeInterface
      */
     public function getQueryType($type)
     {
         if (!$this->hasQueryType($type)) {
-            throw new InvalidArgumentException(
-                'type',
-                sprintf(
-                    'Query type "%s" does not exist.',
-                    $type
-                )
-            );
+            throw QueryTypeException::noQueryType($type);
         }
 
         return $this->queryTypes[$type];

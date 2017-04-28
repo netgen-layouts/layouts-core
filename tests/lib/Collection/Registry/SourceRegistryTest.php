@@ -62,10 +62,10 @@ class SourceRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Collection\Registry\SourceRegistry::getSource
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\Exception\Collection\SourceException
      * @expectedExceptionMessage Source with "other_source" identifier does not exist.
      */
-    public function testGetSourceThrowsInvalidArgumentException()
+    public function testGetSourceThrowsSourceException()
     {
         $this->registry->getSource('other_source');
     }

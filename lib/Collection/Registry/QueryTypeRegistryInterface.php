@@ -28,7 +28,7 @@ interface QueryTypeRegistryInterface
      *
      * @param string $type
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If query type does not exist
+     * @throws \Netgen\BlockManager\Exception\Collection\QueryTypeException If query type does not exist
      *
      * @return \Netgen\BlockManager\Collection\QueryTypeInterface
      */

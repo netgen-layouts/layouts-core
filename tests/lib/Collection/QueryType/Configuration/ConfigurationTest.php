@@ -75,10 +75,10 @@ class ConfigurationTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Collection\QueryType\Configuration\Configuration::getForm
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\Exception\Collection\QueryTypeException
      * @expectedExceptionMessage Form "unknown" does not exist in "query_type" query type.
      */
-    public function testGetFormThrowsInvalidArgumentException()
+    public function testGetFormThrowsQueryTypeException()
     {
         $this->configuration->getForm('unknown');
     }

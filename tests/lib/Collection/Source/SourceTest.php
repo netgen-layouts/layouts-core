@@ -96,10 +96,10 @@ class SourceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Collection\Source\Source::getQuery
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\Exception\Collection\SourceException
      * @expectedExceptionMessage Query with "other" identifier does not exist in "source" source.
      */
-    public function testGetQueryThrowsInvalidArgumentException()
+    public function testGetQueryThrowsSourceException()
     {
         $this->source->getQuery('other');
     }

@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Collection\Source;
 
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\Collection\SourceException;
 use Netgen\BlockManager\ValueObject;
 
 class Source extends ValueObject
@@ -69,21 +69,14 @@ class Source extends ValueObject
      *
      * @param $queryIdentifier
      *
-     * @throws \InvalidArgumentException If query does not exist
+     * @throws \Netgen\BlockManager\Exception\Collection\SourceException If query does not exist
      *
      * @return \Netgen\BlockManager\Collection\Source\Query
      */
     public function getQuery($queryIdentifier)
     {
         if (!$this->hasQuery($queryIdentifier)) {
-            throw new InvalidArgumentException(
-                'queryIdentifier',
-                sprintf(
-                    'Query with "%s" identifier does not exist in "%s" source.',
-                    $queryIdentifier,
-                    $this->identifier
-                )
-            );
+            throw SourceException::noQuery($this->identifier, $queryIdentifier);
         }
 
         return $this->queries[$queryIdentifier];

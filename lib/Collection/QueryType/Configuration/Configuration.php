@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Collection\QueryType\Configuration;
 
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\Collection\QueryTypeException;
 use Netgen\BlockManager\ValueObject;
 
 class Configuration extends ValueObject
@@ -59,21 +59,14 @@ class Configuration extends ValueObject
      *
      * @param $formName
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If query type does not have the form
+     * @throws \Netgen\BlockManager\Exception\Collection\QueryTypeException If query type does not have the form
      *
      * @return \Netgen\BlockManager\Collection\QueryType\Configuration\Form
      */
     public function getForm($formName)
     {
         if (!$this->hasForm($formName)) {
-            throw new InvalidArgumentException(
-                'formName',
-                sprintf(
-                    'Form "%s" does not exist in "%s" query type.',
-                    $formName,
-                    $this->type
-                )
-            );
+            throw QueryTypeException::noForm($this->type, $formName);
         }
 
         return $this->forms[$formName];

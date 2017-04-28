@@ -9,6 +9,7 @@ use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\Layout\LayoutTypeException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
@@ -174,7 +175,7 @@ class LayoutController extends Controller
 
         try {
             $layoutType = $this->getLayoutType($request->request->get('layout_type'));
-        } catch (InvalidArgumentException $e) {
+        } catch (LayoutTypeException $e) {
             throw new BadStateException('layout_type', 'Layout type does not exist.', $e);
         }
 
