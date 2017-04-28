@@ -38,7 +38,7 @@ composer require lakion/api-test-case:^1.0
 Afterwards, running tests is as simple as calling the following command:
 
 ```
-DATABASE=mysql://root@localhost/bm_test vendor/bin/phpunit --bootstrap vendor/autoload.php -c vendor/netgen/block-manager/phpunit-api.xml
+EZ_USERNAME=admin EZ_PASSWORD=publish DATABASE=mysql://root@localhost/bm_test vendor/bin/phpunit --bootstrap app/autoload.php -c vendor/netgen/block-manager/phpunit-api.xml
 ```
 
-Notice that you need to specify the database the tests will use. This database needs to be the same as the database used by your Symfony app when in `test` environment.
+Notice that you need to specify username, password for eZ Publish and the database the tests will use. This database needs to be the same as the database used by your Symfony app when in `test` environment.
