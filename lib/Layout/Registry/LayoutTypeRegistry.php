@@ -15,11 +15,12 @@ class LayoutTypeRegistry implements LayoutTypeRegistryInterface
     /**
      * Adds a layout type to registry.
      *
+     * @param string $identifier
      * @param \Netgen\BlockManager\Layout\Type\LayoutType $layoutType
      */
-    public function addLayoutType(LayoutType $layoutType)
+    public function addLayoutType($identifier, LayoutType $layoutType)
     {
-        $this->layoutTypes[$layoutType->getIdentifier()] = $layoutType;
+        $this->layoutTypes[$identifier] = $layoutType;
     }
 
     /**

@@ -9,9 +9,10 @@ interface LayoutTypeRegistryInterface
     /**
      * Adds a layout type to registry.
      *
+     * @param string $identifier
      * @param \Netgen\BlockManager\Layout\Type\LayoutType $layoutType
      */
-    public function addLayoutType(LayoutType $layoutType);
+    public function addLayoutType($identifier, LayoutType $layoutType);
 
     /**
      * Returns if registry has a layout type.

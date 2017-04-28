@@ -17,7 +17,7 @@ class LayoutTypeTransformerTest extends TestCase
     public function setUp()
     {
         $layoutTypeRegistry = new LayoutTypeRegistry();
-        $layoutTypeRegistry->addLayoutType(new LayoutType(array('identifier' => '4_zones_a')));
+        $layoutTypeRegistry->addLayoutType('4_zones_a', new LayoutType(array('identifier' => '4_zones_a')));
 
         $this->dataTransformer = new LayoutTypeTransformer($layoutTypeRegistry);
     }

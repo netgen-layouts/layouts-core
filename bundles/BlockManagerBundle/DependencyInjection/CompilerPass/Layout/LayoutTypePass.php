@@ -29,15 +29,14 @@ class LayoutTypePass implements CompilerPassInterface
         $blockDefinitions = $container->getParameter('netgen_block_manager.block_definitions');
 
         $this->validateLayoutTypes($layoutTypes, $blockDefinitions);
-        $this->buildLayoutTypes($container, $layoutTypes);
+        $layoutTypeServices = $this->buildLayoutTypes($container, $layoutTypes);
 
         $registry = $container->findDefinition(self::SERVICE_NAME);
-        $layoutTypeServices = $container->findTaggedServiceIds(self::TAG_NAME);
 
-        foreach ($layoutTypeServices as $layoutTypeService => $tag) {
+        foreach ($layoutTypeServices as $identifier => $layoutTypeService) {
             $registry->addMethodCall(
                 'addLayoutType',
-                array(new Reference($layoutTypeService))
+                array($identifier, new Reference($layoutTypeService))
             );
         }
     }
@@ -47,18 +46,25 @@ class LayoutTypePass implements CompilerPassInterface
      *
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @param array $layoutTypes
+     *
+     * @return array
      */
     protected function buildLayoutTypes(ContainerBuilder $container, array $layoutTypes)
     {
+        $layoutTypeServices = array();
+
         foreach ($layoutTypes as $identifier => $layoutType) {
             $serviceIdentifier = sprintf('netgen_block_manager.layout.layout_type.%s', $identifier);
 
             $container->register($serviceIdentifier, LayoutType::class)
                 ->setArguments(array($identifier, $layoutType))
                 ->setLazy(true)
-                ->addTag('netgen_block_manager.layout.layout_type')
                 ->setFactory(array(LayoutTypeFactory::class, 'buildLayoutType'));
+
+            $layoutTypeServices[$identifier] = $serviceIdentifier;
         }
+
+        return $layoutTypeServices;
     }
 
     /**

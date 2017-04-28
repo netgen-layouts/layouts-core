@@ -165,8 +165,8 @@ abstract class ServiceTestCase extends TestCase
         );
 
         $this->layoutTypeRegistry = new LayoutTypeRegistry();
-        $this->layoutTypeRegistry->addLayoutType($layoutType1);
-        $this->layoutTypeRegistry->addLayoutType($layoutType2);
+        $this->layoutTypeRegistry->addLayoutType('4_zones_a', $layoutType1);
+        $this->layoutTypeRegistry->addLayoutType('4_zones_b', $layoutType2);
 
         $this->queryTypeRegistry = new QueryTypeRegistry();
         $this->queryTypeRegistry->addQueryType('ezcontent_search', new QueryType('ezcontent_search'));

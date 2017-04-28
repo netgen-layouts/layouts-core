@@ -10,9 +10,10 @@ interface BlockTypeRegistryInterface
     /**
      * Adds a block type to registry.
      *
+     * @param string $identifier
      * @param \Netgen\BlockManager\Block\BlockType\BlockType $blockType
      */
-    public function addBlockType(BlockType $blockType);
+    public function addBlockType($identifier, BlockType $blockType);
 
     /**
      * Returns if registry has a block type.
@@ -44,9 +45,10 @@ interface BlockTypeRegistryInterface
     /**
      * Adds a block type group to registry.
      *
+     * @param string $identifier
      * @param \Netgen\BlockManager\Block\BlockType\BlockTypeGroup $blockTypeGroup
      */
-    public function addBlockTypeGroup(BlockTypeGroup $blockTypeGroup);
+    public function addBlockTypeGroup($identifier, BlockTypeGroup $blockTypeGroup);
 
     /**
      * Returns if registry has a block type group.

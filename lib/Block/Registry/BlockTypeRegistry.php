@@ -21,11 +21,12 @@ class BlockTypeRegistry implements BlockTypeRegistryInterface
     /**
      * Adds a block type to registry.
      *
+     * @param string $identifier
      * @param \Netgen\BlockManager\Block\BlockType\BlockType $blockType
      */
-    public function addBlockType(BlockType $blockType)
+    public function addBlockType($identifier, BlockType $blockType)
     {
-        $this->blockTypes[$blockType->getIdentifier()] = $blockType;
+        $this->blockTypes[$identifier] = $blockType;
     }
 
     /**
@@ -77,11 +78,12 @@ class BlockTypeRegistry implements BlockTypeRegistryInterface
     /**
      * Adds a block type group to registry.
      *
+     * @param string $identifier
      * @param \Netgen\BlockManager\Block\BlockType\BlockTypeGroup $blockTypeGroup
      */
-    public function addBlockTypeGroup(BlockTypeGroup $blockTypeGroup)
+    public function addBlockTypeGroup($identifier, BlockTypeGroup $blockTypeGroup)
     {
-        $this->blockTypeGroups[$blockTypeGroup->getIdentifier()] = $blockTypeGroup;
+        $this->blockTypeGroups[$identifier] = $blockTypeGroup;
     }
 
     /**

@@ -29,15 +29,14 @@ class SourcePass implements CompilerPassInterface
         $queryTypes = $container->getParameter('netgen_block_manager.query_types');
 
         $this->validateSources($sources, $queryTypes);
-        $this->buildSources($container, $sources);
+        $sourceServices = $this->buildSources($container, $sources);
 
         $registry = $container->findDefinition(self::SERVICE_NAME);
-        $sourceServices = $container->findTaggedServiceIds(self::TAG_NAME);
 
-        foreach ($sourceServices as $sourceService => $tag) {
+        foreach ($sourceServices as $identifier => $sourceService) {
             $registry->addMethodCall(
                 'addSource',
-                array(new Reference($sourceService))
+                array($identifier, new Reference($sourceService))
             );
         }
     }
@@ -47,9 +46,13 @@ class SourcePass implements CompilerPassInterface
      *
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @param array $sources
+     *
+     * @return array
      */
     protected function buildSources(ContainerBuilder $container, array $sources)
     {
+        $sourceServices = array();
+
         foreach ($sources as $identifier => $source) {
             if (!$source['enabled']) {
                 continue;
@@ -70,9 +73,12 @@ class SourcePass implements CompilerPassInterface
             $container->register($serviceIdentifier, Source::class)
                 ->setArguments(array($identifier, $source, $queryTypeReferences))
                 ->setLazy(true)
-                ->addTag('netgen_block_manager.collection.source')
                 ->setFactory(array(SourceFactory::class, 'buildSource'));
+
+            $sourceServices[$identifier] = $serviceIdentifier;
         }
+
+        return $sourceServices;
     }
 
     /**

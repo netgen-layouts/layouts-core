@@ -19,6 +19,7 @@ class CreateTypeTest extends FormTestCase
         $layoutTypeRegistry = new LayoutTypeRegistry();
 
         $layoutTypeRegistry->addLayoutType(
+            '4_zones_a',
             new LayoutType(
                 array(
                     'name' => '4 zones A',
@@ -29,6 +30,7 @@ class CreateTypeTest extends FormTestCase
         );
 
         $layoutTypeRegistry->addLayoutType(
+            '4_zones_b',
             new LayoutType(
                 array(
                     'name' => '4 zones B',

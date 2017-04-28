@@ -9,9 +9,10 @@ interface SourceRegistryInterface
     /**
      * Adds a source to registry.
      *
+     * @param string $identifier
      * @param \Netgen\BlockManager\Collection\Source\Source $source
      */
-    public function addSource(Source $source);
+    public function addSource($identifier, Source $source);
 
     /**
      * Returns if registry has a source.

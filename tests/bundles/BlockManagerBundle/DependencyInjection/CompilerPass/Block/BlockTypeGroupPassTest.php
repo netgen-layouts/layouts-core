@@ -38,6 +38,7 @@ class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
             'netgen_block_manager.block.registry.block_type',
             'addBlockTypeGroup',
             array(
+                'test',
                 new Reference('netgen_block_manager.block.block_type_group.test'),
             )
         );

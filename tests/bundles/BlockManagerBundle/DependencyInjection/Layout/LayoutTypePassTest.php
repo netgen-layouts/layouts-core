@@ -37,6 +37,7 @@ class LayoutTypePassTest extends AbstractCompilerPassTestCase
             'netgen_block_manager.layout.registry.layout_type',
             'addLayoutType',
             array(
+                'test',
                 new Reference('netgen_block_manager.layout.layout_type.test'),
             )
         );

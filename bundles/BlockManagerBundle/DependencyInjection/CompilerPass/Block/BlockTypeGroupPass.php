@@ -30,15 +30,14 @@ class BlockTypeGroupPass implements CompilerPassInterface
         $blockTypeGroups = $this->generateBlockTypeGroupConfig($blockTypeGroups, $blockTypes);
         $container->setParameter('netgen_block_manager.block_type_groups', $blockTypeGroups);
 
-        $this->buildBlockTypeGroups($container, $blockTypeGroups, $blockTypes);
+        $blockTypeGroupServices = $this->buildBlockTypeGroups($container, $blockTypeGroups, $blockTypes);
 
         $registry = $container->findDefinition(self::SERVICE_NAME);
-        $blockTypeGroupServices = $container->findTaggedServiceIds(self::TAG_NAME);
 
-        foreach ($blockTypeGroupServices as $blockTypeGroupService => $tag) {
+        foreach ($blockTypeGroupServices as $identifier => $blockTypeGroupService) {
             $registry->addMethodCall(
                 'addBlockTypeGroup',
-                array(new Reference($blockTypeGroupService))
+                array($identifier, new Reference($blockTypeGroupService))
             );
         }
     }
@@ -87,9 +86,13 @@ class BlockTypeGroupPass implements CompilerPassInterface
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @param array $blockTypeGroups
      * @param array $blockTypes
+     *
+     * @return array
      */
     protected function buildBlockTypeGroups(ContainerBuilder $container, array $blockTypeGroups, array $blockTypes)
     {
+        $blockTypeGroupServices = array();
+
         foreach ($blockTypeGroups as $identifier => $blockTypeGroup) {
             if (!$blockTypeGroup['enabled']) {
                 continue;
@@ -112,8 +115,11 @@ class BlockTypeGroupPass implements CompilerPassInterface
             $container->register($serviceIdentifier, BlockTypeGroup::class)
                 ->setArguments(array($identifier, $blockTypeGroup, $blockTypeReferences))
                 ->setLazy(true)
-                ->addTag('netgen_block_manager.block.block_type_group')
                 ->setFactory(array(BlockTypeGroupFactory::class, 'buildBlockTypeGroup'));
+
+            $blockTypeGroupServices[$identifier] = $serviceIdentifier;
         }
+
+        return $blockTypeGroupServices;
     }
 }

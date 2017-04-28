@@ -32,15 +32,14 @@ class BlockTypePass implements CompilerPassInterface
         $container->setParameter('netgen_block_manager.block_types', $blockTypes);
 
         $this->validateBlockTypes($blockTypes, $blockDefinitions);
-        $this->buildBlockTypes($container, $blockTypes, $blockDefinitions);
+        $blockTypeServices = $this->buildBlockTypes($container, $blockTypes, $blockDefinitions);
 
         $registry = $container->findDefinition(self::SERVICE_NAME);
-        $blockTypeServices = $container->findTaggedServiceIds(self::TAG_NAME);
 
-        foreach ($blockTypeServices as $blockTypeService => $tag) {
+        foreach ($blockTypeServices as $identifier => $blockTypeService) {
             $registry->addMethodCall(
                 'addBlockType',
-                array(new Reference($blockTypeService))
+                array($identifier, new Reference($blockTypeService))
             );
         }
     }
@@ -92,9 +91,13 @@ class BlockTypePass implements CompilerPassInterface
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @param array $blockTypes
      * @param array $blockDefinitions
+     *
+     * @return array
      */
     protected function buildBlockTypes(ContainerBuilder $container, array $blockTypes, array $blockDefinitions)
     {
+        $blockTypeServices = array();
+
         foreach ($blockTypes as $identifier => $blockType) {
             $definitionIdentifier = $blockType['definition_identifier'];
             if (!$blockType['enabled'] || !$blockDefinitions[$definitionIdentifier]['enabled']) {
@@ -117,9 +120,12 @@ class BlockTypePass implements CompilerPassInterface
                     )
                 )
                 ->setLazy(true)
-                ->addTag('netgen_block_manager.block.block_type')
                 ->setFactory(array(BlockTypeFactory::class, 'buildBlockType'));
+
+            $blockTypeServices[$identifier] = $serviceIdentifier;
         }
+
+        return $blockTypeServices;
     }
 
     /**

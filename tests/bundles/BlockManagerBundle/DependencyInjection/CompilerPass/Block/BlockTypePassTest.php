@@ -47,6 +47,7 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
             'netgen_block_manager.block.registry.block_type',
             'addBlockType',
             array(
+                'test',
                 new Reference('netgen_block_manager.block.block_type.test'),
             )
         );
@@ -106,6 +107,7 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
             'netgen_block_manager.block.registry.block_type',
             'addBlockType',
             array(
+                'test',
                 new Reference('netgen_block_manager.block.block_type.test'),
             )
         );
@@ -159,6 +161,7 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
             'netgen_block_manager.block.registry.block_type',
             'addBlockType',
             array(
+                'test',
                 new Reference('netgen_block_manager.block.block_type.test'),
             )
         );
@@ -206,6 +209,7 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
             'netgen_block_manager.block.registry.block_type',
             'addBlockType',
             array(
+                'test',
                 new Reference('netgen_block_manager.block.block_type.test'),
             )
         );

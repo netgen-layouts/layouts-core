@@ -47,6 +47,7 @@ class SourcePassTest extends AbstractCompilerPassTestCase
             'netgen_block_manager.collection.registry.source',
             'addSource',
             array(
+                'test',
                 new Reference('netgen_block_manager.collection.source.test'),
             )
         );

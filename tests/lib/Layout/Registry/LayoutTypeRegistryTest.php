@@ -24,7 +24,7 @@ class LayoutTypeRegistryTest extends TestCase
 
         $this->layoutType = new LayoutType(array('identifier' => 'layout_type'));
 
-        $this->registry->addLayoutType($this->layoutType);
+        $this->registry->addLayoutType('layout_type', $this->layoutType);
     }
 
     /**

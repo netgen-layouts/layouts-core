@@ -24,7 +24,7 @@ class SourceRegistryTest extends TestCase
 
         $this->source = new Source(array('identifier' => 'source'));
 
-        $this->registry->addSource($this->source);
+        $this->registry->addSource('source', $this->source);
     }
 
     /**
