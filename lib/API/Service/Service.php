@@ -12,14 +12,14 @@ interface Service
     /**
      * Commits the transaction.
      *
-     * @throws \RuntimeException If no transaction has been started
+     * @throws \Netgen\BlockManager\Exception\RuntimeException If no transaction has been started
      */
     public function commitTransaction();
 
     /**
      * Rollbacks the transaction.
      *
-     * @throws \RuntimeException If no transaction has been started
+     * @throws \Netgen\BlockManager\Exception\RuntimeException If no transaction has been started
      */
     public function rollbackTransaction();
 }

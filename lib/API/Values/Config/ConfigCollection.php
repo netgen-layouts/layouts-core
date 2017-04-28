@@ -23,7 +23,7 @@ interface ConfigCollection
      *
      * @param string $identifier
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the config does not exist
+     * @throws \Netgen\BlockManager\Exception\Core\ConfigException If the config does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Config\Config
      */

@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Core\Values\Config;
 
 use Netgen\BlockManager\API\Values\Config\ConfigCollection as APIConfigCollection;
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\Core\ConfigException;
 use Netgen\BlockManager\ValueObject;
 
 class ConfigCollection extends ValueObject implements APIConfigCollection
@@ -43,7 +43,7 @@ class ConfigCollection extends ValueObject implements APIConfigCollection
      *
      * @param string $identifier
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the config does not exist
+     * @throws \Netgen\BlockManager\Exception\Core\ConfigException If the config does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Config\Config
      */
@@ -53,13 +53,7 @@ class ConfigCollection extends ValueObject implements APIConfigCollection
             return $this->configs[$identifier];
         }
 
-        throw new InvalidArgumentException(
-            'identifier',
-            sprintf(
-                'Configuration with "%s" identifier does not exist.',
-                $identifier
-            )
-        );
+        throw ConfigException::noConfig($identifier);
     }
 
     /**

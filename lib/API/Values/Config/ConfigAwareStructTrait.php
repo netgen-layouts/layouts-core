@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\API\Values\Config;
 
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\Core\ConfigException;
 
 trait ConfigAwareStructTrait
 {
@@ -39,20 +39,14 @@ trait ConfigAwareStructTrait
      *
      * @param $identifier
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If config struct does not exist
+     * @throws \Netgen\BlockManager\Exception\Core\ConfigException If config struct does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Config\ConfigStruct
      */
     public function getConfigStruct($identifier)
     {
         if (!$this->hasConfigStruct($identifier)) {
-            throw new InvalidArgumentException(
-                'identifier',
-                sprintf(
-                    'Config struct with identifier "%s" does not exist in the struct.',
-                    $identifier
-                )
-            );
+            throw ConfigException::noConfigStruct($identifier);
         }
 
         return $this->configStructs[$identifier];

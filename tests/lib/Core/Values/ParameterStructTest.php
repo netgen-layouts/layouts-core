@@ -93,10 +93,10 @@ class ParameterStructTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\API\Values\ParameterStruct::getParameterValue
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Parameter value with name "some_other_param" does not exist in the struct.
+     * @expectedException \Netgen\BlockManager\Exception\Core\ParameterException
+     * @expectedExceptionMessage Parameter value for "some_other_param" parameter does not exist.
      */
-    public function testGetParameterValueThrowsInvalidArgumentException()
+    public function testGetParameterValueThrowsParameterException()
     {
         $this->struct->setParameterValue('some_param', 'some_value');
 

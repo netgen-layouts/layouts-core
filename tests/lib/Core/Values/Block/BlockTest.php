@@ -5,7 +5,8 @@ namespace Netgen\BlockManager\Tests\Core\Values\Block;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\Core\BlockException;
+use Netgen\BlockManager\Exception\Core\ParameterException;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use PHPUnit\Framework\TestCase;
 
@@ -47,13 +48,13 @@ class BlockTest extends TestCase
 
         try {
             $block->getParameter('test');
-        } catch (InvalidArgumentException $e) {
+        } catch (ParameterException $e) {
             // Do nothing
         }
 
         try {
             $block->getPlaceholder('test');
-        } catch (InvalidArgumentException $e) {
+        } catch (BlockException $e) {
             // Do nothing
         }
     }
@@ -122,7 +123,7 @@ class BlockTest extends TestCase
 
         try {
             $block->getParameter('test');
-        } catch (InvalidArgumentException $e) {
+        } catch (ParameterException $e) {
             // Do nothing
         }
 
@@ -135,7 +136,7 @@ class BlockTest extends TestCase
 
         try {
             $block->getPlaceholder('test');
-        } catch (InvalidArgumentException $e) {
+        } catch (BlockException $e) {
             // Do nothing
         }
     }

@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Core\Values\Config;
 
 use Netgen\BlockManager\Core\Values\Config\Config;
 use Netgen\BlockManager\Core\Values\Config\ConfigCollection;
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\Core\ConfigException;
 use Netgen\BlockManager\Tests\Core\Stubs\ConfigAwareValue;
 use PHPUnit\Framework\TestCase;
 
@@ -51,7 +51,7 @@ class ConfigAwareValueTraitTest extends TestCase
 
         try {
             $value->getConfig('unknown');
-        } catch (InvalidArgumentException $e) {
+        } catch (ConfigException $e) {
             // Do nothing
         }
     }

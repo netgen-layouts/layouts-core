@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Core\Values\Block;
 use Netgen\BlockManager\API\Values\Block\Block as APIBlock;
 use Netgen\BlockManager\Core\Values\Config\ConfigAwareValueTrait;
 use Netgen\BlockManager\Core\Values\ParameterBasedValueTrait;
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\Core\BlockException;
 use Netgen\BlockManager\ValueObject;
 
 class Block extends ValueObject implements APIBlock
@@ -143,7 +143,7 @@ class Block extends ValueObject implements APIBlock
      *
      * @param string $identifier
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the placeholder does not exist
+     * @throws \Netgen\BlockManager\Exception\Core\BlockException If the placeholder does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Block\Placeholder
      */
@@ -153,13 +153,7 @@ class Block extends ValueObject implements APIBlock
             return $this->placeholders[$identifier];
         }
 
-        throw new InvalidArgumentException(
-            'identifier',
-            sprintf(
-                'Placeholder with "%s" identifier does not exist in the block.',
-                $identifier
-            )
-        );
+        throw BlockException::noPlaceholder($identifier);
     }
 
     /**

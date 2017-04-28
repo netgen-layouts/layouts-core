@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\API\Values;
 
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\Core\ParameterException;
 use Netgen\BlockManager\Parameters\CompoundParameterInterface;
 use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
 use Netgen\BlockManager\Parameters\ParameterInterface;
@@ -52,20 +52,14 @@ abstract class ParameterStruct extends ValueObject
      *
      * @param string $parameterName
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If parameter value does not exist
+     * @throws \Netgen\BlockManager\Exception\Core\ParameterException If parameter value does not exist
      *
      * @return mixed
      */
     public function getParameterValue($parameterName)
     {
         if (!$this->hasParameterValue($parameterName)) {
-            throw new InvalidArgumentException(
-                'parameterName',
-                sprintf(
-                    'Parameter value with name "%s" does not exist in the struct.',
-                    $parameterName
-                )
-            );
+            throw ParameterException::noParameterValue($parameterName);
         }
 
         return $this->parameterValues[$parameterName];

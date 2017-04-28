@@ -113,6 +113,8 @@ class Block implements APIBlock
      *
      * @param string $identifier
      *
+     * @throws \Netgen\BlockManager\Exception\Core\BlockException If the placeholder does not exist
+     *
      * @return \Netgen\BlockManager\API\Values\Block\Placeholder
      */
     public function getPlaceholder($identifier)
@@ -157,7 +159,7 @@ class Block implements APIBlock
      *
      * @param string $parameter
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the requested parameter does not exist
+     * @throws \Netgen\BlockManager\Exception\Parameters\ParameterException If the requested parameter does not exist
      *
      * @return \Netgen\BlockManager\Parameters\ParameterValue
      */

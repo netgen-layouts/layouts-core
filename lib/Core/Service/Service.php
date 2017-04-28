@@ -35,7 +35,7 @@ abstract class Service implements APIService
     /**
      * Commits the transaction.
      *
-     * @throws \RuntimeException If no transaction has been started
+     * @throws \Netgen\BlockManager\Exception\RuntimeException If no transaction has been started
      */
     public function commitTransaction()
     {
@@ -49,7 +49,7 @@ abstract class Service implements APIService
     /**
      * Rollbacks the transaction.
      *
-     * @throws \RuntimeException If no transaction has been started
+     * @throws \Netgen\BlockManager\Exception\RuntimeException If no transaction has been started
      */
     public function rollbackTransaction()
     {

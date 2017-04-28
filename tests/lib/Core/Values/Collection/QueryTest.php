@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Core\Values\Collection;
 
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\Collection\Query;
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\Core\ParameterException;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 
@@ -35,7 +35,7 @@ class QueryTest extends TestCase
 
         try {
             $query->getParameter('test');
-        } catch (InvalidArgumentException $e) {
+        } catch (ParameterException $e) {
             // Do nothing
         }
     }
@@ -76,7 +76,7 @@ class QueryTest extends TestCase
 
         try {
             $query->getParameter('test');
-        } catch (InvalidArgumentException $e) {
+        } catch (ParameterException $e) {
             // Do nothing
         }
     }

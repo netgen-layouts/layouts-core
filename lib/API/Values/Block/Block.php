@@ -69,7 +69,7 @@ interface Block extends Value, ParameterBasedValue, ConfigAwareValue
      *
      * @param string $identifier
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the placeholder does not exist
+     * @throws \Netgen\BlockManager\Exception\Core\BlockException If the placeholder does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Block\Placeholder
      */

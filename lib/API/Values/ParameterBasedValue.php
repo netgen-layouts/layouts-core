@@ -16,7 +16,7 @@ interface ParameterBasedValue
      *
      * @param string $parameter
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the requested parameter does not exist
+     * @throws \Netgen\BlockManager\Exception\Core\ParameterException If the requested parameter does not exist
      *
      * @return \Netgen\BlockManager\Parameters\ParameterValue
      */
