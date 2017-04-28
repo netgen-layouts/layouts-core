@@ -6,11 +6,18 @@ use Exception as BaseException;
 use InvalidArgumentException as BaseInvalidArgumentException;
 use Netgen\BlockManager\Exception\Exception;
 
-class ValidationFailedException extends BaseInvalidArgumentException implements Exception
+class ValidationException extends BaseInvalidArgumentException implements Exception
 {
-    public function __construct($propertyPath, $message, BaseException $previous = null)
+    /**
+     * @param string $propertyPath
+     * @param string $message
+     * @param \Exception $previous
+     *
+     * @return \Netgen\BlockManager\Exception\Validation\ValidationException
+     */
+    public static function validationFailed($propertyPath, $message, BaseException $previous = null)
     {
-        parent::__construct(
+        return new self(
             sprintf(
                 'There was an error validating "%s": %s',
                 (string) $propertyPath,

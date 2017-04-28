@@ -12,7 +12,7 @@ use Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct;
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
-use Netgen\BlockManager\Exception\Validation\ValidationFailedException;
+use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
@@ -78,7 +78,7 @@ class LayoutResolverValidatorTest extends TestCase
     public function testValidateRuleCreateStruct(array $params, $isValid)
     {
         if (!$isValid) {
-            $this->expectException(ValidationFailedException::class);
+            $this->expectException(ValidationException::class);
         }
 
         $this->layoutResolverValidator->validateRuleCreateStruct(new RuleCreateStruct($params));
@@ -95,7 +95,7 @@ class LayoutResolverValidatorTest extends TestCase
     public function testValidateRuleUpdateStruct(array $params, $isValid)
     {
         if (!$isValid) {
-            $this->expectException(ValidationFailedException::class);
+            $this->expectException(ValidationException::class);
         }
 
         $this->layoutResolverValidator->validateRuleUpdateStruct(new RuleUpdateStruct($params));
@@ -112,7 +112,7 @@ class LayoutResolverValidatorTest extends TestCase
     public function testValidateRuleMetadataUpdateStruct(array $params, $isValid)
     {
         if (!$isValid) {
-            $this->expectException(ValidationFailedException::class);
+            $this->expectException(ValidationException::class);
         }
 
         $this->layoutResolverValidator->validateRuleMetadataUpdateStruct(
@@ -131,7 +131,7 @@ class LayoutResolverValidatorTest extends TestCase
     public function testValidateTargetCreateStruct(array $params, $isValid)
     {
         if (!$isValid) {
-            $this->expectException(ValidationFailedException::class);
+            $this->expectException(ValidationException::class);
         }
 
         $this->layoutResolverValidator->validateTargetCreateStruct(new TargetCreateStruct($params));
@@ -148,7 +148,7 @@ class LayoutResolverValidatorTest extends TestCase
     public function testValidateTargetUpdateStruct(array $params, $isValid)
     {
         if (!$isValid) {
-            $this->expectException(ValidationFailedException::class);
+            $this->expectException(ValidationException::class);
         }
 
         $this->layoutResolverValidator->validateTargetUpdateStruct(
@@ -168,7 +168,7 @@ class LayoutResolverValidatorTest extends TestCase
     public function testValidateConditionCreateStruct(array $params, $isValid)
     {
         if (!$isValid) {
-            $this->expectException(ValidationFailedException::class);
+            $this->expectException(ValidationException::class);
         }
 
         $this->layoutResolverValidator->validateConditionCreateStruct(new ConditionCreateStruct($params));
@@ -185,7 +185,7 @@ class LayoutResolverValidatorTest extends TestCase
     public function testValidateConditionUpdateStruct(array $params, $isValid)
     {
         if (!$isValid) {
-            $this->expectException(ValidationFailedException::class);
+            $this->expectException(ValidationException::class);
         }
 
         $this->layoutResolverValidator->validateConditionUpdateStruct(

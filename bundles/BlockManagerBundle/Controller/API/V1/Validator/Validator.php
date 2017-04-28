@@ -15,7 +15,7 @@ abstract class Validator
      * @param int $offset
      * @param int $limit
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationFailedException If validation failed
+     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If validation failed
      */
     public function validateOffsetAndLimit($offset, $limit)
     {

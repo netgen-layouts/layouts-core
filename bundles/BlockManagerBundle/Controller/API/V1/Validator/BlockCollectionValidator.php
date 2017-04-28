@@ -4,7 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator;
 
 use Netgen\BlockManager\API\Values\Block\CollectionReference;
 use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\Exception\ValidationFailedException;
+use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Symfony\Component\Validator\Constraints;
 
 class BlockCollectionValidator extends Validator
@@ -16,7 +16,7 @@ class BlockCollectionValidator extends Validator
      * @param int $newType
      * @param string $queryType
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationFailedException If validation failed
+     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If validation failed
      */
     public function validateChangeCollectionType(CollectionReference $collectionReference, $newType, $queryType)
     {
@@ -45,7 +45,8 @@ class BlockCollectionValidator extends Validator
                 $collectionConfig = $blockDefinition->getConfig()->getCollection($collectionIdentifier);
 
                 if (!$collectionConfig->isValidQueryType($queryType)) {
-                    throw new ValidationFailedException(
+                    throw ValidationException::validationFailed(
+                        'query_type',
                         sprintf(
                             'Query type "%s" is not allowed in selected block.',
                             $queryType

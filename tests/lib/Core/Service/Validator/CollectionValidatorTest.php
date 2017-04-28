@@ -12,7 +12,7 @@ use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
-use Netgen\BlockManager\Exception\Validation\ValidationFailedException;
+use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType as QueryTypeStub;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandlerWithRequiredParameter;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
@@ -55,7 +55,7 @@ class CollectionValidatorTest extends TestCase
     public function testValidateCollectionCreateStruct(array $params, $isValid)
     {
         if (!$isValid) {
-            $this->expectException(ValidationFailedException::class);
+            $this->expectException(ValidationException::class);
         }
 
         $this->collectionValidator->validateCollectionCreateStruct(
@@ -65,7 +65,7 @@ class CollectionValidatorTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateCollectionCreateStruct
-     * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationFailedException
+     * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
      * @expectedExceptionMessage Manual collection cannot have a query.
      */
     public function testValidateCollectionCreateStructWithQueryInManualCollection()
@@ -87,7 +87,7 @@ class CollectionValidatorTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateCollectionCreateStruct
-     * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationFailedException
+     * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
      * @expectedExceptionMessage Dynamic collection needs to have a query.
      */
     public function testValidateCollectionCreateStructWithNoQueryInDynamicCollection()
@@ -109,7 +109,7 @@ class CollectionValidatorTest extends TestCase
     public function testValidateItemCreateStruct(array $params, $isValid)
     {
         if (!$isValid) {
-            $this->expectException(ValidationFailedException::class);
+            $this->expectException(ValidationException::class);
         }
 
         $this->collectionValidator->validateItemCreateStruct(new ItemCreateStruct($params));
@@ -126,7 +126,7 @@ class CollectionValidatorTest extends TestCase
     public function testValidateQueryCreateStruct(array $params, $isValid)
     {
         if (!$isValid) {
-            $this->expectException(ValidationFailedException::class);
+            $this->expectException(ValidationException::class);
         }
 
         $this->collectionValidator->validateQueryCreateStruct(new QueryCreateStruct($params));
@@ -143,7 +143,7 @@ class CollectionValidatorTest extends TestCase
     public function testValidateQueryUpdateStruct(array $params, $isValid)
     {
         if (!$isValid) {
-            $this->expectException(ValidationFailedException::class);
+            $this->expectException(ValidationException::class);
         }
 
         $this->collectionValidator->validateQueryUpdateStruct(

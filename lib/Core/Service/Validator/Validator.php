@@ -15,7 +15,7 @@ abstract class Validator
      * @param int|string $id
      * @param string $propertyPath
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationFailedException If the validation failed
+     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
     public function validateId($id, $propertyPath = null)
     {
@@ -36,7 +36,7 @@ abstract class Validator
      * @param string $propertyPath
      * @param bool $isRequired
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationFailedException If the validation failed
+     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
     public function validateIdentifier($identifier, $propertyPath = null, $isRequired = false)
     {
@@ -64,7 +64,7 @@ abstract class Validator
      * @param string $propertyPath
      * @param bool $isRequired
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationFailedException If the validation failed
+     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
     public function validatePosition($position, $propertyPath = null, $isRequired = false)
     {
@@ -87,7 +87,7 @@ abstract class Validator
      * @param int $offset
      * @param int $limit
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationFailedException If the validation failed
+     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
     public function validateOffsetAndLimit($offset, $limit)
     {

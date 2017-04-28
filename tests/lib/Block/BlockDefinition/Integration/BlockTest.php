@@ -11,7 +11,7 @@ use Netgen\BlockManager\Config\Registry\ConfigDefinitionRegistry;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\ConfigValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
-use Netgen\BlockManager\Exception\Validation\ValidationFailedException;
+use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Parameters\ParameterBuilder;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
@@ -86,12 +86,12 @@ abstract class BlockTest extends ServiceTestCase
      * @param array $parameters
      * @param array $testedParams
      * @dataProvider invalidParametersDataProvider
-     * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationFailedException
+     * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
      */
     public function testCreateBlockWithInvalidParameters(array $parameters, array $testedParams = null)
     {
         if (empty($parameters)) {
-            throw new ValidationFailedException('parameters', 'Invalid parameters');
+            throw ValidationException::validationFailed('parameters', 'Invalid parameters');
         }
 
         $blockDefinition = $this->createBlockDefinition(

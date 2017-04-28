@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Config\Registry\ConfigDefinitionRegistry;
 use Netgen\BlockManager\Core\Service\Validator\ConfigValidator;
-use Netgen\BlockManager\Exception\Validation\ValidationFailedException;
+use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Tests\Config\Stubs\Block\HttpCacheConfigHandler;
 use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinition;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
@@ -75,7 +75,7 @@ class ConfigValidatorTest extends TestCase
     public function testValidateConfigStructs(array $config, $isValid)
     {
         if (!$isValid) {
-            $this->expectException(ValidationFailedException::class);
+            $this->expectException(ValidationException::class);
         }
 
         $configStructs = array();
@@ -93,7 +93,7 @@ class ConfigValidatorTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Validator\ConfigValidator::__construct
      * @covers \Netgen\BlockManager\Core\Service\Validator\ConfigValidator::validateConfigStructs
-     * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationFailedException
+     * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
      * @expectedExceptionMessage This value should be of type Netgen\BlockManager\API\Values\Config\ConfigStruct.
      * @doesNotPerformAssertions
      */

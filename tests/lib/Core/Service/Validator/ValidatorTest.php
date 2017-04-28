@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
 use Netgen\BlockManager\Core\Service\Validator\Validator;
-use Netgen\BlockManager\Exception\Validation\ValidationFailedException;
+use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
@@ -44,7 +44,7 @@ class ValidatorTest extends TestCase
     public function testValidateId($id, $isValid)
     {
         if (!$isValid) {
-            $this->expectException(ValidationFailedException::class);
+            $this->expectException(ValidationException::class);
         }
 
         $this->validator->validateId($id);
@@ -62,7 +62,7 @@ class ValidatorTest extends TestCase
     public function testValidateIdentifier($identifier, $isRequired, $isValid)
     {
         if (!$isValid) {
-            $this->expectException(ValidationFailedException::class);
+            $this->expectException(ValidationException::class);
         }
 
         $this->validator->validateIdentifier($identifier, null, $isRequired);
@@ -80,7 +80,7 @@ class ValidatorTest extends TestCase
     public function testValidatePosition($position, $isRequired, $isValid)
     {
         if (!$isValid) {
-            $this->expectException(ValidationFailedException::class);
+            $this->expectException(ValidationException::class);
         }
 
         $this->validator->validatePosition($position, null, $isRequired);
@@ -98,7 +98,7 @@ class ValidatorTest extends TestCase
     public function testValidateOffsetAndLimit($offset, $limit, $isValid)
     {
         if (!$isValid) {
-            $this->expectException(ValidationFailedException::class);
+            $this->expectException(ValidationException::class);
         }
 
         $this->validator->validateOffsetAndLimit($offset, $limit);

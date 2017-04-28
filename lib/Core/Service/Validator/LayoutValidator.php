@@ -15,7 +15,7 @@ class LayoutValidator extends Validator
      *
      * @param \Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct $layoutCreateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationFailedException If the validation failed
+     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
     public function validateLayoutCreateStruct(LayoutCreateStruct $layoutCreateStruct)
     {
@@ -71,7 +71,7 @@ class LayoutValidator extends Validator
      *
      * @param \Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct $layoutUpdateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationFailedException If the validation failed
+     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
     public function validateLayoutUpdateStruct(LayoutUpdateStruct $layoutUpdateStruct)
     {
@@ -110,7 +110,7 @@ class LayoutValidator extends Validator
      *
      * @param \Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct $layoutCopyStruct
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationFailedException If the validation failed
+     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
     public function validateLayoutCopyStruct(LayoutCopyStruct $layoutCopyStruct)
     {

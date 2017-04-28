@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
-use Netgen\BlockManager\Exception\Validation\ValidationFailedException;
+use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\TestCase;
@@ -48,7 +48,7 @@ class LayoutValidatorTest extends TestCase
     public function testValidateLayoutCreateStruct(array $params, $isValid)
     {
         if (!$isValid) {
-            $this->expectException(ValidationFailedException::class);
+            $this->expectException(ValidationException::class);
         }
 
         $this->layoutValidator->validateLayoutCreateStruct(new LayoutCreateStruct($params));
@@ -65,7 +65,7 @@ class LayoutValidatorTest extends TestCase
     public function testValidateLayoutUpdateStruct(array $params, $isValid)
     {
         if (!$isValid) {
-            $this->expectException(ValidationFailedException::class);
+            $this->expectException(ValidationException::class);
         }
 
         $this->layoutValidator->validateLayoutUpdateStruct(
@@ -84,7 +84,7 @@ class LayoutValidatorTest extends TestCase
     public function testValidateLayoutCopyStruct(array $params, $isValid)
     {
         if (!$isValid) {
-            $this->expectException(ValidationFailedException::class);
+            $this->expectException(ValidationException::class);
         }
 
         $this->layoutValidator->validateLayoutCopyStruct(

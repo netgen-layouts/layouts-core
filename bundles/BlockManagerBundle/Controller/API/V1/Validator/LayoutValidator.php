@@ -12,7 +12,7 @@ class LayoutValidator extends Validator
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationFailedException If validation failed
+     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If validation failed
      */
     public function validateCreateLayout(Request $request)
     {

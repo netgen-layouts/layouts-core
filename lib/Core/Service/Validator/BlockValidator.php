@@ -34,7 +34,7 @@ class BlockValidator extends Validator
      *
      * @param \Netgen\BlockManager\API\Values\Block\BlockCreateStruct $blockCreateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationFailedException If the validation failed
+     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
     public function validateBlockCreateStruct(BlockCreateStruct $blockCreateStruct)
     {
@@ -106,7 +106,7 @@ class BlockValidator extends Validator
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param \Netgen\BlockManager\API\Values\Block\BlockUpdateStruct $blockUpdateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationFailedException If the validation failed
+     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
     public function validateBlockUpdateStruct(Block $block, BlockUpdateStruct $blockUpdateStruct)
     {
