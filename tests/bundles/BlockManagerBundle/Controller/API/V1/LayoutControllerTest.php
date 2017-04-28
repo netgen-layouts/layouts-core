@@ -1045,11 +1045,7 @@ class LayoutControllerTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'There was an error validating "name": This value should not be blank.'
-        );
+        $this->assertEmptyResponse($this->client->getResponse());
     }
 
     /**

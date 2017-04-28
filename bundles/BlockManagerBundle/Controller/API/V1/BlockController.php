@@ -135,46 +135,6 @@ class BlockController extends Controller
     }
 
     /**
-     * Updates the block.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If some of the parameters do not exist in the block
-     *
-     * @return \Netgen\BlockManager\Serializer\Values\View
-     */
-    public function update(Block $block, Request $request)
-    {
-        $blockUpdateStruct = $this->blockService->newBlockUpdateStruct();
-        $blockUpdateStruct->name = $request->request->get('name');
-        $blockUpdateStruct->viewType = $request->request->get('view_type');
-        $blockUpdateStruct->itemViewType = $request->request->get('item_view_type');
-
-        $parameters = $request->request->get('parameters');
-        if (is_array($request->request->get('parameters'))) {
-            foreach ($parameters as $parameterName => $parameterValue) {
-                if (!$block->hasParameter($parameterName)) {
-                    throw new BadStateException(
-                        'parameters[' . $parameterName . ']',
-                        'Parameter does not exist in block.'
-                    );
-                }
-
-                $parameterType = $block->getParameter($parameterName)->getParameter()->getType();
-                $blockUpdateStruct->setParameterValue(
-                    $parameterName,
-                    $parameterType->createValueFromInput($parameterValue)
-                );
-            }
-        }
-
-        $updatedBlock = $this->blockService->updateBlock($block, $blockUpdateStruct);
-
-        return new View($updatedBlock, Version::API_V1);
-    }
-
-    /**
      * Copies the block draft to specified block.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
