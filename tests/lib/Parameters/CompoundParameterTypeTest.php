@@ -77,10 +77,10 @@ class CompoundParameterTypeTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\CompoundParameterType::getConstraints
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\Exception\Parameters\ParameterTypeException
      * @expectedExceptionMessage Parameter with "compound_boolean" type is not supported
      */
-    public function testGetConstraintsThrowsInvalidArgumentException()
+    public function testGetConstraintsThrowsParameterTypeException()
     {
         $this->parameterType->getConstraints(
             new CompoundParameter(array('type' => new BooleanType())),

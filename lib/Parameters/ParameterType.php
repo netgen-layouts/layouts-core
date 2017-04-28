@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Parameters;
 
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\Parameters\ParameterTypeException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
@@ -35,12 +35,8 @@ abstract class ParameterType implements ParameterTypeInterface
     public function getConstraints(ParameterInterface $parameter, $value)
     {
         if ($parameter->getType()->getIdentifier() !== $this->getIdentifier()) {
-            throw new InvalidArgumentException(
-                'parameter',
-                sprintf(
-                    'Parameter with "%s" type is not supported',
-                    $parameter->getType()->getIdentifier()
-                )
+            throw ParameterTypeException::unsupportedParameterType(
+                $parameter->getType()->getIdentifier()
             );
         }
 

@@ -38,10 +38,10 @@ class ParameterFilterRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry::addParameterFilters
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Parameter filter "stdClass" needs to implement ParameterFilterInterface.
+     * @expectedException \Netgen\BlockManager\Exception\Parameters\ParameterFilterException
+     * @expectedExceptionMessage Parameter filter "stdClass" needs to implement Netgen\BlockManager\Parameters\ParameterFilterInterface.
      */
-    public function testAddParameterFiltersThrowRuntimeException()
+    public function testAddParameterFiltersParameterFilterException()
     {
         $this->registry->addParameterFilters('type', array(new stdClass()));
     }

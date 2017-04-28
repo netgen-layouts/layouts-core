@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Parameters\Registry;
 
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\Parameters\ParameterTypeException;
 use Netgen\BlockManager\Parameters\ParameterTypeInterface;
 
 class ParameterTypeRegistry implements ParameterTypeRegistryInterface
@@ -45,20 +45,14 @@ class ParameterTypeRegistry implements ParameterTypeRegistryInterface
      *
      * @param string $identifier
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If parameter type does not exist
+     * @throws \Netgen\BlockManager\Exception\Parameters\ParameterTypeException If parameter type does not exist
      *
      * @return \Netgen\BlockManager\Parameters\ParameterTypeInterface
      */
     public function getParameterType($identifier)
     {
         if (!$this->hasParameterType($identifier)) {
-            throw new InvalidArgumentException(
-                'type',
-                sprintf(
-                    'Parameter type with "%s" identifier does not exist.',
-                    $identifier
-                )
-            );
+            throw ParameterTypeException::noParameterType($identifier);
         }
 
         return $this->parameterTypes[$identifier];
@@ -69,20 +63,14 @@ class ParameterTypeRegistry implements ParameterTypeRegistryInterface
      *
      * @param string $class
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If parameter type does not exist
+     * @throws \Netgen\BlockManager\Exception\Parameters\ParameterTypeException If parameter type does not exist
      *
      * @return \Netgen\BlockManager\Parameters\ParameterTypeInterface
      */
     public function getParameterTypeByClass($class)
     {
         if (!isset($this->parameterTypesByClass[$class])) {
-            throw new InvalidArgumentException(
-                'class',
-                sprintf(
-                    'Parameter type with class "%s" does not exist.',
-                    $class
-                )
-            );
+            throw ParameterTypeException::noParameterTypeClass($class);
         }
 
         return $this->parameterTypesByClass[$class];

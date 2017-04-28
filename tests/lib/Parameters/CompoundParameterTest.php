@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Parameters;
 
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\Parameters\ParameterException;
 use Netgen\BlockManager\Parameters\CompoundParameter;
 use PHPUnit\Framework\TestCase;
 
@@ -42,7 +42,7 @@ class CompoundParameterTest extends TestCase
         try {
             $this->assertEquals(array(), $parameter->getParameter('test'));
             $this->fail('Fetched a parameter in empty collection.');
-        } catch (InvalidArgumentException $e) {
+        } catch (ParameterException $e) {
             // Do nothing
         }
 

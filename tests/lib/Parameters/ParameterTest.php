@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Parameters;
 
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\Parameters\ParameterException;
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Parameters\ParameterType\TextType;
 use PHPUnit\Framework\TestCase;
@@ -72,7 +72,7 @@ class ParameterTest extends TestCase
             $parameter->getOption('other');
 
             $this->fail('Non existing option was returned.');
-        } catch (InvalidArgumentException $e) {
+        } catch (ParameterException $e) {
             // Do nothing
         }
     }

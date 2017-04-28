@@ -62,10 +62,10 @@ class ParameterTypeRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::getParameterType
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\Exception\Parameters\ParameterTypeException
      * @expectedExceptionMessage Parameter type with "other_type" identifier does not exist.
      */
-    public function testGetParameterTypeThrowsInvalidArgumentException()
+    public function testGetParameterTypeThrowsParameterTypeException()
     {
         $this->registry->getParameterType('other_type');
     }
@@ -80,10 +80,10 @@ class ParameterTypeRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::getParameterTypeByClass
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\Exception\Parameters\ParameterTypeException
      * @expectedExceptionMessage Parameter type with class "SomeClass" does not exist.
      */
-    public function testGetParameterTypeByClassThrowsInvalidArgumentException()
+    public function testGetParameterTypeByClassThrowsParameterTypeException()
     {
         $this->registry->getParameterTypeByClass('SomeClass');
     }

@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Parameters;
 
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\Parameters\ParameterException;
 
 trait ParameterCollectionTrait
 {
@@ -26,7 +26,7 @@ trait ParameterCollectionTrait
      *
      * @param string $parameterName
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If parameter with provided name does not exist
+     * @throws \Netgen\BlockManager\Exception\Parameters\ParameterException If parameter with provided name does not exist
      *
      * @return \Netgen\BlockManager\Parameters\ParameterInterface
      */
@@ -36,13 +36,7 @@ trait ParameterCollectionTrait
             return $this->parameters[$parameterName];
         }
 
-        throw new InvalidArgumentException(
-            'parameterName',
-            sprintf(
-                'Parameter with "%s" name does not exist in the object.',
-                $parameterName
-            )
-        );
+        throw ParameterException::noParameter($parameterName);
     }
 
     /**

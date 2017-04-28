@@ -39,7 +39,7 @@ interface ParameterInterface
      *
      * @param string $option
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If option does not exist
+     * @throws \Netgen\BlockManager\Exception\Parameters\ParameterException If option does not exist
      *
      * @return mixed
      */

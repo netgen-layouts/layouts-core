@@ -62,10 +62,10 @@ class FormMapperRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\Registry\FormMapperRegistry::getFormMapper
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\Exception\Parameters\ParameterTypeException
      * @expectedExceptionMessage Form mapper for "other_mapper" parameter type does not exist.
      */
-    public function testGetFormMapperThrowsInvalidArgumentException()
+    public function testGetFormMapperThrowsParameterTypeException()
     {
         $this->registry->getFormMapper('other_mapper');
     }

@@ -63,10 +63,10 @@ class ParameterTypeTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType::getConstraints
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\Exception\Parameters\ParameterTypeException
      * @expectedExceptionMessage Parameter with "text" type is not supported
      */
-    public function testGetConstraintsThrowsInvalidArgumentException()
+    public function testGetConstraintsThrowsParameterTypeException()
     {
         $this->parameterType->getConstraints(
             new Parameter(array('type' => new TextType())),

@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Parameters;
 
 use Netgen\BlockManager\Exception\BadMethodCallException;
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\Parameters\ParameterBuilderException;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -141,21 +141,14 @@ class ParameterBuilder implements ParameterBuilderInterface
      *
      * @param string $name
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the option does not exist
+     * @throws \Netgen\BlockManager\Exception\Parameters\ParameterBuilderException If the option does not exist
      *
      * @return mixed
      */
     public function getOption($name)
     {
         if (!array_key_exists($name, $this->options)) {
-            throw new InvalidArgumentException(
-                'name',
-                sprintf(
-                    'Option "%s" does not exist in builder for "%s" parameter',
-                    $name,
-                    $this->name
-                )
-            );
+            throw ParameterBuilderException::noOption($name, $this->name);
         }
 
         return $this->options[$name];
@@ -296,17 +289,11 @@ class ParameterBuilder implements ParameterBuilderInterface
         $type = $this->parameterTypeRegistry->getParameterTypeByClass($type);
 
         if ($this->type instanceof CompoundParameterTypeInterface && $type instanceof CompoundParameterTypeInterface) {
-            throw new InvalidArgumentException(
-                'name',
-                'Compound parameters cannot be added to compound parameters.'
-            );
+            throw ParameterBuilderException::subCompound();
         }
 
         if ($this->type !== null && !$this->type instanceof CompoundParameterTypeInterface) {
-            throw new InvalidArgumentException(
-                'name',
-                'Parameters cannot be added to non-compound parameters.'
-            );
+            throw ParameterBuilderException::nonCompound();
         }
 
         $this->unresolvedChildren[$name] = new self(
@@ -334,13 +321,7 @@ class ParameterBuilder implements ParameterBuilderInterface
         }
 
         if (!$this->has($name)) {
-            throw new InvalidArgumentException(
-                'name',
-                sprintf(
-                    'Parameter with "%s" name does not exist in the builder.',
-                    $name
-                )
-            );
+            throw ParameterBuilderException::noParameter($name);
         }
 
         return $this->unresolvedChildren[$name];

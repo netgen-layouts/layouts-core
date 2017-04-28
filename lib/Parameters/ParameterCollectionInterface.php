@@ -16,7 +16,7 @@ interface ParameterCollectionInterface
      *
      * @param string $parameterName
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If parameter with provided name does not exist
+     * @throws \Netgen\BlockManager\Exception\Parameters\ParameterException If parameter with provided name does not exist
      *
      * @return \Netgen\BlockManager\Parameters\ParameterInterface
      */

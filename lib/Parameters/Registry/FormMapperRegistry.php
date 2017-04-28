@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Parameters\Registry;
 
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\Parameters\ParameterTypeException;
 use Netgen\BlockManager\Parameters\Form\MapperInterface;
 
 class FormMapperRegistry implements FormMapperRegistryInterface
@@ -40,20 +40,14 @@ class FormMapperRegistry implements FormMapperRegistryInterface
      *
      * @param string $parameterType
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If form mapper does not exist
+     * @throws \Netgen\BlockManager\Exception\Parameters\ParameterTypeException If form mapper does not exist
      *
      * @return \Netgen\BlockManager\Parameters\Form\MapperInterface
      */
     public function getFormMapper($parameterType)
     {
         if (!$this->hasFormMapper($parameterType)) {
-            throw new InvalidArgumentException(
-                'type',
-                sprintf(
-                    'Form mapper for "%s" parameter type does not exist.',
-                    $parameterType
-                )
-            );
+            throw ParameterTypeException::noFormMapper($parameterType);
         }
 
         return $this->formMappers[$parameterType];

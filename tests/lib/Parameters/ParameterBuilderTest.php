@@ -114,10 +114,10 @@ class ParameterBuilderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::getOption
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\Exception\Parameters\ParameterBuilderException
      * @expectedExceptionMessage Option "unknown" does not exist in builder for "test" parameter
      */
-    public function testGetOptionThrowsInvalidArgumentException()
+    public function testGetOptionThrowsParameterBuilderException()
     {
         $this->builder->add(
             'test',
@@ -313,10 +313,10 @@ class ParameterBuilderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::add
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\Exception\Parameters\ParameterBuilderException
      * @expectedExceptionMessage Parameters cannot be added to non-compound parameters.
      */
-    public function testAddThrowsInvalidArgumentExceptionOnAddingParameterToNonCompoundParameter()
+    public function testAddThrowsParameterBuilderExceptionOnAddingParameterToNonCompoundParameter()
     {
         $this->builder->add(
             'test',
@@ -341,10 +341,10 @@ class ParameterBuilderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::add
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\Exception\Parameters\ParameterBuilderException
      * @expectedExceptionMessage Compound parameters cannot be added to compound parameters.
      */
-    public function testAddThrowsInvalidArgumentExceptionOnAddingCompoundParameterToCompoundParameter()
+    public function testAddThrowsParameterBuilderExceptionOnAddingCompoundParameterToCompoundParameter()
     {
         $this->builder->add(
             'test',
@@ -412,10 +412,10 @@ class ParameterBuilderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::add
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::get
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\Exception\Parameters\ParameterBuilderException
      * @expectedExceptionMessage Parameter with "unknown" name does not exist in the builder.
      */
-    public function testGetThrowsInvalidArgumentExceptionWithNonExistingParameter()
+    public function testGetThrowsParameterBuilderExceptionWithNonExistingParameter()
     {
         $this->builder->add(
             'test',

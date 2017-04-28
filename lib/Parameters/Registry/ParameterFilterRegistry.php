@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Parameters\Registry;
 
-use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Exception\Parameters\ParameterFilterException;
 use Netgen\BlockManager\Parameters\ParameterFilterInterface;
 
 class ParameterFilterRegistry implements ParameterFilterRegistryInterface
@@ -22,12 +22,7 @@ class ParameterFilterRegistry implements ParameterFilterRegistryInterface
     {
         foreach ($parameterFilters as $parameterFilter) {
             if (!$parameterFilter instanceof ParameterFilterInterface) {
-                throw new RuntimeException(
-                    sprintf(
-                        'Parameter filter "%s" needs to implement ParameterFilterInterface.',
-                        get_class($parameterFilter)
-                    )
-                );
+                throw ParameterFilterException::invalidClass(get_class($parameterFilter));
             }
         }
 

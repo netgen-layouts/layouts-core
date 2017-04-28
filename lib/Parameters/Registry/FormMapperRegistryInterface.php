@@ -28,7 +28,7 @@ interface FormMapperRegistryInterface
      *
      * @param string $parameterType
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If form mapper does not exist
+     * @throws \Netgen\BlockManager\Exception\Parameters\ParameterTypeException If form mapper does not exist
      *
      * @return \Netgen\BlockManager\Parameters\Form\MapperInterface
      */

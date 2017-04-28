@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Parameters;
 
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\Parameters\ParameterException;
 use Netgen\BlockManager\Parameters\ParameterType\TextType;
 use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterCollection;
@@ -48,7 +48,7 @@ class ParameterCollectionTraitTest extends TestCase
         try {
             $this->assertEquals(array(), $parameterCollection->getParameter('test'));
             $this->fail('Fetched a parameter in empty collection.');
-        } catch (InvalidArgumentException $e) {
+        } catch (ParameterException $e) {
             // Do nothing
         }
 

@@ -27,7 +27,7 @@ interface ParameterTypeRegistryInterface
      *
      * @param string $identifier
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If parameter type does not exist
+     * @throws \Netgen\BlockManager\Exception\Parameters\ParameterTypeException If parameter type does not exist
      *
      * @return \Netgen\BlockManager\Parameters\ParameterTypeInterface
      */
@@ -38,7 +38,7 @@ interface ParameterTypeRegistryInterface
      *
      * @param string $class
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If parameter type does not exist
+     * @throws \Netgen\BlockManager\Exception\Parameters\ParameterTypeException If parameter type does not exist
      *
      * @return \Netgen\BlockManager\Parameters\ParameterTypeInterface
      */
