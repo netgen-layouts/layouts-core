@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Layout\Resolver\Form;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\ConditionStruct;
 use Netgen\BlockManager\Exception\Layout\ConditionTypeException;
-use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Exception\InvalidInterfaceException;
 use Netgen\BlockManager\Form\AbstractType;
 use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\MapperInterface;
@@ -27,11 +27,10 @@ class ConditionType extends AbstractType
     {
         foreach ($mappers as $conditionType => $mapper) {
             if (!$mapper instanceof MapperInterface) {
-                throw new RuntimeException(
-                    sprintf(
-                        '"%s" condition type form mapper must implement FormMapperInterface interface.',
-                        $conditionType
-                    )
+                throw new InvalidInterfaceException(
+                    'Form mapper for condition type',
+                    $conditionType,
+                    MapperInterface::class
                 );
             }
         }

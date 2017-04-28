@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Layout\Resolver\Form;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetStruct;
 use Netgen\BlockManager\Exception\Layout\TargetTypeException;
-use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Exception\InvalidInterfaceException;
 use Netgen\BlockManager\Form\AbstractType;
 use Netgen\BlockManager\Layout\Resolver\Form\TargetType\MapperInterface;
 use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;
@@ -27,11 +27,10 @@ class TargetType extends AbstractType
     {
         foreach ($mappers as $targetType => $mapper) {
             if (!$mapper instanceof MapperInterface) {
-                throw new RuntimeException(
-                    sprintf(
-                        '"%s" target type form mapper must implement FormMapperInterface interface.',
-                        $targetType
-                    )
+                throw new InvalidInterfaceException(
+                    'Form mapper for target type',
+                    $targetType,
+                    MapperInterface::class
                 );
             }
         }

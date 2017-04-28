@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Tests\Exception\View;
 
 use Netgen\BlockManager\Exception\View\ViewProviderException;
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
-use Netgen\BlockManager\View\Provider\ViewProviderInterface;
 use PHPUnit\Framework\TestCase;
 
 class ViewProviderExceptionTest extends TestCase
@@ -31,22 +30,6 @@ class ViewProviderExceptionTest extends TestCase
 
         $this->assertEquals(
             'No view providers found for "some_class" value object.',
-            $exception->getMessage()
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Exception\View\ViewProviderException::invalidViewProvider
-     */
-    public function testInvalidViewProvider()
-    {
-        $exception = ViewProviderException::invalidViewProvider('some_class');
-
-        $this->assertEquals(
-            sprintf(
-                'View provider "some_class" needs to implement "%s" interface.',
-                ViewProviderInterface::class
-            ),
             $exception->getMessage()
         );
     }

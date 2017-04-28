@@ -33,10 +33,10 @@ class TargetTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType::__construct
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage "type" target type form mapper must implement FormMapperInterface interface.
+     * @expectedException \Netgen\BlockManager\Exception\InvalidInterfaceException
+     * @expectedExceptionMessage Form mapper for target type "type" needs to implement "Netgen\BlockManager\Layout\Resolver\Form\TargetType\MapperInterface" interface.
      */
-    public function testConstructorThrowsRuntimeException()
+    public function testConstructorThrowsInvalidInterfaceException()
     {
         $this->formType = new TargetTypeForm(array('type' => new stdClass()));
     }

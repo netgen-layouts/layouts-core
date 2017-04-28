@@ -25,10 +25,10 @@ class TemplateResolverTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\View\TemplateResolver::__construct
-     * @expectedException \Netgen\BlockManager\Exception\View\TemplateResolverException
+     * @expectedException \Netgen\BlockManager\Exception\InvalidInterfaceException
      * @expectedExceptionMessage Template matcher "DateTime" needs to implement "Netgen\BlockManager\View\Matcher\MatcherInterface" interface.
      */
-    public function testConstructorThrowsTemplateResolverExceptionIfNoMatcherInterface()
+    public function testConstructorThrowsInvalidInterfaceExceptionIfNoMatcherInterface()
     {
         new TemplateResolver(
             array(

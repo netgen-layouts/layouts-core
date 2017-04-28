@@ -35,22 +35,6 @@ class TemplateResolverExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Exception\View\TemplateResolverException::invalidTemplateMatcher
-     */
-    public function testInvalidTemplateMatcher()
-    {
-        $exception = TemplateResolverException::invalidTemplateMatcher('matcher');
-
-        $this->assertEquals(
-            sprintf(
-                'Template matcher "matcher" needs to implement "%s" interface.',
-                MatcherInterface::class
-            ),
-            $exception->getMessage()
-        );
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Exception\View\TemplateResolverException::noTemplateMatch
      */
     public function testNoTemplateMatch()

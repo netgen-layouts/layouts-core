@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\View;
 
+use Netgen\BlockManager\Exception\InvalidInterfaceException;
 use Netgen\BlockManager\Exception\View\TemplateResolverException;
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
 
@@ -27,7 +28,11 @@ class TemplateResolver implements TemplateResolverInterface
     {
         foreach ($matchers as $matcher) {
             if (!$matcher instanceof MatcherInterface) {
-                throw TemplateResolverException::invalidTemplateMatcher(get_class($matcher));
+                throw new InvalidInterfaceException(
+                    'Template matcher',
+                    get_class($matcher),
+                    MatcherInterface::class
+                );
             }
         }
 

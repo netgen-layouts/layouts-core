@@ -37,10 +37,10 @@ class ViewBuilderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\View\ViewBuilder::__construct
-     * @expectedException \Netgen\BlockManager\Exception\View\ViewProviderException
+     * @expectedException \Netgen\BlockManager\Exception\InvalidInterfaceException
      * @expectedExceptionMessage View provider "DateTime" needs to implement "Netgen\BlockManager\View\Provider\ViewProviderInterface" interface.
      */
-    public function testConstructorThrowsViewProviderExceptionWithNoViewProviderInterface()
+    public function testConstructorThrowsInvalidInterfaceExceptionWithNoViewProviderInterface()
     {
         new ViewBuilder(
             $this->templateResolverMock,

@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Exception\View;
 
 use Exception;
 use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\View\Matcher\MatcherInterface;
 
 class TemplateResolverException extends RuntimeException
 {
@@ -28,22 +27,6 @@ class TemplateResolverException extends RuntimeException
             sprintf(
                 'No template matcher could be found with identifier "%s".',
                 $identifier
-            )
-        );
-    }
-
-    /**
-     * @param string $class
-     *
-     * @return \Netgen\BlockManager\Exception\View\TemplateResolverException
-     */
-    public static function invalidTemplateMatcher($class)
-    {
-        return new self(
-            sprintf(
-                'Template matcher "%s" needs to implement "%s" interface.',
-                $class,
-                MatcherInterface::class
             )
         );
     }

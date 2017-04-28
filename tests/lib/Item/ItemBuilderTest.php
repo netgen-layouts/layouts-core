@@ -14,10 +14,10 @@ class ItemBuilderTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Item\ItemBuilder::__construct
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Value converter "stdClass" needs to implement ValueConverterInterface.
+     * @expectedException \Netgen\BlockManager\Exception\InvalidInterfaceException
+     * @expectedExceptionMessage Value converter "stdClass" needs to implement "Netgen\BlockManager\Item\ValueConverterInterface" interface.
      */
-    public function testConstructorThrowsRuntimeExceptionWithWrongInterface()
+    public function testConstructorThrowsInvalidInterfaceExceptionWithWrongInterface()
     {
         new ItemBuilder(array(new stdClass()));
     }

@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Exception\View;
 
 use Exception;
 use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\View\Provider\ViewProviderInterface;
 
 class ViewProviderException extends RuntimeException
 {
@@ -28,22 +27,6 @@ class ViewProviderException extends RuntimeException
             sprintf(
                 'No view providers found for "%s" value object.',
                 $class
-            )
-        );
-    }
-
-    /**
-     * @param string $class
-     *
-     * @return \Netgen\BlockManager\Exception\View\ViewProviderException
-     */
-    public static function invalidViewProvider($class)
-    {
-        return new self(
-            sprintf(
-                'View provider "%s" needs to implement "%s" interface.',
-                $class,
-                ViewProviderInterface::class
             )
         );
     }

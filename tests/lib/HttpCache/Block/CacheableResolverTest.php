@@ -11,10 +11,10 @@ class CacheableResolverTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\HttpCache\Block\CacheableResolver::__construct
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Voter stdClass needs to implement Netgen\BlockManager\HttpCache\Block\CacheableResolver\VoterInterface interface.
+     * @expectedException \Netgen\BlockManager\Exception\InvalidInterfaceException
+     * @expectedExceptionMessage Voter "stdClass" needs to implement "Netgen\BlockManager\HttpCache\Block\CacheableResolver\VoterInterface" interface.
      */
-    public function testConstructorWithInvalidVoters()
+    public function testConstructorThrowsInvalidInterfaceException()
     {
         new CacheableResolver(array(new stdClass()));
     }

@@ -33,10 +33,10 @@ class ConditionTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::__construct
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage "type" condition type form mapper must implement FormMapperInterface interface.
+     * @expectedException \Netgen\BlockManager\Exception\InvalidInterfaceException
+     * @expectedExceptionMessage Form mapper for condition type "type" needs to implement "Netgen\BlockManager\Layout\Resolver\Form\ConditionType\MapperInterface" interface.
      */
-    public function testConstructorThrowsRuntimeException()
+    public function testConstructorThrowsInvalidInterfaceException()
     {
         $this->formType = new ConditionTypeForm(array('type' => new stdClass()));
     }

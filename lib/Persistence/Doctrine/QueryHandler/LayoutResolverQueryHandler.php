@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Type;
+use Netgen\BlockManager\Exception\InvalidInterfaceException;
 use Netgen\BlockManager\Exception\Persistence\TargetHandlerException;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver\TargetHandler;
@@ -47,7 +48,11 @@ class LayoutResolverQueryHandler extends QueryHandler
     {
         foreach ($targetHandlers as $targetHandler) {
             if (!$targetHandler instanceof TargetHandler) {
-                throw TargetHandlerException::invalidTargetHandler(get_class($targetHandler));
+                throw new InvalidInterfaceException(
+                    'Target handler',
+                    get_class($targetHandler),
+                    TargetHandler::class
+                );
             }
         }
 

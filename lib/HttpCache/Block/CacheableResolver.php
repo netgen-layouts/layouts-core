@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\HttpCache\Block;
 
 use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Exception\InvalidInterfaceException;
 use Netgen\BlockManager\HttpCache\Block\CacheableResolver\VoterInterface;
 
 class CacheableResolver implements CacheableResolverInterface
@@ -22,12 +22,10 @@ class CacheableResolver implements CacheableResolverInterface
     {
         foreach ($voters as $voter) {
             if (!$voter instanceof VoterInterface) {
-                throw new RuntimeException(
-                    sprintf(
-                        'Voter %s needs to implement %s interface.',
-                        get_class($voter),
-                        VoterInterface::class
-                    )
+                throw new InvalidInterfaceException(
+                    'Voter',
+                    get_class($voter),
+                    VoterInterface::class
                 );
             }
         }

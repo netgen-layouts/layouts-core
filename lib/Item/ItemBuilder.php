@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Item;
 
 use Netgen\BlockManager\Exception\Item\ValueException;
-use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Exception\InvalidInterfaceException;
 
 class ItemBuilder implements ItemBuilderInterface
 {
@@ -21,11 +21,10 @@ class ItemBuilder implements ItemBuilderInterface
     {
         foreach ($valueConverters as $valueConverter) {
             if (!$valueConverter instanceof ValueConverterInterface) {
-                throw new RuntimeException(
-                    sprintf(
-                        'Value converter "%s" needs to implement ValueConverterInterface.',
-                        get_class($valueConverter)
-                    )
+                throw new InvalidInterfaceException(
+                    'Value converter',
+                    get_class($valueConverter),
+                    ValueConverterInterface::class
                 );
             }
         }
