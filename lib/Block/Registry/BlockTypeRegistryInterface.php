@@ -29,7 +29,7 @@ interface BlockTypeRegistryInterface
      *
      * @param string $identifier
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If block type with provided identifier does not exist
+     * @throws \Netgen\BlockManager\Exception\Block\BlockTypeException If block type with provided identifier does not exist
      *
      * @return \Netgen\BlockManager\Block\BlockType\BlockType
      */
@@ -64,7 +64,7 @@ interface BlockTypeRegistryInterface
      *
      * @param string $identifier
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If block type group with provided identifier does not exist
+     * @throws \Netgen\BlockManager\Exception\Block\BlockTypeException If block type group with provided identifier does not exist
      *
      * @return \Netgen\BlockManager\Block\BlockType\BlockTypeGroup
      */

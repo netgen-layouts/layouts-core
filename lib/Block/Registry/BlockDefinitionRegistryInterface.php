@@ -28,7 +28,7 @@ interface BlockDefinitionRegistryInterface
      *
      * @param string $identifier
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If block definition does not exist
+     * @throws \Netgen\BlockManager\Exception\Block\BlockDefinitionException If block definition does not exist
      *
      * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
      */

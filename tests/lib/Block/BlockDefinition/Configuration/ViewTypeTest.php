@@ -92,10 +92,10 @@ class ViewTypeTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType::getItemViewType
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\Exception\Block\BlockDefinitionException
      * @expectedExceptionMessage Item view type "unknown" does not exist in "large" view type.
      */
-    public function testGetItemViewTypeThrowsInvalidArgumentException()
+    public function testGetItemViewTypeThrowsBlockDefinitionException()
     {
         $this->viewType->getItemViewType('unknown');
     }

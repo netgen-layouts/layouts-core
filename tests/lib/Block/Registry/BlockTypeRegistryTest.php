@@ -71,10 +71,10 @@ class BlockTypeRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::getBlockType
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\Exception\Block\BlockTypeException
      * @expectedExceptionMessage Block type with "other_block_type" identifier does not exist.
      */
-    public function testGetBlockTypeThrowsInvalidArgumentException()
+    public function testGetBlockTypeThrowsBlockTypeException()
     {
         $this->registry->getBlockType('other_block_type');
     }
@@ -114,10 +114,10 @@ class BlockTypeRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::getBlockTypeGroup
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedException \Netgen\BlockManager\Exception\Block\BlockTypeException
      * @expectedExceptionMessage Block type group with "other_block_type_group" identifier does not exist.
      */
-    public function testGetBlockTypeGroupThrowsInvalidArgumentException()
+    public function testGetBlockTypeGroupThrowsBlockTypeException()
     {
         $this->registry->getBlockTypeGroup('other_block_type_group');
     }

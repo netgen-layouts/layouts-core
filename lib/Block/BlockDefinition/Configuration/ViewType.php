@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Block\BlockDefinition\Configuration;
 
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\Block\BlockDefinitionException;
 use Netgen\BlockManager\ValueObject;
 
 class ViewType extends ValueObject
@@ -80,37 +80,30 @@ class ViewType extends ValueObject
     /**
      * Returns if the view type has an item view type with provided identifier.
      *
-     * @param string $viewTypeIdentifier
+     * @param string $itemViewType
      *
      * @return bool
      */
-    public function hasItemViewType($viewTypeIdentifier)
+    public function hasItemViewType($itemViewType)
     {
-        return isset($this->itemViewTypes[$viewTypeIdentifier]);
+        return isset($this->itemViewTypes[$itemViewType]);
     }
 
     /**
      * Returns the item view type with provided identifier.
      *
-     * @param string $viewTypeIdentifier
+     * @param string $itemViewType
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If item view type does not exist
+     * @throws \Netgen\BlockManager\Exception\Block\BlockDefinitionException If item view type does not exist
      *
      * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType
      */
-    public function getItemViewType($viewTypeIdentifier)
+    public function getItemViewType($itemViewType)
     {
-        if (!$this->hasItemViewType($viewTypeIdentifier)) {
-            throw new InvalidArgumentException(
-                'viewTypeIdentifier',
-                sprintf(
-                    'Item view type "%s" does not exist in "%s" view type.',
-                    $viewTypeIdentifier,
-                    $this->identifier
-                )
-            );
+        if (!$this->hasItemViewType($itemViewType)) {
+            throw BlockDefinitionException::noItemViewType($this->identifier, $itemViewType);
         }
 
-        return $this->itemViewTypes[$viewTypeIdentifier];
+        return $this->itemViewTypes[$itemViewType];
     }
 }

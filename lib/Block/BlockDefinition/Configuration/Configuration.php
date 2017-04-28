@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Block\BlockDefinition\Configuration;
 
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\Block\BlockDefinitionException;
 use Netgen\BlockManager\ValueObject;
 
 class Configuration extends ValueObject
@@ -74,21 +74,14 @@ class Configuration extends ValueObject
      *
      * @param string $identifier
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If collection does not exist
+     * @throws \Netgen\BlockManager\Exception\Block\BlockDefinitionException If collection does not exist
      *
      * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection
      */
     public function getCollection($identifier)
     {
         if (!$this->hasCollection($identifier)) {
-            throw new InvalidArgumentException(
-                'identifier',
-                sprintf(
-                    'Collection "%s" does not exist in "%s" block definition.',
-                    $identifier,
-                    $this->identifier
-                )
-            );
+            throw BlockDefinitionException::noCollection($this->identifier, $identifier);
         }
 
         return $this->collections[$identifier];
@@ -121,21 +114,14 @@ class Configuration extends ValueObject
      *
      * @param string $formName
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If form does not exist
+     * @throws \Netgen\BlockManager\Exception\Block\BlockDefinitionException If form does not exist
      *
      * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Form
      */
     public function getForm($formName)
     {
         if (!$this->hasForm($formName)) {
-            throw new InvalidArgumentException(
-                'formName',
-                sprintf(
-                    'Form "%s" does not exist in "%s" block definition.',
-                    $formName,
-                    $this->identifier
-                )
-            );
+            throw BlockDefinitionException::noForm($this->identifier, $formName);
         }
 
         return $this->forms[$formName];
@@ -175,14 +161,7 @@ class Configuration extends ValueObject
     public function getPlaceholderForm($formName)
     {
         if (!$this->hasPlaceholderForm($formName)) {
-            throw new InvalidArgumentException(
-                'formName',
-                sprintf(
-                    'Placeholder form "%s" does not exist in "%s" block definition.',
-                    $formName,
-                    $this->identifier
-                )
-            );
+            throw BlockDefinitionException::noForm($this->identifier, $formName);
         }
 
         return $this->placeholderForms[$formName];
@@ -211,37 +190,30 @@ class Configuration extends ValueObject
     /**
      * Returns if the block definition has a view type with provided identifier.
      *
-     * @param string $viewTypeIdentifier
+     * @param string $viewType
      *
      * @return bool
      */
-    public function hasViewType($viewTypeIdentifier)
+    public function hasViewType($viewType)
     {
-        return isset($this->viewTypes[$viewTypeIdentifier]);
+        return isset($this->viewTypes[$viewType]);
     }
 
     /**
      * Returns the view type with provided identifier.
      *
-     * @param string $viewTypeIdentifier
+     * @param string $viewType
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If view type does not exist
+     * @throws \Netgen\BlockManager\Exception\Block\BlockDefinitionException If view type does not exist
      *
      * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType
      */
-    public function getViewType($viewTypeIdentifier)
+    public function getViewType($viewType)
     {
-        if (!$this->hasViewType($viewTypeIdentifier)) {
-            throw new InvalidArgumentException(
-                'viewTypeIdentifier',
-                sprintf(
-                    'View type "%s" does not exist in "%s" block definition.',
-                    $viewTypeIdentifier,
-                    $this->identifier
-                )
-            );
+        if (!$this->hasViewType($viewType)) {
+            throw BlockDefinitionException::noViewType($this->identifier, $viewType);
         }
 
-        return $this->viewTypes[$viewTypeIdentifier];
+        return $this->viewTypes[$viewType];
     }
 }

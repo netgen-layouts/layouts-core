@@ -5,13 +5,13 @@ namespace Netgen\BlockManager\Exception\Config;
 use InvalidArgumentException;
 use Netgen\BlockManager\Exception\Exception;
 
-class ConfigException extends InvalidArgumentException implements Exception
+class ConfigDefinitionException extends InvalidArgumentException implements Exception
 {
     /**
      * @param string $type
      * @param string $identifier
      *
-     * @return \Netgen\BlockManager\Exception\Config\ConfigException
+     * @return \Netgen\BlockManager\Exception\Config\ConfigDefinitionException
      */
     public static function noConfigDefinition($type, $identifier)
     {

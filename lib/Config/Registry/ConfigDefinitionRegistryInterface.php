@@ -31,7 +31,7 @@ interface ConfigDefinitionRegistryInterface
      * @param string $type
      * @param string $identifier
      *
-     * @throws \Netgen\BlockManager\Exception\Config\ConfigException If config definition does not exist
+     * @throws \Netgen\BlockManager\Exception\Config\ConfigDefinitionException If config definition does not exist
      *
      * @return \Netgen\BlockManager\Config\ConfigDefinitionInterface
      */

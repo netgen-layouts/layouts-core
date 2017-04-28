@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Block\Registry;
 
 use Netgen\BlockManager\Block\BlockType\BlockType;
 use Netgen\BlockManager\Block\BlockType\BlockTypeGroup;
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\Block\BlockTypeException;
 
 class BlockTypeRegistry implements BlockTypeRegistryInterface
 {
@@ -46,20 +46,14 @@ class BlockTypeRegistry implements BlockTypeRegistryInterface
      *
      * @param string $identifier
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If block type with provided identifier does not exist
+     * @throws \Netgen\BlockManager\Exception\Block\BlockTypeException If block type with provided identifier does not exist
      *
      * @return \Netgen\BlockManager\Block\BlockType\BlockType
      */
     public function getBlockType($identifier)
     {
         if (!$this->hasBlockType($identifier)) {
-            throw new InvalidArgumentException(
-                'identifier',
-                sprintf(
-                    'Block type with "%s" identifier does not exist.',
-                    $identifier
-                )
-            );
+            throw BlockTypeException::noBlockType($identifier);
         }
 
         return $this->blockTypes[$identifier];
@@ -103,20 +97,14 @@ class BlockTypeRegistry implements BlockTypeRegistryInterface
      *
      * @param string $identifier
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If block type group with provided identifier does not exist
+     * @throws \Netgen\BlockManager\Exception\Block\BlockTypeException If block type group with provided identifier does not exist
      *
      * @return \Netgen\BlockManager\Block\BlockType\BlockTypeGroup
      */
     public function getBlockTypeGroup($identifier)
     {
         if (!$this->hasBlockTypeGroup($identifier)) {
-            throw new InvalidArgumentException(
-                'identifier',
-                sprintf(
-                    'Block type group with "%s" identifier does not exist.',
-                    $identifier
-                )
-            );
+            throw BlockTypeException::noBlockTypeGroup($identifier);
         }
 
         return $this->blockTypeGroups[$identifier];

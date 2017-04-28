@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Config\Registry;
 
 use Netgen\BlockManager\Config\ConfigDefinitionInterface;
-use Netgen\BlockManager\Exception\Config\ConfigException;
+use Netgen\BlockManager\Exception\Config\ConfigDefinitionException;
 
 class ConfigDefinitionRegistry implements ConfigDefinitionRegistryInterface
 {
@@ -44,14 +44,14 @@ class ConfigDefinitionRegistry implements ConfigDefinitionRegistryInterface
      * @param string $type
      * @param string $identifier
      *
-     * @throws \Netgen\BlockManager\Exception\Config\ConfigException If config definition does not exist
+     * @throws \Netgen\BlockManager\Exception\Config\ConfigDefinitionException If config definition does not exist
      *
      * @return \Netgen\BlockManager\Config\ConfigDefinitionInterface
      */
     public function getConfigDefinition($type, $identifier)
     {
         if (!$this->hasConfigDefinition($type, $identifier)) {
-            throw ConfigException::noConfigDefinition($type, $identifier);
+            throw ConfigDefinitionException::noConfigDefinition($type, $identifier);
         }
 
         return $this->configDefinitions[$type][$identifier];
