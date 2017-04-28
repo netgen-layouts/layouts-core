@@ -8,7 +8,6 @@ use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Exception\Layout\LayoutTypeException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Serializer\Values\Value;

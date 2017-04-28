@@ -52,7 +52,7 @@ class PlaceholderViewProviderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\View\Provider\PlaceholderViewProvider::provideView
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\View\ViewProviderException
      * @expectedExceptionMessage To build the placeholder view, "block" parameter needs to be provided.
      */
     public function testProvideViewThrowsRuntimeExceptionOnMissingBlock()
@@ -62,7 +62,7 @@ class PlaceholderViewProviderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\View\Provider\PlaceholderViewProvider::provideView
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedException \Netgen\BlockManager\Exception\View\ViewProviderException
      * @expectedExceptionMessage To build the placeholder view, "block" parameter needs to be of "Netgen\BlockManager\API\Values\Block\Block" type.
      */
     public function testProvideViewThrowsRuntimeExceptionOnInvalidBlock()

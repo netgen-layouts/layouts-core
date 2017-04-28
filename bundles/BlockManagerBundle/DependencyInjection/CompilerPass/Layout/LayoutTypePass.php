@@ -73,7 +73,7 @@ class LayoutTypePass implements CompilerPassInterface
      * @param array $layoutTypes
      * @param array $blockDefinitions
      *
-     * @throws \RuntimeException If validation failed
+     * @throws \Netgen\BlockManager\Exception\RuntimeException If validation failed
      */
     protected function validateLayoutTypes(array $layoutTypes, array $blockDefinitions)
     {

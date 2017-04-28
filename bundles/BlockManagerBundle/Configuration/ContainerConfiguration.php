@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Configuration;
 
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\Bundle\BlockManagerBundle\Exception\ConfigurationException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ContainerConfiguration implements ConfigurationInterface
@@ -52,20 +52,14 @@ class ContainerConfiguration implements ConfigurationInterface
      *
      * @param string $parameterName
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If parameter is undefined
+     * @throws \Netgen\Bundle\BlockManagerBundle\Exception\ConfigurationException If parameter is undefined
      *
      * @return mixed
      */
     public function getParameter($parameterName)
     {
         if (!$this->hasParameter($parameterName)) {
-            throw new InvalidArgumentException(
-                'parameterName',
-                sprintf(
-                    'Parameter "%s" does not exist in configuration.',
-                    $parameterName
-                )
-            );
+            throw ConfigurationException::noParameter($parameterName);
         }
 
         if (array_key_exists($parameterName, $this->parameters)) {

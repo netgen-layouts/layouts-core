@@ -127,12 +127,7 @@ class ItemExtension extends Twig_Extension
             }
 
             if (!$item instanceof ItemInterface) {
-                throw new ItemException(
-                    sprintf(
-                        'Item could not be loaded.',
-                        $valueId
-                    )
-                );
+                throw ItemException::canNotLoadItem();
             }
 
             return $this->urlBuilder->getUrl($item);

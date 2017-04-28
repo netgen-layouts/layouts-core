@@ -27,6 +27,21 @@ class ConfigException extends InvalidArgumentException implements Exception
      *
      * @return \Netgen\BlockManager\Exception\Core\ConfigException
      */
+    public static function configNotEnabled($identifier)
+    {
+        return new self(
+            sprintf(
+                'Config with "%s" identifier is not enabled.',
+                $identifier
+            )
+        );
+    }
+
+    /**
+     * @param string $identifier
+     *
+     * @return \Netgen\BlockManager\Exception\Core\ConfigException
+     */
     public static function noConfigStruct($identifier)
     {
         return new self(

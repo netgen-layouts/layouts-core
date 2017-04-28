@@ -134,7 +134,7 @@ class BlockTypePass implements CompilerPassInterface
      * @param array $blockTypes
      * @param array $blockDefinitions
      *
-     * @throws \RuntimeException If validation failed
+     * @throws \Netgen\BlockManager\Exception\RuntimeException If validation failed
      */
     protected function validateBlockTypes(array $blockTypes, array $blockDefinitions)
     {

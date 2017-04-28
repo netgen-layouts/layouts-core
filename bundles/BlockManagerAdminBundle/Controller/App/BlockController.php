@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\App;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Config\Form\EditType as ConfigEditType;
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\Core\ConfigException;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -111,7 +111,7 @@ class BlockController extends Controller
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param string $identifier
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If config identifier does not exist
+     * @throws \Netgen\BlockManager\Exception\Core\ConfigException If config identifier does not exist
      *
      * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
@@ -119,13 +119,7 @@ class BlockController extends Controller
     {
         if ($identifier !== null) {
             if (!$block->getConfig($identifier)->getDefinition()->isEnabled($block)) {
-                throw new InvalidArgumentException(
-                    'identifier',
-                    sprintf(
-                        'Config with "%s" identifier is not enabled for provided block.',
-                        $identifier
-                    )
-                );
+                throw ConfigException::configNotEnabled($identifier);
             }
         }
 

@@ -105,10 +105,10 @@ class ContainerConfigurationTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Configuration\ContainerConfiguration::getParameter
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @expectedException \Netgen\Bundle\BlockManagerBundle\Exception\ConfigurationException
      * @expectedExceptionMessage Parameter "some_param" does not exist in configuration.
      */
-    public function testGetParameterThrowsOutOfBoundsException()
+    public function testGetParameterThrowsConfigurationException()
     {
         $this->containerMock
             ->expects($this->once())

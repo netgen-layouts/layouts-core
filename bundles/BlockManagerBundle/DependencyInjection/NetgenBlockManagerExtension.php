@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection;
 
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -45,15 +45,14 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
      *
      * @param string $pluginName
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the specified plugin does not exist
+     * @throws \Netgen\BlockManager\Exception\RuntimeException If the specified plugin does not exist
      *
      * @return \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ExtensionPluginInterface
      */
     public function getPlugin($pluginName)
     {
         if (!isset($this->plugins[$pluginName])) {
-            throw new InvalidArgumentException(
-                'name',
+            throw new RuntimeException(
                 sprintf(
                     'Extension plugin "%s" does not exist',
                     $pluginName

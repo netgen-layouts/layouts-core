@@ -353,8 +353,6 @@ class LayoutResolverController extends Controller
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Target $target
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If target type does not exist
-     *
      * @return \Netgen\BlockManager\View\ViewInterface
      */
     public function targetEditForm(Target $target, Request $request)
@@ -481,8 +479,6 @@ class LayoutResolverController extends Controller
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Condition $condition
      * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If condition type does not exist
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */

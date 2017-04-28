@@ -2,9 +2,10 @@
 
 namespace Netgen\BlockManager\Exception\Persistence;
 
-use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Exception\Exception;
+use RuntimeException;
 
-class TargetHandlerException extends RuntimeException
+class TargetHandlerException extends RuntimeException implements Exception
 {
     /**
      * @param string $persistenceType

@@ -2,12 +2,13 @@
 
 namespace Netgen\BlockManager\Exception\View;
 
-use Exception;
-use Netgen\BlockManager\Exception\RuntimeException;
+use Exception as BaseException;
+use Netgen\BlockManager\Exception\Exception;
+use RuntimeException;
 
-class TemplateResolverException extends RuntimeException
+class TemplateResolverException extends RuntimeException implements Exception
 {
-    public function __construct($message = '', $code = 0, Exception $previous = null)
+    public function __construct($message = '', $code = 0, BaseException $previous = null)
     {
         if (empty($message)) {
             $message = 'An error occurred while resolving the view template.';

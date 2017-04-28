@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
 
+use InvalidArgumentException as BaseInvalidArgumentException;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Exception\NotFoundException;
@@ -169,6 +170,18 @@ class ExceptionConversionListenerTest extends TestCase
                 AccessDeniedHttpException::class,
                 Response::HTTP_FORBIDDEN,
                 false,
+            ),
+            array(
+                new BaseInvalidArgumentException('Some error'),
+                BadRequestHttpException::class,
+                Response::HTTP_BAD_REQUEST,
+                true,
+            ),
+            array(
+                new RuntimeException('Some error'),
+                InternalServerErrorHttpException::class,
+                Response::HTTP_INTERNAL_SERVER_ERROR,
+                true,
             ),
         );
     }

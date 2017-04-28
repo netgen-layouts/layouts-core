@@ -51,4 +51,12 @@ class ItemException extends InvalidArgumentException implements Exception
             )
         );
     }
+
+    /**
+     * @return \Netgen\BlockManager\Exception\Item\ItemException
+     */
+    public static function canNotLoadItem()
+    {
+        return new self('Item could not be loaded.');
+    }
 }

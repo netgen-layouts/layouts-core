@@ -87,7 +87,7 @@ class SourcePass implements CompilerPassInterface
      * @param array $sources
      * @param array $queryTypes
      *
-     * @throws \RuntimeException If validation failed
+     * @throws \Netgen\BlockManager\Exception\RuntimeException If validation failed
      */
     protected function validateSources(array $sources, array $queryTypes)
     {
