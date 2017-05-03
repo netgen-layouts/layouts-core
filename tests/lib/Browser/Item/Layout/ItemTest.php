@@ -67,6 +67,14 @@ class ItemTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Browser\Item\Layout\Item::isSelectable
+     */
+    public function testIsSelectable()
+    {
+        $this->assertTrue($this->item->isSelectable());
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Browser\Item\Layout\Item::getLayout
      */
     public function testGetLayout()

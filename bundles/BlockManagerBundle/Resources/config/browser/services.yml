@@ -6,16 +6,6 @@ services:
         tags:
             -  { name: netgen_content_browser.backend, item_type: ngbm_layout }
 
-    netgen_block_manager.browser.serializer.handler.layout:
-        class: Netgen\BlockManager\Browser\Item\Serializer\LayoutSerializerHandler
-        tags:
-            -  { name: netgen_content_browser.serializer.handler, item_type: ngbm_layout }
-
-    netgen_block_manager.browser.template_value_provider.layout:
-        class: Netgen\BlockManager\Browser\Item\Renderer\LayoutTemplateValueProvider
-        tags:
-            -  { name: netgen_content_browser.template_value_provider, item_type: ngbm_layout }
-
     netgen_block_manager.browser.column_value_provider.layout.layout_id:
         class: Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\LayoutId
         tags:

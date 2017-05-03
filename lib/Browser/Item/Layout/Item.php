@@ -75,6 +75,16 @@ class Item implements ItemInterface, LayoutInterface
     }
 
     /**
+     * Returns if the item is selectable.
+     *
+     * @return bool
+     */
+    public function isSelectable()
+    {
+        return true;
+    }
+
+    /**
      * Returns the layout.
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Layout
