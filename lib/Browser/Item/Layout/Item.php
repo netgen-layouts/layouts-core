@@ -7,8 +7,6 @@ use Netgen\ContentBrowser\Item\ItemInterface;
 
 class Item implements ItemInterface, LayoutInterface
 {
-    const TYPE = 'ngbm_layout';
-
     /**
      * @var \Netgen\BlockManager\API\Values\Layout\Layout
      */
@@ -31,7 +29,7 @@ class Item implements ItemInterface, LayoutInterface
      */
     public function getType()
     {
-        return self::TYPE;
+        return 'ngbm_layout';
     }
 
     /**

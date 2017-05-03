@@ -23,7 +23,7 @@ class RootLocation implements LocationInterface
      */
     public function getType()
     {
-        return Item::TYPE;
+        return 'ngbm_layout';
     }
 
     /**
