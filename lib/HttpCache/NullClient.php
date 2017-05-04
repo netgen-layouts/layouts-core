@@ -30,6 +30,15 @@ class NullClient implements ClientInterface
     }
 
     /**
+     * Invalidates all blocks from provided layouts.
+     *
+     * @param int[]|string[] $layoutIds
+     */
+    public function invalidateLayoutBlocks(array $layoutIds)
+    {
+    }
+
+    /**
      * Invalidates all blocks.
      */
     public function invalidateAllBlocks()
