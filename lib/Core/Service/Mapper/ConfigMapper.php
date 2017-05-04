@@ -7,7 +7,7 @@ use Netgen\BlockManager\Config\Registry\ConfigDefinitionRegistryInterface;
 use Netgen\BlockManager\Core\Values\Config\Config;
 use Netgen\BlockManager\Core\Values\Config\ConfigCollection;
 
-class ConfigMapper extends Mapper
+class ConfigMapper
 {
     /**
      * @var \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper
