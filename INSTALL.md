@@ -22,6 +22,7 @@ $bundles[] = new Knp\Bundle\MenuBundle\KnpMenuBundle();
 $bundles[] = new FOS\HttpCacheBundle\FOSHttpCacheBundle();
 $bundles[] = new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle();
 $bundles[] = new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle();
+$bundles[] = new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle();
 $bundles[] = new Netgen\Bundle\CoreUIBundle\NetgenCoreUIBundle();
 $bundles[] = new Netgen\Bundle\ContentBrowserBundle\NetgenContentBrowserBundle();
 $bundles[] = new Netgen\Bundle\ContentBrowserUIBundle\NetgenContentBrowserUIBundle();
