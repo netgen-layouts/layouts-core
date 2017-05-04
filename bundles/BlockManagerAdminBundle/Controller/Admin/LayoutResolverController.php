@@ -78,8 +78,6 @@ class LayoutResolverController extends Controller
      */
     public function index()
     {
-        $this->checkAccess();
-
         return $this->render(
             'NetgenBlockManagerAdminBundle:admin/layout_resolver:index.html.twig',
             array(
@@ -95,8 +93,6 @@ class LayoutResolverController extends Controller
      */
     public function createRule()
     {
-        $this->checkAccess();
-
         $createdRule = $this->layoutResolverService->createRule(
             $this->layoutResolverService->newRuleCreateStruct()
         );
@@ -120,8 +116,6 @@ class LayoutResolverController extends Controller
      */
     public function updateRule(Rule $rule, Request $request)
     {
-        $this->checkAccess();
-
         $layoutId = $request->request->get('layout_id');
         $layoutId = $layoutId !== null ? trim($layoutId) : null;
 
@@ -170,8 +164,6 @@ class LayoutResolverController extends Controller
      */
     public function updatePriorities(Request $request)
     {
-        $this->checkAccess();
-
         $this->validator->validatePriorities($request);
 
         $this->layoutResolverService->beginTransaction();
@@ -225,8 +217,6 @@ class LayoutResolverController extends Controller
      */
     public function enableRule(Rule $rule)
     {
-        $this->checkAccess();
-
         $enabledRule = $this->layoutResolverService->enableRule($rule);
 
         return $this->buildView($enabledRule, ViewInterface::CONTEXT_ADMIN);
@@ -241,8 +231,6 @@ class LayoutResolverController extends Controller
      */
     public function disableRule(Rule $rule)
     {
-        $this->checkAccess();
-
         $disabledRule = $this->layoutResolverService->disableRule($rule);
 
         return $this->buildView($disabledRule, ViewInterface::CONTEXT_ADMIN);
@@ -257,8 +245,6 @@ class LayoutResolverController extends Controller
      */
     public function createRuleDraft(Rule $rule)
     {
-        $this->checkAccess();
-
         $createdDraft = $this->layoutResolverService->createDraft($rule, true);
 
         return $this->buildView($createdDraft, ViewInterface::CONTEXT_ADMIN);
@@ -273,8 +259,6 @@ class LayoutResolverController extends Controller
      */
     public function discardRuleDraft(Rule $rule)
     {
-        $this->checkAccess();
-
         $this->layoutResolverService->discardDraft($rule);
 
         $publishedRule = $this->layoutResolverService->loadRule($rule->getId());
@@ -291,8 +275,6 @@ class LayoutResolverController extends Controller
      */
     public function publishRuleDraft(Rule $rule)
     {
-        $this->checkAccess();
-
         $publishedRule = $this->layoutResolverService->publishRule($rule);
 
         return $this->buildView($publishedRule, ViewInterface::CONTEXT_ADMIN);
@@ -307,8 +289,6 @@ class LayoutResolverController extends Controller
      */
     public function deleteRule(Rule $rule)
     {
-        $this->checkAccess();
-
         $this->layoutResolverService->deleteRule($rule);
 
         return new Response(null, Response::HTTP_NO_CONTENT);
@@ -325,8 +305,6 @@ class LayoutResolverController extends Controller
      */
     public function targetCreateForm(Rule $rule, $type, Request $request)
     {
-        $this->checkAccess();
-
         $targetType = $this->targetTypeRegistry->getTargetType($type);
         $createStruct = $this->layoutResolverService->newTargetCreateStruct($type);
 
@@ -382,8 +360,6 @@ class LayoutResolverController extends Controller
      */
     public function targetEditForm(Target $target, Request $request)
     {
-        $this->checkAccess();
-
         $targetType = $target->getTargetType();
 
         $updateStruct = $this->layoutResolverService->newTargetUpdateStruct();
@@ -437,8 +413,6 @@ class LayoutResolverController extends Controller
      */
     public function deleteTarget(Target $target)
     {
-        $this->checkAccess();
-
         $this->layoutResolverService->deleteTarget($target);
 
         return $this->buildView(
@@ -460,8 +434,6 @@ class LayoutResolverController extends Controller
      */
     public function conditionCreateForm(Rule $rule, $type, Request $request)
     {
-        $this->checkAccess();
-
         $conditionType = $this->conditionTypeRegistry->getConditionType($type);
         $createStruct = $this->layoutResolverService->newConditionCreateStruct($type);
 
@@ -517,8 +489,6 @@ class LayoutResolverController extends Controller
      */
     public function conditionEditForm(Condition $condition, Request $request)
     {
-        $this->checkAccess();
-
         $conditionType = $condition->getConditionType();
 
         $updateStruct = $this->layoutResolverService->newConditionUpdateStruct();
@@ -572,8 +542,6 @@ class LayoutResolverController extends Controller
      */
     public function deleteCondition(Condition $condition)
     {
-        $this->checkAccess();
-
         $this->layoutResolverService->deleteCondition($condition);
 
         return $this->buildView(
@@ -584,12 +552,8 @@ class LayoutResolverController extends Controller
         );
     }
 
-    private function checkAccess()
+    protected function checkPermissions()
     {
-        if (!$this->isGranted('ngbm:editor')) {
-            throw new UnauthorizedHttpException(
-                "You don't have access to the layout resolver module"
-            );
-        }
+        $this->denyAccessUnlessGranted('ngbm:editor');
     }
 }
