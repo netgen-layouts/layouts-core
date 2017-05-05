@@ -27,4 +27,9 @@ class IndexController extends Controller
             'NetgenBlockManagerAdminBundle:app:index.html.twig'
         );
     }
+
+    protected function checkPermissions()
+    {
+        $this->denyAccessUnlessGranted('ngbm:editor');
+    }
 }

@@ -101,4 +101,9 @@ class LayoutsController extends Controller
 
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
+
+    protected function checkPermissions()
+    {
+        $this->denyAccessUnlessGranted('ngbm:admin');
+    }
 }

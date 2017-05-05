@@ -157,4 +157,9 @@ class ConfigController extends Controller
 
         return $token->getValue();
     }
+
+    protected function checkPermissions()
+    {
+        $this->denyAccessUnlessGranted('ngbm:editor');
+    }
 }

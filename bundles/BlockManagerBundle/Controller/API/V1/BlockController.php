@@ -323,4 +323,9 @@ class BlockController extends Controller
 
         return $blockCreateStruct;
     }
+
+    protected function checkPermissions()
+    {
+        $this->denyAccessUnlessGranted('ngbm:editor');
+    }
 }
