@@ -17,16 +17,6 @@ class RootLocation implements LocationInterface
     }
 
     /**
-     * Returns the type.
-     *
-     * @return int|string
-     */
-    public function getType()
-    {
-        return 'ngbm_layout';
-    }
-
-    /**
      * Returns the name.
      *
      * @return string

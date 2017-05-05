@@ -23,16 +23,6 @@ class Item implements ItemInterface, LayoutInterface
     }
 
     /**
-     * Returns the type.
-     *
-     * @return int|string
-     */
-    public function getType()
-    {
-        return 'ngbm_layout';
-    }
-
-    /**
      * Returns the value.
      *
      * @return mixed

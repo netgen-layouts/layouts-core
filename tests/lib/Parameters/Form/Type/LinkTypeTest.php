@@ -7,8 +7,9 @@ use Netgen\BlockManager\Parameters\Form\Type\LinkType;
 use Netgen\BlockManager\Parameters\ParameterType\LinkType as LinkParameterType;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
+use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType;
-use Netgen\ContentBrowser\Item\ItemRepositoryInterface;
+use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -27,9 +28,12 @@ class LinkTypeTest extends FormTestCase
      */
     public function getTypes()
     {
+        $backendRegistry = new BackendRegistry();
+        $backendRegistry->addBackend('value', $this->createMock(BackendInterface::class));
+
         return array(
             new ContentBrowserDynamicType(
-                $this->createMock(ItemRepositoryInterface::class),
+                $backendRegistry,
                 array('value')
             ),
         );

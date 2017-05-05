@@ -26,14 +26,6 @@ class RootLocationTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Browser\Item\Layout\RootLocation::getType
-     */
-    public function testGetType()
-    {
-        $this->assertEquals('ngbm_layout', $this->location->getType());
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Browser\Item\Layout\RootLocation::getName
      */
     public function testGetName()

@@ -27,14 +27,6 @@ class ItemTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Browser\Item\Layout\Item::__construct
-     * @covers \Netgen\BlockManager\Browser\Item\Layout\Item::getType
-     */
-    public function testGetType()
-    {
-        $this->assertEquals('ngbm_layout', $this->item->getType());
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Browser\Item\Layout\Item::getValue
      */
     public function testGetValue()
