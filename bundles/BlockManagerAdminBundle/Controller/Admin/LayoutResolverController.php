@@ -19,7 +19,6 @@ use Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Validator\LayoutResol
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class LayoutResolverController extends Controller
 {
