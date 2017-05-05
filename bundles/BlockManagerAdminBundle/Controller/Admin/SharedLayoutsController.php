@@ -36,4 +36,9 @@ class SharedLayoutsController extends Controller
             )
         );
     }
+
+    protected function checkPermissions()
+    {
+        $this->denyAccessUnlessGranted('ngbm:admin');
+    }
 }

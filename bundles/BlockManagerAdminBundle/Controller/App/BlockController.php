@@ -175,4 +175,9 @@ class BlockController extends Controller
             new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
         );
     }
+
+    protected function checkPermissions()
+    {
+        $this->denyAccessUnlessGranted('ngbm:editor');
+    }
 }

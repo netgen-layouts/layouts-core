@@ -554,6 +554,6 @@ class LayoutResolverController extends Controller
 
     protected function checkPermissions()
     {
-        $this->denyAccessUnlessGranted('ngbm:editor');
+        $this->denyAccessUnlessGranted('ngbm:admin');
     }
 }
