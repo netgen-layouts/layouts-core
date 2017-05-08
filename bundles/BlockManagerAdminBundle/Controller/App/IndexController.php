@@ -28,6 +28,9 @@ class IndexController extends Controller
         );
     }
 
+    /**
+     * Performs access checks on the controller.
+     */
     protected function checkPermissions()
     {
         $this->denyAccessUnlessGranted('ngbm:editor');

@@ -11,7 +11,11 @@
             </div>
 
             <div class="panel-name">
-                <a href="{{ macros.layout_path(layout.id) }}" class="js-open-bm">{{ layout.name }}</a>
+                {% if is_granted('ngbm:editor') %}
+                    <a href="{{ macros.layout_path(layout.id) }}" class="js-open-bm">{{ layout.name }}</a>
+                {% else %}
+                    {{ layout.name }}
+                {% endif %}
             </div>
 
             {% if not layout.published %}
@@ -23,7 +27,10 @@
                     <i class="material-icons">more_vert</i>
                 </button>
                 <ul class="nl-dropdown-menu">
-                    <li><a href="{{ macros.layout_path(layout.id) }}" class="js-layout-edit js-open-bm">{{ 'layouts.layout.edit_layout'|trans }}</a></li>
+                    {% if is_granted('ngbm:editor') %}
+                        <li><a href="{{ macros.layout_path(layout.id) }}" class="js-layout-edit js-open-bm">{{ 'layouts.layout.edit_layout'|trans }}</a></li>
+                    {% endif %}
+
                     <li><a href="#" class="js-layout-copy">{{ 'layouts.layout.copy_layout'|trans }}</a></li>
                     <li><a href="#" class="js-layout-delete">{{ 'layouts.layout.delete_layout'|trans }}</a></li>
                 </ul>

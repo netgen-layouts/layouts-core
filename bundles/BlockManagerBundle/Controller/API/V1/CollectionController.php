@@ -307,6 +307,9 @@ class CollectionController extends Controller
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
 
+    /**
+     * Performs access checks on the controller.
+     */
     protected function checkPermissions()
     {
         $this->denyAccessUnlessGranted('ngbm:editor');

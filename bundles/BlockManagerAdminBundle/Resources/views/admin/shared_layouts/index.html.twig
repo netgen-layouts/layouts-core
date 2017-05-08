@@ -18,8 +18,10 @@
             {% endfor %}
         </div>
 
-        <a href="{{ path('ngbm_app', {shared: true}) }}" id="add-new-button" class="nl-btn nl-btn-primary js-open-bm">
-            <i class="material-icons">add</i> {{ 'shared_layouts.create_layout'|trans }}
-        </a>
+        {% if is_granted('ngbm:editor') %}
+            <a href="{{ path('ngbm_app', {shared: true}) }}" id="add-new-button" class="nl-btn nl-btn-primary js-open-bm">
+                <i class="material-icons">add</i> {{ 'shared_layouts.create_layout'|trans }}
+            </a>
+        {% endif %}
     </div>
 {% endblock %}

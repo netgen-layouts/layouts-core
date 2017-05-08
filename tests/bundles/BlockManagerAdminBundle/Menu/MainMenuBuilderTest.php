@@ -8,9 +8,15 @@ use Knp\Menu\MenuFactory;
 use Netgen\Bundle\BlockManagerAdminBundle\Menu\MainMenuBuilder;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class MainMenuBuilderTest extends TestCase
 {
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $authorizationCheckerMock;
+
     /**
      * @var \Netgen\Bundle\BlockManagerAdminBundle\Menu\MainMenuBuilder
      */
@@ -32,7 +38,9 @@ class MainMenuBuilderTest extends TestCase
         $menuFactory = new MenuFactory();
         $menuFactory->addExtension(new RoutingExtension($urlGeneratorMock));
 
-        $this->builder = new MainMenuBuilder($menuFactory);
+        $this->authorizationCheckerMock = $this->createMock(AuthorizationCheckerInterface::class);
+
+        $this->builder = new MainMenuBuilder($menuFactory, $this->authorizationCheckerMock);
     }
 
     /**
@@ -41,6 +49,12 @@ class MainMenuBuilderTest extends TestCase
      */
     public function testCreateMenu()
     {
+        $this->authorizationCheckerMock
+            ->expects($this->any())
+            ->method('isGranted')
+            ->with($this->equalTo('ngbm:admin'))
+            ->will($this->returnValue(true));
+
         $menu = $this->builder->createMenu();
 
         $this->assertInstanceOf(ItemInterface::class, $menu);
@@ -63,5 +77,22 @@ class MainMenuBuilderTest extends TestCase
             'ngbm_admin_shared_layouts_index',
             $menu->getChild('shared_layouts')->getUri()
         );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerAdminBundle\Menu\MainMenuBuilder::createMenu
+     */
+    public function testCreateMenuWithNoAccess()
+    {
+        $this->authorizationCheckerMock
+            ->expects($this->any())
+            ->method('isGranted')
+            ->with($this->equalTo('ngbm:admin'))
+            ->will($this->returnValue(false));
+
+        $menu = $this->builder->createMenu();
+
+        $this->assertInstanceOf(ItemInterface::class, $menu);
+        $this->assertCount(0, $menu);
     }
 }

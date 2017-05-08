@@ -3,6 +3,7 @@ services:
         class: Netgen\Bundle\BlockManagerAdminBundle\Menu\MainMenuBuilder
         arguments:
             - "@knp_menu.factory"
+            - "@security.authorization_checker"
 
     netgen_block_manager.menu.admin.main_menu:
         class: Knp\Menu\MenuItem

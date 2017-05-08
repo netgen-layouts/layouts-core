@@ -12,7 +12,11 @@
 
             {% if rule.layout is not empty %}
                 <div class="panel-name" title="{{ rule.layout.name }}">
-                    <a href="{{ macros.layout_path(rule.layout.id) }}" class="js-open-bm">{{ rule.layout.name }}</a>
+                    {% if is_granted('ngbm:editor') %}
+                        <a href="{{ macros.layout_path(rule.layout.id) }}" class="js-open-bm">{{ rule.layout.name }}</a>
+                    {% else %}
+                        {{ rule.layout.name }}
+                    {% endif %}
                 </div>
             {% else %}
                 <div class="panel-name" title="{{ 'layout_resolver.rule.no_linked_layout'|trans }}">
