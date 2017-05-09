@@ -125,6 +125,46 @@ abstract class LayoutServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadRelatedLayouts
+     */
+    public function testLoadRelatedLayouts()
+    {
+        $sharedLayout = $this->layoutService->loadLayout(3);
+        $layouts = $this->layoutService->loadRelatedLayouts($sharedLayout);
+
+        $this->assertInternalType('array', $layouts);
+        $this->assertCount(1, $layouts);
+
+        foreach ($layouts as $layout) {
+            $this->assertInstanceOf(Layout::class, $layout);
+            $this->assertFalse($layout->isShared());
+            $this->assertTrue($layout->isPublished());
+        }
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadRelatedLayouts
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Related layouts can only be loaded for published shared layouts.
+     */
+    public function testLoadRelatedLayoutsThrowsBadStateExceptionWithNonPublishedSharedLayout()
+    {
+        $sharedLayout = $this->layoutService->loadLayoutDraft(3);
+        $this->layoutService->loadRelatedLayouts($sharedLayout);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadRelatedLayouts
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Related layouts can only be loaded for shared layouts.
+     */
+    public function testLoadRelatedLayoutsThrowsBadStateExceptionWithNonSharedLayout()
+    {
+        $sharedLayout = $this->layoutService->loadLayout(2);
+        $this->layoutService->loadRelatedLayouts($sharedLayout);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::hasPublishedState
      */
     public function testHasPublishedState()

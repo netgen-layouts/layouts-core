@@ -61,6 +61,17 @@ interface LayoutHandler
     public function loadSharedLayouts($includeDrafts = false, $offset = 0, $limit = null);
 
     /**
+     * Loads all layouts related to provided shared layout.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $sharedLayout
+     * @param int $offset
+     * @param int $limit
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout[]
+     */
+    public function loadRelatedLayouts(Layout $sharedLayout, $offset = 0, $limit = null);
+
+    /**
      * Returns if layout with specified ID exists.
      *
      * @param int|string $layoutId

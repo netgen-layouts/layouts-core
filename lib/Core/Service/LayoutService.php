@@ -164,6 +164,44 @@ class LayoutService extends Service implements LayoutServiceInterface
     }
 
     /**
+     * Loads all layouts related to provided shared layout.
+     *
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $sharedLayout
+     * @param int $offset
+     * @param int $limit
+     *
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If provided layout is not shared
+     *                                                          If provided layout is not published
+     *
+     * @return \Netgen\BlockManager\API\Values\Layout\Layout[]
+     */
+    public function loadRelatedLayouts(Layout $sharedLayout, $offset = 0, $limit = null)
+    {
+        if (!$sharedLayout->isPublished()) {
+            throw new BadStateException('sharedLayout', 'Related layouts can only be loaded for published shared layouts.');
+        }
+
+        if (!$sharedLayout->isShared()) {
+            throw new BadStateException('sharedLayout', 'Related layouts can only be loaded for shared layouts.');
+        }
+
+        $persistenceLayout = $this->handler->loadLayout($sharedLayout->getId(), $sharedLayout->getStatus());
+
+        $relatedPersistenceLayouts = $this->handler->loadRelatedLayouts(
+            $persistenceLayout,
+            $offset,
+            $limit
+        );
+
+        $relatedLayouts = array();
+        foreach ($relatedPersistenceLayouts as $relatedPersistenceLayout) {
+            $relatedLayouts[] = $this->mapper->mapLayout($relatedPersistenceLayout);
+        }
+
+        return $relatedLayouts;
+    }
+
+    /**
      * Returns if provided layout has a published status.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout

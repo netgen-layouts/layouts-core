@@ -131,6 +131,22 @@ class LayoutHandler implements LayoutHandlerInterface
     }
 
     /**
+     * Loads all layouts related to provided shared layout.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $sharedLayout
+     * @param int $offset
+     * @param int $limit
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout[]
+     */
+    public function loadRelatedLayouts(Layout $sharedLayout, $offset = 0, $limit = null)
+    {
+        $data = $this->queryHandler->loadRelatedLayoutsData($sharedLayout, $offset, $limit);
+
+        return $this->layoutMapper->mapLayouts($data);
+    }
+
+    /**
      * Returns if layout with specified ID exists.
      *
      * @param int|string $layoutId

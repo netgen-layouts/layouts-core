@@ -89,6 +89,45 @@ class LayoutQueryHandler extends QueryHandler
     }
 
     /**
+     * Loads all data for layouts related to provided shared layout.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $sharedLayout
+     * @param int $offset
+     * @param int $limit
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout[]
+     */
+    public function loadRelatedLayoutsData(Layout $sharedLayout, $offset = 0, $limit = null)
+    {
+        $query = $this->getLayoutSelectQuery();
+
+        $query->innerJoin(
+            'l',
+            'ngbm_zone',
+            'z',
+            $query->expr()->andX(
+                $query->expr()->eq('z.layout_id', 'l.id'),
+                $query->expr()->eq('z.status', 'l.status'),
+                $query->expr()->eq('z.linked_layout_id', ':linked_layout_id')
+            )
+        )
+        ->where(
+            $query->expr()->andX(
+                $query->expr()->eq('l.shared', ':shared'),
+                $query->expr()->eq('l.status', ':status')
+            )
+        )
+        ->setParameter('shared', false, Type::BOOLEAN)
+        ->setParameter('status', Value::STATUS_PUBLISHED, Type::INTEGER)
+        ->setParameter('linked_layout_id', $sharedLayout->id, Type::INTEGER);
+
+        $this->applyOffsetAndLimit($query, $offset, $limit);
+        $query->orderBy('id', 'ASC');
+
+        return $query->execute()->fetchAll();
+    }
+
+    /**
      * Loads all zone data with provided identifier.
      *
      * @param int|string $layoutId

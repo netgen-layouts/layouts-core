@@ -275,6 +275,35 @@ class LayoutHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadRelatedLayouts
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadRelatedLayoutsData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
+     */
+    public function testLoadRelatedLayouts()
+    {
+        $this->assertEquals(
+            array(
+                new Layout(
+                    array(
+                        'id' => 2,
+                        'type' => '4_zones_b',
+                        'name' => 'My other layout',
+                        'created' => 1447065813,
+                        'modified' => 1447065813,
+                        'status' => Value::STATUS_PUBLISHED,
+                        'shared' => false,
+                        'mainLocale' => 'en',
+                        'availableLocales' => array('en'),
+                    )
+                ),
+            ),
+            $this->layoutHandler->loadRelatedLayouts(
+                $this->layoutHandler->loadLayout(3, Value::STATUS_PUBLISHED)
+            )
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::layoutExists
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutExists
      */
