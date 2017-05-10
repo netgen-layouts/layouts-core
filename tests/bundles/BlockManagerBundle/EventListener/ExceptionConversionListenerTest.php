@@ -44,8 +44,9 @@ class ExceptionConversionListenerTest extends TestCase
      * @param \Exception $exception
      * @param string $convertedClass
      * @param int $statusCode
+     * @param bool $converted
      */
-    public function testOnException($exception, $convertedClass, $statusCode)
+    public function testOnException($exception, $convertedClass, $statusCode, $converted)
     {
         $eventListener = new ExceptionConversionListener();
 
@@ -69,7 +70,10 @@ class ExceptionConversionListenerTest extends TestCase
         $this->assertEquals($statusCode, $event->getException()->getStatusCode());
         $this->assertEquals($exception->getMessage(), $event->getException()->getMessage());
         $this->assertEquals($exception->getCode(), $event->getException()->getCode());
-        $this->assertEquals($exception, $event->getException()->getPrevious());
+
+        $converted ?
+            $this->assertEquals($exception, $event->getException()->getPrevious()) :
+            $this->assertNull($event->getException()->getPrevious());
     }
 
     /**
@@ -128,31 +132,43 @@ class ExceptionConversionListenerTest extends TestCase
                 new NotFoundException('param', 'Some error'),
                 NotFoundHttpException::class,
                 Response::HTTP_NOT_FOUND,
+                true,
             ),
             array(
                 new InvalidArgumentException('param', 'Some error'),
                 BadRequestHttpException::class,
                 Response::HTTP_BAD_REQUEST,
+                true,
             ),
             array(
                 new ValidationFailedException('Some error'),
                 BadRequestHttpException::class,
                 Response::HTTP_BAD_REQUEST,
+                true,
             ),
             array(
                 new BadStateException('param', 'Some error'),
                 UnprocessableEntityHttpException::class,
                 Response::HTTP_UNPROCESSABLE_ENTITY,
+                true,
             ),
             array(
                 new ExceptionStub('Some error'),
                 InternalServerErrorHttpException::class,
                 Response::HTTP_INTERNAL_SERVER_ERROR,
+                true,
             ),
             array(
                 new AccessDeniedException('Some error'),
                 AccessDeniedHttpException::class,
                 Response::HTTP_FORBIDDEN,
+                true,
+            ),
+            array(
+                new AccessDeniedHttpException('Some error'),
+                AccessDeniedHttpException::class,
+                Response::HTTP_FORBIDDEN,
+                false,
             ),
         );
     }

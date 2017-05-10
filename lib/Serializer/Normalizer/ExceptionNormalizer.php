@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Serializer\Normalizer;
 
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class ExceptionNormalizer implements NormalizerInterface
@@ -40,7 +40,7 @@ class ExceptionNormalizer implements NormalizerInterface
             'message' => $object->getMessage(),
         );
 
-        if ($object instanceof HttpException) {
+        if ($object instanceof HttpExceptionInterface) {
             $statusCode = $object->getStatusCode();
             if (isset(Response::$statusTexts[$statusCode])) {
                 $data['status_code'] = $statusCode;

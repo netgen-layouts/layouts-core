@@ -12,6 +12,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -54,6 +55,9 @@ class ExceptionConversionListener implements EventSubscriberInterface
         }
 
         $exception = $event->getException();
+        if ($exception instanceof HttpExceptionInterface) {
+            return;
+        }
 
         foreach ($this->exceptionMap as $sourceException => $targetException) {
             if (is_a($exception, $sourceException, true)) {
