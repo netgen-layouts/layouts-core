@@ -1,0 +1,2 @@
+role_hierarchy:
+    ROLE_NGBM_ADMIN: [ROLE_NGBM_EDITOR]

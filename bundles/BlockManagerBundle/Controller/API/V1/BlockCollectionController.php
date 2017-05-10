@@ -210,6 +210,6 @@ class BlockCollectionController extends Controller
      */
     protected function checkPermissions()
     {
-        $this->denyAccessUnlessGranted('ngbm:editor');
+        $this->denyAccessUnlessGranted('ROLE_NGBM_EDITOR');
     }
 }
