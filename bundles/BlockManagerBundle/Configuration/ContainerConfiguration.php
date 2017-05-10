@@ -3,11 +3,14 @@
 namespace Netgen\Bundle\BlockManagerBundle\Configuration;
 
 use Netgen\BlockManager\Exception\InvalidArgumentException;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ContainerConfiguration implements ConfigurationInterface
 {
-    use ContainerAwareTrait;
+    /**
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     */
+    protected $container;
 
     /**
      * @var array
@@ -17,10 +20,12 @@ class ContainerConfiguration implements ConfigurationInterface
     /**
      * Constructor.
      *
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
      * @param array $parameters
      */
-    public function __construct(array $parameters = array())
+    public function __construct(ContainerInterface $container, array $parameters = array())
     {
+        $this->container = $container;
         $this->parameters = $parameters;
     }
 

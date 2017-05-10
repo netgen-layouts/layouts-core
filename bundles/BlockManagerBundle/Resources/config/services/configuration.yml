@@ -3,6 +3,7 @@ services:
         class: Netgen\Bundle\BlockManagerBundle\Configuration\ContainerConfiguration
         lazy: true
         arguments:
+            - "@service_container"
             -
                 block_definitions: "@=service('netgen_block_manager.block.registry.block_definition').getBlockDefinitions()"
                 block_types: "@=service('netgen_block_manager.block.registry.block_type').getBlockTypes()"
@@ -14,8 +15,6 @@ services:
                 target_types: "@=service('netgen_block_manager.layout.resolver.registry.target_type').getTargetTypes()"
                 condition_types: "@=service('netgen_block_manager.layout.resolver.registry.condition_type').getConditionTypes()"
                 parameter_types: "@=service('netgen_block_manager.parameters.registry.parameter_type').getParameterTypes()"
-        calls:
-            - [setContainer, ["@service_container"]]
 
     netgen_block_manager.configuration:
         alias: netgen_block_manager.configuration.container

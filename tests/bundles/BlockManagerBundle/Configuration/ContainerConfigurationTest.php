@@ -122,7 +122,6 @@ class ContainerConfigurationTest extends TestCase
     protected function createConfiguration(array $injectedParameters = array())
     {
         $this->containerMock = $this->createMock(ContainerInterface::class);
-        $this->configuration = new ContainerConfiguration($injectedParameters);
-        $this->configuration->setContainer($this->containerMock);
+        $this->configuration = new ContainerConfiguration($this->containerMock, $injectedParameters);
     }
 }
