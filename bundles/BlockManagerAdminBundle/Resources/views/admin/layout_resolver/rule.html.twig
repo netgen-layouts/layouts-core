@@ -12,7 +12,7 @@
 
             {% if rule.layout is not empty %}
                 <div class="panel-name" title="{{ rule.layout.name }}">
-                    {% if is_granted('ngbm:editor') %}
+                    {% if is_granted('ROLE_NGBM_EDITOR') %}
                         <a href="{{ macros.layout_path(rule.layout.id) }}" class="js-open-bm">{{ rule.layout.name }}</a>
                     {% else %}
                         {{ rule.layout.name }}

@@ -38,7 +38,7 @@ class MainMenuBuilder
     {
         $menu = $this->factory->createItem('root');
 
-        if ($this->authorizationChecker->isGranted('ngbm:admin')) {
+        if ($this->authorizationChecker->isGranted('ROLE_NGBM_ADMIN')) {
             $menu
                 ->addChild('layout_resolver', array('route' => 'ngbm_admin_layout_resolver_index'))
                 ->setLabel('menu.main_menu.layout_resolver')

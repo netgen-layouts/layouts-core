@@ -42,6 +42,6 @@ class SharedLayoutsController extends Controller
      */
     protected function checkPermissions()
     {
-        $this->denyAccessUnlessGranted('ngbm:admin');
+        $this->denyAccessUnlessGranted('ROLE_NGBM_ADMIN');
     }
 }

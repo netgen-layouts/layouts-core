@@ -11,7 +11,7 @@
             </div>
 
             <div class="panel-name">
-                {% if is_granted('ngbm:editor') %}
+                {% if is_granted('ROLE_NGBM_EDITOR') %}
                     <a href="{{ macros.layout_path(layout.id) }}" class="js-open-bm">{{ layout.name }}</a>
                 {% else %}
                     {{ layout.name }}
@@ -27,7 +27,7 @@
                     <i class="material-icons">more_vert</i>
                 </button>
                 <ul class="nl-dropdown-menu">
-                    {% if is_granted('ngbm:editor') %}
+                    {% if is_granted('ROLE_NGBM_EDITOR') %}
                         <li><a href="{{ macros.layout_path(layout.id) }}" class="js-layout-edit js-open-bm">{{ 'layouts.layout.edit_layout'|trans }}</a></li>
                     {% endif %}
 
