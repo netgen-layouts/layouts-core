@@ -102,19 +102,19 @@ class LayoutQueryHandler extends QueryHandler
         $query = $this->getLayoutSelectQuery();
 
         $query->innerJoin(
-            'l',
+            'ngbm_layout',
             'ngbm_zone',
             'z',
             $query->expr()->andX(
-                $query->expr()->eq('z.layout_id', 'l.id'),
-                $query->expr()->eq('z.status', 'l.status'),
+                $query->expr()->eq('z.layout_id', 'ngbm_layout.id'),
+                $query->expr()->eq('z.status', 'ngbm_layout.status'),
                 $query->expr()->eq('z.linked_layout_id', ':linked_layout_id')
             )
         )
         ->where(
             $query->expr()->andX(
-                $query->expr()->eq('l.shared', ':shared'),
-                $query->expr()->eq('l.status', ':status')
+                $query->expr()->eq('ngbm_layout.shared', ':shared'),
+                $query->expr()->eq('ngbm_layout.status', ':status')
             )
         )
         ->setParameter('shared', false, Type::BOOLEAN)
