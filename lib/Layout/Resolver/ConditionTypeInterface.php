@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\Layout\Resolver;
 
+use Symfony\Component\HttpFoundation\Request;
+
 interface ConditionTypeInterface
 {
     /**
@@ -19,11 +21,12 @@ interface ConditionTypeInterface
     public function getConstraints();
 
     /**
-     * Returns if this condition matches the provided value.
+     * Returns if this request matches the provided value.
      *
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param mixed $value
      *
      * @return bool
      */
-    public function matches($value);
+    public function matches(Request $request, $value);
 }

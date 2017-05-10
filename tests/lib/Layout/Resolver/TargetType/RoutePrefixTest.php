@@ -11,7 +11,6 @@ class RoutePrefixTest extends RouteTest
         parent::setUp();
 
         $this->targetType = new RoutePrefix();
-        $this->targetType->setRequestStack($this->requestStack);
     }
 
     /**

@@ -89,10 +89,10 @@ class GlobalVariableTest extends TestCase
     {
         $this->layoutResolverMock
             ->expects($this->once())
-            ->method('resolveRule')
+            ->method('resolveRules')
             ->will(
                 $this->returnValue(
-                    new Rule(array('layout' => new Layout()))
+                    array(new Rule(array('layout' => new Layout())))
                 )
             );
 
@@ -109,8 +109,8 @@ class GlobalVariableTest extends TestCase
     {
         $this->layoutResolverMock
             ->expects($this->once())
-            ->method('resolveRule')
-            ->will($this->returnValue(null));
+            ->method('resolveRules')
+            ->will($this->returnValue(array()));
 
         // This will trigger layout resolver
         $this->globalVariable->getLayoutTemplate();
@@ -133,10 +133,10 @@ class GlobalVariableTest extends TestCase
     {
         $this->layoutResolverMock
             ->expects($this->once())
-            ->method('resolveRule')
+            ->method('resolveRules')
             ->will(
                 $this->returnValue(
-                    new Rule(array('layout' => new Layout()))
+                    array(new Rule(array('layout' => new Layout())))
                 )
             );
 
@@ -162,8 +162,8 @@ class GlobalVariableTest extends TestCase
     {
         $this->layoutResolverMock
             ->expects($this->once())
-            ->method('resolveRule')
-            ->will($this->returnValue(null));
+            ->method('resolveRules')
+            ->will($this->returnValue(array()));
 
         $this->viewBuilderMock
             ->expects($this->never())
@@ -190,10 +190,10 @@ class GlobalVariableTest extends TestCase
     {
         $this->layoutResolverMock
             ->expects($this->once())
-            ->method('resolveRule')
+            ->method('resolveRules')
             ->will(
                 $this->returnValue(
-                    new Rule(array('layout' => new Layout()))
+                    array(new Rule(array('layout' => new Layout())))
                 )
             );
 
@@ -210,8 +210,8 @@ class GlobalVariableTest extends TestCase
     {
         $this->layoutResolverMock
             ->expects($this->once())
-            ->method('resolveRule')
-            ->will($this->returnValue(null));
+            ->method('resolveRules')
+            ->will($this->returnValue(array()));
 
         // This will trigger layout resolver
         $this->globalVariable->getLayoutTemplate();
@@ -235,10 +235,10 @@ class GlobalVariableTest extends TestCase
     {
         $this->layoutResolverMock
             ->expects($this->once())
-            ->method('resolveRule')
+            ->method('resolveRules')
             ->will(
                 $this->returnValue(
-                    new Rule(array('layout' => new Layout()))
+                    array(new Rule(array('layout' => new Layout())))
                 )
             );
 
@@ -271,8 +271,8 @@ class GlobalVariableTest extends TestCase
     {
         $this->layoutResolverMock
             ->expects($this->once())
-            ->method('resolveRule')
-            ->will($this->returnValue(null));
+            ->method('resolveRules')
+            ->will($this->returnValue(array()));
 
         $this->pageLayoutResolverMock
             ->expects($this->once())

@@ -3,14 +3,11 @@
 namespace Netgen\BlockManager\Layout\Resolver\TargetType;
 
 use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;
-use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints;
 
 class Route implements TargetTypeInterface
 {
-    use RequestStackAwareTrait;
-
     /**
      * Returns the target type.
      *
@@ -37,15 +34,12 @@ class Route implements TargetTypeInterface
     /**
      * Provides the value for the target to be used in matching process.
      *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
      * @return mixed
      */
-    public function provideValue()
+    public function provideValue(Request $request)
     {
-        $currentRequest = $this->requestStack->getCurrentRequest();
-        if (!$currentRequest instanceof Request) {
-            return;
-        }
-
-        return $currentRequest->attributes->get('_route');
+        return $request->attributes->get('_route');
     }
 }

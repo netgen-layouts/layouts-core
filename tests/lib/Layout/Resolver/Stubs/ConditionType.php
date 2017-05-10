@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Layout\Resolver\Stubs;
 
 use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints;
 
 class ConditionType implements ConditionTypeInterface
@@ -50,13 +51,14 @@ class ConditionType implements ConditionTypeInterface
     }
 
     /**
-     * Returns if this condition matches the provided value.
+     * Returns if this request matches the provided value.
      *
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param mixed $value
      *
      * @return bool
      */
-    public function matches($value)
+    public function matches(Request $request, $value)
     {
         return $this->matches;
     }

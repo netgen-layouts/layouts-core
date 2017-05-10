@@ -5,16 +5,10 @@ namespace Netgen\BlockManager\Tests\Layout\Resolver\ConditionType;
 use Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Validator\Validation;
 
 class RouteParameterTest extends TestCase
 {
-    /**
-     * @var \Symfony\Component\HttpFoundation\RequestStack
-     */
-    protected $requestStack;
-
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter
      */
@@ -25,19 +19,7 @@ class RouteParameterTest extends TestCase
      */
     public function setUp()
     {
-        $request = Request::create('/');
-        $request->attributes->set(
-            '_route_params',
-            array(
-                'the_answer' => 42,
-            )
-        );
-
-        $this->requestStack = new RequestStack();
-        $this->requestStack->push($request);
-
         $this->conditionType = new RouteParameter();
-        $this->conditionType->setRequestStack($this->requestStack);
     }
 
     /**
@@ -73,18 +55,15 @@ class RouteParameterTest extends TestCase
      */
     public function testMatches($value, $matches)
     {
-        $this->assertEquals($matches, $this->conditionType->matches($value));
-    }
+        $request = Request::create('/');
+        $request->attributes->set(
+            '_route_params',
+            array(
+                'the_answer' => 42,
+            )
+        );
 
-    /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter::matches
-     */
-    public function testMatchesWithNoRequest()
-    {
-        // Make sure we have no request
-        $this->requestStack->pop();
-
-        $this->assertFalse($this->conditionType->matches(array()));
+        $this->assertEquals($matches, $this->conditionType->matches($request, $value));
     }
 
     /**

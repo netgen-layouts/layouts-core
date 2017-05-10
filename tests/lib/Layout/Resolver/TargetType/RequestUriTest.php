@@ -5,16 +5,10 @@ namespace Netgen\BlockManager\Tests\Layout\Resolver\TargetType;
 use Netgen\BlockManager\Layout\Resolver\TargetType\RequestUri;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Validator\Validation;
 
 class RequestUriTest extends TestCase
 {
-    /**
-     * @var \Symfony\Component\HttpFoundation\RequestStack
-     */
-    protected $requestStack;
-
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\TargetType\RequestUri
      */
@@ -22,13 +16,7 @@ class RequestUriTest extends TestCase
 
     public function setUp()
     {
-        $request = Request::create('/the/answer', 'GET', array('a' => 42));
-
-        $this->requestStack = new RequestStack();
-        $this->requestStack->push($request);
-
         $this->targetType = new RequestUri();
-        $this->targetType->setRequestStack($this->requestStack);
     }
 
     /**
@@ -59,21 +47,12 @@ class RequestUriTest extends TestCase
      */
     public function testProvideValue()
     {
+        $request = Request::create('/the/answer', 'GET', array('a' => 42));
+
         $this->assertEquals(
             '/the/answer?a=42',
-            $this->targetType->provideValue()
+            $this->targetType->provideValue($request)
         );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\RequestUri::provideValue
-     */
-    public function testProvideValueWithNoRequest()
-    {
-        // Make sure we have no request
-        $this->requestStack->pop();
-
-        $this->assertNull($this->targetType->provideValue());
     }
 
     /**

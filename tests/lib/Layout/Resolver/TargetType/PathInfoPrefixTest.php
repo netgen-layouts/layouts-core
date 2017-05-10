@@ -11,7 +11,6 @@ class PathInfoPrefixTest extends PathInfoTest
         parent::setUp();
 
         $this->targetType = new PathInfoPrefix();
-        $this->targetType->setRequestStack($this->requestStack);
     }
 
     /**

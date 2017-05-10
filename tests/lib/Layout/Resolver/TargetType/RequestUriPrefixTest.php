@@ -11,7 +11,6 @@ class RequestUriPrefixTest extends RequestUriTest
         parent::setUp();
 
         $this->targetType = new RequestUriPrefix();
-        $this->targetType->setRequestStack($this->requestStack);
     }
 
     /**

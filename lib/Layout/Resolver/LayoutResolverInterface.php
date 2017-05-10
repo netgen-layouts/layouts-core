@@ -2,26 +2,26 @@
 
 namespace Netgen\BlockManager\Layout\Resolver;
 
+use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
+use Symfony\Component\HttpFoundation\Request;
+
 interface LayoutResolverInterface
 {
     /**
-     * Matches the rules based on current conditions.
+     * Resolves the rules based on the provided request.
+     *
+     * If no request is provided, current request is used.
      *
      * Rules are sorted based on their priorities, descending,
      * meaning the rule with highest priority will be the first one in the list.
      *
      * Rules with same priorities will have undetermined relative positions between each other.
      *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule[]
      */
-    public function resolveRules();
-
-    /**
-     * Returns the first valid rule that matches the current conditions.
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule|null
-     */
-    public function resolveRule();
+    public function resolveRules(Request $request = null);
 
     /**
      * Matches the rules based on provided target type and value.
@@ -32,4 +32,16 @@ interface LayoutResolverInterface
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule[]
      */
     public function matchRules($targetType, $targetValue);
+
+    /**
+     * Returns true if the rule matches the provided request.
+     *
+     * If no request was provided, current request is used.
+     *
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return bool If condition type does not exist for one of the conditions
+     */
+    public function matches(Rule $rule, Request $request = null);
 }

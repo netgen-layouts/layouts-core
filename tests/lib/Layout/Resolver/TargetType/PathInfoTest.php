@@ -5,16 +5,10 @@ namespace Netgen\BlockManager\Tests\Layout\Resolver\TargetType;
 use Netgen\BlockManager\Layout\Resolver\TargetType\PathInfo;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Validator\Validation;
 
 class PathInfoTest extends TestCase
 {
-    /**
-     * @var \Symfony\Component\HttpFoundation\RequestStack
-     */
-    protected $requestStack;
-
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\TargetType\PathInfo
      */
@@ -22,13 +16,7 @@ class PathInfoTest extends TestCase
 
     public function setUp()
     {
-        $request = Request::create('/the/answer');
-
-        $this->requestStack = new RequestStack();
-        $this->requestStack->push($request);
-
         $this->targetType = new PathInfo();
-        $this->targetType->setRequestStack($this->requestStack);
     }
 
     /**
@@ -59,21 +47,12 @@ class PathInfoTest extends TestCase
      */
     public function testProvideValue()
     {
+        $request = Request::create('/the/answer');
+
         $this->assertEquals(
             '/the/answer',
-            $this->targetType->provideValue()
+            $this->targetType->provideValue($request)
         );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\PathInfo::provideValue
-     */
-    public function testProvideValueWithNoRequest()
-    {
-        // Make sure we have no request
-        $this->requestStack->pop();
-
-        $this->assertNull($this->targetType->provideValue());
     }
 
     /**

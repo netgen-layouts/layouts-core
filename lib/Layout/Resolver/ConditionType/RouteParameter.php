@@ -3,14 +3,11 @@
 namespace Netgen\BlockManager\Layout\Resolver\ConditionType;
 
 use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
-use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints;
 
 class RouteParameter implements ConditionTypeInterface
 {
-    use RequestStackAwareTrait;
-
     /**
      * Returns the condition type.
      *
@@ -60,19 +57,15 @@ class RouteParameter implements ConditionTypeInterface
     }
 
     /**
-     * Returns if this condition matches the provided value.
+     * Returns if this request matches the provided value.
      *
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param mixed $value
      *
      * @return bool
      */
-    public function matches($value)
+    public function matches(Request $request, $value)
     {
-        $currentRequest = $this->requestStack->getCurrentRequest();
-        if (!$currentRequest instanceof Request) {
-            return false;
-        }
-
         if (!is_array($value)) {
             return false;
         }
@@ -81,7 +74,7 @@ class RouteParameter implements ConditionTypeInterface
             return false;
         }
 
-        $routeParameters = $currentRequest->attributes->get('_route_params', array());
+        $routeParameters = $request->attributes->get('_route_params', array());
         if (!isset($routeParameters[$value['parameter_name']])) {
             return false;
         }

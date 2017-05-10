@@ -2,7 +2,6 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig;
 
-use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface;
 use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Netgen\BlockManager\View\View\LayoutViewInterface;
@@ -156,14 +155,14 @@ class GlobalVariable
      */
     protected function buildLayoutView($context = ViewInterface::CONTEXT_DEFAULT)
     {
-        $resolvedRule = $this->layoutResolver->resolveRule();
-        if (!$resolvedRule instanceof Rule) {
+        $resolvedRules = $this->layoutResolver->resolveRules();
+        if (empty($resolvedRules)) {
             return;
         }
 
         if ($this->layoutView === null) {
-            $this->rule = $resolvedRule;
-            $this->layout = $resolvedRule->getLayout();
+            $this->rule = $resolvedRules[0];
+            $this->layout = $resolvedRules[0]->getLayout();
 
             $this->layoutView = $this->viewBuilder->buildView($this->layout, $context);
 

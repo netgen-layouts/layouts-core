@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\Layout\Resolver;
 
+use Symfony\Component\HttpFoundation\Request;
+
 interface TargetTypeInterface
 {
     /**
@@ -21,7 +23,9 @@ interface TargetTypeInterface
     /**
      * Provides the value for the target to be used in matching process.
      *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
      * @return mixed
      */
-    public function provideValue();
+    public function provideValue(Request $request);
 }
