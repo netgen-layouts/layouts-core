@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Traits\Stubs;
+namespace Netgen\BlockManager\Tests\Serializer\Stubs;
 
-use Netgen\BlockManager\Traits\SerializerAwareTrait;
+use Netgen\BlockManager\Serializer\SerializerAwareTrait;
 
 class SerializerAwareValue
 {

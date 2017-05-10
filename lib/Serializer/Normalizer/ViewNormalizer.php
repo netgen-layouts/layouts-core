@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Serializer\Normalizer;
 
+use Netgen\BlockManager\Serializer\SerializerAwareTrait;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Values\View;
-use Netgen\BlockManager\Traits\SerializerAwareTrait;
 use Netgen\BlockManager\View\RendererInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerAwareInterface;

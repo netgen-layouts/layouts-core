@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Serializer\Normalizer;
 
+use Netgen\BlockManager\Serializer\SerializerAwareTrait;
 use Netgen\BlockManager\Serializer\Values\Value;
-use Netgen\BlockManager\Traits\SerializerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerAwareInterface;
 

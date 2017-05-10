@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Traits;
+namespace Netgen\BlockManager\Serializer;
 
 use Symfony\Component\Serializer\SerializerInterface;
 

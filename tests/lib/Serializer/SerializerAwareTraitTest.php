@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Traits;
+namespace Netgen\BlockManager\Tests\Serializer;
 
-use Netgen\BlockManager\Tests\Traits\Stubs\SerializerAwareValue;
+use Netgen\BlockManager\Tests\Serializer\Stubs\SerializerAwareValue;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\SerializerInterface;
 

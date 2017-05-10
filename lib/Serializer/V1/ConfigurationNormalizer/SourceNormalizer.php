@@ -4,9 +4,9 @@ namespace Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer;
 
 use Netgen\BlockManager\Collection\Source\Query;
 use Netgen\BlockManager\Collection\Source\Source;
+use Netgen\BlockManager\Serializer\SerializerAwareTrait;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
-use Netgen\BlockManager\Traits\SerializerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerAwareInterface;
 
