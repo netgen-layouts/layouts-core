@@ -52,7 +52,7 @@ class MainMenuBuilderTest extends TestCase
         $this->authorizationCheckerMock
             ->expects($this->any())
             ->method('isGranted')
-            ->with($this->equalTo('ngbm:admin'))
+            ->with($this->equalTo('ROLE_NGBM_ADMIN'))
             ->will($this->returnValue(true));
 
         $menu = $this->builder->createMenu();
@@ -87,7 +87,7 @@ class MainMenuBuilderTest extends TestCase
         $this->authorizationCheckerMock
             ->expects($this->any())
             ->method('isGranted')
-            ->with($this->equalTo('ngbm:admin'))
+            ->with($this->equalTo('ROLE_NGBM_ADMIN'))
             ->will($this->returnValue(false));
 
         $menu = $this->builder->createMenu();
