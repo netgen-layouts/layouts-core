@@ -5,30 +5,37 @@ view:
                 template: "NetgenBlockManagerBundle:block:title.html.twig"
                 match:
                     block\definition: title
+                    block\view_type: title
             text:
                 template: "NetgenBlockManagerBundle:block:text.html.twig"
                 match:
                     block\definition: text
+                    block\view_type: text
             button:
                 template: "NetgenBlockManagerBundle:block:button.html.twig"
                 match:
                     block\definition: button
+                    block\view_type: button
             markdown:
                 template: "NetgenBlockManagerBundle:block:markdown.html.twig"
                 match:
                     block\definition: markdown
+                    block\view_type: markdown
             rich_text:
                 template: "NetgenBlockManagerBundle:block:rich_text.html.twig"
                 match:
                     block\definition: rich_text
+                    block\view_type: rich_text
             html_snippet:
                 template: "NetgenBlockManagerBundle:block:html_snippet.html.twig"
                 match:
                     block\definition: html_snippet
+                    block\view_type: html_snippet
             external_video:
                 template: "NetgenBlockManagerBundle:block:external_video.html.twig"
                 match:
                     block\definition: external_video
+                    block\view_type: external_video
             list\list:
                 template: "NetgenBlockManagerBundle:block/list:list.html.twig"
                 match:
@@ -63,14 +70,17 @@ view:
                 template: "NetgenBlockManagerBundle:block:twig_block.html.twig"
                 match:
                     block\definition: twig_block
+                    block\view_type: twig_block
             full_view:
                 template: "NetgenBlockManagerBundle:block:full_view.html.twig"
                 match:
                     block\definition: full_view
+                    block\view_type: full_view
             column:
                 template: "NetgenBlockManagerBundle:block:column.html.twig"
                 match:
                     block\definition: column
+                    block\view_type: column
             two_columns_50_50:
                 template: "NetgenBlockManagerBundle:block:two_columns/two_columns_50_50.html.twig"
                 match:
