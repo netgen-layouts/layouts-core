@@ -46,7 +46,10 @@ class IdProvider implements IdProviderInterface
             return $layoutIds;
         }
 
-        // @todo: Load all reverse related layouts and add their IDs to the list
+        $relatedLayouts = $this->layoutService->loadRelatedLayouts($layout);
+        foreach ($relatedLayouts as $relatedLayout) {
+            $layoutIds[] = $relatedLayout->getId();
+        }
 
         return $layoutIds;
     }

@@ -78,6 +78,42 @@ class IdProviderTest extends TestCase
      */
     public function testProvideIdsWithSharedLayout()
     {
-        $this->markTestIncomplete('Test for ID provider with shared layout is not implemented yet.');
+        $sharedLayout = new Layout(
+            array(
+                'id' => 42,
+                'shared' => true,
+            )
+        );
+
+        $this->layoutServiceMock
+            ->expects($this->at(0))
+            ->method('loadLayout')
+            ->with($this->equalTo(42))
+            ->will($this->returnValue($sharedLayout));
+
+        $this->layoutServiceMock
+            ->expects($this->at(1))
+            ->method('loadRelatedLayouts')
+            ->with($this->equalTo($sharedLayout))
+            ->will(
+                $this->returnValue(
+                    array(
+                        new Layout(
+                            array(
+                                'id' => 43,
+                            )
+                        ),
+                        new Layout(
+                            array(
+                                'id' => 44,
+                            )
+                        ),
+                    )
+                )
+            );
+
+        $providedIds = $this->idProvider->provideIds(42);
+
+        $this->assertEquals(array(42, 43, 44), $providedIds);
     }
 }
