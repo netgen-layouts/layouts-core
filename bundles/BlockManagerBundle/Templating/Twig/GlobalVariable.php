@@ -3,18 +3,16 @@
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig;
 
 use Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface;
-use Netgen\BlockManager\Traits\RequestStackAwareTrait;
 use Netgen\BlockManager\View\View\LayoutViewInterface;
 use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Configuration\ConfigurationInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolverInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class GlobalVariable
 {
-    use RequestStackAwareTrait;
-
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Configuration\ConfigurationInterface
      */
@@ -34,6 +32,11 @@ class GlobalVariable
      * @var \Netgen\BlockManager\View\ViewBuilderInterface
      */
     protected $viewBuilder;
+
+    /**
+     * @var \Symfony\Component\HttpFoundation\RequestStack
+     */
+    protected $requestStack;
 
     /**
      * @var \Netgen\BlockManager\API\Values\Layout\Layout
@@ -62,17 +65,20 @@ class GlobalVariable
      * @param \Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface $layoutResolver
      * @param \Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolverInterface $pageLayoutResolver
      * @param \Netgen\BlockManager\View\ViewBuilderInterface $viewBuilder
+     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
      */
     public function __construct(
         ConfigurationInterface $configuration,
         LayoutResolverInterface $layoutResolver,
         PageLayoutResolverInterface $pageLayoutResolver,
-        ViewBuilderInterface $viewBuilder
+        ViewBuilderInterface $viewBuilder,
+        RequestStack $requestStack
     ) {
         $this->configuration = $configuration;
         $this->layoutResolver = $layoutResolver;
         $this->pageLayoutResolver = $pageLayoutResolver;
         $this->viewBuilder = $viewBuilder;
+        $this->requestStack = $requestStack;
     }
 
     /**

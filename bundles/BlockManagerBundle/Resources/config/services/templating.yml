@@ -9,8 +9,7 @@ services:
             - "@netgen_block_manager.layout.resolver"
             - "@netgen_block_manager.templating.pagelayout_resolver"
             - "@netgen_block_manager.view.view_builder"
-        calls:
-            - [setRequestStack, ["@request_stack"]]
+            - "@request_stack"
 
     netgen_block_manager.templating.twig.extension.rendering:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension

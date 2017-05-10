@@ -53,17 +53,16 @@ class GlobalVariableTest extends TestCase
         $this->pageLayoutResolverMock = $this->createMock(PageLayoutResolverInterface::class);
         $this->viewBuilderMock = $this->createMock(ViewBuilderInterface::class);
 
+        $this->requestStack = new RequestStack();
+        $this->requestStack->push(Request::create('/'));
+
         $this->globalVariable = new GlobalVariable(
             $this->configMock,
             $this->layoutResolverMock,
             $this->pageLayoutResolverMock,
-            $this->viewBuilderMock
+            $this->viewBuilderMock,
+            $this->requestStack
         );
-
-        $this->requestStack = new RequestStack();
-        $this->requestStack->push(Request::create('/'));
-
-        $this->globalVariable->setRequestStack($this->requestStack);
     }
 
     /**
