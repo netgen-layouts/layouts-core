@@ -292,8 +292,6 @@ class LayoutHandlerTest extends TestCase
                         'modified' => 1447065813,
                         'status' => Value::STATUS_PUBLISHED,
                         'shared' => false,
-                        'mainLocale' => 'en',
-                        'availableLocales' => array('en'),
                     )
                 ),
             ),
