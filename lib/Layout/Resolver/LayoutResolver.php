@@ -54,10 +54,11 @@ class LayoutResolver implements LayoutResolverInterface
      * Rules with same priorities will have undetermined relative positions between each other.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param bool $matchConditions
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule[]
      */
-    public function resolveRules(Request $request = null)
+    public function resolveRules(Request $request = null, $matchConditions = true)
     {
         $request = $request ?: $this->requestStack->getCurrentRequest();
 
@@ -71,7 +72,7 @@ class LayoutResolver implements LayoutResolverInterface
 
             $matchedRules = $this->matchRules($targetType->getType(), $targetValue);
             foreach ($matchedRules as $matchedRule) {
-                if (!$this->matches($matchedRule, $request)) {
+                if ($matchConditions && !$this->matches($matchedRule, $request)) {
                     continue;
                 }
 
@@ -121,17 +122,13 @@ class LayoutResolver implements LayoutResolverInterface
     /**
      * Returns true if the rule matches the provided request.
      *
-     * If no request was provided, current request is used.
-     *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return bool If condition type does not exist for one of the conditions
      */
-    public function matches(Rule $rule, Request $request = null)
+    public function matches(Rule $rule, Request $request)
     {
-        $request = $request ?: $this->requestStack->getCurrentRequest();
-
         foreach ($rule->getConditions() as $condition) {
             $conditionType = $condition->getConditionType();
             if (!$conditionType->matches($request, $condition->getValue())) {
