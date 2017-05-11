@@ -27,7 +27,7 @@ class QueryTypeTest extends TestCase
         $this->queryType = new QueryType(
             array(
                 'type' => 'query_type',
-                'handler' => new QueryTypeHandler(array('val1', 'val2')),
+                'handler' => new QueryTypeHandler(array('val1', 'val2'), null, 3),
                 'config' => $this->configMock,
             )
         );
@@ -80,5 +80,29 @@ class QueryTypeTest extends TestCase
         );
 
         $this->assertEquals(1, $queryType->getCount(new Query()));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\QueryType::getInternalLimit
+     */
+    public function testGetInternalLimit()
+    {
+        $this->assertEquals(3, $this->queryType->getInternalLimit(new Query()));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\QueryType::isConfigured
+     */
+    public function testIsConfigured()
+    {
+        $this->assertTrue($this->queryType->isConfigured(new Query()));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\QueryType::isContextual
+     */
+    public function testIsContextual()
+    {
+        $this->assertFalse($this->queryType->isContextual(new Query()));
     }
 }

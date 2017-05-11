@@ -6,6 +6,7 @@ use ArrayAccess;
 use ArrayIterator;
 use Countable;
 use IteratorAggregate;
+use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\ValueObject;
 
@@ -54,6 +55,56 @@ class ResultSet extends ValueObject implements ArrayAccess, IteratorAggregate, C
     public function getResults()
     {
         return $this->results;
+    }
+
+    /**
+     * Returns if the result set is dynamic.
+     *
+     * @return bool
+     */
+    public function isDynamic()
+    {
+        return $this->collection->getType() === Collection::TYPE_DYNAMIC;
+    }
+
+    /**
+     * Returns if the result set is configured.
+     *
+     * @return bool
+     */
+    public function isConfigured()
+    {
+        if ($this->collection->getType() === Collection::TYPE_MANUAL) {
+            return true;
+        }
+
+        foreach ($this->collection->getQueries() as $query) {
+            if (!$query->getQueryType()->isConfigured($query)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Returns if the result set is dependent on a context, i.e. current request.
+     *
+     * @return bool
+     */
+    public function isContextual()
+    {
+        if ($this->collection->getType() === Collection::TYPE_MANUAL) {
+            return false;
+        }
+
+        foreach ($this->collection->getQueries() as $query) {
+            if ($query->getQueryType()->isContextual($query)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

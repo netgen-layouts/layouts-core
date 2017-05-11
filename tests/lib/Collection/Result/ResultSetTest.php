@@ -4,7 +4,9 @@ namespace Netgen\BlockManager\Tests\Collection\Result;
 
 use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
+use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 use Traversable;
 
@@ -37,6 +39,8 @@ class ResultSetTest extends TestCase
 
         $this->assertEquals(new Collection(), $result->getCollection());
         $this->assertEquals(array('items'), $result->getResults());
+        $this->assertTrue($result->isConfigured());
+        $this->assertFalse($result->isContextual());
         $this->assertEquals(15, $result->getTotalCount());
         $this->assertEquals(3, $result->getOffset());
         $this->assertEquals(5, $result->getLimit());
@@ -62,5 +66,161 @@ class ResultSetTest extends TestCase
         } catch (RuntimeException $e) {
             // Do nothing
         }
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::isConfigured
+     */
+    public function testIsConfigured()
+    {
+        $result = new ResultSet(
+            array(
+                'collection' => new Collection(
+                    array(
+                        'type' => Collection::TYPE_DYNAMIC,
+                        'queries' => array(
+                            new Query(
+                                array(
+                                    'queryType' => new QueryType('type', array(), null, true),
+                                )
+                            ),
+                            new Query(
+                                array(
+                                    'queryType' => new QueryType('type', array(), null, true),
+                                )
+                            ),
+                        ),
+                    )
+                ),
+            )
+        );
+
+        $this->assertTrue($result->isConfigured());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::isConfigured
+     */
+    public function testIsConfiguredWithManualCollection()
+    {
+        $result = new ResultSet(
+            array(
+                'collection' => new Collection(
+                    array(
+                        'type' => Collection::TYPE_MANUAL,
+                    )
+                ),
+            )
+        );
+
+        $this->assertTrue($result->isConfigured());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::isConfigured
+     */
+    public function testIsConfiguredWithNonConfiguredQuery()
+    {
+        $result = new ResultSet(
+            array(
+                'collection' => new Collection(
+                    array(
+                        'type' => Collection::TYPE_DYNAMIC,
+                        'queries' => array(
+                            new Query(
+                                array(
+                                    'queryType' => new QueryType('type', array(), null, true),
+                                )
+                            ),
+                            new Query(
+                                array(
+                                    'queryType' => new QueryType('type', array(), null, false),
+                                )
+                            ),
+                        ),
+                    )
+                ),
+            )
+        );
+
+        $this->assertFalse($result->isConfigured());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::isContextual
+     */
+    public function testIsContextual()
+    {
+        $result = new ResultSet(
+            array(
+                'collection' => new Collection(
+                    array(
+                        'type' => Collection::TYPE_DYNAMIC,
+                        'queries' => array(
+                            new Query(
+                                array(
+                                    'queryType' => new QueryType('type', array(), null, true, false),
+                                )
+                            ),
+                            new Query(
+                                array(
+                                    'queryType' => new QueryType('type', array(), null, true, false),
+                                )
+                            ),
+                        ),
+                    )
+                ),
+            )
+        );
+
+        $this->assertFalse($result->isContextual());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::isContextual
+     */
+    public function testIsContextualWithManualCollection()
+    {
+        $result = new ResultSet(
+            array(
+                'collection' => new Collection(
+                    array(
+                        'type' => Collection::TYPE_MANUAL,
+                    )
+                ),
+            )
+        );
+
+        $this->assertFalse($result->isContextual());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::isContextual
+     */
+    public function testIsContextualWithContextualQuery()
+    {
+        $result = new ResultSet(
+            array(
+                'collection' => new Collection(
+                    array(
+                        'type' => Collection::TYPE_DYNAMIC,
+                        'queries' => array(
+                            new Query(
+                                array(
+                                    'queryType' => new QueryType('type', array(), null, true, false),
+                                )
+                            ),
+                            new Query(
+                                array(
+                                    'queryType' => new QueryType('type', array(), null, true, true),
+                                )
+                            ),
+                        ),
+                    )
+                ),
+            )
+        );
+
+        $this->assertTrue($result->isContextual());
     }
 }

@@ -17,21 +17,3 @@
         <span class="msg">{{ info }}</span>
     </div>
 {% endmacro %}
-
-{% macro collection(collections, identifier, item_view_type, view_context) %}
-    {% import _self as self %}
-
-    {% if collections[identifier] is defined %}
-        {% if collections[identifier] is empty %}
-            {{ self.notice('block.notice.empty_collection'|trans) }}
-        {% else %}
-            <div class="list-row">
-                {% for result in collections[identifier] %}
-                    <div class="list-item">
-                        {{ ngbm_render_item(result.item, item_view_type, {}, view_context) }}
-                    </div>
-                {% endfor %}
-            </div>
-        {% endif %}
-    {% endif %}
-{% endmacro %}

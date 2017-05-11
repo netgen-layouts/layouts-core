@@ -43,6 +43,33 @@ interface QueryTypeInterface extends ParameterCollectionInterface
     public function getCount(Query $query);
 
     /**
+     * Returns the limit internal to provided query.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
+     *
+     * @return int
+     */
+    public function getInternalLimit(Query $query);
+
+    /**
+     * Returns if the provided query is configured.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
+     *
+     * @return bool
+     */
+    public function isConfigured(Query $query);
+
+    /**
+     * Returns if the provided query is dependent on a context, i.e. current request.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
+     *
+     * @return bool
+     */
+    public function isContextual(Query $query);
+
+    /**
      * Returns the query type configuration.
      *
      * @return \Netgen\BlockManager\Collection\QueryType\Configuration\Configuration

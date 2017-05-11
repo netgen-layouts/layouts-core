@@ -27,17 +27,31 @@ class QueryTypeHandler implements QueryTypeHandlerInterface
     protected $internalLimit;
 
     /**
+     * @var bool
+     */
+    protected $configured;
+
+    /**
+     * @var bool
+     */
+    protected $contextual;
+
+    /**
      * Constructor.
      *
      * @param array $values
      * @param int $count
      * @param int $internalLimit
+     * @param bool $configured
+     * @param bool $contextual
      */
-    public function __construct(array $values = array(), $count = null, $internalLimit = null)
+    public function __construct(array $values = array(), $count = null, $internalLimit = null, $configured = true, $contextual = false)
     {
         $this->values = $values;
         $this->count = $count;
         $this->internalLimit = $internalLimit;
+        $this->configured = $configured;
+        $this->contextual = $contextual;
     }
 
     /**
@@ -114,5 +128,29 @@ class QueryTypeHandler implements QueryTypeHandlerInterface
     public function getInternalLimit(Query $query)
     {
         return $this->internalLimit;
+    }
+
+    /**
+     * Returns if the provided query is configured.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
+     *
+     * @return bool
+     */
+    public function isConfigured(Query $query)
+    {
+        return $this->configured;
+    }
+
+    /**
+     * Returns if the provided query is dependent on a context, i.e. current request.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
+     *
+     * @return bool
+     */
+    public function isContextual(Query $query)
+    {
+        return $this->contextual;
     }
 }

@@ -30,13 +30,15 @@ class QueryType implements QueryTypeInterface
      * @param string $type
      * @param array $values
      * @param int $count
+     * @param bool $configured
+     * @param bool $contextual
      */
-    public function __construct($type, array $values = array(), $count = null)
+    public function __construct($type, array $values = array(), $count = null, $configured = true, $contextual = false)
     {
         $this->type = $type;
         $this->values = $values;
 
-        $this->handler = new QueryTypeHandler($this->values, $count);
+        $this->handler = new QueryTypeHandler($this->values, $count, null, $configured, $contextual);
     }
 
     /**
@@ -103,6 +105,42 @@ class QueryType implements QueryTypeInterface
     public function getCount(Query $query)
     {
         return $this->handler->getCount($query);
+    }
+
+    /**
+     * Returns the limit internal to provided query.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
+     *
+     * @return int
+     */
+    public function getInternalLimit(Query $query)
+    {
+        return $this->handler->getInternalLimit($query);
+    }
+
+    /**
+     * Returns if the provided query is configured.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
+     *
+     * @return bool
+     */
+    public function isConfigured(Query $query)
+    {
+        return $this->handler->isConfigured($query);
+    }
+
+    /**
+     * Returns if the provided query is dependent on a context, i.e. current request.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
+     *
+     * @return bool
+     */
+    public function isContextual(Query $query)
+    {
+        return $this->handler->isContextual($query);
     }
 
     /**

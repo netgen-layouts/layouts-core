@@ -1,0 +1,43 @@
+{% trans_default_domain 'ngbm_app' %}
+
+{% import 'NetgenBlockManagerBundle:api/parts:macros.html.twig' as macros %}
+
+{% set number_of_columns = number_of_columns|default(1) %}
+{% set item_view_type = item_view_type|default(block.itemViewType) %}
+
+{% if block is defined and collection is defined %}
+    {% if not collection.dynamic or not collection.contextual %}
+        {% if collection is not empty %}
+            <div class="{% if number_of_columns > 1 %}grid-row{% else %}list-row{% endif %}">
+                {% for result in collection %}
+                    <div class="{% if number_of_columns > 1 %}grid-item cols-{{ number_of_columns }}{% else %}list-item{% endif %}">
+                        {{ ngbm_render_item(result.item, item_view_type, {}, view_context) }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% elseif not collection.dynamic or collection.configured %}
+            {{ macros.notice('block.notice.empty_collection'|trans) }}
+        {% else %}
+            {{ macros.notice('block.notice.unconfigured_collection'|trans) }}
+        {% endif %}
+    {% else %}
+        {# @todo This is a hack to get the maximum number of items displayed for a contextual collection #}
+        {% set query = collection.collection.queries.0 %}
+        {% set limit = query.queryType.internalLimit(query) %}
+        {% if limit is null %}
+            {% set limit = number_of_columns > 2 ? 11 : 5 %}
+        {% endif %}
+
+        {% if limit > 0 %}
+            <div class="{% if number_of_columns > 1 %}grid-row{% else %}list-row{% endif %}">
+                {% for i in range(0, limit - 1) %}
+                    <div class="{% if number_of_columns > 1 %}grid-item cols-{{ number_of_columns }}{% else %}list-item{% endif %}">
+                        {% include 'NetgenBlockManagerBundle:api/parts:dummy_item.html.twig' %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{ macros.notice('block.notice.empty_collection'|trans) }}
+        {% endif %}
+    {% endif %}
+{% endif %}
