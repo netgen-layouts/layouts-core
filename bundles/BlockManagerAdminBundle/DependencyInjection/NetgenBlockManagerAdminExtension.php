@@ -55,7 +55,6 @@ class NetgenBlockManagerAdminExtension extends Extension implements PrependExten
             'view/form_view.yml' => 'netgen_block_manager',
             'view/layout_view.yml' => 'netgen_block_manager',
             'view/rule_condition_view.yml' => 'netgen_block_manager',
-            'view/rule_target_view.yml' => 'netgen_block_manager',
             'view/default_templates.yml' => 'netgen_block_manager',
         );
 

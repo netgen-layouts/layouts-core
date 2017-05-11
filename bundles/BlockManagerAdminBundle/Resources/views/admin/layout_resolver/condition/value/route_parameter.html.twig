@@ -1,0 +1,3 @@
+{% if condition.value.parameter_name is defined and condition.value.parameter_values is defined %}
+    {{ condition.value.parameter_name }}: {{ condition.value.parameter_values|join(', ') }}
+{% endif %}

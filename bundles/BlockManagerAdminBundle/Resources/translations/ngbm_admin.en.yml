@@ -42,8 +42,6 @@ layout_resolver.target.route: 'Route'
 layout_resolver.target.route_prefix: 'Route prefix'
 
 layout_resolver.condition.route_parameter: 'Route parameter'
-layout_resolver.condition.route_parameter.parameter_name: 'Parameter name'
-layout_resolver.condition.route_parameter.parameter_values: 'Parameter values'
 
 layouts.title: 'Layouts'
 layouts.create_layout: 'Create layout'
