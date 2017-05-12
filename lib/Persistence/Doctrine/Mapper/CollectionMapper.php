@@ -23,7 +23,6 @@ class CollectionMapper
             $collections[] = new Collection(
                 array(
                     'id' => (int) $dataItem['id'],
-                    'type' => (int) $dataItem['type'],
                     'status' => (int) $dataItem['status'],
                 )
             );

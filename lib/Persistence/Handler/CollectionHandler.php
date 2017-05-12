@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Persistence\Handler;
 
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
@@ -89,16 +88,6 @@ interface CollectionHandler
     public function createCollection(CollectionCreateStruct $collectionCreateStruct);
 
     /**
-     * Updates a collection with specified ID.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct $collectionUpdateStruct
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
-     */
-    public function updateCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct);
-
-    /**
      * Copies a collection.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
@@ -162,8 +151,7 @@ interface CollectionHandler
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      * @param \Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct $queryCreateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is a manual one
-     *                                                          If collection already has a query
+     * @throws \Netgen\BlockManager\Exception\BadStateException If collection already has a query
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */

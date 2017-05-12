@@ -10,7 +10,6 @@ use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler
 use Netgen\BlockManager\Persistence\Handler\CollectionHandler as CollectionHandlerInterface;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
@@ -180,25 +179,6 @@ class CollectionHandler implements CollectionHandlerInterface
     }
 
     /**
-     * Updates a collection with specified ID.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct $collectionUpdateStruct
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
-     */
-    public function updateCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct)
-    {
-        $collectionUpdateStruct->type = $collectionUpdateStruct->type !== null ?
-            $collectionUpdateStruct->type :
-            $collection->type;
-
-        $this->queryHandler->updateCollection($collection, $collectionUpdateStruct);
-
-        return $this->loadCollection($collection->id, $collection->status);
-    }
-
-    /**
      * Copies a collection.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
@@ -211,7 +191,6 @@ class CollectionHandler implements CollectionHandlerInterface
             new CollectionCreateStruct(
                 array(
                     'status' => $collection->status,
-                    'type' => $collection->type,
                 )
             )
         );
@@ -270,7 +249,6 @@ class CollectionHandler implements CollectionHandlerInterface
             new CollectionCreateStruct(
                 array(
                     'status' => $newStatus,
-                    'type' => $collection->type,
                 )
             ),
             $collection->id
@@ -343,13 +321,20 @@ class CollectionHandler implements CollectionHandlerInterface
      */
     public function addItem(Collection $collection, ItemCreateStruct $itemCreateStruct)
     {
+        $isDynamic = true;
+        try {
+            $this->loadCollectionQuery($collection);
+        } catch (NotFoundException $e) {
+            $isDynamic = false;
+        }
+
         $itemCreateStruct->position = $this->positionHelper->createPosition(
             $this->getPositionHelperItemConditions(
                 $collection->id,
                 $collection->status
             ),
             $itemCreateStruct->position,
-            $collection->type !== Collection::TYPE_MANUAL
+            $isDynamic
         );
 
         $createdItemId = $this->queryHandler->addItem(
@@ -375,6 +360,13 @@ class CollectionHandler implements CollectionHandlerInterface
     {
         $collection = $this->loadCollection($item->collectionId, $item->status);
 
+        $isDynamic = true;
+        try {
+            $this->loadCollectionQuery($collection);
+        } catch (NotFoundException $e) {
+            $isDynamic = false;
+        }
+
         $position = $this->positionHelper->moveToPosition(
             $this->getPositionHelperItemConditions(
                 $collection->id,
@@ -382,7 +374,7 @@ class CollectionHandler implements CollectionHandlerInterface
             ),
             $item->position,
             $position,
-            $collection->type !== Collection::TYPE_MANUAL
+            $isDynamic
         );
 
         $this->queryHandler->moveItem($item, $position);
@@ -414,17 +406,12 @@ class CollectionHandler implements CollectionHandlerInterface
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      * @param \Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct $queryCreateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is a manual one
-     *                                                          If collection already has a query
+     * @throws \Netgen\BlockManager\Exception\BadStateException If collection already has a query
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
     public function addQuery(Collection $collection, QueryCreateStruct $queryCreateStruct)
     {
-        if ($collection->type === Collection::TYPE_MANUAL) {
-            throw new BadStateException('collection', 'Provided collection cannot have a query because it is a manual collection.');
-        }
-
         try {
             $this->loadCollectionQuery($collection);
 

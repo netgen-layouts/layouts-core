@@ -7,6 +7,7 @@ use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
+use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceCollection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item as PersistenceItem;
@@ -61,16 +62,21 @@ class CollectionMapper extends Mapper
         }
 
         $query = null;
-        if ($collection->type === PersistenceCollection::TYPE_DYNAMIC) {
+        $type = Collection::TYPE_MANUAL;
+
+        try {
             $query = $this->mapQuery(
                 $handler->loadCollectionQuery($collection)
             );
+
+            $type = Collection::TYPE_DYNAMIC;
+        } catch (NotFoundException $e) {
         }
 
         $collectionData = array(
             'id' => $collection->id,
             'status' => $collection->status,
-            'type' => $collection->type,
+            'type' => $type,
             'items' => $items,
             'query' => $query,
             'published' => $collection->status === Value::STATUS_PUBLISHED,

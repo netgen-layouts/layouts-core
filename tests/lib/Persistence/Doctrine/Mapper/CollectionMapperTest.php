@@ -29,12 +29,10 @@ class CollectionMapperTest extends TestCase
         $data = array(
             array(
                 'id' => 42,
-                'type' => Collection::TYPE_DYNAMIC,
                 'status' => Value::STATUS_PUBLISHED,
             ),
             array(
                 'id' => 43,
-                'type' => Collection::TYPE_MANUAL,
                 'status' => Value::STATUS_DRAFT,
             ),
         );
@@ -43,14 +41,12 @@ class CollectionMapperTest extends TestCase
             new Collection(
                 array(
                     'id' => 42,
-                    'type' => Collection::TYPE_DYNAMIC,
                     'status' => Value::STATUS_PUBLISHED,
                 )
             ),
             new Collection(
                 array(
                     'id' => 43,
-                    'type' => Collection::TYPE_MANUAL,
                     'status' => Value::STATUS_DRAFT,
                 )
             ),

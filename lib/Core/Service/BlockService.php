@@ -772,14 +772,10 @@ class BlockService extends Service implements BlockServiceInterface
             );
 
             if ($blockCreateStruct->definition->hasCollection()) {
-                $collectionCreateStruct = new CollectionCreateStruct();
-                $collectionCreateStruct->type = Collection::TYPE_MANUAL;
-
                 $createdCollection = $this->collectionHandler->createCollection(
                     new CollectionCreateStruct(
                         array(
                             'status' => Value::STATUS_DRAFT,
-                            'type' => Collection::TYPE_MANUAL,
                         )
                     )
                 );

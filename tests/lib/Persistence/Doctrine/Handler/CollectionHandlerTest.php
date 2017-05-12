@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
@@ -55,7 +54,6 @@ class CollectionHandlerTest extends TestCase
             new Collection(
                 array(
                     'id' => 1,
-                    'type' => Collection::TYPE_MANUAL,
                     'status' => Value::STATUS_DRAFT,
                 )
             ),
@@ -240,7 +238,6 @@ class CollectionHandlerTest extends TestCase
     public function testCreateCollection()
     {
         $collectionCreateStruct = new CollectionCreateStruct();
-        $collectionCreateStruct->type = Collection::TYPE_DYNAMIC;
         $collectionCreateStruct->status = Value::STATUS_DRAFT;
 
         $createdCollection = $this->collectionHandler->createCollection($collectionCreateStruct);
@@ -248,7 +245,6 @@ class CollectionHandlerTest extends TestCase
         $this->assertInstanceOf(Collection::class, $createdCollection);
 
         $this->assertEquals(7, $createdCollection->id);
-        $this->assertEquals(Collection::TYPE_DYNAMIC, $createdCollection->type);
         $this->assertEquals(Value::STATUS_DRAFT, $createdCollection->status);
     }
 
@@ -259,7 +255,6 @@ class CollectionHandlerTest extends TestCase
     public function testCreateCollectionWithDefaultValues()
     {
         $collectionCreateStruct = new CollectionCreateStruct();
-        $collectionCreateStruct->type = Collection::TYPE_DYNAMIC;
         $collectionCreateStruct->status = Value::STATUS_DRAFT;
 
         $createdCollection = $this->collectionHandler->createCollection($collectionCreateStruct);
@@ -267,49 +262,7 @@ class CollectionHandlerTest extends TestCase
         $this->assertInstanceOf(Collection::class, $createdCollection);
 
         $this->assertEquals(7, $createdCollection->id);
-        $this->assertEquals(Collection::TYPE_DYNAMIC, $createdCollection->type);
         $this->assertEquals(Value::STATUS_DRAFT, $createdCollection->status);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::updateCollection
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateCollection
-     */
-    public function testUpdateCollection()
-    {
-        $collectionUpdateStruct = new CollectionUpdateStruct();
-        $collectionUpdateStruct->type = Collection::TYPE_MANUAL;
-
-        $updatedCollection = $this->collectionHandler->updateCollection(
-            $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED),
-            $collectionUpdateStruct
-        );
-
-        $this->assertInstanceOf(Collection::class, $updatedCollection);
-
-        $this->assertEquals(3, $updatedCollection->id);
-        $this->assertEquals(Collection::TYPE_MANUAL, $updatedCollection->type);
-        $this->assertEquals(Value::STATUS_PUBLISHED, $updatedCollection->status);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::updateCollection
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateCollection
-     */
-    public function testUpdateCollectionWithDefaultValues()
-    {
-        $collectionUpdateStruct = new CollectionUpdateStruct();
-
-        $updatedCollection = $this->collectionHandler->updateCollection(
-            $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED),
-            $collectionUpdateStruct
-        );
-
-        $this->assertInstanceOf(Collection::class, $updatedCollection);
-
-        $this->assertEquals(3, $updatedCollection->id);
-        $this->assertEquals(Collection::TYPE_DYNAMIC, $updatedCollection->type);
-        $this->assertEquals(Value::STATUS_PUBLISHED, $updatedCollection->status);
     }
 
     /**
@@ -329,7 +282,6 @@ class CollectionHandlerTest extends TestCase
 
         $this->assertEquals(7, $copiedCollection->id);
         $this->assertInstanceOf(Collection::class, $copiedCollection);
-        $this->assertEquals(Collection::TYPE_DYNAMIC, $copiedCollection->type);
         $this->assertEquals(Value::STATUS_PUBLISHED, $copiedCollection->status);
 
         $this->assertEquals(
@@ -410,7 +362,6 @@ class CollectionHandlerTest extends TestCase
         $this->assertInstanceOf(Collection::class, $copiedCollection);
 
         $this->assertEquals(3, $copiedCollection->id);
-        $this->assertEquals(Collection::TYPE_DYNAMIC, $copiedCollection->type);
         $this->assertEquals(Value::STATUS_ARCHIVED, $copiedCollection->status);
 
         $this->assertEquals(
@@ -732,7 +683,6 @@ class CollectionHandlerTest extends TestCase
         $collection = $this->collectionHandler->createCollection(
             new CollectionCreateStruct(
                 array(
-                    'type' => Collection::TYPE_DYNAMIC,
                     'status' => Value::STATUS_PUBLISHED,
                 )
             )
@@ -758,26 +708,6 @@ class CollectionHandlerTest extends TestCase
                 $collection,
                 $queryCreateStruct
             )
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addQuery
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Provided collection cannot have a query because it is a manual collection.
-     */
-    public function testAddQueryThrowsBadStateExceptionWithManualCollection()
-    {
-        $queryCreateStruct = new QueryCreateStruct();
-        $queryCreateStruct->type = 'ezcontent_search';
-        $queryCreateStruct->parameters = array(
-            'param' => 'value',
-        );
-
-        $this->collectionHandler->addQuery(
-            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
-            $queryCreateStruct
         );
     }
 

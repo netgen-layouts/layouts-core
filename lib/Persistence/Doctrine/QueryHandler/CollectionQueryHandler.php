@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
 use Doctrine\DBAL\Types\Type;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
@@ -171,35 +170,12 @@ class CollectionQueryHandler extends QueryHandler
                 $collectionId !== null ? (int) $collectionId : $this->connectionHelper->getAutoIncrementValue('ngbm_collection')
             )
             ->setParameter('status', $collectionCreateStruct->status, Type::INTEGER)
-            ->setParameter('type', $collectionCreateStruct->type, Type::STRING)
+            ->setParameter('type', 0, Type::INTEGER)
             ->setParameter('shared', false, Type::BOOLEAN);
 
         $query->execute();
 
         return (int) $this->connectionHelper->lastInsertId('ngbm_collection');
-    }
-
-    /**
-     * Updates a collection.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct $collectionUpdateStruct
-     */
-    public function updateCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct)
-    {
-        $query = $this->connection->createQueryBuilder();
-        $query
-            ->update('ngbm_collection')
-            ->set('type', ':type')
-            ->where(
-                $query->expr()->eq('id', ':id')
-            )
-            ->setParameter('id', $collection->id, Type::INTEGER)
-            ->setParameter('type', $collectionUpdateStruct->type, Type::INTEGER);
-
-        $this->applyStatusCondition($query, $collection->status);
-
-        $query->execute();
     }
 
     /**

@@ -62,15 +62,13 @@ class CollectionServiceTest extends ServiceTestCase
             ->method('loadCollection')
             ->will(
                 $this->returnValue(
-                    new PersistenceCollection(
-                        array('type' => Collection::TYPE_DYNAMIC)
-                    )
+                    new PersistenceCollection()
                 )
             );
 
         $this->collectionHandlerMock
             ->expects($this->at(1))
-            ->method('updateCollection')
+            ->method('loadCollectionQuery')
             ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
@@ -95,9 +93,7 @@ class CollectionServiceTest extends ServiceTestCase
             ->method('loadCollection')
             ->will(
                 $this->returnValue(
-                    new PersistenceCollection(
-                        array('type' => Collection::TYPE_DYNAMIC)
-                    )
+                    new PersistenceCollection()
                 )
             );
 
@@ -202,9 +198,7 @@ class CollectionServiceTest extends ServiceTestCase
             ->method('loadCollection')
             ->will(
                 $this->returnValue(
-                    new PersistenceCollection(
-                        array('type' => Collection::TYPE_DYNAMIC)
-                    )
+                    new PersistenceCollection()
                 )
             );
 
@@ -232,9 +226,7 @@ class CollectionServiceTest extends ServiceTestCase
             ->method('loadCollection')
             ->will(
                 $this->returnValue(
-                    new PersistenceCollection(
-                        array('type' => Collection::TYPE_MANUAL)
-                    )
+                    new PersistenceCollection()
                 )
             );
 

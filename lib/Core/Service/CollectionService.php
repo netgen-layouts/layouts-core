@@ -20,7 +20,6 @@ use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryUpdateStruct;
@@ -222,7 +221,6 @@ class CollectionService extends Service implements APICollectionService
                 new CollectionCreateStruct(
                     array(
                         'status' => Value::STATUS_DRAFT,
-                        'type' => $collectionCreateStruct->type,
                     )
                 )
             );
@@ -298,15 +296,6 @@ class CollectionService extends Service implements APICollectionService
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $newCollection = $this->handler->updateCollection(
-                $persistenceCollection,
-                new CollectionUpdateStruct(
-                    array(
-                        'type' => $newType,
-                    )
-                )
-            );
-
             if ($newType === Collection::TYPE_MANUAL) {
                 $query = $this->handler->loadCollectionQuery($persistenceCollection);
                 $this->handler->deleteQuery($query);
@@ -316,7 +305,7 @@ class CollectionService extends Service implements APICollectionService
                 }
             } elseif ($newType === Collection::TYPE_DYNAMIC) {
                 $this->handler->addQuery(
-                    $newCollection,
+                    $persistenceCollection,
                     new QueryCreateStruct(
                         array(
                             'type' => $queryCreateStruct->queryType->getType(),
@@ -335,7 +324,7 @@ class CollectionService extends Service implements APICollectionService
 
         $this->persistenceHandler->commitTransaction();
 
-        return $this->mapper->mapCollection($newCollection);
+        return $this->mapper->mapCollection($persistenceCollection);
     }
 
     /**
@@ -525,7 +514,7 @@ class CollectionService extends Service implements APICollectionService
         $this->validator->validatePosition(
             $position,
             'position',
-            $persistenceCollection->type !== Collection::TYPE_MANUAL
+            $collection->getType() !== Collection::TYPE_MANUAL
         );
 
         $this->validator->validateItemCreateStruct($itemCreateStruct);

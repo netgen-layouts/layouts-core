@@ -34,7 +34,6 @@ abstract class CollectionMapperTest extends ServiceTestCase
             array(
                 'id' => 2,
                 'status' => Value::STATUS_PUBLISHED,
-                'type' => APICollection::TYPE_DYNAMIC,
             )
         );
 

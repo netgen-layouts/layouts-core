@@ -9,10 +9,5 @@ class CollectionCreateStruct extends ValueObject
     /**
      * @var int
      */
-    public $type;
-
-    /**
-     * @var int
-     */
     public $status;
 }
