@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Collection\Result;
 use ArrayIterator;
 use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Collection\Result\ResultFilterIterator;
-use Netgen\BlockManager\Collection\Result\ResultLoaderInterface;
+use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Item\NullItem;
 use PHPUnit\Framework\TestCase;
@@ -47,7 +47,7 @@ class ResultFilterIteratorTest extends TestCase
 
         $iterator = new ResultFilterIterator(
             new ArrayIterator($results),
-            ResultLoaderInterface::INCLUDE_INVISIBLE_ITEMS
+            ResultSet::INCLUDE_INVISIBLE_ITEMS
         );
 
         $this->assertEquals(
@@ -84,7 +84,7 @@ class ResultFilterIteratorTest extends TestCase
 
         $iterator = new ResultFilterIterator(
             new ArrayIterator($results),
-            ResultLoaderInterface::INCLUDE_INVALID_ITEMS
+            ResultSet::INCLUDE_INVALID_ITEMS
         );
 
         $this->assertEquals(

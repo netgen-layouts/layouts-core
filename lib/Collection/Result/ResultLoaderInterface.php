@@ -6,10 +6,6 @@ use Netgen\BlockManager\API\Values\Collection\Collection;
 
 interface ResultLoaderInterface
 {
-    const INCLUDE_INVISIBLE_ITEMS = 1;
-
-    const INCLUDE_INVALID_ITEMS = 2;
-
     /**
      * Loads the result set for provided collection.
      *

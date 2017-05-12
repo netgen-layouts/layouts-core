@@ -12,6 +12,10 @@ use Netgen\BlockManager\ValueObject;
 
 class ResultSet extends ValueObject implements ArrayAccess, IteratorAggregate, Countable
 {
+    const INCLUDE_INVISIBLE_ITEMS = 1;
+
+    const INCLUDE_INVALID_ITEMS = 2;
+
     /**
      * @var \Netgen\BlockManager\API\Values\Collection\Collection
      */

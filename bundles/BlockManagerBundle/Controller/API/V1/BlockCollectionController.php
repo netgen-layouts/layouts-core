@@ -8,6 +8,7 @@ use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Block\CollectionReference;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Collection\Result\ResultLoaderInterface;
+use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
@@ -128,8 +129,8 @@ class BlockCollectionController extends Controller
                 $collectionReference->getCollection(),
                 (int) $offset,
                 (int) $limit,
-                ResultLoaderInterface::INCLUDE_INVISIBLE_ITEMS |
-                ResultLoaderInterface::INCLUDE_INVALID_ITEMS
+                ResultSet::INCLUDE_INVISIBLE_ITEMS |
+                ResultSet::INCLUDE_INVALID_ITEMS
             ),
             Version::API_V1
         );
