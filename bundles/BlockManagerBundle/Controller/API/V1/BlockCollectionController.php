@@ -9,7 +9,6 @@ use Netgen\BlockManager\API\Values\Block\CollectionReference;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Collection\Result\ResultLoaderInterface;
 use Netgen\BlockManager\Collection\Result\ResultSet;
-use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
@@ -23,8 +22,6 @@ class BlockCollectionController extends Controller
     const NEW_TYPE_MANUAL = 'manual';
 
     const NEW_TYPE_DYNAMIC = 'dynamic';
-
-    const NEW_TYPE_SHARED = 'shared';
 
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService
@@ -144,7 +141,6 @@ class BlockCollectionController extends Controller
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If new collection type is not valid
      *                                                                 If query type does not exist
-     *                                                                 If specified shared collection is not shared
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -161,46 +157,12 @@ class BlockCollectionController extends Controller
                 return new Response(null, Response::HTTP_NO_CONTENT);
             }
 
-            if ($collection->isShared()) {
-                $newCollection = $this->collectionService->createCollection(
-                    $this->collectionService->newCollectionCreateStruct(Collection::TYPE_MANUAL)
-                );
-            } else {
-                $newCollection = $this->collectionService->changeCollectionType($collection, Collection::TYPE_MANUAL);
-            }
-
-            $this->blockService->updateCollectionReference($collectionReference, $newCollection);
+            $this->collectionService->changeCollectionType($collection, Collection::TYPE_MANUAL);
         } elseif ($newType === self::NEW_TYPE_DYNAMIC) {
             $queryType = $this->getQueryType($request->request->get('query_type'));
-            $queryCreateStruct = $this->collectionService->newQueryCreateStruct($queryType, 'default');
+            $queryCreateStruct = $this->collectionService->newQueryCreateStruct($queryType);
 
-            if ($collection->isShared()) {
-                $collectionCreateStruct = $this->collectionService->newCollectionCreateStruct(Collection::TYPE_DYNAMIC);
-                $collectionCreateStruct->queryCreateStructs = array($queryCreateStruct);
-                $newCollection = $this->collectionService->createCollection($collectionCreateStruct);
-            } else {
-                $newCollection = $this->collectionService->changeCollectionType($collection, Collection::TYPE_DYNAMIC, $queryCreateStruct);
-            }
-
-            $this->blockService->updateCollectionReference($collectionReference, $newCollection);
-        } elseif ($newType === self::NEW_TYPE_SHARED) {
-            $newCollection = $this->collectionService->loadCollection($request->request->get('shared_collection_id'));
-            if (!$newCollection->isShared()) {
-                throw new InvalidArgumentException(
-                    'shared_collection_id',
-                    sprintf(
-                        'Collection with ID "%s" is not shared.',
-                        $newCollection->getId()
-                    )
-                );
-            }
-
-            if (in_array($collection->getType(), array(Collection::TYPE_MANUAL, Collection::TYPE_DYNAMIC), true)) {
-                // Updating the reference must come before discarding the draft, since discarding the draft
-                // would delete the reference itself
-                $this->blockService->updateCollectionReference($collectionReference, $newCollection);
-                $this->collectionService->discardDraft($collection);
-            }
+            $this->collectionService->changeCollectionType($collection, Collection::TYPE_DYNAMIC, $queryCreateStruct);
         }
 
         return new Response(null, Response::HTTP_NO_CONTENT);

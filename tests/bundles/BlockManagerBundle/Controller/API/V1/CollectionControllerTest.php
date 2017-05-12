@@ -110,25 +110,25 @@ class CollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::loadCollectionQueries
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::loadCollectionQuery
      */
-    public function testLoadCollectionQueries()
+    public function testLoadCollectionQuery()
     {
-        $this->client->request('GET', '/bm/api/v1/collections/3/queries');
+        $this->client->request('GET', '/bm/api/v1/collections/3/query');
 
         $this->assertResponse(
             $this->client->getResponse(),
-            'v1/collections/load_collection_queries',
+            'v1/collections/load_collection_query',
             Response::HTTP_OK
         );
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::loadCollectionQueries
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::loadCollectionQuery
      */
-    public function testLoadCollectionQueriesWithNonExistentCollection()
+    public function testLoadCollectionQueryWithNonExistentCollection()
     {
-        $this->client->request('GET', '/bm/api/v1/collections/9999/queries');
+        $this->client->request('GET', '/bm/api/v1/collections/9999/query');
 
         $this->assertException(
             $this->client->getResponse(),
@@ -802,7 +802,7 @@ class CollectionControllerTest extends JsonApiTestCase
      */
     public function testLoadQuery()
     {
-        $this->client->request('GET', '/bm/api/v1/collections/queries/2');
+        $this->client->request('GET', '/bm/api/v1/collections/query/2');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -816,172 +816,7 @@ class CollectionControllerTest extends JsonApiTestCase
      */
     public function testLoadQueryWithNonExistentQuery()
     {
-        $this->client->request('GET', '/bm/api/v1/collections/queries/9999');
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND,
-            'Could not find query with identifier "9999"'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::moveQuery
-     */
-    public function testMoveQuery()
-    {
-        $data = $this->jsonEncode(
-            array(
-                'position' => 1,
-            )
-        );
-
-        $this->client->request(
-            'POST',
-            '/bm/api/v1/collections/queries/2/move',
-            array(),
-            array(),
-            array(),
-            $data
-        );
-
-        $this->assertEmptyResponse($this->client->getResponse());
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::moveQuery
-     */
-    public function testMoveQueryWithNonExistentQuery()
-    {
-        $data = $this->jsonEncode(array());
-
-        $this->client->request(
-            'POST',
-            '/bm/api/v1/collections/queries/9999/move',
-            array(),
-            array(),
-            array(),
-            $data
-        );
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND,
-            'Could not find query with identifier "9999"'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::moveQuery
-     */
-    public function testMoveQueryWithOutOfRangePosition()
-    {
-        $data = $this->jsonEncode(
-            array(
-                'position' => 9999,
-            )
-        );
-
-        $this->client->request(
-            'POST',
-            '/bm/api/v1/collections/queries/2/move',
-            array(),
-            array(),
-            array(),
-            $data
-        );
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY,
-            'Argument "position" has an invalid state. Position is out of range.'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::moveQuery
-     */
-    public function testMoveQueryWithInvalidPosition()
-    {
-        $data = $this->jsonEncode(
-            array(
-                'position' => '1',
-            )
-        );
-
-        $this->client->request(
-            'POST',
-            '/bm/api/v1/collections/queries/2/move',
-            array(),
-            array(),
-            array(),
-            $data
-        );
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'There was an error validating "position": This value should be of type int.'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::moveQuery
-     */
-    public function testMoveQueryWithMissingPosition()
-    {
-        $data = $this->jsonEncode(array());
-
-        $this->client->request(
-            'POST',
-            '/bm/api/v1/collections/queries/2/move',
-            array(),
-            array(),
-            array(),
-            $data
-        );
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'There was an error validating "position": This value should not be blank.'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::deleteQuery
-     */
-    public function testDeleteQuery()
-    {
-        $data = $this->jsonEncode(array());
-
-        $this->client->request(
-            'DELETE',
-            '/bm/api/v1/collections/queries/2',
-            array(),
-            array(),
-            array(),
-            $data
-        );
-
-        $this->assertEmptyResponse($this->client->getResponse());
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::deleteQuery
-     */
-    public function testDeleteQueryWithNonExistentQuery()
-    {
-        $data = $this->jsonEncode(array());
-
-        $this->client->request(
-            'DELETE',
-            '/bm/api/v1/collections/queries/9999',
-            array(),
-            array(),
-            array(),
-            $data
-        );
+        $this->client->request('GET', '/bm/api/v1/collections/query/9999');
 
         $this->assertException(
             $this->client->getResponse(),

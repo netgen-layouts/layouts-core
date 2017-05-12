@@ -26,7 +26,6 @@ class BlockCollectionValidator extends Validator
                         'choices' => array(
                             BlockCollectionController::NEW_TYPE_MANUAL,
                             BlockCollectionController::NEW_TYPE_DYNAMIC,
-                            BlockCollectionController::NEW_TYPE_SHARED,
                         ),
                         'strict' => true,
                     )

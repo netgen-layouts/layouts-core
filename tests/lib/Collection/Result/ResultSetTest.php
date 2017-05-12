@@ -29,7 +29,7 @@ class ResultSetTest extends TestCase
     {
         $result = new ResultSet(
             array(
-                'collection' => new Collection(),
+                'collection' => new Collection(array('type' => Collection::TYPE_MANUAL)),
                 'results' => array('items'),
                 'totalCount' => 15,
                 'offset' => 3,
@@ -37,7 +37,7 @@ class ResultSetTest extends TestCase
             )
         );
 
-        $this->assertEquals(new Collection(), $result->getCollection());
+        $this->assertEquals(new Collection(array('type' => Collection::TYPE_MANUAL)), $result->getCollection());
         $this->assertEquals(array('items'), $result->getResults());
         $this->assertTrue($result->isConfigured());
         $this->assertFalse($result->isContextual());
@@ -78,17 +78,10 @@ class ResultSetTest extends TestCase
                 'collection' => new Collection(
                     array(
                         'type' => Collection::TYPE_DYNAMIC,
-                        'queries' => array(
-                            new Query(
-                                array(
-                                    'queryType' => new QueryType('type', array(), null, true),
-                                )
-                            ),
-                            new Query(
-                                array(
-                                    'queryType' => new QueryType('type', array(), null, true),
-                                )
-                            ),
+                        'query' => new Query(
+                            array(
+                                'queryType' => new QueryType('type', array(), null, true),
+                            )
                         ),
                     )
                 ),
@@ -126,17 +119,10 @@ class ResultSetTest extends TestCase
                 'collection' => new Collection(
                     array(
                         'type' => Collection::TYPE_DYNAMIC,
-                        'queries' => array(
-                            new Query(
-                                array(
-                                    'queryType' => new QueryType('type', array(), null, true),
-                                )
-                            ),
-                            new Query(
-                                array(
-                                    'queryType' => new QueryType('type', array(), null, false),
-                                )
-                            ),
+                        'query' => new Query(
+                            array(
+                                'queryType' => new QueryType('type', array(), null, false),
+                            )
                         ),
                     )
                 ),
@@ -156,17 +142,10 @@ class ResultSetTest extends TestCase
                 'collection' => new Collection(
                     array(
                         'type' => Collection::TYPE_DYNAMIC,
-                        'queries' => array(
-                            new Query(
-                                array(
-                                    'queryType' => new QueryType('type', array(), null, true, false),
-                                )
-                            ),
-                            new Query(
-                                array(
-                                    'queryType' => new QueryType('type', array(), null, true, false),
-                                )
-                            ),
+                        'query' => new Query(
+                            array(
+                                'queryType' => new QueryType('type', array(), null, true, false),
+                            )
                         ),
                     )
                 ),
@@ -204,17 +183,10 @@ class ResultSetTest extends TestCase
                 'collection' => new Collection(
                     array(
                         'type' => Collection::TYPE_DYNAMIC,
-                        'queries' => array(
-                            new Query(
-                                array(
-                                    'queryType' => new QueryType('type', array(), null, true, false),
-                                )
-                            ),
-                            new Query(
-                                array(
-                                    'queryType' => new QueryType('type', array(), null, true, true),
-                                )
-                            ),
+                        'query' => new Query(
+                            array(
+                                'queryType' => new QueryType('type', array(), null, true, true),
+                            )
                         ),
                     )
                 ),

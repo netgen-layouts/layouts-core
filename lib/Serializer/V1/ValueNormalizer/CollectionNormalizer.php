@@ -32,18 +32,13 @@ class CollectionNormalizer implements NormalizerInterface, SerializerAwareInterf
             $items[] = new VersionedValue($item, $object->getVersion());
         }
 
-        $queries = array();
-        foreach ($collection->getQueries() as $query) {
-            $queries[] = new VersionedValue($query, $object->getVersion());
-        }
+        $query = new VersionedValue($collection->getQuery(), $object->getVersion());
 
         return array(
             'id' => $collection->getId(),
             'type' => $collection->getType(),
-            'shared' => $collection->isShared(),
-            'name' => $collection->getName(),
             'items' => $this->serializer->normalize($items, $format, $context),
-            'queries' => $this->serializer->normalize($queries, $format, $context),
+            'query' => $this->serializer->normalize($query, $format, $context),
         );
     }
 

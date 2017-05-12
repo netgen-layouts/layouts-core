@@ -19,11 +19,11 @@ ngbm_api_v1_collections_items:
         _controller: "netgen_block_manager.controller.api.v1.collection:loadCollectionItems"
         _ngbm_status: draft
 
-ngbm_api_v1_collections_queries:
-    path: /collections/{collectionId}/queries
+ngbm_api_v1_collections_query:
+    path: /collections/{collectionId}/query
     methods: [GET]
     defaults:
-        _controller: "netgen_block_manager.controller.api.v1.collection:loadCollectionQueries"
+        _controller: "netgen_block_manager.controller.api.v1.collection:loadCollectionQuery"
         _ngbm_status: draft
 
 ngbm_api_v1_collections_load_item:
@@ -55,29 +55,8 @@ ngbm_api_v1_collections_delete_item:
         _ngbm_status: draft
 
 ngbm_api_v1_collections_load_query:
-    path: /collections/queries/{queryId}
+    path: /collections/query/{queryId}
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.collection:loadQuery"
-        _ngbm_status: draft
-
-ngbm_api_v1_collections_move_query:
-    path: /collections/queries/{queryId}/move
-    methods: [POST]
-    defaults:
-        _controller: "netgen_block_manager.controller.api.v1.collection:moveQuery"
-        _ngbm_status: draft
-
-ngbm_api_v1_collections_update_query:
-    path: /collections/queries/{queryId}
-    methods: [PATCH]
-    defaults:
-        _controller: "netgen_block_manager.controller.api.v1.collection:updateQuery"
-        _ngbm_status: draft
-
-ngbm_api_v1_collections_delete:
-    path: /collections/queries/{queryId}
-    methods: [DELETE]
-    defaults:
-        _controller: "netgen_block_manager.controller.api.v1.collection:deleteQuery"
         _ngbm_status: draft

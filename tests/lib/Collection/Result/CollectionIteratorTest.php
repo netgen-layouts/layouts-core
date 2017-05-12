@@ -72,7 +72,7 @@ class CollectionIteratorTest extends TestCase
         $offset = 0,
         $limit = null
     ) {
-        $collection = new Collection($manualItems, $overrideItems, array($queryItems), array($queryCount));
+        $collection = new Collection($manualItems, $overrideItems, $queryItems, $queryCount);
         $collectionIterator = new CollectionIterator($collection, $offset, $limit);
 
         $this->assertEquals($totalCount, $collectionIterator->count());

@@ -296,10 +296,12 @@ class CollectionService extends Service implements APICollectionService
         $this->persistenceHandler->beginTransaction();
 
         try {
-            if ($newType === Collection::TYPE_MANUAL) {
+            if ($collection->getType() === Collection::TYPE_DYNAMIC) {
                 $query = $this->handler->loadCollectionQuery($persistenceCollection);
                 $this->handler->deleteQuery($query);
+            }
 
+            if ($newType === Collection::TYPE_MANUAL) {
                 foreach ($this->handler->loadCollectionItems($persistenceCollection) as $index => $item) {
                     $this->handler->moveItem($item, $index);
                 }

@@ -9,7 +9,6 @@ use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Collection\Result\ResultLoaderInterface;
 use Netgen\BlockManager\Collection\Result\ResultSet;
-use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
@@ -123,22 +122,15 @@ class CollectionController extends Controller
     }
 
     /**
-     * Loads all collection queries.
+     * Loads the collection query.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      *
-     * @return \Netgen\BlockManager\Serializer\Values\Value
+     * @return \Netgen\BlockManager\Serializer\Values\VersionedValue
      */
-    public function loadCollectionQueries(Collection $collection)
+    public function loadCollectionQuery(Collection $collection)
     {
-        $queries = array_map(
-            function (Query $query) {
-                return new VersionedValue($query, Version::API_V1);
-            },
-            $collection->getQueries()
-        );
-
-        return new Value($queries);
+        return new VersionedValue($collection->getQuery(), Version::API_V1);
     }
 
     /**
@@ -236,76 +228,6 @@ class CollectionController extends Controller
     public function loadQuery(Query $query)
     {
         return new VersionedValue($query, Version::API_V1);
-    }
-
-    /**
-     * Updates the query.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If some of the parameters do not exist in the query
-     *
-     * @return \Netgen\BlockManager\Serializer\Values\VersionedValue
-     */
-    public function updateQuery(Query $query, Request $request)
-    {
-        $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct();
-        $queryUpdateStruct->identifier = $request->request->get('identifier');
-
-        $parameters = $request->request->get('parameters');
-        if (is_array($request->request->get('parameters'))) {
-            foreach ($parameters as $parameterName => $parameterValue) {
-                if (!$query->hasParameter($parameterName)) {
-                    throw new BadStateException(
-                        'parameters[' . $parameterName . ']',
-                        'Parameter does not exist in query.'
-                    );
-                }
-
-                $parameterType = $query->getParameter($parameterName)->getParameter()->getType();
-                $queryUpdateStruct->setParameterValue(
-                    $parameterName,
-                    $parameterType->createValueFromInput($parameterValue)
-                );
-            }
-        }
-
-        $updatedQuery = $this->collectionService->updateQuery($query, $queryUpdateStruct);
-
-        return new VersionedValue($updatedQuery, Version::API_V1);
-    }
-
-    /**
-     * Moves the query inside the collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function moveQuery(Query $query, Request $request)
-    {
-        $this->collectionService->moveQuery(
-            $query,
-            $request->request->get('position')
-        );
-
-        return new Response(null, Response::HTTP_NO_CONTENT);
-    }
-
-    /**
-     * Deletes the query.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function deleteQuery(Query $query)
-    {
-        $this->collectionService->deleteQuery($query);
-
-        return new Response(null, Response::HTTP_NO_CONTENT);
     }
 
     /**

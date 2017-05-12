@@ -1,8 +1,6 @@
 {
     "id": 3,
     "type": 1,
-    "shared": true,
-    "name": "My collection",
     "items": [
         {
             "id": 7,
@@ -35,46 +33,22 @@
             "visible": true
         }
     ],
-    "queries": [
-        {
-            "id": 2,
-            "collection_id": 3,
-            "position": 0,
-            "identifier": "default",
-            "type": "ezcontent_search",
-            "parameters": {
-                "use_current_location": null,
-                "parent_location_id": 2,
-                "sort_type": "date_published",
-                "sort_direction": "descending",
-                "limit": null,
-                "offset": 0,
-                "query_type": "list",
-                "only_main_locations": true,
-                "filter_by_content_type": null,
-                "content_types": null,
-                "content_types_filter": "include"
-            }
-        },
-        {
-            "id": 3,
-            "collection_id": 3,
-            "position": 1,
-            "identifier": "featured",
-            "type": "ezcontent_search",
-            "parameters": {
-                "use_current_location": null,
-                "parent_location_id": 2,
-                "sort_type": "date_published",
-                "sort_direction": "descending",
-                "limit": null,
-                "offset": 0,
-                "query_type": "list",
-                "only_main_locations": true,
-                "filter_by_content_type": null,
-                "content_types": null,
-                "content_types_filter": "include"
-            }
+    "query": {
+        "id": 2,
+        "collection_id": 3,
+        "type": "ezcontent_search",
+        "parameters": {
+            "use_current_location": null,
+            "parent_location_id": 2,
+            "sort_type": "date_published",
+            "sort_direction": "descending",
+            "limit": null,
+            "offset": 0,
+            "query_type": "list",
+            "only_main_locations": true,
+            "filter_by_content_type": null,
+            "content_types": null,
+            "content_types_filter": "include"
         }
-    ]
+    }
 }

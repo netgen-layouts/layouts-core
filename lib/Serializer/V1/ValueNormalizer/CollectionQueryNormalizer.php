@@ -35,8 +35,6 @@ class CollectionQueryNormalizer implements NormalizerInterface, SerializerAwareI
         return array(
             'id' => $query->getId(),
             'collection_id' => $query->getCollectionId(),
-            'position' => $query->getPosition(),
-            'identifier' => $query->getIdentifier(),
             'type' => $query->getQueryType()->getType(),
             'parameters' => $this->serializer->normalize($parameters, $format, $context),
         );

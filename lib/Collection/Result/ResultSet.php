@@ -82,13 +82,9 @@ class ResultSet extends ValueObject implements ArrayAccess, IteratorAggregate, C
             return true;
         }
 
-        foreach ($this->collection->getQueries() as $query) {
-            if (!$query->getQueryType()->isConfigured($query)) {
-                return false;
-            }
-        }
+        $query = $this->collection->getQuery();
 
-        return true;
+        return $query->getQueryType()->isConfigured($query);
     }
 
     /**
@@ -102,13 +98,9 @@ class ResultSet extends ValueObject implements ArrayAccess, IteratorAggregate, C
             return false;
         }
 
-        foreach ($this->collection->getQueries() as $query) {
-            if ($query->getQueryType()->isContextual($query)) {
-                return true;
-            }
-        }
+        $query = $this->collection->getQuery();
 
-        return false;
+        return $query->getQueryType()->isContextual($query);
     }
 
     /**

@@ -76,7 +76,7 @@ class CollectionServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->collectionService->changeCollectionType(
-            new Collection(array('published' => false)),
+            new Collection(array('published' => false, 'type' => Collection::TYPE_DYNAMIC)),
             Collection::TYPE_MANUAL
         );
     }

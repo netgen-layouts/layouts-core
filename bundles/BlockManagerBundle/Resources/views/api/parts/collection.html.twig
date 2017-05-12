@@ -22,7 +22,7 @@
         {% endif %}
     {% else %}
         {# @todo This is a hack to get the maximum number of items displayed for a contextual collection #}
-        {% set query = collection.collection.queries.0 %}
+        {% set query = collection.collection.query %}
         {% set limit = query.queryType.internalLimit(query) %}
 
         {% if limit is null %}

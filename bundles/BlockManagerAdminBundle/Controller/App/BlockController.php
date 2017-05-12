@@ -3,7 +3,6 @@
 namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\App;
 
 use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Config\Form\EditType as ConfigEditType;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
@@ -20,20 +19,13 @@ class BlockController extends Controller
     protected $blockService;
 
     /**
-     * @var \Netgen\BlockManager\API\Service\CollectionService
-     */
-    protected $collectionService;
-
-    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\API\Service\BlockService $blockService
-     * @param \Netgen\BlockManager\API\Service\CollectionService $collectionService
      */
-    public function __construct(BlockService $blockService, CollectionService $collectionService)
+    public function __construct(BlockService $blockService)
     {
         $this->blockService = $blockService;
-        $this->collectionService = $collectionService;
     }
 
     /**
@@ -57,7 +49,6 @@ class BlockController extends Controller
             array(
                 'block' => $block,
                 'collections' => $collections,
-                'shared_collections' => $this->collectionService->loadSharedCollections(),
             )
         );
     }

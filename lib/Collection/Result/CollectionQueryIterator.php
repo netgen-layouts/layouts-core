@@ -8,6 +8,7 @@ use Countable;
 use IteratorAggregate;
 use LimitIterator;
 use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Collection\Query;
 
 class CollectionQueryIterator implements IteratorAggregate, Countable
 {
@@ -41,7 +42,7 @@ class CollectionQueryIterator implements IteratorAggregate, Countable
     }
 
     /**
-     * Returns a generator that iterates over all collection queries.
+     * Returns a generator that iterates over the collection query.
      *
      * @return \Iterator
      */
@@ -52,38 +53,27 @@ class CollectionQueryIterator implements IteratorAggregate, Countable
         }
 
         $values = new AppendIterator();
-        $currentCount = 0;
-        $realCount = 0;
 
-        foreach ($this->collection->getQueries() as $query) {
-            $queryType = $query->getQueryType();
+        $query = $this->collection->getQuery();
 
-            $queryCount = $queryType->getCount($query);
+        if (!$query instanceof Query) {
+            return $values;
+        }
 
-            // We're running queries only when we reach the wanted offset
-            if ($currentCount + $queryCount > $this->offset) {
-                $queryValues = $queryType->getValues(
-                    $query,
-                    // We always use the offset of 0 for query fetches
-                    // except for the first time, when we skip the number
-                    // of items that were needed to finally go over the offset
-                    $realCount === 0 && $this->offset > 0 ?
-                        $this->offset - $currentCount :
-                        0
-                );
+        $queryCount = $query->getQueryType()->getCount($query);
 
-                $values->append(new ArrayIterator($queryValues));
-                $realCount += count($queryValues);
+        if ($queryCount > 0) {
+            $queryValues = $query->getQueryType()->getValues(
+                $query,
+                $this->offset
+            );
 
-                // When we have enough results make sure that we limit
-                // the number of items to actual limit if it exists
-                if ($this->limit > 0 && $realCount >= $this->limit) {
-                    $values = new LimitIterator($values, 0, $this->limit);
-                    break;
-                }
-            }
+            $values->append(new ArrayIterator($queryValues));
+        }
 
-            $currentCount = $currentCount + $queryCount;
+        // Make sure that we limit the number of items to actual limit if it exists
+        if ($this->limit > 0 && $queryCount >= $this->limit) {
+            $values = new LimitIterator($values, 0, $this->limit);
         }
 
         return $values;
@@ -96,12 +86,12 @@ class CollectionQueryIterator implements IteratorAggregate, Countable
      */
     public function count()
     {
-        $totalCount = 0;
+        $query = $this->collection->getQuery();
 
-        foreach ($this->collection->getQueries() as $query) {
-            $totalCount += $query->getQueryType()->getCount($query);
+        if (!$query instanceof Query) {
+            return 0;
         }
 
-        return $totalCount;
+        return $query->getQueryType()->getCount($query);
     }
 }

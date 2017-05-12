@@ -94,8 +94,8 @@ class ResultLoaderTest extends TestCase
         $collection = $this->buildCollection(
             array(2 => 10, 7 => 14, 8 => 16, 11 => 20),
             array(3 => 25, 9 => 26),
-            array(array(42, 43, 44, 45, 0, 0, 0, 0, 0, 0, 0, 0, 0)),
-            array(13)
+            array(42, 43, 44, 45, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+            13
         );
 
         $result = $this->resultLoader->load($collection, 0, 5);
@@ -118,7 +118,7 @@ class ResultLoaderTest extends TestCase
      * @param array $manualIds
      * @param array $overrideIds
      * @param array $queryValues
-     * @param array $queryCounts
+     * @param int $queryCount
      *
      * @return \Netgen\BlockManager\Core\Values\Collection\Collection
      */
@@ -126,7 +126,7 @@ class ResultLoaderTest extends TestCase
         array $manualIds = array(),
         array $overrideIds = array(),
         array $queryValues = array(),
-        array $queryCounts = array()
+        $queryCount = 0
     ) {
         $items = array();
 
@@ -152,25 +152,18 @@ class ResultLoaderTest extends TestCase
             );
         }
 
-        $queries = array();
-
-        foreach ($queryValues as $index => $singleQueryValues) {
-            $queries[] = new Query(
-                array(
-                    'identifier' => $index,
-                    'queryType' => new QueryType(
-                        'ezcontent_search',
-                        $this->buildQueryValues($singleQueryValues),
-                        isset($queryCounts[$index]) ? $queryCounts[$index] : null
-                    ),
-                )
-            );
-        }
-
         $collection = new Collection(
             array(
                 'items' => $items,
-                'queries' => $queries,
+                'query' => new Query(
+                    array(
+                        'queryType' => new QueryType(
+                            'ezcontent_search',
+                            $this->buildQueryValues($queryValues),
+                            $queryCount
+                        ),
+                    )
+                ),
             )
         );
 

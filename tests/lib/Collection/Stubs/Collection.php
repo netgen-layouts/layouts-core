@@ -173,7 +173,6 @@ class Collection implements APICollection
     {
         return new Query(
             array(
-                'identifier' => 'query',
                 'queryType' => new QueryType(
                     'ezcontent_search',
                     $this->queryValues,

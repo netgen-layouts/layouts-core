@@ -40,8 +40,6 @@ class CollectionQueryNormalizerTest extends TestCase
             array(
                 'id' => 42,
                 'collectionId' => 24,
-                'position' => 3,
-                'identifier' => 'default',
                 'queryType' => new QueryType('ezcontent_search'),
                 'parameters' => array(
                     'param' => new ParameterValue(
@@ -78,8 +76,6 @@ class CollectionQueryNormalizerTest extends TestCase
             array(
                 'id' => $query->getId(),
                 'collection_id' => $query->getCollectionId(),
-                'position' => $query->getPosition(),
-                'identifier' => $query->getIdentifier(),
                 'type' => $query->getQueryType()->getType(),
                 'parameters' => $serializedParams,
             ),

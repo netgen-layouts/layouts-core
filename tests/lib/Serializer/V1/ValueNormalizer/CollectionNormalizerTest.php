@@ -40,15 +40,11 @@ class CollectionNormalizerTest extends TestCase
             array(
                 'id' => 42,
                 'type' => Collection::TYPE_DYNAMIC,
-                'shared' => true,
-                'name' => 'My collection',
                 'items' => array(
                     new Item(array('position' => 0, 'type' => Item::TYPE_MANUAL)),
                     new Item(array('position' => 1, 'type' => Item::TYPE_MANUAL)),
                 ),
-                'queries' => array(
-                    new Query(array('position' => 0)),
-                ),
+                'query' => new Query(),
             )
         );
 
@@ -70,21 +66,17 @@ class CollectionNormalizerTest extends TestCase
             ->method('normalize')
             ->with(
                 $this->equalTo(
-                    array(
-                        new VersionedValue(new Query(array('position' => 0)), 1),
-                    )
+                    new VersionedValue(new Query(), 1)
                 )
             )
-            ->will($this->returnValue(array('queries')));
+            ->will($this->returnValue(array('query')));
 
         $this->assertEquals(
             array(
                 'id' => $collection->getId(),
                 'type' => $collection->getType(),
-                'shared' => $collection->isShared(),
-                'name' => $collection->getName(),
                 'items' => array('items'),
-                'queries' => array('queries'),
+                'query' => array('query'),
             ),
             $this->normalizer->normalize(new VersionedValue($collection, 1))
         );
