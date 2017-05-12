@@ -58,9 +58,6 @@ CREATE TABLE ngbm_zone (
 CREATE TABLE ngbm_collection (
   id int IDENTITY(1, 1),
   status int NOT NULL,
-  type int NOT NULL,
-  shared tinyint NOT NULL,
-  name nvarchar(255) DEFAULT NULL,
   PRIMARY KEY (id, status)
 );
 
@@ -81,8 +78,6 @@ CREATE TABLE ngbm_collection_query (
   id int IDENTITY(1, 1),
   status int NOT NULL,
   collection_id int NOT NULL,
-  position int NOT NULL,
-  identifier nvarchar(255) NOT NULL,
   type nvarchar(255) NOT NULL,
   parameters nvarchar(max) NOT NULL,
   PRIMARY KEY (id, status),

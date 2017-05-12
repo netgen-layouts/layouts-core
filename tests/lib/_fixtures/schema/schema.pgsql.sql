@@ -57,10 +57,7 @@ CREATE TABLE "ngbm_zone" (
 
 CREATE TABLE "ngbm_collection" (
   "id" integer NOT NULL,
-  "status" integer NOT NULL,
-  "type" integer NOT NULL,
-  "shared" boolean NOT NULL,
-  "name" character varying(255)
+  "status" integer NOT NULL
 );
 
 CREATE TABLE "ngbm_collection_item" (
@@ -77,8 +74,6 @@ CREATE TABLE "ngbm_collection_query" (
   "id" integer NOT NULL,
   "status" integer NOT NULL,
   "collection_id" integer NOT NULL,
-  "position" integer NOT NULL,
-  "identifier" character varying(255) NOT NULL,
   "type" character varying(255) NOT NULL,
   "parameters" text NOT NULL
 );

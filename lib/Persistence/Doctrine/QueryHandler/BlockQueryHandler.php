@@ -575,21 +575,10 @@ class BlockQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT bc.collection_id')
             ->from('ngbm_block_collection', 'bc')
-            ->innerJoin(
-                'bc',
-                'ngbm_collection',
-                'c',
-                $query->expr()->andX(
-                    $query->expr()->eq('bc.collection_id', 'c.id'),
-                    $query->expr()->eq('bc.collection_status', 'c.status'),
-                    $query->expr()->eq('c.shared', ':shared')
-                )
-            )
             ->where(
                 $query->expr()->in('bc.block_id', array(':block_id'))
             )
-            ->setParameter('block_id', $blockIds, Connection::PARAM_INT_ARRAY)
-            ->setParameter('shared', false, Type::BOOLEAN);
+            ->setParameter('block_id', $blockIds, Connection::PARAM_INT_ARRAY);
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status, 'bc.block_status', 'block_status');

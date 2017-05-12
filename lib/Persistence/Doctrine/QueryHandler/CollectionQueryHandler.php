@@ -161,17 +161,13 @@ class CollectionQueryHandler extends QueryHandler
                 array(
                     'id' => ':id',
                     'status' => ':status',
-                    'type' => ':type',
-                    'shared' => ':shared',
                 )
             )
             ->setValue(
                 'id',
                 $collectionId !== null ? (int) $collectionId : $this->connectionHelper->getAutoIncrementValue('ngbm_collection')
             )
-            ->setParameter('status', $collectionCreateStruct->status, Type::INTEGER)
-            ->setParameter('type', 0, Type::INTEGER)
-            ->setParameter('shared', false, Type::BOOLEAN);
+            ->setParameter('status', $collectionCreateStruct->status, Type::INTEGER);
 
         $query->execute();
 
@@ -346,8 +342,6 @@ class CollectionQueryHandler extends QueryHandler
                     'id' => ':id',
                     'status' => ':status',
                     'collection_id' => ':collection_id',
-                    'position' => ':position',
-                    'identifier' => ':identifier',
                     'type' => ':type',
                     'parameters' => ':parameters',
                 )
@@ -358,8 +352,6 @@ class CollectionQueryHandler extends QueryHandler
             )
             ->setParameter('status', $status, Type::INTEGER)
             ->setParameter('collection_id', $collectionId, Type::INTEGER)
-            ->setParameter('position', 0, Type::INTEGER)
-            ->setParameter('identifier', 'default', Type::STRING)
             ->setParameter('type', $queryCreateStruct->type, Type::STRING)
             ->setParameter('parameters', $queryCreateStruct->parameters, Type::JSON_ARRAY);
 
