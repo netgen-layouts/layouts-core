@@ -7,19 +7,9 @@ use Netgen\BlockManager\ValueObject;
 class CollectionCreateStruct extends ValueObject
 {
     /**
-     * @var string
-     */
-    public $name;
-
-    /**
      * @var int
      */
     public $type;
-
-    /**
-     * @var bool
-     */
-    public $shared;
 
     /**
      * @var int

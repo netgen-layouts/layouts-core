@@ -354,9 +354,7 @@ class BlockHandler implements BlockHandlerInterface
                 $collectionReference->collectionStatus
             );
 
-            if (!$collection->shared) {
-                $collection = $this->collectionHandler->copyCollection($collection);
-            }
+            $collection = $this->collectionHandler->copyCollection($collection);
 
             $this->queryHandler->createCollectionReference(
                 $targetBlock->id,
@@ -463,7 +461,7 @@ class BlockHandler implements BlockHandlerInterface
     }
 
     /**
-     * Creates a new status for all non shared collections in specified block.
+     * Creates a new status for all collections in specified block.
      *
      * This method does not create new status for sub-block collections,
      * so any process that works with this method needs to take care of that.
@@ -481,12 +479,10 @@ class BlockHandler implements BlockHandlerInterface
                 $collectionReference->collectionStatus
             );
 
-            if (!$collection->shared) {
-                $collection = $this->collectionHandler->createCollectionStatus(
-                    $collection,
-                    $newStatus
-                );
-            }
+            $collection = $this->collectionHandler->createCollectionStatus(
+                $collection,
+                $newStatus
+            );
 
             $this->queryHandler->createCollectionReference(
                 $block->id,

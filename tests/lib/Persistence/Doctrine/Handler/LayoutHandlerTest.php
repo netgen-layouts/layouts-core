@@ -831,7 +831,7 @@ class LayoutHandlerTest extends TestCase
             )
         );
 
-        // Verify that non shared collections were copied
+        // Verify that collections were copied
         $this->collectionHandler->loadCollection(7, Value::STATUS_PUBLISHED);
         $this->collectionHandler->loadCollection(8, Value::STATUS_PUBLISHED);
 
@@ -842,8 +842,7 @@ class LayoutHandlerTest extends TestCase
             $this->blockHandler->loadBlock(41, Value::STATUS_PUBLISHED)
         );
 
-        $this->assertCount(1, $references);
-        $this->assertEquals($references[0]->collectionId, 3);
+        $this->assertCount(0, $references);
 
         // Second block
         $references = $this->blockHandler->loadCollectionReferences(
@@ -851,8 +850,8 @@ class LayoutHandlerTest extends TestCase
         );
 
         $this->assertCount(2, $references);
-        $this->assertContains($references[0]->collectionId, array(3, 7));
-        $this->assertContains($references[1]->collectionId, array(3, 7));
+        $this->assertContains($references[0]->collectionId, array(7, 8));
+        $this->assertContains($references[1]->collectionId, array(7, 8));
 
         // Third block
         $references = $this->blockHandler->loadCollectionReferences(
@@ -860,7 +859,7 @@ class LayoutHandlerTest extends TestCase
         );
 
         $this->assertCount(1, $references);
-        $this->assertEquals($references[0]->collectionId, 8);
+        $this->assertEquals($references[0]->collectionId, 9);
     }
 
     /**
@@ -1022,7 +1021,7 @@ class LayoutHandlerTest extends TestCase
             )
         );
 
-        // Verify that non shared collection status was copied
+        // Verify that the collection status was copied
         $this->collectionHandler->loadCollection(2, Value::STATUS_ARCHIVED);
 
         // Verify the state of the collection references
@@ -1036,11 +1035,11 @@ class LayoutHandlerTest extends TestCase
 
         // Second block
         $archivedReferences = $this->blockHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(32, Value::STATUS_ARCHIVED)
+            $this->blockHandler->loadBlock(35, Value::STATUS_ARCHIVED)
         );
 
         $this->assertCount(1, $archivedReferences);
-        $this->assertEquals(3, $archivedReferences[0]->collectionId);
+        $this->assertEquals(4, $archivedReferences[0]->collectionId);
     }
 
     /**
@@ -1058,13 +1057,11 @@ class LayoutHandlerTest extends TestCase
         try {
             $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT);
             $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED);
+            $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED);
             self::fail('Collections not deleted after deleting the layout.');
         } catch (NotFoundException $e) {
             // Do nothing
         }
-
-        // Verify that shared collection is not deleted (ID == 3)
-        $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED);
 
         // Verify that we don't have the layout any more
         $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED);
@@ -1098,9 +1095,10 @@ class LayoutHandlerTest extends TestCase
             // Do nothing
         }
 
-        // Verify that NOT all collections are deleted, especially the shared one (ID == 3)
+        // Verify that NOT all collections are deleted
         $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED);
         $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED);
+        $this->collectionHandler->loadCollection(4, Value::STATUS_PUBLISHED);
 
         // Verify the state of the collection references
         $publishedReferences = $this->blockHandler->loadCollectionReferences(
@@ -1113,11 +1111,11 @@ class LayoutHandlerTest extends TestCase
 
         // Second block
         $publishedReferences = $this->blockHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(32, Value::STATUS_PUBLISHED)
+            $this->blockHandler->loadBlock(35, Value::STATUS_PUBLISHED)
         );
 
         $this->assertCount(1, $publishedReferences);
-        $this->assertEquals(3, $publishedReferences[0]->collectionId);
+        $this->assertEquals(4, $publishedReferences[0]->collectionId);
     }
 
     /**

@@ -30,15 +30,11 @@ class CollectionMapperTest extends TestCase
             array(
                 'id' => 42,
                 'type' => Collection::TYPE_DYNAMIC,
-                'shared' => true,
-                'name' => 'My collection',
                 'status' => Value::STATUS_PUBLISHED,
             ),
             array(
                 'id' => 43,
                 'type' => Collection::TYPE_MANUAL,
-                'shared' => false,
-                'name' => null,
                 'status' => Value::STATUS_DRAFT,
             ),
         );
@@ -48,8 +44,6 @@ class CollectionMapperTest extends TestCase
                 array(
                     'id' => 42,
                     'type' => Collection::TYPE_DYNAMIC,
-                    'shared' => true,
-                    'name' => 'My collection',
                     'status' => Value::STATUS_PUBLISHED,
                 )
             ),
@@ -57,8 +51,6 @@ class CollectionMapperTest extends TestCase
                 array(
                     'id' => 43,
                     'type' => Collection::TYPE_MANUAL,
-                    'shared' => false,
-                    'name' => null,
                     'status' => Value::STATUS_DRAFT,
                 )
             ),
@@ -122,60 +114,32 @@ class CollectionMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper::mapQueries
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper::mapQuery
      */
-    public function testMapQueries()
+    public function testMapQuery()
     {
         $data = array(
             array(
                 'id' => 42,
                 'collection_id' => 1,
-                'position' => 2,
-                'identifier' => 'default',
                 'type' => 'ezcontent_search',
                 'parameters' => '{"param":"value"}',
                 'status' => Value::STATUS_PUBLISHED,
             ),
+        );
+
+        $expectedData = new Query(
             array(
-                'id' => 43,
-                'collection_id' => 2,
-                'position' => 5,
-                'identifier' => 'featured',
+                'id' => 42,
+                'collectionId' => 1,
                 'type' => 'ezcontent_search',
-                'parameters' => '{"param2":"value2"}',
-                'status' => Value::STATUS_DRAFT,
-            ),
+                'parameters' => array(
+                    'param' => 'value',
+                ),
+                'status' => Value::STATUS_PUBLISHED,
+            )
         );
 
-        $expectedData = array(
-            new Query(
-                array(
-                    'id' => 42,
-                    'collectionId' => 1,
-                    'position' => 2,
-                    'identifier' => 'default',
-                    'type' => 'ezcontent_search',
-                    'parameters' => array(
-                        'param' => 'value',
-                    ),
-                    'status' => Value::STATUS_PUBLISHED,
-                )
-            ),
-            new Query(
-                array(
-                    'id' => 43,
-                    'collectionId' => 2,
-                    'position' => 5,
-                    'identifier' => 'featured',
-                    'type' => 'ezcontent_search',
-                    'parameters' => array(
-                        'param2' => 'value2',
-                    ),
-                    'status' => Value::STATUS_DRAFT,
-                )
-            ),
-        );
-
-        $this->assertEquals($expectedData, $this->mapper->mapQueries($data));
+        $this->assertEquals($expectedData, $this->mapper->mapQuery($data));
     }
 }

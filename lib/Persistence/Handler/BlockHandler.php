@@ -186,7 +186,7 @@ interface BlockHandler
     public function createBlockStatus(Block $block, $newStatus);
 
     /**
-     * Creates a new status for all non shared collections in specified block.
+     * Creates a new status for all collections in specified block.
      *
      * This method does not create new status for sub-block collections,
      * so any process that works with this method needs to take care of that.

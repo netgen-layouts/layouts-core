@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Persistence\Doctrine\Handler;
 
+use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper;
@@ -74,28 +75,6 @@ class CollectionHandler implements CollectionHandlerInterface
     }
 
     /**
-     * Loads all shared collections.
-     *
-     * @param int $status
-     * @param int $offset
-     * @param int $limit
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection[]
-     */
-    public function loadSharedCollections($status, $offset = 0, $limit = null)
-    {
-        $data = $this->queryHandler->loadSharedCollectionsData($status, $offset, $limit);
-
-        if (empty($data)) {
-            return array();
-        }
-
-        $data = $this->collectionMapper->mapCollections($data);
-
-        return $data;
-    }
-
-    /**
      * Loads an item with specified ID.
      *
      * @param int|string $itemId
@@ -150,23 +129,27 @@ class CollectionHandler implements CollectionHandlerInterface
             throw new NotFoundException('query', $queryId);
         }
 
-        $data = $this->collectionMapper->mapQueries($data);
-
-        return reset($data);
+        return $this->collectionMapper->mapQuery($data);
     }
 
     /**
-     * Loads all queries that belong to collection with specified ID.
+     * Loads the query that belongs to collection with specified ID.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Query[]
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If query for specified collection does not exist
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
-    public function loadCollectionQueries(Collection $collection)
+    public function loadCollectionQuery(Collection $collection)
     {
-        return $this->collectionMapper->mapQueries(
-            $this->queryHandler->loadCollectionQueriesData($collection)
-        );
+        $data = $this->queryHandler->loadCollectionQueryData($collection);
+
+        if (empty($data)) {
+            throw new NotFoundException('query for collection', $collection->id);
+        }
+
+        return $this->collectionMapper->mapQuery($data);
     }
 
     /**
@@ -183,19 +166,6 @@ class CollectionHandler implements CollectionHandlerInterface
     }
 
     /**
-     * Returns if collection name exists.
-     *
-     * @param string $name
-     * @param int|string $excludedCollectionId
-     *
-     * @return bool
-     */
-    public function collectionNameExists($name, $excludedCollectionId = null)
-    {
-        return $this->queryHandler->collectionNameExists($name, $excludedCollectionId);
-    }
-
-    /**
      * Creates a collection.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct $collectionCreateStruct
@@ -204,12 +174,6 @@ class CollectionHandler implements CollectionHandlerInterface
      */
     public function createCollection(CollectionCreateStruct $collectionCreateStruct)
     {
-        $collectionCreateStruct->shared = $collectionCreateStruct->shared ? true : false;
-
-        $collectionCreateStruct->name = $collectionCreateStruct->name !== null ?
-            trim($collectionCreateStruct->name) :
-            null;
-
         $createdCollectionId = $this->queryHandler->createCollection($collectionCreateStruct);
 
         return $this->loadCollection($createdCollectionId, $collectionCreateStruct->status);
@@ -229,10 +193,6 @@ class CollectionHandler implements CollectionHandlerInterface
             $collectionUpdateStruct->type :
             $collection->type;
 
-        $collectionUpdateStruct->name = $collectionUpdateStruct->name !== null ?
-            trim($collectionUpdateStruct->name) :
-            $collection->name;
-
         $this->queryHandler->updateCollection($collection, $collectionUpdateStruct);
 
         return $this->loadCollection($collection->id, $collection->status);
@@ -242,19 +202,16 @@ class CollectionHandler implements CollectionHandlerInterface
      * Copies a collection.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param string $newName
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
-    public function copyCollection(Collection $collection, $newName = null)
+    public function copyCollection(Collection $collection)
     {
         $copiedCollectionId = $this->queryHandler->createCollection(
             new CollectionCreateStruct(
                 array(
                     'status' => $collection->status,
                     'type' => $collection->type,
-                    'shared' => $collection->shared,
-                    'name' => $newName !== null ? $newName : null,
                 )
             )
         );
@@ -276,16 +233,19 @@ class CollectionHandler implements CollectionHandlerInterface
             );
         }
 
-        $collectionQueries = $this->loadCollectionQueries($collection);
+        $collectionQuery = null;
+        try {
+            $collectionQuery = $this->loadCollectionQuery($collection);
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
 
-        foreach ($collectionQueries as $collectionQuery) {
+        if ($collectionQuery instanceof Query) {
             $this->queryHandler->addQuery(
                 $copiedCollectionId,
                 $collectionQuery->status,
                 new QueryCreateStruct(
                     array(
-                        'position' => $collectionQuery->position,
-                        'identifier' => $collectionQuery->identifier,
                         'type' => $collectionQuery->type,
                         'parameters' => $collectionQuery->parameters,
                     )
@@ -311,8 +271,6 @@ class CollectionHandler implements CollectionHandlerInterface
                 array(
                     'status' => $newStatus,
                     'type' => $collection->type,
-                    'shared' => $collection->shared,
-                    'name' => $collection->name,
                 )
             ),
             $collection->id
@@ -336,16 +294,19 @@ class CollectionHandler implements CollectionHandlerInterface
             );
         }
 
-        $collectionQueries = $this->loadCollectionQueries($collection);
+        $collectionQuery = null;
+        try {
+            $collectionQuery = $this->loadCollectionQuery($collection);
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
 
-        foreach ($collectionQueries as $collectionQuery) {
+        if ($collectionQuery instanceof Query) {
             $this->queryHandler->addQuery(
                 $collectionQuery->collectionId,
                 $newStatus,
                 new QueryCreateStruct(
                     array(
-                        'position' => $collectionQuery->position,
-                        'identifier' => $collectionQuery->identifier,
                         'type' => $collectionQuery->type,
                         'parameters' => $collectionQuery->parameters,
                     )
@@ -366,7 +327,7 @@ class CollectionHandler implements CollectionHandlerInterface
     public function deleteCollection($collectionId, $status = null)
     {
         $this->queryHandler->deleteCollectionItems($collectionId, $status);
-        $this->queryHandler->deleteCollectionQueries($collectionId, $status);
+        $this->queryHandler->deleteCollectionQuery($collectionId, $status);
         $this->queryHandler->deleteCollection($collectionId, $status);
     }
 
@@ -448,37 +409,29 @@ class CollectionHandler implements CollectionHandlerInterface
     }
 
     /**
-     * Returns if query with specified identifier exists within the collection.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param string $identifier
-     *
-     * @return bool
-     */
-    public function queryExists(Collection $collection, $identifier)
-    {
-        return $this->queryHandler->queryExists($collection, $identifier);
-    }
-
-    /**
      * Adds a query to collection.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      * @param \Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct $queryCreateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
+     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is a manual one
+     *                                                          If collection already has a query
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
     public function addQuery(Collection $collection, QueryCreateStruct $queryCreateStruct)
     {
-        $queryCreateStruct->position = $this->positionHelper->createPosition(
-            $this->getPositionHelperQueryConditions(
-                $collection->id,
-                $collection->status
-            ),
-            $queryCreateStruct->position
-        );
+        if ($collection->type === Collection::TYPE_MANUAL) {
+            throw new BadStateException('collection', 'Provided collection cannot have a query because it is a manual collection.');
+        }
+
+        try {
+            $this->loadCollectionQuery($collection);
+
+            throw new BadStateException('collection', 'Provided collection already has a query.');
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
 
         $createdQueryId = $this->queryHandler->addQuery(
             $collection->id,
@@ -499,39 +452,13 @@ class CollectionHandler implements CollectionHandlerInterface
      */
     public function updateQuery(Query $query, QueryUpdateStruct $queryUpdateStruct)
     {
-        $queryUpdateStruct->identifier = $queryUpdateStruct->identifier ?: $query->identifier;
+        $queryUpdateStruct->type = $queryUpdateStruct->type ?: $query->type;
 
         $queryUpdateStruct->parameters = is_array($queryUpdateStruct->parameters) ?
             $queryUpdateStruct->parameters :
             $query->parameters;
 
         $this->queryHandler->updateQuery($query, $queryUpdateStruct);
-
-        return $this->loadQuery($query->id, $query->status);
-    }
-
-    /**
-     * Moves a query to specified position in the collection.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
-     * @param int $position
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
-     */
-    public function moveQuery(Query $query, $position)
-    {
-        $position = $this->positionHelper->moveToPosition(
-            $this->getPositionHelperQueryConditions(
-                $query->collectionId,
-                $query->status
-            ),
-            $query->position,
-            $position
-        );
-
-        $this->queryHandler->moveQuery($query, $position);
 
         return $this->loadQuery($query->id, $query->status);
     }
@@ -544,14 +471,6 @@ class CollectionHandler implements CollectionHandlerInterface
     public function deleteQuery(Query $query)
     {
         $this->queryHandler->deleteQuery($query->id, $query->status);
-
-        $this->positionHelper->removePosition(
-            $this->getPositionHelperQueryConditions(
-                $query->collectionId,
-                $query->status
-            ),
-            $query->position
-        );
     }
 
     /**
@@ -566,26 +485,6 @@ class CollectionHandler implements CollectionHandlerInterface
     {
         return array(
             'table' => 'ngbm_collection_item',
-            'column' => 'position',
-            'conditions' => array(
-                'collection_id' => $collectionId,
-                'status' => $status,
-            ),
-        );
-    }
-
-    /**
-     * Builds the condition array that will be used with position helper and queries in collections.
-     *
-     * @param int|string $collectionId
-     * @param int $status
-     *
-     * @return array
-     */
-    protected function getPositionHelperQueryConditions($collectionId, $status)
-    {
-        return array(
-            'table' => 'ngbm_collection_query',
             'column' => 'position',
             'conditions' => array(
                 'collection_id' => $collectionId,

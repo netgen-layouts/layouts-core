@@ -56,8 +56,6 @@ class CollectionHandlerTest extends TestCase
                 array(
                     'id' => 1,
                     'type' => Collection::TYPE_MANUAL,
-                    'shared' => false,
-                    'name' => null,
                     'status' => Value::STATUS_DRAFT,
                 )
             ),
@@ -74,33 +72,6 @@ class CollectionHandlerTest extends TestCase
     public function testLoadCollectionThrowsNotFoundException()
     {
         $this->collectionHandler->loadCollection(999999, Value::STATUS_PUBLISHED);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadSharedCollections
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadSharedCollectionsData
-     */
-    public function testLoadSharedCollections()
-    {
-        $collections = $this->collectionHandler->loadSharedCollections(Value::STATUS_PUBLISHED);
-
-        $this->assertNotEmpty($collections);
-
-        foreach ($collections as $collection) {
-            $this->assertInstanceOf(Collection::class, $collection);
-            $this->assertTrue($collection->shared);
-        }
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadSharedCollections
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadSharedCollectionsData
-     */
-    public function testLoadSharedCollectionsInNonExistentStatus()
-    {
-        $collections = $this->collectionHandler->loadSharedCollections(Value::STATUS_ARCHIVED);
-
-        $this->assertEmpty($collections);
     }
 
     /**
@@ -166,8 +137,6 @@ class CollectionHandlerTest extends TestCase
                 array(
                     'id' => 1,
                     'collectionId' => 2,
-                    'position' => 0,
-                    'identifier' => 'default',
                     'type' => 'ezcontent_search',
                     'parameters' => array(
                         'parent_location_id' => 2,
@@ -195,20 +164,46 @@ class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionQueries
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueriesData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryData
      */
-    public function testLoadCollectionQueries()
+    public function testLoadCollectionQuery()
     {
-        $queries = $this->collectionHandler->loadCollectionQueries(
+        $query = $this->collectionHandler->loadCollectionQuery(
             $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED)
         );
 
-        $this->assertNotEmpty($queries);
+        $this->assertEquals(
+            new Query(
+                array(
+                    'id' => 1,
+                    'collectionId' => 2,
+                    'type' => 'ezcontent_search',
+                    'parameters' => array(
+                        'parent_location_id' => 2,
+                        'sort_direction' => 'descending',
+                        'sort_type' => 'date_published',
+                        'offset' => 0,
+                        'query_type' => 'list',
+                    ),
+                    'status' => Value::STATUS_PUBLISHED,
+                )
+            ),
+            $query
+        );
+    }
 
-        foreach ($queries as $query) {
-            $this->assertInstanceOf(Query::class, $query);
-        }
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryData
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find query for collection with identifier "1"
+     */
+    public function testLoadCollectionQueryThrowsNotFoundException()
+    {
+        $this->collectionHandler->loadCollectionQuery(
+            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT)
+        );
     }
 
     /**
@@ -239,33 +234,6 @@ class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::collectionNameExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::collectionNameExists
-     */
-    public function testCollectionNameExists()
-    {
-        $this->assertTrue($this->collectionHandler->collectionNameExists('My collection'));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::collectionNameExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::collectionNameExists
-     */
-    public function testCollectionNameNotExists()
-    {
-        $this->assertFalse($this->collectionHandler->collectionNameExists('Non existent'));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::collectionNameExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::collectionNameExists
-     */
-    public function testCollectionNameNotExistsWithExcludedId()
-    {
-        $this->assertFalse($this->collectionHandler->collectionNameExists('My collection', 3));
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createCollection
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollection
      */
@@ -273,8 +241,6 @@ class CollectionHandlerTest extends TestCase
     {
         $collectionCreateStruct = new CollectionCreateStruct();
         $collectionCreateStruct->type = Collection::TYPE_DYNAMIC;
-        $collectionCreateStruct->shared = false;
-        $collectionCreateStruct->name = 'New collection';
         $collectionCreateStruct->status = Value::STATUS_DRAFT;
 
         $createdCollection = $this->collectionHandler->createCollection($collectionCreateStruct);
@@ -283,8 +249,6 @@ class CollectionHandlerTest extends TestCase
 
         $this->assertEquals(7, $createdCollection->id);
         $this->assertEquals(Collection::TYPE_DYNAMIC, $createdCollection->type);
-        $this->assertFalse($createdCollection->shared);
-        $this->assertEquals('New collection', $createdCollection->name);
         $this->assertEquals(Value::STATUS_DRAFT, $createdCollection->status);
     }
 
@@ -304,8 +268,6 @@ class CollectionHandlerTest extends TestCase
 
         $this->assertEquals(7, $createdCollection->id);
         $this->assertEquals(Collection::TYPE_DYNAMIC, $createdCollection->type);
-        $this->assertFalse($createdCollection->shared);
-        $this->assertNull($createdCollection->name);
         $this->assertEquals(Value::STATUS_DRAFT, $createdCollection->status);
     }
 
@@ -317,7 +279,6 @@ class CollectionHandlerTest extends TestCase
     {
         $collectionUpdateStruct = new CollectionUpdateStruct();
         $collectionUpdateStruct->type = Collection::TYPE_MANUAL;
-        $collectionUpdateStruct->name = 'Updated collection';
 
         $updatedCollection = $this->collectionHandler->updateCollection(
             $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED),
@@ -328,8 +289,6 @@ class CollectionHandlerTest extends TestCase
 
         $this->assertEquals(3, $updatedCollection->id);
         $this->assertEquals(Collection::TYPE_MANUAL, $updatedCollection->type);
-        $this->assertTrue($updatedCollection->shared);
-        $this->assertEquals('Updated collection', $updatedCollection->name);
         $this->assertEquals(Value::STATUS_PUBLISHED, $updatedCollection->status);
     }
 
@@ -350,8 +309,6 @@ class CollectionHandlerTest extends TestCase
 
         $this->assertEquals(3, $updatedCollection->id);
         $this->assertEquals(Collection::TYPE_DYNAMIC, $updatedCollection->type);
-        $this->assertTrue($updatedCollection->shared);
-        $this->assertEquals('My collection', $updatedCollection->name);
         $this->assertEquals(Value::STATUS_PUBLISHED, $updatedCollection->status);
     }
 
@@ -359,7 +316,7 @@ class CollectionHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::copyCollection
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionData
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionItemsData
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueriesData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryData
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollection
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addQuery
@@ -367,15 +324,12 @@ class CollectionHandlerTest extends TestCase
     public function testCopyCollection()
     {
         $copiedCollection = $this->collectionHandler->copyCollection(
-            $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED),
-            'New name'
+            $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED)
         );
 
         $this->assertEquals(7, $copiedCollection->id);
         $this->assertInstanceOf(Collection::class, $copiedCollection);
         $this->assertEquals(Collection::TYPE_DYNAMIC, $copiedCollection->type);
-        $this->assertTrue($copiedCollection->shared);
-        $this->assertEquals('New name', $copiedCollection->name);
         $this->assertEquals(Value::STATUS_PUBLISHED, $copiedCollection->status);
 
         $this->assertEquals(
@@ -418,43 +372,22 @@ class CollectionHandlerTest extends TestCase
         );
 
         $this->assertEquals(
-            array(
-                new Query(
-                    array(
-                        'id' => 5,
-                        'collectionId' => $copiedCollection->id,
-                        'position' => 0,
-                        'identifier' => 'default',
-                        'type' => 'ezcontent_search',
-                        'parameters' => array(
-                            'parent_location_id' => 2,
-                            'sort_direction' => 'descending',
-                            'sort_type' => 'date_published',
-                            'offset' => 0,
-                            'query_type' => 'list',
-                        ),
-                        'status' => Value::STATUS_PUBLISHED,
-                    )
-                ),
-                new Query(
-                    array(
-                        'id' => 6,
-                        'collectionId' => $copiedCollection->id,
-                        'position' => 1,
-                        'identifier' => 'featured',
-                        'type' => 'ezcontent_search',
-                        'parameters' => array(
-                            'parent_location_id' => 2,
-                            'sort_direction' => 'descending',
-                            'sort_type' => 'date_published',
-                            'offset' => 0,
-                            'query_type' => 'list',
-                        ),
-                        'status' => Value::STATUS_PUBLISHED,
-                    )
-                ),
+            new Query(
+                array(
+                    'id' => 5,
+                    'collectionId' => $copiedCollection->id,
+                    'type' => 'ezcontent_search',
+                    'parameters' => array(
+                        'parent_location_id' => 2,
+                        'sort_direction' => 'descending',
+                        'sort_type' => 'date_published',
+                        'offset' => 0,
+                        'query_type' => 'list',
+                    ),
+                    'status' => Value::STATUS_PUBLISHED,
+                )
             ),
-            $this->collectionHandler->loadCollectionQueries($copiedCollection)
+            $this->collectionHandler->loadCollectionQuery($copiedCollection)
         );
     }
 
@@ -462,7 +395,7 @@ class CollectionHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createCollectionStatus
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionData
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionItemsData
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueriesData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryData
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollection
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addQuery
@@ -478,8 +411,6 @@ class CollectionHandlerTest extends TestCase
 
         $this->assertEquals(3, $copiedCollection->id);
         $this->assertEquals(Collection::TYPE_DYNAMIC, $copiedCollection->type);
-        $this->assertTrue($copiedCollection->shared);
-        $this->assertEquals('My collection', $copiedCollection->name);
         $this->assertEquals(Value::STATUS_ARCHIVED, $copiedCollection->status);
 
         $this->assertEquals(
@@ -522,50 +453,29 @@ class CollectionHandlerTest extends TestCase
         );
 
         $this->assertEquals(
-            array(
-                new Query(
-                    array(
-                        'id' => 2,
-                        'collectionId' => 3,
-                        'position' => 0,
-                        'identifier' => 'default',
-                        'type' => 'ezcontent_search',
-                        'parameters' => array(
-                            'parent_location_id' => 2,
-                            'sort_direction' => 'descending',
-                            'sort_type' => 'date_published',
-                            'offset' => 0,
-                            'query_type' => 'list',
-                        ),
-                        'status' => Value::STATUS_ARCHIVED,
-                    )
-                ),
-                new Query(
-                    array(
-                        'id' => 3,
-                        'collectionId' => 3,
-                        'position' => 1,
-                        'identifier' => 'featured',
-                        'type' => 'ezcontent_search',
-                        'parameters' => array(
-                            'parent_location_id' => 2,
-                            'sort_direction' => 'descending',
-                            'sort_type' => 'date_published',
-                            'offset' => 0,
-                            'query_type' => 'list',
-                        ),
-                        'status' => Value::STATUS_ARCHIVED,
-                    )
-                ),
+            new Query(
+                array(
+                    'id' => 2,
+                    'collectionId' => 3,
+                    'type' => 'ezcontent_search',
+                    'parameters' => array(
+                        'parent_location_id' => 2,
+                        'sort_direction' => 'descending',
+                        'sort_type' => 'date_published',
+                        'offset' => 0,
+                        'query_type' => 'list',
+                    ),
+                    'status' => Value::STATUS_ARCHIVED,
+                )
             ),
-            $this->collectionHandler->loadCollectionQueries($copiedCollection)
+            $this->collectionHandler->loadCollectionQuery($copiedCollection)
         );
     }
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteCollection
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionItems
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionQueries
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollection
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      * @expectedExceptionMessage Could not find collection with identifier "3"
@@ -580,7 +490,7 @@ class CollectionHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteCollection
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionItems
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionQueries
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollection
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      * @expectedExceptionMessage Could not find collection with identifier "3"
@@ -814,77 +724,21 @@ class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::queryExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::queryExists
-     */
-    public function testQueryExists()
-    {
-        $this->assertTrue(
-            $this->collectionHandler->queryExists(
-                $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED),
-                'default'
-            )
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::queryExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::queryExists
-     */
-    public function testQueryNotExists()
-    {
-        $this->assertFalse(
-            $this->collectionHandler->queryExists(
-                $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED),
-                'featured'
-            )
-        );
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addQuery
      */
     public function testAddQuery()
     {
-        $queryCreateStruct = new QueryCreateStruct();
-        $queryCreateStruct->identifier = 'new_query';
-        $queryCreateStruct->type = 'ezcontent_search';
-        $queryCreateStruct->position = 1;
-        $queryCreateStruct->parameters = array(
-            'param' => 'value',
-        );
-
-        $this->assertEquals(
-            new Query(
+        $collection = $this->collectionHandler->createCollection(
+            new CollectionCreateStruct(
                 array(
-                    'id' => 5,
-                    'collectionId' => 3,
-                    'position' => 1,
-                    'identifier' => 'new_query',
-                    'type' => 'ezcontent_search',
-                    'parameters' => array('param' => 'value'),
+                    'type' => Collection::TYPE_DYNAMIC,
                     'status' => Value::STATUS_PUBLISHED,
                 )
-            ),
-            $this->collectionHandler->addQuery(
-                $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED),
-                $queryCreateStruct
             )
         );
 
-        $secondQuery = $this->collectionHandler->loadQuery(3, Value::STATUS_PUBLISHED);
-        $this->assertEquals(2, $secondQuery->position);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addQuery
-     */
-    public function testAddQueryWithNoPosition()
-    {
         $queryCreateStruct = new QueryCreateStruct();
-        $queryCreateStruct->identifier = 'new_query';
         $queryCreateStruct->type = 'ezcontent_search';
         $queryCreateStruct->parameters = array(
             'param' => 'value',
@@ -894,16 +748,14 @@ class CollectionHandlerTest extends TestCase
             new Query(
                 array(
                     'id' => 5,
-                    'collectionId' => 3,
-                    'position' => 2,
-                    'identifier' => 'new_query',
+                    'collectionId' => $collection->id,
                     'type' => 'ezcontent_search',
                     'parameters' => array('param' => 'value'),
                     'status' => Value::STATUS_PUBLISHED,
                 )
             ),
             $this->collectionHandler->addQuery(
-                $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED),
+                $collection,
                 $queryCreateStruct
             )
         );
@@ -913,20 +765,18 @@ class CollectionHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addQuery
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "position" has an invalid state. Position cannot be negative.
+     * @expectedExceptionMessage Provided collection cannot have a query because it is a manual collection.
      */
-    public function testAddQueryThrowsBadStateExceptionOnNegativePosition()
+    public function testAddQueryThrowsBadStateExceptionWithManualCollection()
     {
         $queryCreateStruct = new QueryCreateStruct();
-        $queryCreateStruct->identifier = 'new_query';
         $queryCreateStruct->type = 'ezcontent_search';
-        $queryCreateStruct->position = -1;
         $queryCreateStruct->parameters = array(
             'param' => 'value',
         );
 
         $this->collectionHandler->addQuery(
-            $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED),
+            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
             $queryCreateStruct
         );
     }
@@ -935,14 +785,12 @@ class CollectionHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addQuery
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
+     * @expectedExceptionMessage Provided collection already has a query.
      */
-    public function testAddQueryThrowsBadStateExceptionOnTooLargePosition()
+    public function testAddQueryThrowsBadStateExceptionWithExistingQuery()
     {
         $queryCreateStruct = new QueryCreateStruct();
-        $queryCreateStruct->identifier = 'new_query';
         $queryCreateStruct->type = 'ezcontent_search';
-        $queryCreateStruct->position = 9999;
         $queryCreateStruct->parameters = array(
             'param' => 'value',
         );
@@ -960,7 +808,7 @@ class CollectionHandlerTest extends TestCase
     public function testUpdateQuery()
     {
         $queryUpdateStruct = new QueryUpdateStruct();
-        $queryUpdateStruct->identifier = 'new_identifier';
+        $queryUpdateStruct->type = 'new_type';
         $queryUpdateStruct->parameters = array(
             'parent_location_id' => 3,
             'some_param' => 'Some value',
@@ -971,9 +819,7 @@ class CollectionHandlerTest extends TestCase
                 array(
                     'id' => 1,
                     'collectionId' => 2,
-                    'position' => 0,
-                    'identifier' => 'new_identifier',
-                    'type' => 'ezcontent_search',
+                    'type' => 'new_type',
                     'parameters' => array(
                         'parent_location_id' => 3,
                         'some_param' => 'Some value',
@@ -1001,8 +847,6 @@ class CollectionHandlerTest extends TestCase
                 array(
                     'id' => 1,
                     'collectionId' => 2,
-                    'position' => 0,
-                    'identifier' => 'default',
                     'type' => 'ezcontent_search',
                     'parameters' => array(
                         'parent_location_id' => 2,
@@ -1022,118 +866,15 @@ class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::moveQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperQueryConditions
-     */
-    public function testMoveQuery()
-    {
-        $this->assertEquals(
-            new Query(
-                array(
-                    'id' => 2,
-                    'collectionId' => 3,
-                    'position' => 1,
-                    'identifier' => 'default',
-                    'type' => 'ezcontent_search',
-                    'parameters' => array(
-                        'parent_location_id' => 2,
-                        'sort_direction' => 'descending',
-                        'sort_type' => 'date_published',
-                        'offset' => 0,
-                        'query_type' => 'list',
-                    ),
-                    'status' => Value::STATUS_PUBLISHED,
-                )
-            ),
-            $this->collectionHandler->moveQuery(
-                $this->collectionHandler->loadQuery(2, Value::STATUS_PUBLISHED),
-                1
-            )
-        );
-
-        $firstQuery = $this->collectionHandler->loadQuery(3, Value::STATUS_PUBLISHED);
-        $this->assertEquals(0, $firstQuery->position);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::moveQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperQueryConditions
-     */
-    public function testMoveQueryToLowerPosition()
-    {
-        $this->assertEquals(
-            new Query(
-                array(
-                    'id' => 3,
-                    'collectionId' => 3,
-                    'position' => 0,
-                    'identifier' => 'featured',
-                    'type' => 'ezcontent_search',
-                    'parameters' => array(
-                        'parent_location_id' => 2,
-                        'sort_direction' => 'descending',
-                        'sort_type' => 'date_published',
-                        'offset' => 0,
-                        'query_type' => 'list',
-                    ),
-                    'status' => Value::STATUS_PUBLISHED,
-                )
-            ),
-            $this->collectionHandler->moveQuery(
-                $this->collectionHandler->loadQuery(3, Value::STATUS_PUBLISHED),
-                0
-            )
-        );
-
-        $firstQuery = $this->collectionHandler->loadQuery(2, Value::STATUS_PUBLISHED);
-        $this->assertEquals(1, $firstQuery->position);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::moveQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperQueryConditions
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "position" has an invalid state. Position cannot be negative.
-     */
-    public function testMoveQueryThrowsBadStateExceptionOnNegativePosition()
-    {
-        $this->collectionHandler->moveQuery(
-            $this->collectionHandler->loadQuery(2, Value::STATUS_PUBLISHED),
-            -1
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::moveQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperQueryConditions
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
-     */
-    public function testMoveQueryThrowsBadStateExceptionOnTooLargePosition()
-    {
-        $this->collectionHandler->moveQuery(
-            $this->collectionHandler->loadQuery(2, Value::STATUS_PUBLISHED),
-            9999
-        );
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperQueryConditions
+     * @doesNotPerformAssertions
      */
     public function testDeleteQuery()
     {
         $this->collectionHandler->deleteQuery(
             $this->collectionHandler->loadQuery(2, Value::STATUS_PUBLISHED)
         );
-
-        $secondQuery = $this->collectionHandler->loadQuery(3, Value::STATUS_PUBLISHED);
-        $this->assertEquals(0, $secondQuery->position);
 
         try {
             $this->collectionHandler->loadQuery(2, Value::STATUS_PUBLISHED);

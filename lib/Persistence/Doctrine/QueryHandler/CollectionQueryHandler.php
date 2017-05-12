@@ -57,29 +57,6 @@ class CollectionQueryHandler extends QueryHandler
     }
 
     /**
-     * Loads all data for shared collections.
-     *
-     * @param int $status
-     * @param int $offset
-     * @param int $limit
-     *
-     * @return array
-     */
-    public function loadSharedCollectionsData($status, $offset = 0, $limit = null)
-    {
-        $query = $this->getCollectionSelectQuery();
-        $query->where(
-            $query->expr()->eq('shared', ':shared')
-        )
-        ->setParameter('shared', true, Type::BOOLEAN);
-
-        $this->applyStatusCondition($query, $status);
-        $this->applyOffsetAndLimit($query, $offset, $limit);
-
-        return $query->execute()->fetchAll();
-    }
-
-    /**
      * Loads all data for a query.
      *
      * @param int|string $queryId
@@ -129,7 +106,7 @@ class CollectionQueryHandler extends QueryHandler
      *
      * @return array
      */
-    public function loadCollectionQueriesData(Collection $collection)
+    public function loadCollectionQueryData(Collection $collection)
     {
         $query = $this->getQuerySelectQuery();
         $query->where(
@@ -139,7 +116,7 @@ class CollectionQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $collection->status);
 
-        $query->addOrderBy('position', 'ASC');
+        $query->setMaxResults(1);
 
         return $query->execute()->fetchAll();
     }
@@ -170,34 +147,6 @@ class CollectionQueryHandler extends QueryHandler
     }
 
     /**
-     * Returns if the collection name exists.
-     *
-     * @param string $name
-     * @param int|string $excludedCollectionId
-     *
-     * @return bool
-     */
-    public function collectionNameExists($name, $excludedCollectionId = null)
-    {
-        $query = $this->connection->createQueryBuilder();
-        $query->select('count(*) AS count')
-            ->from('ngbm_collection')
-            ->where(
-                $query->expr()->eq('name', ':name')
-            )
-            ->setParameter('name', trim($name), Type::STRING);
-
-        if ($excludedCollectionId !== null) {
-            $query->andWhere($query->expr()->neq('id', ':collection_id'))
-                ->setParameter('collection_id', $excludedCollectionId, Type::INTEGER);
-        }
-
-        $data = $query->execute()->fetchAll();
-
-        return isset($data[0]['count']) && $data[0]['count'] > 0;
-    }
-
-    /**
      * Creates a collection.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct $collectionCreateStruct
@@ -215,7 +164,6 @@ class CollectionQueryHandler extends QueryHandler
                     'status' => ':status',
                     'type' => ':type',
                     'shared' => ':shared',
-                    'name' => ':name',
                 )
             )
             ->setValue(
@@ -223,9 +171,8 @@ class CollectionQueryHandler extends QueryHandler
                 $collectionId !== null ? (int) $collectionId : $this->connectionHelper->getAutoIncrementValue('ngbm_collection')
             )
             ->setParameter('status', $collectionCreateStruct->status, Type::INTEGER)
-            ->setParameter('type', $collectionCreateStruct->type, Type::INTEGER)
-            ->setParameter('shared', $collectionCreateStruct->shared, Type::BOOLEAN)
-            ->setParameter('name', $collectionCreateStruct->name, Type::STRING);
+            ->setParameter('type', $collectionCreateStruct->type, Type::STRING)
+            ->setParameter('shared', false, Type::BOOLEAN);
 
         $query->execute();
 
@@ -244,13 +191,11 @@ class CollectionQueryHandler extends QueryHandler
         $query
             ->update('ngbm_collection')
             ->set('type', ':type')
-            ->set('name', ':name')
             ->where(
                 $query->expr()->eq('id', ':id')
             )
             ->setParameter('id', $collection->id, Type::INTEGER)
-            ->setParameter('type', $collectionUpdateStruct->type, Type::INTEGER)
-            ->setParameter('name', $collectionUpdateStruct->name, Type::STRING);
+            ->setParameter('type', $collectionUpdateStruct->type, Type::INTEGER);
 
         $this->applyStatusCondition($query, $collection->status);
 
@@ -407,35 +352,6 @@ class CollectionQueryHandler extends QueryHandler
     }
 
     /**
-     * Returns if the query with specified identifier exists.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param string $identifier
-     *
-     * @return bool
-     */
-    public function queryExists(Collection $collection, $identifier)
-    {
-        $query = $this->connection->createQueryBuilder();
-        $query->select('count(*) AS count')
-            ->from('ngbm_collection_query')
-            ->where(
-                $query->expr()->andX(
-                    $query->expr()->eq('collection_id', ':collection_id'),
-                    $query->expr()->eq('identifier', ':identifier')
-                )
-            )
-            ->setParameter('collection_id', $collection->id, Type::INTEGER)
-            ->setParameter('identifier', $identifier, Type::STRING);
-
-        $this->applyStatusCondition($query, $collection->status);
-
-        $data = $query->execute()->fetchAll();
-
-        return isset($data[0]['count']) && $data[0]['count'] > 0;
-    }
-
-    /**
      * Adds a query.
      *
      * @param int|string $collectionId
@@ -466,8 +382,8 @@ class CollectionQueryHandler extends QueryHandler
             )
             ->setParameter('status', $status, Type::INTEGER)
             ->setParameter('collection_id', $collectionId, Type::INTEGER)
-            ->setParameter('position', $queryCreateStruct->position, Type::INTEGER)
-            ->setParameter('identifier', $queryCreateStruct->identifier, Type::STRING)
+            ->setParameter('position', 0, Type::INTEGER)
+            ->setParameter('identifier', 'default', Type::STRING)
             ->setParameter('type', $queryCreateStruct->type, Type::STRING)
             ->setParameter('parameters', $queryCreateStruct->parameters, Type::JSON_ARRAY);
 
@@ -487,38 +403,14 @@ class CollectionQueryHandler extends QueryHandler
         $queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder
             ->update('ngbm_collection_query')
-            ->set('identifier', ':identifier')
+            ->set('type', ':type')
             ->set('parameters', ':parameters')
             ->where(
                 $queryBuilder->expr()->eq('id', ':id')
             )
             ->setParameter('id', $query->id, Type::INTEGER)
-            ->setParameter('identifier', $queryUpdateStruct->identifier, Type::STRING)
+            ->setParameter('type', $queryUpdateStruct->type, Type::STRING)
             ->setParameter('parameters', $queryUpdateStruct->parameters, Type::JSON_ARRAY);
-
-        $this->applyStatusCondition($queryBuilder, $query->status);
-
-        $queryBuilder->execute();
-    }
-
-    /**
-     * Moves a query.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
-     * @param int $position
-     */
-    public function moveQuery(Query $query, $position)
-    {
-        $queryBuilder = $this->connection->createQueryBuilder();
-
-        $queryBuilder
-            ->update('ngbm_collection_query')
-            ->set('position', ':position')
-            ->where(
-                $queryBuilder->expr()->eq('id', ':id')
-            )
-            ->setParameter('id', $query->id, Type::INTEGER)
-            ->setParameter('position', $position, Type::INTEGER);
 
         $this->applyStatusCondition($queryBuilder, $query->status);
 
@@ -547,12 +439,12 @@ class CollectionQueryHandler extends QueryHandler
     }
 
     /**
-     * Deletes all collection queries.
+     * Deletes the collection query.
      *
      * @param int|string $collectionId
      * @param int $status
      */
-    public function deleteCollectionQueries($collectionId, $status = null)
+    public function deleteCollectionQuery($collectionId, $status = null)
     {
         $query = $this->connection->createQueryBuilder();
 

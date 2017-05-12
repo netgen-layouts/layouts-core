@@ -24,8 +24,6 @@ class CollectionMapper
                 array(
                     'id' => (int) $dataItem['id'],
                     'type' => (int) $dataItem['type'],
-                    'shared' => (bool) $dataItem['shared'],
-                    'name' => $dataItem['name'],
                     'status' => (int) $dataItem['status'],
                 )
             );
@@ -67,9 +65,9 @@ class CollectionMapper
      *
      * @param array $data
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Query[]
+     * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
-    public function mapQueries(array $data = array())
+    public function mapQuery(array $data = array())
     {
         $queries = array();
 
@@ -82,8 +80,6 @@ class CollectionMapper
                 array(
                     'id' => (int) $dataItem['id'],
                     'collectionId' => (int) $dataItem['collection_id'],
-                    'position' => (int) $dataItem['position'],
-                    'identifier' => $dataItem['identifier'],
                     'type' => $dataItem['type'],
                     'parameters' => is_array($parameters) ? $parameters : array(),
                     'status' => (int) $dataItem['status'],
@@ -91,6 +87,6 @@ class CollectionMapper
             );
         }
 
-        return $queries;
+        return reset($queries);
     }
 }

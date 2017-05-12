@@ -31,20 +31,6 @@ class Collection extends Value
     public $type;
 
     /**
-     * Indicates if the collection is shared.
-     *
-     * @var bool
-     */
-    public $shared;
-
-    /**
-     * Human readable name of this collection.
-     *
-     * @var string
-     */
-    public $name;
-
-    /**
      * Collection status. One of self::STATUS_* flags.
      *
      * @var int

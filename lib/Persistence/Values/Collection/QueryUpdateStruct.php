@@ -9,7 +9,7 @@ class QueryUpdateStruct extends ValueObject
     /**
      * @var string
      */
-    public $identifier;
+    public $type;
 
     /**
      * @var array

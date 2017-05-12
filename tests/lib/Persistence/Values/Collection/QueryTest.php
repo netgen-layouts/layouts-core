@@ -14,8 +14,6 @@ class QueryTest extends TestCase
 
         $this->assertNull($query->id);
         $this->assertNull($query->collectionId);
-        $this->assertNull($query->position);
-        $this->assertNull($query->identifier);
         $this->assertNull($query->type);
         $this->assertNull($query->parameters);
         $this->assertNull($query->status);
@@ -27,8 +25,6 @@ class QueryTest extends TestCase
             array(
                 'id' => 42,
                 'collectionId' => 30,
-                'position' => 3,
-                'identifier' => 'my_query',
                 'type' => 'ezcontent_search',
                 'parameters' => array('param' => 'value'),
                 'status' => Value::STATUS_PUBLISHED,
@@ -37,8 +33,6 @@ class QueryTest extends TestCase
 
         $this->assertEquals(42, $query->id);
         $this->assertEquals(30, $query->collectionId);
-        $this->assertEquals(3, $query->position);
-        $this->assertEquals('my_query', $query->identifier);
         $this->assertEquals('ezcontent_search', $query->type);
         $this->assertEquals(array('param' => 'value'), $query->parameters);
         $this->assertEquals(Value::STATUS_PUBLISHED, $query->status);

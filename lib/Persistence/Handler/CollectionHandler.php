@@ -26,17 +26,6 @@ interface CollectionHandler
     public function loadCollection($collectionId, $status);
 
     /**
-     * Loads all shared collections.
-     *
-     * @param int $status
-     * @param int $offset
-     * @param int $limit
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection[]
-     */
-    public function loadSharedCollections($status, $offset = 0, $limit = null);
-
-    /**
      * Loads an item with specified ID.
      *
      * @param int|string $itemId
@@ -70,13 +59,15 @@ interface CollectionHandler
     public function loadQuery($queryId, $status);
 
     /**
-     * Loads all queries that belong to collection with specified ID.
+     * Loads the query that belongs to collection with specified ID.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Query[]
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If query for specified collection does not exist
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
-    public function loadCollectionQueries(Collection $collection);
+    public function loadCollectionQuery(Collection $collection);
 
     /**
      * Returns if collection with specified ID exists.
@@ -87,16 +78,6 @@ interface CollectionHandler
      * @return bool
      */
     public function collectionExists($collectionId, $status);
-
-    /**
-     * Returns if collection name exists.
-     *
-     * @param string $name
-     * @param int|string $excludedCollectionId
-     *
-     * @return bool
-     */
-    public function collectionNameExists($name, $excludedCollectionId = null);
 
     /**
      * Creates a collection.
@@ -121,11 +102,10 @@ interface CollectionHandler
      * Copies a collection.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param string $newName
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
-    public function copyCollection(Collection $collection, $newName = null);
+    public function copyCollection(Collection $collection);
 
     /**
      * Creates a new collection status.
@@ -177,22 +157,13 @@ interface CollectionHandler
     public function deleteItem(Item $item);
 
     /**
-     * Returns if query with specified identifier exists within the collection.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param string $identifier
-     *
-     * @return bool
-     */
-    public function queryExists(Collection $collection, $identifier);
-
-    /**
      * Adds a query to collection.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      * @param \Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct $queryCreateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
+     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is a manual one
+     *                                                          If collection already has a query
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
@@ -207,18 +178,6 @@ interface CollectionHandler
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
     public function updateQuery(Query $query, QueryUpdateStruct $queryUpdateStruct);
-
-    /**
-     * Moves a query to specified position in the collection.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
-     * @param int $position
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
-     */
-    public function moveQuery(Query $query, $position);
 
     /**
      * Removes a query.

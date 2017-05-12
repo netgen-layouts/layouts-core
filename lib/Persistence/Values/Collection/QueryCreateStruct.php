@@ -7,16 +7,6 @@ use Netgen\BlockManager\ValueObject;
 class QueryCreateStruct extends ValueObject
 {
     /**
-     * @var int
-     */
-    public $position;
-
-    /**
-     * @var string
-     */
-    public $identifier;
-
-    /**
      * @var string
      */
     public $type;

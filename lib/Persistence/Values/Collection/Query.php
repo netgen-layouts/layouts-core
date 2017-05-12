@@ -21,20 +21,6 @@ class Query extends Value
     public $collectionId;
 
     /**
-     * Position of query within the collection.
-     *
-     * @var int
-     */
-    public $position;
-
-    /**
-     * Query identifier.
-     *
-     * @var string
-     */
-    public $identifier;
-
-    /**
      * Query type.
      *
      * @var string
