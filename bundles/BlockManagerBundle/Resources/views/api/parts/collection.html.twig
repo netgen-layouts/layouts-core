@@ -24,8 +24,11 @@
         {# @todo This is a hack to get the maximum number of items displayed for a contextual collection #}
         {% set query = collection.collection.queries.0 %}
         {% set limit = query.queryType.internalLimit(query) %}
+
         {% if limit is null %}
             {% set limit = number_of_columns > 2 ? 12 : 6 %}
+        {% elseif limit > 24 %}
+            {% set limit = 24 %}
         {% endif %}
 
         {% if limit > 0 %}
