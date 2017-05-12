@@ -7,6 +7,8 @@ services:
 
     netgen_block_manager.collection.collection_iterator_factory:
         class: Netgen\BlockManager\Collection\Result\CollectionIteratorFactory
+        arguments:
+            - "%netgen_block_manager.collection.contextual_query_limit%"
 
     netgen_block_manager.collection.result_loader:
         class: Netgen\BlockManager\Collection\Result\ResultLoader

@@ -35,7 +35,7 @@ class CollectionIteratorTest extends TestCase
     public function testWithManualCollection(array $collectionItems, array $values, $totalCount, $offset = 0, $limit = null)
     {
         $collection = new Collection($collectionItems);
-        $factory = new CollectionIteratorFactory();
+        $factory = new CollectionIteratorFactory(24);
         $collectionIterator = $factory->getCollectionIterator($collection);
 
         if ($offset > 0 || $limit > 0) {
@@ -85,7 +85,7 @@ class CollectionIteratorTest extends TestCase
         $limit = null
     ) {
         $collection = new Collection($manualItems, $overrideItems, $queryItems, $queryCount);
-        $factory = new CollectionIteratorFactory();
+        $factory = new CollectionIteratorFactory(24);
         $collectionIterator = $factory->getCollectionIterator($collection);
 
         if ($offset > 0 || $limit > 0) {

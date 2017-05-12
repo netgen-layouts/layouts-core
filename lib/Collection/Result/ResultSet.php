@@ -12,9 +12,26 @@ use Netgen\BlockManager\ValueObject;
 
 class ResultSet extends ValueObject implements ArrayAccess, IteratorAggregate, Countable
 {
+    /**
+     * If specified, the result will include any invisible items
+     * as provided by the backend.
+     */
     const INCLUDE_INVISIBLE_ITEMS = 1;
 
+    /**
+     * If specified, the result will include any invalid items,
+     * i.e. those that don't exist in backend.
+     */
     const INCLUDE_INVALID_ITEMS = 2;
+
+    /**
+     * If provided, any items not currently known will be shown as placeholder slots.
+     *
+     * Slot may not be populated for example when query is a contextual one,
+     * meaning that it cannot run when there's no real frontend request,
+     * e.g. in Block Manager app.
+     */
+    const INCLUDE_UNKNOWN_ITEMS = 4;
 
     /**
      * @var \Netgen\BlockManager\API\Values\Collection\Collection

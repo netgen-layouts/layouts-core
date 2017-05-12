@@ -96,7 +96,8 @@ class CollectionController extends Controller
                 (int) $offset,
                 (int) $limit,
                 ResultSet::INCLUDE_INVISIBLE_ITEMS |
-                ResultSet::INCLUDE_INVALID_ITEMS
+                ResultSet::INCLUDE_INVALID_ITEMS |
+                ResultSet::INCLUDE_UNKNOWN_ITEMS
             ),
             Version::API_V1
         );

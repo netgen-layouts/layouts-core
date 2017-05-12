@@ -7,6 +7,7 @@ use IteratorIterator;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\Exception\InvalidItemException;
 use Netgen\BlockManager\Item\ItemBuilderInterface;
+use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Item\NullItem;
 
@@ -56,7 +57,9 @@ class ResultBuilderIterator extends IteratorIterator
         if (!$object instanceof Item) {
             return new Result(
                 array(
-                    'item' => $this->itemBuilder->build($object),
+                    'item' => !$object instanceof ItemInterface ?
+                        $this->itemBuilder->build($object) :
+                        $object,
                     'collectionItem' => null,
                     'type' => Result::TYPE_DYNAMIC,
                     'position' => $position,

@@ -8,6 +8,21 @@ use Netgen\BlockManager\API\Values\Collection\Collection;
 class CollectionIteratorFactory
 {
     /**
+     * @var int
+     */
+    protected $contextualQueryLimit;
+
+    /**
+     * Constructor.
+     *
+     * @param int $contextualQueryLimit
+     */
+    public function __construct($contextualQueryLimit)
+    {
+        $this->contextualQueryLimit = $contextualQueryLimit;
+    }
+
+    /**
      * Builds and returns result iterator from provided collection iterator.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
@@ -34,6 +49,13 @@ class CollectionIteratorFactory
     {
         if (!$collection->hasQuery()) {
             return new ArrayIterator();
+        }
+
+        $showContextualSlots = (bool) ($flags & ResultSet::INCLUDE_UNKNOWN_ITEMS);
+
+        $query = $collection->getQuery();
+        if ($query->getQueryType()->isContextual($query) && $showContextualSlots) {
+            return new ContextualQueryIterator($collection->getQuery(), $this->contextualQueryLimit);
         }
 
         return new QueryIterator($collection->getQuery());

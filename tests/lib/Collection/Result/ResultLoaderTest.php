@@ -60,7 +60,7 @@ class ResultLoaderTest extends TestCase
                 $this->itemLoader,
                 $this->itemBuilder
             ),
-            new CollectionIteratorFactory()
+            new CollectionIteratorFactory(12)
         );
     }
 
