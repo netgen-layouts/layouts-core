@@ -66,10 +66,7 @@ class NetgenBlockManagerAdminExtensionTest extends AbstractExtensionTestCase
         $this->assertArrayHasKey('admin', $config['view']['layout_view']);
 
         $this->assertArrayHasKey('rule_condition_view', $config['view']);
-        $this->assertArrayHasKey('admin', $config['view']['rule_condition_view']);
-
-        $this->assertArrayHasKey('rule_target_view', $config['view']);
-        $this->assertArrayHasKey('admin', $config['view']['rule_target_view']);
+        $this->assertArrayHasKey('value', $config['view']['rule_condition_view']);
 
         $this->assertArrayHasKey('default_view_templates', $config);
         $this->assertArrayHasKey('layout_view', $config['default_view_templates']);
