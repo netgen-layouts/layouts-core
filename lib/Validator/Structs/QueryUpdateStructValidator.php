@@ -4,10 +4,10 @@ namespace Netgen\BlockManager\Validator\Structs;
 
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
+use Netgen\BlockManager\Collection\QueryTypeInterface;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
 use Netgen\BlockManager\Validator\Constraint\Structs\QueryUpdateStruct as QueryUpdateStructConstraint;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
@@ -33,19 +33,17 @@ class QueryUpdateStructValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, QueryUpdateStruct::class);
         }
 
+        if ($value->queryType !== null && !$value->queryType instanceof QueryTypeInterface) {
+            throw new UnexpectedTypeException($value->queryType, QueryTypeInterface::class);
+        }
+
         /** @var \Symfony\Component\Validator\Validator\ContextualValidatorInterface $validator */
         $query = $constraint->payload;
-        $queryType = $query->getQueryType();
         $validator = $this->context->getValidator()->inContext($this->context);
 
-        if ($value->identifier !== null) {
-            $validator->atPath('identifier')->validate(
-                $value->identifier,
-                array(
-                    new Constraints\NotBlank(),
-                    new Constraints\Type(array('type' => 'string')),
-                )
-            );
+        $queryType = $query->getQueryType();
+        if ($value->queryType !== null) {
+            $queryType = $value->queryType;
         }
 
         $validator->atPath('parameterValues')->validate(

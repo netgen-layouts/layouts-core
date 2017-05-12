@@ -15,8 +15,6 @@ class QueryTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getId
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getCollectionId
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getPosition
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getIdentifier
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getQueryType
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getParameters
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getParameter
@@ -30,8 +28,6 @@ class QueryTest extends TestCase
         $this->assertNull($query->getId());
         $this->assertNull($query->getStatus());
         $this->assertNull($query->getCollectionId());
-        $this->assertNull($query->getPosition());
-        $this->assertNull($query->getIdentifier());
         $this->assertNull($query->getQueryType());
         $this->assertNull($query->isPublished());
         $this->assertEquals(array(), $query->getParameters());
@@ -49,8 +45,6 @@ class QueryTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getId
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getCollectionId
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getPosition
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getIdentifier
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getQueryType
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getParameters
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getParameter
@@ -64,8 +58,6 @@ class QueryTest extends TestCase
                 'id' => 42,
                 'status' => Value::STATUS_PUBLISHED,
                 'collectionId' => 30,
-                'position' => 3,
-                'identifier' => 'my_query',
                 'queryType' => new QueryType('query_type'),
                 'parameters' => array('param' => 'value'),
                 'published' => true,
@@ -75,8 +67,6 @@ class QueryTest extends TestCase
         $this->assertEquals(42, $query->getId());
         $this->assertTrue($query->isPublished());
         $this->assertEquals(30, $query->getCollectionId());
-        $this->assertEquals(3, $query->getPosition());
-        $this->assertEquals('my_query', $query->getIdentifier());
         $this->assertEquals(new QueryType('query_type'), $query->getQueryType());
         $this->assertEquals(array('param' => 'value'), $query->getParameters());
         $this->assertEquals('value', $query->getParameter('param'));

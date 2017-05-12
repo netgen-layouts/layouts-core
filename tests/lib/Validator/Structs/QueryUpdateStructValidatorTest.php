@@ -3,8 +3,11 @@
 namespace Netgen\BlockManager\Tests\Validator\Structs;
 
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
+use Netgen\BlockManager\Collection\QueryType;
+use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
 use Netgen\BlockManager\Core\Values\Collection\Query;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryType as QueryTypeStub;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandlerWithRequiredParameter;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\Constraint\Structs\QueryUpdateStruct as QueryUpdateStructConstraint;
 use Netgen\BlockManager\Validator\Structs\QueryUpdateStructValidator;
@@ -17,7 +20,7 @@ class QueryUpdateStructValidatorTest extends ValidatorTestCase
     {
         $this->constraint = new QueryUpdateStructConstraint();
 
-        $this->constraint->payload = new Query(array('queryType' => new QueryType('query_type')));
+        $this->constraint->payload = new Query(array('queryType' => new QueryTypeStub('query_type')));
 
         parent::setUp();
     }
@@ -80,7 +83,6 @@ class QueryUpdateStructValidatorTest extends ValidatorTestCase
         return array(
             array(
                 array(
-                    'identifier' => 'my_query',
                     'parameterValues' => array(
                         'param' => 'value',
                     ),
@@ -89,7 +91,7 @@ class QueryUpdateStructValidatorTest extends ValidatorTestCase
             ),
             array(
                 array(
-                    'identifier' => null,
+                    'queryType' => $this->getQueryType(),
                     'parameterValues' => array(
                         'param' => 'value',
                     ),
@@ -98,25 +100,15 @@ class QueryUpdateStructValidatorTest extends ValidatorTestCase
             ),
             array(
                 array(
-                    'identifier' => '',
+                    'queryType' => null,
                     'parameterValues' => array(
                         'param' => 'value',
                     ),
                 ),
-                false,
+                true,
             ),
             array(
                 array(
-                    'identifier' => 42,
-                    'parameterValues' => array(
-                        'param' => 'value',
-                    ),
-                ),
-                false,
-            ),
-            array(
-                array(
-                    'identifier' => 'my_query',
                     'parameterValues' => array(
                         'param' => '',
                     ),
@@ -125,7 +117,6 @@ class QueryUpdateStructValidatorTest extends ValidatorTestCase
             ),
             array(
                 array(
-                    'identifier' => 'my_query',
                     'parameterValues' => array(
                         'param' => null,
                     ),
@@ -134,11 +125,52 @@ class QueryUpdateStructValidatorTest extends ValidatorTestCase
             ),
             array(
                 array(
-                    'identifier' => 'my_query',
                     'parameterValues' => array(),
                 ),
                 true,
             ),
+            array(
+                array(
+                    'queryType' => $this->getQueryType(),
+                    'parameterValues' => array(
+                        'param' => '',
+                    ),
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'queryType' => $this->getQueryType(),
+                    'parameterValues' => array(
+                        'param' => null,
+                    ),
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'queryType' => $this->getQueryType(),
+                    'parameterValues' => array(),
+                ),
+                true,
+            ),
+        );
+    }
+
+    /**
+     * @return \Netgen\BlockManager\Collection\QueryType
+     */
+    protected function getQueryType()
+    {
+        $handler = new QueryTypeHandlerWithRequiredParameter();
+
+        return new QueryType(
+            array(
+                'type' => 'query_type',
+                'handler' => new QueryTypeHandlerWithRequiredParameter(),
+                'config' => $this->createMock(Configuration::class),
+                'parameters' => $handler->getParameters(),
+            )
         );
     }
 }

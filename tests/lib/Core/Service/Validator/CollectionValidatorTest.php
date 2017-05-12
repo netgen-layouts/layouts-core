@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
 use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
@@ -67,56 +66,20 @@ class CollectionValidatorTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateCollectionCreateStruct
      * @expectedException \Netgen\BlockManager\Exception\ValidationFailedException
-     * @expectedExceptionMessage All query create structs must have a unique identifier.
+     * @expectedExceptionMessage Manual collection cannot have a query.
      */
-    public function testValidateCollectionCreateStructWithNonUniqueQueryIdentifiers()
-    {
-        $collectionCreateStruct = new CollectionCreateStruct();
-        $collectionCreateStruct->type = Collection::TYPE_DYNAMIC;
-
-        $collectionCreateStruct->queryCreateStructs = array(
-            new QueryCreateStruct(
-                array('queryType' => $this->getQueryType(),
-                    'identifier' => 'new',
-                    'parameterValues' => array(
-                        'param' => 'value',
-                    ),
-                )
-            ),
-            new QueryCreateStruct(
-                array(
-                    'queryType' => $this->getQueryType(),
-                    'identifier' => 'new',
-                    'parameterValues' => array(
-                        'param' => 'value',
-                    ),
-                )
-            ),
-        );
-
-        $this->collectionValidator->validateCollectionCreateStruct($collectionCreateStruct);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateCollectionCreateStruct
-     * @expectedException \Netgen\BlockManager\Exception\ValidationFailedException
-     * @expectedExceptionMessage Manual collection cannot have any queries.
-     */
-    public function testValidateCollectionCreateStructWithQueriesInManualCollection()
+    public function testValidateCollectionCreateStructWithQueryInManualCollection()
     {
         $collectionCreateStruct = new CollectionCreateStruct();
         $collectionCreateStruct->type = Collection::TYPE_MANUAL;
 
-        $collectionCreateStruct->queryCreateStructs = array(
-            new QueryCreateStruct(
-                array(
-                    'queryType' => $this->getQueryType(),
-                    'identifier' => 'new',
-                    'parameterValues' => array(
-                        'param' => 'value',
-                    ),
-                )
-            ),
+        $collectionCreateStruct->queryCreateStruct = new QueryCreateStruct(
+            array(
+                'queryType' => $this->getQueryType(),
+                'parameterValues' => array(
+                    'param' => 'value',
+                ),
+            )
         );
 
         $this->collectionValidator->validateCollectionCreateStruct($collectionCreateStruct);
@@ -125,33 +88,14 @@ class CollectionValidatorTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateCollectionCreateStruct
      * @expectedException \Netgen\BlockManager\Exception\ValidationFailedException
-     * @expectedExceptionMessage Dynamic collection needs to have at least one query.
+     * @expectedExceptionMessage Dynamic collection needs to have a query.
      */
-    public function testValidateCollectionCreateStructWithNoQueriesInDynamicCollection()
+    public function testValidateCollectionCreateStructWithNoQueryInDynamicCollection()
     {
         $collectionCreateStruct = new CollectionCreateStruct();
         $collectionCreateStruct->type = Collection::TYPE_DYNAMIC;
 
         $this->collectionValidator->validateCollectionCreateStruct($collectionCreateStruct);
-    }
-
-    /**
-     * @param array $params
-     * @param bool $isValid
-     *
-     * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateCollectionUpdateStruct
-     * @dataProvider validateCollectionUpdateStructProvider
-     * @doesNotPerformAssertions
-     */
-    public function testValidateCollectionUpdateStruct(array $params, $isValid)
-    {
-        if (!$isValid) {
-            $this->expectException(ValidationFailedException::class);
-        }
-
-        $this->collectionValidator->validateCollectionUpdateStruct(
-            new CollectionUpdateStruct($params)
-        );
     }
 
     /**
@@ -211,53 +155,10 @@ class CollectionValidatorTest extends TestCase
     public function validateCollectionCreateStructProvider()
     {
         return array(
-            array(array('name' => null, 'type' => Collection::TYPE_MANUAL, 'shared' => null), true),
-            array(
-                array('name' => null, 'type' => Collection::TYPE_MANUAL, 'shared' => false),
-                true,
-            ),
-            array(
-                array(
-                    'name' => 'Collection',
-                    'type' => Collection::TYPE_MANUAL,
-                    'shared' => true,
-                ),
-                true,
-            ),
-            array(
-                array(
-                    'name' => 'Collection',
-                    'type' => Collection::TYPE_MANUAL,
-                    'shared' => true,
-                ),
-                true,
-            ),
-            array(array('name' => 23, 'type' => Collection::TYPE_MANUAL, 'shared' => true), false),
-            array(
-                array('name' => null, 'type' => Collection::TYPE_MANUAL, 'shared' => true),
-                false,
-            ),
-            array(array('name' => '', 'type' => Collection::TYPE_MANUAL, 'shared' => true), false),
-            array(
-                array('name' => '   ', 'type' => Collection::TYPE_MANUAL, 'shared' => true),
-                false,
-            ),
-            array(array('name' => null, 'type' => 23, 'shared' => null), false),
-            array(array('name' => null, 'type' => null, 'shared' => null), false),
-            array(array('name' => null, 'type' => 'type', 'shared' => null), false),
-            array(array('name' => null, 'type' => Collection::TYPE_MANUAL, 'shared' => 42), false),
-            array(array('name' => null, 'type' => Collection::TYPE_MANUAL, 'shared' => ''), false),
-        );
-    }
-
-    public function validateCollectionUpdateStructProvider()
-    {
-        return array(
-            array(array('name' => 'Collection'), true),
-            array(array('name' => 23), false),
-            array(array('name' => null), false),
-            array(array('name' => ''), false),
-            array(array('name' => '   '), false),
+            array(array('type' => Collection::TYPE_MANUAL), true),
+            array(array('type' => 23), false),
+            array(array('type' => null), false),
+            array(array('type' => 'type'), false),
         );
     }
 
@@ -296,7 +197,6 @@ class CollectionValidatorTest extends TestCase
         return array(
             array(
                 array(
-                    'identifier' => 'my_query',
                     'queryType' => $this->getQueryType(),
                     'parameterValues' => array(
                         'param' => 'value',
@@ -306,37 +206,6 @@ class CollectionValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'identifier' => null,
-                    'queryType' => $this->getQueryType(),
-                    'parameterValues' => array(
-                        'param' => 'value',
-                    ),
-                ),
-                false,
-            ),
-            array(
-                array(
-                    'identifier' => '',
-                    'queryType' => $this->getQueryType(),
-                    'parameterValues' => array(
-                        'param' => 'value',
-                    ),
-                ),
-                false,
-            ),
-            array(
-                array(
-                    'identifier' => 42,
-                    'queryType' => $this->getQueryType(),
-                    'parameterValues' => array(
-                        'param' => 'value',
-                    ),
-                ),
-                false,
-            ),
-            array(
-                array(
-                    'identifier' => 'my_query',
                     'queryType' => null,
                     'parameterValues' => array(
                         'param' => 'value',
@@ -346,7 +215,6 @@ class CollectionValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'identifier' => 'my_query',
                     'queryType' => 42,
                     'parameterValues' => array(
                         'param' => 'value',
@@ -356,7 +224,6 @@ class CollectionValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'identifier' => 'my_query',
                     'queryType' => $this->getQueryType(),
                     'parameterValues' => array(
                         'param' => '',
@@ -366,7 +233,6 @@ class CollectionValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'identifier' => 'my_query',
                     'queryType' => $this->getQueryType(),
                     'parameterValues' => array(
                         'param' => null,
@@ -376,7 +242,6 @@ class CollectionValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'identifier' => 'my_query',
                     'queryType' => $this->getQueryType(),
                     'parameterValues' => array(),
                 ),
@@ -390,7 +255,6 @@ class CollectionValidatorTest extends TestCase
         return array(
             array(
                 array(
-                    'identifier' => 'my_query',
                     'parameterValues' => array(
                         'param' => 'value',
                     ),
@@ -399,7 +263,7 @@ class CollectionValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'identifier' => null,
+                    'queryType' => $this->getQueryType(),
                     'parameterValues' => array(
                         'param' => 'value',
                     ),
@@ -408,25 +272,40 @@ class CollectionValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'identifier' => '',
+                    'queryType' => null,
                     'parameterValues' => array(
                         'param' => 'value',
+                    ),
+                ),
+                true,
+            ),
+            array(
+                array(
+                    'queryType' => $this->getQueryType(),
+                    'parameterValues' => array(
+                        'param' => '',
                     ),
                 ),
                 false,
             ),
             array(
                 array(
-                    'identifier' => 42,
+                    'queryType' => $this->getQueryType(),
                     'parameterValues' => array(
-                        'param' => 'value',
+                        'param' => null,
                     ),
                 ),
                 false,
             ),
             array(
                 array(
-                    'identifier' => 'my_query',
+                    'queryType' => $this->getQueryType(),
+                    'parameterValues' => array(),
+                ),
+                true,
+            ),
+            array(
+                array(
                     'parameterValues' => array(
                         'param' => '',
                     ),
@@ -435,7 +314,6 @@ class CollectionValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'identifier' => 'my_query',
                     'parameterValues' => array(
                         'param' => null,
                     ),
@@ -444,7 +322,6 @@ class CollectionValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'identifier' => 'my_query',
                     'parameterValues' => array(),
                 ),
                 true,

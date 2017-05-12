@@ -36,20 +36,6 @@ interface Query extends Value, ParameterBasedValue
     public function isPublished();
 
     /**
-     * Returns the position the query is at.
-     *
-     * @return int
-     */
-    public function getPosition();
-
-    /**
-     * Returns the query identifier.
-     *
-     * @return string
-     */
-    public function getIdentifier();
-
-    /**
      * Returns the query type.
      *
      * @return \Netgen\BlockManager\Collection\QueryTypeInterface

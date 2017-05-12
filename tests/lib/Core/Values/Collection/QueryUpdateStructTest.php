@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Core\Values\Collection;
 
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 
 class QueryUpdateStructTest extends TestCase
@@ -11,17 +12,17 @@ class QueryUpdateStructTest extends TestCase
     {
         $queryUpdateStruct = new QueryUpdateStruct();
 
-        $this->assertNull($queryUpdateStruct->identifier);
+        $this->assertNull($queryUpdateStruct->queryType);
     }
 
     public function testSetProperties()
     {
         $queryUpdateStruct = new QueryUpdateStruct(
             array(
-                'identifier' => 'my_query',
+                'queryType' => new QueryType('type'),
             )
         );
 
-        $this->assertEquals('my_query', $queryUpdateStruct->identifier);
+        $this->assertEquals(new QueryType('type'), $queryUpdateStruct->queryType);
     }
 }

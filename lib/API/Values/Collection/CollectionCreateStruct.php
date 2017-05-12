@@ -12,22 +12,12 @@ class CollectionCreateStruct extends ValueObject
     public $type = Collection::TYPE_MANUAL;
 
     /**
-     * @var bool
-     */
-    public $shared;
-
-    /**
-     * @var string
-     */
-    public $name;
-
-    /**
      * @var \Netgen\BlockManager\API\Values\Collection\ItemCreateStruct[]
      */
     public $itemCreateStructs = array();
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct[]
+     * @var \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct
      */
-    public $queryCreateStructs = array();
+    public $queryCreateStruct;
 }

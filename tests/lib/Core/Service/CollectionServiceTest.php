@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\Query;
@@ -70,22 +69,6 @@ abstract class CollectionServiceTest extends ServiceTestCase
     public function testLoadCollectionDraftThrowsNotFoundException()
     {
         $this->collectionService->loadCollectionDraft(999999);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadSharedCollections
-     */
-    public function testLoadSharedCollections()
-    {
-        $collections = $this->collectionService->loadSharedCollections();
-
-        $this->assertNotEmpty($collections);
-
-        foreach ($collections as $collection) {
-            $this->assertTrue($collection->isPublished());
-            $this->assertInstanceOf(Collection::class, $collection);
-            $this->assertTrue($collection->isShared());
-        }
     }
 
     /**
@@ -178,97 +161,24 @@ abstract class CollectionServiceTest extends ServiceTestCase
     public function testCreateCollection()
     {
         $collectionCreateStruct = $this->collectionService->newCollectionCreateStruct(
-            Collection::TYPE_MANUAL,
-            'New name'
+            Collection::TYPE_DYNAMIC
         );
 
         $collectionCreateStruct->itemCreateStructs = array(
             $this->collectionService->newItemCreateStruct(Item::TYPE_MANUAL, '66', 'ezcontent'),
         );
 
-        $collectionCreateStruct->queryCreateStructs = array(
-            $this->collectionService->newQueryCreateStruct(
-                new QueryType('ezcontent_search'),
-                'new_query'
-            ),
+        $collectionCreateStruct->queryCreateStruct = $this->collectionService->newQueryCreateStruct(
+            new QueryType('ezcontent_search')
         );
 
         $createdCollection = $this->collectionService->createCollection($collectionCreateStruct);
 
         $this->assertFalse($createdCollection->isPublished());
         $this->assertInstanceOf(Collection::class, $createdCollection);
-        $this->assertEquals('New name', $createdCollection->getName());
 
         $this->assertCount(1, $createdCollection->getItems());
-        $this->assertCount(1, $createdCollection->getQueries());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::createCollection
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "name" has an invalid state. Collection with provided name already exists.
-     */
-    public function testCreateCollectionThrowsBadStateExceptionWithExistingName()
-    {
-        $collectionCreateStruct = $this->collectionService->newCollectionCreateStruct(
-            Collection::TYPE_MANUAL,
-            'My collection'
-        );
-
-        $this->collectionService->createCollection($collectionCreateStruct);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateCollection
-     */
-    public function testUpdateCollection()
-    {
-        $collection = $this->collectionService->loadCollectionDraft(3);
-
-        $collectionUpdateStruct = $this->collectionService->newCollectionUpdateStruct();
-        $collectionUpdateStruct->name = 'Super cool collection';
-
-        $updatedCollection = $this->collectionService->updateCollection($collection, $collectionUpdateStruct);
-
-        $this->assertFalse($updatedCollection->isPublished());
-        $this->assertInstanceOf(Collection::class, $updatedCollection);
-        $this->assertEquals('Super cool collection', $updatedCollection->getName());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateCollection
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "collection" has an invalid state. Only draft collections can be updated.
-     */
-    public function testUpdateCollectionThrowsBadStateExceptionWithNonDraftCollection()
-    {
-        $collection = $this->collectionService->loadCollection(4);
-
-        $collectionUpdateStruct = $this->collectionService->newCollectionUpdateStruct();
-        $collectionUpdateStruct->name = 'Super cool collection';
-
-        $this->collectionService->updateCollection(
-            $collection,
-            $collectionUpdateStruct
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateCollection
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "name" has an invalid state. Collection with provided name already exists.
-     */
-    public function testUpdateCollectionWithExistingNameThrowsBadStateException()
-    {
-        $collection = $this->collectionService->loadCollectionDraft(5);
-
-        $collectionUpdateStruct = $this->collectionService->newCollectionUpdateStruct();
-        $collectionUpdateStruct->name = 'My collection';
-
-        $this->collectionService->updateCollection(
-            $collection,
-            $collectionUpdateStruct
-        );
+        $this->assertInstanceOf(Query::class, $createdCollection->getQuery());
     }
 
     /**
@@ -282,8 +192,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
             $collection,
             Collection::TYPE_DYNAMIC,
             $this->collectionService->newQueryCreateStruct(
-                new QueryType('ezcontent_search'),
-                'default'
+                new QueryType('ezcontent_search')
             )
         );
 
@@ -291,8 +200,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $this->assertInstanceOf(Collection::class, $updatedCollection);
         $this->assertEquals(Collection::TYPE_DYNAMIC, $updatedCollection->getType());
         $this->assertEquals(count($updatedCollection->getItems()), count($collection->getItems()));
-        $this->assertCount(1, $updatedCollection->getQueries());
-        $this->assertEquals('ezcontent_search', $updatedCollection->getQueries()[0]->getQueryType()->getType());
+        $this->assertInstanceOf(Query::class, $updatedCollection->getQuery());
     }
 
     /**
@@ -311,7 +219,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $this->assertInstanceOf(Collection::class, $updatedCollection);
         $this->assertEquals(Collection::TYPE_MANUAL, $updatedCollection->getType());
         $this->assertEquals(count($updatedCollection->getItems()), count($collection->getItems()));
-        $this->assertCount(0, $updatedCollection->getQueries());
+        $this->assertNull($updatedCollection->getQuery());
 
         foreach ($updatedCollection->getItems() as $index => $item) {
             $this->assertEquals($index, $item->getPosition());
@@ -346,8 +254,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
             $collection,
             999,
             $this->collectionService->newQueryCreateStruct(
-                new QueryType('ezcontent_search'),
-                'default'
+                new QueryType('ezcontent_search')
             )
         );
     }
@@ -378,32 +285,6 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $this->assertEquals($collection->isPublished(), $copiedCollection->isPublished());
         $this->assertInstanceOf(Collection::class, $copiedCollection);
         $this->assertEquals(7, $copiedCollection->getId());
-        $this->assertNull($copiedCollection->getName());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::copyCollection
-     */
-    public function testCopyCollectionWithName()
-    {
-        $collection = $this->collectionService->loadCollection(3);
-        $copiedCollection = $this->collectionService->copyCollection($collection, 'New name');
-
-        $this->assertEquals($collection->isPublished(), $copiedCollection->isPublished());
-        $this->assertInstanceOf(Collection::class, $copiedCollection);
-        $this->assertEquals(7, $copiedCollection->getId());
-        $this->assertEquals('New name', $copiedCollection->getName());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::copyCollection
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "newName" has an invalid state. Collection with provided name already exists.
-     */
-    public function testCopyCollectionWithNameThrowsBadStateException()
-    {
-        $collection = $this->collectionService->loadCollection(3);
-        $this->collectionService->copyCollection($collection, 'My other collection');
     }
 
     /**
@@ -645,103 +526,6 @@ abstract class CollectionServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::addQuery
-     */
-    public function testAddQuery()
-    {
-        $queryCreateStruct = $this->collectionService->newQueryCreateStruct(
-            new QueryType('ezcontent_search'),
-            'new_query'
-        );
-
-        $collection = $this->collectionService->loadCollectionDraft(3);
-
-        $createdQuery = $this->collectionService->addQuery(
-            $collection,
-            $queryCreateStruct,
-            1
-        );
-
-        $this->assertFalse($createdQuery->isPublished());
-        $this->assertInstanceOf(Query::class, $createdQuery);
-
-        $secondQuery = $this->collectionService->loadQueryDraft(3);
-        $this->assertEquals(2, $secondQuery->getPosition());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::addQuery
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "collection" has an invalid state. Queries can be added only to draft collections.
-     */
-    public function testAddQueryThrowsBadStateExceptionInNonDraftCollection()
-    {
-        $queryCreateStruct = $this->collectionService->newQueryCreateStruct(
-            new QueryType('ezcontent_search'),
-            'new_query'
-        );
-
-        $collection = $this->collectionService->loadCollection(3);
-
-        $this->collectionService->addQuery(
-            $collection,
-            $queryCreateStruct,
-            1
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::addQuery
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "collection" has an invalid state. Queries can be added only to dynamic collections
-     */
-    public function testAddQueryInNonDynamicCollectionThrowsBadStateException()
-    {
-        $queryCreateStruct = $this->collectionService->newQueryCreateStruct(
-            new QueryType('ezcontent_search'),
-            'new_query'
-        );
-
-        $collection = $this->collectionService->loadCollectionDraft(1);
-
-        $this->collectionService->addQuery($collection, $queryCreateStruct, 1);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::addQuery
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "identifier" has an invalid state. Query with specified identifier already exists.
-     */
-    public function testAddQueryWithExistingIdentifierThrowsBadStateException()
-    {
-        $queryCreateStruct = $this->collectionService->newQueryCreateStruct(
-            new QueryType('ezcontent_search'),
-            'default'
-        );
-
-        $collection = $this->collectionService->loadCollectionDraft(3);
-
-        $this->collectionService->addQuery($collection, $queryCreateStruct, 1);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::addQuery
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
-     */
-    public function testAddQueryThrowsBadStateExceptionWhenPositionIsTooLarge()
-    {
-        $queryCreateStruct = $this->collectionService->newQueryCreateStruct(
-            new QueryType('ezcontent_search'),
-            'new_query'
-        );
-
-        $collection = $this->collectionService->loadCollectionDraft(3);
-
-        $this->collectionService->addQuery($collection, $queryCreateStruct, 9999);
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateQuery
      */
     public function testUpdateQuery()
@@ -749,7 +533,8 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $query = $this->collectionService->loadQueryDraft(2);
 
         $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct();
-        $queryUpdateStruct->identifier = 'new_identifier';
+
+        $queryUpdateStruct->queryType = new QueryType('ezcontent_search');
         $queryUpdateStruct->setParameterValue('parent_location_id', 3);
         $queryUpdateStruct->setParameterValue('param', 'value');
 
@@ -758,8 +543,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $this->assertFalse($updatedQuery->isPublished());
         $this->assertInstanceOf(Query::class, $updatedQuery);
 
-        $this->assertEquals('new_identifier', $updatedQuery->getIdentifier());
-
+        $this->assertEquals('ezcontent_search', $updatedQuery->getQueryType()->getType());
         $this->assertEquals(0, $updatedQuery->getParameter('offset')->getValue());
         $this->assertEquals('value', $updatedQuery->getParameter('param')->getValue());
     }
@@ -774,108 +558,10 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $query = $this->collectionService->loadQuery(2);
 
         $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct();
-        $queryUpdateStruct->identifier = 'new_identifier';
         $queryUpdateStruct->setParameterValue('parent_location_id', 3);
         $queryUpdateStruct->setParameterValue('param', 'value');
 
         $this->collectionService->updateQuery($query, $queryUpdateStruct);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateQuery
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "identifier" has an invalid state. Query with specified identifier already exists.
-     */
-    public function testUpdateQueryWithExistingIdentifierThrowsBadStateException()
-    {
-        $query = $this->collectionService->loadQueryDraft(2);
-
-        $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct();
-        $queryUpdateStruct->identifier = 'featured';
-
-        $this->collectionService->updateQuery($query, $queryUpdateStruct);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::moveQuery
-     */
-    public function testMoveQuery()
-    {
-        $this->collectionService->moveQuery(
-            $this->collectionService->loadQueryDraft(2),
-            1
-        );
-
-        /*
-        $this->assertFalse($movedQuery->isPublished());
-        $this->assertInstanceOf(Query::class, $movedQuery);
-        $this->assertEquals(1, $movedQuery->getPosition());
-        */
-
-        $secondQuery = $this->collectionService->loadQueryDraft(3);
-        $this->assertEquals(0, $secondQuery->getPosition());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::moveQuery
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "query" has an invalid state. Only draft queries can be moved.
-     */
-    public function testMoveQueryThrowsBadStateExceptionWithNonDraftQuery()
-    {
-        $this->collectionService->moveQuery(
-            $this->collectionService->loadQuery(2),
-            1
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::moveQuery
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
-     */
-    public function testMoveQueryThrowsBadStateExceptionWhenPositionIsTooLarge()
-    {
-        $this->collectionService->moveQuery(
-            $this->collectionService->loadQueryDraft(2),
-            9999
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteQuery
-     */
-    public function testDeleteQuery()
-    {
-        $collection = $this->collectionService->loadCollectionDraft(3);
-
-        $query = $this->collectionService->loadQueryDraft(2);
-        $this->collectionService->deleteQuery($query);
-
-        $collectionAfterDelete = $this->collectionService->loadCollectionDraft(3);
-
-        try {
-            $this->collectionService->loadQueryDraft($query->getId());
-            self::fail('Query still exists after deleting.');
-        } catch (NotFoundException $e) {
-            // Do nothing
-        }
-
-        $secondQuery = $this->collectionService->loadQueryDraft(3);
-        $this->assertEquals(0, $secondQuery->getPosition());
-
-        $this->assertEquals(count($collection->getQueries()) - 1, count($collectionAfterDelete->getQueries()));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteQuery
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "query" has an invalid state. Only draft queries can be deleted.
-     */
-    public function testDeleteQueryThrowsBadStateExceptionWithNonDraftQuery()
-    {
-        $query = $this->collectionService->loadQuery(2);
-        $this->collectionService->deleteQuery($query);
     }
 
     /**
@@ -887,24 +573,9 @@ abstract class CollectionServiceTest extends ServiceTestCase
             new CollectionCreateStruct(
                 array(
                     'type' => Collection::TYPE_DYNAMIC,
-                    'name' => 'New collection',
                 )
             ),
-            $this->collectionService->newCollectionCreateStruct(
-                Collection::TYPE_DYNAMIC,
-                'New collection'
-            )
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::newCollectionUpdateStruct
-     */
-    public function testNewCollectionUpdateStruct()
-    {
-        $this->assertEquals(
-            new CollectionUpdateStruct(),
-            $this->collectionService->newCollectionUpdateStruct()
+            $this->collectionService->newCollectionCreateStruct(Collection::TYPE_DYNAMIC)
         );
     }
 
@@ -931,14 +602,12 @@ abstract class CollectionServiceTest extends ServiceTestCase
     public function testNewQueryCreateStruct()
     {
         $queryCreateStruct = $this->collectionService->newQueryCreateStruct(
-            new QueryType('ezcontent_search'),
-            'new_query'
+            new QueryType('ezcontent_search')
         );
 
         $this->assertEquals(
             new QueryCreateStruct(
                 array(
-                    'identifier' => 'new_query',
                     'queryType' => new QueryType('ezcontent_search'),
                     'parameterValues' => array(
                         'offset' => null,
@@ -971,7 +640,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $this->assertEquals(
             new QueryUpdateStruct(
                 array(
-                    'identifier' => $query->getIdentifier(),
+                    'queryType' => $query->getQueryType(),
                     'parameterValues' => array(
                         'offset' => 0,
                         'param' => null,

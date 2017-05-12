@@ -28,24 +28,14 @@ class Collection extends ValueObject implements APICollection
     protected $published;
 
     /**
-     * @var bool
-     */
-    protected $shared;
-
-    /**
-     * @var string
-     */
-    protected $name;
-
-    /**
      * @var \Netgen\BlockManager\API\Values\Collection\Item[]
      */
     protected $items = array();
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Collection\Query[]
+     * @var \Netgen\BlockManager\API\Values\Collection\Query
      */
-    protected $queries = array();
+    protected $query;
 
     /**
      * Returns the collection ID.
@@ -85,26 +75,6 @@ class Collection extends ValueObject implements APICollection
     public function isPublished()
     {
         return $this->published;
-    }
-
-    /**
-     * Returns if the collection is shared.
-     *
-     * @return bool
-     */
-    public function isShared()
-    {
-        return $this->shared;
-    }
-
-    /**
-     * Returns the collection name.
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 
     /**
@@ -186,13 +156,13 @@ class Collection extends ValueObject implements APICollection
     }
 
     /**
-     * Returns the list of query configurations in the collection.
+     * Returns the query from the collection.
      *
-     * @return \Netgen\BlockManager\API\Values\Collection\Query[]
+     * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
-    public function getQueries()
+    public function getQuery()
     {
-        return $this->queries;
+        return $this->query;
     }
 
     /**

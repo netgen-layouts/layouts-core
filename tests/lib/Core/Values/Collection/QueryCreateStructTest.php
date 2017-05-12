@@ -12,7 +12,6 @@ class QueryCreateStructTest extends TestCase
     {
         $queryCreateStruct = new QueryCreateStruct();
 
-        $this->assertNull($queryCreateStruct->identifier);
         $this->assertNull($queryCreateStruct->queryType);
     }
 
@@ -20,12 +19,10 @@ class QueryCreateStructTest extends TestCase
     {
         $queryCreateStruct = new QueryCreateStruct(
             array(
-                'identifier' => 'my_query',
                 'queryType' => new QueryType(),
             )
         );
 
-        $this->assertEquals('my_query', $queryCreateStruct->identifier);
         $this->assertEquals(new QueryType(), $queryCreateStruct->queryType);
     }
 }

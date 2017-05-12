@@ -6,7 +6,6 @@ use Exception;
 use Netgen\BlockManager\API\Service\CollectionService as APICollectionService;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct as APICollectionCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct as APICollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct as APIItemCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\Query;
@@ -122,32 +121,6 @@ class CollectionService extends Service implements APICollectionService
     }
 
     /**
-     * Loads all shared collections.
-     *
-     * @param int $offset
-     * @param int $limit
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Collection[]
-     */
-    public function loadSharedCollections($offset = 0, $limit = null)
-    {
-        $this->validator->validateOffsetAndLimit($offset, $limit);
-
-        $persistenceCollections = $this->handler->loadSharedCollections(
-            Value::STATUS_PUBLISHED,
-            $offset,
-            $limit
-        );
-
-        $collections = array();
-        foreach ($persistenceCollections as $persistenceCollection) {
-            $collections[] = $this->mapper->mapCollection($persistenceCollection);
-        }
-
-        return $collections;
-    }
-
-    /**
      * Loads an item with specified ID.
      *
      * @param int|string $itemId
@@ -236,19 +209,11 @@ class CollectionService extends Service implements APICollectionService
      *
      * @param \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct $collectionCreateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection with provided name already exists
-     *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
     public function createCollection(APICollectionCreateStruct $collectionCreateStruct)
     {
         $this->validator->validateCollectionCreateStruct($collectionCreateStruct);
-
-        if ($collectionCreateStruct->name !== null) {
-            if ($this->handler->collectionNameExists($collectionCreateStruct->name)) {
-                throw new BadStateException('name', 'Collection with provided name already exists.');
-            }
-        }
 
         $this->persistenceHandler->beginTransaction();
 
@@ -258,8 +223,6 @@ class CollectionService extends Service implements APICollectionService
                     array(
                         'status' => Value::STATUS_DRAFT,
                         'type' => $collectionCreateStruct->type,
-                        'shared' => $collectionCreateStruct->shared,
-                        'name' => $collectionCreateStruct->name,
                     )
                 )
             );
@@ -278,13 +241,13 @@ class CollectionService extends Service implements APICollectionService
                 );
             }
 
-            foreach ($collectionCreateStruct->queryCreateStructs as $position => $queryCreateStruct) {
+            if ($collectionCreateStruct->queryCreateStruct instanceof APIQueryCreateStruct) {
+                $queryCreateStruct = $collectionCreateStruct->queryCreateStruct;
+
                 $this->handler->addQuery(
                     $createdCollection,
                     new QueryCreateStruct(
                         array(
-                            'position' => $position,
-                            'identifier' => $queryCreateStruct->identifier,
                             'type' => $queryCreateStruct->queryType->getType(),
                             'parameters' => $this->parameterMapper->serializeValues(
                                 $queryCreateStruct->queryType,
@@ -302,54 +265,6 @@ class CollectionService extends Service implements APICollectionService
         $this->persistenceHandler->commitTransaction();
 
         return $this->mapper->mapCollection($createdCollection);
-    }
-
-    /**
-     * Updates a specified collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct $collectionUpdateStruct
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
-     *                                                          If collection with provided name already exists
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Collection
-     */
-    public function updateCollection(Collection $collection, APICollectionUpdateStruct $collectionUpdateStruct)
-    {
-        if ($collection->isPublished()) {
-            throw new BadStateException('collection', 'Only draft collections can be updated.');
-        }
-
-        $persistenceCollection = $this->handler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
-
-        $this->validator->validateCollectionUpdateStruct($collectionUpdateStruct);
-
-        if ($collectionUpdateStruct->name !== null) {
-            if ($this->handler->collectionNameExists($collectionUpdateStruct->name, $persistenceCollection->id)) {
-                throw new BadStateException('name', 'Collection with provided name already exists.');
-            }
-        }
-
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $updatedCollection = $this->handler->updateCollection(
-                $persistenceCollection,
-                new CollectionUpdateStruct(
-                    array(
-                        'name' => $collectionUpdateStruct->name,
-                    )
-                )
-            );
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
-
-        return $this->mapper->mapCollection($updatedCollection);
     }
 
     /**
@@ -383,20 +298,27 @@ class CollectionService extends Service implements APICollectionService
         $this->persistenceHandler->beginTransaction();
 
         try {
-            foreach ($this->handler->loadCollectionQueries($persistenceCollection) as $query) {
-                $this->handler->deleteQuery($query);
-            }
+            $newCollection = $this->handler->updateCollection(
+                $persistenceCollection,
+                new CollectionUpdateStruct(
+                    array(
+                        'type' => $newType,
+                    )
+                )
+            );
 
             if ($newType === Collection::TYPE_MANUAL) {
+                $query = $this->handler->loadCollectionQuery($persistenceCollection);
+                $this->handler->deleteQuery($query);
+
                 foreach ($this->handler->loadCollectionItems($persistenceCollection) as $index => $item) {
                     $this->handler->moveItem($item, $index);
                 }
             } elseif ($newType === Collection::TYPE_DYNAMIC) {
                 $this->handler->addQuery(
-                    $persistenceCollection,
+                    $newCollection,
                     new QueryCreateStruct(
                         array(
-                            'identifier' => $queryCreateStruct->identifier,
                             'type' => $queryCreateStruct->queryType->getType(),
                             'parameters' => $this->parameterMapper->serializeValues(
                                 $queryCreateStruct->queryType,
@@ -406,15 +328,6 @@ class CollectionService extends Service implements APICollectionService
                     )
                 );
             }
-
-            $newCollection = $this->handler->updateCollection(
-                $persistenceCollection,
-                new CollectionUpdateStruct(
-                    array(
-                        'type' => $newType,
-                    )
-                )
-            );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
@@ -429,29 +342,17 @@ class CollectionService extends Service implements APICollectionService
      * Copies a specified collection.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param string $newName
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection with provided name already exists
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function copyCollection(Collection $collection, $newName = null)
+    public function copyCollection(Collection $collection)
     {
-        if ($newName !== null) {
-            if ($this->handler->collectionNameExists($newName, $collection->getId())) {
-                throw new BadStateException('newName', 'Collection with provided name already exists.');
-            }
-        }
-
         $persistenceCollection = $this->handler->loadCollection($collection->getId(), $collection->getStatus());
 
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $copiedCollection = $this->handler->copyCollection(
-                $persistenceCollection,
-                $newName
-            );
+            $copiedCollection = $this->handler->copyCollection($persistenceCollection);
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;
@@ -717,73 +618,12 @@ class CollectionService extends Service implements APICollectionService
     }
 
     /**
-     * Adds a query to collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct $queryCreateStruct
-     * @param int $position
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
-     *                                                          If collection is not dynamic
-     *                                                          If query with specified identifier already exists within the collection
-     *                                                          If position is out of range
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Query
-     */
-    public function addQuery(Collection $collection, APIQueryCreateStruct $queryCreateStruct, $position = null)
-    {
-        if ($collection->isPublished()) {
-            throw new BadStateException('collection', 'Queries can be added only to draft collections.');
-        }
-
-        $persistenceCollection = $this->handler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
-
-        if ($persistenceCollection->type !== Collection::TYPE_DYNAMIC) {
-            throw new BadStateException('collection', 'Queries can be added only to dynamic collections.');
-        }
-
-        $this->validator->validatePosition($position, 'position');
-        $this->validator->validateQueryCreateStruct($queryCreateStruct);
-
-        if ($this->handler->queryExists($persistenceCollection, $queryCreateStruct->identifier)) {
-            throw new BadStateException('identifier', 'Query with specified identifier already exists.');
-        }
-
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $createdQuery = $this->handler->addQuery(
-                $persistenceCollection,
-                new QueryCreateStruct(
-                    array(
-                        'position' => $position,
-                        'identifier' => $queryCreateStruct->identifier,
-                        'type' => $queryCreateStruct->queryType->getType(),
-                        'parameters' => $this->parameterMapper->serializeValues(
-                            $queryCreateStruct->queryType,
-                            $queryCreateStruct->getParameterValues()
-                        ),
-                    )
-                )
-            );
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
-
-        return $this->mapper->mapQuery($createdQuery);
-    }
-
-    /**
      * Updates a query.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      * @param \Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct $queryUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If query is not a draft
-     *                                                          If query with specified identifier already exists within the collection
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
@@ -794,15 +634,8 @@ class CollectionService extends Service implements APICollectionService
         }
 
         $persistenceQuery = $this->handler->loadQuery($query->getId(), Value::STATUS_DRAFT);
-        $persistenceCollection = $this->handler->loadCollection($persistenceQuery->collectionId, Value::STATUS_DRAFT);
 
         $this->validator->validateQueryUpdateStruct($query, $queryUpdateStruct);
-
-        if ($queryUpdateStruct->identifier !== null && $queryUpdateStruct->identifier !== $persistenceQuery->identifier) {
-            if ($this->handler->queryExists($persistenceCollection, $queryUpdateStruct->identifier)) {
-                throw new BadStateException('identifier', 'Query with specified identifier already exists.');
-            }
-        }
 
         $this->persistenceHandler->beginTransaction();
 
@@ -811,7 +644,9 @@ class CollectionService extends Service implements APICollectionService
                 $persistenceQuery,
                 new QueryUpdateStruct(
                     array(
-                        'identifier' => $queryUpdateStruct->identifier,
+                        'type' => $queryUpdateStruct->queryType !== null ?
+                            $queryUpdateStruct->queryType->getType() :
+                            null,
                         'parameters' => $this->parameterMapper->serializeValues(
                             $query->getQueryType(),
                             $queryUpdateStruct->getParameterValues(),
@@ -831,89 +666,15 @@ class CollectionService extends Service implements APICollectionService
     }
 
     /**
-     * Moves a query within the collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     * @param int $position
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If query is not a draft
-     *                                                          If position is out of range
-     */
-    public function moveQuery(Query $query, $position)
-    {
-        if ($query->isPublished()) {
-            throw new BadStateException('query', 'Only draft queries can be moved.');
-        }
-
-        $persistenceQuery = $this->handler->loadQuery($query->getId(), Value::STATUS_DRAFT);
-
-        $this->validator->validatePosition($position, 'position', true);
-
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $movedQuery = $this->handler->moveQuery(
-                $persistenceQuery,
-                $position
-            );
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
-
-        return $this->mapper->mapQuery($movedQuery);
-    }
-
-    /**
-     * Removes a query.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If query is not a draft
-     */
-    public function deleteQuery(Query $query)
-    {
-        if ($query->isPublished()) {
-            throw new BadStateException('query', 'Only draft queries can be deleted.');
-        }
-
-        $persistenceQuery = $this->handler->loadQuery($query->getId(), Value::STATUS_DRAFT);
-
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $this->handler->deleteQuery($persistenceQuery);
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
-    }
-
-    /**
      * Creates a new collection create struct.
      *
      * @param int $type
-     * @param string $name
      *
      * @return \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct
      */
-    public function newCollectionCreateStruct($type, $name = null)
+    public function newCollectionCreateStruct($type)
     {
-        return $this->structBuilder->newCollectionCreateStruct($type, $name);
-    }
-
-    /**
-     * Creates a new collection update struct.
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct
-     */
-    public function newCollectionUpdateStruct()
-    {
-        return $this->structBuilder->newCollectionUpdateStruct();
+        return $this->structBuilder->newCollectionCreateStruct($type);
     }
 
     /**
@@ -934,13 +695,12 @@ class CollectionService extends Service implements APICollectionService
      * Creates a new query create struct.
      *
      * @param \Netgen\BlockManager\Collection\QueryTypeInterface $queryType
-     * @param string $identifier
      *
      * @return \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct
      */
-    public function newQueryCreateStruct(QueryTypeInterface $queryType, $identifier)
+    public function newQueryCreateStruct(QueryTypeInterface $queryType)
     {
-        return $this->structBuilder->newQueryCreateStruct($queryType, $identifier);
+        return $this->structBuilder->newQueryCreateStruct($queryType);
     }
 
     /**

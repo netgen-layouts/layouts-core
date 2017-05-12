@@ -35,8 +35,6 @@ abstract class CollectionMapperTest extends ServiceTestCase
                 'id' => 2,
                 'status' => Value::STATUS_PUBLISHED,
                 'type' => APICollection::TYPE_DYNAMIC,
-                'shared' => true,
-                'name' => null,
             )
         );
 
@@ -45,8 +43,6 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertInstanceOf(APICollection::class, $collection);
         $this->assertEquals(2, $collection->getId());
         $this->assertEquals(APICollection::TYPE_DYNAMIC, $collection->getType());
-        $this->assertTrue($collection->isShared());
-        $this->assertNull(null, $collection->getName());
         $this->assertEquals(Value::STATUS_PUBLISHED, $collection->getStatus());
         $this->assertTrue($collection->isPublished());
 
@@ -67,9 +63,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
             count($collection->getManualItems()) + count($collection->getOverrideItems())
         );
 
-        foreach ($collection->getQueries() as $query) {
-            $this->assertInstanceOf(APIQuery::class, $query);
-        }
+        $this->assertInstanceOf(APIQuery::class, $collection->getQuery());
     }
 
     /**
@@ -112,8 +106,6 @@ abstract class CollectionMapperTest extends ServiceTestCase
                 'id' => 1,
                 'status' => Value::STATUS_PUBLISHED,
                 'collectionId' => 42,
-                'position' => 1,
-                'identifier' => 'my_search',
                 'type' => 'ezcontent_search',
                 'parameters' => array('param' => 'value'),
             )
@@ -129,8 +121,6 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertInstanceOf(APIQuery::class, $query);
         $this->assertEquals(1, $query->getId());
         $this->assertEquals(42, $query->getCollectionId());
-        $this->assertEquals(1, $query->getPosition());
-        $this->assertEquals('my_search', $query->getIdentifier());
         $this->assertEquals(Value::STATUS_PUBLISHED, $query->getStatus());
         $this->assertTrue($query->isPublished());
 

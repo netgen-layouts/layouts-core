@@ -23,9 +23,9 @@ class Collection implements APICollection
     protected $queryValues;
 
     /**
-     * @var array
+     * @var int
      */
-    protected $queryCounts;
+    protected $queryCount;
 
     /**
      * Constructor.
@@ -33,18 +33,18 @@ class Collection implements APICollection
      * @param array $manualItems
      * @param array $overrideItems
      * @param array $queryValues
-     * @param array $queryCounts
+     * @param int $queryCount
      */
     public function __construct(
         array $manualItems = array(),
         array $overrideItems = array(),
         array $queryValues = array(),
-        array $queryCounts = array()
+        $queryCount = 0
     ) {
         $this->manualItems = $manualItems;
         $this->overrideItems = $overrideItems;
         $this->queryValues = $queryValues;
-        $this->queryCounts = $queryCounts;
+        $this->queryCount = $queryCount;
     }
 
     /**
@@ -80,24 +80,6 @@ class Collection implements APICollection
      * @return bool
      */
     public function isPublished()
-    {
-    }
-
-    /**
-     * Returns if the collection is shared.
-     *
-     * @return bool
-     */
-    public function isShared()
-    {
-    }
-
-    /**
-     * Returns the collection name.
-     *
-     * @return string
-     */
-    public function getName()
     {
     }
 
@@ -183,27 +165,21 @@ class Collection implements APICollection
     }
 
     /**
-     * Returns the list of query configurations in the collection.
+     * Returns the query from the collection.
      *
-     * @return \Netgen\BlockManager\API\Values\Collection\Query[]
+     * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
-    public function getQueries()
+    public function getQuery()
     {
-        $queries = array();
-
-        foreach ($this->queryValues as $index => $singleQueryValues) {
-            $queries[] = new Query(
-                array(
-                    'identifier' => $index,
-                    'queryType' => new QueryType(
-                        'ezcontent_search',
-                        $singleQueryValues,
-                        isset($this->queryCounts[$index]) ? $this->queryCounts[$index] : null
-                    ),
-                )
-            );
-        }
-
-        return $queries;
+        return new Query(
+            array(
+                'identifier' => 'query',
+                'queryType' => new QueryType(
+                    'ezcontent_search',
+                    $this->queryValues,
+                    $this->queryCount
+                ),
+            )
+        );
     }
 }

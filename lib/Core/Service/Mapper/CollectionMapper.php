@@ -51,32 +51,28 @@ class CollectionMapper extends Mapper
      */
     public function mapCollection(PersistenceCollection $collection)
     {
-        $persistenceItems = $this->persistenceHandler->getCollectionHandler()->loadCollectionItems(
-            $collection
-        );
+        $handler = $this->persistenceHandler->getCollectionHandler();
+
+        $persistenceItems = $handler->loadCollectionItems($collection);
 
         $items = array();
         foreach ($persistenceItems as $persistenceItem) {
             $items[] = $this->mapItem($persistenceItem);
         }
 
-        $persistenceQueries = $this->persistenceHandler->getCollectionHandler()->loadCollectionQueries(
-            $collection
-        );
-
-        $queries = array();
-        foreach ($persistenceQueries as $persistenceQuery) {
-            $queries[] = $this->mapQuery($persistenceQuery);
+        $query = null;
+        if ($collection->type === PersistenceCollection::TYPE_DYNAMIC) {
+            $query = $this->mapQuery(
+                $handler->loadCollectionQuery($collection)
+            );
         }
 
         $collectionData = array(
             'id' => $collection->id,
             'status' => $collection->status,
             'type' => $collection->type,
-            'shared' => $collection->shared,
-            'name' => $collection->name,
             'items' => $items,
-            'queries' => $queries,
+            'query' => $query,
             'published' => $collection->status === Value::STATUS_PUBLISHED,
         );
 
@@ -123,8 +119,6 @@ class CollectionMapper extends Mapper
             'id' => $query->id,
             'status' => $query->status,
             'collectionId' => $query->collectionId,
-            'position' => $query->position,
-            'identifier' => $query->identifier,
             'queryType' => $queryType,
             'published' => $query->status === Value::STATUS_PUBLISHED,
             'parameters' => $this->parameterMapper->mapParameters(

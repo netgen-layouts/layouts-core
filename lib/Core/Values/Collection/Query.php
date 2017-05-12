@@ -31,16 +31,6 @@ class Query extends ValueObject implements APIQuery
     protected $published;
 
     /**
-     * @var int
-     */
-    protected $position;
-
-    /**
-     * @var string
-     */
-    protected $identifier;
-
-    /**
      * @var \Netgen\BlockManager\Collection\QueryTypeInterface
      */
     protected $queryType;
@@ -83,26 +73,6 @@ class Query extends ValueObject implements APIQuery
     public function isPublished()
     {
         return $this->published;
-    }
-
-    /**
-     * Returns the position the query is at.
-     *
-     * @return int
-     */
-    public function getPosition()
-    {
-        return $this->position;
-    }
-
-    /**
-     * Returns the query identifier.
-     *
-     * @return string
-     */
-    public function getIdentifier()
-    {
-        return $this->identifier;
     }
 
     /**

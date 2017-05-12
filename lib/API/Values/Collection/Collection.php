@@ -45,20 +45,6 @@ interface Collection extends Value
     public function isPublished();
 
     /**
-     * Returns if the collection is shared.
-     *
-     * @return bool
-     */
-    public function isShared();
-
-    /**
-     * Returns the collection name.
-     *
-     * @return string
-     */
-    public function getName();
-
-    /**
      * Returns all collection items.
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Item[]
@@ -116,9 +102,9 @@ interface Collection extends Value
     public function getOverrideItems();
 
     /**
-     * Returns the list of query configurations in the collection.
+     * Returns the query from the collection.
      *
-     * @return \Netgen\BlockManager\API\Values\Collection\Query[]
+     * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
-    public function getQueries();
+    public function getQuery();
 }

@@ -4,9 +4,7 @@ namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
 use Exception;
 use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
@@ -53,37 +51,6 @@ class CollectionServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateCollection
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
-     */
-    public function testUpdateCollection()
-    {
-        $this->collectionHandlerMock
-            ->expects($this->at(0))
-            ->method('loadCollection')
-            ->will(
-                $this->returnValue(
-                    new PersistenceCollection()
-                )
-            );
-
-        $this->collectionHandlerMock
-            ->expects($this->at(1))
-            ->method('updateCollection')
-            ->will($this->throwException(new Exception('Test exception text')));
-
-        $this->persistenceHandler
-            ->expects($this->once())
-            ->method('rollbackTransaction');
-
-        $this->collectionService->updateCollection(
-            new Collection(array('published' => false)),
-            new CollectionUpdateStruct()
-        );
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::changeCollectionType
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
@@ -103,7 +70,7 @@ class CollectionServiceTest extends ServiceTestCase
 
         $this->collectionHandlerMock
             ->expects($this->at(1))
-            ->method('loadCollectionQueries')
+            ->method('updateCollection')
             ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
@@ -125,11 +92,6 @@ class CollectionServiceTest extends ServiceTestCase
     {
         $this->collectionHandlerMock
             ->expects($this->at(0))
-            ->method('collectionNameExists')
-            ->will($this->returnValue(false));
-
-        $this->collectionHandlerMock
-            ->expects($this->at(1))
             ->method('loadCollection')
             ->will(
                 $this->returnValue(
@@ -140,7 +102,7 @@ class CollectionServiceTest extends ServiceTestCase
             );
 
         $this->collectionHandlerMock
-            ->expects($this->at(2))
+            ->expects($this->at(1))
             ->method('copyCollection')
             ->will($this->throwException(new Exception('Test exception text')));
 
@@ -148,7 +110,7 @@ class CollectionServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->copyCollection(new Collection(), 'New name');
+        $this->collectionService->copyCollection(new Collection());
     }
 
     /**
@@ -340,44 +302,6 @@ class CollectionServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::addQuery
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
-     */
-    public function testAddQuery()
-    {
-        $this->collectionHandlerMock
-            ->expects($this->at(0))
-            ->method('loadCollection')
-            ->will(
-                $this->returnValue(
-                    new PersistenceCollection(
-                        array('type' => Collection::TYPE_DYNAMIC)
-                    )
-                )
-            );
-
-        $this->collectionHandlerMock
-            ->expects($this->at(1))
-            ->method('queryExists')
-            ->will($this->returnValue(false));
-
-        $this->collectionHandlerMock
-            ->expects($this->at(2))
-            ->method('addQuery')
-            ->will($this->throwException(new Exception('Test exception text')));
-
-        $this->persistenceHandler
-            ->expects($this->once())
-            ->method('rollbackTransaction');
-
-        $this->collectionService->addQuery(
-            new Collection(array('published' => false)),
-            new QueryCreateStruct(array('queryType' => new QueryType('type')))
-        );
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateQuery
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
@@ -391,11 +315,6 @@ class CollectionServiceTest extends ServiceTestCase
 
         $this->collectionHandlerMock
             ->expects($this->at(1))
-            ->method('loadCollection')
-            ->will($this->returnValue(new PersistenceCollection()));
-
-        $this->collectionHandlerMock
-            ->expects($this->at(2))
             ->method('updateQuery')
             ->will($this->throwException(new Exception('Test exception text')));
 
@@ -412,53 +331,5 @@ class CollectionServiceTest extends ServiceTestCase
             ),
             new QueryUpdateStruct()
         );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::moveQuery
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
-     */
-    public function testMoveQuery()
-    {
-        $this->collectionHandlerMock
-            ->expects($this->at(0))
-            ->method('loadQuery')
-            ->will($this->returnValue(new PersistenceQuery()));
-
-        $this->collectionHandlerMock
-            ->expects($this->at(1))
-            ->method('moveQuery')
-            ->will($this->throwException(new Exception('Test exception text')));
-
-        $this->persistenceHandler
-            ->expects($this->once())
-            ->method('rollbackTransaction');
-
-        $this->collectionService->moveQuery(new Query(array('published' => false)), 0);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteQuery
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
-     */
-    public function testDeleteQuery()
-    {
-        $this->collectionHandlerMock
-            ->expects($this->at(0))
-            ->method('loadQuery')
-            ->will($this->returnValue(new PersistenceQuery()));
-
-        $this->collectionHandlerMock
-            ->expects($this->at(1))
-            ->method('deleteQuery')
-            ->will($this->throwException(new Exception('Test exception text')));
-
-        $this->persistenceHandler
-            ->expects($this->once())
-            ->method('rollbackTransaction');
-
-        $this->collectionService->deleteQuery(new Query(array('published' => false)));
     }
 }

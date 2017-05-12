@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\API\Service;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\Query;
@@ -35,16 +34,6 @@ interface CollectionService extends Service
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
     public function loadCollectionDraft($collectionId);
-
-    /**
-     * Loads all shared collections.
-     *
-     * @param int $offset
-     * @param int $limit
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Collection[]
-     */
-    public function loadSharedCollections($offset = 0, $limit = null);
 
     /**
      * Loads an item with specified ID.
@@ -95,24 +84,9 @@ interface CollectionService extends Service
      *
      * @param \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct $collectionCreateStruct
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection with provided name already exists
-     *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
     public function createCollection(CollectionCreateStruct $collectionCreateStruct);
-
-    /**
-     * Updates a specified collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct $collectionUpdateStruct
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
-     *                                                          If collection with provided name already exists
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Collection
-     */
-    public function updateCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct);
 
     /**
      * Changes the type of specified collection.
@@ -132,13 +106,10 @@ interface CollectionService extends Service
      * Copies a specified collection.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param string $newName
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection with provided name already exists
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function copyCollection(Collection $collection, $newName = null);
+    public function copyCollection(Collection $collection);
 
     /**
      * Creates a collection draft.
@@ -215,70 +186,25 @@ interface CollectionService extends Service
     public function deleteItem(Item $item);
 
     /**
-     * Adds a query to collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct $queryCreateStruct
-     * @param int $position
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
-     *                                                          If collection is not dynamic
-     *                                                          If query with specified identifier already exists within the collection
-     *                                                          If position is out of range
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Query
-     */
-    public function addQuery(Collection $collection, QueryCreateStruct $queryCreateStruct, $position = null);
-
-    /**
      * Updates a query.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      * @param \Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct $queryUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If query is not a draft
-     *                                                          If query with specified identifier already exists within the collection
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
     public function updateQuery(Query $query, QueryUpdateStruct $queryUpdateStruct);
 
     /**
-     * Moves a query within the collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     * @param int $position
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If query is not a draft
-     *                                                          If position is out of range
-     */
-    public function moveQuery(Query $query, $position);
-
-    /**
-     * Removes a query.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If query is not a draft
-     */
-    public function deleteQuery(Query $query);
-
-    /**
      * Creates a new collection create struct.
      *
      * @param int $type
-     * @param string $name
      *
      * @return \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct
      */
-    public function newCollectionCreateStruct($type, $name = null);
-
-    /**
-     * Creates a new collection update struct.
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct
-     */
-    public function newCollectionUpdateStruct();
+    public function newCollectionCreateStruct($type);
 
     /**
      * Creates a new item create struct.
@@ -295,11 +221,10 @@ interface CollectionService extends Service
      * Creates a new query create struct.
      *
      * @param \Netgen\BlockManager\Collection\QueryTypeInterface $queryType
-     * @param string $identifier
      *
      * @return \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct
      */
-    public function newQueryCreateStruct(QueryTypeInterface $queryType, $identifier);
+    public function newQueryCreateStruct(QueryTypeInterface $queryType);
 
     /**
      * Creates a new query update struct.

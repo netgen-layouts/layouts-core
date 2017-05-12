@@ -7,7 +7,7 @@ use Netgen\BlockManager\API\Values\ParameterStruct;
 class QueryUpdateStruct extends ParameterStruct
 {
     /**
-     * @var string
+     * @var \Netgen\BlockManager\Collection\QueryTypeInterface
      */
-    public $identifier;
+    public $queryType;
 }

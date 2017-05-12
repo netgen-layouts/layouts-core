@@ -780,7 +780,6 @@ class BlockService extends Service implements BlockServiceInterface
                         array(
                             'status' => Value::STATUS_DRAFT,
                             'type' => Collection::TYPE_MANUAL,
-                            'shared' => false,
                         )
                     )
                 );

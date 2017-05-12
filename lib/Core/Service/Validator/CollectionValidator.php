@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Core\Service\Validator;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\Query;
@@ -49,36 +48,8 @@ class CollectionValidator extends Validator
             }
         }
 
-        if ($collectionCreateStruct->queryCreateStructs !== null) {
-            $this->validate(
-                $collectionCreateStruct->queryCreateStructs,
-                array(
-                    new Constraints\Type(array('type' => 'array')),
-                    new Constraints\All(
-                        array(
-                            'constraints' => array(
-                                new Constraints\Type(array('type' => QueryCreateStruct::class)),
-                            ),
-                        )
-                    ),
-                ),
-                'queryCreateStructs'
-            );
-
-            foreach ($collectionCreateStruct->queryCreateStructs as $queryCreateStruct) {
-                $this->validateQueryCreateStruct($queryCreateStruct);
-            }
-
-            $allQueryIdentifiers = array_map(
-                function (QueryCreateStruct $queryCreateStruct) {
-                    return $queryCreateStruct->identifier;
-                },
-                $collectionCreateStruct->queryCreateStructs
-            );
-
-            if (count($allQueryIdentifiers) !== count(array_unique($allQueryIdentifiers))) {
-                throw new ValidationFailedException('All query create structs must have a unique identifier.');
-            }
+        if ($collectionCreateStruct->queryCreateStruct !== null) {
+            $this->validateQueryCreateStruct($collectionCreateStruct->queryCreateStruct);
         }
 
         $this->validate(
@@ -98,69 +69,15 @@ class CollectionValidator extends Validator
             'type'
         );
 
-        if ($collectionCreateStruct->shared !== null) {
-            $this->validate(
-                $collectionCreateStruct->shared,
-                array(
-                    new Constraints\Type(array('type' => 'bool')),
-                ),
-                'shared'
-            );
-
-            if ($collectionCreateStruct->shared === true) {
-                $collectionName = is_string($collectionCreateStruct->name) ?
-                    trim($collectionCreateStruct->name) :
-                    $collectionCreateStruct->name;
-
-                $this->validate(
-                    $collectionName,
-                    array(
-                        new Constraints\NotBlank(),
-                        new Constraints\Type(array('type' => 'string')),
-                    ),
-                    'name'
-                );
-            }
-        }
-
         if ($collectionCreateStruct->type === Collection::TYPE_MANUAL) {
-            if (
-                is_array($collectionCreateStruct->queryCreateStructs) &&
-                !empty($collectionCreateStruct->queryCreateStructs)
-            ) {
-                throw new ValidationFailedException('Manual collection cannot have any queries.');
+            if ($collectionCreateStruct->queryCreateStruct !== null) {
+                throw new ValidationFailedException('Manual collection cannot have a query.');
             }
         } elseif ($collectionCreateStruct->type === Collection::TYPE_DYNAMIC) {
-            if (
-                !is_array($collectionCreateStruct->queryCreateStructs) ||
-                empty($collectionCreateStruct->queryCreateStructs)
-            ) {
-                throw new ValidationFailedException('Dynamic collection needs to have at least one query.');
+            if ($collectionCreateStruct->queryCreateStruct === null) {
+                throw new ValidationFailedException('Dynamic collection needs to have a query.');
             }
         }
-    }
-
-    /**
-     * Validates collection update struct.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct $collectionUpdateStruct
-     *
-     * @throws \Netgen\BlockManager\Exception\ValidationFailedException If the validation failed
-     */
-    public function validateCollectionUpdateStruct(CollectionUpdateStruct $collectionUpdateStruct)
-    {
-        $collectionName = is_string($collectionUpdateStruct->name) ?
-            trim($collectionUpdateStruct->name) :
-            $collectionUpdateStruct->name;
-
-        $this->validate(
-            $collectionName,
-            array(
-                new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'string')),
-            ),
-            'name'
-        );
     }
 
     /**
@@ -217,15 +134,6 @@ class CollectionValidator extends Validator
      */
     public function validateQueryCreateStruct(QueryCreateStruct $queryCreateStruct)
     {
-        $this->validate(
-            $queryCreateStruct->identifier,
-            array(
-                new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'string')),
-            ),
-            'identifier'
-        );
-
         $this->validate(
             $queryCreateStruct->queryType,
             array(
