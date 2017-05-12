@@ -25,7 +25,7 @@
         {% set query = collection.collection.queries.0 %}
         {% set limit = query.queryType.internalLimit(query) %}
         {% if limit is null %}
-            {% set limit = number_of_columns > 2 ? 11 : 5 %}
+            {% set limit = number_of_columns > 2 ? 12 : 6 %}
         {% endif %}
 
         {% if limit > 0 %}
