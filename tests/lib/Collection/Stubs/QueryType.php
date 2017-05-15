@@ -30,15 +30,14 @@ class QueryType implements QueryTypeInterface
      * @param string $type
      * @param array $values
      * @param int $count
-     * @param bool $configured
      * @param bool $contextual
      */
-    public function __construct($type, array $values = array(), $count = null, $configured = true, $contextual = false)
+    public function __construct($type, array $values = array(), $count = null, $contextual = false)
     {
         $this->type = $type;
         $this->values = $values;
 
-        $this->handler = new QueryTypeHandler($this->values, $count, null, $configured, $contextual);
+        $this->handler = new QueryTypeHandler($this->values, $count, null, $contextual);
     }
 
     /**

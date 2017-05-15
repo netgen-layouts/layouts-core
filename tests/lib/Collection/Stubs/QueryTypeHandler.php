@@ -29,11 +29,6 @@ class QueryTypeHandler implements QueryTypeHandlerInterface
     /**
      * @var bool
      */
-    protected $configured;
-
-    /**
-     * @var bool
-     */
     protected $contextual;
 
     /**
@@ -42,15 +37,13 @@ class QueryTypeHandler implements QueryTypeHandlerInterface
      * @param array $values
      * @param int $count
      * @param int $internalLimit
-     * @param bool $configured
      * @param bool $contextual
      */
-    public function __construct(array $values = array(), $count = null, $internalLimit = null, $configured = true, $contextual = false)
+    public function __construct(array $values = array(), $count = null, $internalLimit = null, $contextual = false)
     {
         $this->values = $values;
         $this->count = $count;
         $this->internalLimit = $internalLimit;
-        $this->configured = $configured;
         $this->contextual = $contextual;
     }
 

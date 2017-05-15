@@ -79,7 +79,7 @@ class ResultSetTest extends TestCase
                         'type' => Collection::TYPE_DYNAMIC,
                         'query' => new Query(
                             array(
-                                'queryType' => new QueryType('type', array(), null, true, false),
+                                'queryType' => new QueryType('type', array(), null, false),
                             )
                         ),
                     )
@@ -120,7 +120,7 @@ class ResultSetTest extends TestCase
                         'type' => Collection::TYPE_DYNAMIC,
                         'query' => new Query(
                             array(
-                                'queryType' => new QueryType('type', array(), null, true, true),
+                                'queryType' => new QueryType('type', array(), null, true),
                             )
                         ),
                     )
