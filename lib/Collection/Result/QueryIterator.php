@@ -17,16 +17,6 @@ class QueryIterator extends IteratorIterator implements Countable
     protected $query;
 
     /**
-     * @var int
-     */
-    protected $offset;
-
-    /**
-     * @var int
-     */
-    protected $limit;
-
-    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
