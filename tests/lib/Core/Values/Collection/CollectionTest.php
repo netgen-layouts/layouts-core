@@ -19,6 +19,7 @@ class CollectionTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getManualItems
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getOverrideItems
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getQuery
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::hasQuery
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isPublished
      */
     public function testSetDefaultProperties()
@@ -33,6 +34,7 @@ class CollectionTest extends TestCase
         $this->assertEquals(array(), $collection->getManualItems());
         $this->assertEquals(array(), $collection->getOverrideItems());
         $this->assertNull($collection->getQuery());
+        $this->assertFalse($collection->hasQuery());
     }
 
     /**
@@ -51,6 +53,7 @@ class CollectionTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getOverrideItem
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getOverrideItems
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getQuery
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::hasQuery
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isPublished
      */
     public function testSetProperties()
@@ -85,6 +88,7 @@ class CollectionTest extends TestCase
         $this->assertEquals(Item::TYPE_OVERRIDE, $collection->getOverrideItems()[5]->getType());
 
         $this->assertEquals(new Query(), $collection->getQuery());
+        $this->assertTrue($collection->hasQuery());
 
         $this->assertFalse($collection->hasManualItem(2));
         $this->assertTrue($collection->hasManualItem(3));

@@ -48,31 +48,23 @@ class CollectionQueryIterator implements IteratorAggregate, Countable
      */
     public function getIterator()
     {
-        if ($this->limit !== null && $this->limit === 0) {
+        if ($this->limit === 0) {
             return new ArrayIterator();
         }
 
-        $values = new AppendIterator();
+        if (!$this->collection->hasQuery()) {
+            return new ArrayIterator();
+        }
 
         $query = $this->collection->getQuery();
 
-        if (!$query instanceof Query) {
-            return $values;
-        }
+        $values = new AppendIterator();
 
-        $queryCount = $query->getQueryType()->getCount($query);
-
-        if ($queryCount > 0) {
-            $queryValues = $query->getQueryType()->getValues(
-                $query,
-                $this->offset
-            );
-
-            $values->append(new ArrayIterator($queryValues));
-        }
+        $queryValues = $query->getQueryType()->getValues($query, $this->offset);
+        $values->append(new ArrayIterator($queryValues));
 
         // Make sure that we limit the number of items to actual limit if it exists
-        if ($this->limit > 0 && $queryCount >= $this->limit) {
+        if ($this->limit > 0) {
             $values = new LimitIterator($values, 0, $this->limit);
         }
 
@@ -86,11 +78,11 @@ class CollectionQueryIterator implements IteratorAggregate, Countable
      */
     public function count()
     {
-        $query = $this->collection->getQuery();
-
-        if (!$query instanceof Query) {
+        if (!$this->collection->hasQuery()) {
             return 0;
         }
+
+        $query = $this->collection->getQuery();
 
         return $query->getQueryType()->getCount($query);
     }

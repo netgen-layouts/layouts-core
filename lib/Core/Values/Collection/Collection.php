@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Core\Values\Collection;
 
 use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
+use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
 use Netgen\BlockManager\ValueObject;
 
 class Collection extends ValueObject implements APICollection
@@ -163,6 +164,16 @@ class Collection extends ValueObject implements APICollection
     public function getQuery()
     {
         return $this->query;
+    }
+
+    /**
+     * Returns if the query exists in the collection.
+     *
+     * @return bool
+     */
+    public function hasQuery()
+    {
+        return $this->query instanceof APIQuery;
     }
 
     /**

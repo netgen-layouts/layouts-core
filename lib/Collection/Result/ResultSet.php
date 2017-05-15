@@ -78,7 +78,7 @@ class ResultSet extends ValueObject implements ArrayAccess, IteratorAggregate, C
      */
     public function isConfigured()
     {
-        if ($this->collection->getType() === Collection::TYPE_MANUAL) {
+        if (!$this->collection->hasQuery()) {
             return true;
         }
 
@@ -94,7 +94,7 @@ class ResultSet extends ValueObject implements ArrayAccess, IteratorAggregate, C
      */
     public function isContextual()
     {
-        if ($this->collection->getType() === Collection::TYPE_MANUAL) {
+        if (!$this->collection->hasQuery()) {
             return false;
         }
 

@@ -181,4 +181,14 @@ class Collection implements APICollection
             )
         );
     }
+
+    /**
+     * Returns if the query exists in the collection.
+     *
+     * @return bool
+     */
+    public function hasQuery()
+    {
+        return true;
+    }
 }

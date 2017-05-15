@@ -71,6 +71,7 @@ class LayoutResolver implements LayoutResolverInterface
             }
 
             $matchedRules = $this->matchRules($targetType->getType(), $targetValue);
+
             foreach ($matchedRules as $matchedRule) {
                 if ($matchConditions && !$this->matches($matchedRule, $request)) {
                     continue;

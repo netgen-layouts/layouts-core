@@ -107,4 +107,11 @@ interface Collection extends Value
      * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
     public function getQuery();
+
+    /**
+     * Returns if the query exists in the collection.
+     *
+     * @return bool
+     */
+    public function hasQuery();
 }
