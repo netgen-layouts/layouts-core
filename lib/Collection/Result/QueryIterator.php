@@ -36,10 +36,24 @@ class QueryIterator extends IteratorIterator implements Countable
     public function __construct(Query $query, $offset = 0, $limit = null)
     {
         $this->query = $query;
-        $this->offset = (int) $offset;
-        $this->limit = $limit !== null ? (int) $limit : null;
 
-        parent::__construct($this->buildIterator());
+        $offset = (int) $offset;
+        $limit = $limit !== null ? (int) $limit : null;
+
+        if ($limit === 0) {
+            parent::__construct(new ArrayIterator());
+
+            return;
+        }
+
+        // Make sure that we limit the number of items to actual limit if it exists
+        $iterator = new LimitIterator(
+            $this->buildIterator(),
+            $offset >= 0 ? $offset : 0,
+            $limit > 0 ? $limit : -1
+        );
+
+        parent::__construct($iterator);
     }
 
     /**
@@ -59,21 +73,10 @@ class QueryIterator extends IteratorIterator implements Countable
      */
     protected function buildIterator()
     {
-        if ($this->limit === 0) {
-            return new ArrayIterator();
-        }
-
         $queryValues = $this->query->getQueryType()->getValues($this->query);
 
         $values = new AppendIterator();
         $values->append(new ArrayIterator($queryValues));
-
-        // Make sure that we limit the number of items to actual limit if it exists
-        $values = new LimitIterator(
-            $values,
-            $this->offset >= 0 ? $this->offset : 0,
-            $this->limit > 0 ? $this->limit : -1
-        );
 
         return $values;
     }
