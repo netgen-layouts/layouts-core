@@ -52,6 +52,8 @@ class BlockManagerDataCollector extends DataCollector
 
         if ($layoutView instanceof LayoutViewInterface) {
             $this->collectLayout($layoutView);
+        } elseif ($layoutView === false) {
+            $this->data['layout'] = false;
         }
     }
 

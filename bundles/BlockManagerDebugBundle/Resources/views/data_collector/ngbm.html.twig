@@ -4,9 +4,10 @@
     {% set layout = collector.data.layout %}
     {% set rule = collector.data.rule %}
 
-    {% set status = 'yellow' %}
     {% if layout %}
         {% set status = 'green' %}
+    {% elseif layout is same as(false) %}
+        {% set status = 'yellow' %}
     {% endif %}
 
     {% set icon %}
@@ -15,7 +16,7 @@
         <span class="sf-toolbar-value">
             {% if layout %}
                 {{ layout.name }}
-            {% else %}
+            {% elseif layout is same as(false) %}
                 No layout resolved
             {% endif %}
         </span>
