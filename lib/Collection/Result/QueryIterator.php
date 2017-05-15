@@ -5,11 +5,11 @@ namespace Netgen\BlockManager\Collection\Result;
 use AppendIterator;
 use ArrayIterator;
 use Countable;
-use IteratorAggregate;
+use IteratorIterator;
 use LimitIterator;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 
-class CollectionQueryIterator implements IteratorAggregate, Countable
+class QueryIterator extends IteratorIterator implements Countable
 {
     /**
      * @var \Netgen\BlockManager\API\Values\Collection\Collection
@@ -38,14 +38,32 @@ class CollectionQueryIterator implements IteratorAggregate, Countable
         $this->collection = $collection;
         $this->offset = (int) $offset;
         $this->limit = $limit !== null ? (int) $limit : null;
+
+        parent::__construct($this->buildIterator());
     }
 
     /**
-     * Returns a generator that iterates over the collection query.
+     * Count elements of an object.
+     *
+     * @return int
+     */
+    public function count()
+    {
+        if (!$this->collection->hasQuery()) {
+            return 0;
+        }
+
+        $query = $this->collection->getQuery();
+
+        return $query->getQueryType()->getCount($query);
+    }
+
+    /**
+     * Returns an iterator that iterates over the collection query.
      *
      * @return \Iterator
      */
-    public function getIterator()
+    protected function buildIterator()
     {
         if ($this->limit === 0) {
             return new ArrayIterator();
@@ -69,21 +87,5 @@ class CollectionQueryIterator implements IteratorAggregate, Countable
         );
 
         return $values;
-    }
-
-    /**
-     * Count elements of an object.
-     *
-     * @return int
-     */
-    public function count()
-    {
-        if (!$this->collection->hasQuery()) {
-            return 0;
-        }
-
-        $query = $this->collection->getQuery();
-
-        return $query->getQueryType()->getCount($query);
     }
 }

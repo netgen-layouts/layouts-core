@@ -29,12 +29,7 @@ class CollectionIterator implements Iterator, Countable
     protected $pointer;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Result\CollectionQueryIterator
-     */
-    protected $collectionQueryIterator;
-
-    /**
-     * @var \Iterator
+     * @var \Netgen\BlockManager\Collection\Result\QueryIterator
      */
     protected $queryIterator;
 
@@ -58,13 +53,11 @@ class CollectionIterator implements Iterator, Countable
         $numberOfItemsBeforeOffset = $this->getCountBeforeOffset($manualItemsPositions, $offset);
         $numberOfItemsAtOffset = $this->getCountAtOffset($manualItemsPositions, $offset, $limit);
 
-        $this->collectionQueryIterator = new CollectionQueryIterator(
+        $this->queryIterator = new QueryIterator(
             $this->collection,
             $offset - $numberOfItemsBeforeOffset,
             $limit !== null ? $limit - $numberOfItemsAtOffset : null
         );
-
-        $this->queryIterator = $this->collectionQueryIterator->getIterator();
     }
 
     /**
@@ -76,7 +69,7 @@ class CollectionIterator implements Iterator, Countable
     {
         $totalCount = 0;
 
-        $queryCount = $this->collectionQueryIterator->count();
+        $queryCount = $this->queryIterator->count();
 
         for ($i = 0; ; ++$i) {
             if ($this->collection->hasOverrideItem($i)) {
