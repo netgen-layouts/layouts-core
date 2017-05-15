@@ -23,7 +23,6 @@ block.edit.change: 'Change'
 block.edit.notice.change_collection_type: 'IMPORTANT: By changing the collection type, all parameters related to previous type will be lost.'
 
 block.notice.empty_collection: 'This block is empty. Please pick some items manually or use a dynamic collection to show items in this block.'
-block.notice.unconfigured_collection: 'This block is not configured yet. Please pick some items manually, use a dynamic collection to show items in this block.'
 block.notice.no_video: 'This block is not configured yet. Please set the video ID.'
 block.notice.empty_twig_block: 'This block is not configured yet. Please define the Twig template block name which will be used to render the block.'
 block.notice.no_google_maps_api_key: 'API key for Google Maps is not configured. Set it in configuration and reload the app to display this block.'

@@ -92,18 +92,6 @@ class QueryTypeHandlerWithRequiredParameter implements QueryTypeHandlerInterface
     }
 
     /**
-     * Returns if the provided query is configured.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     *
-     * @return bool
-     */
-    public function isConfigured(Query $query)
-    {
-        return true;
-    }
-
-    /**
      * Returns if the provided query is dependent on a context, i.e. current request.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query

@@ -91,14 +91,6 @@ class QueryTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\QueryType::isConfigured
-     */
-    public function testIsConfigured()
-    {
-        $this->assertTrue($this->queryType->isConfigured(new Query()));
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Collection\QueryType::isContextual
      */
     public function testIsContextual()

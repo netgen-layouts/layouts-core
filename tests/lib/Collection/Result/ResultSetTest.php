@@ -39,7 +39,6 @@ class ResultSetTest extends TestCase
 
         $this->assertEquals(new Collection(array('type' => Collection::TYPE_MANUAL)), $result->getCollection());
         $this->assertEquals(array('items'), $result->getResults());
-        $this->assertTrue($result->isConfigured());
         $this->assertFalse($result->isContextual());
         $this->assertEquals(15, $result->getTotalCount());
         $this->assertEquals(3, $result->getOffset());
@@ -66,70 +65,6 @@ class ResultSetTest extends TestCase
         } catch (RuntimeException $e) {
             // Do nothing
         }
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::isConfigured
-     */
-    public function testIsConfigured()
-    {
-        $result = new ResultSet(
-            array(
-                'collection' => new Collection(
-                    array(
-                        'type' => Collection::TYPE_DYNAMIC,
-                        'query' => new Query(
-                            array(
-                                'queryType' => new QueryType('type', array(), null, true),
-                            )
-                        ),
-                    )
-                ),
-            )
-        );
-
-        $this->assertTrue($result->isConfigured());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::isConfigured
-     */
-    public function testIsConfiguredWithManualCollection()
-    {
-        $result = new ResultSet(
-            array(
-                'collection' => new Collection(
-                    array(
-                        'type' => Collection::TYPE_MANUAL,
-                    )
-                ),
-            )
-        );
-
-        $this->assertTrue($result->isConfigured());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::isConfigured
-     */
-    public function testIsConfiguredWithNonConfiguredQuery()
-    {
-        $result = new ResultSet(
-            array(
-                'collection' => new Collection(
-                    array(
-                        'type' => Collection::TYPE_DYNAMIC,
-                        'query' => new Query(
-                            array(
-                                'queryType' => new QueryType('type', array(), null, false),
-                            )
-                        ),
-                    )
-                ),
-            )
-        );
-
-        $this->assertFalse($result->isConfigured());
     }
 
     /**

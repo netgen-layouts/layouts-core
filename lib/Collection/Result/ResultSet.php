@@ -72,22 +72,6 @@ class ResultSet extends ValueObject implements ArrayAccess, IteratorAggregate, C
     }
 
     /**
-     * Returns if the result set is configured.
-     *
-     * @return bool
-     */
-    public function isConfigured()
-    {
-        if (!$this->collection->hasQuery()) {
-            return true;
-        }
-
-        $query = $this->collection->getQuery();
-
-        return $query->getQueryType()->isConfigured($query);
-    }
-
-    /**
      * Returns if the result set is dependent on a context, i.e. current request.
      *
      * @return bool

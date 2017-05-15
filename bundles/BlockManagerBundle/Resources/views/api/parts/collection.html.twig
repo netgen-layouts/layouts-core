@@ -15,10 +15,8 @@
                     </div>
                 {% endfor %}
             </div>
-        {% elseif not collection.dynamic or collection.configured %}
-            {{ macros.notice('block.notice.empty_collection'|trans) }}
         {% else %}
-            {{ macros.notice('block.notice.unconfigured_collection'|trans) }}
+            {{ macros.notice('block.notice.empty_collection'|trans) }}
         {% endif %}
     {% else %}
         {# @todo This is a hack to get the maximum number of items displayed for a contextual collection #}
