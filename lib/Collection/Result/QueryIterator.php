@@ -33,7 +33,7 @@ class QueryIterator extends IteratorIterator implements Countable
      * @param int $offset
      * @param int $limit
      */
-    public function __construct(Query $query = null, $offset = 0, $limit = null)
+    public function __construct(Query $query, $offset = 0, $limit = null)
     {
         $this->query = $query;
         $this->offset = (int) $offset;
@@ -49,25 +49,7 @@ class QueryIterator extends IteratorIterator implements Countable
      */
     public function count()
     {
-        if (!$this->query instanceof Query) {
-            return 0;
-        }
-
         return $this->query->getQueryType()->getCount($this->query);
-    }
-
-    /**
-     * Checks if current position is valid.
-     *
-     * @return bool
-     */
-    public function valid()
-    {
-        if (!$this->query instanceof Query) {
-            return false;
-        }
-
-        return parent::valid();
     }
 
     /**
@@ -78,10 +60,6 @@ class QueryIterator extends IteratorIterator implements Countable
     protected function buildIterator()
     {
         if ($this->limit === 0) {
-            return new ArrayIterator();
-        }
-
-        if (!$this->query instanceof Query) {
             return new ArrayIterator();
         }
 

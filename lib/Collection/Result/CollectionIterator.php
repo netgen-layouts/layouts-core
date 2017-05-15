@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Collection\Result;
 
+use ArrayIterator;
 use Countable;
 use Iterator;
 use Netgen\BlockManager\API\Values\Collection\Collection;
@@ -48,16 +49,7 @@ class CollectionIterator implements Iterator, Countable
 
         $this->pointer = $this->offset;
 
-        $manualItemsPositions = array_keys($collection->getManualItems());
-
-        $numberOfItemsBeforeOffset = $this->getCountBeforeOffset($manualItemsPositions, $offset);
-        $numberOfItemsAtOffset = $this->getCountAtOffset($manualItemsPositions, $offset, $limit);
-
-        $this->queryIterator = new QueryIterator(
-            $this->collection->getQuery(),
-            $offset - $numberOfItemsBeforeOffset,
-            $limit !== null ? $limit - $numberOfItemsAtOffset : null
-        );
+        $this->queryIterator = $this->buildQueryIterator();
     }
 
     /**
@@ -69,7 +61,7 @@ class CollectionIterator implements Iterator, Countable
     {
         $totalCount = 0;
 
-        $queryCount = $this->queryIterator->count();
+        $queryCount = count($this->queryIterator);
 
         for ($i = 0; ; ++$i) {
             if ($this->collection->hasOverrideItem($i)) {
@@ -230,5 +222,27 @@ class CollectionIterator implements Iterator, Countable
                 }
             )
         );
+    }
+
+    /**
+     * Builds the query iterator for use by the collection iterator.
+     *
+     * @return \Iterator
+     */
+    protected function buildQueryIterator()
+    {
+        if (!$this->collection->hasQuery()) {
+            return new ArrayIterator();
+        }
+
+        $manualItemsPositions = array_keys($this->collection->getManualItems());
+
+        $numberOfItemsBeforeOffset = $this->getCountBeforeOffset($manualItemsPositions, $this->offset);
+        $numberOfItemsAtOffset = $this->getCountAtOffset($manualItemsPositions, $this->offset, $this->limit);
+
+        $offset = $this->offset - $numberOfItemsBeforeOffset;
+        $limit = $this->limit !== null ? $this->limit - $numberOfItemsAtOffset : null;
+
+        return new QueryIterator($this->collection->getQuery(), $offset, $limit);
     }
 }

@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Collection\Result;
 
+use ArrayIterator;
 use Netgen\BlockManager\Collection\Result\QueryIterator;
-use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
@@ -41,7 +41,7 @@ class QueryIteratorTest extends TestCase
      */
     public function testWithNoQuery()
     {
-        $queryIterator = new QueryIterator();
+        $queryIterator = new ArrayIterator();
 
         $this->assertIteratorValues(array(), $queryIterator);
         $this->assertEquals(0, $queryIterator->count());
