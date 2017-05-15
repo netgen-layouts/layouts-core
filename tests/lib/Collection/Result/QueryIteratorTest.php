@@ -50,12 +50,10 @@ class QueryIteratorTest extends TestCase
     public function queryProvider()
     {
         return array(
-            array(0, 0, array()),
             array(0, 6, array(40, 41, 42, 43, 44, 45)),
             array(0, 9, array(40, 41, 42, 43, 44, 45, 46, 47, 48)),
             array(0, 12, array(40, 41, 42, 43, 44, 45, 46, 47, 48)),
 
-            array(3, 0, array()),
             array(3, 3, array(43, 44, 45)),
             array(3, 6, array(43, 44, 45, 46, 47, 48)),
             array(3, 9, array(43, 44, 45, 46, 47, 48)),

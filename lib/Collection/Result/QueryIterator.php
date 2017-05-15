@@ -2,14 +2,13 @@
 
 namespace Netgen\BlockManager\Collection\Result;
 
-use AppendIterator;
 use ArrayIterator;
 use Countable;
-use IteratorIterator;
 use LimitIterator;
 use Netgen\BlockManager\API\Values\Collection\Query;
+use OutOfBoundsException;
 
-class QueryIterator extends IteratorIterator implements Countable
+class QueryIterator extends LimitIterator implements Countable
 {
     /**
      * @var \Netgen\BlockManager\API\Values\Collection\Query
@@ -30,20 +29,11 @@ class QueryIterator extends IteratorIterator implements Countable
         $offset = (int) $offset;
         $limit = $limit !== null ? (int) $limit : null;
 
-        if ($limit === 0) {
-            parent::__construct(new ArrayIterator());
-
-            return;
-        }
-
-        // Make sure that we limit the number of items to actual limit if it exists
-        $iterator = new LimitIterator(
+        parent::__construct(
             $this->buildIterator(),
             $offset >= 0 ? $offset : 0,
             $limit > 0 ? $limit : -1
         );
-
-        parent::__construct($iterator);
     }
 
     /**
@@ -57,6 +47,18 @@ class QueryIterator extends IteratorIterator implements Countable
     }
 
     /**
+     * Rewind the iterator to the specified starting offset.
+     */
+    public function rewind()
+    {
+        try {
+            parent::rewind();
+        } catch (OutOfBoundsException $e) {
+            // Do nothing
+        }
+    }
+
+    /**
      * Returns an iterator that iterates over the collection query.
      *
      * @return \Iterator
@@ -65,9 +67,6 @@ class QueryIterator extends IteratorIterator implements Countable
     {
         $queryValues = $this->query->getQueryType()->getValues($this->query);
 
-        $values = new AppendIterator();
-        $values->append(new ArrayIterator($queryValues));
-
-        return $values;
+        return new ArrayIterator($queryValues);
     }
 }

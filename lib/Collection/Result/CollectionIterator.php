@@ -243,6 +243,10 @@ class CollectionIterator implements Iterator, Countable
         $offset = $this->offset - $numberOfItemsBeforeOffset;
         $limit = $this->limit !== null ? $this->limit - $numberOfItemsAtOffset : null;
 
+        if ($limit === 0) {
+            return new ArrayIterator();
+        }
+
         return new QueryIterator($this->collection->getQuery(), $offset, $limit);
     }
 }
