@@ -172,7 +172,7 @@ class GlobalVariableTest extends TestCase
         // This will trigger layout resolver
         $this->globalVariable->getLayoutTemplate();
 
-        $this->assertNull($this->globalVariable->getLayoutView());
+        $this->assertFalse($this->globalVariable->getLayoutView());
     }
 
     /**

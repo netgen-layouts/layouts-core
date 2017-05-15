@@ -88,7 +88,7 @@ class GlobalVariable
     /**
      * Returns the currently resolved layout view.
      *
-     * @return \Netgen\BlockManager\View\View\LayoutViewInterface
+     * @return \Netgen\BlockManager\View\View\LayoutViewInterface|bool
      */
     public function getLayoutView()
     {
@@ -157,10 +157,12 @@ class GlobalVariable
     {
         $resolvedRules = $this->layoutResolver->resolveRules();
         if (empty($resolvedRules)) {
+            $this->layoutView = false;
+
             return;
         }
 
-        if ($this->layoutView === null) {
+        if (!$this->layoutView instanceof LayoutViewInterface) {
             $this->rule = $resolvedRules[0];
             $this->layout = $resolvedRules[0]->getLayout();
 
