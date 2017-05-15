@@ -17,12 +17,14 @@ interface LayoutResolverInterface
      *
      * Rules with same priorities will have undetermined relative positions between each other.
      *
+     * If $enabledConditions is not null, only the conditions listed in the array will be enabled.
+     *
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param bool $matchConditions
+     * @param array $enabledConditions
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule[]
      */
-    public function resolveRules(Request $request = null, $matchConditions = true);
+    public function resolveRules(Request $request = null, array $enabledConditions = null);
 
     /**
      * Matches the rules based on provided target type and value.
@@ -37,10 +39,13 @@ interface LayoutResolverInterface
     /**
      * Returns true if the rule matches the provided request.
      *
+     * If $enabledConditions is not null, only the conditions listed in the array will be enabled.
+     *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
      * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param array $enabledConditions
      *
      * @return bool If condition type does not exist for one of the conditions
      */
-    public function matches(Rule $rule, Request $request);
+    public function matches(Rule $rule, Request $request, array $enabledConditions = null);
 }

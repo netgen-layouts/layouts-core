@@ -239,9 +239,9 @@ class LayoutResolverTest extends TestCase
      * @param array $matches
      * @param int $layoutId
      *
-     * @dataProvider resolveRulesWithRuleConditionsProvider
+     * @dataProvider resolveRulesWithPartialRuleConditionsProvider
      */
-    public function testResolveRulesWithConditionsAndDisabledConditionMatching(array $matches, $layoutId)
+    public function testResolveRulesWithConditionsAndPartialConditionMatching(array $matches, $layoutId)
     {
         $this->targetTypeRegistry->addTargetType(new TargetType('target', 42));
 
@@ -264,7 +264,10 @@ class LayoutResolverTest extends TestCase
             ->with($this->equalTo('target', 42))
             ->will($this->returnValue(array($rule)));
 
-        $this->assertEquals(array($rule), $this->layoutResolver->resolveRules(null, false));
+        $this->assertEquals(
+            $layoutId !== null ? array($rule) : array(),
+            $this->layoutResolver->resolveRules(null, array('condition2'))
+        );
     }
 
     /**
@@ -405,6 +408,7 @@ class LayoutResolverTest extends TestCase
     public function resolveRulesWithRuleConditionsProvider()
     {
         return array(
+            array(array(), 42),
             array(array('condition' => true), 42),
             array(array('condition' => false), null),
             array(array('condition1' => true, 'condition2' => false), null),
@@ -414,9 +418,23 @@ class LayoutResolverTest extends TestCase
         );
     }
 
+    public function resolveRulesWithPartialRuleConditionsProvider()
+    {
+        return array(
+            array(array(), 42),
+            array(array('condition' => true), 42),
+            array(array('condition' => false), 42),
+            array(array('condition1' => true, 'condition2' => false), null),
+            array(array('condition1' => false, 'condition2' => true), 42),
+            array(array('condition1' => false, 'condition2' => false), null),
+            array(array('condition1' => true, 'condition2' => true), 42),
+        );
+    }
+
     public function matchesProvider()
     {
         return array(
+            array(array(), true),
             array(array('condition' => true), true),
             array(array('condition' => false), false),
             array(array('condition1' => true, 'condition2' => false), false),
