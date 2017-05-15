@@ -28,11 +28,7 @@ class QueryIteratorTest extends TestCase
         $queryType = new QueryType('query', array(40, 41, 42, 43, 44, 45, 46, 47, 48));
         $query = new Query(array('queryType' => $queryType));
 
-        $queryIterator = new QueryIterator(
-            new Collection(array('query' => $query)),
-            $offset,
-            $limit
-        );
+        $queryIterator = new QueryIterator($query, $offset, $limit);
 
         $this->assertIteratorValues($expectedResult, $queryIterator);
         $this->assertEquals(9, $queryIterator->count());
@@ -45,7 +41,7 @@ class QueryIteratorTest extends TestCase
      */
     public function testWithNoQuery()
     {
-        $queryIterator = new QueryIterator(new Collection());
+        $queryIterator = new QueryIterator();
 
         $this->assertIteratorValues(array(), $queryIterator);
         $this->assertEquals(0, $queryIterator->count());

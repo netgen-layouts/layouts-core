@@ -7,14 +7,14 @@ use ArrayIterator;
 use Countable;
 use IteratorIterator;
 use LimitIterator;
-use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Collection\Query;
 
 class QueryIterator extends IteratorIterator implements Countable
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Collection\Collection
+     * @var \Netgen\BlockManager\API\Values\Collection\Query
      */
-    protected $collection;
+    protected $query;
 
     /**
      * @var int
@@ -29,13 +29,13 @@ class QueryIterator extends IteratorIterator implements Countable
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      * @param int $offset
      * @param int $limit
      */
-    public function __construct(Collection $collection, $offset = 0, $limit = null)
+    public function __construct(Query $query = null, $offset = 0, $limit = null)
     {
-        $this->collection = $collection;
+        $this->query = $query;
         $this->offset = (int) $offset;
         $this->limit = $limit !== null ? (int) $limit : null;
 
@@ -49,13 +49,25 @@ class QueryIterator extends IteratorIterator implements Countable
      */
     public function count()
     {
-        if (!$this->collection->hasQuery()) {
+        if (!$this->query instanceof Query) {
             return 0;
         }
 
-        $query = $this->collection->getQuery();
+        return $this->query->getQueryType()->getCount($this->query);
+    }
 
-        return $query->getQueryType()->getCount($query);
+    /**
+     * Checks if current position is valid.
+     *
+     * @return bool
+     */
+    public function valid()
+    {
+        if (!$this->query instanceof Query) {
+            return false;
+        }
+
+        return parent::valid();
     }
 
     /**
@@ -69,12 +81,11 @@ class QueryIterator extends IteratorIterator implements Countable
             return new ArrayIterator();
         }
 
-        if (!$this->collection->hasQuery()) {
+        if (!$this->query instanceof Query) {
             return new ArrayIterator();
         }
 
-        $query = $this->collection->getQuery();
-        $queryValues = $query->getQueryType()->getValues($query);
+        $queryValues = $this->query->getQueryType()->getValues($this->query);
 
         $values = new AppendIterator();
         $values->append(new ArrayIterator($queryValues));

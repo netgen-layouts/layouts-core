@@ -54,7 +54,7 @@ class CollectionIterator implements Iterator, Countable
         $numberOfItemsAtOffset = $this->getCountAtOffset($manualItemsPositions, $offset, $limit);
 
         $this->queryIterator = new QueryIterator(
-            $this->collection,
+            $this->collection->getQuery(),
             $offset - $numberOfItemsBeforeOffset,
             $limit !== null ? $limit - $numberOfItemsAtOffset : null
         );
@@ -154,6 +154,7 @@ class CollectionIterator implements Iterator, Countable
     public function rewind()
     {
         $this->pointer = $this->offset;
+
         $this->queryIterator->rewind();
     }
 
