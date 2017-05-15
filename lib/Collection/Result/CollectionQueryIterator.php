@@ -60,13 +60,15 @@ class CollectionQueryIterator implements IteratorAggregate, Countable
 
         $values = new AppendIterator();
 
-        $queryValues = $query->getQueryType()->getValues($query, $this->offset);
+        $queryValues = $query->getQueryType()->getValues($query);
         $values->append(new ArrayIterator($queryValues));
 
         // Make sure that we limit the number of items to actual limit if it exists
-        if ($this->limit > 0) {
-            $values = new LimitIterator($values, 0, $this->limit);
-        }
+        $values = new LimitIterator(
+            $values,
+            $this->offset >= 0 ? $this->offset : 0,
+            $this->limit > 0 ? $this->limit : -1
+        );
 
         return $values;
     }
