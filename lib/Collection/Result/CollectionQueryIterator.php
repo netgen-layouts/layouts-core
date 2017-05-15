@@ -8,7 +8,6 @@ use Countable;
 use IteratorAggregate;
 use LimitIterator;
 use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\Query;
 
 class CollectionQueryIterator implements IteratorAggregate, Countable
 {
@@ -57,10 +56,9 @@ class CollectionQueryIterator implements IteratorAggregate, Countable
         }
 
         $query = $this->collection->getQuery();
+        $queryValues = $query->getQueryType()->getValues($query);
 
         $values = new AppendIterator();
-
-        $queryValues = $query->getQueryType()->getValues($query);
         $values->append(new ArrayIterator($queryValues));
 
         // Make sure that we limit the number of items to actual limit if it exists
