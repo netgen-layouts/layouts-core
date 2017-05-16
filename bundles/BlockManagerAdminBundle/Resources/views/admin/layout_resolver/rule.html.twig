@@ -2,153 +2,186 @@
 
 {% trans_default_domain 'ngbm_admin' %}
 
+<div class="nl-rule-cell rule-priority">{{ rule.priority }}</div>
 <div class="nl-rule-content {% if not rule.enabled %}disabled{% endif %}" data-id="{{ rule.id }}">
-    <div class="nl-panel-head">
-        <div class="panel-head-title">
-
-            <div class="panel-icon">
-                <i class="material-icons" role="presentation">{% if rule.enabled %}dns{% else %}do_not_disturb{% endif %}</i>
-            </div>
+    <div class="nl-rule-head">
+        <div class="nl-rule-cell rule-layout">
 
             {% if rule.layout is not empty %}
-                <div class="panel-name" title="{{ rule.layout.name }}">
-                    {% if is_granted('ROLE_NGBM_EDITOR') %}
-                        <a href="{{ macros.layout_path(rule.layout.id) }}" class="js-open-bm">{{ rule.layout.name }}</a>
-                    {% else %}
-                        {{ rule.layout.name }}
-                    {% endif %}
-                </div>
+                {{ rule.layout.name }}
             {% else %}
-                <div class="panel-name" title="{{ 'layout_resolver.rule.no_linked_layout'|trans }}">
-                    <span>{{ 'layout_resolver.rule.no_linked_layout'|trans }}</span>
-                    <a class="js-link-layout panel-link-action" data-browser-config-name="ngbm_layout" href="#"><i class="material-icons" role="presentation">link</i> {{ 'layout_resolver.rule.no_linked_layout.link'|trans }}</a>
+                <div class="no-layout" title="{{ 'layout_resolver.rule.no_mapped_layout'|trans }}">
+                    <span>{{ 'layout_resolver.rule.no_mapped_layout'|trans }}</span>
+                    <a class="js-link-layout" data-browser-config-name="ngbm_layout" href="#"><i class="material-icons" role="presentation">link</i> {{ 'layout_resolver.rule.no_mapped_layout.link'|trans }}</a>
                 </div>
             {% endif %}
-
-            {% if not rule.enabled %}
-                <span class="disabled-label">{{ 'layout_resolver.rule.inactive'|trans }}</span>
-            {% endif %}
-
-            <!-- Right aligned menu below button -->
-            <div class="nl-dropdown" data-position="right">
-                <button class="nl-btn nl-btn-icon nl-dropdown-toggle">
-                    <i class="material-icons">more_vert</i>
-                </button>
-                <ul class="nl-dropdown-menu">
-                    <li><a href="#" {% if rule.layout is empty %} disabled {% else %} class="js-rule-unlink" {% endif %}>{{ 'layout_resolver.rule.unlink_layout'|trans }}</a></li>
-
-                    <li>
-                        <a class="js-link-layout" {% if rule.layout is not empty %}data-linked-layout="{{ rule.layout.id }}"{% endif %} data-browser-config-name="ngbm_layout" href="#">
-                            {% if rule.layout is not empty %}
-                                {{ 'layout_resolver.rule.link_other_layout'|trans }}
-                            {% else %}
-                                {{ 'layout_resolver.rule.link_layout'|trans }}
-                            {% endif %}
-                        </a>
-                    </li>
-
-                    {% if rule.enabled %}
-                        <li><a href="#" {% if not rule.published %} disabled {% else %} class="js-rule-edit" data-action="disable" {% endif %}>{{ 'layout_resolver.rule.disable_rule'|trans }}</a></li>
-                    {% else %}
-                        <li><a href="#" {% if not rule.canBeEnabled %} disabled {% else %} class="js-rule-edit" data-action="enable" {% endif %}>{{ 'layout_resolver.rule.enable_rule'|trans }}</a></li>
-                    {% endif %}
-
-                    <li><a href="#" class="js-rule-delete">{{ 'layout_resolver.rule.delete_rule'|trans }}</a></li>
-                </ul>
-            </div>
 
         </div>
+        <div class="nl-rule-cell rule-targets">
+            {% if rule.targets is not empty %}
+                {% if rule.targets|length == 1 %}
+                    <p>{{ ('layout_resolver.target.' ~ rule.targets[0].targetType.type)|trans }}:</p>
+                    <ul>
+                        {% for target in rule.targets %}
+                            <li {% if target.targetType.type == 'ezlocation' or target.targetType.type == 'ezcontent' %}class="unique"{% endif %}>{{ ngbm_render_rule_target(target, {}, 'value') }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>{{ ('layout_resolver.target.' ~ rule.targets[0].targetType.type)|trans }} ({{ rule.targets|length }})</p>
+                {% endif %}
+            {% endif %}
+        </div>
+        <div class="nl-rule-cell rule-conditions">
+            {% if rule.conditions is not empty %}
+                <ul class="{% if rule.conditions|length == 2 %}nl-ellipsis{% elseif rule.conditions|length > 2 %}nl-inline{% endif %}">
+                    {% for condition in rule.conditions %}
+                        <li>{{ ('layout_resolver.condition.' ~ condition.conditionType.type)|trans }}{% if rule.conditions|length <= 2 %}: {{ ngbm_render_rule_condition(condition, {}, 'value') }}{% endif %}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
 
-        <div class="panel-head-info">
-
-            <div class="meta-info nl-tt" title="{{ 'layout_resolver.rule.number_of_targets'|trans }}">
-                <i class="material-icons" role="presentation">gps_fixed</i> <span class="meta-badge js-target-counter">{{ rule.targets|length }}</span>
+        {% if not rule.enabled %}
+            <div class="nl-rule-cell">
+                <span class="disabled-label">{{ 'layout_resolver.rule.inactive'|trans }}</span>
             </div>
+        {% endif %}
 
-            <div class="meta-info nl-tt" title="{{ 'layout_resolver.rule.number_of_conditions'|trans }}">
-                <i class="material-icons" role="presentation">done_all</i> <span class="meta-badge js-condition-counter">{{ rule.conditions|length }}</span>
-            </div>
+        <div class="nl-rule-cell rule-details js-toggle-body">
+            {{ 'layout_resolver.rule.details'|trans }}
+        </div>
 
-            <a class="panel-toggle js-panel-toggle"></a>
+        <!-- Right aligned menu below button -->
+        <div class="nl-dropdown" data-position="right">
+            <button class="nl-btn nl-dropdown-toggle">
+                <i class="material-icons">more_horiz</i>
+            </button>
+            <ul class="nl-dropdown-menu">
+                <li><a href="#" {% if rule.layout is empty %} disabled {% else %} class="js-rule-unlink" {% endif %}>{{ 'layout_resolver.rule.unlink_layout'|trans }}</a></li>
 
+                <li>
+                    <a class="js-link-layout" {% if rule.layout is not empty %}data-linked-layout="{{ rule.layout.id }}"{% endif %} data-browser-config-name="ngbm_layout" href="#">
+                        {% if rule.layout is not empty %}
+                            {{ 'layout_resolver.rule.link_other_layout'|trans }}
+                        {% else %}
+                            {{ 'layout_resolver.rule.link_layout'|trans }}
+                        {% endif %}
+                    </a>
+                </li>
+
+                {% if rule.enabled %}
+                    <li><a href="#" {% if not rule.published %} disabled {% else %} class="js-rule-edit" data-action="disable" {% endif %}>{{ 'layout_resolver.rule.disable_rule'|trans }}</a></li>
+                {% else %}
+                    <li><a href="#" {% if not rule.canBeEnabled %} disabled {% else %} class="js-rule-edit" data-action="enable" {% endif %}>{{ 'layout_resolver.rule.enable_rule'|trans }}</a></li>
+                {% endif %}
+
+                <li><a href="#" class="js-rule-delete">{{ 'layout_resolver.rule.delete_rule'|trans }}</a></li>
+            </ul>
         </div>
 
     </div>
 
-    <div class="nl-panel-body">
+    <div class="nl-rule-body">
 
         <div class="nl-grid">
-            <div class="col-xs6">
-                {% if rule.targets is not empty %}
-                    <p>{{ ('layout_resolver.rule.target_header.' ~ rule.targets[0].targetType.type)|trans }}:</p>
-
-                    <ul class="settings-list target-list">
-                        {% for target in rule.targets %}
-                            <li>{{ ngbm_render_rule_target(target) }}</li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p>{{ 'layout_resolver.rule.no_targets'|trans }}</p>
-                {% endif %}
-
-                {% set target_types = ngbm.config.parameter('target_types') %}
-                {% if target_types is not empty %}
-                    <div class="settings-action">
-                        <div class="settings-loader"><i class="loading-ng-icon"></i>{{ 'layout_resolver.rule.loading'|trans }}</div>
-                        <div class="settings-action-add">
-                            {% if rule.targets is empty %}
-                                <select class="nl-select js-target-type">
-                                    {% for target_type in target_types %}
-                                        <option value="{{ target_type.type }}">{{ ('layout_resolver.target.' ~ target_type.type)|trans }}</option>
-                                    {% endfor %}
-                                </select>
-                            {% endif %}
-
-                            <a href="#" class="nl-btn nl-btn-link js-setting-add" data-action="add-target"
-                                {% if rule.targets is not empty %} data-target-type="{{ rule.targets[0].targetType.type }}" {% endif %}>
-                                <i class="material-icons">add</i> {{ 'layout_resolver.rule.add_target'|trans }}
-                            </a>
+            <div class="col-xs3">
+                <h4>{{ 'layout_resolver.rule.mapped_layout'|trans }}:</h4>
+                {% if rule.layout is not empty %}
+                    <div class="rule-layout-info">
+                        <div class="rule-layout-info-icon">
+                            <i class="layout-icon {{ rule.layout.layoutType.identifier }}"></i>
                         </div>
+                        <div class="rule-layout-info-text">
+                            <p><strong>{{ rule.layout.name }}</strong></p>
+                            {% if is_granted('ROLE_NGBM_EDITOR') %}
+                                <a href="{{ macros.layout_path(rule.layout.id) }}" class="js-open-bm">Edit layout</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="panel-name" title="{{ 'layout_resolver.rule.no_mapped_layout'|trans }}">
+                        <p>{{ 'layout_resolver.rule.no_mapped_layout'|trans }}</p>
+                        <a class="js-link-layout" data-browser-config-name="ngbm_layout" href="#">{{ 'layout_resolver.rule.link_layout'|trans }}</a>
                     </div>
                 {% endif %}
             </div>
+            <div class="col-xs9">
+                <div class="nl-grid">
+                    <div class="col-xs6">
+                        {% if rule.targets is not empty %}
+                            <h4>{{ ('layout_resolver.rule.target_header.' ~ rule.targets[0].targetType.type)|trans }}:</h4>
 
-            <div class="col-xs6">
-                {% if rule.conditions is not empty %}
-                    <p>{{ 'layout_resolver.rule.conditions'|trans }}:</p>
-
-                    <ul class="settings-list condition-list">
-                        {% for condition in rule.conditions %}
-                            <li>{{ ngbm_render_rule_condition(condition) }}</li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p>{{ 'layout_resolver.rule.no_conditions'|trans }}</p>
-                {% endif %}
-
-                {% set condition_types = ngbm.config.parameter('condition_types') %}
-                {% if condition_types is not empty %}
-                    <div class="settings-action">
-                        <div class="settings-loader"><i class="loading-ng-icon"></i>{{ 'layout_resolver.rule.loading'|trans }}</div>
-                        <div class="settings-action-add">
-                            <select class="nl-select js-condition-type">
-                                {% for condition_type in condition_types %}
-                                    <option value="{{ condition_type.type }}">{{ ('layout_resolver.condition.' ~ condition_type.type)|trans }}</option>
+                            <ul class="settings-list target-list">
+                                {% for target in rule.targets %}
+                                    <li>{{ ngbm_render_rule_target(target) }}</li>
                                 {% endfor %}
-                            </select>
+                            </ul>
+                        {% else %}
+                            <h4>{{ 'layout_resolver.rule.no_targets'|trans }}</h4>
+                        {% endif %}
 
-                            <a href="#" class="nl-btn nl-btn-link js-setting-add" data-action="add-condition">
-                                <i class="material-icons">add</i> {{ 'layout_resolver.rule.add_condition'|trans }}
-                            </a>
-                        </div>
+                        {% set target_types = ngbm.config.parameter('target_types') %}
+                        {% if target_types is not empty %}
+                            <div class="settings-action">
+                                <div class="settings-loader"><i class="loading-ng-icon"></i>{{ 'layout_resolver.rule.loading'|trans }}</div>
+                                <div class="settings-action-add">
+                                    {% if rule.targets is empty %}
+                                        <select class="nl-select js-target-type">
+                                            {% for target_type in target_types %}
+                                                <option value="{{ target_type.type }}">{{ ('layout_resolver.target.' ~ target_type.type)|trans }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    {% endif %}
+
+                                    <a href="#" class="nl-btn nl-btn-link js-setting-add" data-action="add-target"
+                                        {% if rule.targets is not empty %} data-target-type="{{ rule.targets[0].targetType.type }}" {% endif %}>
+                                        <i class="material-icons">add</i> {{ 'layout_resolver.rule.add_target'|trans }}
+                                    </a>
+                                </div>
+                            </div>
+                        {% endif %}
+                        <p class="note">NOTE: <strong>Any</strong> target can be met.</p>
                     </div>
-                {% endif %}
+
+                    <div class="col-xs6">
+                        {% if rule.conditions is not empty %}
+                            <h4>{{ 'layout_resolver.rule.conditions'|trans }}:</h4>
+
+                            <ul class="settings-list condition-list">
+                                {% for condition in rule.conditions %}
+                                    <li>{{ ngbm_render_rule_condition(condition) }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <h4>{{ 'layout_resolver.rule.no_conditions'|trans }}</h4>
+                        {% endif %}
+
+                        {% set condition_types = ngbm.config.parameter('condition_types') %}
+                        {% if condition_types is not empty %}
+                            <div class="settings-action">
+                                <div class="settings-loader"><i class="loading-ng-icon"></i>{{ 'layout_resolver.rule.loading'|trans }}</div>
+                                <div class="settings-action-add">
+                                    <select class="nl-select js-condition-type">
+                                        {% for condition_type in condition_types %}
+                                            <option value="{{ condition_type.type }}">{{ ('layout_resolver.condition.' ~ condition_type.type)|trans }}</option>
+                                        {% endfor %}
+                                    </select>
+
+                                    <a href="#" class="nl-btn nl-btn-link js-setting-add" data-action="add-condition">
+                                        <i class="material-icons">add</i> {{ 'layout_resolver.rule.add_condition'|trans }}
+                                    </a>
+                                </div>
+                            </div>
+                        {% endif %}
+                        <p class="note">NOTE: <strong>All</strong> conditions must be met.</p>
+                    </div>
+                </div>
             </div>
         </div>
 
     </div>
 
-    <div class="nl-panel-actions">
+    <div class="nl-rule-actions">
         <a href="#" class="nl-btn js-rule-edit" data-action="discard">
             {{ 'layout_resolver.rule.cancel'|trans }}
         </a>

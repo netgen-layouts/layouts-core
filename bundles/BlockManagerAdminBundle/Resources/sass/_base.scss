@@ -7,8 +7,7 @@ body {
     position:relative;
 }
 
-.rule-controls {
-    display:none;
+.layouts-controls {
     margin:0 0 1em;
     text-align:right;
     .sorting-show {
@@ -81,10 +80,11 @@ body {
     }
     .layouts-content {
         flex:1;
-        padding:$gutter*2 $gutter;
+        padding:$gutter*1.5;
+        position:relative;
     }
     &.sorting {
-        .rule-controls {
+        .layouts-controls {
             .sorting-show {
                 display:inline-block;
             }
@@ -98,3 +98,24 @@ body {
     }
 }
 
+.layouts-header {
+    margin:0 0 2em;
+    .layouts-title {
+        font-size:21px;
+        font-weight:400;
+        margin:0;
+        float:left;
+    }
+    .layouts-controls {
+        float:right;
+    }
+    &::after {
+        content:"";
+        display:table;
+        clear:both;
+    }
+    p {
+        clear:both;
+        font-size:14px;
+    }
+}

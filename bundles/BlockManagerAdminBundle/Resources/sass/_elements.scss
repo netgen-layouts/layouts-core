@@ -111,6 +111,20 @@
     }
 }
 
+.layout-icon {
+    display:block;
+    width:50px;
+    height:75px;
+    background-repeat:no-repeat;
+    background-position:50% 50%;
+    background-size:contain;
+    @for $i from 1 through 6 {
+        &.layout_#{$i} {
+            background-image:url(../images/layout_thumbs/layout_#{$i}.svg);
+        }
+    }
+}
+
 .loading-ng-icon {
   display:inline-block;
   position:relative;
