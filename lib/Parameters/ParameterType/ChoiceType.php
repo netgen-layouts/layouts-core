@@ -48,7 +48,9 @@ class ChoiceType extends ParameterType
             function (Options $options, $previousValue) {
                 if ($options['required']) {
                     if (!is_callable($options['options']) && !empty($options['options'])) {
-                        return array_values($options['options'])[0];
+                        $defaultValue = array_values($options['options'])[0];
+
+                        return $options['multiple'] ? array($defaultValue) : $defaultValue;
                     }
                 }
 
