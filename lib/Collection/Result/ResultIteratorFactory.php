@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\Collection\Result;
 
+use Iterator;
+use LimitIterator;
 use Netgen\BlockManager\Item\ItemBuilderInterface;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 
@@ -32,22 +34,28 @@ class ResultIteratorFactory
     }
 
     /**
-     * Builds and returns result iterator from provided collection iterator.
+     * Builds and returns result iterator from provided iterator.
      *
-     * @param \Netgen\BlockManager\Collection\Result\CollectionIterator $collectionIterator
+     * @param \Iterator $iterator
+     * @param int $offset
+     * @param int $limit
      * @param int $flags
      *
      * @return \Iterator
      */
-    public function getResultIterator(CollectionIterator $collectionIterator, $flags = 0)
+    public function getResultIterator(Iterator $iterator, $offset = 0, $limit = null, $flags = 0)
     {
-        return new ResultFilterIterator(
-            new ResultBuilderIterator(
-                $collectionIterator,
-                $this->itemLoader,
-                $this->itemBuilder
+        return new LimitIterator(
+            new ResultFilterIterator(
+                new ResultBuilderIterator(
+                    $iterator,
+                    $this->itemLoader,
+                    $this->itemBuilder
+                ),
+                $flags
             ),
-            $flags
+            $offset >= 0 ? $offset : 0,
+            $limit > 0 ? $limit : -1
         );
     }
 }

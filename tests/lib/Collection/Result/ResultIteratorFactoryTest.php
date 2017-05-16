@@ -2,8 +2,9 @@
 
 namespace Netgen\BlockManager\Tests\Collection\Result;
 
+use ArrayIterator;
+use Iterator;
 use Netgen\BlockManager\Collection\Result\CollectionIterator;
-use Netgen\BlockManager\Collection\Result\ResultFilterIterator;
 use Netgen\BlockManager\Collection\Result\ResultIteratorFactory;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Item\ItemBuilderInterface;
@@ -34,14 +35,14 @@ class ResultIteratorFactoryTest extends TestCase
      */
     public function testGetResultIterator()
     {
-        $collectionIterator = new CollectionIterator(new Collection());
+        $collectionIterator = new CollectionIterator(new Collection(), new ArrayIterator());
         $factory = new ResultIteratorFactory(
             $this->itemLoaderMock,
             $this->itemBuilderMock
         );
 
         $this->assertInstanceOf(
-            ResultFilterIterator::class,
+            Iterator::class,
             $factory->getResultIterator($collectionIterator)
         );
     }

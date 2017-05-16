@@ -4,11 +4,10 @@ namespace Netgen\BlockManager\Collection\Result;
 
 use ArrayIterator;
 use Countable;
-use LimitIterator;
+use IteratorIterator;
 use Netgen\BlockManager\API\Values\Collection\Query;
-use OutOfBoundsException;
 
-class QueryIterator extends LimitIterator implements Countable
+class QueryIterator extends IteratorIterator implements Countable
 {
     /**
      * @var \Netgen\BlockManager\API\Values\Collection\Query
@@ -19,21 +18,12 @@ class QueryIterator extends LimitIterator implements Countable
      * Constructor.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     * @param int $offset
-     * @param int $limit
      */
-    public function __construct(Query $query, $offset = 0, $limit = null)
+    public function __construct(Query $query)
     {
         $this->query = $query;
 
-        $offset = (int) $offset;
-        $limit = $limit !== null ? (int) $limit : null;
-
-        parent::__construct(
-            $this->buildIterator(),
-            $offset >= 0 ? $offset : 0,
-            $limit > 0 ? $limit : -1
-        );
+        parent::__construct($this->buildIterator());
     }
 
     /**
@@ -44,18 +34,6 @@ class QueryIterator extends LimitIterator implements Countable
     public function count()
     {
         return $this->query->getQueryType()->getCount($this->query);
-    }
-
-    /**
-     * Rewind the iterator to the specified starting offset.
-     */
-    public function rewind()
-    {
-        try {
-            parent::rewind();
-        } catch (OutOfBoundsException $e) {
-            // Do nothing
-        }
     }
 
     /**

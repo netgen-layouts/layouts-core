@@ -2,7 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Collection\Result;
 
-use Netgen\BlockManager\Collection\Result\CollectionIterator;
+use LimitIterator;
+use Netgen\BlockManager\Collection\Result\CollectionIteratorFactory;
 use Netgen\BlockManager\Tests\Collection\Stubs\Collection;
 use PHPUnit\Framework\TestCase;
 
@@ -34,7 +35,16 @@ class CollectionIteratorTest extends TestCase
     public function testWithManualCollection(array $collectionItems, array $values, $totalCount, $offset = 0, $limit = null)
     {
         $collection = new Collection($collectionItems);
-        $collectionIterator = new CollectionIterator($collection, $offset, $limit);
+        $factory = new CollectionIteratorFactory();
+        $collectionIterator = $factory->getCollectionIterator($collection);
+
+        if ($offset > 0 || $limit > 0) {
+            $collectionIterator = new LimitIterator(
+                $collectionIterator,
+                $offset >= 0 ? $offset : 0,
+                $limit > 0 ? $limit : -1
+            );
+        }
 
         $this->assertEquals($totalCount, $collectionIterator->count());
         $this->assertIteratorValues($values, $collectionIterator);
@@ -75,7 +85,16 @@ class CollectionIteratorTest extends TestCase
         $limit = null
     ) {
         $collection = new Collection($manualItems, $overrideItems, $queryItems, $queryCount);
-        $collectionIterator = new CollectionIterator($collection, $offset, $limit);
+        $factory = new CollectionIteratorFactory();
+        $collectionIterator = $factory->getCollectionIterator($collection);
+
+        if ($offset > 0 || $limit > 0) {
+            $collectionIterator = new LimitIterator(
+                $collectionIterator,
+                $offset >= 0 ? $offset : 0,
+                $limit > 0 ? $limit : -1
+            );
+        }
 
         $this->assertEquals($totalCount, $collectionIterator->count());
         $this->assertIteratorValues($values, $collectionIterator);

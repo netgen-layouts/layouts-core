@@ -13,24 +13,20 @@ class QueryIteratorTest extends TestCase
     use IteratorTestTrait;
 
     /**
-     * @param int $offset
-     * @param int $limit
-     * @param array $expectedResult
-     *
      * @covers \Netgen\BlockManager\Collection\Result\QueryIterator::__construct
      * @covers \Netgen\BlockManager\Collection\Result\QueryIterator::buildIterator
      * @covers \Netgen\BlockManager\Collection\Result\QueryIterator::count
-     *
-     * @dataProvider queryProvider
      */
-    public function testWithQuery($offset, $limit, $expectedResult)
+    public function testWithQuery()
     {
-        $queryType = new QueryType('query', array(40, 41, 42, 43, 44, 45, 46, 47, 48));
+        $queryItems = array(40, 41, 42, 43, 44, 45, 46, 47, 48);
+
+        $queryType = new QueryType('query', $queryItems);
         $query = new Query(array('queryType' => $queryType));
 
-        $queryIterator = new QueryIterator($query, $offset, $limit);
+        $queryIterator = new QueryIterator($query);
 
-        $this->assertIteratorValues($expectedResult, $queryIterator);
+        $this->assertIteratorValues($queryItems, $queryIterator);
         $this->assertEquals(9, $queryIterator->count());
     }
 
@@ -45,26 +41,5 @@ class QueryIteratorTest extends TestCase
 
         $this->assertIteratorValues(array(), $queryIterator);
         $this->assertEquals(0, $queryIterator->count());
-    }
-
-    public function queryProvider()
-    {
-        return array(
-            array(0, 6, array(40, 41, 42, 43, 44, 45)),
-            array(0, 9, array(40, 41, 42, 43, 44, 45, 46, 47, 48)),
-            array(0, 12, array(40, 41, 42, 43, 44, 45, 46, 47, 48)),
-
-            array(3, 3, array(43, 44, 45)),
-            array(3, 6, array(43, 44, 45, 46, 47, 48)),
-            array(3, 9, array(43, 44, 45, 46, 47, 48)),
-
-            array(9, 0, array()),
-            array(9, 3, array()),
-
-            array(0, null, array(40, 41, 42, 43, 44, 45, 46, 47, 48)),
-            array(6, null, array(46, 47, 48)),
-            array(9, null, array()),
-            array(12, null, array()),
-        );
     }
 }

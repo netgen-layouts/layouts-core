@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Collection\Result;
 
+use Netgen\BlockManager\Collection\Result\CollectionIteratorFactory;
 use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Collection\Result\ResultIteratorFactory;
 use Netgen\BlockManager\Collection\Result\ResultLoader;
@@ -58,7 +59,8 @@ class ResultLoaderTest extends TestCase
             new ResultIteratorFactory(
                 $this->itemLoader,
                 $this->itemBuilder
-            )
+            ),
+            new CollectionIteratorFactory()
         );
     }
 

@@ -12,13 +12,22 @@ class ResultLoader implements ResultLoaderInterface
     protected $resultIteratorFactory;
 
     /**
+     * @var \Netgen\BlockManager\Collection\Result\CollectionIteratorFactory
+     */
+    protected $collectionIteratorFactory;
+
+    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\Collection\Result\ResultIteratorFactory $resultIteratorFactory
+     * @param \Netgen\BlockManager\Collection\Result\CollectionIteratorFactory $collectionIteratorFactory
      */
-    public function __construct(ResultIteratorFactory $resultIteratorFactory)
-    {
+    public function __construct(
+        ResultIteratorFactory $resultIteratorFactory,
+        CollectionIteratorFactory $collectionIteratorFactory
+    ) {
         $this->resultIteratorFactory = $resultIteratorFactory;
+        $this->collectionIteratorFactory = $collectionIteratorFactory;
     }
 
     /**
@@ -33,10 +42,15 @@ class ResultLoader implements ResultLoaderInterface
      */
     public function load(Collection $collection, $offset = 0, $limit = null, $flags = 0)
     {
-        $collectionIterator = new CollectionIterator($collection, $offset, $limit);
+        $collectionIterator = $this->collectionIteratorFactory->getCollectionIterator(
+            $collection,
+            $flags
+        );
 
         $results = $this->resultIteratorFactory->getResultIterator(
             $collectionIterator,
+            $offset,
+            $limit,
             $flags
         );
 
