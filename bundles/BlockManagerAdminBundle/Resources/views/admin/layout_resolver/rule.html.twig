@@ -94,7 +94,7 @@
                         <div class="rule-layout-info-text">
                             <p><strong>{{ rule.layout.name }}</strong></p>
                             {% if is_granted('ROLE_NGBM_EDITOR') %}
-                                <a href="{{ macros.layout_path(rule.layout.id) }}" class="js-open-bm">Edit layout</a>
+                                <a href="{{ macros.layout_path(rule.layout.id) }}" class="js-open-bm">{{ 'layout_resolver.rule.edit_layout'|trans }}</a>
                             {% endif %}
                         </div>
                     </div>
@@ -140,7 +140,7 @@
                                 </div>
                             </div>
                         {% endif %}
-                        <p class="note">NOTE: <strong>Any</strong> target can be met.</p>
+                        <p class="note">{{ 'layout_resolver.targets.notice'|trans|raw }}</p>
                     </div>
 
                     <div class="col-xs6">
@@ -173,7 +173,7 @@
                                 </div>
                             </div>
                         {% endif %}
-                        <p class="note">NOTE: <strong>All</strong> conditions must be met.</p>
+                        <p class="note">{{ 'layout_resolver.conditions.notice'|trans|raw }}</p>
                     </div>
                 </div>
             </div>
