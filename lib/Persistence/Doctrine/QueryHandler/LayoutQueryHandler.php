@@ -83,7 +83,7 @@ class LayoutQueryHandler extends QueryHandler
         $query->setParameter('status', Value::STATUS_PUBLISHED, Type::INTEGER);
 
         $this->applyOffsetAndLimit($query, $offset, $limit);
-        $query->orderBy('name', 'ASC');
+        $query->orderBy('ngbm_layout.name', 'ASC');
 
         return $query->execute()->fetchAll();
     }
