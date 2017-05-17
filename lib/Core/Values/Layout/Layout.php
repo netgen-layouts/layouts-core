@@ -91,6 +91,11 @@ class Layout extends ValueObject implements APILayout
         return $this->name;
     }
 
+    /**
+     * Return human readable description of the layout.
+     *
+     * @return string
+     */
     public function getDescription()
     {
         return $this->description;
