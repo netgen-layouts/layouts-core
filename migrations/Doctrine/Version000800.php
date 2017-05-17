@@ -37,13 +37,13 @@ class Version000800 extends AbstractMigration
         $blockTable->addColumn('placeholder_parameters', 'text', array('length' => 65535));
         $blockTable->dropColumn('config');
 
+        $layoutTable = $schema->getTable('ngbm_layout');
+        $layoutTable->dropColumn('description');
+
         $collectionTable = $schema->getTable('ngbm_collection');
         $collectionTable->addColumn('type', 'integer');
         $collectionTable->addColumn('shared', 'boolean');
         $collectionTable->addColumn('name', 'string', array('length' => 255, 'notnull' => false));
-
-        $layoutTable = $schema->getTable('ngbm_layout');
-        $layoutTable->dropColumn('description');
 
         $collectionTable->addIndex(array('name'));
 
