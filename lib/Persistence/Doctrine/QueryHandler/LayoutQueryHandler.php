@@ -288,7 +288,7 @@ class LayoutQueryHandler extends QueryHandler
             ->setParameter('status', $layoutCreateStruct->status, Type::INTEGER)
             ->setParameter('type', $layoutCreateStruct->type, Type::STRING)
             ->setParameter('name', trim($layoutCreateStruct->name), Type::STRING)
-            ->setParameter('description', trim($layoutCreateStruct->description), Type::STRING)
+            ->setParameter('description', $layoutCreateStruct->description, Type::STRING)
             ->setParameter('created', $currentTimeStamp, Type::INTEGER)
             ->setParameter('modified', $currentTimeStamp, Type::INTEGER)
             ->setParameter('shared', $layoutCreateStruct->shared, Type::BOOLEAN);
