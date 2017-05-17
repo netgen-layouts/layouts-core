@@ -204,6 +204,31 @@ class LayoutService extends Service implements LayoutServiceInterface
     }
 
     /**
+     * Loads the count of layouts related to provided shared layout.
+     *
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $sharedLayout
+     *
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If provided layout is not shared
+     *                                                          If provided layout is not published
+     *
+     * @return int
+     */
+    public function getRelatedLayoutsCount(Layout $sharedLayout)
+    {
+        if (!$sharedLayout->isPublished()) {
+            throw new BadStateException('sharedLayout', 'Count of related layouts can only be loaded for published shared layouts.');
+        }
+
+        if (!$sharedLayout->isShared()) {
+            throw new BadStateException('sharedLayout', 'Count of related layouts can only be loaded for shared layouts.');
+        }
+
+        $persistenceLayout = $this->handler->loadLayout($sharedLayout->getId(), $sharedLayout->getStatus());
+
+        return $this->handler->getRelatedLayoutsCount($persistenceLayout);
+    }
+
+    /**
      * Returns if provided layout has a published status.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout

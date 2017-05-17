@@ -73,6 +73,15 @@ interface LayoutHandler
     public function loadRelatedLayouts(Layout $sharedLayout, $offset = 0, $limit = null);
 
     /**
+     * Loads the count of layouts related to provided shared layout.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $sharedLayout
+     *
+     * @return int
+     */
+    public function getRelatedLayoutsCount(Layout $sharedLayout);
+
+    /**
      * Returns if layout with specified ID exists.
      *
      * @param int|string $layoutId

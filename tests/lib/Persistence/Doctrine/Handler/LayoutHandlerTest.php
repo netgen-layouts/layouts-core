@@ -315,6 +315,19 @@ class LayoutHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::getRelatedLayoutsCount
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getRelatedLayoutsCount
+     */
+    public function testGetRelatedLayoutsCount()
+    {
+        $count = $this->layoutHandler->getRelatedLayoutsCount(
+            $this->layoutHandler->loadLayout(3, Value::STATUS_PUBLISHED)
+        );
+
+        $this->assertEquals(1, $count);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::layoutExists
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutExists
      */

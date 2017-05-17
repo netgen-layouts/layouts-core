@@ -72,6 +72,18 @@ interface LayoutService extends Service
     public function loadRelatedLayouts(Layout $sharedLayout, $offset = 0, $limit = null);
 
     /**
+     * Loads the count of layouts related to provided shared layout.
+     *
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $sharedLayout
+     *
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If provided layout is not shared
+     *                                                          If provided layout is not published
+     *
+     * @return int
+     */
+    public function getRelatedLayoutsCount(Layout $sharedLayout);
+
+    /**
      * Returns if provided layout has a published status.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout

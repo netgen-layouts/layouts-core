@@ -166,6 +166,39 @@ abstract class LayoutServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::getRelatedLayoutsCount
+     */
+    public function testGetRelatedLayoutsCount()
+    {
+        $sharedLayout = $this->layoutService->loadLayout(3);
+        $count = $this->layoutService->getRelatedLayoutsCount($sharedLayout);
+
+        $this->assertEquals(1, $count);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadRelatedLayouts
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Count of related layouts can only be loaded for published shared layouts.
+     */
+    public function testGetRelatedLayoutsCountThrowsBadStateExceptionWithNonPublishedSharedLayout()
+    {
+        $sharedLayout = $this->layoutService->loadLayoutDraft(3);
+        $this->layoutService->getRelatedLayoutsCount($sharedLayout);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadRelatedLayouts
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Count of related layouts can only be loaded for shared layouts.
+     */
+    public function testGetRelatedLayoutsCountThrowsBadStateExceptionWithNonSharedLayout()
+    {
+        $sharedLayout = $this->layoutService->loadLayout(2);
+        $this->layoutService->getRelatedLayoutsCount($sharedLayout);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::hasPublishedState
      */
     public function testHasPublishedState()

@@ -148,6 +148,18 @@ class LayoutHandler implements LayoutHandlerInterface
     }
 
     /**
+     * Loads the count of layouts related to provided shared layout.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $sharedLayout
+     *
+     * @return int
+     */
+    public function getRelatedLayoutsCount(Layout $sharedLayout)
+    {
+        return $this->queryHandler->getRelatedLayoutsCount($sharedLayout);
+    }
+
+    /**
      * Returns if layout with specified ID exists.
      *
      * @param int|string $layoutId

@@ -128,6 +128,43 @@ class LayoutQueryHandler extends QueryHandler
     }
 
     /**
+     * Loads the count of layouts related to provided shared layout.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $sharedLayout
+     *
+     * @return int
+     */
+    public function getRelatedLayoutsCount(Layout $sharedLayout)
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->select('count(DISTINCT ngbm_layout.id) AS count')
+            ->from('ngbm_layout')
+            ->innerJoin(
+                'ngbm_layout',
+                'ngbm_zone',
+                'z',
+                $query->expr()->andX(
+                    $query->expr()->eq('z.layout_id', 'ngbm_layout.id'),
+                    $query->expr()->eq('z.status', 'ngbm_layout.status'),
+                    $query->expr()->eq('z.linked_layout_id', ':linked_layout_id')
+                )
+            )
+            ->where(
+                $query->expr()->andX(
+                    $query->expr()->eq('ngbm_layout.shared', ':shared'),
+                    $query->expr()->eq('ngbm_layout.status', ':status')
+                )
+            )
+            ->setParameter('shared', false, Type::BOOLEAN)
+            ->setParameter('status', Value::STATUS_PUBLISHED, Type::INTEGER)
+            ->setParameter('linked_layout_id', $sharedLayout->id, Type::INTEGER);
+
+        $data = $query->execute()->fetchAll();
+
+        return isset($data[0]['count']) ? (int) $data[0]['count'] : 0;
+    }
+
+    /**
      * Loads all zone data with provided identifier.
      *
      * @param int|string $layoutId
