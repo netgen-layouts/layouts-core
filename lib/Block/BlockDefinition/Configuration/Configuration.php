@@ -18,6 +18,11 @@ class Configuration extends ValueObject
     protected $name;
 
     /**
+     * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection[]
+     */
+    protected $collections = array();
+
+    /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\Form[]
      */
     protected $forms = array();
@@ -40,6 +45,53 @@ class Configuration extends ValueObject
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Returns all collections.
+     *
+     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection[]
+     */
+    public function getCollections()
+    {
+        return $this->collections;
+    }
+
+    /**
+     * Returns if the block definition has a collection with provided identifier.
+     *
+     * @param string $identifier
+     *
+     * @return bool
+     */
+    public function hasCollection($identifier)
+    {
+        return isset($this->collections[$identifier]);
+    }
+
+    /**
+     * Returns the collection for provided collection identifier.
+     *
+     * @param string $identifier
+     *
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If collection does not exist
+     *
+     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection
+     */
+    public function getCollection($identifier)
+    {
+        if (!$this->hasCollection($identifier)) {
+            throw new InvalidArgumentException(
+                'identifier',
+                sprintf(
+                    'Collection "%s" does not exist in "%s" block definition.',
+                    $identifier,
+                    $this->identifier
+                )
+            );
+        }
+
+        return $this->collections[$identifier];
     }
 
     /**

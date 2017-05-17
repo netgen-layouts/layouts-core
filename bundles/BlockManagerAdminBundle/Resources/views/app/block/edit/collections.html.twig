@@ -1,10 +1,11 @@
 {% trans_default_domain 'ngbm_app' %}
 
+{% set collection_identifier = collection_identifier|default('default') %}
 {% set query_types = ngbm.config.parameter('query_types') %}
 {% set can_change_collection = query_types|length > 0 %}
 
-{% if collections.default is defined and can_change_collection %}
-    {% set collection = collections.default %}
+{% if collections[collection_identifier] is defined and can_change_collection %}
+    {% set collection = collections[collection_identifier] %}
 
     {% set type_manual = constant('TYPE_MANUAL', collection) %}
     {% set type_dynamic = constant('TYPE_DYNAMIC', collection) %}
@@ -19,7 +20,22 @@
             <label>{{ 'block.edit.collection_type'|trans }} <a class="bm-tooltip" data-placement="top"><i class="material-icons">help</i><div class="tooltip-box"><div class="tooltip-text">{{ 'block.edit.collection_type.tooltip'|trans }}</div></div></a></label>
             <a href="#" class="js-edit"><span class="text">{{ collection_types[collection.type] }}</span><span class="icon">{{ 'block.edit.change'|trans }}</span></a>
 
-            {% if collection.type == type_dynamic and query_types|length > 1 %}
+            {% set allowed_query_types = [] %}
+            {% set has_collection_config = block.definition.config.hasCollection(collection_identifier) %}
+
+            {% if has_collection_config %}
+                {% set collection_config = block.definition.config.collection(collection_identifier) %}
+
+                {% for query_type in query_types %}
+                    {% if collection_config.validQueryType(query_type.type) %}
+                        {% set allowed_query_types = allowed_query_types|merge([query_type]) %}
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                {% set allowed_query_types = query_types %}
+            {% endif %}
+
+            {% if collection.type == type_dynamic and allowed_query_types|length > 1 %}
                 <label>{{ 'block.edit.query_type'|trans }}</label>
                 <a href="#" class="js-edit"><span class="text">{{ collection.query.queryType.config.name }}</span><span class="icon">{{ 'block.edit.change'|trans }}</span></a>
             {% endif %}
@@ -28,22 +44,26 @@
         <div class="form js-dependable-selects-group">
             <div>
                 <label for="collection-type">{{ 'block.edit.collection_type'|trans }} <a class="bm-tooltip" data-placement="top"><i class="material-icons">help</i><div class="tooltip-box"><div class="tooltip-text">{{ 'block.edit.collection_type.tooltip'|trans }}</div></div></a></label>
-                <select id="collection-type" name="block_collection[new_type]" class="js-skip-on-change js-master">
+                <select id="collection-type" name="block_collection[new_type]" class="js-skip-on-change js-master js-always-show">
                     <option {% if collection.type == type_manual %} selected="selected" {% endif %} value="{{ type_manual }}">{{ collection_types[type_manual] }}</option>
 
-                    {% if query_types|length > 0 %}
+                    {% if allowed_query_types|length > 0 %}
                         <option {% if collection.type == type_dynamic %} selected="selected" {% endif %} value="{{ type_dynamic }}">{{ collection_types[type_dynamic] }}</option>
                     {% endif %}
                 </select>
                 <p class="input-note">{{ 'block.edit.notice.change_collection_type'|trans }}</p>
             </div>
 
-            {% if query_types|length > 0 %}
+            {% if allowed_query_types|length > 0 %}
                 <div class="js-dependable" data-linked-value="{{ type_dynamic }}">
                     <label for="query-types">{{ 'block.edit.query_type'|trans }}</label>
                     <select id="query-types" name="block_collection[query_type]" class="js-skip-on-change">
                         {% for query_type in query_types %}
-                            <option {% if collection.hasQuery and collection.query.queryType.type == query_type.type %} selected="selected" {% endif %} value="{{ query_type.type }}">{{ query_type.config.name }}</option>
+                            {% set is_selected = collection.hasQuery and collection.query.queryType.type == query_type.type %}
+
+                            {% if query_type in allowed_query_types %}
+                                <option {% if is_selected %} selected="selected" {% endif %} value="{{ query_type.type }}">{{ query_type.config.name }}</option>
+                            {% endif %}
                         {% endfor %}
                     </select>
                 </div>

@@ -35,6 +35,32 @@ class BlockDefinitionNode implements ConfigurationNodeInterface
                         ->isRequired()
                         ->cannotBeEmpty()
                     ->end()
+                    ->arrayNode('collections')
+                        ->useAttributeAsKey('identifier')
+                        ->requiresAtLeastOneElement()
+                        ->prototype('array')
+                            ->children()
+                                ->variableNode('valid_query_types')
+                                    ->defaultNull()
+                                    ->validate()
+                                        ->ifTrue(function ($v) {
+                                            return $v !== null && !is_array($v);
+                                        })
+                                        ->thenInvalid('The value should be null or an array')
+                                    ->end()
+                                    ->validate()
+                                        ->always(function ($v) {
+                                            if (is_array($v)) {
+                                                return array_values(array_unique($v));
+                                            }
+
+                                            return $v;
+                                        })
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
+                    ->end()
                     ->arrayNode('forms')
                         ->addDefaultsIfNotSet()
                         ->validate()

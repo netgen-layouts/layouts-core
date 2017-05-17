@@ -67,6 +67,8 @@ block_definitions:
 
     list:
         name: 'List'
+        collections:
+            default: ~
         forms:
             full:
                 enabled: false
@@ -81,6 +83,8 @@ block_definitions:
 
     gallery:
         name: 'Gallery'
+        collections:
+            default: ~
         forms:
             full:
                 enabled: false

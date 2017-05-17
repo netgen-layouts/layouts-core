@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Block\Stubs;
 
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
@@ -28,16 +29,23 @@ class BlockDefinition implements BlockDefinitionInterface
     protected $viewTypes;
 
     /**
+     * @var bool
+     */
+    protected $hasCollection;
+
+    /**
      * Constructor.
      *
      * @param string $identifier
      * @param array $viewTypes
      * @param \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface $handler
+     * @param bool $hasCollection
      */
-    public function __construct($identifier, array $viewTypes = array(), BlockDefinitionHandlerInterface $handler = null)
+    public function __construct($identifier, array $viewTypes = array(), BlockDefinitionHandlerInterface $handler = null, $hasCollection = false)
     {
         $this->identifier = $identifier;
         $this->viewTypes = $viewTypes;
+        $this->hasCollection = $hasCollection;
 
         $this->handler = $handler ?: new BlockDefinitionHandler();
     }
@@ -106,16 +114,6 @@ class BlockDefinition implements BlockDefinitionInterface
     }
 
     /**
-     * Returns if this block definition should have a collection.
-     *
-     * @return bool
-     */
-    public function hasCollection()
-    {
-        return $this->handler->hasCollection();
-    }
-
-    /**
      * Returns the block definition configuration.
      *
      * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration
@@ -143,9 +141,19 @@ class BlockDefinition implements BlockDefinitionInterface
             );
         }
 
+        $collections = array();
+        if ($this->hasCollection) {
+            $collections['default'] = new Collection(
+                array(
+                    'identifier' => 'default',
+                )
+            );
+        }
+
         return new Configuration(
             array(
                 'identifier' => $this->identifier,
+                'collections' => $collections,
                 'viewTypes' => $viewTypes,
             )
         );

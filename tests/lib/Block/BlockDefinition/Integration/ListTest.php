@@ -20,6 +20,14 @@ abstract class ListTest extends BlockTest
     }
 
     /**
+     * @return bool
+     */
+    public function hasCollection()
+    {
+        return true;
+    }
+
+    /**
      * @return array
      */
     public function parametersDataProvider()

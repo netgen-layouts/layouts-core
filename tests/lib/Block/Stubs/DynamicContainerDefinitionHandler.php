@@ -53,16 +53,6 @@ class DynamicContainerDefinitionHandler extends BaseDynamicContainerHandler
     }
 
     /**
-     * Returns if this block definition should have a collection.
-     *
-     * @return bool
-     */
-    public function hasCollection()
-    {
-        return true;
-    }
-
-    /**
      * Returns if this block definition is a dynamic container.
      *
      * @return bool

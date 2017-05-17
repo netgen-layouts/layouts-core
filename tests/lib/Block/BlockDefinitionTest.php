@@ -49,14 +49,6 @@ class BlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::hasCollection
-     */
-    public function testHasCollection()
-    {
-        $this->assertTrue($this->blockDefinition->hasCollection());
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition::getDynamicParameters
      */
     public function testGetDynamicParameters()

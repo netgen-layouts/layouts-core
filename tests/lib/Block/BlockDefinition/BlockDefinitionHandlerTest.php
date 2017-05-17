@@ -59,12 +59,4 @@ class BlockDefinitionHandlerTest extends TestCase
     {
         $this->assertEquals(array(), $this->handler->getDynamicParameters(new Block()));
     }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::hasCollection
-     */
-    public function testHasCollection()
-    {
-        $this->assertFalse($this->handler->hasCollection());
-    }
 }

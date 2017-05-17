@@ -16,9 +16,19 @@ class Factory
      */
     public static function buildConfig($identifier, array $config)
     {
+        $collections = array();
         $forms = array();
         $placeholderForms = array();
         $viewTypes = array();
+
+        foreach ($config['collections'] as $collectionIdentifier => $collectionConfig) {
+            $collections[$collectionIdentifier] = new Collection(
+                array(
+                    'identifier' => $collectionIdentifier,
+                    'validQueryTypes' => $collectionConfig['valid_query_types'],
+                )
+            );
+        }
 
         foreach ($config['forms'] as $formIdentifier => $formConfig) {
             if (!$formConfig['enabled']) {
@@ -108,6 +118,7 @@ class Factory
             array(
                 'identifier' => $identifier,
                 'name' => $config['name'],
+                'collections' => $collections,
                 'forms' => $forms,
                 'placeholderForms' => $placeholderForms,
                 'viewTypes' => $viewTypes,

@@ -32,16 +32,6 @@ abstract class BlockDefinitionHandler implements BlockDefinitionHandlerInterface
     }
 
     /**
-     * Returns if this block definition should have a collection.
-     *
-     * @return bool
-     */
-    public function hasCollection()
-    {
-        return false;
-    }
-
-    /**
      * Builds the parameters most blocks will use by using provided parameter builder.
      *
      * @param array $groups

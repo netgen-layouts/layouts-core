@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Integration;
 
 use Netgen\BlockManager\Block\BlockDefinition;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
@@ -74,7 +75,11 @@ abstract class BlockTest extends ServiceTestCase
         $this->assertEquals($expectedParameters, $createdParameters);
 
         $collectionReferences = $this->blockService->loadCollectionReferences($createdBlock);
-        $this->assertEquals($blockDefinition->hasCollection(), count($collectionReferences) > 0);
+
+        $this->assertEquals(
+            $blockDefinition->getConfig()->hasCollection('default'),
+            count($collectionReferences) > 0
+        );
     }
 
     /**
@@ -106,6 +111,14 @@ abstract class BlockTest extends ServiceTestCase
      * @return \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface
      */
     abstract public function createBlockDefinitionHandler();
+
+    /**
+     * @return bool
+     */
+    public function hasCollection()
+    {
+        return false;
+    }
 
     /**
      * @return array
@@ -182,6 +195,15 @@ abstract class BlockTest extends ServiceTestCase
      */
     protected function createBlockConfiguration()
     {
+        $collections = array();
+        if ($this->hasCollection()) {
+            $collections['default'] = new Collection(
+                array(
+                    'identifier' => 'default',
+                )
+            );
+        }
+
         return new Configuration(
             array(
                 'viewTypes' => array(
@@ -193,6 +215,7 @@ abstract class BlockTest extends ServiceTestCase
                         )
                     ),
                 ),
+                'collections' => $collections,
             )
         );
     }

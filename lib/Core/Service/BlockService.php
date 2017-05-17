@@ -725,7 +725,8 @@ class BlockService extends Service implements BlockServiceInterface
                 $placeholder
             );
 
-            if ($blockCreateStruct->definition->hasCollection()) {
+            $blockConfig = $blockCreateStruct->definition->getConfig();
+            foreach ($blockConfig->getCollections() as $collectionConfig) {
                 $createdCollection = $this->collectionHandler->createCollection(
                     new CollectionCreateStruct(
                         array(
@@ -738,7 +739,7 @@ class BlockService extends Service implements BlockServiceInterface
                     $createdBlock,
                     new CollectionReferenceCreateStruct(
                         array(
-                            'identifier' => 'default',
+                            'identifier' => $collectionConfig->getIdentifier(),
                             'collection' => $createdCollection,
                             'offset' => 0,
                             'limit' => null,

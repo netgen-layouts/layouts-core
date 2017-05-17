@@ -26,6 +26,11 @@ class BlockDefinitionNodeTest extends TestCase
                     'block' => array(
                         'name' => 'Block',
                         'handler' => 'handler',
+                        'collections' => array(
+                            'default' => array(
+                                'valid_query_types' => array('type1', 'type2'),
+                            ),
+                        ),
                         'forms' => array(
                             'full' => array(
                                 'type' => 'test_form',
@@ -95,6 +100,11 @@ class BlockDefinitionNodeTest extends TestCase
                     'name' => 'Block',
                     'handler' => 'handler',
                     'enabled' => true,
+                    'collections' => array(
+                        'default' => array(
+                            'valid_query_types' => array('type1', 'type2'),
+                        ),
+                    ),
                     'forms' => array(
                         'full' => array(
                             'type' => 'test_form',
@@ -229,6 +239,199 @@ class BlockDefinitionNodeTest extends TestCase
             $config,
             $expectedConfig,
             'block_definitions.*.enabled'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
+     */
+    public function testBlockDefinitionSettingsWithNoCollections()
+    {
+        $config = array(
+            array(
+                'block_definitions' => array(
+                    'block' => array(),
+                ),
+            ),
+        );
+
+        $expectedConfig = array(
+            'block_definitions' => array(
+                'block' => array(
+                    'collections' => array(),
+                ),
+            ),
+        );
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'block_definitions.*.collections'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
+     */
+    public function testBlockDefinitionSettingsWithDefaultCollectionConfig()
+    {
+        $config = array(
+            array(
+                'block_definitions' => array(
+                    'block' => array(
+                        'collections' => array(
+                            'default' => array(),
+                        ),
+                    ),
+                ),
+            ),
+        );
+
+        $expectedConfig = array(
+            'block_definitions' => array(
+                'block' => array(
+                    'collections' => array(
+                        'default' => array(
+                            'valid_query_types' => null,
+                        ),
+                    ),
+                ),
+            ),
+        );
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'block_definitions.*.collections'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
+     */
+    public function testBlockDefinitionSettingsWithValidQueryTypes()
+    {
+        $config = array(
+            array(
+                'block_definitions' => array(
+                    'block' => array(
+                        'collections' => array(
+                            'default' => array(
+                                'valid_query_types' => array('type1', 'type2'),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+
+        $expectedConfig = array(
+            'block_definitions' => array(
+                'block' => array(
+                    'collections' => array(
+                        'default' => array(
+                            'valid_query_types' => array('type1', 'type2'),
+                        ),
+                    ),
+                ),
+            ),
+        );
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'block_definitions.*.collections'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
+     */
+    public function testBlockDefinitionSettingsWithAllValidQueryTypes()
+    {
+        $config = array(
+            array(
+                'block_definitions' => array(
+                    'block' => array(
+                        'collections' => array(
+                            'default' => array(
+                                'valid_query_types' => null,
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+
+        $expectedConfig = array(
+            'block_definitions' => array(
+                'block' => array(
+                    'collections' => array(
+                        'default' => array(
+                            'valid_query_types' => null,
+                        ),
+                    ),
+                ),
+            ),
+        );
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'block_definitions.*.collections'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
+     */
+    public function testBlockDefinitionSettingsWithEmptyValidQueryTypes()
+    {
+        $config = array(
+            array(
+                'block_definitions' => array(
+                    'block' => array(
+                        'collections' => array(
+                            'default' => array(
+                                'valid_query_types' => array(),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+
+        $expectedConfig = array(
+            'block_definitions' => array(
+                'block' => array(
+                    'collections' => array(
+                        'default' => array(
+                            'valid_query_types' => array(),
+                        ),
+                    ),
+                ),
+            ),
+        );
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'block_definitions.*.collections'
         );
     }
 

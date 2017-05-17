@@ -2,8 +2,9 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator;
 
+use Netgen\BlockManager\API\Values\Block\CollectionReference;
 use Netgen\BlockManager\API\Values\Collection\Collection;
-use Symfony\Component\HttpFoundation\Request;
+use Netgen\BlockManager\Exception\ValidationFailedException;
 use Symfony\Component\Validator\Constraints;
 
 class BlockCollectionValidator extends Validator
@@ -11,14 +12,16 @@ class BlockCollectionValidator extends Validator
     /**
      * Validates block creation parameters from the request.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Netgen\BlockManager\API\Values\Block\CollectionReference $collectionReference
+     * @param int $newType
+     * @param string $queryType
      *
      * @throws \Netgen\BlockManager\Exception\ValidationFailedException If validation failed
      */
-    public function validateChangeCollectionType(Request $request)
+    public function validateChangeCollectionType(CollectionReference $collectionReference, $newType, $queryType)
     {
         $this->validate(
-            (int) $request->request->get('new_type'),
+            $newType,
             array(
                 new Constraints\NotBlank(),
                 new Constraints\Choice(
@@ -33,5 +36,23 @@ class BlockCollectionValidator extends Validator
             ),
             'new_type'
         );
+
+        if ($newType === Collection::TYPE_DYNAMIC) {
+            $blockDefinition = $collectionReference->getBlock()->getDefinition();
+
+            $collectionIdentifier = $collectionReference->getIdentifier();
+            if ($blockDefinition->getConfig()->hasCollection($collectionIdentifier)) {
+                $collectionConfig = $blockDefinition->getConfig()->getCollection($collectionIdentifier);
+
+                if (!$collectionConfig->isValidQueryType($queryType)) {
+                    throw new ValidationFailedException(
+                        sprintf(
+                            'Query type "%s" is not allowed in selected block.',
+                            $queryType
+                        )
+                    );
+                }
+            }
+        }
     }
 }

@@ -143,11 +143,12 @@ class BlockCollectionController extends Controller
      */
     public function changeCollectionType(CollectionReference $collectionReference, Request $request)
     {
-        $this->validator->validateChangeCollectionType($request);
-
         $newType = (int) $request->request->get('new_type');
-        $collection = $collectionReference->getCollection();
+        $queryType = $request->request->get('query_type');
 
+        $this->validator->validateChangeCollectionType($collectionReference, $newType, $queryType);
+
+        $collection = $collectionReference->getCollection();
         $queryCreateStruct = null;
 
         if ($newType === Collection::TYPE_MANUAL) {
@@ -156,8 +157,9 @@ class BlockCollectionController extends Controller
                 return new Response(null, Response::HTTP_NO_CONTENT);
             }
         } elseif ($newType === Collection::TYPE_DYNAMIC) {
-            $queryType = $this->getQueryType($request->request->get('query_type'));
-            $queryCreateStruct = $this->collectionService->newQueryCreateStruct($queryType);
+            $queryCreateStruct = $this->collectionService->newQueryCreateStruct(
+                $this->getQueryType($queryType)
+            );
         }
 
         $this->collectionService->changeCollectionType($collection, $newType, $queryCreateStruct);

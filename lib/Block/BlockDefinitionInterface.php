@@ -25,13 +25,6 @@ interface BlockDefinitionInterface extends ParameterCollectionInterface
     public function getDynamicParameters(Block $block, array $parameters = array());
 
     /**
-     * Returns if this block definition should have a collection.
-     *
-     * @return bool
-     */
-    public function hasCollection();
-
-    /**
      * Returns the block definition configuration.
      *
      * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration

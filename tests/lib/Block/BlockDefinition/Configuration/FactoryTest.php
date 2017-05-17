@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Configuration;
 
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Factory;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Form;
@@ -28,6 +29,14 @@ class FactoryTest extends TestCase
     {
         $config = array(
             'name' => 'Block definition',
+            'collections' => array(
+                'default' => array(
+                    'valid_query_types' => null,
+                ),
+                'featured' => array(
+                    'valid_query_types' => array('type1', 'type2'),
+                ),
+            ),
             'forms' => array(
                 'content' => array(
                     'type' => 'form_type',
@@ -108,6 +117,20 @@ class FactoryTest extends TestCase
                 array(
                     'identifier' => 'block_definition',
                     'name' => 'Block definition',
+                    'collections' => array(
+                        'default' => new Collection(
+                            array(
+                                'identifier' => 'default',
+                                'validQueryTypes' => null,
+                            )
+                        ),
+                        'featured' => new Collection(
+                            array(
+                                'identifier' => 'featured',
+                                'validQueryTypes' => array('type1', 'type2'),
+                            )
+                        ),
+                    ),
                     'forms' => array(
                         'content' => new Form(
                             array(
@@ -190,6 +213,7 @@ class FactoryTest extends TestCase
     {
         $config = array(
             'name' => 'Block definition',
+            'collections' => array(),
             'forms' => array(
                 'full' => array(
                     'type' => 'form_type',
@@ -225,6 +249,7 @@ class FactoryTest extends TestCase
     {
         $config = array(
             'name' => 'Block definition',
+            'collections' => array(),
             'forms' => array(
                 'full' => array(
                     'type' => 'form_type',

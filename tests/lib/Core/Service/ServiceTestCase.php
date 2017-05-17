@@ -32,7 +32,6 @@ use Netgen\BlockManager\Layout\Type\Zone;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithoutCollection;
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
@@ -171,10 +170,10 @@ abstract class ServiceTestCase extends TestCase
         $this->queryTypeRegistry = new QueryTypeRegistry();
         $this->queryTypeRegistry->addQueryType('ezcontent_search', new QueryType('ezcontent_search'));
 
-        $blockDefinition1 = new BlockDefinition('title', array('small' => array('standard')), new BlockDefinitionHandlerWithoutCollection());
-        $blockDefinition2 = new BlockDefinition('text', array('standard' => array('standard')), new BlockDefinitionHandlerWithoutCollection());
-        $blockDefinition3 = new BlockDefinition('gallery', array('standard' => array('standard')));
-        $blockDefinition4 = new BlockDefinition('list', array('standard' => array('standard')));
+        $blockDefinition1 = new BlockDefinition('title', array('small' => array('standard')));
+        $blockDefinition2 = new BlockDefinition('text', array('standard' => array('standard')));
+        $blockDefinition3 = new BlockDefinition('gallery', array('standard' => array('standard')), null, true);
+        $blockDefinition4 = new BlockDefinition('list', array('standard' => array('standard')), null, true);
         $blockDefinition5 = new ContainerDefinition(
             'column',
             array('column' => array('standard')),

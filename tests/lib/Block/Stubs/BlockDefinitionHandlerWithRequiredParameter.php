@@ -36,16 +36,6 @@ class BlockDefinitionHandlerWithRequiredParameter extends BaseBlockDefinitionHan
     }
 
     /**
-     * Returns if this block definition should have a collection.
-     *
-     * @return bool
-     */
-    public function hasCollection()
-    {
-        return true;
-    }
-
-    /**
      * Returns the array of dynamic parameters provided by this block definition.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
