@@ -504,6 +504,7 @@ class LayoutControllerTest extends JsonApiTestCase
             array(
                 'layout_type' => '4_zones_a',
                 'name' => 'My new layout',
+                'description' => 'My new layout description',
             )
         );
 
@@ -519,6 +520,67 @@ class LayoutControllerTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'v1/layouts/create_layout',
+            Response::HTTP_CREATED,
+            array('created_at', 'updated_at')
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::create
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\LayoutValidator::validateCreateLayout
+     */
+    public function testCreateWithMissingDescription()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'layout_type' => '4_zones_a',
+                'name' => 'My new layout',
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/layouts?html=false',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertResponse(
+            $this->client->getResponse(),
+            'v1/layouts/create_layout_empty_description',
+            Response::HTTP_CREATED,
+            array('created_at', 'updated_at')
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::create
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\LayoutValidator::validateCreateLayout
+     */
+    public function testCreateWithEmptyDescription()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'layout_type' => '4_zones_a',
+                'name' => 'My new layout',
+                'description' => '',
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/layouts?html=false',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertResponse(
+            $this->client->getResponse(),
+            'v1/layouts/create_layout_empty_description',
             Response::HTTP_CREATED,
             array('created_at', 'updated_at')
         );
@@ -642,6 +704,36 @@ class LayoutControllerTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::create
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\LayoutValidator::validateCreateLayout
      */
+    public function testCreateWithInvalidDescription()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'layout_type' => '4_zones_a',
+                'name' => 'My name',
+                'description' => 42,
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/layouts',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "description": This value should be of type string.'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::create
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\LayoutValidator::validateCreateLayout
+     */
     public function testCreateWithNonExistingLayoutType()
     {
         $data = $this->jsonEncode(
@@ -704,6 +796,7 @@ class LayoutControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             array(
                 'name' => 'My new layout name',
+                'description' => 'My new layout description',
             )
         );
 
@@ -732,6 +825,7 @@ class LayoutControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             array(
                 'name' => 'My new layout name',
+                'description' => 'My new layout description',
             )
         );
 
@@ -747,6 +841,63 @@ class LayoutControllerTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'v1/layouts/copy_published_layout',
+            Response::HTTP_CREATED,
+            array('created_at', 'updated_at')
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::copy
+     */
+    public function testCopyWithNonExistingDescription()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'name' => 'My new layout name',
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/layouts/1/copy?html=false',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertResponse(
+            $this->client->getResponse(),
+            'v1/layouts/copy_layout_without_description',
+            Response::HTTP_CREATED,
+            array('created_at', 'updated_at')
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::copy
+     */
+    public function testCopyWithEmptyDescription()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'name' => 'My new layout name',
+                'description' => '',
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/layouts/1/copy?html=false',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertResponse(
+            $this->client->getResponse(),
+            'v1/layouts/copy_layout_empty_description',
             Response::HTTP_CREATED,
             array('created_at', 'updated_at')
         );
@@ -853,6 +1004,34 @@ class LayoutControllerTest extends JsonApiTestCase
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
             'Argument "layoutCopyStruct" has an invalid state. Layout with provided name already exists.'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::copy
+     */
+    public function testCopyWithInvalidDescription()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'name' => 'New name',
+                'description' => 42,
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/layouts/1/copy',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "description": This value should be of type string.'
         );
     }
 

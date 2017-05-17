@@ -8,6 +8,7 @@
         "updated_at": "2015-11-09T11:43:33+0100",
         "shared": true,
         "name": "My third layout",
+        "description": "My third layout description",
         "zones": [
             {
                 "identifier": "bottom",
@@ -52,6 +53,7 @@
         "updated_at": "2015-11-09T11:43:33+0100",
         "shared": true,
         "name": "My fifth layout",
+        "description": "My fifth layout description",
         "zones": [
             {
                 "identifier": "bottom",

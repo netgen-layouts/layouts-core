@@ -183,6 +183,8 @@ class LayoutController extends Controller
             $request->request->get('name')
         );
 
+        $layoutCreateStruct->description = $request->request->get('description');
+
         $createdLayout = $this->layoutService->createLayout($layoutCreateStruct);
 
         return new View($createdLayout, Version::API_V1, Response::HTTP_CREATED);
@@ -200,6 +202,7 @@ class LayoutController extends Controller
     {
         $copyStruct = new LayoutCopyStruct();
         $copyStruct->name = $request->request->get('name');
+        $copyStruct->description = $request->request->get('description');
 
         $copiedLayout = $this->layoutService->copyLayout($layout, $copyStruct);
 

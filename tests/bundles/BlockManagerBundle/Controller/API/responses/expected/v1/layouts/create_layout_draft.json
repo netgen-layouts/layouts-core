@@ -5,6 +5,7 @@
     "has_published_state": true,
     "shared": false,
     "name": "My layout",
+    "description": "My layout description",
     "zones": [
         {
             "identifier": "bottom",
