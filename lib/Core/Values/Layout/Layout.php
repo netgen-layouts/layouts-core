@@ -25,6 +25,13 @@ class Layout extends ValueObject implements APILayout
     protected $name;
 
     /**
+     * Human readable description of the layout.
+     *
+     * @var string
+     */
+    protected $description;
+
+    /**
      * @var \DateTime
      */
     protected $created;
@@ -82,6 +89,16 @@ class Layout extends ValueObject implements APILayout
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Return human readable description of the layout.
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 
     /**

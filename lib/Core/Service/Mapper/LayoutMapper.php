@@ -91,6 +91,7 @@ class LayoutMapper extends Mapper
                 $layout->type
             ),
             'name' => $layout->name,
+            'description' => $layout->description,
             'created' => $this->createDateTime($layout->created),
             'modified' => $this->createDateTime($layout->modified),
             'status' => $layout->status,

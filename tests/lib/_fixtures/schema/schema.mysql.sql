@@ -15,6 +15,7 @@ CREATE TABLE `ngbm_layout` (
   `status` int(11) NOT NULL,
   `type` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
+  `description` text NOT NULL,
   `created` int(11) NOT NULL,
   `modified` int(11) NOT NULL,
   `shared` tinyint NOT NULL,

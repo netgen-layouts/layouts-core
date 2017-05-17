@@ -168,17 +168,17 @@ UNLOCK TABLES;
 
 LOCK TABLES `ngbm_layout` WRITE;
 /*!40000 ALTER TABLE `ngbm_layout` DISABLE KEYS */;
-INSERT INTO `ngbm_layout` VALUES (1,0,'4_zones_a','My layout',1447065813,1447065813,0);
-INSERT INTO `ngbm_layout` VALUES (1,1,'4_zones_a','My layout',1447065813,1447065813,0);
-INSERT INTO `ngbm_layout` VALUES (2,0,'4_zones_b','My other layout',1447065813,1447065813,0);
-INSERT INTO `ngbm_layout` VALUES (2,1,'4_zones_b','My other layout',1447065813,1447065813,0);
-INSERT INTO `ngbm_layout` VALUES (3,0,'4_zones_b','My third layout',1447065813,1447065813,1);
-INSERT INTO `ngbm_layout` VALUES (3,1,'4_zones_b','My third layout',1447065813,1447065813,1);
-INSERT INTO `ngbm_layout` VALUES (4,0,'4_zones_b','My fourth layout',1447065813,1447065813,0);
-INSERT INTO `ngbm_layout` VALUES (5,0,'4_zones_b','My fifth layout',1447065813,1447065813,1);
-INSERT INTO `ngbm_layout` VALUES (5,1,'4_zones_b','My fifth layout',1447065813,1447065813,1);
-INSERT INTO `ngbm_layout` VALUES (6,1,'4_zones_b','My sixth layout',1447065813,1447065813,0);
-INSERT INTO `ngbm_layout` VALUES (7,0,'4_zones_b','My seventh layout',1447065813,1447065813,0);
+INSERT INTO `ngbm_layout` VALUES (1,0,'4_zones_a','My layout','My layout description',1447065813,1447065813,0);
+INSERT INTO `ngbm_layout` VALUES (1,1,'4_zones_a','My layout','My layout description',1447065813,1447065813,0);
+INSERT INTO `ngbm_layout` VALUES (2,0,'4_zones_b','My other layout','My other layout description',1447065813,1447065813,0);
+INSERT INTO `ngbm_layout` VALUES (2,1,'4_zones_b','My other layout','My other layout description',1447065813,1447065813,0);
+INSERT INTO `ngbm_layout` VALUES (3,0,'4_zones_b','My third layout','My third layout description',1447065813,1447065813,1);
+INSERT INTO `ngbm_layout` VALUES (3,1,'4_zones_b','My third layout','My third layout description',1447065813,1447065813,1);
+INSERT INTO `ngbm_layout` VALUES (4,0,'4_zones_b','My fourth layout','My fourth layout description',1447065813,1447065813,0);
+INSERT INTO `ngbm_layout` VALUES (5,0,'4_zones_b','My fifth layout','My fifth layout description',1447065813,1447065813,1);
+INSERT INTO `ngbm_layout` VALUES (5,1,'4_zones_b','My fifth layout','My fifth layout description',1447065813,1447065813,1);
+INSERT INTO `ngbm_layout` VALUES (6,1,'4_zones_b','My sixth layout','My sixth layout description',1447065813,1447065813,0);
+INSERT INTO `ngbm_layout` VALUES (7,0,'4_zones_b','My seventh layout','My seventh layout description',1447065813,1447065813,0);
 /*!40000 ALTER TABLE `ngbm_layout` ENABLE KEYS */;
 UNLOCK TABLES;
 

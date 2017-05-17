@@ -24,6 +24,7 @@ CREATE TABLE "ngbm_layout" (
   "status" integer NOT NULL,
   "type" character varying(255) NOT NULL,
   "name" character varying(255) NOT NULL,
+  "description" text NOT NULL,
   "created" integer NOT NULL,
   "modified" integer NOT NULL,
   "shared" boolean NOT NULL

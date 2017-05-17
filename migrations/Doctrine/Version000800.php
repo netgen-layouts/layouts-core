@@ -24,6 +24,8 @@ class Version000800 extends AbstractMigration
         $collectionQueryTable = $schema->getTable('ngbm_collection_query');
         $collectionQueryTable->dropColumn('position');
         $collectionQueryTable->dropColumn('identifier');
+
+        $this->addSql('ALTER TABLE ngbm_layout ADD COLUMN description text NOT NULL AFTER name');
     }
 
     /**
@@ -39,6 +41,9 @@ class Version000800 extends AbstractMigration
         $collectionTable->addColumn('type', 'integer');
         $collectionTable->addColumn('shared', 'boolean');
         $collectionTable->addColumn('name', 'string', array('length' => 255, 'notnull' => false));
+
+        $layoutTable = $schema->getTable('ngbm_layout');
+        $layoutTable->dropColumn('description');
 
         $collectionTable->addIndex(array('name'));
 

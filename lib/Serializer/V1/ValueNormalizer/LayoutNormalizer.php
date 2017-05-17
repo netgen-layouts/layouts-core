@@ -61,6 +61,7 @@ class LayoutNormalizer implements NormalizerInterface
             'updated_at' => $layout->getModified()->format(DateTime::ISO8601),
             'shared' => $layout->isShared(),
             'name' => $layout->getName(),
+            'description' => $layout->getDescription(),
             'zones' => $this->getZones($layout, $layoutType),
         );
 

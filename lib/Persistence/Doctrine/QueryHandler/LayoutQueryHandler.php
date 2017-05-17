@@ -278,6 +278,7 @@ class LayoutQueryHandler extends QueryHandler
                     'status' => ':status',
                     'type' => ':type',
                     'name' => ':name',
+                    'description' => ':description',
                     'created' => ':created',
                     'modified' => ':modified',
                     'shared' => ':shared',
@@ -287,6 +288,7 @@ class LayoutQueryHandler extends QueryHandler
             ->setParameter('status', $layoutCreateStruct->status, Type::INTEGER)
             ->setParameter('type', $layoutCreateStruct->type, Type::STRING)
             ->setParameter('name', trim($layoutCreateStruct->name), Type::STRING)
+            ->setParameter('description', $layoutCreateStruct->description, Type::STRING)
             ->setParameter('created', $currentTimeStamp, Type::INTEGER)
             ->setParameter('modified', $currentTimeStamp, Type::INTEGER)
             ->setParameter('shared', $layoutCreateStruct->shared, Type::BOOLEAN);
@@ -339,12 +341,14 @@ class LayoutQueryHandler extends QueryHandler
         $query
             ->update('ngbm_layout')
             ->set('name', ':name')
+            ->set('description', ':description')
             ->set('modified', ':modified')
             ->where(
                 $query->expr()->eq('id', ':id')
             )
             ->setParameter('id', $layout->id, Type::INTEGER)
             ->setParameter('name', $layoutUpdateStruct->name, Type::STRING)
+            ->setParameter('description', $layoutUpdateStruct->description, Type::STRING)
             ->setParameter('modified', $layoutUpdateStruct->modified, Type::INTEGER);
 
         $this->applyStatusCondition($query, $layout->status);
@@ -409,6 +413,7 @@ class LayoutQueryHandler extends QueryHandler
                     'status' => ':status',
                     'type' => ':type',
                     'name' => ':name',
+                    'description' => ':description',
                     'created' => ':created',
                     'modified' => ':modified',
                     'shared' => ':shared',
@@ -418,6 +423,7 @@ class LayoutQueryHandler extends QueryHandler
             ->setParameter('status', $newStatus, Type::INTEGER)
             ->setParameter('type', $layout->type, Type::STRING)
             ->setParameter('name', $layout->name, Type::STRING)
+            ->setParameter('description', $layout->description, Type::STRING)
             ->setParameter('created', $currentTimeStamp, Type::INTEGER)
             ->setParameter('modified', $currentTimeStamp, Type::INTEGER)
             ->setParameter('shared', $layout->shared, Type::BOOLEAN);
