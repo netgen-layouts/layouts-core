@@ -19,10 +19,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class BlockCollectionController extends Controller
 {
-    const NEW_TYPE_MANUAL = 'manual';
-
-    const NEW_TYPE_DYNAMIC = 'dynamic';
-
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService
      */
@@ -149,22 +145,22 @@ class BlockCollectionController extends Controller
     {
         $this->validator->validateChangeCollectionType($request);
 
-        $newType = $request->request->get('new_type');
+        $newType = (int) $request->request->get('new_type');
         $collection = $collectionReference->getCollection();
 
-        if ($newType === self::NEW_TYPE_MANUAL) {
+        $queryCreateStruct = null;
+
+        if ($newType === Collection::TYPE_MANUAL) {
             if ($collection->getType() === Collection::TYPE_MANUAL) {
                 // Noop
                 return new Response(null, Response::HTTP_NO_CONTENT);
             }
-
-            $this->collectionService->changeCollectionType($collection, Collection::TYPE_MANUAL);
-        } elseif ($newType === self::NEW_TYPE_DYNAMIC) {
+        } elseif ($newType === Collection::TYPE_DYNAMIC) {
             $queryType = $this->getQueryType($request->request->get('query_type'));
             $queryCreateStruct = $this->collectionService->newQueryCreateStruct($queryType);
-
-            $this->collectionService->changeCollectionType($collection, Collection::TYPE_DYNAMIC, $queryCreateStruct);
         }
+
+        $this->collectionService->changeCollectionType($collection, $newType, $queryCreateStruct);
 
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
