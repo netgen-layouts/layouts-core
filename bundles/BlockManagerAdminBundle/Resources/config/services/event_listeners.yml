@@ -6,6 +6,13 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
+    netgen_block_manager.event_listener.layout_view.related_layouts_count:
+        class: Netgen\Bundle\BlockManagerAdminBundle\EventListener\LayoutView\RelatedLayoutsCountListener
+        arguments:
+            - "@netgen_block_manager.api.service.layout"
+        tags:
+            - { name: kernel.event_subscriber }
+
     netgen_block_manager.event_listener.rule_view.rule_count:
         class: Netgen\Bundle\BlockManagerAdminBundle\EventListener\RuleView\RuleCountListener
         arguments:
