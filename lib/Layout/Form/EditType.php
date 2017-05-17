@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Layout\Form;
 
 use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
+use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\BlockManager\Form\AbstractType;
 use Netgen\BlockManager\Validator\Constraint\LayoutName;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
-class CopyType extends AbstractType
+class EditType extends AbstractType
 {
     /**
      * Configures the options for this type.
@@ -25,7 +25,7 @@ class CopyType extends AbstractType
 
         $resolver->setRequired('layout');
         $resolver->setAllowedTypes('layout', Layout::class);
-        $resolver->setAllowedTypes('data', LayoutCopyStruct::class);
+        $resolver->setAllowedTypes('data', LayoutUpdateStruct::class);
     }
 
     /**
@@ -41,6 +41,7 @@ class CopyType extends AbstractType
             TextType::class,
             array(
                 'label' => 'layout.name',
+                'required' => true,
                 'constraints' => array(
                     new Constraints\NotBlank(),
                     new LayoutName(),

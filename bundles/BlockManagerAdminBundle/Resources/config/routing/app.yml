@@ -25,6 +25,12 @@ ngbm_app_layout_form_create:
     defaults:
         _controller: "netgen_block_manager.controller.app.layout:layoutCreateForm"
 
+ngbm_app_layout_form_edit:
+    path: /app/layouts/{layoutId}/form/edit
+    methods: [GET, POST]
+    defaults:
+        _controller: "netgen_block_manager.controller.app.layout:layoutEditForm"
+
 ngbm_app_block_form_edit:
     path: /app/blocks/{blockId}/form/edit/{formName}
     methods: [GET, POST]

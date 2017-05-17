@@ -5,6 +5,10 @@ view:
                 template: "NetgenBlockManagerAdminBundle:app/form/layout:create.html.twig"
                 match:
                     form\type: Netgen\BlockManager\Layout\Form\CreateType
+            layout\edit:
+                template: "NetgenBlockManagerAdminBundle:app/form/layout:edit.html.twig"
+                match:
+                    form\type: Netgen\BlockManager\Layout\Form\EditType
             block\full_edit:
                 template: "NetgenBlockManagerAdminBundle:app/form/block/edit:full.html.twig"
                 match:

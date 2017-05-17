@@ -24,10 +24,12 @@ class CopyTypeTest extends FormTestCase
     {
         $submittedData = array(
             'name' => 'New name',
+            'description' => 'New description',
         );
 
         $updatedStruct = new LayoutCopyStruct();
         $updatedStruct->name = 'New name';
+        $updatedStruct->description = 'New description';
 
         $form = $this->factory->create(
             CopyType::class,

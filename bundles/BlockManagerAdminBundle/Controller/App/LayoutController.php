@@ -3,8 +3,11 @@
 namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\App;
 
 use Netgen\BlockManager\API\Service\LayoutService;
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
+use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\BlockManager\Layout\Form\CreateType;
+use Netgen\BlockManager\Layout\Form\EditType;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -64,6 +67,52 @@ class LayoutController extends Controller
                 ),
                 Response::HTTP_CREATED
             );
+        }
+
+        return $this->buildView(
+            $form,
+            ViewInterface::CONTEXT_API,
+            array(),
+            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
+        );
+    }
+
+    /**
+     * Displays and processes layout update form.
+     *
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Netgen\BlockManager\View\ViewInterface
+     */
+    public function layoutEditForm(Layout $layout, Request $request)
+    {
+        $updateStruct = new LayoutUpdateStruct();
+
+        $form = $this->createForm(
+            EditType::class,
+            $updateStruct,
+            array(
+                'layout' => $layout,
+                'action' => $this->generateUrl(
+                    'ngbm_app_layout_form_edit',
+                    array(
+                        'layoutId' => $layout->getId(),
+                    )
+                ),
+            )
+        );
+
+        $form->handleRequest($request);
+
+        if (!$form->isSubmitted()) {
+            return $this->buildView($form, ViewInterface::CONTEXT_API);
+        }
+
+        if ($form->isValid()) {
+            $updatedLayout = $this->layoutService->updateLayout($layout, $updateStruct);
+
+            return $this->buildView($updatedLayout, ViewInterface::CONTEXT_API);
         }
 
         return $this->buildView(
