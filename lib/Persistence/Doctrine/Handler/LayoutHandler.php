@@ -212,8 +212,10 @@ class LayoutHandler implements LayoutHandlerInterface
     public function createLayout(LayoutCreateStruct $layoutCreateStruct, array $zoneCreateStructs = array())
     {
         $layoutCreateStruct->name = trim($layoutCreateStruct->name);
-        $layoutCreateStruct->description = trim($layoutCreateStruct->description);
         $layoutCreateStruct->shared = $layoutCreateStruct->shared ? true : false;
+        $layoutCreateStruct->description = $layoutCreateStruct->description !== null ?
+            trim($layoutCreateStruct->description) :
+            $layoutCreateStruct->description;
 
         $createdLayoutId = $this->queryHandler->createLayout($layoutCreateStruct);
 
