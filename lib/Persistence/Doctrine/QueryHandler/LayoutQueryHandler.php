@@ -83,7 +83,7 @@ class LayoutQueryHandler extends QueryHandler
         $query->setParameter('status', Value::STATUS_PUBLISHED, Type::INTEGER);
 
         $this->applyOffsetAndLimit($query, $offset, $limit);
-        $query->orderBy('id', 'ASC');
+        $query->orderBy('name', 'ASC');
 
         return $query->execute()->fetchAll();
     }
@@ -95,7 +95,7 @@ class LayoutQueryHandler extends QueryHandler
      * @param int $offset
      * @param int $limit
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout[]
+     * @return array
      */
     public function loadRelatedLayoutsData(Layout $sharedLayout, $offset = 0, $limit = null)
     {
@@ -122,7 +122,7 @@ class LayoutQueryHandler extends QueryHandler
         ->setParameter('linked_layout_id', $sharedLayout->id, Type::INTEGER);
 
         $this->applyOffsetAndLimit($query, $offset, $limit);
-        $query->orderBy('id', 'ASC');
+        $query->orderBy('ngbm_layout.name', 'ASC');
 
         return $query->execute()->fetchAll();
     }

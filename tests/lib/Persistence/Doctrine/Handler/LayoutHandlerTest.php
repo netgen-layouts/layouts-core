@@ -185,6 +185,18 @@ class LayoutHandlerTest extends TestCase
             array(
                 new Layout(
                     array(
+                        'id' => 4,
+                        'type' => '4_zones_b',
+                        'name' => 'My fourth layout',
+                        'description' => 'My fourth layout description',
+                        'created' => 1447065813,
+                        'modified' => 1447065813,
+                        'status' => Value::STATUS_DRAFT,
+                        'shared' => false,
+                    )
+                ),
+                new Layout(
+                    array(
                         'id' => 1,
                         'type' => '4_zones_a',
                         'name' => 'My layout',
@@ -209,10 +221,10 @@ class LayoutHandlerTest extends TestCase
                 ),
                 new Layout(
                     array(
-                        'id' => 4,
+                        'id' => 7,
                         'type' => '4_zones_b',
-                        'name' => 'My fourth layout',
-                        'description' => 'My fourth layout description',
+                        'name' => 'My seventh layout',
+                        'description' => 'My seventh layout description',
                         'created' => 1447065813,
                         'modified' => 1447065813,
                         'status' => Value::STATUS_DRAFT,
@@ -228,18 +240,6 @@ class LayoutHandlerTest extends TestCase
                         'created' => 1447065813,
                         'modified' => 1447065813,
                         'status' => Value::STATUS_PUBLISHED,
-                        'shared' => false,
-                    )
-                ),
-                new Layout(
-                    array(
-                        'id' => 7,
-                        'type' => '4_zones_b',
-                        'name' => 'My seventh layout',
-                        'description' => 'My seventh layout description',
-                        'created' => 1447065813,
-                        'modified' => 1447065813,
-                        'status' => Value::STATUS_DRAFT,
                         'shared' => false,
                     )
                 ),
@@ -259,10 +259,10 @@ class LayoutHandlerTest extends TestCase
             array(
                 new Layout(
                     array(
-                        'id' => 3,
+                        'id' => 5,
                         'type' => '4_zones_b',
-                        'name' => 'My third layout',
-                        'description' => 'My third layout description',
+                        'name' => 'My fifth layout',
+                        'description' => 'My fifth layout description',
                         'created' => 1447065813,
                         'modified' => 1447065813,
                         'status' => Value::STATUS_PUBLISHED,
@@ -271,10 +271,10 @@ class LayoutHandlerTest extends TestCase
                 ),
                 new Layout(
                     array(
-                        'id' => 5,
+                        'id' => 3,
                         'type' => '4_zones_b',
-                        'name' => 'My fifth layout',
-                        'description' => 'My fifth layout description',
+                        'name' => 'My third layout',
+                        'description' => 'My third layout description',
                         'created' => 1447065813,
                         'modified' => 1447065813,
                         'status' => Value::STATUS_PUBLISHED,
