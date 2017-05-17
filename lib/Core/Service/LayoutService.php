@@ -618,10 +618,16 @@ class LayoutService extends Service implements LayoutServiceInterface
             $this->handler->deleteLayout($persistenceLayout->id, Value::STATUS_ARCHIVED);
 
             if ($this->handler->layoutExists($persistenceLayout->id, Value::STATUS_PUBLISHED)) {
-                $this->handler->createLayoutStatus(
+                $archivedLayout = $this->handler->createLayoutStatus(
                     $this->handler->loadLayout($persistenceLayout->id, Value::STATUS_PUBLISHED),
                     Value::STATUS_ARCHIVED
                 );
+
+                // Update the archived layout to blank the name in order not to block
+                // usage of the old layout name.
+                // When restoring from archive, we need to reuse the name of the published
+                // layout.
+                $this->handler->updateLayout($archivedLayout, new LayoutUpdateStruct(array('name' => '')));
 
                 $this->handler->deleteLayout($persistenceLayout->id, Value::STATUS_PUBLISHED);
             }
