@@ -3,14 +3,17 @@
 {% trans_default_domain 'ngbm_admin' %}
 
 <div class="nl-layout-content" data-id="{{ layout.id }}" {% if layout.published %}data-published="true"{% endif %}>
-    <div class="nl-panel-head">
-        <div class="panel-head-title">
+    <div class="nl-layout-info">
 
-            <div class="panel-icon">
-                <i class="layout-icon {{ layout.layoutType.identifier }}"></i>
+        <div class="nl-layout-type">
+            <div class="nl-layout-icon">
+                <i class="layout-icon {{ layout.layoutType.identifier }}" title="{{ layout.layoutType.name }}"></i>
             </div>
+            <p>{{ layout.layoutType.name }}</p>
+        </div>
 
-            <div class="panel-name">
+        <div class="nl-layout-text">
+            <div class="nl-layout-name">
                 {% if is_granted('ROLE_NGBM_EDITOR') %}
                     <a href="{{ macros.layout_path(layout.id) }}" class="js-open-bm">{{ layout.name }}</a>
                 {% else %}
@@ -18,30 +21,35 @@
                 {% endif %}
             </div>
 
+            <div class="nl-layout-description">
+                <p></p>
+            </div>
+
             {% if not layout.published %}
                 <span class="unpublished-label">{{ 'layouts.layout.unpublished_draft'|trans }}</span>
             {% endif %}
-
-            <div class="nl-dropdown" data-position="right">
-                <button class="nl-btn nl-btn-icon nl-dropdown-toggle">
-                    <i class="material-icons">more_vert</i>
-                </button>
-                <ul class="nl-dropdown-menu">
-                    {% if is_granted('ROLE_NGBM_EDITOR') %}
-                        <li><a href="{{ macros.layout_path(layout.id) }}" class="js-layout-edit js-open-bm">{{ 'layouts.layout.edit_layout'|trans }}</a></li>
-                    {% endif %}
-
-                    <li><a href="#" class="js-layout-copy">{{ 'layouts.layout.copy_layout'|trans }}</a></li>
-                    <li><a href="#" class="js-layout-delete">{{ 'layouts.layout.delete_layout'|trans }}</a></li>
-                </ul>
-            </div>
-
         </div>
+    </div>
 
-        <div class="panel-head-info">
+    <div class="nl-layout-actions">
+        <div class="nl-layout-data">
             <div class="meta-info nl-tt" title="{{ 'layouts.layout.number_of_rules'|trans }}">
                 <i class="material-icons" role="presentation">dns</i> <span class="meta-badge js-target-counter">{{ rule_count }}</span>
             </div>
+        </div>
+
+        <div class="nl-dropdown" data-position="right">
+            <button class="nl-btn nl-dropdown-toggle">
+                <i class="material-icons">more_horiz</i>
+            </button>
+            <ul class="nl-dropdown-menu">
+                {% if is_granted('ROLE_NGBM_EDITOR') %}
+                    <li><a href="{{ macros.layout_path(layout.id) }}" class="js-layout-edit js-open-bm">{{ 'layouts.layout.edit_layout'|trans }}</a></li>
+                {% endif %}
+
+                <li><a href="#" class="js-layout-copy">{{ 'layouts.layout.copy_layout'|trans }}</a></li>
+                <li><a href="#" class="js-layout-delete">{{ 'layouts.layout.delete_layout'|trans }}</a></li>
+            </ul>
         </div>
     </div>
 </div>
