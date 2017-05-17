@@ -505,6 +505,7 @@ class LayoutService extends Service implements LayoutServiceInterface
                 new LayoutCopyStruct(
                     array(
                         'name' => $layoutCopyStruct->name,
+                        'description' => $layoutCopyStruct->description,
                     )
                 )
             );

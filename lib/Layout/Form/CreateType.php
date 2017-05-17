@@ -100,6 +100,10 @@ class CreateType extends AbstractType
             TextareaType::class,
             array(
                 'label' => 'layout.description',
+                'required' => false,
+                'constraints' => array(
+                    new Constraints\Type(array('type' => 'string')),
+                ),
                 'property_path' => 'description',
             )
         );

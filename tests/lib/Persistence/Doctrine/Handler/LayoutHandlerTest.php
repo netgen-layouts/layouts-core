@@ -704,6 +704,7 @@ class LayoutHandlerTest extends TestCase
 
         $copyStruct = new LayoutCopyStruct();
         $copyStruct->name = 'New name';
+        $copyStruct->description = 'New description';
 
         $copiedLayout = $this->layoutHandler->copyLayout(
             $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED),
@@ -715,6 +716,7 @@ class LayoutHandlerTest extends TestCase
         $this->assertEquals(8, $copiedLayout->id);
         $this->assertEquals('4_zones_a', $copiedLayout->type);
         $this->assertEquals('New name', $copiedLayout->name);
+        $this->assertEquals('New description', $copiedLayout->description);
         $this->assertEquals(Value::STATUS_PUBLISHED, $copiedLayout->status);
         $this->assertFalse($copiedLayout->shared);
 

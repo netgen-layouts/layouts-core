@@ -10,4 +10,9 @@ class LayoutCopyStruct extends ValueObject
      * @var string
      */
     public $name;
+
+    /**
+     * @var string
+     */
+    public $description;
 }

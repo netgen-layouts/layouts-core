@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\Form\AbstractType;
 use Netgen\BlockManager\Validator\Constraint\LayoutName;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -45,6 +46,24 @@ class CopyType extends AbstractType
                     new LayoutName(),
                 ),
                 'property_path' => 'name',
+            )
+        );
+
+        $builder->add(
+            'description',
+            TextareaType::class,
+            array(
+                'label' => 'layout.description',
+                'required' => false,
+                'constraints' => array(
+                    new Constraints\Type(array('type' => 'string')),
+                ),
+                'property_path' => 'description',
+                // null and empty string have different meanings for name
+                // so we set the default value to a single space (instead of
+                // an empty string) because of
+                // https://github.com/symfony/symfony/issues/5906
+                'empty_data' => ' ',
             )
         );
     }

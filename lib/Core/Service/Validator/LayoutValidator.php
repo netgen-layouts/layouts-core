@@ -32,11 +32,11 @@ class LayoutValidator extends Validator
             'name'
         );
 
-        if ($layoutCreateStruct->description !== null) {
-            $layoutDescription = is_string($layoutCreateStruct->description) ?
-                trim($layoutCreateStruct->description) :
-                $layoutCreateStruct->description;
+        $layoutDescription = is_string($layoutCreateStruct->description) ?
+            trim($layoutCreateStruct->description) :
+            $layoutCreateStruct->description;
 
+        if ($layoutDescription !== null) {
             $this->validate(
                 $layoutDescription,
                 array(
@@ -110,5 +110,19 @@ class LayoutValidator extends Validator
             ),
             'name'
         );
+
+        $layoutDescription = is_string($layoutCopyStruct->description) ?
+            trim($layoutCopyStruct->description) :
+            $layoutCopyStruct->description;
+
+        if ($layoutDescription !== null) {
+            $this->validate(
+                $layoutDescription,
+                array(
+                    new Constraints\Type(array('type' => 'string')),
+                ),
+                'description'
+            );
+        }
     }
 }
