@@ -90,6 +90,7 @@ abstract class LayoutMapperTest extends ServiceTestCase
                 'id' => 1,
                 'type' => '4_zones_a',
                 'name' => 'My layout',
+                'description' => 'My description',
                 'created' => 1447065813,
                 'modified' => 1447065813,
                 'status' => Value::STATUS_PUBLISHED,
@@ -107,6 +108,7 @@ abstract class LayoutMapperTest extends ServiceTestCase
         $this->assertInstanceOf(APILayout::class, $layout);
         $this->assertEquals(1, $layout->getId());
         $this->assertEquals('My layout', $layout->getName());
+        $this->assertEquals('My description', $layout->getDescription());
         $this->assertInstanceOf(DateTime::class, $layout->getCreated());
         $this->assertEquals(1447065813, $layout->getCreated()->getTimestamp());
         $this->assertInstanceOf(DateTime::class, $layout->getModified());

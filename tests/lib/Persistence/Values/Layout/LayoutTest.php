@@ -15,6 +15,7 @@ class LayoutTest extends TestCase
         $this->assertNull($layout->id);
         $this->assertNull($layout->type);
         $this->assertNull($layout->name);
+        $this->assertNull($layout->description);
         $this->assertNull($layout->shared);
         $this->assertNull($layout->created);
         $this->assertNull($layout->modified);
@@ -28,6 +29,7 @@ class LayoutTest extends TestCase
                 'id' => 42,
                 'type' => '4_zones_a',
                 'name' => 'My layout',
+                'description' => 'My description',
                 'shared' => true,
                 'created' => 123,
                 'modified' => 456,
@@ -38,6 +40,7 @@ class LayoutTest extends TestCase
         $this->assertEquals(42, $layout->id);
         $this->assertEquals('4_zones_a', $layout->type);
         $this->assertEquals('My layout', $layout->name);
+        $this->assertEquals('My description', $layout->description);
         $this->assertEquals(true, $layout->shared);
         $this->assertEquals(123, $layout->created);
         $this->assertEquals(456, $layout->modified);

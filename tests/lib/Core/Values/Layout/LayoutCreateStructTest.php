@@ -14,6 +14,7 @@ class LayoutCreateStructTest extends TestCase
 
         $this->assertNull($layoutCreateStruct->layoutType);
         $this->assertNull($layoutCreateStruct->name);
+        $this->assertNull($layoutCreateStruct->description);
         $this->assertNull($layoutCreateStruct->shared);
     }
 
@@ -23,12 +24,14 @@ class LayoutCreateStructTest extends TestCase
             array(
                 'layoutType' => new LayoutType(),
                 'name' => 'My layout',
+                'description' => 'My description',
                 'shared' => true,
             )
         );
 
         $this->assertEquals(new LayoutType(), $layoutCreateStruct->layoutType);
         $this->assertEquals('My layout', $layoutCreateStruct->name);
+        $this->assertEquals('My description', $layoutCreateStruct->description);
         $this->assertTrue($layoutCreateStruct->shared);
     }
 }

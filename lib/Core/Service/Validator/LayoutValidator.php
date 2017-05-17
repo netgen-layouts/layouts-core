@@ -83,6 +83,7 @@ class LayoutValidator extends Validator
             $this->validate(
                 $layoutName,
                 array(
+                    new Constraints\NotBlank(),
                     new Constraints\Type(array('type' => 'string')),
                 ),
                 'name'

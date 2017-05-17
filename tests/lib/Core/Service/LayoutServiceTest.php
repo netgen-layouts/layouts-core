@@ -416,12 +416,14 @@ abstract class LayoutServiceTest extends ServiceTestCase
 
         $layoutUpdateStruct = $this->layoutService->newLayoutUpdateStruct();
         $layoutUpdateStruct->name = 'New name';
+        $layoutUpdateStruct->description = 'New description';
 
         $updatedLayout = $this->layoutService->updateLayout($layout, $layoutUpdateStruct);
 
         $this->assertFalse($updatedLayout->isPublished());
         $this->assertInstanceOf(Layout::class, $updatedLayout);
         $this->assertEquals('New name', $updatedLayout->getName());
+        $this->assertEquals('New description', $updatedLayout->getDescription());
     }
 
     /**
@@ -464,6 +466,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     {
         $copyStruct = new LayoutCopyStruct();
         $copyStruct->name = 'New name';
+        $copyStruct->description = 'New description';
 
         $layout = $this->layoutService->loadLayout(1);
         $copiedLayout = $this->layoutService->copyLayout($layout, $copyStruct);
@@ -473,6 +476,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
 
         $this->assertEquals(8, $copiedLayout->getId());
         $this->assertEquals('New name', $copiedLayout->getName());
+        $this->assertEquals('New description', $copiedLayout->getDescription());
     }
 
     /**

@@ -12,6 +12,7 @@ class LayoutUpdateStructTest extends TestCase
         $layoutUpdateStruct = new LayoutUpdateStruct();
 
         $this->assertNull($layoutUpdateStruct->name);
+        $this->assertNull($layoutUpdateStruct->description);
     }
 
     public function testSetProperties()
@@ -19,9 +20,11 @@ class LayoutUpdateStructTest extends TestCase
         $layoutUpdateStruct = new LayoutUpdateStruct(
             array(
                 'name' => 'My layout',
+                'description' => 'My description',
             )
         );
 
         $this->assertEquals('My layout', $layoutUpdateStruct->name);
+        $this->assertEquals('My description', $layoutUpdateStruct->description);
     }
 }

@@ -519,6 +519,7 @@ class LayoutHandlerTest extends TestCase
         $layoutCreateStruct = new LayoutCreateStruct();
         $layoutCreateStruct->type = 'new_layout';
         $layoutCreateStruct->name = 'New layout';
+        $layoutCreateStruct->description = 'New description';
         $layoutCreateStruct->shared = true;
         $layoutCreateStruct->status = Value::STATUS_DRAFT;
 
@@ -537,6 +538,7 @@ class LayoutHandlerTest extends TestCase
         $this->assertEquals(8, $createdLayout->id);
         $this->assertEquals('new_layout', $createdLayout->type);
         $this->assertEquals('New layout', $createdLayout->name);
+        $this->assertEquals('New description', $createdLayout->description);
         $this->assertEquals(Value::STATUS_DRAFT, $createdLayout->status);
         $this->assertTrue($createdLayout->shared);
 
@@ -653,6 +655,7 @@ class LayoutHandlerTest extends TestCase
     {
         $layoutUpdateStruct = new LayoutUpdateStruct();
         $layoutUpdateStruct->name = 'New name';
+        $layoutUpdateStruct->description = 'New description';
         $layoutUpdateStruct->modified = 123;
 
         $originalLayout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
@@ -663,6 +666,7 @@ class LayoutHandlerTest extends TestCase
 
         $this->assertInstanceOf(Layout::class, $updatedLayout);
         $this->assertEquals('New name', $updatedLayout->name);
+        $this->assertEquals('New description', $updatedLayout->description);
         $this->assertEquals(123, $updatedLayout->modified);
     }
 
@@ -682,6 +686,7 @@ class LayoutHandlerTest extends TestCase
 
         $this->assertInstanceOf(Layout::class, $updatedLayout);
         $this->assertEquals('My layout', $updatedLayout->name);
+        $this->assertEquals('My layout description', $updatedLayout->description);
         $this->assertEquals(1447065813, $updatedLayout->modified);
     }
 
@@ -907,6 +912,7 @@ class LayoutHandlerTest extends TestCase
         $this->assertEquals(1, $copiedLayout->id);
         $this->assertEquals('4_zones_a', $copiedLayout->type);
         $this->assertEquals('My layout', $copiedLayout->name);
+        $this->assertEquals('My layout description', $copiedLayout->description);
         $this->assertEquals(Value::STATUS_ARCHIVED, $copiedLayout->status);
         $this->assertFalse($copiedLayout->shared);
 
