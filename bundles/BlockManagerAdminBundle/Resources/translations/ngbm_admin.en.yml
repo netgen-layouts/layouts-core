@@ -54,7 +54,7 @@ layout_resolver.target.route_prefix: 'Route prefix'
 layout_resolver.condition.route_parameter: 'Route parameter'
 
 layouts.title: 'Layouts'
-layouts.create_layout: 'Create layout'
+layouts.new_layout: 'New layout'
 layouts.no_layouts: 'There are no layouts defined'
 
 layouts.layout.unpublished_draft: 'Unpublished draft'
@@ -68,7 +68,7 @@ layouts.layout.layout_type: 'Layout type'
 layouts.layout.mappings: 'Mappings'
 
 shared_layouts.title: 'Shared layouts'
-shared_layouts.create_layout: 'Create shared layout'
+shared_layouts.new_layout: 'New shared layout'
 shared_layouts.no_layouts: 'There are no shared layouts defined'
 shared_layouts.references: 'References'
 shared_layouts.number_of_references: 'Number of layouts which use this shared layout'
