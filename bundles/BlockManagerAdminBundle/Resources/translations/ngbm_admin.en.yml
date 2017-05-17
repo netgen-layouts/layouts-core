@@ -54,7 +54,7 @@ layout_resolver.target.route_prefix: 'Route prefix'
 layout_resolver.condition.route_parameter: 'Route parameter'
 
 layouts.title: 'Layouts'
-layouts.new_layout: 'New layout'
+layouts.create_layout: 'Create layout'
 layouts.no_layouts: 'There are no layouts defined'
 
 layouts.layout.unpublished_draft: 'Unpublished draft'
