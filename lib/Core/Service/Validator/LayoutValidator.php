@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Core\Service\Validator;
 
+use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\BlockManager\Layout\Type\LayoutType;
@@ -75,22 +76,25 @@ class LayoutValidator extends Validator
     }
 
     /**
-     * Validates layout name.
+     * Validates layout create struct.
      *
-     * @param string $layoutName
-     * @param string $propertyPath
+     * @param \Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct $layoutCopyStruct
      *
      * @throws \Netgen\BlockManager\Exception\ValidationFailedException If the validation failed
      */
-    public function validateLayoutName($layoutName, $propertyPath)
+    public function validateLayoutCopyStruct(LayoutCopyStruct $layoutCopyStruct)
     {
+        $layoutName = is_string($layoutCopyStruct->name) ?
+            trim($layoutCopyStruct->name) :
+            $layoutCopyStruct->name;
+
         $this->validate(
             $layoutName,
             array(
                 new Constraints\NotBlank(),
                 new Constraints\Type(array('type' => 'string')),
             ),
-            $propertyPath
+            'name'
         );
     }
 }

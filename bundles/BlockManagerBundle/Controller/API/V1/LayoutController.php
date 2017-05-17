@@ -5,6 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Layout\Layout;
+use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
@@ -215,10 +216,10 @@ class LayoutController extends Controller
      */
     public function copy(Layout $layout, Request $request)
     {
-        $copiedLayout = $this->layoutService->copyLayout(
-            $layout,
-            $request->request->get('name')
-        );
+        $copyStruct = new LayoutCopyStruct();
+        $copyStruct->name = $request->request->get('name');
+
+        $copiedLayout = $this->layoutService->copyLayout($layout, $copyStruct);
 
         return new View($copiedLayout, Version::API_V1, Response::HTTP_CREATED);
     }

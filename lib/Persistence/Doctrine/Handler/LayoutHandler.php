@@ -9,6 +9,7 @@ use Netgen\BlockManager\Persistence\Handler\BlockHandler as BaseBlockHandler;
 use Netgen\BlockManager\Persistence\Handler\LayoutHandler as LayoutHandlerInterface;
 use Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout;
+use Netgen\BlockManager\Persistence\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\LayoutUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone;
@@ -296,17 +297,21 @@ class LayoutHandler implements LayoutHandlerInterface
      * Copies the layout.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
-     * @param string $newName
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\LayoutCopyStruct $layoutCopyStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
      */
-    public function copyLayout(Layout $layout, $newName)
+    public function copyLayout(Layout $layout, LayoutCopyStruct $layoutCopyStruct)
     {
+        $layoutCopyStruct->name = $layoutCopyStruct->name !== null ?
+            trim($layoutCopyStruct->name) :
+            $layout->name;
+
         $copiedLayout = $this->createLayout(
             new LayoutCreateStruct(
                 array(
                     'type' => $layout->type,
-                    'name' => $newName,
+                    'name' => $layoutCopyStruct->name,
                     'status' => $layout->status,
                     'shared' => $layout->shared,
                 )

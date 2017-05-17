@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
+use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
@@ -73,20 +74,22 @@ class LayoutValidatorTest extends TestCase
     }
 
     /**
-     * @param string $layoutName
+     * @param array $params
      * @param bool $isValid
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutValidator::validateLayoutName
-     * @dataProvider validateLayoutNameDataProvider
+     * @dataProvider validateLayoutCopyStructDataProvider
      * @doesNotPerformAssertions
      */
-    public function testValidateLayoutName($layoutName, $isValid)
+    public function testValidateLayoutCopyStruct(array $params, $isValid)
     {
         if (!$isValid) {
             $this->expectException(ValidationFailedException::class);
         }
 
-        $this->layoutValidator->validateLayoutName($layoutName, 'name');
+        $this->layoutValidator->validateLayoutCopyStruct(
+            new LayoutCopyStruct($params)
+        );
     }
 
     public function validateLayoutCreateStructDataProvider()
@@ -117,13 +120,13 @@ class LayoutValidatorTest extends TestCase
         );
     }
 
-    public function validateLayoutNameDataProvider()
+    public function validateLayoutCopyStructDataProvider()
     {
         return array(
-            array('New name', true),
-            array(23, false),
-            array(null, false),
-            array('', false),
+            array(array('name' => 'New name'), true),
+            array(array('name' => 23), false),
+            array(array('name' => null), false),
+            array(array('name' => ''), false),
         );
     }
 

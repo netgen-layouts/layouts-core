@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Core\Service;
 use Exception;
 use Netgen\BlockManager\API\Service\LayoutService as LayoutServiceInterface;
 use Netgen\BlockManager\API\Values\Layout\Layout;
+use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct as APILayoutCopyStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct as APILayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct as APILayoutUpdateStruct;
 use Netgen\BlockManager\API\Values\Layout\Zone;
@@ -15,6 +16,7 @@ use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Persistence\Handler;
+use Netgen\BlockManager\Persistence\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\LayoutUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\ZoneCreateStruct;
@@ -477,19 +479,18 @@ class LayoutService extends Service implements LayoutServiceInterface
      * Copies a specified layout.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param string $newName
+     * @param \Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct $layoutCopyStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If layout with provided name already exists
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
-    public function copyLayout(Layout $layout, $newName)
+    public function copyLayout(Layout $layout, APILayoutCopyStruct $layoutCopyStruct)
     {
-        $newName = is_string($newName) ? trim($newName) : $newName;
-        $this->validator->validateLayoutName($newName, 'newName');
+        $this->validator->validateLayoutCopyStruct($layoutCopyStruct);
 
-        if ($this->handler->layoutNameExists($newName, $layout->getId())) {
-            throw new BadStateException('newName', 'Layout with provided name already exists.');
+        if ($this->handler->layoutNameExists($layoutCopyStruct->name, $layout->getId())) {
+            throw new BadStateException('layoutCopyStruct', 'Layout with provided name already exists.');
         }
 
         $persistenceLayout = $this->handler->loadLayout($layout->getId(), $layout->getStatus());
@@ -497,7 +498,14 @@ class LayoutService extends Service implements LayoutServiceInterface
         $this->persistenceHandler->beginTransaction();
 
         try {
-            $copiedLayout = $this->handler->copyLayout($persistenceLayout, $newName);
+            $copiedLayout = $this->handler->copyLayout(
+                $persistenceLayout,
+                new LayoutCopyStruct(
+                    array(
+                        'name' => $layoutCopyStruct->name,
+                    )
+                )
+            );
         } catch (Exception $e) {
             $this->persistenceHandler->rollbackTransaction();
             throw $e;

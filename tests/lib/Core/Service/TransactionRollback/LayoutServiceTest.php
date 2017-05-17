@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
 use Exception;
+use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
@@ -180,7 +181,7 @@ class LayoutServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->copyLayout(new Layout(), 'New name');
+        $this->layoutService->copyLayout(new Layout(), new LayoutCopyStruct());
     }
 
     /**

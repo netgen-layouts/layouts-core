@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Values\Block\Block;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout;
+use Netgen\BlockManager\Persistence\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\LayoutUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone;
@@ -689,9 +690,12 @@ class LayoutHandlerTest extends TestCase
             )
         );
 
+        $copyStruct = new LayoutCopyStruct();
+        $copyStruct->name = 'New name';
+
         $copiedLayout = $this->layoutHandler->copyLayout(
             $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED),
-            'New name'
+            $copyStruct
         );
 
         $this->assertInstanceOf(Layout::class, $copiedLayout);

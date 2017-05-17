@@ -2,14 +2,31 @@
 
 namespace Netgen\BlockManager\Layout\Form;
 
+use Netgen\BlockManager\API\Values\Layout\Layout;
+use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\Form\AbstractType;
 use Netgen\BlockManager\Validator\Constraint\LayoutName;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
 class CopyType extends AbstractType
 {
+    /**
+     * Configures the options for this type.
+     *
+     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver The resolver for the options
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        parent::configureOptions($resolver);
+
+        $resolver->setRequired('layout');
+        $resolver->setAllowedTypes('layout', Layout::class);
+        $resolver->setAllowedTypes('data', LayoutCopyStruct::class);
+    }
+
     /**
      * Builds the form.
      *
@@ -27,6 +44,7 @@ class CopyType extends AbstractType
                     new Constraints\NotBlank(),
                     new LayoutName(),
                 ),
+                'property_path' => 'name',
             )
         );
     }

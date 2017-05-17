@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\API\Service;
 
 use Netgen\BlockManager\API\Values\Layout\Layout;
+use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\BlockManager\API\Values\Layout\Zone;
@@ -168,13 +169,13 @@ interface LayoutService extends Service
      * Copies a specified layout.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param string $newName
+     * @param \Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct $layoutCopyStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If layout with provided name already exists
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
-    public function copyLayout(Layout $layout, $newName);
+    public function copyLayout(Layout $layout, LayoutCopyStruct $layoutCopyStruct);
 
     /**
      * Creates a layout draft.

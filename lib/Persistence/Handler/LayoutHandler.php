@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Persistence\Handler;
 
 use Netgen\BlockManager\Persistence\Values\Layout\Layout;
+use Netgen\BlockManager\Persistence\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\LayoutUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone;
@@ -155,11 +156,11 @@ interface LayoutHandler
      * Copies the layout.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
-     * @param string $newName
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\LayoutCopyStruct $layoutCopyStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
      */
-    public function copyLayout(Layout $layout, $newName);
+    public function copyLayout(Layout $layout, LayoutCopyStruct $layoutCopyStruct);
 
     /**
      * Creates a new layout status.

@@ -4,6 +4,7 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin;
 
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Layout\Layout;
+use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\Layout\Form\CopyType;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
@@ -52,10 +53,14 @@ class LayoutsController extends Controller
      */
     public function copyLayout(Layout $layout, Request $request)
     {
+        $copyStruct = new LayoutCopyStruct();
+        $copyStruct->name = $layout->getName() . ' (copy)';
+
         $form = $this->createForm(
             CopyType::class,
-            array('name' => $layout->getName() . ' (copy)'),
+            $copyStruct,
             array(
+                'layout' => $layout,
                 'action' => $this->generateUrl(
                     'ngbm_admin_layouts_layout_copy',
                     array(
@@ -72,10 +77,7 @@ class LayoutsController extends Controller
         }
 
         if ($form->isValid()) {
-            $copiedLayout = $this->layoutService->copyLayout(
-                $layout,
-                $form->getData()['name']
-            );
+            $copiedLayout = $this->layoutService->copyLayout($layout, $copyStruct);
 
             return $this->buildView($copiedLayout, ViewInterface::CONTEXT_ADMIN);
         }

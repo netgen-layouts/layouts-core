@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Block\Form;
 
+use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
+use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Layout\Form\CopyType;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 
@@ -23,17 +25,22 @@ class CopyTypeTest extends FormTestCase
         $submittedData = array(
             'name' => 'New name',
         );
+
+        $updatedStruct = new LayoutCopyStruct();
+        $updatedStruct->name = 'New name';
+
         $form = $this->factory->create(
             CopyType::class,
+            new LayoutCopyStruct(),
             array(
-                'name' => 'Original name',
+                'layout' => new Layout(),
             )
         );
 
         $form->submit($submittedData);
 
         $this->assertTrue($form->isSynchronized());
-        $this->assertEquals(array('name' => 'New name'), $form->getData());
+        $this->assertEquals($updatedStruct, $form->getData());
 
         $view = $form->createView();
         $children = $view->children;

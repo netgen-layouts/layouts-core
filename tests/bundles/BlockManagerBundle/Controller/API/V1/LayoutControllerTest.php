@@ -802,7 +802,7 @@ class LayoutControllerTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "newName": This value should be of type string.'
+            'There was an error validating "name": This value should be of type string.'
         );
     }
 
@@ -825,7 +825,7 @@ class LayoutControllerTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "newName": This value should not be blank.'
+            'There was an error validating "name": This value should not be blank.'
         );
     }
 
@@ -852,7 +852,7 @@ class LayoutControllerTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
-            'Argument "newName" has an invalid state. Layout with provided name already exists.'
+            'Argument "layoutCopyStruct" has an invalid state. Layout with provided name already exists.'
         );
     }
 

@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Netgen\BlockManager\API\Values\Layout\Layout;
+use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\BlockManager\API\Values\Layout\Zone;
@@ -461,8 +462,11 @@ abstract class LayoutServiceTest extends ServiceTestCase
      */
     public function testCopyLayout()
     {
+        $copyStruct = new LayoutCopyStruct();
+        $copyStruct->name = 'New name';
+
         $layout = $this->layoutService->loadLayout(1);
-        $copiedLayout = $this->layoutService->copyLayout($layout, 'New name');
+        $copiedLayout = $this->layoutService->copyLayout($layout, $copyStruct);
 
         $this->assertEquals($layout->isPublished(), $copiedLayout->isPublished());
         $this->assertInstanceOf(Layout::class, $copiedLayout);
@@ -474,12 +478,15 @@ abstract class LayoutServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::copyLayout
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "newName" has an invalid state. Layout with provided name already exists.
+     * @expectedExceptionMessage Argument "layoutCopyStruct" has an invalid state. Layout with provided name already exists.
      */
     public function testCopyLayoutThrowsBadStateExceptionOnExistingLayoutName()
     {
+        $copyStruct = new LayoutCopyStruct();
+        $copyStruct->name = 'My other layout';
+
         $layout = $this->layoutService->loadLayout(1);
-        $this->layoutService->copyLayout($layout, 'My other layout');
+        $this->layoutService->copyLayout($layout, $copyStruct);
     }
 
     /**
