@@ -19,15 +19,19 @@
         </div>
         <div class="nl-rule-cell rule-targets">
             {% if rule.targets is not empty %}
+                {% set target_type = rule.targets[0].targetType.type %}
+
                 {% if rule.targets|length == 1 %}
-                    <p>{{ ('layout_resolver.target.' ~ rule.targets[0].targetType.type)|trans }}:</p>
+                    <p>{{ ('layout_resolver.target.' ~ target_type)|trans }}:</p>
                     <ul>
                         {% for target in rule.targets %}
-                            <li {% if target.targetType.type == 'ezlocation' or target.targetType.type == 'ezcontent' %}class="unique"{% endif %}>{{ ngbm_render_rule_target(target, {}, 'value') }}</li>
+                            <li {% if rule_count == 1 and (target_type == 'ezlocation' or target_type == 'ezcontent') %}class="unique"{% endif %}>
+                                {{ ngbm_render_rule_target(target, {}, 'value') }}
+                            </li>
                         {% endfor %}
                     </ul>
                 {% else %}
-                    <p>{{ ('layout_resolver.target.' ~ rule.targets[0].targetType.type)|trans }} ({{ rule.targets|length }})</p>
+                    <p>{{ ('layout_resolver.target.' ~ target_type)|trans }} ({{ rule.targets|length }})</p>
                 {% endif %}
             {% endif %}
         </div>

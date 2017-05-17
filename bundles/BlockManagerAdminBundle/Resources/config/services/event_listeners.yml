@@ -6,6 +6,13 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
+    netgen_block_manager.event_listener.rule_view.rule_count:
+        class: Netgen\Bundle\BlockManagerAdminBundle\EventListener\RuleView\RuleCountListener
+        arguments:
+            - "@netgen_block_manager.api.service.layout_resolver"
+        tags:
+            - { name: kernel.event_subscriber }
+
     netgen_block_manager.event_listener.admin_authentication_exception:
         class: Netgen\Bundle\BlockManagerAdminBundle\EventListener\AdminAuthenticationExceptionListener
         tags:
