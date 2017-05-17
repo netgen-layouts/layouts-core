@@ -411,6 +411,7 @@ class LayoutService extends Service implements LayoutServiceInterface
                     array(
                         'type' => $layoutCreateStruct->layoutType->getIdentifier(),
                         'name' => $layoutCreateStruct->name,
+                        'description' => $layoutCreateStruct->description,
                         'status' => Value::STATUS_DRAFT,
                         'shared' => $layoutCreateStruct->shared,
                     )
@@ -462,6 +463,7 @@ class LayoutService extends Service implements LayoutServiceInterface
                 new LayoutUpdateStruct(
                     array(
                         'name' => $layoutUpdateStruct->name,
+                        'description' => $layoutUpdateStruct->description,
                     )
                 )
             );

@@ -1,5 +1,6 @@
 layout.type: 'Layout type'
 layout.name: 'Name'
+layout.description: 'Description'
 layout.shared: 'Shared'
 
 block.view_type: 'View type'

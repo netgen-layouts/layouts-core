@@ -32,6 +32,18 @@ class LayoutValidator extends Validator
             'name'
         );
 
+        $layoutDescription = is_string($layoutCreateStruct->description) ?
+            trim($layoutCreateStruct->description) :
+            $layoutCreateStruct->description;
+
+        $this->validate(
+            $layoutDescription,
+            array(
+                new Constraints\Type(array('type' => 'string')),
+            ),
+            'description'
+        );
+
         $this->validate(
             $layoutCreateStruct->layoutType,
             array(

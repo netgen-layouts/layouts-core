@@ -24,6 +24,7 @@ class LayoutMapper
                     'id' => (int) $dataItem['id'],
                     'type' => $dataItem['type'],
                     'name' => $dataItem['name'],
+                    'description' => $dataItem['description'],
                     'created' => (int) $dataItem['created'],
                     'modified' => (int) $dataItem['modified'],
                     'status' => (int) $dataItem['status'],

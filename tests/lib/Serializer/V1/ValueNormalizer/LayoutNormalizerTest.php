@@ -145,6 +145,7 @@ class LayoutNormalizerTest extends TestCase
                 'updated_at' => $layout->getModified()->format(DateTime::ISO8601),
                 'shared' => true,
                 'name' => $layout->getName(),
+                'description' => $layout->getDescription(),
                 'zones' => array(
                     array(
                         'identifier' => 'left',

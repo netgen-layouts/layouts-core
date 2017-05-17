@@ -4,6 +4,7 @@ CREATE TABLE `ngbm_layout` (
   `status` integer NOT NULL,
   `type` text(255) NOT NULL,
   `name` text(255) NOT NULL,
+  `description` text NOT NULL,
   `created` integer NOT NULL,
   `modified` integer NOT NULL,
   `shared` integer NOT NULL,

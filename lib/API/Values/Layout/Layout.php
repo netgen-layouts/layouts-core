@@ -31,6 +31,13 @@ interface Layout extends Value, ArrayAccess, IteratorAggregate, Countable
     public function getName();
 
     /**
+     * Return human readable description of the layout.
+     *
+     * @return string
+     */
+    public function getDescription();
+
+    /**
      * Returns when was the layout created.
      *
      * @return \DateTime

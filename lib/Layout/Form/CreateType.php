@@ -9,6 +9,7 @@ use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Validator\Constraint\LayoutName;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -91,6 +92,15 @@ class CreateType extends AbstractType
                     new LayoutName(),
                 ),
                 'property_path' => 'name',
+            )
+        );
+
+        $builder->add(
+            'description',
+            TextareaType::class,
+            array(
+                'label' => 'layout.description',
+                'property_path' => 'description',
             )
         );
 

@@ -28,6 +28,13 @@ class Layout extends Value
     public $name;
 
     /**
+     * Human readable description of the layout.
+     *
+     * @var string
+     */
+    public $description;
+
+    /**
      * Flag indicating if this layout is shared.
      *
      * @var bool

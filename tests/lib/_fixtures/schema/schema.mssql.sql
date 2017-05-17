@@ -15,6 +15,7 @@ CREATE TABLE ngbm_layout (
   status int NOT NULL,
   type nvarchar(255) NOT NULL,
   name nvarchar(255) NOT NULL,
+  description nvarchar(max) NOT NULL,
   created int NOT NULL,
   modified int NOT NULL,
   shared tinyint NOT NULL,

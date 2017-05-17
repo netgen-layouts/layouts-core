@@ -17,6 +17,13 @@ class LayoutCreateStruct extends ValueObject
     public $name;
 
     /**
+     * Human readable description of the layout.
+     *
+     * @var string
+     */
+    public $description;
+
+    /**
      * @var bool
      */
     public $shared;
