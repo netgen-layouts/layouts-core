@@ -17,9 +17,9 @@ class ParameterTypeRegistryPassTest extends AbstractCompilerPassTestCase
     {
         $this->setDefinition('netgen_block_manager.parameters.registry.parameter_type', new Definition());
 
-        $layoutType = new Definition();
-        $layoutType->addTag('netgen_block_manager.parameters.parameter_type');
-        $this->setDefinition('netgen_block_manager.parameters.parameter_type.test', $layoutType);
+        $parameterType = new Definition();
+        $parameterType->addTag('netgen_block_manager.parameters.parameter_type');
+        $this->setDefinition('netgen_block_manager.parameters.parameter_type.test', $parameterType);
 
         $this->compile();
 

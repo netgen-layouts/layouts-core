@@ -33,7 +33,7 @@ class ConfigDefinitionPass implements CompilerPassInterface
         foreach ($configDefinitionHandlers as $configDefinitionHandler => $tag) {
             if (!isset($tag[0]['type'])) {
                 throw new RuntimeException(
-                    "Config definition handler definition must have an 'type' attribute in its' tag."
+                    "Config definition handler definition must have a 'type' attribute in its' tag."
                 );
             }
 

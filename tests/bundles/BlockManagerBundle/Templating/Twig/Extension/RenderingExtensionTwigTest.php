@@ -94,6 +94,22 @@ class RenderingExtensionTwigTest extends \Twig_Test_IntegrationTestCase
     }
 
     /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::displayZone
+     * @dataProvider getTests
+     *
+     * @param mixed $file
+     * @param mixed $message
+     * @param mixed $condition
+     * @param mixed $templates
+     * @param mixed $exception
+     * @param mixed $outputs
+     */
+    public function testIntegration($file, $message, $condition, $templates, $exception, $outputs)
+    {
+        $this->doIntegrationTest($file, $message, $condition, $templates, $exception, $outputs);
+    }
+
+    /**
      * @return \Twig_ExtensionInterface[]
      */
     protected function getExtensions()

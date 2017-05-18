@@ -19,13 +19,13 @@ class ParameterFilterRegistryPassTest extends AbstractCompilerPassTestCase
         $parameterFilterRegistry->addArgument(array());
         $this->setDefinition('netgen_block_manager.parameters.registry.parameter_filter', $parameterFilterRegistry);
 
-        $matcher1 = new Definition();
-        $matcher1->addTag('netgen_block_manager.parameters.parameter_filter', array('type' => 'html'));
-        $this->setDefinition('netgen_block_manager.parameters.parameter_filter.test1', $matcher1);
+        $filter1 = new Definition();
+        $filter1->addTag('netgen_block_manager.parameters.parameter_filter', array('type' => 'html'));
+        $this->setDefinition('netgen_block_manager.parameters.parameter_filter.test1', $filter1);
 
-        $matcher2 = new Definition();
-        $matcher2->addTag('netgen_block_manager.parameters.parameter_filter', array('priority' => 5, 'type' => 'html'));
-        $this->setDefinition('netgen_block_manager.parameters.parameter_filter.test2', $matcher2);
+        $filter2 = new Definition();
+        $filter2->addTag('netgen_block_manager.parameters.parameter_filter', array('priority' => 5, 'type' => 'html'));
+        $this->setDefinition('netgen_block_manager.parameters.parameter_filter.test2', $filter2);
 
         $this->compile();
 
@@ -51,9 +51,9 @@ class ParameterFilterRegistryPassTest extends AbstractCompilerPassTestCase
     {
         $this->setDefinition('netgen_block_manager.parameters.registry.parameter_filter', new Definition());
 
-        $matcher = new Definition();
-        $matcher->addTag('netgen_block_manager.parameters.parameter_filter');
-        $this->setDefinition('netgen_block_manager.parameters.parameter_filter.test', $matcher);
+        $filter = new Definition();
+        $filter->addTag('netgen_block_manager.parameters.parameter_filter');
+        $this->setDefinition('netgen_block_manager.parameters.parameter_filter.test', $filter);
 
         $this->compile();
     }

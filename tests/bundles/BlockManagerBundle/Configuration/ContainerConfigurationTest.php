@@ -25,6 +25,7 @@ class ContainerConfigurationTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Configuration\ContainerConfiguration::hasParameter
+     * @covers \Netgen\Bundle\BlockManagerBundle\Configuration\ContainerConfiguration::__construct
      */
     public function testHasParameter()
     {

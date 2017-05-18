@@ -62,6 +62,7 @@ class FullEditTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::buildForm
+     * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::buildView
      */
     public function testSubmitValidData()
     {

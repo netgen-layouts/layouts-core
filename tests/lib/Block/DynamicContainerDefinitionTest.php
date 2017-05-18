@@ -40,6 +40,14 @@ class DynamicContainerDefinitionTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Block\ContainerDefinition::getPlaceholders
+     */
+    public function testGetPlaceholders()
+    {
+        $this->assertEquals(array(), $this->blockDefinition->getPlaceholders());
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Block\ContainerDefinition::isDynamicContainer
      */
     public function testIsDynamicContainer()

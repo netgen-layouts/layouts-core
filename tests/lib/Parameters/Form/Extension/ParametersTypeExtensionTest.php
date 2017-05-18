@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Parameters\Form\Extension;
 use Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension;
 use Netgen\BlockManager\Parameters\Parameter;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,7 +23,15 @@ class ParametersTypeExtensionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::buildView
+     * @covers \Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension::getExtendedType
+     */
+    public function testGetExtendedType()
+    {
+        $this->assertEquals(FormType::class, $this->formTypeExtension->getExtendedType());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension::buildView
      */
     public function testBuildView()
     {
@@ -39,7 +48,7 @@ class ParametersTypeExtensionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::buildView
+     * @covers \Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension::buildView
      */
     public function testBuildViewWithEmptyOptions()
     {
@@ -55,7 +64,7 @@ class ParametersTypeExtensionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::configureOptions
+     * @covers \Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension::configureOptions
      */
     public function testConfigureOptions()
     {
@@ -77,7 +86,7 @@ class ParametersTypeExtensionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::configureOptions
+     * @covers \Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension::configureOptions
      */
     public function testConfigureOptionsWithEmptyParameters()
     {
@@ -89,7 +98,7 @@ class ParametersTypeExtensionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::configureOptions
+     * @covers \Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function testConfigureOptionsWithInvalidParameters()
