@@ -44,7 +44,11 @@ class EditType extends AbstractType
                 'required' => true,
                 'constraints' => array(
                     new Constraints\NotBlank(),
-                    new LayoutName(),
+                    new LayoutName(
+                        array(
+                            'excludedLayoutId' => $options['layout']->getId()
+                        )
+                    ),
                 ),
                 'property_path' => 'name',
             )
