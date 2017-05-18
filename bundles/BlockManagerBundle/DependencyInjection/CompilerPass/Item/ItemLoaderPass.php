@@ -15,9 +15,10 @@ class ItemLoaderPass implements CompilerPassInterface
     /**
      * You can modify the container here before it is dumped to PHP code.
      *
-     * @throws \Netgen\BlockManager\Exception\RuntimeException
      *
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     *
+     * @throws \Netgen\BlockManager\Exception\RuntimeException
      */
     public function process(ContainerBuilder $container)
     {
