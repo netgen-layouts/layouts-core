@@ -77,7 +77,7 @@ class LayoutValidatorTest extends TestCase
      * @param array $params
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutValidator::validateLayoutName
+     * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutValidator::validateLayoutCopyStruct
      * @dataProvider validateLayoutCopyStructDataProvider
      * @doesNotPerformAssertions
      */

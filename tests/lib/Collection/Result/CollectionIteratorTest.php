@@ -25,10 +25,7 @@ class CollectionIteratorTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::key
      * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::valid
      * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::rewind
-     * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::buildQueryIterator
      * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::advanceQuery
-     * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::getCountBeforeOffset
-     * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::getCountAtOffset
      *
      * @dataProvider manualCollectionProvider
      */
@@ -67,10 +64,7 @@ class CollectionIteratorTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::key
      * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::valid
      * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::rewind
-     * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::buildQueryIterator
      * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::advanceQuery
-     * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::getCountBeforeOffset
-     * @covers \Netgen\BlockManager\Collection\Result\CollectionIterator::getCountAtOffset
      *
      * @dataProvider dynamicCollectionProvider
      */

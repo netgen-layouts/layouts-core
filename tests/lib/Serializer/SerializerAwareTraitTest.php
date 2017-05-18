@@ -15,7 +15,7 @@ class SerializerAwareTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Traits\SerializerAwareTrait::setSerializer
+     * @covers \Netgen\BlockManager\Serializer\SerializerAwareTrait::setSerializer
      */
     public function testSetSerializer()
     {

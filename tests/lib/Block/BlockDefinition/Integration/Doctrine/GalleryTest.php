@@ -8,7 +8,6 @@ use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 /**
  * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\GalleryHandler::__construct
  * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\GalleryHandler::buildParameters
- * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\GalleryHandler::hasCollection
  * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::buildCommonParameters
  */
 class GalleryTest extends BaseGalleryTest
