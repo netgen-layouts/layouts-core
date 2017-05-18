@@ -5,7 +5,6 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\App;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
-use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\BlockManager\Layout\Form\CreateType;
 use Netgen\BlockManager\Layout\Form\EditType;
 use Netgen\BlockManager\View\ViewInterface;
@@ -87,7 +86,7 @@ class LayoutController extends Controller
      */
     public function layoutEditForm(Layout $layout, Request $request)
     {
-        $updateStruct = $this->layoutService->newLayoutUpdateStruct($layout);L
+        $updateStruct = $this->layoutService->newLayoutUpdateStruct($layout);
 
         $form = $this->createForm(
             EditType::class,
