@@ -24,7 +24,7 @@ class ParameterTest extends TestCase
         $parameter = new Parameter();
 
         $this->assertNull($parameter->getName());
-        $this->assertnull($parameter->getType());
+        $this->assertNull($parameter->getType());
         $this->assertNull($parameter->getOptions());
         $this->assertNull($parameter->isRequired());
         $this->assertNull($parameter->getDefaultValue());

@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Exception\View;
 
 use Netgen\BlockManager\Exception\View\ViewProviderException;
-use Netgen\BlockManager\View\Matcher\MatcherInterface;
 use PHPUnit\Framework\TestCase;
 
 class ViewProviderExceptionTest extends TestCase
@@ -42,10 +41,7 @@ class ViewProviderExceptionTest extends TestCase
         $exception = ViewProviderException::noParameter('block', 'param');
 
         $this->assertEquals(
-            sprintf(
-                'To build the block view, "param" parameter needs to be provided.',
-                MatcherInterface::class
-            ),
+            'To build the block view, "param" parameter needs to be provided.',
             $exception->getMessage()
         );
     }
@@ -58,10 +54,7 @@ class ViewProviderExceptionTest extends TestCase
         $exception = ViewProviderException::invalidParameter('block', 'param', 'string');
 
         $this->assertEquals(
-            sprintf(
-                'To build the block view, "param" parameter needs to be of "string" type.',
-                MatcherInterface::class
-            ),
+            'To build the block view, "param" parameter needs to be of "string" type.',
             $exception->getMessage()
         );
     }

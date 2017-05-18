@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
+namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener\CsrfValidation;
 
 use Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\ApiCsrfValidationListener;
 use Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener;

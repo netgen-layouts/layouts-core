@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Parameters\FormMapper\ParameterMapper;
+namespace Netgen\BlockManager\Tests\Parameters\Form\Mapper;
 
 use Netgen\BlockManager\Parameters\Form\Mapper\RangeMapper;
 use Netgen\BlockManager\Parameters\ParameterType\RangeType as RangeParameterType;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Parameters\FormMapper;
+namespace Netgen\BlockManager\Tests\Parameters\Filter;
 
 use Netgen\BlockManager\Parameters\Filter\Html\HtmlPurifierFilter;
 use PHPUnit\Framework\TestCase;

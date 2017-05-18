@@ -166,12 +166,6 @@ class ExceptionConversionListenerTest extends TestCase
                 true,
             ),
             array(
-                new AccessDeniedHttpException('Some error'),
-                AccessDeniedHttpException::class,
-                Response::HTTP_FORBIDDEN,
-                false,
-            ),
-            array(
                 new BaseInvalidArgumentException('Some error'),
                 BadRequestHttpException::class,
                 Response::HTTP_BAD_REQUEST,
@@ -182,6 +176,12 @@ class ExceptionConversionListenerTest extends TestCase
                 InternalServerErrorHttpException::class,
                 Response::HTTP_INTERNAL_SERVER_ERROR,
                 true,
+            ),
+            array(
+                new AccessDeniedHttpException('Some error'),
+                AccessDeniedHttpException::class,
+                Response::HTTP_FORBIDDEN,
+                false,
             ),
         );
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Handler;
+namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Handler\Twig;
 
 use Netgen\BlockManager\Block\BlockDefinition\Handler\Twig\FullViewHandler;
 use Netgen\BlockManager\Core\Values\Block\Block;

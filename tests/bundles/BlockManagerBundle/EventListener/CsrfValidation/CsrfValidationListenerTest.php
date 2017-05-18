@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
+namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener\CsrfValidation;
 
 use Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener;
 use PHPUnit\Framework\TestCase;

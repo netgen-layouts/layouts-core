@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Block\Form;
+namespace Netgen\BlockManager\Tests\Layout\Form;
 
 use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\Core\Values\Layout\Layout;

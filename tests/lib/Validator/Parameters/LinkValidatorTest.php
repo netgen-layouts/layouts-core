@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Validator;
+namespace Netgen\BlockManager\Tests\Validator\Parameters;
 
 use Netgen\BlockManager\Parameters\Value\LinkValue;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Service\Validator;
+namespace Netgen\BlockManager\Tests\Validator;
 
 use Exception;
 use Netgen\BlockManager\Tests\Validator\Stubs\ValidatorValue;

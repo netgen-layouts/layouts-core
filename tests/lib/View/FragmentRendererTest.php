@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\View\FragmentRenderer;
+namespace Netgen\BlockManager\Tests\View;
 
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Layout\Layout;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerAdminBundle\Tests\EventListener;
+namespace Netgen\Bundle\BlockManagerAdminBundle\Tests\EventListener\CsrfValidation;
 
 use Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener;
 use Netgen\Bundle\BlockManagerAdminBundle\EventListener\SetIsAdminRequestListener;

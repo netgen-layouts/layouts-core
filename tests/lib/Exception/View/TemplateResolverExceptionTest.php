@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Exception\View;
 
 use Netgen\BlockManager\Exception\View\TemplateResolverException;
-use Netgen\BlockManager\View\Matcher\MatcherInterface;
 use PHPUnit\Framework\TestCase;
 
 class TemplateResolverExceptionTest extends TestCase
@@ -42,10 +41,7 @@ class TemplateResolverExceptionTest extends TestCase
         $exception = TemplateResolverException::noTemplateMatch('block_view', 'default');
 
         $this->assertEquals(
-            sprintf(
-                'No template match could be found for "block_view" view and context "default".',
-                MatcherInterface::class
-            ),
+            'No template match could be found for "block_view" view and context "default".',
             $exception->getMessage()
         );
     }

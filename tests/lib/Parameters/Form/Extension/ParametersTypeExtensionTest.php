@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Parameters\Form\Type\Extension;
+namespace Netgen\BlockManager\Tests\Parameters\Form\Extension;
 
 use Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension;
 use Netgen\BlockManager\Parameters\Parameter;

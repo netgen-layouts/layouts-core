@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Block\Form;
+namespace Netgen\BlockManager\Tests\Layout\Form;
 
 use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\Layout\Form\CreateType;

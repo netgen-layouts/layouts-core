@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\View\ViewRenderer;
+namespace Netgen\BlockManager\Tests\View;
 
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;

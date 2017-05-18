@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Handler;
+namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Handler\Container;
 
 use Netgen\BlockManager\Block\BlockDefinition\Handler\Container\TwoColumnsHandler;
 use PHPUnit\Framework\TestCase;

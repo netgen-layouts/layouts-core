@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Parameters\Form;
+namespace Netgen\BlockManager\Tests\Form;
 
 use Netgen\BlockManager\Form\KeyValuesType;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;

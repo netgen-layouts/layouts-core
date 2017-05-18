@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Block\Form;
+namespace Netgen\BlockManager\Tests\Layout\Form\DataTransformer;
 
 use Netgen\BlockManager\Layout\Form\DataTransformer\LayoutTypeTransformer;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry;

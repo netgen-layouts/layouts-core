@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Parameters\FormMapper\ParameterMapper;
+namespace Netgen\BlockManager\Tests\Parameters\Form\Mapper;
 
 use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Item\ValueType\ValueType;
