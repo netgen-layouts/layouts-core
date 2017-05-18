@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Item;
 
-use Netgen\BlockManager\Exception\Item\ValueException;
 use Netgen\BlockManager\Exception\InvalidInterfaceException;
+use Netgen\BlockManager\Exception\Item\ValueException;
 
 class ItemBuilder implements ItemBuilderInterface
 {

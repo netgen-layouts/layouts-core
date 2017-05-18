@@ -666,6 +666,24 @@ abstract class LayoutServiceTest extends ServiceTestCase
     public function testNewLayoutUpdateStruct()
     {
         $this->assertEquals(
+            new LayoutUpdateStruct(
+                array(
+                    'name' => 'My layout',
+                    'description' => 'My layout description',
+                )
+            ),
+            $this->layoutService->newLayoutUpdateStruct(
+                $this->layoutService->loadLayoutDraft(1)
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::newLayoutUpdateStruct
+     */
+    public function testNewLayoutUpdateStructWithNoLayout()
+    {
+        $this->assertEquals(
             new LayoutUpdateStruct(),
             $this->layoutService->newLayoutUpdateStruct()
         );

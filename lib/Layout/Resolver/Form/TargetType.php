@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Layout\Resolver\Form;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetStruct;
-use Netgen\BlockManager\Exception\Layout\TargetTypeException;
 use Netgen\BlockManager\Exception\InvalidInterfaceException;
+use Netgen\BlockManager\Exception\Layout\TargetTypeException;
 use Netgen\BlockManager\Form\AbstractType;
 use Netgen\BlockManager\Layout\Resolver\Form\TargetType\MapperInterface;
 use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;

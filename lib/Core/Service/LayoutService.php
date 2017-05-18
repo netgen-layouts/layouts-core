@@ -711,10 +711,12 @@ class LayoutService extends Service implements LayoutServiceInterface
     /**
      * Creates a new layout update struct.
      *
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
+     *
      * @return \Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct
      */
-    public function newLayoutUpdateStruct()
+    public function newLayoutUpdateStruct(Layout $layout = null)
     {
-        return $this->structBuilder->newLayoutUpdateStruct();
+        return $this->structBuilder->newLayoutUpdateStruct($layout);
     }
 }

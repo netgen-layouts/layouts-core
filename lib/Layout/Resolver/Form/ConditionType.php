@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Layout\Resolver\Form;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\ConditionStruct;
-use Netgen\BlockManager\Exception\Layout\ConditionTypeException;
 use Netgen\BlockManager\Exception\InvalidInterfaceException;
+use Netgen\BlockManager\Exception\Layout\ConditionTypeException;
 use Netgen\BlockManager\Form\AbstractType;
 use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\MapperInterface;

@@ -87,7 +87,7 @@ class LayoutController extends Controller
      */
     public function layoutEditForm(Layout $layout, Request $request)
     {
-        $updateStruct = new LayoutUpdateStruct();
+        $updateStruct = $this->layoutService->newLayoutUpdateStruct($layout);L
 
         $form = $this->createForm(
             EditType::class,
