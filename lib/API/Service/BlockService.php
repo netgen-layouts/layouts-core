@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\API\Service;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
-use Netgen\BlockManager\API\Values\Block\CollectionReference;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\Zone;
@@ -117,16 +116,6 @@ interface BlockService extends Service
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
     public function updateBlock(Block $block, BlockUpdateStruct $blockUpdateStruct);
-
-    /**
-     * Updates a specified collection reference.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\CollectionReference $collectionReference
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\CollectionReference
-     */
-    public function updateCollectionReference(CollectionReference $collectionReference, Collection $collection);
 
     /**
      * Copies a block to a specified target block.

@@ -698,28 +698,6 @@ abstract class BlockServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateCollectionReference
-     */
-    public function testUpdateCollectionReference()
-    {
-        $collectionReference = $this->blockService->loadCollectionReference(
-            $this->blockService->loadBlockDraft(31),
-            'default'
-        );
-
-        $newCollection = $this->collectionService->loadCollectionDraft(4);
-
-        $updatedReference = $this->blockService->updateCollectionReference(
-            $collectionReference,
-            $newCollection
-        );
-
-        $this->assertInstanceOf(CollectionReference::class, $updatedReference);
-        $this->assertEquals($newCollection->getId(), $updatedReference->getCollection()->getId());
-        $this->assertEquals($newCollection->isPublished(), $updatedReference->getCollection()->isPublished());
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
      */
     public function testCopyBlock()

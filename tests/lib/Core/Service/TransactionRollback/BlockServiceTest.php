@@ -6,14 +6,10 @@ use Exception;
 use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\Block\Block;
-use Netgen\BlockManager\Core\Values\Block\CollectionReference;
-use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Config\ConfigCollection;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Persistence\Values\Block\Block as PersistenceBlock;
-use Netgen\BlockManager\Persistence\Values\Block\CollectionReference as PersistenceCollectionReference;
-use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceCollection;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout as PersistenceLayout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone as PersistenceZone;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
@@ -159,47 +155,6 @@ class BlockServiceTest extends ServiceTestCase
                 )
             ),
             new BlockUpdateStruct()
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateCollectionReference
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
-     */
-    public function testUpdateCollectionReference()
-    {
-        $this->blockHandlerMock
-            ->expects($this->at(0))
-            ->method('loadBlock')
-            ->will($this->returnValue(new PersistenceBlock()));
-
-        $this->collectionHandlerMock
-            ->expects($this->at(0))
-            ->method('loadCollection')
-            ->will($this->returnValue(new PersistenceCollection()));
-
-        $this->blockHandlerMock
-            ->expects($this->at(1))
-            ->method('loadCollectionReference')
-            ->will($this->returnValue(new PersistenceCollectionReference()));
-
-        $this->blockHandlerMock
-            ->expects($this->at(2))
-            ->method('updateCollectionReference')
-            ->will($this->throwException(new Exception('Test exception text')));
-
-        $this->persistenceHandler
-            ->expects($this->once())
-            ->method('rollbackTransaction');
-
-        $this->blockService->updateCollectionReference(
-            new CollectionReference(
-                array(
-                    'block' => new Block(),
-                )
-            ),
-            new Collection()
         );
     }
 

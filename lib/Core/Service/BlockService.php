@@ -7,7 +7,6 @@ use Netgen\BlockManager\API\Service\BlockService as BlockServiceInterface;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Block\BlockCreateStruct as APIBlockCreateStruct;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct as APIBlockUpdateStruct;
-use Netgen\BlockManager\API\Values\Block\CollectionReference;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\Zone;
@@ -27,7 +26,6 @@ use Netgen\BlockManager\Persistence\Values\Block\Block as PersistenceBlock;
 use Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
 
 class BlockService extends Service implements BlockServiceInterface
@@ -379,50 +377,6 @@ class BlockService extends Service implements BlockServiceInterface
         $this->persistenceHandler->commitTransaction();
 
         return $this->mapper->mapBlock($updatedBlock);
-    }
-
-    /**
-     * Updates a specified collection reference.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\CollectionReference $collectionReference
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\CollectionReference
-     */
-    public function updateCollectionReference(CollectionReference $collectionReference, Collection $collection)
-    {
-        $block = $collectionReference->getBlock();
-        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), $block->getStatus());
-
-        $persistenceCollection = $this->collectionHandler->loadCollection(
-            $collection->getId(),
-            $collection->getStatus()
-        );
-
-        $persistenceCollectionReference = $this->blockHandler->loadCollectionReference(
-            $persistenceBlock,
-            $collectionReference->getIdentifier()
-        );
-
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $updatedReference = $this->blockHandler->updateCollectionReference(
-                $persistenceCollectionReference,
-                new CollectionReferenceUpdateStruct(
-                    array(
-                        'collection' => $persistenceCollection,
-                    )
-                )
-            );
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
-
-        return $this->mapper->mapCollectionReference($persistenceBlock, $updatedReference);
     }
 
     /**
