@@ -260,9 +260,7 @@ class BlockDefinitionNodeTest extends TestCase
 
         $expectedConfig = array(
             'block_definitions' => array(
-                'block' => array(
-                    'collections' => array(),
-                ),
+                'block' => array(),
             ),
         );
 

@@ -21,13 +21,15 @@ class Factory
         $placeholderForms = array();
         $viewTypes = array();
 
-        foreach ($config['collections'] as $collectionIdentifier => $collectionConfig) {
-            $collections[$collectionIdentifier] = new Collection(
-                array(
-                    'identifier' => $collectionIdentifier,
-                    'validQueryTypes' => $collectionConfig['valid_query_types'],
-                )
-            );
+        if (isset($config['collections'])) {
+            foreach ($config['collections'] as $collectionIdentifier => $collectionConfig) {
+                $collections[$collectionIdentifier] = new Collection(
+                    array(
+                        'identifier' => $collectionIdentifier,
+                        'validQueryTypes' => $collectionConfig['valid_query_types'],
+                    )
+                );
+            }
         }
 
         foreach ($config['forms'] as $formIdentifier => $formConfig) {
