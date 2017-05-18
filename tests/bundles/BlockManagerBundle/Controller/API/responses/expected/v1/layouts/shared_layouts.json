@@ -1,14 +1,14 @@
 [
     {
-        "id": 3,
+        "id": 5,
         "type": "4_zones_b",
         "published": true,
         "has_published_state": true,
         "created_at": "2015-11-09T11:43:33+0100",
         "updated_at": "2015-11-09T11:43:33+0100",
         "shared": true,
-        "name": "My third layout",
-        "description": "My third layout description",
+        "name": "My fifth layout",
+        "description": "My fifth layout description",
         "zones": [
             {
                 "identifier": "bottom",
@@ -45,15 +45,15 @@
         ]
     },
     {
-        "id": 5,
+        "id": 3,
         "type": "4_zones_b",
         "published": true,
         "has_published_state": true,
         "created_at": "2015-11-09T11:43:33+0100",
         "updated_at": "2015-11-09T11:43:33+0100",
         "shared": true,
-        "name": "My fifth layout",
-        "description": "My fifth layout description",
+        "name": "My third layout",
+        "description": "My third layout description",
         "zones": [
             {
                 "identifier": "bottom",

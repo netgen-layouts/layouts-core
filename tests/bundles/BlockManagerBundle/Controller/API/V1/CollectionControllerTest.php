@@ -177,13 +177,13 @@ class CollectionControllerTest extends JsonApiTestCase
                     array(
                         'type' => Item::TYPE_MANUAL,
                         'value_id' => 73,
-                        'value_type' => 'ezcontent',
+                        'value_type' => 'ezlocation',
                         'position' => 3,
                     ),
                     array(
                         'type' => Item::TYPE_MANUAL,
                         'value_id' => 74,
-                        'value_type' => 'ezcontent',
+                        'value_type' => 'ezlocation',
                     ),
                 ),
             )
@@ -213,13 +213,13 @@ class CollectionControllerTest extends JsonApiTestCase
                     array(
                         'type' => Item::TYPE_MANUAL,
                         'value_id' => 73,
-                        'value_type' => 'ezcontent',
+                        'value_type' => 'ezlocation',
                         'position' => 3,
                     ),
                     array(
                         'type' => Item::TYPE_MANUAL,
                         'value_id' => 74,
-                        'value_type' => 'ezcontent',
+                        'value_type' => 'ezlocation',
                     ),
                 ),
             )
@@ -333,7 +333,7 @@ class CollectionControllerTest extends JsonApiTestCase
                     array(
                         'type' => 'type',
                         'value_id' => 73,
-                        'value_type' => 'ezcontent',
+                        'value_type' => 'ezlocation',
                         'position' => 3,
                     ),
                 ),
@@ -367,7 +367,7 @@ class CollectionControllerTest extends JsonApiTestCase
                 'items' => array(
                     array(
                         'value_id' => 73,
-                        'value_type' => 'ezcontent',
+                        'value_type' => 'ezlocation',
                         'position' => 3,
                     ),
                 ),
@@ -402,7 +402,7 @@ class CollectionControllerTest extends JsonApiTestCase
                     array(
                         'type' => Item::TYPE_MANUAL,
                         'value_id' => array(42),
-                        'value_type' => 'ezcontent',
+                        'value_type' => 'ezlocation',
                         'position' => 3,
                     ),
                 ),
@@ -436,7 +436,7 @@ class CollectionControllerTest extends JsonApiTestCase
                 'items' => array(
                     array(
                         'type' => Item::TYPE_MANUAL,
-                        'value_type' => 'ezcontent',
+                        'value_type' => 'ezlocation',
                         'position' => 3,
                     ),
                 ),
@@ -540,7 +540,7 @@ class CollectionControllerTest extends JsonApiTestCase
                     array(
                         'type' => Item::TYPE_MANUAL,
                         'value_id' => 73,
-                        'value_type' => 'ezcontent',
+                        'value_type' => 'ezlocation',
                         'position' => '3',
                     ),
                 ),
@@ -575,7 +575,7 @@ class CollectionControllerTest extends JsonApiTestCase
                     array(
                         'type' => Item::TYPE_MANUAL,
                         'value_id' => 73,
-                        'value_type' => 'ezcontent',
+                        'value_type' => 'ezlocation',
                     ),
                 ),
             )
@@ -609,7 +609,7 @@ class CollectionControllerTest extends JsonApiTestCase
                     array(
                         'type' => Item::TYPE_MANUAL,
                         'value_id' => 73,
-                        'value_type' => 'ezcontent',
+                        'value_type' => 'ezlocation',
                         'position' => 9999,
                     ),
                 ),
