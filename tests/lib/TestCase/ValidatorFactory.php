@@ -8,13 +8,19 @@ use Netgen\BlockManager\Validator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidatorFactory;
+use Symfony\Component\Validator\ConstraintValidatorFactoryInterface;
 
-class ValidatorFactory extends ConstraintValidatorFactory
+class ValidatorFactory implements ConstraintValidatorFactoryInterface
 {
     /**
      * @var \PHPUnit\Framework\TestCase
      */
     protected $testCase;
+
+    /**
+     * @var \Symfony\Component\Validator\ConstraintValidatorFactoryInterface
+     */
+    protected $baseValidatorFactory;
 
     /**
      * Constructor.
@@ -24,6 +30,7 @@ class ValidatorFactory extends ConstraintValidatorFactory
     public function __construct(TestCase $testCase)
     {
         $this->testCase = $testCase;
+        $this->baseValidatorFactory = new ConstraintValidatorFactory();
     }
 
     /**
@@ -56,6 +63,6 @@ class ValidatorFactory extends ConstraintValidatorFactory
             return new Validator\Structs\QueryUpdateStructValidator();
         }
 
-        return parent::getInstance($constraint);
+        return $this->baseValidatorFactory->getInstance($constraint);
     }
 }
