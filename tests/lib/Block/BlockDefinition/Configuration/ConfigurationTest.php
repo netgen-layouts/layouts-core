@@ -23,9 +23,6 @@ class ConfigurationTest extends TestCase
                 'forms' => array(
                     'content' => new Form(array('identifier' => 'content')),
                 ),
-                'placeholderForms' => array(
-                    'full' => new Form(array('identifier' => 'full', 'type' => 'placeholder')),
-                ),
                 'viewTypes' => array(
                     'large' => new ViewType(array('identifier' => 'large')),
                     'small' => new ViewType(array('identifier' => 'small')),
@@ -84,49 +81,6 @@ class ConfigurationTest extends TestCase
     public function testGetFormThrowsBlockDefinitionException()
     {
         $this->configuration->getForm('unknown');
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration::getPlaceholderForms
-     */
-    public function testGetPlaceholderForms()
-    {
-        $this->assertEquals(
-            array(
-                'full' => new Form(array('identifier' => 'full', 'type' => 'placeholder')),
-            ),
-            $this->configuration->getPlaceholderForms()
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration::hasPlaceholderForm
-     */
-    public function testHasPlaceholderForm()
-    {
-        $this->assertTrue($this->configuration->hasPlaceholderForm('full'));
-        $this->assertFalse($this->configuration->hasPlaceholderForm('unknown'));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration::getPlaceholderForm
-     */
-    public function testGetPlaceholderForm()
-    {
-        $this->assertEquals(
-            new Form(array('identifier' => 'full', 'type' => 'placeholder')),
-            $this->configuration->getPlaceholderForm('full')
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration::getPlaceholderForm
-     * @expectedException \Netgen\BlockManager\Exception\Block\BlockDefinitionException
-     * @expectedExceptionMessage Form "unknown" does not exist in "block_definition" block definition.
-     */
-    public function testGetPlaceholderFormThrowsBlockDefinitionException()
-    {
-        $this->configuration->getPlaceholderForm('unknown');
     }
 
     /**

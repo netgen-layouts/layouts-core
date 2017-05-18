@@ -28,11 +28,6 @@ class Configuration extends ValueObject
     protected $forms = array();
 
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\Form[]
-     */
-    protected $placeholderForms = array();
-
-    /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType[]
      */
     protected $viewTypes = array();
@@ -125,46 +120,6 @@ class Configuration extends ValueObject
         }
 
         return $this->forms[$formName];
-    }
-
-    /**
-     * Returns all placeholder forms.
-     *
-     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Form[]
-     */
-    public function getPlaceholderForms()
-    {
-        return $this->placeholderForms;
-    }
-
-    /**
-     * Returns if the block definition has a placeholder form with provided name.
-     *
-     * @param string $formName
-     *
-     * @return bool
-     */
-    public function hasPlaceholderForm($formName)
-    {
-        return isset($this->placeholderForms[$formName]);
-    }
-
-    /**
-     * Returns the placeholder form for provided form name.
-     *
-     * @param string $formName
-     *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If form does not exist
-     *
-     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Form
-     */
-    public function getPlaceholderForm($formName)
-    {
-        if (!$this->hasPlaceholderForm($formName)) {
-            throw BlockDefinitionException::noForm($this->identifier, $formName);
-        }
-
-        return $this->placeholderForms[$formName];
     }
 
     /**

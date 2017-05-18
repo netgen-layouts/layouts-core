@@ -133,6 +133,8 @@ class Parameter extends ValueObject implements ParameterInterface
     }
 
     /**
+     * Returns the parameter groups.
+     *
      * @return array
      */
     public function getGroups()

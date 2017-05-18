@@ -45,12 +45,6 @@ class BlockDefinitionNodeTest extends TestCase
                                 'enabled' => false,
                             ),
                         ),
-                        'placeholder_forms' => array(
-                            'full' => array(
-                                'type' => 'test_form2',
-                                'enabled' => true,
-                            ),
-                        ),
                         'view_types' => array(
                             'default' => array(
                                 'name' => 'Default',
@@ -117,12 +111,6 @@ class BlockDefinitionNodeTest extends TestCase
                         'content' => array(
                             'type' => 'content_type',
                             'enabled' => false,
-                        ),
-                    ),
-                    'placeholder_forms' => array(
-                        'full' => array(
-                            'type' => 'test_form2',
-                            'enabled' => true,
                         ),
                     ),
                     'view_types' => array(

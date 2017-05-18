@@ -18,7 +18,6 @@ class Factory
     {
         $collections = array();
         $forms = array();
-        $placeholderForms = array();
         $viewTypes = array();
 
         if (isset($config['collections'])) {
@@ -38,19 +37,6 @@ class Factory
             }
 
             $forms[$formIdentifier] = new Form(
-                array(
-                    'identifier' => $formIdentifier,
-                    'type' => $formConfig['type'],
-                )
-            );
-        }
-
-        foreach ($config['placeholder_forms'] as $formIdentifier => $formConfig) {
-            if (!$formConfig['enabled']) {
-                continue;
-            }
-
-            $placeholderForms[$formIdentifier] = new Form(
                 array(
                     'identifier' => $formIdentifier,
                     'type' => $formConfig['type'],
@@ -122,7 +108,6 @@ class Factory
                 'name' => $config['name'],
                 'collections' => $collections,
                 'forms' => $forms,
-                'placeholderForms' => $placeholderForms,
                 'viewTypes' => $viewTypes,
             )
         );

@@ -47,16 +47,6 @@ class FactoryTest extends TestCase
                     'enabled' => false,
                 ),
             ),
-            'placeholder_forms' => array(
-                'full' => array(
-                    'type' => 'placeholder_form_type',
-                    'enabled' => true,
-                ),
-                'other' => array(
-                    'type' => 'type',
-                    'enabled' => false,
-                ),
-            ),
             'view_types' => array(
                 'large' => array(
                     'name' => 'Large',
@@ -139,14 +129,6 @@ class FactoryTest extends TestCase
                             )
                         ),
                     ),
-                    'placeholderForms' => array(
-                        'full' => new Form(
-                            array(
-                                'identifier' => 'full',
-                                'type' => 'placeholder_form_type',
-                            )
-                        ),
-                    ),
                     'viewTypes' => array(
                         'large' => new ViewType(
                             array(
@@ -220,12 +202,6 @@ class FactoryTest extends TestCase
                     'enabled' => true,
                 ),
             ),
-            'placeholder_forms' => array(
-                'full' => array(
-                    'type' => 'placeholder_form_type',
-                    'enabled' => true,
-                ),
-            ),
             'view_types' => array(
                 'large' => array(
                     'enabled' => false,
@@ -253,12 +229,6 @@ class FactoryTest extends TestCase
             'forms' => array(
                 'full' => array(
                     'type' => 'form_type',
-                    'enabled' => true,
-                ),
-            ),
-            'placeholder_forms' => array(
-                'full' => array(
-                    'type' => 'placeholder_form_type',
                     'enabled' => true,
                 ),
             ),
