@@ -41,9 +41,7 @@ class ValueTypeValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, 'string');
         }
 
-        $enabledValueTypes = array_keys($this->valueTypeRegistry->getValueTypes(true));
-
-        if (!in_array($value, $enabledValueTypes, true)) {
+        if (!$this->valueTypeRegistry->hasValueType($value)) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('%valueType%', $value)
                 ->addViolation();

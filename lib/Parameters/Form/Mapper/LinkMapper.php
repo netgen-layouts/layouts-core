@@ -52,7 +52,7 @@ class LinkMapper extends Mapper
             'value_types' => !empty($valueTypes) ?
                 $valueTypes :
                 array_keys(
-                    $this->valueTypeRegistry->getValueTypes(true)
+                    $this->valueTypeRegistry->getValueTypes()
                 ),
         );
     }

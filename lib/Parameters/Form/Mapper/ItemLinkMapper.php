@@ -51,7 +51,7 @@ class ItemLinkMapper extends Mapper
             'item_types' => !empty($valueTypes) ?
                 $valueTypes :
                 array_keys(
-                    $this->valueTypeRegistry->getValueTypes(true)
+                    $this->valueTypeRegistry->getValueTypes()
                 ),
         );
     }
