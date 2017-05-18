@@ -3,32 +3,31 @@
 namespace Netgen\BlockManager\Item;
 
 use Netgen\BlockManager\Exception\InvalidItemException;
-use Netgen\BlockManager\Item\Registry\ValueLoaderRegistryInterface;
 
 class ItemLoader implements ItemLoaderInterface
 {
-    /**
-     * @var \Netgen\BlockManager\Item\Registry\ValueLoaderRegistryInterface
-     */
-    protected $valueLoaderRegistry;
-
     /**
      * @var \Netgen\BlockManager\Item\ItemBuilderInterface
      */
     protected $itemBuilder;
 
     /**
+     * @var \Netgen\BlockManager\Item\ValueLoaderInterface[]
+     */
+    protected $valueLoaders;
+
+    /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Item\Registry\ValueLoaderRegistryInterface $valueLoaderRegistry
      * @param \Netgen\BlockManager\Item\ItemBuilderInterface $itemBuilder
+     * @param \Netgen\BlockManager\Item\ValueLoaderInterface[] $valueLoaders
      */
     public function __construct(
-        ValueLoaderRegistryInterface $valueLoaderRegistry,
-        ItemBuilderInterface $itemBuilder
+        ItemBuilderInterface $itemBuilder,
+        array $valueLoaders = array()
     ) {
-        $this->valueLoaderRegistry = $valueLoaderRegistry;
         $this->itemBuilder = $itemBuilder;
+        $this->valueLoaders = $valueLoaders;
     }
 
     /**
@@ -43,16 +42,14 @@ class ItemLoader implements ItemLoaderInterface
      */
     public function load($valueId, $valueType)
     {
-        if (!$this->valueLoaderRegistry->hasValueLoader($valueType)) {
+        if (!isset($this->valueLoaders[$valueType])) {
             throw new InvalidItemException(
                 sprintf('Value type "%s" does not exist.', $valueType)
             );
         }
 
-        $valueLoader = $this->valueLoaderRegistry->getValueLoader($valueType);
-
         return $this->itemBuilder->build(
-            $valueLoader->load($valueId)
+            $this->valueLoaders[$valueType]->load($valueId)
         );
     }
 }

@@ -12,7 +12,6 @@ use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Item\ItemBuilder;
 use Netgen\BlockManager\Item\ItemLoader;
-use Netgen\BlockManager\Item\Registry\ValueLoaderRegistry;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Item\Stubs\Value;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueConverter;
@@ -32,27 +31,19 @@ class ResultLoaderTest extends TestCase
     protected $itemLoader;
 
     /**
-     * @var \Netgen\BlockManager\Item\Registry\ValueLoaderRegistryInterface
-     */
-    protected $valueLoaderRegistry;
-
-    /**
      * @var \Netgen\BlockManager\Collection\Result\ResultLoaderInterface
      */
     protected $resultLoader;
 
     public function setUp()
     {
-        $this->valueLoaderRegistry = new ValueLoaderRegistry();
-        $this->valueLoaderRegistry->addValueLoader('value', new ValueLoader());
-
         $this->itemBuilder = new ItemBuilder(
             array(new ValueConverter())
         );
 
         $this->itemLoader = new ItemLoader(
-            $this->valueLoaderRegistry,
-            $this->itemBuilder
+            $this->itemBuilder,
+            array('value' => new ValueLoader())
         );
 
         $this->resultLoader = new ResultLoader(

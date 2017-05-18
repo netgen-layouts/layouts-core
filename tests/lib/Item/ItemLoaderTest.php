@@ -5,18 +5,12 @@ namespace Netgen\BlockManager\Tests\Item;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Item\ItemBuilderInterface;
 use Netgen\BlockManager\Item\ItemLoader;
-use Netgen\BlockManager\Item\Registry\ValueLoaderRegistry;
 use Netgen\BlockManager\Tests\Item\Stubs\Value;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueLoader;
 use PHPUnit\Framework\TestCase;
 
 class ItemLoaderTest extends TestCase
 {
-    /**
-     * @var \Netgen\BlockManager\Item\Registry\ValueLoaderRegistryInterface
-     */
-    protected $valueLoaderRegistry;
-
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
@@ -29,13 +23,7 @@ class ItemLoaderTest extends TestCase
 
     public function setUp()
     {
-        $this->valueLoaderRegistry = new ValueLoaderRegistry();
         $this->itemBuilderMock = $this->createMock(ItemBuilderInterface::class);
-
-        $this->itemLoader = new ItemLoader(
-            $this->valueLoaderRegistry,
-            $this->itemBuilderMock
-        );
     }
 
     /**
@@ -54,7 +42,10 @@ class ItemLoaderTest extends TestCase
             )
         );
 
-        $this->valueLoaderRegistry->addValueLoader('value', new ValueLoader());
+        $this->itemLoader = new ItemLoader(
+            $this->itemBuilderMock,
+            array('value' => new ValueLoader())
+        );
 
         $this->itemBuilderMock
             ->expects($this->any())
@@ -71,6 +62,8 @@ class ItemLoaderTest extends TestCase
      */
     public function testLoadItemThrowsInvalidItemException()
     {
+        $this->itemLoader = new ItemLoader($this->itemBuilderMock);
+
         $this->itemLoader->load(42, 'value');
     }
 
@@ -81,7 +74,10 @@ class ItemLoaderTest extends TestCase
      */
     public function testLoadItemThrowsInvalidItemExceptionWithNoItem()
     {
-        $this->valueLoaderRegistry->addValueLoader('value', new ValueLoader(true));
+        $this->itemLoader = new ItemLoader(
+            $this->itemBuilderMock,
+            array('value' => new ValueLoader(true))
+        );
 
         $this->itemLoader->load(42, 'value');
     }

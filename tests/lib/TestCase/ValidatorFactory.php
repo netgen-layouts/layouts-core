@@ -3,6 +3,8 @@
 namespace Netgen\BlockManager\Tests\TestCase;
 
 use Netgen\BlockManager\Item\ItemLoaderInterface;
+use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
+use Netgen\BlockManager\Item\ValueType\ValueType;
 use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry;
 use Netgen\BlockManager\Validator;
 use PHPUnit\Framework\TestCase;
@@ -45,7 +47,10 @@ class ValidatorFactory implements ConstraintValidatorFactoryInterface
         } elseif ($name === 'ngbm_block_item_view_type') {
             return new Validator\BlockItemViewTypeValidator();
         } elseif ($name === 'ngbm_value_type') {
-            return new Validator\ValueTypeValidator(array('value'));
+            $valueTypeRegistry = new ValueTypeRegistry();
+            $valueTypeRegistry->addValueType('value', new ValueType(array('isEnabled' => true)));
+
+            return new Validator\ValueTypeValidator($valueTypeRegistry);
         } elseif ($name === 'ngbm_link') {
             return new Validator\Parameters\LinkValidator();
         } elseif ($name === 'ngbm_item_link') {

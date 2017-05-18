@@ -105,8 +105,8 @@ abstract class Controller extends BaseController
      */
     protected function hasValueType($type)
     {
-        $valueLoaderRegistry = $this->get('netgen_block_manager.item.registry.value_loader');
+        $valueTypeRegistry = $this->get('netgen_block_manager.item.registry.value_type');
 
-        return $valueLoaderRegistry->hasValueLoader($type);
+        return $valueTypeRegistry->hasValueType($type);
     }
 }

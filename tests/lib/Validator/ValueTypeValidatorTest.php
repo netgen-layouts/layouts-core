@@ -2,8 +2,10 @@
 
 namespace Netgen\BlockManager\Tests\Validator;
 
+use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
+use Netgen\BlockManager\Item\ValueType\ValueType;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
-use Netgen\BlockManager\Validator\Constraint\ValueType;
+use Netgen\BlockManager\Validator\Constraint\ValueType as ValueTypeConstraint;
 use Netgen\BlockManager\Validator\ValueTypeValidator;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -11,7 +13,7 @@ class ValueTypeValidatorTest extends ValidatorTestCase
 {
     public function setUp()
     {
-        $this->constraint = new ValueType();
+        $this->constraint = new ValueTypeConstraint();
 
         parent::setUp();
     }
@@ -21,7 +23,10 @@ class ValueTypeValidatorTest extends ValidatorTestCase
      */
     public function getValidator()
     {
-        return new ValueTypeValidator(array('value'));
+        $valueTypeRegistry = new ValueTypeRegistry();
+        $valueTypeRegistry->addValueType('value', new ValueType(array('isEnabled' => true)));
+
+        return new ValueTypeValidator($valueTypeRegistry);
     }
 
     /**

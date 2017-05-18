@@ -158,14 +158,14 @@ services:
     netgen_block_manager.parameters.form.mapper.item_link:
         class: Netgen\BlockManager\Parameters\Form\Mapper\ItemLinkMapper
         arguments:
-            - "%netgen_block_manager.item.value_types%"
+            - "@netgen_block_manager.item.registry.value_type"
         tags:
             - { name: netgen_block_manager.parameters.form.mapper, type: item_link }
 
     netgen_block_manager.parameters.form.mapper.link:
         class: Netgen\BlockManager\Parameters\Form\Mapper\LinkMapper
         arguments:
-            - "%netgen_block_manager.item.value_types%"
+            - "@netgen_block_manager.item.registry.value_type"
         tags:
             - { name: netgen_block_manager.parameters.form.mapper, type: link }
 

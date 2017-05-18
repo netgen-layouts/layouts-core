@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Parameters\Form\Mapper;
 
+use Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface;
 use Netgen\BlockManager\Parameters\Form\Mapper;
 use Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper;
 use Netgen\BlockManager\Parameters\ParameterInterface;
@@ -11,18 +12,18 @@ use Symfony\Component\Form\FormBuilderInterface;
 class ItemLinkMapper extends Mapper
 {
     /**
-     * @var array
+     * @var \Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface
      */
-    protected $defaultValueTypes;
+    protected $valueTypeRegistry;
 
     /**
      * Constructor.
      *
-     * @param array $defaultValueTypes
+     * @param \Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface $valueTypeRegistry
      */
-    public function __construct(array $defaultValueTypes = array())
+    public function __construct(ValueTypeRegistryInterface $valueTypeRegistry)
     {
-        $this->defaultValueTypes = $defaultValueTypes;
+        $this->valueTypeRegistry = $valueTypeRegistry;
     }
 
     /**
@@ -47,7 +48,11 @@ class ItemLinkMapper extends Mapper
         $valueTypes = $parameter->getOption('value_types');
 
         return array(
-            'item_types' => !empty($valueTypes) ? $valueTypes : $this->defaultValueTypes,
+            'item_types' => !empty($valueTypes) ?
+                $valueTypes :
+                array_keys(
+                    $this->valueTypeRegistry->getValueTypes(true)
+                ),
         );
     }
 

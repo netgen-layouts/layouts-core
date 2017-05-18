@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Parameters\Form\Mapper;
 
+use Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface;
 use Netgen\BlockManager\Parameters\Form\Mapper;
 use Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper;
 use Netgen\BlockManager\Parameters\Form\Type\LinkType;
@@ -11,18 +12,18 @@ use Symfony\Component\Form\FormBuilderInterface;
 class LinkMapper extends Mapper
 {
     /**
-     * @var array
+     * @var \Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface
      */
-    protected $defaultValueTypes;
+    protected $valueTypeRegistry;
 
     /**
      * Constructor.
      *
-     * @param array $defaultValueTypes
+     * @param \Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface $valueTypeRegistry
      */
-    public function __construct(array $defaultValueTypes = array())
+    public function __construct(ValueTypeRegistryInterface $valueTypeRegistry)
     {
-        $this->defaultValueTypes = $defaultValueTypes;
+        $this->valueTypeRegistry = $valueTypeRegistry;
     }
 
     /**
@@ -48,7 +49,11 @@ class LinkMapper extends Mapper
 
         return array(
             'label' => false,
-            'value_types' => !empty($valueTypes) ? $valueTypes : $this->defaultValueTypes,
+            'value_types' => !empty($valueTypes) ?
+                $valueTypes :
+                array_keys(
+                    $this->valueTypeRegistry->getValueTypes(true)
+                ),
         );
     }
 

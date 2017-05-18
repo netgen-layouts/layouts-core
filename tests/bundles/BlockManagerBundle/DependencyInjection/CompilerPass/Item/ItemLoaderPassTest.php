@@ -3,19 +3,22 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\CompilerPass\Item;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
-use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ValueLoaderRegistryPass;
+use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ItemLoaderPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
-class ValueLoaderRegistryPassTest extends AbstractCompilerPassTestCase
+class ItemLoaderPassTest extends AbstractCompilerPassTestCase
 {
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ValueLoaderRegistryPass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ItemLoaderPass::process
      */
     public function testProcess()
     {
-        $this->setDefinition('netgen_block_manager.item.registry.value_loader', new Definition());
+        $this->setDefinition(
+            'netgen_block_manager.item.item_loader',
+            new Definition(null, array(null, null))
+        );
 
         $valueLoader = new Definition();
         $valueLoader->addTag('netgen_block_manager.item.value_loader', array('value_type' => 'test'));
@@ -23,29 +26,23 @@ class ValueLoaderRegistryPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
-            'netgen_block_manager.item.registry.value_loader',
-            'addValueLoader',
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+            'netgen_block_manager.item.item_loader',
+            1,
             array(
-                'test',
-                new Reference('netgen_block_manager.item.value_loader.test'),
+                'test' => new Reference('netgen_block_manager.item.value_loader.test'),
             )
-        );
-
-        $this->assertContainerBuilderHasParameter(
-            'netgen_block_manager.item.value_types',
-            array('test')
         );
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ValueLoaderRegistryPass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ItemLoaderPass::process
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Value type must begin with a letter and be followed by any combination of letters, digits and underscore.
      */
     public function testProcessThrowsRuntimeExceptionWithInvalidValueTypeTag()
     {
-        $this->setDefinition('netgen_block_manager.item.registry.value_loader', new Definition());
+        $this->setDefinition('netgen_block_manager.item.item_loader', new Definition());
 
         $valueLoader = new Definition();
         $valueLoader->addTag('netgen_block_manager.item.value_loader', array('value_type' => '123'));
@@ -55,13 +52,13 @@ class ValueLoaderRegistryPassTest extends AbstractCompilerPassTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ValueLoaderRegistryPass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ItemLoaderPass::process
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage Value loader service definition must have a 'value_type' attribute in its' tag.
      */
     public function testProcessThrowsRuntimeExceptionWithNoTagValueType()
     {
-        $this->setDefinition('netgen_block_manager.item.registry.value_loader', new Definition());
+        $this->setDefinition('netgen_block_manager.item.item_loader', new Definition());
 
         $valueLoader = new Definition();
         $valueLoader->addTag('netgen_block_manager.item.value_loader');
@@ -71,7 +68,7 @@ class ValueLoaderRegistryPassTest extends AbstractCompilerPassTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ValueLoaderRegistryPass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ItemLoaderPass::process
      * @doesNotPerformAssertions
      */
     public function testProcessWithEmptyContainer()
@@ -86,6 +83,6 @@ class ValueLoaderRegistryPassTest extends AbstractCompilerPassTestCase
      */
     protected function registerCompilerPass(ContainerBuilder $container)
     {
-        $container->addCompilerPass(new ValueLoaderRegistryPass());
+        $container->addCompilerPass(new ItemLoaderPass());
     }
 }

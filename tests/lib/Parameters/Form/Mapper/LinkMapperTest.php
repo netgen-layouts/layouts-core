@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\FormMapper\ParameterMapper;
 
+use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
+use Netgen\BlockManager\Item\ValueType\ValueType;
 use Netgen\BlockManager\Parameters\Form\Mapper\LinkMapper;
 use Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper;
 use Netgen\BlockManager\Parameters\Form\Type\LinkType;
@@ -21,7 +23,10 @@ class LinkMapperTest extends TestCase
 
     public function setUp()
     {
-        $this->mapper = new LinkMapper(array('default'));
+        $valueTypeRegistry = new ValueTypeRegistry();
+        $valueTypeRegistry->addValueType('default', new ValueType(array('isEnabled' => true)));
+
+        $this->mapper = new LinkMapper($valueTypeRegistry);
     }
 
     /**

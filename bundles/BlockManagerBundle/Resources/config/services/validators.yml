@@ -19,7 +19,7 @@ services:
     netgen_block_manager.validator.value_type:
         class: Netgen\BlockManager\Validator\ValueTypeValidator
         arguments:
-            - "%netgen_block_manager.item.value_types%"
+            - "@netgen_block_manager.item.registry.value_type"
         tags:
             - { name: validator.constraint_validator, alias: ngbm_value_type }
 
