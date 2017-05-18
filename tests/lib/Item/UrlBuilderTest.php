@@ -6,6 +6,7 @@ use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Item\UrlBuilder;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueUrlBuilder;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 class UrlBuilderTest extends TestCase
 {
@@ -19,6 +20,16 @@ class UrlBuilderTest extends TestCase
         $this->urlBuilder = new UrlBuilder(
             array('value' => new ValueUrlBuilder())
         );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Item\UrlBuilder::__construct
+     * @expectedException \Netgen\BlockManager\Exception\InvalidInterfaceException
+     * @expectedExceptionMessage Value URL builder "stdClass" needs to implement "Netgen\BlockManager\Item\ValueUrlBuilderInterface" interface.
+     */
+    public function testConstructorThrowsInvalidInterfaceExceptionWithWrongInterface()
+    {
+        new UrlBuilder(array(new stdClass()));
     }
 
     /**

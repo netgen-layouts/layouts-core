@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Item;
 
+use Netgen\BlockManager\Exception\InvalidInterfaceException;
 use Netgen\BlockManager\Exception\Item\ValueException;
 
 class UrlBuilder implements UrlBuilderInterface
@@ -18,6 +19,16 @@ class UrlBuilder implements UrlBuilderInterface
      */
     public function __construct(array $valueUrlBuilders = array())
     {
+        foreach ($valueUrlBuilders as $valueUrlBuilder) {
+            if (!$valueUrlBuilder instanceof ValueUrlBuilderInterface) {
+                throw new InvalidInterfaceException(
+                    'Value URL builder',
+                    get_class($valueUrlBuilder),
+                    ValueUrlBuilderInterface::class
+                );
+            }
+        }
+
         $this->valueUrlBuilders = $valueUrlBuilders;
     }
 

@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Item;
 
+use Netgen\BlockManager\Exception\InvalidInterfaceException;
 use Netgen\BlockManager\Exception\Item\ItemException;
 
 class ItemLoader implements ItemLoaderInterface
@@ -26,6 +27,16 @@ class ItemLoader implements ItemLoaderInterface
         ItemBuilderInterface $itemBuilder,
         array $valueLoaders = array()
     ) {
+        foreach ($valueLoaders as $valueLoader) {
+            if (!$valueLoader instanceof ValueLoaderInterface) {
+                throw new InvalidInterfaceException(
+                    'Value loader',
+                    get_class($valueLoader),
+                    ValueLoaderInterface::class
+                );
+            }
+        }
+
         $this->itemBuilder = $itemBuilder;
         $this->valueLoaders = $valueLoaders;
     }

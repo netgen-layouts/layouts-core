@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\View;
 
+use Netgen\BlockManager\Exception\InvalidInterfaceException;
 use Netgen\BlockManager\View\Fragment\ViewRendererInterface as FragmentViewRendererInterface;
 use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
 
@@ -41,6 +42,16 @@ class FragmentRenderer implements RendererInterface
         FragmentHandler $fragmentHandler,
         array $fragmentViewRenderers = array()
     ) {
+        foreach ($fragmentViewRenderers as $fragmentViewRenderer) {
+            if (!$fragmentViewRenderer instanceof FragmentViewRendererInterface) {
+                throw new InvalidInterfaceException(
+                    'Fragment view renderer',
+                    get_class($fragmentViewRenderer),
+                    FragmentViewRendererInterface::class
+                );
+            }
+        }
+
         $this->viewBuilder = $viewBuilder;
         $this->viewRenderer = $viewRenderer;
         $this->fragmentHandler = $fragmentHandler;
