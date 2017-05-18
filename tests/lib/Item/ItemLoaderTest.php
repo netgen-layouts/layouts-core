@@ -54,7 +54,7 @@ class ItemLoaderTest extends TestCase
             )
         );
 
-        $this->valueLoaderRegistry->addValueLoader(new ValueLoader());
+        $this->valueLoaderRegistry->addValueLoader('value', new ValueLoader());
 
         $this->itemBuilderMock
             ->expects($this->any())
@@ -81,7 +81,7 @@ class ItemLoaderTest extends TestCase
      */
     public function testLoadItemThrowsInvalidItemExceptionWithNoItem()
     {
-        $this->valueLoaderRegistry->addValueLoader(new ValueLoader(true));
+        $this->valueLoaderRegistry->addValueLoader('value', new ValueLoader(true));
 
         $this->itemLoader->load(42, 'value');
     }

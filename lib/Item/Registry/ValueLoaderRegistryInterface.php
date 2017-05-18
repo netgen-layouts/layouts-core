@@ -9,9 +9,10 @@ interface ValueLoaderRegistryInterface
     /**
      * Adds a value loader to registry.
      *
+     * @param string $valueType
      * @param \Netgen\BlockManager\Item\ValueLoaderInterface $valueLoader
      */
-    public function addValueLoader(ValueLoaderInterface $valueLoader);
+    public function addValueLoader($valueType, ValueLoaderInterface $valueLoader);
 
     /**
      * Returns if registry has a value loader.

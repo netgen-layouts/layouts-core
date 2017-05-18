@@ -23,7 +23,7 @@ class ValueLoaderRegistryTest extends TestCase
         $this->registry = new ValueLoaderRegistry();
 
         $this->valueLoader = new ValueLoader();
-        $this->registry->addValueLoader($this->valueLoader);
+        $this->registry->addValueLoader('value', $this->valueLoader);
     }
 
     /**

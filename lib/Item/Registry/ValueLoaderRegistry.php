@@ -15,11 +15,12 @@ class ValueLoaderRegistry implements ValueLoaderRegistryInterface
     /**
      * Adds a value loader to registry.
      *
+     * @param string $valueType
      * @param \Netgen\BlockManager\Item\ValueLoaderInterface $valueLoader
      */
-    public function addValueLoader(ValueLoaderInterface $valueLoader)
+    public function addValueLoader($valueType, ValueLoaderInterface $valueLoader)
     {
-        $this->valueLoaders[$valueLoader->getValueType()] = $valueLoader;
+        $this->valueLoaders[$valueType] = $valueLoader;
     }
 
     /**

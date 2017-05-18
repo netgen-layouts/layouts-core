@@ -27,6 +27,7 @@ class ValueLoaderRegistryPassTest extends AbstractCompilerPassTestCase
             'netgen_block_manager.item.registry.value_loader',
             'addValueLoader',
             array(
+                'test',
                 new Reference('netgen_block_manager.item.value_loader.test'),
             )
         );

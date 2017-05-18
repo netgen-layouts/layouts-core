@@ -44,7 +44,7 @@ class ResultLoaderTest extends TestCase
     public function setUp()
     {
         $this->valueLoaderRegistry = new ValueLoaderRegistry();
-        $this->valueLoaderRegistry->addValueLoader(new ValueLoader());
+        $this->valueLoaderRegistry->addValueLoader('value', new ValueLoader());
 
         $this->itemBuilder = new ItemBuilder(
             array(new ValueConverter())

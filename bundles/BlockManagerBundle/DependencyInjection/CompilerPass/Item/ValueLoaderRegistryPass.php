@@ -41,12 +41,14 @@ class ValueLoaderRegistryPass implements CompilerPassInterface
                 );
             }
 
+            $valueType = $tag[0]['value_type'];
+
             $valueLoaderRegistry->addMethodCall(
                 'addValueLoader',
-                array(new Reference($valueLoader))
+                array($valueType, new Reference($valueLoader))
             );
 
-            $valueTypes[] = $tag[0]['value_type'];
+            $valueTypes[] = $valueType;
         }
 
         $container->setParameter('netgen_block_manager.item.value_types', $valueTypes);
