@@ -53,11 +53,7 @@ class CreateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $choices = array();
-        foreach ($this->layoutTypeRegistry->getLayoutTypes() as $layoutType) {
-            if (!$layoutType->isEnabled()) {
-                continue;
-            }
-
+        foreach ($this->layoutTypeRegistry->getLayoutTypes(true) as $layoutType) {
             $choices[$layoutType->getName()] = $layoutType->getIdentifier();
         }
 

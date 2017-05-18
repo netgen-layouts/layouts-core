@@ -37,7 +37,9 @@ interface LayoutTypeRegistryInterface
     /**
      * Returns all layout types.
      *
+     * @param bool $onlyEnabled
+     *
      * @return \Netgen\BlockManager\Layout\Type\LayoutType[]
      */
-    public function getLayoutTypes();
+    public function getLayoutTypes($onlyEnabled = false);
 }

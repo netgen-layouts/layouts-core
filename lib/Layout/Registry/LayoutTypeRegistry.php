@@ -56,10 +56,21 @@ class LayoutTypeRegistry implements LayoutTypeRegistryInterface
     /**
      * Returns all layout types.
      *
+     * @param bool $onlyEnabled
+     *
      * @return \Netgen\BlockManager\Layout\Type\LayoutType[]
      */
-    public function getLayoutTypes()
+    public function getLayoutTypes($onlyEnabled = false)
     {
-        return $this->layoutTypes;
+        if (!$onlyEnabled) {
+            return $this->layoutTypes;
+        }
+
+        return array_filter(
+            $this->layoutTypes,
+            function (LayoutType $layoutType) {
+                return $layoutType->isEnabled();
+            }
+        );
     }
 }
