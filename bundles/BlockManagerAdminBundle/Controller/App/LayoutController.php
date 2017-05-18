@@ -82,7 +82,7 @@ class LayoutController extends Controller
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @return \Netgen\BlockManager\View\ViewInterface
+     * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
     public function layoutEditForm(Layout $layout, Request $request)
     {
@@ -109,9 +109,9 @@ class LayoutController extends Controller
         }
 
         if ($form->isValid()) {
-            $updatedLayout = $this->layoutService->updateLayout($layout, $updateStruct);
+            $this->layoutService->updateLayout($layout, $updateStruct);
 
-            return $this->buildView($updatedLayout, ViewInterface::CONTEXT_API);
+            return new Response(null, Response::HTTP_NO_CONTENT);
         }
 
         return $this->buildView(
