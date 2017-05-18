@@ -98,27 +98,6 @@ class Block extends Value
     public $name;
 
     /**
-     * Returns the main locale of this block.
-     *
-     * @var string
-     */
-    public $mainLocale;
-
-    /**
-     * Returns the list of all locales available in this locale.
-     *
-     * @var string[]
-     */
-    public $availableLocales;
-
-    /**
-     * Returns if main locale of this block will be always available.
-     *
-     * @var bool
-     */
-    public $alwaysAvailable;
-
-    /**
      * Block status. One of self::STATUS_* flags.
      *
      * @var int
