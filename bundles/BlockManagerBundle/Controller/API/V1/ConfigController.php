@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
+use Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistryInterface;
 use Netgen\BlockManager\Block\Registry\BlockTypeRegistryInterface;
 use Netgen\BlockManager\Collection\Registry\SourceRegistryInterface;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
@@ -17,6 +18,11 @@ class ConfigController extends Controller
      * @var \Netgen\BlockManager\Block\Registry\BlockTypeRegistryInterface
      */
     protected $blockTypeRegistry;
+
+    /**
+     * @var \Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistryInterface
+     */
+    protected $blockTypeGroupRegistry;
 
     /**
      * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface
@@ -42,6 +48,7 @@ class ConfigController extends Controller
      * Constructor.
      *
      * @param \Netgen\BlockManager\Block\Registry\BlockTypeRegistryInterface $blockTypeRegistry
+     * @param \Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistryInterface $blockTypeGroupRegistry
      * @param \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
      * @param \Netgen\BlockManager\Collection\Registry\SourceRegistryInterface $sourceRegistry
      * @param \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface $csrfTokenManager
@@ -49,12 +56,14 @@ class ConfigController extends Controller
      */
     public function __construct(
         BlockTypeRegistryInterface $blockTypeRegistry,
+        BlockTypeGroupRegistryInterface $blockTypeGroupRegistry,
         LayoutTypeRegistryInterface $layoutTypeRegistry,
         SourceRegistryInterface $sourceRegistry,
         CsrfTokenManagerInterface $csrfTokenManager = null,
         $csrfTokenId = null
     ) {
         $this->blockTypeRegistry = $blockTypeRegistry;
+        $this->blockTypeGroupRegistry = $blockTypeGroupRegistry;
         $this->layoutTypeRegistry = $layoutTypeRegistry;
         $this->sourceRegistry = $sourceRegistry;
         $this->csrfTokenManager = $csrfTokenManager;
@@ -83,7 +92,7 @@ class ConfigController extends Controller
     public function getBlockTypes()
     {
         $blockTypeGroups = array();
-        foreach ($this->blockTypeRegistry->getBlockTypeGroups() as $blockTypeGroup) {
+        foreach ($this->blockTypeGroupRegistry->getBlockTypeGroups() as $blockTypeGroup) {
             if (!empty($blockTypeGroup->getBlockTypes())) {
                 $blockTypeGroups[] = new VersionedValue($blockTypeGroup, Version::API_V1);
             }

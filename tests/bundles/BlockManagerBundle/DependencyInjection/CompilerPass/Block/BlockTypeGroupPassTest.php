@@ -29,13 +29,13 @@ class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
 
         $this->setParameter('netgen_block_manager.block_types', array());
 
-        $this->setDefinition('netgen_block_manager.block.registry.block_type', new Definition());
+        $this->setDefinition('netgen_block_manager.block.registry.block_type_group', new Definition());
 
         $this->compile();
 
         $this->assertContainerBuilderHasService('netgen_block_manager.block.block_type_group.test');
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
-            'netgen_block_manager.block.registry.block_type',
+            'netgen_block_manager.block.registry.block_type_group',
             'addBlockTypeGroup',
             array(
                 'test',
@@ -70,7 +70,7 @@ class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
             )
         );
 
-        $this->setDefinition('netgen_block_manager.block.registry.block_type', new Definition());
+        $this->setDefinition('netgen_block_manager.block.registry.block_type_group', new Definition());
 
         $this->compile();
 
@@ -123,7 +123,7 @@ class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
             )
         );
 
-        $this->setDefinition('netgen_block_manager.block.registry.block_type', new Definition());
+        $this->setDefinition('netgen_block_manager.block.registry.block_type_group', new Definition());
 
         $this->compile();
 
@@ -158,7 +158,7 @@ class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
 
         $this->setParameter('netgen_block_manager.block_types', array());
 
-        $this->setDefinition('netgen_block_manager.block.registry.block_type', new Definition());
+        $this->setDefinition('netgen_block_manager.block.registry.block_type_group', new Definition());
 
         $this->compile();
 

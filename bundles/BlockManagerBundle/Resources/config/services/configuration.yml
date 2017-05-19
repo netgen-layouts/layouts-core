@@ -7,7 +7,7 @@ services:
             -
                 block_definitions: "@=service('netgen_block_manager.block.registry.block_definition').getBlockDefinitions()"
                 block_types: "@=service('netgen_block_manager.block.registry.block_type').getBlockTypes()"
-                block_type_groups: "@=service('netgen_block_manager.block.registry.block_type').getBlockTypeGroups()"
+                block_type_groups: "@=service('netgen_block_manager.block.registry.block_type_group').getBlockTypeGroups()"
                 layout_types: "@=service('netgen_block_manager.layout.registry.layout_type').getLayoutTypes()"
                 query_types: "@=service('netgen_block_manager.collection.registry.query_type').getQueryTypes()"
                 sources: "@=service('netgen_block_manager.collection.registry.source').getSources()"

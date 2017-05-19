@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\Block\Registry;
 
-use Netgen\BlockManager\Block\BlockType\BlockTypeGroup;
 use Netgen\BlockManager\Block\Registry\BlockTypeRegistry;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockType;
 use PHPUnit\Framework\TestCase;
@@ -15,11 +14,6 @@ class BlockTypeRegistryTest extends TestCase
     protected $blockType;
 
     /**
-     * @var \Netgen\BlockManager\Block\BlockType\BlockTypeGroup
-     */
-    protected $blockTypeGroup;
-
-    /**
      * @var \Netgen\BlockManager\Block\Registry\BlockTypeRegistry
      */
     protected $registry;
@@ -30,10 +24,7 @@ class BlockTypeRegistryTest extends TestCase
 
         $this->blockType = new BlockType(array('identifier' => 'block_type'));
 
-        $this->blockTypeGroup = new BlockTypeGroup(array('identifier' => 'block_type_group'));
-
         $this->registry->addBlockType('block_type', $this->blockType);
-        $this->registry->addBlockTypeGroup('block_type_group', $this->blockTypeGroup);
     }
 
     /**
@@ -77,48 +68,5 @@ class BlockTypeRegistryTest extends TestCase
     public function testGetBlockTypeThrowsBlockTypeException()
     {
         $this->registry->getBlockType('other_block_type');
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::addBlockTypeGroup
-     * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::getBlockTypeGroups
-     */
-    public function testAddBlockTypeGroup()
-    {
-        $this->assertEquals(array('block_type_group' => $this->blockTypeGroup), $this->registry->getBlockTypeGroups());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::hasBlockTypeGroup
-     */
-    public function testHasBlockTypeGroup()
-    {
-        $this->assertTrue($this->registry->hasBlockTypeGroup('block_type_group'));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::hasBlockTypeGroup
-     */
-    public function testHasBlockTypeWithNoBlockTypeGroup()
-    {
-        $this->assertFalse($this->registry->hasBlockTypeGroup('other_block_type_group'));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::getBlockTypeGroup
-     */
-    public function testGetBlockTypeGroup()
-    {
-        $this->assertEquals($this->blockTypeGroup, $this->registry->getBlockTypeGroup('block_type_group'));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::getBlockTypeGroup
-     * @expectedException \Netgen\BlockManager\Exception\Block\BlockTypeException
-     * @expectedExceptionMessage Block type group with "other_block_type_group" identifier does not exist.
-     */
-    public function testGetBlockTypeGroupThrowsBlockTypeException()
-    {
-        $this->registry->getBlockTypeGroup('other_block_type_group');
     }
 }
