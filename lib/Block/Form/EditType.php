@@ -184,13 +184,28 @@ abstract class EditType extends AbstractType
                 $this->viewTypesByItemViewType[$itemViewType->getIdentifier()][] = $viewType->getIdentifier();
             }
 
+            $includedParameters = array();
+            $excludedParameters = array();
+
             $validParameters = $viewType->getValidParameters();
             if (!is_array($validParameters)) {
-                $validParameters = $blockDefinitionParameters;
+                $includedParameters = $blockDefinitionParameters;
+            } elseif (!empty($validParameters)) {
+                foreach ($validParameters as $validParameter) {
+                    strpos($validParameter, '!') === 0 ?
+                        $excludedParameters[] = substr($validParameter, 1) :
+                        $includedParameters[] = $validParameter;
+
+                    if (empty($includedParameters)) {
+                        $includedParameters = $blockDefinitionParameters;
+                    }
+                }
             }
 
-            foreach ($validParameters as $validParameter) {
-                $this->viewTypesByParameters[$validParameter][] = $viewType->getIdentifier();
+            foreach ($includedParameters as $includedParameter) {
+                if (!in_array($includedParameter, $excludedParameters, true)) {
+                    $this->viewTypesByParameters[$includedParameter][] = $viewType->getIdentifier();
+                }
             }
         }
     }

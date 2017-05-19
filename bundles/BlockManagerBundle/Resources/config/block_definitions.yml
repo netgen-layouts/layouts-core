@@ -76,7 +76,7 @@ block_definitions:
         view_types:
             list:
                 name: 'List'
-                valid_parameters: [css_class, css_id, set_container]
+                valid_parameters: [!number_of_columns]
             grid:
                 name: 'Grid'
 
@@ -92,45 +92,45 @@ block_definitions:
             slider:
                 name: 'Slider'
                 valid_parameters:
-                    - next_and_previous
-                    - show_pagination
-                    - infinite_loop
-                    - transition
-                    - autoplay
-                    - aspect_ratio
-                    - css_class
-                    - css_id
-                    - set_container
+                    - !pagination_type
+                    - !autoplay_time
+                    - !number_of_thumbnails
+                    - !show_details
+                    - !show_details_on_hover
+                    - !enable_lightbox
             thumb_gallery:
                 name: 'Thumb gallery'
                 valid_parameters:
-                    - next_and_previous
-                    - aspect_ratio
-                    - show_details
-                    - css_class
-                    - css_id
-                    - set_container
+                     - !show_pagination
+                     - !pagination_type
+                     - !infinite_loop
+                     - !transition
+                     - !autoplay
+                     - !autoplay_time
+                     - !number_of_thumbnails
+                     - !show_details_on_hover
+                     - !enable_lightbox
             grid_gallery:
                 name: 'Grid gallery'
                 valid_parameters:
-                    - aspect_ratio
-                    - number_of_thumbnails
-                    - enable_lightbox
-                    - css_class
-                    - css_id
-                    - set_container
+                     - !next_and_previous
+                     - !show_pagination
+                     - !pagination_type
+                     - !infinite_loop
+                     - !transition
+                     - !autoplay
+                     - !autoplay_time
+                     - !show_details
+                     - !show_details_on_hover
             sushi_bar:
                 name: 'Sushi bar'
                 valid_parameters:
-                    - next_and_previous
-                    - show_pagination
-                    - infinite_loop
-                    - autoplay
-                    - aspect_ratio
-                    - number_of_thumbnails
-                    - css_class
-                    - css_id
-                    - set_container
+                     - !pagination_type
+                     - !transition
+                     - !autoplay_time
+                     - !show_details
+                     - !show_details_on_hover
+                     - !enable_lightbox
 
     column:
         name: 'Column'
