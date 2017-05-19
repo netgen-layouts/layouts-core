@@ -218,7 +218,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $this->assertFalse($updatedCollection->isPublished());
         $this->assertInstanceOf(Collection::class, $updatedCollection);
         $this->assertEquals(Collection::TYPE_MANUAL, $updatedCollection->getType());
-        $this->assertEquals(count($updatedCollection->getItems()), count($collection->getItems()));
+        $this->assertEquals(count($collection->getItems()), count($updatedCollection->getItems()));
         $this->assertNull($updatedCollection->getQuery());
 
         foreach ($updatedCollection->getItems() as $index => $item) {

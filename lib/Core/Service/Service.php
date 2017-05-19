@@ -29,7 +29,7 @@ abstract class Service implements APIService
      *
      * @param callable $callable
      *
-     * @throws \Exception When an error occurs.
+     * @throws \Exception when an error occurs
      *
      * @return $mixed
      */
