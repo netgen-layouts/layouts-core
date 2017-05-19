@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Parameters;
 
 use Netgen\BlockManager\Exception\BadMethodCallException;
 use Netgen\BlockManager\Exception\Parameters\ParameterBuilderException;
+use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ParameterBuilder implements ParameterBuilderInterface
@@ -244,16 +245,7 @@ class ParameterBuilder implements ParameterBuilderInterface
      */
     public function getGroups()
     {
-        if (!$this->parentBuilder instanceof ParameterBuilderInterface) {
-            return $this->groups;
-        }
-
-        if (!$this->parentBuilder->getType() instanceof CompoundParameterTypeInterface) {
-            return $this->groups;
-        }
-
-        // Child parameters receive the group from the parent
-        return $this->parentBuilder->getGroups();
+        return $this->groups;
     }
 
     /**
@@ -447,6 +439,21 @@ class ParameterBuilder implements ParameterBuilderInterface
         $optionsResolver->setAllowedTypes('required', 'bool');
         $optionsResolver->setAllowedTypes('label', array('string', 'null', 'bool'));
         $optionsResolver->setAllowedTypes('groups', 'array');
+
+        $optionsResolver->setNormalizer(
+            'groups',
+            function (Options $options, $value) {
+                if (!$this->parentBuilder instanceof ParameterBuilderInterface) {
+                    return $value;
+                }
+
+                if (!$this->parentBuilder->getType() instanceof CompoundParameterTypeInterface) {
+                    return $value;
+                }
+
+                return $this->parentBuilder->getGroups();
+            }
+        );
 
         $optionsResolver->setAllowedValues(
             'label',
