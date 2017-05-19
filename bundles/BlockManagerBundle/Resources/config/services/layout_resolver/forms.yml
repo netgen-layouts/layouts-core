@@ -21,7 +21,6 @@ services:
         class: Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\Route
         tags:
             - { name: netgen_block_manager.layout.resolver.form.target_type.mapper, target_type: route }
-            - { name: netgen_block_manager.layout.resolver.form.target_type.mapper, target_type: route_prefix }
 
     netgen_block_manager.layout.resolver.form.target_type.mapper.route_prefix:
         class: Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\RoutePrefix
