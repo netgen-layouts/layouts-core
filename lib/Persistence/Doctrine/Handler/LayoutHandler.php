@@ -217,25 +217,26 @@ class LayoutHandler implements LayoutHandlerInterface
      * Creates a layout.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Layout\LayoutCreateStruct $layoutCreateStruct
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\ZoneCreateStruct[] $zoneCreateStructs
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
      */
-    public function createLayout(LayoutCreateStruct $layoutCreateStruct, array $zoneCreateStructs = array())
+    public function createLayout(LayoutCreateStruct $layoutCreateStruct)
     {
-        $layoutCreateStruct->name = trim($layoutCreateStruct->name);
-        $layoutCreateStruct->description = trim($layoutCreateStruct->description);
-        $layoutCreateStruct->shared = $layoutCreateStruct->shared ? true : false;
+        $currentTimeStamp = time();
 
-        $createdLayoutId = $this->queryHandler->createLayout($layoutCreateStruct);
+        $newLayout = new Layout(
+            array(
+                'type' => $layoutCreateStruct->type,
+                'name' => trim($layoutCreateStruct->name),
+                'description' => trim($layoutCreateStruct->description),
+                'created' => $currentTimeStamp,
+                'modified' => $currentTimeStamp,
+                'status' => $layoutCreateStruct->status,
+                'shared' => $layoutCreateStruct->shared ? true : false,
+            )
+        );
 
-        $layout = $this->loadLayout($createdLayoutId, $layoutCreateStruct->status);
-
-        foreach ($zoneCreateStructs as $zoneCreateStruct) {
-            $this->createZone($zoneCreateStruct, $layout);
-        }
-
-        return $layout;
+        return $this->queryHandler->createLayout($newLayout);
     }
 
     /**
@@ -263,9 +264,20 @@ class LayoutHandler implements LayoutHandlerInterface
             )
         );
 
-        $this->queryHandler->createZone($zoneCreateStruct, $layout, $rootBlock);
+        $newZone = new Zone(
+            array(
+                'layoutId' => $layout->id,
+                'status' => $layout->status,
+                'rootBlockId' => $rootBlock->id,
+                'identifier' => $zoneCreateStruct->identifier,
+                'linkedLayoutId' => $zoneCreateStruct->linkedLayoutId,
+                'linkedZoneIdentifier' => $zoneCreateStruct->linkedZoneIdentifier,
+            )
+        );
 
-        return $this->loadZone($layout->id, $layout->status, $zoneCreateStruct->identifier);
+        $this->queryHandler->createZone($newZone);
+
+        return $newZone;
     }
 
     /**
@@ -278,21 +290,23 @@ class LayoutHandler implements LayoutHandlerInterface
      */
     public function updateLayout(Layout $layout, LayoutUpdateStruct $layoutUpdateStruct)
     {
-        $layoutUpdateStruct->modified = $layoutUpdateStruct->modified !== null ?
-            $layoutUpdateStruct->modified :
-            $layout->modified;
+        $updatedLayout = clone $layout;
 
-        $layoutUpdateStruct->name = $layoutUpdateStruct->name !== null ?
-            trim($layoutUpdateStruct->name) :
-            $layout->name;
+        if ($layoutUpdateStruct->modified !== null) {
+            $updatedLayout->modified = (int) $layoutUpdateStruct->modified;
+        }
 
-        $layoutUpdateStruct->description = $layoutUpdateStruct->description !== null ?
-            trim($layoutUpdateStruct->description) :
-            $layout->description;
+        if ($layoutUpdateStruct->name !== null) {
+            $updatedLayout->name = trim($layoutUpdateStruct->name);
+        }
 
-        $this->queryHandler->updateLayout($layout, $layoutUpdateStruct);
+        if ($layoutUpdateStruct->description !== null) {
+            $updatedLayout->description = trim($layoutUpdateStruct->description);
+        }
 
-        return $this->loadLayout($layout->id, $layout->status);
+        $this->queryHandler->updateLayout($updatedLayout);
+
+        return $updatedLayout;
     }
 
     /**
@@ -305,9 +319,21 @@ class LayoutHandler implements LayoutHandlerInterface
      */
     public function updateZone(Zone $zone, ZoneUpdateStruct $zoneUpdateStruct)
     {
-        $this->queryHandler->updateZone($zone, $zoneUpdateStruct);
+        $updatedZone = clone $zone;
 
-        return $this->loadZone($zone->layoutId, $zone->status, $zone->identifier);
+        if ($zoneUpdateStruct->linkedZone !== null) {
+            $updatedZone->linkedLayoutId = null;
+            $updatedZone->linkedZoneIdentifier = null;
+
+            if ($zoneUpdateStruct->linkedZone instanceof Zone) {
+                $updatedZone->linkedLayoutId = $zoneUpdateStruct->linkedZone->layoutId;
+                $updatedZone->linkedZoneIdentifier = $zoneUpdateStruct->linkedZone->identifier;
+            }
+        }
+
+        $this->queryHandler->updateZone($updatedZone);
+
+        return $updatedZone;
     }
 
     /**
@@ -320,25 +346,22 @@ class LayoutHandler implements LayoutHandlerInterface
      */
     public function copyLayout(Layout $layout, LayoutCopyStruct $layoutCopyStruct)
     {
-        $layoutCopyStruct->name = $layoutCopyStruct->name !== null ?
-            trim($layoutCopyStruct->name) :
-            $layout->name;
+        $copiedLayout = clone $layout;
+        $copiedLayout->id = null;
 
-        $layoutCopyStruct->description = $layoutCopyStruct->description !== null ?
-            trim($layoutCopyStruct->description) :
-            $layout->description;
+        $currentTimeStamp = time();
+        $copiedLayout->created = $currentTimeStamp;
+        $copiedLayout->modified = $currentTimeStamp;
 
-        $copiedLayout = $this->createLayout(
-            new LayoutCreateStruct(
-                array(
-                    'type' => $layout->type,
-                    'name' => $layoutCopyStruct->name,
-                    'description' => $layoutCopyStruct->description,
-                    'status' => $layout->status,
-                    'shared' => $layout->shared,
-                )
-            )
-        );
+        if ($layoutCopyStruct->name !== null) {
+            $copiedLayout->name = trim($layoutCopyStruct->name);
+        }
+
+        if ($layoutCopyStruct->description !== null) {
+            $copiedLayout->description = trim($layoutCopyStruct->description);
+        }
+
+        $copiedLayout = $this->queryHandler->createLayout($copiedLayout);
 
         $layoutZones = $this->loadLayoutZones($layout);
         foreach ($layoutZones as $layoutZone) {
@@ -378,7 +401,14 @@ class LayoutHandler implements LayoutHandlerInterface
      */
     public function createLayoutStatus(Layout $layout, $newStatus)
     {
-        $this->queryHandler->createLayoutStatus($layout, $newStatus);
+        $currentTimeStamp = time();
+
+        $newLayout = clone $layout;
+        $newLayout->status = $newStatus;
+        $newLayout->created = $currentTimeStamp;
+        $newLayout->modified = $currentTimeStamp;
+
+        $this->queryHandler->createLayout($newLayout);
 
         $layoutBlocks = $this->blockHandler->loadLayoutBlocks($layout);
         foreach ($layoutBlocks as $block) {
@@ -387,10 +417,13 @@ class LayoutHandler implements LayoutHandlerInterface
 
         $layoutZones = $this->loadLayoutZones($layout);
         foreach ($layoutZones as $layoutZone) {
-            $this->queryHandler->createZoneStatus($layoutZone, $newStatus);
+            $newZone = clone $layoutZone;
+            $newZone->status = $newStatus;
+
+            $this->queryHandler->createZone($newZone);
         }
 
-        return $this->loadLayout($layout->id, $newStatus);
+        return $newLayout;
     }
 
     /**

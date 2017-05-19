@@ -4,12 +4,8 @@ namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\Types\Type;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
-use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
-use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
-use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\QueryUpdateStruct;
 
 class CollectionQueryHandler extends QueryHandler
 {
@@ -148,12 +144,11 @@ class CollectionQueryHandler extends QueryHandler
     /**
      * Creates a collection.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct $collectionCreateStruct
-     * @param int|string $collectionId
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      *
-     * @return int
+     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
      */
-    public function createCollection(CollectionCreateStruct $collectionCreateStruct, $collectionId = null)
+    public function createCollection(Collection $collection)
     {
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_collection')
@@ -165,13 +160,19 @@ class CollectionQueryHandler extends QueryHandler
             )
             ->setValue(
                 'id',
-                $collectionId !== null ? (int) $collectionId : $this->connectionHelper->getAutoIncrementValue('ngbm_collection')
+                $collection->id !== null ?
+                    (int) $collection->id :
+                    $this->connectionHelper->getAutoIncrementValue('ngbm_collection')
             )
-            ->setParameter('status', $collectionCreateStruct->status, Type::INTEGER);
+            ->setParameter('status', $collection->status, Type::INTEGER);
 
         $query->execute();
 
-        return (int) $this->connectionHelper->lastInsertId('ngbm_collection');
+        if ($collection->id === null) {
+            $collection->id = (int) $this->connectionHelper->lastInsertId('ngbm_collection');
+        }
+
+        return $collection;
     }
 
     /**
@@ -217,14 +218,11 @@ class CollectionQueryHandler extends QueryHandler
     /**
      * Adds an item.
      *
-     * @param int|string $collectionId
-     * @param int $status
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct $itemCreateStruct
-     * @param int|string $itemId
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Item $item
      *
-     * @return int
+     * @return \Netgen\BlockManager\Persistence\Values\Collection\Item
      */
-    public function addItem($collectionId, $status, ItemCreateStruct $itemCreateStruct, $itemId = null)
+    public function addItem(Item $item)
     {
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_collection_item')
@@ -241,38 +239,51 @@ class CollectionQueryHandler extends QueryHandler
             )
             ->setValue(
                 'id',
-                $itemId !== null ? (int) $itemId : $this->connectionHelper->getAutoIncrementValue('ngbm_collection_item')
+                $item->id !== null ?
+                    (int) $item->id :
+                    $this->connectionHelper->getAutoIncrementValue('ngbm_collection_item')
             )
-            ->setParameter('status', $status, Type::INTEGER)
-            ->setParameter('collection_id', $collectionId, Type::INTEGER)
-            ->setParameter('position', $itemCreateStruct->position, Type::INTEGER)
-            ->setParameter('type', $itemCreateStruct->type, Type::INTEGER)
-            ->setParameter('value_id', $itemCreateStruct->valueId, Type::STRING)
-            ->setParameter('value_type', $itemCreateStruct->valueType, Type::STRING);
+            ->setParameter('status', $item->status, Type::INTEGER)
+            ->setParameter('collection_id', $item->collectionId, Type::INTEGER)
+            ->setParameter('position', $item->position, Type::INTEGER)
+            ->setParameter('type', $item->type, Type::INTEGER)
+            ->setParameter('value_id', $item->valueId, Type::STRING)
+            ->setParameter('value_type', $item->valueType, Type::STRING);
 
         $query->execute();
 
-        return (int) $this->connectionHelper->lastInsertId('ngbm_collection_item');
+        if ($item->id === null) {
+            $item->id = (int) $this->connectionHelper->lastInsertId('ngbm_collection_item');
+        }
+
+        return $item;
     }
 
     /**
-     * Moves an item.
+     * Updates an item.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Item $item
-     * @param int $position
      */
-    public function moveItem(Item $item, $position)
+    public function updateItem(Item $item)
     {
         $query = $this->connection->createQueryBuilder();
 
         $query
             ->update('ngbm_collection_item')
+            ->set('collection_id', ':collection_id')
             ->set('position', ':position')
+            ->set('type', ':type')
+            ->set('value_id', ':value_id')
+            ->set('value_type', ':value_type')
             ->where(
                 $query->expr()->eq('id', ':id')
             )
             ->setParameter('id', $item->id, Type::INTEGER)
-            ->setParameter('position', $position, Type::INTEGER);
+            ->setParameter('collection_id', $item->collectionId, Type::INTEGER)
+            ->setParameter('position', $item->position, Type::INTEGER)
+            ->setParameter('type', $item->type, Type::INTEGER)
+            ->setParameter('value_id', $item->valueId, Type::STRING)
+            ->setParameter('value_type', $item->valueType, Type::STRING);
 
         $this->applyStatusCondition($query, $item->status);
 
@@ -326,16 +337,13 @@ class CollectionQueryHandler extends QueryHandler
     /**
      * Adds a query.
      *
-     * @param int|string $collectionId
-     * @param int $status
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct $queryCreateStruct
-     * @param int|string $queryId
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
      *
-     * @return int
+     * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
-    public function addQuery($collectionId, $status, QueryCreateStruct $queryCreateStruct, $queryId = null)
+    public function addQuery(Query $query)
     {
-        $query = $this->connection->createQueryBuilder()
+        $dbQuery = $this->connection->createQueryBuilder()
             ->insert('ngbm_collection_query')
             ->values(
                 array(
@@ -348,37 +356,44 @@ class CollectionQueryHandler extends QueryHandler
             )
             ->setValue(
                 'id',
-                $queryId !== null ? (int) $queryId : $this->connectionHelper->getAutoIncrementValue('ngbm_collection_query')
+                $query->id !== null ?
+                    (int) $query->id :
+                    $this->connectionHelper->getAutoIncrementValue('ngbm_collection_query')
             )
-            ->setParameter('status', $status, Type::INTEGER)
-            ->setParameter('collection_id', $collectionId, Type::INTEGER)
-            ->setParameter('type', $queryCreateStruct->type, Type::STRING)
-            ->setParameter('parameters', $queryCreateStruct->parameters, Type::JSON_ARRAY);
+            ->setParameter('status', $query->status, Type::INTEGER)
+            ->setParameter('collection_id', $query->collectionId, Type::INTEGER)
+            ->setParameter('type', $query->type, Type::STRING)
+            ->setParameter('parameters', $query->parameters, Type::JSON_ARRAY);
 
-        $query->execute();
+        $dbQuery->execute();
 
-        return (int) $this->connectionHelper->lastInsertId('ngbm_collection_query');
+        if ($query->id === null) {
+            $query->id = (int) $this->connectionHelper->lastInsertId('ngbm_collection_query');
+        }
+
+        return $query;
     }
 
     /**
      * Updates a query.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\QueryUpdateStruct $queryUpdateStruct
      */
-    public function updateQuery(Query $query, QueryUpdateStruct $queryUpdateStruct)
+    public function updateQuery(Query $query)
     {
         $queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder
             ->update('ngbm_collection_query')
+            ->set('collection_id', ':collection_id')
             ->set('type', ':type')
             ->set('parameters', ':parameters')
             ->where(
                 $queryBuilder->expr()->eq('id', ':id')
             )
             ->setParameter('id', $query->id, Type::INTEGER)
-            ->setParameter('type', $queryUpdateStruct->type, Type::STRING)
-            ->setParameter('parameters', $queryUpdateStruct->parameters, Type::JSON_ARRAY);
+            ->setParameter('collection_id', $query->collectionId, Type::INTEGER)
+            ->setParameter('type', $query->type, Type::STRING)
+            ->setParameter('parameters', $query->parameters, Type::JSON_ARRAY);
 
         $this->applyStatusCondition($queryBuilder, $query->status);
 

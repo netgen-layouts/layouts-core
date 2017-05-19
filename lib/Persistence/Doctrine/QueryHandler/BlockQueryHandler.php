@@ -5,11 +5,7 @@ namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Type;
 use Netgen\BlockManager\Persistence\Values\Block\Block;
-use Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
-use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone;
 
@@ -163,28 +159,13 @@ class BlockQueryHandler extends QueryHandler
     /**
      * Creates a block.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct $blockCreateStruct
-     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $targetBlock
-     * @param string $placeholder
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
+     * @param bool $updatePath
      *
-     * @return int
+     * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
-    public function createBlock(BlockCreateStruct $blockCreateStruct, Block $targetBlock = null, $placeholder = null)
+    public function createBlock(Block $block, $updatePath = true)
     {
-        $depth = 0;
-        $path = '/';
-        $parentId = null;
-        $blockPlaceholder = null;
-        $position = null;
-
-        if ($targetBlock !== null && $placeholder !== null) {
-            $depth = $targetBlock->depth + 1;
-            $path = $targetBlock->path;
-            $parentId = $targetBlock->id;
-            $blockPlaceholder = $placeholder;
-            $position = $blockCreateStruct->position;
-        }
-
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_block')
             ->values(
@@ -205,27 +186,40 @@ class BlockQueryHandler extends QueryHandler
                     'config' => ':config',
                 )
             )
-            ->setValue('id', $this->connectionHelper->getAutoIncrementValue('ngbm_block'))
-            ->setParameter('status', $blockCreateStruct->status, Type::INTEGER)
-            ->setParameter('layout_id', $blockCreateStruct->layoutId, Type::INTEGER)
-            ->setParameter('depth', $depth, Type::STRING)
+            ->setValue(
+                'id',
+                $block->id !== null ?
+                    (int) $block->id :
+                    $this->connectionHelper->getAutoIncrementValue('ngbm_block')
+            )
+            ->setParameter('status', $block->status, Type::INTEGER)
+            ->setParameter('layout_id', $block->layoutId, Type::INTEGER)
+            ->setParameter('depth', $block->depth, Type::STRING)
             // Materialized path is updated after block is created
-            ->setParameter('path', $path, Type::STRING)
-            ->setParameter('parent_id', $parentId, Type::STRING)
-            ->setParameter('placeholder', $blockPlaceholder, Type::STRING)
-            ->setParameter('position', $position, Type::INTEGER)
-            ->setParameter('definition_identifier', $blockCreateStruct->definitionIdentifier, Type::STRING)
-            ->setParameter('view_type', $blockCreateStruct->viewType, Type::STRING)
-            ->setParameter('item_view_type', $blockCreateStruct->itemViewType, Type::STRING)
-            ->setParameter('name', trim($blockCreateStruct->name), Type::STRING)
-            ->setParameter('parameters', $blockCreateStruct->parameters, Type::JSON_ARRAY)
-            ->setParameter('config', $blockCreateStruct->config, Type::JSON_ARRAY);
+            ->setParameter('path', $block->path, Type::STRING)
+            ->setParameter('parent_id', $block->parentId, Type::STRING)
+            ->setParameter('placeholder', $block->placeholder, Type::STRING)
+            ->setParameter('position', $block->position, Type::INTEGER)
+            ->setParameter('definition_identifier', $block->definitionIdentifier, Type::STRING)
+            ->setParameter('view_type', $block->viewType, Type::STRING)
+            ->setParameter('item_view_type', $block->itemViewType, Type::STRING)
+            ->setParameter('name', $block->name, Type::STRING)
+            ->setParameter('parameters', $block->parameters, Type::JSON_ARRAY)
+            ->setParameter('config', $block->config, Type::JSON_ARRAY);
 
         $query->execute();
 
-        $blockId = (int) $this->connectionHelper->lastInsertId('ngbm_block');
+        if ($block->id === null) {
+            $block->id = (int) $this->connectionHelper->lastInsertId('ngbm_block');
+        }
+
+        if (!$updatePath) {
+            return $block;
+        }
 
         // Update materialized path only after creating the block, when we have the ID
+
+        $block->path = $block->path . $block->id . '/';
 
         $query = $this->connection->createQueryBuilder();
         $query
@@ -234,24 +228,22 @@ class BlockQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $blockId, Type::INTEGER)
-            ->setParameter('path', $path . $blockId . '/', Type::STRING);
+            ->setParameter('id', $block->id, Type::INTEGER)
+            ->setParameter('path', $block->path, Type::STRING);
 
-        $this->applyStatusCondition($query, $blockCreateStruct->status);
+        $this->applyStatusCondition($query, $block->status);
 
         $query->execute();
 
-        return $blockId;
+        return $block;
     }
 
     /**
      * Creates the collection reference.
      *
-     * @param int|string $blockId
-     * @param int $blockStatus
-     * @param \Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceCreateStruct $createStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Block\CollectionReference $collectionReference
      */
-    public function createCollectionReference($blockId, $blockStatus, CollectionReferenceCreateStruct $createStruct)
+    public function createCollectionReference(CollectionReference $collectionReference)
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -267,13 +259,13 @@ class BlockQueryHandler extends QueryHandler
                     'length' => ':length',
                 )
             )
-            ->setParameter('block_id', $blockId, Type::INTEGER)
-            ->setParameter('block_status', $blockStatus, Type::INTEGER)
-            ->setParameter('collection_id', $createStruct->collection->id, Type::INTEGER)
-            ->setParameter('collection_status', $createStruct->collection->status, Type::INTEGER)
-            ->setParameter('identifier', $createStruct->identifier, Type::STRING)
-            ->setParameter('start', $createStruct->offset, Type::INTEGER)
-            ->setParameter('length', $createStruct->limit, Type::INTEGER);
+            ->setParameter('block_id', $collectionReference->blockId, Type::INTEGER)
+            ->setParameter('block_status', $collectionReference->blockStatus, Type::INTEGER)
+            ->setParameter('collection_id', $collectionReference->collectionId, Type::INTEGER)
+            ->setParameter('collection_status', $collectionReference->collectionStatus, Type::INTEGER)
+            ->setParameter('identifier', $collectionReference->identifier, Type::STRING)
+            ->setParameter('start', $collectionReference->offset, Type::INTEGER)
+            ->setParameter('length', $collectionReference->limit, Type::INTEGER);
 
         $query->execute();
     }
@@ -282,13 +274,19 @@ class BlockQueryHandler extends QueryHandler
      * Updates a block.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
-     * @param \Netgen\BlockManager\Persistence\Values\Block\BlockUpdateStruct $blockUpdateStruct
      */
-    public function updateBlock(Block $block, BlockUpdateStruct $blockUpdateStruct)
+    public function updateBlock(Block $block)
     {
         $query = $this->connection->createQueryBuilder();
         $query
             ->update('ngbm_block')
+            ->set('layout_id', ':layout_id')
+            ->set('depth', ':depth')
+            ->set('path', ':path')
+            ->set('parent_id', ':parent_id')
+            ->set('placeholder', ':placeholder')
+            ->set('position', ':position')
+            ->set('definition_identifier', ':definition_identifier')
             ->set('view_type', ':view_type')
             ->set('item_view_type', ':item_view_type')
             ->set('name', ':name')
@@ -298,11 +296,18 @@ class BlockQueryHandler extends QueryHandler
                 $query->expr()->eq('id', ':id')
             )
             ->setParameter('id', $block->id, Type::INTEGER)
-            ->setParameter('view_type', $blockUpdateStruct->viewType, Type::STRING)
-            ->setParameter('item_view_type', $blockUpdateStruct->itemViewType, Type::STRING)
-            ->setParameter('name', $blockUpdateStruct->name, Type::STRING)
-            ->setParameter('parameters', $blockUpdateStruct->parameters, Type::JSON_ARRAY)
-            ->setParameter('config', $blockUpdateStruct->config, Type::JSON_ARRAY);
+            ->setParameter('layout_id', $block->layoutId, Type::INTEGER)
+            ->setParameter('depth', $block->depth, Type::STRING)
+            ->setParameter('path', $block->path, Type::STRING)
+            ->setParameter('parent_id', $block->parentId, Type::STRING)
+            ->setParameter('placeholder', $block->placeholder, Type::STRING)
+            ->setParameter('position', $block->position, Type::INTEGER)
+            ->setParameter('definition_identifier', $block->definitionIdentifier, Type::STRING)
+            ->setParameter('view_type', $block->viewType, Type::STRING)
+            ->setParameter('item_view_type', $block->itemViewType, Type::STRING)
+            ->setParameter('name', $block->name, Type::STRING)
+            ->setParameter('parameters', $block->parameters, Type::JSON_ARRAY)
+            ->setParameter('config', $block->config, Type::JSON_ARRAY);
 
         $this->applyStatusCondition($query, $block->status);
 
@@ -310,16 +315,17 @@ class BlockQueryHandler extends QueryHandler
     }
 
     /**
-     * Updates a collection reference with specified identifier.
+     * Updates a collection reference.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Block\CollectionReference $collectionReference
-     * @param \Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceUpdateStruct $updateStruct
      */
-    public function updateCollectionReference(CollectionReference $collectionReference, CollectionReferenceUpdateStruct $updateStruct)
+    public function updateCollectionReference(CollectionReference $collectionReference)
     {
         $query = $this->connection->createQueryBuilder();
         $query
             ->update('ngbm_block_collection')
+            ->set('collection_id', ':collection_id')
+            ->set('collection_status', ':collection_status')
             ->set('start', ':start')
             ->set('length', ':length')
             ->where(
@@ -331,16 +337,10 @@ class BlockQueryHandler extends QueryHandler
             )
             ->setParameter('block_id', $collectionReference->blockId, Type::INTEGER)
             ->setParameter('identifier', $collectionReference->identifier, Type::STRING)
-            ->setParameter('start', $updateStruct->offset, Type::INTEGER)
-            ->setParameter('length', $updateStruct->limit, Type::INTEGER);
-
-        if ($updateStruct->collection !== null) {
-            $query
-                ->set('collection_id', ':collection_id')
-                ->set('collection_status', ':collection_status')
-                ->setParameter('collection_id', $updateStruct->collection->id, Type::INTEGER)
-                ->setParameter('collection_status', $updateStruct->collection->status, Type::INTEGER);
-        }
+            ->setParameter('collection_id', $collectionReference->collectionId, Type::INTEGER)
+            ->setParameter('collection_status', $collectionReference->collectionStatus, Type::INTEGER)
+            ->setParameter('start', $collectionReference->offset, Type::INTEGER)
+            ->setParameter('length', $collectionReference->limit, Type::INTEGER);
 
         $this->applyStatusCondition($query, $collectionReference->blockStatus, 'block_status', 'block_status');
 
@@ -352,102 +352,50 @@ class BlockQueryHandler extends QueryHandler
      * current parent ID and placeholder.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
-     * @param int $position
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $targetBlock
      * @param string $placeholder
+     * @param int $position
      */
-    public function moveBlock(Block $block, $position, Block $targetBlock = null, $placeholder = null)
+    public function moveBlock(Block $block, Block $targetBlock, $placeholder, $position)
     {
         $query = $this->connection->createQueryBuilder();
 
         $query
             ->update('ngbm_block')
             ->set('position', ':position')
+            ->set('parent_id', ':parent_id')
+            ->set('placeholder', ':placeholder')
             ->where(
                 $query->expr()->eq('id', ':id')
             )
             ->setParameter('id', $block->id, Type::INTEGER)
-            ->setParameter('position', $position, Type::INTEGER);
-
-        if ($targetBlock !== null && $placeholder !== null) {
-            $query
-                ->set('parent_id', ':parent_id')
-                ->set('placeholder', ':placeholder')
-                ->setParameter('parent_id', $targetBlock->id, Type::INTEGER)
-                ->setParameter('placeholder', $placeholder, Type::STRING);
-        }
+            ->setParameter('position', $position, Type::INTEGER)
+            ->setParameter('parent_id', $targetBlock->id, Type::INTEGER)
+            ->setParameter('placeholder', $placeholder, Type::STRING);
 
         $this->applyStatusCondition($query, $block->status);
 
         $query->execute();
 
-        if ($targetBlock !== null && $placeholder !== null) {
-            $depthDifference = $block->depth - ($targetBlock->depth + 1);
+        $depthDifference = $block->depth - ($targetBlock->depth + 1);
 
-            $query = $this->connection->createQueryBuilder();
+        $query = $this->connection->createQueryBuilder();
 
-            $query
-                ->update('ngbm_block')
-                ->set('layout_id', ':layout_id')
-                ->set('depth', 'depth - :depth_difference')
-                ->set('path', 'replace(path, :old_path, :new_path)')
-                ->where(
-                    $query->expr()->like('path', ':path')
-                )
-                ->setParameter('layout_id', $targetBlock->layoutId, Type::INTEGER)
-                ->setParameter('depth_difference', $depthDifference, Type::INTEGER)
-                ->setParameter('old_path', $block->path, Type::STRING)
-                ->setParameter('new_path', $targetBlock->path . $block->id . '/', Type::STRING)
-                ->setParameter('path', $block->path . '%', Type::STRING);
-
-            $this->applyStatusCondition($query, $block->status);
-
-            $query->execute();
-        }
-    }
-
-    /**
-     * Creates a block status.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
-     * @param int $newStatus
-     */
-    public function createBlockStatus(Block $block, $newStatus)
-    {
-        $query = $this->connection->createQueryBuilder()
-            ->insert('ngbm_block')
-            ->values(
-                array(
-                    'id' => ':id',
-                    'status' => ':status',
-                    'layout_id' => ':layout_id',
-                    'depth' => ':depth',
-                    'path' => ':path',
-                    'parent_id' => ':parent_id',
-                    'placeholder' => ':placeholder',
-                    'position' => ':position',
-                    'definition_identifier' => ':definition_identifier',
-                    'view_type' => ':view_type',
-                    'item_view_type' => ':item_view_type',
-                    'name' => ':name',
-                    'parameters' => ':parameters',
-                    'config' => ':config',
-                )
+        $query
+            ->update('ngbm_block')
+            ->set('layout_id', ':layout_id')
+            ->set('depth', 'depth - :depth_difference')
+            ->set('path', 'replace(path, :old_path, :new_path)')
+            ->where(
+                $query->expr()->like('path', ':path')
             )
-            ->setValue('id', (int) $block->id)
-            ->setParameter('status', $newStatus, Type::INTEGER)
-            ->setParameter('layout_id', $block->layoutId, Type::INTEGER)
-            ->setParameter('depth', $block->depth, Type::STRING)
-            ->setParameter('path', $block->path, Type::STRING)
-            ->setParameter('parent_id', $block->parentId, Type::STRING)
-            ->setParameter('placeholder', $block->placeholder, Type::STRING)
-            ->setParameter('position', $block->position, Type::INTEGER)
-            ->setParameter('definition_identifier', $block->definitionIdentifier, Type::STRING)
-            ->setParameter('view_type', $block->viewType, Type::STRING)
-            ->setParameter('item_view_type', $block->itemViewType, Type::STRING)
-            ->setParameter('name', trim($block->name), Type::STRING)
-            ->setParameter('parameters', $block->parameters, Type::JSON_ARRAY)
-            ->setParameter('config', $block->config, Type::JSON_ARRAY);
+            ->setParameter('layout_id', $targetBlock->layoutId, Type::INTEGER)
+            ->setParameter('depth_difference', $depthDifference, Type::INTEGER)
+            ->setParameter('old_path', $block->path, Type::STRING)
+            ->setParameter('new_path', $targetBlock->path . $block->id . '/', Type::STRING)
+            ->setParameter('path', $block->path . '%', Type::STRING);
+
+        $this->applyStatusCondition($query, $block->status);
 
         $query->execute();
     }

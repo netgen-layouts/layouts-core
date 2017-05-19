@@ -536,15 +536,7 @@ class LayoutHandlerTest extends TestCase
         $layoutCreateStruct->shared = true;
         $layoutCreateStruct->status = Value::STATUS_DRAFT;
 
-        $zoneCreateStructs = array(
-            new ZoneCreateStruct(array('identifier' => 'first_zone')),
-            new ZoneCreateStruct(array('identifier' => 'second_zone')),
-        );
-
-        $createdLayout = $this->layoutHandler->createLayout(
-            $layoutCreateStruct,
-            $zoneCreateStructs
-        );
+        $createdLayout = $this->layoutHandler->createLayout($layoutCreateStruct);
 
         $this->assertInstanceOf(Layout::class, $createdLayout);
 
@@ -560,56 +552,6 @@ class LayoutHandlerTest extends TestCase
 
         $this->assertInternalType('int', $createdLayout->modified);
         $this->assertGreaterThan(0, $createdLayout->modified);
-
-        $this->assertEquals(
-            array(
-                new Zone(
-                    array(
-                        'identifier' => 'first_zone',
-                        'layoutId' => $createdLayout->id,
-                        'status' => Value::STATUS_DRAFT,
-                        'rootBlockId' => 39,
-                        'linkedLayoutId' => null,
-                        'linkedZoneIdentifier' => null,
-                    )
-                ),
-                new Zone(
-                    array(
-                        'identifier' => 'second_zone',
-                        'layoutId' => $createdLayout->id,
-                        'status' => Value::STATUS_DRAFT,
-                        'rootBlockId' => 40,
-                        'linkedLayoutId' => null,
-                        'linkedZoneIdentifier' => null,
-                    )
-                ),
-            ),
-            $this->layoutHandler->loadLayoutZones($createdLayout)
-        );
-
-        foreach (array(39, 40) as $blockId) {
-            $this->assertEquals(
-                new Block(
-                    array(
-                        'id' => $blockId,
-                        'layoutId' => $createdLayout->id,
-                        'depth' => 0,
-                        'path' => "/{$blockId}/",
-                        'parentId' => 0,
-                        'placeholder' => null,
-                        'position' => 0,
-                        'definitionIdentifier' => '',
-                        'viewType' => '',
-                        'itemViewType' => '',
-                        'name' => '',
-                        'status' => Value::STATUS_DRAFT,
-                        'parameters' => array(),
-                        'config' => array(),
-                    )
-                ),
-                $this->blockHandler->loadBlock($blockId, Value::STATUS_DRAFT)
-            );
-        }
     }
 
     /**

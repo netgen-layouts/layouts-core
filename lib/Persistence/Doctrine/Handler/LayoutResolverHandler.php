@@ -229,16 +229,19 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
      */
     public function createRule(RuleCreateStruct $ruleCreateStruct)
     {
-        $ruleCreateStruct->enabled = $ruleCreateStruct->enabled ? true : false;
-        $ruleCreateStruct->comment = trim($ruleCreateStruct->comment);
+        $newRule = new Rule(
+            array(
+                'status' => $ruleCreateStruct->status,
+                'layoutId' => $ruleCreateStruct->layoutId,
+                'enabled' => $ruleCreateStruct->enabled ? true : false,
+                'priority' => $ruleCreateStruct->priority !== null ?
+                    (int) $ruleCreateStruct->priority :
+                    0,
+                'comment' => trim($ruleCreateStruct->comment),
+            )
+        );
 
-        $ruleCreateStruct->priority = $ruleCreateStruct->priority !== null ?
-            $ruleCreateStruct->priority :
-            0;
-
-        $createdRuleId = $this->queryHandler->createRule($ruleCreateStruct);
-
-        return $this->loadRule($createdRuleId, $ruleCreateStruct->status);
+        return $this->queryHandler->createRule($newRule);
     }
 
     /**
@@ -251,18 +254,23 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
      */
     public function updateRule(Rule $rule, RuleUpdateStruct $ruleUpdateStruct)
     {
-        // Layout ID can be 0, to indicate removal of the linked layout
-        $ruleUpdateStruct->layoutId = $ruleUpdateStruct->layoutId !== null ?
-            $ruleUpdateStruct->layoutId :
-            $rule->layoutId;
+        $updatedRule = clone $rule;
 
-        $ruleUpdateStruct->comment = $ruleUpdateStruct->comment !== null ?
-            trim($ruleUpdateStruct->comment) :
-            $rule->comment;
+        if ($ruleUpdateStruct->layoutId !== null) {
+            // Layout ID can be 0, to indicate removal of the linked layout
+            $updatedRule->layoutId = $ruleUpdateStruct->layoutId !== 0 ?
+                (int) $ruleUpdateStruct->layoutId :
+                null;
+        }
 
-        $this->queryHandler->updateRule($rule, $ruleUpdateStruct);
+        if ($ruleUpdateStruct->comment !== null) {
+            $updatedRule->comment = trim($ruleUpdateStruct->comment);
+        }
 
-        return $this->loadRule($rule->id, $rule->status);
+        $this->queryHandler->updateRule($updatedRule);
+        $this->queryHandler->updateRuleData($updatedRule);
+
+        return $updatedRule;
     }
 
     /**
@@ -275,17 +283,19 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
      */
     public function updateRuleMetadata(Rule $rule, RuleMetadataUpdateStruct $ruleUpdateStruct)
     {
-        $ruleUpdateStruct->priority = $ruleUpdateStruct->priority !== null ?
-            $ruleUpdateStruct->priority :
-            $rule->priority;
+        $updatedRule = clone $rule;
 
-        $ruleUpdateStruct->enabled = $ruleUpdateStruct->enabled !== null ?
-            $ruleUpdateStruct->enabled :
-            $rule->enabled;
+        if ($ruleUpdateStruct->priority !== null) {
+            $updatedRule->priority = (int) $ruleUpdateStruct->priority;
+        }
 
-        $this->queryHandler->updateRuleData($rule, $ruleUpdateStruct);
+        if ($ruleUpdateStruct->enabled !== null) {
+            $updatedRule->enabled = (bool) $ruleUpdateStruct->enabled;
+        }
 
-        return $this->loadRule($rule->id, $rule->status);
+        $this->queryHandler->updateRuleData($updatedRule);
+
+        return $updatedRule;
     }
 
     /**
@@ -299,33 +309,22 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
     {
         // First copy the rule
 
-        $copiedRuleId = $this->queryHandler->createRule(
-            new RuleCreateStruct(
-                array(
-                    'layoutId' => $rule->layoutId,
-                    'priority' => $rule->priority,
-                    'enabled' => $rule->enabled,
-                    'comment' => $rule->comment,
-                    'status' => $rule->status,
-                )
-            )
-        );
+        $copiedRule = clone $rule;
+        $copiedRule->id = null;
+
+        $copiedRule = $this->queryHandler->createRule($copiedRule);
 
         // Then copy rule targets
 
         $ruleTargets = $this->loadRuleTargets($rule);
 
         foreach ($ruleTargets as $ruleTarget) {
-            $this->queryHandler->addTarget(
-                $copiedRuleId,
-                $ruleTarget->status,
-                new TargetCreateStruct(
-                    array(
-                        'type' => $ruleTarget->type,
-                        'value' => $ruleTarget->value,
-                    )
-                )
-            );
+            $copiedTarget = clone $ruleTarget;
+
+            $copiedTarget->id = null;
+            $copiedTarget->ruleId = $copiedRule->id;
+
+            $this->queryHandler->addTarget($copiedTarget);
         }
 
         // Then copy rule conditions
@@ -333,19 +332,15 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
         $ruleConditions = $this->loadRuleConditions($rule);
 
         foreach ($ruleConditions as $ruleCondition) {
-            $this->queryHandler->addCondition(
-                $copiedRuleId,
-                $ruleCondition->status,
-                new ConditionCreateStruct(
-                    array(
-                        'type' => $ruleCondition->type,
-                        'value' => $ruleCondition->value,
-                    )
-                )
-            );
+            $copiedCondition = clone $ruleCondition;
+
+            $copiedCondition->id = null;
+            $copiedCondition->ruleId = $copiedRule->id;
+
+            $this->queryHandler->addCondition($copiedCondition);
         }
 
-        return $this->loadRule($copiedRuleId, $rule->status);
+        return $copiedRule;
     }
 
     /**
@@ -360,35 +355,20 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
     {
         // First copy the rule
 
-        $this->queryHandler->createRule(
-            new RuleCreateStruct(
-                array(
-                    'layoutId' => $rule->layoutId,
-                    'priority' => $rule->priority,
-                    'enabled' => $rule->enabled,
-                    'comment' => $rule->comment,
-                    'status' => $newStatus,
-                )
-            ),
-            $rule->id
-        );
+        $copiedRule = clone $rule;
+        $copiedRule->status = $newStatus;
+
+        $copiedRule = $this->queryHandler->createRule($copiedRule);
 
         // Then copy rule targets
 
         $ruleTargets = $this->loadRuleTargets($rule);
 
         foreach ($ruleTargets as $ruleTarget) {
-            $this->queryHandler->addTarget(
-                $ruleTarget->ruleId,
-                $newStatus,
-                new TargetCreateStruct(
-                    array(
-                        'type' => $ruleTarget->type,
-                        'value' => $ruleTarget->value,
-                    )
-                ),
-                $ruleTarget->id
-            );
+            $copiedTarget = clone $ruleTarget;
+            $copiedTarget->status = $newStatus;
+
+            $this->queryHandler->addTarget($copiedTarget);
         }
 
         // Then copy rule conditions
@@ -396,20 +376,13 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
         $ruleConditions = $this->loadRuleConditions($rule);
 
         foreach ($ruleConditions as $ruleCondition) {
-            $this->queryHandler->addCondition(
-                $ruleCondition->ruleId,
-                $newStatus,
-                new ConditionCreateStruct(
-                    array(
-                        'type' => $ruleCondition->type,
-                        'value' => $ruleCondition->value,
-                    )
-                ),
-                $ruleCondition->id
-            );
+            $copiedCondition = clone $ruleCondition;
+            $copiedCondition->status = $newStatus;
+
+            $this->queryHandler->addCondition($copiedCondition);
         }
 
-        return $this->loadRule($rule->id, $newStatus);
+        return $copiedRule;
     }
 
     /**
@@ -435,13 +408,16 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
      */
     public function addTarget(Rule $rule, TargetCreateStruct $targetCreateStruct)
     {
-        $createdTargetId = $this->queryHandler->addTarget(
-            $rule->id,
-            $rule->status,
-            $targetCreateStruct
+        $newTarget = new Target(
+            array(
+                'status' => $rule->status,
+                'ruleId' => $rule->id,
+                'type' => $targetCreateStruct->type,
+                'value' => $targetCreateStruct->value,
+            )
         );
 
-        return $this->loadTarget($createdTargetId, $rule->status);
+        return $this->queryHandler->addTarget($newTarget);
     }
 
     /**
@@ -454,9 +430,12 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
      */
     public function updateTarget(Target $target, TargetUpdateStruct $targetUpdateStruct)
     {
-        $this->queryHandler->updateTarget($target, $targetUpdateStruct);
+        $updatedTarget = clone $target;
+        $updatedTarget->value = $targetUpdateStruct->value;
 
-        return $this->loadTarget($target->id, $target->status);
+        $this->queryHandler->updateTarget($updatedTarget);
+
+        return $updatedTarget;
     }
 
     /**
@@ -479,13 +458,16 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
      */
     public function addCondition(Rule $rule, ConditionCreateStruct $conditionCreateStruct)
     {
-        $createdConditionId = $this->queryHandler->addCondition(
-            $rule->id,
-            $rule->status,
-            $conditionCreateStruct
+        $newCondition = new Condition(
+            array(
+                'status' => $rule->status,
+                'ruleId' => $rule->id,
+                'type' => $conditionCreateStruct->type,
+                'value' => $conditionCreateStruct->value,
+            )
         );
 
-        return $this->loadCondition($createdConditionId, $rule->status);
+        return $this->queryHandler->addCondition($newCondition);
     }
 
     /**
@@ -498,9 +480,13 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
      */
     public function updateCondition(Condition $condition, ConditionUpdateStruct $conditionUpdateStruct)
     {
-        $this->queryHandler->updateCondition($condition, $conditionUpdateStruct);
+        $updatedCondition = clone $condition;
 
-        return $this->loadCondition($condition->id, $condition->status);
+        $updatedCondition->value = $conditionUpdateStruct->value;
+
+        $this->queryHandler->updateCondition($updatedCondition);
+
+        return $updatedCondition;
     }
 
     /**

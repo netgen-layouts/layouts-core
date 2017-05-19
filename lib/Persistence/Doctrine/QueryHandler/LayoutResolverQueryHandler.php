@@ -9,15 +9,8 @@ use Netgen\BlockManager\Exception\Persistence\TargetHandlerException;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver\TargetHandler;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionCreateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleCreateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleMetadataUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetCreateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Value;
 
 class LayoutResolverQueryHandler extends QueryHandler
@@ -303,12 +296,11 @@ class LayoutResolverQueryHandler extends QueryHandler
     /**
      * Creates a rule.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleCreateStruct $ruleCreateStruct
-     * @param int|string $ruleId
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
      *
-     * @return int
+     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule
      */
-    public function createRule(RuleCreateStruct $ruleCreateStruct, $ruleId = null)
+    public function createRule(Rule $rule)
     {
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_rule')
@@ -322,17 +314,19 @@ class LayoutResolverQueryHandler extends QueryHandler
             )
             ->setValue(
                 'id',
-                $ruleId !== null ? (int) $ruleId : $this->connectionHelper->getAutoIncrementValue('ngbm_rule')
+                $rule->id !== null ?
+                    (int) $rule->id :
+                    $this->connectionHelper->getAutoIncrementValue('ngbm_rule')
             )
-            ->setParameter('status', $ruleCreateStruct->status, Type::INTEGER)
-            ->setParameter('layout_id', $ruleCreateStruct->layoutId, Type::INTEGER)
-            ->setParameter('comment', $ruleCreateStruct->comment, Type::STRING);
+            ->setParameter('status', $rule->status, Type::INTEGER)
+            ->setParameter('layout_id', $rule->layoutId, Type::INTEGER)
+            ->setParameter('comment', $rule->comment, Type::STRING);
 
         $query->execute();
 
-        $createdRuleId = (int) $this->connectionHelper->lastInsertId('ngbm_rule');
+        if ($rule->id === null) {
+            $rule->id = (int) $this->connectionHelper->lastInsertId('ngbm_rule');
 
-        if ($ruleId === null) {
             $query = $this->connection->createQueryBuilder()
                 ->insert('ngbm_rule_data')
                 ->values(
@@ -342,23 +336,22 @@ class LayoutResolverQueryHandler extends QueryHandler
                         'priority' => ':priority',
                     )
                 )
-                ->setParameter('rule_id', $createdRuleId, Type::INTEGER)
-                ->setParameter('enabled', $ruleCreateStruct->enabled, Type::BOOLEAN)
-                ->setParameter('priority', $ruleCreateStruct->priority, Type::INTEGER);
+                ->setParameter('rule_id', $rule->id, Type::INTEGER)
+                ->setParameter('enabled', $rule->enabled, Type::BOOLEAN)
+                ->setParameter('priority', $rule->priority, Type::INTEGER);
 
             $query->execute();
         }
 
-        return $createdRuleId;
+        return $rule;
     }
 
     /**
      * Updates a rule.
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleUpdateStruct $ruleUpdateStruct
      */
-    public function updateRule(Rule $rule, RuleUpdateStruct $ruleUpdateStruct)
+    public function updateRule(Rule $rule)
     {
         $query = $this->connection->createQueryBuilder();
         $query
@@ -369,8 +362,8 @@ class LayoutResolverQueryHandler extends QueryHandler
                 $query->expr()->eq('id', ':id')
             )
             ->setParameter('id', $rule->id, Type::INTEGER)
-            ->setParameter('layout_id', $ruleUpdateStruct->layoutId !== 0 ? $ruleUpdateStruct->layoutId : null, Type::INTEGER)
-            ->setParameter('comment', $ruleUpdateStruct->comment, Type::STRING);
+            ->setParameter('layout_id', $rule->layoutId, Type::INTEGER)
+            ->setParameter('comment', $rule->comment, Type::STRING);
 
         $this->applyStatusCondition($query, $rule->status);
 
@@ -381,9 +374,8 @@ class LayoutResolverQueryHandler extends QueryHandler
      * Updates rule data which is independent of statuses.
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleMetadataUpdateStruct $ruleMetadataUpdateStruct
      */
-    public function updateRuleData(Rule $rule, RuleMetadataUpdateStruct $ruleMetadataUpdateStruct)
+    public function updateRuleData(Rule $rule)
     {
         $query = $this->connection->createQueryBuilder();
         $query
@@ -394,8 +386,8 @@ class LayoutResolverQueryHandler extends QueryHandler
                 $query->expr()->eq('rule_id', ':rule_id')
             )
             ->setParameter('rule_id', $rule->id, Type::INTEGER)
-            ->setParameter('enabled', $ruleMetadataUpdateStruct->enabled, Type::BOOLEAN)
-            ->setParameter('priority', $ruleMetadataUpdateStruct->priority, Type::INTEGER);
+            ->setParameter('enabled', $rule->enabled, Type::BOOLEAN)
+            ->setParameter('priority', $rule->priority, Type::INTEGER);
 
         $query->execute();
     }
@@ -480,16 +472,13 @@ class LayoutResolverQueryHandler extends QueryHandler
     }
 
     /**
-     * Adds a target to rule.
+     * Adds a target.
      *
-     * @param int|string $ruleId
-     * @param int $status
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetCreateStruct $targetCreateStruct
-     * @param int|string $targetId
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target $target
      *
-     * @return int
+     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target
      */
-    public function addTarget($ruleId, $status, TargetCreateStruct $targetCreateStruct, $targetId = null)
+    public function addTarget(Target $target)
     {
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_rule_target')
@@ -504,35 +493,44 @@ class LayoutResolverQueryHandler extends QueryHandler
             )
             ->setValue(
                 'id',
-                $targetId !== null ? (int) $targetId : $this->connectionHelper->getAutoIncrementValue('ngbm_rule_target')
+                $target->id !== null ?
+                    (int) $target->id :
+                    $this->connectionHelper->getAutoIncrementValue('ngbm_rule_target')
             )
-            ->setParameter('status', $status, Type::INTEGER)
-            ->setParameter('rule_id', $ruleId, Type::INTEGER)
-            ->setParameter('type', $targetCreateStruct->type, Type::STRING)
-            ->setParameter('value', $targetCreateStruct->value, is_array($targetCreateStruct->value) ? Type::JSON_ARRAY : Type::STRING);
+            ->setParameter('status', $target->status, Type::INTEGER)
+            ->setParameter('rule_id', $target->ruleId, Type::INTEGER)
+            ->setParameter('type', $target->type, Type::STRING)
+            ->setParameter('value', $target->value, is_array($target->value) ? Type::JSON_ARRAY : Type::STRING);
 
         $query->execute();
 
-        return (int) $this->connectionHelper->lastInsertId('ngbm_rule_target');
+        if ($target->id === null) {
+            $target->id = (int) $this->connectionHelper->lastInsertId('ngbm_rule_target');
+        }
+
+        return $target;
     }
 
     /**
      * Updates a target.
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target $target
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetUpdateStruct $targetUpdateStruct
      */
-    public function updateTarget(Target $target, TargetUpdateStruct $targetUpdateStruct)
+    public function updateTarget(Target $target)
     {
         $query = $this->connection->createQueryBuilder();
         $query
             ->update('ngbm_rule_target')
+            ->set('rule_id', ':rule_id')
+            ->set('type', ':type')
             ->set('value', ':value')
             ->where(
                 $query->expr()->eq('id', ':id')
             )
             ->setParameter('id', $target->id, Type::INTEGER)
-            ->setParameter('value', $targetUpdateStruct->value, is_array($targetUpdateStruct->value) ? Type::JSON_ARRAY : Type::STRING);
+            ->setParameter('rule_id', $target->ruleId, Type::INTEGER)
+            ->setParameter('type', $target->type, Type::STRING)
+            ->setParameter('value', $target->value, is_array($target->value) ? Type::JSON_ARRAY : Type::STRING);
 
         $this->applyStatusCondition($query, $target->status);
 
@@ -561,16 +559,13 @@ class LayoutResolverQueryHandler extends QueryHandler
     }
 
     /**
-     * Adds a condition to rule.
+     * Adds a condition.
      *
-     * @param int|string $ruleId
-     * @param int $status
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionCreateStruct $conditionCreateStruct
-     * @param int|string $conditionId
+     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition $condition
      *
-     * @return int
+     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition
      */
-    public function addCondition($ruleId, $status, ConditionCreateStruct $conditionCreateStruct, $conditionId = null)
+    public function addCondition(Condition $condition)
     {
         $query = $this->connection->createQueryBuilder()
             ->insert('ngbm_rule_condition')
@@ -585,35 +580,44 @@ class LayoutResolverQueryHandler extends QueryHandler
             )
             ->setValue(
                 'id',
-                $conditionId !== null ? (int) $conditionId : $this->connectionHelper->getAutoIncrementValue('ngbm_rule_condition')
+                $condition->id !== null ?
+                    (int) $condition->id :
+                    $this->connectionHelper->getAutoIncrementValue('ngbm_rule_condition')
             )
-            ->setParameter('status', $status, Type::INTEGER)
-            ->setParameter('rule_id', $ruleId, Type::INTEGER)
-            ->setParameter('type', $conditionCreateStruct->type, Type::STRING)
-            ->setParameter('value', json_encode($conditionCreateStruct->value), Type::STRING);
+            ->setParameter('status', $condition->status, Type::INTEGER)
+            ->setParameter('rule_id', $condition->ruleId, Type::INTEGER)
+            ->setParameter('type', $condition->type, Type::STRING)
+            ->setParameter('value', json_encode($condition->value), Type::STRING);
 
         $query->execute();
 
-        return (int) $this->connectionHelper->lastInsertId('ngbm_rule_condition');
+        if ($condition->id === null) {
+            $condition->id = (int) $this->connectionHelper->lastInsertId('ngbm_rule_condition');
+        }
+
+        return $condition;
     }
 
     /**
      * Updates a condition.
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition $condition
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionUpdateStruct $conditionUpdateStruct
      */
-    public function updateCondition(Condition $condition, ConditionUpdateStruct $conditionUpdateStruct)
+    public function updateCondition(Condition $condition)
     {
         $query = $this->connection->createQueryBuilder();
         $query
             ->update('ngbm_rule_condition')
+            ->set('rule_id', ':rule_id')
+            ->set('type', ':type')
             ->set('value', ':value')
             ->where(
                 $query->expr()->eq('id', ':id')
             )
             ->setParameter('id', $condition->id, Type::INTEGER)
-            ->setParameter('value', json_encode($conditionUpdateStruct->value), Type::STRING);
+            ->setParameter('rule_id', $condition->ruleId, Type::INTEGER)
+            ->setParameter('type', $condition->type, Type::STRING)
+            ->setParameter('value', json_encode($condition->value), Type::STRING);
 
         $this->applyStatusCondition($query, $condition->status);
 

@@ -15,6 +15,7 @@ use Netgen\BlockManager\Persistence\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone;
 
@@ -189,26 +190,36 @@ class BlockHandler implements BlockHandlerInterface
      */
     public function createBlock(BlockCreateStruct $blockCreateStruct, Block $targetBlock = null, $placeholder = null)
     {
-        $blockCreateStruct->name = trim($blockCreateStruct->name);
+        $newBlock = new Block(
+            array(
+                'depth' => $targetBlock !== null ? $targetBlock->depth + 1 : 0,
+                'path' => $targetBlock !== null ? $targetBlock->path : '/',
+                'parentId' => $targetBlock !== null ? $targetBlock->id : null,
+                'placeholder' => $placeholder,
+                'layoutId' => $blockCreateStruct->layoutId,
+                'position' => $blockCreateStruct->position,
+                'definitionIdentifier' => $blockCreateStruct->definitionIdentifier,
+                'parameters' => $blockCreateStruct->parameters,
+                'config' => $blockCreateStruct->config,
+                'viewType' => $blockCreateStruct->viewType,
+                'itemViewType' => $blockCreateStruct->itemViewType,
+                'name' => trim($blockCreateStruct->name),
+                'status' => $blockCreateStruct->status,
+            )
+        );
 
         if ($targetBlock !== null && $placeholder !== null) {
-            $blockCreateStruct->position = $this->positionHelper->createPosition(
+            $newBlock->position = $this->positionHelper->createPosition(
                 $this->getPositionHelperConditions(
                     $targetBlock->id,
                     $targetBlock->status,
                     $placeholder
                 ),
-                $blockCreateStruct->position
+                $newBlock->position
             );
         }
 
-        $createdBlockId = $this->queryHandler->createBlock(
-            $blockCreateStruct,
-            $targetBlock,
-            $placeholder
-        );
-
-        return $this->loadBlock($createdBlockId, $blockCreateStruct->status);
+        return $this->queryHandler->createBlock($newBlock);
     }
 
     /**
@@ -219,11 +230,19 @@ class BlockHandler implements BlockHandlerInterface
      */
     public function createCollectionReference(Block $block, CollectionReferenceCreateStruct $createStruct)
     {
-        $this->queryHandler->createCollectionReference(
-            $block->id,
-            $block->status,
-            $createStruct
+        $newCollectionReference = new CollectionReference(
+            array(
+                'blockId' => $block->id,
+                'blockStatus' => $block->status,
+                'collectionId' => $createStruct->collection->id,
+                'collectionStatus' => $createStruct->collection->status,
+                'identifier' => $createStruct->identifier,
+                'offset' => $createStruct->offset,
+                'limit' => $createStruct->limit,
+            )
         );
+
+        $this->queryHandler->createCollectionReference($newCollectionReference);
     }
 
     /**
@@ -236,24 +255,31 @@ class BlockHandler implements BlockHandlerInterface
      */
     public function updateBlock(Block $block, BlockUpdateStruct $blockUpdateStruct)
     {
-        $blockUpdateStruct->viewType = $blockUpdateStruct->viewType ?: $block->viewType;
-        $blockUpdateStruct->itemViewType = $blockUpdateStruct->itemViewType ?: $block->itemViewType;
+        $updatedBlock = clone $block;
 
-        $blockUpdateStruct->name = $blockUpdateStruct->name !== null ?
-            trim($blockUpdateStruct->name) :
-            $block->name;
+        if ($blockUpdateStruct->viewType !== null) {
+            $updatedBlock->viewType = (string) $blockUpdateStruct->viewType;
+        }
 
-        $blockUpdateStruct->parameters = is_array($blockUpdateStruct->parameters) ?
-            $blockUpdateStruct->parameters :
-            $block->parameters;
+        if ($blockUpdateStruct->itemViewType !== null) {
+            $updatedBlock->itemViewType = (string) $blockUpdateStruct->itemViewType;
+        }
 
-        $blockUpdateStruct->config = is_array($blockUpdateStruct->config) ?
-            $blockUpdateStruct->config :
-            $block->config;
+        if ($blockUpdateStruct->name !== null) {
+            $updatedBlock->name = trim($blockUpdateStruct->name);
+        }
 
-        $this->queryHandler->updateBlock($block, $blockUpdateStruct);
+        if (is_array($blockUpdateStruct->parameters)) {
+            $updatedBlock->parameters = $blockUpdateStruct->parameters;
+        }
 
-        return $this->loadBlock($block->id, $block->status);
+        if (is_array($blockUpdateStruct->config)) {
+            $updatedBlock->config = $blockUpdateStruct->config;
+        }
+
+        $this->queryHandler->updateBlock($updatedBlock);
+
+        return $updatedBlock;
     }
 
     /**
@@ -266,23 +292,24 @@ class BlockHandler implements BlockHandlerInterface
      */
     public function updateCollectionReference(CollectionReference $collectionReference, CollectionReferenceUpdateStruct $updateStruct)
     {
-        $updateStruct->offset = $updateStruct->offset !== null ?
-            $updateStruct->offset :
-            $collectionReference->offset;
+        $updatedCollectionReference = clone $collectionReference;
 
-        $updateStruct->limit = $updateStruct->limit !== null ?
-            $updateStruct->limit :
-            $collectionReference->limit;
+        if ($updateStruct->offset !== null) {
+            $updatedCollectionReference->offset = (int) $updateStruct->offset;
+        }
 
-        $this->queryHandler->updateCollectionReference($collectionReference, $updateStruct);
+        if ($updateStruct->limit !== null) {
+            $updatedCollectionReference->limit = (int) $updateStruct->limit;
+        }
 
-        return $this->loadCollectionReference(
-            $this->loadBlock(
-                $collectionReference->blockId,
-                $collectionReference->blockStatus
-            ),
-            $collectionReference->identifier
-        );
+        if ($updateStruct->collection instanceof Collection) {
+            $updatedCollectionReference->collectionId = $updateStruct->collection->id;
+            $updatedCollectionReference->collectionStatus = $updateStruct->collection->status;
+        }
+
+        $this->queryHandler->updateCollectionReference($updatedCollectionReference);
+
+        return $updatedCollectionReference;
     }
 
     /**
@@ -302,7 +329,19 @@ class BlockHandler implements BlockHandlerInterface
             throw new BadStateException('targetBlock', 'Block cannot be copied below itself or its children.');
         }
 
-        $position = $this->positionHelper->getNextPosition(
+        $newBlock = clone $block;
+        $newBlock->id = null;
+
+        $newBlock->layoutId = $targetBlock->layoutId;
+        $newBlock->status = $targetBlock->status;
+        $newBlock->depth = $targetBlock->depth + 1;
+        // This is only the initial path.
+        // Full path is updated after we get the block ID.
+        $newBlock->path = $targetBlock->path;
+        $newBlock->parentId = $targetBlock->id;
+        $newBlock->placeholder = $placeholder;
+
+        $newBlock->position = $this->positionHelper->getNextPosition(
             $this->getPositionHelperConditions(
                 $targetBlock->id,
                 $targetBlock->status,
@@ -310,32 +349,15 @@ class BlockHandler implements BlockHandlerInterface
             )
         );
 
-        $createdBlockId = $this->queryHandler->createBlock(
-            new BlockCreateStruct(
-                array(
-                    'layoutId' => $targetBlock->layoutId,
-                    'status' => $targetBlock->status,
-                    'position' => $position,
-                    'definitionIdentifier' => $block->definitionIdentifier,
-                    'viewType' => $block->viewType,
-                    'itemViewType' => $block->itemViewType,
-                    'name' => $block->name,
-                    'parameters' => $block->parameters,
-                    'config' => $block->config,
-                )
-            ),
-            $targetBlock,
-            $placeholder
-        );
+        $newBlock = $this->queryHandler->createBlock($newBlock);
 
-        $copiedBlock = $this->loadBlock($createdBlockId, $targetBlock->status);
-        $this->copyBlockCollections($block, $copiedBlock);
+        $this->copyBlockCollections($block, $newBlock);
 
         foreach ($this->loadChildBlocks($block) as $childBlock) {
-            $this->copyBlock($childBlock, $copiedBlock, $childBlock->placeholder);
+            $this->copyBlock($childBlock, $newBlock, $childBlock->placeholder);
         }
 
-        return $copiedBlock;
+        return $newBlock;
     }
 
     /**
@@ -356,18 +378,19 @@ class BlockHandler implements BlockHandlerInterface
 
             $collection = $this->collectionHandler->copyCollection($collection);
 
-            $this->queryHandler->createCollectionReference(
-                $targetBlock->id,
-                $targetBlock->status,
-                new CollectionReferenceCreateStruct(
-                    array(
-                        'collection' => $collection,
-                        'identifier' => $collectionReference->identifier,
-                        'offset' => $collectionReference->offset,
-                        'limit' => $collectionReference->limit,
-                    )
+            $newCollectionReference = new CollectionReference(
+                array(
+                    'blockId' => $targetBlock->id,
+                    'blockStatus' => $targetBlock->status,
+                    'collectionId' => $collection->id,
+                    'collectionStatus' => $collection->status,
+                    'identifier' => $collectionReference->identifier,
+                    'offset' => $collectionReference->offset,
+                    'limit' => $collectionReference->limit,
                 )
             );
+
+            $this->queryHandler->createCollectionReference($newCollectionReference);
         }
     }
 
@@ -404,7 +427,7 @@ class BlockHandler implements BlockHandlerInterface
             $position
         );
 
-        $this->queryHandler->moveBlock($block, $position, $targetBlock, $placeholder);
+        $this->queryHandler->moveBlock($block, $targetBlock, $placeholder, $position);
 
         $this->positionHelper->removePosition(
             $this->getPositionHelperConditions(
@@ -430,7 +453,9 @@ class BlockHandler implements BlockHandlerInterface
      */
     public function moveBlockToPosition(Block $block, $position)
     {
-        $position = $this->positionHelper->moveToPosition(
+        $movedBlock = clone $block;
+
+        $movedBlock->position = $this->positionHelper->moveToPosition(
             $this->getPositionHelperConditions(
                 $block->parentId,
                 $block->status,
@@ -440,9 +465,9 @@ class BlockHandler implements BlockHandlerInterface
             $position
         );
 
-        $this->queryHandler->moveBlock($block, $position);
+        $this->queryHandler->updateBlock($movedBlock);
 
-        return $this->loadBlock($block->id, $block->status);
+        return $movedBlock;
     }
 
     /**
@@ -456,7 +481,10 @@ class BlockHandler implements BlockHandlerInterface
      */
     public function createBlockStatus(Block $block, $newStatus)
     {
-        $this->queryHandler->createBlockStatus($block, $newStatus);
+        $newBlock = clone $block;
+        $newBlock->status = $newStatus;
+
+        $this->queryHandler->createBlock($newBlock, false);
         $this->createBlockCollectionsStatus($block, $newStatus);
     }
 
@@ -484,18 +512,19 @@ class BlockHandler implements BlockHandlerInterface
                 $newStatus
             );
 
-            $this->queryHandler->createCollectionReference(
-                $block->id,
-                $newStatus,
-                new CollectionReferenceCreateStruct(
-                    array(
-                        'collection' => $collection,
-                        'identifier' => $collectionReference->identifier,
-                        'offset' => $collectionReference->offset,
-                        'limit' => $collectionReference->limit,
-                    )
+            $newCollectionReference = new CollectionReference(
+                array(
+                    'blockId' => $block->id,
+                    'blockStatus' => $newStatus,
+                    'collectionId' => $collection->id,
+                    'collectionStatus' => $collection->status,
+                    'identifier' => $collectionReference->identifier,
+                    'offset' => $collectionReference->offset,
+                    'limit' => $collectionReference->limit,
                 )
             );
+
+            $this->queryHandler->createCollectionReference($newCollectionReference);
         }
     }
 

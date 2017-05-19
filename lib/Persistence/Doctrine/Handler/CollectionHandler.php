@@ -173,9 +173,13 @@ class CollectionHandler implements CollectionHandlerInterface
      */
     public function createCollection(CollectionCreateStruct $collectionCreateStruct)
     {
-        $createdCollectionId = $this->queryHandler->createCollection($collectionCreateStruct);
+        $newCollection = new Collection(
+            array(
+                'status' => $collectionCreateStruct->status,
+            )
+        );
 
-        return $this->loadCollection($createdCollectionId, $collectionCreateStruct->status);
+        return $this->queryHandler->createCollection($newCollection);
     }
 
     /**
@@ -187,29 +191,20 @@ class CollectionHandler implements CollectionHandlerInterface
      */
     public function copyCollection(Collection $collection)
     {
-        $copiedCollectionId = $this->queryHandler->createCollection(
-            new CollectionCreateStruct(
-                array(
-                    'status' => $collection->status,
-                )
-            )
-        );
+        $newCollection = clone $collection;
+        $newCollection->id = null;
+
+        $newCollection = $this->queryHandler->createCollection($newCollection);
 
         $collectionItems = $this->loadCollectionItems($collection);
 
         foreach ($collectionItems as $collectionItem) {
-            $this->queryHandler->addItem(
-                $copiedCollectionId,
-                $collectionItem->status,
-                new ItemCreateStruct(
-                    array(
-                        'position' => $collectionItem->position,
-                        'valueId' => $collectionItem->valueId,
-                        'valueType' => $collectionItem->valueType,
-                        'type' => $collectionItem->type,
-                    )
-                )
-            );
+            $newItem = clone $collectionItem;
+
+            $newItem->id = null;
+            $newItem->collectionId = $newCollection->id;
+
+            $this->queryHandler->addItem($newItem);
         }
 
         $collectionQuery = null;
@@ -220,19 +215,15 @@ class CollectionHandler implements CollectionHandlerInterface
         }
 
         if ($collectionQuery instanceof Query) {
-            $this->queryHandler->addQuery(
-                $copiedCollectionId,
-                $collectionQuery->status,
-                new QueryCreateStruct(
-                    array(
-                        'type' => $collectionQuery->type,
-                        'parameters' => $collectionQuery->parameters,
-                    )
-                )
-            );
+            $newQuery = clone $collectionQuery;
+
+            $newQuery->id = null;
+            $newQuery->collectionId = $newCollection->id;
+
+            $this->queryHandler->addQuery($newQuery);
         }
 
-        return $this->loadCollection($copiedCollectionId, $collection->status);
+        return $newCollection;
     }
 
     /**
@@ -245,31 +236,18 @@ class CollectionHandler implements CollectionHandlerInterface
      */
     public function createCollectionStatus(Collection $collection, $newStatus)
     {
-        $this->queryHandler->createCollection(
-            new CollectionCreateStruct(
-                array(
-                    'status' => $newStatus,
-                )
-            ),
-            $collection->id
-        );
+        $newCollection = clone $collection;
+        $newCollection->status = $newStatus;
+
+        $this->queryHandler->createCollection($newCollection);
 
         $collectionItems = $this->loadCollectionItems($collection);
 
         foreach ($collectionItems as $collectionItem) {
-            $this->queryHandler->addItem(
-                $collectionItem->collectionId,
-                $newStatus,
-                new ItemCreateStruct(
-                    array(
-                        'position' => $collectionItem->position,
-                        'valueId' => $collectionItem->valueId,
-                        'valueType' => $collectionItem->valueType,
-                        'type' => $collectionItem->type,
-                    )
-                ),
-                $collectionItem->id
-            );
+            $newItem = clone $collectionItem;
+            $newItem->status = $newStatus;
+
+            $this->queryHandler->addItem($newItem);
         }
 
         $collectionQuery = null;
@@ -280,20 +258,13 @@ class CollectionHandler implements CollectionHandlerInterface
         }
 
         if ($collectionQuery instanceof Query) {
-            $this->queryHandler->addQuery(
-                $collectionQuery->collectionId,
-                $newStatus,
-                new QueryCreateStruct(
-                    array(
-                        'type' => $collectionQuery->type,
-                        'parameters' => $collectionQuery->parameters,
-                    )
-                ),
-                $collectionQuery->id
-            );
+            $newQuery = clone $collectionQuery;
+            $newQuery->status = $newStatus;
+
+            $this->queryHandler->addQuery($newQuery);
         }
 
-        return $this->loadCollection($collection->id, $newStatus);
+        return $newCollection;
     }
 
     /**
@@ -328,7 +299,7 @@ class CollectionHandler implements CollectionHandlerInterface
             $isDynamic = false;
         }
 
-        $itemCreateStruct->position = $this->positionHelper->createPosition(
+        $position = $this->positionHelper->createPosition(
             $this->getPositionHelperItemConditions(
                 $collection->id,
                 $collection->status
@@ -337,13 +308,18 @@ class CollectionHandler implements CollectionHandlerInterface
             $isDynamic
         );
 
-        $createdItemId = $this->queryHandler->addItem(
-            $collection->id,
-            $collection->status,
-            $itemCreateStruct
+        $newItem = new Item(
+            array(
+                'collectionId' => $collection->id,
+                'position' => $position,
+                'type' => $itemCreateStruct->type,
+                'valueId' => $itemCreateStruct->valueId,
+                'valueType' => $itemCreateStruct->valueType,
+                'status' => $collection->status,
+            )
         );
 
-        return $this->loadItem($createdItemId, $collection->status);
+        return $this->queryHandler->addItem($newItem);
     }
 
     /**
@@ -367,7 +343,9 @@ class CollectionHandler implements CollectionHandlerInterface
             $isDynamic = false;
         }
 
-        $position = $this->positionHelper->moveToPosition(
+        $movedItem = clone $item;
+
+        $movedItem->position = $this->positionHelper->moveToPosition(
             $this->getPositionHelperItemConditions(
                 $collection->id,
                 $item->status
@@ -377,9 +355,9 @@ class CollectionHandler implements CollectionHandlerInterface
             $isDynamic
         );
 
-        $this->queryHandler->moveItem($item, $position);
+        $this->queryHandler->updateItem($movedItem);
 
-        return $this->loadItem($item->id, $item->status);
+        return $movedItem;
     }
 
     /**
@@ -420,13 +398,16 @@ class CollectionHandler implements CollectionHandlerInterface
             // Do nothing
         }
 
-        $createdQueryId = $this->queryHandler->addQuery(
-            $collection->id,
-            $collection->status,
-            $queryCreateStruct
+        $newQuery = new Query(
+            array(
+                'collectionId' => $collection->id,
+                'type' => $queryCreateStruct->type,
+                'parameters' => $queryCreateStruct->parameters,
+                'status' => $collection->status,
+            )
         );
 
-        return $this->loadQuery($createdQueryId, $collection->status);
+        return $this->queryHandler->addQuery($newQuery);
     }
 
     /**
@@ -439,15 +420,19 @@ class CollectionHandler implements CollectionHandlerInterface
      */
     public function updateQuery(Query $query, QueryUpdateStruct $queryUpdateStruct)
     {
-        $queryUpdateStruct->type = $queryUpdateStruct->type ?: $query->type;
+        $updatedQuery = clone $query;
 
-        $queryUpdateStruct->parameters = is_array($queryUpdateStruct->parameters) ?
-            $queryUpdateStruct->parameters :
-            $query->parameters;
+        if ($queryUpdateStruct->type !== null) {
+            $updatedQuery->type = (string) $queryUpdateStruct->type;
+        }
 
-        $this->queryHandler->updateQuery($query, $queryUpdateStruct);
+        if (is_array($queryUpdateStruct->parameters)) {
+            $updatedQuery->parameters = $queryUpdateStruct->parameters;
+        }
 
-        return $this->loadQuery($query->id, $query->status);
+        $this->queryHandler->updateQuery($updatedQuery);
+
+        return $updatedQuery;
     }
 
     /**

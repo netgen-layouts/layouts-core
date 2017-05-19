@@ -125,11 +125,10 @@ interface LayoutHandler
      * Creates a layout.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Layout\LayoutCreateStruct $layoutCreateStruct
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\ZoneCreateStruct[] $zoneCreateStructs
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
      */
-    public function createLayout(LayoutCreateStruct $layoutCreateStruct, array $zoneCreateStructs = array());
+    public function createLayout(LayoutCreateStruct $layoutCreateStruct);
 
     /**
      * Creates a zone in provided layout.
