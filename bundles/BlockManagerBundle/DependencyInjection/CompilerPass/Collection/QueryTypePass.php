@@ -47,16 +47,18 @@ class QueryTypePass implements CompilerPassInterface
             $container->setDefinition($configServiceName, $configService);
 
             $foundHandler = null;
-            foreach ($queryTypeHandlers as $queryTypeHandler => $tag) {
-                if (!isset($tag[0]['type'])) {
-                    throw new RuntimeException(
-                        "Query type handler definition must have a 'type' attribute in its' tag."
-                    );
-                }
+            foreach ($queryTypeHandlers as $queryTypeHandler => $tags) {
+                foreach ($tags as $tag) {
+                    if (!isset($tag['type'])) {
+                        throw new RuntimeException(
+                            "Query type handler definition must have a 'type' attribute in its' tag."
+                        );
+                    }
 
-                if ($tag[0]['type'] === $handlerIdentifier) {
-                    $foundHandler = $queryTypeHandler;
-                    break;
+                    if ($tag['type'] === $handlerIdentifier) {
+                        $foundHandler = $queryTypeHandler;
+                        break 2;
+                    }
                 }
             }
 

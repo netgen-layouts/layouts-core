@@ -26,12 +26,14 @@ class DoctrineTargetHandlerPass implements CompilerPassInterface
         $layoutResolverQueryHandler = $container->findDefinition(self::SERVICE_NAME);
         $targetHandlers = array();
 
-        foreach ($container->findTaggedServiceIds(self::TAG_NAME) as $targetHandler => $tag) {
-            if (!isset($tag[0]['target_type'])) {
-                throw new RuntimeException('Doctrine target handler service tags should have an "target_type" attribute.');
-            }
+        foreach ($container->findTaggedServiceIds(self::TAG_NAME) as $targetHandler => $tags) {
+            foreach ($tags as $tag) {
+                if (!isset($tag['target_type'])) {
+                    throw new RuntimeException('Doctrine target handler service tags should have an "target_type" attribute.');
+                }
 
-            $targetHandlers[$tag[0]['target_type']] = new Reference($targetHandler);
+                $targetHandlers[$tag['target_type']] = new Reference($targetHandler);
+            }
         }
 
         $layoutResolverQueryHandler->replaceArgument(2, $targetHandlers);

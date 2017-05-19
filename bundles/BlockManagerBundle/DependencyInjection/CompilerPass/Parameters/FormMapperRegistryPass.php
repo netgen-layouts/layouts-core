@@ -25,20 +25,22 @@ class FormMapperRegistryPass implements CompilerPassInterface
 
         $registry = $container->findDefinition(self::SERVICE_NAME);
 
-        foreach ($container->findTaggedServiceIds(self::TAG_NAME) as $formMapper => $tag) {
-            if (!isset($tag[0]['type'])) {
-                throw new RuntimeException(
-                    "Parameter form mapper service definition must have a 'type' attribute in its' tag."
+        foreach ($container->findTaggedServiceIds(self::TAG_NAME) as $formMapper => $tags) {
+            foreach ($tags as $tag) {
+                if (!isset($tag['type'])) {
+                    throw new RuntimeException(
+                        "Parameter form mapper service definition must have a 'type' attribute in its' tag."
+                    );
+                }
+
+                $registry->addMethodCall(
+                    'addFormMapper',
+                    array(
+                        $tag['type'],
+                        new Reference($formMapper),
+                    )
                 );
             }
-
-            $registry->addMethodCall(
-                'addFormMapper',
-                array(
-                    $tag[0]['type'],
-                    new Reference($formMapper),
-                )
-            );
         }
     }
 }

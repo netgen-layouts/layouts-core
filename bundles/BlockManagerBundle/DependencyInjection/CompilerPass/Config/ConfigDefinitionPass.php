@@ -29,51 +29,53 @@ class ConfigDefinitionPass implements CompilerPassInterface
         $configDefinitionRegistry = $container->findDefinition(self::SERVICE_NAME);
         $configDefinitionHandlers = $container->findTaggedServiceIds(self::TAG_NAME);
 
-        foreach ($configDefinitionHandlers as $configDefinitionHandler => $tag) {
-            if (!isset($tag[0]['type'])) {
-                throw new RuntimeException(
-                    "Config definition handler definition must have a 'type' attribute in its' tag."
-                );
-            }
+        foreach ($configDefinitionHandlers as $configDefinitionHandler => $tags) {
+            foreach ($tags as $tag) {
+                if (!isset($tag['type'])) {
+                    throw new RuntimeException(
+                        "Config definition handler definition must have a 'type' attribute in its' tag."
+                    );
+                }
 
-            $type = $tag[0]['type'];
+                $type = $tag['type'];
 
-            if (!in_array($type, self::SUPPORTED_TYPES, true)) {
-                throw new RuntimeException(
-                    sprintf(
-                        'Config definition type "%s" is not supported.',
-                        $type
+                if (!in_array($type, self::SUPPORTED_TYPES, true)) {
+                    throw new RuntimeException(
+                        sprintf(
+                            'Config definition type "%s" is not supported.',
+                            $type
+                        )
+                    );
+                }
+
+                if (!isset($tag['identifier'])) {
+                    throw new RuntimeException(
+                        "Config definition handler definition must have an 'identifier' attribute in its' tag."
+                    );
+                }
+
+                $identifier = $tag['identifier'];
+
+                $configDefinitionServiceName = sprintf('netgen_block_manager.config.config_definition.%s.%s', $type, $identifier);
+                $configDefinitionService = new Definition(ConfigDefinition::class);
+
+                $configDefinitionService->setLazy(true);
+                $configDefinitionService->addArgument($type);
+                $configDefinitionService->addArgument($identifier);
+                $configDefinitionService->addArgument(new Reference($configDefinitionHandler));
+                $configDefinitionService->setFactory(array(new Reference('netgen_block_manager.config.config_definition_factory'), 'buildConfigDefinition'));
+
+                $container->setDefinition($configDefinitionServiceName, $configDefinitionService);
+
+                $configDefinitionRegistry->addMethodCall(
+                    'addConfigDefinition',
+                    array(
+                        $type,
+                        $identifier,
+                        new Reference($configDefinitionServiceName),
                     )
                 );
             }
-
-            if (!isset($tag[0]['identifier'])) {
-                throw new RuntimeException(
-                    "Config definition handler definition must have an 'identifier' attribute in its' tag."
-                );
-            }
-
-            $identifier = $tag[0]['identifier'];
-
-            $configDefinitionServiceName = sprintf('netgen_block_manager.config.config_definition.%s.%s', $type, $identifier);
-            $configDefinitionService = new Definition(ConfigDefinition::class);
-
-            $configDefinitionService->setLazy(true);
-            $configDefinitionService->addArgument($type);
-            $configDefinitionService->addArgument($identifier);
-            $configDefinitionService->addArgument(new Reference($configDefinitionHandler));
-            $configDefinitionService->setFactory(array(new Reference('netgen_block_manager.config.config_definition_factory'), 'buildConfigDefinition'));
-
-            $container->setDefinition($configDefinitionServiceName, $configDefinitionService);
-
-            $configDefinitionRegistry->addMethodCall(
-                'addConfigDefinition',
-                array(
-                    $type,
-                    $identifier,
-                    new Reference($configDefinitionServiceName),
-                )
-            );
         }
     }
 }

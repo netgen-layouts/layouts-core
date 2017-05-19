@@ -29,22 +29,22 @@ class ItemLoaderPass implements CompilerPassInterface
         $itemLoader = $container->findDefinition(self::SERVICE_NAME);
 
         $valueLoaders = array();
-        foreach ($container->findTaggedServiceIds(self::TAG_NAME) as $serviceName => $tag) {
-            if (!isset($tag[0]['value_type'])) {
-                throw new RuntimeException(
-                    "Value loader service definition must have a 'value_type' attribute in its' tag."
-                );
+        foreach ($container->findTaggedServiceIds(self::TAG_NAME) as $serviceName => $tags) {
+            foreach ($tags as $tag) {
+                if (!isset($tag['value_type'])) {
+                    throw new RuntimeException(
+                        "Value loader service definition must have a 'value_type' attribute in its' tag."
+                    );
+                }
+
+                if (!preg_match('/^[A-Za-z]([A-Za-z0-9_])*$/', $tag['value_type'])) {
+                    throw new RuntimeException(
+                        'Value type must begin with a letter and be followed by any combination of letters, digits and underscore.'
+                    );
+                }
+
+                $valueLoaders[$tag['value_type']] = new Reference($serviceName);
             }
-
-            if (!preg_match('/^[A-Za-z]([A-Za-z0-9_])*$/', $tag[0]['value_type'])) {
-                throw new RuntimeException(
-                    'Value type must begin with a letter and be followed by any combination of letters, digits and underscore.'
-                );
-            }
-
-            $valueType = $tag[0]['value_type'];
-
-            $valueLoaders[$valueType] = new Reference($serviceName);
         }
 
         $itemLoader->replaceArgument(1, $valueLoaders);

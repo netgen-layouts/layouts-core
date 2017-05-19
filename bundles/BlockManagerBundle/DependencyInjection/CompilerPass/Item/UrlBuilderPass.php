@@ -29,14 +29,22 @@ class UrlBuilderPass implements CompilerPassInterface
         $urlBuilder = $container->findDefinition(self::SERVICE_NAME);
 
         $valueUrlBuilders = array();
-        foreach ($container->findTaggedServiceIds(self::TAG_NAME) as $valueUrlBuilder => $tag) {
-            if (!isset($tag[0]['value_type'])) {
-                throw new RuntimeException(
-                    "Value URL builder service definition must have a 'value_type' attribute in its' tag."
-                );
-            }
+        foreach ($container->findTaggedServiceIds(self::TAG_NAME) as $valueUrlBuilder => $tags) {
+            foreach ($tags as $tag) {
+                if (!isset($tag['value_type'])) {
+                    throw new RuntimeException(
+                        "Value URL builder service definition must have a 'value_type' attribute in its' tag."
+                    );
+                }
 
-            $valueUrlBuilders[$tag[0]['value_type']] = new Reference($valueUrlBuilder);
+                if (!preg_match('/^[A-Za-z]([A-Za-z0-9_])*$/', $tag['value_type'])) {
+                    throw new RuntimeException(
+                        'Value type must begin with a letter and be followed by any combination of letters, digits and underscore.'
+                    );
+                }
+
+                $valueUrlBuilders[$tag['value_type']] = new Reference($valueUrlBuilder);
+            }
         }
 
         $urlBuilder->replaceArgument(0, $valueUrlBuilders);

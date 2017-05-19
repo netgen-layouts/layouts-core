@@ -37,14 +37,16 @@ class ParameterFilterRegistryPass implements CompilerPassInterface
         );
 
         $parameterFiltersPerType = array();
-        foreach ($parameterFilters as $serviceName => $tag) {
-            if (!isset($tag[0]['type'])) {
-                throw new RuntimeException(
-                    "Parameter filter service definition must have a 'type' attribute in its' tag."
-                );
-            }
+        foreach ($parameterFilters as $serviceName => $tags) {
+            foreach ($tags as $tag) {
+                if (!isset($tag['type'])) {
+                    throw new RuntimeException(
+                        "Parameter filter service definition must have a 'type' attribute in its' tag."
+                    );
+                }
 
-            $parameterFiltersPerType[$tag[0]['type']][] = new Reference($serviceName);
+                $parameterFiltersPerType[$tag['type']][] = new Reference($serviceName);
+            }
         }
 
         foreach ($parameterFiltersPerType as $type => $filters) {

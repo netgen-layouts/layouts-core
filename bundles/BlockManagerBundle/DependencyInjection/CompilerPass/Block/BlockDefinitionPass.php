@@ -51,16 +51,18 @@ class BlockDefinitionPass implements CompilerPassInterface
             $container->setDefinition($configServiceName, $configService);
 
             $foundHandler = null;
-            foreach ($blockDefinitionHandlers as $blockDefinitionHandler => $tag) {
-                if (!isset($tag[0]['identifier'])) {
-                    throw new RuntimeException(
-                        "Block definition handler definition must have an 'identifier' attribute in its' tag."
-                    );
-                }
+            foreach ($blockDefinitionHandlers as $blockDefinitionHandler => $tags) {
+                foreach ($tags as $tag) {
+                    if (!isset($tag['identifier'])) {
+                        throw new RuntimeException(
+                            "Block definition handler definition must have an 'identifier' attribute in its' tag."
+                        );
+                    }
 
-                if ($tag[0]['identifier'] === $handlerIdentifier) {
-                    $foundHandler = $blockDefinitionHandler;
-                    break;
+                    if ($tag['identifier'] === $handlerIdentifier) {
+                        $foundHandler = $blockDefinitionHandler;
+                        break 2;
+                    }
                 }
             }
 

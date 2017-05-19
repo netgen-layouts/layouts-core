@@ -27,14 +27,16 @@ class TemplateResolverPass implements CompilerPassInterface
         $matcherServices = $container->findTaggedServiceIds(self::TAG_NAME);
 
         $matchers = array();
-        foreach ($matcherServices as $serviceName => $tag) {
-            if (!isset($tag[0]['identifier'])) {
-                throw new RuntimeException(
-                    "Matcher service definition must have an 'identifier' attribute in its' tag."
-                );
-            }
+        foreach ($matcherServices as $serviceName => $tags) {
+            foreach ($tags as $tag) {
+                if (!isset($tag['identifier'])) {
+                    throw new RuntimeException(
+                        "Matcher service definition must have an 'identifier' attribute in its' tag."
+                    );
+                }
 
-            $matchers[$tag[0]['identifier']] = new Reference($serviceName);
+                $matchers[$tag['identifier']] = new Reference($serviceName);
+            }
         }
 
         $templateResolver->replaceArgument(0, $matchers);
