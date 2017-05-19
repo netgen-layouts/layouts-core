@@ -2,9 +2,12 @@
 
 namespace Netgen\BlockManager\Collection\Registry;
 
+use ArrayAccess;
+use Countable;
+use IteratorAggregate;
 use Netgen\BlockManager\Collection\Source\Source;
 
-interface SourceRegistryInterface
+interface SourceRegistryInterface extends IteratorAggregate, Countable, ArrayAccess
 {
     /**
      * Adds a source to registry.

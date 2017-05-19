@@ -2,9 +2,12 @@
 
 namespace Netgen\BlockManager\Block\Registry;
 
+use ArrayAccess;
+use Countable;
+use IteratorAggregate;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 
-interface BlockDefinitionRegistryInterface
+interface BlockDefinitionRegistryInterface extends IteratorAggregate, Countable, ArrayAccess
 {
     /**
      * Adds a block definition to registry.

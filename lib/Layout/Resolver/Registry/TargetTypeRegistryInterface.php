@@ -2,9 +2,12 @@
 
 namespace Netgen\BlockManager\Layout\Resolver\Registry;
 
+use ArrayAccess;
+use Countable;
+use IteratorAggregate;
 use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;
 
-interface TargetTypeRegistryInterface
+interface TargetTypeRegistryInterface extends IteratorAggregate, Countable, ArrayAccess
 {
     /**
      * Adds a target type to registry.

@@ -2,9 +2,12 @@
 
 namespace Netgen\BlockManager\Layout\Registry;
 
+use ArrayAccess;
+use Countable;
+use IteratorAggregate;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 
-interface LayoutTypeRegistryInterface
+interface LayoutTypeRegistryInterface extends IteratorAggregate, Countable, ArrayAccess
 {
     /**
      * Adds a layout type to registry.

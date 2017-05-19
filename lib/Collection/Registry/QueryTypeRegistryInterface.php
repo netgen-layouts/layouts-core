@@ -2,9 +2,12 @@
 
 namespace Netgen\BlockManager\Collection\Registry;
 
+use ArrayAccess;
+use Countable;
+use IteratorAggregate;
 use Netgen\BlockManager\Collection\QueryTypeInterface;
 
-interface QueryTypeRegistryInterface
+interface QueryTypeRegistryInterface extends IteratorAggregate, Countable, ArrayAccess
 {
     /**
      * Adds a query type to registry.

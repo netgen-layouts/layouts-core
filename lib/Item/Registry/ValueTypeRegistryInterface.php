@@ -2,9 +2,12 @@
 
 namespace Netgen\BlockManager\Item\Registry;
 
+use ArrayAccess;
+use Countable;
+use IteratorAggregate;
 use Netgen\BlockManager\Item\ValueType\ValueType;
 
-interface ValueTypeRegistryInterface
+interface ValueTypeRegistryInterface extends IteratorAggregate, Countable, ArrayAccess
 {
     /**
      * Adds a value type to registry.

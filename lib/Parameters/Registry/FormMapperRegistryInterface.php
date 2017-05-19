@@ -2,9 +2,12 @@
 
 namespace Netgen\BlockManager\Parameters\Registry;
 
+use ArrayAccess;
+use Countable;
+use IteratorAggregate;
 use Netgen\BlockManager\Parameters\Form\MapperInterface;
 
-interface FormMapperRegistryInterface
+interface FormMapperRegistryInterface extends IteratorAggregate, Countable, ArrayAccess
 {
     /**
      * Adds a parameter form mapper to registry.

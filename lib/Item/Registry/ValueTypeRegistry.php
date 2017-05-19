@@ -2,7 +2,9 @@
 
 namespace Netgen\BlockManager\Item\Registry;
 
+use ArrayIterator;
 use Netgen\BlockManager\Exception\Item\ItemException;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Item\ValueType\ValueType;
 
 class ValueTypeRegistry implements ValueTypeRegistryInterface
@@ -72,5 +74,70 @@ class ValueTypeRegistry implements ValueTypeRegistryInterface
                 return $valueType->isEnabled();
             }
         );
+    }
+
+    /**
+     * Retrieve an external iterator.
+     *
+     * @return \Traversable
+     */
+    public function getIterator()
+    {
+        return new ArrayIterator($this->valueTypes);
+    }
+
+    /**
+     * Count elements of an object.
+     *
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->valueTypes);
+    }
+
+    /**
+     * Whether a offset exists.
+     *
+     * @param mixed $offset
+     *
+     * @return bool
+     */
+    public function offsetExists($offset)
+    {
+        return $this->hasValueType($offset);
+    }
+
+    /**
+     * Offset to retrieve.
+     *
+     * @param mixed $offset
+     *
+     * @return mixed
+     */
+    public function offsetGet($offset)
+    {
+        return $this->getValueType($offset);
+    }
+
+    /**
+     * Offset to set.
+     *
+     * @param mixed $offset
+     * @param mixed $value
+     */
+    public function offsetSet($offset, $value)
+    {
+        throw new RuntimeException('Method call not supported.');
+    }
+
+    /**
+     * Offset to unset.
+     *
+     * @param mixed $offset
+     */
+    public function offsetUnset($offset)
+    {
+        throw new RuntimeException('Method call not supported.');
     }
 }

@@ -2,7 +2,9 @@
 
 namespace Netgen\BlockManager\Layout\Resolver\Registry;
 
+use ArrayIterator;
 use Netgen\BlockManager\Exception\Layout\TargetTypeException;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;
 
 class TargetTypeRegistry implements TargetTypeRegistryInterface
@@ -60,5 +62,70 @@ class TargetTypeRegistry implements TargetTypeRegistryInterface
     public function getTargetTypes()
     {
         return $this->targetTypes;
+    }
+
+    /**
+     * Retrieve an external iterator.
+     *
+     * @return \Traversable
+     */
+    public function getIterator()
+    {
+        return new ArrayIterator($this->targetTypes);
+    }
+
+    /**
+     * Count elements of an object.
+     *
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->targetTypes);
+    }
+
+    /**
+     * Whether a offset exists.
+     *
+     * @param mixed $offset
+     *
+     * @return bool
+     */
+    public function offsetExists($offset)
+    {
+        return $this->hasTargetType($offset);
+    }
+
+    /**
+     * Offset to retrieve.
+     *
+     * @param mixed $offset
+     *
+     * @return mixed
+     */
+    public function offsetGet($offset)
+    {
+        return $this->getTargetType($offset);
+    }
+
+    /**
+     * Offset to set.
+     *
+     * @param mixed $offset
+     * @param mixed $value
+     */
+    public function offsetSet($offset, $value)
+    {
+        throw new RuntimeException('Method call not supported.');
+    }
+
+    /**
+     * Offset to unset.
+     *
+     * @param mixed $offset
+     */
+    public function offsetUnset($offset)
+    {
+        throw new RuntimeException('Method call not supported.');
     }
 }
