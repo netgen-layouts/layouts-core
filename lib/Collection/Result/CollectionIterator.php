@@ -52,14 +52,21 @@ class CollectionIterator implements Iterator, Countable
             if ($this->collection->hasOverrideItem($i)) {
                 ++$totalCount;
                 --$queryCount;
-            } elseif ($this->collection->hasManualItem($i)) {
+                continue;
+            }
+
+            if ($this->collection->hasManualItem($i)) {
                 ++$totalCount;
-            } elseif ($queryCount > 0) {
+                continue;
+            }
+
+            if ($queryCount > 0) {
                 ++$totalCount;
                 --$queryCount;
-            } else {
-                break;
+                continue;
             }
+
+            break;
         }
 
         return $totalCount;

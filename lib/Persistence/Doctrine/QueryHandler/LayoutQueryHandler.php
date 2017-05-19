@@ -66,18 +66,15 @@ class LayoutQueryHandler extends QueryHandler
             $query->expr()->eq('ngbm_layout.shared', ':shared')
         );
 
+        $statusExpr = $query->expr()->eq('ngbm_layout.status', ':status');
         if ($includeDrafts) {
-            $query->andWhere(
-                $query->expr()->orX(
-                    $query->expr()->eq('ngbm_layout.status', ':status'),
-                    $query->expr()->isNull('l2.id')
-                )
-            );
-        } else {
-            $query->andWhere(
-                $query->expr()->eq('ngbm_layout.status', ':status')
+            $statusExpr = $query->expr()->orX(
+                $statusExpr,
+                $query->expr()->isNull('l2.id')
             );
         }
+
+        $query->andWhere($statusExpr);
 
         $query->setParameter('shared', (bool) $shared, Type::BOOLEAN);
         $query->setParameter('status', Value::STATUS_PUBLISHED, Type::INTEGER);
