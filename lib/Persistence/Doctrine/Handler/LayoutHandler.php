@@ -254,6 +254,7 @@ class LayoutHandler implements LayoutHandlerInterface
                 array(
                     'layoutId' => $layout->id,
                     'status' => $layout->status,
+                    'position' => null,
                     'definitionIdentifier' => '',
                     'viewType' => '',
                     'itemViewType' => '',
