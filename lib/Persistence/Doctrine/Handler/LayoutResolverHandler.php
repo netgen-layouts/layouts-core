@@ -268,7 +268,6 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
         }
 
         $this->queryHandler->updateRule($updatedRule);
-        $this->queryHandler->updateRuleData($updatedRule);
 
         return $updatedRule;
     }
