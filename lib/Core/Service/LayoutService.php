@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Core\Service;
 
-use Exception;
 use Netgen\BlockManager\API\Service\LayoutService as LayoutServiceInterface;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct as APILayoutCopyStruct;
@@ -172,7 +171,7 @@ class LayoutService extends Service implements LayoutServiceInterface
      * @param int $offset
      * @param int $limit
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If provided layout is not shared
+     * @throws \Netgen\BlockManager\Exception\BadStateException If provided layout is not shared
      *                                                          If provided layout is not published
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Layout[]
@@ -208,7 +207,7 @@ class LayoutService extends Service implements LayoutServiceInterface
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $sharedLayout
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If provided layout is not shared
+     * @throws \Netgen\BlockManager\Exception\BadStateException If provided layout is not shared
      *                                                          If provided layout is not published
      *
      * @return int
@@ -343,23 +342,18 @@ class LayoutService extends Service implements LayoutServiceInterface
             throw new BadStateException('linkedZone', 'Linked zone is not in the shared layout.');
         }
 
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $updatedZone = $this->handler->updateZone(
-                $persistenceZone,
-                new ZoneUpdateStruct(
-                    array(
-                        'linkedZone' => $persistenceLinkedZone,
+        $updatedZone = $this->transaction(
+            function () use ($persistenceZone, $persistenceLinkedZone) {
+                return $this->handler->updateZone(
+                    $persistenceZone,
+                    new ZoneUpdateStruct(
+                        array(
+                            'linkedZone' => $persistenceLinkedZone,
+                        )
                     )
-                )
-            );
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
+                );
+            }
+        );
 
         return $this->mapper->mapZone($updatedZone);
     }
@@ -381,23 +375,18 @@ class LayoutService extends Service implements LayoutServiceInterface
 
         $persistenceZone = $this->handler->loadZone($zone->getLayoutId(), Value::STATUS_DRAFT, $zone->getIdentifier());
 
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $updatedZone = $this->handler->updateZone(
-                $persistenceZone,
-                new ZoneUpdateStruct(
-                    array(
-                        'linkedZone' => false,
+        $updatedZone = $this->transaction(
+            function () use ($persistenceZone) {
+                return $this->handler->updateZone(
+                    $persistenceZone,
+                    new ZoneUpdateStruct(
+                        array(
+                            'linkedZone' => false,
+                        )
                     )
-                )
-            );
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
+                );
+            }
+        );
 
         return $this->mapper->mapZone($updatedZone);
     }
@@ -428,27 +417,22 @@ class LayoutService extends Service implements LayoutServiceInterface
             );
         }
 
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $createdLayout = $this->handler->createLayout(
-                new LayoutCreateStruct(
-                    array(
-                        'type' => $layoutCreateStruct->layoutType->getIdentifier(),
-                        'name' => $layoutCreateStruct->name,
-                        'description' => $layoutCreateStruct->description,
-                        'status' => Value::STATUS_DRAFT,
-                        'shared' => $layoutCreateStruct->shared,
-                    )
-                ),
-                $zoneCreateStructs
-            );
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
+        $createdLayout = $this->transaction(
+            function () use ($layoutCreateStruct, $zoneCreateStructs) {
+                return $this->handler->createLayout(
+                    new LayoutCreateStruct(
+                        array(
+                            'type' => $layoutCreateStruct->layoutType->getIdentifier(),
+                            'name' => $layoutCreateStruct->name,
+                            'description' => $layoutCreateStruct->description,
+                            'status' => Value::STATUS_DRAFT,
+                            'shared' => $layoutCreateStruct->shared,
+                        )
+                    ),
+                    $zoneCreateStructs
+                );
+            }
+        );
 
         return $this->mapper->mapLayout($createdLayout);
     }
@@ -480,24 +464,19 @@ class LayoutService extends Service implements LayoutServiceInterface
             }
         }
 
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $updatedLayout = $this->handler->updateLayout(
-                $persistenceLayout,
-                new LayoutUpdateStruct(
-                    array(
-                        'name' => $layoutUpdateStruct->name,
-                        'description' => $layoutUpdateStruct->description,
+        $updatedLayout = $this->transaction(
+            function () use ($persistenceLayout, $layoutUpdateStruct) {
+                return $this->handler->updateLayout(
+                    $persistenceLayout,
+                    new LayoutUpdateStruct(
+                        array(
+                            'name' => $layoutUpdateStruct->name,
+                            'description' => $layoutUpdateStruct->description,
+                        )
                     )
-                )
-            );
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
+                );
+            }
+        );
 
         return $this->mapper->mapLayout($updatedLayout);
     }
@@ -522,24 +501,19 @@ class LayoutService extends Service implements LayoutServiceInterface
 
         $persistenceLayout = $this->handler->loadLayout($layout->getId(), $layout->getStatus());
 
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $copiedLayout = $this->handler->copyLayout(
-                $persistenceLayout,
-                new LayoutCopyStruct(
-                    array(
-                        'name' => $layoutCopyStruct->name,
-                        'description' => $layoutCopyStruct->description,
+        $copiedLayout = $this->transaction(
+            function () use ($persistenceLayout, $layoutCopyStruct) {
+                return $this->handler->copyLayout(
+                    $persistenceLayout,
+                    new LayoutCopyStruct(
+                        array(
+                            'name' => $layoutCopyStruct->name,
+                            'description' => $layoutCopyStruct->description,
+                        )
                     )
-                )
-            );
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
+                );
+            }
+        );
 
         return $this->mapper->mapLayout($copiedLayout);
     }
@@ -569,26 +543,21 @@ class LayoutService extends Service implements LayoutServiceInterface
             }
         }
 
-        $this->persistenceHandler->beginTransaction();
+        $layoutDraft = $this->transaction(
+            function () use ($persistenceLayout) {
+                $this->handler->deleteLayout($persistenceLayout->id, Value::STATUS_DRAFT);
+                $layoutDraft = $this->handler->createLayoutStatus($persistenceLayout, Value::STATUS_DRAFT);
 
-        try {
-            $this->handler->deleteLayout($persistenceLayout->id, Value::STATUS_DRAFT);
-            $layoutDraft = $this->handler->createLayoutStatus($persistenceLayout, Value::STATUS_DRAFT);
-
-            $layoutDraft = $this->handler->updateLayout(
-                $layoutDraft,
-                new LayoutUpdateStruct(
-                    array(
-                        'modified' => time(),
+                return $this->handler->updateLayout(
+                    $layoutDraft,
+                    new LayoutUpdateStruct(
+                        array(
+                            'modified' => time(),
+                        )
                     )
-                )
-            );
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
+                );
+            }
+        );
 
         return $this->mapper->mapLayout($layoutDraft);
     }
@@ -608,19 +577,14 @@ class LayoutService extends Service implements LayoutServiceInterface
 
         $persistenceLayout = $this->handler->loadLayout($layout->getId(), Value::STATUS_DRAFT);
 
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $this->handler->deleteLayout(
-                $persistenceLayout->id,
-                Value::STATUS_DRAFT
-            );
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
+        $this->transaction(
+            function () use ($persistenceLayout) {
+                $this->handler->deleteLayout(
+                    $persistenceLayout->id,
+                    Value::STATUS_DRAFT
+                );
+            }
+        );
     }
 
     /**
@@ -640,34 +604,31 @@ class LayoutService extends Service implements LayoutServiceInterface
 
         $persistenceLayout = $this->handler->loadLayout($layout->getId(), Value::STATUS_DRAFT);
 
-        $this->persistenceHandler->beginTransaction();
+        $publishedLayout = $this->transaction(
+            function () use ($persistenceLayout) {
+                $this->handler->deleteLayout($persistenceLayout->id, Value::STATUS_ARCHIVED);
 
-        try {
-            $this->handler->deleteLayout($persistenceLayout->id, Value::STATUS_ARCHIVED);
+                if ($this->handler->layoutExists($persistenceLayout->id, Value::STATUS_PUBLISHED)) {
+                    $archivedLayout = $this->handler->createLayoutStatus(
+                        $this->handler->loadLayout($persistenceLayout->id, Value::STATUS_PUBLISHED),
+                        Value::STATUS_ARCHIVED
+                    );
 
-            if ($this->handler->layoutExists($persistenceLayout->id, Value::STATUS_PUBLISHED)) {
-                $archivedLayout = $this->handler->createLayoutStatus(
-                    $this->handler->loadLayout($persistenceLayout->id, Value::STATUS_PUBLISHED),
-                    Value::STATUS_ARCHIVED
-                );
+                    // Update the archived layout to blank the name in order not to block
+                    // usage of the old layout name.
+                    // When restoring from archive, we need to reuse the name of the published
+                    // layout.
+                    $this->handler->updateLayout($archivedLayout, new LayoutUpdateStruct(array('name' => '')));
 
-                // Update the archived layout to blank the name in order not to block
-                // usage of the old layout name.
-                // When restoring from archive, we need to reuse the name of the published
-                // layout.
-                $this->handler->updateLayout($archivedLayout, new LayoutUpdateStruct(array('name' => '')));
+                    $this->handler->deleteLayout($persistenceLayout->id, Value::STATUS_PUBLISHED);
+                }
 
-                $this->handler->deleteLayout($persistenceLayout->id, Value::STATUS_PUBLISHED);
+                $publishedLayout = $this->handler->createLayoutStatus($persistenceLayout, Value::STATUS_PUBLISHED);
+                $this->handler->deleteLayout($persistenceLayout->id, Value::STATUS_DRAFT);
+
+                return $publishedLayout;
             }
-
-            $publishedLayout = $this->handler->createLayoutStatus($persistenceLayout, Value::STATUS_PUBLISHED);
-            $this->handler->deleteLayout($persistenceLayout->id, Value::STATUS_DRAFT);
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
+        );
 
         return $this->mapper->mapLayout($publishedLayout);
     }
@@ -681,18 +642,13 @@ class LayoutService extends Service implements LayoutServiceInterface
     {
         $persistenceLayout = $this->handler->loadLayout($layout->getId(), $layout->getStatus());
 
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $this->handler->deleteLayout(
-                $persistenceLayout->id
-            );
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
+        $this->transaction(
+            function () use ($persistenceLayout) {
+                $this->handler->deleteLayout(
+                    $persistenceLayout->id
+                );
+            }
+        );
     }
 
     /**

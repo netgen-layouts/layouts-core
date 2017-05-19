@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Core\Service;
 
-use Exception;
 use Netgen\BlockManager\API\Service\LayoutResolverService as APILayoutResolverService;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
@@ -145,6 +144,8 @@ class LayoutResolverService extends Service implements APILayoutResolverService
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      *
+     * @throws \Netgen\BlockManager\Exception\BadStateException if provided layout is not published
+     *
      * @return int
      */
     public function getRuleCount(Layout $layout)
@@ -276,26 +277,21 @@ class LayoutResolverService extends Service implements APILayoutResolverService
     {
         $this->validator->validateRuleCreateStruct($ruleCreateStruct);
 
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $createdRule = $this->handler->createRule(
-                new RuleCreateStruct(
-                    array(
-                        'layoutId' => $ruleCreateStruct->layoutId,
-                        'priority' => $ruleCreateStruct->priority,
-                        'enabled' => $ruleCreateStruct->enabled,
-                        'comment' => $ruleCreateStruct->comment,
-                        'status' => Value::STATUS_DRAFT,
+        $createdRule = $this->transaction(
+            function () use ($ruleCreateStruct) {
+                return $this->handler->createRule(
+                    new RuleCreateStruct(
+                        array(
+                            'layoutId' => $ruleCreateStruct->layoutId,
+                            'priority' => $ruleCreateStruct->priority,
+                            'enabled' => $ruleCreateStruct->enabled,
+                            'comment' => $ruleCreateStruct->comment,
+                            'status' => Value::STATUS_DRAFT,
+                        )
                     )
-                )
-            );
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
+                );
+            }
+        );
 
         return $this->mapper->mapRule($createdRule);
     }
@@ -320,24 +316,19 @@ class LayoutResolverService extends Service implements APILayoutResolverService
 
         $this->validator->validateRuleUpdateStruct($ruleUpdateStruct);
 
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $updatedRule = $this->handler->updateRule(
-                $persistenceRule,
-                new RuleUpdateStruct(
-                    array(
-                        'layoutId' => $ruleUpdateStruct->layoutId,
-                        'comment' => $ruleUpdateStruct->comment,
+        $updatedRule = $this->transaction(
+            function () use ($persistenceRule, $ruleUpdateStruct) {
+                return $this->handler->updateRule(
+                    $persistenceRule,
+                    new RuleUpdateStruct(
+                        array(
+                            'layoutId' => $ruleUpdateStruct->layoutId,
+                            'comment' => $ruleUpdateStruct->comment,
+                        )
                     )
-                )
-            );
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
+                );
+            }
+        );
 
         return $this->mapper->mapRule($updatedRule);
     }
@@ -362,23 +353,18 @@ class LayoutResolverService extends Service implements APILayoutResolverService
 
         $this->validator->validateRuleMetadataUpdateStruct($ruleUpdateStruct);
 
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $updatedRule = $this->handler->updateRuleMetadata(
-                $persistenceRule,
-                new RuleMetadataUpdateStruct(
-                    array(
-                        'priority' => $ruleUpdateStruct->priority,
+        $updatedRule = $this->transaction(
+            function () use ($persistenceRule, $ruleUpdateStruct) {
+                return $this->handler->updateRuleMetadata(
+                    $persistenceRule,
+                    new RuleMetadataUpdateStruct(
+                        array(
+                            'priority' => $ruleUpdateStruct->priority,
+                        )
                     )
-                )
-            );
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
+                );
+            }
+        );
 
         return $this->mapper->mapRule($updatedRule);
     }
@@ -394,16 +380,11 @@ class LayoutResolverService extends Service implements APILayoutResolverService
     {
         $persistenceRule = $this->handler->loadRule($rule->getId(), $rule->getStatus());
 
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $copiedRule = $this->handler->copyRule($persistenceRule);
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
+        $copiedRule = $this->transaction(
+            function () use ($persistenceRule) {
+                return $this->handler->copyRule($persistenceRule);
+            }
+        );
 
         return $this->mapper->mapRule($copiedRule);
     }
@@ -433,17 +414,13 @@ class LayoutResolverService extends Service implements APILayoutResolverService
             }
         }
 
-        $this->persistenceHandler->beginTransaction();
+        $ruleDraft = $this->transaction(
+            function () use ($persistenceRule) {
+                $this->handler->deleteRule($persistenceRule->id, Value::STATUS_DRAFT);
 
-        try {
-            $this->handler->deleteRule($persistenceRule->id, Value::STATUS_DRAFT);
-            $ruleDraft = $this->handler->createRuleStatus($persistenceRule, Value::STATUS_DRAFT);
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
+                return $this->handler->createRuleStatus($persistenceRule, Value::STATUS_DRAFT);
+            }
+        );
 
         return $this->mapper->mapRule($ruleDraft);
     }
@@ -464,19 +441,14 @@ class LayoutResolverService extends Service implements APILayoutResolverService
 
         $persistenceRule = $this->handler->loadRule($rule->getId(), Value::STATUS_DRAFT);
 
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $this->handler->deleteRule(
-                $persistenceRule->id,
-                Value::STATUS_DRAFT
-            );
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
+        $this->transaction(
+            function () use ($persistenceRule) {
+                $this->handler->deleteRule(
+                    $persistenceRule->id,
+                    Value::STATUS_DRAFT
+                );
+            }
+        );
     }
 
     /**
@@ -496,42 +468,39 @@ class LayoutResolverService extends Service implements APILayoutResolverService
 
         $persistenceRule = $this->handler->loadRule($rule->getId(), Value::STATUS_DRAFT);
 
-        $this->persistenceHandler->beginTransaction();
+        $publishedRule = $this->transaction(
+            function () use ($persistenceRule) {
+                $this->handler->deleteRule($persistenceRule->id, Value::STATUS_ARCHIVED);
 
-        try {
-            $this->handler->deleteRule($persistenceRule->id, Value::STATUS_ARCHIVED);
+                if ($this->handler->ruleExists($persistenceRule->id, Value::STATUS_PUBLISHED)) {
+                    $this->handler->createRuleStatus(
+                        $this->handler->loadRule(
+                            $persistenceRule->id,
+                            Value::STATUS_PUBLISHED
+                        ),
+                        Value::STATUS_ARCHIVED
+                    );
 
-            if ($this->handler->ruleExists($persistenceRule->id, Value::STATUS_PUBLISHED)) {
-                $this->handler->createRuleStatus(
-                    $this->handler->loadRule(
-                        $persistenceRule->id,
-                        Value::STATUS_PUBLISHED
-                    ),
-                    Value::STATUS_ARCHIVED
-                );
+                    $this->handler->deleteRule($persistenceRule->id, Value::STATUS_PUBLISHED);
+                }
 
-                $this->handler->deleteRule($persistenceRule->id, Value::STATUS_PUBLISHED);
-            }
+                $publishedRule = $this->handler->createRuleStatus($persistenceRule, Value::STATUS_PUBLISHED);
+                $this->handler->deleteRule($persistenceRule->id, Value::STATUS_DRAFT);
 
-            $publishedRule = $this->handler->createRuleStatus($persistenceRule, Value::STATUS_PUBLISHED);
-            $this->handler->deleteRule($persistenceRule->id, Value::STATUS_DRAFT);
-
-            if ($publishedRule->layoutId === null || $this->handler->getTargetCount($publishedRule) === 0) {
-                $publishedRule = $this->handler->updateRuleMetadata(
-                    $publishedRule,
-                    new RuleMetadataUpdateStruct(
-                        array(
-                            'enabled' => false,
+                if ($publishedRule->layoutId === null || $this->handler->getTargetCount($publishedRule) === 0) {
+                    $publishedRule = $this->handler->updateRuleMetadata(
+                        $publishedRule,
+                        new RuleMetadataUpdateStruct(
+                            array(
+                                'enabled' => false,
+                            )
                         )
-                    )
-                );
-            }
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
+                    );
+                }
 
-        $this->persistenceHandler->commitTransaction();
+                return $publishedRule;
+            }
+        );
 
         return $this->mapper->mapRule($publishedRule);
     }
@@ -545,18 +514,13 @@ class LayoutResolverService extends Service implements APILayoutResolverService
     {
         $persistenceRule = $this->handler->loadRule($rule->getId(), $rule->getStatus());
 
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $this->handler->deleteRule(
-                $persistenceRule->id
-            );
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
+        $this->transaction(
+            function () use ($persistenceRule) {
+                $this->handler->deleteRule(
+                    $persistenceRule->id
+                );
+            }
+        );
     }
 
     /**
@@ -589,23 +553,18 @@ class LayoutResolverService extends Service implements APILayoutResolverService
             throw new BadStateException('rule', 'Rule is missing targets and cannot be enabled.');
         }
 
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $updatedRule = $this->handler->updateRuleMetadata(
-                $persistenceRule,
-                new RuleMetadataUpdateStruct(
-                    array(
-                        'enabled' => true,
+        $updatedRule = $this->transaction(
+            function () use ($persistenceRule) {
+                return $this->handler->updateRuleMetadata(
+                    $persistenceRule,
+                    new RuleMetadataUpdateStruct(
+                        array(
+                            'enabled' => true,
+                        )
                     )
-                )
-            );
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
+                );
+            }
+        );
 
         return $this->mapper->mapRule($updatedRule);
     }
@@ -632,23 +591,18 @@ class LayoutResolverService extends Service implements APILayoutResolverService
             throw new BadStateException('rule', 'Rule is already disabled.');
         }
 
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $updatedRule = $this->handler->updateRuleMetadata(
-                $persistenceRule,
-                new RuleMetadataUpdateStruct(
-                    array(
-                        'enabled' => false,
+        $updatedRule = $this->transaction(
+            function () use ($persistenceRule) {
+                return $this->handler->updateRuleMetadata(
+                    $persistenceRule,
+                    new RuleMetadataUpdateStruct(
+                        array(
+                            'enabled' => false,
+                        )
                     )
-                )
-            );
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
+                );
+            }
+        );
 
         return $this->mapper->mapRule($updatedRule);
     }
@@ -686,24 +640,19 @@ class LayoutResolverService extends Service implements APILayoutResolverService
 
         $this->validator->validateTargetCreateStruct($targetCreateStruct);
 
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $createdTarget = $this->handler->addTarget(
-                $persistenceRule,
-                new TargetCreateStruct(
-                    array(
-                        'type' => $targetCreateStruct->type,
-                        'value' => $targetCreateStruct->value,
+        $createdTarget = $this->transaction(
+            function () use ($persistenceRule, $targetCreateStruct) {
+                return $this->handler->addTarget(
+                    $persistenceRule,
+                    new TargetCreateStruct(
+                        array(
+                            'type' => $targetCreateStruct->type,
+                            'value' => $targetCreateStruct->value,
+                        )
                     )
-                )
-            );
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
+                );
+            }
+        );
 
         return $this->mapper->mapTarget($createdTarget);
     }
@@ -728,23 +677,18 @@ class LayoutResolverService extends Service implements APILayoutResolverService
 
         $this->validator->validateTargetUpdateStruct($target, $targetUpdateStruct);
 
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $updatedTarget = $this->handler->updateTarget(
-                $persistenceTarget,
-                new TargetUpdateStruct(
-                    array(
-                        'value' => $targetUpdateStruct->value,
+        $updatedTarget = $this->transaction(
+            function () use ($persistenceTarget, $targetUpdateStruct) {
+                return $this->handler->updateTarget(
+                    $persistenceTarget,
+                    new TargetUpdateStruct(
+                        array(
+                            'value' => $targetUpdateStruct->value,
+                        )
                     )
-                )
-            );
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
+                );
+            }
+        );
 
         return $this->mapper->mapTarget($updatedTarget);
     }
@@ -764,16 +708,11 @@ class LayoutResolverService extends Service implements APILayoutResolverService
 
         $persistenceTarget = $this->handler->loadTarget($target->getId(), Value::STATUS_DRAFT);
 
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $this->handler->deleteTarget($persistenceTarget);
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
+        $this->transaction(
+            function () use ($persistenceTarget) {
+                $this->handler->deleteTarget($persistenceTarget);
+            }
+        );
     }
 
     /**
@@ -796,24 +735,19 @@ class LayoutResolverService extends Service implements APILayoutResolverService
 
         $this->validator->validateConditionCreateStruct($conditionCreateStruct);
 
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $createdCondition = $this->handler->addCondition(
-                $persistenceRule,
-                new ConditionCreateStruct(
-                    array(
-                        'type' => $conditionCreateStruct->type,
-                        'value' => $conditionCreateStruct->value,
+        $createdCondition = $this->transaction(
+            function () use ($persistenceRule, $conditionCreateStruct) {
+                return $this->handler->addCondition(
+                    $persistenceRule,
+                    new ConditionCreateStruct(
+                        array(
+                            'type' => $conditionCreateStruct->type,
+                            'value' => $conditionCreateStruct->value,
+                        )
                     )
-                )
-            );
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
+                );
+            }
+        );
 
         return $this->mapper->mapCondition($createdCondition);
     }
@@ -838,23 +772,18 @@ class LayoutResolverService extends Service implements APILayoutResolverService
 
         $this->validator->validateConditionUpdateStruct($condition, $conditionUpdateStruct);
 
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $updatedCondition = $this->handler->updateCondition(
-                $persistenceCondition,
-                new ConditionUpdateStruct(
-                    array(
-                        'value' => $conditionUpdateStruct->value,
+        $updatedCondition = $this->transaction(
+            function () use ($persistenceCondition, $conditionUpdateStruct) {
+                return $this->handler->updateCondition(
+                    $persistenceCondition,
+                    new ConditionUpdateStruct(
+                        array(
+                            'value' => $conditionUpdateStruct->value,
+                        )
                     )
-                )
-            );
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
+                );
+            }
+        );
 
         return $this->mapper->mapCondition($updatedCondition);
     }
@@ -874,16 +803,11 @@ class LayoutResolverService extends Service implements APILayoutResolverService
 
         $persistenceCondition = $this->handler->loadCondition($condition->getId(), Value::STATUS_DRAFT);
 
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $this->handler->deleteCondition($persistenceCondition);
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
+        $this->transaction(
+            function () use ($persistenceCondition) {
+                $this->handler->deleteCondition($persistenceCondition);
+            }
+        );
     }
 
     /**

@@ -5,6 +5,15 @@ namespace Netgen\BlockManager\API\Service;
 interface Service
 {
     /**
+     * Runs the callable inside a transaction.
+     *
+     * @param callable $callable
+     *
+     * @return $mixed
+     */
+    public function transaction(callable $callable);
+
+    /**
      * Begins a transaction.
      */
     public function beginTransaction();

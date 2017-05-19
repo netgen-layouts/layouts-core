@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Core\Service;
 
-use Exception;
 use Netgen\BlockManager\API\Service\BlockService as BlockServiceInterface;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Block\BlockCreateStruct as APIBlockCreateStruct;
@@ -345,35 +344,30 @@ class BlockService extends Service implements BlockServiceInterface
 
         $this->validator->validateBlockUpdateStruct($block, $blockUpdateStruct);
 
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $updatedBlock = $this->blockHandler->updateBlock(
-                $persistenceBlock,
-                new BlockUpdateStruct(
-                    array(
-                        'viewType' => $blockUpdateStruct->viewType,
-                        'itemViewType' => $blockUpdateStruct->itemViewType,
-                        'name' => $blockUpdateStruct->name,
-                        'parameters' => $this->parameterMapper->serializeValues(
-                            $block->getDefinition(),
-                            $blockUpdateStruct->getParameterValues(),
-                            $persistenceBlock->parameters
-                        ),
-                        'config' => $this->configMapper->serializeValues(
-                            $block->getConfigCollection()->getConfigType(),
-                            $blockUpdateStruct->getConfigStructs(),
-                            $persistenceBlock->config
-                        ),
+        $updatedBlock = $this->transaction(
+            function () use ($block, $persistenceBlock, $blockUpdateStruct) {
+                return $this->blockHandler->updateBlock(
+                    $persistenceBlock,
+                    new BlockUpdateStruct(
+                        array(
+                            'viewType' => $blockUpdateStruct->viewType,
+                            'itemViewType' => $blockUpdateStruct->itemViewType,
+                            'name' => $blockUpdateStruct->name,
+                            'parameters' => $this->parameterMapper->serializeValues(
+                                $block->getDefinition(),
+                                $blockUpdateStruct->getParameterValues(),
+                                $persistenceBlock->parameters
+                            ),
+                            'config' => $this->configMapper->serializeValues(
+                                $block->getConfigCollection()->getConfigType(),
+                                $blockUpdateStruct->getConfigStructs(),
+                                $persistenceBlock->config
+                            ),
+                        )
                     )
-                )
-            );
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
+                );
+            }
+        );
 
         return $this->mapper->mapBlock($updatedBlock);
     }
@@ -422,16 +416,11 @@ class BlockService extends Service implements BlockServiceInterface
         $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
         $persistenceTargetBlock = $this->blockHandler->loadBlock($targetBlock->getId(), Value::STATUS_DRAFT);
 
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $copiedBlock = $this->blockHandler->copyBlock($persistenceBlock, $persistenceTargetBlock, $placeholder);
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
+        $copiedBlock = $this->transaction(
+            function () use ($persistenceBlock, $persistenceTargetBlock, $placeholder) {
+                return $this->blockHandler->copyBlock($persistenceBlock, $persistenceTargetBlock, $placeholder);
+            }
+        );
 
         return $this->mapper->mapBlock($copiedBlock);
     }
@@ -470,16 +459,11 @@ class BlockService extends Service implements BlockServiceInterface
 
         $rootBlock = $this->blockHandler->loadBlock($persistenceZone->rootBlockId, $persistenceZone->status);
 
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $copiedBlock = $this->blockHandler->copyBlock($persistenceBlock, $rootBlock, 'root');
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
+        $copiedBlock = $this->transaction(
+            function () use ($persistenceBlock, $rootBlock) {
+                return $this->blockHandler->copyBlock($persistenceBlock, $rootBlock, 'root');
+            }
+        );
 
         return $this->mapper->mapBlock($copiedBlock);
     }
@@ -603,29 +587,26 @@ class BlockService extends Service implements BlockServiceInterface
             throw new BadStateException('block', 'Block does not have a published status.');
         }
 
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $updatedBlock = $this->blockHandler->updateBlock(
-                $draftBlock,
-                new BlockUpdateStruct(
-                    array(
-                        'name' => $publishedBlock->name,
-                        'viewType' => $publishedBlock->viewType,
-                        'itemViewType' => $publishedBlock->itemViewType,
-                        'parameters' => $publishedBlock->parameters,
+        $updatedBlock = $this->transaction(
+            function () use ($draftBlock, $publishedBlock) {
+                $updatedBlock = $this->blockHandler->updateBlock(
+                    $draftBlock,
+                    new BlockUpdateStruct(
+                        array(
+                            'name' => $publishedBlock->name,
+                            'viewType' => $publishedBlock->viewType,
+                            'itemViewType' => $publishedBlock->itemViewType,
+                            'parameters' => $publishedBlock->parameters,
+                        )
                     )
-                )
-            );
+                );
 
-            $this->blockHandler->deleteBlockCollections(array($draftBlock->id), $draftBlock->status);
-            $this->blockHandler->createBlockCollectionsStatus($publishedBlock, $draftBlock->status);
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
+                $this->blockHandler->deleteBlockCollections(array($draftBlock->id), $draftBlock->status);
+                $this->blockHandler->createBlockCollectionsStatus($publishedBlock, $draftBlock->status);
 
-        $this->persistenceHandler->commitTransaction();
+                return $updatedBlock;
+            }
+        );
 
         return $this->mapper->mapBlock($updatedBlock);
     }
@@ -645,16 +626,11 @@ class BlockService extends Service implements BlockServiceInterface
 
         $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
 
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $this->blockHandler->deleteBlock($persistenceBlock);
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
+        $this->transaction(
+            function () use ($persistenceBlock) {
+                $this->blockHandler->deleteBlock($persistenceBlock);
+            }
+        );
     }
 
     /**
@@ -697,61 +673,58 @@ class BlockService extends Service implements BlockServiceInterface
         $placeholder,
         $position = null
     ) {
-        $this->persistenceHandler->beginTransaction();
-
-        try {
-            $createdBlock = $this->blockHandler->createBlock(
-                new BlockCreateStruct(
-                    array(
-                        'layoutId' => $targetBlock->layoutId,
-                        'status' => $targetBlock->status,
-                        'position' => $position,
-                        'definitionIdentifier' => $blockCreateStruct->definition->getIdentifier(),
-                        'viewType' => $blockCreateStruct->viewType,
-                        'itemViewType' => $blockCreateStruct->itemViewType,
-                        'name' => $blockCreateStruct->name,
-                        'parameters' => $this->parameterMapper->serializeValues(
-                            $blockCreateStruct->definition,
-                            $blockCreateStruct->getParameterValues()
-                        ),
-                        'config' => $this->configMapper->serializeValues(
-                            'block',
-                            $blockCreateStruct->getConfigStructs()
-                        ),
-                    )
-                ),
-                $targetBlock,
-                $placeholder
-            );
-
-            $blockConfig = $blockCreateStruct->definition->getConfig();
-            foreach ($blockConfig->getCollections() as $collectionConfig) {
-                $createdCollection = $this->collectionHandler->createCollection(
-                    new CollectionCreateStruct(
+        $createdBlock = $this->transaction(
+            function () use ($targetBlock, $position, $blockCreateStruct, $placeholder) {
+                $createdBlock = $this->blockHandler->createBlock(
+                    new BlockCreateStruct(
                         array(
-                            'status' => Value::STATUS_DRAFT,
+                            'layoutId' => $targetBlock->layoutId,
+                            'status' => $targetBlock->status,
+                            'position' => $position,
+                            'definitionIdentifier' => $blockCreateStruct->definition->getIdentifier(),
+                            'viewType' => $blockCreateStruct->viewType,
+                            'itemViewType' => $blockCreateStruct->itemViewType,
+                            'name' => $blockCreateStruct->name,
+                            'parameters' => $this->parameterMapper->serializeValues(
+                                $blockCreateStruct->definition,
+                                $blockCreateStruct->getParameterValues()
+                            ),
+                            'config' => $this->configMapper->serializeValues(
+                                'block',
+                                $blockCreateStruct->getConfigStructs()
+                            ),
                         )
-                    )
+                    ),
+                    $targetBlock,
+                    $placeholder
                 );
 
-                $this->blockHandler->createCollectionReference(
-                    $createdBlock,
-                    new CollectionReferenceCreateStruct(
-                        array(
-                            'identifier' => $collectionConfig->getIdentifier(),
-                            'collection' => $createdCollection,
-                            'offset' => 0,
-                            'limit' => null,
+                $blockConfig = $blockCreateStruct->definition->getConfig();
+                foreach ($blockConfig->getCollections() as $collectionConfig) {
+                    $createdCollection = $this->collectionHandler->createCollection(
+                        new CollectionCreateStruct(
+                            array(
+                                'status' => Value::STATUS_DRAFT,
+                            )
                         )
-                    )
-                );
+                    );
+
+                    $this->blockHandler->createCollectionReference(
+                        $createdBlock,
+                        new CollectionReferenceCreateStruct(
+                            array(
+                                'identifier' => $collectionConfig->getIdentifier(),
+                                'collection' => $createdCollection,
+                                'offset' => 0,
+                                'limit' => null,
+                            )
+                        )
+                    );
+                }
+
+                return $createdBlock;
             }
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
+        );
 
         return $this->mapper->mapBlock($createdBlock);
     }
@@ -768,25 +741,20 @@ class BlockService extends Service implements BlockServiceInterface
      */
     protected function internalMoveBlock(PersistenceBlock $block, PersistenceBlock $targetBlock, $placeholder, $position)
     {
-        $this->persistenceHandler->beginTransaction();
+        $movedBlock = $this->transaction(
+            function () use ($block, $targetBlock, $placeholder, $position) {
+                if ($block->parentId === $targetBlock->id && $block->placeholder === $placeholder) {
+                    return $this->blockHandler->moveBlockToPosition($block, $position);
+                }
 
-        try {
-            if ($block->parentId === $targetBlock->id && $block->placeholder === $placeholder) {
-                $movedBlock = $this->blockHandler->moveBlockToPosition($block, $position);
-            } else {
-                $movedBlock = $this->blockHandler->moveBlock(
+                return $this->blockHandler->moveBlock(
                     $block,
                     $targetBlock,
                     $placeholder,
                     $position
                 );
             }
-        } catch (Exception $e) {
-            $this->persistenceHandler->rollbackTransaction();
-            throw $e;
-        }
-
-        $this->persistenceHandler->commitTransaction();
+        );
 
         return $this->mapper->mapBlock($movedBlock);
     }

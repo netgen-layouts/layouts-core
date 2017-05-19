@@ -64,7 +64,7 @@ interface LayoutService extends Service
      * @param int $offset
      * @param int $limit
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If provided layout is not shared
+     * @throws \Netgen\BlockManager\Exception\BadStateException If provided layout is not shared
      *                                                          If provided layout is not published
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Layout[]
@@ -76,7 +76,7 @@ interface LayoutService extends Service
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $sharedLayout
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If provided layout is not shared
+     * @throws \Netgen\BlockManager\Exception\BadStateException If provided layout is not shared
      *                                                          If provided layout is not published
      *
      * @return int

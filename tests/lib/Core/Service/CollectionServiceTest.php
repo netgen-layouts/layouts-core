@@ -454,16 +454,14 @@ abstract class CollectionServiceTest extends ServiceTestCase
      */
     public function testMoveItem()
     {
-        $this->collectionService->moveItem(
+        $movedItem = $this->collectionService->moveItem(
             $this->collectionService->loadItemDraft(1),
             1
         );
 
-        /*
         $this->assertFalse($movedItem->isPublished());
         $this->assertInstanceOf(Item::class, $movedItem);
         $this->assertEquals(1, $movedItem->getPosition());
-        */
 
         $secondItem = $this->collectionService->loadItemDraft(2);
         $this->assertEquals(0, $secondItem->getPosition());

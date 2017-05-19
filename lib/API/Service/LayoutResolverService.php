@@ -53,6 +53,8 @@ interface LayoutResolverService extends Service
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      *
+     * @throws \Netgen\BlockManager\Exception\BadStateException if provided layout is not published
+     *
      * @return int
      */
     public function getRuleCount(Layout $layout);

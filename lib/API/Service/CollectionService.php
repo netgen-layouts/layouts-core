@@ -173,6 +173,8 @@ interface CollectionService extends Service
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If item is not a draft
      *                                                          If position is out of range (for manual collections)
+     *
+     * @return \Netgen\BlockManager\API\Values\Collection\Item
      */
     public function moveItem(Item $item, $position);
 

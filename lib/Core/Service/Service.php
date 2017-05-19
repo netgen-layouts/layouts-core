@@ -25,6 +25,31 @@ abstract class Service implements APIService
     }
 
     /**
+     * Runs the callable inside a transaction.
+     *
+     * @param callable $callable
+     *
+     * @throws \Exception When an error occurs.
+     *
+     * @return $mixed
+     */
+    public function transaction(callable $callable)
+    {
+        $this->beginTransaction();
+
+        try {
+            $return = $callable();
+        } catch (Exception $e) {
+            $this->rollbackTransaction();
+            throw $e;
+        }
+
+        $this->commitTransaction();
+
+        return $return;
+    }
+
+    /**
      * Begins a transaction.
      */
     public function beginTransaction()
