@@ -317,6 +317,8 @@ class CollectionService extends Service implements APICollectionService
             }
         );
 
+        $persistenceCollection = $this->handler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
+
         return $this->mapper->mapCollection($persistenceCollection);
     }
 
