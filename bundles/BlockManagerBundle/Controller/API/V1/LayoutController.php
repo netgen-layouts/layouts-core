@@ -210,7 +210,7 @@ class LayoutController extends Controller
     }
 
     /**
-     * Copies the layout.
+     * Changes the type of the layout.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      * @param \Symfony\Component\HttpFoundation\Request $request
