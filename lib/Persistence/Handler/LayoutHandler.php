@@ -181,14 +181,6 @@ interface LayoutHandler
     public function createLayoutStatus(Layout $layout, $newStatus);
 
     /**
-     * Deletes all zones from a layout.
-     *
-     * @param int|string $layoutId
-     * @param int $status
-     */
-    public function deleteLayoutZones($layoutId, $status = null);
-
-    /**
      * Deletes a layout with specified ID.
      *
      * @param int|string $layoutId

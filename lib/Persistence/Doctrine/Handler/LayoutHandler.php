@@ -323,6 +323,7 @@ class LayoutHandler implements LayoutHandlerInterface
         $updatedZone = clone $zone;
 
         if ($zoneUpdateStruct->linkedZone !== null) {
+            // Linked zone other than a zone object indicates we want to remove the link
             $updatedZone->linkedLayoutId = null;
             $updatedZone->linkedZoneIdentifier = null;
 
@@ -435,20 +436,8 @@ class LayoutHandler implements LayoutHandlerInterface
      */
     public function deleteLayout($layoutId, $status = null)
     {
-        $this->deleteLayoutZones($layoutId, $status);
-
+        $this->queryHandler->deleteLayoutZones($layoutId, $status);
         $this->blockHandler->deleteLayoutBlocks($layoutId, $status);
         $this->queryHandler->deleteLayout($layoutId, $status);
-    }
-
-    /**
-     * Deletes all zones from a layout.
-     *
-     * @param int|string $layoutId
-     * @param int $status
-     */
-    public function deleteLayoutZones($layoutId, $status = null)
-    {
-        $this->queryHandler->deleteLayoutZones($layoutId, $status);
     }
 }

@@ -1096,34 +1096,4 @@ class LayoutHandlerTest extends TestCase
         $this->assertCount(1, $publishedReferences);
         $this->assertEquals(4, $publishedReferences[0]->collectionId);
     }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::deleteLayoutZones
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutZones
-     */
-    public function testDeleteLayoutZones()
-    {
-        $this->layoutHandler->deleteLayoutZones(1);
-
-        $draftLayout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
-        $layout = $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED);
-
-        $this->assertEmpty($this->layoutHandler->loadLayoutZones($draftLayout));
-        $this->assertEmpty($this->layoutHandler->loadLayoutZones($layout));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::deleteLayoutZones
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutZones
-     */
-    public function testDeleteLayoutZonesInOneStatus()
-    {
-        $this->layoutHandler->deleteLayoutZones(1, Value::STATUS_DRAFT);
-
-        $draftLayout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
-        $layout = $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED);
-
-        $this->assertEmpty($this->layoutHandler->loadLayoutZones($draftLayout));
-        $this->assertNotEmpty($this->layoutHandler->loadLayoutZones($layout));
-    }
 }

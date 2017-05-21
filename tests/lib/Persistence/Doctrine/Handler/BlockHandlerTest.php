@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
 
+use Doctrine\DBAL\Types\Type;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Values\Block\Block;
 use Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct;
@@ -1384,7 +1385,20 @@ class BlockHandlerTest extends TestCase
         $layout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
 
         // First we need to delete all zones to correctly delete the blocks
-        $this->layoutHandler->deleteLayoutZones($layout->id, $layout->status);
+        $query = $this->databaseConnection->createQueryBuilder();
+
+        $query->delete('ngbm_zone')
+            ->where(
+                $query->expr()->andX(
+                    $query->expr()->eq('layout_id', ':layout_id'),
+                    $query->expr()->eq('status', ':status')
+                )
+            )
+            ->setParameter('layout_id', $layout->id, Type::INTEGER)
+            ->setParameter('status', $layout->status, Type::INTEGER);
+
+        $query->execute();
+
         $this->blockHandler->deleteLayoutBlocks($layout->id, $layout->status);
 
         $this->assertEmpty($this->blockHandler->loadLayoutBlocks($layout));
