@@ -103,7 +103,7 @@ class LayoutMapperTest extends TestCase
         );
 
         $expectedData = array(
-            new Zone(
+            'left' => new Zone(
                 array(
                     'identifier' => 'left',
                     'layoutId' => 1,
@@ -113,7 +113,7 @@ class LayoutMapperTest extends TestCase
                     'linkedZoneIdentifier' => 'top',
                 )
             ),
-            new Zone(
+            'right' => new Zone(
                 array(
                     'identifier' => 'right',
                     'layoutId' => 1,

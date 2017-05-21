@@ -411,7 +411,7 @@ class LayoutHandlerTest extends TestCase
     {
         $this->assertEquals(
             array(
-                new Zone(
+                'bottom' => new Zone(
                     array(
                         'identifier' => 'bottom',
                         'layoutId' => 2,
@@ -421,7 +421,7 @@ class LayoutHandlerTest extends TestCase
                         'linkedZoneIdentifier' => null,
                     )
                 ),
-                new Zone(
+                'left' => new Zone(
                     array(
                         'identifier' => 'left',
                         'layoutId' => 2,
@@ -431,7 +431,7 @@ class LayoutHandlerTest extends TestCase
                         'linkedZoneIdentifier' => null,
                     )
                 ),
-                new Zone(
+                'right' => new Zone(
                     array(
                         'identifier' => 'right',
                         'layoutId' => 2,
@@ -441,7 +441,7 @@ class LayoutHandlerTest extends TestCase
                         'linkedZoneIdentifier' => null,
                     )
                 ),
-                new Zone(
+                'top' => new Zone(
                     array(
                         'identifier' => 'top',
                         'layoutId' => 2,
@@ -685,7 +685,7 @@ class LayoutHandlerTest extends TestCase
 
         $this->assertEquals(
             array(
-                new Zone(
+                'bottom' => new Zone(
                     array(
                         'identifier' => 'bottom',
                         'layoutId' => $copiedLayout->id,
@@ -695,7 +695,7 @@ class LayoutHandlerTest extends TestCase
                         'linkedZoneIdentifier' => null,
                     )
                 ),
-                new Zone(
+                'left' => new Zone(
                     array(
                         'identifier' => 'left',
                         'layoutId' => $copiedLayout->id,
@@ -705,7 +705,7 @@ class LayoutHandlerTest extends TestCase
                         'linkedZoneIdentifier' => 'left',
                     )
                 ),
-                new Zone(
+                'right' => new Zone(
                     array(
                         'identifier' => 'right',
                         'layoutId' => $copiedLayout->id,
@@ -715,7 +715,7 @@ class LayoutHandlerTest extends TestCase
                         'linkedZoneIdentifier' => null,
                     )
                 ),
-                new Zone(
+                'top' => new Zone(
                     array(
                         'identifier' => 'top',
                         'layoutId' => $copiedLayout->id,
@@ -876,7 +876,7 @@ class LayoutHandlerTest extends TestCase
 
         $this->assertEquals(
             array(
-                new Zone(
+                'bottom' => new Zone(
                     array(
                         'identifier' => 'bottom',
                         'layoutId' => 1,
@@ -886,7 +886,7 @@ class LayoutHandlerTest extends TestCase
                         'linkedZoneIdentifier' => null,
                     )
                 ),
-                new Zone(
+                'left' => new Zone(
                     array(
                         'identifier' => 'left',
                         'layoutId' => 1,
@@ -896,7 +896,7 @@ class LayoutHandlerTest extends TestCase
                         'linkedZoneIdentifier' => 'left',
                     )
                 ),
-                new Zone(
+                'right' => new Zone(
                     array(
                         'identifier' => 'right',
                         'layoutId' => 1,
@@ -906,7 +906,7 @@ class LayoutHandlerTest extends TestCase
                         'linkedZoneIdentifier' => null,
                     )
                 ),
-                new Zone(
+                'top' => new Zone(
                     array(
                         'identifier' => 'top',
                         'layoutId' => 1,

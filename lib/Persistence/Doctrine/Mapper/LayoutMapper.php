@@ -48,7 +48,7 @@ class LayoutMapper
         $zones = array();
 
         foreach ($data as $dataItem) {
-            $zones[] = new Zone(
+            $zones[$dataItem['identifier']] = new Zone(
                 array(
                     'identifier' => $dataItem['identifier'],
                     'layoutId' => (int) $dataItem['layout_id'],
