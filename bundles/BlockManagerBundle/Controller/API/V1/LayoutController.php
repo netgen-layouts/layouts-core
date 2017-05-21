@@ -210,6 +210,28 @@ class LayoutController extends Controller
     }
 
     /**
+     * Copies the layout.
+     *
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Netgen\BlockManager\Serializer\Values\View
+     */
+    public function changeType(Layout $layout, Request $request)
+    {
+        $layoutType = $this->getLayoutType($request->request->get('new_type'));
+        $zoneMappings = $request->request->get('zone_mappings');
+
+        $updatedLayout = $this->layoutService->changeLayoutType(
+            $layout,
+            $layoutType,
+            is_array($zoneMappings) ? $zoneMappings : array()
+        );
+
+        return new View($updatedLayout, Version::API_V1);
+    }
+
+    /**
      * Creates a new layout draft.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout

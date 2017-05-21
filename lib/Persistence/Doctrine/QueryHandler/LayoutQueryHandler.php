@@ -470,6 +470,33 @@ class LayoutQueryHandler extends QueryHandler
     }
 
     /**
+     * Deletes the zone.
+     *
+     * @param int|string $layoutId
+     * @param string $zoneIdentifier
+     * @param int $status
+     */
+    public function deleteZone($layoutId, $zoneIdentifier, $status = null)
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->delete('ngbm_zone')
+            ->where(
+                $query->expr()->andX(
+                    $query->expr()->eq('layout_id', ':layout_id'),
+                    $query->expr()->eq('identifier', ':identifier')
+                )
+            )
+            ->setParameter('layout_id', $layoutId, Type::INTEGER)
+            ->setParameter('identifier', $zoneIdentifier, Type::STRING);
+
+        if ($status !== null) {
+            $this->applyStatusCondition($query, $status);
+        }
+
+        $query->execute();
+    }
+
+    /**
      * Builds and returns a layout database SELECT query.
      *
      * @return \Doctrine\DBAL\Query\QueryBuilder

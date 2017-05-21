@@ -394,6 +394,83 @@ class LayoutHandler implements LayoutHandlerInterface
     }
 
     /**
+     * Changes the provided layout type.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
+     * @param string $targetLayoutType
+     * @param array $zoneMappings
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
+     */
+    public function changeLayoutType(Layout $layout, $targetLayoutType, array $zoneMappings = array())
+    {
+        $newRootBlocks = array();
+        $oldRootBlocks = array();
+        $oldZones = $this->loadLayoutZones($layout);
+
+        foreach ($oldZones as $zoneIdentifier => $oldZone) {
+            $oldRootBlocks[$zoneIdentifier] = $this->blockHandler->loadBlock(
+                $oldZone->rootBlockId,
+                $oldZone->status
+            );
+        }
+
+        foreach ($zoneMappings as $newZoneIdentifier => $mappedZones) {
+            $newRootBlocks[$newZoneIdentifier] = $this->blockHandler->createBlock(
+                new BlockCreateStruct(
+                    array(
+                        'layoutId' => $layout->id,
+                        'status' => $layout->status,
+                        'position' => null,
+                        'definitionIdentifier' => '',
+                        'viewType' => '',
+                        'itemViewType' => '',
+                        'name' => '',
+                        'parameters' => array(),
+                        'config' => array(),
+                    )
+                )
+            );
+
+            $i = 0;
+            foreach ($mappedZones as $mappedZone) {
+                $blocks = $this->blockHandler->loadChildBlocks($oldRootBlocks[$mappedZone]);
+                foreach ($blocks as $block) {
+                    $this->blockHandler->moveBlock($block, $newRootBlocks[$newZoneIdentifier], 'root', $i);
+                    ++$i;
+                }
+            }
+        }
+
+        foreach ($oldZones as $oldZone) {
+            $this->queryHandler->deleteZone($oldZone->layoutId, $oldZone->identifier, $oldZone->status);
+            $this->blockHandler->deleteBlock($oldRootBlocks[$oldZone->identifier]);
+        }
+
+        foreach ($newRootBlocks as $newZoneIdentifier => $rootBlock) {
+            $newZone = new Zone(
+                array(
+                    'layoutId' => $layout->id,
+                    'status' => $layout->status,
+                    'rootBlockId' => $rootBlock->id,
+                    'identifier' => $newZoneIdentifier,
+                    'linkedLayoutId' => null,
+                    'linkedZoneIdentifier' => null,
+                )
+            );
+
+            $this->queryHandler->createZone($newZone);
+        }
+
+        $newLayout = clone $layout;
+        $newLayout->type = $targetLayoutType;
+
+        $this->queryHandler->updateLayout($newLayout);
+
+        return $newLayout;
+    }
+
+    /**
      * Creates a new layout status.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout

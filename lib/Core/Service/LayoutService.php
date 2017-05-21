@@ -522,6 +522,50 @@ class LayoutService extends Service implements LayoutServiceInterface
     }
 
     /**
+     * Changes the provided layout type.
+     *
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
+     * @param \Netgen\BlockManager\Layout\Type\LayoutType $targetLayoutType
+     * @param array $zoneMappings
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
+     *                                                          If layout is already of provided target type
+     *
+     * @return \Netgen\BlockManager\API\Values\Layout\Layout
+     */
+    public function changeLayoutType(Layout $layout, LayoutType $targetLayoutType, array $zoneMappings = array())
+    {
+        if ($layout->isPublished()) {
+            throw new BadStateException('layout', 'Layout type can only be changed for draft layouts.');
+        }
+
+        $persistenceLayout = $this->handler->loadLayout($layout->getId(), Value::STATUS_DRAFT);
+
+        if ($persistenceLayout->type === $targetLayoutType->getIdentifier()) {
+            throw new BadStateException('layout', 'Layout is already of provided target type.');
+        }
+
+        $this->validator->validateChangeLayoutType($layout, $targetLayoutType, $zoneMappings);
+
+        $zoneMappings = array_merge(
+            array_fill_keys($targetLayoutType->getZoneIdentifiers(), array()),
+            $zoneMappings
+        );
+
+        $newLayout = $this->transaction(
+            function () use ($persistenceLayout, $targetLayoutType, $zoneMappings) {
+                return $this->handler->changeLayoutType(
+                    $persistenceLayout,
+                    $targetLayoutType->getIdentifier(),
+                    $zoneMappings
+                );
+            }
+        );
+
+        return $this->mapper->mapLayout($newLayout);
+    }
+
+    /**
      * Creates a layout draft.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout

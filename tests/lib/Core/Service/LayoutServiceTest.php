@@ -20,6 +20,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
         parent::setUp();
 
         $this->layoutService = $this->createLayoutService();
+        $this->blockService = $this->createBlockService();
     }
 
     /**
@@ -524,6 +525,81 @@ abstract class LayoutServiceTest extends ServiceTestCase
 
         $layout = $this->layoutService->loadLayout(1);
         $this->layoutService->copyLayout($layout, $copyStruct);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::changeLayoutType
+     */
+    public function testChangeLayoutType()
+    {
+        $layout = $this->layoutService->loadLayoutDraft(1);
+        $updatedLayout = $this->layoutService->changeLayoutType(
+            $layout,
+            $this->layoutTypeRegistry->getLayoutType('4_zones_b'),
+            array(
+                'top' => array('left', 'right'),
+            )
+        );
+
+        $this->assertEquals($layout->getId(), $updatedLayout->getId());
+        $this->assertEquals($layout->getStatus(), $updatedLayout->getStatus());
+        $this->assertEquals('4_zones_b', $updatedLayout->getLayoutType()->getIdentifier());
+        $this->assertInstanceOf(Layout::class, $updatedLayout);
+
+        $topZoneBlocks = $this->blockService->loadZoneBlocks(
+            $this->layoutService->loadZoneDraft(1, 'top')
+        );
+
+        $leftZoneBlocks = $this->blockService->loadZoneBlocks(
+            $this->layoutService->loadZoneDraft(1, 'left')
+        );
+
+        $rightZoneBlocks = $this->blockService->loadZoneBlocks(
+            $this->layoutService->loadZoneDraft(1, 'right')
+        );
+
+        $bottomZoneBlocks = $this->blockService->loadZoneBlocks(
+            $this->layoutService->loadZoneDraft(1, 'bottom')
+        );
+
+        $this->assertCount(3, $topZoneBlocks);
+        $this->assertCount(0, $leftZoneBlocks);
+        $this->assertCount(0, $rightZoneBlocks);
+        $this->assertCount(0, $bottomZoneBlocks);
+
+        $this->assertEquals(32, $topZoneBlocks[0]->getId());
+        $this->assertEquals(31, $topZoneBlocks[1]->getId());
+        $this->assertEquals(35, $topZoneBlocks[2]->getId());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::changeLayoutType
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "layout" has an invalid state. Layout type can only be changed for draft layouts.
+     */
+    public function testChangeLayoutTypeThrowsBadStateExceptionOnNonDraftLayout()
+    {
+        $layout = $this->layoutService->loadLayout(1);
+
+        $this->layoutService->changeLayoutType(
+            $layout,
+            $this->layoutTypeRegistry->getLayoutType('4_zones_b')
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::changeLayoutType
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "layout" has an invalid state. Layout is already of provided target type.
+     */
+    public function testChangeLayoutTypeThrowsBadStateExceptionOnSameType()
+    {
+        $layout = $this->layoutService->loadLayoutDraft(1);
+
+        $this->layoutService->changeLayoutType(
+            $layout,
+            $this->layoutTypeRegistry->getLayoutType('4_zones_a')
+        );
     }
 
     /**

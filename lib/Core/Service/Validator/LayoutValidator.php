@@ -2,9 +2,11 @@
 
 namespace Netgen\BlockManager\Core\Service\Validator;
 
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
+use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use Symfony\Component\Validator\Constraints;
 
@@ -139,6 +141,66 @@ class LayoutValidator extends Validator
                 ),
                 'description'
             );
+        }
+    }
+
+    /**
+     * Validates zone mappings for changing a layout type.
+     *
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
+     * @param \Netgen\BlockManager\Layout\Type\LayoutType $targetLayoutType
+     * @param array $zoneMappings
+     *
+     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
+     */
+    public function validateChangeLayoutType(Layout $layout, LayoutType $targetLayoutType, array $zoneMappings = array())
+    {
+        $seenZones = array();
+        foreach ($zoneMappings as $newZone => $oldZones) {
+            if (!$targetLayoutType->hasZone($newZone)) {
+                throw ValidationException::validationFailed(
+                    'zoneMappings',
+                    sprintf(
+                        'Zone "%s" does not exist in "%s" layout type.',
+                        $newZone,
+                        $targetLayoutType->getIdentifier()
+                    )
+                );
+            }
+
+            if (!is_array($oldZones)) {
+                throw ValidationException::validationFailed(
+                    'zoneMappings',
+                    sprintf(
+                        'The list of mapped zones for "%s" zone must be an array.',
+                        $newZone
+                    )
+                );
+            }
+
+            foreach ($oldZones as $oldZone) {
+                if (in_array($oldZone, $seenZones, true)) {
+                    throw ValidationException::validationFailed(
+                        'zoneMappings',
+                        sprintf(
+                            'Zone "%s" is specified more than once.',
+                            $oldZone
+                        )
+                    );
+                }
+
+                $seenZones[] = $oldZone;
+
+                if (!$layout->hasZone($oldZone)) {
+                    throw ValidationException::validationFailed(
+                        'zoneMappings',
+                        sprintf(
+                            'Zone "%s" does not exist in specified layout.',
+                            $oldZone
+                        )
+                    );
+                }
+            }
         }
     }
 }

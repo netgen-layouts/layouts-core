@@ -841,6 +841,182 @@ class LayoutHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::changeLayoutType
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createZone
+     */
+    public function testChangeLayoutType()
+    {
+        // Link the zone before copying, to make sure those are removed
+        $this->layoutHandler->updateZone(
+            $this->layoutHandler->loadZone(1, Value::STATUS_DRAFT, 'left'),
+            new ZoneUpdateStruct(
+                array(
+                    'linkedZone' => $this->layoutHandler->loadZone(3, Value::STATUS_PUBLISHED, 'left'),
+                )
+            )
+        );
+
+        $updatedLayout = $this->layoutHandler->changeLayoutType(
+            $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
+            '4_zones_b',
+            array(
+                'top' => array('left', 'right'),
+                'left' => array(),
+                'right' => array(),
+                'bottom' => array(),
+            )
+        );
+
+        $this->assertInstanceOf(Layout::class, $updatedLayout);
+
+        $this->assertEquals(1, $updatedLayout->id);
+        $this->assertEquals('4_zones_b', $updatedLayout->type);
+        $this->assertEquals('My layout', $updatedLayout->name);
+        $this->assertEquals('My layout description', $updatedLayout->description);
+        $this->assertEquals(Value::STATUS_DRAFT, $updatedLayout->status);
+        $this->assertFalse($updatedLayout->shared);
+
+        $this->assertGreaterThan(0, $updatedLayout->created);
+        $this->assertGreaterThan(0, $updatedLayout->modified);
+
+        $this->assertEquals(
+            array(
+                'top' => new Zone(
+                    array(
+                        'identifier' => 'top',
+                        'layoutId' => $updatedLayout->id,
+                        'status' => Value::STATUS_DRAFT,
+                        'rootBlockId' => 39,
+                        'linkedLayoutId' => null,
+                        'linkedZoneIdentifier' => null,
+                    )
+                ),
+                'left' => new Zone(
+                    array(
+                        'identifier' => 'left',
+                        'layoutId' => $updatedLayout->id,
+                        'status' => Value::STATUS_DRAFT,
+                        'rootBlockId' => 40,
+                        'linkedLayoutId' => null,
+                        'linkedZoneIdentifier' => null,
+                    )
+                ),
+                'right' => new Zone(
+                    array(
+                        'identifier' => 'right',
+                        'layoutId' => $updatedLayout->id,
+                        'status' => Value::STATUS_DRAFT,
+                        'rootBlockId' => 41,
+                        'linkedLayoutId' => null,
+                        'linkedZoneIdentifier' => null,
+                    )
+                ),
+                'bottom' => new Zone(
+                    array(
+                        'identifier' => 'bottom',
+                        'layoutId' => $updatedLayout->id,
+                        'status' => Value::STATUS_DRAFT,
+                        'rootBlockId' => 42,
+                        'linkedLayoutId' => null,
+                        'linkedZoneIdentifier' => null,
+                    )
+                ),
+            ),
+            $this->layoutHandler->loadLayoutZones($updatedLayout)
+        );
+
+        $this->assertEquals(
+            array(
+                new Block(
+                    array(
+                        'id' => 32,
+                        'layoutId' => 1,
+                        'depth' => 1,
+                        'path' => '/39/32/',
+                        'parentId' => 39,
+                        'placeholder' => 'root',
+                        'position' => 0,
+                        'definitionIdentifier' => 'list',
+                        'viewType' => 'grid',
+                        'itemViewType' => 'standard',
+                        'name' => 'My other block',
+                        'status' => Value::STATUS_DRAFT,
+                        'parameters' => array(
+                            'number_of_columns' => 3,
+                        ),
+                        'config' => array(
+                            'http_cache' => array(
+                                'use_http_cache' => false,
+                            ),
+                        ),
+                    )
+                ),
+                new Block(
+                    array(
+                        'id' => 31,
+                        'layoutId' => 1,
+                        'depth' => 1,
+                        'path' => '/39/31/',
+                        'parentId' => 39,
+                        'placeholder' => 'root',
+                        'position' => 1,
+                        'definitionIdentifier' => 'list',
+                        'viewType' => 'list',
+                        'itemViewType' => 'standard',
+                        'name' => 'My block',
+                        'status' => Value::STATUS_DRAFT,
+                        'parameters' => array(
+                            'number_of_columns' => 2,
+                        ),
+                        'config' => array(),
+                    )
+                ),
+                new Block(
+                    array(
+                        'id' => 35,
+                        'layoutId' => 1,
+                        'depth' => 1,
+                        'path' => '/39/35/',
+                        'parentId' => 39,
+                        'placeholder' => 'root',
+                        'position' => 2,
+                        'definitionIdentifier' => 'list',
+                        'viewType' => 'grid',
+                        'itemViewType' => 'standard',
+                        'name' => 'My fourth block',
+                        'status' => Value::STATUS_DRAFT,
+                        'parameters' => array(
+                            'number_of_columns' => 3,
+                        ),
+                        'config' => array(),
+                    )
+                ),
+            ),
+            $this->blockHandler->loadChildBlocks(
+                $this->blockHandler->loadBlock(39, Value::STATUS_DRAFT)
+            )
+        );
+
+        $this->assertEmpty(
+            $this->blockHandler->loadChildBlocks(
+                $this->blockHandler->loadBlock(40, Value::STATUS_DRAFT)
+            )
+        );
+
+        $this->assertEmpty(
+            $this->blockHandler->loadChildBlocks(
+                $this->blockHandler->loadBlock(41, Value::STATUS_DRAFT)
+            )
+        );
+
+        $this->assertEmpty(
+            $this->blockHandler->loadChildBlocks(
+                $this->blockHandler->loadBlock(42, Value::STATUS_DRAFT)
+            )
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::createLayoutStatus
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayoutStatus
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createZoneStatus

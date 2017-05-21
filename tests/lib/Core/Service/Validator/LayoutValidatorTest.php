@@ -6,8 +6,11 @@ use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
+use Netgen\BlockManager\Core\Values\Layout\Layout;
+use Netgen\BlockManager\Core\Values\Layout\Zone;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Layout\Type\LayoutType;
+use Netgen\BlockManager\Layout\Type\Zone as LayoutTypeZone;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
@@ -89,6 +92,82 @@ class LayoutValidatorTest extends TestCase
 
         $this->layoutValidator->validateLayoutCopyStruct(
             new LayoutCopyStruct($params)
+        );
+    }
+
+    /**
+     * @param array $zoneMapping
+     *
+     * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutValidator::validateChangeLayoutType
+     * @dataProvider validateChangeLayoutTypeDataProvider
+     * @doesNotPerformAssertions
+     */
+    public function testValidateChangeLayoutType(array $zoneMapping)
+    {
+        $this->layoutValidator->validateChangeLayoutType(
+            $this->getLayout(),
+            $this->getLayoutType(),
+            $zoneMapping
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutValidator::validateChangeLayoutType
+     * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
+     * @expectedExceptionMessage Zone "unknown" does not exist in "type" layout type.
+     * @doesNotPerformAssertions
+     */
+    public function testValidateChangeLayoutTypeWithNonExistingZoneInLayoutType()
+    {
+        $this->layoutValidator->validateChangeLayoutType(
+            $this->getLayout(),
+            $this->getLayoutType(),
+            array('unknown' => array())
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutValidator::validateChangeLayoutType
+     * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
+     * @expectedExceptionMessage The list of mapped zones for "left" zone must be an array.
+     * @doesNotPerformAssertions
+     */
+    public function testValidateChangeLayoutTypeWithInvalidMappedZones()
+    {
+        $this->layoutValidator->validateChangeLayoutType(
+            $this->getLayout(),
+            $this->getLayoutType(),
+            array('left' => 42)
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutValidator::validateChangeLayoutType
+     * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
+     * @expectedExceptionMessage Zone "top" is specified more than once.
+     * @doesNotPerformAssertions
+     */
+    public function testValidateChangeLayoutTypeWithDuplicateZones()
+    {
+        $this->layoutValidator->validateChangeLayoutType(
+            $this->getLayout(),
+            $this->getLayoutType(),
+            array('left' => array('top'), 'right' => array('top'))
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutValidator::validateChangeLayoutType
+     * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
+     * @expectedExceptionMessage Zone "unknown" does not exist in specified layout.
+     * @doesNotPerformAssertions
+     */
+    public function testValidateChangeLayoutTypeWithNonExistingLayoutZone()
+    {
+        $this->layoutValidator->validateChangeLayoutType(
+            $this->getLayout(),
+            $this->getLayoutType(),
+            array('left' => array('unknown'))
         );
     }
 
@@ -303,11 +382,63 @@ class LayoutValidatorTest extends TestCase
         );
     }
 
+    public function validateChangeLayoutTypeDataProvider()
+    {
+        return array(
+            array(
+                array(
+                    'left' => array('top'),
+                ),
+            ),
+            array(
+                array(
+                    'left' => array('top', 'bottom'),
+                ),
+            ),
+            array(
+                array(
+                    'left' => array('top'),
+                    'right' => array('bottom'),
+                ),
+            ),
+            array(
+                array(
+                    'left' => array(),
+                    'right' => array(),
+                ),
+            ),
+            array(
+                array(
+                    'left' => array(),
+                ),
+            ),
+            array(
+                array(),
+            ),
+        );
+    }
+
+    public function getLayout()
+    {
+        return new Layout(
+            array(
+                'zones' => array(
+                    'top' => new Zone(),
+                    'bottom' => new Zone(),
+                ),
+            )
+        );
+    }
+
     public function getLayoutType()
     {
         return new LayoutType(
             array(
                 'identifier' => 'type',
+                'zones' => array(
+                    'left' => new LayoutTypeZone(),
+                    'right' => new LayoutTypeZone(),
+                ),
             )
         );
     }

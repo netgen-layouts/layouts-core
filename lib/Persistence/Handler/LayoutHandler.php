@@ -171,6 +171,17 @@ interface LayoutHandler
     public function copyLayout(Layout $layout, LayoutCopyStruct $layoutCopyStruct);
 
     /**
+     * Changes the provided layout type.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
+     * @param string $targetLayoutType
+     * @param array $zoneMappings
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
+     */
+    public function changeLayoutType(Layout $layout, $targetLayoutType, array $zoneMappings = array());
+
+    /**
      * Creates a new layout status.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout $layout

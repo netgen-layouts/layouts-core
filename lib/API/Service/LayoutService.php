@@ -190,6 +190,20 @@ interface LayoutService extends Service
     public function copyLayout(Layout $layout, LayoutCopyStruct $layoutCopyStruct);
 
     /**
+     * Changes the provided layout type.
+     *
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
+     * @param \Netgen\BlockManager\Layout\Type\LayoutType $targetLayoutType
+     * @param array $zoneMappings
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
+     *                                                          If layout is already of provided target type
+     *
+     * @return \Netgen\BlockManager\API\Values\Layout\Layout
+     */
+    public function changeLayoutType(Layout $layout, LayoutType $targetLayoutType, array $zoneMappings = array());
+
+    /**
      * Creates a layout draft.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout

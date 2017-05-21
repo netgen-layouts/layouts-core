@@ -185,6 +185,30 @@ class LayoutServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::copyLayout
+     * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
+     */
+    public function testChangeLayoutType()
+    {
+        $this->layoutHandlerMock
+            ->expects($this->at(0))
+            ->method('loadLayout')
+            ->will($this->returnValue(new PersistenceLayout()));
+
+        $this->layoutHandlerMock
+            ->expects($this->at(1))
+            ->method('changeLayoutType')
+            ->will($this->throwException(new Exception('Test exception text')));
+
+        $this->persistenceHandler
+            ->expects($this->once())
+            ->method('rollbackTransaction');
+
+        $this->layoutService->changeLayoutType(new Layout(), new LayoutType(array('identifier' => 'layout_1')));
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::createDraft
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
