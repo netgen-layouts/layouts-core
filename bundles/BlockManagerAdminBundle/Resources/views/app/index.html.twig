@@ -25,6 +25,12 @@
     {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('netgen-block-manager.css', 'ngbm_app_css') }}">
     {% endblock %}
+
+    {% block custom_stylesheets %}
+        {% for stylesheet in ngbm.config.parameter('app').stylesheets %}
+            <link rel="stylesheet" href="{{ stylesheet }}">
+        {% endfor %}
+    {% endblock %}
 </head>
 
 <body>
@@ -41,6 +47,12 @@
 
     {% block javascripts %}
         <script src="{{ asset('netgen-block-manager.js', 'ngbm_app_js') }}"></script>
+    {% endblock %}
+
+    {% block custom_javascripts %}
+        {% for javascript in ngbm.config.parameter('app').javascripts %}
+            <link rel="javascript" href="{{ javascript }}">
+        {% endfor %}
     {% endblock %}
 </body>
 </html>

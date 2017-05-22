@@ -1,2 +1,6 @@
 <script src="{{ asset('netgen-content-browser.js', 'ngcb_js') }}"></script>
 <script src="{{ asset('app.js', 'ngbm_admin_js') }}"></script>
+
+{% for javascript in ngbm.config.parameter('admin').javascripts %}
+    <script type="text/javascript" src="{{ javascript }}"></script>
+{% endfor %}
