@@ -31,9 +31,11 @@ class FactoryTest extends TestCase
             'name' => 'Block definition',
             'collections' => array(
                 'default' => array(
+                    'valid_item_types' => null,
                     'valid_query_types' => null,
                 ),
                 'featured' => array(
+                    'valid_item_types' => array('type3', 'type4'),
                     'valid_query_types' => array('type1', 'type2'),
                 ),
             ),
@@ -111,12 +113,14 @@ class FactoryTest extends TestCase
                         'default' => new Collection(
                             array(
                                 'identifier' => 'default',
+                                'validItemTypes' => null,
                                 'validQueryTypes' => null,
                             )
                         ),
                         'featured' => new Collection(
                             array(
                                 'identifier' => 'featured',
+                                'validItemTypes' => array('type3', 'type4'),
                                 'validQueryTypes' => array('type1', 'type2'),
                             )
                         ),

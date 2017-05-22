@@ -25,6 +25,7 @@ class Factory
                 $collections[$collectionIdentifier] = new Collection(
                     array(
                         'identifier' => $collectionIdentifier,
+                        'validItemTypes' => $collectionConfig['valid_item_types'],
                         'validQueryTypes' => $collectionConfig['valid_query_types'],
                     )
                 );

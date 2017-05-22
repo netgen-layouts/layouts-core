@@ -28,6 +28,7 @@ class BlockDefinitionNodeTest extends TestCase
                         'handler' => 'handler',
                         'collections' => array(
                             'default' => array(
+                                'valid_item_types' => array('type3', 'type4'),
                                 'valid_query_types' => array('type1', 'type2'),
                             ),
                         ),
@@ -96,6 +97,7 @@ class BlockDefinitionNodeTest extends TestCase
                     'enabled' => true,
                     'collections' => array(
                         'default' => array(
+                            'valid_item_types' => array('type3', 'type4'),
                             'valid_query_types' => array('type1', 'type2'),
                         ),
                     ),
@@ -284,6 +286,7 @@ class BlockDefinitionNodeTest extends TestCase
                 'block' => array(
                     'collections' => array(
                         'default' => array(
+                            'valid_item_types' => null,
                             'valid_query_types' => null,
                         ),
                     ),
@@ -335,7 +338,7 @@ class BlockDefinitionNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_definitions.*.collections'
+            'block_definitions.*.collections.default.valid_query_types'
         );
     }
 
@@ -376,7 +379,7 @@ class BlockDefinitionNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_definitions.*.collections'
+            'block_definitions.*.collections.default.valid_query_types'
         );
     }
 
@@ -417,7 +420,130 @@ class BlockDefinitionNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_definitions.*.collections'
+            'block_definitions.*.collections.default.valid_query_types'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
+     */
+    public function testBlockDefinitionSettingsWithValidItemTypes()
+    {
+        $config = array(
+            array(
+                'block_definitions' => array(
+                    'block' => array(
+                        'collections' => array(
+                            'default' => array(
+                                'valid_item_types' => array('type1', 'type2'),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+
+        $expectedConfig = array(
+            'block_definitions' => array(
+                'block' => array(
+                    'collections' => array(
+                        'default' => array(
+                            'valid_item_types' => array('type1', 'type2'),
+                        ),
+                    ),
+                ),
+            ),
+        );
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'block_definitions.*.collections.default.valid_item_types'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
+     */
+    public function testBlockDefinitionSettingsWithAllValidItemTypes()
+    {
+        $config = array(
+            array(
+                'block_definitions' => array(
+                    'block' => array(
+                        'collections' => array(
+                            'default' => array(
+                                'valid_item_types' => null,
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+
+        $expectedConfig = array(
+            'block_definitions' => array(
+                'block' => array(
+                    'collections' => array(
+                        'default' => array(
+                            'valid_item_types' => null,
+                        ),
+                    ),
+                ),
+            ),
+        );
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'block_definitions.*.collections.default.valid_item_types'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
+     */
+    public function testBlockDefinitionSettingsWithEmptyValidItemTypes()
+    {
+        $config = array(
+            array(
+                'block_definitions' => array(
+                    'block' => array(
+                        'collections' => array(
+                            'default' => array(
+                                'valid_item_types' => array(),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
+
+        $expectedConfig = array(
+            'block_definitions' => array(
+                'block' => array(
+                    'collections' => array(
+                        'default' => array(
+                            'valid_item_types' => array(),
+                        ),
+                    ),
+                ),
+            ),
+        );
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'block_definitions.*.collections.default.valid_item_types'
         );
     }
 

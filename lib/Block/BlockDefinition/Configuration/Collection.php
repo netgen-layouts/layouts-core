@@ -14,6 +14,11 @@ class Collection extends ValueObject
     /**
      * @var array
      */
+    protected $validItemTypes;
+
+    /**
+     * @var array
+     */
     protected $validQueryTypes;
 
     /**
@@ -50,5 +55,31 @@ class Collection extends ValueObject
         }
 
         return in_array($queryType, $this->validQueryTypes, true);
+    }
+
+    /**
+     * Returns the valid item types.
+     *
+     * @return array
+     */
+    public function getValidItemTypes()
+    {
+        return $this->validItemTypes;
+    }
+
+    /**
+     * Returns if the provided item type is valid.
+     *
+     * @param string $itemType
+     *
+     * @return bool
+     */
+    public function isValidItemType($itemType)
+    {
+        if (!is_array($this->validItemTypes)) {
+            return true;
+        }
+
+        return in_array($itemType, $this->validItemTypes, true);
     }
 }
