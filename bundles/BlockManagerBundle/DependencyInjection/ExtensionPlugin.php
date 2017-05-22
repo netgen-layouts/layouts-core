@@ -2,6 +2,8 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+
 abstract class ExtensionPlugin implements ExtensionPluginInterface
 {
     /**
@@ -14,6 +16,30 @@ abstract class ExtensionPlugin implements ExtensionPluginInterface
     public function preProcessConfiguration(array $configs)
     {
         return $configs;
+    }
+
+    /**
+     * Processes the configuration for the bundle.
+     *
+     * @param \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition
+     */
+    public function addConfiguration(ArrayNodeDefinition $rootNode)
+    {
+        $children = $rootNode->children();
+
+        foreach ($this->getConfigurationNodes() as $node) {
+            $children->append($node->getConfigurationNode());
+        }
+    }
+
+    /**
+     * Returns available configuration nodes for the bundle.
+     *
+     * @return \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNodeInterface[]
+     */
+    public function getConfigurationNodes()
+    {
+        return array();
     }
 
     /**
