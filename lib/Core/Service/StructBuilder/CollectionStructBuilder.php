@@ -82,11 +82,8 @@ class CollectionStructBuilder
             return $queryUpdateStruct;
         }
 
-        $queryUpdateStruct->queryType = $query->getQueryType();
-
-        $queryType = $query->getQueryType();
         $queryUpdateStruct->fillValues(
-            $queryType,
+            $query->getQueryType(),
             $query->getParameters(),
             false
         );

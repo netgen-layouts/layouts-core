@@ -638,7 +638,6 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $this->assertEquals(
             new QueryUpdateStruct(
                 array(
-                    'queryType' => $query->getQueryType(),
                     'parameterValues' => array(
                         'offset' => 0,
                         'param' => null,

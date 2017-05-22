@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Validator\Structs;
 
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
-use Netgen\BlockManager\Collection\QueryTypeInterface;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
 use Netgen\BlockManager\Validator\Constraint\Structs\QueryUpdateStruct as QueryUpdateStructConstraint;
 use Symfony\Component\Validator\Constraint;
@@ -33,25 +32,16 @@ class QueryUpdateStructValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, QueryUpdateStruct::class);
         }
 
-        if ($value->queryType !== null && !$value->queryType instanceof QueryTypeInterface) {
-            throw new UnexpectedTypeException($value->queryType, QueryTypeInterface::class);
-        }
-
         /** @var \Symfony\Component\Validator\Validator\ContextualValidatorInterface $validator */
         $query = $constraint->payload;
         $validator = $this->context->getValidator()->inContext($this->context);
-
-        $queryType = $query->getQueryType();
-        if ($value->queryType !== null) {
-            $queryType = $value->queryType;
-        }
 
         $validator->atPath('parameterValues')->validate(
             $value,
             array(
                 new ParameterStruct(
                     array(
-                        'parameterCollection' => $queryType,
+                        'parameterCollection' => $query->getQueryType(),
                         'allowMissingFields' => true,
                     )
                 ),

@@ -422,10 +422,6 @@ class CollectionHandler implements CollectionHandlerInterface
     {
         $updatedQuery = clone $query;
 
-        if ($queryUpdateStruct->type !== null) {
-            $updatedQuery->type = (string) $queryUpdateStruct->type;
-        }
-
         if (is_array($queryUpdateStruct->parameters)) {
             $updatedQuery->parameters = $queryUpdateStruct->parameters;
         }

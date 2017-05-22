@@ -592,9 +592,6 @@ class CollectionService extends Service implements APICollectionService
                     $persistenceQuery,
                     new QueryUpdateStruct(
                         array(
-                            'type' => $queryUpdateStruct->queryType !== null ?
-                                $queryUpdateStruct->queryType->getType() :
-                                null,
                             'parameters' => $this->parameterMapper->serializeValues(
                                 $query->getQueryType(),
                                 $queryUpdateStruct->getParameterValues(),

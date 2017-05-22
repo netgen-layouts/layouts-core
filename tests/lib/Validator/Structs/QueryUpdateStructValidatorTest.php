@@ -91,24 +91,6 @@ class QueryUpdateStructValidatorTest extends ValidatorTestCase
             ),
             array(
                 array(
-                    'queryType' => $this->getQueryType(),
-                    'parameterValues' => array(
-                        'param' => 'value',
-                    ),
-                ),
-                true,
-            ),
-            array(
-                array(
-                    'queryType' => null,
-                    'parameterValues' => array(
-                        'param' => 'value',
-                    ),
-                ),
-                true,
-            ),
-            array(
-                array(
                     'parameterValues' => array(
                         'param' => '',
                     ),
@@ -125,31 +107,6 @@ class QueryUpdateStructValidatorTest extends ValidatorTestCase
             ),
             array(
                 array(
-                    'parameterValues' => array(),
-                ),
-                true,
-            ),
-            array(
-                array(
-                    'queryType' => $this->getQueryType(),
-                    'parameterValues' => array(
-                        'param' => '',
-                    ),
-                ),
-                false,
-            ),
-            array(
-                array(
-                    'queryType' => $this->getQueryType(),
-                    'parameterValues' => array(
-                        'param' => null,
-                    ),
-                ),
-                false,
-            ),
-            array(
-                array(
-                    'queryType' => $this->getQueryType(),
                     'parameterValues' => array(),
                 ),
                 true,

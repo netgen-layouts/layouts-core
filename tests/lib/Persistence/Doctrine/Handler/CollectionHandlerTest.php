@@ -738,7 +738,6 @@ class CollectionHandlerTest extends TestCase
     public function testUpdateQuery()
     {
         $queryUpdateStruct = new QueryUpdateStruct();
-        $queryUpdateStruct->type = 'new_type';
         $queryUpdateStruct->parameters = array(
             'parent_location_id' => 3,
             'some_param' => 'Some value',
@@ -749,7 +748,7 @@ class CollectionHandlerTest extends TestCase
                 array(
                     'id' => 1,
                     'collectionId' => 2,
-                    'type' => 'new_type',
+                    'type' => 'ezcontent_search',
                     'parameters' => array(
                         'parent_location_id' => 3,
                         'some_param' => 'Some value',
