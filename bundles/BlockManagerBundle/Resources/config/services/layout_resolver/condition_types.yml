@@ -3,3 +3,8 @@ services:
         class: Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter
         tags:
             - { name: netgen_block_manager.layout.resolver.condition_type, priority: 0 }
+
+    netgen_block_manager.layout.resolver.condition_type.query_parameter:
+        class: Netgen\BlockManager\Layout\Resolver\ConditionType\QueryParameter
+        tags:
+            - { name: netgen_block_manager.layout.resolver.condition_type, priority: 0 }

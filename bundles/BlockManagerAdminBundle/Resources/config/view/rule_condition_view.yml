@@ -5,3 +5,7 @@ view:
                 template: "NetgenBlockManagerAdminBundle:admin/layout_resolver/condition/value:route_parameter.html.twig"
                 match:
                     rule_condition\type: route_parameter
+            query_parameter:
+                template: "NetgenBlockManagerAdminBundle:admin/layout_resolver/condition/value:query_parameter.html.twig"
+                match:
+                    rule_condition\type: query_parameter

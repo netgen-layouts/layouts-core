@@ -52,6 +52,7 @@ layout_resolver.target.route: 'Route'
 layout_resolver.target.route_prefix: 'Route prefix'
 
 layout_resolver.condition.route_parameter: 'Route parameter'
+layout_resolver.condition.query_parameter: 'Query parameter'
 
 layouts.title: 'Layouts'
 layouts.new_layout: 'New layout'

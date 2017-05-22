@@ -51,3 +51,8 @@ services:
         class: Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter
         tags:
             - { name: netgen_block_manager.layout.resolver.form.condition_type.mapper, condition_type: route_parameter }
+
+    netgen_block_manager.layout.resolver.form.condition_type.mapper.query_parameter:
+        class: Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\QueryParameter
+        tags:
+            - { name: netgen_block_manager.layout.resolver.form.condition_type.mapper, condition_type: query_parameter }
