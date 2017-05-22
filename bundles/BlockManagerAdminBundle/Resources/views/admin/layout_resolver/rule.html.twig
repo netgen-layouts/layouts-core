@@ -22,7 +22,7 @@
                 {% set target_type = rule.targets[0].targetType.type %}
 
                 {% if rule.targets|length == 1 %}
-                    <p>{{ ('layout_resolver.target.' ~ target_type)|trans }}:</p>
+                    <p>{{ ('layout_resolver.target.' ~ target_type)|trans({}, 'ngbm') }}:</p>
                     <ul>
                         {% for target in rule.targets %}
                             <li {% if rule_count == 1 and (target_type == 'ezlocation' or target_type == 'ezcontent') %}class="unique"{% endif %}>
@@ -31,7 +31,7 @@
                         {% endfor %}
                     </ul>
                 {% else %}
-                    <p>{{ ('layout_resolver.target.' ~ target_type)|trans }} ({{ rule.targets|length }})</p>
+                    <p>{{ ('layout_resolver.target.' ~ target_type)|trans({}, 'ngbm') }} ({{ rule.targets|length }})</p>
                 {% endif %}
             {% endif %}
         </div>
@@ -39,7 +39,7 @@
             {% if rule.conditions is not empty %}
                 <ul class="{% if rule.conditions|length == 2 %}nl-ellipsis{% elseif rule.conditions|length > 2 %}nl-inline{% endif %}">
                     {% for condition in rule.conditions %}
-                        <li>{{ ('layout_resolver.condition.' ~ condition.conditionType.type)|trans }}{% if rule.conditions|length <= 2 %}: {{ ngbm_render_rule_condition(condition, {}, 'value') }}{% endif %}</li>
+                        <li>{{ ('layout_resolver.condition.' ~ condition.conditionType.type)|trans({}, 'ngbm') }}{% if rule.conditions|length <= 2 %}: {{ ngbm_render_rule_condition(condition, {}, 'value') }}{% endif %}</li>
                     {% endfor %}
                 </ul>
             {% endif %}
@@ -133,7 +133,7 @@
                                     {% if rule.targets is empty %}
                                         <select class="nl-select js-target-type">
                                             {% for target_type in target_types %}
-                                                <option value="{{ target_type.type }}">{{ ('layout_resolver.target.' ~ target_type.type)|trans }}</option>
+                                                <option value="{{ target_type.type }}">{{ ('layout_resolver.target.' ~ target_type.type)|trans({}, 'ngbm') }}</option>
                                             {% endfor %}
                                         </select>
                                     {% endif %}
@@ -168,7 +168,7 @@
                                 <div class="settings-action-add">
                                     <select class="nl-select js-condition-type">
                                         {% for condition_type in condition_types %}
-                                            <option value="{{ condition_type.type }}">{{ ('layout_resolver.condition.' ~ condition_type.type)|trans }}</option>
+                                            <option value="{{ condition_type.type }}">{{ ('layout_resolver.condition.' ~ condition_type.type)|trans({}, 'ngbm') }}</option>
                                         {% endfor %}
                                     </select>
 

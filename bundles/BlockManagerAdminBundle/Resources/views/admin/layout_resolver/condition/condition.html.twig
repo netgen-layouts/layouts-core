@@ -1,7 +1,7 @@
 {% trans_default_domain 'ngbm_admin' %}
 
 <span class="settings-value editable-value js-setting-edit" data-setting-id="{{ condition.id }}" data-setting-type="condition">
-    {{ ('layout_resolver.condition.' ~ condition.conditionType.type)|trans }}:
+    {{ ('layout_resolver.condition.' ~ condition.conditionType.type)|trans({}, 'ngbm') }}:
 
     {{ ngbm_render_rule_condition(condition, {}, 'value') }}
 </span>

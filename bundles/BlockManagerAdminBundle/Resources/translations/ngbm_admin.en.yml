@@ -44,16 +44,6 @@ layout_resolver.rule.target_header.request_uri_prefix: 'Applied to request URI p
 layout_resolver.rule.target_header.route: 'Applied to route'
 layout_resolver.rule.target_header.route_prefix: 'Applied to route prefix'
 
-layout_resolver.target.path_info: 'Path info'
-layout_resolver.target.path_info_prefix: 'Path info prefix'
-layout_resolver.target.request_uri: 'Request URI'
-layout_resolver.target.request_uri_prefix: 'Request URI prefix'
-layout_resolver.target.route: 'Route'
-layout_resolver.target.route_prefix: 'Route prefix'
-
-layout_resolver.condition.route_parameter: 'Route parameter'
-layout_resolver.condition.query_parameter: 'Query parameter'
-
 layouts.title: 'Layouts'
 layouts.new_layout: 'New layout'
 layouts.no_layouts: 'There are no layouts defined'
