@@ -7,6 +7,8 @@ use Netgen\BlockManager\ValueObject;
 abstract class TargetStruct extends ValueObject
 {
     /**
+     * The value of the target.
+     *
      * @var mixed
      */
     public $value;

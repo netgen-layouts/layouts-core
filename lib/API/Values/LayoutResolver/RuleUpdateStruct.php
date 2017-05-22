@@ -7,6 +7,8 @@ use Netgen\BlockManager\ValueObject;
 class RuleUpdateStruct extends ValueObject
 {
     /**
+     * The ID of the layout to which the rule will be linked.
+     *
      * Set to 0 to remove the mapping.
      *
      * @var int|string
@@ -14,6 +16,8 @@ class RuleUpdateStruct extends ValueObject
     public $layoutId;
 
     /**
+     * Description of the rule.
+     *
      * @var string
      */
     public $comment;

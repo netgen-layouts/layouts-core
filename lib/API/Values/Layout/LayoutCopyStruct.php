@@ -7,11 +7,15 @@ use Netgen\BlockManager\ValueObject;
 class LayoutCopyStruct extends ValueObject
 {
     /**
+     * Human readable name of the copied layout.
+     *
      * @var string
      */
     public $name;
 
     /**
+     * Description of the copied layout.
+     *
      * @var string
      */
     public $description;

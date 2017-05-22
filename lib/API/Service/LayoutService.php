@@ -192,6 +192,15 @@ interface LayoutService extends Service
     /**
      * Changes the provided layout type.
      *
+     * Zone mappings are multidimensional array where keys on the first level are
+     * identifiers of the zones in the new layout type, while the values are the list
+     * of old zones which will be mapped to the new one. i.e.
+     *
+     * array(
+     *     'left' => array('left', 'right'),
+     *     'top' => array('top'),
+     * )
+     *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      * @param \Netgen\BlockManager\Layout\Type\LayoutType $targetLayoutType
      * @param array $zoneMappings

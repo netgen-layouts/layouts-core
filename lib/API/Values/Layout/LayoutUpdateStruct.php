@@ -7,12 +7,14 @@ use Netgen\BlockManager\ValueObject;
 class LayoutUpdateStruct extends ValueObject
 {
     /**
+     * New human readable name of the layout.
+     *
      * @var string
      */
     public $name;
 
     /**
-     * Human readable description of the layout.
+     * New description of the layout.
      *
      * @var string
      */
