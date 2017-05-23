@@ -32,7 +32,7 @@ class ContextualQueryIterator extends QueryIterator
      */
     public function count()
     {
-        $count = $this->query->getQueryType()->getInternalLimit($this->query);
+        $count = $this->query->getInternalLimit();
         if ($count === null || $count > $this->limit) {
             $count = $this->limit;
         }

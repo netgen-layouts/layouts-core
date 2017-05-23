@@ -54,10 +54,10 @@ class CollectionIteratorFactory
         $showContextualSlots = (bool) ($flags & ResultSet::INCLUDE_UNKNOWN_ITEMS);
 
         $query = $collection->getQuery();
-        if ($query->getQueryType()->isContextual($query) && $showContextualSlots) {
-            return new ContextualQueryIterator($collection->getQuery(), $this->contextualQueryLimit);
+        if ($query->isContextual() && $showContextualSlots) {
+            return new ContextualQueryIterator($query, $this->contextualQueryLimit);
         }
 
-        return new QueryIterator($collection->getQuery());
+        return new QueryIterator($query);
     }
 }

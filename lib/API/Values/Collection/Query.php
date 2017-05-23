@@ -36,6 +36,20 @@ interface Query extends Value, ParameterBasedValue
     public function isPublished();
 
     /**
+     * Returns the limit internal to the query.
+     *
+     * @return int
+     */
+    public function getInternalLimit();
+
+    /**
+     * Returns if the query is dependent on a context, i.e. current request.
+     *
+     * @return bool
+     */
+    public function isContextual();
+
+    /**
      * Returns the query type.
      *
      * @return \Netgen\BlockManager\Collection\QueryTypeInterface

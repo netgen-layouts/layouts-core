@@ -76,6 +76,26 @@ class Query extends ValueObject implements APIQuery
     }
 
     /**
+     * Returns the limit internal to the query.
+     *
+     * @return int
+     */
+    public function getInternalLimit()
+    {
+        return $this->queryType->getInternalLimit($this);
+    }
+
+    /**
+     * Returns if the query is dependent on a context, i.e. current request.
+     *
+     * @return bool
+     */
+    public function isContextual()
+    {
+        return $this->queryType->isContextual($this);
+    }
+
+    /**
      * Returns the query type.
      *
      * @return \Netgen\BlockManager\Collection\QueryTypeInterface

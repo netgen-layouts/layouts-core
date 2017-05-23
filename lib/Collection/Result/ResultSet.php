@@ -99,9 +99,7 @@ class ResultSet extends ValueObject implements ArrayAccess, IteratorAggregate, C
             return false;
         }
 
-        $query = $this->collection->getQuery();
-
-        return $query->getQueryType()->isContextual($query);
+        return $this->collection->getQuery()->isContextual();
     }
 
     /**
