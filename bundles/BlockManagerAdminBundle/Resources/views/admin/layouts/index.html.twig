@@ -7,38 +7,52 @@
 {% endblock %}
 
 {% block content %}
-    <div id="layouts" class="nl-layouts-view-grid">
-        <div class="layouts-header">
-            <h2 class="layouts-title">{{ 'layouts.title'|trans }}</h2>
-            <div class="layouts-controls">
-                <a href="#" class="nl-btn js-change-layouts-view"></a>
-                {% if is_granted('ROLE_NGBM_EDITOR') %}
-                    <a href="{{ path('ngbm_app') }}" id="add-new-button" class="nl-btn nl-btn-primary js-open-bm">
-                        <i class="material-icons">add</i> {{ 'layouts.new_layout'|trans }}
-                    </a>
-                {% endif %}
-            </div>
-        </div>
-        <div class="nl-layouts-head">
-            <div class="nl-layout-info">
-                <div class="nl-layout-type">{{ 'layouts.layout.layout_type'|trans }}</div>
-                <div class="nl-layout-text">
-                    <div class="nl-layout-name">{{ 'layouts.layout.title'|trans }}</div>
-                    <div class="nl-layout-description">{{ 'layouts.layout.description'|trans }}</div>
+    {% if layouts|length > 0 %}
+        <div id="layouts" class="nl-layouts-view-grid">
+            <div class="layouts-header">
+                <h2 class="layouts-title">{{ 'layouts.title'|trans }}</h2>
+                <div class="layouts-controls">
+                    <a href="#" class="nl-btn js-change-layouts-view"></a>
+                    {% if is_granted('ROLE_NGBM_EDITOR') %}
+                        <a href="{{ path('ngbm_app') }}" id="add-new-button" class="nl-btn nl-btn-primary js-open-bm">
+                            <i class="material-icons">add</i> {{ 'layouts.new_layout'|trans }}
+                        </a>
+                    {% endif %}
                 </div>
             </div>
-            <div class="nl-layout-actions">
-                <div class="nl-layout-data">{{ 'layouts.layout.mappings'|trans }}</div>
+            <div class="nl-layouts-head">
+                <div class="nl-layout-info">
+                    <div class="nl-layout-type">{{ 'layouts.layout.layout_type'|trans }}</div>
+                    <div class="nl-layout-text">
+                        <div class="nl-layout-name">{{ 'layouts.layout.title'|trans }}</div>
+                        <div class="nl-layout-description">{{ 'layouts.layout.description'|trans }}</div>
+                    </div>
+                </div>
+                <div class="nl-layout-actions">
+                    <div class="nl-layout-data">{{ 'layouts.layout.mappings'|trans }}</div>
+                </div>
+            </div>
+            <div class="nl-layouts">
+                {% for layout in layouts %}
+                    <div class="nl-layout">
+                        {{ ngbm_render_layout(layout, [], 'admin') }}
+                    </div>
+                {% endfor %}
             </div>
         </div>
-        <div class="nl-layouts">
-            {% for layout in layouts %}
-                <div class="nl-layout">
-                    {{ ngbm_render_layout(layout, [], 'admin') }}
+    {% else %}
+        <div id="layouts" class="nl-layouts-view-grid">
+            <div class="layouts-header">
+                <h2 class="layouts-title">{{ 'layouts.title'|trans }}</h2>
+                <div class="layouts-controls">
+                    {% if is_granted('ROLE_NGBM_EDITOR') %}
+                        <a href="{{ path('ngbm_app') }}" id="add-new-button" class="nl-btn nl-btn-primary js-open-bm">
+                            <i class="material-icons">add</i> {{ 'layouts.new_layout'|trans }}
+                        </a>
+                    {% endif %}
                 </div>
-            {% else %}
                 <p>{{ 'layouts.no_layouts'|trans }}</p>
-            {% endfor %}
+            </div>
         </div>
-    </div>
+    {% endif %}
 {% endblock %}
