@@ -59,6 +59,11 @@ class Block extends ValueObject implements APIBlock
     protected $status;
 
     /**
+     * @var array
+     */
+    protected $dynamicParameters;
+
+    /**
      * Returns the block ID.
      *
      * @return int|string
@@ -176,5 +181,51 @@ class Block extends ValueObject implements APIBlock
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Returns the specified dynamic parameter value or null if parameter does not exist.
+     *
+     * @param string $parameter
+     *
+     * @return mixed
+     */
+    public function getDynamicParameter($parameter)
+    {
+        $this->buildDynamicParameters();
+
+        if (!$this->hasDynamicParameter($parameter)) {
+            return null;
+        }
+
+        if (!is_callable($this->dynamicParameters[$parameter])) {
+            return $this->dynamicParameters[$parameter];
+        }
+
+        return $this->dynamicParameters[$parameter]();
+    }
+
+    /**
+     * Returns if the object has a specified parameter value.
+     *
+     * @param string $parameter
+     *
+     * @return bool
+     */
+    public function hasDynamicParameter($parameter)
+    {
+        $this->buildDynamicParameters();
+
+        return array_key_exists($parameter, $this->dynamicParameters);
+    }
+
+    /**
+     * Builds the dynamic parameters of the block from the definition.
+     */
+    protected function buildDynamicParameters()
+    {
+        if ($this->dynamicParameters === null) {
+            $this->dynamicParameters = $this->definition->getDynamicParameters($this);
+        }
     }
 }

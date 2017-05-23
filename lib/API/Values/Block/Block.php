@@ -90,4 +90,22 @@ interface Block extends Value, ParameterBasedValue, ConfigAwareValue
      * @return int
      */
     public function getStatus();
+
+    /**
+     * Returns the specified dynamic parameter value or null if parameter does not exist.
+     *
+     * @param string $parameter
+     *
+     * @return mixed
+     */
+    public function getDynamicParameter($parameter);
+
+    /**
+     * Returns if the object has a specified parameter value.
+     *
+     * @param string $parameter
+     *
+     * @return bool
+     */
+    public function hasDynamicParameter($parameter);
 }

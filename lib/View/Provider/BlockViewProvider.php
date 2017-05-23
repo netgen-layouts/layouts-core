@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\View\Provider;
 
 use Netgen\BlockManager\API\Values\Block\Block as APIBlock;
 use Netgen\BlockManager\View\View\BlockView;
-use Netgen\BlockManager\View\View\BlockView\Block;
 
 class BlockViewProvider implements ViewProviderInterface
 {
@@ -18,19 +17,13 @@ class BlockViewProvider implements ViewProviderInterface
      */
     public function provideView($valueObject, array $parameters = array())
     {
-        /** @var \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition */
-        $blockDefinition = $valueObject->getDefinition();
-        $dynamicParameters = $blockDefinition->getDynamicParameters($valueObject);
-
-        $block = new Block($valueObject, $dynamicParameters);
-
         $blockView = new BlockView(
             array(
-                'block' => $block,
+                'block' => $valueObject,
             )
         );
 
-        $httpCacheConfig = $block->getConfig('http_cache');
+        $httpCacheConfig = $valueObject->getConfig('http_cache');
 
         $blockView->setIsCacheable(
             $httpCacheConfig->getParameter('use_http_cache')->getValue()
