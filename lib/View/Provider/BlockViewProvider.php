@@ -20,7 +20,7 @@ class BlockViewProvider implements ViewProviderInterface
     {
         /** @var \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition */
         $blockDefinition = $valueObject->getDefinition();
-        $dynamicParameters = $blockDefinition->getDynamicParameters($valueObject, $parameters);
+        $dynamicParameters = $blockDefinition->getDynamicParameters($valueObject);
 
         $block = new Block($valueObject, $dynamicParameters);
 
