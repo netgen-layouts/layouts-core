@@ -220,15 +220,6 @@ services:
             - "@netgen_block_manager.core.service.layout_resolver.mapper"
             - "@netgen_block_manager.core.service.layout_resolver.struct_builder"
 
-    netgen_block_manager.core.service.parameter_mapper:
-        class: Netgen\BlockManager\Core\Service\Mapper\ParameterMapper
-
-    netgen_block_manager.core.service.config_mapper:
-        class: Netgen\BlockManager\Core\Service\Mapper\ConfigMapper
-        arguments:
-            - "@netgen_block_manager.core.service.parameter_mapper"
-            - "@netgen_block_manager.config.registry.config_definition"
-
     # Config API services
 
     netgen_block_manager.core.validator.config:
@@ -240,6 +231,17 @@ services:
 
     netgen_block_manager.core.struct_builder.config:
         class: Netgen\BlockManager\Core\Service\StructBuilder\ConfigStructBuilder
+
+    netgen_block_manager.core.service.config_mapper:
+        class: Netgen\BlockManager\Core\Service\Mapper\ConfigMapper
+        arguments:
+            - "@netgen_block_manager.core.service.parameter_mapper"
+            - "@netgen_block_manager.config.registry.config_definition"
+
+    # Parameter API services
+
+    netgen_block_manager.core.service.parameter_mapper:
+        class: Netgen\BlockManager\Core\Service\Mapper\ParameterMapper
 
     # Service aliases
 
