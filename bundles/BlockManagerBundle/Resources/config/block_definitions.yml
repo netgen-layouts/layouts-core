@@ -76,7 +76,7 @@ block_definitions:
         view_types:
             list:
                 name: 'List'
-                valid_parameters: [!number_of_columns]
+                valid_parameters: ['!number_of_columns']
             grid:
                 name: 'Grid'
 
@@ -92,45 +92,45 @@ block_definitions:
             slider:
                 name: 'Slider'
                 valid_parameters:
-                    - !pagination_type
-                    - !autoplay_time
-                    - !number_of_thumbnails
-                    - !show_details
-                    - !show_details_on_hover
-                    - !enable_lightbox
+                    - '!pagination_type'
+                    - '!autoplay_time'
+                    - '!number_of_thumbnails'
+                    - '!show_details'
+                    - '!show_details_on_hover'
+                    - '!enable_lightbox'
             thumb_gallery:
                 name: 'Thumb gallery'
                 valid_parameters:
-                     - !show_pagination
-                     - !pagination_type
-                     - !infinite_loop
-                     - !transition
-                     - !autoplay
-                     - !autoplay_time
-                     - !number_of_thumbnails
-                     - !show_details_on_hover
-                     - !enable_lightbox
+                     - '!show_pagination'
+                     - '!pagination_type'
+                     - '!infinite_loop'
+                     - '!transition'
+                     - '!autoplay'
+                     - '!autoplay_time'
+                     - '!number_of_thumbnails'
+                     - '!show_details_on_hover'
+                     - '!enable_lightbox'
             grid_gallery:
                 name: 'Grid gallery'
                 valid_parameters:
-                     - !next_and_previous
-                     - !show_pagination
-                     - !pagination_type
-                     - !infinite_loop
-                     - !transition
-                     - !autoplay
-                     - !autoplay_time
-                     - !show_details
-                     - !show_details_on_hover
+                     - '!next_and_previous'
+                     - '!show_pagination'
+                     - '!pagination_type'
+                     - '!infinite_loop'
+                     - '!transition'
+                     - '!autoplay'
+                     - '!autoplay_time'
+                     - '!show_details'
+                     - '!show_details_on_hover'
             sushi_bar:
                 name: 'Sushi bar'
                 valid_parameters:
-                     - !pagination_type
-                     - !transition
-                     - !autoplay_time
-                     - !show_details
-                     - !show_details_on_hover
-                     - !enable_lightbox
+                     - '!pagination_type'
+                     - '!transition'
+                     - '!autoplay_time'
+                     - '!show_details'
+                     - '!show_details_on_hover'
+                     - '!enable_lightbox'
 
     column:
         name: 'Column'
