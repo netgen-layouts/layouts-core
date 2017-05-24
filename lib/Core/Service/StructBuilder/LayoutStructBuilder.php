@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Core\Service\StructBuilder;
 
 use Netgen\BlockManager\API\Values\Layout\Layout;
+use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\BlockManager\Layout\Type\LayoutType;
@@ -46,5 +47,25 @@ class LayoutStructBuilder
         $layoutUpdateStruct->description = $layout->getDescription();
 
         return $layoutUpdateStruct;
+    }
+
+    /**
+     * Creates a new layout copy struct.
+     *
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
+     *
+     * @return \Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct
+     */
+    public function newLayoutCopyStruct(Layout $layout = null)
+    {
+        $layoutCopyStruct = new LayoutCopyStruct();
+
+        if (!$layout instanceof Layout) {
+            return $layoutCopyStruct;
+        }
+
+        $layoutCopyStruct->name = $layout->getName() . ' (copy)';
+
+        return $layoutCopyStruct;
     }
 }

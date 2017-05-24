@@ -731,4 +731,16 @@ class LayoutService extends Service implements LayoutServiceInterface
     {
         return $this->structBuilder->newLayoutUpdateStruct($layout);
     }
+
+    /**
+     * Creates a new layout copy struct.
+     *
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
+     *
+     * @return \Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct
+     */
+    public function newLayoutCopyStruct(Layout $layout = null)
+    {
+        return $this->structBuilder->newLayoutCopyStruct($layout);
+    }
 }

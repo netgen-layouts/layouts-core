@@ -4,7 +4,6 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin;
 
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\Layout\Form\CopyType;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
@@ -53,8 +52,7 @@ class LayoutsController extends Controller
      */
     public function copyLayout(Layout $layout, Request $request)
     {
-        $copyStruct = new LayoutCopyStruct();
-        $copyStruct->name = $layout->getName() . ' (copy)';
+        $copyStruct = $this->layoutService->newLayoutCopyStruct($layout);
 
         $form = $this->createForm(
             CopyType::class,

@@ -270,4 +270,13 @@ interface LayoutService extends Service
      * @return \Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct
      */
     public function newLayoutUpdateStruct(Layout $layout = null);
+
+    /**
+     * Creates a new layout copy struct.
+     *
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
+     *
+     * @return \Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct
+     */
+    public function newLayoutCopyStruct(Layout $layout = null);
 }
