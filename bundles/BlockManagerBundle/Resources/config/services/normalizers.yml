@@ -96,13 +96,3 @@ services:
         class: Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\LayoutTypeNormalizer
         tags:
             - { name: serializer.normalizer }
-
-    netgen_block_manager.normalizer.v1.source:
-        class: Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\SourceNormalizer
-        tags:
-            - { name: serializer.normalizer }
-
-    netgen_block_manager.normalizer.v1.source_query:
-        class: Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\SourceQueryNormalizer
-        tags:
-            - { name: serializer.normalizer }

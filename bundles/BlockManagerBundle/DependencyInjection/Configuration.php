@@ -62,7 +62,6 @@ class Configuration implements ConfigurationInterface
             new ConfigurationNode\BlockTypeNode(),
             new ConfigurationNode\BlockTypeGroupNode(),
             new ConfigurationNode\LayoutTypeNode(),
-            new ConfigurationNode\SourceNode(),
             new ConfigurationNode\QueryTypeNode(),
             new ConfigurationNode\PageLayoutNode(),
             new ConfigurationNode\GoogleMapsNode(),

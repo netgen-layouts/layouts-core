@@ -73,7 +73,6 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasParameter('netgen_block_manager.block_types', array());
         $this->assertContainerBuilderHasParameter('netgen_block_manager.block_type_groups', array());
         $this->assertContainerBuilderHasParameter('netgen_block_manager.layout_types', array());
-        $this->assertContainerBuilderHasParameter('netgen_block_manager.sources', array());
         $this->assertContainerBuilderHasParameter('netgen_block_manager.query_types', array());
         $this->assertContainerBuilderHasParameter('netgen_block_manager.view', array());
         $this->assertContainerBuilderHasParameter('netgen_block_manager.http_cache');
