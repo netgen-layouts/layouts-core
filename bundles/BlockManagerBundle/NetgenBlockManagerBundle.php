@@ -17,8 +17,8 @@ class NetgenBlockManagerBundle extends Bundle
     {
         $container->addCompilerPass(new CompilerPass\Config\ConfigDefinitionPass());
         $container->addCompilerPass(new CompilerPass\Block\BlockDefinitionPass());
-        $container->addCompilerPass(new CompilerPass\LayoutResolver\TargetTypeRegistryPass());
-        $container->addCompilerPass(new CompilerPass\LayoutResolver\ConditionTypeRegistryPass());
+        $container->addCompilerPass(new CompilerPass\LayoutResolver\TargetTypePass());
+        $container->addCompilerPass(new CompilerPass\LayoutResolver\ConditionTypePass());
         $container->addCompilerPass(new CompilerPass\LayoutResolver\DoctrineTargetHandlerPass());
         $container->addCompilerPass(new CompilerPass\LayoutResolver\Form\ConditionTypePass());
         $container->addCompilerPass(new CompilerPass\LayoutResolver\Form\TargetTypePass());
@@ -26,9 +26,9 @@ class NetgenBlockManagerBundle extends Bundle
         $container->addCompilerPass(new CompilerPass\View\ViewBuilderPass());
         $container->addCompilerPass(new CompilerPass\View\FragmentRendererPass());
         $container->addCompilerPass(new CompilerPass\View\DefaultViewTemplatesPass());
-        $container->addCompilerPass(new CompilerPass\Parameters\FormMapperRegistryPass());
-        $container->addCompilerPass(new CompilerPass\Parameters\ParameterFilterRegistryPass());
-        $container->addCompilerPass(new CompilerPass\Parameters\ParameterTypeRegistryPass());
+        $container->addCompilerPass(new CompilerPass\Parameters\FormMapperPass());
+        $container->addCompilerPass(new CompilerPass\Parameters\ParameterFilterPass());
+        $container->addCompilerPass(new CompilerPass\Parameters\ParameterTypePass());
         $container->addCompilerPass(new CompilerPass\Collection\QueryTypePass());
         $container->addCompilerPass(new CompilerPass\Item\ValueTypePass());
         $container->addCompilerPass(new CompilerPass\Item\ItemLoaderPass());

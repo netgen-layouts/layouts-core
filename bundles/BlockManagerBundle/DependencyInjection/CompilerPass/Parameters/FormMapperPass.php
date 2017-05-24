@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-class FormMapperRegistryPass implements CompilerPassInterface
+class FormMapperPass implements CompilerPassInterface
 {
     const SERVICE_NAME = 'netgen_block_manager.parameters.registry.form_mapper';
     const TAG_NAME = 'netgen_block_manager.parameters.form.mapper';

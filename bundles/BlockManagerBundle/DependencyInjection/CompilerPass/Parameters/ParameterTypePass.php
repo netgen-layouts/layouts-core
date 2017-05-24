@@ -6,7 +6,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-class ParameterTypeRegistryPass implements CompilerPassInterface
+class ParameterTypePass implements CompilerPassInterface
 {
     const SERVICE_NAME = 'netgen_block_manager.parameters.registry.parameter_type';
     const TAG_NAME = 'netgen_block_manager.parameters.parameter_type';
