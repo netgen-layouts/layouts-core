@@ -96,6 +96,38 @@ body {
             display:none;
         }
     }
+    .multientry-items {
+        .multientry-item {
+            position:relative;
+            .icon-close {
+                @extend %material-icons;
+                position:absolute;
+                right:6px;
+                top:7px;
+                width:18px;
+                height:18px;
+                line-height:18px;
+                font-size:14px;
+                cursor:pointer;
+                text-align:center;
+                transition:background 0.15s;
+                &::before {
+                    content:"clear";
+                }
+                &:hover {
+                    background:rgba(0, 0, 0, 0.05);
+                }
+            }
+            input[type=text] {
+                padding-right:3em;
+            }
+            &:first-child:nth-last-child(1) {
+                .icon-close {
+                    display:none;
+                }
+            }
+        }
+    }
 }
 
 .layouts-header {
