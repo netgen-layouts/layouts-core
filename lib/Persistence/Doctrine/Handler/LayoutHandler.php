@@ -242,12 +242,12 @@ class LayoutHandler implements LayoutHandlerInterface
     /**
      * Creates a zone in provided layout.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\ZoneCreateStruct $zoneCreateStruct
      * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\ZoneCreateStruct $zoneCreateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Zone
      */
-    public function createZone(ZoneCreateStruct $zoneCreateStruct, Layout $layout)
+    public function createZone(Layout $layout, ZoneCreateStruct $zoneCreateStruct)
     {
         $rootBlock = $this->blockHandler->createBlock(
             new BlockCreateStruct(
@@ -375,7 +375,7 @@ class LayoutHandler implements LayoutHandlerInterface
                 )
             );
 
-            $createdZone = $this->createZone($zoneCreateStruct, $copiedLayout);
+            $createdZone = $this->createZone($copiedLayout, $zoneCreateStruct);
             $rootBlock = $this->blockHandler->loadBlock(
                 $createdZone->rootBlockId,
                 $createdZone->status

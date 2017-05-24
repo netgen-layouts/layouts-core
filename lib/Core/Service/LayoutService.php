@@ -424,12 +424,12 @@ class LayoutService extends Service implements LayoutServiceInterface
 
                 foreach ($layoutCreateStruct->layoutType->getZoneIdentifiers() as $zoneIdentifier) {
                     $this->handler->createZone(
+                        $createdLayout,
                         new ZoneCreateStruct(
                             array(
                                 'identifier' => $zoneIdentifier,
                             )
-                        ),
-                        $createdLayout
+                        )
                     );
                 }
 

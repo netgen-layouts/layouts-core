@@ -566,8 +566,8 @@ class LayoutHandlerTest extends TestCase
         $zoneCreateStruct->linkedZoneIdentifier = 'linked_zone';
 
         $createdZone = $this->layoutHandler->createZone(
-            $zoneCreateStruct,
-            $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT)
+            $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
+            $zoneCreateStruct
         );
 
         $this->assertInstanceOf(Zone::class, $createdZone);

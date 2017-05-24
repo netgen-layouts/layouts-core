@@ -133,12 +133,12 @@ interface LayoutHandler
     /**
      * Creates a zone in provided layout.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\ZoneCreateStruct $zoneCreateStruct
      * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\ZoneCreateStruct $zoneCreateStruct
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Zone
      */
-    public function createZone(ZoneCreateStruct $zoneCreateStruct, Layout $layout);
+    public function createZone(Layout $layout, ZoneCreateStruct $zoneCreateStruct);
 
     /**
      * Updates a layout with specified ID.
