@@ -31,14 +31,22 @@ class ParameterFilterPassTest extends AbstractCompilerPassTestCase
 
         $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'netgen_block_manager.parameters.registry.parameter_filter',
-            'addParameterFilters',
+            'addParameterFilter',
             array(
                 'html',
-                array(
-                    new Reference('netgen_block_manager.parameters.parameter_filter.test2'),
-                    new Reference('netgen_block_manager.parameters.parameter_filter.test1'),
-                ),
-            )
+                new Reference('netgen_block_manager.parameters.parameter_filter.test2'),
+            ),
+            0
+        );
+
+        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+            'netgen_block_manager.parameters.registry.parameter_filter',
+            'addParameterFilter',
+            array(
+                'html',
+                new Reference('netgen_block_manager.parameters.parameter_filter.test1'),
+            ),
+            1
         );
     }
 

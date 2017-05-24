@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Parameters\Registry;
 
-use Netgen\BlockManager\Exception\InvalidInterfaceException;
 use Netgen\BlockManager\Parameters\ParameterFilterInterface;
 
 class ParameterFilterRegistry implements ParameterFilterRegistryInterface
@@ -16,29 +15,17 @@ class ParameterFilterRegistry implements ParameterFilterRegistryInterface
      * Adds a parameter filter to registry.
      *
      * @param $parameterType
-     * @param \Netgen\BlockManager\Parameters\ParameterFilterInterface[] $parameterFilters
+     * @param \Netgen\BlockManager\Parameters\ParameterFilterInterface $parameterFilter
      */
-    public function addParameterFilters($parameterType, array $parameterFilters)
+    public function addParameterFilter($parameterType, ParameterFilterInterface $parameterFilter)
     {
-        foreach ($parameterFilters as $parameterFilter) {
-            if (!$parameterFilter instanceof ParameterFilterInterface) {
-                throw new InvalidInterfaceException(
-                    'Parameter filter',
-                    get_class($parameterFilter),
-                    ParameterFilterInterface::class
-                );
-            }
-        }
-
-        $this->parameterFilters[$parameterType] = $parameterFilters;
+        $this->parameterFilters[$parameterType][] = $parameterFilter;
     }
 
     /**
      * Returns all parameter filters for provided parameter type.
      *
      * @param string $parameterType
-     *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If parameter filter does not exist
      *
      * @return \Netgen\BlockManager\Parameters\ParameterFilterInterface[]
      */

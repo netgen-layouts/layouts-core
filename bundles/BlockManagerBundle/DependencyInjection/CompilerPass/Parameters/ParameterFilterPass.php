@@ -50,10 +50,12 @@ class ParameterFilterPass implements CompilerPassInterface
         }
 
         foreach ($parameterFiltersPerType as $type => $filters) {
-            $parameterFilterRegistry->addMethodCall(
-                'addParameterFilters',
-                array($type, $filters)
-            );
+            foreach ($filters as $filter) {
+                $parameterFilterRegistry->addMethodCall(
+                    'addParameterFilter',
+                    array($type, $filter)
+                );
+            }
         }
     }
 }
