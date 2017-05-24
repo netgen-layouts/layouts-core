@@ -60,7 +60,7 @@ class BlockControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             array(
                 'block_type' => 'list',
-                'placeholder' => 'main',
+                'placeholder' => 'left',
                 'position' => 0,
             )
         );
@@ -91,7 +91,7 @@ class BlockControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             array(
                 'block_type' => 'list',
-                'placeholder' => 'main',
+                'placeholder' => 'left',
             )
         );
 
@@ -150,7 +150,7 @@ class BlockControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             array(
                 'block_type' => 'column',
-                'placeholder' => 'main',
+                'placeholder' => 'left',
                 'position' => 0,
             )
         );
@@ -388,7 +388,7 @@ class BlockControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             array(
                 'block_type' => 'title',
-                'placeholder' => 'main',
+                'placeholder' => 'left',
                 'position' => 9999,
             )
         );
@@ -849,7 +849,7 @@ class BlockControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             array(
                 'block_id' => 33,
-                'placeholder' => 'main',
+                'placeholder' => 'left',
             )
         );
 
@@ -1367,7 +1367,7 @@ class BlockControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             array(
                 'block_id' => 33,
-                'placeholder' => 'main',
+                'placeholder' => 'left',
                 'position' => 0,
             )
         );
@@ -1389,12 +1389,10 @@ class BlockControllerTest extends JsonApiTestCase
      */
     public function testMoveToDifferentPlaceholder()
     {
-        $this->markTestIncomplete('No block with two placeholders yet');
-
         $data = $this->jsonEncode(
             array(
                 'block_id' => 33,
-                'placeholder' => 'other',
+                'placeholder' => 'right',
                 'position' => 0,
             )
         );
@@ -1554,7 +1552,7 @@ class BlockControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             array(
                 'block_id' => 33,
-                'placeholder' => 'main',
+                'placeholder' => 'left',
                 'position' => 9999,
             )
         );

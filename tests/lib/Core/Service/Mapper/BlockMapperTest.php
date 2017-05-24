@@ -92,7 +92,7 @@ abstract class BlockMapperTest extends ServiceTestCase
         $persistenceBlock = new Block(
             array(
                 'id' => 33,
-                'definitionIdentifier' => 'column',
+                'definitionIdentifier' => 'two_columns',
                 'status' => Value::STATUS_PUBLISHED,
                 'parameters' => array(),
                 'config' => array(
@@ -107,17 +107,24 @@ abstract class BlockMapperTest extends ServiceTestCase
         $block = $this->blockMapper->mapBlock($persistenceBlock);
 
         $this->assertEquals(
-            $this->blockDefinitionRegistry->getBlockDefinition('column'),
+            $this->blockDefinitionRegistry->getBlockDefinition('two_columns'),
             $block->getDefinition()
         );
 
-        $this->assertTrue($block->hasPlaceholder('main'));
-        $this->assertInstanceOf(Placeholder::class, $block->getPlaceholder('main'));
+        $this->assertTrue($block->hasPlaceholder('left'));
+        $this->assertInstanceOf(Placeholder::class, $block->getPlaceholder('left'));
 
-        $placeholder = $block->getPlaceholder('main');
-        $this->assertEquals('main', $placeholder->getIdentifier());
+        $placeholder = $block->getPlaceholder('left');
+        $this->assertEquals('left', $placeholder->getIdentifier());
         $this->assertCount(1, $placeholder->getBlocks());
         $this->assertInstanceOf(APIBlock::class, $placeholder->getBlocks()[0]);
+
+        $this->assertTrue($block->hasPlaceholder('right'));
+        $this->assertInstanceOf(Placeholder::class, $block->getPlaceholder('right'));
+
+        $placeholder = $block->getPlaceholder('right');
+        $this->assertEquals('right', $placeholder->getIdentifier());
+        $this->assertCount(0, $placeholder->getBlocks());
     }
 
     /**

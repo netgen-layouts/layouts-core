@@ -180,12 +180,19 @@ abstract class ServiceTestCase extends TestCase
             new ContainerDefinitionHandler(array(), array('main', 'other'))
         );
 
+        $blockDefinition6 = new ContainerDefinition(
+            'two_columns',
+            array('two_columns_50_50' => array('standard')),
+            new ContainerDefinitionHandler(array(), array('left', 'right'))
+        );
+
         $this->blockDefinitionRegistry = new BlockDefinitionRegistry();
         $this->blockDefinitionRegistry->addBlockDefinition('title', $blockDefinition1);
         $this->blockDefinitionRegistry->addBlockDefinition('text', $blockDefinition2);
         $this->blockDefinitionRegistry->addBlockDefinition('gallery', $blockDefinition3);
         $this->blockDefinitionRegistry->addBlockDefinition('list', $blockDefinition4);
         $this->blockDefinitionRegistry->addBlockDefinition('column', $blockDefinition5);
+        $this->blockDefinitionRegistry->addBlockDefinition('two_columns', $blockDefinition6);
 
         $configDefinition1 = new ConfigDefinition('block', 'http_cache', new HttpCacheConfigHandler());
 

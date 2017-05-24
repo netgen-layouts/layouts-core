@@ -222,7 +222,7 @@ class BlockHandlerTest extends TestCase
                         'depth' => 2,
                         'path' => '/7/33/37/',
                         'parentId' => 33,
-                        'placeholder' => 'main',
+                        'placeholder' => 'left',
                         'position' => 0,
                         'definitionIdentifier' => 'text',
                         'viewType' => 'text',
@@ -238,7 +238,7 @@ class BlockHandlerTest extends TestCase
             ),
             $this->blockHandler->loadChildBlocks(
                 $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
-                'main'
+                'left'
             )
         );
     }
@@ -821,8 +821,8 @@ class BlockHandlerTest extends TestCase
                     'parentId' => 7,
                     'placeholder' => 'root',
                     'position' => 3,
-                    'definitionIdentifier' => 'column',
-                    'viewType' => 'column',
+                    'definitionIdentifier' => 'two_columns',
+                    'viewType' => 'two_columns_50_50',
                     'itemViewType' => 'standard',
                     'name' => 'My third block',
                     'parameters' => array(),
@@ -842,7 +842,7 @@ class BlockHandlerTest extends TestCase
                     'depth' => 2,
                     'path' => '/7/39/40/',
                     'parentId' => 39,
-                    'placeholder' => 'main',
+                    'placeholder' => 'left',
                     'position' => 0,
                     'definitionIdentifier' => 'text',
                     'viewType' => 'text',
@@ -1030,8 +1030,8 @@ class BlockHandlerTest extends TestCase
                     'parentId' => 4,
                     'placeholder' => 'root',
                     'position' => 0,
-                    'definitionIdentifier' => 'column',
-                    'viewType' => 'column',
+                    'definitionIdentifier' => 'two_columns',
+                    'viewType' => 'two_columns_50_50',
                     'itemViewType' => 'standard',
                     'name' => 'My third block',
                     'status' => Value::STATUS_DRAFT,
@@ -1055,7 +1055,7 @@ class BlockHandlerTest extends TestCase
                     'depth' => 2,
                     'path' => '/4/33/37/',
                     'parentId' => 33,
-                    'placeholder' => 'main',
+                    'placeholder' => 'left',
                     'position' => 0,
                     'definitionIdentifier' => 'text',
                     'viewType' => 'text',

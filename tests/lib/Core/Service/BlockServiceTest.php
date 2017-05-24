@@ -191,16 +191,16 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $targetBlock = $this->blockService->loadBlockDraft(33);
 
-        $block = $this->blockService->createBlock($blockCreateStruct, $targetBlock, 'main', 0);
+        $block = $this->blockService->createBlock($blockCreateStruct, $targetBlock, 'left', 0);
 
         $targetBlock = $this->blockService->loadBlockDraft(33);
-        $mainPlaceholder = $targetBlock->getPlaceholder('main');
+        $leftPlaceholder = $targetBlock->getPlaceholder('left');
 
         $this->assertFalse($block->isPublished());
         $this->assertInstanceOf(Block::class, $block);
-        $this->assertEquals($block->getId(), $mainPlaceholder->getBlocks()[0]->getId());
+        $this->assertEquals($block->getId(), $leftPlaceholder->getBlocks()[0]->getId());
 
-        $this->assertEquals(37, $mainPlaceholder->getBlocks()[1]->getId());
+        $this->assertEquals(37, $leftPlaceholder->getBlocks()[1]->getId());
 
         $collectionReferences = $this->blockService->loadCollectionReferences($block);
         $this->assertCount(1, $collectionReferences);
@@ -233,7 +233,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         );
 
         $targetBlock = $this->blockService->loadBlockDraft(33);
-        $block = $this->blockService->createBlock($blockCreateStruct, $targetBlock, 'main', 0);
+        $block = $this->blockService->createBlock($blockCreateStruct, $targetBlock, 'left', 0);
 
         $this->assertFalse($block->isPublished());
         $this->assertInstanceOf(Block::class, $block);
@@ -313,14 +313,14 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $targetBlock = $this->blockService->loadBlockDraft(33);
 
-        $block = $this->blockService->createBlock($blockCreateStruct, $targetBlock, 'main');
+        $block = $this->blockService->createBlock($blockCreateStruct, $targetBlock, 'left');
 
         $targetBlock = $this->blockService->loadBlockDraft(33);
-        $mainPlaceholder = $targetBlock->getPlaceholder('main');
+        $leftPlaceholder = $targetBlock->getPlaceholder('left');
 
         $this->assertFalse($block->isPublished());
         $this->assertInstanceOf(Block::class, $block);
-        $this->assertEquals($block->getId(), $mainPlaceholder->getBlocks()[1]->getId());
+        $this->assertEquals($block->getId(), $leftPlaceholder->getBlocks()[1]->getId());
     }
 
     /**
@@ -337,7 +337,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->blockService->createBlock(
             $blockCreateStruct,
             $this->blockService->loadBlockDraft(33),
-            'main',
+            'left',
             9999
         );
     }
@@ -356,7 +356,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->blockService->createBlock(
             $blockCreateStruct,
             $this->blockService->loadBlockDraft(33),
-            'main'
+            'left'
         );
     }
 
@@ -705,7 +705,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $copiedBlock = $this->blockService->copyBlock(
             $this->blockService->loadBlockDraft(31),
             $this->blockService->loadBlockDraft(33),
-            'main'
+            'left'
         );
 
         $this->assertFalse($copiedBlock->isPublished());
@@ -860,7 +860,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $movedBlock = $this->blockService->moveBlock(
             $this->blockService->loadBlockDraft(32),
             $this->blockService->loadBlockDraft(33),
-            'main',
+            'left',
             0
         );
 
@@ -869,9 +869,9 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertEquals(32, $movedBlock->getId());
 
         $targetBlock = $this->blockService->loadBlockDraft(33);
-        $mainPlaceholder = $targetBlock->getPlaceholder('main');
+        $leftPlaceholder = $targetBlock->getPlaceholder('left');
 
-        $this->assertEquals($movedBlock->getId(), $mainPlaceholder->getBlocks()[0]->getId());
+        $this->assertEquals($movedBlock->getId(), $leftPlaceholder->getBlocks()[0]->getId());
     }
 
     /**
@@ -883,7 +883,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $movedBlock = $this->blockService->moveBlock(
             $this->blockService->loadBlockDraft(37),
             $this->blockService->loadBlockDraft(33),
-            'other',
+            'right',
             0
         );
 
@@ -892,11 +892,11 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertEquals(37, $movedBlock->getId());
 
         $targetBlock = $this->blockService->loadBlockDraft(33);
-        $mainPlaceholder = $targetBlock->getPlaceholder('main');
-        $otherPlaceholder = $targetBlock->getPlaceholder('other');
+        $leftPlaceholder = $targetBlock->getPlaceholder('left');
+        $rightPlaceholder = $targetBlock->getPlaceholder('right');
 
-        $this->assertEmpty($mainPlaceholder->getBlocks());
-        $this->assertEquals($movedBlock->getId(), $otherPlaceholder->getBlocks()[0]->getId());
+        $this->assertEmpty($leftPlaceholder->getBlocks());
+        $this->assertEquals($movedBlock->getId(), $rightPlaceholder->getBlocks()[0]->getId());
     }
 
     /**
@@ -918,7 +918,7 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $originalBlock = $this->blockService->loadBlockDraft(33);
         $targetBlock = $this->blockService->loadBlockDraft(38);
-        $originalPlaceholder = $originalBlock->getPlaceholder('main');
+        $originalPlaceholder = $originalBlock->getPlaceholder('left');
         $targetPlaceholder = $targetBlock->getPlaceholder('main');
 
         $this->assertEmpty($originalPlaceholder->getBlocks());
@@ -935,7 +935,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->blockService->moveBlock(
             $this->blockService->loadBlock(31),
             $this->blockService->loadBlockDraft(33),
-            'main',
+            'left',
             0
         );
     }
@@ -950,7 +950,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->blockService->moveBlock(
             $this->blockService->loadBlockDraft(31),
             $this->blockService->loadBlock(33),
-            'main',
+            'left',
             0
         );
     }
@@ -965,7 +965,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->blockService->moveBlock(
             $this->blockService->loadBlockDraft(32),
             $this->blockService->loadBlockDraft(31),
-            'main',
+            'left',
             0
         );
     }
@@ -1010,7 +1010,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->blockService->moveBlock(
             $this->blockService->loadBlockDraft(32),
             $this->blockService->loadBlockDraft(33),
-            'main',
+            'left',
             9999
         );
     }
