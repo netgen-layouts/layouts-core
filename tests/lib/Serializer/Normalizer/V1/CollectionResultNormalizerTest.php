@@ -1,11 +1,11 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
+namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
 use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Core\Values\Collection\Item as CollectionItem;
 use Netgen\BlockManager\Item\Item;
-use Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionResultNormalizer;
+use Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value as APIValue;
 use PHPUnit\Framework\TestCase;
@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 class CollectionResultNormalizerTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionResultNormalizer
+     * @var \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer
      */
     protected $normalizer;
 
@@ -23,7 +23,7 @@ class CollectionResultNormalizerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionResultNormalizer::normalize
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer::normalize
      */
     public function testNormalize()
     {
@@ -66,7 +66,7 @@ class CollectionResultNormalizerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionResultNormalizer::normalize
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer::normalize
      */
     public function testNormalizeWithoutCollectionItem()
     {
@@ -105,7 +105,7 @@ class CollectionResultNormalizerTest extends TestCase
      * @param mixed $data
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionResultNormalizer::supportsNormalization
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
     public function testSupportsNormalization($data, $expected)

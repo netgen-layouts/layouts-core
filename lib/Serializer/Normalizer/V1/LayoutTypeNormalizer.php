@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer;
+namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;

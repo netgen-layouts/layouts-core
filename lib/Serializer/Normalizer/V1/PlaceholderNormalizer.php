@@ -1,15 +1,16 @@
 <?php
 
-namespace Netgen\BlockManager\Serializer\V1\ValueNormalizer;
+namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 
-use Netgen\BlockManager\API\Values\Collection\Query;
+use Netgen\BlockManager\API\Values\Block\Placeholder;
 use Netgen\BlockManager\Serializer\SerializerAwareTrait;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
+use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerAwareInterface;
 
-class CollectionQueryNormalizer implements NormalizerInterface, SerializerAwareInterface
+class PlaceholderNormalizer implements NormalizerInterface, SerializerAwareInterface
 {
     use SerializerAwareTrait;
 
@@ -24,19 +25,17 @@ class CollectionQueryNormalizer implements NormalizerInterface, SerializerAwareI
      */
     public function normalize($object, $format = null, array $context = array())
     {
-        /** @var \Netgen\BlockManager\API\Values\Collection\Query $query */
-        $query = $object->getValue();
+        /** @var \Netgen\BlockManager\API\Values\Block\Placeholder $placeholder */
+        $placeholder = $object->getValue();
 
-        $parameters = array();
-        foreach ($query->getParameters() as $parameter) {
-            $parameters[$parameter->getName()] = new VersionedValue($parameter, $object->getVersion());
+        $blocks = array();
+        foreach ($placeholder as $block) {
+            $blocks[] = new View($block, $object->getVersion());
         }
 
         return array(
-            'id' => $query->getId(),
-            'collection_id' => $query->getCollectionId(),
-            'type' => $query->getQueryType()->getType(),
-            'parameters' => $this->serializer->normalize($parameters, $format, $context),
+            'identifier' => $placeholder->getIdentifier(),
+            'blocks' => $this->serializer->normalize($blocks, $format, $context),
         );
     }
 
@@ -54,6 +53,6 @@ class CollectionQueryNormalizer implements NormalizerInterface, SerializerAwareI
             return false;
         }
 
-        return $data->getValue() instanceof Query && $data->getVersion() === Version::API_V1;
+        return $data->getValue() instanceof Placeholder && $data->getVersion() === Version::API_V1;
     }
 }

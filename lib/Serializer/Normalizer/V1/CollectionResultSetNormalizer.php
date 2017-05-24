@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Serializer\V1\ValueNormalizer;
+namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 
 use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Serializer\SerializerAwareTrait;

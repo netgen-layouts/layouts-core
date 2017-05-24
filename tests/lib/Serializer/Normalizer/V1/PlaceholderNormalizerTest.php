@@ -1,16 +1,17 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
+namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
-use Netgen\BlockManager\Collection\Result\Result;
-use Netgen\BlockManager\Collection\Result\ResultSet;
-use Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionResultSetNormalizer;
+use Netgen\BlockManager\Core\Values\Block\Block;
+use Netgen\BlockManager\Core\Values\Block\Placeholder;
+use Netgen\BlockManager\Serializer\Normalizer\V1\PlaceholderNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
+use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Serializer;
 
-class CollectionResultSetNormalizerTest extends TestCase
+class PlaceholderNormalizerTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -18,7 +19,7 @@ class CollectionResultSetNormalizerTest extends TestCase
     protected $serializerMock;
 
     /**
-     * @var \Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionResultSetNormalizer
+     * @var \Netgen\BlockManager\Serializer\Normalizer\V1\PlaceholderNormalizer
      */
     protected $normalizer;
 
@@ -26,44 +27,36 @@ class CollectionResultSetNormalizerTest extends TestCase
     {
         $this->serializerMock = $this->createMock(Serializer::class);
 
-        $this->normalizer = new CollectionResultSetNormalizer();
+        $this->normalizer = new PlaceholderNormalizer();
         $this->normalizer->setSerializer($this->serializerMock);
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionResultSetNormalizer::normalize
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\PlaceholderNormalizer::normalize
      */
     public function testNormalize()
     {
-        $result = new ResultSet(
+        $placeholder = new Placeholder(
             array(
-                'results' => array(
-                    new Result(),
-                    new Result(),
+                'identifier' => 'main',
+                'blocks' => array(
+                    new Block(),
                 ),
-                'totalCount' => 5,
             )
         );
 
         $this->serializerMock
             ->expects($this->at(0))
             ->method('normalize')
-            ->with(
-                $this->equalTo(
-                    array(
-                        new VersionedValue(new Result(), 1),
-                        new VersionedValue(new Result(), 1),
-                    )
-                )
-            )
-            ->will($this->returnValue(array('items')));
+            ->with($this->equalTo(array(new View(new Block(), 1))))
+            ->will($this->returnValue(array('normalized blocks')));
 
         $this->assertEquals(
             array(
-                'items' => array('items'),
-                'item_count' => 5,
+                'identifier' => 'main',
+                'blocks' => array('normalized blocks'),
             ),
-            $this->normalizer->normalize(new VersionedValue($result, 1))
+            $this->normalizer->normalize(new VersionedValue($placeholder, 1))
         );
     }
 
@@ -71,7 +64,7 @@ class CollectionResultSetNormalizerTest extends TestCase
      * @param mixed $data
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionResultSetNormalizer::supportsNormalization
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\PlaceholderNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
     public function testSupportsNormalization($data, $expected)
@@ -90,15 +83,15 @@ class CollectionResultSetNormalizerTest extends TestCase
             array(null, false),
             array(true, false),
             array(false, false),
-            array('block', false),
+            array('placeholder', false),
             array(array(), false),
             array(42, false),
             array(42.12, false),
             array(new Value(), false),
-            array(new ResultSet(), false),
+            array(new Placeholder(), false),
             array(new VersionedValue(new Value(), 1), false),
-            array(new VersionedValue(new ResultSet(), 2), false),
-            array(new VersionedValue(new ResultSet(), 1), true),
+            array(new VersionedValue(new Placeholder(), 2), false),
+            array(new VersionedValue(new Placeholder(), 1), true),
         );
     }
 }

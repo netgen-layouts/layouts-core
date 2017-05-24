@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Serializer\V1\ValueNormalizer;
+namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 
 use DateTime;
 use Netgen\BlockManager\API\Service\BlockService;

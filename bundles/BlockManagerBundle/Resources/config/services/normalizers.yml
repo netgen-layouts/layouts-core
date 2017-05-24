@@ -26,29 +26,29 @@ services:
             - { name: serializer.normalizer }
 
     netgen_block_manager.normalizer.v1.parameter_value:
-        class: Netgen\BlockManager\Serializer\V1\ValueNormalizer\ParameterValueNormalizer
+        class: Netgen\BlockManager\Serializer\Normalizer\V1\ParameterValueNormalizer
         tags:
             - { name: serializer.normalizer }
 
     netgen_block_manager.normalizer.v1.block:
-        class: Netgen\BlockManager\Serializer\V1\ValueNormalizer\BlockNormalizer
+        class: Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer
         arguments:
             - "@netgen_block_manager.api.service.block"
         tags:
             - { name: serializer.normalizer }
 
     netgen_block_manager.normalizer.v1.placeholder:
-        class: Netgen\BlockManager\Serializer\V1\ValueNormalizer\PlaceholderNormalizer
+        class: Netgen\BlockManager\Serializer\Normalizer\V1\PlaceholderNormalizer
         tags:
             - { name: serializer.normalizer }
 
     netgen_block_manager.normalizer.v1.collection_reference:
-        class: Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionReferenceNormalizer
+        class: Netgen\BlockManager\Serializer\Normalizer\V1\CollectionReferenceNormalizer
         tags:
             - { name: serializer.normalizer }
 
     netgen_block_manager.normalizer.v1.layout:
-        class: Netgen\BlockManager\Serializer\V1\ValueNormalizer\LayoutNormalizer
+        class: Netgen\BlockManager\Serializer\Normalizer\V1\LayoutNormalizer
         arguments:
             - "@netgen_block_manager.api.service.layout"
             - "@netgen_block_manager.api.service.block"
@@ -56,43 +56,43 @@ services:
             - { name: serializer.normalizer }
 
     netgen_block_manager.normalizer.v1.collection:
-        class: Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionNormalizer
+        class: Netgen\BlockManager\Serializer\Normalizer\V1\CollectionNormalizer
         tags:
             - { name: serializer.normalizer }
 
     netgen_block_manager.normalizer.v1.collection_item:
-        class: Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionItemNormalizer
+        class: Netgen\BlockManager\Serializer\Normalizer\V1\CollectionItemNormalizer
         arguments:
             - "@netgen_block_manager.item.item_loader"
         tags:
             - { name: serializer.normalizer }
 
     netgen_block_manager.normalizer.v1.collection_query:
-        class: Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionQueryNormalizer
+        class: Netgen\BlockManager\Serializer\Normalizer\V1\CollectionQueryNormalizer
         tags:
             - { name: serializer.normalizer }
 
     netgen_block_manager.normalizer.v1.collection_result_set:
-        class: Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionResultSetNormalizer
+        class: Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultSetNormalizer
         tags:
             - { name: serializer.normalizer }
 
     netgen_block_manager.normalizer.v1.collection_result:
-        class: Netgen\BlockManager\Serializer\V1\ValueNormalizer\CollectionResultNormalizer
+        class: Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer
         tags:
             - { name: serializer.normalizer }
 
     netgen_block_manager.normalizer.v1.block_type:
-        class: Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\BlockTypeNormalizer
+        class: Netgen\BlockManager\Serializer\Normalizer\V1\BlockTypeNormalizer
         tags:
             - { name: serializer.normalizer }
 
     netgen_block_manager.normalizer.v1.block_type_group:
-        class: Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\BlockTypeGroupNormalizer
+        class: Netgen\BlockManager\Serializer\Normalizer\V1\BlockTypeGroupNormalizer
         tags:
             - { name: serializer.normalizer }
 
     netgen_block_manager.normalizer.v1.layout_type:
-        class: Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\LayoutTypeNormalizer
+        class: Netgen\BlockManager\Serializer\Normalizer\V1\LayoutTypeNormalizer
         tags:
             - { name: serializer.normalizer }

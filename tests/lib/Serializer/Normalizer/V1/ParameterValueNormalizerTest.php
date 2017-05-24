@@ -1,11 +1,11 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Serializer\V1\ValueNormalizer;
+namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Parameters\ParameterType\TextType;
 use Netgen\BlockManager\Parameters\ParameterValue;
-use Netgen\BlockManager\Serializer\V1\ValueNormalizer\ParameterValueNormalizer;
+use Netgen\BlockManager\Serializer\Normalizer\V1\ParameterValueNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use PHPUnit\Framework\TestCase;
@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 class ParameterValueNormalizerTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Serializer\V1\ValueNormalizer\ParameterValueNormalizer
+     * @var \Netgen\BlockManager\Serializer\Normalizer\V1\ParameterValueNormalizer
      */
     protected $normalizer;
 
@@ -23,7 +23,7 @@ class ParameterValueNormalizerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\ParameterValueNormalizer::normalize
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\ParameterValueNormalizer::normalize
      */
     public function testNormalize()
     {
@@ -48,7 +48,7 @@ class ParameterValueNormalizerTest extends TestCase
      * @param mixed $data
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\Serializer\V1\ValueNormalizer\ParameterValueNormalizer::supportsNormalization
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\ParameterValueNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
     public function testSupportsNormalization($data, $expected)

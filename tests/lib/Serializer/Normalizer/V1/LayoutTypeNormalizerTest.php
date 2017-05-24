@@ -1,11 +1,11 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Serializer\V1\ConfigurationNormalizer;
+namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Layout\Type\LayoutTypeFactory;
 use Netgen\BlockManager\Layout\Type\Zone;
-use Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\LayoutTypeNormalizer;
+use Netgen\BlockManager\Serializer\Normalizer\V1\LayoutTypeNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use PHPUnit\Framework\TestCase;
@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 class LayoutTypeNormalizerTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\LayoutTypeNormalizer
+     * @var \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutTypeNormalizer
      */
     protected $normalizer;
 
@@ -23,8 +23,8 @@ class LayoutTypeNormalizerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\LayoutTypeNormalizer::normalize
-     * @covers \Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\LayoutTypeNormalizer::getZones
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutTypeNormalizer::normalize
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutTypeNormalizer::getZones
      */
     public function testNormalize()
     {
@@ -71,7 +71,7 @@ class LayoutTypeNormalizerTest extends TestCase
      * @param mixed $data
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\Serializer\V1\ConfigurationNormalizer\LayoutTypeNormalizer::supportsNormalization
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutTypeNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
     public function testSupportsNormalization($data, $expected)
