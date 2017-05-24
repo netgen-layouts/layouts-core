@@ -2,7 +2,6 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 
-use Exception;
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\Item;
@@ -160,31 +159,25 @@ class CollectionController extends Controller
 
         $items = $request->request->get('items');
 
-        $this->collectionService->beginTransaction();
+        $this->collectionService->transaction(
+            function () use ($collection, $items) {
+                foreach ($items as $item) {
+                    $itemCreateStruct = $this->collectionService->newItemCreateStruct(
+                        $item['type'],
+                        $item['value_id'],
+                        $item['value_type']
+                    );
 
-        try {
-            foreach ($items as $item) {
-                $itemCreateStruct = $this->collectionService->newItemCreateStruct(
-                    $item['type'],
-                    $item['value_id'],
-                    $item['value_type']
-                );
-
-                $this->collectionService->addItem(
-                    $collection,
-                    $itemCreateStruct,
-                    isset($item['position']) ? $item['position'] : null
-                );
+                    $this->collectionService->addItem(
+                        $collection,
+                        $itemCreateStruct,
+                        isset($item['position']) ? $item['position'] : null
+                    );
+                }
             }
+        );
 
-            $this->collectionService->commitTransaction();
-
-            return new Response(null, Response::HTTP_NO_CONTENT);
-        } catch (Exception $e) {
-            $this->collectionService->rollbackTransaction();
-
-            throw $e;
-        }
+        return new Response(null, Response::HTTP_NO_CONTENT);
     }
 
     /**
