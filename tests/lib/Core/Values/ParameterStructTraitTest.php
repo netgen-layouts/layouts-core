@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Values;
 
-use Netgen\BlockManager\API\Values\ParameterStruct;
+use Netgen\BlockManager\API\Values\ParameterStructTrait;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameter;
@@ -10,21 +10,21 @@ use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterCollection;
 use PHPUnit\Framework\TestCase;
 
-class ParameterStructTest extends TestCase
+class ParameterStructTraitTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\ParameterStruct
+     * @var \Netgen\BlockManager\API\Values\ParameterStructTrait
      */
     protected $struct;
 
     public function setUp()
     {
-        $this->struct = $this->getMockForAbstractClass(ParameterStruct::class);
+        $this->struct = $this->getMockForTrait(ParameterStructTrait::class);
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::__construct
-     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::getParameterValues
+     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::__construct
+     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::getParameterValues
      */
     public function testDefaultProperties()
     {
@@ -32,8 +32,8 @@ class ParameterStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::setParameterValues
-     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::getParameterValues
+     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::setParameterValues
+     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::getParameterValues
      */
     public function testSetParameterValues()
     {
@@ -54,7 +54,7 @@ class ParameterStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::setParameterValue
+     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::setParameterValue
      */
     public function testSetParameterValue()
     {
@@ -71,7 +71,7 @@ class ParameterStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::setParameterValue
+     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::setParameterValue
      */
     public function testOverwriteParameterValues()
     {
@@ -82,7 +82,7 @@ class ParameterStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::getParameterValue
+     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::getParameterValue
      */
     public function testGetParameterValue()
     {
@@ -92,7 +92,7 @@ class ParameterStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::getParameterValue
+     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::getParameterValue
      * @expectedException \Netgen\BlockManager\Exception\Core\ParameterException
      * @expectedExceptionMessage Parameter value for "some_other_param" parameter does not exist.
      */
@@ -104,7 +104,7 @@ class ParameterStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::hasParameterValue
+     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::hasParameterValue
      */
     public function testHasParameterValue()
     {
@@ -114,7 +114,7 @@ class ParameterStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::hasParameterValue
+     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::hasParameterValue
      */
     public function testHasParameterValueWithNoValue()
     {
@@ -124,8 +124,8 @@ class ParameterStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::fillValues
-     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::buildValue
+     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::fillValues
+     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::buildValue
      */
     public function testFillValues()
     {
@@ -150,8 +150,8 @@ class ParameterStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::fillValues
-     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::buildValue
+     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::fillValues
+     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::buildValue
      */
     public function testFillValuesWithParameterValueInstances()
     {
@@ -184,8 +184,8 @@ class ParameterStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::fillValues
-     * @covers \Netgen\BlockManager\API\Values\ParameterStruct::buildValue
+     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::fillValues
+     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::buildValue
      */
     public function testFillValuesWithoutDefaults()
     {

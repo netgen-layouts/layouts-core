@@ -5,9 +5,12 @@ namespace Netgen\BlockManager\API\Values\Block;
 use Netgen\BlockManager\API\Values\Config\ConfigAwareStruct;
 use Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait;
 use Netgen\BlockManager\API\Values\ParameterStruct;
+use Netgen\BlockManager\API\Values\ParameterStructTrait;
+use Netgen\BlockManager\ValueObject;
 
-class BlockCreateStruct extends ParameterStruct implements ConfigAwareStruct
+class BlockCreateStruct extends ValueObject implements ParameterStruct, ConfigAwareStruct
 {
+    use ParameterStructTrait;
     use ConfigAwareStructTrait;
 
     /**

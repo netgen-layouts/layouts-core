@@ -2,29 +2,16 @@
 
 namespace Netgen\BlockManager\API\Values;
 
-use Netgen\BlockManager\Exception\Core\ParameterException;
-use Netgen\BlockManager\Parameters\CompoundParameterInterface;
 use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
-use Netgen\BlockManager\Parameters\ParameterInterface;
-use Netgen\BlockManager\Parameters\ParameterValue;
-use Netgen\BlockManager\ValueObject;
 
-abstract class ParameterStruct extends ValueObject
+interface ParameterStruct
 {
-    /**
-     * @var array
-     */
-    protected $parameterValues = array();
-
     /**
      * Sets the parameter values to the struct.
      *
      * @param array $parameterValues
      */
-    public function setParameterValues(array $parameterValues)
-    {
-        $this->parameterValues = $parameterValues;
-    }
+    public function setParameterValues(array $parameterValues);
 
     /**
      * Sets the parameter value to the struct.
@@ -32,20 +19,14 @@ abstract class ParameterStruct extends ValueObject
      * @param string $parameterName
      * @param mixed $parameterValue
      */
-    public function setParameterValue($parameterName, $parameterValue)
-    {
-        $this->parameterValues[$parameterName] = $parameterValue;
-    }
+    public function setParameterValue($parameterName, $parameterValue);
 
     /**
      * Returns all parameter values from the struct.
      *
      * @return array
      */
-    public function getParameterValues()
-    {
-        return $this->parameterValues;
-    }
+    public function getParameterValues();
 
     /**
      * Returns the parameter value with provided name.
@@ -56,14 +37,7 @@ abstract class ParameterStruct extends ValueObject
      *
      * @return mixed
      */
-    public function getParameterValue($parameterName)
-    {
-        if (!$this->hasParameterValue($parameterName)) {
-            throw ParameterException::noParameterValue($parameterName);
-        }
-
-        return $this->parameterValues[$parameterName];
-    }
+    public function getParameterValue($parameterName);
 
     /**
      * Returns if the struct has a parameter value with provided name.
@@ -72,10 +46,7 @@ abstract class ParameterStruct extends ValueObject
      *
      * @return bool
      */
-    public function hasParameterValue($parameterName)
-    {
-        return array_key_exists($parameterName, $this->parameterValues);
-    }
+    public function hasParameterValue($parameterName);
 
     /**
      * Fills the struct values based on provided list of parameters and values.
@@ -84,40 +55,5 @@ abstract class ParameterStruct extends ValueObject
      * @param array $values
      * @param bool $useDefaults
      */
-    public function fillValues(ParameterCollectionInterface $parameterCollection, $values = array(), $useDefaults = true)
-    {
-        foreach ($parameterCollection->getParameters() as $parameter) {
-            $value = $this->buildValue($parameter, $values, $useDefaults);
-            $this->setParameterValue($parameter->getName(), $value);
-
-            if ($parameter instanceof CompoundParameterInterface) {
-                $this->fillValues($parameter, $values, $useDefaults);
-            }
-        }
-    }
-
-    /**
-     * Builds the value suitable for usage by the struct for provided parameter.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
-     * @param array $values
-     * @param bool $useDefaults
-     *
-     * @return mixed
-     */
-    protected function buildValue(ParameterInterface $parameter, array $values = array(), $useDefaults = true)
-    {
-        if (!array_key_exists($parameter->getName(), $values)) {
-            return $useDefaults ? $parameter->getDefaultValue() : null;
-        }
-
-        $value = $values[$parameter->getName()];
-        if ($value instanceof ParameterValue) {
-            $value = $value->getValue();
-
-            return is_object($value) ? clone $value : $value;
-        }
-
-        return $parameter->getType()->createValueFromInput($value);
-    }
+    public function fillValues(ParameterCollectionInterface $parameterCollection, $values = array(), $useDefaults = true);
 }

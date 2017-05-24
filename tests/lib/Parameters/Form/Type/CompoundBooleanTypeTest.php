@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\Form\Type;
 
-use Netgen\BlockManager\API\Values\ParameterStruct;
 use Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType;
+use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterStruct;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -33,14 +33,14 @@ class CompoundBooleanTypeTest extends FormTestCase
             ),
         );
 
-        $updatedStruct = $this->getMockForAbstractClass(ParameterStruct::class);
+        $updatedStruct = new ParameterStruct();
         $updatedStruct->setParameterValue('main_checkbox', true);
         $updatedStruct->setParameterValue('css_id', 'Some CSS ID');
         $updatedStruct->setParameterValue('css_class', 'Some CSS class');
 
         $parentForm = $this->factory->create(
             FormType::class,
-            $this->getMockForAbstractClass(ParameterStruct::class)
+            new ParameterStruct()
         );
 
         $parentForm->add(
@@ -95,12 +95,12 @@ class CompoundBooleanTypeTest extends FormTestCase
             ),
         );
 
-        $updatedStruct = $this->getMockForAbstractClass(ParameterStruct::class);
+        $updatedStruct = new ParameterStruct();
         $updatedStruct->setParameterValue('main_checkbox', false);
 
         $parentForm = $this->factory->create(
             FormType::class,
-            $this->getMockForAbstractClass(ParameterStruct::class)
+            new ParameterStruct()
         );
 
         $parentForm->add(
@@ -152,12 +152,12 @@ class CompoundBooleanTypeTest extends FormTestCase
             'main_checkbox' => array(),
         );
 
-        $updatedStruct = $this->getMockForAbstractClass(ParameterStruct::class);
+        $updatedStruct = new ParameterStruct();
         $updatedStruct->setParameterValue('main_checkbox', false);
 
         $parentForm = $this->factory->create(
             FormType::class,
-            $this->getMockForAbstractClass(ParameterStruct::class)
+            new ParameterStruct()
         );
 
         $parentForm->add(
@@ -213,12 +213,12 @@ class CompoundBooleanTypeTest extends FormTestCase
             ),
         );
 
-        $updatedStruct = $this->getMockForAbstractClass(ParameterStruct::class);
+        $updatedStruct = new ParameterStruct();
         $updatedStruct->setParameterValue('main_checkbox', true);
 
         $parentForm = $this->factory->create(
             FormType::class,
-            $this->getMockForAbstractClass(ParameterStruct::class)
+            new ParameterStruct()
         );
 
         $parentForm->add(
@@ -274,14 +274,14 @@ class CompoundBooleanTypeTest extends FormTestCase
             ),
         );
 
-        $updatedStruct = $this->getMockForAbstractClass(ParameterStruct::class);
+        $updatedStruct = new ParameterStruct();
         $updatedStruct->setParameterValue('main_checkbox', false);
         $updatedStruct->setParameterValue('css_id', 'Some CSS ID');
         $updatedStruct->setParameterValue('css_class', 'Some CSS class');
 
         $parentForm = $this->factory->create(
             FormType::class,
-            $this->getMockForAbstractClass(ParameterStruct::class)
+            new ParameterStruct()
         );
 
         $parentForm->add(

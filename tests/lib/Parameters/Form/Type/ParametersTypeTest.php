@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\Form\Type;
 
-use Netgen\BlockManager\API\Values\ParameterStruct;
 use Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension;
 use Netgen\BlockManager\Parameters\Form\Mapper\Compound\BooleanMapper;
 use Netgen\BlockManager\Parameters\Form\Mapper\TextLineMapper;
@@ -13,6 +12,7 @@ use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
 use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameter;
 use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterCollection;
+use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterStruct;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -59,7 +59,7 @@ class ParametersTypeTest extends FormTestCase
             ),
         );
 
-        $updatedStruct = $this->getMockForAbstractClass(ParameterStruct::class);
+        $updatedStruct = new ParameterStruct();
         $updatedStruct->setParameterValue('css_id', 'Some CSS ID');
         $updatedStruct->setParameterValue('css_class', 'Some CSS class');
         $updatedStruct->setParameterValue('compound', true);
@@ -67,7 +67,7 @@ class ParametersTypeTest extends FormTestCase
 
         $parentForm = $this->factory->create(
             FormType::class,
-            $this->getMockForAbstractClass(ParameterStruct::class)
+            new ParameterStruct()
         );
 
         $compoundParameter = new CompoundParameter(
@@ -167,12 +167,12 @@ class ParametersTypeTest extends FormTestCase
             ),
         );
 
-        $updatedStruct = $this->getMockForAbstractClass(ParameterStruct::class);
+        $updatedStruct = new ParameterStruct();
         $updatedStruct->setParameterValue('css_id', 'Some CSS ID');
 
         $parentForm = $this->factory->create(
             FormType::class,
-            $this->getMockForAbstractClass(ParameterStruct::class)
+            new ParameterStruct()
         );
 
         $parameterCollection = new ParameterCollection(
