@@ -160,23 +160,6 @@
                 .nl-dropdown-menu {
                     left:0;
                     right:0;
-                    box-shadow:none;
-                    border-radius:0;
-                    background:hsl(0, 0, 25);
-                    color:#fff;
-                    text-align:right;
-                    a {
-                        color:inherit;
-                        &:hover:not([disabled]) {
-                            background:hsla(0, 0, 100, .05);
-                        }
-                    }
-                }
-                &.nl-dropdown-active {
-                    .nl-btn {
-                        background:hsl(0, 0, 25);
-                        color:#fff;
-                    }
                 }
             }
         }

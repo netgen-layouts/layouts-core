@@ -1,14 +1,17 @@
 .nl-dropdown {
     position:relative;
+    &[data-position="right"] {
+        text-align:right;
+    }
     .nl-dropdown-menu {
         display:none;
         position:absolute;
         top:100%;
         left:0;
-        background:#fff;
+        border-radius:0;
+        background:hsl(0, 0, 25);
+        color:#fff;
         z-index:1000;
-        box-shadow:0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
-        border-radius:2px;
         margin:0;
         padding:0.5em 0;
         list-style-type:none;
@@ -30,9 +33,9 @@
             }
         }
         a {
-            color:$textColor;
+            color:inherit;
             &:hover:not([disabled]) {
-                background:hsl(0, 0, 90);
+                background:hsla(0, 0, 100, .05);
             }
         }
     }
@@ -40,6 +43,10 @@
         .nl-dropdown-menu {
             display:block;
             animation:showDropdown 200ms ease-out;
+        }
+        .nl-dropdown-toggle {
+            background:hsl(0, 0, 25);
+            color:#fff;
         }
     }
     &[data-position="right"] {
