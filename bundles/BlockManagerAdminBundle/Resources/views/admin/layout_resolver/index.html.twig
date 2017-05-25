@@ -7,44 +7,32 @@
 {% endblock %}
 
 {% block content %}
-    {% if rules|length > 0 %}
-        <div id="rules">
-            <div class="layouts-header">
-                <h2 class="layouts-title">{{ 'menu.main_menu.layout_resolver'|trans }}</h2>
-                <div class="layouts-controls">
-                    <button class="nl-btn nl-btn-white sorting-hide js-sort-start"><i class="material-icons">swap_vert</i> {{ 'layout_resolver.reorder_rules'|trans }}</button>
-                    <button id="add-new-button" class="nl-btn nl-btn-primary js-add-rule"><i class="material-icons">add</i> {{ 'layout_resolver.add_new_rule'|trans }}</button>
-                    <button class="nl-btn nl-btn sorting-show js-sort-cancel">{{ 'layout_resolver.cancel'|trans }}</button>
-                    <button class="nl-btn nl-btn-primary sorting-show js-sort-save">{{ 'layout_resolver.save_order'|trans }}</button>
-                </div>
-                <p>{{ 'layout_resolver.priority.notice'|trans }}</p>
+    <div id="rules">
+        <div class="layouts-header">
+            <h2 class="layouts-title">{{ 'menu.main_menu.layout_resolver'|trans }}</h2>
+            <div class="layouts-controls">
+                <button class="nl-btn nl-btn-white sorting-hide js-sort-start"><i class="material-icons">swap_vert</i> {{ 'layout_resolver.reorder_rules'|trans }}</button>
+                <button id="add-new-button" class="nl-btn nl-btn-primary js-add-rule"><i class="material-icons">add</i> {{ 'layout_resolver.add_new_rule'|trans }}</button>
+                <button class="nl-btn nl-btn sorting-show js-sort-cancel">{{ 'layout_resolver.cancel'|trans }}</button>
+                <button class="nl-btn nl-btn-primary sorting-show js-sort-save">{{ 'layout_resolver.save_order'|trans }}</button>
             </div>
-            <div class="nl-rules-head">
-                <div class="nl-rule-cell rule-priority">{{ 'layout_resolver.priority'|trans }}</div>
-                <div class="nl-rules-head-wrapper">
-                    <div class="nl-rule-cell rule-layout">{{ 'layout_resolver.mapped_layout'|trans }}</div>
-                    <div class="nl-rule-cell rule-targets">{{ 'layout_resolver.targets'|trans }}</div>
-                    <div class="nl-rule-cell rule-conditions">{{ 'layout_resolver.conditions'|trans }}</div>
-                </div>
-            </div>
-            <div class="nl-rules">
-                {% for rule in rules %}
-                    <div class="nl-rule">
-                        {{ ngbm_render_rule(rule, [], 'admin') }}
-                    </div>
-                {% endfor %}
+            <p>{{ 'layout_resolver.priority.notice'|trans }}</p>
+        </div>
+        <div class="nl-rules-head">
+            <div class="nl-rule-cell rule-priority">{{ 'layout_resolver.priority'|trans }}</div>
+            <div class="nl-rules-head-wrapper">
+                <div class="nl-rule-cell rule-layout">{{ 'layout_resolver.mapped_layout'|trans }}</div>
+                <div class="nl-rule-cell rule-targets">{{ 'layout_resolver.targets'|trans }}</div>
+                <div class="nl-rule-cell rule-conditions">{{ 'layout_resolver.conditions'|trans }}</div>
             </div>
         </div>
-    {% else %}
-        <div id="rules">
-            <div class="layouts-header">
-                <h2 class="layouts-title">{{ 'menu.main_menu.layout_resolver'|trans }}</h2>
-                <div class="layouts-controls">
-                    <button id="add-new-button" class="nl-btn nl-btn-primary js-add-rule"><i class="material-icons">add</i> {{ 'layout_resolver.add_new_rule'|trans }}</button>
+        <div class="nl-rules">
+            {% for rule in rules %}
+                <div class="nl-rule">
+                    {{ ngbm_render_rule(rule, [], 'admin') }}
                 </div>
-                <p>{{ 'layout_resolver.no_rules'|trans }}</p>
-            </div>
-            <div class="nl-rules"></div>
+            {% endfor %}
         </div>
-    {% endif %}
+        <p class="nl-no-items">{{ 'layout_resolver.no_rules'|trans }}</p>
+    </div>
 {% endblock %}

@@ -165,7 +165,7 @@
         }
     }
     .nl-layouts-head {
-        display:none;
+        display:none !important;
     }
     @media screen and (max-width:1400px) {
         .nl-layout {
