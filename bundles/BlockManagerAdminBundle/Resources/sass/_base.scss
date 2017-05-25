@@ -30,6 +30,8 @@ body {
     line-height:1.5;
     color:$textColor;
     min-height:100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     a:not(.nl-btn) {
         color:$linkColor;
     }
