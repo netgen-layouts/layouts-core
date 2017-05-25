@@ -29,6 +29,7 @@ class BlockTypeNormalizer implements NormalizerInterface
 
         return array(
             'identifier' => $blockType->getIdentifier(),
+            'enabled' => $blockType->isEnabled(),
             'name' => $blockType->getName(),
             'definition_identifier' => $blockDefinition->getIdentifier(),
             'is_container' => $isContainer,

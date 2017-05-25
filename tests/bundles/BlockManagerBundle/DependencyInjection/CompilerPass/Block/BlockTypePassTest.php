@@ -247,7 +247,28 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        $this->assertContainerBuilderNotHasService('netgen_block_manager.block.block_type.type');
+        $blockTypes = $this->container->getParameter('netgen_block_manager.block_types');
+
+        $this->assertInternalType('array', $blockTypes);
+        $this->assertArrayHasKey('type', $blockTypes);
+
+        $this->assertEquals(
+            array(
+                'enabled' => false,
+                'definition_identifier' => 'title',
+            ),
+            $blockTypes['type']
+        );
+
+        $this->assertContainerBuilderHasService('netgen_block_manager.block.block_type.type');
+        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+            'netgen_block_manager.block.registry.block_type',
+            'addBlockType',
+            array(
+                'type',
+                new Reference('netgen_block_manager.block.block_type.type'),
+            )
+        );
     }
 
     /**
@@ -257,6 +278,63 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::validateBlockTypes
      */
     public function testProcessWithDisabledBlockDefinition()
+    {
+        $this->setParameter(
+            'netgen_block_manager.block_types',
+            array(
+                'title' => array(
+                    'enabled' => true,
+                    'definition_identifier' => 'title',
+                ),
+            )
+        );
+
+        $this->setParameter(
+            'netgen_block_manager.block_definitions',
+            array(
+                'title' => array(
+                    'name' => 'Title',
+                    'enabled' => false,
+                ),
+            )
+        );
+
+        $this->setDefinition('netgen_block_manager.block.registry.block_type', new Definition());
+
+        $this->compile();
+
+        $blockTypes = $this->container->getParameter('netgen_block_manager.block_types');
+
+        $this->assertInternalType('array', $blockTypes);
+        $this->assertArrayHasKey('title', $blockTypes);
+
+        $this->assertEquals(
+            array(
+                'enabled' => false,
+                'definition_identifier' => 'title',
+                'name' => 'Title',
+            ),
+            $blockTypes['title']
+        );
+
+        $this->assertContainerBuilderHasService('netgen_block_manager.block.block_type.title');
+        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+            'netgen_block_manager.block.registry.block_type',
+            'addBlockType',
+            array(
+                'title',
+                new Reference('netgen_block_manager.block.block_type.title'),
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::generateBlockTypeConfig
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::buildBlockTypes
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::validateBlockTypes
+     */
+    public function testProcessWithDisabledBlockDefinitionAndAdditionalBlockType()
     {
         $this->setParameter(
             'netgen_block_manager.block_types',
@@ -282,7 +360,28 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        $this->assertContainerBuilderNotHasService('netgen_block_manager.block.block_type.type');
+        $blockTypes = $this->container->getParameter('netgen_block_manager.block_types');
+
+        $this->assertInternalType('array', $blockTypes);
+        $this->assertArrayHasKey('type', $blockTypes);
+
+        $this->assertEquals(
+            array(
+                'enabled' => false,
+                'definition_identifier' => 'title',
+            ),
+            $blockTypes['type']
+        );
+
+        $this->assertContainerBuilderHasService('netgen_block_manager.block.block_type.type');
+        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+            'netgen_block_manager.block.registry.block_type',
+            'addBlockType',
+            array(
+                'type',
+                new Reference('netgen_block_manager.block.block_type.type'),
+            )
+        );
     }
 
     /**

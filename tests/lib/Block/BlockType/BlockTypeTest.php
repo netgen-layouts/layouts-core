@@ -26,6 +26,7 @@ class BlockTypeTest extends TestCase
             array(
                 'identifier' => 'title',
                 'name' => 'Title',
+                'isEnabled' => false,
                 'definition' => $this->blockDefinition,
                 'defaults' => array(
                     'name' => 'Name',
@@ -44,6 +45,14 @@ class BlockTypeTest extends TestCase
     public function testGetIdentifier()
     {
         $this->assertEquals('title', $this->blockType->getIdentifier());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockType\BlockType::isEnabled
+     */
+    public function testIsEnabled()
+    {
+        $this->assertFalse($this->blockType->isEnabled());
     }
 
     /**

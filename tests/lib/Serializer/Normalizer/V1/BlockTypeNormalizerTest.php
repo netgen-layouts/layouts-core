@@ -36,6 +36,7 @@ class BlockTypeNormalizerTest extends TestCase
         $blockType = new BlockType(
             array(
                 'identifier' => 'identifier',
+                'isEnabled' => false,
                 'name' => 'Block type',
                 'definition' => $this->blockDefinition,
                 'defaults' => array(
@@ -49,6 +50,7 @@ class BlockTypeNormalizerTest extends TestCase
         $this->assertEquals(
             array(
                 'identifier' => $blockType->getIdentifier(),
+                'enabled' => false,
                 'name' => $blockType->getName(),
                 'definition_identifier' => $this->blockDefinition->getIdentifier(),
                 'is_container' => false,

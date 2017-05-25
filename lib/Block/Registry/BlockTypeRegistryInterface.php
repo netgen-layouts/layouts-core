@@ -40,7 +40,9 @@ interface BlockTypeRegistryInterface extends IteratorAggregate, Countable, Array
     /**
      * Returns all block types.
      *
+     * @param bool $onlyEnabled
+     *
      * @return \Netgen\BlockManager\Block\BlockType\BlockType[]
      */
-    public function getBlockTypes();
+    public function getBlockTypes($onlyEnabled = false);
 }

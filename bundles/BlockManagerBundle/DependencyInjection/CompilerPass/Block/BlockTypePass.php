@@ -32,7 +32,7 @@ class BlockTypePass implements CompilerPassInterface
         $container->setParameter('netgen_block_manager.block_types', $blockTypes);
 
         $this->validateBlockTypes($blockTypes, $blockDefinitions);
-        $blockTypeServices = $this->buildBlockTypes($container, $blockTypes, $blockDefinitions);
+        $blockTypeServices = $this->buildBlockTypes($container, $blockTypes);
 
         $registry = $container->findDefinition(self::SERVICE_NAME);
 
@@ -75,11 +75,30 @@ class BlockTypePass implements CompilerPassInterface
                 continue;
             }
 
+            if (!$blockDefinition['enabled']) {
+                $blockTypes[$identifier]['enabled'] = false;
+            } elseif (!isset($blockTypes[$identifier]['enabled'])) {
+                $blockTypes[$identifier]['enabled'] = true;
+            }
+
             $blockTypes[$identifier] = $blockTypes[$identifier] + array(
                 'name' => $blockDefinition['name'],
-                'enabled' => $blockDefinition['enabled'],
                 'definition_identifier' => $identifier,
             );
+        }
+
+        foreach ($blockTypes as $identifier => $blockType) {
+            $definitionIdentifier = isset($blockType['definition_identifier']) ?
+                $blockType['definition_identifier'] :
+                $identifier;
+
+            if (!isset($blockDefinitions[$definitionIdentifier])) {
+                continue;
+            }
+
+            if (!$blockDefinitions[$definitionIdentifier]['enabled']) {
+                $blockTypes[$identifier]['enabled'] = false;
+            }
         }
 
         return $blockTypes;
@@ -90,20 +109,14 @@ class BlockTypePass implements CompilerPassInterface
      *
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @param array $blockTypes
-     * @param array $blockDefinitions
      *
      * @return array
      */
-    protected function buildBlockTypes(ContainerBuilder $container, array $blockTypes, array $blockDefinitions)
+    protected function buildBlockTypes(ContainerBuilder $container, array $blockTypes)
     {
         $blockTypeServices = array();
 
         foreach ($blockTypes as $identifier => $blockType) {
-            $definitionIdentifier = $blockType['definition_identifier'];
-            if (!$blockType['enabled'] || !$blockDefinitions[$definitionIdentifier]['enabled']) {
-                continue;
-            }
-
             $serviceIdentifier = sprintf('netgen_block_manager.block.block_type.%s', $identifier);
 
             $container->register($serviceIdentifier, BlockType::class)
@@ -114,7 +127,7 @@ class BlockTypePass implements CompilerPassInterface
                         new Reference(
                             sprintf(
                                 'netgen_block_manager.block.block_definition.%s',
-                                $definitionIdentifier
+                                $blockType['definition_identifier']
                             )
                         ),
                     )

@@ -12,6 +12,11 @@ class BlockType extends ValueObject
     protected $identifier;
 
     /**
+     * @var bool
+     */
+    protected $isEnabled;
+
+    /**
      * @var string
      */
     protected $name;
@@ -34,6 +39,16 @@ class BlockType extends ValueObject
     public function getIdentifier()
     {
         return $this->identifier;
+    }
+
+    /**
+     * Returns if the block type is enabled or not.
+     *
+     * @return bool
+     */
+    public function isEnabled()
+    {
+        return $this->isEnabled;
     }
 
     /**
