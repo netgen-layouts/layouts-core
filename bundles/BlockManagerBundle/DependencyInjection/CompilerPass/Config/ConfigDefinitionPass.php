@@ -15,6 +15,8 @@ class ConfigDefinitionPass implements CompilerPassInterface
     const TAG_NAME = 'netgen_block_manager.config.config_definition_handler';
     const SUPPORTED_TYPES = array('block');
 
+    protected $seenIdentifiers = array();
+
     /**
      * You can modify the container here before it is dumped to PHP code.
      *
@@ -56,6 +58,18 @@ class ConfigDefinitionPass implements CompilerPassInterface
 
                 $identifier = $tag['identifier'];
 
+                if (isset($this->seenIdentifiers[$type][$identifier])) {
+                    throw new RuntimeException(
+                        sprintf(
+                            "Config definition with '%s' identifier is defined more than once for '%s' config type.",
+                            $identifier,
+                            $type
+                        )
+                    );
+                }
+
+                $this->seenIdentifiers[$type][$identifier] = true;
+
                 $configDefinitionServiceName = sprintf('netgen_block_manager.config.config_definition.%s.%s', $type, $identifier);
                 $configDefinitionService = new Definition(ConfigDefinition::class);
 
@@ -71,7 +85,6 @@ class ConfigDefinitionPass implements CompilerPassInterface
                     'addConfigDefinition',
                     array(
                         $type,
-                        $identifier,
                         new Reference($configDefinitionServiceName),
                     )
                 );

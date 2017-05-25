@@ -46,17 +46,18 @@ class ConfigMapper
         $configs = array();
 
         $configDefinitions = $this->configDefinitionRegistry->getConfigDefinitions($type);
-        foreach ($configDefinitions as $identifier => $configDefinition) {
+        foreach ($configDefinitions as $configDefinition) {
+            $configIdentifier = $configDefinition->getIdentifier();
             $parameters = $this->parameterMapper->mapParameters(
                 $configDefinition,
-                isset($config[$identifier]) ?
-                    $config[$identifier] :
+                isset($config[$configIdentifier]) ?
+                    $config[$configIdentifier] :
                     array()
             );
 
-            $configs[$identifier] = new Config(
+            $configs[$configIdentifier] = new Config(
                 array(
-                    'identifier' => $identifier,
+                    'identifier' => $configIdentifier,
                     'definition' => $configDefinition,
                     'parameters' => $parameters,
                 )
@@ -85,21 +86,22 @@ class ConfigMapper
         $configs = array();
         $configDefinitions = $this->configDefinitionRegistry->getConfigDefinitions($type);
 
-        foreach ($configDefinitions as $identifier => $configDefinition) {
+        foreach ($configDefinitions as $configDefinition) {
             $configValues = array();
+            $configIdentifier = $configDefinition->getIdentifier();
 
             if (
-                isset($configStructs[$identifier]) &&
-                $configStructs[$identifier] instanceof ParameterStruct
+                isset($configStructs[$configIdentifier]) &&
+                $configStructs[$configIdentifier] instanceof ParameterStruct
             ) {
-                $configValues = $configStructs[$identifier]->getParameterValues();
+                $configValues = $configStructs[$configIdentifier]->getParameterValues();
             }
 
-            $configs[$identifier] = $this->parameterMapper->serializeValues(
+            $configs[$configIdentifier] = $this->parameterMapper->serializeValues(
                 $configDefinition,
                 $configValues,
-                isset($fallbackValues[$identifier]) ?
-                    $fallbackValues[$identifier] :
+                isset($fallbackValues[$configIdentifier]) ?
+                    $fallbackValues[$configIdentifier] :
                     array()
             );
         }

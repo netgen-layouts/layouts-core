@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Core\Service\Validator;
 
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Config\Registry\ConfigDefinitionRegistryInterface;
-use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct as ParameterStructConstraint;
 use Symfony\Component\Validator\Constraints;
 
@@ -35,34 +34,22 @@ class ConfigValidator extends Validator
      */
     public function validateConfigStructs($type, array $configStructs)
     {
-        foreach ($configStructs as $identifier => $configStruct) {
-            if (!$this->configDefinitionRegistry->hasConfigDefinition($type, $identifier)) {
-                throw ValidationException::validationFailed(
-                    'configStructs',
-                    sprintf(
-                        '"%s" config definition is not defined for "%s" type.',
-                        $identifier,
-                        $type
-                    )
-                );
-            }
-        }
-
         $configDefinitions = $this->configDefinitionRegistry->getConfigDefinitions($type);
-        foreach ($configDefinitions as $identifier => $configDefinition) {
-            if (!isset($configStructs[$identifier])) {
+        foreach ($configDefinitions as $configDefinition) {
+            $configIdentifier = $configDefinition->getIdentifier();
+            if (!isset($configStructs[$configIdentifier])) {
                 continue;
             }
 
             $this->validate(
-                $configStructs[$identifier],
+                $configStructs[$configIdentifier],
                 array(
                     new Constraints\Type(array('type' => ConfigStruct::class)),
                 )
             );
 
             $this->validate(
-                $configStructs[$identifier],
+                $configStructs[$configIdentifier],
                 array(
                     new ParameterStructConstraint(
                         array(

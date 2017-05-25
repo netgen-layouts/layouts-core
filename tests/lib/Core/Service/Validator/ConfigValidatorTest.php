@@ -43,20 +43,12 @@ class ConfigValidatorTest extends TestCase
 
         $configDefinitionRegistry->addConfigDefinition(
             'block',
-            'test',
             $this->getConfigDefinition('test')
         );
 
         $configDefinitionRegistry->addConfigDefinition(
             'block',
-            'test2',
             $this->getConfigDefinition('test2')
-        );
-
-        $configDefinitionRegistry->addConfigDefinition(
-            'block',
-            'test3',
-            $this->getConfigDefinition('test3')
         );
 
         $this->configValidator = new ConfigValidator($configDefinitionRegistry);
@@ -148,14 +140,6 @@ class ConfigValidatorTest extends TestCase
                     ),
                     'test2' => array(
                         'use_http_cache' => 42,
-                    ),
-                ),
-                false,
-            ),
-            array(
-                array(
-                    'test4' => array(
-                        'use_http_cache' => true,
                     ),
                 ),
                 false,

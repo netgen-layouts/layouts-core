@@ -209,7 +209,7 @@ abstract class BlockTest extends ServiceTestCase
             )
         );
 
-        $this->configDefinitionRegistry->addConfigDefinition('block', 'definition', $configDefinition);
+        $this->configDefinitionRegistry->addConfigDefinition('block', $configDefinition);
 
         return $configDefinition;
     }

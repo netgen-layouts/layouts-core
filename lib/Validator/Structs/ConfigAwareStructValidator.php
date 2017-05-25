@@ -37,6 +37,10 @@ class ConfigAwareStructValidator extends ConstraintValidator
         $configs = $constraint->payload->getConfigs();
 
         foreach ($value->getConfigStructs() as $identifier => $configStruct) {
+            if (!isset($configs[$identifier])) {
+                continue;
+            }
+
             $validator->atPath('configStructs[' . $identifier . '].parameterValues')->validate(
                 $configStruct,
                 array(

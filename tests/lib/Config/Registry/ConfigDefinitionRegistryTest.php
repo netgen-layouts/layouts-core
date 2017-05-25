@@ -29,7 +29,7 @@ class ConfigDefinitionRegistryTest extends TestCase
             new HttpCacheConfigHandler()
         );
 
-        $this->registry->addConfigDefinition('block', 'http_cache', $this->configDefinition);
+        $this->registry->addConfigDefinition('block', $this->configDefinition);
     }
 
     /**
@@ -38,7 +38,7 @@ class ConfigDefinitionRegistryTest extends TestCase
      */
     public function testGetConfigDefinitions()
     {
-        $this->assertEquals(array('http_cache' => $this->configDefinition), $this->registry->getConfigDefinitions('block'));
+        $this->assertEquals(array($this->configDefinition), $this->registry->getConfigDefinitions('block'));
     }
 
     /**
@@ -47,39 +47,5 @@ class ConfigDefinitionRegistryTest extends TestCase
     public function testGetConfigDefinitionsWithNoType()
     {
         $this->assertEquals(array(), $this->registry->getConfigDefinitions('unknown'));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Config\Registry\ConfigDefinitionRegistry::getConfigDefinition
-     */
-    public function testGetConfigDefinition()
-    {
-        $this->assertEquals($this->configDefinition, $this->registry->getConfigDefinition('block', 'http_cache'));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Config\Registry\ConfigDefinitionRegistry::getConfigDefinition
-     * @expectedException \Netgen\BlockManager\Exception\Config\ConfigDefinitionException
-     * @expectedExceptionMessage Config definition for "block" type and "unknown" identifier does not exist.
-     */
-    public function testGetConfigDefinitionThrowsConfigDefinitionException()
-    {
-        $this->registry->getConfigDefinition('block', 'unknown');
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Config\Registry\ConfigDefinitionRegistry::hasConfigDefinition
-     */
-    public function testHasConfigDefinition()
-    {
-        $this->assertTrue($this->registry->hasConfigDefinition('block', 'http_cache'));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Config\Registry\ConfigDefinitionRegistry::hasConfigDefinition
-     */
-    public function testHasConfigDefinitionWithNoConfigDefinition()
-    {
-        $this->assertFalse($this->registry->hasConfigDefinition('block', 'unknown'));
     }
 }

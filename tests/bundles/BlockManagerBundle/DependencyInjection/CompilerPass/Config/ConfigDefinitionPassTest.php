@@ -41,7 +41,6 @@ class ConfigDefinitionPassTest extends AbstractCompilerPassTestCase
             'addConfigDefinition',
             array(
                 'block',
-                'http_cache',
                 new Reference('netgen_block_manager.config.config_definition.block.http_cache'),
             )
         );

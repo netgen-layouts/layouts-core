@@ -70,6 +70,10 @@ class EditType extends AbstractType
         }
 
         foreach ($configIdentifiers as $identifier) {
+            if (!isset($configs[$identifier])) {
+                continue;
+            }
+
             $configDefinition = $configs[$identifier]->getDefinition();
             if (!$configDefinition->isEnabled($configAwareValue)) {
                 continue;

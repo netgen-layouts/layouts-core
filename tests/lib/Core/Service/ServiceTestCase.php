@@ -197,7 +197,7 @@ abstract class ServiceTestCase extends TestCase
         $configDefinition1 = new ConfigDefinition('block', 'http_cache', new HttpCacheConfigHandler());
 
         $this->configDefinitionRegistry = new ConfigDefinitionRegistry();
-        $this->configDefinitionRegistry->addConfigDefinition('block', 'http_cache', $configDefinition1);
+        $this->configDefinitionRegistry->addConfigDefinition('block', $configDefinition1);
 
         $this->targetTypeRegistry = new TargetTypeRegistry();
         $this->targetTypeRegistry->addTargetType(new TargetType('target'));
