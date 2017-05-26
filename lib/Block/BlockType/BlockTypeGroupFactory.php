@@ -18,6 +18,7 @@ class BlockTypeGroupFactory
         return new BlockTypeGroup(
             array(
                 'identifier' => $identifier,
+                'isEnabled' => $config['enabled'],
                 'name' => $config['name'],
                 'blockTypes' => $blockTypes,
             )

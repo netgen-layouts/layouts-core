@@ -26,6 +26,7 @@ class BlockTypeGroupNormalizer implements NormalizerInterface
 
         return array(
             'identifier' => $blockTypeGroup->getIdentifier(),
+            'enabled' => $blockTypeGroup->isEnabled(),
             'name' => $blockTypeGroup->getName(),
             'block_types' => array_map(
                 function (BlockType $blockType) {

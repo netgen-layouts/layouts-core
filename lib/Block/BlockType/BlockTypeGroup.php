@@ -12,6 +12,11 @@ class BlockTypeGroup extends ValueObject
     protected $identifier;
 
     /**
+     * @var bool
+     */
+    protected $isEnabled;
+
+    /**
      * @var string
      */
     protected $name;
@@ -29,6 +34,16 @@ class BlockTypeGroup extends ValueObject
     public function getIdentifier()
     {
         return $this->identifier;
+    }
+
+    /**
+     * Returns if the block type group is enabled or not.
+     *
+     * @return bool
+     */
+    public function isEnabled()
+    {
+        return $this->isEnabled;
     }
 
     /**

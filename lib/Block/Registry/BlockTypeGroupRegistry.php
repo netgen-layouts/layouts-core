@@ -58,11 +58,22 @@ class BlockTypeGroupRegistry implements BlockTypeGroupRegistryInterface
     /**
      * Returns all block type groups.
      *
+     * @param bool $onlyEnabled
+     *
      * @return \Netgen\BlockManager\Block\BlockType\BlockTypeGroup[]
      */
-    public function getBlockTypeGroups()
+    public function getBlockTypeGroups($onlyEnabled = false)
     {
-        return $this->blockTypeGroups;
+        if (!$onlyEnabled) {
+            return $this->blockTypeGroups;
+        }
+
+        return array_filter(
+            $this->blockTypeGroups,
+            function (BlockTypeGroup $blockTypeGroup) {
+                return $blockTypeGroup->isEnabled();
+            }
+        );
     }
 
     /**

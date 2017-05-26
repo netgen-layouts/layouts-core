@@ -83,7 +83,7 @@ class ConfigController extends Controller
     public function getBlockTypes()
     {
         $blockTypeGroups = array();
-        foreach ($this->blockTypeGroupRegistry->getBlockTypeGroups() as $blockTypeGroup) {
+        foreach ($this->blockTypeGroupRegistry->getBlockTypeGroups(true) as $blockTypeGroup) {
             if (!empty($blockTypeGroup->getBlockTypes(true))) {
                 $blockTypeGroups[] = new VersionedValue($blockTypeGroup, Version::API_V1);
             }

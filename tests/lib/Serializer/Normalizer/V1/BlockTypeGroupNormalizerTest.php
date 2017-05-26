@@ -29,6 +29,7 @@ class BlockTypeGroupNormalizerTest extends TestCase
         $blockTypeGroup = new BlockTypeGroup(
             array(
                 'identifier' => 'identifier',
+                'isEnabled' => true,
                 'name' => 'Block group',
                 'blockTypes' => array(new BlockType(array('identifier' => 'type'))),
             )
@@ -37,6 +38,7 @@ class BlockTypeGroupNormalizerTest extends TestCase
         $this->assertEquals(
             array(
                 'identifier' => $blockTypeGroup->getIdentifier(),
+                'enabled' => true,
                 'name' => $blockTypeGroup->getName(),
                 'block_types' => array('type'),
             ),

@@ -55,13 +55,9 @@ class BlockTypeGroupPass implements CompilerPassInterface
         $missingBlockTypes = array();
 
         // We will add all blocks which are not located in any group to a custom group
-        // if it exists and is enabled
-        if (isset($blockTypeGroups['custom']) && $blockTypeGroups['custom']['enabled']) {
+        // if it exists
+        if (isset($blockTypeGroups['custom'])) {
             foreach ($blockTypes as $identifier => $blockType) {
-                if (!$blockType['enabled']) {
-                    continue;
-                }
-
                 foreach ($blockTypeGroups as $blockTypeGroup) {
                     if (in_array($identifier, $blockTypeGroup['block_types'], true)) {
                         continue 2;
@@ -94,15 +90,11 @@ class BlockTypeGroupPass implements CompilerPassInterface
         $blockTypeGroupServices = array();
 
         foreach ($blockTypeGroups as $identifier => $blockTypeGroup) {
-            if (!$blockTypeGroup['enabled']) {
-                continue;
-            }
-
             $serviceIdentifier = sprintf('netgen_block_manager.block.block_type_group.%s', $identifier);
 
             $blockTypeReferences = array();
             foreach ($blockTypeGroup['block_types'] as $blockTypeIdentifier) {
-                if (isset($blockTypes[$blockTypeIdentifier]) && $blockTypes[$blockTypeIdentifier]['enabled']) {
+                if (isset($blockTypes[$blockTypeIdentifier])) {
                     $blockTypeReferences[] = new Reference(
                         sprintf(
                             'netgen_block_manager.block.block_type.%s',

@@ -133,7 +133,7 @@ class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
         $this->assertEquals(
             array(
                 'enabled' => true,
-                'block_types' => array('test3'),
+                'block_types' => array('test2', 'test3'),
             ),
             $blockTypeGroups['custom']
         );
@@ -162,7 +162,16 @@ class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        $this->assertContainerBuilderNotHasService('netgen_block_manager.block.block_type_group.test');
+        $blockTypeGroups = $this->container->getParameter('netgen_block_manager.block_type_groups');
+        $this->assertArrayHasKey('test', $blockTypeGroups);
+
+        $this->assertEquals(
+            array(
+                'enabled' => false,
+                'block_types' => array(),
+            ),
+            $blockTypeGroups['test']
+        );
     }
 
     /**
