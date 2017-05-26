@@ -9,7 +9,6 @@ use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterfac
 use Netgen\BlockManager\Block\BlockDefinitionFactory;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Block\TwigBlockDefinitionInterface;
-use Netgen\BlockManager\Config\Registry\ConfigDefinitionRegistry;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 use Netgen\BlockManager\Tests\Config\Stubs\Block\HttpCacheConfigHandler;
@@ -34,11 +33,6 @@ class BlockDefinitionFactoryTest extends TestCase
     protected $parameterBuilderFactoryMock;
 
     /**
-     * @var \Netgen\BlockManager\Config\Registry\ConfigDefinitionRegistryInterface
-     */
-    protected $configDefinitionRegistry;
-
-    /**
      * @var \Netgen\BlockManager\Block\BlockDefinitionFactory
      */
     protected $factory;
@@ -57,14 +51,7 @@ class BlockDefinitionFactoryTest extends TestCase
                 )
             );
 
-        $this->configDefinitionRegistry = new ConfigDefinitionRegistry();
-        $this->configDefinitionRegistry->addConfigDefinition('block', $this->getConfigDefinition('test'));
-        $this->configDefinitionRegistry->addConfigDefinition('block', $this->getConfigDefinition('test2'));
-
-        $this->factory = new BlockDefinitionFactory(
-            $this->parameterBuilderFactoryMock,
-            $this->configDefinitionRegistry
-        );
+        $this->factory = new BlockDefinitionFactory($this->parameterBuilderFactoryMock);
     }
 
     /**
@@ -79,7 +66,11 @@ class BlockDefinitionFactoryTest extends TestCase
         $blockDefinition = $this->factory->buildBlockDefinition(
             'definition',
             $this->handlerMock,
-            $this->configMock
+            $this->configMock,
+            array(
+                $this->getConfigDefinition('test'),
+                $this->getConfigDefinition('test2'),
+            )
         );
 
         $this->assertInstanceOf(BlockDefinitionInterface::class, $blockDefinition);
@@ -87,7 +78,10 @@ class BlockDefinitionFactoryTest extends TestCase
         $this->assertEquals($this->configMock, $blockDefinition->getConfig());
 
         $this->assertEquals(
-            $this->configDefinitionRegistry->getConfigDefinitions('block'),
+            array(
+                $this->getConfigDefinition('test'),
+                $this->getConfigDefinition('test2'),
+            ),
             $blockDefinition->getConfigDefinitions()
         );
     }
@@ -103,7 +97,11 @@ class BlockDefinitionFactoryTest extends TestCase
         $blockDefinition = $this->factory->buildTwigBlockDefinition(
             'definition',
             $this->handlerMock,
-            $this->configMock
+            $this->configMock,
+            array(
+                $this->getConfigDefinition('test'),
+                $this->getConfigDefinition('test2'),
+            )
         );
 
         $this->assertInstanceOf(TwigBlockDefinitionInterface::class, $blockDefinition);
@@ -111,7 +109,10 @@ class BlockDefinitionFactoryTest extends TestCase
         $this->assertEquals($this->configMock, $blockDefinition->getConfig());
 
         $this->assertEquals(
-            $this->configDefinitionRegistry->getConfigDefinitions('block'),
+            array(
+                $this->getConfigDefinition('test'),
+                $this->getConfigDefinition('test2'),
+            ),
             $blockDefinition->getConfigDefinitions()
         );
     }
@@ -132,7 +133,11 @@ class BlockDefinitionFactoryTest extends TestCase
         $blockDefinition = $this->factory->buildContainerDefinition(
             'definition',
             $this->handlerMock,
-            $this->configMock
+            $this->configMock,
+            array(
+                $this->getConfigDefinition('test'),
+                $this->getConfigDefinition('test2'),
+            )
         );
 
         $this->assertInstanceOf(BlockDefinitionInterface::class, $blockDefinition);
@@ -140,7 +145,10 @@ class BlockDefinitionFactoryTest extends TestCase
         $this->assertEquals($this->configMock, $blockDefinition->getConfig());
 
         $this->assertEquals(
-            $this->configDefinitionRegistry->getConfigDefinitions('block'),
+            array(
+                $this->getConfigDefinition('test'),
+                $this->getConfigDefinition('test2'),
+            ),
             $blockDefinition->getConfigDefinitions()
         );
 

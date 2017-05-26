@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
-use Netgen\BlockManager\Config\Registry\ConfigDefinitionRegistry;
 use Netgen\BlockManager\Core\Service\BlockService;
 use Netgen\BlockManager\Core\Service\CollectionService;
 use Netgen\BlockManager\Core\Service\LayoutResolverService;
@@ -57,11 +56,6 @@ abstract class ServiceTestCase extends TestCase
      * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface
      */
     protected $blockDefinitionRegistry;
-
-    /**
-     * @var \Netgen\BlockManager\Config\Registry\ConfigDefinitionRegistryInterface
-     */
-    protected $configDefinitionRegistry;
 
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface
@@ -171,8 +165,6 @@ abstract class ServiceTestCase extends TestCase
         $this->queryTypeRegistry->addQueryType('ezcontent_search', new QueryType('ezcontent_search'));
 
         $configDefinition1 = new ConfigDefinition('block', 'http_cache', new HttpCacheConfigHandler());
-        $this->configDefinitionRegistry = new ConfigDefinitionRegistry();
-        $this->configDefinitionRegistry->addConfigDefinition('block', $configDefinition1);
 
         $blockDefinition1 = new BlockDefinition(
             'title',
@@ -420,9 +412,6 @@ abstract class ServiceTestCase extends TestCase
      */
     protected function createConfigMapper()
     {
-        return new ConfigMapper(
-            $this->createParameterMapper(),
-            $this->configDefinitionRegistry
-        );
+        return new ConfigMapper($this->createParameterMapper());
     }
 }

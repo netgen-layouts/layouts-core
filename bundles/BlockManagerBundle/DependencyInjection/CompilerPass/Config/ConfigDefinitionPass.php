@@ -11,7 +11,6 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class ConfigDefinitionPass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_block_manager.config.registry.config_definition';
     const TAG_NAME = 'netgen_block_manager.config.config_definition_handler';
     const SUPPORTED_TYPES = array('block');
 
@@ -24,11 +23,6 @@ class ConfigDefinitionPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (!$container->has(self::SERVICE_NAME)) {
-            return;
-        }
-
-        $configDefinitionRegistry = $container->findDefinition(self::SERVICE_NAME);
         $configDefinitionHandlers = $container->findTaggedServiceIds(self::TAG_NAME);
 
         foreach ($configDefinitionHandlers as $configDefinitionHandler => $tags) {
@@ -80,14 +74,6 @@ class ConfigDefinitionPass implements CompilerPassInterface
                 $configDefinitionService->setFactory(array(new Reference('netgen_block_manager.config.config_definition_factory'), 'buildConfigDefinition'));
 
                 $container->setDefinition($configDefinitionServiceName, $configDefinitionService);
-
-                $configDefinitionRegistry->addMethodCall(
-                    'addConfigDefinition',
-                    array(
-                        $type,
-                        new Reference($configDefinitionServiceName),
-                    )
-                );
             }
         }
     }

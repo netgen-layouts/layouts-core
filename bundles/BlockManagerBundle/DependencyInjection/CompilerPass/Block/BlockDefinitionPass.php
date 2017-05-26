@@ -100,6 +100,12 @@ class BlockDefinitionPass implements CompilerPassInterface
             $blockDefinitionService->addArgument($identifier);
             $blockDefinitionService->addArgument(new Reference($foundHandler));
             $blockDefinitionService->addArgument(new Reference($configServiceName));
+            $blockDefinitionService->addArgument(
+                array(
+                    new Reference('netgen_block_manager.config.config_definition.block.http_cache'),
+                )
+            );
+
             $blockDefinitionService->setFactory(array(new Reference('netgen_block_manager.block.block_definition_factory'), $factoryMethod));
 
             $container->setDefinition($blockDefinitionServiceName, $blockDefinitionService);

@@ -7,7 +7,6 @@ use Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
-use Netgen\BlockManager\Config\Registry\ConfigDefinitionRegistry;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\ConfigValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
@@ -38,7 +37,7 @@ abstract class BlockTest extends ServiceTestCase
 
         $validator = $this->getValidator();
 
-        $configValidator = new ConfigValidator(new ConfigDefinitionRegistry());
+        $configValidator = new ConfigValidator();
         $configValidator->setValidator($validator);
 
         $blockValidator = new BlockValidator($configValidator);

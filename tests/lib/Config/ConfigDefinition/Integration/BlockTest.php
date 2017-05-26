@@ -41,7 +41,7 @@ abstract class BlockTest extends ServiceTestCase
 
         $validator = $this->getValidator();
 
-        $configValidator = new ConfigValidator($this->configDefinitionRegistry);
+        $configValidator = new ConfigValidator();
         $configValidator->setValidator($validator);
 
         $blockValidator = new BlockValidator($configValidator);
@@ -204,7 +204,7 @@ abstract class BlockTest extends ServiceTestCase
             }
         }
 
-        $configDefinition = new ConfigDefinition(
+        return new ConfigDefinition(
             array(
                 'type' => 'block',
                 'identifier' => 'definition',
@@ -212,10 +212,6 @@ abstract class BlockTest extends ServiceTestCase
                 'parameters' => $filteredParameters,
             )
         );
-
-        $this->configDefinitionRegistry->addConfigDefinition('block', $configDefinition);
-
-        return $configDefinition;
     }
 
     /**

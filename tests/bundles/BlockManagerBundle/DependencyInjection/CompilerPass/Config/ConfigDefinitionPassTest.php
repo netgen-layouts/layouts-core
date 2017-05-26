@@ -7,7 +7,6 @@ use Netgen\BlockManager\Config\ConfigDefinition;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Config\ConfigDefinitionPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
-use Symfony\Component\DependencyInjection\Reference;
 
 class ConfigDefinitionPassTest extends AbstractCompilerPassTestCase
 {
@@ -16,8 +15,6 @@ class ConfigDefinitionPassTest extends AbstractCompilerPassTestCase
      */
     public function testProcess()
     {
-        $this->setDefinition('netgen_block_manager.config.registry.config_definition', new Definition());
-
         $configDefinitionHandler = new Definition();
         $configDefinitionHandler->addTag(
             'netgen_block_manager.config.config_definition_handler',
@@ -35,15 +32,6 @@ class ConfigDefinitionPassTest extends AbstractCompilerPassTestCase
             'netgen_block_manager.config.config_definition.block.http_cache',
             ConfigDefinition::class
         );
-
-        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
-            'netgen_block_manager.config.registry.config_definition',
-            'addConfigDefinition',
-            array(
-                'block',
-                new Reference('netgen_block_manager.config.config_definition.block.http_cache'),
-            )
-        );
     }
 
     /**
@@ -53,8 +41,6 @@ class ConfigDefinitionPassTest extends AbstractCompilerPassTestCase
      */
     public function testProcessThrowsExceptionWithNoTagType()
     {
-        $this->setDefinition('netgen_block_manager.config.registry.config_definition', new Definition());
-
         $configDefinitionHandler = new Definition();
         $configDefinitionHandler->addTag('netgen_block_manager.config.config_definition_handler', array('identifier' => 'http_cache'));
         $this->setDefinition('netgen_block_manager.config.config_definition.handler.test', $configDefinitionHandler);
@@ -69,8 +55,6 @@ class ConfigDefinitionPassTest extends AbstractCompilerPassTestCase
      */
     public function testProcessThrowsExceptionWithUnsupportedTagType()
     {
-        $this->setDefinition('netgen_block_manager.config.registry.config_definition', new Definition());
-
         $configDefinitionHandler = new Definition();
         $configDefinitionHandler->addTag('netgen_block_manager.config.config_definition_handler', array('type' => 'unknown', 'identifier' => 'http_cache'));
         $this->setDefinition('netgen_block_manager.config.config_definition.handler.test', $configDefinitionHandler);
@@ -85,8 +69,6 @@ class ConfigDefinitionPassTest extends AbstractCompilerPassTestCase
      */
     public function testProcessThrowsExceptionWithNoTagIdentifier()
     {
-        $this->setDefinition('netgen_block_manager.config.registry.config_definition', new Definition());
-
         $configDefinitionHandler = new Definition();
         $configDefinitionHandler->addTag('netgen_block_manager.config.config_definition_handler', array('type' => 'block'));
         $this->setDefinition('netgen_block_manager.config.config_definition.handler.test', $configDefinitionHandler);
