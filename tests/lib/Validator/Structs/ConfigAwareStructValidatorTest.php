@@ -6,7 +6,6 @@ use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Config\Config;
-use Netgen\BlockManager\Core\Values\Config\ConfigCollection;
 use Netgen\BlockManager\Tests\Config\Stubs\Block\HttpCacheConfigHandler;
 use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinition;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
@@ -23,21 +22,17 @@ class ConfigAwareStructValidatorTest extends ValidatorTestCase
 
         $this->constraint->payload = new Block(
             array(
-                'configCollection' => new ConfigCollection(
-                    array(
-                        'configs' => array(
-                            'http_cache' => new Config(
-                                array(
-                                    'identifier' => 'http_cache',
-                                    'definition' => new ConfigDefinition(
-                                        'block',
-                                        'http_cache',
-                                        new HttpCacheConfigHandler()
-                                    ),
-                                )
+                'configs' => array(
+                    'http_cache' => new Config(
+                        array(
+                            'identifier' => 'http_cache',
+                            'definition' => new ConfigDefinition(
+                                'block',
+                                'http_cache',
+                                new HttpCacheConfigHandler()
                             ),
-                        ),
-                    )
+                        )
+                    ),
                 ),
             )
         );

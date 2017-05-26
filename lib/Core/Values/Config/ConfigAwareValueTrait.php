@@ -2,22 +2,14 @@
 
 namespace Netgen\BlockManager\Core\Values\Config;
 
+use Netgen\BlockManager\Exception\Core\ConfigException;
+
 trait ConfigAwareValueTrait
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Config\ConfigCollection
+     * @var \Netgen\BlockManager\API\Values\Config\Config[]
      */
-    protected $configCollection;
-
-    /**
-     * Returns the config collection.
-     *
-     * @return \Netgen\BlockManager\API\Values\Config\ConfigCollection
-     */
-    public function getConfigCollection()
-    {
-        return $this->configCollection;
-    }
+    protected $configs;
 
     /**
      * Returns all available configs.
@@ -26,7 +18,7 @@ trait ConfigAwareValueTrait
      */
     public function getConfigs()
     {
-        return $this->configCollection->getConfigs();
+        return $this->configs;
     }
 
     /**
@@ -34,11 +26,17 @@ trait ConfigAwareValueTrait
      *
      * @param string $identifier
      *
+     * @throws \Netgen\BlockManager\Exception\Core\ConfigException If the config does not exist
+     *
      * @return \Netgen\BlockManager\API\Values\Config\Config
      */
     public function getConfig($identifier)
     {
-        return $this->configCollection->getConfig($identifier);
+        if (isset($this->configs[$identifier])) {
+            return $this->configs[$identifier];
+        }
+
+        throw ConfigException::noConfig($identifier);
     }
 
     /**
@@ -50,6 +48,6 @@ trait ConfigAwareValueTrait
      */
     public function hasConfig($identifier)
     {
-        return $this->configCollection->hasConfig($identifier);
+        return isset($this->configs[$identifier]);
     }
 }

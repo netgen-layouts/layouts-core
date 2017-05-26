@@ -34,20 +34,32 @@ class BlockDefinition implements BlockDefinitionInterface
     protected $hasCollection;
 
     /**
+     * @var \Netgen\BlockManager\Config\ConfigDefinitionInterface[]
+     */
+    protected $configDefinitions;
+
+    /**
      * Constructor.
      *
      * @param string $identifier
      * @param array $viewTypes
      * @param \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface $handler
      * @param bool $hasCollection
+     * @param \Netgen\BlockManager\Config\ConfigDefinitionInterface[] $configDefinitions
      */
-    public function __construct($identifier, array $viewTypes = array(), BlockDefinitionHandlerInterface $handler = null, $hasCollection = false)
-    {
+    public function __construct(
+        $identifier,
+        array $viewTypes = array(),
+        BlockDefinitionHandlerInterface $handler = null,
+        $hasCollection = false,
+        array $configDefinitions = array()
+    ) {
         $this->identifier = $identifier;
         $this->viewTypes = $viewTypes;
         $this->hasCollection = $hasCollection;
 
         $this->handler = $handler ?: new BlockDefinitionHandler();
+        $this->configDefinitions = $configDefinitions;
     }
 
     /**
@@ -156,5 +168,15 @@ class BlockDefinition implements BlockDefinitionInterface
                 'viewTypes' => $viewTypes,
             )
         );
+    }
+
+    /**
+     * Returns the available config definitions.
+     *
+     * @return \Netgen\BlockManager\Config\ConfigDefinitionInterface[]
+     */
+    public function getConfigDefinitions()
+    {
+        return $this->configDefinitions;
     }
 }

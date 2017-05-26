@@ -6,7 +6,6 @@ use Exception;
 use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\Block\Block;
-use Netgen\BlockManager\Core\Values\Config\ConfigCollection;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Persistence\Values\Block\Block as PersistenceBlock;
@@ -147,11 +146,7 @@ class BlockServiceTest extends ServiceTestCase
                 array(
                     'published' => false,
                     'definition' => new BlockDefinition('block_definition'),
-                    'configCollection' => new ConfigCollection(
-                        array(
-                            'configType' => 'block',
-                        )
-                    ),
+                    'configs' => array(),
                 )
             ),
             new BlockUpdateStruct()

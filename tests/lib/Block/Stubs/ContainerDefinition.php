@@ -169,4 +169,14 @@ class ContainerDefinition implements ContainerDefinitionInterface
     {
         return false;
     }
+
+    /**
+     * Returns the available config definitions.
+     *
+     * @return \Netgen\BlockManager\Config\ConfigDefinitionInterface[]
+     */
+    public function getConfigDefinitions()
+    {
+        return array();
+    }
 }

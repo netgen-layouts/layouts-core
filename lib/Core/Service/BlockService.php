@@ -359,8 +359,8 @@ class BlockService extends Service implements BlockServiceInterface
                                 $persistenceBlock->parameters
                             ),
                             'config' => $this->configMapper->serializeValues(
-                                $block->getConfigCollection()->getConfigType(),
                                 $blockUpdateStruct->getConfigStructs(),
+                                $block->getDefinition()->getConfigDefinitions(),
                                 $persistenceBlock->config
                             ),
                         )
@@ -690,8 +690,8 @@ class BlockService extends Service implements BlockServiceInterface
                                 $blockCreateStruct->getParameterValues()
                             ),
                             'config' => $this->configMapper->serializeValues(
-                                'block',
-                                $blockCreateStruct->getConfigStructs()
+                                $blockCreateStruct->getConfigStructs(),
+                                $blockCreateStruct->definition->getConfigDefinitions()
                             ),
                         )
                     ),

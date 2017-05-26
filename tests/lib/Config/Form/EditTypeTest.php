@@ -7,7 +7,6 @@ use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Config\Form\EditType;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Config\Config;
-use Netgen\BlockManager\Core\Values\Config\ConfigCollection;
 use Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension;
 use Netgen\BlockManager\Parameters\Form\Mapper;
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
@@ -41,29 +40,25 @@ class EditTypeTest extends FormTestCase
         $this->block = new Block(
             array(
                 'definition' => $blockDefinition,
-                'configCollection' => new ConfigCollection(
-                    array(
-                        'configs' => array(
-                            'disabled' => new Config(
-                                array(
-                                    'definition' => new ConfigDefinition(
-                                        'block',
-                                        'disabled',
-                                        new DisabledConfigHandler()
-                                    ),
-                                )
+                'configs' => array(
+                    'disabled' => new Config(
+                        array(
+                            'definition' => new ConfigDefinition(
+                                'block',
+                                'disabled',
+                                new DisabledConfigHandler()
                             ),
-                            'http_cache' => new Config(
-                                array(
-                                    'definition' => new ConfigDefinition(
-                                        'block',
-                                        'http_cache',
-                                        new HttpCacheConfigHandler()
-                                    ),
-                                )
+                        )
+                    ),
+                    'http_cache' => new Config(
+                        array(
+                            'definition' => new ConfigDefinition(
+                                'block',
+                                'http_cache',
+                                new HttpCacheConfigHandler()
                             ),
-                        ),
-                    )
+                        )
+                    ),
                 ),
             )
         );
@@ -131,6 +126,7 @@ class EditTypeTest extends FormTestCase
             $struct,
             array(
                 'configurable' => $this->block,
+                'configType' => 'block',
             )
         );
 
@@ -165,6 +161,7 @@ class EditTypeTest extends FormTestCase
         $options = $optionsResolver->resolve(
             array(
                 'configurable' => $this->block,
+                'configType' => 'block',
                 'data' => new BlockUpdateStruct(),
             )
         );
@@ -184,7 +181,11 @@ class EditTypeTest extends FormTestCase
 
         $this->formType->configureOptions($optionsResolver);
 
-        $optionsResolver->resolve();
+        $optionsResolver->resolve(
+            array(
+                'configType' => 'block',
+            )
+        );
     }
 
     /**
@@ -201,6 +202,44 @@ class EditTypeTest extends FormTestCase
         $optionsResolver->resolve(
             array(
                 'configurable' => '',
+                'configType' => 'block',
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Config\Form\EditType::configureOptions
+     * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
+     */
+    public function testConfigureOptionsWithMissingType()
+    {
+        $optionsResolver = new OptionsResolver();
+        $optionsResolver->setDefined('data');
+
+        $this->formType->configureOptions($optionsResolver);
+
+        $optionsResolver->resolve(
+            array(
+                'configurable' => $this->block,
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Config\Form\EditType::configureOptions
+     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     */
+    public function testConfigureOptionsWithInvalidType()
+    {
+        $optionsResolver = new OptionsResolver();
+        $optionsResolver->setDefined('data');
+
+        $this->formType->configureOptions($optionsResolver);
+
+        $optionsResolver->resolve(
+            array(
+                'configurable' => $this->block,
+                'configType' => 42,
             )
         );
     }
@@ -219,6 +258,7 @@ class EditTypeTest extends FormTestCase
         $optionsResolver->resolve(
             array(
                 'configurable' => $this->block,
+                'configType' => 'block',
                 'data' => '',
             )
         );

@@ -56,6 +56,7 @@ services:
         class: Netgen\BlockManager\Block\BlockDefinitionFactory
         arguments:
             - "@netgen_block_manager.parameters.parameter_builder_factory"
+            - "@netgen_block_manager.config.registry.config_definition"
 
     netgen_block_manager.block.registry.block_definition:
         class: Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry

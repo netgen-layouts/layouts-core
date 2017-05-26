@@ -26,6 +26,11 @@ class BlockDefinition extends ValueObject implements BlockDefinitionInterface
     protected $config;
 
     /**
+     * @var \Netgen\BlockManager\Config\ConfigDefinitionInterface[]
+     */
+    protected $configDefinitions;
+
+    /**
      * Returns block definition identifier.
      *
      * @return string
@@ -55,5 +60,15 @@ class BlockDefinition extends ValueObject implements BlockDefinitionInterface
     public function getConfig()
     {
         return $this->config;
+    }
+
+    /**
+     * Returns the available config definitions.
+     *
+     * @return \Netgen\BlockManager\Config\ConfigDefinitionInterface[]
+     */
+    public function getConfigDefinitions()
+    {
+        return $this->configDefinitions;
     }
 }

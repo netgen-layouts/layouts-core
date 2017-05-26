@@ -170,20 +170,56 @@ abstract class ServiceTestCase extends TestCase
         $this->queryTypeRegistry = new QueryTypeRegistry();
         $this->queryTypeRegistry->addQueryType('ezcontent_search', new QueryType('ezcontent_search'));
 
-        $blockDefinition1 = new BlockDefinition('title', array('small' => array('standard')));
-        $blockDefinition2 = new BlockDefinition('text', array('standard' => array('standard')));
-        $blockDefinition3 = new BlockDefinition('gallery', array('standard' => array('standard')), null, true);
-        $blockDefinition4 = new BlockDefinition('list', array('standard' => array('standard')), null, true);
+        $configDefinition1 = new ConfigDefinition('block', 'http_cache', new HttpCacheConfigHandler());
+        $this->configDefinitionRegistry = new ConfigDefinitionRegistry();
+        $this->configDefinitionRegistry->addConfigDefinition('block', $configDefinition1);
+
+        $blockDefinition1 = new BlockDefinition(
+            'title',
+            array('small' => array('standard')),
+            null,
+            false,
+            array($configDefinition1)
+        );
+
+        $blockDefinition2 = new BlockDefinition(
+            'text',
+            array('standard' => array('standard')),
+            null,
+            false,
+            array($configDefinition1)
+        );
+
+        $blockDefinition3 = new BlockDefinition(
+            'gallery',
+            array('standard' => array('standard')),
+            null,
+            true,
+            array($configDefinition1)
+        );
+
+        $blockDefinition4 = new BlockDefinition(
+            'list',
+            array('standard' => array('standard')),
+            null,
+            true,
+            array($configDefinition1)
+        );
+
         $blockDefinition5 = new ContainerDefinition(
             'column',
             array('column' => array('standard')),
-            new ContainerDefinitionHandler(array(), array('main', 'other'))
+            new ContainerDefinitionHandler(array(), array('main', 'other')),
+            false,
+            array($configDefinition1)
         );
 
         $blockDefinition6 = new ContainerDefinition(
             'two_columns',
             array('two_columns_50_50' => array('standard')),
-            new ContainerDefinitionHandler(array(), array('left', 'right'))
+            new ContainerDefinitionHandler(array(), array('left', 'right')),
+            false,
+            array($configDefinition1)
         );
 
         $this->blockDefinitionRegistry = new BlockDefinitionRegistry();
@@ -193,11 +229,6 @@ abstract class ServiceTestCase extends TestCase
         $this->blockDefinitionRegistry->addBlockDefinition('list', $blockDefinition4);
         $this->blockDefinitionRegistry->addBlockDefinition('column', $blockDefinition5);
         $this->blockDefinitionRegistry->addBlockDefinition('two_columns', $blockDefinition6);
-
-        $configDefinition1 = new ConfigDefinition('block', 'http_cache', new HttpCacheConfigHandler());
-
-        $this->configDefinitionRegistry = new ConfigDefinitionRegistry();
-        $this->configDefinitionRegistry->addConfigDefinition('block', $configDefinition1);
 
         $this->targetTypeRegistry = new TargetTypeRegistry();
         $this->targetTypeRegistry->addTargetType(new TargetType('target'));

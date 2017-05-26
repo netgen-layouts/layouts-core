@@ -130,6 +130,7 @@ class BlockController extends Controller
             $updateStruct,
             array(
                 'configurable' => $block,
+                'configType' => 'block',
                 'configIdentifiers' => $identifier !== null ? array($identifier) : array(),
                 'action' => $this->generateUrl(
                     'ngbm_app_block_form_edit_config',

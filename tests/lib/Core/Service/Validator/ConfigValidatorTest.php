@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
-use Netgen\BlockManager\Config\Registry\ConfigDefinitionRegistry;
 use Netgen\BlockManager\Core\Service\Validator\ConfigValidator;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Tests\Config\Stubs\Block\HttpCacheConfigHandler;
@@ -39,19 +38,7 @@ class ConfigValidatorTest extends TestCase
             ->setConstraintValidatorFactory(new ValidatorFactory($this))
             ->getValidator();
 
-        $configDefinitionRegistry = new ConfigDefinitionRegistry();
-
-        $configDefinitionRegistry->addConfigDefinition(
-            'block',
-            $this->getConfigDefinition('test')
-        );
-
-        $configDefinitionRegistry->addConfigDefinition(
-            'block',
-            $this->getConfigDefinition('test2')
-        );
-
-        $this->configValidator = new ConfigValidator($configDefinitionRegistry);
+        $this->configValidator = new ConfigValidator();
         $this->configValidator->setValidator($this->validator);
     }
 
@@ -79,7 +66,13 @@ class ConfigValidatorTest extends TestCase
             );
         }
 
-        $this->configValidator->validateConfigStructs('block', $configStructs);
+        $this->configValidator->validateConfigStructs(
+            $configStructs,
+            array(
+                $this->getConfigDefinition('test'),
+                $this->getConfigDefinition('test2'),
+            )
+        );
     }
 
     /**
@@ -92,9 +85,12 @@ class ConfigValidatorTest extends TestCase
     public function testValidateConfigStructsWithInvalidStruct()
     {
         $this->configValidator->validateConfigStructs(
-            'block',
             array(
                 'test' => new stdClass(),
+            ),
+            array(
+                $this->getConfigDefinition('test'),
+                $this->getConfigDefinition('test2'),
             )
         );
     }

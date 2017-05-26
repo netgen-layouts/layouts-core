@@ -183,6 +183,7 @@ abstract class BlockTest extends ServiceTestCase
                 'handler' => $handler,
                 'config' => $configuration,
                 'parameters' => $filteredParameters,
+                'configDefinitions' => array(),
             )
         );
 

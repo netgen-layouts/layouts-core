@@ -6,6 +6,7 @@ use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\ContainerDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
+use Netgen\BlockManager\Config\Registry\ConfigDefinitionRegistryInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface;
 
 class BlockDefinitionFactory
@@ -16,13 +17,22 @@ class BlockDefinitionFactory
     protected $parameterBuilderFactory;
 
     /**
+     * @var \Netgen\BlockManager\Config\Registry\ConfigDefinitionRegistryInterface
+     */
+    protected $configDefinitionRegistry;
+
+    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface $parameterBuilderFactory
+     * @param \Netgen\BlockManager\Config\Registry\ConfigDefinitionRegistryInterface $configDefinitionRegistry
      */
-    public function __construct(ParameterBuilderFactoryInterface $parameterBuilderFactory)
-    {
+    public function __construct(
+        ParameterBuilderFactoryInterface $parameterBuilderFactory,
+        ConfigDefinitionRegistryInterface $configDefinitionRegistry
+    ) {
         $this->parameterBuilderFactory = $parameterBuilderFactory;
+        $this->configDefinitionRegistry = $configDefinitionRegistry;
     }
 
     /**
@@ -117,6 +127,7 @@ class BlockDefinitionFactory
             'handler' => $handler,
             'config' => $config,
             'parameters' => $parameters,
+            'configDefinitions' => $this->configDefinitionRegistry->getConfigDefinitions('block'),
         );
     }
 }

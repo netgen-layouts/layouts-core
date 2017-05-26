@@ -9,8 +9,11 @@ use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterfac
 use Netgen\BlockManager\Block\BlockDefinitionFactory;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Block\TwigBlockDefinitionInterface;
+use Netgen\BlockManager\Config\Registry\ConfigDefinitionRegistry;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
+use Netgen\BlockManager\Tests\Config\Stubs\Block\HttpCacheConfigHandler;
+use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinition;
 use PHPUnit\Framework\TestCase;
 
 class BlockDefinitionFactoryTest extends TestCase
@@ -31,6 +34,11 @@ class BlockDefinitionFactoryTest extends TestCase
     protected $parameterBuilderFactoryMock;
 
     /**
+     * @var \Netgen\BlockManager\Config\Registry\ConfigDefinitionRegistryInterface
+     */
+    protected $configDefinitionRegistry;
+
+    /**
      * @var \Netgen\BlockManager\Block\BlockDefinitionFactory
      */
     protected $factory;
@@ -49,7 +57,14 @@ class BlockDefinitionFactoryTest extends TestCase
                 )
             );
 
-        $this->factory = new BlockDefinitionFactory($this->parameterBuilderFactoryMock);
+        $this->configDefinitionRegistry = new ConfigDefinitionRegistry();
+        $this->configDefinitionRegistry->addConfigDefinition('block', $this->getConfigDefinition('test'));
+        $this->configDefinitionRegistry->addConfigDefinition('block', $this->getConfigDefinition('test2'));
+
+        $this->factory = new BlockDefinitionFactory(
+            $this->parameterBuilderFactoryMock,
+            $this->configDefinitionRegistry
+        );
     }
 
     /**
@@ -70,6 +85,11 @@ class BlockDefinitionFactoryTest extends TestCase
         $this->assertInstanceOf(BlockDefinitionInterface::class, $blockDefinition);
         $this->assertEquals('definition', $blockDefinition->getIdentifier());
         $this->assertEquals($this->configMock, $blockDefinition->getConfig());
+
+        $this->assertEquals(
+            $this->configDefinitionRegistry->getConfigDefinitions('block'),
+            $blockDefinition->getConfigDefinitions()
+        );
     }
 
     /**
@@ -89,6 +109,11 @@ class BlockDefinitionFactoryTest extends TestCase
         $this->assertInstanceOf(TwigBlockDefinitionInterface::class, $blockDefinition);
         $this->assertEquals('definition', $blockDefinition->getIdentifier());
         $this->assertEquals($this->configMock, $blockDefinition->getConfig());
+
+        $this->assertEquals(
+            $this->configDefinitionRegistry->getConfigDefinitions('block'),
+            $blockDefinition->getConfigDefinitions()
+        );
     }
 
     /**
@@ -114,6 +139,23 @@ class BlockDefinitionFactoryTest extends TestCase
         $this->assertEquals('definition', $blockDefinition->getIdentifier());
         $this->assertEquals($this->configMock, $blockDefinition->getConfig());
 
+        $this->assertEquals(
+            $this->configDefinitionRegistry->getConfigDefinitions('block'),
+            $blockDefinition->getConfigDefinitions()
+        );
+
         $this->assertEquals(array('left', 'right'), $blockDefinition->getPlaceholders());
+    }
+
+    /**
+     * @param string $identifier
+     *
+     * @return \Netgen\BlockManager\Config\ConfigDefinitionInterface
+     */
+    protected function getConfigDefinition($identifier)
+    {
+        $handler = new HttpCacheConfigHandler();
+
+        return new ConfigDefinition('block', $identifier, $handler);
     }
 }

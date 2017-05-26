@@ -10,6 +10,7 @@ use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Handler\TitleHandler;
 use Netgen\BlockManager\Config\ConfigDefinition;
+use Netgen\BlockManager\Config\ConfigDefinitionInterface;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\ConfigValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
@@ -60,14 +61,14 @@ abstract class BlockTest extends ServiceTestCase
      */
     public function testCreateBlock(array $config, array $expectedConfig)
     {
-        $blockDefinition = $this->createBlockDefinition();
-        $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition, 'en');
+        $configDefinition = $this->createConfigDefinition(array_keys($expectedConfig));
+
+        $blockDefinition = $this->createBlockDefinition($configDefinition);
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
         $blockCreateStruct->viewType = 'default';
         $blockCreateStruct->itemViewType = 'standard';
 
         $configStruct = new ConfigStruct();
-        $configDefinition = $this->createConfigDefinition(array_keys($expectedConfig));
-
         $configStruct->fillValues($configDefinition, $config);
         $blockCreateStruct->setConfigStruct('definition', $configStruct);
 
@@ -100,16 +101,16 @@ abstract class BlockTest extends ServiceTestCase
             throw ValidationException::validationFailed('config', 'Invalid config');
         }
 
-        $blockDefinition = $this->createBlockDefinition();
-        $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition, 'en');
-        $blockCreateStruct->viewType = 'default';
-        $blockCreateStruct->itemViewType = 'standard';
-
-        $configStruct = new ConfigStruct();
         $configDefinition = $this->createConfigDefinition(
             $testedParams !== null ? $testedParams : array_keys($config)
         );
 
+        $blockDefinition = $this->createBlockDefinition($configDefinition);
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
+        $blockCreateStruct->viewType = 'default';
+        $blockCreateStruct->itemViewType = 'standard';
+
+        $configStruct = new ConfigStruct();
         $configStruct->fillValues($configDefinition, $config);
         $blockCreateStruct->setConfigStruct('definition', $configStruct);
 
@@ -156,9 +157,11 @@ abstract class BlockTest extends ServiceTestCase
     }
 
     /**
+     * @param \Netgen\BlockManager\Config\ConfigDefinitionInterface $configDefinition
+     *
      * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
-    protected function createBlockDefinition()
+    protected function createBlockDefinition(ConfigDefinitionInterface $configDefinition)
     {
         $handler = new TitleHandler();
         $configuration = $this->createBlockConfiguration();
@@ -169,6 +172,7 @@ abstract class BlockTest extends ServiceTestCase
                 'handler' => $handler,
                 'config' => $configuration,
                 'parameters' => array(),
+                'configDefinitions' => array($configDefinition),
             )
         );
 

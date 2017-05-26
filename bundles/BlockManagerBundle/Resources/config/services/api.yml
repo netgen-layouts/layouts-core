@@ -224,8 +224,6 @@ services:
 
     netgen_block_manager.core.validator.config:
         class: Netgen\BlockManager\Core\Service\Validator\ConfigValidator
-        arguments:
-            - "@netgen_block_manager.config.registry.config_definition"
         calls:
             - [setValidator, ["@validator"]]
 
@@ -236,7 +234,6 @@ services:
         class: Netgen\BlockManager\Core\Service\Mapper\ConfigMapper
         arguments:
             - "@netgen_block_manager.core.service.parameter_mapper"
-            - "@netgen_block_manager.config.registry.config_definition"
 
     # Parameter API services
 

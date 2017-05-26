@@ -88,7 +88,7 @@ class BlockMapper extends Mapper
             'published' => $block->status === Value::STATUS_PUBLISHED,
             'placeholders' => $this->mapPlaceholders($block, $blockDefinition),
             'parameters' => $this->parameterMapper->mapParameters($blockDefinition, $block->parameters),
-            'configCollection' => $this->configMapper->mapConfig('block', $block->config),
+            'configs' => $this->configMapper->mapConfig($block->config, $blockDefinition->getConfigDefinitions()),
         );
 
         return new Block($blockData);

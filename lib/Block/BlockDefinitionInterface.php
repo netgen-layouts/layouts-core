@@ -29,4 +29,11 @@ interface BlockDefinitionInterface extends ParameterCollectionInterface
      * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration
      */
     public function getConfig();
+
+    /**
+     * Returns the available config definitions.
+     *
+     * @return \Netgen\BlockManager\Config\ConfigDefinitionInterface[]
+     */
+    public function getConfigDefinitions();
 }
