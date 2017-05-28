@@ -24,14 +24,12 @@ class ConfigDefinitionFactory
     /**
      * Builds the config definition.
      *
-     * @param string $type
      * @param string $configKey
      * @param \Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface $handler
      *
      * @return \Netgen\BlockManager\Config\ConfigDefinitionInterface
      */
     public function buildConfigDefinition(
-        $type,
         $configKey,
         ConfigDefinitionHandlerInterface $handler
     ) {
@@ -41,7 +39,6 @@ class ConfigDefinitionFactory
 
         return new ConfigDefinition(
             array(
-                'type' => $type,
                 'configKey' => $configKey,
                 'handler' => $handler,
                 'parameters' => $parameters,

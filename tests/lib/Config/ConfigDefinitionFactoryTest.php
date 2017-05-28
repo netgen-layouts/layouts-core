@@ -50,13 +50,11 @@ class ConfigDefinitionFactoryTest extends TestCase
         $this->handlerMock = $this->createMock(ConfigDefinitionHandlerInterface::class);
 
         $configDefinition = $this->factory->buildConfigDefinition(
-            'type',
             'definition',
             $this->handlerMock
         );
 
         $this->assertInstanceOf(ConfigDefinitionInterface::class, $configDefinition);
-        $this->assertEquals('type', $configDefinition->getType());
         $this->assertEquals('definition', $configDefinition->getConfigKey());
     }
 }

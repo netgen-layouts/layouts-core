@@ -164,6 +164,6 @@ class BlockDefinitionFactoryTest extends TestCase
     {
         $handler = new HttpCacheConfigHandler();
 
-        return new ConfigDefinition('block', $identifier, $handler);
+        return new ConfigDefinition($identifier, $handler);
     }
 }

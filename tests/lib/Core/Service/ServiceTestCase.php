@@ -164,7 +164,7 @@ abstract class ServiceTestCase extends TestCase
         $this->queryTypeRegistry = new QueryTypeRegistry();
         $this->queryTypeRegistry->addQueryType('ezcontent_search', new QueryType('ezcontent_search'));
 
-        $configDefinition1 = new ConfigDefinition('block', 'http_cache', new HttpCacheConfigHandler());
+        $configDefinition1 = new ConfigDefinition('http_cache', new HttpCacheConfigHandler());
 
         $blockDefinition1 = new BlockDefinition(
             'title',

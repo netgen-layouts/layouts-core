@@ -34,7 +34,7 @@ class ConfigMapperTest extends TestCase
     {
         $this->parameterMapperMock = $this->createMock(ParameterMapper::class);
 
-        $this->configDefinition = new ConfigDefinition('block', 'test', new HttpCacheConfigHandler());
+        $this->configDefinition = new ConfigDefinition('test', new HttpCacheConfigHandler());
 
         $this->mapper = new ConfigMapper($this->parameterMapperMock);
     }

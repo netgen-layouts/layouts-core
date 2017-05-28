@@ -44,7 +44,6 @@ class EditTypeTest extends FormTestCase
                     'disabled' => new Config(
                         array(
                             'definition' => new ConfigDefinition(
-                                'block',
                                 'disabled',
                                 new DisabledConfigHandler()
                             ),
@@ -53,7 +52,6 @@ class EditTypeTest extends FormTestCase
                     'http_cache' => new Config(
                         array(
                             'definition' => new ConfigDefinition(
-                                'block',
                                 'http_cache',
                                 new HttpCacheConfigHandler()
                             ),

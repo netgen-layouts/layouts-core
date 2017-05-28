@@ -8,13 +8,6 @@ use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
 interface ConfigDefinitionInterface extends ParameterCollectionInterface
 {
     /**
-     * Returns the type of the config definition.
-     *
-     * @return string
-     */
-    public function getType();
-
-    /**
      * Returns the config key for the definition.
      *
      * @return string

@@ -28,7 +28,6 @@ class ConfigTest extends TestCase
     public function testSetProperties()
     {
         $definition = new ConfigDefinition(
-            'block',
             'config',
             new HttpCacheConfigHandler()
         );

@@ -152,6 +152,6 @@ class ConfigValidatorTest extends TestCase
     {
         $handler = new HttpCacheConfigHandler();
 
-        return new ConfigDefinition('block', $configKey, $handler);
+        return new ConfigDefinition($configKey, $handler);
     }
 }

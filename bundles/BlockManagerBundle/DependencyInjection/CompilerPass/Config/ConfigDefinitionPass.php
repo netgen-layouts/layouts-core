@@ -54,7 +54,6 @@ class ConfigDefinitionPass implements CompilerPassInterface
 
                     $configDefinitionService->setLazy(true);
                     $configDefinitionService->setPublic(false);
-                    $configDefinitionService->addArgument($type);
                     $configDefinitionService->addArgument($configKey);
                     $configDefinitionService->addArgument(new Reference($configDefinitionHandler));
                     $configDefinitionService->setFactory(array(new Reference('netgen_block_manager.config.config_definition_factory'), 'buildConfigDefinition'));

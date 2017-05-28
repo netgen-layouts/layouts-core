@@ -60,8 +60,6 @@ class EditType extends AbstractType
         $configAwareValue = $options['configurable'];
         $configs = $configAwareValue->getConfigs();
 
-        $configType = $options['configType'];
-
         /** @var \Netgen\BlockManager\API\Values\Config\ConfigStruct[] $configStructs */
         $configStructs = $options['data']->getConfigStructs();
 
@@ -87,10 +85,9 @@ class EditType extends AbstractType
                 ParametersType::class,
                 array(
                     'data' => $configStructs[$configKey],
-                    'label' => 'config.' . $configType . '.' . $configKey,
                     'property_path' => 'configStructs[' . $configKey . ']',
                     'parameter_collection' => $configDefinition,
-                    'label_prefix' => 'config.' . $configType . '.' . $configKey,
+                    'label_prefix' => 'config.' . $options['configType'] . '.' . $configKey,
                 )
             );
         }

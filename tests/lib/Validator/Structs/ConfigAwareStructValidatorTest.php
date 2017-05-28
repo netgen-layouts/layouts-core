@@ -27,7 +27,6 @@ class ConfigAwareStructValidatorTest extends ValidatorTestCase
                         array(
                             'configKey' => 'http_cache',
                             'definition' => new ConfigDefinition(
-                                'block',
                                 'http_cache',
                                 new HttpCacheConfigHandler()
                             ),

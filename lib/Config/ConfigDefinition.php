@@ -13,27 +13,12 @@ class ConfigDefinition extends ValueObject implements ConfigDefinitionInterface
     /**
      * @var string
      */
-    protected $type;
-
-    /**
-     * @var string
-     */
     protected $configKey;
 
     /**
      * @var \Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface
      */
     protected $handler;
-
-    /**
-     * Returns the type of the config definition.
-     *
-     * @return string
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
 
     /**
      * Returns the config key for the definition.

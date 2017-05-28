@@ -206,7 +206,6 @@ abstract class BlockTest extends ServiceTestCase
 
         return new ConfigDefinition(
             array(
-                'type' => 'block',
                 'configKey' => 'definition',
                 'handler' => $handler,
                 'parameters' => $filteredParameters,
