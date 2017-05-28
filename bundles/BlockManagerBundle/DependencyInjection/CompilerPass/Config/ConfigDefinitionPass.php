@@ -68,6 +68,7 @@ class ConfigDefinitionPass implements CompilerPassInterface
                 $configDefinitionService = new Definition(ConfigDefinition::class);
 
                 $configDefinitionService->setLazy(true);
+                $configDefinitionService->setPublic(false);
                 $configDefinitionService->addArgument($type);
                 $configDefinitionService->addArgument($configKey);
                 $configDefinitionService->addArgument(new Reference($configDefinitionHandler));
