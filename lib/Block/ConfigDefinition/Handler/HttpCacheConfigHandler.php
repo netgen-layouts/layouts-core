@@ -1,10 +1,10 @@
 <?php
 
-namespace Netgen\BlockManager\Config\ConfigDefinition\Block;
+namespace Netgen\BlockManager\Block\ConfigDefinition\Handler;
 
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Config\ConfigAwareValue;
-use Netgen\BlockManager\Config\ConfigDefinition\ConfigDefinitionHandlerInterface;
+use Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface;
 use Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 use Netgen\BlockManager\Parameters\ParameterType;

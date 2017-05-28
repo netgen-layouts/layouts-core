@@ -17,49 +17,21 @@ class ConfigDefinitionPassTest extends AbstractCompilerPassTestCase
     {
         $configDefinitionHandler = new Definition();
         $configDefinitionHandler->addTag(
-            'netgen_block_manager.config.config_definition_handler',
-            array('config_key' => 'http_cache', 'type' => 'block')
+            'netgen_block_manager.block.config_definition_handler',
+            array('config_key' => 'http_cache')
         );
 
         $this->setDefinition(
-            'netgen_block_manager.config.config_definition.handler.test',
+            'netgen_block_manager.block.config_definition.handler.test',
             $configDefinitionHandler
         );
 
         $this->compile();
 
         $this->assertContainerBuilderHasService(
-            'netgen_block_manager.config.config_definition.block.http_cache',
+            'netgen_block_manager.block.config_definition.http_cache',
             ConfigDefinition::class
         );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Config\ConfigDefinitionPass::process
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Config definition handler definition must have a 'type' attribute in its' tag.
-     */
-    public function testProcessThrowsExceptionWithNoTagType()
-    {
-        $configDefinitionHandler = new Definition();
-        $configDefinitionHandler->addTag('netgen_block_manager.config.config_definition_handler', array('config_key' => 'http_cache'));
-        $this->setDefinition('netgen_block_manager.config.config_definition.handler.test', $configDefinitionHandler);
-
-        $this->compile();
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Config\ConfigDefinitionPass::process
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Config definition type "unknown" is not supported.
-     */
-    public function testProcessThrowsExceptionWithUnsupportedTagType()
-    {
-        $configDefinitionHandler = new Definition();
-        $configDefinitionHandler->addTag('netgen_block_manager.config.config_definition_handler', array('type' => 'unknown', 'config_key' => 'http_cache'));
-        $this->setDefinition('netgen_block_manager.config.config_definition.handler.test', $configDefinitionHandler);
-
-        $this->compile();
     }
 
     /**
@@ -70,8 +42,8 @@ class ConfigDefinitionPassTest extends AbstractCompilerPassTestCase
     public function testProcessThrowsExceptionWithNoTagConfigKey()
     {
         $configDefinitionHandler = new Definition();
-        $configDefinitionHandler->addTag('netgen_block_manager.config.config_definition_handler', array('type' => 'block'));
-        $this->setDefinition('netgen_block_manager.config.config_definition.handler.test', $configDefinitionHandler);
+        $configDefinitionHandler->addTag('netgen_block_manager.block.config_definition_handler');
+        $this->setDefinition('netgen_block_manager.block.config_definition.handler.test', $configDefinitionHandler);
 
         $this->compile();
     }

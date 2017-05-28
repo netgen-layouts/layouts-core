@@ -21,7 +21,7 @@ class ConfigDefinition extends ValueObject implements ConfigDefinitionInterface
     protected $configKey;
 
     /**
-     * @var \Netgen\BlockManager\Config\ConfigDefinition\ConfigDefinitionHandlerInterface
+     * @var \Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface
      */
     protected $handler;
 

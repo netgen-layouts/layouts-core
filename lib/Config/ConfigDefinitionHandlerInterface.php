@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Config\ConfigDefinition;
+namespace Netgen\BlockManager\Config;
 
 use Netgen\BlockManager\API\Values\Config\ConfigAwareValue;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;

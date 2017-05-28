@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\Config\Stubs;
 
 use Netgen\BlockManager\API\Values\Config\ConfigAwareValue;
-use Netgen\BlockManager\Config\ConfigDefinition\ConfigDefinitionHandlerInterface;
+use Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 
 abstract class ConfigDefinitionHandler implements ConfigDefinitionHandlerInterface

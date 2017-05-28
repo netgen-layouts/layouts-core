@@ -1,9 +1,9 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Config\ConfigDefinition\Block;
+namespace Netgen\BlockManager\Tests\Block\ConfigDefinition\Handler;
 
 use Netgen\BlockManager\API\Values\Config\ConfigAwareValue;
-use Netgen\BlockManager\Config\ConfigDefinition\Block\HttpCacheConfigHandler;
+use Netgen\BlockManager\Block\ConfigDefinition\Handler\HttpCacheConfigHandler;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface;
 use PHPUnit\Framework\TestCase;
@@ -16,7 +16,7 @@ class HttpCacheConfigHandlerTest extends TestCase
     protected $cacheableResolverMock;
 
     /**
-     * @var \Netgen\BlockManager\Config\ConfigDefinition\ConfigDefinitionHandlerInterface
+     * @var \Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface
      */
     protected $handler;
 
@@ -30,7 +30,7 @@ class HttpCacheConfigHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Config\ConfigDefinition\Block\HttpCacheConfigHandler::isEnabled
+     * @covers \Netgen\BlockManager\Block\ConfigDefinition\Handler\HttpCacheConfigHandler::isEnabled
      */
     public function testIsEnabled()
     {
@@ -44,7 +44,7 @@ class HttpCacheConfigHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Config\ConfigDefinition\Block\HttpCacheConfigHandler::isEnabled
+     * @covers \Netgen\BlockManager\Block\ConfigDefinition\Handler\HttpCacheConfigHandler::isEnabled
      */
     public function testIsEnabledWithNoBlock()
     {

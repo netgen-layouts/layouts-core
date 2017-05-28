@@ -2,14 +2,14 @@
 
 namespace Netgen\BlockManager\Tests\Config\ConfigDefinition\Integration\Block;
 
-use Netgen\BlockManager\Config\ConfigDefinition\Block\HttpCacheConfigHandler;
+use Netgen\BlockManager\Block\ConfigDefinition\Handler\HttpCacheConfigHandler;
 use Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface;
 use Netgen\BlockManager\Tests\Config\ConfigDefinition\Integration\BlockTest;
 
 abstract class HttpCacheConfigTest extends BlockTest
 {
     /**
-     * @return \Netgen\BlockManager\Config\ConfigDefinition\ConfigDefinitionHandlerInterface
+     * @return \Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface
      */
     public function createConfigDefinitionHandler()
     {

@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Config;
 
-use Netgen\BlockManager\Config\ConfigDefinition\ConfigDefinitionHandlerInterface;
 use Netgen\BlockManager\Config\ConfigDefinitionFactory;
+use Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface;
 use Netgen\BlockManager\Config\ConfigDefinitionInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;

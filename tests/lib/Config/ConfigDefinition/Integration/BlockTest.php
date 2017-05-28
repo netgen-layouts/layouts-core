@@ -119,7 +119,7 @@ abstract class BlockTest extends ServiceTestCase
     }
 
     /**
-     * @return \Netgen\BlockManager\Config\ConfigDefinition\ConfigDefinitionHandlerInterface
+     * @return \Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface
      */
     abstract public function createConfigDefinitionHandler();
 

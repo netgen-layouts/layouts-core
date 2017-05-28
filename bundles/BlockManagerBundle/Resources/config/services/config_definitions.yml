@@ -4,9 +4,9 @@ services:
         arguments:
             - "@netgen_block_manager.parameters.parameter_builder_factory"
 
-    netgen_block_manager.config.config_definition.handler.block.http_cache:
-        class: Netgen\BlockManager\Config\ConfigDefinition\Block\HttpCacheConfigHandler
+    netgen_block_manager.block.config_definition.handler.http_cache:
+        class: Netgen\BlockManager\Block\ConfigDefinition\Handler\HttpCacheConfigHandler
         arguments:
             - "@netgen_block_manager.http_cache.block.cacheable_resolver"
         tags:
-            - { name: netgen_block_manager.config.config_definition_handler, type: block, config_key: http_cache }
+            - { name: netgen_block_manager.block.config_definition_handler, config_key: http_cache }

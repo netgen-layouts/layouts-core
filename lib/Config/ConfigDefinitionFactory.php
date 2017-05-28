@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Config;
 
-use Netgen\BlockManager\Config\ConfigDefinition\ConfigDefinitionHandlerInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface;
 
 class ConfigDefinitionFactory
@@ -27,7 +26,7 @@ class ConfigDefinitionFactory
      *
      * @param string $type
      * @param string $configKey
-     * @param \Netgen\BlockManager\Config\ConfigDefinition\ConfigDefinitionHandlerInterface $handler
+     * @param \Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface $handler
      *
      * @return \Netgen\BlockManager\Config\ConfigDefinitionInterface
      */

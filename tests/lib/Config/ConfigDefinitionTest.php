@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 class ConfigDefinitionTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Config\ConfigDefinition\ConfigDefinitionHandlerInterface
+     * @var \Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface
      */
     protected $handler;
 
