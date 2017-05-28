@@ -345,7 +345,7 @@ abstract class ServiceTestCase extends TestCase
     protected function createLayoutMapper()
     {
         return new LayoutMapper(
-            $this->persistenceHandler,
+            $this->persistenceHandler->getLayoutHandler(),
             $this->layoutTypeRegistry
         );
     }
@@ -374,7 +374,7 @@ abstract class ServiceTestCase extends TestCase
     protected function createCollectionMapper()
     {
         return new CollectionMapper(
-            $this->persistenceHandler,
+            $this->persistenceHandler->getCollectionHandler(),
             $this->createParameterMapper(),
             $this->queryTypeRegistry
         );

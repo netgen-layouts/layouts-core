@@ -2,18 +2,24 @@
 
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
+use DateTime;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Core\Values\Layout\Zone;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
-use Netgen\BlockManager\Persistence\Handler;
+use Netgen\BlockManager\Persistence\Handler\LayoutHandler;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout as PersistenceLayout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone as PersistenceZone;
 use Netgen\BlockManager\Persistence\Values\Value as PersistenceValue;
 
-class LayoutMapper extends Mapper
+class LayoutMapper
 {
+    /**
+     * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandler
+     */
+    protected $layoutHandler;
+
     /**
      * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface
      */
@@ -22,13 +28,12 @@ class LayoutMapper extends Mapper
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
+     * @param \Netgen\BlockManager\Persistence\Handler\LayoutHandler $layoutHandler
      * @param \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
      */
-    public function __construct(Handler $persistenceHandler, LayoutTypeRegistryInterface $layoutTypeRegistry)
+    public function __construct(LayoutHandler $layoutHandler, LayoutTypeRegistryInterface $layoutTypeRegistry)
     {
-        parent::__construct($persistenceHandler);
-
+        $this->layoutHandler = $layoutHandler;
         $this->layoutTypeRegistry = $layoutTypeRegistry;
     }
 
@@ -46,7 +51,7 @@ class LayoutMapper extends Mapper
         if ($zone->linkedLayoutId !== null && $zone->linkedZoneIdentifier !== null) {
             try {
                 // We're always using published versions of linked zones
-                $linkedZone = $this->persistenceHandler->getLayoutHandler()->loadZone(
+                $linkedZone = $this->layoutHandler->loadZone(
                     $zone->linkedLayoutId,
                     PersistenceValue::STATUS_PUBLISHED,
                     $zone->linkedZoneIdentifier
@@ -78,7 +83,7 @@ class LayoutMapper extends Mapper
      */
     public function mapLayout(PersistenceLayout $layout)
     {
-        $persistenceZones = $this->persistenceHandler->getLayoutHandler()->loadLayoutZones($layout);
+        $persistenceZones = $this->layoutHandler->loadLayoutZones($layout);
 
         $zones = array();
         foreach ($persistenceZones as $persistenceZone) {
@@ -101,5 +106,20 @@ class LayoutMapper extends Mapper
         );
 
         return new Layout($layoutData);
+    }
+
+    /**
+     * Returns \DateTime object from the timestamp.
+     *
+     * @param int $timestamp
+     *
+     * @return \DateTime
+     */
+    protected function createDateTime($timestamp)
+    {
+        $dateTime = new DateTime();
+        $dateTime->setTimestamp((int) $timestamp);
+
+        return $dateTime;
     }
 }

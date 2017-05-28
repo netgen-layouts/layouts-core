@@ -118,7 +118,7 @@ services:
     netgen_block_manager.core.service.layout.mapper:
         class: Netgen\BlockManager\Core\Service\Mapper\LayoutMapper
         arguments:
-            - "@netgen_block_manager.persistence.handler"
+            - "@netgen_block_manager.persistence.layout.handler"
             - "@netgen_block_manager.layout.registry.layout_type"
 
     netgen_block_manager.core.service.layout.struct_builder:
@@ -175,7 +175,7 @@ services:
     netgen_block_manager.core.service.collection.mapper:
         class: Netgen\BlockManager\Core\Service\Mapper\CollectionMapper
         arguments:
-            - "@netgen_block_manager.persistence.handler"
+            - "@netgen_block_manager.persistence.collection.handler"
             - "@netgen_block_manager.core.service.parameter_mapper"
             - "@netgen_block_manager.collection.registry.query_type"
 
@@ -256,3 +256,15 @@ services:
 
     netgen_block_manager.persistence.handler:
         alias: netgen_block_manager.persistence.doctrine.handler
+
+    netgen_block_manager.persistence.layout.handler:
+        alias: netgen_block_manager.persistence.doctrine.layout.handler
+
+    netgen_block_manager.persistence.block.handler:
+        alias: netgen_block_manager.persistence.doctrine.block.handler
+
+    netgen_block_manager.persistence.collection.handler:
+        alias: netgen_block_manager.persistence.doctrine.collection.handler
+
+    netgen_block_manager.persistence.layout_resolver.handler:
+        alias: netgen_block_manager.persistence.doctrine.layout_resolver.handler

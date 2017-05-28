@@ -14,8 +14,13 @@ use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition as Persisten
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule as PersistenceRule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
 
-class LayoutResolverMapper extends Mapper
+class LayoutResolverMapper
 {
+    /**
+     * @var \Netgen\BlockManager\Persistence\Handler
+     */
+    protected $persistenceHandler;
+
     /**
      * @var \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper
      */
@@ -45,8 +50,7 @@ class LayoutResolverMapper extends Mapper
         TargetTypeRegistryInterface $targetTypeRegistry,
         ConditionTypeRegistryInterface $conditionTypeRegistry
     ) {
-        parent::__construct($persistenceHandler);
-
+        $this->persistenceHandler = $persistenceHandler;
         $this->layoutMapper = $layoutMapper;
         $this->targetTypeRegistry = $targetTypeRegistry;
         $this->conditionTypeRegistry = $conditionTypeRegistry;

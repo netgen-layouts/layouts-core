@@ -8,13 +8,18 @@ use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Persistence\Handler;
+use Netgen\BlockManager\Persistence\Handler\CollectionHandler;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceCollection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item as PersistenceItem;
 use Netgen\BlockManager\Persistence\Values\Collection\Query as PersistenceQuery;
 
-class CollectionMapper extends Mapper
+class CollectionMapper
 {
+    /**
+     * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandler
+     */
+    protected $collectionHandler;
+
     /**
      * @var \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper
      */
@@ -28,17 +33,16 @@ class CollectionMapper extends Mapper
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
+     * @param \Netgen\BlockManager\Persistence\Handler\CollectionHandler $collectionHandler
      * @param \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper $parameterMapper
      * @param \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface $queryTypeRegistry
      */
     public function __construct(
-        Handler $persistenceHandler,
+        CollectionHandler $collectionHandler,
         ParameterMapper $parameterMapper,
         QueryTypeRegistryInterface $queryTypeRegistry
     ) {
-        parent::__construct($persistenceHandler);
-
+        $this->collectionHandler = $collectionHandler;
         $this->parameterMapper = $parameterMapper;
         $this->queryTypeRegistry = $queryTypeRegistry;
     }
@@ -52,9 +56,7 @@ class CollectionMapper extends Mapper
      */
     public function mapCollection(PersistenceCollection $collection)
     {
-        $handler = $this->persistenceHandler->getCollectionHandler();
-
-        $persistenceItems = $handler->loadCollectionItems($collection);
+        $persistenceItems = $this->collectionHandler->loadCollectionItems($collection);
 
         $items = array();
         foreach ($persistenceItems as $persistenceItem) {
@@ -66,7 +68,7 @@ class CollectionMapper extends Mapper
 
         try {
             $query = $this->mapQuery(
-                $handler->loadCollectionQuery($collection)
+                $this->collectionHandler->loadCollectionQuery($collection)
             );
 
             $type = Collection::TYPE_DYNAMIC;

@@ -13,8 +13,13 @@ use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Persistence\Values\Block\Block as PersistenceBlock;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReference as PersistenceCollectionReference;
 
-class BlockMapper extends Mapper
+class BlockMapper
 {
+    /**
+     * @var \Netgen\BlockManager\Persistence\Handler
+     */
+    protected $persistenceHandler;
+
     /**
      * @var \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper
      */
@@ -56,8 +61,7 @@ class BlockMapper extends Mapper
         ConfigMapper $configMapper,
         BlockDefinitionRegistryInterface $blockDefinitionRegistry
     ) {
-        parent::__construct($persistenceHandler);
-
+        $this->persistenceHandler = $persistenceHandler;
         $this->collectionMapper = $collectionMapper;
         $this->parameterMapper = $parameterMapper;
         $this->configMapper = $configMapper;
