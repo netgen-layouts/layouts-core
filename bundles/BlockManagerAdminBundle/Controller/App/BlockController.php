@@ -109,17 +109,17 @@ class BlockController extends Controller
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param string $identifier
+     * @param string $configKey
      *
-     * @throws \Netgen\BlockManager\Exception\Core\ConfigException If config identifier does not exist
+     * @throws \Netgen\BlockManager\Exception\Core\ConfigException If config key does not exist
      *
      * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
-    public function editConfigForm(Request $request, Block $block, $identifier = null)
+    public function editConfigForm(Request $request, Block $block, $configKey = null)
     {
-        if ($identifier !== null) {
-            if (!$block->getConfig($identifier)->getDefinition()->isEnabled($block)) {
-                throw ConfigException::configNotEnabled($identifier);
+        if ($configKey !== null) {
+            if (!$block->getConfig($configKey)->getDefinition()->isEnabled($block)) {
+                throw ConfigException::configNotEnabled($configKey);
             }
         }
 
@@ -131,12 +131,12 @@ class BlockController extends Controller
             array(
                 'configurable' => $block,
                 'configType' => 'block',
-                'configIdentifiers' => $identifier !== null ? array($identifier) : array(),
+                'configKeys' => $configKey !== null ? array($configKey) : array(),
                 'action' => $this->generateUrl(
                     'ngbm_app_block_form_edit_config',
                     array(
                         'blockId' => $block->getId(),
-                        'identifier' => $identifier,
+                        'configKey' => $configKey,
                     )
                 ),
             )

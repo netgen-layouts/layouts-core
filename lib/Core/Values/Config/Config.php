@@ -13,7 +13,7 @@ class Config extends ValueObject implements APIConfig
     /**
      * @var string
      */
-    protected $identifier;
+    protected $configKey;
 
     /**
      * @var \Netgen\BlockManager\Config\ConfigDefinitionInterface
@@ -23,9 +23,9 @@ class Config extends ValueObject implements APIConfig
     /**
      * @return string
      */
-    public function getIdentifier()
+    public function getConfigKey()
     {
-        return $this->identifier;
+        return $this->configKey;
     }
 
     /**

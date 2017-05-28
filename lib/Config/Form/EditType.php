@@ -29,14 +29,14 @@ class EditType extends AbstractType
     {
         parent::configureOptions($resolver);
 
-        $resolver->setRequired(array('configurable', 'configType', 'configIdentifiers'));
+        $resolver->setRequired(array('configurable', 'configType', 'configKeys'));
 
         $resolver->setAllowedTypes('configType', 'string');
-        $resolver->setAllowedTypes('configIdentifiers', 'array');
+        $resolver->setAllowedTypes('configKeys', 'array');
         $resolver->setAllowedTypes('configurable', ConfigAwareValue::class);
         $resolver->setAllowedTypes('data', ConfigAwareStruct::class);
 
-        $resolver->setDefault('configIdentifiers', array());
+        $resolver->setDefault('configKeys', array());
         $resolver->setDefault('constraints', function (Options $options) {
             return array(
                 new ConfigAwareStructConstraint(
@@ -65,32 +65,32 @@ class EditType extends AbstractType
         /** @var \Netgen\BlockManager\API\Values\Config\ConfigStruct[] $configStructs */
         $configStructs = $options['data']->getConfigStructs();
 
-        $configIdentifiers = $options['configIdentifiers'];
-        if (empty($configIdentifiers)) {
-            $configIdentifiers = array_keys($configStructs);
+        $configKeys = $options['configKeys'];
+        if (empty($configKeys)) {
+            $configKeys = array_keys($configStructs);
         }
 
-        foreach ($configIdentifiers as $identifier) {
-            if (!isset($configs[$identifier])) {
+        foreach ($configKeys as $configKey) {
+            if (!isset($configs[$configKey])) {
                 continue;
             }
 
-            $configDefinition = $configs[$identifier]->getDefinition();
+            $configDefinition = $configs[$configKey]->getDefinition();
             if (!$configDefinition->isEnabled($configAwareValue)) {
                 continue;
             }
 
-            $this->enabledConfigs[$identifier] = $configs[$identifier];
+            $this->enabledConfigs[$configKey] = $configs[$configKey];
 
             $builder->add(
-                $identifier,
+                $configKey,
                 ParametersType::class,
                 array(
-                    'data' => $configStructs[$identifier],
-                    'label' => 'config.' . $configType . '.' . $identifier,
-                    'property_path' => 'configStructs[' . $identifier . ']',
+                    'data' => $configStructs[$configKey],
+                    'label' => 'config.' . $configType . '.' . $configKey,
+                    'property_path' => 'configStructs[' . $configKey . ']',
                     'parameter_collection' => $configDefinition,
-                    'label_prefix' => 'config.' . $configType . '.' . $identifier,
+                    'label_prefix' => 'config.' . $configType . '.' . $configKey,
                 )
             );
         }

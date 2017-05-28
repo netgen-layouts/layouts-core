@@ -26,14 +26,14 @@ class ConfigDefinitionFactory
      * Builds the config definition.
      *
      * @param string $type
-     * @param string $identifier
+     * @param string $configKey
      * @param \Netgen\BlockManager\Config\ConfigDefinition\ConfigDefinitionHandlerInterface $handler
      *
      * @return \Netgen\BlockManager\Config\ConfigDefinitionInterface
      */
     public function buildConfigDefinition(
         $type,
-        $identifier,
+        $configKey,
         ConfigDefinitionHandlerInterface $handler
     ) {
         $parameterBuilder = $this->parameterBuilderFactory->createParameterBuilder();
@@ -43,7 +43,7 @@ class ConfigDefinitionFactory
         return new ConfigDefinition(
             array(
                 'type' => $type,
-                'identifier' => $identifier,
+                'configKey' => $configKey,
                 'handler' => $handler,
                 'parameters' => $parameters,
             )

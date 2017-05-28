@@ -15,11 +15,11 @@ interface ConfigDefinitionInterface extends ParameterCollectionInterface
     public function getType();
 
     /**
-     * Returns config definition identifier.
+     * Returns the config key for the definition.
      *
      * @return string
      */
-    public function getIdentifier();
+    public function getConfigKey();
 
     /**
      * Returns if this config definition is enabled for current config aware value.

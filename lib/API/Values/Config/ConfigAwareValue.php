@@ -12,22 +12,22 @@ interface ConfigAwareValue
     public function getConfigs();
 
     /**
-     * Returns the config with specified identifier.
+     * Returns the config with specified config key.
      *
-     * @param string $identifier
+     * @param string $configKey
      *
      * @throws \Netgen\BlockManager\Exception\Core\ConfigException If the config does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Config\Config
      */
-    public function getConfig($identifier);
+    public function getConfig($configKey);
 
     /**
-     * Returns if the config with specified identifier exists.
+     * Returns if the config with specified config key exists.
      *
-     * @param string $identifier
+     * @param string $configKey
      *
      * @return bool
      */
-    public function hasConfig($identifier);
+    public function hasConfig($configKey);
 }

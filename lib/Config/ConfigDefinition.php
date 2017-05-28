@@ -18,7 +18,7 @@ class ConfigDefinition extends ValueObject implements ConfigDefinitionInterface
     /**
      * @var string
      */
-    protected $identifier;
+    protected $configKey;
 
     /**
      * @var \Netgen\BlockManager\Config\ConfigDefinition\ConfigDefinitionHandlerInterface
@@ -36,13 +36,13 @@ class ConfigDefinition extends ValueObject implements ConfigDefinitionInterface
     }
 
     /**
-     * Returns config definition identifier.
+     * Returns the config key for the definition.
      *
      * @return string
      */
-    public function getIdentifier()
+    public function getConfigKey()
     {
-        return $this->identifier;
+        return $this->configKey;
     }
 
     /**

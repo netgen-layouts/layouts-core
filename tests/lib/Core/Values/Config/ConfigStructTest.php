@@ -33,7 +33,7 @@ class ConfigStructTest extends TestCase
      * @covers \Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait::setConfigStruct
      * @covers \Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait::getConfigStruct
      * @expectedException \Netgen\BlockManager\Exception\Core\ConfigException
-     * @expectedExceptionMessage Config struct with identifier "unknown" does not exist.
+     * @expectedExceptionMessage Config struct with config key "unknown" does not exist.
      */
     public function testGetConfigStructThrowsConfigException()
     {

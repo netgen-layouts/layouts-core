@@ -10,19 +10,19 @@ use PHPUnit\Framework\TestCase;
 class ConfigTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Core\Values\Config\Config::getIdentifier
+     * @covers \Netgen\BlockManager\Core\Values\Config\Config::getConfigKey
      * @covers \Netgen\BlockManager\Core\Values\Config\Config::getDefinition
      */
     public function testSetDefaultProperties()
     {
         $config = new Config();
 
-        $this->assertNull($config->getIdentifier());
+        $this->assertNull($config->getConfigKey());
         $this->assertNull($config->getDefinition());
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Values\Config\Config::getIdentifier
+     * @covers \Netgen\BlockManager\Core\Values\Config\Config::getConfigKey
      * @covers \Netgen\BlockManager\Core\Values\Config\Config::getDefinition
      */
     public function testSetProperties()
@@ -35,12 +35,12 @@ class ConfigTest extends TestCase
 
         $config = new Config(
             array(
-                'identifier' => 'config',
+                'configKey' => 'config',
                 'definition' => $definition,
             )
         );
 
-        $this->assertEquals('config', $config->getIdentifier());
+        $this->assertEquals('config', $config->getConfigKey());
         $this->assertEquals($definition, $config->getDefinition());
     }
 }

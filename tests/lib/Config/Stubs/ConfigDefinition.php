@@ -16,7 +16,7 @@ class ConfigDefinition implements ConfigDefinitionInterface
     /**
      * @var string
      */
-    protected $identifier;
+    protected $configKey;
 
     /**
      * @var \Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionHandler
@@ -27,13 +27,13 @@ class ConfigDefinition implements ConfigDefinitionInterface
      * Constructor.
      *
      * @param string $type
-     * @param string $identifier
+     * @param string $configKey
      * @param \Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionHandler $handler
      */
-    public function __construct($type, $identifier, ConfigDefinitionHandler $handler)
+    public function __construct($type, $configKey, ConfigDefinitionHandler $handler)
     {
         $this->type = $type;
-        $this->identifier = $identifier;
+        $this->configKey = $configKey;
         $this->handler = $handler;
     }
 
@@ -48,13 +48,13 @@ class ConfigDefinition implements ConfigDefinitionInterface
     }
 
     /**
-     * Returns config definition identifier.
+     * Returns config definition config key.
      *
      * @return string
      */
-    public function getIdentifier()
+    public function getConfigKey()
     {
-        return $this->identifier;
+        return $this->configKey;
     }
 
     /**

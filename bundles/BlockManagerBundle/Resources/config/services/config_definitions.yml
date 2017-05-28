@@ -9,4 +9,4 @@ services:
         arguments:
             - "@netgen_block_manager.http_cache.block.cacheable_resolver"
         tags:
-            - { name: netgen_block_manager.config.config_definition_handler, type: block, identifier: http_cache }
+            - { name: netgen_block_manager.config.config_definition_handler, type: block, config_key: http_cache }

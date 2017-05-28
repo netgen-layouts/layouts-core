@@ -19,20 +19,20 @@ class ConfigValidator extends Validator
     public function validateConfigStructs(array $configStructs, array $configDefinitions)
     {
         foreach ($configDefinitions as $configDefinition) {
-            $configIdentifier = $configDefinition->getIdentifier();
-            if (!isset($configStructs[$configIdentifier])) {
+            $configKey = $configDefinition->getConfigKey();
+            if (!isset($configStructs[$configKey])) {
                 continue;
             }
 
             $this->validate(
-                $configStructs[$configIdentifier],
+                $configStructs[$configKey],
                 array(
                     new Constraints\Type(array('type' => ConfigStruct::class)),
                 )
             );
 
             $this->validate(
-                $configStructs[$configIdentifier],
+                $configStructs[$configKey],
                 array(
                     new ParameterStructConstraint(
                         array(

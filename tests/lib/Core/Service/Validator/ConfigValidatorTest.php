@@ -58,8 +58,8 @@ class ConfigValidatorTest extends TestCase
         }
 
         $configStructs = array();
-        foreach ($config as $identifier => $configValues) {
-            $configStructs[$identifier] = new ConfigStruct(
+        foreach ($config as $configKey => $configValues) {
+            $configStructs[$configKey] = new ConfigStruct(
                 array(
                     'parameterValues' => $configValues,
                 )
@@ -144,14 +144,14 @@ class ConfigValidatorTest extends TestCase
     }
 
     /**
-     * @param string $identifier
+     * @param string $configKey
      *
      * @return \Netgen\BlockManager\Config\ConfigDefinitionInterface
      */
-    protected function getConfigDefinition($identifier)
+    protected function getConfigDefinition($configKey)
     {
         $handler = new HttpCacheConfigHandler();
 
-        return new ConfigDefinition('block', $identifier, $handler);
+        return new ConfigDefinition('block', $configKey, $handler);
     }
 }

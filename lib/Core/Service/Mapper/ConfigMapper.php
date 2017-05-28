@@ -35,17 +35,17 @@ class ConfigMapper
         $configs = array();
 
         foreach ($configDefinitions as $configDefinition) {
-            $configIdentifier = $configDefinition->getIdentifier();
+            $configKey = $configDefinition->getConfigKey();
             $parameters = $this->parameterMapper->mapParameters(
                 $configDefinition,
-                isset($config[$configIdentifier]) ?
-                    $config[$configIdentifier] :
+                isset($config[$configKey]) ?
+                    $config[$configKey] :
                     array()
             );
 
-            $configs[$configIdentifier] = new Config(
+            $configs[$configKey] = new Config(
                 array(
-                    'identifier' => $configIdentifier,
+                    'configKey' => $configKey,
                     'definition' => $configDefinition,
                     'parameters' => $parameters,
                 )
@@ -70,20 +70,20 @@ class ConfigMapper
 
         foreach ($configDefinitions as $configDefinition) {
             $configValues = array();
-            $configIdentifier = $configDefinition->getIdentifier();
+            $configKey = $configDefinition->getConfigKey();
 
             if (
-                isset($configStructs[$configIdentifier]) &&
-                $configStructs[$configIdentifier] instanceof ParameterStruct
+                isset($configStructs[$configKey]) &&
+                $configStructs[$configKey] instanceof ParameterStruct
             ) {
-                $configValues = $configStructs[$configIdentifier]->getParameterValues();
+                $configValues = $configStructs[$configKey]->getParameterValues();
             }
 
-            $configs[$configIdentifier] = $this->parameterMapper->serializeValues(
+            $configs[$configKey] = $this->parameterMapper->serializeValues(
                 $configDefinition,
                 $configValues,
-                isset($fallbackValues[$configIdentifier]) ?
-                    $fallbackValues[$configIdentifier] :
+                isset($fallbackValues[$configKey]) ?
+                    $fallbackValues[$configKey] :
                     array()
             );
         }

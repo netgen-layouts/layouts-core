@@ -36,17 +36,17 @@ class ConfigAwareStructValidator extends ConstraintValidator
         $validator = $this->context->getValidator()->inContext($this->context);
         $configs = $constraint->payload->getConfigs();
 
-        foreach ($value->getConfigStructs() as $identifier => $configStruct) {
-            if (!isset($configs[$identifier])) {
+        foreach ($value->getConfigStructs() as $configKey => $configStruct) {
+            if (!isset($configs[$configKey])) {
                 continue;
             }
 
-            $validator->atPath('configStructs[' . $identifier . '].parameterValues')->validate(
+            $validator->atPath('configStructs[' . $configKey . '].parameterValues')->validate(
                 $configStruct,
                 array(
                     new ParameterStruct(
                         array(
-                            'parameterCollection' => $configs[$identifier]->getDefinition(),
+                            'parameterCollection' => $configs[$configKey]->getDefinition(),
                             'allowMissingFields' => true,
                         )
                     ),

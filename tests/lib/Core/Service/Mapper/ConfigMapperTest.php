@@ -69,7 +69,7 @@ class ConfigMapperTest extends TestCase
         $config = $mappedConfig['test'];
 
         $this->assertInstanceOf(Config::class, $config);
-        $this->assertEquals('test', $config->getIdentifier());
+        $this->assertEquals('test', $config->getConfigKey());
         $this->assertEquals($this->configDefinition, $config->getDefinition());
         $this->assertEquals(array('config' => 'mapped_value'), $config->getParameters());
     }

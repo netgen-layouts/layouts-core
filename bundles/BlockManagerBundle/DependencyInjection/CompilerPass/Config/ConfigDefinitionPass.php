@@ -14,7 +14,7 @@ class ConfigDefinitionPass implements CompilerPassInterface
     const TAG_NAME = 'netgen_block_manager.config.config_definition_handler';
     const SUPPORTED_TYPES = array('block');
 
-    protected $seenIdentifiers = array();
+    protected $seenConfigKeys = array();
 
     /**
      * You can modify the container here before it is dumped to PHP code.
@@ -44,32 +44,32 @@ class ConfigDefinitionPass implements CompilerPassInterface
                     );
                 }
 
-                if (!isset($tag['identifier'])) {
+                if (!isset($tag['config_key'])) {
                     throw new RuntimeException(
-                        "Config definition handler definition must have an 'identifier' attribute in its' tag."
+                        "Config definition handler definition must have an 'config_key' attribute in its' tag."
                     );
                 }
 
-                $identifier = $tag['identifier'];
+                $configKey = $tag['config_key'];
 
-                if (isset($this->seenIdentifiers[$type][$identifier])) {
+                if (isset($this->seenConfigKeys[$type][$configKey])) {
                     throw new RuntimeException(
                         sprintf(
-                            "Config definition with '%s' identifier is defined more than once for '%s' config type.",
-                            $identifier,
+                            "Config definition with '%s' config key is defined more than once for '%s' config type.",
+                            $configKey,
                             $type
                         )
                     );
                 }
 
-                $this->seenIdentifiers[$type][$identifier] = true;
+                $this->seenConfigKeys[$type][$configKey] = true;
 
-                $configDefinitionServiceName = sprintf('netgen_block_manager.config.config_definition.%s.%s', $type, $identifier);
+                $configDefinitionServiceName = sprintf('netgen_block_manager.config.config_definition.%s.%s', $type, $configKey);
                 $configDefinitionService = new Definition(ConfigDefinition::class);
 
                 $configDefinitionService->setLazy(true);
                 $configDefinitionService->addArgument($type);
-                $configDefinitionService->addArgument($identifier);
+                $configDefinitionService->addArgument($configKey);
                 $configDefinitionService->addArgument(new Reference($configDefinitionHandler));
                 $configDefinitionService->setFactory(array(new Reference('netgen_block_manager.config.config_definition_factory'), 'buildConfigDefinition'));
 

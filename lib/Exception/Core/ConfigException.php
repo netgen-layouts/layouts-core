@@ -8,46 +8,46 @@ use Netgen\BlockManager\Exception\Exception;
 class ConfigException extends InvalidArgumentException implements Exception
 {
     /**
-     * @param string $identifier
+     * @param string $configKey
      *
      * @return \Netgen\BlockManager\Exception\Core\ConfigException
      */
-    public static function noConfig($identifier)
+    public static function noConfig($configKey)
     {
         return new self(
             sprintf(
-                'Configuration with "%s" identifier does not exist.',
-                $identifier
+                'Configuration with "%s" config key does not exist.',
+                $configKey
             )
         );
     }
 
     /**
-     * @param string $identifier
+     * @param string $configKey
      *
      * @return \Netgen\BlockManager\Exception\Core\ConfigException
      */
-    public static function configNotEnabled($identifier)
+    public static function configNotEnabled($configKey)
     {
         return new self(
             sprintf(
-                'Config with "%s" identifier is not enabled.',
-                $identifier
+                'Config with "%s" config key is not enabled.',
+                $configKey
             )
         );
     }
 
     /**
-     * @param string $identifier
+     * @param string $configKey
      *
      * @return \Netgen\BlockManager\Exception\Core\ConfigException
      */
-    public static function noConfigStruct($identifier)
+    public static function noConfigStruct($configKey)
     {
         return new self(
             sprintf(
-                'Config struct with identifier "%s" does not exist.',
-                $identifier
+                'Config struct with config key "%s" does not exist.',
+                $configKey
             )
         );
     }

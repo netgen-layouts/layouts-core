@@ -26,18 +26,18 @@ class ConfigDefinitionTest extends TestCase
         $this->configDefinition = new ConfigDefinition(
             array(
                 'type' => 'type',
-                'identifier' => 'config_definition',
+                'configKey' => 'config_definition',
                 'handler' => $this->handler,
             )
         );
     }
 
     /**
-     * @covers \Netgen\BlockManager\Config\ConfigDefinition::getIdentifier
+     * @covers \Netgen\BlockManager\Config\ConfigDefinition::getConfigKey
      */
-    public function testGetIdentifier()
+    public function testGetConfigKey()
     {
-        $this->assertEquals('config_definition', $this->configDefinition->getIdentifier());
+        $this->assertEquals('config_definition', $this->configDefinition->getConfigKey());
     }
 
     /**

@@ -7,11 +7,11 @@ use Netgen\BlockManager\API\Values\ParameterBasedValue;
 interface Config extends ParameterBasedValue
 {
     /**
-     * Returns the config identifier.
+     * Returns the config config key.
      *
      * @return string
      */
-    public function getIdentifier();
+    public function getConfigKey();
 
     /**
      * Returns the config definition.

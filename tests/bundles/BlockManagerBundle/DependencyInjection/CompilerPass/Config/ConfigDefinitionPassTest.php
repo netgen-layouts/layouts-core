@@ -18,7 +18,7 @@ class ConfigDefinitionPassTest extends AbstractCompilerPassTestCase
         $configDefinitionHandler = new Definition();
         $configDefinitionHandler->addTag(
             'netgen_block_manager.config.config_definition_handler',
-            array('identifier' => 'http_cache', 'type' => 'block')
+            array('config_key' => 'http_cache', 'type' => 'block')
         );
 
         $this->setDefinition(
@@ -42,7 +42,7 @@ class ConfigDefinitionPassTest extends AbstractCompilerPassTestCase
     public function testProcessThrowsExceptionWithNoTagType()
     {
         $configDefinitionHandler = new Definition();
-        $configDefinitionHandler->addTag('netgen_block_manager.config.config_definition_handler', array('identifier' => 'http_cache'));
+        $configDefinitionHandler->addTag('netgen_block_manager.config.config_definition_handler', array('config_key' => 'http_cache'));
         $this->setDefinition('netgen_block_manager.config.config_definition.handler.test', $configDefinitionHandler);
 
         $this->compile();
@@ -56,7 +56,7 @@ class ConfigDefinitionPassTest extends AbstractCompilerPassTestCase
     public function testProcessThrowsExceptionWithUnsupportedTagType()
     {
         $configDefinitionHandler = new Definition();
-        $configDefinitionHandler->addTag('netgen_block_manager.config.config_definition_handler', array('type' => 'unknown', 'identifier' => 'http_cache'));
+        $configDefinitionHandler->addTag('netgen_block_manager.config.config_definition_handler', array('type' => 'unknown', 'config_key' => 'http_cache'));
         $this->setDefinition('netgen_block_manager.config.config_definition.handler.test', $configDefinitionHandler);
 
         $this->compile();
@@ -65,9 +65,9 @@ class ConfigDefinitionPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Config\ConfigDefinitionPass::process
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Config definition handler definition must have an 'identifier' attribute in its' tag.
+     * @expectedExceptionMessage Config definition handler definition must have an 'config_key' attribute in its' tag.
      */
-    public function testProcessThrowsExceptionWithNoTagIdentifier()
+    public function testProcessThrowsExceptionWithNoTagConfigKey()
     {
         $configDefinitionHandler = new Definition();
         $configDefinitionHandler->addTag('netgen_block_manager.config.config_definition_handler', array('type' => 'block'));
