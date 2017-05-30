@@ -23,6 +23,8 @@ services:
             - "@netgen_block_manager.api.service.block"
             - "@netgen_block_manager.view.renderer.fragment"
             - "@?logger"
+        calls:
+            - [setDebug, ["%kernel.debug%"]]
         tags:
             - { name: netgen_block_manager.twig.runtime_loader }
             - { name: monolog.logger, channel: ngbm }
@@ -51,6 +53,8 @@ services:
             - "@netgen_block_manager.item.item_loader"
             - "@netgen_block_manager.item.url_builder"
             - "@?logger"
+        calls:
+            - [setDebug, ["%kernel.debug%"]]
         tags:
             - { name: netgen_block_manager.twig.runtime_loader }
             - { name: monolog.logger, channel: ngbm }

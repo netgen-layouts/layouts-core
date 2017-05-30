@@ -32,6 +32,11 @@ class RenderingRuntimeLoader implements Twig_RuntimeLoaderInterface
     protected $logger;
 
     /**
+     * @var bool
+     */
+    protected $debug = false;
+
+    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\API\Service\BlockService $blockService
@@ -49,6 +54,16 @@ class RenderingRuntimeLoader implements Twig_RuntimeLoaderInterface
     }
 
     /**
+     * Sets if debug is enabled or not.
+     *
+     * @param bool $debug
+     */
+    public function setDebug($debug)
+    {
+        $this->debug = (bool) $debug;
+    }
+
+    /**
      * Creates the runtime implementation of a Twig element (filter/function/test).
      *
      * @param string $class A runtime class
@@ -61,10 +76,9 @@ class RenderingRuntimeLoader implements Twig_RuntimeLoaderInterface
             return null;
         }
 
-        return new RenderingRuntime(
-            $this->blockService,
-            $this->renderer,
-            $this->logger
-        );
+        $runtime = new RenderingRuntime($this->blockService, $this->renderer, $this->logger);
+        $runtime->setDebug($this->debug);
+
+        return $runtime;
     }
 }
