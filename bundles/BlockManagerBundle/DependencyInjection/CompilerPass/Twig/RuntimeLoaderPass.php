@@ -13,8 +13,8 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class RuntimeLoaderPass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'twig';
-    const TAG_NAME = 'netgen_block_manager.twig.runtime_loader';
+    const SERVICE_NAME = 'netgen_block_manager.templating.twig.runtime.container_loader';
+    const TAG_NAME = 'netgen_block_manager.twig.runtime';
 
     /**
      * You can modify the container here before it is dumped to PHP code.
@@ -23,6 +23,10 @@ class RuntimeLoaderPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
+        if (!$container->has(self::SERVICE_NAME)) {
+            return;
+        }
+
         if ($container->has('twig.runtime_loader')) {
             // If official Twig runtime loader exists,
             // we skip using our custom runtime loaders
@@ -30,15 +34,24 @@ class RuntimeLoaderPass implements CompilerPassInterface
         }
 
         $twig = $container->findDefinition('twig');
-        $runtimeLoaders = array_keys($container->findTaggedServiceIds(self::TAG_NAME));
+        $runtimeLoader = $container->findDefinition(self::SERVICE_NAME);
 
-        foreach ($runtimeLoaders as $runtimeLoader) {
-            $twig->addMethodCall(
-                'addRuntimeLoader',
+        $runtimes = array_keys($container->findTaggedServiceIds(self::TAG_NAME));
+        foreach ($runtimes as $runtime) {
+            $runtimeLoader->addMethodCall(
+                'addRuntime',
                 array(
-                    new Reference($runtimeLoader),
+                    $container->getDefinition($runtime)->getClass(),
+                    $runtime,
                 )
             );
         }
+
+        $twig->addMethodCall(
+            'addRuntimeLoader',
+            array(
+                new Reference(self::SERVICE_NAME),
+            )
+        );
     }
 }
