@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Serializer\Normalizer;
 
 use Exception;
+use Symfony\Component\Debug\Exception\FlattenException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -54,17 +55,12 @@ class ExceptionNormalizer implements NormalizerInterface
                 $debugException = $object->getPrevious();
             }
 
-            // We disable serializing trace arguments as it can lead to
-            // recursion calls in serializer.
-            $trace = $debugException->getTrace();
-            foreach ($trace as &$traceItem) {
-                $traceItem['args'] = array();
-            }
+            $debugException = FlattenException::create($debugException);
 
             $data['debug'] = array(
                 'file' => $debugException->getFile(),
                 'line' => $debugException->getLine(),
-                'trace' => $trace,
+                'trace' => $debugException->getTrace(),
             );
         }
 
