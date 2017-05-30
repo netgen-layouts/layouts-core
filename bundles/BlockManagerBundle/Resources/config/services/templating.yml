@@ -4,6 +4,7 @@ parameters:
 services:
     netgen_block_manager.templating.twig.runtime.container_loader:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\Loader\ContainerRuntimeLoader
+        public: false
         deprecated: ~
         arguments:
             - "@service_container"
