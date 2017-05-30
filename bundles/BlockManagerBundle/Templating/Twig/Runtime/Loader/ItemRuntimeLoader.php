@@ -1,9 +1,10 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime;
+namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\Loader;
 
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Item\UrlBuilderInterface;
+use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntime;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Twig_RuntimeLoaderInterface;

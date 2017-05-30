@@ -17,7 +17,7 @@ services:
             - { name: twig.extension }
 
     netgen_block_manager.templating.twig.runtime.rendering.loader:
-        class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntimeLoader
+        class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\Loader\RenderingRuntimeLoader
         deprecated: ~
         arguments:
             - "@netgen_block_manager.api.service.block"
@@ -44,7 +44,7 @@ services:
             - { name: twig.extension }
 
     netgen_block_manager.templating.twig.runtime.item.loader:
-        class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntimeLoader
+        class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\Loader\ItemRuntimeLoader
         deprecated: ~
         arguments:
             - "@netgen_block_manager.item.item_loader"
