@@ -25,6 +25,7 @@ services:
             - "@?logger"
         tags:
             - { name: netgen_block_manager.twig.runtime_loader }
+            - { name: monolog.logger, channel: ngbm }
 
     netgen_block_manager.templating.twig.runtime.rendering:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime
@@ -52,6 +53,7 @@ services:
             - "@?logger"
         tags:
             - { name: netgen_block_manager.twig.runtime_loader }
+            - { name: monolog.logger, channel: ngbm }
 
     netgen_block_manager.templating.twig.runtime.item:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntime
