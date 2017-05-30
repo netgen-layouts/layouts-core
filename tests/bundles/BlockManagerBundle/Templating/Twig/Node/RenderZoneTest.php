@@ -4,8 +4,8 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig\Node;
 
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate;
-use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderZone;
+use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime;
 use Twig_Node_Expression_Name;
 
 class RenderZoneTest extends NodeTest
@@ -59,7 +59,7 @@ class RenderZoneTest extends NodeTest
         $environment->enableStrictVariables();
 
         $zoneClass = Zone::class;
-        $extensionClass = RenderingExtension::class;
+        $runtimeClass = RenderingRuntime::class;
         $templateClass = ContextualizedTwigTemplate::class;
 
         $zone = new Twig_Node_Expression_Name('zone', 1);
@@ -74,7 +74,7 @@ class RenderZoneTest extends NodeTest
 \$ngbmContext = {$this->getNodeGetter('context')};
 \$ngbmTemplate = new {$templateClass}(\$this, \$context, \$blocks);
 if (\$ngbmZone instanceof {$zoneClass}) {
-    \$this->env->getExtension("{$extensionClass}")->displayZone(\$ngbmZone, \$ngbmContext, \$ngbmTemplate);
+    \$this->env->getRuntime("{$runtimeClass}")->displayZone(\$ngbmZone, \$ngbmContext, \$ngbmTemplate);
 }
 EOT
                 ,
@@ -88,7 +88,7 @@ EOT
 \$ngbmContext = Netgen\BlockManager\View\ViewInterface::CONTEXT_DEFAULT;
 \$ngbmTemplate = new {$templateClass}(\$this, \$context, \$blocks);
 if (\$ngbmZone instanceof {$zoneClass}) {
-    \$this->env->getExtension("{$extensionClass}")->displayZone(\$ngbmZone, \$ngbmContext, \$ngbmTemplate);
+    \$this->env->getRuntime("{$runtimeClass}")->displayZone(\$ngbmZone, \$ngbmContext, \$ngbmTemplate);
 }
 EOT
                 ,

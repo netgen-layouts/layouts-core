@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node;
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate;
 use Netgen\BlockManager\View\ViewInterface;
-use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension;
+use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime;
 use Twig_Compiler;
 use Twig_Node;
 use Twig_Node_Expression;
@@ -50,7 +50,7 @@ class RenderZone extends Twig_Node
         $compiler
             ->write('if ($ngbmZone instanceof ' . Zone::class . ') {' . PHP_EOL)
             ->indent()
-                ->write('$this->env->getExtension("' . RenderingExtension::class . '")->displayZone($ngbmZone, ')
+                ->write('$this->env->getRuntime("' . RenderingRuntime::class . '")->displayZone($ngbmZone, ')
                 ->raw('$ngbmContext, $ngbmTemplate);' . PHP_EOL)
             ->outdent()
             ->write('}' . PHP_EOL);

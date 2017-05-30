@@ -13,6 +13,21 @@ services:
 
     netgen_block_manager.templating.twig.extension.rendering:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension
+        tags:
+            - { name: twig.extension }
+
+    netgen_block_manager.templating.twig.runtime.rendering.loader:
+        class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntimeLoader
+        deprecated: ~
+        arguments:
+            - "@netgen_block_manager.api.service.block"
+            - "@netgen_block_manager.view.renderer.fragment"
+            - "@?logger"
+        tags:
+            - { name: netgen_block_manager.twig.runtime_loader }
+
+    netgen_block_manager.templating.twig.runtime.rendering:
+        class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime
         arguments:
             - "@netgen_block_manager.api.service.block"
             - "@netgen_block_manager.view.renderer.fragment"
@@ -20,11 +35,26 @@ services:
         calls:
             - [setDebug, ["%kernel.debug%"]]
         tags:
-            - { name: twig.extension }
+            - { name: twig.runtime }
             - { name: monolog.logger, channel: ngbm }
 
     netgen_block_manager.templating.twig.extension.item:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\ItemExtension
+        tags:
+            - { name: twig.extension }
+
+    netgen_block_manager.templating.twig.runtime.item.loader:
+        class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntimeLoader
+        deprecated: ~
+        arguments:
+            - "@netgen_block_manager.item.item_loader"
+            - "@netgen_block_manager.item.url_builder"
+            - "@?logger"
+        tags:
+            - { name: netgen_block_manager.twig.runtime_loader }
+
+    netgen_block_manager.templating.twig.runtime.item:
+        class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntime
         arguments:
             - "@netgen_block_manager.item.item_loader"
             - "@netgen_block_manager.item.url_builder"
@@ -32,7 +62,7 @@ services:
         calls:
             - [setDebug, ["%kernel.debug%"]]
         tags:
-            - { name: twig.extension }
+            - { name: twig.runtime }
             - { name: monolog.logger, channel: ngbm }
 
     netgen_block_manager.templating.pagelayout_resolver.default:
