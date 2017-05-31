@@ -256,15 +256,20 @@ services:
 
     netgen_block_manager.persistence.handler:
         alias: netgen_block_manager.persistence.doctrine.handler
+        public: false
 
     netgen_block_manager.persistence.layout.handler:
         alias: netgen_block_manager.persistence.doctrine.layout.handler
+        public: false
 
     netgen_block_manager.persistence.block.handler:
         alias: netgen_block_manager.persistence.doctrine.block.handler
+        public: false
 
     netgen_block_manager.persistence.collection.handler:
         alias: netgen_block_manager.persistence.doctrine.collection.handler
+        public: false
 
     netgen_block_manager.persistence.layout_resolver.handler:
         alias: netgen_block_manager.persistence.doctrine.layout_resolver.handler
+        public: false
