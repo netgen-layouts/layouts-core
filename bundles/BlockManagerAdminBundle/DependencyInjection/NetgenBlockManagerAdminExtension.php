@@ -52,6 +52,7 @@ class NetgenBlockManagerAdminExtension extends Extension implements PrependExten
 
         $prependConfigs = array(
             'framework/assets.yml' => 'framework',
+            'framework/twig.yml' => 'twig',
             'view/form_view.yml' => 'netgen_block_manager',
             'view/layout_view.yml' => 'netgen_block_manager',
             'view/rule_condition_view.yml' => 'netgen_block_manager',
