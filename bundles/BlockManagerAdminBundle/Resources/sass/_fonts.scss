@@ -55,6 +55,19 @@
        url('../fonts/Roboto/Roboto-700.svg#Roboto') format('svg');
 }
 
+@font-face {
+  font-family: 'Roboto';
+  font-weight: 400;
+  font-style: italic;
+  src: url('../fonts/Roboto/Roboto-italic.eot');
+  src: url('../fonts/Roboto/Roboto-italic.eot?#iefix') format('embedded-opentype'),
+       local('Roboto'),
+       local('Roboto-italic'),
+       url('../fonts/Roboto/Roboto-italic.woff2') format('woff2'),
+       url('../fonts/Roboto/Roboto-italic.woff') format('woff'),
+       url('../fonts/Roboto/Roboto-italic.ttf') format('truetype'),
+       url('../fonts/Roboto/Roboto-italic.svg#Roboto') format('svg');
+}
 
 /* material icons */
 @font-face {
