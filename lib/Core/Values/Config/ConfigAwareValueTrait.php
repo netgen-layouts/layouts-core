@@ -60,12 +60,6 @@ trait ConfigAwareValueTrait
      */
     public function isConfigEnabled($configKey)
     {
-        if (!$this->hasConfig($configKey)) {
-            return false;
-        }
-
-        $config = $this->getConfig($configKey);
-
-        return $config->getDefinition()->isEnabled($this);
+        return $this->getConfig($configKey)->getDefinition()->isEnabled($this);
     }
 }
