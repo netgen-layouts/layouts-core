@@ -91,7 +91,7 @@ body {
                 display:inline-block;
             }
             .sorting-hide {
-                display:none;
+                display:none !important;
             }
         }
         .js-add-rule {
