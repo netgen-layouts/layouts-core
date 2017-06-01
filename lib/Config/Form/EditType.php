@@ -16,11 +16,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class EditType extends AbstractType
 {
     /**
-     * @var string[]
-     */
-    protected $enabledConfigs = array();
-
-    /**
      * Configures the options for this type.
      *
      * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver The resolver for the options
@@ -56,39 +51,31 @@ class EditType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        /** @var \Netgen\BlockManager\API\Values\Config\ConfigAwareValue $configAwareValue */
-        $configAwareValue = $options['configurable'];
-        $configs = $configAwareValue->getConfigs();
+        /** @var \Netgen\BlockManager\API\Values\Config\ConfigAwareValue $value */
+        $value = $options['configurable'];
 
-        /** @var \Netgen\BlockManager\API\Values\Config\ConfigStruct[] $configStructs */
-        $configStructs = $options['data']->getConfigStructs();
+        /** @var \Netgen\BlockManager\API\Values\Config\ConfigAwareStruct $data */
+        $data = $options['data'];
 
         $configKeys = $options['configKeys'];
         if ($configKeys === null) {
-            $configKeys = array_keys($configStructs);
+            $configKeys = array_keys($data->getConfigStructs());
         } elseif (is_string($configKeys)) {
             $configKeys = array($configKeys);
         }
 
         foreach ($configKeys as $configKey) {
-            if (!isset($configs[$configKey])) {
+            if (!$data->hasConfigStruct($configKey) || !$value->isConfigEnabled($configKey)) {
                 continue;
             }
-
-            $configDefinition = $configs[$configKey]->getDefinition();
-            if (!$configDefinition->isEnabled($configAwareValue)) {
-                continue;
-            }
-
-            $this->enabledConfigs[$configKey] = $configs[$configKey];
 
             $builder->add(
                 $configKey,
                 ParametersType::class,
                 array(
-                    'data' => $configStructs[$configKey],
+                    'data' => $data->getConfigStruct($configKey),
                     'property_path' => 'configStructs[' . $configKey . ']',
-                    'parameter_collection' => $configDefinition,
+                    'parameter_collection' => $value->getConfig($configKey)->getDefinition(),
                     'label_prefix' => 'config.' . $options['configType'] . '.' . $configKey,
                 )
             );
@@ -104,7 +91,6 @@ class EditType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars['enabled_configs'] = $this->enabledConfigs;
         $view->vars['configurable'] = $options['configurable'];
     }
 }

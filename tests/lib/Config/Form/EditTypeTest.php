@@ -84,7 +84,7 @@ class EditTypeTest extends FormTestCase
     public function getTypes()
     {
         $formMapperRegistry = new FormMapperRegistry();
-        $formMapperRegistry->addFormMapper('compound_boolean', new Mapper\Compound\BooleanMapper());
+        $formMapperRegistry->addFormMapper('boolean', new Mapper\BooleanMapper());
         $formMapperRegistry->addFormMapper('integer', new Mapper\IntegerMapper());
         $formMapperRegistry->addFormMapper('text_line', new Mapper\TextLineMapper());
 
@@ -99,10 +99,8 @@ class EditTypeTest extends FormTestCase
     {
         $submittedData = array(
             'http_cache' => array(
-                'use_http_cache' => array(
-                    '_self' => true,
-                    'shared_max_age' => 300,
-                ),
+                'use_http_cache' => true,
+                'shared_max_age' => 300,
             ),
         );
 
@@ -140,7 +138,7 @@ class EditTypeTest extends FormTestCase
 
         $this->assertArrayHasKey('http_cache', $children);
         $this->assertArrayHasKey('use_http_cache', $children['http_cache']);
-        $this->assertArrayHasKey('shared_max_age', $children['http_cache']['use_http_cache']);
+        $this->assertArrayHasKey('shared_max_age', $children['http_cache']);
 
         $this->assertArrayHasKey('configurable', $view->vars);
         $this->assertEquals($this->block, $view->vars['configurable']);
