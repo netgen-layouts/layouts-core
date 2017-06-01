@@ -70,9 +70,7 @@ class CacheableViewListener implements EventSubscriberInterface
 
         if (!$response->headers->hasCacheControlDirective('s-maxage')) {
             $sharedMaxAge = (int) $cacheableView->getSharedMaxAge();
-            if ($sharedMaxAge > 0) {
-                $response->setSharedMaxAge($sharedMaxAge);
-            }
+            $response->setSharedMaxAge($sharedMaxAge);
         }
     }
 }
