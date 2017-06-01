@@ -19,6 +19,16 @@ services:
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: form\query\type }
 
+    netgen_block_manager.view.matcher.form.config.config_key:
+        class: Netgen\BlockManager\View\Matcher\Form\Config\ConfigKey
+        tags:
+            - { name: netgen_block_manager.view.template_matcher, identifier: form\config\config_key }
+
+    netgen_block_manager.view.matcher.form.config.value_type:
+        class: Netgen\BlockManager\View\Matcher\Form\Config\ValueType
+        tags:
+            - { name: netgen_block_manager.view.template_matcher, identifier: form\config\value_type }
+
     netgen_block_manager.view.matcher.parameter.type:
         class: Netgen\BlockManager\View\Matcher\Parameter\Type
         tags:

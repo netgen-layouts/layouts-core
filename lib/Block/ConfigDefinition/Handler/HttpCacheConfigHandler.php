@@ -35,13 +35,13 @@ class HttpCacheConfigHandler implements ConfigDefinitionHandlerInterface
     {
         $builder->add(
             'use_http_cache',
-            ParameterType\Compound\BooleanType::class,
+            ParameterType\BooleanType::class,
             array(
                 'default_value' => false,
             )
         );
 
-        $builder->get('use_http_cache')->add(
+        $builder->add(
             'shared_max_age',
             ParameterType\IntegerType::class,
             array(

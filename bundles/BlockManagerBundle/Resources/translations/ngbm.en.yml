@@ -54,8 +54,8 @@ block.gallery.enable_lightbox: 'Enable lightbox'
 
 block.twig_block.block_name: 'Twig block name'
 
-config.block.http_cache: 'HTTP cache settings'
-config.block.http_cache.use_http_cache: 'Enable HTTP cache'
+config.block.http_cache: 'HTTP cache'
+config.block.http_cache.use_http_cache: 'Enable cache'
 config.block.http_cache.shared_max_age: 'Shared max age'
 
 layout_resolver.target.path_info: 'Path info'

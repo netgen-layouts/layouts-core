@@ -25,10 +25,12 @@ view:
                 template: "NetgenBlockManagerAdminBundle:app/form/query/edit:full.html.twig"
                 match:
                     form\type: Netgen\BlockManager\Collection\Query\Form\FullEditType
-            config\edit:
-                template: "NetgenBlockManagerAdminBundle:app/form/config:edit.html.twig"
+            block\config\http_cache\edit:
+                template: "NetgenBlockManagerAdminBundle:app/form/block/config/edit:http_cache.html.twig"
                 match:
                     form\type: Netgen\BlockManager\Config\Form\EditType
+                    form\config\value_type: Netgen\BlockManager\API\Values\Block\Block
+                    form\config\config_key: http_cache
         admin:
             layout\copy:
                 template: "NetgenBlockManagerAdminBundle:admin/form/layout:copy.html.twig"

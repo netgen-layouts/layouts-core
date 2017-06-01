@@ -32,11 +32,11 @@ class EditType extends AbstractType
         $resolver->setRequired(array('configurable', 'configType', 'configKeys'));
 
         $resolver->setAllowedTypes('configType', 'string');
-        $resolver->setAllowedTypes('configKeys', 'array');
+        $resolver->setAllowedTypes('configKeys', array('string', 'array', 'null'));
         $resolver->setAllowedTypes('configurable', ConfigAwareValue::class);
         $resolver->setAllowedTypes('data', ConfigAwareStruct::class);
 
-        $resolver->setDefault('configKeys', array());
+        $resolver->setDefault('configKeys', null);
         $resolver->setDefault('constraints', function (Options $options) {
             return array(
                 new ConfigAwareStructConstraint(
@@ -64,8 +64,10 @@ class EditType extends AbstractType
         $configStructs = $options['data']->getConfigStructs();
 
         $configKeys = $options['configKeys'];
-        if (empty($configKeys)) {
+        if ($configKeys === null) {
             $configKeys = array_keys($configStructs);
+        } elseif (is_string($configKeys)) {
+            $configKeys = array($configKeys);
         }
 
         foreach ($configKeys as $configKey) {
