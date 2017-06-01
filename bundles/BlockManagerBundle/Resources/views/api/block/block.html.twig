@@ -1,5 +1,29 @@
 {% trans_default_domain 'ngbm_app' %}
 
+{% macro ttl_label(ttl) %}
+{% spaceless %}
+    {% set diff = date(ttl).diff(date(0)) %}
+
+    {% set display = {
+        's': diff.s > 0,
+        'i': diff.i > 0 or ((diff.d > 0 or diff.h > 0) and diff.s > 0),
+        'h': diff.h > 0 or (diff.d > 0 and (diff.i > 0 or diff.s > 0)),
+        'a': diff.days > 0
+    } %}
+
+    {% set format = [] %}
+    {% for component, label in {'a': 'd', 'h': 'h', 'i': 'min', 's': 's'} %}
+        {% if display[component] %}
+            {% set format = format|merge(['%' ~ component ~ label]) %}
+        {% endif %}
+    {% endfor %}
+
+    {{ diff|date(format|join(' ')) }}
+{% endspaceless %}
+{% endmacro %}
+
+{% import _self as self %}
+
 {% set view_type_name = block.viewType %}
 {% set config = block.definition.config %}
 
@@ -22,7 +46,7 @@
         <div class="template_name">{{ view_type_name }}</div>
         <div class="name">{{ block.name }}</div>
         {% if cache_config_enabled and cache_ttl is not same as(false) %}
-            <div class="cache">{{ cache_ttl }}</div>
+            <div class="cache">{{ self.ttl_label(cache_ttl) }}</div>
         {% endif %}
         <div class="dropdown">
             <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="material-icons">more_horiz</i></button>
