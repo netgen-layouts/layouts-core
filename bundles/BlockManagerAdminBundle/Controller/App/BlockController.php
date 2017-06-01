@@ -118,7 +118,7 @@ class BlockController extends Controller
     public function editConfigForm(Request $request, Block $block, $configKey = null)
     {
         if ($configKey !== null) {
-            if (!$block->getConfig($configKey)->getDefinition()->isEnabled($block)) {
+            if (!$block->isConfigEnabled($configKey)) {
                 throw ConfigException::configNotEnabled($configKey);
             }
         }
