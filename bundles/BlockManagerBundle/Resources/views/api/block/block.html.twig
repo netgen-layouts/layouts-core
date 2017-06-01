@@ -7,11 +7,22 @@
     {% set view_type_name = config.viewType(view_type_name).name %}
 {% endif %}
 
+{% set cache_ttl = false %}
+{% set cache_config = block.config('http_cache') %}
+{% if cache_config.parameter('use_http_cache').value %}
+    {% set cache_ttl = not cache_config.parameter('shared_max_age').empty ?
+        cache_config.parameter('shared_max_age').value :
+        0 %}
+{% endif %}
+
 {% block controls %}
     <div class="block-header">
         <div class="handle" title="{{ 'layout.block.move'|trans }}"><i class="material-icons">drag_handle</i></div>
         <div class="template_name">{{ view_type_name }}</div>
         <div class="name">{{ block.name }}</div>
+        {% if cache_ttl is not same as(false) %}
+            <div class="cache">{{ cache_ttl }}</div>
+        {% endif %}
         <div class="dropdown">
             <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="material-icons">more_horiz</i></button>
             <ul class="dropdown-menu dropdown-menu-right">
