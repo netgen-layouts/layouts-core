@@ -50,4 +50,22 @@ trait ConfigAwareValueTrait
     {
         return isset($this->configs[$configKey]);
     }
+
+    /**
+     * Returns if the config with specified config key is enabled or not.
+     *
+     * @param string $configKey
+     *
+     * @return bool
+     */
+    public function isConfigEnabled($configKey)
+    {
+        if (!$this->hasConfig($configKey)) {
+            return false;
+        }
+
+        $config = $this->getConfig($configKey);
+
+        return $config->getDefinition()->isEnabled($this);
+    }
 }

@@ -9,6 +9,7 @@
 
 {% set cache_ttl = false %}
 {% set cache_config = block.config('http_cache') %}
+{% set cache_config_enabled = block.configEnabled('http_cache') %}
 {% if cache_config.parameter('use_http_cache').value %}
     {% set cache_ttl = not cache_config.parameter('shared_max_age').empty ?
         cache_config.parameter('shared_max_age').value :
@@ -20,7 +21,7 @@
         <div class="handle" title="{{ 'layout.block.move'|trans }}"><i class="material-icons">drag_handle</i></div>
         <div class="template_name">{{ view_type_name }}</div>
         <div class="name">{{ block.name }}</div>
-        {% if cache_ttl is not same as(false) %}
+        {% if cache_config_enabled and cache_ttl is not same as(false) %}
             <div class="cache">{{ cache_ttl }}</div>
         {% endif %}
         <div class="dropdown">
