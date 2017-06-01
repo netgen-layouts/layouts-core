@@ -47,7 +47,7 @@ abstract class ParameterType implements ParameterTypeInterface
     }
 
     /**
-     * Converts the parameter value to from a domain format to scalar/hash format.
+     * Converts the parameter value from a domain format to scalar/hash format.
      *
      * This is a trivial implementation, just returning the provided value, usable by parameters
      * which have the scalar/hash format equal to domain format.

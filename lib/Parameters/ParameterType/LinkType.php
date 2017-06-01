@@ -34,7 +34,7 @@ class LinkType extends ParameterType
     }
 
     /**
-     * Converts the parameter value to from a domain format to scalar/hash format.
+     * Converts the parameter value from a domain format to scalar/hash format.
      *
      * @param mixed $value
      *
