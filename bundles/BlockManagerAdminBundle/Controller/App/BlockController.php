@@ -131,7 +131,7 @@ class BlockController extends Controller
             array(
                 'configurable' => $block,
                 'configType' => 'block',
-                'configKeys' => $configKey,
+                'configKey' => $configKey,
                 'action' => $this->generateUrl(
                     'ngbm_app_block_form_edit_config',
                     array(
