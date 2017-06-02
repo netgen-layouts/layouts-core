@@ -1,5 +1,5 @@
 .nl-modal-mask {
-    $modalBorderRadius:4px;
+    $modalBorderRadius:0px;
     position:fixed;
     z-index:1000;
     background:hsla(0, 0, 0, 0.5);
@@ -21,16 +21,13 @@
         animation:modalSlide 0.4s ease-out;
         .close-modal {
             position:absolute;
-            right:5px;
-            top:5px;
+            right:15px;
+            top:16px;
             display:block;
-            width:20px;
-            height:20px;
-            line-height:20px;
-            color:#4b4b4b;
+            color:#fff;
             border:none;
             padding:0;
-            font-size:16px;
+            font-size:24px;
             text-align:center;
             background:transparent;
             text-decoration:none;
@@ -40,13 +37,14 @@
             }
         }
         .nl-modal-body {
-            padding:15px 30px;
+            padding:15px;
         }
         .nl-modal-head {
-            padding:15px 30px;
-            background:hsl(0, 0, 95);
+            padding:15px;
+            background:hsl(0, 0, 25);
+            color:#fff;
             border-radius:$modalBorderRadius $modalBorderRadius 0 0;
-            font-size:16px;
+            font-size:20px;
         }
         .errors {
             list-style-type:none;
@@ -65,16 +63,59 @@
             font-size:14px;
             margin:0 0 4px;
         }
-        input[type=text], textarea {
+        input[type="text"],
+        input[type="number"],
+        input[type="url"],
+        input[type="email"],
+        textarea {
             display:block;
             margin:0 0 1em;
+            border-radius:2px;
             width:100%;
-            padding:6px;
+            padding:0 0.75em;
             font-size:14px;
-            border:1px solid hsl(0, 0, 85);
+            height:44px;
+            border:1px solid hsl(0, 0, 70);
+            &::placeholder {
+                color:hsl(0, 0, 70);
+            }
+        }
+        textarea {
+            height:auto;
+            min-height:120px;
+            padding-top:0.375em;
+            resize:vertical;
         }
         .form-actions {
             text-align:right;
+        }
+        input[type="checkbox"] {
+            position:absolute;
+            left:-9999em;
+            + label {
+                display:block;
+                position:relative;
+                padding:0.3846153846em 0.3846153846em 0.3846153846em 2em !important;
+                margin:0 0 0.5em;
+                cursor:pointer;
+                &::before {
+                    @extend %material-icons;
+                    font-size:24px;
+                    content:"check_box_outline_blank";
+                    position:absolute;
+                    left:0;
+                    top:0.1em;
+                    color:hsl(0, 0, 40);
+                }
+            }
+            &:checked {
+                + label {
+                    &::before {
+                        content:"check_box";
+                        color:$linkColor;
+                    }
+                }
+            }
         }
     }
     .nl-modal-loader {
