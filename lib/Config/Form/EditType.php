@@ -24,14 +24,14 @@ class EditType extends AbstractType
     {
         parent::configureOptions($resolver);
 
-        $resolver->setRequired(array('configurable', 'configKey', 'label_prefix'));
+        $resolver->setRequired(array('configurable', 'config_key', 'label_prefix'));
 
-        $resolver->setAllowedTypes('configKey', array('string', 'null'));
+        $resolver->setAllowedTypes('config_key', array('string', 'null'));
         $resolver->setAllowedTypes('configurable', ConfigAwareValue::class);
         $resolver->setAllowedTypes('label_prefix', 'string');
         $resolver->setAllowedTypes('data', ConfigAwareStruct::class);
 
-        $resolver->setDefault('configKey', null);
+        $resolver->setDefault('config_key', null);
         $resolver->setDefault('constraints', function (Options $options) {
             return array(
                 new ConfigAwareStructConstraint(
@@ -57,8 +57,8 @@ class EditType extends AbstractType
         /** @var \Netgen\BlockManager\API\Values\Config\ConfigAwareStruct $data */
         $data = $options['data'];
 
-        $configKeys = array($options['configKey']);
-        if ($options['configKey'] === null) {
+        $configKeys = array($options['config_key']);
+        if ($options['config_key'] === null) {
             $configKeys = array_keys($data->getConfigStructs());
         }
 

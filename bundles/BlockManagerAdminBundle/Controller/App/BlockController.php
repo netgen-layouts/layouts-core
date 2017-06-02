@@ -130,7 +130,7 @@ class BlockController extends Controller
             $updateStruct,
             array(
                 'configurable' => $block,
-                'configKey' => $configKey,
+                'config_key' => $configKey,
                 'label_prefix' => 'config.block',
                 'action' => $this->generateUrl(
                     'ngbm_app_block_form_edit_config',
