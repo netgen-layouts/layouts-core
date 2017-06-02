@@ -46,7 +46,7 @@
         <div class="template_name">{{ view_type_name }}</div>
         <div class="name">{{ block.name }}</div>
         {% if cache_config_enabled and cache_ttl is not same as(false) %}
-            <div class="cache">{{ self.ttl_label(cache_ttl) }}</div>
+            <div class="cache"><i class="material-icons">cached</i> {{ self.ttl_label(cache_ttl) }}</div>
         {% endif %}
         <div class="dropdown">
             <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="material-icons">more_horiz</i></button>
@@ -56,6 +56,9 @@
                 <li class="js-revert"><a title="{{ 'layout.block.revert'|trans }}">{{ 'layout.block.revert'|trans }}<span class="note">{{ 'layout.block.revert_note'|trans }}</span></a></li>
                 <li class="js-copy"><a title="{{ 'layout.block.copy'|trans }}">{{ 'layout.block.copy'|trans }}</a></li>
                 <li class="js-destroy"><a title="{{ 'layout.block.delete'|trans }}">{{ 'layout.block.delete'|trans }}</a></li>
+                {% if cache_config_enabled %}
+                    <li class="js-set-cache"><a title="{{ 'layout.block.set_cache'|trans }}">{{ 'layout.block.set_cache'|trans }}</a></li>
+                {% endif %}
             </ul>
         </div>
     </div>

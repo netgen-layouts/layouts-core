@@ -1,6 +1,17 @@
-{% extends 'NetgenBlockManagerAdminBundle:form:form.html.twig' %}
+{% extends 'NetgenBlockManagerAdminBundle:app/form:modal.html.twig' %}
+
+{% trans_default_domain 'ngbm_forms' %}
+
+{% block header %}
+    {{ 'layout.title.edit'|trans }}
+{% endblock %}
 
 {% block children %}
     {{ form_row(form.name) }}
     {{ form_row(form.description) }}
+{% endblock %}
+
+{% block buttons %}
+    <button type="button" class="btn btn-link action_cancel">{{ 'layout.button.cancel'|trans }}</button>
+    <button type="submit" class="btn btn-primary action_apply">{{ 'layout.button.save'|trans }}</button>
 {% endblock %}

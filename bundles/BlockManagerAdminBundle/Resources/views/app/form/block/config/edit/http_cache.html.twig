@@ -1,4 +1,4 @@
-{% extends 'NetgenBlockManagerAdminBundle:form:modal.html.twig' %}
+{% extends 'NetgenBlockManagerAdminBundle:app/form:modal.html.twig' %}
 
 {% trans_default_domain 'ngbm_forms' %}
 
@@ -6,7 +6,7 @@
 {% set http_cache_form = form.children.http_cache %}
 
 {% block header %}
-    {{ 'config.block.http_cache.header'|trans }}{% if block.name is not empty %}: {{ block.name }}{% endif %}
+    {{ 'config.block.http_cache.header'|trans }}{% if block.name is not empty %}: <strong>{{ block.name }}</strong>{% endif %}
 {% endblock %}
 
 {% block children %}
@@ -24,6 +24,6 @@
 {% endblock %}
 
 {% block buttons %}
-    <a class="nl-btn">{{ 'config.block.http_cache.cancel'|trans }}</a>
-    <button type="submit" class="nl-btn nl-btn-primary">{{ 'config.block.http_cache.submit'|trans }}</button>
+    <button type="button" class="btn btn-link action_cancel">{{ 'config.block.http_cache.cancel'|trans }}</button>
+    <button type="submit" class="btn btn-primary action_apply">{{ 'config.block.http_cache.submit'|trans }}</button>
 {% endblock %}
