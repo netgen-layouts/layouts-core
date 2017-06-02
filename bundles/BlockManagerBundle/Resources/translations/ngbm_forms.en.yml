@@ -4,6 +4,8 @@ layout.copy.title: 'Enter the name for the new layout:'
 layout.copy.button.copy: 'Copy layout'
 layout.copy.button.cancel: 'Cancel'
 
+layout.create.button.create: 'Create layout'
+
 layout.edit.button.cancel: 'Cancel'
 layout.edit.button.save: 'Save'
 layout.edit.title: 'Edit layout name and description:'

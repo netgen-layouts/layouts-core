@@ -1,4 +1,6 @@
-{% extends 'NetgenBlockManagerAdminBundle:form:form.html.twig' %}
+{% extends 'NetgenBlockManagerAdminBundle:app/form:modal.html.twig' %}
+
+{% trans_default_domain 'ngbm_forms' %}
 
 {% form_theme form.layoutType _self %}
 
@@ -15,4 +17,8 @@
     {{ form_row(form.layoutType, {attr: {class: 'layout-type'}}) }}
     {{ form_row(form.name) }}
     {{ form_row(form.description) }}
+{% endblock %}
+
+{% block buttons %}
+    <button type="submit" class="btn btn-primary action_apply">{{ 'layout.create.button.create'|trans }}</button>
 {% endblock %}
