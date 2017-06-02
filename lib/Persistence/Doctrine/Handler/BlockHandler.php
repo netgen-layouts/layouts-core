@@ -489,6 +489,53 @@ class BlockHandler implements BlockHandlerInterface
     }
 
     /**
+     * Deletes a block with specified ID and all of its sub-blocks.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
+     */
+    public function deleteBlock(Block $block)
+    {
+        $blockIds = $this->queryHandler->loadSubBlockIds($block->id, $block->status);
+        $this->deleteBlocks($blockIds, $block->status);
+        $this->positionHelper->removePosition(
+            $this->getPositionHelperConditions(
+                $block->parentId,
+                $block->status,
+                $block->placeholder
+            ),
+            $block->position
+        );
+    }
+
+    /**
+     * Deletes all blocks belonging to specified layout.
+     *
+     * @param int|string $layoutId
+     * @param int $status
+     */
+    public function deleteLayoutBlocks($layoutId, $status = null)
+    {
+        $blockIds = $this->queryHandler->loadLayoutBlockIds($layoutId, $status);
+        $this->deleteBlocks($blockIds, $status);
+    }
+
+    /**
+     * Deletes provided blocks.
+     *
+     * This is an internal method that only deletes the blocks with provided IDs.
+     *
+     * If you want to delete a block and all of its sub-blocks, use self::deleteBlock method.
+     *
+     * @param array $blockIds
+     * @param int $status
+     */
+    public function deleteBlocks(array $blockIds, $status = null)
+    {
+        $this->deleteBlockCollections($blockIds, $status);
+        $this->queryHandler->deleteBlocks($blockIds, $status);
+    }
+
+    /**
      * Creates a new status for all collections in specified block.
      *
      * This method does not create new status for sub-block collections,
@@ -497,7 +544,7 @@ class BlockHandler implements BlockHandlerInterface
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      * @param int $newStatus
      */
-    public function createBlockCollectionsStatus(Block $block, $newStatus)
+    protected function createBlockCollectionsStatus(Block $block, $newStatus)
     {
         $collectionReferences = $this->loadCollectionReferences($block);
 
@@ -529,42 +576,6 @@ class BlockHandler implements BlockHandlerInterface
     }
 
     /**
-     * Deletes a block with specified ID.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
-     */
-    public function deleteBlock(Block $block)
-    {
-        $blockIds = $this->queryHandler->loadSubBlockIds($block->id, $block->status);
-
-        $this->deleteBlockCollections($blockIds, $block->status);
-        $this->queryHandler->deleteBlocks($blockIds, $block->status);
-
-        $this->positionHelper->removePosition(
-            $this->getPositionHelperConditions(
-                $block->parentId,
-                $block->status,
-                $block->placeholder
-            ),
-            $block->position
-        );
-    }
-
-    /**
-     * Deletes all blocks belonging to specified layout.
-     *
-     * @param int|string $layoutId
-     * @param int $status
-     */
-    public function deleteLayoutBlocks($layoutId, $status = null)
-    {
-        $blockIds = $this->queryHandler->loadLayoutBlockIds($layoutId, $status);
-
-        $this->deleteBlockCollections($blockIds, $status);
-        $this->queryHandler->deleteBlocks($blockIds, $status);
-    }
-
-    /**
      * Deletes block collections with specified block IDs.
      *
      * This method does not delete block collections from sub-blocks,
@@ -573,7 +584,7 @@ class BlockHandler implements BlockHandlerInterface
      * @param array $blockIds
      * @param int $status
      */
-    public function deleteBlockCollections(array $blockIds, $status = null)
+    protected function deleteBlockCollections(array $blockIds, $status = null)
     {
         $collectionIds = $this->queryHandler->loadBlockCollectionIds($blockIds, $status);
         foreach ($collectionIds as $collectionId) {

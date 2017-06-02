@@ -587,29 +587,16 @@ class BlockService extends Service implements BlockServiceInterface
             throw new BadStateException('block', 'Block does not have a published status.');
         }
 
-        $updatedBlock = $this->transaction(
+        $this->transaction(
             function () use ($draftBlock, $publishedBlock) {
-                $updatedBlock = $this->blockHandler->updateBlock(
-                    $draftBlock,
-                    new BlockUpdateStruct(
-                        array(
-                            'name' => $publishedBlock->name,
-                            'viewType' => $publishedBlock->viewType,
-                            'itemViewType' => $publishedBlock->itemViewType,
-                            'parameters' => $publishedBlock->parameters,
-                            'config' => $publishedBlock->config,
-                        )
-                    )
-                );
-
-                $this->blockHandler->deleteBlockCollections(array($draftBlock->id), $draftBlock->status);
-                $this->blockHandler->createBlockCollectionsStatus($publishedBlock, $draftBlock->status);
-
-                return $updatedBlock;
+                $this->blockHandler->deleteBlocks(array($draftBlock->id), Value::STATUS_DRAFT);
+                $this->blockHandler->createBlockStatus($publishedBlock, Value::STATUS_DRAFT);
             }
         );
 
-        return $this->mapper->mapBlock($updatedBlock);
+        $draftBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
+
+        return $this->mapper->mapBlock($draftBlock);
     }
 
     /**

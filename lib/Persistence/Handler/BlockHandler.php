@@ -186,17 +186,6 @@ interface BlockHandler
     public function createBlockStatus(Block $block, $newStatus);
 
     /**
-     * Creates a new status for all collections in specified block.
-     *
-     * This method does not create new status for sub-block collections,
-     * so any process that works with this method needs to take care of that.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
-     * @param int $newStatus
-     */
-    public function createBlockCollectionsStatus(Block $block, $newStatus);
-
-    /**
      * Deletes a block with specified ID.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
@@ -212,13 +201,14 @@ interface BlockHandler
     public function deleteLayoutBlocks($layoutId, $status = null);
 
     /**
-     * Deletes block collections with specified block IDs.
+     * Deletes provided blocks.
      *
-     * This method does not delete block collections from sub-blocks,
-     * so this should be used only when deleting the entire layout.
+     * This is an internal method that only deletes the blocks with provided IDs.
+     *
+     * If you want to delete a block and all of its sub-blocks, use self::deleteBlock method.
      *
      * @param array $blockIds
      * @param int $status
      */
-    public function deleteBlockCollections(array $blockIds, $status = null);
+    public function deleteBlocks(array $blockIds, $status = null);
 }

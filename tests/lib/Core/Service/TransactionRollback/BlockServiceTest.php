@@ -346,7 +346,7 @@ class BlockServiceTest extends ServiceTestCase
 
         $this->blockHandlerMock
             ->expects($this->at(2))
-            ->method('updateBlock')
+            ->method('deleteBlocks')
             ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler

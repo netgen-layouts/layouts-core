@@ -1405,23 +1405,107 @@ class BlockHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::deleteBlocks
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::deleteBlockCollections
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlocks
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlockTranslations
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadBlockCollectionIds
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteCollectionReferences
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find collection with identifier "1"
+     * @doesNotPerformAssertions
      */
-    public function testDeleteBlockCollections()
+    public function testDeleteBlocks()
     {
-        $this->blockHandler->deleteBlockCollections(
-            array(31, 32),
-            Value::STATUS_DRAFT
-        );
+        $this->blockHandler->deleteBlocks(array(31, 32));
 
-        // Verify that shared collection still exists
-        $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED);
+        try {
+            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
+            $this->fail(
+                sprintf(
+                    'Draft block %d still available after deleting',
+                    31
+                )
+            );
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
 
-        // This should throw NotFoundException
-        $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT);
+        try {
+            $this->blockHandler->loadBlock(32, Value::STATUS_DRAFT);
+            $this->fail(
+                sprintf(
+                    'Draft block %d still available after deleting',
+                    32
+                )
+            );
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
+
+        try {
+            $this->blockHandler->loadBlock(31, Value::STATUS_PUBLISHED);
+            $this->fail(
+                sprintf(
+                    'Published block %d still available after deleting',
+                    31
+                )
+            );
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
+
+        try {
+            $this->blockHandler->loadBlock(32, Value::STATUS_PUBLISHED);
+            $this->fail(
+                sprintf(
+                    'Published block %d still available after deleting',
+                    32
+                )
+            );
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::deleteBlocks
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::deleteBlockCollections
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlocks
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlockTranslations
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadBlockCollectionIds
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteCollectionReferences
+     */
+    public function testDeleteBlocksInStatus()
+    {
+        $this->blockHandler->deleteBlocks(array(31, 32), Value::STATUS_PUBLISHED);
+
+        $block = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
+        $this->assertInstanceOf(Block::class, $block);
+
+        $block = $this->blockHandler->loadBlock(32, Value::STATUS_DRAFT);
+        $this->assertInstanceOf(Block::class, $block);
+
+        try {
+            $this->blockHandler->loadBlock(31, Value::STATUS_PUBLISHED);
+            $this->fail(
+                sprintf(
+                    'Published block %d still available after deleting',
+                    31
+                )
+            );
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
+
+        try {
+            $this->blockHandler->loadBlock(32, Value::STATUS_PUBLISHED);
+            $this->fail(
+                sprintf(
+                    'Published block %d still available after deleting',
+                    32
+                )
+            );
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
     }
 }
