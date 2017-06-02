@@ -597,6 +597,7 @@ class BlockService extends Service implements BlockServiceInterface
                             'viewType' => $publishedBlock->viewType,
                             'itemViewType' => $publishedBlock->itemViewType,
                             'parameters' => $publishedBlock->parameters,
+                            'config' => $publishedBlock->config,
                         )
                     )
                 );
