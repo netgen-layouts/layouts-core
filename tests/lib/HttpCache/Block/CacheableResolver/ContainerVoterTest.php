@@ -2,29 +2,42 @@
 
 namespace Netgen\BlockManager\Tests\HttpCache\Block\CacheableResolver;
 
+use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
-use Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContainerWithTwigBlockVoter;
+use Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContainerVoter;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\TwigBlockDefinition;
 use PHPUnit\Framework\TestCase;
 
-class ContainerWithTwigBlockVoterTest extends TestCase
+class ContainerVoterTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\HttpCache\Block\CacheableResolver\TwigBlockVoter
      */
     protected $voter;
 
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $blockServiceMock;
+
     public function setUp()
     {
-        $this->voter = new ContainerWithTwigBlockVoter();
+        $this->blockServiceMock = $this->createMock(BlockService::class);
+
+        $this->blockServiceMock
+            ->expects($this->any())
+            ->method('loadCollectionReferences')
+            ->will($this->returnValue(array()));
+
+        $this->voter = new ContainerVoter($this->blockServiceMock);
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContainerWithTwigBlockVoter::vote
-     * @covers \Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContainerWithTwigBlockVoter::containerHasTwigBlock
+     * @covers \Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContainerVoter::vote
+     * @covers \Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContainerVoter::containerHasTwigBlock
      */
     public function testVote()
     {
@@ -64,8 +77,8 @@ class ContainerWithTwigBlockVoterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContainerWithTwigBlockVoter::vote
-     * @covers \Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContainerWithTwigBlockVoter::containerHasTwigBlock
+     * @covers \Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContainerVoter::vote
+     * @covers \Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContainerVoter::containerHasTwigBlock
      */
     public function testVoteWithContainerWithoutTwigBlock()
     {
@@ -92,7 +105,7 @@ class ContainerWithTwigBlockVoterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContainerWithTwigBlockVoter::vote
+     * @covers \Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContainerVoter::vote
      */
     public function testVoteWithNonContainerBlock()
     {

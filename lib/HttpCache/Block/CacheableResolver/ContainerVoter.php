@@ -4,8 +4,10 @@ namespace Netgen\BlockManager\HttpCache\Block\CacheableResolver;
 
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Block\Block;
+use Netgen\BlockManager\Block\ContainerDefinitionInterface;
+use Netgen\BlockManager\Block\TwigBlockDefinitionInterface;
 
-class ContextualQueryVoter implements VoterInterface
+class ContainerVoter implements VoterInterface
 {
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService
@@ -26,7 +28,7 @@ class ContextualQueryVoter implements VoterInterface
      * Returns if the block is cacheable. One of self::YES, self::NO or self::ABSTAIN constants
      * must be returned to indicate the result.
      *
-     * This voter votes NO if the block has a collection with contextual query.
+     * This voter votes NO if the block is a container with a contextual query within it.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      *
@@ -34,7 +36,11 @@ class ContextualQueryVoter implements VoterInterface
      */
     public function vote(Block $block)
     {
-        return $this->hasContextualQuery($block) ? self::NO : self::ABSTAIN;
+        if (!$block->getDefinition() instanceof ContainerDefinitionInterface) {
+            return self::ABSTAIN;
+        }
+
+        return $this->isCacheable($block) ? self::ABSTAIN : self::NO;
     }
 
     /**
@@ -54,5 +60,35 @@ class ContextualQueryVoter implements VoterInterface
         }
 
         return false;
+    }
+
+    /**
+     * Returns if the block has a contextual query in one of its placeholders.
+     *
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
+     *
+     * @return bool
+     */
+    protected function isCacheable(Block $block)
+    {
+        foreach ($block->getPlaceholders() as $placeholder) {
+            foreach ($placeholder as $placeholderBlock) {
+                if ($placeholderBlock->getDefinition() instanceof ContainerDefinitionInterface) {
+                    if (!$this->isCacheable($placeholderBlock)) {
+                        return false;
+                    }
+                }
+
+                if ($placeholderBlock->getDefinition() instanceof TwigBlockDefinitionInterface) {
+                    return false;
+                }
+
+                if ($this->hasContextualQuery($placeholderBlock)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 }

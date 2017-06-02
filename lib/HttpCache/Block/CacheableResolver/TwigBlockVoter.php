@@ -19,10 +19,10 @@ class TwigBlockVoter implements VoterInterface
      */
     public function vote(Block $block)
     {
-        if ($block->getDefinition() instanceof TwigBlockDefinitionInterface) {
-            return self::NO;
+        if (!$block->getDefinition() instanceof TwigBlockDefinitionInterface) {
+            return self::ABSTAIN;
         }
 
-        return self::ABSTAIN;
+        return self::NO;
     }
 }
