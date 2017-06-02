@@ -30,6 +30,6 @@ class CacheableResolverPass implements CompilerPassInterface
             $voters[] = new Reference($serviceName);
         }
 
-        $cacheableResolver->replaceArgument(0, $voters);
+        $cacheableResolver->addMethodCall('setVoters', array($voters));
     }
 }

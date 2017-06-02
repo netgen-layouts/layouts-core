@@ -2,26 +2,25 @@
 
 namespace Netgen\BlockManager\HttpCache\Block\CacheableResolver;
 
-use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Block\ContainerDefinitionInterface;
-use Netgen\BlockManager\Block\TwigBlockDefinitionInterface;
+use Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface;
 
 class ContainerVoter implements VoterInterface
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\BlockService
+     * @var \Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface
      */
-    protected $blockService;
+    protected $cacheableResolver;
 
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\API\Service\BlockService $blockService
+     * @param \Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface $cacheableResolver
      */
-    public function __construct(BlockService $blockService)
+    public function __construct(CacheableResolverInterface $cacheableResolver)
     {
-        $this->blockService = $blockService;
+        $this->cacheableResolver = $cacheableResolver;
     }
 
     /**
@@ -40,55 +39,14 @@ class ContainerVoter implements VoterInterface
             return self::ABSTAIN;
         }
 
-        return $this->isCacheable($block) ? self::ABSTAIN : self::NO;
-    }
-
-    /**
-     * Returns if the block has a contextual query.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     *
-     * @return bool
-     */
-    public function hasContextualQuery(Block $block)
-    {
-        foreach ($this->blockService->loadCollectionReferences($block) as $collectionReference) {
-            $collection = $collectionReference->getCollection();
-            if ($collection->hasQuery() && $collection->getQuery()->isContextual()) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Returns if the block has a contextual query in one of its placeholders.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     *
-     * @return bool
-     */
-    protected function isCacheable(Block $block)
-    {
         foreach ($block->getPlaceholders() as $placeholder) {
             foreach ($placeholder as $placeholderBlock) {
-                if ($placeholderBlock->getDefinition() instanceof ContainerDefinitionInterface) {
-                    if (!$this->isCacheable($placeholderBlock)) {
-                        return false;
-                    }
-                }
-
-                if ($placeholderBlock->getDefinition() instanceof TwigBlockDefinitionInterface) {
-                    return false;
-                }
-
-                if ($this->hasContextualQuery($placeholderBlock)) {
-                    return false;
+                if (!$this->cacheableResolver->isCacheable($placeholderBlock)) {
+                    return self::NO;
                 }
             }
         }
 
-        return true;
+        return self::ABSTAIN;
     }
 }

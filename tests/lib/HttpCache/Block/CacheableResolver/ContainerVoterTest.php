@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Tests\HttpCache\Block\CacheableResolver;
 
-use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContainerVoter;
+use Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\TwigBlockDefinition;
@@ -21,23 +21,17 @@ class ContainerVoterTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $blockServiceMock;
+    protected $cacheableResolverMock;
 
     public function setUp()
     {
-        $this->blockServiceMock = $this->createMock(BlockService::class);
+        $this->cacheableResolverMock = $this->createMock(CacheableResolverInterface::class);
 
-        $this->blockServiceMock
-            ->expects($this->any())
-            ->method('loadCollectionReferences')
-            ->will($this->returnValue(array()));
-
-        $this->voter = new ContainerVoter($this->blockServiceMock);
+        $this->voter = new ContainerVoter($this->cacheableResolverMock);
     }
 
     /**
      * @covers \Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContainerVoter::vote
-     * @covers \Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContainerVoter::containerHasTwigBlock
      */
     public function testVote()
     {
@@ -60,6 +54,12 @@ class ContainerVoterTest extends TestCase
             )
         );
 
+        $this->cacheableResolverMock
+            ->expects($this->at(0))
+            ->method('isCacheable')
+            ->with($this->equalTo($containerBlock))
+            ->will($this->returnValue(false));
+
         $block = new Block(
             array(
                 'definition' => new ContainerDefinition('container'),
@@ -78,7 +78,6 @@ class ContainerVoterTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContainerVoter::vote
-     * @covers \Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContainerVoter::containerHasTwigBlock
      */
     public function testVoteWithContainerWithoutTwigBlock()
     {
@@ -87,6 +86,12 @@ class ContainerVoterTest extends TestCase
                 'definition' => new BlockDefinition('block'),
             )
         );
+
+        $this->cacheableResolverMock
+            ->expects($this->at(0))
+            ->method('isCacheable')
+            ->with($this->equalTo($regularBlock))
+            ->will($this->returnValue(true));
 
         $block = new Block(
             array(

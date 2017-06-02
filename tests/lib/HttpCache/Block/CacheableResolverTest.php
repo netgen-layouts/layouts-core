@@ -10,13 +10,14 @@ use stdClass;
 class CacheableResolverTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\HttpCache\Block\CacheableResolver::__construct
+     * @covers \Netgen\BlockManager\HttpCache\Block\CacheableResolver::setVoters
      * @expectedException \Netgen\BlockManager\Exception\InvalidInterfaceException
      * @expectedExceptionMessage Voter "stdClass" needs to implement "Netgen\BlockManager\HttpCache\Block\CacheableResolver\VoterInterface" interface.
      */
-    public function testConstructorThrowsInvalidInterfaceException()
+    public function testSetVotersThrowsInvalidInterfaceException()
     {
-        new CacheableResolver(array(new stdClass()));
+        $cacheableResolver = new CacheableResolver();
+        $cacheableResolver->setVoters(array(new stdClass()));
     }
 
     /**
@@ -30,7 +31,8 @@ class CacheableResolverTest extends TestCase
      */
     public function testIsCacheable(array $voters, $result)
     {
-        $cacheableResolver = new CacheableResolver($voters);
+        $cacheableResolver = new CacheableResolver();
+        $cacheableResolver->setVoters($voters);
 
         $this->assertEquals($result, $cacheableResolver->isCacheable(new Block()));
     }

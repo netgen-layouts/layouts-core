@@ -29,12 +29,14 @@ class CacheableResolverPassTest extends AbstractCompilerPassTestCase
 
         $this->compile();
 
-        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+        $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
             'netgen_block_manager.http_cache.block.cacheable_resolver',
-            0,
+            'setVoters',
             array(
-                new Reference('netgen_block_manager.http_cache.block.cacheable_resolver.voter.test'),
-                new Reference('netgen_block_manager.http_cache.block.cacheable_resolver.voter.test2'),
+                array(
+                    new Reference('netgen_block_manager.http_cache.block.cacheable_resolver.voter.test'),
+                    new Reference('netgen_block_manager.http_cache.block.cacheable_resolver.voter.test2'),
+                ),
             )
         );
     }

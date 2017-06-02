@@ -14,11 +14,11 @@ class CacheableResolver implements CacheableResolverInterface
     protected $voters = array();
 
     /**
-     * Constructor.
+     * Sets the available voters.
      *
      * @param \Netgen\BlockManager\HttpCache\Block\CacheableResolver\VoterInterface[] $voters
      */
-    public function __construct(array $voters = array())
+    public function setVoters(array $voters = array())
     {
         foreach ($voters as $voter) {
             if (!$voter instanceof VoterInterface) {
