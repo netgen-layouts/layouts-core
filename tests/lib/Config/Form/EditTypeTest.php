@@ -122,7 +122,7 @@ class EditTypeTest extends FormTestCase
             $struct,
             array(
                 'configurable' => $this->block,
-                'configType' => 'block',
+                'label_prefix' => 'config.block',
             )
         );
 
@@ -157,7 +157,7 @@ class EditTypeTest extends FormTestCase
         $options = $optionsResolver->resolve(
             array(
                 'configurable' => $this->block,
-                'configType' => 'block',
+                'label_prefix' => 'config.block',
                 'data' => new BlockUpdateStruct(),
             )
         );
@@ -179,7 +179,7 @@ class EditTypeTest extends FormTestCase
 
         $optionsResolver->resolve(
             array(
-                'configType' => 'block',
+                'label_prefix' => 'config.block',
             )
         );
     }
@@ -198,7 +198,7 @@ class EditTypeTest extends FormTestCase
         $optionsResolver->resolve(
             array(
                 'configurable' => '',
-                'configType' => 'block',
+                'label_prefix' => 'config.block',
             )
         );
     }
@@ -207,7 +207,7 @@ class EditTypeTest extends FormTestCase
      * @covers \Netgen\BlockManager\Config\Form\EditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
      */
-    public function testConfigureOptionsWithMissingType()
+    public function testConfigureOptionsWithMissingLabelPrefix()
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -225,7 +225,7 @@ class EditTypeTest extends FormTestCase
      * @covers \Netgen\BlockManager\Config\Form\EditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
-    public function testConfigureOptionsWithInvalidType()
+    public function testConfigureOptionsWithInvalidLabelPrefix()
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -235,7 +235,7 @@ class EditTypeTest extends FormTestCase
         $optionsResolver->resolve(
             array(
                 'configurable' => $this->block,
-                'configType' => 42,
+                'label_prefix' => 42,
             )
         );
     }
@@ -254,7 +254,7 @@ class EditTypeTest extends FormTestCase
         $optionsResolver->resolve(
             array(
                 'configurable' => $this->block,
-                'configType' => 'block',
+                'label_prefix' => 'config.block',
                 'data' => '',
             )
         );

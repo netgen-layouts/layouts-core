@@ -24,11 +24,11 @@ class EditType extends AbstractType
     {
         parent::configureOptions($resolver);
 
-        $resolver->setRequired(array('configurable', 'configType', 'configKey'));
+        $resolver->setRequired(array('configurable', 'configKey', 'label_prefix'));
 
-        $resolver->setAllowedTypes('configType', 'string');
         $resolver->setAllowedTypes('configKey', array('string', 'null'));
         $resolver->setAllowedTypes('configurable', ConfigAwareValue::class);
+        $resolver->setAllowedTypes('label_prefix', 'string');
         $resolver->setAllowedTypes('data', ConfigAwareStruct::class);
 
         $resolver->setDefault('configKey', null);
@@ -74,7 +74,7 @@ class EditType extends AbstractType
                     'data' => $data->getConfigStruct($configKey),
                     'property_path' => 'configStructs[' . $configKey . ']',
                     'parameter_collection' => $value->getConfig($configKey)->getDefinition(),
-                    'label_prefix' => 'config.' . $options['configType'] . '.' . $configKey,
+                    'label_prefix' => $options['label_prefix'] . '.' . $configKey,
                 )
             );
         }
