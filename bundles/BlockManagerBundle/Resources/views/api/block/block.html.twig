@@ -5,7 +5,7 @@
     {% set diff = date(ttl).diff(date(0)) %}
 
     {% set display = {
-        's': diff.s > 0,
+        's': diff.s > 0 or (diff.s == 0 and diff.i == 0 and diff.h == 0 and diff.days == 0),
         'i': diff.i > 0 or ((diff.d > 0 or diff.h > 0) and diff.s > 0),
         'h': diff.h > 0 or (diff.d > 0 and (diff.i > 0 or diff.s > 0)),
         'a': diff.days > 0
