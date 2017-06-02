@@ -2,11 +2,14 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
 
+use Exception;
 use InvalidArgumentException as BaseInvalidArgumentException;
 use Netgen\BlockManager\Exception\BadStateException;
+use Netgen\BlockManager\Exception\Core\ConfigException;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
+use Netgen\BlockManager\Exception\View\ViewException;
 use Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener;
 use Netgen\Bundle\BlockManagerBundle\Exception\InternalServerErrorHttpException;
 use Netgen\Bundle\BlockManagerBundle\Tests\EventListener\Stubs\ExceptionStub;
@@ -154,7 +157,19 @@ class ExceptionConversionListenerTest extends TestCase
                 true,
             ),
             array(
+                new ConfigException('Some error'),
+                BadRequestHttpException::class,
+                Response::HTTP_BAD_REQUEST,
+                true,
+            ),
+            array(
                 new ExceptionStub('Some error'),
+                InternalServerErrorHttpException::class,
+                Response::HTTP_INTERNAL_SERVER_ERROR,
+                true,
+            ),
+            array(
+                new Exception('Some error'),
                 InternalServerErrorHttpException::class,
                 Response::HTTP_INTERNAL_SERVER_ERROR,
                 true,
@@ -169,6 +184,12 @@ class ExceptionConversionListenerTest extends TestCase
                 new BaseInvalidArgumentException('Some error'),
                 BadRequestHttpException::class,
                 Response::HTTP_BAD_REQUEST,
+                true,
+            ),
+            array(
+                new ViewException('Some error'),
+                InternalServerErrorHttpException::class,
+                Response::HTTP_INTERNAL_SERVER_ERROR,
                 true,
             ),
             array(

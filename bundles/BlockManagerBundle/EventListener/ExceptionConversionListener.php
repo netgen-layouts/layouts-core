@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 
+use Exception as BaseException;
 use InvalidArgumentException as BaseInvalidArgumentException;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\Exception;
@@ -30,11 +31,13 @@ class ExceptionConversionListener implements EventSubscriberInterface
         InvalidArgumentException::class => BadRequestHttpException::class,
         ValidationException::class => BadRequestHttpException::class,
         BadStateException::class => UnprocessableEntityHttpException::class,
-        Exception::class => InternalServerErrorHttpException::class,
         // Various other useful exceptions
         AccessDeniedException::class => AccessDeniedHttpException::class,
         BaseInvalidArgumentException::class => BadRequestHttpException::class,
         RuntimeException::class => InternalServerErrorHttpException::class,
+        // Default exceptions
+        Exception::class => InternalServerErrorHttpException::class,
+        BaseException::class => InternalServerErrorHttpException::class,
     );
 
     /**
