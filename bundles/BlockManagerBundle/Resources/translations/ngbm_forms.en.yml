@@ -1,10 +1,12 @@
 query.advanced_options: 'Advanced options'
 
-layout.button.copy: 'Copy layout'
-layout.button.cancel: 'Cancel'
-layout.button.save: 'Save'
-layout.title.copy: 'Enter the name for the new layout:'
-layout.title.edit: 'Edit layout name and description:'
+layout.copy.title: 'Enter the name for the new layout:'
+layout.copy.button.copy: 'Copy layout'
+layout.copy.button.cancel: 'Cancel'
+
+layout.edit.button.cancel: 'Cancel'
+layout.edit.button.save: 'Save'
+layout.edit.title: 'Edit layout name and description:'
 
 target_type.button.cancel: 'Cancel'
 target_type.button.save: 'Save target'

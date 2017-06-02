@@ -1,32 +1,41 @@
 {% form_theme form 'NetgenBlockManagerAdminBundle:form/theme:ngbm.html.twig' %}
 
+{% if show_close_button is not defined %}
+    {% set show_close_button = true %}
+{% endif %}
+
 <div class="modal-dialog">
     <div class="modal-content">
 
+        {% set header = block('header') is defined ? block('header') : '' %}
+
+        {% if header is not empty %}
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="material-icons">clear</i></button>
-                <h4 class="modal-title">
-                    {% block header %}{% endblock %}
-                </h4>
+                {% if show_close_button %}
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="material-icons">clear</i></button>
+                {% endif %}
+
+                <h4 class="modal-title">{{ header|raw }}</h4>
             </div>
+        {% endif %}
 
-            <div class="modal-body">
-                {{ form_start(form) }}
-                    {{ form_errors(form) }}
+        <div class="modal-body">
+            {{ form_start(form) }}
+                {{ form_errors(form) }}
 
-                    {% block children %}
-                        {% for child in form %}
-                            {{ form_row(child) }}
-                        {% endfor %}
-                    {% endblock %}
+                {% block children %}
+                    {% for child in form %}
+                        {{ form_row(child) }}
+                    {% endfor %}
+                {% endblock %}
 
-                    {{ form_rest(form) }}
-                {{ form_end(form) }}
-            </div>
+                {{ form_rest(form) }}
+            {{ form_end(form) }}
+        </div>
 
-            <div class="modal-footer">
-                {% block buttons %}{% endblock %}
-            </div>
+        <div class="modal-footer">
+            {% block buttons %}{% endblock %}
+        </div>
 
     </div>
 </div>

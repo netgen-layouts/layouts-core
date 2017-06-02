@@ -3,7 +3,7 @@
 {% trans_default_domain 'ngbm_forms' %}
 
 {% block header %}
-    {{ 'layout.title.edit'|trans }}
+    {{ 'layout.edit.title'|trans }}
 {% endblock %}
 
 {% block children %}
@@ -12,6 +12,6 @@
 {% endblock %}
 
 {% block buttons %}
-    <button type="button" class="btn btn-link action_cancel">{{ 'layout.button.cancel'|trans }}</button>
-    <button type="submit" class="btn btn-primary action_apply">{{ 'layout.button.save'|trans }}</button>
+    <button type="button" class="btn btn-link action_cancel">{{ 'layout.edit.button.cancel'|trans }}</button>
+    <button type="submit" class="btn btn-primary action_apply">{{ 'layout.edit.button.save'|trans }}</button>
 {% endblock %}
