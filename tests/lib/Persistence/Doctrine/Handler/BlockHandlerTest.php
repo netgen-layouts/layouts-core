@@ -561,7 +561,7 @@ class BlockHandlerTest extends TestCase
         $block = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
         $collection = $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED);
 
-        $this->blockHandler->createCollectionReference(
+        $reference = $this->blockHandler->createCollectionReference(
             $block,
             new CollectionReferenceCreateStruct(
                 array(
@@ -585,7 +585,7 @@ class BlockHandlerTest extends TestCase
                     'limit' => 10,
                 )
             ),
-            $this->blockHandler->loadCollectionReference($block, 'new')
+            $reference
         );
     }
 
@@ -971,49 +971,6 @@ class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlockCollections
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
-     */
-    public function testCopyBlockCollections()
-    {
-        $targetBlock = $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT);
-
-        $this->blockHandler->copyBlockCollections(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-            $targetBlock
-        );
-
-        $this->assertEquals(
-            array(
-                new CollectionReference(
-                    array(
-                        'blockId' => 33,
-                        'blockStatus' => Value::STATUS_DRAFT,
-                        'collectionId' => 7,
-                        'collectionStatus' => Value::STATUS_DRAFT,
-                        'identifier' => 'default',
-                        'offset' => 0,
-                        'limit' => null,
-                    )
-                ),
-                new CollectionReference(
-                    array(
-                        'blockId' => 33,
-                        'blockStatus' => Value::STATUS_DRAFT,
-                        'collectionId' => 8,
-                        'collectionStatus' => Value::STATUS_DRAFT,
-                        'identifier' => 'featured',
-                        'offset' => 0,
-                        'limit' => null,
-                    )
-                ),
-            ),
-            $this->blockHandler->loadCollectionReferences($targetBlock)
-        );
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
@@ -1262,7 +1219,7 @@ class BlockHandlerTest extends TestCase
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT)
         );
 
-        $this->blockHandler->createBlockStatus(
+        $block = $this->blockHandler->createBlockStatus(
             $this->blockHandler->loadBlock(31, Value::STATUS_PUBLISHED),
             Value::STATUS_DRAFT
         );
@@ -1288,12 +1245,10 @@ class BlockHandlerTest extends TestCase
                     'config' => array(),
                 )
             ),
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT)
+            $block
         );
 
-        $collectionReferences = $this->blockHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT)
-        );
+        $collectionReferences = $this->blockHandler->loadCollectionReferences($block);
 
         $this->assertCount(2, $collectionReferences);
 

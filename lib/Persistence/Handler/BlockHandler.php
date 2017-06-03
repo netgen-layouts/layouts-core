@@ -102,6 +102,8 @@ interface BlockHandler
      *
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      * @param \Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceCreateStruct $createStruct
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Block\CollectionReference
      */
     public function createCollectionReference(Block $block, CollectionReferenceCreateStruct $createStruct);
 
@@ -139,14 +141,6 @@ interface BlockHandler
     public function copyBlock(Block $block, Block $targetBlock, $placeholder);
 
     /**
-     * Copies all block collections to another block.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
-     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $targetBlock
-     */
-    public function copyBlockCollections(Block $block, Block $targetBlock);
-
-    /**
      * Moves a block to specified position in a specified target block and placeholder.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
@@ -182,6 +176,8 @@ interface BlockHandler
      *
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      * @param int $newStatus
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
     public function createBlockStatus(Block $block, $newStatus);
 

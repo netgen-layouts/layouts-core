@@ -227,6 +227,8 @@ class BlockHandler implements BlockHandlerInterface
      *
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      * @param \Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceCreateStruct $createStruct
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Block\CollectionReference
      */
     public function createCollectionReference(Block $block, CollectionReferenceCreateStruct $createStruct)
     {
@@ -243,6 +245,8 @@ class BlockHandler implements BlockHandlerInterface
         );
 
         $this->queryHandler->createCollectionReference($newCollectionReference);
+
+        return $newCollectionReference;
     }
 
     /**
@@ -361,40 +365,6 @@ class BlockHandler implements BlockHandlerInterface
     }
 
     /**
-     * Copies all block collections to another block.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
-     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $targetBlock
-     */
-    public function copyBlockCollections(Block $block, Block $targetBlock)
-    {
-        $collectionReferences = $this->loadCollectionReferences($block);
-
-        foreach ($collectionReferences as $collectionReference) {
-            $collection = $this->collectionHandler->loadCollection(
-                $collectionReference->collectionId,
-                $collectionReference->collectionStatus
-            );
-
-            $collection = $this->collectionHandler->copyCollection($collection);
-
-            $newCollectionReference = new CollectionReference(
-                array(
-                    'blockId' => $targetBlock->id,
-                    'blockStatus' => $targetBlock->status,
-                    'collectionId' => $collection->id,
-                    'collectionStatus' => $collection->status,
-                    'identifier' => $collectionReference->identifier,
-                    'offset' => $collectionReference->offset,
-                    'limit' => $collectionReference->limit,
-                )
-            );
-
-            $this->queryHandler->createCollectionReference($newCollectionReference);
-        }
-    }
-
-    /**
      * Moves a block to specified position in a specified target block and placeholder.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
@@ -478,6 +448,8 @@ class BlockHandler implements BlockHandlerInterface
      *
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      * @param int $newStatus
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
     public function createBlockStatus(Block $block, $newStatus)
     {
@@ -486,6 +458,8 @@ class BlockHandler implements BlockHandlerInterface
 
         $this->queryHandler->createBlock($newBlock, false);
         $this->createBlockCollectionsStatus($block, $newStatus);
+
+        return $newBlock;
     }
 
     /**
@@ -507,11 +481,10 @@ class BlockHandler implements BlockHandlerInterface
         $fromBlock = $this->loadBlock($block->id, $fromStatus);
 
         $this->deleteBlocks(array($block->id), $block->status);
-        $this->createBlockStatus($fromBlock, $block->status);
+        $newBlock = $this->createBlockStatus($fromBlock, $block->status);
 
         // We need to make sure to keep the original placement and position
 
-        $newBlock = $this->loadBlock($block->id, $block->status);
         $newBlock->placeholder = $block->placeholder;
         $newBlock->layoutId = $block->layoutId;
         $newBlock->position = $block->position;
@@ -569,6 +542,40 @@ class BlockHandler implements BlockHandlerInterface
     {
         $this->deleteBlockCollections($blockIds, $status);
         $this->queryHandler->deleteBlocks($blockIds, $status);
+    }
+
+    /**
+     * Copies all block collections to another block.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $targetBlock
+     */
+    protected function copyBlockCollections(Block $block, Block $targetBlock)
+    {
+        $collectionReferences = $this->loadCollectionReferences($block);
+
+        foreach ($collectionReferences as $collectionReference) {
+            $collection = $this->collectionHandler->loadCollection(
+                $collectionReference->collectionId,
+                $collectionReference->collectionStatus
+            );
+
+            $collection = $this->collectionHandler->copyCollection($collection);
+
+            $newCollectionReference = new CollectionReference(
+                array(
+                    'blockId' => $targetBlock->id,
+                    'blockStatus' => $targetBlock->status,
+                    'collectionId' => $collection->id,
+                    'collectionStatus' => $collection->status,
+                    'identifier' => $collectionReference->identifier,
+                    'offset' => $collectionReference->offset,
+                    'limit' => $collectionReference->limit,
+                )
+            );
+
+            $this->queryHandler->createCollectionReference($newCollectionReference);
+        }
     }
 
     /**
