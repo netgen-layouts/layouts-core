@@ -25,7 +25,6 @@ abstract class LayoutResolverMapperTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\Mapper::__construct
      * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper::__construct
      * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper::mapRule
      */

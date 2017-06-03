@@ -1018,8 +1018,6 @@ class LayoutHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::createLayoutStatus
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayoutStatus
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createZoneStatus
      */
     public function testCreateLayoutStatus()
     {

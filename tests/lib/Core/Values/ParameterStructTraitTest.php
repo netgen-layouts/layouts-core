@@ -23,7 +23,6 @@ class ParameterStructTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::__construct
      * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::getParameterValues
      */
     public function testDefaultProperties()

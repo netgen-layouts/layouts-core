@@ -23,7 +23,6 @@ abstract class LayoutMapperTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\Mapper::__construct
      * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper::__construct
      * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper::mapZone
      */
@@ -81,7 +80,7 @@ abstract class LayoutMapperTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper::mapLayout
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\Mapper::createDateTime
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper::createDateTime
      */
     public function testMapLayout()
     {

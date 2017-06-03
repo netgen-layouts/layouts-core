@@ -46,7 +46,6 @@ class ConfigValidatorTest extends TestCase
      * @param array $config
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Core\Service\Validator\ConfigValidator::__construct
      * @covers \Netgen\BlockManager\Core\Service\Validator\ConfigValidator::validateConfigStructs
      * @dataProvider validateConfigStructDataProvider
      * @doesNotPerformAssertions
@@ -76,7 +75,6 @@ class ConfigValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\Validator\ConfigValidator::__construct
      * @covers \Netgen\BlockManager\Core\Service\Validator\ConfigValidator::validateConfigStructs
      * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
      * @expectedExceptionMessage This value should be of type Netgen\BlockManager\API\Values\Config\ConfigStruct.
