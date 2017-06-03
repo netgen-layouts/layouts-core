@@ -186,6 +186,18 @@ interface BlockHandler
     public function createBlockStatus(Block $block, $newStatus);
 
     /**
+     * Restores all block data (except placement and position) from the specified status.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
+     * @param int $fromStatus
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException if block is already in provided status
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Block\Block
+     */
+    public function restoreBlock(Block $block, $fromStatus);
+
+    /**
      * Deletes a block with specified ID.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block

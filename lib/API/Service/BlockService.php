@@ -189,7 +189,6 @@ interface BlockService extends Service
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If block is not a draft
-     *                                                          If block does not have a published status
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */

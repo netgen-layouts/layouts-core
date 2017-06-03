@@ -569,7 +569,6 @@ class BlockService extends Service implements BlockServiceInterface
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If block is not a draft
-     *                                                          If block does not have a published status
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
@@ -581,20 +580,11 @@ class BlockService extends Service implements BlockServiceInterface
 
         $draftBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
 
-        try {
-            $publishedBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_PUBLISHED);
-        } catch (NotFoundException $e) {
-            throw new BadStateException('block', 'Block does not have a published status.');
-        }
-
-        $this->transaction(
-            function () use ($draftBlock, $publishedBlock) {
-                $this->blockHandler->deleteBlocks(array($draftBlock->id), Value::STATUS_DRAFT);
-                $this->blockHandler->createBlockStatus($publishedBlock, Value::STATUS_DRAFT);
+        $draftBlock = $this->transaction(
+            function () use ($draftBlock) {
+                return $this->blockHandler->restoreBlock($draftBlock, Value::STATUS_PUBLISHED);
             }
         );
-
-        $draftBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
 
         return $this->mapper->mapBlock($draftBlock);
     }

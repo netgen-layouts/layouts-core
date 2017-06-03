@@ -489,6 +489,42 @@ class BlockHandler implements BlockHandlerInterface
     }
 
     /**
+     * Restores all block data (except placement and position) from the specified status.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
+     * @param int $fromStatus
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException if block is already in provided status
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Block\Block
+     */
+    public function restoreBlock(Block $block, $fromStatus)
+    {
+        if ($block->status === $fromStatus) {
+            throw new BadStateException('block', 'Block is already in provided status.');
+        }
+
+        $fromBlock = $this->loadBlock($block->id, $fromStatus);
+
+        $this->deleteBlocks(array($block->id), $block->status);
+        $this->createBlockStatus($fromBlock, $block->status);
+
+        // We need to make sure to keep the original placement and position
+
+        $newBlock = $this->loadBlock($block->id, $block->status);
+        $newBlock->placeholder = $block->placeholder;
+        $newBlock->layoutId = $block->layoutId;
+        $newBlock->position = $block->position;
+        $newBlock->parentId = $block->parentId;
+        $newBlock->path = $block->path;
+        $newBlock->depth = $block->depth;
+
+        $this->queryHandler->updateBlock($newBlock);
+
+        return $newBlock;
+    }
+
+    /**
      * Deletes a block with specified ID and all of its sub-blocks.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block

@@ -1144,8 +1144,17 @@ abstract class BlockServiceTest extends ServiceTestCase
      */
     public function testRestoreBlock()
     {
+        $blockHandler = $this->persistenceHandler->getBlockHandler();
+
         $block = $this->blockService->loadBlockDraft(31);
-        $restoredBlock = $this->blockService->restoreBlock($block);
+
+        // Move block so we can make sure position is kept while restoring the block.
+
+        $layout = $this->layoutService->loadLayoutDraft($block->getLayoutId());
+        $movedBlock = $this->blockService->moveBlockToZone($block, $layout, 'left', 1);
+        $movedPersistenceBlock = $blockHandler->loadBlock($movedBlock->getId(), $movedBlock->getStatus());
+
+        $restoredBlock = $this->blockService->restoreBlock($movedBlock);
 
         $this->assertFalse($restoredBlock->isPublished());
         $this->assertInstanceOf(Block::class, $restoredBlock);
@@ -1161,6 +1170,17 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $this->assertEquals(2, $collectionReferences[0]->getCollection()->getId());
         $this->assertEquals(3, $collectionReferences[1]->getCollection()->getId());
+
+        $restoredPersistenceBlock = $blockHandler->loadBlock($restoredBlock->getId(), $restoredBlock->getStatus());
+
+        // Make sure the position is not moved.
+
+        $this->assertEquals($movedPersistenceBlock->layoutId, $restoredPersistenceBlock->layoutId);
+        $this->assertEquals($movedPersistenceBlock->depth, $restoredPersistenceBlock->depth);
+        $this->assertEquals($movedPersistenceBlock->parentId, $restoredPersistenceBlock->parentId);
+        $this->assertEquals($movedPersistenceBlock->placeholder, $restoredPersistenceBlock->placeholder);
+        $this->assertEquals($movedPersistenceBlock->position, $restoredPersistenceBlock->position);
+        $this->assertEquals($movedPersistenceBlock->path, $restoredPersistenceBlock->path);
     }
 
     /**
@@ -1171,18 +1191,6 @@ abstract class BlockServiceTest extends ServiceTestCase
     public function testRestoreBlockThrowsBadStateExceptionWithNonDraftBlock()
     {
         $block = $this->blockService->loadBlock(31);
-
-        $this->blockService->restoreBlock($block);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::restoreBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "block" has an invalid state. Block does not have a published status.
-     */
-    public function testRestoreBlockThrowsBadStateExceptionWithNoPublishedStatus()
-    {
-        $block = $this->blockService->loadBlockDraft(36);
 
         $this->blockService->restoreBlock($block);
     }

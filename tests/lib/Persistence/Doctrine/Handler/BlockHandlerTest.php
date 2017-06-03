@@ -1307,6 +1307,59 @@ class BlockHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::restoreBlock
+     */
+    public function testRestoreBlock()
+    {
+        $block = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
+
+        $movedBlock = $this->blockHandler->moveBlock(
+            $block,
+            $this->blockHandler->loadBlock(2, Value::STATUS_DRAFT),
+            'root',
+            1
+        );
+
+        $restoredBlock = $this->blockHandler->restoreBlock($movedBlock, Value::STATUS_PUBLISHED);
+
+        $this->assertEquals(
+            new Block(
+                array(
+                    'id' => 31,
+                    'layoutId' => 1,
+                    'depth' => 1,
+                    'path' => '/2/31/',
+                    'parentId' => 2,
+                    'placeholder' => 'root',
+                    'position' => 1,
+                    'definitionIdentifier' => 'list',
+                    'viewType' => 'grid',
+                    'itemViewType' => 'standard_with_intro',
+                    'name' => 'My published block',
+                    'status' => Value::STATUS_DRAFT,
+                    'parameters' => array(
+                        'number_of_columns' => 3,
+                    ),
+                    'config' => array(),
+                )
+            ),
+            $restoredBlock
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::restoreBlock
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "block" has an invalid state. Block is already in provided status.
+     */
+    public function testRestoreBlockThrowsBadStateExceptionWithSameState()
+    {
+        $block = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
+
+        $this->blockHandler->restoreBlock($block, Value::STATUS_DRAFT);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::deleteBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlocks
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadSubBlockIds

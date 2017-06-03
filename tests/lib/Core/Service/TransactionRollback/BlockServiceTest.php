@@ -341,12 +341,7 @@ class BlockServiceTest extends ServiceTestCase
 
         $this->blockHandlerMock
             ->expects($this->at(1))
-            ->method('loadBlock')
-            ->will($this->returnValue(new PersistenceBlock()));
-
-        $this->blockHandlerMock
-            ->expects($this->at(2))
-            ->method('deleteBlocks')
+            ->method('restoreBlock')
             ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
