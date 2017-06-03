@@ -140,6 +140,15 @@ class ConfigValidatorTest extends TestCase
                 ),
                 false,
             ),
+            array(
+                array(
+                    'test' => array(
+                        'use_http_cache' => true,
+                    ),
+                    'unknown' => array(),
+                ),
+                false,
+            ),
         );
     }
 
