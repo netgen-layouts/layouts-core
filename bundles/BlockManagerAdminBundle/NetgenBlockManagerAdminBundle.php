@@ -17,6 +17,6 @@ class NetgenBlockManagerAdminBundle extends Bundle
     {
         /** @var \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension $blockManagerExtension */
         $blockManagerExtension = $container->getExtension('netgen_block_manager');
-        $blockManagerExtension->addPlugin(new ExtensionPlugin($container));
+        $blockManagerExtension->addPlugin(new ExtensionPlugin());
     }
 }

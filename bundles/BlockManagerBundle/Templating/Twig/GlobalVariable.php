@@ -49,7 +49,7 @@ class GlobalVariable
     protected $rule;
 
     /**
-     * @var \Netgen\BlockManager\View\View\LayoutViewInterface
+     * @var \Netgen\BlockManager\View\View\LayoutViewInterface|bool
      */
     protected $layoutView;
 

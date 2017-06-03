@@ -27,7 +27,7 @@ class Rule extends Value
     public $enabled;
 
     /**
-     * @var bool
+     * @var int
      */
     public $priority;
 
