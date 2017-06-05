@@ -165,6 +165,12 @@ class LayoutsController extends Controller
             null,
             array(
                 'blocks' => $cacheableBlocks,
+                'action' => $this->generateUrl(
+                    'ngbm_admin_layouts_cache_blocks',
+                    array(
+                        'layoutId' => $layout->getId(),
+                    )
+                ),
             )
         );
 
