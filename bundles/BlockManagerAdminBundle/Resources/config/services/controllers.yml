@@ -22,6 +22,7 @@ services:
         parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.layout"
+            - "@netgen_block_manager.http_cache.client"
 
     netgen_block_manager.controller.admin.layout_resolver.validator:
         class: Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Validator\LayoutResolverValidator

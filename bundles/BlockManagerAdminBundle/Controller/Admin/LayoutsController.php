@@ -124,22 +124,15 @@ class LayoutsController extends Controller
     }
 
     /**
-     * Clears the HTTP caches for provided layouts.
+     * Clears the HTTP cache for provided layout.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException if the list of layout IDs in invalid
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function clearLayoutsCache(Request $request)
+    public function clearLayoutCache(Layout $layout)
     {
-        $layoutIds = $request->request->get('layouts');
-        if (!is_array($layoutIds) || empty($layoutIds)) {
-            throw new BadStateException('layouts', 'List of layout IDs needs to be a non-empty array.');
-        }
-
-        $this->httpCacheClient->invalidateLayouts($layoutIds);
+        $this->httpCacheClient->invalidateLayouts(array($layout->getId()));
 
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
