@@ -143,8 +143,6 @@ class LayoutsController extends Controller
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException if the list of block IDs in invalid
-     *
      * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
     public function clearBlocksCache(Layout $layout, Request $request)

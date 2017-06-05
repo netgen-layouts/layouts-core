@@ -40,6 +40,10 @@ view:
                 template: "NetgenBlockManagerAdminBundle:admin/layouts/cache:blocks.html.twig"
                 match:
                     form\type: Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearBlocksCacheType
+            shared_layout\related_layouts_cache:
+                template: "NetgenBlockManagerAdminBundle:admin/shared_layouts/cache:related_layouts.html.twig"
+                match:
+                    form\type: Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearLayoutsCacheType
             condition\type:
                 template: "NetgenBlockManagerAdminBundle:admin/form/layout_resolver:condition_type.html.twig"
                 match:

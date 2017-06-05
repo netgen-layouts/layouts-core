@@ -4,8 +4,9 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin;
 
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\HttpCache\ClientInterface;
+use Netgen\BlockManager\View\ViewInterface;
+use Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearLayoutsCacheType;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -55,30 +56,55 @@ class SharedLayoutsController extends Controller
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException if the list of layout IDs in invalid
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
     public function clearRelatedLayoutsCache(Layout $layout, Request $request)
     {
-        if ($request->isMethod('POST')) {
-            $layoutIds = $request->request->get('layouts');
-            if (!is_array($layoutIds) || empty($layoutIds)) {
-                throw new BadStateException('layouts', 'List of layout IDs needs to be a non-empty array.');
-            }
+        $relatedLayouts = $this->layoutService->loadRelatedLayouts($layout);
 
-            $this->httpCacheClient->invalidateLayouts($layoutIds);
+        $form = $this->createForm(
+            ClearLayoutsCacheType::class,
+            null,
+            array(
+                'layouts' => $relatedLayouts,
+                'action' => $this->generateUrl(
+                    'ngbm_admin_shared_layouts_cache_related_layouts',
+                    array(
+                        'layoutId' => $layout->getId(),
+                    )
+                ),
+            )
+        );
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $selectedLayouts = $form->get('layouts')->getData();
+
+            $this->httpCacheClient->invalidateLayouts(
+                array_map(
+                    function (Layout $layout) {
+                        return $layout->getId();
+                    },
+                    $selectedLayouts
+                )
+            );
 
             return new Response(null, Response::HTTP_NO_CONTENT);
         }
 
-        $relatedLayouts = $this->layoutService->loadRelatedLayouts($layout);
-
-        return $this->render(
-            'NetgenBlockManagerAdminBundle:admin/shared_layouts/cache:related_layouts.html.twig',
+        return $this->buildView(
+            $form,
+            ViewInterface::CONTEXT_ADMIN,
             array(
                 'layout' => $layout,
-                'related_layouts' => $relatedLayouts,
+                'related_layouts' => array_values($relatedLayouts),
+            ),
+            new Response(
+                null,
+                $form->isSubmitted() ?
+                    Response::HTTP_UNPROCESSABLE_ENTITY :
+                    Response::HTTP_OK
             )
         );
     }

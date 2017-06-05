@@ -1,21 +1,31 @@
-<div class="nl-modal">
-    <a href="#" class="close-modal"></a>
+{% extends 'NetgenBlockManagerAdminBundle:form:modal.html.twig' %}
 
-    <div class="nl-modal-head">
-        Clear linked layouts caches for shared layout: {{ layout.name }}
-    </div>
+{% trans_default_domain 'ngbm_admin' %}
 
-    <div class="nl-modal-body">
-        {% for related_layout in related_layouts %}
-            <table>
-                <thead>
+{% form_theme form.layouts _self %}
+
+{% block header %}
+    {{ 'shared_layouts.cache.related_layouts.title'|trans }}: {{ layout.name }}
+{% endblock %}
+
+{% block _clear_layouts_cache_layouts_widget %}
+    {% import 'NetgenBlockManagerBundle:api/parts:ttl_macros.html.twig' as ttl_macros %}
+
+    {% if form.children is not empty %}
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>{{ 'shared_layouts.cache.related_layouts.layout_name'|trans }}</th>
+                    <th>{{ 'shared_layouts.cache.related_layouts.zones'|trans }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for choice in form %}
+                    {% set related_layout = form.parent.vars.layouts[choice.vars.value] %}
+
                     <tr>
-                        <th>Layout name</th>
-                        <th>Zone(s) containing shared layout</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
+                        <td>{{ form_widget(choice) }}{{ form_label(choice) }}</td>
                         <td>{{ related_layout.name }}</td>
                         <td>
                             {% for zone in related_layout.zones %}
@@ -25,12 +35,20 @@
                             {% endfor %}
                         </td>
                     </tr>
-                </tbody>
-            </table>
-        {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        {{ 'shared_layouts.cache.related_layouts.no_related_layouts'|trans }}
+    {% endif %}
+{% endblock %}
 
-        <div class="form-actions">
-            CLEAR SELECTED
-        </div>
-    </div>
-</div>
+{% block children %}
+    {{ form_row(form.children.layouts, {layout: layout}) }}
+{% endblock %}
+
+{% block buttons %}
+    {% if form.layouts.children is not empty %}
+        <button type="submit" class="nl-btn nl-btn-primary">{{ 'shared_layouts.cache.related_layouts.button.clear'|trans }}</button>
+    {% endif %}
+{% endblock %}
