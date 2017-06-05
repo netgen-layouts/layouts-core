@@ -176,6 +176,36 @@ class BlockService extends Service implements BlockServiceInterface
     }
 
     /**
+     * Loads all blocks belonging to provided layout.
+     *
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
+     *
+     * @return \Netgen\BlockManager\API\Values\Block\Block[]
+     */
+    public function loadLayoutBlocks(Layout $layout)
+    {
+        $persistenceLayout = $this->layoutHandler->loadLayout(
+            $layout->getId(),
+            $layout->getStatus()
+        );
+
+        // We filter out all root blocks, since we do not allow loading those
+        $persistenceBlocks = array_filter(
+            $this->blockHandler->loadLayoutBlocks($persistenceLayout),
+            function (PersistenceBlock $persistenceBlock) {
+                return !empty($persistenceBlock->parentId);
+            }
+        );
+
+        $blocks = array();
+        foreach ($persistenceBlocks as $persistenceBlock) {
+            $blocks[] = $this->mapper->mapBlock($persistenceBlock);
+        }
+
+        return $blocks;
+    }
+
+    /**
      * Returns if provided block has a published status.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block

@@ -116,6 +116,21 @@ abstract class BlockServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::loadLayoutBlocks
+     */
+    public function testLoadLayoutBlocks()
+    {
+        $blocks = $this->blockService->loadLayoutBlocks(
+            $this->layoutService->loadLayout(1)
+        );
+
+        $this->assertCount(3, $blocks);
+        foreach ($blocks as $block) {
+            $this->assertInstanceOf(Block::class, $block);
+        }
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::hasPublishedState
      */
     public function testHasPublishedState()

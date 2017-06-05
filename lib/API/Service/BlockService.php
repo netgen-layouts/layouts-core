@@ -43,6 +43,15 @@ interface BlockService extends Service
     public function loadZoneBlocks(Zone $zone);
 
     /**
+     * Loads all blocks belonging to provided layout.
+     *
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
+     *
+     * @return \Netgen\BlockManager\API\Values\Block\Block[]
+     */
+    public function loadLayoutBlocks(Layout $layout);
+
+    /**
      * Returns if provided block has a published status.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
