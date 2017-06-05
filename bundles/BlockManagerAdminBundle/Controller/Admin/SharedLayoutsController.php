@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin;
 
 use Netgen\BlockManager\API\Service\LayoutService;
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 
 class SharedLayoutsController extends Controller
@@ -33,6 +34,26 @@ class SharedLayoutsController extends Controller
             'NetgenBlockManagerAdminBundle:admin/shared_layouts:index.html.twig',
             array(
                 'shared_layouts' => $this->layoutService->loadSharedLayouts(true),
+            )
+        );
+    }
+
+    /**
+     * Clears the HTTP caches for layouts related to provided shared layout.
+     *
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function clearRelatedLayoutsCache(Layout $layout)
+    {
+        $relatedLayouts = $this->layoutService->loadRelatedLayouts($layout);
+
+        return $this->render(
+            'NetgenBlockManagerAdminBundle:admin/shared_layouts/cache:related_layouts.html.twig',
+            array(
+                'layout' => $layout,
+                'related_layouts' => $relatedLayouts,
             )
         );
     }

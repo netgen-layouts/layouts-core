@@ -14,6 +14,8 @@ services:
         parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.layout"
+            - "@netgen_block_manager.api.service.block"
+            - "@netgen_block_manager.http_cache.client"
 
     netgen_block_manager.controller.admin.shared_layouts:
         class: Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\SharedLayoutsController

@@ -1,0 +1,36 @@
+{% import 'NetgenBlockManagerBundle:api/parts:ttl_macros.html.twig' as ttl_macros %}
+
+<div class="nl-modal">
+    <a href="#" class="close-modal"></a>
+
+    <div class="nl-modal-head">
+        Clear block caches for: {{ layout.name }}
+    </div>
+
+    <div class="nl-modal-body">
+        {% for block in blocks %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>TTL</th>
+                        <th>BLOCK</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ ttl_macros.ttl_label(block.config('http_cache').parameter('shared_max_age').value) }}</td>
+                        <td>
+                            <p>{{ block.name }}</p>
+                            <p>Definition: {{ block.definition.config.name }}</p>
+                            <p>View type: {{ block.definition.config.viewType(block.viewType).name }}</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        {% endfor %}
+
+        <div class="form-actions">
+            CLEAR SELECTED
+        </div>
+    </div>
+</div>

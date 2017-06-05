@@ -2,8 +2,12 @@
 
 namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin;
 
+use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\LayoutService;
+use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Layout\Layout;
+use Netgen\BlockManager\Exception\BadStateException;
+use Netgen\BlockManager\HttpCache\ClientInterface;
 use Netgen\BlockManager\Layout\Form\CopyType;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
@@ -18,13 +22,30 @@ class LayoutsController extends Controller
     protected $layoutService;
 
     /**
+     * @var \Netgen\BlockManager\API\Service\BlockService
+     */
+    protected $blockService;
+
+    /**
+     * @var \Netgen\BlockManager\HttpCache\ClientInterface
+     */
+    protected $httpCacheClient;
+
+    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
+     * @param \Netgen\BlockManager\API\Service\BlockService $blockService
+     * @param \Netgen\BlockManager\HttpCache\ClientInterface $httpCacheClient
      */
-    public function __construct(LayoutService $layoutService)
-    {
+    public function __construct(
+        LayoutService $layoutService,
+        BlockService $blockService,
+        ClientInterface $httpCacheClient
+    ) {
         $this->layoutService = $layoutService;
+        $this->blockService = $blockService;
+        $this->httpCacheClient = $httpCacheClient;
     }
 
     /**
@@ -100,6 +121,68 @@ class LayoutsController extends Controller
         $this->layoutService->deleteLayout($layout);
 
         return new Response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Clears the HTTP caches for provided layouts.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException if the list of layout IDs in invalid
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function clearLayoutsCache(Request $request)
+    {
+        $layoutIds = $request->request->get('layouts');
+        if (!is_array($layoutIds) || empty($layoutIds)) {
+            throw new BadStateException('layouts', 'List of layout IDs needs to be a non-empty array.');
+        }
+
+        $this->httpCacheClient->invalidateLayouts($layoutIds);
+
+        return new Response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Clears the HTTP caches for provided blocks.
+     *
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException if the list of block IDs in invalid
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function clearBlocksCache(Layout $layout, Request $request)
+    {
+        if ($request->isMethod('POST')) {
+            $blockIds = $request->request->get('blocks');
+            if (!is_array($blockIds) || empty($blockIds)) {
+                throw new BadStateException('blocks', 'List of block IDs needs to be a non-empty array.');
+            }
+
+            $this->httpCacheClient->invalidateBlocks($blockIds);
+
+            return new Response(null, Response::HTTP_NO_CONTENT);
+        }
+
+        $cacheableBlocks = array_filter(
+            $this->blockService->loadLayoutBlocks($layout),
+            function (Block $block) {
+                $blockConfig = $block->getConfig('http_cache');
+
+                return $blockConfig->getParameter('use_http_cache')->getValue();
+            }
+        );
+
+        return $this->render(
+            'NetgenBlockManagerAdminBundle:admin/layouts/cache:blocks.html.twig',
+            array(
+                'layout' => $layout,
+                'blocks' => array_values($cacheableBlocks),
+            )
+        );
     }
 
     /**
