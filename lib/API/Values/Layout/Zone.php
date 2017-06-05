@@ -35,6 +35,13 @@ interface Zone extends Value
     public function isPublished();
 
     /**
+     * Returns if the zone has a linked zone.
+     *
+     * @return bool
+     */
+    public function hasLinkedZone();
+
+    /**
      * Returns the linked zone.
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Zone

@@ -73,6 +73,16 @@ class Zone extends ValueObject implements APIZone
     }
 
     /**
+     * Returns if the zone has a linked zone.
+     *
+     * @return bool
+     */
+    public function hasLinkedZone()
+    {
+        return $this->linkedZone instanceof APIZone;
+    }
+
+    /**
      * Returns the linked zone.
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Zone
