@@ -36,6 +36,10 @@ view:
                 template: "NetgenBlockManagerAdminBundle:admin/form/layout:copy.html.twig"
                 match:
                     form\type: Netgen\BlockManager\Layout\Form\CopyType
+            layout\blocks_cache:
+                template: "NetgenBlockManagerAdminBundle:admin/layouts/cache:blocks.html.twig"
+                match:
+                    form\type: Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearBlocksCacheType
             condition\type:
                 template: "NetgenBlockManagerAdminBundle:admin/form/layout_resolver:condition_type.html.twig"
                 match:

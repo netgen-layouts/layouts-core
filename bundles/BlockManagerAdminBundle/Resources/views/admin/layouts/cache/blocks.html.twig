@@ -1,10 +1,60 @@
-{% import 'NetgenBlockManagerBundle:api/parts:ttl_macros.html.twig' as ttl_macros %}
+{% extends 'NetgenBlockManagerAdminBundle:form:modal.html.twig' %}
 
+{% form_theme form.blocks _self %}
+
+{% block header %}
+    Clear block caches for: {{ layout.name }}
+{% endblock %}
+
+{% block _clear_blocks_cache_blocks_widget %}
+    {% import 'NetgenBlockManagerBundle:api/parts:ttl_macros.html.twig' as ttl_macros %}
+
+    {% for choice in form %}
+        {% set block = form.parent.vars.blocks[choice.vars.value] %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>TTL</th>
+                    <th>BLOCK</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>{{ form_widget(choice) }}</th>
+                    <td>{{ ttl_macros.ttl_label(block.config('http_cache').parameter('shared_max_age').value) }}</td>
+                    <td>
+                        <p>{{ block.name }}</p>
+                        <p>Definition: {{ block.definition.config.name }}</p>
+                        <p>View type: {{ block.definition.config.viewType(block.viewType).name }}</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    {% else %}
+        There are no blocks with enabled cache.
+    {% endfor %}
+{% endblock %}
+
+{% block children %}
+    {{ form_row(form.children.blocks) }}
+{% endblock %}
+
+{% block buttons %}
+    <a class="nl-btn">{{ 'layout.blocks_cache.button.cancel'|trans }}</a>
+
+    {% if form.blocks.children is not empty %}
+        <button type="submit" class="nl-btn nl-btn-primary">{{ 'layout.blocks_cache.button.clear'|trans }}</button>
+    {% endif %}
+{% endblock %}
+
+{#
 <div class="nl-modal">
     <a href="#" class="close-modal"></a>
 
     <div class="nl-modal-head">
-        Clear block caches for: {{ layout.name }}
+
     </div>
 
     <div class="nl-modal-body">
@@ -18,11 +68,11 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{ ttl_macros.ttl_label(block.config('http_cache').parameter('shared_max_age').value) }}</td>
+                        <td>{{ ttl_macros.ttl_label(choice.config('http_cache').parameter('shared_max_age').value) }}</td>
                         <td>
-                            <p>{{ block.name }}</p>
-                            <p>Definition: {{ block.definition.config.name }}</p>
-                            <p>View type: {{ block.definition.config.viewType(block.viewType).name }}</p>
+                            <p>{{ choice.name }}</p>
+                            <p>Definition: {{ choice.definition.config.name }}</p>
+                            <p>View type: {{ choice.definition.config.viewType(choice.viewType).name }}</p>
                         </td>
                     </tr>
                 </tbody>
@@ -34,3 +84,4 @@
         </div>
     </div>
 </div>
+#}

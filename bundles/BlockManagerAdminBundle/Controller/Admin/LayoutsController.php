@@ -6,10 +6,10 @@ use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\HttpCache\ClientInterface;
 use Netgen\BlockManager\Layout\Form\CopyType;
 use Netgen\BlockManager\View\ViewInterface;
+use Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearBlocksCacheType;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -145,35 +145,58 @@ class LayoutsController extends Controller
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException if the list of block IDs in invalid
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
     public function clearBlocksCache(Layout $layout, Request $request)
     {
-        if ($request->isMethod('POST')) {
-            $blockIds = $request->request->get('blocks');
-            if (!is_array($blockIds) || empty($blockIds)) {
-                throw new BadStateException('blocks', 'List of block IDs needs to be a non-empty array.');
-            }
+        $cacheableBlocks = array_values(
+            array_filter(
+                $this->blockService->loadLayoutBlocks($layout),
+                function (Block $block) {
+                    $blockConfig = $block->getConfig('http_cache');
 
-            $this->httpCacheClient->invalidateBlocks($blockIds);
+                    return $blockConfig->getParameter('use_http_cache')->getValue();
+                }
+            )
+        );
+
+        $form = $this->createForm(
+            ClearBlocksCacheType::class,
+            null,
+            array(
+                'blocks' => $cacheableBlocks,
+            )
+        );
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $selectedBlocks = $form->get('blocks')->getData();
+
+            $this->httpCacheClient->invalidateBlocks(
+                array_map(
+                    function (Block $block) {
+                        return $block->getId();
+                    },
+                    $selectedBlocks
+                )
+            );
 
             return new Response(null, Response::HTTP_NO_CONTENT);
         }
 
-        $cacheableBlocks = array_filter(
-            $this->blockService->loadLayoutBlocks($layout),
-            function (Block $block) {
-                $blockConfig = $block->getConfig('http_cache');
-
-                return $blockConfig->getParameter('use_http_cache')->getValue();
-            }
-        );
-
-        return $this->render(
-            'NetgenBlockManagerAdminBundle:admin/layouts/cache:blocks.html.twig',
+        return $this->buildView(
+            $form,
+            ViewInterface::CONTEXT_ADMIN,
             array(
                 'layout' => $layout,
                 'blocks' => array_values($cacheableBlocks),
+            ),
+            new Response(
+                null,
+                $form->isSubmitted() ?
+                    Response::HTTP_UNPROCESSABLE_ENTITY :
+                    Response::HTTP_OK
             )
         );
     }
