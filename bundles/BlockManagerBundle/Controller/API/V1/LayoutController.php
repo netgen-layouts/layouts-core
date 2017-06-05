@@ -8,7 +8,6 @@ use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\Layout\LayoutTypeException;
-use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Values\View;
@@ -121,23 +120,14 @@ class LayoutController extends Controller
      * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If linked layout or zone do not exist
-     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function linkZone(Zone $zone, Request $request)
     {
-        try {
-            $linkedZone = $this->layoutService->loadZone(
-                $request->request->get('linked_layout_id'),
-                $request->request->get('linked_zone_identifier')
-            );
-        } catch (NotFoundException $e) {
-            throw new BadStateException(
-                'linked_zone_identifier',
-                'Specified linked layout or zone do not exist'
-            );
-        }
+        $linkedZone = $this->layoutService->loadZone(
+            $request->request->get('linked_layout_id'),
+            $request->request->get('linked_zone_identifier')
+        );
 
         $this->layoutService->linkZone($zone, $linkedZone);
 

@@ -368,8 +368,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY,
-            'Argument "linked_zone_identifier" has an invalid state. Specified linked layout or zone do not exist'
+            Response::HTTP_NOT_FOUND,
+            'Could not find zone with identifier "unknown"'
         );
     }
 
@@ -396,8 +396,8 @@ class LayoutControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY,
-            'Argument "linked_zone_identifier" has an invalid state. Specified linked layout or zone do not exist'
+            Response::HTTP_NOT_FOUND,
+            'Could not find zone with identifier "right"'
         );
     }
 
