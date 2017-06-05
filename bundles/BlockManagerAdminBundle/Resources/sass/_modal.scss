@@ -10,6 +10,9 @@
     overflow:auto;
     padding:15px;
     animation:maskFadeIn 0.2s;
+    * {
+        box-sizing:border-box;
+    }
     .nl-modal {
         position:absolute;
         top:50%;
