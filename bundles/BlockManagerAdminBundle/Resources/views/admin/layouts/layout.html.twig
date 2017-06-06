@@ -49,9 +49,19 @@
 
                 <li><a href="#" class="js-layout-copy">{{ 'layouts.layout.copy_layout'|trans }}</a></li>
                 <li><a href="#" class="js-layout-delete">{{ 'layouts.layout.delete_layout'|trans }}</a></li>
+
                 {% if layout.published %}
-                    <li><a href="#" class="js-layout-clear-cache">{{ 'layouts.layout.clear_cache'|trans }}</a></li>
-                    <li><a href="#" class="js-layout-clear-block-caches">{{ 'layouts.layout.clear_block_caches'|trans }}</a></li>
+                    <li>
+                        <a href="#" class="js-layout-clear-cache">
+                            {{ 'layouts.layout.clear_cache'|trans }} <span class="note">{{ 'layouts.layout.clear_cache.note'|trans }}</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="js-layout-clear-block-caches">
+                            {{ 'layouts.layout.clear_block_caches'|trans }} <span class="note">{{ 'layouts.layout.clear_block_caches.note'|trans }}</span>
+                        </a>
+                    </li>
                 {% endif %}
             </ul>
         </div>
