@@ -44,6 +44,8 @@ class ClearBlocksCacheType extends AbstractType
 
                     return !empty($blockName) ? $blockName : ' ';
                 },
+                'translation_domain' => false,
+                'choice_translation_domain' => false,
                 'choices_as_values' => true,
                 'label' => false,
                 'required' => true,

@@ -44,6 +44,8 @@ class ClearLayoutsCacheType extends AbstractType
 
                     return !empty($layoutName) ? $layoutName : ' ';
                 },
+                'translation_domain' => false,
+                'choice_translation_domain' => false,
                 'choices_as_values' => true,
                 'label' => false,
                 'required' => true,
