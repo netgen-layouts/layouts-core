@@ -8,7 +8,6 @@ use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Block\BlockType\BlockType;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\Block\BlockTypeException;
-use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Version;
 use Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator;
@@ -100,7 +99,6 @@ class BlockController extends Controller
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If block type does not exist
-     *                                                          If zone with specified ID does not exist
      *
      * @return \Netgen\BlockManager\Serializer\Values\View
      */
@@ -114,13 +112,9 @@ class BlockController extends Controller
             throw new BadStateException('block_type', 'Block type does not exist.', $e);
         }
 
-        try {
-            $layout = $this->layoutService->loadLayoutDraft(
-                $request->request->get('layout_id')
-            );
-        } catch (NotFoundException $e) {
-            throw new BadStateException('layout_id', 'Layout draft does not exist.', $e);
-        }
+        $layout = $this->layoutService->loadLayoutDraft(
+            $request->request->get('layout_id')
+        );
 
         $blockCreateStruct = $this->createBlockCreateStruct($blockType);
 

@@ -743,8 +743,8 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY,
-            'Argument "layout_id" has an invalid state. Layout draft does not exist.'
+            Response::HTTP_NOT_FOUND,
+            'Could not find layout with identifier "9999"'
         );
     }
 
