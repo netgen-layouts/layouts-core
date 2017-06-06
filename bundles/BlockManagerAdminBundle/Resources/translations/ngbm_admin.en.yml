@@ -65,7 +65,7 @@ layouts.layout.mappings: 'Mappings'
 layouts.cache.blocks.title: 'Clear block caches for'
 layouts.cache.blocks.ttl: 'TTL'
 layouts.cache.blocks.block: 'Block'
-layouts.cache.blocks.definition_view_type: 'Block'
+layouts.cache.blocks.definition_view_type: 'Definition/View type'
 layouts.cache.blocks.no_blocks: 'There are no blocks with enabled cache.'
 layouts.cache.blocks.button.clear: 'Clear selected'
 
