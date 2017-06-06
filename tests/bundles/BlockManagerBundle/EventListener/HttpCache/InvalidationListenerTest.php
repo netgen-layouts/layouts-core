@@ -3,8 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener\HttpCache;
 
 use Exception;
-use FOS\HttpCache\Exception\ExceptionCollection;
-use FOS\HttpCacheBundle\CacheManager;
+use Netgen\BlockManager\HttpCache\ClientInterface;
 use Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\InvalidationListener;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Command\Command;
@@ -24,7 +23,7 @@ class InvalidationListenerTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $cacheManagerMock;
+    protected $httpCacheClientMock;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\InvalidationListener
@@ -33,9 +32,9 @@ class InvalidationListenerTest extends TestCase
 
     public function setUp()
     {
-        $this->cacheManagerMock = $this->createMock(CacheManager::class);
+        $this->httpCacheClientMock = $this->createMock(ClientInterface::class);
 
-        $this->listener = new InvalidationListener($this->cacheManagerMock);
+        $this->listener = new InvalidationListener($this->httpCacheClientMock);
     }
 
     /**
@@ -69,31 +68,9 @@ class InvalidationListenerTest extends TestCase
             new Response()
         );
 
-        $this->cacheManagerMock
+        $this->httpCacheClientMock
             ->expects($this->once())
-            ->method('flush');
-
-        $this->listener->onKernelTerminate($event);
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\InvalidationListener::onKernelTerminate
-     */
-    public function testOnKernelTerminateWithException()
-    {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
-        $request = Request::create('/');
-
-        $event = new PostResponseEvent(
-            $kernelMock,
-            $request,
-            new Response()
-        );
-
-        $this->cacheManagerMock
-            ->expects($this->once())
-            ->method('flush')
-            ->will($this->throwException(new ExceptionCollection()));
+            ->method('commit');
 
         $this->listener->onKernelTerminate($event);
     }
@@ -113,32 +90,9 @@ class InvalidationListenerTest extends TestCase
             new Exception()
         );
 
-        $this->cacheManagerMock
+        $this->httpCacheClientMock
             ->expects($this->once())
-            ->method('flush');
-
-        $this->listener->onKernelException($event);
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\InvalidationListener::onKernelException
-     */
-    public function testOnKernelExceptionWithException()
-    {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
-        $request = Request::create('/');
-
-        $event = new GetResponseForExceptionEvent(
-            $kernelMock,
-            $request,
-            new Response(),
-            new Exception()
-        );
-
-        $this->cacheManagerMock
-            ->expects($this->once())
-            ->method('flush')
-            ->will($this->throwException(new ExceptionCollection()));
+            ->method('commit');
 
         $this->listener->onKernelException($event);
     }
@@ -150,13 +104,7 @@ class InvalidationListenerTest extends TestCase
     {
         $commandMock = $this->createMock(Command::class);
         $inputMock = $this->createMock(InputInterface::class);
-        $outputMock = $this->createConfiguredMock(
-            OutputInterface::class,
-            array(
-                'getVerbosity' => OutputInterface::VERBOSITY_VERY_VERBOSE,
-                'writeln' => 'Sent 2 invalidation request(s)',
-            )
-        );
+        $outputMock = $this->createMock(OutputInterface::class);
 
         $event = new ConsoleEvent(
             $commandMock,
@@ -164,74 +112,9 @@ class InvalidationListenerTest extends TestCase
             $outputMock
         );
 
-        $this->cacheManagerMock
+        $this->httpCacheClientMock
             ->expects($this->once())
-            ->method('flush')
-            ->will($this->returnValue(2));
-
-        $this->listener->onConsoleTerminate($event);
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\InvalidationListener::onConsoleTerminate
-     */
-    public function testOnConsoleTerminateWithNonVerboseOutput()
-    {
-        $commandMock = $this->createMock(Command::class);
-        $inputMock = $this->createMock(InputInterface::class);
-        $outputMock = $this->createConfiguredMock(
-            OutputInterface::class,
-            array(
-                'getVerbosity' => OutputInterface::VERBOSITY_QUIET,
-            )
-        );
-
-        $event = new ConsoleEvent(
-            $commandMock,
-            $inputMock,
-            $outputMock
-        );
-
-        $this->cacheManagerMock
-            ->expects($this->once())
-            ->method('flush')
-            ->will($this->returnValue(2));
-
-        $outputMock
-            ->expects($this->never())
-            ->method('writeln');
-
-        $this->listener->onConsoleTerminate($event);
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\InvalidationListener::onConsoleTerminate
-     */
-    public function testOnConsoleTerminateWithNoFlushes()
-    {
-        $commandMock = $this->createMock(Command::class);
-        $inputMock = $this->createMock(InputInterface::class);
-        $outputMock = $this->createConfiguredMock(
-            OutputInterface::class,
-            array(
-                'getVerbosity' => OutputInterface::VERBOSITY_VERY_VERBOSE,
-            )
-        );
-
-        $event = new ConsoleEvent(
-            $commandMock,
-            $inputMock,
-            $outputMock
-        );
-
-        $this->cacheManagerMock
-            ->expects($this->once())
-            ->method('flush')
-            ->will($this->returnValue(0));
-
-        $outputMock
-            ->expects($this->never())
-            ->method('writeln');
+            ->method('commit');
 
         $this->listener->onConsoleTerminate($event);
     }

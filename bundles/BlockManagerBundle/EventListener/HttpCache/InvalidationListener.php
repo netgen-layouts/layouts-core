@@ -2,11 +2,9 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache;
 
-use FOS\HttpCache\Exception\ExceptionCollection;
-use FOS\HttpCacheBundle\CacheManager;
+use Netgen\BlockManager\HttpCache\ClientInterface;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleEvent;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Event\PostResponseEvent;
@@ -15,18 +13,18 @@ use Symfony\Component\HttpKernel\KernelEvents;
 class InvalidationListener implements EventSubscriberInterface
 {
     /**
-     * @var \FOS\HttpCacheBundle\CacheManager
+     * @var \Netgen\BlockManager\HttpCache\ClientInterface
      */
-    protected $cacheManager;
+    protected $httpCacheClient;
 
     /**
      * Constructor.
      *
-     * @param \FOS\HttpCacheBundle\CacheManager $cacheManager
+     * @param \Netgen\BlockManager\HttpCache\ClientInterface $httpCacheClient
      */
-    public function __construct(CacheManager $cacheManager)
+    public function __construct(ClientInterface $httpCacheClient)
     {
-        $this->cacheManager = $cacheManager;
+        $this->httpCacheClient = $httpCacheClient;
     }
 
     /**
@@ -49,12 +47,7 @@ class InvalidationListener implements EventSubscriberInterface
      */
     public function onKernelTerminate(PostResponseEvent $event)
     {
-        try {
-            $this->cacheManager->flush();
-        } catch (ExceptionCollection $e) {
-            // Do nothing
-            // FOS Cache logger will log the errors
-        }
+        $this->httpCacheClient->commit();
     }
 
     /**
@@ -62,12 +55,7 @@ class InvalidationListener implements EventSubscriberInterface
      */
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
-        try {
-            $this->cacheManager->flush();
-        } catch (ExceptionCollection $e) {
-            // Do nothing
-            // FOS Cache logger will log the errors
-        }
+        $this->httpCacheClient->commit();
     }
 
     /**
@@ -75,10 +63,6 @@ class InvalidationListener implements EventSubscriberInterface
      */
     public function onConsoleTerminate(ConsoleEvent $event)
     {
-        $num = $this->cacheManager->flush();
-
-        if ($num > 0 && OutputInterface::VERBOSITY_VERBOSE <= $event->getOutput()->getVerbosity()) {
-            $event->getOutput()->writeln(sprintf('Sent %d invalidation request(s)', $num));
-        }
+        $this->httpCacheClient->commit();
     }
 }

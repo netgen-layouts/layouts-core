@@ -63,7 +63,7 @@ services:
     netgen_block_manager.event_listener.http_cache.invalidation:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\InvalidationListener
         arguments:
-            - "@netgen_block_manager.http_cache.fos.cache_manager"
+            - "@netgen_block_manager.http_cache.client"
         tags:
             - { name: kernel.event_subscriber }
 

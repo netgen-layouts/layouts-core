@@ -1,7 +1,6 @@
 services:
     netgen_block_manager.http_cache.fos.cache_manager:
-        class: FOS\HttpCacheBundle\CacheManager
-        parent: fos_http_cache.cache_manager
+        synthetic: true
 
     netgen_block_manager.http_cache.client:
         alias: netgen_block_manager.http_cache.client.fos

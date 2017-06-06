@@ -15,12 +15,9 @@ class CacheManagerPassTest extends AbstractCompilerPassTestCase
      */
     public function testProcess()
     {
-        $cacheManager = new Definition();
-        $cacheManager->addArgument(null);
-        $this->setDefinition('netgen_block_manager.http_cache.fos.cache_manager', $cacheManager);
-
-        $proxyClient = new Definition();
-        $this->setDefinition('fos_http_cache.proxy_client.varnish', $proxyClient);
+        $cacheManager = new Definition(null, array(0));
+        $this->setDefinition('fos_http_cache.cache_manager', $cacheManager);
+        $this->setDefinition('fos_http_cache.proxy_client.varnish', new Definition());
 
         $this->compile();
 
@@ -33,16 +30,32 @@ class CacheManagerPassTest extends AbstractCompilerPassTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\HttpCache\CacheManagerPass::process
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Netgen Block Manager requires Varnish proxy client to be activated in FOSHttpCacheBundle
+     */
+    public function testProcessWithoutCacheManager()
+    {
+        $this->setDefinition('fos_http_cache.proxy_client.varnish', new Definition());
+
+        $this->compile();
+
+        $this->assertContainerBuilderHasAlias(
+            'netgen_block_manager.http_cache.client',
+            'netgen_block_manager.http_cache.client.null'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\HttpCache\CacheManagerPass::process
      */
     public function testProcessWithoutVarnishProxyClient()
     {
-        $cacheManager = new Definition();
-        $cacheManager->addArgument(null);
-        $this->setDefinition('netgen_block_manager.http_cache.fos.cache_manager', $cacheManager);
+        $this->setDefinition('fos_http_cache.cache_manager', new Definition());
 
         $this->compile();
+
+        $this->assertContainerBuilderHasAlias(
+            'netgen_block_manager.http_cache.client',
+            'netgen_block_manager.http_cache.client.null'
+        );
     }
 
     /**
