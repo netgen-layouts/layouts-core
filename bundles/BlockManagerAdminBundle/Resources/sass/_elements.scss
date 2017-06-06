@@ -78,6 +78,10 @@
         vertical-align:middle;
         font-size:15px;
     }
+
+    &:disabled {
+        opacity:0.5;
+    }
 }
 
 .nl-select {

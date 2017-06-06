@@ -4,6 +4,10 @@
         max-width:98%;
         .nl-modal-body {
             padding:0;
+            .errors {
+                padding:15px;
+                margin:0;
+            }
         }
     }
 }
@@ -24,11 +28,14 @@
         background:hsl(0, 0, 95);
         font-weight:700;
         text-transform:uppercase;
+        text-align:left;
         .nl-btn {
             text-transform:none;
+            font-weight:500;
         }
     }
     td {
+        color:hsl(0, 0, 30);
         p {
             margin:0;
             line-height:inherit;
