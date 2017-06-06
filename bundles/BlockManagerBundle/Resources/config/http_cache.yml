@@ -3,5 +3,3 @@ http_cache:
         default:
             block:
                 shared_max_age: 300
-    invalidation:
-        enabled: "%kernel.debug%"
