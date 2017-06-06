@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache;
 
-use Netgen\BlockManager\HttpCache\Block\TaggerInterface;
+use Netgen\BlockManager\HttpCache\TaggerInterface;
 use Netgen\BlockManager\View\View\BlockViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
@@ -11,14 +11,14 @@ use Symfony\Component\HttpKernel\KernelEvents;
 class BlockResponseListener implements EventSubscriberInterface
 {
     /**
-     * @var \Netgen\BlockManager\HttpCache\Block\TaggerInterface
+     * @var \Netgen\BlockManager\HttpCache\TaggerInterface
      */
     protected $tagger;
 
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\HttpCache\Block\TaggerInterface $tagger
+     * @param \Netgen\BlockManager\HttpCache\TaggerInterface $tagger
      */
     public function __construct(TaggerInterface $tagger)
     {
@@ -49,7 +49,7 @@ class BlockResponseListener implements EventSubscriberInterface
             return;
         }
 
-        $this->tagger->tag(
+        $this->tagger->tagBlock(
             $controllerResult->getResponse(),
             $controllerResult->getBlock()
         );

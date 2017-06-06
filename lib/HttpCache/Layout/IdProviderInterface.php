@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\HttpCache\Layout\Strategy\Ban;
+namespace Netgen\BlockManager\HttpCache\Layout;
 
 interface IdProviderInterface
 {

@@ -34,4 +34,11 @@ interface ClientInterface
      * Invalidates all blocks.
      */
     public function invalidateAllBlocks();
+
+    /**
+     * Commits the cache clear operations to the backend.
+     *
+     * @return bool
+     */
+    public function commit();
 }

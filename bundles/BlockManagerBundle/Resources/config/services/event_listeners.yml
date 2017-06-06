@@ -75,13 +75,13 @@ services:
     netgen_block_manager.event_listener.http_cache.layout_response:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\LayoutResponseListener
         arguments:
-            - "@netgen_block_manager.http_cache.layout.tagger"
+            - "@netgen_block_manager.http_cache.tagger"
         tags:
             - { name: kernel.event_subscriber }
 
     netgen_block_manager.event_listener.http_cache.block_response:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\BlockResponseListener
         arguments:
-            - "@netgen_block_manager.http_cache.block.tagger"
+            - "@netgen_block_manager.http_cache.tagger"
         tags:
             - { name: kernel.event_subscriber }

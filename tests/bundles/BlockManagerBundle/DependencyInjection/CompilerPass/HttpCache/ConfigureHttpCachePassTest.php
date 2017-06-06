@@ -16,85 +16,23 @@ class ConfigureHttpCachePassTest extends AbstractCompilerPassTestCase
      */
     public function testProcess()
     {
-        $this->setDefinition('netgen_block_manager.http_cache.client', new Definition());
+        $this->setDefinition('netgen_block_manager.http_cache.client', new Definition('class'));
 
         $this->setParameter(
             'netgen_block_manager.http_cache',
             array(
                 'invalidation' => array(
                     'enabled' => true,
-                    'default_strategy' => 'ban',
-                    'strategies' => array(
-                        'ban' => array(
-                            'block' => array(
-                                'invalidator' => 'ban.block.invalidator',
-                                'tagger' => 'ban.block.tagger',
-                            ),
-                            'layout' => array(
-                                'invalidator' => 'ban.layout.invalidator',
-                                'tagger' => 'ban.layout.tagger',
-                            ),
-                        ),
-                    ),
                 ),
             )
         );
 
         $this->compile();
 
-        $this->assertContainerBuilderHasAlias(
-            'netgen_block_manager.http_cache.block.tagger',
-            'ban.block.tagger'
+        $this->assertContainerBuilderHasService(
+            'netgen_block_manager.http_cache.client',
+            'class'
         );
-
-        $this->assertContainerBuilderHasAlias(
-            'netgen_block_manager.http_cache.block.invalidator',
-            'ban.block.invalidator'
-        );
-
-        $this->assertContainerBuilderHasAlias(
-            'netgen_block_manager.http_cache.layout.tagger',
-            'ban.layout.tagger'
-        );
-
-        $this->assertContainerBuilderHasAlias(
-            'netgen_block_manager.http_cache.layout.invalidator',
-            'ban.layout.invalidator'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\HttpCache\ConfigureHttpCachePass::process
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Invalidation strategy "unknown" does not exist in Netgen Block Manager configuration.
-     */
-    public function testProcessWithoutDefinedStrategy()
-    {
-        $this->setDefinition('netgen_block_manager.http_cache.client', new Definition());
-
-        $this->setParameter(
-            'netgen_block_manager.http_cache',
-            array(
-                'invalidation' => array(
-                    'enabled' => true,
-                    'default_strategy' => 'unknown',
-                    'strategies' => array(
-                        'ban' => array(
-                            'block' => array(
-                                'invalidator' => 'ban.block.invalidator',
-                                'tagger' => 'ban.block.tagger',
-                            ),
-                            'layout' => array(
-                                'invalidator' => 'ban.layout.invalidator',
-                                'tagger' => 'ban.layout.tagger',
-                            ),
-                        ),
-                    ),
-                ),
-            )
-        );
-
-        $this->compile();
     }
 
     /**
@@ -102,26 +40,13 @@ class ConfigureHttpCachePassTest extends AbstractCompilerPassTestCase
      */
     public function testProcessWithDisabledInvalidation()
     {
-        $this->setDefinition('netgen_block_manager.http_cache.client', new Definition());
+        $this->setDefinition('netgen_block_manager.http_cache.client', new Definition('class'));
 
         $this->setParameter(
             'netgen_block_manager.http_cache',
             array(
                 'invalidation' => array(
                     'enabled' => false,
-                    'default_strategy' => 'ban',
-                    'strategies' => array(
-                        'ban' => array(
-                            'block' => array(
-                                'invalidator' => 'ban.block.invalidator',
-                                'tagger' => 'ban.block.tagger',
-                            ),
-                            'layout' => array(
-                                'invalidator' => 'ban.layout.invalidator',
-                                'tagger' => 'ban.layout.tagger',
-                            ),
-                        ),
-                    ),
                 ),
             )
         );

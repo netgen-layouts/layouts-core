@@ -3,7 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener\HttpCache;
 
 use Netgen\BlockManager\Core\Values\Layout\Layout;
-use Netgen\BlockManager\HttpCache\Layout\TaggerInterface;
+use Netgen\BlockManager\HttpCache\TaggerInterface;
 use Netgen\BlockManager\View\View\LayoutView;
 use Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\LayoutResponseListener;
 use PHPUnit\Framework\TestCase;
@@ -63,7 +63,7 @@ class LayoutResponseListenerTest extends TestCase
 
         $this->taggerMock
             ->expects($this->once())
-            ->method('tag')
+            ->method('tagLayout')
             ->with($this->equalTo(new Response()), $this->equalTo(new Layout()));
 
         $this->listener->onKernelResponse($event);
@@ -88,7 +88,7 @@ class LayoutResponseListenerTest extends TestCase
 
         $this->taggerMock
             ->expects($this->never())
-            ->method('tag');
+            ->method('tagLayout');
 
         $this->listener->onKernelResponse($event);
     }
@@ -112,7 +112,7 @@ class LayoutResponseListenerTest extends TestCase
 
         $this->taggerMock
             ->expects($this->never())
-            ->method('tag');
+            ->method('tagLayout');
 
         $this->listener->onKernelResponse($event);
     }

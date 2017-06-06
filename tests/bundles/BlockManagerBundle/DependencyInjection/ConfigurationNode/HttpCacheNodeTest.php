@@ -136,21 +136,7 @@ class HttpCacheNodeTest extends TestCase
         $config = array(
             array(
                 'http_cache' => array(
-                    'invalidation' => array(
-                        'default_strategy' => 'bla',
-                        'strategies' => array(
-                            'ban' => array(
-                                'block' => array(
-                                    'invalidator' => 'ban.block.invalidator',
-                                    'tagger' => 'ban.block.tagger',
-                                ),
-                                'layout' => array(
-                                    'invalidator' => 'ban.layout.invalidator',
-                                    'tagger' => 'ban.layout.tagger',
-                                ),
-                            ),
-                        ),
-                    ),
+                    'invalidation' => array(),
                 ),
             ),
         );
@@ -159,19 +145,6 @@ class HttpCacheNodeTest extends TestCase
             'http_cache' => array(
                 'invalidation' => array(
                     'enabled' => true,
-                    'default_strategy' => 'bla',
-                    'strategies' => array(
-                        'ban' => array(
-                            'block' => array(
-                                'invalidator' => 'ban.block.invalidator',
-                                'tagger' => 'ban.block.tagger',
-                            ),
-                            'layout' => array(
-                                'invalidator' => 'ban.layout.invalidator',
-                                'tagger' => 'ban.layout.tagger',
-                            ),
-                        ),
-                    ),
                 ),
             ),
         );
@@ -263,154 +236,12 @@ class HttpCacheNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\HttpCacheNode::getConfigurationNode
      */
-    public function testInvalidationSettingsWithInvalidDefaultStrategy()
-    {
-        $config = array(
-            'http_cache' => array(
-                'invalidation' => array(
-                    'default_strategy' => array(),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\HttpCacheNode::getConfigurationNode
-     */
     public function testInvalidationSettingsWithInvalidEnabled()
     {
         $config = array(
             'http_cache' => array(
                 'invalidation' => array(
                     'enabled' => 42,
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\HttpCacheNode::getConfigurationNode
-     */
-    public function testInvalidationSettingsWithEmptyStrategies()
-    {
-        $config = array(
-            'http_cache' => array(
-                'invalidation' => array(
-                    'strategies' => array(),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\HttpCacheNode::getConfigurationNode
-     */
-    public function testInvalidationSettingsWithMissingLayoutTagger()
-    {
-        $config = array(
-            'http_cache' => array(
-                'invalidation' => array(
-                    'strategies' => array(
-                        'ban' => array(
-                            'layout' => array(
-                                'invalidator' => 'test',
-                            ),
-                            'block' => array(
-                                'tagger' => 'test',
-                                'invalidator' => 'test',
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\HttpCacheNode::getConfigurationNode
-     */
-    public function testInvalidationSettingsWithMissingLayoutInvalidator()
-    {
-        $config = array(
-            'http_cache' => array(
-                'invalidation' => array(
-                    'strategies' => array(
-                        'ban' => array(
-                            'layout' => array(
-                                'tagger' => 'test',
-                            ),
-                            'block' => array(
-                                'tagger' => 'test',
-                                'invalidator' => 'test',
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\HttpCacheNode::getConfigurationNode
-     */
-    public function testInvalidationSettingsWithMissingBlockTagger()
-    {
-        $config = array(
-            'http_cache' => array(
-                'invalidation' => array(
-                    'strategies' => array(
-                        'ban' => array(
-                            'layout' => array(
-                                'tagger' => 'test',
-                                'invalidator' => 'test',
-                            ),
-                            'block' => array(
-                                'invalidator' => 'test',
-                            ),
-                        ),
-                    ),
-                ),
-            ),
-        );
-
-        $this->assertConfigurationIsInvalid(array($config));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\HttpCacheNode::getConfigurationNode
-     */
-    public function testInvalidationSettingsWithMissingBlockInvalidator()
-    {
-        $config = array(
-            'http_cache' => array(
-                'invalidation' => array(
-                    'strategies' => array(
-                        'ban' => array(
-                            'layout' => array(
-                                'tagger' => 'test',
-                                'invalidator' => 'test',
-                            ),
-                            'block' => array(
-                                'invalidator' => 'test',
-                            ),
-                        ),
-                    ),
                 ),
             ),
         );

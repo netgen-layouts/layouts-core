@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache;
 
-use Netgen\BlockManager\HttpCache\Layout\TaggerInterface;
+use Netgen\BlockManager\HttpCache\TaggerInterface;
 use Netgen\BlockManager\View\View\LayoutViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
@@ -11,14 +11,14 @@ use Symfony\Component\HttpKernel\KernelEvents;
 class LayoutResponseListener implements EventSubscriberInterface
 {
     /**
-     * @var \Netgen\BlockManager\HttpCache\Layout\TaggerInterface
+     * @var \Netgen\BlockManager\HttpCache\TaggerInterface
      */
     protected $tagger;
 
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\HttpCache\Layout\TaggerInterface $tagger
+     * @param \Netgen\BlockManager\HttpCache\TaggerInterface $tagger
      */
     public function __construct(TaggerInterface $tagger)
     {
@@ -49,7 +49,7 @@ class LayoutResponseListener implements EventSubscriberInterface
             return;
         }
 
-        $this->tagger->tag(
+        $this->tagger->tagLayout(
             $event->getResponse(),
             $layoutView->getLayout()
         );

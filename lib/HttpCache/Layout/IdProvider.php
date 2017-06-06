@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\HttpCache\Layout\Strategy\Ban;
+namespace Netgen\BlockManager\HttpCache\Layout;
 
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Exception\NotFoundException;

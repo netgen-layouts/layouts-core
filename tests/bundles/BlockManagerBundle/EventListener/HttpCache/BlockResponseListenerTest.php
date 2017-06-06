@@ -3,7 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener\HttpCache;
 
 use Netgen\BlockManager\Core\Values\Block\Block;
-use Netgen\BlockManager\HttpCache\Block\TaggerInterface;
+use Netgen\BlockManager\HttpCache\TaggerInterface;
 use Netgen\BlockManager\View\View\BlockView;
 use Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\BlockResponseListener;
 use PHPUnit\Framework\TestCase;
@@ -61,7 +61,7 @@ class BlockResponseListenerTest extends TestCase
 
         $this->taggerMock
             ->expects($this->once())
-            ->method('tag')
+            ->method('tagBlock')
             ->with($this->equalTo(new Response()), $this->equalTo(new Block()));
 
         $this->listener->onView($event);
@@ -84,7 +84,7 @@ class BlockResponseListenerTest extends TestCase
 
         $this->taggerMock
             ->expects($this->never())
-            ->method('tag');
+            ->method('tagBlock');
 
         $this->listener->onView($event);
     }
@@ -106,7 +106,7 @@ class BlockResponseListenerTest extends TestCase
 
         $this->taggerMock
             ->expects($this->never())
-            ->method('tag');
+            ->method('tagBlock');
 
         $this->listener->onView($event);
     }

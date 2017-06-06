@@ -1,11 +1,11 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\HttpCache\Layout\Strategy\Ban;
+namespace Netgen\BlockManager\Tests\HttpCache\Layout;
 
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\HttpCache\Layout\Strategy\Ban\IdProvider;
+use Netgen\BlockManager\HttpCache\Layout\IdProvider;
 use PHPUnit\Framework\TestCase;
 
 class IdProviderTest extends TestCase
@@ -16,7 +16,7 @@ class IdProviderTest extends TestCase
     protected $layoutServiceMock;
 
     /**
-     * @var \Netgen\BlockManager\HttpCache\Layout\Strategy\Ban\IdProvider
+     * @var \Netgen\BlockManager\HttpCache\Layout\IdProvider
      */
     protected $idProvider;
 
@@ -28,8 +28,8 @@ class IdProviderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\Layout\Strategy\Ban\IdProvider::__construct
-     * @covers \Netgen\BlockManager\HttpCache\Layout\Strategy\Ban\IdProvider::provideIds
+     * @covers \Netgen\BlockManager\HttpCache\Layout\IdProvider::__construct
+     * @covers \Netgen\BlockManager\HttpCache\Layout\IdProvider::provideIds
      */
     public function testProvideIds()
     {
@@ -54,7 +54,7 @@ class IdProviderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\Layout\Strategy\Ban\IdProvider::provideIds
+     * @covers \Netgen\BlockManager\HttpCache\Layout\IdProvider::provideIds
      */
     public function testProvideIdsWithNonExistingLayout()
     {
@@ -74,7 +74,7 @@ class IdProviderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\Layout\Strategy\Ban\IdProvider::provideIds
+     * @covers \Netgen\BlockManager\HttpCache\Layout\IdProvider::provideIds
      */
     public function testProvideIdsWithSharedLayout()
     {
