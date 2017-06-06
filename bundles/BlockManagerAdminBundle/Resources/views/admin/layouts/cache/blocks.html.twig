@@ -32,7 +32,7 @@
                         <td class="nl-caches-ttl">{{ ttl_macros.ttl_label(block.config('http_cache').parameter('shared_max_age').value) }}</td>
                         <td colspan="2">
                             <p><strong>{{ block.name }}</strong></p>
-                            <p>Definition/view type: <strong>{{ block.definition.config.name }}/{{ block.definition.config.viewType(block.viewType).name }}</strong></p>
+                            <p>{{ 'layouts.cache.blocks.definition_view_type'|trans }}: <strong>{{ block.definition.config.name }}/{{ block.definition.config.viewType(block.viewType).name }}</strong></p>
                         </td>
                     </tr>
                 {% endfor %}
