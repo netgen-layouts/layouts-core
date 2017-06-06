@@ -33,7 +33,7 @@ view:
                     form\config\config_key: http_cache
         admin:
             layout\copy:
-                template: "NetgenBlockManagerAdminBundle:admin/form/layout:copy.html.twig"
+                template: "NetgenBlockManagerAdminBundle:admin/layouts/form:copy.html.twig"
                 match:
                     form\type: Netgen\BlockManager\Layout\Form\CopyType
             layout\blocks_cache:
@@ -45,10 +45,10 @@ view:
                 match:
                     form\type: Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearLayoutsCacheType
             condition\type:
-                template: "NetgenBlockManagerAdminBundle:admin/form/layout_resolver:condition_type.html.twig"
+                template: "NetgenBlockManagerAdminBundle:admin/layout_resolver/form:condition_type.html.twig"
                 match:
                     form\type: Netgen\BlockManager\Layout\Resolver\Form\ConditionType
             target\type:
-                template: "NetgenBlockManagerAdminBundle:admin/form/layout_resolver:target_type.html.twig"
+                template: "NetgenBlockManagerAdminBundle:admin/layout_resolver/form:target_type.html.twig"
                 match:
                     form\type: Netgen\BlockManager\Layout\Resolver\Form\TargetType
