@@ -47,30 +47,4 @@ class ZoneTest extends TestCase
     {
         $this->assertEquals(array('title'), $this->zone->getAllowedBlockDefinitions());
     }
-
-    /**
-     * @covers \Netgen\BlockManager\Layout\Type\Zone::isBlockDefinitionAllowed
-     */
-    public function testIsBlockDefinitionAllowed()
-    {
-        $this->assertTrue($this->zone->isBlockDefinitionAllowed('title'));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Layout\Type\Zone::isBlockDefinitionAllowed
-     */
-    public function testIsBlockDefinitionAllowedWithEmptyList()
-    {
-        $this->zone = new Zone();
-
-        $this->assertTrue($this->zone->isBlockDefinitionAllowed('title'));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Layout\Type\Zone::isBlockDefinitionAllowed
-     */
-    public function testIsBlockDefinitionAllowedReturnsFalse()
-    {
-        $this->assertFalse($this->zone->isBlockDefinitionAllowed('text'));
-    }
 }

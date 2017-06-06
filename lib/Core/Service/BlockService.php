@@ -18,7 +18,6 @@ use Netgen\BlockManager\Core\Service\StructBuilder\BlockStructBuilder;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Persistence\Values\Block\Block as PersistenceBlock;
 use Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct;
@@ -337,9 +336,8 @@ class BlockService extends Service implements BlockServiceInterface
         $this->validator->validateBlockCreateStruct($blockCreateStruct);
 
         if (
-            !$this->isBlockAllowedWithinZone(
+            !$layout->getLayoutType()->isBlockAllowedInZone(
                 $blockCreateStruct->definition,
-                $layout->getLayoutType(),
                 $persistenceZone->identifier
             )
         ) {
@@ -483,7 +481,7 @@ class BlockService extends Service implements BlockServiceInterface
         $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Value::STATUS_DRAFT);
         $persistenceZone = $this->layoutHandler->loadZone($persistenceLayout->id, Value::STATUS_DRAFT, $zoneIdentifier);
 
-        if (!$this->isBlockAllowedWithinZone($block->getDefinition(), $layout->getLayoutType(), $persistenceZone->identifier)) {
+        if (!$layout->getLayoutType()->isBlockAllowedInZone($block->getDefinition(), $persistenceZone->identifier)) {
             throw new BadStateException('zoneIdentifier', 'Block is not allowed in specified zone.');
         }
 
@@ -584,7 +582,7 @@ class BlockService extends Service implements BlockServiceInterface
             throw new BadStateException('layout', 'You can only move block to zone in the same layout.');
         }
 
-        if (!$this->isBlockAllowedWithinZone($block->getDefinition(), $layout->getLayoutType(), $persistenceZone->identifier)) {
+        if (!$layout->getLayoutType()->isBlockAllowedInZone($block->getDefinition(), $persistenceZone->identifier)) {
             throw new BadStateException('zoneIdentifier', 'Block is not allowed in specified zone.');
         }
 
@@ -765,27 +763,5 @@ class BlockService extends Service implements BlockServiceInterface
         );
 
         return $this->mapper->mapBlock($movedBlock);
-    }
-
-    /**
-     * Returns if the block is allowed within the zone.
-     *
-     * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $definition
-     * @param \Netgen\BlockManager\Layout\Type\LayoutType $layoutType
-     * @param string $zoneIdentifier
-     *
-     * @return bool
-     *
-     * @internal param string $definitionIdentifier
-     */
-    protected function isBlockAllowedWithinZone(BlockDefinitionInterface $definition, LayoutType $layoutType, $zoneIdentifier)
-    {
-        if (!$layoutType->hasZone($zoneIdentifier)) {
-            return true;
-        }
-
-        $zone = $layoutType->getZone($zoneIdentifier);
-
-        return $zone->isBlockDefinitionAllowed($definition->getIdentifier());
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Layout\Type;
 
+use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Exception\Layout\LayoutTypeException;
 use Netgen\BlockManager\ValueObject;
 
@@ -105,5 +106,29 @@ class LayoutType extends ValueObject
         }
 
         return $this->zones[$zoneIdentifier];
+    }
+
+    /**
+     * Returns if the block is allowed within the provided zone.
+     *
+     * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $definition
+     * @param string $zoneIdentifier
+     *
+     * @return bool
+     */
+    public function isBlockAllowedInZone(BlockDefinitionInterface $definition, $zoneIdentifier)
+    {
+        if (!$this->hasZone($zoneIdentifier)) {
+            return true;
+        }
+
+        $zone = $this->getZone($zoneIdentifier);
+
+        $allowedBlockDefinitions = $zone->getAllowedBlockDefinitions();
+        if (empty($allowedBlockDefinitions)) {
+            return true;
+        }
+
+        return in_array($definition->getIdentifier(), $allowedBlockDefinitions, true);
     }
 }

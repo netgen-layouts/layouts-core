@@ -50,20 +50,4 @@ class Zone extends ValueObject
     {
         return $this->allowedBlockDefinitions;
     }
-
-    /**
-     * Returns if block definition is allowed within the zone.
-     *
-     * @param string $blockDefinition
-     *
-     * @return bool
-     */
-    public function isBlockDefinitionAllowed($blockDefinition)
-    {
-        if (empty($this->allowedBlockDefinitions)) {
-            return true;
-        }
-
-        return in_array($blockDefinition, $this->allowedBlockDefinitions, true);
-    }
 }

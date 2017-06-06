@@ -378,7 +378,6 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      */
     public function testCreateBlockInZone()
     {
@@ -416,7 +415,6 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      */
     public function testCreateBlockInZoneWithContainerBlock()
     {
@@ -443,7 +441,6 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      */
     public function testCreateBlockInZoneWithoutCollection()
     {
@@ -474,7 +471,6 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      */
     public function testCreateBlockInZoneWhichDoesNotExistInLayoutType()
     {
@@ -515,7 +511,6 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      */
     public function testCreateBlockInZoneWithNonExistentLayoutType()
     {
@@ -536,7 +531,6 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      */
     public function testCreateBlockInZoneWithNoPosition()
     {
@@ -579,7 +573,6 @@ abstract class BlockServiceTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      * @expectedExceptionMessage Argument "zone" has an invalid state. Block is not allowed in specified zone.
      */
@@ -804,7 +797,6 @@ abstract class BlockServiceTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      */
     public function testCopyBlockToZone()
     {
@@ -853,7 +845,6 @@ abstract class BlockServiceTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      * @expectedExceptionMessage Argument "zoneIdentifier" has an invalid state. Block is not allowed in specified zone.
      */
@@ -1033,7 +1024,6 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalMoveBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      */
     public function testMoveBlockToZone()
     {
@@ -1057,7 +1047,6 @@ abstract class BlockServiceTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalMoveBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      */
     public function testMoveBlockToDifferentZone()
     {
@@ -1140,7 +1129,6 @@ abstract class BlockServiceTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::isBlockAllowedWithinZone
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      * @expectedExceptionMessage Argument "zoneIdentifier" has an invalid state. Block is not allowed in specified zone.
      */
