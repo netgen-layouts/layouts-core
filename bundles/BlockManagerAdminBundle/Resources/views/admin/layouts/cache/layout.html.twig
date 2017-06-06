@@ -1,0 +1,19 @@
+{% extends 'NetgenBlockManagerAdminBundle:admin:modal.html.twig' %}
+
+{% trans_default_domain 'ngbm_admin' %}
+
+{% block header %}
+    {{ 'layouts.cache.layout.title'|trans }}: {{ layout.name }}
+{% endblock %}
+
+{% block body %}
+    {% if error %}
+        <ul class="errors">
+            <li>{{ 'layouts.cache.layout.error'|trans }}</li>
+        </ul>
+    {% endif %}
+{% endblock %}
+
+{% block buttons %}
+    <button type="submit" class="nl-btn nl-btn-primary">{{ 'layouts.cache.layout.button.clear'|trans }}</button>
+{% endblock %}

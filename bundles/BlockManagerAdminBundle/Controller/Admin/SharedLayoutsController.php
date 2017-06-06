@@ -60,6 +60,7 @@ class SharedLayoutsController extends Controller
      */
     public function clearRelatedLayoutsCache(Layout $layout, Request $request)
     {
+        $cacheCleared = true;
         $relatedLayouts = $this->layoutService->loadRelatedLayouts($layout);
 
         $form = $this->createForm(
@@ -90,19 +91,24 @@ class SharedLayoutsController extends Controller
                 )
             );
 
-            return new Response(null, Response::HTTP_NO_CONTENT);
+            $cacheCleared = $this->httpCacheClient->commit();
+
+            if ($cacheCleared) {
+                return new Response(null, Response::HTTP_NO_CONTENT);
+            }
         }
 
         return $this->buildView(
             $form,
             ViewInterface::CONTEXT_ADMIN,
             array(
+                'error' => !$cacheCleared,
                 'layout' => $layout,
                 'related_layouts' => array_values($relatedLayouts),
             ),
             new Response(
                 null,
-                $form->isSubmitted() ?
+                $form->isSubmitted() || !$cacheCleared ?
                     Response::HTTP_UNPROCESSABLE_ENTITY :
                     Response::HTTP_OK
             )

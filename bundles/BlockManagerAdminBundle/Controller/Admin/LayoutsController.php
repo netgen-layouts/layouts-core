@@ -134,7 +134,20 @@ class LayoutsController extends Controller
     {
         $this->httpCacheClient->invalidateLayouts(array($layout->getId()));
 
-        return new Response(null, Response::HTTP_NO_CONTENT);
+        $cacheCleared = $this->httpCacheClient->commit();
+
+        if ($cacheCleared) {
+            return new Response(null, Response::HTTP_NO_CONTENT);
+        }
+
+        return $this->render(
+            'NetgenBlockManagerAdminBundle:admin/layouts/cache:layout.html.twig',
+            array(
+                'error' => !$cacheCleared,
+                'layout' => $layout,
+            ),
+            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
+        );
     }
 
     /**
@@ -147,6 +160,7 @@ class LayoutsController extends Controller
      */
     public function clearBlocksCache(Layout $layout, Request $request)
     {
+        $cacheCleared = true;
         $cacheableBlocks = array_values(
             array_filter(
                 $this->blockService->loadLayoutBlocks($layout),
@@ -186,19 +200,24 @@ class LayoutsController extends Controller
                 )
             );
 
-            return new Response(null, Response::HTTP_NO_CONTENT);
+            $cacheCleared = $this->httpCacheClient->commit();
+
+            if ($cacheCleared) {
+                return new Response(null, Response::HTTP_NO_CONTENT);
+            }
         }
 
         return $this->buildView(
             $form,
             ViewInterface::CONTEXT_ADMIN,
             array(
+                'error' => !$cacheCleared,
                 'layout' => $layout,
                 'blocks' => array_values($cacheableBlocks),
             ),
             new Response(
                 null,
-                $form->isSubmitted() ?
+                $form->isSubmitted() || !$cacheCleared ?
                     Response::HTTP_UNPROCESSABLE_ENTITY :
                     Response::HTTP_OK
             )

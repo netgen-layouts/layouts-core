@@ -44,5 +44,11 @@
 {% endblock %}
 
 {% block children %}
+    {% if error %}
+        <ul class="errors">
+            <li>{{ 'layouts.cache.blocks.error'|trans }}</li>
+        </ul>
+    {% endif %}
+
     {{ form_row(form.children.blocks) }}
 {% endblock %}
