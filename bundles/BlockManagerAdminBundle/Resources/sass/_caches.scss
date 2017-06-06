@@ -1,0 +1,72 @@
+.nl-modal-cache {
+    .nl-modal {
+        width:600px;
+        max-width:98%;
+        .nl-modal-body {
+            padding:0;
+        }
+    }
+}
+.nl-caches-table {
+    width:100%;
+    border-collapse:collapse;
+    margin-top:-1px;
+    th,
+    td {
+        padding:15px 15px 14px 0;
+        font-size:12px;
+        line-height:1.5;
+        &:first-child {
+            padding-left:15px;
+        }
+    }
+    th {
+        background:hsl(0, 0, 95);
+        font-weight:700;
+        text-transform:uppercase;
+        .nl-btn {
+            text-transform:none;
+        }
+    }
+    td {
+        p {
+            margin:0;
+            line-height:inherit;
+        }
+        &.nl-caches-ttl {
+            font-size:14px;
+        }
+    }
+    .nl-caches-action {
+        text-align:right;
+    }
+    tbody {
+        tr {
+            border-bottom:1px solid hsl(0, 0, 82);
+            &:last-child {
+                border-bottom:none;
+            }
+        }
+    }
+    input[type="checkbox"] {
+        + label {
+            overflow:hidden;
+            text-indent:-999em;
+            &::before {
+                text-indent:0;
+            }
+            .nl-modal-mask & {
+                padding:0 !important;
+                width:2em;
+                height:2em;
+                margin:0;
+                display:inline-block;
+            }
+        }
+    }
+}
+.nl-caches-empty {
+    padding:15px;
+    margin:1em 0;
+    text-align:center;
+}

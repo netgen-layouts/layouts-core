@@ -119,6 +119,13 @@
                     }
                 }
             }
+            &:indeterminate {
+                + label {
+                    &::before {
+                        content:"indeterminate_check_box";
+                    }
+                }
+            }
         }
     }
     .nl-modal-loader {

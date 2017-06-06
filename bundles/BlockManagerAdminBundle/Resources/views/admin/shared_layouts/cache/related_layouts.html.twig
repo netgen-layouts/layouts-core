@@ -12,12 +12,15 @@
     {% import 'NetgenBlockManagerBundle:api/parts:ttl_macros.html.twig' as ttl_macros %}
 
     {% if form.children is not empty %}
-        <table>
+        <table class="nl-caches-table">
             <thead>
                 <tr>
-                    <th></th>
-                    <th>{{ 'shared_layouts.cache.related_layouts.layout_name'|trans }}</th>
-                    <th>{{ 'shared_layouts.cache.related_layouts.zones'|trans }}</th>
+                    <th class="nl-caches-checkbox"><input type="checkbox" id="toggle-all-cache"><label for="toggle-all-cache"></label></th>
+                    <th class="nl-caches-name">{{ 'shared_layouts.cache.related_layouts.layout_name'|trans }}</th>
+                    <th class="nl-caches-zones">{{ 'shared_layouts.cache.related_layouts.zones'|trans }}</th>
+                    <th class="nl-caches-action">
+                        <button type="submit" class="nl-btn nl-btn-primary">{{ 'shared_layouts.cache.related_layouts.button.clear'|trans }}</button>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -27,7 +30,7 @@
                     <tr>
                         <td>{{ form_widget(choice) }}{{ form_label(choice) }}</td>
                         <td>{{ related_layout.name }}</td>
-                        <td>
+                        <td colspan="2">
                             {% for zone in related_layout.zones %}
                                 {% if zone.hasLinkedZone and zone.linkedZone.layoutId == layout.id %}
                                     <p>{{ related_layout.layoutType.zone(zone.identifier).name }}</p>
@@ -39,16 +42,10 @@
             </tbody>
         </table>
     {% else %}
-        {{ 'shared_layouts.cache.related_layouts.no_related_layouts'|trans }}
+        <p class="nl-caches-empty">{{ 'shared_layouts.cache.related_layouts.no_related_layouts'|trans }}</p>
     {% endif %}
 {% endblock %}
 
 {% block children %}
     {{ form_row(form.children.layouts, {layout: layout}) }}
-{% endblock %}
-
-{% block buttons %}
-    {% if form.layouts.children is not empty %}
-        <button type="submit" class="nl-btn nl-btn-primary">{{ 'shared_layouts.cache.related_layouts.button.clear'|trans }}</button>
-    {% endif %}
 {% endblock %}

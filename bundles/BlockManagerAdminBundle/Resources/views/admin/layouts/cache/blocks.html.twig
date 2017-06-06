@@ -1,87 +1,48 @@
 {% extends 'NetgenBlockManagerAdminBundle:form:modal.html.twig' %}
 
+{% trans_default_domain 'ngbm_admin' %}
+
 {% form_theme form.blocks _self %}
 
 {% block header %}
-    Clear block caches for: {{ layout.name }}
+    {{ 'layouts.cache.blocks.title'|trans }}: {{ layout.name }}
 {% endblock %}
 
 {% block _clear_blocks_cache_blocks_widget %}
     {% import 'NetgenBlockManagerBundle:api/parts:ttl_macros.html.twig' as ttl_macros %}
 
-    {% for choice in form %}
-        {% set block = form.parent.vars.blocks[choice.vars.value] %}
-
-        <table>
+    {% if form.children is not empty %}
+        <table class="nl-caches-table">
             <thead>
                 <tr>
-                    <th></th>
-                    <th>TTL</th>
-                    <th>BLOCK</th>
+                    <th class="nl-caches-checkbox"><input type="checkbox" id="toggle-all-cache"><label for="toggle-all-cache"></label></th>
+                    <th class="nl-caches-ttl">{{ 'layouts.cache.blocks.ttl'|trans }}</th>
+                    <th class="nl-caches-name">{{ 'layouts.cache.blocks.block'|trans }}</th>
+                    <th class="nl-caches-action">
+                        <button type="submit" class="nl-btn nl-btn-primary">{{ 'layouts.cache.blocks.button.clear'|trans }}</button>
+                    </th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th>{{ form_widget(choice) }}</th>
-                    <td>{{ ttl_macros.ttl_label(block.config('http_cache').parameter('shared_max_age').value) }}</td>
-                    <td>
-                        <p>{{ block.name }}</p>
-                        <p>Definition: {{ block.definition.config.name }}</p>
-                        <p>View type: {{ block.definition.config.viewType(block.viewType).name }}</p>
-                    </td>
-                </tr>
+                {% for choice in form %}
+                    {% set block = form.parent.vars.blocks[choice.vars.value] %}
+
+                    <tr>
+                        <td>{{ form_widget(choice) }}{{ form_label(choice) }}</td>
+                        <td class="nl-caches-ttl">{{ ttl_macros.ttl_label(block.config('http_cache').parameter('shared_max_age').value) }}</td>
+                        <td colspan="2">
+                            <p><strong>{{ block.name }}</strong></p>
+                            <p>Definition/view type: <strong>{{ block.definition.config.name }}/{{ block.definition.config.viewType(block.viewType).name }}</strong></p>
+                        </td>
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
     {% else %}
-        There are no blocks with enabled cache.
-    {% endfor %}
+        <p class="nl-caches-empty">{{ 'layouts.cache.blocks.no_blocks'|trans }}</p>
+    {% endif %}
 {% endblock %}
 
 {% block children %}
     {{ form_row(form.children.blocks) }}
 {% endblock %}
-
-{% block buttons %}
-    <a class="nl-btn">{{ 'layout.blocks_cache.button.cancel'|trans }}</a>
-
-    {% if form.blocks.children is not empty %}
-        <button type="submit" class="nl-btn nl-btn-primary">{{ 'layout.blocks_cache.button.clear'|trans }}</button>
-    {% endif %}
-{% endblock %}
-
-{#
-<div class="nl-modal">
-    <a href="#" class="close-modal"></a>
-
-    <div class="nl-modal-head">
-
-    </div>
-
-    <div class="nl-modal-body">
-        {% for block in blocks %}
-            <table>
-                <thead>
-                    <tr>
-                        <th>TTL</th>
-                        <th>BLOCK</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{{ ttl_macros.ttl_label(choice.config('http_cache').parameter('shared_max_age').value) }}</td>
-                        <td>
-                            <p>{{ choice.name }}</p>
-                            <p>Definition: {{ choice.definition.config.name }}</p>
-                            <p>View type: {{ choice.definition.config.viewType(choice.viewType).name }}</p>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        {% endfor %}
-
-        <div class="form-actions">
-            CLEAR SELECTED
-        </div>
-    </div>
-</div>
-#}
