@@ -11,8 +11,6 @@ class ConfigureHttpCachePassTest extends AbstractCompilerPassTestCase
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\HttpCache\ConfigureHttpCachePass::process
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\HttpCache\ConfigureHttpCachePass::configureBlockCache
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\HttpCache\ConfigureHttpCachePass::configureLayoutCache
      */
     public function testProcess()
     {
