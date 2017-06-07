@@ -11,11 +11,7 @@
 {%- endblock form_errors -%}
 
 {%- block form_row -%}
-    {% if errors|length > 0 %}
-        {%- set attr = attr|merge({class: (attr.class|default('') ~ ' error-input')|trim}) -%}
-    {% endif %}
-
-    <div {{ block('attributes') }}>
+    <div {% if errors|length > 0 %} class="error-input" {% endif %}>
         {{- form_label(form) -}}
         {{- form_widget(form) -}}
         {{- form_errors(form) -}}
