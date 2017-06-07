@@ -64,14 +64,29 @@
 {%- endblock ngbm_key_values_widget -%}
 
 {%- block ngbm_link_widget -%}
-    <div {{ block('widget_container_attributes') }}>
-        {{ form_row(form.children.link_type) }}
-        {{ form_row(form.children.url) }}
-        {{ form_row(form.children.email) }}
-        {{ form_row(form.children.phone) }}
-        {{ form_row(form.children.internal) }}
+    <div {{ block('widget_container_attributes') }} class="js-dependable-selects-group">
+        <div class="js-master">
+            {{ form_row(form.children.link_type) }}
+        </div>
+
+        <div data-linked-value="url">
+            {{ form_row(form.children.url) }}
+        </div>
+
+        <div data-linked-value="email">
+            {{ form_row(form.children.email) }}
+        </div>
+
+        <div data-linked-value="phone">
+            {{ form_row(form.children.phone) }}
+        </div>
+
+        <div data-linked-value="internal">
+            {{ form_row(form.children.internal) }}
+            {{ form_row(form.children.link_suffix) }}
+        </div>
+
         {{ form_row(form.children.link) }}
-        {{ form_row(form.children.link_suffix) }}
         {{ form_row(form.children.new_window) }}
     </div>
 {%- endblock ngbm_link_widget -%}
