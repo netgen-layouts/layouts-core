@@ -10,16 +10,6 @@ class GlobalVariable
     protected $pageLayoutTemplate;
 
     /**
-     * Constructor.
-     *
-     * @param string $pageLayoutTemplate
-     */
-    public function __construct($pageLayoutTemplate)
-    {
-        $this->pageLayoutTemplate = $pageLayoutTemplate;
-    }
-
-    /**
      * Sets the pagelayout template.
      *
      * @param string $pageLayoutTemplate

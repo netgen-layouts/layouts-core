@@ -14,7 +14,7 @@ class GlobalVariableTest extends TestCase
 
     public function setUp()
     {
-        $this->globalVariable = new GlobalVariable('template.html.twig');
+        $this->globalVariable = new GlobalVariable();
     }
 
     /**
@@ -23,7 +23,7 @@ class GlobalVariableTest extends TestCase
      */
     public function testGetPageLayoutTemplate()
     {
-        $this->assertEquals('template.html.twig', $this->globalVariable->getPageLayoutTemplate());
+        $this->assertNull($this->globalVariable->getPageLayoutTemplate());
     }
 
     /**
@@ -32,8 +32,8 @@ class GlobalVariableTest extends TestCase
      */
     public function testSetPageLayoutTemplate()
     {
-        $this->globalVariable->setPageLayoutTemplate('new.html.twig');
+        $this->globalVariable->setPageLayoutTemplate('template.html.twig');
 
-        $this->assertEquals('new.html.twig', $this->globalVariable->getPageLayoutTemplate());
+        $this->assertEquals('template.html.twig', $this->globalVariable->getPageLayoutTemplate());
     }
 }
