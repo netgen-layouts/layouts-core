@@ -47,7 +47,6 @@ class ClearLayoutsCacheType extends AbstractType
                 'translation_domain' => false,
                 'choice_translation_domain' => false,
                 'choices_as_values' => true,
-                'label' => false,
                 'required' => true,
                 'multiple' => true,
                 'expanded' => true,
