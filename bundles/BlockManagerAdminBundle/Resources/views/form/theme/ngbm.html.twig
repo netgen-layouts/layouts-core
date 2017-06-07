@@ -59,6 +59,19 @@
     </div>
 {%- endblock ngbm_key_values_widget -%}
 
+{%- block ngbm_link_widget -%}
+    <div {{ block('widget_container_attributes') }}>
+        {{ form_row(form.children.link_type) }}
+        {{ form_row(form.children.url) }}
+        {{ form_row(form.children.email) }}
+        {{ form_row(form.children.phone) }}
+        {{ form_row(form.children.internal) }}
+        {{ form_row(form.children.link) }}
+        {{ form_row(form.children.link_suffix) }}
+        {{ form_row(form.children.new_window) }}
+    </div>
+{%- endblock ngbm_link_widget -%}
+
 {%- block ngbm_compound_boolean_row -%}
 <div>
     <div
