@@ -11,6 +11,7 @@ use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Exception\View\ViewException;
 use Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener;
+use Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener;
 use Netgen\Bundle\BlockManagerBundle\Exception\InternalServerErrorHttpException;
 use Netgen\Bundle\BlockManagerBundle\Tests\EventListener\Stubs\ExceptionStub;
 use PHPUnit\Framework\TestCase;
@@ -56,6 +57,7 @@ class ExceptionConversionListenerTest extends TestCase
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
+        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
         $event = new GetResponseForExceptionEvent(
             $kernelMock,
@@ -89,6 +91,7 @@ class ExceptionConversionListenerTest extends TestCase
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
+        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $exception = new RuntimeException('Some error');
 
         $event = new GetResponseForExceptionEvent(
@@ -115,12 +118,36 @@ class ExceptionConversionListenerTest extends TestCase
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
+        $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $exception = new NotFoundException('param', 'Some error');
 
         $event = new GetResponseForExceptionEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::SUB_REQUEST,
+            $exception
+        );
+
+        $eventListener->onException($event);
+
+        $this->assertEquals($exception, $event->getException());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener::onException
+     */
+    public function testOnExceptionWithNonAPIRequest()
+    {
+        $eventListener = new ExceptionConversionListener();
+
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $request = Request::create('/');
+        $exception = new NotFoundException('param', 'Some error');
+
+        $event = new GetResponseForExceptionEvent(
+            $kernelMock,
+            $request,
+            HttpKernelInterface::MASTER_REQUEST,
             $exception
         );
 

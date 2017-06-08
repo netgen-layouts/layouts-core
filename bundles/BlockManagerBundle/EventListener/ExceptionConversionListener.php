@@ -61,6 +61,11 @@ class ExceptionConversionListener implements EventSubscriberInterface
             return;
         }
 
+        $attributes = $event->getRequest()->attributes;
+        if ($attributes->get(SetIsApiRequestListener::API_FLAG_NAME) !== true) {
+            return;
+        }
+
         $exception = $event->getException();
         if ($exception instanceof HttpExceptionInterface) {
             return;
