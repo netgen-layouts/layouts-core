@@ -94,9 +94,6 @@
             padding-top:0.375em;
             resize:vertical;
         }
-        .form-actions {
-            text-align:right;
-        }
         input[type="checkbox"] {
             position:absolute;
             left:-9999em;
@@ -132,6 +129,9 @@
                 }
             }
         }
+    }
+    .form-actions {
+        text-align:right;
     }
     .nl-modal-loader {
         color:#fff;
