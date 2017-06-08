@@ -83,11 +83,15 @@ services:
 
     netgen_block_manager.parameters.parameter_type.item_link:
         class: Netgen\BlockManager\Parameters\ParameterType\ItemLinkType
+        arguments:
+            - "@netgen_block_manager.item.registry.value_type"
         tags:
             - { name: netgen_block_manager.parameters.parameter_type }
 
     netgen_block_manager.parameters.parameter_type.link:
         class: Netgen\BlockManager\Parameters\ParameterType\LinkType
+        arguments:
+            - "@netgen_block_manager.item.registry.value_type"
         tags:
             - { name: netgen_block_manager.parameters.parameter_type }
 
@@ -155,15 +159,11 @@ services:
 
     netgen_block_manager.parameters.form.mapper.item_link:
         class: Netgen\BlockManager\Parameters\Form\Mapper\ItemLinkMapper
-        arguments:
-            - "@netgen_block_manager.item.registry.value_type"
         tags:
             - { name: netgen_block_manager.parameters.form.mapper, type: item_link }
 
     netgen_block_manager.parameters.form.mapper.link:
         class: Netgen\BlockManager\Parameters\Form\Mapper\LinkMapper
-        arguments:
-            - "@netgen_block_manager.item.registry.value_type"
         tags:
             - { name: netgen_block_manager.parameters.form.mapper, type: link }
 

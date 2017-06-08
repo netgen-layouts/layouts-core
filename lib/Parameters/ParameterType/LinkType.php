@@ -2,15 +2,32 @@
 
 namespace Netgen\BlockManager\Parameters\ParameterType;
 
+use Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface;
 use Netgen\BlockManager\Parameters\ParameterInterface;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
 use Netgen\BlockManager\Validator\Constraint\Parameters\Link as LinkConstraint;
+use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
 class LinkType extends ParameterType
 {
+    /**
+     * @var \Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface
+     */
+    protected $valueTypeRegistry;
+
+    /**
+     * Constructor.
+     *
+     * @param \Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface $valueTypeRegistry
+     */
+    public function __construct(ValueTypeRegistryInterface $valueTypeRegistry)
+    {
+        $this->valueTypeRegistry = $valueTypeRegistry;
+    }
+
     /**
      * Returns the parameter type identifier.
      *
@@ -31,6 +48,19 @@ class LinkType extends ParameterType
         $optionsResolver->setRequired(array('value_types'));
         $optionsResolver->setAllowedTypes('value_types', 'array');
         $optionsResolver->setDefault('value_types', array());
+
+        $optionsResolver->setNormalizer(
+            'value_types',
+            function (Options $options, $value) {
+                if (!empty($value)) {
+                    return $value;
+                }
+
+                return array_keys(
+                    $this->valueTypeRegistry->getValueTypes(true)
+                );
+            }
+        );
     }
 
     /**

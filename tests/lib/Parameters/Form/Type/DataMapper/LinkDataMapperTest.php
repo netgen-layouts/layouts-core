@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Parameters\Form\Type\DataMapper;
 
 use ArrayIterator;
+use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper;
 use Netgen\BlockManager\Parameters\ParameterType\LinkType;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
@@ -18,7 +19,7 @@ class LinkDataMapperTest extends DataMapperTest
     {
         parent::setUp();
 
-        $this->mapper = new LinkDataMapper(new LinkType());
+        $this->mapper = new LinkDataMapper(new LinkType(new ValueTypeRegistry()));
     }
 
     /**

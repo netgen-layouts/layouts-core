@@ -17,16 +17,21 @@ use Symfony\Component\Form\FormFactoryInterface;
 class LinkMapperTest extends TestCase
 {
     /**
+     * @var \Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface
+     */
+    protected $valueTypeRegistry;
+
+    /**
      * @var \Netgen\BlockManager\Parameters\Form\Mapper\LinkMapper
      */
     protected $mapper;
 
     public function setUp()
     {
-        $valueTypeRegistry = new ValueTypeRegistry();
-        $valueTypeRegistry->addValueType('default', new ValueType(array('isEnabled' => true)));
+        $this->valueTypeRegistry = new ValueTypeRegistry();
+        $this->valueTypeRegistry->addValueType('default', new ValueType(array('isEnabled' => true)));
 
-        $this->mapper = new LinkMapper($valueTypeRegistry);
+        $this->mapper = new LinkMapper();
     }
 
     /**
@@ -45,7 +50,7 @@ class LinkMapperTest extends TestCase
     {
         $parameter = new Parameter(
             array(
-                'type' => new LinkParameterType(),
+                'type' => new LinkParameterType($this->valueTypeRegistry),
                 'options' => array(
                     'value_types' => array('value'),
                 ),
@@ -68,9 +73,9 @@ class LinkMapperTest extends TestCase
     {
         $parameter = new Parameter(
             array(
-                'type' => new LinkParameterType(),
+                'type' => new LinkParameterType($this->valueTypeRegistry),
                 'options' => array(
-                    'value_types' => array(),
+                    'value_types' => array('default'),
                 ),
             )
         );
@@ -91,7 +96,7 @@ class LinkMapperTest extends TestCase
     {
         $parameter = new Parameter(
             array(
-                'type' => new LinkParameterType(),
+                'type' => new LinkParameterType($this->valueTypeRegistry),
             )
         );
 

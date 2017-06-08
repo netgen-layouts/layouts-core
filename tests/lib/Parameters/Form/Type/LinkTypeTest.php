@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\Form\Type;
 
+use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper;
 use Netgen\BlockManager\Parameters\Form\Type\LinkType;
 use Netgen\BlockManager\Parameters\ParameterType\LinkType as LinkParameterType;
@@ -61,7 +62,7 @@ class LinkTypeTest extends FormTestCase
         );
 
         $formBuilder = $this->factory->createBuilder(LinkType::class);
-        $formBuilder->setDataMapper(new LinkDataMapper(new LinkParameterType()));
+        $formBuilder->setDataMapper(new LinkDataMapper(new LinkParameterType(new ValueTypeRegistry())));
         $form = $formBuilder->getForm();
 
         $form->submit($submittedData);
@@ -94,7 +95,7 @@ class LinkTypeTest extends FormTestCase
         $formData = new LinkValue();
 
         $formBuilder = $this->factory->createBuilder(LinkType::class);
-        $formBuilder->setDataMapper(new LinkDataMapper(new LinkParameterType()));
+        $formBuilder->setDataMapper(new LinkDataMapper(new LinkParameterType(new ValueTypeRegistry())));
         $form = $formBuilder->getForm();
 
         $form->submit($submittedData);
@@ -118,7 +119,7 @@ class LinkTypeTest extends FormTestCase
     public function testBuildView()
     {
         $formBuilder = $this->factory->createBuilder(LinkType::class);
-        $formBuilder->setDataMapper(new LinkDataMapper(new LinkParameterType()));
+        $formBuilder->setDataMapper(new LinkDataMapper(new LinkParameterType(new ValueTypeRegistry())));
         $form = $formBuilder->getForm();
 
         $form->submit(
@@ -145,7 +146,7 @@ class LinkTypeTest extends FormTestCase
     public function testBuildViewWithInvalidData()
     {
         $formBuilder = $this->factory->createBuilder(LinkType::class);
-        $formBuilder->setDataMapper(new LinkDataMapper(new LinkParameterType()));
+        $formBuilder->setDataMapper(new LinkDataMapper(new LinkParameterType(new ValueTypeRegistry())));
         $form = $formBuilder->getForm();
 
         $form->submit(

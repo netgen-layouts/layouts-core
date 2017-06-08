@@ -17,16 +17,21 @@ use Symfony\Component\Form\FormFactoryInterface;
 class ItemLinkMapperTest extends TestCase
 {
     /**
+     * @var \Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface
+     */
+    protected $valueTypeRegistry;
+
+    /**
      * @var \Netgen\BlockManager\Parameters\Form\Mapper\ItemLinkMapper
      */
     protected $mapper;
 
     public function setUp()
     {
-        $valueTypeRegistry = new ValueTypeRegistry();
-        $valueTypeRegistry->addValueType('default', new ValueType(array('isEnabled' => true)));
+        $this->valueTypeRegistry = new ValueTypeRegistry();
+        $this->valueTypeRegistry->addValueType('default', new ValueType(array('isEnabled' => true)));
 
-        $this->mapper = new ItemLinkMapper($valueTypeRegistry);
+        $this->mapper = new ItemLinkMapper();
     }
 
     /**
@@ -45,7 +50,7 @@ class ItemLinkMapperTest extends TestCase
     {
         $parameter = new Parameter(
             array(
-                'type' => new ItemLinkParameterType(),
+                'type' => new ItemLinkParameterType($this->valueTypeRegistry),
                 'options' => array(
                     'value_types' => array('value'),
                 ),
@@ -67,9 +72,9 @@ class ItemLinkMapperTest extends TestCase
     {
         $parameter = new Parameter(
             array(
-                'type' => new ItemLinkParameterType(),
+                'type' => new ItemLinkParameterType($this->valueTypeRegistry),
                 'options' => array(
-                    'value_types' => array(),
+                    'value_types' => array('default'),
                 ),
             )
         );
@@ -89,7 +94,7 @@ class ItemLinkMapperTest extends TestCase
     {
         $parameter = new Parameter(
             array(
-                'type' => new ItemLinkParameterType(),
+                'type' => new ItemLinkParameterType($this->valueTypeRegistry),
             )
         );
 

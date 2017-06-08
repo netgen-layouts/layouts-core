@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Parameters\Form\Mapper;
 
-use Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface;
 use Netgen\BlockManager\Parameters\Form\Mapper;
 use Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper;
 use Netgen\BlockManager\Parameters\Form\Type\LinkType;
@@ -11,21 +10,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class LinkMapper extends Mapper
 {
-    /**
-     * @var \Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface
-     */
-    protected $valueTypeRegistry;
-
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface $valueTypeRegistry
-     */
-    public function __construct(ValueTypeRegistryInterface $valueTypeRegistry)
-    {
-        $this->valueTypeRegistry = $valueTypeRegistry;
-    }
-
     /**
      * Returns the form type for the parameter.
      *
@@ -45,15 +29,9 @@ class LinkMapper extends Mapper
      */
     public function mapOptions(ParameterInterface $parameter)
     {
-        $valueTypes = $parameter->getOption('value_types');
-
         return array(
             'label' => false,
-            'value_types' => !empty($valueTypes) ?
-                $valueTypes :
-                array_keys(
-                    $this->valueTypeRegistry->getValueTypes()
-                ),
+            'value_types' => $parameter->getOption('value_types'),
         );
     }
 

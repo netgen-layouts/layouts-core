@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
 
+use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
+use Netgen\BlockManager\Item\ValueType\ValueType;
 use Netgen\BlockManager\Parameters\ParameterType\LinkType;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
 use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
@@ -12,11 +14,22 @@ use Symfony\Component\Validator\Validation;
 class LinkTypeTest extends TestCase
 {
     /**
+     * @var \Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface
+     */
+    protected $valueTypeRegistry;
+
+    public function setUp()
+    {
+        $this->valueTypeRegistry = new ValueTypeRegistry();
+        $this->valueTypeRegistry->addValueType('default', new ValueType(array('isEnabled' => true)));
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::getIdentifier
      */
     public function testGetIdentifier()
     {
-        $type = new LinkType();
+        $type = new LinkType($this->valueTypeRegistry);
         $this->assertEquals('link', $type->getIdentifier());
     }
 
@@ -57,7 +70,7 @@ class LinkTypeTest extends TestCase
         return new Parameter(
             array(
                 'name' => 'name',
-                'type' => new LinkType(),
+                'type' => new LinkType($this->valueTypeRegistry),
                 'options' => $options,
             )
         );
@@ -73,7 +86,7 @@ class LinkTypeTest extends TestCase
         return array(
             array(
                 array(),
-                array('value_types' => array()),
+                array('value_types' => array('default')),
             ),
             array(
                 array('value_types' => array('value')),
@@ -113,7 +126,7 @@ class LinkTypeTest extends TestCase
      */
     public function testValidation($value, $isRequired, $valueTypes, $isValid)
     {
-        $type = new LinkType();
+        $type = new LinkType($this->valueTypeRegistry);
         $parameter = $this->getParameter(array('required' => $isRequired, 'value_types' => $valueTypes));
         $validator = Validation::createValidatorBuilder()
             ->setConstraintValidatorFactory(new ValidatorFactory($this))
@@ -160,9 +173,11 @@ class LinkTypeTest extends TestCase
             array(new LinkValue(array('linkType' => 'phone', 'link' => 42)), true, array(), false),
             array(new LinkValue(array('linkType' => 'phone', 'link' => 42)), false, array(), false),
             array(new LinkValue(array('linkType' => 'internal', 'link' => null)), true, array(), true),
-            array(new LinkValue(array('linkType' => 'internal', 'link' => 'value://42')), true, array(), true),
+            array(new LinkValue(array('linkType' => 'internal', 'link' => 'value://42')), true, array(), false),
+            array(new LinkValue(array('linkType' => 'internal', 'link' => 'default://42')), true, array(), true),
             array(new LinkValue(array('linkType' => 'internal', 'link' => null)), false, array(), true),
-            array(new LinkValue(array('linkType' => 'internal', 'link' => 'value://42')), false, array(), true),
+            array(new LinkValue(array('linkType' => 'internal', 'link' => 'value://42')), false, array(), false),
+            array(new LinkValue(array('linkType' => 'internal', 'link' => 'default://42')), false, array(), true),
             array(new LinkValue(array('linkType' => 'internal', 'link' => 'value')), true, array(), false),
             array(new LinkValue(array('linkType' => 'internal', 'link' => 'value')), false, array(), false),
             array(new LinkValue(array('linkType' => 'internal', 'link' => null)), true, array('value'), true),
@@ -189,7 +204,7 @@ class LinkTypeTest extends TestCase
      */
     public function testToHash($value, $convertedValue)
     {
-        $type = new LinkType();
+        $type = new LinkType($this->valueTypeRegistry);
         $this->assertEquals($convertedValue, $type->toHash($value));
     }
 
@@ -228,7 +243,7 @@ class LinkTypeTest extends TestCase
      */
     public function testFromHash($value, $convertedValue)
     {
-        $type = new LinkType();
+        $type = new LinkType($this->valueTypeRegistry);
         $this->assertEquals($convertedValue, $type->fromHash($value));
     }
 
@@ -283,7 +298,7 @@ class LinkTypeTest extends TestCase
      */
     public function testCreateValueFromInput($value, $convertedValue)
     {
-        $type = new LinkType();
+        $type = new LinkType($this->valueTypeRegistry);
         $this->assertEquals($convertedValue, $type->createValueFromInput($value));
     }
 
@@ -338,7 +353,7 @@ class LinkTypeTest extends TestCase
      */
     public function testIsValueEmpty($value, $isEmpty)
     {
-        $type = new LinkType();
+        $type = new LinkType($this->valueTypeRegistry);
         $this->assertEquals($isEmpty, $type->isValueEmpty($value));
     }
 

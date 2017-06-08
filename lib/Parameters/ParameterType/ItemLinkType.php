@@ -2,14 +2,31 @@
 
 namespace Netgen\BlockManager\Parameters\ParameterType;
 
+use Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface;
 use Netgen\BlockManager\Parameters\ParameterInterface;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Validator\Constraint\Parameters\ItemLink as ItemLinkConstraint;
+use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
 class ItemLinkType extends ParameterType
 {
+    /**
+     * @var \Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface
+     */
+    protected $valueTypeRegistry;
+
+    /**
+     * Constructor.
+     *
+     * @param \Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface $valueTypeRegistry
+     */
+    public function __construct(ValueTypeRegistryInterface $valueTypeRegistry)
+    {
+        $this->valueTypeRegistry = $valueTypeRegistry;
+    }
+
     /**
      * Returns the parameter type identifier.
      *
@@ -30,6 +47,19 @@ class ItemLinkType extends ParameterType
         $optionsResolver->setRequired(array('value_types'));
         $optionsResolver->setAllowedTypes('value_types', 'array');
         $optionsResolver->setDefault('value_types', array());
+
+        $optionsResolver->setNormalizer(
+            'value_types',
+            function (Options $options, $value) {
+                if (!empty($value)) {
+                    return $value;
+                }
+
+                return array_keys(
+                    $this->valueTypeRegistry->getValueTypes(true)
+                );
+            }
+        );
     }
 
     /**
@@ -58,7 +88,11 @@ class ItemLinkType extends ParameterType
     {
         return array(
             new Constraints\Type(array('type' => 'string')),
-            new ItemLinkConstraint(),
+            new ItemLinkConstraint(
+                array(
+                    'valueTypes' => $parameter->getOption('value_types'),
+                )
+            ),
         );
     }
 }

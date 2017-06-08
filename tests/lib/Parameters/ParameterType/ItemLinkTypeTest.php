@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
 
+use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
+use Netgen\BlockManager\Item\ValueType\ValueType;
 use Netgen\BlockManager\Parameters\ParameterType\ItemLinkType;
 use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
@@ -11,11 +13,22 @@ use Symfony\Component\Validator\Validation;
 class ItemLinkTypeTest extends TestCase
 {
     /**
+     * @var \Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface
+     */
+    protected $valueTypeRegistry;
+
+    public function setUp()
+    {
+        $this->valueTypeRegistry = new ValueTypeRegistry();
+        $this->valueTypeRegistry->addValueType('default', new ValueType(array('isEnabled' => true)));
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::getIdentifier
      */
     public function testGetIdentifier()
     {
-        $type = new ItemLinkType();
+        $type = new ItemLinkType($this->valueTypeRegistry);
         $this->assertEquals('item_link', $type->getIdentifier());
     }
 
@@ -56,7 +69,7 @@ class ItemLinkTypeTest extends TestCase
         return new Parameter(
             array(
                 'name' => 'name',
-                'type' => new ItemLinkType(),
+                'type' => new ItemLinkType($this->valueTypeRegistry),
                 'options' => $options,
             )
         );
@@ -72,7 +85,7 @@ class ItemLinkTypeTest extends TestCase
         return array(
             array(
                 array(),
-                array('value_types' => array()),
+                array('value_types' => array('default')),
             ),
             array(
                 array('value_types' => array('value')),
@@ -110,7 +123,7 @@ class ItemLinkTypeTest extends TestCase
      */
     public function testValidation($value, $isValid)
     {
-        $type = new ItemLinkType();
+        $type = new ItemLinkType($this->valueTypeRegistry);
         $parameter = $this->getParameter();
         $validator = Validation::createValidatorBuilder()
             ->setConstraintValidatorFactory(new ValidatorFactory($this))
@@ -130,7 +143,8 @@ class ItemLinkTypeTest extends TestCase
         return array(
             array(null, true),
             array('42', false),
-            array('value://42', true),
+            array('value://42', false),
+            array('default://42', true),
         );
     }
 
@@ -143,7 +157,7 @@ class ItemLinkTypeTest extends TestCase
      */
     public function testIsValueEmpty($value, $isEmpty)
     {
-        $type = new ItemLinkType();
+        $type = new ItemLinkType($this->valueTypeRegistry);
         $this->assertEquals($isEmpty, $type->isValueEmpty($value));
     }
 
