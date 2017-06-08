@@ -9,10 +9,19 @@
         </a>
 
         <div class="collapse in" id="collapseItems">
-            <div
-                data-browser-config-name="{{ ngbm.config.parameter('app.block_edit.default_browser_config') }}"
-                data-max_selected="0"
-                class="collection-items">
+            <div class="collection-items">
+
+                <div class="value-type-wrapper">
+                    <select name="value_type" class="js-browser-config-selector">
+                        {% for value_type in ngbm.config.parameter('value_types') %}
+                            {% if value_type.enabled %}
+                                <option value="{{ value_type.identifier }}" >{{ value_type.name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="body"></div>
             </div>
         </div>
     </div>

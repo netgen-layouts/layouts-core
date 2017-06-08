@@ -16,7 +16,6 @@ class NetgenBlockManagerAdminExtensionTest extends AbstractExtensionTestCase
         $this->load();
 
         $this->assertContainerBuilderHasParameter('netgen_block_manager.admin.csrf_token_id', 'ngbm_admin');
-        $this->assertContainerBuilderHasParameter('netgen_block_manager.app.block_edit.default_browser_config', 'ezlocation');
         $this->assertContainerBuilderHasParameter(
             'netgen_block_manager.admin.pagelayout',
             'NetgenBlockManagerAdminBundle:admin:pagelayout.html.twig'
