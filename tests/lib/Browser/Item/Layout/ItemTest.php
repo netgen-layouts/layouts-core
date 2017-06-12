@@ -43,14 +43,6 @@ class ItemTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Browser\Item\Layout\Item::getParentId
-     */
-    public function testGetParentId()
-    {
-        $this->assertEquals(0, $this->item->getParentId());
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Browser\Item\Layout\Item::isVisible
      */
     public function testIsVisible()
