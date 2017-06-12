@@ -10,6 +10,71 @@ use Symfony\Component\Validator\Constraints;
 class BlockCollectionValidator extends Validator
 {
     /**
+     * Validates item creation parameters from the request.
+     *
+     * @param \Netgen\BlockManager\API\Values\Block\CollectionReference $collectionReference
+     * @param array $items
+     */
+    public function validateAddItems(CollectionReference $collectionReference, $items)
+    {
+        $this->validate(
+            $items,
+            array(
+                new Constraints\Type(array('type' => 'array')),
+                new Constraints\NotBlank(),
+                new Constraints\All(
+                    array(
+                        'constraints' => new Constraints\Collection(
+                            array(
+                                'fields' => array(
+                                    'type' => array(
+                                        new Constraints\NotNull(),
+                                        new Constraints\Type(array('type' => 'int')),
+                                    ),
+                                    'value_id' => array(
+                                        new Constraints\NotNull(),
+                                        new Constraints\Type(array('type' => 'scalar')),
+                                    ),
+                                    'value_type' => array(
+                                        new Constraints\NotBlank(),
+                                        new Constraints\Type(array('type' => 'string')),
+                                    ),
+                                    'position' => new Constraints\Optional(
+                                        array(
+                                            new Constraints\NotNull(),
+                                            new Constraints\Type(array('type' => 'int')),
+                                        )
+                                    ),
+                                ),
+                            )
+                        ),
+                    )
+                ),
+            ),
+            'items'
+        );
+
+        $collectionIdentifier = $collectionReference->getIdentifier();
+        $blockDefinition = $collectionReference->getBlock()->getDefinition();
+
+        if ($blockDefinition->getConfig()->hasCollection($collectionIdentifier)) {
+            $collectionConfig = $blockDefinition->getConfig()->getCollection($collectionIdentifier);
+
+            foreach ($items as $item) {
+                if (!$collectionConfig->isValidItemType($item['value_type'])) {
+                    throw ValidationException::validationFailed(
+                        'value_type',
+                        sprintf(
+                            'Value type "%s" is not allowed in selected block.',
+                            $item['value_type']
+                        )
+                    );
+                }
+            }
+        }
+    }
+
+    /**
      * Validates block creation parameters from the request.
      *
      * @param \Netgen\BlockManager\API\Values\Block\CollectionReference $collectionReference

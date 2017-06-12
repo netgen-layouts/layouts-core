@@ -131,6 +131,41 @@ class BlockCollectionController extends Controller
     }
 
     /**
+     * Adds an item inside the collection.
+     *
+     * @param \Netgen\BlockManager\API\Values\Block\CollectionReference $collectionReference
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function addItems(CollectionReference $collectionReference, Request $request)
+    {
+        $items = $request->request->get('items');
+
+        $this->validator->validateAddItems($collectionReference, $items);
+
+        $this->collectionService->transaction(
+            function () use ($collectionReference, $items) {
+                foreach ($items as $item) {
+                    $itemCreateStruct = $this->collectionService->newItemCreateStruct(
+                        $item['type'],
+                        $item['value_id'],
+                        $item['value_type']
+                    );
+
+                    $this->collectionService->addItem(
+                        $collectionReference->getCollection(),
+                        $itemCreateStruct,
+                        isset($item['position']) ? $item['position'] : null
+                    );
+                }
+            }
+        );
+
+        return new Response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
      * Changes the collection type within the block.
      *
      * @param \Netgen\BlockManager\API\Values\Block\CollectionReference $collectionReference

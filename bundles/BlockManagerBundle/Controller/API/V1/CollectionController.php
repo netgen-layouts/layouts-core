@@ -7,11 +7,9 @@ use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Collection\Result\ResultLoaderInterface;
-use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
-use Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\CollectionValidator;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,11 +27,6 @@ class CollectionController extends Controller
     protected $resultLoader;
 
     /**
-     * @var \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\CollectionValidator
-     */
-    protected $validator;
-
-    /**
      * @var int
      */
     protected $maxLimit;
@@ -43,18 +36,15 @@ class CollectionController extends Controller
      *
      * @param \Netgen\BlockManager\API\Service\CollectionService $collectionService
      * @param \Netgen\BlockManager\Collection\Result\ResultLoaderInterface $resultLoader
-     * @param \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\CollectionValidator $validator
      * @param int $maxLimit
      */
     public function __construct(
         CollectionService $collectionService,
         ResultLoaderInterface $resultLoader,
-        CollectionValidator $validator,
         $maxLimit
     ) {
         $this->collectionService = $collectionService;
         $this->resultLoader = $resultLoader;
-        $this->validator = $validator;
         $this->maxLimit = $maxLimit;
     }
 
@@ -68,38 +58,6 @@ class CollectionController extends Controller
     public function loadCollection(Collection $collection)
     {
         return new VersionedValue($collection, Version::API_V1);
-    }
-
-    /**
-     * Returns the collection result.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Netgen\BlockManager\Serializer\Values\VersionedValue
-     */
-    public function loadCollectionResult(Collection $collection, Request $request)
-    {
-        $offset = $request->query->get('offset');
-        $limit = $request->query->get('limit');
-
-        $this->validator->validateOffsetAndLimit($offset, $limit);
-
-        if (empty($limit) || $limit > $this->maxLimit) {
-            $limit = $this->maxLimit;
-        }
-
-        return new VersionedValue(
-            $this->resultLoader->load(
-                $collection,
-                (int) $offset,
-                (int) $limit,
-                ResultSet::INCLUDE_INVISIBLE_ITEMS |
-                ResultSet::INCLUDE_INVALID_ITEMS |
-                ResultSet::INCLUDE_UNKNOWN_ITEMS
-            ),
-            Version::API_V1
-        );
     }
 
     /**
@@ -143,41 +101,6 @@ class CollectionController extends Controller
     public function loadItem(Item $item)
     {
         return new VersionedValue($item, Version::API_V1);
-    }
-
-    /**
-     * Adds an item inside the collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function addItems(Collection $collection, Request $request)
-    {
-        $this->validator->validateAddItems($request);
-
-        $items = $request->request->get('items');
-
-        $this->collectionService->transaction(
-            function () use ($collection, $items) {
-                foreach ($items as $item) {
-                    $itemCreateStruct = $this->collectionService->newItemCreateStruct(
-                        $item['type'],
-                        $item['value_id'],
-                        $item['value_type']
-                    );
-
-                    $this->collectionService->addItem(
-                        $collection,
-                        $itemCreateStruct,
-                        isset($item['position']) ? $item['position'] : null
-                    );
-                }
-            }
-        );
-
-        return new Response(null, Response::HTTP_NO_CONTENT);
     }
 
     /**

@@ -19,6 +19,13 @@ ngbm_api_v1_block_collections_result:
         _controller: "netgen_block_manager.controller.api.v1.block_collection:loadCollectionResult"
         _ngbm_status: draft
 
+ngbm_api_v1_block_collections_add_items:
+    path: /blocks/{blockId}/collections/{collectionIdentifier}/items
+    methods: [POST]
+    defaults:
+        _controller: "netgen_block_manager.controller.api.v1.block_collection:addItems"
+        _ngbm_status: draft
+
 ngbm_api_v1_block_collections_change_type:
     path: /blocks/{blockId}/collections/{collectionIdentifier}/change_type
     methods: [POST]

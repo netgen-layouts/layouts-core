@@ -5,13 +5,6 @@ ngbm_api_v1_collections_load:
         _controller: "netgen_block_manager.controller.api.v1.collection:loadCollection"
         _ngbm_status: draft
 
-ngbm_api_v1_collections_result:
-    path: /collections/{collectionId}/result
-    methods: [GET]
-    defaults:
-        _controller: "netgen_block_manager.controller.api.v1.collection:loadCollectionResult"
-        _ngbm_status: draft
-
 ngbm_api_v1_collections_items:
     path: /collections/{collectionId}/items
     methods: [GET]
@@ -31,13 +24,6 @@ ngbm_api_v1_collections_load_item:
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.collection:loadItem"
-        _ngbm_status: draft
-
-ngbm_api_v1_collections_add_items:
-    path: /collections/{collectionId}/items
-    methods: [POST]
-    defaults:
-        _controller: "netgen_block_manager.controller.api.v1.collection:addItems"
         _ngbm_status: draft
 
 ngbm_api_v1_collections_move_item:
