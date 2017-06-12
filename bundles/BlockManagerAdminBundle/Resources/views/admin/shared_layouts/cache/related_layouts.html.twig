@@ -5,7 +5,7 @@
 {% form_theme form.layouts _self %}
 
 {% block header %}
-    {{ 'shared_layouts.cache.related_layouts.title'|trans }}: {{ layout.name }}
+    {{ 'shared_layouts.cache.related_layouts.title'|trans }}: <strong>{{ layout.name }}</strong>
 {% endblock %}
 
 {% block _clear_layouts_cache_layouts_widget %}
