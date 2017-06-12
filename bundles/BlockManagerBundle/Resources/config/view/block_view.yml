@@ -2,187 +2,187 @@ view:
     block_view:
         default:
             title:
-                template: "NetgenBlockManagerBundle:block:title.html.twig"
+                template: "@NetgenBlockManager/block/title.html.twig"
                 match:
                     block\definition: title
                     block\view_type: title
             text:
-                template: "NetgenBlockManagerBundle:block:text.html.twig"
+                template: "@NetgenBlockManager/block/text.html.twig"
                 match:
                     block\definition: text
                     block\view_type: text
             button:
-                template: "NetgenBlockManagerBundle:block:button.html.twig"
+                template: "@NetgenBlockManager/block/button.html.twig"
                 match:
                     block\definition: button
                     block\view_type: button
             markdown:
-                template: "NetgenBlockManagerBundle:block:markdown.html.twig"
+                template: "@NetgenBlockManager/block/markdown.html.twig"
                 match:
                     block\definition: markdown
                     block\view_type: markdown
             rich_text:
-                template: "NetgenBlockManagerBundle:block:rich_text.html.twig"
+                template: "@NetgenBlockManager/block/rich_text.html.twig"
                 match:
                     block\definition: rich_text
                     block\view_type: rich_text
             html_snippet:
-                template: "NetgenBlockManagerBundle:block:html_snippet.html.twig"
+                template: "@NetgenBlockManager/block/html_snippet.html.twig"
                 match:
                     block\definition: html_snippet
                     block\view_type: html_snippet
             external_video:
-                template: "NetgenBlockManagerBundle:block:external_video.html.twig"
+                template: "@NetgenBlockManager/block/external_video.html.twig"
                 match:
                     block\definition: external_video
                     block\view_type: external_video
             list\list:
-                template: "NetgenBlockManagerBundle:block/list:list.html.twig"
+                template: "@NetgenBlockManager/block/list/list.html.twig"
                 match:
                     block\definition: list
                     block\view_type: list
             list\grid:
-                template: "NetgenBlockManagerBundle:block/list:grid.html.twig"
+                template: "@NetgenBlockManager/block/list/grid.html.twig"
                 match:
                     block\definition: list
                     block\view_type: grid
             gallery\slider:
-                template: "NetgenBlockManagerBundle:block/gallery:slider.html.twig"
+                template: "@NetgenBlockManager/block/gallery/slider.html.twig"
                 match:
                     block\definition: gallery
                     block\view_type: slider
             gallery\thumb_gallery:
-                template: "NetgenBlockManagerBundle:block/gallery:thumb_gallery.html.twig"
+                template: "@NetgenBlockManager/block/gallery/thumb_gallery.html.twig"
                 match:
                     block\definition: gallery
                     block\view_type: thumb_gallery
             gallery\grid_gallery:
-                template: "NetgenBlockManagerBundle:block/gallery:grid_gallery.html.twig"
+                template: "@NetgenBlockManager/block/gallery/grid_gallery.html.twig"
                 match:
                     block\definition: gallery
                     block\view_type: grid_gallery
             gallery\sushi_bar:
-                template: "NetgenBlockManagerBundle:block/gallery:sushi_bar.html.twig"
+                template: "@NetgenBlockManager/block/gallery/sushi_bar.html.twig"
                 match:
                     block\definition: gallery
                     block\view_type: sushi_bar
             twig_block:
-                template: "NetgenBlockManagerBundle:block:twig_block.html.twig"
+                template: "@NetgenBlockManager/block/twig_block.html.twig"
                 match:
                     block\definition: twig_block
                     block\view_type: twig_block
             full_view:
-                template: "NetgenBlockManagerBundle:block:full_view.html.twig"
+                template: "@NetgenBlockManager/block/full_view.html.twig"
                 match:
                     block\definition: full_view
                     block\view_type: full_view
             column:
-                template: "NetgenBlockManagerBundle:block:column.html.twig"
+                template: "@NetgenBlockManager/block/column.html.twig"
                 match:
                     block\definition: column
                     block\view_type: column
             two_columns_50_50:
-                template: "NetgenBlockManagerBundle:block:two_columns/two_columns_50_50.html.twig"
+                template: "@NetgenBlockManager/block/two_columns/two_columns_50_50.html.twig"
                 match:
                     block\definition: two_columns
                     block\view_type: two_columns_50_50
             two_columns_33_66:
-                template: "NetgenBlockManagerBundle:block:two_columns/two_columns_33_66.html.twig"
+                template: "@NetgenBlockManager/block/two_columns/two_columns_33_66.html.twig"
                 match:
                     block\definition: two_columns
                     block\view_type: two_columns_33_66
             two_columns_66_33:
-                template: "NetgenBlockManagerBundle:block:two_columns/two_columns_66_33.html.twig"
+                template: "@NetgenBlockManager/block/two_columns/two_columns_66_33.html.twig"
                 match:
                     block\definition: two_columns
                     block\view_type: two_columns_66_33
         api:
             title:
-                template: "NetgenBlockManagerBundle:api/block:title.html.twig"
+                template: "@NetgenBlockManager/api/block/title.html.twig"
                 match:
                     block\definition: title
                     api_version: 1
             text:
-                template: "NetgenBlockManagerBundle:api/block:text.html.twig"
+                template: "@NetgenBlockManager/api/block/text.html.twig"
                 match:
                     block\definition: text
                     api_version: 1
             button:
-                template: "NetgenBlockManagerBundle:api/block:button.html.twig"
+                template: "@NetgenBlockManager/api/block/button.html.twig"
                 match:
                     block\definition: button
                     api_version: 1
             markdown:
-                template: "NetgenBlockManagerBundle:api/block:markdown.html.twig"
+                template: "@NetgenBlockManager/api/block/markdown.html.twig"
                 match:
                     block\definition: markdown
                     api_version: 1
             rich_text:
-                template: "NetgenBlockManagerBundle:api/block:rich_text.html.twig"
+                template: "@NetgenBlockManager/api/block/rich_text.html.twig"
                 match:
                     block\definition: rich_text
                     api_version: 1
             html_snippet:
-                template: "NetgenBlockManagerBundle:api/block:html_snippet.html.twig"
+                template: "@NetgenBlockManager/api/block/html_snippet.html.twig"
                 match:
                     block\definition: html_snippet
                     api_version: 1
             external_video:
-                template: "NetgenBlockManagerBundle:api/block:external_video.html.twig"
+                template: "@NetgenBlockManager/api/block/external_video.html.twig"
                 match:
                     block\definition: external_video
                     api_version: 1
             map:
-                template: "NetgenBlockManagerBundle:api/block:map.html.twig"
+                template: "@NetgenBlockManager/api/block/map.html.twig"
                 match:
                     block\definition: map
                     api_version: 1
             list\list:
-                template: "NetgenBlockManagerBundle:api/block/list:list.html.twig"
+                template: "@NetgenBlockManager/api/block/list/list.html.twig"
                 match:
                     block\definition: list
                     block\view_type: list
                     api_version: 1
             list\grid:
-                template: "NetgenBlockManagerBundle:api/block/list:grid.html.twig"
+                template: "@NetgenBlockManager/api/block/list/grid.html.twig"
                 match:
                     block\definition: list
                     block\view_type: grid
                     api_version: 1
             gallery:
-                template: "NetgenBlockManagerBundle:api/block:gallery.html.twig"
+                template: "@NetgenBlockManager/api/block/gallery.html.twig"
                 match:
                     block\definition: gallery
                     api_version: 1
             twig_block:
-                template: "NetgenBlockManagerBundle:api/block:twig_block.html.twig"
+                template: "@NetgenBlockManager/api/block/twig_block.html.twig"
                 match:
                     block\definition: twig_block
                     api_version: 1
             full_view:
-                template: "NetgenBlockManagerBundle:api/block:full_view.html.twig"
+                template: "@NetgenBlockManager/api/block/full_view.html.twig"
                 match:
                     block\definition: full_view
                     api_version: 1
             column:
-                template: "NetgenBlockManagerBundle:api/block:column.html.twig"
+                template: "@NetgenBlockManager/api/block/column.html.twig"
                 match:
                     block\definition: column
                     api_version: 1
             two_columns_50_50:
-                template: "NetgenBlockManagerBundle:api/block:two_columns/two_columns_50_50.html.twig"
+                template: "@NetgenBlockManager/api/block/two_columns/two_columns_50_50.html.twig"
                 match:
                     block\definition: two_columns
                     block\view_type: two_columns_50_50
                     api_version: 1
             two_columns_33_66:
-                template: "NetgenBlockManagerBundle:api/block:two_columns/two_columns_33_66.html.twig"
+                template: "@NetgenBlockManager/api/block/two_columns/two_columns_33_66.html.twig"
                 match:
                     block\definition: two_columns
                     block\view_type: two_columns_33_66
                     api_version: 1
             two_columns_66_33:
-                template: "NetgenBlockManagerBundle:api/block:two_columns/two_columns_66_33.html.twig"
+                template: "@NetgenBlockManager/api/block/two_columns/two_columns_66_33.html.twig"
                 match:
                     block\definition: two_columns
                     block\view_type: two_columns_66_33

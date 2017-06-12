@@ -18,7 +18,7 @@ class PageLayoutNode implements ConfigurationNodeInterface
         $node = $treeBuilder->root('pagelayout', 'scalar');
 
         $node
-            ->defaultValue('NetgenBlockManagerBundle::empty_pagelayout.html.twig')
+            ->defaultValue('@NetgenBlockManager/empty_pagelayout.html.twig')
             ->cannotBeEmpty();
 
         return $node;

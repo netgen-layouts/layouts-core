@@ -2,6 +2,6 @@ view:
     item_view:
         api:
             slot:
-                template: "NetgenBlockManagerBundle:api/item:slot.html.twig"
+                template: "@NetgenBlockManager/api/item/slot.html.twig"
                 match:
                     item\value_type: slot

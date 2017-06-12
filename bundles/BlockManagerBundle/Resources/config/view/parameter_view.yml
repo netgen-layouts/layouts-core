@@ -2,6 +2,6 @@ view:
     parameter_view:
         default:
             link:
-                template: "NetgenBlockManagerBundle:parameter:link.html.twig"
+                template: "@NetgenBlockManager/parameter/link.html.twig"
                 match:
                     parameter\type: link

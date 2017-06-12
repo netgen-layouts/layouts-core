@@ -4,13 +4,13 @@
 
 <section>
     {% if block_definition.config.hasForm('full') %}
-        {% include 'NetgenBlockManagerAdminBundle:app/block/edit:collections.html.twig' %}
+        {% include '@NetgenBlockManagerAdmin/app/block/edit/collections.html.twig' %}
 
         <div data-form="{{ path('ngbm_app_block_form_edit', {'blockId': block.id, 'formName': 'full'}) }}"></div>
 
-        {% include 'NetgenBlockManagerAdminBundle:app/block/edit:collection_query.html.twig' %}
+        {% include '@NetgenBlockManagerAdmin/app/block/edit/collection_query.html.twig' %}
 
-        {% include 'NetgenBlockManagerAdminBundle:app/block/edit:collection_items.html.twig' %}
+        {% include '@NetgenBlockManagerAdmin/app/block/edit/collection_items.html.twig' %}
     {% elseif block_definition.config.hasForm('design') and block_definition.config.hasForm('content') %}
         <div id="aside-tabs">
             <ul class="aside-tab-control">
@@ -27,13 +27,13 @@
                     <div class="collapse in" id="collapseSettings">
                         <div data-form="{{ path('ngbm_app_block_form_edit', {'blockId': block.id, 'formName': 'content'}) }}"></div>
 
-                        {% include 'NetgenBlockManagerAdminBundle:app/block/edit:collections.html.twig' %}
+                        {% include '@NetgenBlockManagerAdmin/app/block/edit/collections.html.twig' %}
 
-                        {% include 'NetgenBlockManagerAdminBundle:app/block/edit:collection_query.html.twig' %}
+                        {% include '@NetgenBlockManagerAdmin/app/block/edit/collection_query.html.twig' %}
                     </div>
                 </div>
 
-                {% include 'NetgenBlockManagerAdminBundle:app/block/edit:collection_items.html.twig' %}
+                {% include '@NetgenBlockManagerAdmin/app/block/edit/collection_items.html.twig' %}
             </div>
 
             <div class="tab-pane" id="design-tab">

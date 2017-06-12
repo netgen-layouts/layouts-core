@@ -2,53 +2,53 @@ view:
     form_view:
         api:
             layout\create:
-                template: "NetgenBlockManagerAdminBundle:app/form/layout:create.html.twig"
+                template: "@NetgenBlockManagerAdmin/app/form/layout/create.html.twig"
                 match:
                     form\type: Netgen\BlockManager\Layout\Form\CreateType
             layout\edit:
-                template: "NetgenBlockManagerAdminBundle:app/form/layout:edit.html.twig"
+                template: "@NetgenBlockManagerAdmin/app/form/layout/edit.html.twig"
                 match:
                     form\type: Netgen\BlockManager\Layout\Form\EditType
             block\full_edit:
-                template: "NetgenBlockManagerAdminBundle:app/form/block/edit:full.html.twig"
+                template: "@NetgenBlockManagerAdmin/app/form/block/edit/full.html.twig"
                 match:
                     form\type: Netgen\BlockManager\Block\Form\FullEditType
             block\content_edit:
-                template: "NetgenBlockManagerAdminBundle:app/form/block/edit:content.html.twig"
+                template: "@NetgenBlockManagerAdmin/app/form/block/edit/content.html.twig"
                 match:
                     form\type: Netgen\BlockManager\Block\Form\ContentEditType
             block\design_edit:
-                template: "NetgenBlockManagerAdminBundle:app/form/block/edit:design.html.twig"
+                template: "@NetgenBlockManagerAdmin/app/form/block/edit/design.html.twig"
                 match:
                     form\type: Netgen\BlockManager\Block\Form\DesignEditType
             query\full_edit:
-                template: "NetgenBlockManagerAdminBundle:app/form/query/edit:full.html.twig"
+                template: "@NetgenBlockManagerAdmin/app/form/query/edit/full.html.twig"
                 match:
                     form\type: Netgen\BlockManager\Collection\Query\Form\FullEditType
             block\config\http_cache\edit:
-                template: "NetgenBlockManagerAdminBundle:app/form/block/config/edit:http_cache.html.twig"
+                template: "@NetgenBlockManagerAdmin/app/form/block/config/edit/http_cache.html.twig"
                 match:
                     form\type: Netgen\BlockManager\Config\Form\EditType
                     form\config\value_type: Netgen\BlockManager\API\Values\Block\Block
                     form\config\config_key: http_cache
         admin:
             layout\copy:
-                template: "NetgenBlockManagerAdminBundle:admin/layouts/form:copy.html.twig"
+                template: "@NetgenBlockManagerAdmin/admin/layouts/form/copy.html.twig"
                 match:
                     form\type: Netgen\BlockManager\Layout\Form\CopyType
             layout\blocks_cache:
-                template: "NetgenBlockManagerAdminBundle:admin/layouts/cache:blocks.html.twig"
+                template: "@NetgenBlockManagerAdmin/admin/layouts/cache/blocks.html.twig"
                 match:
                     form\type: Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearBlocksCacheType
             shared_layout\related_layouts_cache:
-                template: "NetgenBlockManagerAdminBundle:admin/shared_layouts/cache:related_layouts.html.twig"
+                template: "@NetgenBlockManagerAdmin/admin/shared_layouts/cache/related_layouts.html.twig"
                 match:
                     form\type: Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearLayoutsCacheType
             condition\type:
-                template: "NetgenBlockManagerAdminBundle:admin/layout_resolver/form:condition_type.html.twig"
+                template: "@NetgenBlockManagerAdmin/admin/layout_resolver/form/condition_type.html.twig"
                 match:
                     form\type: Netgen\BlockManager\Layout\Resolver\Form\ConditionType
             target\type:
-                template: "NetgenBlockManagerAdminBundle:admin/layout_resolver/form:target_type.html.twig"
+                template: "@NetgenBlockManagerAdmin/admin/layout_resolver/form/target_type.html.twig"
                 match:
                     form\type: Netgen\BlockManager\Layout\Resolver\Form\TargetType

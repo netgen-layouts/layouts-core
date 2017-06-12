@@ -45,7 +45,7 @@ class BlockController extends Controller
         }
 
         return $this->render(
-            'NetgenBlockManagerAdminBundle:app/block:edit.html.twig',
+            '@NetgenBlockManagerAdmin/app/block/edit.html.twig',
             array(
                 'block' => $block,
                 'collections' => $collections,

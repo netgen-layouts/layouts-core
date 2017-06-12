@@ -7,7 +7,7 @@ services:
         arguments:
             - "@netgen_block_manager.templating.global_variable"
         tags:
-            - { name: data_collector, template: 'NetgenBlockManagerDebugBundle:data_collector:ngbm.html.twig', id: ngbm }
+            - { name: data_collector, template: '@NetgenBlockManagerDebug/data_collector/ngbm.html.twig', id: ngbm }
 
     netgen_block_manager.debug.data_collector.event_listener.block_view:
         class: Netgen\Bundle\BlockManagerDebugBundle\DataCollector\EventListener\BlockViewListener

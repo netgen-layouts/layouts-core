@@ -1,4 +1,4 @@
-{% extends 'WebProfilerBundle:Profiler:layout.html.twig' %}
+{% extends '@WebProfiler/Profiler/layout.html.twig' %}
 
 {% block toolbar %}
     {% set layout = collector.data.layout %}
@@ -24,7 +24,7 @@
 
     {% set text %}
         {% if layout %}
-            {% import 'NetgenBlockManagerAdminBundle:admin:macros.html.twig' as macros %}
+            {% import '@NetgenBlockManagerAdmin/admin/macros.html.twig' as macros %}
 
             <div class="sf-toolbar-info-piece">
                 <b>Resolved layout</b>
@@ -56,7 +56,7 @@
         </div>
     {% endset %}
 
-    {{ include('WebProfilerBundle:Profiler:toolbar_item.html.twig', { link: profiler_url }) }}
+    {{ include('@WebProfiler/Profiler/toolbar_item.html.twig', { link: profiler_url }) }}
 {% endblock %}
 
 {% block head %}
@@ -89,7 +89,7 @@
     {% set blocks = collector.data.blocks %}
 
     <div class="sf-tabs">
-        {% import 'NetgenBlockManagerAdminBundle:admin:macros.html.twig' as macros %}
+        {% import '@NetgenBlockManagerAdmin/admin/macros.html.twig' as macros %}
 
         <div class="tab">
             <h3 class="tab-title">Rendered layout</h3>

@@ -56,7 +56,7 @@ class LayoutsController extends Controller
     public function index()
     {
         return $this->render(
-            'NetgenBlockManagerAdminBundle:admin/layouts:index.html.twig',
+            '@NetgenBlockManagerAdmin/admin/layouts/index.html.twig',
             array(
                 'layouts' => $this->layoutService->loadLayouts(true),
             )
@@ -141,7 +141,7 @@ class LayoutsController extends Controller
         }
 
         return $this->render(
-            'NetgenBlockManagerAdminBundle:admin/layouts/cache:layout.html.twig',
+            '@NetgenBlockManagerAdmin/admin/layouts/cache/layout.html.twig',
             array(
                 'error' => !$cacheCleared,
                 'layout' => $layout,

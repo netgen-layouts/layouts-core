@@ -6,7 +6,7 @@ item_types:
         search:
             enabled: false
         preview:
-            template: 'NetgenBlockManagerBundle:browser:layout.html.twig'
+            template: '@NetgenBlockManager/browser/layout.html.twig'
         columns:
             name:
                 name: columns.name

@@ -2,57 +2,57 @@ view:
     layout_view:
         default:
             layout_1:
-                template: "NetgenBlockManagerBundle:layout:layout_1.html.twig"
+                template: "@NetgenBlockManager/layout/layout_1.html.twig"
                 match:
                     layout\type: layout_1
             layout_2:
-                template: "NetgenBlockManagerBundle:layout:layout_2.html.twig"
+                template: "@NetgenBlockManager/layout/layout_2.html.twig"
                 match:
                     layout\type: layout_2
             layout_3:
-                template: "NetgenBlockManagerBundle:layout:layout_3.html.twig"
+                template: "@NetgenBlockManager/layout/layout_3.html.twig"
                 match:
                     layout\type: layout_3
             layout_4:
-                template: "NetgenBlockManagerBundle:layout:layout_4.html.twig"
+                template: "@NetgenBlockManager/layout/layout_4.html.twig"
                 match:
                     layout\type: layout_4
             layout_5:
-                template: "NetgenBlockManagerBundle:layout:layout_5.html.twig"
+                template: "@NetgenBlockManager/layout/layout_5.html.twig"
                 match:
                     layout\type: layout_5
             layout_6:
-                template: "NetgenBlockManagerBundle:layout:layout_6.html.twig"
+                template: "@NetgenBlockManager/layout/layout_6.html.twig"
                 match:
                     layout\type: layout_6
         api:
             layout_1:
-                template: "NetgenBlockManagerBundle:api/layout:layout_1.html.twig"
+                template: "@NetgenBlockManager/api/layout/layout_1.html.twig"
                 match:
                     layout\type: layout_1
                     api_version: 1
             layout_2:
-                template: "NetgenBlockManagerBundle:api/layout:layout_2.html.twig"
+                template: "@NetgenBlockManager/api/layout/layout_2.html.twig"
                 match:
                     layout\type: layout_2
                     api_version: 1
             layout_3:
-                template: "NetgenBlockManagerBundle:api/layout:layout_3.html.twig"
+                template: "@NetgenBlockManager/api/layout/layout_3.html.twig"
                 match:
                     layout\type: layout_3
                     api_version: 1
             layout_4:
-                template: "NetgenBlockManagerBundle:api/layout:layout_4.html.twig"
+                template: "@NetgenBlockManager/api/layout/layout_4.html.twig"
                 match:
                     layout\type: layout_4
                     api_version: 1
             layout_5:
-                template: "NetgenBlockManagerBundle:api/layout:layout_5.html.twig"
+                template: "@NetgenBlockManager/api/layout/layout_5.html.twig"
                 match:
                     layout\type: layout_5
                     api_version: 1
             layout_6:
-                template: "NetgenBlockManagerBundle:api/layout:layout_6.html.twig"
+                template: "@NetgenBlockManager/api/layout/layout_6.html.twig"
                 match:
                     layout\type: layout_6
                     api_version: 1

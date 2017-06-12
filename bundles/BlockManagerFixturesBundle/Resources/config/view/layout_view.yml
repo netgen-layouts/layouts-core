@@ -2,48 +2,48 @@ view:
     layout_view:
         default:
             1_zones_a:
-                template: "NetgenBlockManagerFixturesBundle:layout:1_zones_a.html.twig"
+                template: "@NetgenBlockManagerFixtures/layout/1_zones_a.html.twig"
                 match:
                     layout\type: 1_zones_a
             4_zones_a:
-                template: "NetgenBlockManagerFixturesBundle:layout:4_zones_a.html.twig"
+                template: "@NetgenBlockManagerFixtures/layout/4_zones_a.html.twig"
                 match:
                     layout\type: 4_zones_a
             4_zones_b:
-                template: "NetgenBlockManagerFixturesBundle:layout:4_zones_b.html.twig"
+                template: "@NetgenBlockManagerFixtures/layout/4_zones_b.html.twig"
                 match:
                     layout\type: 4_zones_b
             4_zones_c:
-                template: "NetgenBlockManagerFixturesBundle:layout:4_zones_c.html.twig"
+                template: "@NetgenBlockManagerFixtures/layout/4_zones_c.html.twig"
                 match:
                     layout\type: 4_zones_c
             6_zones_a:
-                template: "NetgenBlockManagerFixturesBundle:layout:6_zones_a.html.twig"
+                template: "@NetgenBlockManagerFixtures/layout/6_zones_a.html.twig"
                 match:
                     layout\type: 6_zones_a
         api:
             1_zones_a:
-                template: "NetgenBlockManagerFixturesBundle:api/layout:1_zones_a.html.twig"
+                template: "@NetgenBlockManagerFixtures/api/layout/1_zones_a.html.twig"
                 match:
                     layout\type: 1_zones_a
                     api_version: 1
             4_zones_a:
-                template: "NetgenBlockManagerFixturesBundle:api/layout:4_zones_a.html.twig"
+                template: "@NetgenBlockManagerFixtures/api/layout/4_zones_a.html.twig"
                 match:
                     layout\type: 4_zones_a
                     api_version: 1
             4_zones_b:
-                template: "NetgenBlockManagerFixturesBundle:api/layout:4_zones_b.html.twig"
+                template: "@NetgenBlockManagerFixtures/api/layout/4_zones_b.html.twig"
                 match:
                     layout\type: 4_zones_b
                     api_version: 1
             4_zones_c:
-                template: "NetgenBlockManagerFixturesBundle:api/layout:4_zones_c.html.twig"
+                template: "@NetgenBlockManagerFixtures/api/layout/4_zones_c.html.twig"
                 match:
                     layout\type: 4_zones_c
                     api_version: 1
             6_zones_a:
-                template: "NetgenBlockManagerFixturesBundle:api/layout:6_zones_a.html.twig"
+                template: "@NetgenBlockManagerFixtures/api/layout/6_zones_a.html.twig"
                 match:
                     layout\type: 6_zones_a
                     api_version: 1

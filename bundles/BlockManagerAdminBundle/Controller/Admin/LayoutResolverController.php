@@ -78,7 +78,7 @@ class LayoutResolverController extends Controller
     public function index()
     {
         return $this->render(
-            'NetgenBlockManagerAdminBundle:admin/layout_resolver:index.html.twig',
+            '@NetgenBlockManagerAdmin/admin/layout_resolver/index.html.twig',
             array(
                 'rules' => $this->layoutResolverService->loadRules(),
             )

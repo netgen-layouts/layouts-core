@@ -43,7 +43,7 @@ class SharedLayoutsController extends Controller
     public function index()
     {
         return $this->render(
-            'NetgenBlockManagerAdminBundle:admin/shared_layouts:index.html.twig',
+            '@NetgenBlockManagerAdmin/admin/shared_layouts/index.html.twig',
             array(
                 'shared_layouts' => $this->layoutService->loadSharedLayouts(true),
             )

@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#02a6f2">
 
-    {% include 'NetgenBlockManagerAdminBundle:admin:head.html.twig' %}
+    {% include '@NetgenBlockManagerAdmin/admin/head.html.twig' %}
 
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('favicon/apple-touch-icon.png', 'ngbm_admin_images') }}">
     <link rel="icon" type="image/png" href="{{ asset('favicon/favicon-32x32.png', 'ngbm_admin_images') }}" sizes="32x32">
@@ -26,11 +26,11 @@
     </title>
 
     {% block stylesheets %}
-        {% include 'NetgenBlockManagerAdminBundle:admin:stylesheets.html.twig' %}
+        {% include '@NetgenBlockManagerAdmin/admin/stylesheets.html.twig' %}
     {% endblock %}
 
     {% block javascripts %}
-        {% include 'NetgenBlockManagerAdminBundle:admin:javascripts.html.twig' %}
+        {% include '@NetgenBlockManagerAdmin/admin/javascripts.html.twig' %}
     {% endblock %}
 </head>
 <body>
@@ -38,7 +38,7 @@
         <div class="ng-layouts-container">
             <div class="layouts-sidebar">
                 <div class="main-menu">
-                    {% include 'NetgenBlockManagerAdminBundle:admin:main_menu.html.twig' %}
+                    {% include '@NetgenBlockManagerAdmin/admin/main_menu.html.twig' %}
                 </div>
             </div>
 

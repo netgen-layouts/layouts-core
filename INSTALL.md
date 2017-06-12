@@ -102,7 +102,7 @@ somewhere in your application:
 
 ```
 netgen_block_manager:
-    pagelayout: "NetgenSiteBundle::pagelayout.html.twig"
+    pagelayout: "@NetgenSite/pagelayout.html.twig"
 ```
 
 Adjusting your base pagelayout template

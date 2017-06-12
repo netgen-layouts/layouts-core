@@ -2,6 +2,6 @@ view:
     layout_view:
         admin:
             layout\shared:
-                template: "NetgenBlockManagerAdminBundle:admin/shared_layouts:layout.html.twig"
+                template: "@NetgenBlockManagerAdmin/admin/shared_layouts/layout.html.twig"
                 match:
                     layout\shared: true
