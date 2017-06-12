@@ -127,6 +127,12 @@
             background-image:url(../images/layout_thumbs/layout_#{$i}.svg);
         }
     }
+    .ngcb .preview-panel & {
+        width:90%;
+        height:0;
+        padding-bottom:135%;
+        margin:1em auto 0;
+    }
 }
 
 .loading-ng-icon {
