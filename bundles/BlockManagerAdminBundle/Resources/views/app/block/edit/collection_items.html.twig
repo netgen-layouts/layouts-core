@@ -15,7 +15,7 @@
                     <select name="value_type" class="js-browser-config-selector">
                         {% for value_type in ngbm.config.parameter('value_types') %}
                             {% if value_type.enabled %}
-                                <option value="{{ value_type.identifier }}" >{{ value_type.name }}</option>
+                                <option data-max_selected="0" value="{{ value_type.identifier }}" >{{ value_type.name }}</option>
                             {% endif %}
                         {% endfor %}
                     </select>
