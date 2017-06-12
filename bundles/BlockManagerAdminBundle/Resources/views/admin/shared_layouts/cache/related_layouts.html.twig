@@ -9,8 +9,6 @@
 {% endblock %}
 
 {% block _clear_layouts_cache_layouts_widget %}
-    {% import 'NetgenBlockManagerBundle:api/parts:ttl_macros.html.twig' as ttl_macros %}
-
     {% if form.children is not empty %}
         <table class="nl-caches-table">
             <thead>

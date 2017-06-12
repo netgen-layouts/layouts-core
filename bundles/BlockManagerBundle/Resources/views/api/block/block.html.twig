@@ -1,6 +1,6 @@
 {% trans_default_domain 'ngbm_app' %}
 
-{% import 'NetgenBlockManagerBundle:api/parts:ttl_macros.html.twig' as ttl_macros %}
+{% import 'NetgenBlockManagerBundle:api/parts:macros.html.twig' as macros %}
 
 {% set view_type_name = block.viewType %}
 {% set config = block.definition.config %}
@@ -24,7 +24,7 @@
         <div class="template_name">{{ view_type_name }}</div>
         <div class="name">{{ block.name }}</div>
         {% if cache_config_enabled and cache_ttl is not same as(false) %}
-            <div class="cache"><i class="material-icons">cached</i> {{ ttl_macros.ttl_label(cache_ttl) }}</div>
+            <div class="cache"><i class="material-icons">cached</i> {{ macros.ttl_label(cache_ttl) }}</div>
         {% endif %}
         <div class="dropdown">
             <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="material-icons">more_horiz</i></button>
