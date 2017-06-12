@@ -43,16 +43,6 @@ class Item implements ItemInterface, LayoutInterface
     }
 
     /**
-     * Returns the parent ID.
-     *
-     * @return int|string
-     */
-    public function getParentId()
-    {
-        return null;
-    }
-
-    /**
      * Returns if the item is visible.
      *
      * @return bool
