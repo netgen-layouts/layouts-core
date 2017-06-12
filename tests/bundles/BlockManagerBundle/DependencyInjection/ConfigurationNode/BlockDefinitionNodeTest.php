@@ -875,6 +875,29 @@ class BlockDefinitionNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
      */
+    public function testBlockDefinitionSettingsWithEmptyCollection()
+    {
+        $config = array(
+            'block_definitions' => array(
+                'block' => array(
+                    'name' => 'Block',
+                    'collections' => array(
+                        'default' => array(
+                            'valid_item_types' => array(),
+                            'valid_query_types' => array(),
+                        ),
+                    ),
+                ),
+            ),
+        );
+
+        $this->assertConfigurationIsInvalid(array($config), 'Collections need to allow at least one item type or at least one query type.');
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
+     */
     public function testBlockDefinitionSettingsWithMissingContentForm()
     {
         $config = array(

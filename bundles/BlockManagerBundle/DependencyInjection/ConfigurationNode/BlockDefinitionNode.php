@@ -38,6 +38,16 @@ class BlockDefinitionNode implements ConfigurationNodeInterface
                         ->children()
                             ->arrayNode('default')
                                 ->addDefaultsIfNotSet()
+                                ->validate()
+                                    ->ifTrue(function ($v) {
+                                        if (!isset($v['valid_item_types']) || !isset($v['valid_query_types'])) {
+                                            return false;
+                                        }
+
+                                        return $v['valid_item_types'] === array() && $v['valid_query_types'] === array();
+                                    })
+                                    ->thenInvalid('Collections need to allow at least one item type or at least one query type.')
+                                ->end()
                                 ->children()
                                     ->variableNode('valid_item_types')
                                         ->defaultNull()
