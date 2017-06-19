@@ -79,6 +79,7 @@ shared_layouts.new_layout: 'New shared layout'
 shared_layouts.no_layouts: 'There are no shared layouts defined'
 
 shared_layouts.layout.references: 'References'
+shared_layouts.layout.number_of_references: 'Number of layouts which use this shared layout'
 shared_layouts.layout.clear_related_layouts_caches: 'Clear linked layouts caches'
 
 shared_layouts.cache.related_layouts.title: 'Clear linked layouts caches for shared layout'
