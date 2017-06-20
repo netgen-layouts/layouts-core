@@ -12,7 +12,6 @@ use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Exception\View\ViewException;
 use Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener;
 use Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener;
-use Netgen\Bundle\BlockManagerBundle\Exception\InternalServerErrorHttpException;
 use Netgen\Bundle\BlockManagerBundle\Tests\EventListener\Stubs\ExceptionStub;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
@@ -21,6 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -73,9 +73,12 @@ class ExceptionConversionListenerTest extends TestCase
             $event->getException()
         );
 
-        $this->assertEquals($statusCode, $event->getException()->getStatusCode());
         $this->assertEquals($exception->getMessage(), $event->getException()->getMessage());
         $this->assertEquals($exception->getCode(), $event->getException()->getCode());
+
+        if ($event->getException() instanceof HttpExceptionInterface) {
+            $this->assertEquals($statusCode, $event->getException()->getStatusCode());
+        }
 
         $converted ?
             $this->assertEquals($exception, $event->getException()->getPrevious()) :
@@ -191,15 +194,15 @@ class ExceptionConversionListenerTest extends TestCase
             ),
             array(
                 new ExceptionStub('Some error'),
-                InternalServerErrorHttpException::class,
+                ExceptionStub::class,
                 Response::HTTP_INTERNAL_SERVER_ERROR,
-                true,
+                false,
             ),
             array(
                 new Exception('Some error'),
-                InternalServerErrorHttpException::class,
+                Exception::class,
                 Response::HTTP_INTERNAL_SERVER_ERROR,
-                true,
+                false,
             ),
             array(
                 new AccessDeniedException('Some error'),
@@ -215,15 +218,15 @@ class ExceptionConversionListenerTest extends TestCase
             ),
             array(
                 new ViewException('Some error'),
-                InternalServerErrorHttpException::class,
+                ViewException::class,
                 Response::HTTP_INTERNAL_SERVER_ERROR,
-                true,
+                false,
             ),
             array(
                 new RuntimeException('Some error'),
-                InternalServerErrorHttpException::class,
+                RuntimeException::class,
                 Response::HTTP_INTERNAL_SERVER_ERROR,
-                true,
+                false,
             ),
             array(
                 new AccessDeniedHttpException('Some error'),

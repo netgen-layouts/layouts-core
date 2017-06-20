@@ -8,8 +8,10 @@ services:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionSerializerListener
         arguments:
             - "@serializer"
+            - "@?logger"
         tags:
             - { name: kernel.event_subscriber }
+            - { name: monolog.logger, channel: ngbm }
 
     netgen_block_manager.event_listener.serializer:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\SerializerListener

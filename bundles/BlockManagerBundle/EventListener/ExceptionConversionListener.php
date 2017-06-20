@@ -2,15 +2,11 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 
-use Exception as BaseException;
 use InvalidArgumentException as BaseInvalidArgumentException;
 use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Exception\Exception;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
-use Netgen\Bundle\BlockManagerBundle\Exception\InternalServerErrorHttpException;
-use RuntimeException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -34,10 +30,6 @@ class ExceptionConversionListener implements EventSubscriberInterface
         // Various other useful exceptions
         AccessDeniedException::class => AccessDeniedHttpException::class,
         BaseInvalidArgumentException::class => BadRequestHttpException::class,
-        RuntimeException::class => InternalServerErrorHttpException::class,
-        // Default exceptions
-        Exception::class => InternalServerErrorHttpException::class,
-        BaseException::class => InternalServerErrorHttpException::class,
     );
 
     /**

@@ -2,9 +2,13 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 
+use Exception;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -16,13 +20,20 @@ class ExceptionSerializerListener implements EventSubscriberInterface
     protected $serializer;
 
     /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    protected $logger;
+
+    /**
      * Constructor.
      *
      * @param \Symfony\Component\Serializer\SerializerInterface $serializer
+     * @param \Psr\Log\LoggerInterface $logger
      */
-    public function __construct(SerializerInterface $serializer)
+    public function __construct(SerializerInterface $serializer, LoggerInterface $logger = null)
     {
         $this->serializer = $serializer;
+        $this->logger = $logger ?: new NullLogger();
     }
 
     /**
@@ -53,13 +64,23 @@ class ExceptionSerializerListener implements EventSubscriberInterface
             return;
         }
 
+        $exception = $event->getException();
+
+        if (!$exception instanceof HttpExceptionInterface || $exception->getStatusCode() >= 500) {
+            $this->logger->critical(
+                sprintf(
+                    'Uncaught PHP Exception %s: "%s" at %s line %s',
+                    get_class($exception),
+                    $exception->getMessage(),
+                    $exception->getFile(),
+                    $exception->getLine()
+                ),
+                array('exception' => $exception)
+            );
+        }
+
         $response = new JsonResponse();
-        $response->setContent(
-            $this->serializer->serialize(
-                $event->getException(),
-                'json'
-            )
-        );
+        $response->setContent($this->serializer->serialize($exception, 'json'));
 
         $event->setResponse($response);
     }
