@@ -57,19 +57,21 @@ class BlockCollectionValidator extends Validator
         $collectionIdentifier = $collectionReference->getIdentifier();
         $blockDefinition = $collectionReference->getBlock()->getDefinition();
 
-        if ($blockDefinition->getConfig()->hasCollection($collectionIdentifier)) {
-            $collectionConfig = $blockDefinition->getConfig()->getCollection($collectionIdentifier);
+        if (!$blockDefinition->getConfig()->hasCollection($collectionIdentifier)) {
+            return;
+        }
 
-            foreach ($items as $item) {
-                if (!$collectionConfig->isValidItemType($item['value_type'])) {
-                    throw ValidationException::validationFailed(
-                        'value_type',
-                        sprintf(
-                            'Value type "%s" is not allowed in selected block.',
-                            $item['value_type']
-                        )
-                    );
-                }
+        $collectionConfig = $blockDefinition->getConfig()->getCollection($collectionIdentifier);
+
+        foreach ($items as $item) {
+            if (!$collectionConfig->isValidItemType($item['value_type'])) {
+                throw ValidationException::validationFailed(
+                    'value_type',
+                    sprintf(
+                        'Value type "%s" is not allowed in selected block.',
+                        $item['value_type']
+                    )
+                );
             }
         }
     }
@@ -106,12 +108,14 @@ class BlockCollectionValidator extends Validator
         $collectionIdentifier = $collectionReference->getIdentifier();
         $blockDefinition = $collectionReference->getBlock()->getDefinition();
 
-        if ($blockDefinition->getConfig()->hasCollection($collectionIdentifier)) {
-            $collectionConfig = $blockDefinition->getConfig()->getCollection($collectionIdentifier);
+        if (!$blockDefinition->getConfig()->hasCollection($collectionIdentifier)) {
+            return;
         }
 
+        $collectionConfig = $blockDefinition->getConfig()->getCollection($collectionIdentifier);
+
         if ($newType === Collection::TYPE_DYNAMIC) {
-            if ($collectionConfig !== null && !$collectionConfig->isValidQueryType($queryType)) {
+            if (!$collectionConfig->isValidQueryType($queryType)) {
                 throw ValidationException::validationFailed(
                     'new_type',
                     sprintf(
@@ -121,7 +125,7 @@ class BlockCollectionValidator extends Validator
                 );
             }
         } elseif ($newType === Collection::TYPE_MANUAL) {
-            if ($collectionConfig !== null && $collectionConfig->getValidItemTypes() === array()) {
+            if ($collectionConfig->getValidItemTypes() === array()) {
                 throw ValidationException::validationFailed(
                     'new_type',
                     'Selected block does not allow manual collections.'
