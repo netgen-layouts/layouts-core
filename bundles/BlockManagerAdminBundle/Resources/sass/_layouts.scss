@@ -130,6 +130,14 @@
             .nl-layout-name {
                 margin:0 0 0.5em;
             }
+            .nl-layout-modified {
+                font-size:11px;
+                margin:1em 0 0;
+                color:hsl(0, 0, 60);
+                p {
+                    margin:0;
+                }
+            }
         }
         .nl-layout-type {
             width:40px;
@@ -198,6 +206,10 @@
             flex:1;
             padding-right:$gutter;
         }
+        .nl-layout-modified {
+            width:120px;
+            text-align:right;
+        }
     }
     .nl-layout-type {
         margin:0 $gutter;
@@ -265,6 +277,9 @@
                 width:100%;
             }
         }
+        .nl-layout-modified {
+            font-size:11px;
+        }
     }
     .nl-layouts-head {
         display:flex;
@@ -288,15 +303,19 @@
         }
         .nl-layout-info {
             .nl-layout-name {
-                width:50%;
+                width:40%;
+            }
+            .nl-layout-modified {
+                padding-right:20px;
+                width:100px;
             }
         }
     }
     @media screen and (max-width:$break-md) {
         .nl-layout-info {
             .nl-layout-name {
-                width:100%;
-            }
+                flex:1;
+                width:auto;            }
             .nl-layout-description {
                 display:none;
             }

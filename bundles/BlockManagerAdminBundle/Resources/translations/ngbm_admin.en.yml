@@ -59,6 +59,7 @@ layouts.layout.clear_block_caches.note: 'Clears ESI block caches'
 layouts.layout.number_of_rules: 'Number of mappings linked to this layout'
 layouts.layout.title: 'Title'
 layouts.layout.description: 'Description'
+layouts.layout.modified: 'Last modified'
 layouts.layout.layout_type: 'Layout type'
 layouts.layout.mappings: 'Mappings'
 

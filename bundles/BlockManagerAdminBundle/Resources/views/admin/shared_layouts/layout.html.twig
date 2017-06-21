@@ -21,6 +21,11 @@
             {% if not layout.published %}
                 <span class="unpublished-label">{{ 'layouts.layout.unpublished_draft'|trans }}</span>
             {% endif %}
+
+            <div class="nl-layout-modified">
+                <p>{{ layout.modified|localizeddate }}</p>
+            </div>
+
         </div>
     </div>
 
