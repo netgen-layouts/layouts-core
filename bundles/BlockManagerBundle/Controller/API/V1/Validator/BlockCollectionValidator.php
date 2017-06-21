@@ -54,14 +54,10 @@ class BlockCollectionValidator extends Validator
             'items'
         );
 
-        $collectionIdentifier = $collectionReference->getIdentifier();
-        $blockDefinition = $collectionReference->getBlock()->getDefinition();
-
-        if (!$blockDefinition->getConfig()->hasCollection($collectionIdentifier)) {
+        $collectionConfig = $this->getCollectionConfig($collectionReference);
+        if ($collectionConfig === null) {
             return;
         }
-
-        $collectionConfig = $blockDefinition->getConfig()->getCollection($collectionIdentifier);
 
         foreach ($items as $item) {
             if (!$collectionConfig->isValidItemType($item['value_type'])) {
@@ -104,15 +100,10 @@ class BlockCollectionValidator extends Validator
             'new_type'
         );
 
-        $collectionConfig = null;
-        $collectionIdentifier = $collectionReference->getIdentifier();
-        $blockDefinition = $collectionReference->getBlock()->getDefinition();
-
-        if (!$blockDefinition->getConfig()->hasCollection($collectionIdentifier)) {
+        $collectionConfig = $this->getCollectionConfig($collectionReference);
+        if ($collectionConfig === null) {
             return;
         }
-
-        $collectionConfig = $blockDefinition->getConfig()->getCollection($collectionIdentifier);
 
         if ($newType === Collection::TYPE_DYNAMIC) {
             if (!$collectionConfig->isValidQueryType($queryType)) {
@@ -132,5 +123,24 @@ class BlockCollectionValidator extends Validator
                 );
             }
         }
+    }
+
+    /**
+     * Returns the block collection configuration.
+     *
+     * @param \Netgen\BlockManager\API\Values\Block\CollectionReference $collectionReference
+     *
+     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection
+     */
+    protected function getCollectionConfig(CollectionReference $collectionReference)
+    {
+        $collectionIdentifier = $collectionReference->getIdentifier();
+        $blockDefinition = $collectionReference->getBlock()->getDefinition();
+
+        if (!$blockDefinition->getConfig()->hasCollection($collectionIdentifier)) {
+            return null;
+        }
+
+        return $blockDefinition->getConfig()->getCollection($collectionIdentifier);
     }
 }
