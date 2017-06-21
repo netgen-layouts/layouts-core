@@ -102,22 +102,30 @@ class BlockCollectionValidator extends Validator
             'new_type'
         );
 
+        $collectionConfig = null;
+        $collectionIdentifier = $collectionReference->getIdentifier();
+        $blockDefinition = $collectionReference->getBlock()->getDefinition();
+
+        if ($blockDefinition->getConfig()->hasCollection($collectionIdentifier)) {
+            $collectionConfig = $blockDefinition->getConfig()->getCollection($collectionIdentifier);
+        }
+
         if ($newType === Collection::TYPE_DYNAMIC) {
-            $blockDefinition = $collectionReference->getBlock()->getDefinition();
-
-            $collectionIdentifier = $collectionReference->getIdentifier();
-            if ($blockDefinition->getConfig()->hasCollection($collectionIdentifier)) {
-                $collectionConfig = $blockDefinition->getConfig()->getCollection($collectionIdentifier);
-
-                if (!$collectionConfig->isValidQueryType($queryType)) {
-                    throw ValidationException::validationFailed(
-                        'query_type',
-                        sprintf(
-                            'Query type "%s" is not allowed in selected block.',
-                            $queryType
-                        )
-                    );
-                }
+            if ($collectionConfig !== null && !$collectionConfig->isValidQueryType($queryType)) {
+                throw ValidationException::validationFailed(
+                    'new_type',
+                    sprintf(
+                        'Query type "%s" is not allowed in selected block.',
+                        $queryType
+                    )
+                );
+            }
+        } elseif ($newType === Collection::TYPE_MANUAL) {
+            if ($collectionConfig !== null && $collectionConfig->getValidItemTypes() === array()) {
+                throw ValidationException::validationFailed(
+                    'new_type',
+                    'Selected block does not allow manual collections.'
+                );
             }
         }
     }
