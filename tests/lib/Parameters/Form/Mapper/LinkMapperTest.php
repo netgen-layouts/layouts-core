@@ -35,7 +35,6 @@ class LinkMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Mapper\LinkMapper::__construct
      * @covers \Netgen\BlockManager\Parameters\Form\Mapper\LinkMapper::getFormType
      */
     public function testGetFormType()

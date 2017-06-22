@@ -35,7 +35,6 @@ class ItemLinkMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Mapper\ItemLinkMapper::__construct
      * @covers \Netgen\BlockManager\Parameters\Form\Mapper\ItemLinkMapper::getFormType
      */
     public function testGetFormType()
