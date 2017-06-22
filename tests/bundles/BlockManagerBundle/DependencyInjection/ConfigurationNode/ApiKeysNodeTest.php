@@ -7,7 +7,7 @@ use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
 use PHPUnit\Framework\TestCase;
 
-class GoogleMapsNodeTest extends TestCase
+class ApiKeysNodeTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
 
@@ -21,18 +21,22 @@ class GoogleMapsNodeTest extends TestCase
     {
         $config = array(
             array(
-                'google_maps_api_key' => 'API_KEY',
+                'api_keys' => array(
+                    'google_maps' => 'API_KEY',
+                ),
             ),
         );
 
         $expectedConfig = array(
-            'google_maps_api_key' => 'API_KEY',
+            'api_keys' => array(
+                'google_maps' => 'API_KEY',
+            ),
         );
 
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'google_maps_api_key'
+            'api_keys.google_maps'
         );
     }
 
@@ -42,18 +46,20 @@ class GoogleMapsNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\GoogleMapsNode::getConfigurationNode
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
      */
-    public function testGoogleMapsApiKeySettingsWithNoKey()
+    public function testGoogleMapsApiKeySettingsWithEmptyKey()
     {
         $config = array();
 
         $expectedConfig = array(
-            'google_maps_api_key' => '',
+            'api_keys' => array(
+                'google_maps' => '',
+            ),
         );
 
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'google_maps_api_key'
+            'api_keys.google_maps'
         );
     }
 

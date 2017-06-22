@@ -4,7 +4,7 @@
 
 {% trans_default_domain 'ngbm_app' %}
 
-{% set google_maps_api_key = ngbm.config.parameter('google_maps_api_key') %}
+{% set google_maps_api_key = ngbm.config.parameter('api_keys').google_maps %}
 
 {% block content %}
     {% if google_maps_api_key is not empty %}

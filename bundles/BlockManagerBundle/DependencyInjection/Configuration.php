@@ -64,7 +64,7 @@ class Configuration implements ConfigurationInterface
             new ConfigurationNode\LayoutTypeNode(),
             new ConfigurationNode\QueryTypeNode(),
             new ConfigurationNode\PageLayoutNode(),
-            new ConfigurationNode\GoogleMapsNode(),
+            new ConfigurationNode\ApiKeysNode(),
             new ConfigurationNode\ItemsNode(),
         );
     }

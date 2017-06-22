@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNodeInterface;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
-class GoogleMapsNode implements ConfigurationNodeInterface
+class ApiKeysNode implements ConfigurationNodeInterface
 {
     /**
      * Returns node definition for Google Maps.
@@ -15,9 +15,14 @@ class GoogleMapsNode implements ConfigurationNodeInterface
     public function getConfigurationNode()
     {
         $treeBuilder = new TreeBuilder();
-        $node = $treeBuilder->root('google_maps_api_key', 'scalar');
+        $node = $treeBuilder->root('api_keys');
 
-        $node->defaultValue('');
+        $node
+            ->addDefaultsIfNotSet()
+            ->children()
+                ->scalarNode('google_maps')
+                ->defaultValue('')
+            ->end();
 
         return $node;
     }
