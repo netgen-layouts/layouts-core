@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Layout\Registry;
 
+use ArrayIterator;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use PHPUnit\Framework\TestCase;
@@ -95,5 +96,65 @@ class LayoutTypeRegistryTest extends TestCase
     public function testGetLayoutTypeThrowsLayoutTypeException()
     {
         $this->registry->getLayoutType('other_layout_type');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::getIterator
+     */
+    public function testGetIterator()
+    {
+        $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
+
+        $layoutTypes = array();
+        foreach ($this->registry as $identifier => $layoutType) {
+            $layoutTypes[$identifier] = $layoutType;
+        }
+
+        $this->assertEquals($this->registry->getLayoutTypes(), $layoutTypes);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::count
+     */
+    public function testCount()
+    {
+        $this->assertCount(2, $this->registry);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::offsetExists
+     */
+    public function testOffsetExists()
+    {
+        $this->assertArrayHasKey('layout_type1', $this->registry);
+        $this->assertArrayNotHasKey('other', $this->registry);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::offsetGet
+     */
+    public function testOffsetGet()
+    {
+        $this->assertEquals($this->layoutType1, $this->registry['layout_type1']);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::offsetSet
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Method call not supported.
+     */
+    public function testOffsetSet()
+    {
+        $this->registry['layout_type1'] = $this->layoutType1;
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::offsetUnset
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Method call not supported.
+     */
+    public function testOffsetUnset()
+    {
+        unset($this->registry['layout_type1']);
     }
 }

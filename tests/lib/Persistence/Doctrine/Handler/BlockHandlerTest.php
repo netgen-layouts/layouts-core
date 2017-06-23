@@ -599,6 +599,7 @@ class BlockHandlerTest extends TestCase
         $blockUpdateStruct->name = 'My block';
         $blockUpdateStruct->viewType = 'large';
         $blockUpdateStruct->itemViewType = 'new';
+        $blockUpdateStruct->config = array('config');
 
         $blockUpdateStruct->parameters = array(
             'number_of_columns' => 4,
@@ -624,7 +625,7 @@ class BlockHandlerTest extends TestCase
                         'number_of_columns' => 4,
                         'some_param' => 'Some value',
                     ),
-                    'config' => array(),
+                    'config' => array('config'),
                 )
             ),
             $this->blockHandler->updateBlock(
@@ -734,6 +735,7 @@ class BlockHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlockCollections
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
@@ -800,6 +802,7 @@ class BlockHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlockCollections
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
@@ -878,6 +881,7 @@ class BlockHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlockCollections
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
@@ -1211,6 +1215,7 @@ class BlockHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlockStatus
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlockCollectionsStatus
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
      */
     public function testCreateBlockStatus()
     {

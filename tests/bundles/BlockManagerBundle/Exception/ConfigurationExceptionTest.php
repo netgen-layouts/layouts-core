@@ -9,11 +9,14 @@ class ConfigurationExceptionTest extends TestCase
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Exception\ConfigurationException::noParameter
-     * @expectedException \Netgen\Bundle\BlockManagerBundle\Exception\ConfigurationException
-     * @expectedExceptionMessage Parameter "test" does not exist in configuration.
      */
     public function testNoParameter()
     {
-        throw ConfigurationException::noParameter('test');
+        $exception = ConfigurationException::noParameter('test');
+
+        $this->assertEquals(
+            'Parameter "test" does not exist in configuration.',
+            $exception->getMessage()
+        );
     }
 }

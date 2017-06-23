@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\HttpCache;
 
 use FOS\HttpCache\CacheInvalidator;
+use FOS\HttpCache\Exception\ExceptionCollection;
 use Netgen\BlockManager\HttpCache\FOSClient;
 use Netgen\BlockManager\HttpCache\Layout\IdProviderInterface;
 use PHPUnit\Framework\TestCase;
@@ -185,5 +186,30 @@ class FOSClientTest extends TestCase
             );
 
         $this->client->invalidateAllBlocks();
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\HttpCache\FOSClient::commit
+     */
+    public function testCommit()
+    {
+        $this->fosInvalidatorMock
+            ->expects($this->once())
+            ->method('flush');
+
+        $this->assertTrue($this->client->commit());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\HttpCache\FOSClient::commit
+     */
+    public function testCommitReturnsFalse()
+    {
+        $this->fosInvalidatorMock
+            ->expects($this->once())
+            ->method('flush')
+            ->will($this->throwException(new ExceptionCollection()));
+
+        $this->assertFalse($this->client->commit());
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\Registry;
 
+use ArrayIterator;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterType;
 use PHPUnit\Framework\TestCase;
@@ -86,5 +87,65 @@ class ParameterTypeRegistryTest extends TestCase
     public function testGetParameterTypeByClassThrowsParameterTypeException()
     {
         $this->registry->getParameterTypeByClass('SomeClass');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::getIterator
+     */
+    public function testGetIterator()
+    {
+        $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
+
+        $parameterTypes = array();
+        foreach ($this->registry as $identifier => $parameterType) {
+            $parameterTypes[$identifier] = $parameterType;
+        }
+
+        $this->assertEquals($this->registry->getParameterTypes(), $parameterTypes);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::count
+     */
+    public function testCount()
+    {
+        $this->assertCount(1, $this->registry);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::offsetExists
+     */
+    public function testOffsetExists()
+    {
+        $this->assertArrayHasKey('type', $this->registry);
+        $this->assertArrayNotHasKey('other', $this->registry);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::offsetGet
+     */
+    public function testOffsetGet()
+    {
+        $this->assertEquals($this->parameterType, $this->registry['type']);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::offsetSet
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Method call not supported.
+     */
+    public function testOffsetSet()
+    {
+        $this->registry['type'] = $this->parameterType;
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::offsetUnset
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Method call not supported.
+     */
+    public function testOffsetUnset()
+    {
+        unset($this->registry['type']);
     }
 }

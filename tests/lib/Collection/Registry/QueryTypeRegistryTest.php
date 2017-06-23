@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Collection\Registry;
 
+use ArrayIterator;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
@@ -68,5 +69,65 @@ class QueryTypeRegistryTest extends TestCase
     public function testHasQueryTypeWithNoQueryType()
     {
         $this->assertFalse($this->registry->hasQueryType('other_query_type'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::getIterator
+     */
+    public function testGetIterator()
+    {
+        $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
+
+        $queryTypes = array();
+        foreach ($this->registry as $identifier => $queryType) {
+            $queryTypes[$identifier] = $queryType;
+        }
+
+        $this->assertEquals($this->registry->getQueryTypes(), $queryTypes);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::count
+     */
+    public function testCount()
+    {
+        $this->assertCount(1, $this->registry);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::offsetExists
+     */
+    public function testOffsetExists()
+    {
+        $this->assertArrayHasKey('query_type', $this->registry);
+        $this->assertArrayNotHasKey('other', $this->registry);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::offsetGet
+     */
+    public function testOffsetGet()
+    {
+        $this->assertEquals($this->queryType, $this->registry['query_type']);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::offsetSet
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Method call not supported.
+     */
+    public function testOffsetSet()
+    {
+        $this->registry['query_type'] = $this->queryType;
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::offsetUnset
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Method call not supported.
+     */
+    public function testOffsetUnset()
+    {
+        unset($this->registry['query_type']);
     }
 }

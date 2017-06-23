@@ -64,15 +64,18 @@ class CollectionMapper
         }
 
         $query = null;
+        $persistenceQuery = null;
         $type = Collection::TYPE_MANUAL;
 
         try {
-            $query = $this->mapQuery(
-                $this->collectionHandler->loadCollectionQuery($collection)
-            );
-
-            $type = Collection::TYPE_DYNAMIC;
+            $persistenceQuery = $this->collectionHandler->loadCollectionQuery($collection);
         } catch (NotFoundException $e) {
+            // Do nothing
+        }
+
+        if ($persistenceQuery instanceof PersistenceQuery) {
+            $query = $this->mapQuery($persistenceQuery);
+            $type = Collection::TYPE_DYNAMIC;
         }
 
         $collectionData = array(

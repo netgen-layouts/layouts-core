@@ -341,6 +341,27 @@ class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRule
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRule
      */
+    public function testUpdateRuleWithRemovalOfLinkedLayout()
+    {
+        $ruleUpdateStruct = new RuleUpdateStruct();
+        $ruleUpdateStruct->layoutId = 0;
+
+        $updatedRule = $this->handler->updateRule(
+            $this->handler->loadRule(3, Value::STATUS_PUBLISHED),
+            $ruleUpdateStruct
+        );
+
+        $this->assertInstanceOf(Rule::class, $updatedRule);
+
+        $this->assertEquals(3, $updatedRule->id);
+        $this->assertNull($updatedRule->layoutId);
+        $this->assertEquals(Value::STATUS_PUBLISHED, $updatedRule->status);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRule
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRule
+     */
     public function testUpdateRuleWithDefaultValues()
     {
         $ruleUpdateStruct = new RuleUpdateStruct();

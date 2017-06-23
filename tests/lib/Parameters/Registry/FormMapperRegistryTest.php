@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\Registry;
 
+use ArrayIterator;
 use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
 use Netgen\BlockManager\Tests\Parameters\Stubs\FormMapper;
 use PHPUnit\Framework\TestCase;
@@ -68,5 +69,65 @@ class FormMapperRegistryTest extends TestCase
     public function testGetFormMapperThrowsParameterTypeException()
     {
         $this->registry->getFormMapper('other_mapper');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\Registry\FormMapperRegistry::getIterator
+     */
+    public function testGetIterator()
+    {
+        $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
+
+        $formMappers = array();
+        foreach ($this->registry as $identifier => $formMapper) {
+            $formMappers[$identifier] = $formMapper;
+        }
+
+        $this->assertEquals($this->registry->getFormMappers(), $formMappers);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\Registry\FormMapperRegistry::count
+     */
+    public function testCount()
+    {
+        $this->assertCount(1, $this->registry);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\Registry\FormMapperRegistry::offsetExists
+     */
+    public function testOffsetExists()
+    {
+        $this->assertArrayHasKey('mapper', $this->registry);
+        $this->assertArrayNotHasKey('other', $this->registry);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\Registry\FormMapperRegistry::offsetGet
+     */
+    public function testOffsetGet()
+    {
+        $this->assertEquals($this->formMapper, $this->registry['mapper']);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\Registry\FormMapperRegistry::offsetSet
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Method call not supported.
+     */
+    public function testOffsetSet()
+    {
+        $this->registry['mapper'] = $this->formMapper;
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\Registry\FormMapperRegistry::offsetUnset
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Method call not supported.
+     */
+    public function testOffsetUnset()
+    {
+        unset($this->registry['mapper']);
     }
 }

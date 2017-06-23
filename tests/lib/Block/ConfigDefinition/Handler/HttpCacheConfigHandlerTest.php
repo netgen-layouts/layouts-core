@@ -30,6 +30,7 @@ class HttpCacheConfigHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Block\ConfigDefinition\Handler\HttpCacheConfigHandler::__construct
      * @covers \Netgen\BlockManager\Block\ConfigDefinition\Handler\HttpCacheConfigHandler::isEnabled
      */
     public function testIsEnabled()

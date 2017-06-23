@@ -178,7 +178,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadRelatedLayouts
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::getRelatedLayoutsCount
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      * @expectedExceptionMessage Count of related layouts can only be loaded for published shared layouts.
      */
@@ -189,7 +189,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadRelatedLayouts
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::getRelatedLayoutsCount
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      * @expectedExceptionMessage Count of related layouts can only be loaded for shared layouts.
      */
@@ -762,6 +762,35 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $this->assertEquals(
             new LayoutUpdateStruct(),
             $this->layoutService->newLayoutUpdateStruct()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::newLayoutCopyStruct
+     */
+    public function testNewLayoutCopyStruct()
+    {
+        $this->assertEquals(
+            new LayoutCopyStruct(
+                array(
+                    'name' => 'My layout (copy)',
+                    'description' => null,
+                )
+            ),
+            $this->layoutService->newLayoutCopyStruct(
+                $this->layoutService->loadLayoutDraft(1)
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::newLayoutCopyStruct
+     */
+    public function testNewLayoutCopyStructWithNoLayout()
+    {
+        $this->assertEquals(
+            new LayoutCopyStruct(),
+            $this->layoutService->newLayoutCopyStruct()
         );
     }
 }

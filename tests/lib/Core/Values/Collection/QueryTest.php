@@ -80,4 +80,32 @@ class QueryTest extends TestCase
             // Do nothing
         }
     }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getInternalLimit
+     */
+    public function testGetInternalLimit()
+    {
+        $query = new Query(
+            array(
+                'queryType' => new QueryType('query_type', array(), 3),
+            )
+        );
+
+        $this->assertEquals(3, $query->getInternalLimit());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::isContextual
+     */
+    public function testIsContextual()
+    {
+        $query = new Query(
+            array(
+                'queryType' => new QueryType('query_type'),
+            )
+        );
+
+        $this->assertFalse($query->isContextual());
+    }
 }

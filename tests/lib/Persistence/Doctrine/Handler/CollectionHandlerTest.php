@@ -344,6 +344,63 @@ class CollectionHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::copyCollection
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionItemsData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollection
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
+     */
+    public function testCopyCollectionWithoutQuery()
+    {
+        $copiedCollection = $this->collectionHandler->copyCollection(
+            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT)
+        );
+
+        $this->assertEquals(7, $copiedCollection->id);
+        $this->assertInstanceOf(Collection::class, $copiedCollection);
+        $this->assertEquals(Value::STATUS_DRAFT, $copiedCollection->status);
+
+        $this->assertEquals(
+            array(
+                new Item(
+                    array(
+                        'id' => 13,
+                        'collectionId' => $copiedCollection->id,
+                        'position' => 0,
+                        'type' => Item::TYPE_MANUAL,
+                        'valueId' => '72',
+                        'valueType' => 'ezlocation',
+                        'status' => Value::STATUS_DRAFT,
+                    )
+                ),
+                new Item(
+                    array(
+                        'id' => 14,
+                        'collectionId' => $copiedCollection->id,
+                        'position' => 1,
+                        'type' => Item::TYPE_MANUAL,
+                        'valueId' => '73',
+                        'valueType' => 'ezlocation',
+                        'status' => Value::STATUS_DRAFT,
+                    )
+                ),
+                new Item(
+                    array(
+                        'id' => 15,
+                        'collectionId' => $copiedCollection->id,
+                        'position' => 2,
+                        'type' => Item::TYPE_MANUAL,
+                        'valueId' => '74',
+                        'valueType' => 'ezlocation',
+                        'status' => Value::STATUS_DRAFT,
+                    )
+                ),
+            ),
+            $this->collectionHandler->loadCollectionItems($copiedCollection)
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createCollectionStatus
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionData
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionItemsData
@@ -420,6 +477,65 @@ class CollectionHandlerTest extends TestCase
                 )
             ),
             $this->collectionHandler->loadCollectionQuery($copiedCollection)
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createCollectionStatus
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionItemsData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollection
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
+     */
+    public function testCreateCollectionStatusWithoutQuery()
+    {
+        $copiedCollection = $this->collectionHandler->createCollectionStatus(
+            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+            Value::STATUS_ARCHIVED
+        );
+
+        $this->assertInstanceOf(Collection::class, $copiedCollection);
+
+        $this->assertEquals(1, $copiedCollection->id);
+        $this->assertEquals(Value::STATUS_ARCHIVED, $copiedCollection->status);
+
+        $this->assertEquals(
+            array(
+                new Item(
+                    array(
+                        'id' => 1,
+                        'collectionId' => 1,
+                        'position' => 0,
+                        'type' => Item::TYPE_MANUAL,
+                        'valueId' => '72',
+                        'valueType' => 'ezlocation',
+                        'status' => Value::STATUS_ARCHIVED,
+                    )
+                ),
+                new Item(
+                    array(
+                        'id' => 2,
+                        'collectionId' => 1,
+                        'position' => 1,
+                        'type' => Item::TYPE_MANUAL,
+                        'valueId' => '73',
+                        'valueType' => 'ezlocation',
+                        'status' => Value::STATUS_ARCHIVED,
+                    )
+                ),
+                new Item(
+                    array(
+                        'id' => 3,
+                        'collectionId' => 1,
+                        'position' => 2,
+                        'type' => Item::TYPE_MANUAL,
+                        'valueId' => '74',
+                        'valueType' => 'ezlocation',
+                        'status' => Value::STATUS_ARCHIVED,
+                    )
+                ),
+            ),
+            $this->collectionHandler->loadCollectionItems($copiedCollection)
         );
     }
 
@@ -567,6 +683,7 @@ class CollectionHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItem
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
      */
     public function testMoveItem()
     {
@@ -595,6 +712,7 @@ class CollectionHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItem
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
      */
     public function testMoveItemToLowerPosition()
     {
@@ -793,7 +911,8 @@ class CollectionHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteQuery
-     * @doesNotPerformAssertions
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find query with identifier "2"
      */
     public function testDeleteQuery()
     {
@@ -801,11 +920,6 @@ class CollectionHandlerTest extends TestCase
             $this->collectionHandler->loadQuery(2, Value::STATUS_PUBLISHED)
         );
 
-        try {
-            $this->collectionHandler->loadQuery(2, Value::STATUS_PUBLISHED);
-            self::fail('Query still exists after deleting');
-        } catch (NotFoundException $e) {
-            // Do nothing
-        }
+        $this->collectionHandler->loadQuery(2, Value::STATUS_PUBLISHED);
     }
 }

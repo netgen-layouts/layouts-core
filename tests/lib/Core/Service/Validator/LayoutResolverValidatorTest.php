@@ -73,13 +73,15 @@ class LayoutResolverValidatorTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator::__construct
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator::validateRuleCreateStruct
      * @dataProvider validateRuleCreateStructProvider
-     * @doesNotPerformAssertions
      */
     public function testValidateRuleCreateStruct(array $params, $isValid)
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
         }
+
+        // Fake assertion to fix coverage on tests which do not perform assertions
+        $this->assertTrue(true);
 
         $this->layoutResolverValidator->validateRuleCreateStruct(new RuleCreateStruct($params));
     }
@@ -90,13 +92,15 @@ class LayoutResolverValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator::validateRuleUpdateStruct
      * @dataProvider validateRuleUpdateStructProvider
-     * @doesNotPerformAssertions
      */
     public function testValidateRuleUpdateStruct(array $params, $isValid)
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
         }
+
+        // Fake assertion to fix coverage on tests which do not perform assertions
+        $this->assertTrue(true);
 
         $this->layoutResolverValidator->validateRuleUpdateStruct(new RuleUpdateStruct($params));
     }
@@ -107,13 +111,15 @@ class LayoutResolverValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator::validateRuleMetadataUpdateStruct
      * @dataProvider validateRuleMetadataUpdateStructProvider
-     * @doesNotPerformAssertions
      */
     public function testValidateRuleMetadataUpdateStruct(array $params, $isValid)
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
         }
+
+        // Fake assertion to fix coverage on tests which do not perform assertions
+        $this->assertTrue(true);
 
         $this->layoutResolverValidator->validateRuleMetadataUpdateStruct(
             new RuleMetadataUpdateStruct($params)
@@ -126,13 +132,15 @@ class LayoutResolverValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator::validateTargetCreateStruct
      * @dataProvider validateTargetCreateStructProvider
-     * @doesNotPerformAssertions
      */
     public function testValidateTargetCreateStruct(array $params, $isValid)
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
         }
+
+        // Fake assertion to fix coverage on tests which do not perform assertions
+        $this->assertTrue(true);
 
         $this->layoutResolverValidator->validateTargetCreateStruct(new TargetCreateStruct($params));
     }
@@ -143,13 +151,15 @@ class LayoutResolverValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator::validateTargetUpdateStruct
      * @dataProvider validateTargetUpdateStructProvider
-     * @doesNotPerformAssertions
      */
     public function testValidateTargetUpdateStruct(array $params, $isValid)
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
         }
+
+        // Fake assertion to fix coverage on tests which do not perform assertions
+        $this->assertTrue(true);
 
         $this->layoutResolverValidator->validateTargetUpdateStruct(
             new Target(array('targetType' => new TargetType('target'))),
@@ -163,13 +173,15 @@ class LayoutResolverValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator::validateConditionCreateStruct
      * @dataProvider validateConditionCreateStructProvider
-     * @doesNotPerformAssertions
      */
     public function testValidateConditionCreateStruct(array $params, $isValid)
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
         }
+
+        // Fake assertion to fix coverage on tests which do not perform assertions
+        $this->assertTrue(true);
 
         $this->layoutResolverValidator->validateConditionCreateStruct(new ConditionCreateStruct($params));
     }
@@ -180,13 +192,15 @@ class LayoutResolverValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator::validateConditionUpdateStruct
      * @dataProvider validateConditionUpdateStructProvider
-     * @doesNotPerformAssertions
      */
     public function testValidateConditionUpdateStruct(array $params, $isValid)
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
         }
+
+        // Fake assertion to fix coverage on tests which do not perform assertions
+        $this->assertTrue(true);
 
         $this->layoutResolverValidator->validateConditionUpdateStruct(
             new Condition(array('conditionType' => new ConditionType('condition'))),

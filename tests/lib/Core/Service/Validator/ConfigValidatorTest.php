@@ -48,13 +48,15 @@ class ConfigValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\ConfigValidator::validateConfigStructs
      * @dataProvider validateConfigStructDataProvider
-     * @doesNotPerformAssertions
      */
     public function testValidateConfigStructs(array $config, $isValid)
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
         }
+
+        // Fake assertion to fix coverage on tests which do not perform assertions
+        $this->assertTrue(true);
 
         $configStructs = array();
         foreach ($config as $configKey => $configValues) {
@@ -78,7 +80,6 @@ class ConfigValidatorTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Service\Validator\ConfigValidator::validateConfigStructs
      * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
      * @expectedExceptionMessage This value should be of type Netgen\BlockManager\API\Values\Config\ConfigStruct.
-     * @doesNotPerformAssertions
      */
     public function testValidateConfigStructsWithInvalidStruct()
     {

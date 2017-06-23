@@ -122,7 +122,7 @@ class ParameterBuilderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::getOption
      * @expectedException \Netgen\BlockManager\Exception\Parameters\ParameterBuilderException
-     * @expectedExceptionMessage Option "unknown" does not exist in builder for "test" parameter
+     * @expectedExceptionMessage Option "unknown" does not exist in the builder for "test" parameter.
      */
     public function testGetOptionThrowsParameterBuilderException()
     {

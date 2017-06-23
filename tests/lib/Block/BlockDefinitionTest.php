@@ -36,6 +36,7 @@ class BlockDefinitionTest extends TestCase
                 'identifier' => 'block_definition',
                 'handler' => $this->handler,
                 'config' => $this->configMock,
+                'configDefinitions' => array(42),
             )
         );
     }
@@ -56,6 +57,9 @@ class BlockDefinitionTest extends TestCase
         $this->assertEquals(
             array(
                 'definition_param' => 'definition_value',
+                'closure_param' => function () {
+                    return 'closure_value';
+                },
             ),
             $this->blockDefinition->getDynamicParameters(new Block())
         );
@@ -67,5 +71,13 @@ class BlockDefinitionTest extends TestCase
     public function testGetConfig()
     {
         $this->assertEquals($this->configMock, $this->blockDefinition->getConfig());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition::getConfigDefinitions
+     */
+    public function testGetConfigDefinitions()
+    {
+        $this->assertEquals(array(42), $this->blockDefinition->getConfigDefinitions());
     }
 }

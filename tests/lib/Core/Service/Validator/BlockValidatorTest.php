@@ -52,15 +52,18 @@ class BlockValidatorTest extends TestCase
      * @param array $params
      * @param bool $isValid
      *
+     * @covers \Netgen\BlockManager\Core\Service\Validator\BlockValidator::__construct
      * @covers \Netgen\BlockManager\Core\Service\Validator\BlockValidator::validateBlockCreateStruct
      * @dataProvider validateBlockCreateStructDataProvider
-     * @doesNotPerformAssertions
      */
     public function testValidateBlockCreateStruct(array $params, $isValid)
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
         }
+
+        // Fake assertion to fix coverage on tests which do not perform assertions
+        $this->assertTrue(true);
 
         $this->blockValidator->validateBlockCreateStruct(new BlockCreateStruct($params));
     }
@@ -71,13 +74,15 @@ class BlockValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\BlockValidator::validateBlockUpdateStruct
      * @dataProvider validateBlockUpdateStructDataProvider
-     * @doesNotPerformAssertions
      */
     public function testValidateBlockUpdateStruct(array $params, $isValid)
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
         }
+
+        // Fake assertion to fix coverage on tests which do not perform assertions
+        $this->assertTrue(true);
 
         $this->blockValidator->validateBlockUpdateStruct(
             new Block(

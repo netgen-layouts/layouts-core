@@ -25,6 +25,7 @@ class LinkTypeTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::__construct
      * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::getIdentifier
      */
     public function testGetIdentifier()

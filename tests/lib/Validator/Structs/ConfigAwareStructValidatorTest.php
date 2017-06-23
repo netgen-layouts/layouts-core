@@ -106,6 +106,14 @@ class ConfigAwareStructValidatorTest extends ValidatorTestCase
                                 ),
                             )
                         ),
+                        'other' => new ConfigStruct(
+                            array(
+                                'parameterValues' => array(
+                                    'use_http_cache' => false,
+                                    'shared_max_age' => null,
+                                ),
+                            )
+                        ),
                     ),
                 ),
                 true,

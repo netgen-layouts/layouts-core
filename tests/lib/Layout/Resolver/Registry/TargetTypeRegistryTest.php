@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Layout\Resolver\Registry;
 
+use ArrayIterator;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
 use PHPUnit\Framework\TestCase;
@@ -67,5 +68,65 @@ class TargetTypeRegistryTest extends TestCase
     public function testHasTargetTypeWithNoTargetType()
     {
         $this->assertFalse($this->registry->hasTargetType('other_type'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::getIterator
+     */
+    public function testGetIterator()
+    {
+        $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
+
+        $targetTypes = array();
+        foreach ($this->registry as $identifier => $targetType) {
+            $targetTypes[$identifier] = $targetType;
+        }
+
+        $this->assertEquals($this->registry->getTargetTypes(), $targetTypes);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::count
+     */
+    public function testCount()
+    {
+        $this->assertCount(1, $this->registry);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::offsetExists
+     */
+    public function testOffsetExists()
+    {
+        $this->assertArrayHasKey('type', $this->registry);
+        $this->assertArrayNotHasKey('other', $this->registry);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::offsetGet
+     */
+    public function testOffsetGet()
+    {
+        $this->assertEquals($this->targetType, $this->registry['type']);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::offsetSet
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Method call not supported.
+     */
+    public function testOffsetSet()
+    {
+        $this->registry['type'] = $this->targetType;
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::offsetUnset
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Method call not supported.
+     */
+    public function testOffsetUnset()
+    {
+        unset($this->registry['type']);
     }
 }

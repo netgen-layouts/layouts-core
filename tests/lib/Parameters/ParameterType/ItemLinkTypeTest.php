@@ -24,6 +24,7 @@ class ItemLinkTypeTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::__construct
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::getIdentifier
      */
     public function testGetIdentifier()

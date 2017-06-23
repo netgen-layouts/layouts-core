@@ -4,6 +4,8 @@ namespace Netgen\BlockManager\Tests\Core\Values\Config;
 
 use Netgen\BlockManager\Core\Values\Config\Config;
 use Netgen\BlockManager\Exception\Core\ConfigException;
+use Netgen\BlockManager\Tests\Config\Stubs\Block\HttpCacheConfigHandler;
+use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinition;
 use Netgen\BlockManager\Tests\Core\Stubs\ConfigAwareValue;
 use PHPUnit\Framework\TestCase;
 
@@ -44,5 +46,28 @@ class ConfigAwareValueTraitTest extends TestCase
         } catch (ConfigException $e) {
             // Do nothing
         }
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Values\Config\ConfigAwareValueTrait::isConfigEnabled
+     */
+    public function testIsConfigEnabled()
+    {
+        $value = new ConfigAwareValue(
+            array(
+                'configs' => array(
+                    'config' => new Config(
+                        array(
+                            'definition' => new ConfigDefinition(
+                                'config',
+                                new HttpCacheConfigHandler()
+                            ),
+                        )
+                    ),
+                ),
+            )
+        );
+
+        $this->assertTrue($value->isConfigEnabled('config'));
     }
 }

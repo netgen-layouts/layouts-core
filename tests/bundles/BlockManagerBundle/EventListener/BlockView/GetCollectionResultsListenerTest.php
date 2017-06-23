@@ -46,7 +46,7 @@ class GetCollectionResultsListenerTest extends TestCase
             $this->resultLoaderMock,
             $this->blockServiceMock,
             25,
-            array(ViewInterface::CONTEXT_DEFAULT)
+            array(ViewInterface::CONTEXT_DEFAULT, ViewInterface::CONTEXT_API)
         );
     }
 
@@ -103,7 +103,8 @@ class GetCollectionResultsListenerTest extends TestCase
             ->with(
                 $this->equalTo(new Collection()),
                 $this->equalTo(3),
-                $this->equalTo(5)
+                $this->equalTo(5),
+                $this->equalTo(0)
             )
             ->will($this->returnValue(new ResultSet(array('collection' => new Collection()))));
 
@@ -113,7 +114,8 @@ class GetCollectionResultsListenerTest extends TestCase
             ->with(
                 $this->equalTo(new Collection()),
                 $this->equalTo(5),
-                $this->equalTo(10)
+                $this->equalTo(10),
+                $this->equalTo(0)
             )
             ->will($this->returnValue(new ResultSet(array('collection' => new Collection()))));
 
@@ -124,6 +126,55 @@ class GetCollectionResultsListenerTest extends TestCase
                 'collections' => array(
                     'collection1' => new ResultSet(array('collection' => new Collection())),
                     'collection2' => new ResultSet(array('collection' => new Collection())),
+                ),
+            ),
+            $event->getParameters()
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::onRenderView
+     */
+    public function testOnRenderViewWithAPIContext()
+    {
+        $collectionReference1 = new CollectionReference(
+            array(
+                'block' => new Block(),
+                'collection' => new Collection(),
+                'identifier' => 'collection1',
+                'offset' => 3,
+                'limit' => 5,
+            )
+        );
+
+        $view = new BlockView(array('block' => new Block()));
+        $view->setContext(ViewInterface::CONTEXT_API);
+        $event = new CollectViewParametersEvent($view);
+
+        $this->blockServiceMock
+            ->expects($this->once())
+            ->method('loadCollectionReferences')
+            ->with($this->equalTo(new Block()))
+            ->will($this->returnValue(array($collectionReference1)));
+
+        $this->resultLoaderMock
+            ->expects($this->at(0))
+            ->method('load')
+            ->with(
+                $this->equalTo(new Collection()),
+                $this->equalTo(3),
+                $this->equalTo(5),
+                $this->equalTo(ResultSet::INCLUDE_UNKNOWN_ITEMS)
+            )
+            ->will($this->returnValue(new ResultSet(array('collection' => new Collection()))));
+
+        $this->listener->onRenderView($event);
+
+        $this->assertEquals(
+            array(
+                'collections' => array(
+                    'collection1' => new ResultSet(array('collection' => new Collection())),
                 ),
             ),
             $event->getParameters()
@@ -244,7 +295,7 @@ class GetCollectionResultsListenerTest extends TestCase
     public function testOnRenderViewWithWrongContext()
     {
         $view = new BlockView(array('block' => new Block()));
-        $view->setContext(ViewInterface::CONTEXT_API);
+        $view->setContext(ViewInterface::CONTEXT_ADMIN);
         $event = new CollectViewParametersEvent($view);
 
         $this->listener->onRenderView($event);

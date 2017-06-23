@@ -65,6 +65,46 @@ abstract class CollectionMapperTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapCollection
+     */
+    public function testMapCollectionWithNoQuery()
+    {
+        $persistenceCollection = new Collection(
+            array(
+                'id' => 1,
+                'status' => Value::STATUS_PUBLISHED,
+            )
+        );
+
+        $collection = $this->collectionMapper->mapCollection($persistenceCollection);
+
+        $this->assertInstanceOf(APICollection::class, $collection);
+        $this->assertEquals(1, $collection->getId());
+        $this->assertEquals(APICollection::TYPE_MANUAL, $collection->getType());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $collection->getStatus());
+        $this->assertTrue($collection->isPublished());
+
+        foreach ($collection->getItems() as $item) {
+            $this->assertInstanceOf(APIItem::class, $item);
+        }
+
+        foreach ($collection->getManualItems() as $item) {
+            $this->assertInstanceOf(APIItem::class, $item);
+        }
+
+        foreach ($collection->getOverrideItems() as $item) {
+            $this->assertInstanceOf(APIItem::class, $item);
+        }
+
+        $this->assertEquals(
+            count($collection->getItems()),
+            count($collection->getManualItems()) + count($collection->getOverrideItems())
+        );
+
+        $this->assertNull($collection->getQuery());
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapItem
      */
     public function testMapItem()

@@ -50,13 +50,15 @@ class CollectionValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateCollectionCreateStruct
      * @dataProvider validateCollectionCreateStructProvider
-     * @doesNotPerformAssertions
      */
     public function testValidateCollectionCreateStruct(array $params, $isValid)
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
         }
+
+        // Fake assertion to fix coverage on tests which do not perform assertions
+        $this->assertTrue(true);
 
         $this->collectionValidator->validateCollectionCreateStruct(
             new CollectionCreateStruct($params)
@@ -65,6 +67,7 @@ class CollectionValidatorTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateCollectionCreateStruct
+     * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateItemCreateStruct
      * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
      * @expectedExceptionMessage Manual collection cannot have a query.
      */
@@ -104,13 +107,15 @@ class CollectionValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateItemCreateStruct
      * @dataProvider validateItemCreateStructProvider
-     * @doesNotPerformAssertions
      */
     public function testValidateItemCreateStruct(array $params, $isValid)
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
         }
+
+        // Fake assertion to fix coverage on tests which do not perform assertions
+        $this->assertTrue(true);
 
         $this->collectionValidator->validateItemCreateStruct(new ItemCreateStruct($params));
     }
@@ -121,13 +126,15 @@ class CollectionValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateQueryCreateStruct
      * @dataProvider validateQueryCreateStructProvider
-     * @doesNotPerformAssertions
      */
     public function testValidateQueryCreateStruct(array $params, $isValid)
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
         }
+
+        // Fake assertion to fix coverage on tests which do not perform assertions
+        $this->assertTrue(true);
 
         $this->collectionValidator->validateQueryCreateStruct(new QueryCreateStruct($params));
     }
@@ -138,13 +145,15 @@ class CollectionValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateQueryUpdateStruct
      * @dataProvider validateQueryUpdateStructProvider
-     * @doesNotPerformAssertions
      */
     public function testValidateQueryUpdateStruct(array $params, $isValid)
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
         }
+
+        // Fake assertion to fix coverage on tests which do not perform assertions
+        $this->assertTrue(true);
 
         $this->collectionValidator->validateQueryUpdateStruct(
             new Query(array('queryType' => new QueryTypeStub('query_type'))),
@@ -159,6 +168,36 @@ class CollectionValidatorTest extends TestCase
             array(array('type' => 23), false),
             array(array('type' => null), false),
             array(array('type' => 'type'), false),
+            array(
+                array(
+                    'type' => Collection::TYPE_MANUAL,
+                    'itemCreateStructs' => array(
+                        new ItemCreateStruct(
+                            array(
+                                'valueId' => 42,
+                                'valueType' => 'value',
+                                'type' => Item::TYPE_MANUAL,
+                            )
+                        ),
+                    ),
+                ),
+                true,
+            ),
+            array(
+                array(
+                    'type' => Collection::TYPE_MANUAL,
+                    'itemCreateStructs' => array(
+                        new ItemCreateStruct(
+                            array(
+                                'valueId' => null,
+                                'valueType' => 'value',
+                                'type' => Item::TYPE_MANUAL,
+                            )
+                        ),
+                    ),
+                ),
+                false,
+            ),
         );
     }
 

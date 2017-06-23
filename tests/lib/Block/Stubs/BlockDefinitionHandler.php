@@ -61,6 +61,11 @@ class BlockDefinitionHandler extends BaseBlockDefinitionHandler
      */
     public function getDynamicParameters(Block $block)
     {
-        return array('definition_param' => 'definition_value');
+        return array(
+            'definition_param' => 'definition_value',
+            'closure_param' => function () {
+                return 'closure_value';
+            },
+        );
     }
 }

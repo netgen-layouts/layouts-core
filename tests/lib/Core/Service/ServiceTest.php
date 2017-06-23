@@ -34,6 +34,58 @@ class ServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\Service::__construct
+     * @covers \Netgen\BlockManager\Core\Service\Service::transaction
+     */
+    public function testTransaction()
+    {
+        $this->persistenceHandlerMock
+            ->expects($this->once())
+            ->method('beginTransaction');
+
+        $this->persistenceHandlerMock
+            ->expects($this->never())
+            ->method('rollbackTransaction');
+
+        $this->persistenceHandlerMock
+            ->expects($this->once())
+            ->method('commitTransaction');
+
+        $return = $this->service->transaction(
+            function () {
+                return 42;
+            }
+        );
+
+        $this->assertEquals(42, $return);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\Service::transaction
+     * @expectedException \Exception
+     * @expectedExceptionMessage Test exception
+     */
+    public function testTransactionWithException()
+    {
+        $this->persistenceHandlerMock
+            ->expects($this->once())
+            ->method('beginTransaction');
+
+        $this->persistenceHandlerMock
+            ->expects($this->once())
+            ->method('rollbackTransaction');
+
+        $this->persistenceHandlerMock
+            ->expects($this->never())
+            ->method('commitTransaction');
+
+        $this->service->transaction(
+            function () {
+                throw new Exception('Test exception');
+            }
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\Service::beginTransaction
      */
     public function testBeginTransaction()

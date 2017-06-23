@@ -13,6 +13,7 @@ class ZoneTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::getIdentifier
      * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::getLayoutId
      * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::getStatus
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::hasLinkedZone
      * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::getLinkedZone
      * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::isPublished
      */
@@ -23,6 +24,7 @@ class ZoneTest extends TestCase
         $this->assertNull($zone->getIdentifier());
         $this->assertNull($zone->getLayoutId());
         $this->assertNull($zone->getStatus());
+        $this->assertFalse($zone->hasLinkedZone());
         $this->assertNull($zone->getLinkedZone());
         $this->assertNull($zone->isPublished());
     }
@@ -32,6 +34,7 @@ class ZoneTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::getIdentifier
      * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::getLayoutId
      * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::getStatus
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::hasLinkedZone
      * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::getLinkedZone
      * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::isPublished
      */
@@ -42,7 +45,7 @@ class ZoneTest extends TestCase
                 'identifier' => 'left',
                 'layoutId' => 84,
                 'status' => Value::STATUS_PUBLISHED,
-                'linkedZone' => null,
+                'linkedZone' => new Zone(),
                 'published' => true,
             )
         );
@@ -50,7 +53,8 @@ class ZoneTest extends TestCase
         $this->assertEquals('left', $zone->getIdentifier());
         $this->assertEquals(84, $zone->getLayoutId());
         $this->assertTrue($zone->isPublished());
-        $this->assertNull($zone->getLinkedZone());
+        $this->assertTrue($zone->hasLinkedZone());
+        $this->assertEquals(new Zone(), $zone->getLinkedZone());
         $this->assertTrue($zone->isPublished());
     }
 }

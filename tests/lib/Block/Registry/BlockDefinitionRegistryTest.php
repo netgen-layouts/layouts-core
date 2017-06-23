@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Block\Registry;
 
+use ArrayIterator;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use PHPUnit\Framework\TestCase;
@@ -68,5 +69,65 @@ class BlockDefinitionRegistryTest extends TestCase
     public function testHasBlockDefinitionWithNoBlockDefinition()
     {
         $this->assertFalse($this->registry->hasBlockDefinition('other_block_definition'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::getIterator
+     */
+    public function testGetIterator()
+    {
+        $this->assertInstanceOf(ArrayIterator::class, $this->registry->getIterator());
+
+        $blockDefinitions = array();
+        foreach ($this->registry as $identifier => $blockDefinition) {
+            $blockDefinitions[$identifier] = $blockDefinition;
+        }
+
+        $this->assertEquals($this->registry->getBlockDefinitions(), $blockDefinitions);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::count
+     */
+    public function testCount()
+    {
+        $this->assertCount(1, $this->registry);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::offsetExists
+     */
+    public function testOffsetExists()
+    {
+        $this->assertArrayHasKey('block_definition', $this->registry);
+        $this->assertArrayNotHasKey('other', $this->registry);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::offsetGet
+     */
+    public function testOffsetGet()
+    {
+        $this->assertEquals($this->blockDefinition, $this->registry['block_definition']);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::offsetSet
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Method call not supported.
+     */
+    public function testOffsetSet()
+    {
+        $this->registry['block_definition'] = $this->blockDefinition;
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::offsetUnset
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Method call not supported.
+     */
+    public function testOffsetUnset()
+    {
+        unset($this->registry['block_definition']);
     }
 }

@@ -39,13 +39,15 @@ class ValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::validateId
      * @dataProvider validateIdDataProvider
-     * @doesNotPerformAssertions
      */
     public function testValidateId($id, $isValid)
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
         }
+
+        // Fake assertion to fix coverage on tests which do not perform assertions
+        $this->assertTrue(true);
 
         $this->validator->validateId($id);
     }
@@ -57,13 +59,15 @@ class ValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::validateIdentifier
      * @dataProvider validateIdentifierDataProvider
-     * @doesNotPerformAssertions
      */
     public function testValidateIdentifier($identifier, $isRequired, $isValid)
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
         }
+
+        // Fake assertion to fix coverage on tests which do not perform assertions
+        $this->assertTrue(true);
 
         $this->validator->validateIdentifier($identifier, null, $isRequired);
     }
@@ -75,13 +79,15 @@ class ValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::validatePosition
      * @dataProvider validatePositionDataProvider
-     * @doesNotPerformAssertions
      */
     public function testValidatePosition($position, $isRequired, $isValid)
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
         }
+
+        // Fake assertion to fix coverage on tests which do not perform assertions
+        $this->assertTrue(true);
 
         $this->validator->validatePosition($position, null, $isRequired);
     }
@@ -93,13 +99,15 @@ class ValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::validateOffsetAndLimit
      * @dataProvider validateOffsetAndLimitDataProvider
-     * @doesNotPerformAssertions
      */
     public function testValidateOffsetAndLimit($offset, $limit, $isValid)
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
         }
+
+        // Fake assertion to fix coverage on tests which do not perform assertions
+        $this->assertTrue(true);
 
         $this->validator->validateOffsetAndLimit($offset, $limit);
     }

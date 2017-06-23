@@ -20,7 +20,10 @@ class BlockTypeGroupTest extends TestCase
                 'identifier' => 'simple_blocks',
                 'isEnabled' => false,
                 'name' => 'Simple blocks',
-                'blockTypes' => array(new BlockType(array('identifier' => 'type'))),
+                'blockTypes' => array(
+                    new BlockType(array('isEnabled' => true, 'identifier' => 'type')),
+                    new BlockType(array('isEnabled' => false, 'identifier' => 'type2')),
+                ),
             )
         );
     }
@@ -56,8 +59,24 @@ class BlockTypeGroupTest extends TestCase
     public function testGetBlockTypes()
     {
         $this->assertEquals(
-            array(new BlockType(array('identifier' => 'type'))),
+            array(
+                new BlockType(array('isEnabled' => true, 'identifier' => 'type')),
+                new BlockType(array('isEnabled' => false, 'identifier' => 'type2')),
+            ),
             $this->blockTypeGroup->getBlockTypes()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockType\BlockTypeGroup::getBlockTypes
+     */
+    public function testGetEnabledBlockTypes()
+    {
+        $this->assertEquals(
+            array(
+                new BlockType(array('isEnabled' => true, 'identifier' => 'type')),
+            ),
+            $this->blockTypeGroup->getBlockTypes(true)
         );
     }
 }

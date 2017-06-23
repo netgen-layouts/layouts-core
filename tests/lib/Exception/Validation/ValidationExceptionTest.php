@@ -8,9 +8,9 @@ use PHPUnit\Framework\TestCase;
 class ValidationExceptionTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Exception\Validation\ValidationException::__construct
+     * @covers \Netgen\BlockManager\Exception\Validation\ValidationException::validationFailed
      */
-    public function testExceptionMessage()
+    public function testValidationFailed()
     {
         $exception = ValidationException::validationFailed('param', 'Some error');
 

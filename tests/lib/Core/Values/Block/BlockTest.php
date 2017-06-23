@@ -140,4 +140,27 @@ class BlockTest extends TestCase
             // Do nothing
         }
     }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getDynamicParameter
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasDynamicParameter
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::buildDynamicParameters
+     */
+    public function testGetDynamicParameter()
+    {
+        $block = new Block(
+            array(
+                'definition' => new BlockDefinition('text'),
+            )
+        );
+
+        $this->assertTrue($block->hasDynamicParameter('definition_param'));
+        $this->assertEquals('definition_value', $block->getDynamicParameter('definition_param'));
+
+        $this->assertTrue($block->hasDynamicParameter('closure_param'));
+        $this->assertEquals('closure_value', $block->getDynamicParameter('closure_param'));
+
+        $this->assertNull($block->getDynamicParameter('unknown_param'));
+        $this->assertFalse($block->hasDynamicParameter('unknown_param'));
+    }
 }

@@ -37,7 +37,7 @@ class QueryType implements QueryTypeInterface
         $this->type = $type;
         $this->values = $values;
 
-        $this->handler = new QueryTypeHandler($this->values, $count, null, $contextual);
+        $this->handler = new QueryTypeHandler($this->values, $count, $count, $contextual);
     }
 
     /**

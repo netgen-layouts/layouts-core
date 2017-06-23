@@ -6,9 +6,22 @@ use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Layout\Form\CopyType;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CopyTypeTest extends FormTestCase
 {
+    /**
+     * @var \Netgen\BlockManager\API\Values\Layout\Layout
+     */
+    protected $layout;
+
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->layout = new Layout();
+    }
+
     /**
      * @return \Symfony\Component\Form\FormTypeInterface
      */
@@ -35,7 +48,7 @@ class CopyTypeTest extends FormTestCase
             CopyType::class,
             new LayoutCopyStruct(),
             array(
-                'layout' => new Layout(),
+                'layout' => $this->layout,
             )
         );
 
@@ -50,5 +63,77 @@ class CopyTypeTest extends FormTestCase
         foreach (array_keys($submittedData) as $key) {
             $this->assertArrayHasKey($key, $children);
         }
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Layout\Form\CopyType::configureOptions
+     */
+    public function testConfigureOptions()
+    {
+        $optionsResolver = new OptionsResolver();
+        $optionsResolver->setDefined('data');
+
+        $this->formType->configureOptions($optionsResolver);
+
+        $options = $optionsResolver->resolve(
+            array(
+                'layout' => $this->layout,
+                'data' => new LayoutCopyStruct(),
+            )
+        );
+
+        $this->assertEquals($this->layout, $options['layout']);
+        $this->assertEquals(new LayoutCopyStruct(), $options['data']);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Layout\Form\CopyType::configureOptions
+     * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
+     */
+    public function testConfigureOptionsWithMissingLayoutDefinition()
+    {
+        $optionsResolver = new OptionsResolver();
+        $optionsResolver->setDefined('data');
+
+        $this->formType->configureOptions($optionsResolver);
+
+        $optionsResolver->resolve();
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Layout\Form\CopyType::configureOptions
+     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     */
+    public function testConfigureOptionsWithInvalidLayoutDefinition()
+    {
+        $optionsResolver = new OptionsResolver();
+        $optionsResolver->setDefined('data');
+
+        $this->formType->configureOptions($optionsResolver);
+
+        $optionsResolver->resolve(
+            array(
+                'layout' => '',
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Layout\Form\CopyType::configureOptions
+     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     */
+    public function testConfigureOptionsWithInvalidData()
+    {
+        $optionsResolver = new OptionsResolver();
+        $optionsResolver->setDefined('data');
+
+        $this->formType->configureOptions($optionsResolver);
+
+        $optionsResolver->resolve(
+            array(
+                'layout' => $this->layout,
+                'data' => '',
+            )
+        );
     }
 }

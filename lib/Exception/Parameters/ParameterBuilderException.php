@@ -32,7 +32,7 @@ class ParameterBuilderException extends InvalidArgumentException implements Exce
     {
         return new self(
             sprintf(
-                'Option "%s" does not exist in builder for "%s" parameter',
+                'Option "%s" does not exist in the builder for "%s" parameter.',
                 $option,
                 $parameter
             )

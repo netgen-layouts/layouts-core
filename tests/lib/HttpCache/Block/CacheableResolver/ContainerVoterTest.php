@@ -31,6 +31,7 @@ class ContainerVoterTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContainerVoter::__construct
      * @covers \Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContainerVoter::vote
      */
     public function testVote()

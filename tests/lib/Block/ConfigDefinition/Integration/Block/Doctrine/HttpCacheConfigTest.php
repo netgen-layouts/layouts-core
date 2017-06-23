@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Config\ConfigDefinition\Integration\Block\Doctrine;
+namespace Netgen\BlockManager\Tests\Block\ConfigDefinition\Integration\Block\Doctrine;
 
-use Netgen\BlockManager\Tests\Config\ConfigDefinition\Integration\Block\HttpCacheConfigTest as BaseHttpCacheConfigTest;
+use Netgen\BlockManager\Tests\Block\ConfigDefinition\Integration\Block\HttpCacheConfigTest as BaseHttpCacheConfigTest;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 
 /**

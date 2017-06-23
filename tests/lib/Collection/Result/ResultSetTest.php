@@ -68,6 +68,42 @@ class ResultSetTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::isDynamic
+     */
+    public function testIsDynamic()
+    {
+        $result = new ResultSet(
+            array(
+                'collection' => new Collection(
+                    array(
+                        'type' => Collection::TYPE_DYNAMIC,
+                    )
+                ),
+            )
+        );
+
+        $this->assertTrue($result->isDynamic());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::isDynamic
+     */
+    public function testIsDynamicWithManualCollection()
+    {
+        $result = new ResultSet(
+            array(
+                'collection' => new Collection(
+                    array(
+                        'type' => Collection::TYPE_MANUAL,
+                    )
+                ),
+            )
+        );
+
+        $this->assertFalse($result->isDynamic());
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Collection\Result\ResultSet::isContextual
      */
     public function testIsContextual()

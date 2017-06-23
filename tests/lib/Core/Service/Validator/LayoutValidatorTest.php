@@ -46,13 +46,15 @@ class LayoutValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutValidator::validateLayoutCreateStruct
      * @dataProvider validateLayoutCreateStructDataProvider
-     * @doesNotPerformAssertions
      */
     public function testValidateLayoutCreateStruct(array $params, $isValid)
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
         }
+
+        // Fake assertion to fix coverage on tests which do not perform assertions
+        $this->assertTrue(true);
 
         $this->layoutValidator->validateLayoutCreateStruct(new LayoutCreateStruct($params));
     }
@@ -63,13 +65,15 @@ class LayoutValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutValidator::validateLayoutUpdateStruct
      * @dataProvider validateLayoutUpdateStructDataProvider
-     * @doesNotPerformAssertions
      */
     public function testValidateLayoutUpdateStruct(array $params, $isValid)
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
         }
+
+        // Fake assertion to fix coverage on tests which do not perform assertions
+        $this->assertTrue(true);
 
         $this->layoutValidator->validateLayoutUpdateStruct(
             new LayoutUpdateStruct($params)
@@ -82,13 +86,15 @@ class LayoutValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutValidator::validateLayoutCopyStruct
      * @dataProvider validateLayoutCopyStructDataProvider
-     * @doesNotPerformAssertions
      */
     public function testValidateLayoutCopyStruct(array $params, $isValid)
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
         }
+
+        // Fake assertion to fix coverage on tests which do not perform assertions
+        $this->assertTrue(true);
 
         $this->layoutValidator->validateLayoutCopyStruct(
             new LayoutCopyStruct($params)
@@ -100,10 +106,12 @@ class LayoutValidatorTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutValidator::validateChangeLayoutType
      * @dataProvider validateChangeLayoutTypeDataProvider
-     * @doesNotPerformAssertions
      */
     public function testValidateChangeLayoutType(array $zoneMapping)
     {
+        // Fake assertion to fix coverage on tests which do not perform assertions
+        $this->assertTrue(true);
+
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
             $this->getLayoutType(),
@@ -115,7 +123,6 @@ class LayoutValidatorTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutValidator::validateChangeLayoutType
      * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
      * @expectedExceptionMessage Zone "unknown" does not exist in "type" layout type.
-     * @doesNotPerformAssertions
      */
     public function testValidateChangeLayoutTypeWithNonExistingZoneInLayoutType()
     {
@@ -130,7 +137,6 @@ class LayoutValidatorTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutValidator::validateChangeLayoutType
      * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
      * @expectedExceptionMessage The list of mapped zones for "left" zone must be an array.
-     * @doesNotPerformAssertions
      */
     public function testValidateChangeLayoutTypeWithInvalidMappedZones()
     {
@@ -145,7 +151,6 @@ class LayoutValidatorTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutValidator::validateChangeLayoutType
      * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
      * @expectedExceptionMessage Zone "top" is specified more than once.
-     * @doesNotPerformAssertions
      */
     public function testValidateChangeLayoutTypeWithDuplicateZones()
     {
@@ -160,7 +165,6 @@ class LayoutValidatorTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutValidator::validateChangeLayoutType
      * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
      * @expectedExceptionMessage Zone "unknown" does not exist in specified layout.
-     * @doesNotPerformAssertions
      */
     public function testValidateChangeLayoutTypeWithNonExistingLayoutZone()
     {

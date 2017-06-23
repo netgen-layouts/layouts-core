@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Configuration;
 
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Form;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
@@ -22,6 +23,9 @@ class ConfigurationTest extends TestCase
                 'name' => 'Block definition',
                 'forms' => array(
                     'content' => new Form(array('identifier' => 'content')),
+                ),
+                'collections' => array(
+                    'collection' => new Collection(array('identifier' => 'collection')),
                 ),
                 'viewTypes' => array(
                     'large' => new ViewType(array('identifier' => 'large')),
@@ -81,6 +85,49 @@ class ConfigurationTest extends TestCase
     public function testGetFormThrowsBlockDefinitionException()
     {
         $this->configuration->getForm('unknown');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration::getCollections
+     */
+    public function testGetCollections()
+    {
+        $this->assertEquals(
+            array(
+                'collection' => new Collection(array('identifier' => 'collection')),
+            ),
+            $this->configuration->getCollections()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration::hasCollection
+     */
+    public function testHasCollection()
+    {
+        $this->assertTrue($this->configuration->hasCollection('collection'));
+        $this->assertFalse($this->configuration->hasCollection('unknown'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration::getCollection
+     */
+    public function testGetCollection()
+    {
+        $this->assertEquals(
+            new Collection(array('identifier' => 'collection')),
+            $this->configuration->getCollection('collection')
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration::getCollection
+     * @expectedException \Netgen\BlockManager\Exception\Block\BlockDefinitionException
+     * @expectedExceptionMessage Collection "unknown" does not exist in "block_definition" block definition.
+     */
+    public function testGetCollectionThrowsBlockDefinitionException()
+    {
+        $this->configuration->getCollection('unknown');
     }
 
     /**

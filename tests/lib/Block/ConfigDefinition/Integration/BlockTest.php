@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Config\ConfigDefinition\Integration;
+namespace Netgen\BlockManager\Tests\Block\ConfigDefinition\Integration;
 
 use Netgen\BlockManager\API\Values\Config\Config;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
