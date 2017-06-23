@@ -37,6 +37,7 @@ class ItemRuntimeTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntime::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntime::getItemPath
      */
     public function testGetItemPath()

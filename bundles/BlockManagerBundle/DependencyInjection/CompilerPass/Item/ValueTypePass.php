@@ -25,10 +25,6 @@ class ValueTypePass implements CompilerPassInterface
         }
 
         $itemConfig = $container->getParameter('netgen_block_manager.items');
-        if (!isset($itemConfig['value_types'])) {
-            return;
-        }
-
         $valueTypeServices = $this->buildValueTypes($container, $itemConfig['value_types']);
 
         $registry = $container->findDefinition(self::SERVICE_NAME);

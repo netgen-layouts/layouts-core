@@ -50,6 +50,38 @@ class ConfigDefinitionPassTest extends AbstractCompilerPassTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Config\ConfigDefinitionPass::process
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage Config definition with 'http_cache' config key is defined more than once for 'block' config type.
+     */
+    public function testProcessThrowsExceptionWithDuplicateConfigKeys()
+    {
+        $configDefinitionHandler = new Definition();
+        $configDefinitionHandler->addTag(
+            'netgen_block_manager.block.config_definition_handler',
+            array('config_key' => 'http_cache')
+        );
+
+        $this->setDefinition(
+            'netgen_block_manager.block.config_definition.handler.test',
+            $configDefinitionHandler
+        );
+
+        $configDefinitionHandler2 = new Definition();
+        $configDefinitionHandler2->addTag(
+            'netgen_block_manager.block.config_definition_handler',
+            array('config_key' => 'http_cache')
+        );
+
+        $this->setDefinition(
+            'netgen_block_manager.block.config_definition.handler.test2',
+            $configDefinitionHandler2
+        );
+
+        $this->compile();
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Config\ConfigDefinitionPass::process
      * @doesNotPerformAssertions
      */
     public function testProcessWithEmptyContainer()

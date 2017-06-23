@@ -33,7 +33,7 @@ services:
             - { name: kernel.event_subscriber }
 
     netgen_block_manager.event_listener.set_admin_pagelayout:
-        class: Netgen\Bundle\BlockManagerAdminBundle\EventListener\SetAdminPageLayoutRequestListener
+        class: Netgen\Bundle\BlockManagerAdminBundle\EventListener\SetAdminPageLayoutListener
         arguments:
             - "@netgen_block_manager.templating.admin_global_variable"
             - "%netgen_block_manager.admin.pagelayout%"

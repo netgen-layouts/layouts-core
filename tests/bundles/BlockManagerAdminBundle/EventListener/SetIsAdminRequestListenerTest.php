@@ -13,6 +13,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 class SetIsAdminRequestListenerTest extends TestCase
 {
     /**
+     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\SetIsAdminRequestListener::__construct
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\SetIsAdminRequestListener::getSubscribedEvents
      */
     public function testGetSubscribedEvents()
