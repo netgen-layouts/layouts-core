@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\CompilerPass\Twig;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
+use Matthias\SymfonyDependencyInjectionTest\PhpUnit\DefinitionHasMethodCallConstraint;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Twig\RuntimeLoaderPass;
 use stdClass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -42,6 +43,24 @@ class RuntimeLoaderPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Twig\RuntimeLoaderPass::process
      */
+    public function testProcessWithExistingContainerLoader()
+    {
+        $this->setDefinition('twig', new Definition());
+        $this->setDefinition('twig.runtime_loader', new Definition());
+        $this->setDefinition('netgen_block_manager.templating.twig.runtime.container_loader', new Definition());
+
+        $this->compile();
+
+        $this->assertContainerBuilderNotHasServiceDefinitionWithMethodCall(
+            'twig',
+            'addRuntimeLoader',
+            array(new Reference('netgen_block_manager.templating.twig.runtime.container_loader'))
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Twig\RuntimeLoaderPass::process
+     */
     public function testProcessWithEmptyContainer()
     {
         $this->compile();
@@ -57,5 +76,32 @@ class RuntimeLoaderPassTest extends AbstractCompilerPassTestCase
     protected function registerCompilerPass(ContainerBuilder $container)
     {
         $container->addCompilerPass(new RuntimeLoaderPass());
+    }
+
+    /**
+     * Assert that the ContainerBuilder for this test has a service definition with the given id,
+     * which does not have a method call to the given method with the given arguments.
+     *
+     * @param string $serviceId
+     * @param string $method
+     * @param array $arguments
+     * @param int|null $index
+     */
+    protected function assertContainerBuilderNotHasServiceDefinitionWithMethodCall(
+        $serviceId,
+        $method,
+        array $arguments = array(),
+        $index = null
+    ) {
+        $this->assertThat(
+            $this->container->findDefinition($serviceId),
+            $this->logicalNot(
+                new DefinitionHasMethodCallConstraint(
+                    $method,
+                    $arguments,
+                    $index
+                )
+            )
+        );
     }
 }
