@@ -57,7 +57,7 @@
             "Netgen\\Bundle\\BlockManagerAdminBundle\\Tests\\": "tests/bundles/BlockManagerAdminBundle/"
         },
         "exclude-from-classmap": [
-            "**/Tests/"
+            "/tests/"
         ]
     },
     "autoload-dev": {
