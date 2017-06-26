@@ -98,20 +98,19 @@ interface BlockService extends Service
     public function createBlock(BlockCreateStruct $blockCreateStruct, Block $targetBlock, $placeholder, $position = null);
 
     /**
-     * Creates a block in specified layout and zone.
+     * Creates a block in specified zone.
      *
      * @param \Netgen\BlockManager\API\Values\Block\BlockCreateStruct $blockCreateStruct
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param string $zoneIdentifier
+     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
+     * @throws \Netgen\BlockManager\Exception\BadStateException If zone is not a draft
      *                                                          If provided position is out of range
      *                                                          If block cannot be placed in specified zone
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function createBlockInZone(BlockCreateStruct $blockCreateStruct, Layout $layout, $zoneIdentifier, $position = null);
+    public function createBlockInZone(BlockCreateStruct $blockCreateStruct, Zone $zone, $position = null);
 
     /**
      * Updates a specified block.
@@ -146,15 +145,14 @@ interface BlockService extends Service
      * Copies a block to a specified zone.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param string $zoneIdentifier
+     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If block or layout are not drafts
+     * @throws \Netgen\BlockManager\Exception\BadStateException If block or zone are not drafts
      *                                                          If block cannot be placed in specified zone
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function copyBlockToZone(Block $block, Layout $layout, $zoneIdentifier);
+    public function copyBlockToZone(Block $block, Zone $zone);
 
     /**
      * Moves a block to specified target block.
@@ -179,18 +177,17 @@ interface BlockService extends Service
      * Moves a block to specified position inside the zone.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param string $zoneIdentifier
+     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
      * @param int $position
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If block or layout are not drafts
+     * @throws \Netgen\BlockManager\Exception\BadStateException If block or zone are not drafts
      *                                                          If zone is in a different layout
      *                                                          If provided position is out of range
      *                                                          If block cannot be placed in specified zone
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function moveBlockToZone(Block $block, Layout $layout, $zoneIdentifier, $position);
+    public function moveBlockToZone(Block $block, Zone $zone, $position);
 
     /**
      * Restores the specified block from the published status. Position of the block is kept as is.

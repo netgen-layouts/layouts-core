@@ -3,13 +3,15 @@
 namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
 use Exception;
+use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
+use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
+use Netgen\BlockManager\Core\Values\Layout\Zone;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Persistence\Values\Block\Block as PersistenceBlock;
-use Netgen\BlockManager\Persistence\Values\Layout\Layout as PersistenceLayout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone as PersistenceZone;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinition;
@@ -21,6 +23,11 @@ class BlockServiceTest extends ServiceTestCase
      * @var \Netgen\BlockManager\API\Service\BlockService
      */
     protected $blockService;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $layoutServiceMock;
 
     /**
      * Sets up the tests.
@@ -78,13 +85,13 @@ class BlockServiceTest extends ServiceTestCase
      */
     public function testCreateBlockInZone()
     {
-        $this->layoutHandlerMock
+        $this->layoutServiceMock
             ->expects($this->at(0))
-            ->method('loadLayout')
-            ->will($this->returnValue(new PersistenceLayout()));
+            ->method('loadLayoutDraft')
+            ->will($this->returnValue(new Layout(array('layoutType' => new LayoutType()))));
 
         $this->layoutHandlerMock
-            ->expects($this->at(1))
+            ->expects($this->at(0))
             ->method('loadZone')
             ->will($this->returnValue(new PersistenceZone()));
 
@@ -108,8 +115,7 @@ class BlockServiceTest extends ServiceTestCase
                     'definition' => new BlockDefinition('blockDef'),
                 )
             ),
-            new Layout(array('published' => false, 'layoutType' => new LayoutType())),
-            'right'
+            new Zone(array('published' => false, 'identifier' => 'right'))
         );
     }
 
@@ -202,6 +208,11 @@ class BlockServiceTest extends ServiceTestCase
      */
     public function testCopyBlockToZone()
     {
+        $this->layoutServiceMock
+            ->expects($this->at(0))
+            ->method('loadLayoutDraft')
+            ->will($this->returnValue(new Layout(array('layoutType' => new LayoutType()))));
+
         $this->blockHandlerMock
             ->expects($this->at(0))
             ->method('loadBlock')
@@ -209,11 +220,6 @@ class BlockServiceTest extends ServiceTestCase
 
         $this->layoutHandlerMock
             ->expects($this->at(0))
-            ->method('loadLayout')
-            ->will($this->returnValue(new PersistenceLayout()));
-
-        $this->layoutHandlerMock
-            ->expects($this->at(1))
             ->method('loadZone')
             ->will($this->returnValue(new PersistenceZone()));
 
@@ -233,8 +239,7 @@ class BlockServiceTest extends ServiceTestCase
 
         $this->blockService->copyBlockToZone(
             new Block(array('published' => false, 'definition' => new BlockDefinition('blockDef'))),
-            new Layout(array('published' => false, 'layoutType' => new LayoutType())),
-            'right'
+            new Zone(array('published' => false, 'identifier' => 'right'))
         );
     }
 
@@ -290,6 +295,11 @@ class BlockServiceTest extends ServiceTestCase
      */
     public function testMoveBlockToZone()
     {
+        $this->layoutServiceMock
+            ->expects($this->at(0))
+            ->method('loadLayoutDraft')
+            ->will($this->returnValue(new Layout(array('layoutType' => new LayoutType()))));
+
         $this->blockHandlerMock
             ->expects($this->at(0))
             ->method('loadBlock')
@@ -297,11 +307,6 @@ class BlockServiceTest extends ServiceTestCase
 
         $this->layoutHandlerMock
             ->expects($this->at(0))
-            ->method('loadLayout')
-            ->will($this->returnValue(new PersistenceLayout()));
-
-        $this->layoutHandlerMock
-            ->expects($this->at(1))
             ->method('loadZone')
             ->will($this->returnValue(new PersistenceZone()));
 
@@ -321,8 +326,7 @@ class BlockServiceTest extends ServiceTestCase
 
         $this->blockService->moveBlockToZone(
             new Block(array('published' => false, 'definition' => new BlockDefinition('blockDef'))),
-            new Layout(array('published' => false, 'layoutType' => new LayoutType())),
-            'right',
+            new Zone(array('published' => false, 'identifier' => 'right')),
             0
         );
     }
@@ -373,5 +377,19 @@ class BlockServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->blockService->deleteBlock(new Block(array('published' => false)));
+    }
+
+    /**
+     * Creates a layout service under test.
+     *
+     * @param \Netgen\BlockManager\Core\Service\Validator\LayoutValidator $validator
+     *
+     * @return \Netgen\BlockManager\Core\Service\LayoutService
+     */
+    protected function createLayoutService(LayoutValidator $validator = null)
+    {
+        $this->layoutServiceMock = $this->createMock(LayoutService::class);
+
+        return $this->layoutServiceMock;
     }
 }

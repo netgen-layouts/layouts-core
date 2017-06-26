@@ -112,16 +112,16 @@ class BlockController extends Controller
             throw new BadStateException('block_type', 'Block type does not exist.', $e);
         }
 
-        $layout = $this->layoutService->loadLayoutDraft(
-            $request->request->get('layout_id')
+        $zone = $this->layoutService->loadZoneDraft(
+            $request->request->get('layout_id'),
+            $request->request->get('zone_identifier')
         );
 
         $blockCreateStruct = $this->createBlockCreateStruct($blockType);
 
         $createdBlock = $this->blockService->createBlockInZone(
             $blockCreateStruct,
-            $layout,
-            $request->request->get('zone_identifier'),
+            $zone,
             $request->request->get('position')
         );
 
@@ -161,15 +161,12 @@ class BlockController extends Controller
      */
     public function copyToZone(Block $block, Request $request)
     {
-        $layout = $this->layoutService->loadLayoutDraft(
-            $request->request->get('layout_id')
-        );
-
-        $copiedBlock = $this->blockService->copyBlockToZone(
-            $block,
-            $layout,
+        $zone = $this->layoutService->loadZoneDraft(
+            $request->request->get('layout_id'),
             $request->request->get('zone_identifier')
         );
+
+        $copiedBlock = $this->blockService->copyBlockToZone($block, $zone);
 
         return new View($copiedBlock, Version::API_V1, Response::HTTP_CREATED);
     }
@@ -208,14 +205,14 @@ class BlockController extends Controller
      */
     public function moveToZone(Block $block, Request $request)
     {
-        $layout = $this->layoutService->loadLayoutDraft(
-            $request->request->get('layout_id')
+        $zone = $this->layoutService->loadZoneDraft(
+            $request->request->get('layout_id'),
+            $request->request->get('zone_identifier')
         );
 
         $this->blockService->moveBlockToZone(
             $block,
-            $layout,
-            $request->request->get('zone_identifier'),
+            $zone,
             $request->request->get('position')
         );
 

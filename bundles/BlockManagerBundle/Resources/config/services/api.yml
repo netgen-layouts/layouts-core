@@ -164,6 +164,7 @@ services:
             - "@netgen_block_manager.core.service.block.struct_builder"
             - "@netgen_block_manager.core.service.parameter_mapper"
             - "@netgen_block_manager.core.service.config_mapper"
+            - "@netgen_block_manager.core.service.layout"
 
     # Collection related APIs
 

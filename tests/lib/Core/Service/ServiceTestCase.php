@@ -290,7 +290,8 @@ abstract class ServiceTestCase extends TestCase
                 new ConfigStructBuilder()
             ),
             $this->createParameterMapper(),
-            $this->createConfigMapper()
+            $this->createConfigMapper(),
+            $this->createLayoutService()
         );
     }
 

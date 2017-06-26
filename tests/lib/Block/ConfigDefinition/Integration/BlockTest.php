@@ -73,8 +73,8 @@ abstract class BlockTest extends ServiceTestCase
         $configStruct->fillValues($configDefinition, $config);
         $blockCreateStruct->setConfigStruct('definition', $configStruct);
 
-        $layout = $this->layoutService->loadLayoutDraft(1);
-        $createdBlock = $this->blockService->createBlockInZone($blockCreateStruct, $layout, 'left');
+        $zone = $this->layoutService->loadZoneDraft(1, 'left');
+        $createdBlock = $this->blockService->createBlockInZone($blockCreateStruct, $zone);
 
         $this->assertTrue($createdBlock->hasConfig('definition'));
 
@@ -115,8 +115,8 @@ abstract class BlockTest extends ServiceTestCase
         $configStruct->fillValues($configDefinition, $config);
         $blockCreateStruct->setConfigStruct('definition', $configStruct);
 
-        $layout = $this->layoutService->loadLayoutDraft(1);
-        $this->blockService->createBlockInZone($blockCreateStruct, $layout, 'left');
+        $zone = $this->layoutService->loadZoneDraft(1, 'left');
+        $this->blockService->createBlockInZone($blockCreateStruct, $zone);
     }
 
     /**
