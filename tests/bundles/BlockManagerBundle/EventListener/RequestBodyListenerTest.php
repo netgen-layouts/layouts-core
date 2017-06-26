@@ -15,16 +15,30 @@ use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 class RequestBodyListenerTest extends TestCase
 {
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $decoderMock;
+
+    /**
+     * @var \Netgen\Bundle\BlockManagerBundle\EventListener\RequestBodyListener
+     */
+    protected $listener;
+
+    public function setUp()
+    {
+        $this->decoderMock = $this->createMock(DecoderInterface::class);
+
+        $this->listener = new RequestBodyListener($this->decoderMock);
+    }
+
+    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\RequestBodyListener::getSubscribedEvents
      */
     public function testGetSubscribedEvents()
     {
-        $decoderMock = $this->createMock(DecoderInterface::class);
-        $eventListener = new RequestBodyListener($decoderMock);
-
         $this->assertEquals(
             array(KernelEvents::REQUEST => 'onKernelRequest'),
-            $eventListener->getSubscribedEvents()
+            $this->listener->getSubscribedEvents()
         );
     }
 
@@ -34,14 +48,11 @@ class RequestBodyListenerTest extends TestCase
      */
     public function testOnKernelRequest()
     {
-        $decoderMock = $this->createMock(DecoderInterface::class);
-        $decoderMock
+        $this->decoderMock
             ->expects($this->once())
             ->method('decode')
             ->with($this->equalTo('{"test": "value"}'))
             ->will($this->returnValue(array('test' => 'value')));
-
-        $eventListener = new RequestBodyListener($decoderMock);
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/', 'POST', array(), array(), array(), array(), '{"test": "value"}');
@@ -49,7 +60,7 @@ class RequestBodyListenerTest extends TestCase
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
-        $eventListener->onKernelRequest($event);
+        $this->listener->onKernelRequest($event);
 
         $this->assertEquals(
             'value',
@@ -62,16 +73,14 @@ class RequestBodyListenerTest extends TestCase
      */
     public function testOnKernelRequestWithNonApiRoute()
     {
-        $decoderMock = $this->createMock(DecoderInterface::class);
-        $decoderMock->expects($this->never())->method('decode');
-        $eventListener = new RequestBodyListener($decoderMock);
+        $this->decoderMock->expects($this->never())->method('decode');
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/', 'POST', array(), array(), array(), array(), '{"test": "value"}');
         $request->headers->set('Content-Type', 'application/json');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
-        $eventListener->onKernelRequest($event);
+        $this->listener->onKernelRequest($event);
 
         $this->assertEquals(
             false,
@@ -84,9 +93,7 @@ class RequestBodyListenerTest extends TestCase
      */
     public function testOnKernelRequestInSubRequest()
     {
-        $decoderMock = $this->createMock(DecoderInterface::class);
-        $decoderMock->expects($this->never())->method('decode');
-        $eventListener = new RequestBodyListener($decoderMock);
+        $this->decoderMock->expects($this->never())->method('decode');
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/', 'POST', array(), array(), array(), array(), '{"test": "value"}');
@@ -94,7 +101,7 @@ class RequestBodyListenerTest extends TestCase
         $request->headers->set('Content-Type', 'application/json');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
-        $eventListener->onKernelRequest($event);
+        $this->listener->onKernelRequest($event);
 
         $this->assertEquals(
             false,
@@ -108,16 +115,14 @@ class RequestBodyListenerTest extends TestCase
      */
     public function testOnKernelRequestWithInvalidMethod()
     {
-        $decoderMock = $this->createMock(DecoderInterface::class);
-        $decoderMock->expects($this->never())->method('decode');
-        $eventListener = new RequestBodyListener($decoderMock);
+        $this->decoderMock->expects($this->never())->method('decode');
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
-        $eventListener->onKernelRequest($event);
+        $this->listener->onKernelRequest($event);
 
         $this->assertEquals(
             false,
@@ -131,9 +136,7 @@ class RequestBodyListenerTest extends TestCase
      */
     public function testOnKernelRequestWithInvalidContentType()
     {
-        $decoderMock = $this->createMock(DecoderInterface::class);
-        $decoderMock->expects($this->never())->method('decode');
-        $eventListener = new RequestBodyListener($decoderMock);
+        $this->decoderMock->expects($this->never())->method('decode');
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/', 'POST', array(), array(), array(), array(), '{"test": "value"}');
@@ -141,7 +144,7 @@ class RequestBodyListenerTest extends TestCase
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
-        $eventListener->onKernelRequest($event);
+        $this->listener->onKernelRequest($event);
 
         $this->assertEquals(
             false,
@@ -156,14 +159,11 @@ class RequestBodyListenerTest extends TestCase
      */
     public function testOnKernelRequestWithInvalidJson()
     {
-        $decoderMock = $this->createMock(DecoderInterface::class);
-        $decoderMock
+        $this->decoderMock
             ->expects($this->once())
             ->method('decode')
             ->with($this->equalTo('{]'))
             ->will($this->throwException(new UnexpectedValueException()));
-
-        $eventListener = new RequestBodyListener($decoderMock);
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/', 'POST', array(), array(), array(), array(), '{]');
@@ -171,7 +171,7 @@ class RequestBodyListenerTest extends TestCase
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
-        $eventListener->onKernelRequest($event);
+        $this->listener->onKernelRequest($event);
     }
 
     /**
@@ -181,14 +181,11 @@ class RequestBodyListenerTest extends TestCase
      */
     public function testOnKernelRequestWithNonArrayJson()
     {
-        $decoderMock = $this->createMock(DecoderInterface::class);
-        $decoderMock
+        $this->decoderMock
             ->expects($this->once())
             ->method('decode')
             ->with($this->equalTo('42'))
             ->will($this->returnValue(42));
-
-        $eventListener = new RequestBodyListener($decoderMock);
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/', 'POST', array(), array(), array(), array(), '42');
@@ -196,6 +193,6 @@ class RequestBodyListenerTest extends TestCase
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
-        $eventListener->onKernelRequest($event);
+        $this->listener->onKernelRequest($event);
     }
 }

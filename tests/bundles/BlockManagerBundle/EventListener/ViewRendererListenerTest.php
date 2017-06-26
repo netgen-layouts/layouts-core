@@ -16,16 +16,29 @@ use Symfony\Component\HttpKernel\KernelEvents;
 class ViewRendererListenerTest extends TestCase
 {
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $viewRendererMock;
+
+    /**
+     * @var \Netgen\Bundle\BlockManagerBundle\EventListener\ViewRendererListener
+     */
+    protected $listener;
+
+    public function setUp()
+    {
+        $this->viewRendererMock = $this->createMock(ViewRendererInterface::class);
+        $this->listener = new ViewRendererListener($this->viewRendererMock);
+    }
+
+    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ViewRendererListener::getSubscribedEvents
      */
     public function testGetSubscribedEvents()
     {
-        $viewRendererMock = $this->createMock(ViewRendererInterface::class);
-        $eventListener = new ViewRendererListener($viewRendererMock);
-
         $this->assertEquals(
             array(KernelEvents::VIEW => array('onView', -255)),
-            $eventListener->getSubscribedEvents()
+            $this->listener->getSubscribedEvents()
         );
     }
 
@@ -41,14 +54,11 @@ class ViewRendererListenerTest extends TestCase
         $response->headers->set('X-NGBM-Test', 'test');
         $view->setResponse($response);
 
-        $viewRendererMock = $this->createMock(ViewRendererInterface::class);
-        $viewRendererMock
+        $this->viewRendererMock
             ->expects($this->once())
             ->method('renderView')
             ->with($this->equalTo($view))
             ->will($this->returnValue('rendered content'));
-
-        $eventListener = new ViewRendererListener($viewRendererMock);
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -60,7 +70,7 @@ class ViewRendererListenerTest extends TestCase
             $view
         );
 
-        $eventListener->onView($event);
+        $this->listener->onView($event);
 
         $this->assertInstanceOf(
             Response::class,
@@ -84,9 +94,6 @@ class ViewRendererListenerTest extends TestCase
      */
     public function testOnViewWithoutSupportedValue()
     {
-        $viewRendererMock = $this->createMock(ViewRendererInterface::class);
-        $eventListener = new ViewRendererListener($viewRendererMock);
-
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
@@ -97,7 +104,7 @@ class ViewRendererListenerTest extends TestCase
             42
         );
 
-        $eventListener->onView($event);
+        $this->listener->onView($event);
 
         $this->assertNull($event->getResponse());
     }

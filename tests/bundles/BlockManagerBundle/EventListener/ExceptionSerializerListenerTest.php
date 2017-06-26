@@ -16,16 +16,30 @@ use Symfony\Component\Serializer\SerializerInterface;
 class ExceptionSerializerListenerTest extends TestCase
 {
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $serializerMock;
+
+    /**
+     * @var \Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionSerializerListener
+     */
+    protected $listener;
+
+    public function setUp()
+    {
+        $this->serializerMock = $this->createMock(SerializerInterface::class);
+
+        $this->listener = new ExceptionSerializerListener($this->serializerMock);
+    }
+
+    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionSerializerListener::getSubscribedEvents
      */
     public function testGetSubscribedEvents()
     {
-        $serializerMock = $this->createMock(SerializerInterface::class);
-        $eventListener = new ExceptionSerializerListener($serializerMock);
-
         $this->assertEquals(
             array(KernelEvents::EXCEPTION => array('onException', 5)),
-            $eventListener->getSubscribedEvents()
+            $this->listener->getSubscribedEvents()
         );
     }
 
@@ -37,8 +51,7 @@ class ExceptionSerializerListenerTest extends TestCase
     {
         $exception = new Exception();
 
-        $serializerMock = $this->createMock(SerializerInterface::class);
-        $serializerMock
+        $this->serializerMock
             ->expects($this->once())
             ->method('serialize')
             ->with(
@@ -48,8 +61,6 @@ class ExceptionSerializerListenerTest extends TestCase
             ->will(
                 $this->returnValue('serialized content')
             );
-
-        $eventListener = new ExceptionSerializerListener($serializerMock);
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -62,7 +73,7 @@ class ExceptionSerializerListenerTest extends TestCase
             $exception
         );
 
-        $eventListener->onException($event);
+        $this->listener->onException($event);
 
         $this->assertInstanceOf(
             JsonResponse::class,
@@ -80,9 +91,6 @@ class ExceptionSerializerListenerTest extends TestCase
      */
     public function testOnExceptionWithNoApiRequest()
     {
-        $serializerMock = $this->createMock(SerializerInterface::class);
-        $eventListener = new ExceptionSerializerListener($serializerMock);
-
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
@@ -93,7 +101,7 @@ class ExceptionSerializerListenerTest extends TestCase
             new Exception()
         );
 
-        $eventListener->onException($event);
+        $this->listener->onException($event);
 
         $this->assertNull($event->getResponse());
     }
@@ -103,9 +111,6 @@ class ExceptionSerializerListenerTest extends TestCase
      */
     public function testOnExceptionInSubRequest()
     {
-        $serializerMock = $this->createMock(SerializerInterface::class);
-        $eventListener = new ExceptionSerializerListener($serializerMock);
-
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
@@ -116,7 +121,7 @@ class ExceptionSerializerListenerTest extends TestCase
             new Exception()
         );
 
-        $eventListener->onException($event);
+        $this->listener->onException($event);
 
         $this->assertNull($event->getResponse());
     }

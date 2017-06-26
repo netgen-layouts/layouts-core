@@ -3,7 +3,9 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection;
 
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\ExtensionPlugin;
+use Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\Stubs\ConfigurationNode;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 
 class ExtensionPluginTest extends TestCase
@@ -41,13 +43,43 @@ class ExtensionPluginTest extends TestCase
      */
     public function testAddConfiguration()
     {
-        $nodeBuilder = new NodeBuilder();
-        $rootNode = $nodeBuilder->arrayNode('test');
-        $clonedRootNode = clone $rootNode;
+        $node1 = new ConfigurationNode('test1');
+        $node2 = new ConfigurationNode('test2');
 
-        $this->plugin->addConfiguration($rootNode);
+        $this->plugin = $this->getMockForAbstractClass(
+            ExtensionPlugin::class,
+            array(),
+            '',
+            true,
+            true,
+            true,
+            array('getConfigurationNodes')
+        );
 
-        $this->assertEquals($clonedRootNode, $rootNode);
+        $this->plugin
+            ->expects($this->once())
+            ->method('getConfigurationNodes')
+            ->will($this->returnValue(array($node1, $node2)));
+
+        $rootNodeMock = $this->createMock(ArrayNodeDefinition::class);
+        $nodeBuilderMock = $this->createMock(NodeBuilder::class);
+
+        $rootNodeMock
+            ->expects($this->at(0))
+            ->method('children')
+            ->will($this->returnValue($nodeBuilderMock));
+
+        $nodeBuilderMock
+            ->expects($this->at(0))
+            ->method('append')
+            ->with($this->equalTo($node1->getConfigurationNode()));
+
+        $nodeBuilderMock
+            ->expects($this->at(1))
+            ->method('append')
+            ->with($this->equalTo($node2->getConfigurationNode()));
+
+        $this->plugin->addConfiguration($rootNodeMock);
     }
 
     /**

@@ -12,15 +12,23 @@ use Symfony\Component\HttpKernel\KernelEvents;
 class SetIsApiRequestListenerTest extends TestCase
 {
     /**
+     * @var \Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener
+     */
+    protected $listener;
+
+    public function setUp()
+    {
+        $this->listener = new SetIsApiRequestListener();
+    }
+
+    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener::getSubscribedEvents
      */
     public function testGetSubscribedEvents()
     {
-        $eventListener = new SetIsApiRequestListener();
-
         $this->assertEquals(
             array(KernelEvents::REQUEST => array('onKernelRequest', 30)),
-            $eventListener->getSubscribedEvents()
+            $this->listener->getSubscribedEvents()
         );
     }
 
@@ -29,14 +37,12 @@ class SetIsApiRequestListenerTest extends TestCase
      */
     public function testOnKernelRequest()
     {
-        $eventListener = new SetIsApiRequestListener();
-
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set('_route', 'ngbm_api_v1_load_block');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
-        $eventListener->onKernelRequest($event);
+        $this->listener->onKernelRequest($event);
 
         $this->assertEquals(
             true,
@@ -49,14 +55,12 @@ class SetIsApiRequestListenerTest extends TestCase
      */
     public function testOnKernelRequestWithInvalidRoute()
     {
-        $eventListener = new SetIsApiRequestListener();
-
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set('_route', 'some_route');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
-        $eventListener->onKernelRequest($event);
+        $this->listener->onKernelRequest($event);
 
         $this->assertEquals(
             false,
@@ -69,13 +73,11 @@ class SetIsApiRequestListenerTest extends TestCase
      */
     public function testOnKernelRequestInSubRequest()
     {
-        $eventListener = new SetIsApiRequestListener();
-
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
-        $eventListener->onKernelRequest($event);
+        $this->listener->onKernelRequest($event);
 
         $this->assertEquals(
             false,

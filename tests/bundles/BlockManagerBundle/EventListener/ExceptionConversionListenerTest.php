@@ -30,15 +30,23 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class ExceptionConversionListenerTest extends TestCase
 {
     /**
+     * @var \Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener
+     */
+    protected $listener;
+
+    public function setUp()
+    {
+        $this->listener = new ExceptionConversionListener();
+    }
+
+    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener::getSubscribedEvents
      */
     public function testGetSubscribedEvents()
     {
-        $eventListener = new ExceptionConversionListener();
-
         $this->assertEquals(
             array(KernelEvents::EXCEPTION => array('onException', 10)),
-            $eventListener->getSubscribedEvents()
+            $this->listener->getSubscribedEvents()
         );
     }
 
@@ -53,8 +61,6 @@ class ExceptionConversionListenerTest extends TestCase
      */
     public function testOnException($exception, $convertedClass, $statusCode, $converted)
     {
-        $eventListener = new ExceptionConversionListener();
-
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
@@ -66,7 +72,7 @@ class ExceptionConversionListenerTest extends TestCase
             $exception
         );
 
-        $eventListener->onException($event);
+        $this->listener->onException($event);
 
         $this->assertInstanceOf(
             $convertedClass,
@@ -90,8 +96,6 @@ class ExceptionConversionListenerTest extends TestCase
      */
     public function testOnExceptionNotConvertsOtherExceptions()
     {
-        $eventListener = new ExceptionConversionListener();
-
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
@@ -104,7 +108,7 @@ class ExceptionConversionListenerTest extends TestCase
             $exception
         );
 
-        $eventListener->onException($event);
+        $this->listener->onException($event);
 
         $this->assertInstanceOf(
             RuntimeException::class,
@@ -117,8 +121,6 @@ class ExceptionConversionListenerTest extends TestCase
      */
     public function testOnExceptionInSubRequest()
     {
-        $eventListener = new ExceptionConversionListener();
-
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
@@ -131,7 +133,7 @@ class ExceptionConversionListenerTest extends TestCase
             $exception
         );
 
-        $eventListener->onException($event);
+        $this->listener->onException($event);
 
         $this->assertEquals($exception, $event->getException());
     }
@@ -141,8 +143,6 @@ class ExceptionConversionListenerTest extends TestCase
      */
     public function testOnExceptionWithNonAPIRequest()
     {
-        $eventListener = new ExceptionConversionListener();
-
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $exception = new NotFoundException('param', 'Some error');
@@ -154,7 +154,7 @@ class ExceptionConversionListenerTest extends TestCase
             $exception
         );
 
-        $eventListener->onException($event);
+        $this->listener->onException($event);
 
         $this->assertEquals($exception, $event->getException());
     }

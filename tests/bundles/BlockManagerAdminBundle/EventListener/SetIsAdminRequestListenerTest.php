@@ -13,18 +13,26 @@ use Symfony\Component\HttpKernel\KernelEvents;
 class SetIsAdminRequestListenerTest extends TestCase
 {
     /**
+     * @var \Netgen\Bundle\BlockManagerAdminBundle\EventListener\SetIsAdminRequestListener
+     */
+    protected $listener;
+
+    public function setUp()
+    {
+        $this->listener = new SetIsAdminRequestListener(
+            $this->createMock(EventDispatcherInterface::class)
+        );
+    }
+
+    /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\SetIsAdminRequestListener::__construct
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\SetIsAdminRequestListener::getSubscribedEvents
      */
     public function testGetSubscribedEvents()
     {
-        $eventListener = new SetIsAdminRequestListener(
-            $this->createMock(EventDispatcherInterface::class)
-        );
-
         $this->assertEquals(
             array(KernelEvents::REQUEST => array('onKernelRequest', 30)),
-            $eventListener->getSubscribedEvents()
+            $this->listener->getSubscribedEvents()
         );
     }
 
@@ -33,16 +41,12 @@ class SetIsAdminRequestListenerTest extends TestCase
      */
     public function testOnKernelRequest()
     {
-        $eventListener = new SetIsAdminRequestListener(
-            $this->createMock(EventDispatcherInterface::class)
-        );
-
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set('_route', 'ngbm_admin_layout_resolver_index');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
-        $eventListener->onKernelRequest($event);
+        $this->listener->onKernelRequest($event);
 
         $this->assertEquals(
             true,
@@ -55,16 +59,12 @@ class SetIsAdminRequestListenerTest extends TestCase
      */
     public function testOnKernelRequestWithInvalidRoute()
     {
-        $eventListener = new SetIsAdminRequestListener(
-            $this->createMock(EventDispatcherInterface::class)
-        );
-
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set('_route', 'some_route');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
-        $eventListener->onKernelRequest($event);
+        $this->listener->onKernelRequest($event);
 
         $this->assertEquals(
             false,
@@ -77,15 +77,11 @@ class SetIsAdminRequestListenerTest extends TestCase
      */
     public function testOnKernelRequestInSubRequest()
     {
-        $eventListener = new SetIsAdminRequestListener(
-            $this->createMock(EventDispatcherInterface::class)
-        );
-
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
-        $eventListener->onKernelRequest($event);
+        $this->listener->onKernelRequest($event);
 
         $this->assertEquals(
             false,

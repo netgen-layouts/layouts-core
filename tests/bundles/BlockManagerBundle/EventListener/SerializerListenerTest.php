@@ -17,16 +17,30 @@ use Symfony\Component\Serializer\SerializerInterface;
 class SerializerListenerTest extends TestCase
 {
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $serializerMock;
+
+    /**
+     * @var \Netgen\Bundle\BlockManagerBundle\EventListener\SerializerListener
+     */
+    protected $listener;
+
+    public function setUp()
+    {
+        $this->serializerMock = $this->createMock(SerializerInterface::class);
+
+        $this->listener = new SerializerListener($this->serializerMock);
+    }
+
+    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\SerializerListener::getSubscribedEvents
      */
     public function testGetSubscribedEvents()
     {
-        $serializerMock = $this->createMock(SerializerInterface::class);
-        $eventListener = new SerializerListener($serializerMock);
-
         $this->assertEquals(
             array(KernelEvents::VIEW => 'onView'),
-            $eventListener->getSubscribedEvents()
+            $this->listener->getSubscribedEvents()
         );
     }
 
@@ -38,8 +52,7 @@ class SerializerListenerTest extends TestCase
     {
         $value = new VersionedValue(new Value(), 42);
 
-        $serializerMock = $this->createMock(SerializerInterface::class);
-        $serializerMock
+        $this->serializerMock
             ->expects($this->once())
             ->method('serialize')
             ->with(
@@ -50,8 +63,6 @@ class SerializerListenerTest extends TestCase
             ->will(
                 $this->returnValue('serialized content')
             );
-
-        $eventListener = new SerializerListener($serializerMock);
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -64,7 +75,7 @@ class SerializerListenerTest extends TestCase
             $value
         );
 
-        $eventListener->onView($event);
+        $this->listener->onView($event);
 
         $this->assertInstanceOf(
             JsonResponse::class,
@@ -84,8 +95,7 @@ class SerializerListenerTest extends TestCase
     {
         $value = new VersionedValue(new Value(), 42);
 
-        $serializerMock = $this->createMock(SerializerInterface::class);
-        $serializerMock
+        $this->serializerMock
             ->expects($this->once())
             ->method('serialize')
             ->with(
@@ -96,8 +106,6 @@ class SerializerListenerTest extends TestCase
             ->will(
                 $this->returnValue('serialized content')
             );
-
-        $eventListener = new SerializerListener($serializerMock);
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -111,7 +119,7 @@ class SerializerListenerTest extends TestCase
             $value
         );
 
-        $eventListener->onView($event);
+        $this->listener->onView($event);
 
         $this->assertInstanceOf(
             JsonResponse::class,
@@ -129,9 +137,6 @@ class SerializerListenerTest extends TestCase
      */
     public function testOnViewWithNoApiRequest()
     {
-        $serializerMock = $this->createMock(SerializerInterface::class);
-        $eventListener = new SerializerListener($serializerMock);
-
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
@@ -142,7 +147,7 @@ class SerializerListenerTest extends TestCase
             new VersionedValue(new Value(), 42)
         );
 
-        $eventListener->onView($event);
+        $this->listener->onView($event);
 
         $this->assertNull($event->getResponse());
     }
@@ -152,9 +157,6 @@ class SerializerListenerTest extends TestCase
      */
     public function testOnViewInSubRequest()
     {
-        $serializerMock = $this->createMock(SerializerInterface::class);
-        $eventListener = new SerializerListener($serializerMock);
-
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
@@ -165,7 +167,7 @@ class SerializerListenerTest extends TestCase
             new VersionedValue(new Value(), 42)
         );
 
-        $eventListener->onView($event);
+        $this->listener->onView($event);
 
         $this->assertNull($event->getResponse());
     }
@@ -175,9 +177,6 @@ class SerializerListenerTest extends TestCase
      */
     public function testOnViewWithoutSupportedValue()
     {
-        $serializerMock = $this->createMock(SerializerInterface::class);
-        $eventListener = new SerializerListener($serializerMock);
-
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
@@ -189,7 +188,7 @@ class SerializerListenerTest extends TestCase
             42
         );
 
-        $eventListener->onView($event);
+        $this->listener->onView($event);
 
         $this->assertNull($event->getResponse());
     }
