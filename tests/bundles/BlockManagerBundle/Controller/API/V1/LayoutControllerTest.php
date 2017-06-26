@@ -12,6 +12,7 @@ class LayoutControllerTest extends JsonApiTestCase
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::checkPermissions
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::loadSharedLayouts
      */
     public function testLoadSharedLayouts()
@@ -1032,6 +1033,66 @@ class LayoutControllerTest extends JsonApiTestCase
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "description": This value should be of type string.'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::changeType
+     */
+    public function testChangeType()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'new_type' => '4_zones_b',
+                'zone_mappings' => array(
+                    'left' => array('left'),
+                    'right' => array('right'),
+                ),
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/layouts/1/change_type?html=false',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertResponse(
+            $this->client->getResponse(),
+            'v1/layouts/change_type',
+            Response::HTTP_OK,
+            array('created_at', 'updated_at')
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::changeType
+     */
+    public function testChangeTypeWithoutMappings()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'new_type' => '4_zones_b',
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/layouts/1/change_type?html=false',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertResponse(
+            $this->client->getResponse(),
+            'v1/layouts/change_type_without_mappings',
+            Response::HTTP_OK,
+            array('created_at', 'updated_at')
         );
     }
 

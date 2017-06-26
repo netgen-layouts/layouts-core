@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1;
 
+use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,6 +11,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::checkPermissions
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::load
      */
     public function testLoadCollectionReference()
@@ -614,5 +616,103 @@ class BlockCollectionControllerTest extends JsonApiTestCase
             Response::HTTP_UNPROCESSABLE_ENTITY,
             'Argument "position" has an invalid state. Position is out of range.'
         );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::changeCollectionType
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::validateChangeCollectionType
+     */
+    public function testChangeCollectionTypeFromManualToManual()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'new_type' => Collection::TYPE_MANUAL,
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/31/collections/default/change_type',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertEmptyResponse($this->client->getResponse());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::changeCollectionType
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::validateChangeCollectionType
+     */
+    public function testChangeCollectionTypeFromManualToDynamic()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'new_type' => Collection::TYPE_DYNAMIC,
+                'query_type' => 'ezcontent_search',
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/31/collections/default/change_type',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertEmptyResponse($this->client->getResponse());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::changeCollectionType
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::validateChangeCollectionType
+     */
+    public function testChangeCollectionTypeFromDynamicToManual()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'new_type' => Collection::TYPE_MANUAL,
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/31/collections/featured/change_type',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertEmptyResponse($this->client->getResponse());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::changeCollectionType
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::validateChangeCollectionType
+     */
+    public function testChangeCollectionTypeFromDynamicToDynamic()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'new_type' => Collection::TYPE_DYNAMIC,
+                'query_type' => 'ezcontent_search',
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/31/collections/featured/change_type',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertEmptyResponse($this->client->getResponse());
     }
 }

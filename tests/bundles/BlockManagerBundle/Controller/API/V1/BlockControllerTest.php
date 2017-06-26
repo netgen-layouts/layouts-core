@@ -9,6 +9,7 @@ class BlockControllerTest extends JsonApiTestCase
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::checkPermissions
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::view
      */
     public function testView()
@@ -77,6 +78,68 @@ class BlockControllerTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'v1/blocks/create_block',
+            Response::HTTP_CREATED
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::create
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createBlockCreateStruct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
+     */
+    public function testCreateWithViewType()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'block_type' => 'grid',
+                'placeholder' => 'left',
+                'position' => 0,
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/33?html=false',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertResponse(
+            $this->client->getResponse(),
+            'v1/blocks/create_block_with_view_type',
+            Response::HTTP_CREATED
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::create
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController::createBlockCreateStruct
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator::validateCreateBlock
+     */
+    public function testCreateWithItemViewType()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'block_type' => 'test_grid',
+                'placeholder' => 'left',
+                'position' => 0,
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/blocks/33?html=false',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertResponse(
+            $this->client->getResponse(),
+            'v1/blocks/create_block_with_item_view_type',
             Response::HTTP_CREATED
         );
     }

@@ -1,0 +1,7 @@
+block_types:
+    test_grid:
+        name: 'Test grid'
+        definition_identifier: list
+        defaults:
+            view_type: test_grid
+            item_view_type: test_item

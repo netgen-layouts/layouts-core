@@ -1,0 +1,8 @@
+block_definitions:
+    list:
+        view_types:
+            test_grid:
+                name: 'Test grid'
+                item_view_types:
+                    test_item:
+                        name: 'Test item'
