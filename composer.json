@@ -14,6 +14,7 @@
         "netgen/content-browser": "~0.8.0@dev",
         "symfony/symfony": "^2.8|^3.2",
         "twig/twig": "^1.30|^2.0",
+        "twig/extensions": "^1.5",
         "sensio/framework-extra-bundle": "^3.0",
         "doctrine/dbal": "^2.5",
         "doctrine/doctrine-bundle": "^1.6",
