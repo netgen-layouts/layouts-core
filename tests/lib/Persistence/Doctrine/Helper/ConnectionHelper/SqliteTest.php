@@ -20,7 +20,7 @@ class SqliteTest extends TestCase
      */
     public function setUp()
     {
-        $this->createDatabase(__DIR__ . '/../../../../_fixtures');
+        $this->createDatabase(__DIR__ . '/../../../../../_fixtures');
 
         $this->helper = new Sqlite($this->databaseConnection);
     }

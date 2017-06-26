@@ -35,7 +35,7 @@ trait DatabaseTrait
      *
      * @param string $fixturesPath
      */
-    protected function createDatabase($fixturesPath = __DIR__ . '/../../_fixtures')
+    protected function createDatabase($fixturesPath = __DIR__ . '/../../../_fixtures')
     {
         $this->databaseUri = getenv('DATABASE');
         if (empty($this->databaseUri)) {
