@@ -32,7 +32,7 @@ class BlockTypeGroupNormalizer implements NormalizerInterface
                 function (BlockType $blockType) {
                     return $blockType->getIdentifier();
                 },
-                $blockTypeGroup->getBlockTypes()
+                $blockTypeGroup->getBlockTypes(true)
             ),
         );
     }

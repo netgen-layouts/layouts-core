@@ -69,11 +69,13 @@ class BlockTypeGroup extends ValueObject
             return $this->blockTypes;
         }
 
-        return array_filter(
-            $this->blockTypes,
-            function (BlockType $blockType) {
-                return $blockType->isEnabled();
-            }
+        return array_values(
+            array_filter(
+                $this->blockTypes,
+                function (BlockType $blockType) {
+                    return $blockType->isEnabled();
+                }
+            )
         );
     }
 }

@@ -31,7 +31,10 @@ class BlockTypeGroupNormalizerTest extends TestCase
                 'identifier' => 'identifier',
                 'isEnabled' => true,
                 'name' => 'Block group',
-                'blockTypes' => array(new BlockType(array('identifier' => 'type'))),
+                'blockTypes' => array(
+                    new BlockType(array('isEnabled' => false, 'identifier' => 'type1')),
+                    new BlockType(array('isEnabled' => true, 'identifier' => 'type2')),
+                ),
             )
         );
 
@@ -40,7 +43,7 @@ class BlockTypeGroupNormalizerTest extends TestCase
                 'identifier' => $blockTypeGroup->getIdentifier(),
                 'enabled' => true,
                 'name' => $blockTypeGroup->getName(),
-                'block_types' => array('type'),
+                'block_types' => array('type2'),
             ),
             $this->normalizer->normalize(new VersionedValue($blockTypeGroup, 1))
         );
