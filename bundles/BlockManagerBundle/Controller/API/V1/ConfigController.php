@@ -51,8 +51,8 @@ class ConfigController extends Controller
         BlockTypeRegistryInterface $blockTypeRegistry,
         BlockTypeGroupRegistryInterface $blockTypeGroupRegistry,
         LayoutTypeRegistryInterface $layoutTypeRegistry,
-        CsrfTokenManagerInterface $csrfTokenManager = null,
-        $csrfTokenId = null
+        CsrfTokenManagerInterface $csrfTokenManager,
+        $csrfTokenId
     ) {
         $this->blockTypeRegistry = $blockTypeRegistry;
         $this->blockTypeGroupRegistry = $blockTypeGroupRegistry;
@@ -124,13 +124,6 @@ class ConfigController extends Controller
      */
     protected function getCsrfToken()
     {
-        if (
-            !$this->csrfTokenManager instanceof CsrfTokenManagerInterface ||
-            $this->csrfTokenId === null
-        ) {
-            return null;
-        }
-
         $token = $this->csrfTokenManager->getToken($this->csrfTokenId);
         if (!$this->csrfTokenManager->isTokenValid($token)) {
             $token = $this->csrfTokenManager->refreshToken($this->csrfTokenId);

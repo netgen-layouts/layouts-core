@@ -194,44 +194,6 @@ class AdminCsrfValidationListenerTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener::onKernelRequest
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
      */
-    public function testOnKernelRequestWithNoTokenManager()
-    {
-        $this->listener = new AdminCsrfValidationListener();
-
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
-        $request = Request::create('/');
-        $request->attributes->set(SetIsAdminRequestListener::ADMIN_FLAG_NAME, true);
-
-        $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
-        $this->assertNull($this->listener->onKernelRequest($event));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener::onKernelRequest
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
-     */
-    public function testOnKernelRequestWithNoTokenId()
-    {
-        $this->listener = new AdminCsrfValidationListener(
-            $this->csrfTokenManagerMock
-        );
-
-        $this->csrfTokenManagerMock
-            ->expects($this->never())
-            ->method('isTokenValid');
-
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
-        $request = Request::create('/');
-        $request->attributes->set(SetIsAdminRequestListener::ADMIN_FLAG_NAME, true);
-
-        $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
-        $this->listener->onKernelRequest($event);
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener::onKernelRequest
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
-     */
     public function testOnKernelRequestWithNoSession()
     {
         $this->csrfTokenManagerMock

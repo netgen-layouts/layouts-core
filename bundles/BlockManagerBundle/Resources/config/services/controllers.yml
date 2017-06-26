@@ -27,7 +27,7 @@ services:
             - "@netgen_block_manager.block.registry.block_type"
             - "@netgen_block_manager.block.registry.block_type_group"
             - "@netgen_block_manager.layout.registry.layout_type"
-            - "@?security.csrf.token_manager"
+            - "@security.csrf.token_manager"
             - "%netgen_block_manager.api.csrf_token_id%"
 
     netgen_block_manager.controller.api.v1.layout:

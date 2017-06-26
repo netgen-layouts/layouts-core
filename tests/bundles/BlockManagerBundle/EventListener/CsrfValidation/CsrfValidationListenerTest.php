@@ -167,40 +167,6 @@ class CsrfValidationListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
      */
-    public function testOnKernelRequestWithNoTokenManager()
-    {
-        $this->listener = new CsrfValidationListener();
-
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
-        $request = Request::create('/');
-
-        $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
-        $this->assertNull($this->listener->onKernelRequest($event));
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
-     */
-    public function testOnKernelRequestWithNoTokenId()
-    {
-        $this->listener = new CsrfValidationListener(
-            $this->csrfTokenManagerMock
-        );
-
-        $this->csrfTokenManagerMock
-            ->expects($this->never())
-            ->method('isTokenValid');
-
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
-        $request = Request::create('/');
-
-        $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
-        $this->listener->onKernelRequest($event);
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener::onKernelRequest
-     */
     public function testOnKernelRequestWithNoSession()
     {
         $this->csrfTokenManagerMock

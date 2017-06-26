@@ -30,7 +30,7 @@ class CsrfValidationListener implements EventSubscriberInterface
      * @param \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface $csrfTokenManager
      * @param string $csrfTokenId
      */
-    public function __construct(CsrfTokenManagerInterface $csrfTokenManager = null, $csrfTokenId = null)
+    public function __construct(CsrfTokenManagerInterface $csrfTokenManager, $csrfTokenId)
     {
         $this->csrfTokenManager = $csrfTokenManager;
         $this->csrfTokenId = $csrfTokenId;
@@ -56,10 +56,6 @@ class CsrfValidationListener implements EventSubscriberInterface
     public function onKernelRequest(GetResponseEvent $event)
     {
         if (!$event->isMasterRequest()) {
-            return;
-        }
-
-        if (!$this->csrfTokenManager instanceof CsrfTokenManagerInterface || $this->csrfTokenId === null) {
             return;
         }
 
