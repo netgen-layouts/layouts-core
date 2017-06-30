@@ -145,8 +145,6 @@ class RenderingRuntime
      */
     public function renderBlock(array $context, Block $block, array $parameters = array(), $viewContext = null)
     {
-        $viewContext = $this->getViewContext($context, $viewContext);
-
         try {
             return $this->renderer->renderValueObject(
                 $block,
