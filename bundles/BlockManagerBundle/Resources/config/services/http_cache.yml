@@ -29,12 +29,12 @@ services:
         tags:
             - { name: netgen_block_manager.http_cache.block.cacheable_resolver.voter }
 
-    netgen_block_manager.http_cache.block.cacheable_resolver.voter.twig_block:
-        class: Netgen\BlockManager\HttpCache\Block\CacheableResolver\TwigBlockVoter
+    netgen_block_manager.http_cache.block.cacheable_resolver.voter.contextual_block:
+        class: Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContextualBlockVoter
         tags:
             - { name: netgen_block_manager.http_cache.block.cacheable_resolver.voter }
 
-    netgen_block_manager.http_cache.block.cacheable_resolver.voter.contextual_query_voter:
+    netgen_block_manager.http_cache.block.cacheable_resolver.voter.contextual_query:
         class: Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContextualQueryVoter
         arguments:
             - "@netgen_block_manager.api.service.block"

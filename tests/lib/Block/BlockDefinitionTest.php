@@ -27,7 +27,7 @@ class BlockDefinitionTest extends TestCase
 
     public function setUp()
     {
-        $this->handler = new BlockDefinitionHandler();
+        $this->handler = new BlockDefinitionHandler(array(), true);
 
         $this->configMock = $this->createMock(Configuration::class);
 
@@ -63,6 +63,14 @@ class BlockDefinitionTest extends TestCase
             ),
             $this->blockDefinition->getDynamicParameters(new Block())
         );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition::isContextual
+     */
+    public function testIsContextual()
+    {
+        $this->assertTrue($this->blockDefinition->isContextual(new Block()));
     }
 
     /**

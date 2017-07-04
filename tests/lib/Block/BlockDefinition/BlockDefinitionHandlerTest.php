@@ -67,4 +67,12 @@ class BlockDefinitionHandlerTest extends TestCase
     {
         $this->assertEquals(array(), $this->handler->getDynamicParameters(new Block()));
     }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::isContextual
+     */
+    public function testIsContextual()
+    {
+        $this->assertFalse($this->handler->isContextual(new Block()));
+    }
 }

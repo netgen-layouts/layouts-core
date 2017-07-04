@@ -31,6 +31,18 @@ abstract class BlockDefinitionHandler implements BlockDefinitionHandlerInterface
     }
 
     /**
+     * Returns if the provided block is dependent on a context, i.e. current request.
+     *
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
+     *
+     * @return bool
+     */
+    public function isContextual(Block $block)
+    {
+        return false;
+    }
+
+    /**
      * Builds the parameters most blocks will use by using provided parameter builder.
      *
      * @param array $groups

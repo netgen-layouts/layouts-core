@@ -163,4 +163,18 @@ class BlockTest extends TestCase
         $this->assertNull($block->getDynamicParameter('unknown_param'));
         $this->assertFalse($block->hasDynamicParameter('unknown_param'));
     }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::isContextual
+     */
+    public function testIsContextual()
+    {
+        $query = new Block(
+            array(
+                'definition' => new BlockDefinition('def'),
+            )
+        );
+
+        $this->assertFalse($query->isContextual());
+    }
 }

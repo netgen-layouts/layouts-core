@@ -15,13 +15,20 @@ class BlockDefinitionHandler extends BaseBlockDefinitionHandler
     protected $parameterGroups = array();
 
     /**
+     * @var bool
+     */
+    protected $isContextual;
+
+    /**
      * Constructor.
      *
      * @param array $parameterGroups
+     * @param bool $isContextual
      */
-    public function __construct($parameterGroups = array())
+    public function __construct($parameterGroups = array(), $isContextual = false)
     {
         $this->parameterGroups = $parameterGroups;
+        $this->isContextual = $isContextual;
     }
 
     /**
@@ -67,5 +74,17 @@ class BlockDefinitionHandler extends BaseBlockDefinitionHandler
                 return 'closure_value';
             },
         );
+    }
+
+    /**
+     * Returns if the provided block is dependent on a context, i.e. current request.
+     *
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
+     *
+     * @return bool
+     */
+    public function isContextual(Block $block)
+    {
+        return $this->isContextual;
     }
 }

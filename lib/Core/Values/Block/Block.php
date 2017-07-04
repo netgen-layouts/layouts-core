@@ -220,6 +220,16 @@ class Block extends ValueObject implements APIBlock
     }
 
     /**
+     * Returns if the block is dependent on a context, i.e. current request.
+     *
+     * @return bool
+     */
+    public function isContextual()
+    {
+        return $this->definition->isContextual($this);
+    }
+
+    /**
      * Builds the dynamic parameters of the block from the definition.
      */
     protected function buildDynamicParameters()

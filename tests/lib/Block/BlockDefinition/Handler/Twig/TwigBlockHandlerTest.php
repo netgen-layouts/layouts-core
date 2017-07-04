@@ -20,6 +20,14 @@ class TwigBlockHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\Twig\TwigBlockHandler::isContextual
+     */
+    public function testIsContextual()
+    {
+        $this->assertTrue($this->handler->isContextual(new Block()));
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\Twig\TwigBlockHandler::getTwigBlockName
      */
     public function testGetTwigBlockName()
