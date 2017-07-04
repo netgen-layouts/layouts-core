@@ -29,7 +29,7 @@ class FormViewTest extends TestCase
 
         $this->view = new FormView(
             array(
-                'formObject' => $this->form,
+                'form_object' => $this->form,
                 'form' => $this->form->createView(),
             )
         );

@@ -53,7 +53,7 @@ class TypeTest extends TestCase
             )
         );
 
-        $this->assertEquals($expected, $this->matcher->match(new FormView(array('formObject' => $form)), $config));
+        $this->assertEquals($expected, $this->matcher->match(new FormView(array('form_object' => $form)), $config));
     }
 
     /**
@@ -87,7 +87,7 @@ class TypeTest extends TestCase
     {
         $form = $this->formFactory->create(Form::class);
 
-        $this->assertFalse($this->matcher->match(new FormView(array('formObject' => $form)), array('type')));
+        $this->assertFalse($this->matcher->match(new FormView(array('form_object' => $form)), array('type')));
     }
 
     /**
@@ -97,6 +97,6 @@ class TypeTest extends TestCase
     {
         $form = $this->formFactory->create(Form::class, null, array('query' => 'type'));
 
-        $this->assertFalse($this->matcher->match(new FormView(array('formObject' => $form)), array('type')));
+        $this->assertFalse($this->matcher->match(new FormView(array('form_object' => $form)), array('type')));
     }
 }

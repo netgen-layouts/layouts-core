@@ -19,7 +19,7 @@ class FormViewProvider implements ViewProviderInterface
     {
         return new FormView(
             array(
-                'formObject' => $valueObject,
+                'form_object' => $valueObject,
                 'form' => $valueObject->createView(),
             )
         );

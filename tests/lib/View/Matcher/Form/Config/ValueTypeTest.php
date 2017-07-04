@@ -50,7 +50,7 @@ class ValueTypeTest extends TestCase
             )
         );
 
-        $this->assertEquals($expected, $this->matcher->match(new FormView(array('formObject' => $form)), $config));
+        $this->assertEquals($expected, $this->matcher->match(new FormView(array('form_object' => $form)), $config));
     }
 
     /**
@@ -84,7 +84,7 @@ class ValueTypeTest extends TestCase
     {
         $form = $this->formFactory->create(Form::class);
 
-        $this->assertFalse($this->matcher->match(new FormView(array('formObject' => $form)), array(Block::class)));
+        $this->assertFalse($this->matcher->match(new FormView(array('form_object' => $form)), array(Block::class)));
     }
 
     /**
@@ -94,6 +94,6 @@ class ValueTypeTest extends TestCase
     {
         $form = $this->formFactory->create(Form::class, null, array('configurable' => 'type'));
 
-        $this->assertFalse($this->matcher->match(new FormView(array('formObject' => $form)), array(Block::class)));
+        $this->assertFalse($this->matcher->match(new FormView(array('form_object' => $form)), array(Block::class)));
     }
 }

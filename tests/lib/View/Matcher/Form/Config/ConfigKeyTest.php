@@ -47,7 +47,7 @@ class ConfigKeyTest extends TestCase
             )
         );
 
-        $this->assertEquals($expected, $this->matcher->match(new FormView(array('formObject' => $form)), $config));
+        $this->assertEquals($expected, $this->matcher->match(new FormView(array('form_object' => $form)), $config));
     }
 
     /**
@@ -81,7 +81,7 @@ class ConfigKeyTest extends TestCase
     {
         $form = $this->formFactory->create(Form::class);
 
-        $this->assertFalse($this->matcher->match(new FormView(array('formObject' => $form)), array('test')));
+        $this->assertFalse($this->matcher->match(new FormView(array('form_object' => $form)), array('test')));
     }
 
     /**
@@ -91,6 +91,6 @@ class ConfigKeyTest extends TestCase
     {
         $form = $this->formFactory->create(Form::class, null, array('config_key' => 'type'));
 
-        $this->assertFalse($this->matcher->match(new FormView(array('formObject' => $form)), array('test')));
+        $this->assertFalse($this->matcher->match(new FormView(array('form_object' => $form)), array('test')));
     }
 }
