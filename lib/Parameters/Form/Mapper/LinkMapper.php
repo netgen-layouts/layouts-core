@@ -43,6 +43,6 @@ class LinkMapper extends Mapper
      */
     public function handleForm(FormBuilderInterface $form, ParameterInterface $parameter)
     {
-        $form->setDataMapper(new LinkDataMapper($parameter->getType()));
+        $form->setDataMapper(new LinkDataMapper($parameter));
     }
 }

@@ -179,7 +179,7 @@ class BooleanTypeTest extends TestCase
     public function testIsValueEmpty($value, $isEmpty)
     {
         $type = new BooleanType();
-        $this->assertEquals($isEmpty, $type->isValueEmpty($value));
+        $this->assertEquals($isEmpty, $type->isValueEmpty(new Parameter(), $value));
     }
 
     /**

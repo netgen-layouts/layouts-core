@@ -52,11 +52,12 @@ abstract class ParameterType implements ParameterTypeInterface
      * This is a trivial implementation, just returning the provided value, usable by parameters
      * which have the scalar/hash format equal to domain format.
      *
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
      * @param mixed $value
      *
      * @return mixed
      */
-    public function toHash($value)
+    public function toHash(ParameterInterface $parameter, $value)
     {
         return $value;
     }
@@ -67,11 +68,12 @@ abstract class ParameterType implements ParameterTypeInterface
      * This is a trivial implementation, just returning the provided value, usable by parameters
      * which have the scalar/hash format equal to domain format.
      *
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
      * @param mixed $value
      *
      * @return mixed
      */
-    public function fromHash($value)
+    public function fromHash(ParameterInterface $parameter, $value)
     {
         return $value;
     }
@@ -84,23 +86,25 @@ abstract class ParameterType implements ParameterTypeInterface
      * This is a trivial implementation, just returning the provided value, usable by parameters
      * which have the scalar/hash format equal to domain format.
      *
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
      * @param mixed $value
      *
      * @return mixed
      */
-    public function createValueFromInput($value)
+    public function createValueFromInput(ParameterInterface $parameter, $value)
     {
-        return $this->fromHash($value);
+        return $this->fromHash($parameter, $value);
     }
 
     /**
      * Returns if the parameter value is empty.
      *
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
      * @param mixed $value
      *
      * @return bool
      */
-    public function isValueEmpty($value)
+    public function isValueEmpty(ParameterInterface $parameter, $value)
     {
         return empty($value);
     }

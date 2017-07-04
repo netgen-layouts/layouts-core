@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\ParameterType\ChoiceType;
 use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Validation;
 
 class ChoiceTypeTest extends TestCase
@@ -270,6 +269,81 @@ class ChoiceTypeTest extends TestCase
 
     /**
      * @param mixed $value
+     * @param mixed $convertedValue
+     * @param bool $multiple
+     *
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\ChoiceType::fromHash
+     * @dataProvider fromHashProvider
+     */
+    public function testFromHash($value, $convertedValue, $multiple)
+    {
+        $type = new ChoiceType();
+
+        $this->assertEquals(
+            $convertedValue,
+            $type->fromHash(
+                new Parameter(
+                    array(
+                        'type' => $type,
+                        'options' => array(
+                            'multiple' => $multiple,
+                            'options' => array(42 => 42),
+                        ),
+                    )
+                ),
+                $value
+            )
+        );
+    }
+
+    public function fromHashProvider()
+    {
+        return array(
+            array(
+                null,
+                null,
+                false,
+            ),
+            array(
+                array(),
+                null,
+                false,
+            ),
+            array(
+                42,
+                42,
+                false,
+            ),
+            array(
+                array(42, 43),
+                42,
+                false,
+            ),
+            array(
+                null,
+                null,
+                true,
+            ),
+            array(
+                array(),
+                null,
+                true,
+            ),
+            array(
+                42,
+                array(42),
+                true,
+            ),
+            array(
+                array(42, 43),
+                array(42, 43),
+                true,
+            ),
+        );
+    }
+
+    /**
+     * @param mixed $value
      * @param bool $isEmpty
      *
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ChoiceType::isValueEmpty
@@ -278,7 +352,7 @@ class ChoiceTypeTest extends TestCase
     public function testIsValueEmpty($value, $isEmpty)
     {
         $type = new ChoiceType();
-        $this->assertEquals($isEmpty, $type->isValueEmpty($value));
+        $this->assertEquals($isEmpty, $type->isValueEmpty(new Parameter(), $value));
     }
 
     /**
@@ -290,7 +364,9 @@ class ChoiceTypeTest extends TestCase
     {
         return array(
             array(null, true),
+            array(array(), true),
             array(42, false),
+            array(array(42), false),
             array(0, false),
             array('42', false),
             array('', false),

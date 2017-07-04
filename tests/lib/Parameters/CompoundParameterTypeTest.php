@@ -7,6 +7,7 @@ use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
 use Netgen\BlockManager\Parameters\ParameterType\Compound\BooleanType;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameterType;
+use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -94,7 +95,7 @@ class CompoundParameterTypeTest extends TestCase
      */
     public function testToHash()
     {
-        $this->assertEquals(42, $this->parameterType->toHash(42));
+        $this->assertEquals(42, $this->parameterType->toHash(new Parameter(), 42));
     }
 
     /**
@@ -102,7 +103,7 @@ class CompoundParameterTypeTest extends TestCase
      */
     public function testFromHash()
     {
-        $this->assertEquals(42, $this->parameterType->fromHash(42));
+        $this->assertEquals(42, $this->parameterType->fromHash(new Parameter(), 42));
     }
 
     /**
@@ -110,7 +111,7 @@ class CompoundParameterTypeTest extends TestCase
      */
     public function testCreateValueFromInput()
     {
-        $this->assertEquals(42, $this->parameterType->createValueFromInput(42));
+        $this->assertEquals(42, $this->parameterType->createValueFromInput(new Parameter(), 42));
     }
 
     /**
@@ -118,7 +119,7 @@ class CompoundParameterTypeTest extends TestCase
      */
     public function testIsValueEmpty()
     {
-        $this->assertTrue($this->parameterType->isValueEmpty(null));
+        $this->assertTrue($this->parameterType->isValueEmpty(new Parameter(), null));
     }
 
     /**
@@ -126,6 +127,6 @@ class CompoundParameterTypeTest extends TestCase
      */
     public function testIsValueEmptyReturnsFalse()
     {
-        $this->assertFalse($this->parameterType->isValueEmpty(42));
+        $this->assertFalse($this->parameterType->isValueEmpty(new Parameter(), 42));
     }
 }

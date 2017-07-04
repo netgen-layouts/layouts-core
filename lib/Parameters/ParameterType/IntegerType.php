@@ -65,11 +65,12 @@ class IntegerType extends ParameterType
     /**
      * Returns if the parameter value is empty.
      *
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
      * @param mixed $value
      *
      * @return bool
      */
-    public function isValueEmpty($value)
+    public function isValueEmpty(ParameterInterface $parameter, $value)
     {
         return $value === null;
     }

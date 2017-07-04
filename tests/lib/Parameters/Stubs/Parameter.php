@@ -37,7 +37,10 @@ class Parameter extends BaseParameter
             $options['default_value'] = $defaultValue;
         }
 
-        $properties['type']->configureOptions($optionsResolver);
+        if (array_key_exists('type', $properties)) {
+            $properties['type']->configureOptions($optionsResolver);
+        }
+
         $options = $optionsResolver->resolve($options);
 
         $properties['isRequired'] = $options['required'];

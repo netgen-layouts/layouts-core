@@ -25,7 +25,7 @@ class ParameterMapper
             $parameterType = $parameter->getType();
 
             $value = array_key_exists($parameterName, $parameterValues) ?
-                $parameterType->fromHash($parameterValues[$parameterName]) :
+                $parameterType->fromHash($parameter, $parameterValues[$parameterName]) :
                 $parameter->getDefaultValue();
 
             $mappedValues[$parameterName] = new ParameterValue(
@@ -33,7 +33,7 @@ class ParameterMapper
                     'name' => $parameterName,
                     'parameter' => $parameter,
                     'value' => $value,
-                    'isEmpty' => $parameterType->isValueEmpty($value),
+                    'isEmpty' => $parameterType->isValueEmpty($parameter, $value),
                 )
             );
 
@@ -68,6 +68,7 @@ class ParameterMapper
             }
 
             $serializedValues[$parameterName] = $parameter->getType()->toHash(
+                $parameter,
                 $parameterValues[$parameterName]
             );
 

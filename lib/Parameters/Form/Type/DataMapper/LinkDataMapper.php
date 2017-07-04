@@ -2,25 +2,25 @@
 
 namespace Netgen\BlockManager\Parameters\Form\Type\DataMapper;
 
-use Netgen\BlockManager\Parameters\ParameterTypeInterface;
+use Netgen\BlockManager\Parameters\ParameterInterface;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
 use Symfony\Component\Form\DataMapperInterface;
 
 class LinkDataMapper implements DataMapperInterface
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterTypeInterface
+     * @var \Netgen\BlockManager\Parameters\ParameterInterface
      */
-    protected $parameterType;
+    protected $parameter;
 
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterTypeInterface $parameterType
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
      */
-    public function __construct(ParameterTypeInterface $parameterType)
+    public function __construct(ParameterInterface $parameter)
     {
-        $this->parameterType = $parameterType;
+        $this->parameter = $parameter;
     }
 
     /**
@@ -71,6 +71,6 @@ class LinkDataMapper implements DataMapperInterface
             );
         }
 
-        $data = $this->parameterType->fromHash($data);
+        $data = $this->parameter->getType()->fromHash($this->parameter, $data);
     }
 }

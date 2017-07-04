@@ -117,6 +117,6 @@ trait ParameterStructTrait
             return is_object($value) ? clone $value : $value;
         }
 
-        return $parameter->getType()->createValueFromInput($value);
+        return $parameter->getType()->createValueFromInput($parameter, $value);
     }
 }

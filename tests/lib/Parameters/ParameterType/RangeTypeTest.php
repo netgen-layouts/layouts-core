@@ -239,7 +239,7 @@ class RangeTypeTest extends TestCase
     public function testIsValueEmpty($value, $isEmpty)
     {
         $type = new RangeType();
-        $this->assertEquals($isEmpty, $type->isValueEmpty($value));
+        $this->assertEquals($isEmpty, $type->isValueEmpty(new Parameter(), $value));
     }
 
     /**

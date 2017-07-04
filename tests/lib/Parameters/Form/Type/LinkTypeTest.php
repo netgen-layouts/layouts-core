@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Parameters\Form\Type;
 use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper;
 use Netgen\BlockManager\Parameters\Form\Type\LinkType;
+use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Parameters\ParameterType\LinkType as LinkParameterType;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
@@ -61,8 +62,14 @@ class LinkTypeTest extends FormTestCase
             )
         );
 
+        $parameter = new Parameter(
+            array(
+                'type' => new LinkParameterType(new ValueTypeRegistry()),
+            )
+        );
+
         $formBuilder = $this->factory->createBuilder(LinkType::class);
-        $formBuilder->setDataMapper(new LinkDataMapper(new LinkParameterType(new ValueTypeRegistry())));
+        $formBuilder->setDataMapper(new LinkDataMapper($parameter));
         $form = $formBuilder->getForm();
 
         $form->submit($submittedData);
@@ -94,8 +101,14 @@ class LinkTypeTest extends FormTestCase
 
         $formData = new LinkValue();
 
+        $parameter = new Parameter(
+            array(
+                'type' => new LinkParameterType(new ValueTypeRegistry()),
+            )
+        );
+
         $formBuilder = $this->factory->createBuilder(LinkType::class);
-        $formBuilder->setDataMapper(new LinkDataMapper(new LinkParameterType(new ValueTypeRegistry())));
+        $formBuilder->setDataMapper(new LinkDataMapper($parameter));
         $form = $formBuilder->getForm();
 
         $form->submit($submittedData);
@@ -118,8 +131,14 @@ class LinkTypeTest extends FormTestCase
      */
     public function testBuildView()
     {
+        $parameter = new Parameter(
+            array(
+                'type' => new LinkParameterType(new ValueTypeRegistry()),
+            )
+        );
+
         $formBuilder = $this->factory->createBuilder(LinkType::class);
-        $formBuilder->setDataMapper(new LinkDataMapper(new LinkParameterType(new ValueTypeRegistry())));
+        $formBuilder->setDataMapper(new LinkDataMapper($parameter));
         $form = $formBuilder->getForm();
 
         $form->submit(
@@ -145,8 +164,14 @@ class LinkTypeTest extends FormTestCase
      */
     public function testBuildViewWithInvalidData()
     {
+        $parameter = new Parameter(
+            array(
+                'type' => new LinkParameterType(new ValueTypeRegistry()),
+            )
+        );
+
         $formBuilder = $this->factory->createBuilder(LinkType::class);
-        $formBuilder->setDataMapper(new LinkDataMapper(new LinkParameterType(new ValueTypeRegistry())));
+        $formBuilder->setDataMapper(new LinkDataMapper($parameter));
         $form = $formBuilder->getForm();
 
         $form->submit(

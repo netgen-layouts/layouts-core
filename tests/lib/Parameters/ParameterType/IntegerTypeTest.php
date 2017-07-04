@@ -263,7 +263,7 @@ class IntegerTypeTest extends TestCase
     public function testIsValueEmpty($value, $isEmpty)
     {
         $type = new IntegerType();
-        $this->assertEquals($isEmpty, $type->isValueEmpty($value));
+        $this->assertEquals($isEmpty, $type->isValueEmpty(new Parameter(), $value));
     }
 
     /**

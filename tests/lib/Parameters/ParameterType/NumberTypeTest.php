@@ -291,7 +291,7 @@ class NumberTypeTest extends TestCase
     public function testIsValueEmpty($value, $isEmpty)
     {
         $type = new NumberType();
-        $this->assertEquals($isEmpty, $type->isValueEmpty($value));
+        $this->assertEquals($isEmpty, $type->isValueEmpty(new Parameter(), $value));
     }
 
     /**

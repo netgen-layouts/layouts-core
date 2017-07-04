@@ -66,11 +66,12 @@ class LinkType extends ParameterType
     /**
      * Converts the parameter value from a domain format to scalar/hash format.
      *
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
      * @param mixed $value
      *
      * @return mixed
      */
-    public function toHash($value)
+    public function toHash(ParameterInterface $parameter, $value)
     {
         if (!$value instanceof LinkValue) {
             return null;
@@ -87,11 +88,12 @@ class LinkType extends ParameterType
     /**
      * Converts the provided parameter value to value usable by the domain.
      *
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
      * @param mixed $value
      *
      * @return mixed
      */
-    public function fromHash($value)
+    public function fromHash(ParameterInterface $parameter, $value)
     {
         if (!is_array($value) || empty($value['link_type'])) {
             return new LinkValue();
@@ -112,27 +114,29 @@ class LinkType extends ParameterType
      *
      * If the value cannot be converted, original value should be returned.
      *
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
      * @param mixed $value
      *
      * @return mixed
      */
-    public function createValueFromInput($value)
+    public function createValueFromInput(ParameterInterface $parameter, $value)
     {
         if (!is_array($value) || empty($value['link_type'])) {
             return $value;
         }
 
-        return $this->fromHash($value);
+        return $this->fromHash($parameter, $value);
     }
 
     /**
      * Returns if the parameter value is empty.
      *
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
      * @param mixed $value
      *
      * @return bool
      */
-    public function isValueEmpty($value)
+    public function isValueEmpty(ParameterInterface $parameter, $value)
     {
         if (!$value instanceof LinkValue) {
             return true;

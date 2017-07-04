@@ -79,7 +79,7 @@ class ParameterTypeTest extends TestCase
      */
     public function testToHash()
     {
-        $this->assertEquals(42, $this->parameterType->toHash(42));
+        $this->assertEquals(42, $this->parameterType->toHash(new Parameter(), 42));
     }
 
     /**
@@ -87,7 +87,7 @@ class ParameterTypeTest extends TestCase
      */
     public function testFromHash()
     {
-        $this->assertEquals(42, $this->parameterType->fromHash(42));
+        $this->assertEquals(42, $this->parameterType->fromHash(new Parameter(), 42));
     }
 
     /**
@@ -95,7 +95,7 @@ class ParameterTypeTest extends TestCase
      */
     public function testCreateValueFromInput()
     {
-        $this->assertEquals(42, $this->parameterType->createValueFromInput(42));
+        $this->assertEquals(42, $this->parameterType->createValueFromInput(new Parameter(), 42));
     }
 
     /**
@@ -103,7 +103,7 @@ class ParameterTypeTest extends TestCase
      */
     public function testIsValueEmpty()
     {
-        $this->assertTrue($this->parameterType->isValueEmpty(null));
+        $this->assertTrue($this->parameterType->isValueEmpty(new Parameter(), null));
     }
 
     /**
@@ -111,6 +111,6 @@ class ParameterTypeTest extends TestCase
      */
     public function testIsValueEmptyReturnsFalse()
     {
-        $this->assertFalse($this->parameterType->isValueEmpty(42));
+        $this->assertFalse($this->parameterType->isValueEmpty(new Parameter(), 42));
     }
 }

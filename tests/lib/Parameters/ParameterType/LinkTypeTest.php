@@ -206,7 +206,7 @@ class LinkTypeTest extends TestCase
     public function testToHash($value, $convertedValue)
     {
         $type = new LinkType($this->valueTypeRegistry);
-        $this->assertEquals($convertedValue, $type->toHash($value));
+        $this->assertEquals($convertedValue, $type->toHash(new Parameter(), $value));
     }
 
     public function toHashProvider()
@@ -245,7 +245,7 @@ class LinkTypeTest extends TestCase
     public function testFromHash($value, $convertedValue)
     {
         $type = new LinkType($this->valueTypeRegistry);
-        $this->assertEquals($convertedValue, $type->fromHash($value));
+        $this->assertEquals($convertedValue, $type->fromHash(new Parameter(), $value));
     }
 
     public function fromHashProvider()
@@ -300,7 +300,7 @@ class LinkTypeTest extends TestCase
     public function testCreateValueFromInput($value, $convertedValue)
     {
         $type = new LinkType($this->valueTypeRegistry);
-        $this->assertEquals($convertedValue, $type->createValueFromInput($value));
+        $this->assertEquals($convertedValue, $type->createValueFromInput(new Parameter(), $value));
     }
 
     public function createValueFromInputProvider()
@@ -355,7 +355,7 @@ class LinkTypeTest extends TestCase
     public function testIsValueEmpty($value, $isEmpty)
     {
         $type = new LinkType($this->valueTypeRegistry);
-        $this->assertEquals($isEmpty, $type->isValueEmpty($value));
+        $this->assertEquals($isEmpty, $type->isValueEmpty(new Parameter(), $value));
     }
 
     /**
