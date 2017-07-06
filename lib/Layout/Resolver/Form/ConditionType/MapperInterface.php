@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Layout\Resolver\Form\ConditionType;
 
-use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
 interface MapperInterface
@@ -15,21 +14,18 @@ interface MapperInterface
     public function getFormType();
 
     /**
-     * Maps the form type options from provided condition type.
-     *
-     * @param \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface $conditionType
+     * Returns the form options.
      *
      * @return array
      */
-    public function mapOptions(ConditionTypeInterface $conditionType);
+    public function getFormOptions();
 
     /**
-     * Handles the form for this condition type.
+     * Handles the form for the condition type.
      *
      * This is the place where you will usually add data mappers and transformers to the form.
      *
      * @param \Symfony\Component\Form\FormBuilderInterface $builder
-     * @param \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface $conditionType
      */
-    public function handleForm(FormBuilderInterface $builder, ConditionTypeInterface $conditionType);
+    public function handleForm(FormBuilderInterface $builder);
 }

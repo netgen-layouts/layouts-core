@@ -19,15 +19,13 @@ class MapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper::mapOptions
+     * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper::getFormOptions
      */
-    public function testMapOptions()
+    public function testGetFormOptions()
     {
         $this->assertEquals(
             array(),
-            $this->mapper->mapOptions(
-                $this->createMock(TargetTypeInterface::class)
-            )
+            $this->mapper->getFormOptions()
         );
     }
 }

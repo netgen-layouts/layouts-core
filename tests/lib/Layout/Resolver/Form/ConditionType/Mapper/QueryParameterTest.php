@@ -29,9 +29,9 @@ class QueryParameterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\QueryParameter::mapOptions
+     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\QueryParameter::getFormOptions
      */
-    public function testMapOptions()
+    public function testGetFormOptions()
     {
         $this->assertEquals(
             array(
@@ -42,9 +42,7 @@ class QueryParameterTest extends TestCase
                 'values_label' => 'layout_resolver.condition.query_parameter.parameter_values',
                 'values_type' => TextType::class,
             ),
-            $this->mapper->mapOptions(
-                $this->createMock(ConditionTypeInterface::class)
-            )
+            $this->mapper->getFormOptions()
         );
     }
 }

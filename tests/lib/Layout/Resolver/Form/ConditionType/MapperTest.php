@@ -19,15 +19,13 @@ class MapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper::mapOptions
+     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper::getFormOptions
      */
-    public function testMapOptions()
+    public function testGetFormOptions()
     {
         $this->assertEquals(
             array(),
-            $this->mapper->mapOptions(
-                $this->createMock(ConditionTypeInterface::class)
-            )
+            $this->mapper->getFormOptions()
         );
     }
 }

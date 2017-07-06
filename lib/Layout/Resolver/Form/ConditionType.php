@@ -80,12 +80,10 @@ class ConditionType extends AbstractType
         $valueForm = $builder->create(
             'value',
             $mapper->getFormType(),
-            $mapper->mapOptions(
-                $conditionType
-            ) + $defaultOptions
+            $mapper->getFormOptions() + $defaultOptions
         );
 
-        $mapper->handleForm($valueForm, $conditionType);
+        $mapper->handleForm($valueForm);
 
         $builder->add($valueForm);
     }

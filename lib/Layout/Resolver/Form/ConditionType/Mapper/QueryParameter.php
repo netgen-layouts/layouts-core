@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper;
 
 use Netgen\BlockManager\Form\KeyValuesType;
-use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
@@ -20,13 +19,11 @@ class QueryParameter extends Mapper
     }
 
     /**
-     * Maps the form type options from provided target type.
-     *
-     * @param \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface $conditionType
+     * Returns the form options.
      *
      * @return array
      */
-    public function mapOptions(ConditionTypeInterface $conditionType)
+    public function getFormOptions()
     {
         return array(
             'label' => false,
