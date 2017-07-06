@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Layout\Resolver\Form\ConditionType\Mapper;
 
 use Netgen\BlockManager\Form\KeyValuesType;
-use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\QueryParameter;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

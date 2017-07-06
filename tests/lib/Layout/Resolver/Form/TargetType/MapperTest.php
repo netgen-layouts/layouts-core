@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Layout\Resolver\Form\TargetType;
 
 use Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper;
-use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;
 use PHPUnit\Framework\TestCase;
 
 class MapperTest extends TestCase
