@@ -1,4 +1,6 @@
 parameters:
+    netgen_block_manager.block.block_definition.handler.plugin.common.groups: ['design', 'common']
+
     netgen_block_manager.block.block_definition.handler.title.tags:
         h1: 'Heading 1'
         h2: 'Heading 2'
@@ -56,15 +58,26 @@ services:
         class: Netgen\BlockManager\Block\BlockDefinitionFactory
         arguments:
             - "@netgen_block_manager.parameters.parameter_builder_factory"
+            - "@netgen_block_manager.block.registry.handler_plugin"
 
     netgen_block_manager.block.registry.block_definition:
         class: Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry
+
+    netgen_block_manager.block.registry.handler_plugin:
+        class: Netgen\BlockManager\Block\Registry\HandlerPluginRegistry
 
     netgen_block_manager.block.registry.block_type:
         class: Netgen\BlockManager\Block\Registry\BlockTypeRegistry
 
     netgen_block_manager.block.registry.block_type_group:
         class: Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistry
+
+    netgen_block_manager.block.block_definition.handler.plugin.common:
+        class: Netgen\BlockManager\Block\BlockDefinition\Handler\CommonParametersPlugin
+        arguments:
+            - "%netgen_block_manager.block.block_definition.handler.plugin.common.groups%"
+        tags:
+            - { name: netgen_block_manager.block.block_definition_handler.plugin, priority: 0 }
 
     netgen_block_manager.block.block_definition.handler.title:
         class: Netgen\BlockManager\Block\BlockDefinition\Handler\TitleHandler

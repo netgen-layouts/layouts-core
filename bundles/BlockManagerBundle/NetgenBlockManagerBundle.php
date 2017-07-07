@@ -16,6 +16,7 @@ class NetgenBlockManagerBundle extends Bundle
     public function build(ContainerBuilder $container)
     {
         $container->addCompilerPass(new CompilerPass\Config\ConfigDefinitionPass());
+        $container->addCompilerPass(new CompilerPass\Block\HandlerPluginPass());
         $container->addCompilerPass(new CompilerPass\Block\BlockDefinitionPass());
         $container->addCompilerPass(new CompilerPass\LayoutResolver\TargetTypePass());
         $container->addCompilerPass(new CompilerPass\LayoutResolver\ConditionTypePass());

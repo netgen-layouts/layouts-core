@@ -1,15 +1,21 @@
 <?php
 
-namespace Netgen\BlockManager\Block\BlockDefinition;
+namespace Netgen\BlockManager\Block\BlockDefinition\Handler;
 
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Block\DynamicParameters;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 
-interface BlockDefinitionHandlerInterface
+interface PluginInterface
 {
-    const GROUP_CONTENT = 'content';
-    const GROUP_DESIGN = 'design';
+    /**
+     * Returns the fully qualified class name of the handler which this
+     * plugin extends. If you wish to extend every existing handler,
+     * return the FQCN of the block handler interface.
+     *
+     * @return string
+     */
+    public static function getExtendedHandler();
 
     /**
      * Builds the parameters by using provided parameter builder.
@@ -25,13 +31,4 @@ interface BlockDefinitionHandlerInterface
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      */
     public function getDynamicParameters(DynamicParameters $params, Block $block);
-
-    /**
-     * Returns if the provided block is dependent on a context, i.e. current request.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     *
-     * @return bool
-     */
-    public function isContextual(Block $block);
 }

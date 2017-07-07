@@ -67,7 +67,5 @@ class TitleHandler extends BlockDefinitionHandler
                 'value_types' => $this->linkValueTypes,
             )
         );
-
-        $this->buildCommonParameters($builder);
     }
 }

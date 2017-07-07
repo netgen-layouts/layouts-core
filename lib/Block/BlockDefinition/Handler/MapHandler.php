@@ -100,7 +100,5 @@ class MapHandler extends BlockDefinitionHandler
                 'groups' => array(self::GROUP_DESIGN),
             )
         );
-
-        $this->buildCommonParameters($builder, array(self::GROUP_DESIGN));
     }
 }

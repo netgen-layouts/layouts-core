@@ -19,7 +19,5 @@ class HtmlSnippetHandler extends BlockDefinitionHandler
             'content',
             ParameterType\TextType::class
         );
-
-        $this->buildCommonParameters($builder);
     }
 }

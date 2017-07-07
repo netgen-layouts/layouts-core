@@ -59,7 +59,7 @@ class Block extends ValueObject implements APIBlock
     protected $status;
 
     /**
-     * @var array
+     * @var \Netgen\BlockManager\Block\DynamicParameters
      */
     protected $dynamicParameters;
 
@@ -194,15 +194,7 @@ class Block extends ValueObject implements APIBlock
     {
         $this->buildDynamicParameters();
 
-        if (!$this->hasDynamicParameter($parameter)) {
-            return null;
-        }
-
-        if (!is_callable($this->dynamicParameters[$parameter])) {
-            return $this->dynamicParameters[$parameter];
-        }
-
-        return $this->dynamicParameters[$parameter]();
+        return $this->dynamicParameters->offsetGet($parameter);
     }
 
     /**
@@ -216,7 +208,7 @@ class Block extends ValueObject implements APIBlock
     {
         $this->buildDynamicParameters();
 
-        return array_key_exists($parameter, $this->dynamicParameters);
+        return $this->dynamicParameters->offsetExists($parameter);
     }
 
     /**

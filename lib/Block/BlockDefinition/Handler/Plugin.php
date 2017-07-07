@@ -1,12 +1,12 @@
 <?php
 
-namespace Netgen\BlockManager\Block\BlockDefinition;
+namespace Netgen\BlockManager\Block\BlockDefinition\Handler;
 
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Block\DynamicParameters;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 
-abstract class BlockDefinitionHandler implements BlockDefinitionHandlerInterface
+abstract class Plugin implements PluginInterface
 {
     /**
      * Builds the parameters by using provided parameter builder.
@@ -25,17 +25,5 @@ abstract class BlockDefinitionHandler implements BlockDefinitionHandlerInterface
      */
     public function getDynamicParameters(DynamicParameters $params, Block $block)
     {
-    }
-
-    /**
-     * Returns if the provided block is dependent on a context, i.e. current request.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     *
-     * @return bool
-     */
-    public function isContextual(Block $block)
-    {
-        return false;
     }
 }

@@ -8,7 +8,6 @@ use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 /**
  * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\ListHandler::__construct
  * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\ListHandler::buildParameters
- * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::buildCommonParameters
  */
 class ListTest extends BaseListTest
 {

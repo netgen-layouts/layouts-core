@@ -6,6 +6,7 @@ use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\ContainerDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
+use Netgen\BlockManager\Block\Registry\HandlerPluginRegistryInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface;
 
 class BlockDefinitionFactory
@@ -16,13 +17,22 @@ class BlockDefinitionFactory
     protected $parameterBuilderFactory;
 
     /**
+     * @var \Netgen\BlockManager\Block\Registry\HandlerPluginRegistryInterface
+     */
+    protected $handlerPluginRegistry;
+
+    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface $parameterBuilderFactory
+     * @param \Netgen\BlockManager\Block\Registry\HandlerPluginRegistryInterface $handlerPluginRegistry
      */
-    public function __construct(ParameterBuilderFactoryInterface $parameterBuilderFactory)
-    {
+    public function __construct(
+        ParameterBuilderFactoryInterface $parameterBuilderFactory,
+        HandlerPluginRegistryInterface $handlerPluginRegistry
+    ) {
         $this->parameterBuilderFactory = $parameterBuilderFactory;
+        $this->handlerPluginRegistry = $handlerPluginRegistry;
     }
 
     /**
@@ -121,11 +131,18 @@ class BlockDefinitionFactory
     ) {
         $parameterBuilder = $this->parameterBuilderFactory->createParameterBuilder();
         $handler->buildParameters($parameterBuilder);
+
+        $handlerPlugins = $this->handlerPluginRegistry->getPlugins(get_class($handler));
+        foreach ($handlerPlugins as $handlerPlugin) {
+            $handlerPlugin->buildParameters($parameterBuilder);
+        }
+
         $parameters = $parameterBuilder->buildParameters();
 
         return array(
             'identifier' => $identifier,
             'handler' => $handler,
+            'handlerPlugins' => $handlerPlugins,
             'config' => $config,
             'parameters' => $parameters,
             'configDefinitions' => $configDefinitions,

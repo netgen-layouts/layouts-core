@@ -19,7 +19,7 @@ interface BlockDefinitionInterface extends ParameterCollectionInterface
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      *
-     * @return array
+     * @return \Netgen\BlockManager\Block\DynamicParameters
      */
     public function getDynamicParameters(Block $block);
 

@@ -8,7 +8,6 @@ use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 /**
  * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\MapHandler::__construct
  * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\MapHandler::buildParameters
- * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::buildCommonParameters
  */
 class MapTest extends BaseMapTest
 {

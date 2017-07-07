@@ -4,8 +4,10 @@ namespace Netgen\BlockManager\Tests\Block;
 
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
+use Netgen\BlockManager\Block\DynamicParameters;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
+use Netgen\BlockManager\Tests\Block\Stubs\HandlerPlugin;
 use PHPUnit\Framework\TestCase;
 
 class BlockDefinitionTest extends TestCase
@@ -35,6 +37,9 @@ class BlockDefinitionTest extends TestCase
             array(
                 'identifier' => 'block_definition',
                 'handler' => $this->handler,
+                'handlerPlugins' => array(
+                    new HandlerPlugin(),
+                ),
                 'config' => $this->configMock,
                 'configDefinitions' => array(42),
             )
@@ -54,15 +59,23 @@ class BlockDefinitionTest extends TestCase
      */
     public function testGetDynamicParameters()
     {
-        $this->assertEquals(
-            array(
-                'definition_param' => 'definition_value',
-                'closure_param' => function () {
-                    return 'closure_value';
-                },
-            ),
-            $this->blockDefinition->getDynamicParameters(new Block())
-        );
+        $dynamicParameters = new DynamicParameters();
+        $dynamicParameters['definition_param'] = 'definition_value';
+        $dynamicParameters['closure_param'] = function () {
+            return 'closure_value';
+        };
+
+        $dynamicParameters = $this->blockDefinition->getDynamicParameters(new Block());
+
+        $this->assertCount(3, $dynamicParameters);
+
+        $this->assertArrayHasKey('definition_param', $dynamicParameters);
+        $this->assertArrayHasKey('closure_param', $dynamicParameters);
+        $this->assertArrayHasKey('dynamic_param', $dynamicParameters);
+
+        $this->assertEquals('definition_value', $dynamicParameters['definition_param']);
+        $this->assertEquals('closure_value', $dynamicParameters['closure_param']);
+        $this->assertEquals('dynamic_value', $dynamicParameters['dynamic_param']);
     }
 
     /**

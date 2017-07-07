@@ -8,7 +8,6 @@ use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 /**
  * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\ExternalVideoHandler::__construct
  * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\ExternalVideoHandler::buildParameters
- * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::buildCommonParameters
  */
 class ExternalVideoTest extends BaseExternalVideoTest
 {

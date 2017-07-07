@@ -19,7 +19,7 @@ class FullViewHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\Twig\TwigBlockHandler::isContextual
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\Twig\FullViewHandler::isContextual
      */
     public function testIsContextual()
     {

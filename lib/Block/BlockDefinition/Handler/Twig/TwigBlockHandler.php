@@ -21,8 +21,6 @@ class TwigBlockHandler extends BlockDefinitionHandler implements TwigBlockDefini
             'block_name',
             ParameterType\IdentifierType::class
         );
-
-        $this->buildCommonParameters($builder);
     }
 
     /**

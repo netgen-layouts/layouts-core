@@ -23,7 +23,5 @@ class TextHandler extends BlockDefinitionHandler
                 'default_value' => 'Text',
             )
         );
-
-        $this->buildCommonParameters($builder);
     }
 }

@@ -23,7 +23,5 @@ class RichTextHandler extends BlockDefinitionHandler
                 'default_value' => 'Text',
             )
         );
-
-        $this->buildCommonParameters($builder);
     }
 }

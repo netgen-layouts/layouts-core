@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Block\BlockDefinition;
+namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Handler;
 
-use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
+use Netgen\BlockManager\Block\BlockDefinition\Handler\Plugin;
 use Netgen\BlockManager\Block\DynamicParameters;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
@@ -10,12 +10,12 @@ use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
 use PHPUnit\Framework\TestCase;
 
-class BlockDefinitionHandlerTest extends TestCase
+class PluginTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler
+     * @var \Netgen\BlockManager\Block\BlockDefinition\Handler\Plugin
      */
-    protected $handler;
+    protected $plugin;
 
     /**
      * @var \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface
@@ -29,7 +29,7 @@ class BlockDefinitionHandlerTest extends TestCase
 
     public function setUp()
     {
-        $this->handler = $this->getMockForAbstractClass(BlockDefinitionHandler::class);
+        $this->plugin = $this->getMockForAbstractClass(Plugin::class);
 
         $this->parameterTypeRegistry = new ParameterTypeRegistry();
         $this->parameterTypeRegistry->addParameterType(new ParameterType\TextLineType());
@@ -41,32 +41,24 @@ class BlockDefinitionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::buildParameters
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\Plugin::buildParameters
      */
     public function testBuildParameters()
     {
         $builder = $this->parameterBuilderFactory->createParameterBuilder();
-        $this->handler->buildParameters($builder);
+        $this->plugin->buildParameters($builder);
 
         $this->assertCount(0, $builder);
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::getDynamicParameters
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\Plugin::getDynamicParameters
      */
     public function testGetDynamicParameters()
     {
         $dynamicParameters = new DynamicParameters();
-        $this->handler->getDynamicParameters($dynamicParameters, new Block());
+        $this->plugin->getDynamicParameters($dynamicParameters, new Block());
 
         $this->assertCount(0, $dynamicParameters);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::isContextual
-     */
-    public function testIsContextual()
-    {
-        $this->assertFalse($this->handler->isContextual(new Block()));
     }
 }

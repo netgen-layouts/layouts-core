@@ -21,6 +21,11 @@ class BlockDefinition extends ValueObject implements BlockDefinitionInterface
     protected $handler;
 
     /**
+     * @var \Netgen\BlockManager\Block\BlockDefinition\Handler\PluginInterface[]
+     */
+    protected $handlerPlugins = array();
+
+    /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration
      */
     protected $config;
@@ -28,7 +33,7 @@ class BlockDefinition extends ValueObject implements BlockDefinitionInterface
     /**
      * @var \Netgen\BlockManager\Config\ConfigDefinitionInterface[]
      */
-    protected $configDefinitions;
+    protected $configDefinitions = array();
 
     /**
      * Returns block definition identifier.
@@ -45,11 +50,19 @@ class BlockDefinition extends ValueObject implements BlockDefinitionInterface
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      *
-     * @return array
+     * @return \Netgen\BlockManager\Block\DynamicParameters
      */
     public function getDynamicParameters(Block $block)
     {
-        return $this->handler->getDynamicParameters($block);
+        $dynamicParams = new DynamicParameters();
+
+        $this->handler->getDynamicParameters($dynamicParams, $block);
+
+        foreach ($this->handlerPlugins as $handlerPlugin) {
+            $handlerPlugin->getDynamicParameters($dynamicParams, $block);
+        }
+
+        return $dynamicParams;
     }
 
     /**

@@ -7,7 +7,6 @@ use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 
 /**
  * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\RichTextHandler::buildParameters
- * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::buildCommonParameters
  */
 class RichTextTest extends BaseRichTextTest
 {

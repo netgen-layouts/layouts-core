@@ -48,7 +48,5 @@ class ExternalVideoHandler extends BlockDefinitionHandler
             'caption',
             ParameterType\TextLineType::class
         );
-
-        $this->buildCommonParameters($builder);
     }
 }

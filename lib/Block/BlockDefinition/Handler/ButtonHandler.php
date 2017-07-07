@@ -62,7 +62,5 @@ class ButtonHandler extends BlockDefinitionHandler
                 'value_types' => $this->valueTypes,
             )
         );
-
-        $this->buildCommonParameters($builder);
     }
 }

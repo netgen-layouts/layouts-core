@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Block\Stubs;
 
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler as BaseBlockDefinitionHandler;
+use Netgen\BlockManager\Block\DynamicParameters;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameter;
 use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
@@ -75,14 +76,13 @@ class BlockDefinitionHandlerWithCompoundParameter extends BaseBlockDefinitionHan
     }
 
     /**
-     * Returns the array of dynamic parameters provided by this block definition.
+     * Adds the dynamic parameters to the $params object for the provided block.
      *
+     * @param \Netgen\BlockManager\Block\DynamicParameters $params
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     *
-     * @return array
      */
-    public function getDynamicParameters(Block $block)
+    public function getDynamicParameters(DynamicParameters $params, Block $block)
     {
-        return array('definition_param' => 'definition_value');
+        $params['definition_param'] = 'definition_value';
     }
 }

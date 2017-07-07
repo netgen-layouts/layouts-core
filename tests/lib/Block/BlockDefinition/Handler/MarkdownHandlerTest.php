@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Handler;
 
-use Closure;
 use Michelf\MarkdownInterface;
 use Netgen\BlockManager\Block\BlockDefinition\Handler\MarkdownHandler;
+use Netgen\BlockManager\Block\DynamicParameters;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Parameters\ParameterValue;
 use PHPUnit\Framework\TestCase;
@@ -52,11 +52,11 @@ class MarkdownHandlerTest extends TestCase
             )
         );
 
-        $dynamicParameters = $this->handler->getDynamicParameters($block);
+        $dynamicParameters = new DynamicParameters();
 
-        $this->assertInternalType('array', $dynamicParameters);
+        $this->handler->getDynamicParameters($dynamicParameters, $block);
+
         $this->assertArrayHasKey('html', $dynamicParameters);
-        $this->assertInstanceOf(Closure::class, $dynamicParameters['html']);
-        $this->assertEquals('<h1>Title</h1>', $dynamicParameters['html']());
+        $this->assertEquals('<h1>Title</h1>', $dynamicParameters['html']);
     }
 }

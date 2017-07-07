@@ -8,6 +8,7 @@ use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Block\BlockDefinition\ContainerDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\ContainerDefinitionInterface;
+use Netgen\BlockManager\Block\DynamicParameters;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 
 class ContainerDefinition implements ContainerDefinitionInterface
@@ -107,11 +108,15 @@ class ContainerDefinition implements ContainerDefinitionInterface
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      *
-     * @return array
+     * @return \Netgen\BlockManager\Block\DynamicParameters
      */
     public function getDynamicParameters(Block $block)
     {
-        return $this->handler->getDynamicParameters($block);
+        $dynamicParams = new DynamicParameters();
+
+        $this->handler->getDynamicParameters($dynamicParams, $block);
+
+        return $dynamicParams;
     }
 
     /**
