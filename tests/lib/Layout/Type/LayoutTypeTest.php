@@ -21,6 +21,7 @@ class LayoutTypeTest extends TestCase
                 'identifier' => '4_zones_a',
                 'isEnabled' => false,
                 'name' => '4 zones A',
+                'icon' => '/icon.svg',
                 'zones' => array(
                     'left' => new Zone(
                         array(
@@ -64,6 +65,14 @@ class LayoutTypeTest extends TestCase
     public function testGetName()
     {
         $this->assertEquals('4 zones A', $this->layoutType->getName());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Layout\Type\LayoutType::getIcon
+     */
+    public function testGetIcon()
+    {
+        $this->assertEquals('/icon.svg', $this->layoutType->getIcon());
     }
 
     /**

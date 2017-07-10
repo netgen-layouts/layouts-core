@@ -26,6 +26,7 @@ class BlockTypeTest extends TestCase
             array(
                 'identifier' => 'title',
                 'name' => 'Title',
+                'icon' => '/icon.svg',
                 'isEnabled' => false,
                 'definition' => $this->blockDefinition,
                 'defaults' => array(
@@ -61,6 +62,14 @@ class BlockTypeTest extends TestCase
     public function testGetName()
     {
         $this->assertEquals('Title', $this->blockType->getName());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getIcon
+     */
+    public function testGetIcon()
+    {
+        $this->assertEquals('/icon.svg', $this->blockType->getIcon());
     }
 
     /**

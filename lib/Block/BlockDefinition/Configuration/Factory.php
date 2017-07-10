@@ -107,6 +107,7 @@ class Factory
             array(
                 'identifier' => $identifier,
                 'name' => $config['name'],
+                'icon' => $config['icon'],
                 'collections' => $collections,
                 'forms' => $forms,
                 'viewTypes' => $viewTypes,

@@ -31,6 +31,7 @@ class BlockTypeNormalizer implements NormalizerInterface
             'identifier' => $blockType->getIdentifier(),
             'enabled' => $blockType->isEnabled(),
             'name' => $blockType->getName(),
+            'icon' => $blockType->getIcon(),
             'definition_identifier' => $blockDefinition->getIdentifier(),
             'is_container' => $isContainer,
             'is_dynamic_container' => $isContainer && $blockDefinition->isDynamicContainer(),

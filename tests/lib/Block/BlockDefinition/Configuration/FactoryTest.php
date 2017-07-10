@@ -29,6 +29,7 @@ class FactoryTest extends TestCase
     {
         $config = array(
             'name' => 'Block definition',
+            'icon' => '/icon.svg',
             'collections' => array(
                 'default' => array(
                     'valid_item_types' => null,
@@ -109,6 +110,7 @@ class FactoryTest extends TestCase
                 array(
                     'identifier' => 'block_definition',
                     'name' => 'Block definition',
+                    'icon' => '/icon.svg',
                     'collections' => array(
                         'default' => new Collection(
                             array(
@@ -199,6 +201,7 @@ class FactoryTest extends TestCase
     {
         $config = array(
             'name' => 'Block definition',
+            'icon' => '/icon.svg',
             'collections' => array(),
             'forms' => array(
                 'full' => array(
@@ -229,6 +232,7 @@ class FactoryTest extends TestCase
     {
         $config = array(
             'name' => 'Block definition',
+            'icon' => '/icon.svg',
             'collections' => array(),
             'forms' => array(
                 'full' => array(

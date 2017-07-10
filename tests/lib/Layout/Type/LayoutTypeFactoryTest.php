@@ -18,6 +18,7 @@ class LayoutTypeFactoryTest extends TestCase
             '4_zones_a',
             array(
                 'name' => '4 zones A',
+                'icon' => '/icon.svg',
                 'enabled' => false,
                 'zones' => array(
                     'left' => array(
@@ -34,6 +35,7 @@ class LayoutTypeFactoryTest extends TestCase
                     'identifier' => '4_zones_a',
                     'isEnabled' => false,
                     'name' => '4 zones A',
+                    'icon' => '/icon.svg',
                     'zones' => array(
                         'left' => new Zone(
                             array(

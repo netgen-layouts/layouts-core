@@ -24,6 +24,11 @@ class LayoutType extends ValueObject
     protected $name;
 
     /**
+     * @var string
+     */
+    protected $icon;
+
+    /**
      * @var \Netgen\BlockManager\Layout\Type\Zone[]
      */
     protected $zones = array();
@@ -56,6 +61,16 @@ class LayoutType extends ValueObject
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Returns the layout type icon.
+     *
+     * @return string
+     */
+    public function getIcon()
+    {
+        return $this->icon;
     }
 
     /**

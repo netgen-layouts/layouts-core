@@ -24,6 +24,7 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
             array(
                 'test' => array(
                     'enabled' => true,
+                    'icon' => '/icon.svg',
                     'definition_identifier' => 'test',
                 ),
             )
@@ -34,6 +35,7 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
             array(
                 'test' => array(
                     'name' => 'Test',
+                    'icon' => '/icon.svg',
                     'enabled' => true,
                 ),
             )
@@ -67,6 +69,7 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
             array(
                 'test' => array(
                     'enabled' => true,
+                    'icon' => '/icon2.svg',
                     'definition_identifier' => 'other',
                 ),
             )
@@ -77,10 +80,12 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
             array(
                 'test' => array(
                     'name' => 'Test',
+                    'icon' => '/icon.svg',
                     'enabled' => true,
                 ),
                 'other' => array(
                     'name' => 'Other',
+                    'icon' => '/icon.svg',
                     'enabled' => true,
                 ),
             )
@@ -98,6 +103,7 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
         $this->assertEquals(
             array(
                 'enabled' => true,
+                'icon' => '/icon2.svg',
                 'definition_identifier' => 'other',
             ),
             $blockTypes['test']
@@ -134,6 +140,7 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
             array(
                 'test' => array(
                     'name' => 'Test',
+                    'icon' => '/icon.svg',
                     'enabled' => true,
                 ),
             )
@@ -151,6 +158,7 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
         $this->assertEquals(
             array(
                 'name' => 'Test',
+                'icon' => '/icon.svg',
                 'enabled' => true,
                 'definition_identifier' => 'test',
             ),
@@ -183,6 +191,7 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
             array(
                 'test' => array(
                     'name' => 'Test',
+                    'icon' => '/icon.svg',
                     'enabled' => true,
                 ),
             )
@@ -198,6 +207,7 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
         $this->assertEquals(
             array(
                 'name' => 'Test',
+                'icon' => '/icon.svg',
                 'enabled' => true,
                 'definition_identifier' => 'test',
                 'defaults' => array(),
@@ -229,6 +239,7 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
             array(
                 'type' => array(
                     'enabled' => false,
+                    'icon' => '/icon.svg',
                     'definition_identifier' => 'title',
                 ),
             )
@@ -239,6 +250,7 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
             array(
                 'title' => array(
                     'name' => 'Title',
+                    'icon' => '/icon.svg',
                     'enabled' => true,
                 ),
             )
@@ -256,6 +268,7 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
         $this->assertEquals(
             array(
                 'enabled' => false,
+                'icon' => '/icon.svg',
                 'definition_identifier' => 'title',
             ),
             $blockTypes['type']
@@ -285,6 +298,7 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
             array(
                 'title' => array(
                     'enabled' => true,
+                    'icon' => '/icon.svg',
                     'definition_identifier' => 'title',
                 ),
             )
@@ -295,6 +309,7 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
             array(
                 'title' => array(
                     'name' => 'Title',
+                    'icon' => '/icon.svg',
                     'enabled' => false,
                 ),
             )
@@ -312,6 +327,7 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
         $this->assertEquals(
             array(
                 'enabled' => false,
+                'icon' => '/icon.svg',
                 'definition_identifier' => 'title',
                 'name' => 'Title',
             ),
@@ -342,6 +358,7 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
             array(
                 'type' => array(
                     'enabled' => true,
+                    'icon' => '/icon.svg',
                     'definition_identifier' => 'title',
                 ),
             )
@@ -352,6 +369,7 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
             array(
                 'title' => array(
                     'name' => 'Title',
+                    'icon' => '/icon.svg',
                     'enabled' => false,
                 ),
             )
@@ -369,6 +387,7 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
         $this->assertEquals(
             array(
                 'enabled' => false,
+                'icon' => '/icon.svg',
                 'definition_identifier' => 'title',
             ),
             $blockTypes['type']
@@ -400,6 +419,7 @@ class BlockTypePassTest extends AbstractCompilerPassTestCase
             array(
                 'test' => array(
                     'enabled' => true,
+                    'icon' => '/icon.svg',
                     'definition_identifier' => 'title',
                 ),
             )

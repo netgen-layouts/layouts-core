@@ -20,6 +20,7 @@ class BlockTypeFactoryTest extends TestCase
             'title',
             array(
                 'name' => 'Title',
+                'icon' => '/icon.svg',
                 'enabled' => false,
                 'definition_identifier' => 'title',
                 'defaults' => array(
@@ -35,6 +36,7 @@ class BlockTypeFactoryTest extends TestCase
                     'identifier' => 'title',
                     'isEnabled' => false,
                     'name' => 'Title',
+                    'icon' => '/icon.svg',
                     'definition' => $blockDefinition,
                     'defaults' => array(
                         'viewType' => 'default',

@@ -34,6 +34,19 @@ class BlockDefinitionNode implements ConfigurationNodeInterface
                         ->isRequired()
                         ->cannotBeEmpty()
                     ->end()
+                    ->scalarNode('icon')
+                        ->defaultValue(null)
+                        ->validate()
+                            ->ifTrue(function ($v) {
+                                if ($v === null || (is_string($v) && !empty($v))) {
+                                    return false;
+                                }
+
+                                return true;
+                            })
+                            ->thenInvalid('Icon path needs to be a non empty string or null.')
+                        ->end()
+                    ->end()
                     ->arrayNode('collections')
                         ->children()
                             ->arrayNode('default')

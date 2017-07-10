@@ -24,6 +24,7 @@ class LayoutTypeNodeTest extends TestCase
                 'layout_types' => array(
                     'layout' => array(
                         'name' => 'layout',
+                        'icon' => '/icon.svg',
                         'zones' => array(
                             'zone' => array(
                                 'name' => 'zone',
@@ -38,6 +39,7 @@ class LayoutTypeNodeTest extends TestCase
             'layout_types' => array(
                 'layout' => array(
                     'name' => 'layout',
+                    'icon' => '/icon.svg',
                     'enabled' => true,
                     'zones' => array(
                         'zone' => array(
@@ -53,6 +55,68 @@ class LayoutTypeNodeTest extends TestCase
             $config,
             $expectedConfig,
             'layout_types'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\LayoutTypeNode::getConfigurationNode
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
+     */
+    public function testLayoutTypeSettingsWithNoIcon()
+    {
+        $config = array(
+            array(
+                'layout_types' => array(
+                    'layout' => array(),
+                ),
+            ),
+        );
+
+        $expectedConfig = array(
+            'layout_types' => array(
+                'layout' => array(
+                    'icon' => null,
+                ),
+            ),
+        );
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'layout_types.*.icon'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\LayoutTypeNode::getConfigurationNode
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
+     */
+    public function testLayoutTypeSettingsWithNullIcon()
+    {
+        $config = array(
+            array(
+                'layout_types' => array(
+                    'layout' => array(
+                        'icon' => null,
+                    ),
+                ),
+            ),
+        );
+
+        $expectedConfig = array(
+            'layout_types' => array(
+                'layout' => array(
+                    'icon' => null,
+                ),
+            ),
+        );
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'layout_types.*.icon'
         );
     }
 
@@ -236,6 +300,42 @@ class LayoutTypeNodeTest extends TestCase
         );
 
         $this->assertConfigurationIsInvalid(array($config));
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\LayoutTypeNode::getConfigurationNode
+     */
+    public function testLayoutTypeWithEmptyIcon()
+    {
+        $config = array(
+            'layout_types' => array(
+                'layout' => array(
+                    'name' => 'Layout',
+                    'icon' => '',
+                ),
+            ),
+        );
+
+        $this->assertConfigurationIsInvalid(array($config), 'Icon path needs to be a non empty string or null.');
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\LayoutTypeNode::getConfigurationNode
+     */
+    public function testLayoutTypeWithNonStringIcon()
+    {
+        $config = array(
+            'layout_types' => array(
+                'layout' => array(
+                    'name' => 'Layout',
+                    'icon' => 42,
+                ),
+            ),
+        );
+
+        $this->assertConfigurationIsInvalid(array($config), 'Icon path needs to be a non empty string or null.');
     }
 
     /**

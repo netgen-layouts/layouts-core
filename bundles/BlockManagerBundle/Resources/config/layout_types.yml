@@ -1,12 +1,14 @@
 layout_types:
     layout_1:
         name: 'Layout 1'
+        icon: '/bundles/netgenblockmanager/images/layout_types/layout_1.svg'
         zones:
             main:
                 name: 'Main'
 
     layout_2:
         name: 'Layout 2'
+        icon: '/bundles/netgenblockmanager/images/layout_types/layout_2.svg'
         zones:
             header:
                 name: 'Header'
@@ -21,6 +23,7 @@ layout_types:
 
     layout_3:
         name: 'Layout 3'
+        icon: '/bundles/netgenblockmanager/images/layout_types/layout_3.svg'
         zones:
             header:
                 name: 'Header'
@@ -37,6 +40,7 @@ layout_types:
 
     layout_4:
         name: 'Layout 4'
+        icon: '/bundles/netgenblockmanager/images/layout_types/layout_4.svg'
         zones:
             header:
                 name: 'Header'
@@ -53,6 +57,7 @@ layout_types:
 
     layout_5:
         name: 'Layout 5'
+        icon: '/bundles/netgenblockmanager/images/layout_types/layout_5.svg'
         zones:
             header:
                 name: 'Header'
@@ -69,6 +74,7 @@ layout_types:
 
     layout_6:
         name: 'Layout 6'
+        icon: '/bundles/netgenblockmanager/images/layout_types/layout_6.svg'
         zones:
             header:
                 name: 'Header'

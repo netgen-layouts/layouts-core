@@ -21,6 +21,7 @@ class ConfigurationTest extends TestCase
             array(
                 'identifier' => 'block_definition',
                 'name' => 'Block definition',
+                'icon' => '/icon.svg',
                 'forms' => array(
                     'content' => new Form(array('identifier' => 'content')),
                 ),
@@ -42,6 +43,14 @@ class ConfigurationTest extends TestCase
     public function testGetName()
     {
         $this->assertEquals('Block definition', $this->configuration->getName());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration::getIcon
+     */
+    public function testGetIcon()
+    {
+        $this->assertEquals('/icon.svg', $this->configuration->getIcon());
     }
 
     /**

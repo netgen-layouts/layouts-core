@@ -26,6 +26,7 @@ class LayoutTypeNormalizer implements NormalizerInterface
         return array(
             'identifier' => $layoutType->getIdentifier(),
             'name' => $layoutType->getName(),
+            'icon' => $layoutType->getIcon(),
             'zones' => $this->getZones($layoutType),
         );
     }

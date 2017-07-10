@@ -31,6 +31,7 @@ class LayoutTypeFactory
                 'identifier' => $identifier,
                 'isEnabled' => $config['enabled'],
                 'name' => $config['name'],
+                'icon' => $config['icon'],
                 'zones' => $zones,
             )
         );

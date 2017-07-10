@@ -64,6 +64,7 @@ class LayoutNormalizerTest extends TestCase
             '4_zones_a',
             array(
                 'name' => '4 zones A',
+                'icon' => '/icon.svg',
                 'enabled' => true,
                 'zones' => array(
                     'left' => array(

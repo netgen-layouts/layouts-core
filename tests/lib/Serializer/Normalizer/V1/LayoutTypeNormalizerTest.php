@@ -32,6 +32,7 @@ class LayoutTypeNormalizerTest extends TestCase
             '4_zones_a',
             array(
                 'name' => 'Layout type',
+                'icon' => '/icon.svg',
                 'enabled' => true,
                 'zones' => array(
                     'zone1' => array(
@@ -50,6 +51,7 @@ class LayoutTypeNormalizerTest extends TestCase
             array(
                 'identifier' => $layoutType->getIdentifier(),
                 'name' => $layoutType->getName(),
+                'icon' => $layoutType->getIcon(),
                 'zones' => array_map(
                     function (Zone $zone) {
                         return array(

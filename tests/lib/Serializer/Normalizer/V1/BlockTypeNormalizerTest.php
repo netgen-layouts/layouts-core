@@ -36,6 +36,7 @@ class BlockTypeNormalizerTest extends TestCase
         $blockType = new BlockType(
             array(
                 'identifier' => 'identifier',
+                'icon' => '/icon.svg',
                 'isEnabled' => false,
                 'name' => 'Block type',
                 'definition' => $this->blockDefinition,
@@ -52,6 +53,7 @@ class BlockTypeNormalizerTest extends TestCase
                 'identifier' => $blockType->getIdentifier(),
                 'enabled' => false,
                 'name' => $blockType->getName(),
+                'icon' => $blockType->getIcon(),
                 'definition_identifier' => $this->blockDefinition->getIdentifier(),
                 'is_container' => false,
                 'is_dynamic_container' => false,

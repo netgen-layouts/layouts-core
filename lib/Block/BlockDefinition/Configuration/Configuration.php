@@ -18,6 +18,11 @@ class Configuration extends ValueObject
     protected $name;
 
     /**
+     * @var string
+     */
+    protected $icon;
+
+    /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection[]
      */
     protected $collections = array();
@@ -40,6 +45,16 @@ class Configuration extends ValueObject
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Returns the block definition icon.
+     *
+     * @return string
+     */
+    public function getIcon()
+    {
+        return $this->icon;
     }
 
     /**

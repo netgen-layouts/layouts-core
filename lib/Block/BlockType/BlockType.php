@@ -22,6 +22,11 @@ class BlockType extends ValueObject
     protected $name;
 
     /**
+     * @var string
+     */
+    protected $icon;
+
+    /**
      * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
     protected $definition;
@@ -59,6 +64,16 @@ class BlockType extends ValueObject
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Returns the block type icon.
+     *
+     * @return string
+     */
+    public function getIcon()
+    {
+        return $this->icon;
     }
 
     /**

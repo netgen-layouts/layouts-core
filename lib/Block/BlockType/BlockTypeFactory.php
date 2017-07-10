@@ -22,6 +22,7 @@ class BlockTypeFactory
                 'identifier' => $identifier,
                 'isEnabled' => $config['enabled'],
                 'name' => $config['name'],
+                'icon' => $config['icon'],
                 'definition' => $blockDefinition,
                 'defaults' => $config['defaults'],
             )

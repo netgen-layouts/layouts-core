@@ -24,6 +24,7 @@ class BlockTypeNodeTest extends TestCase
                 'block_types' => array(
                     'block_type' => array(
                         'name' => 'Block type',
+                        'icon' => '/icon.svg',
                         'definition_identifier' => 'title',
                         'defaults' => array(
                             'name' => 'Name',
@@ -43,6 +44,7 @@ class BlockTypeNodeTest extends TestCase
             'block_types' => array(
                 'block_type' => array(
                     'name' => 'Block type',
+                    'icon' => '/icon.svg',
                     'enabled' => true,
                     'definition_identifier' => 'title',
                     'defaults' => array(
@@ -62,6 +64,68 @@ class BlockTypeNodeTest extends TestCase
             $config,
             $expectedConfig,
             'block_types'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\BlockTypeNode::getConfigurationNode
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
+     */
+    public function testBlockTypeSettingsWithNoIcon()
+    {
+        $config = array(
+            array(
+                'block_types' => array(
+                    'block' => array(),
+                ),
+            ),
+        );
+
+        $expectedConfig = array(
+            'block_types' => array(
+                'block' => array(
+                    'icon' => null,
+                ),
+            ),
+        );
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'block_types.*.icon'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\BlockTypeNode::getConfigurationNode
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
+     */
+    public function testBlockTypeSettingsWithNullIcon()
+    {
+        $config = array(
+            array(
+                'block_types' => array(
+                    'block' => array(
+                        'icon' => null,
+                    ),
+                ),
+            ),
+        );
+
+        $expectedConfig = array(
+            'block_types' => array(
+                'block' => array(
+                    'icon' => null,
+                ),
+            ),
+        );
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'block_types.*.icon'
         );
     }
 
@@ -107,6 +171,7 @@ class BlockTypeNodeTest extends TestCase
                 'block_types' => array(
                     'block_type' => array(
                         'enabled' => false,
+                        'icon' => '/icon.svg',
                         'definition_identifier' => 'title',
                     ),
                 ),
@@ -117,6 +182,7 @@ class BlockTypeNodeTest extends TestCase
             'block_types' => array(
                 'block_type' => array(
                     'enabled' => false,
+                    'icon' => '/icon.svg',
                     'definition_identifier' => 'title',
                     'defaults' => array(
                         'name' => '',
@@ -388,6 +454,42 @@ class BlockTypeNodeTest extends TestCase
             $expectedConfig,
             'block_types.*.defaults'
         );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\BlockTypeNode::getConfigurationNode
+     */
+    public function testBlockTypeWithEmptyIcon()
+    {
+        $config = array(
+            'block_types' => array(
+                'block' => array(
+                    'name' => 'Block',
+                    'icon' => '',
+                ),
+            ),
+        );
+
+        $this->assertConfigurationIsInvalid(array($config), 'Icon path needs to be a non empty string or null.');
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\BlockTypeNode::getConfigurationNode
+     */
+    public function testBlockTypeWithNonStringIcon()
+    {
+        $config = array(
+            'block_types' => array(
+                'block' => array(
+                    'name' => 'Block',
+                    'icon' => 42,
+                ),
+            ),
+        );
+
+        $this->assertConfigurationIsInvalid(array($config), 'Icon path needs to be a non empty string or null.');
     }
 
     /**
