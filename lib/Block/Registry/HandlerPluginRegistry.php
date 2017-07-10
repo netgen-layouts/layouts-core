@@ -34,7 +34,14 @@ class HandlerPluginRegistry implements HandlerPluginRegistryInterface
             array_filter(
                 $this->handlerPlugins,
                 function (PluginInterface $plugin) use ($handlerClass) {
-                    return is_a($handlerClass, $plugin::getExtendedHandler(), true);
+                    $extendedHandlers = (array) $plugin::getExtendedHandler();
+                    foreach ($extendedHandlers as $extendedHandler) {
+                        if (is_a($handlerClass, $plugin::getExtendedHandler(), true)) {
+                            return true;
+                        }
+                    }
+
+                    return false;
                 }
             )
         );

@@ -6,6 +6,7 @@ use Netgen\BlockManager\Block\Registry\HandlerPluginRegistry;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Tests\Block\Stubs\HandlerPlugin;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 class HandlerPluginRegistryTest extends TestCase
 {
@@ -32,6 +33,22 @@ class HandlerPluginRegistryTest extends TestCase
         $this->assertEquals(
             array($handlerPlugin),
             $this->registry->getPlugins(BlockDefinitionHandler::class)
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\Registry\HandlerPluginRegistry::addPlugin
+     * @covers \Netgen\BlockManager\Block\Registry\HandlerPluginRegistry::getPlugins
+     */
+    public function testRegistryWithUnknownClass()
+    {
+        $handlerPlugin = new HandlerPlugin();
+
+        $this->registry->addPlugin($handlerPlugin);
+
+        $this->assertEquals(
+            array(),
+            $this->registry->getPlugins(stdClass::class)
         );
     }
 }
