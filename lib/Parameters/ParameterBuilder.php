@@ -321,6 +321,31 @@ class ParameterBuilder implements ParameterBuilderInterface
     }
 
     /**
+     * Returns the builders for all parameters, optionally filtered by the group.
+     *
+     * @param string $group
+     *
+     * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface[]
+     */
+    public function all($group = null)
+    {
+        if ($this->locked) {
+            throw new BadMethodCallException('Accessing parameter builders is not possible after parameters have been built.');
+        }
+
+        return array_filter(
+            $this->unresolvedChildren,
+            function (ParameterBuilderInterface $builder) use ($group) {
+                if ($group === null) {
+                    return true;
+                }
+
+                return in_array($group, $builder->getGroups(), true);
+            }
+        );
+    }
+
+    /**
      * Returns if the builder has the parameter with provided name.
      *
      * @param string $name

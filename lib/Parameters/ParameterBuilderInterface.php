@@ -132,6 +132,15 @@ interface ParameterBuilderInterface extends Countable
     public function get($name);
 
     /**
+     * Returns the builders for all parameters, optionally filtered by the group.
+     *
+     * @param string $group
+     *
+     * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface[]
+     */
+    public function all($group = null);
+
+    /**
      * Returns if the builder has the parameter with provided name.
      *
      * @param string $name
