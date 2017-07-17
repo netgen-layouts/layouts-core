@@ -3,5 +3,12 @@
 {% import '@NetgenBlockManager/parts/macros.html.twig' as macros %}
 
 {% block content %}
-    {{ macros.collection(collections, 'default', block.itemViewType, view_context) }}
+    {% if collections.default is defined %}
+        {% set numberOfThumbnails = block.parameter('number_of_thumbnails').value %}
+        <div class="row flex-row {% if block.parameter('enable_lightbox').value %}js-lightbox-enabled{% endif %}">
+            {% for column in collections.default %}
+                <div class="col-xs-{{ 12 / numberOfThumbnails  }} as-flex">{{ ngbm_render_item(column.item, block.itemViewType) }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
 {% endblock %}
