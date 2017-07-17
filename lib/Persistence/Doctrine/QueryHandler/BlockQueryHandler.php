@@ -197,7 +197,7 @@ class BlockQueryHandler extends QueryHandler
             ->setParameter('depth', $block->depth, Type::STRING)
             // Materialized path is updated after block is created
             ->setParameter('path', $block->path, Type::STRING)
-            ->setParameter('parent_id', $block->parentId, Type::STRING)
+            ->setParameter('parent_id', $block->parentId, Type::INTEGER)
             ->setParameter('placeholder', $block->placeholder, Type::STRING)
             ->setParameter('position', $block->position, Type::INTEGER)
             ->setParameter('definition_identifier', $block->definitionIdentifier, Type::STRING)
@@ -299,7 +299,7 @@ class BlockQueryHandler extends QueryHandler
             ->setParameter('layout_id', $block->layoutId, Type::INTEGER)
             ->setParameter('depth', $block->depth, Type::STRING)
             ->setParameter('path', $block->path, Type::STRING)
-            ->setParameter('parent_id', $block->parentId, Type::STRING)
+            ->setParameter('parent_id', $block->parentId, Type::INTEGER)
             ->setParameter('placeholder', $block->placeholder, Type::STRING)
             ->setParameter('position', $block->position, Type::INTEGER)
             ->setParameter('definition_identifier', $block->definitionIdentifier, Type::STRING)

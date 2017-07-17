@@ -461,6 +461,82 @@ class ParameterBuilderTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::all
+     */
+    public function testAll()
+    {
+        $this->builder->add(
+            'test',
+            ParameterType\TextType::class,
+            array(
+                'groups' => array('group'),
+            )
+        );
+
+        $this->builder->add(
+            'test2',
+            ParameterType\TextType::class,
+            array(
+                'groups' => array('group2'),
+            )
+        );
+
+        $parameterBuilders = $this->builder->all();
+        $this->assertInternalType('array', $parameterBuilders);
+
+        $this->assertCount(2, $parameterBuilders);
+        $this->assertArrayHasKey('test', $parameterBuilders);
+        $this->assertArrayHasKey('test2', $parameterBuilders);
+
+        $this->assertInstanceOf(ParameterBuilderInterface::class, $parameterBuilders['test']);
+        $this->assertInstanceOf(ParameterBuilderInterface::class, $parameterBuilders['test2']);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::all
+     */
+    public function testAllWithGroupFilter()
+    {
+        $this->builder->add(
+            'test',
+            ParameterType\TextType::class,
+            array(
+                'groups' => array('group'),
+            )
+        );
+
+        $this->builder->add(
+            'test2',
+            ParameterType\TextType::class,
+            array(
+                'groups' => array('group2'),
+            )
+        );
+
+        $parameterBuilders = $this->builder->all('group');
+        $this->assertInternalType('array', $parameterBuilders);
+
+        $this->assertCount(1, $parameterBuilders);
+        $this->assertArrayHasKey('test', $parameterBuilders);
+
+        $this->assertInstanceOf(ParameterBuilderInterface::class, $parameterBuilders['test']);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::all
+     * @expectedException \Netgen\BlockManager\Exception\BadMethodCallException
+     * @expectedExceptionMessage Accessing parameter builders is not possible after parameters have been built.
+     */
+    public function testAllAfterBuildingParameters()
+    {
+        $this->builder->add('test', ParameterType\TextType::class);
+
+        $this->builder->buildParameters();
+
+        $this->builder->all();
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::add
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::remove
      */
