@@ -3,7 +3,6 @@
 {% import '@NetgenBlockManager/parts/macros.html.twig' as macros %}
 
 {% block content %}
-
     {% if collections.default is defined %}
         <div class="thumb-swiper">
             <div class="gallery-top swiper-container"
@@ -15,16 +14,20 @@
                 <div class="swiper-wrapper">
                     {% for result in collections.default %}
                         <div class="swiper-slide">
-                            {{ ngbm_render_item(result.item, block.itemViewType, {
-                                ezparams: {
-                                    image_type: 'main',
-                                    show_details: block.parameter('show_details').value,
-                                    show_details_on_hover: block.parameter('show_details_on_hover').value
+                            {{ ngbm_render_item(
+                                result.item,
+                                block.itemViewType, {
+                                    ezparams: {
+                                        image_type: 'main',
+                                        show_details: block.parameter('show_details').value,
+                                        show_details_on_hover: block.parameter('show_details_on_hover').value
+                                    }
                                 }
-                            }) }}
+                            ) }}
                         </div>
                     {% endfor %}
                 </div>
+
                 {% if block.parameter('next_and_previous').value %}
                     <div class="swiper-button-prev"></div>
                     <div class="swiper-button-next"></div>
@@ -35,18 +38,20 @@
                 <div class="swiper-wrapper">
                     {% for result in collections.default %}
                         <div class="swiper-slide">
-                            {{ ngbm_render_item(result.item, block.itemViewType, {
-                                ezparams: {
-                                    image_type: 'thumb',
-                                    show_details: block.parameter('show_details').value,
-                                    show_details_on_hover: block.parameter('show_details_on_hover').value
+                            {{ ngbm_render_item(
+                                result.item,
+                                block.itemViewType, {
+                                    ezparams: {
+                                        image_type: 'thumb',
+                                        show_details: block.parameter('show_details').value,
+                                        show_details_on_hover: block.parameter('show_details_on_hover').value
+                                    }
                                 }
-                            }) }}
+                            ) }}
                         </div>
                     {% endfor %}
                 </div>
             </div>
         </div>
    {% endif %}
-
 {% endblock %}

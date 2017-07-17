@@ -4,10 +4,11 @@
 
 {% block content %}
     {% if collections.default is defined %}
-        {% set numberOfThumbnails = block.parameter('number_of_thumbnails').value %}
+        {% set number_of_thumbnails = block.parameter('number_of_thumbnails').value %}
+
         <div class="row flex-row {% if block.parameter('enable_lightbox').value %}js-lightbox-enabled{% endif %}">
-            {% for column in collections.default %}
-                <div class="col-xs-{{ 12 / numberOfThumbnails  }} as-flex">{{ ngbm_render_item(column.item, block.itemViewType) }}</div>
+            {% for result in collections.default %}
+                <div class="col-xs-{{ 12 / number_of_thumbnails  }} as-flex">{{ ngbm_render_item(result.item, block.itemViewType) }}</div>
             {% endfor %}
         </div>
     {% endif %}
