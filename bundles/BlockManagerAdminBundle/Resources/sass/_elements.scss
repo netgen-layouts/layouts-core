@@ -122,16 +122,14 @@
     background-repeat:no-repeat;
     background-position:50% 50%;
     background-size:contain;
-    @for $i from 1 through 6 {
-        &.layout_#{$i} {
-            background-image:url(../images/layout_thumbs/layout_#{$i}.svg);
-        }
-    }
     .ngcb .preview-panel & {
         width:90%;
         height:0;
-        padding-bottom:135%;
+        padding-bottom:130%;
         margin:1em auto 0;
+        border:2px solid hsl(0, 0, 63);
+        background-size:95%;
+        border-radius:3px;
     }
 }
 

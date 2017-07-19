@@ -93,7 +93,7 @@
                 {% if rule.layout is not empty %}
                     <div class="rule-layout-info">
                         <div class="rule-layout-info-icon">
-                            <i class="layout-icon {{ rule.layout.layoutType.identifier }}"></i>
+                            <i class="layout-icon {{ rule.layout.layoutType.identifier }}" {% if rule.layout.layoutType.icon is not null %}style="background-image:url({{ asset(rule.layout.layoutType.icon) }})"{% endif %}></i>
                         </div>
                         <div class="rule-layout-info-text">
                             <p><strong>{{ rule.layout.name }}</strong></p>

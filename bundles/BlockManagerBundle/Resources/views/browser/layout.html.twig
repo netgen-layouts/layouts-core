@@ -1,3 +1,3 @@
 <p>{{ item.layout.name }}</p>
 
-<i class="layout-icon {{ item.layout.layoutType.identifier }}" title="{{ item.layout.layoutType.name }}"></i>
+<i class="layout-icon {{ item.layout.layoutType.identifier }}" title="{{ item.layout.layoutType.name }}" {% if item.layout.layoutType.icon is not null %}style="background-image:url({{ item.layout.layoutType.icon }})"{% endif %}></i>

@@ -7,7 +7,7 @@
 
         <div class="nl-layout-type">
             <div class="nl-layout-icon">
-                <i class="layout-icon {{ layout.layoutType.identifier }}" title="{{ layout.layoutType.name }}"></i>
+                <i class="layout-icon {{ layout.layoutType.identifier }}" title="{{ layout.layoutType.name }}" {% if layout.layoutType.icon is not null %}style="background-image:url({{ asset(layout.layoutType.icon) }})"{% endif %}></i>
             </div>
             <p>{{ layout.layoutType.name }}</p>
         </div>
