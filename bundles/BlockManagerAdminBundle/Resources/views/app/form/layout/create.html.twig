@@ -4,11 +4,16 @@
 
 {% form_theme form.layoutType _self %}
 
-{% block _create_type_widget %}
+{% block _create_layoutType_widget %}
     <div {{ block('widget_container_attributes') }}>
     {%- for child in form %}
         {{- form_widget(child) -}}
-        {{- form_label(child, null, {label: ' ', translation_domain: choice_translation_domain}) -}}
+        {{- form_label(child) -}}
+
+        {% set icon = form.parent.vars.layout_types[child.vars.value].icon %}
+        {% if icon is not null %}
+            <img src="{{ asset(icon) }}" />
+        {% endif %}
     {% endfor -%}
     </div>
 {% endblock %}

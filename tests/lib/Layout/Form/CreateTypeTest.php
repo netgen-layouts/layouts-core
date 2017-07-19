@@ -12,13 +12,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class CreateTypeTest extends FormTestCase
 {
     /**
-     * @return \Symfony\Component\Form\FormTypeInterface
+     * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface
      */
-    public function getMainType()
-    {
-        $layoutTypeRegistry = new LayoutTypeRegistry();
+    protected $layoutTypeRegistry;
 
-        $layoutTypeRegistry->addLayoutType(
+    public function setUp()
+    {
+        $this->layoutTypeRegistry = new LayoutTypeRegistry();
+
+        $this->layoutTypeRegistry->addLayoutType(
             '4_zones_a',
             new LayoutType(
                 array(
@@ -29,7 +31,7 @@ class CreateTypeTest extends FormTestCase
             )
         );
 
-        $layoutTypeRegistry->addLayoutType(
+        $this->layoutTypeRegistry->addLayoutType(
             '4_zones_b',
             new LayoutType(
                 array(
@@ -40,12 +42,21 @@ class CreateTypeTest extends FormTestCase
             )
         );
 
-        return new CreateType($layoutTypeRegistry);
+        parent::setUp();
+    }
+
+    /**
+     * @return \Symfony\Component\Form\FormTypeInterface
+     */
+    public function getMainType()
+    {
+        return new CreateType($this->layoutTypeRegistry);
     }
 
     /**
      * @covers \Netgen\BlockManager\Layout\Form\CreateType::__construct
      * @covers \Netgen\BlockManager\Layout\Form\CreateType::buildForm
+     * @covers \Netgen\BlockManager\Layout\Form\CreateType::buildView
      */
     public function testSubmitValidData()
     {
@@ -87,6 +98,9 @@ class CreateTypeTest extends FormTestCase
             array('4 zones A' => '4_zones_a'),
             $form->get('layoutType')->getConfig()->getOption('choices')
         );
+
+        $this->assertArrayHasKey('layout_types', $view->vars);
+        $this->assertEquals($view->vars['layout_types'], $this->layoutTypeRegistry->getLayoutTypes(true));
     }
 
     /**
