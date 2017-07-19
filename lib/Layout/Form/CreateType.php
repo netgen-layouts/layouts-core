@@ -123,6 +123,8 @@ class CreateType extends AbstractType
      */
     public function finishView(FormView $view, FormInterface $form, array $options)
     {
-        $view['layoutType']->vars['layout_types'] = $this->layoutTypeRegistry->getLayoutTypes(true);
+        $layoutTypeFormConfig = $form['layoutType']->getConfig();
+
+        $view['layoutType']->vars['layout_types'] = $layoutTypeFormConfig->getOption('choices');
     }
 }
