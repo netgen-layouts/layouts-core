@@ -56,7 +56,7 @@ class QueryParameterTest extends TestCase
     public function testMatches($value, $matches)
     {
         $request = Request::create('/');
-        $request->query->set('the_answer', 42);
+        $request->query->set('the_answer', '42');
 
         $this->assertEquals($matches, $this->conditionType->matches($request, $value));
     }
@@ -71,7 +71,7 @@ class QueryParameterTest extends TestCase
         return array(
             array(array('parameter_name' => 'name', 'parameter_values' => array('one', 'two')), true),
             array(array('parameter_name' => 'name', 'parameter_values' => array('one')), true),
-            array(array('parameter_name' => 'name', 'parameter_values' => array('')), false),
+            array(array('parameter_name' => 'name', 'parameter_values' => array('')), true),
             array(array('parameter_name' => 'name', 'parameter_values' => array(array('one'))), false),
             array(array('parameter_name' => 'name', 'parameter_values' => array()), false),
             array(array('parameter_name' => 'name'), false),
@@ -104,23 +104,23 @@ class QueryParameterTest extends TestCase
             array(array('parameter_name' => array()), false),
             array(array('parameter_values' => array()), false),
             array(array('parameter_name' => null, 'parameter_values' => array()), false),
-            array(array('parameter_name' => null, 'parameter_values' => array(42)), false),
-            array(array('parameter_name' => null, 'parameter_values' => array(24)), false),
-            array(array('parameter_name' => null, 'parameter_values' => array(42, 24)), false),
-            array(array('parameter_name' => null, 'parameter_values' => array(24, 42)), false),
-            array(array('parameter_name' => null, 'parameter_values' => array(24, 25)), false),
+            array(array('parameter_name' => null, 'parameter_values' => array('42')), false),
+            array(array('parameter_name' => null, 'parameter_values' => array('24')), false),
+            array(array('parameter_name' => null, 'parameter_values' => array('42', '24')), false),
+            array(array('parameter_name' => null, 'parameter_values' => array('24', '42')), false),
+            array(array('parameter_name' => null, 'parameter_values' => array('24', '25')), false),
             array(array('parameter_name' => 'the_answer', 'parameter_values' => array()), false),
-            array(array('parameter_name' => 'the_answer', 'parameter_values' => array(42)), true),
-            array(array('parameter_name' => 'the_answer', 'parameter_values' => array(24)), false),
-            array(array('parameter_name' => 'the_answer', 'parameter_values' => array(42, 24)), true),
-            array(array('parameter_name' => 'the_answer', 'parameter_values' => array(24, 42)), true),
-            array(array('parameter_name' => 'the_answer', 'parameter_values' => array(24, 25)), false),
+            array(array('parameter_name' => 'the_answer', 'parameter_values' => array('42')), true),
+            array(array('parameter_name' => 'the_answer', 'parameter_values' => array('24')), false),
+            array(array('parameter_name' => 'the_answer', 'parameter_values' => array('42', '24')), true),
+            array(array('parameter_name' => 'the_answer', 'parameter_values' => array('24', '42')), true),
+            array(array('parameter_name' => 'the_answer', 'parameter_values' => array('24', '25')), false),
             array(array('parameter_name' => 'the_other_answer', 'parameter_values' => array()), false),
-            array(array('parameter_name' => 'the_other_answer', 'parameter_values' => array(42)), false),
-            array(array('parameter_name' => 'the_other_answer', 'parameter_values' => array(24)), false),
-            array(array('parameter_name' => 'the_other_answer', 'parameter_values' => array(42, 24)), false),
-            array(array('parameter_name' => 'the_other_answer', 'parameter_values' => array(24, 42)), false),
-            array(array('parameter_name' => 'the_other_answer', 'parameter_values' => array(24, 25)), false),
+            array(array('parameter_name' => 'the_other_answer', 'parameter_values' => array('42')), false),
+            array(array('parameter_name' => 'the_other_answer', 'parameter_values' => array('24')), false),
+            array(array('parameter_name' => 'the_other_answer', 'parameter_values' => array('42', '24')), false),
+            array(array('parameter_name' => 'the_other_answer', 'parameter_values' => array('24', '42')), false),
+            array(array('parameter_name' => 'the_other_answer', 'parameter_values' => array('24', '25')), false),
         );
     }
 }

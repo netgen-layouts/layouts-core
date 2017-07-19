@@ -28,6 +28,7 @@ class KeyValuesType extends AbstractType
                 'values_name',
                 'values_label',
                 'values_type',
+                'values_options',
                 'values_constraints',
             )
         );
@@ -37,8 +38,10 @@ class KeyValuesType extends AbstractType
         $resolver->setAllowedTypes('values_name', 'string');
         $resolver->setAllowedTypes('values_label', 'string');
         $resolver->setAllowedTypes('values_type', 'string');
+        $resolver->setAllowedTypes('values_options', 'array');
         $resolver->setAllowedTypes('values_constraints', 'array');
 
+        $resolver->setDefault('values_options', array());
         $resolver->setDefault('values_constraints', array());
     }
 
@@ -56,22 +59,17 @@ class KeyValuesType extends AbstractType
             array(
                 'required' => true,
                 'label' => $options['key_label'],
-                'constraints' => array(
-                    new Constraints\NotBlank(),
-                ),
             )
         );
 
         $valueConstraints = array();
-        if ($options['required']) {
-            $valueConstraints[] = new Constraints\NotBlank();
-        }
-
         if (!empty($options['values_constraints'])) {
-            $valueConstraints[] = new Constraints\All(
-                array(
-                    'constraints' => $options['values_constraints'],
-                )
+            $valueConstraints = array(
+                new Constraints\All(
+                    array(
+                        'constraints' => $options['values_constraints'],
+                    )
+                ),
             );
         }
 
@@ -83,9 +81,10 @@ class KeyValuesType extends AbstractType
                 'label' => $options['values_label'],
                 'constraints' => $valueConstraints,
                 'entry_type' => $options['values_type'],
+                'entry_options' => $options['values_options'],
                 'allow_add' => true,
                 'allow_delete' => true,
-                'delete_empty' => true,
+                'delete_empty' => $options['required'],
             )
         );
     }

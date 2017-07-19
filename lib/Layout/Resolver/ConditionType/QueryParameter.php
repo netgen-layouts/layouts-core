@@ -43,7 +43,6 @@ class QueryParameter implements ConditionTypeInterface
                                 new Constraints\All(
                                     array(
                                         'constraints' => array(
-                                            new Constraints\NotBlank(),
                                             new Constraints\Type(array('type' => 'scalar')),
                                         ),
                                     )
@@ -79,9 +78,11 @@ class QueryParameter implements ConditionTypeInterface
             return false;
         }
 
+        $parameterValues = array_map('trim', $value['parameter_values']);
+
         return in_array(
             $queryParameters->get($value['parameter_name']),
-            $value['parameter_values'],
+            $parameterValues,
             true
         );
     }
