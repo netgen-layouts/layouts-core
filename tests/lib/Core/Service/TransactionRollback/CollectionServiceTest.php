@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
 use Exception;
-use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
@@ -29,25 +28,6 @@ class CollectionServiceTest extends ServiceTestCase
         parent::setUp();
 
         $this->collectionService = $this->createCollectionService();
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::createCollection
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
-     */
-    public function testCreateCollection()
-    {
-        $this->collectionHandlerMock
-            ->expects($this->at(0))
-            ->method('createCollection')
-            ->will($this->throwException(new Exception('Test exception text')));
-
-        $this->persistenceHandler
-            ->expects($this->once())
-            ->method('rollbackTransaction');
-
-        $this->collectionService->createCollection(new CollectionCreateStruct());
     }
 
     /**
@@ -79,139 +59,6 @@ class CollectionServiceTest extends ServiceTestCase
             new Collection(array('published' => false, 'type' => Collection::TYPE_DYNAMIC)),
             Collection::TYPE_MANUAL
         );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::copyCollection
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
-     */
-    public function testCopyCollection()
-    {
-        $this->collectionHandlerMock
-            ->expects($this->at(0))
-            ->method('loadCollection')
-            ->will(
-                $this->returnValue(
-                    new PersistenceCollection()
-                )
-            );
-
-        $this->collectionHandlerMock
-            ->expects($this->at(1))
-            ->method('copyCollection')
-            ->will($this->throwException(new Exception('Test exception text')));
-
-        $this->persistenceHandler
-            ->expects($this->once())
-            ->method('rollbackTransaction');
-
-        $this->collectionService->copyCollection(new Collection());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::createDraft
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
-     */
-    public function testCreateDraft()
-    {
-        $this->collectionHandlerMock
-            ->expects($this->at(0))
-            ->method('loadCollection')
-            ->will($this->returnValue(new PersistenceCollection()));
-
-        $this->collectionHandlerMock
-            ->expects($this->at(1))
-            ->method('collectionExists')
-            ->will($this->returnValue(false));
-
-        $this->collectionHandlerMock
-            ->expects($this->at(2))
-            ->method('deleteCollection')
-            ->will($this->throwException(new Exception('Test exception text')));
-
-        $this->persistenceHandler
-            ->expects($this->once())
-            ->method('rollbackTransaction');
-
-        $this->collectionService->createDraft(new Collection(array('published' => true)));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::discardDraft
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
-     */
-    public function testDiscardDraft()
-    {
-        $this->collectionHandlerMock
-            ->expects($this->at(0))
-            ->method('loadCollection')
-            ->will($this->returnValue(new PersistenceCollection()));
-
-        $this->collectionHandlerMock
-            ->expects($this->at(1))
-            ->method('deleteCollection')
-            ->will($this->throwException(new Exception('Test exception text')));
-
-        $this->persistenceHandler
-            ->expects($this->once())
-            ->method('rollbackTransaction');
-
-        $this->collectionService->discardDraft(new Collection(array('published' => false)));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::publishCollection
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
-     */
-    public function testPublishCollection()
-    {
-        $this->collectionHandlerMock
-            ->expects($this->at(0))
-            ->method('loadCollection')
-            ->will($this->returnValue(new PersistenceCollection()));
-
-        $this->collectionHandlerMock
-            ->expects($this->at(1))
-            ->method('deleteCollection')
-            ->will($this->throwException(new Exception('Test exception text')));
-
-        $this->persistenceHandler
-            ->expects($this->once())
-            ->method('rollbackTransaction');
-
-        $this->collectionService->publishCollection(new Collection(array('published' => false)));
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteCollection
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
-     */
-    public function testDeleteCollection()
-    {
-        $this->collectionHandlerMock
-            ->expects($this->at(0))
-            ->method('loadCollection')
-            ->will(
-                $this->returnValue(
-                    new PersistenceCollection()
-                )
-            );
-
-        $this->collectionHandlerMock
-            ->expects($this->at(1))
-            ->method('deleteCollection')
-            ->will($this->throwException(new Exception('Test exception text')));
-
-        $this->persistenceHandler
-            ->expects($this->once())
-            ->method('rollbackTransaction');
-
-        $this->collectionService->deleteCollection(new Collection());
     }
 
     /**

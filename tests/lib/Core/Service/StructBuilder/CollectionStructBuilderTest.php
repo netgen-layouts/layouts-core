@@ -2,8 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\StructBuilder;
 
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
@@ -32,21 +30,6 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
         );
 
         $this->structBuilder = new CollectionStructBuilder();
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder::newCollectionCreateStruct
-     */
-    public function testNewCollectionCreateStruct()
-    {
-        $this->assertEquals(
-            new CollectionCreateStruct(
-                array(
-                    'type' => Collection::TYPE_DYNAMIC,
-                )
-            ),
-            $this->structBuilder->newCollectionCreateStruct(Collection::TYPE_DYNAMIC)
-        );
     }
 
     /**

@@ -2,14 +2,12 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
-use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
 use Netgen\BlockManager\Collection\QueryType;
 use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
-use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
@@ -42,63 +40,6 @@ class CollectionValidatorTest extends TestCase
 
         $this->collectionValidator = new CollectionValidator();
         $this->collectionValidator->setValidator($this->validator);
-    }
-
-    /**
-     * @param array $params
-     * @param bool $isValid
-     *
-     * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateCollectionCreateStruct
-     * @dataProvider validateCollectionCreateStructProvider
-     */
-    public function testValidateCollectionCreateStruct(array $params, $isValid)
-    {
-        if (!$isValid) {
-            $this->expectException(ValidationException::class);
-        }
-
-        // Fake assertion to fix coverage on tests which do not perform assertions
-        $this->assertTrue(true);
-
-        $this->collectionValidator->validateCollectionCreateStruct(
-            new CollectionCreateStruct($params)
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateCollectionCreateStruct
-     * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateItemCreateStruct
-     * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
-     * @expectedExceptionMessage Manual collection cannot have a query.
-     */
-    public function testValidateCollectionCreateStructWithQueryInManualCollection()
-    {
-        $collectionCreateStruct = new CollectionCreateStruct();
-        $collectionCreateStruct->type = Collection::TYPE_MANUAL;
-
-        $collectionCreateStruct->queryCreateStruct = new QueryCreateStruct(
-            array(
-                'queryType' => $this->getQueryType(),
-                'parameterValues' => array(
-                    'param' => 'value',
-                ),
-            )
-        );
-
-        $this->collectionValidator->validateCollectionCreateStruct($collectionCreateStruct);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateCollectionCreateStruct
-     * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
-     * @expectedExceptionMessage Dynamic collection needs to have a query.
-     */
-    public function testValidateCollectionCreateStructWithNoQueryInDynamicCollection()
-    {
-        $collectionCreateStruct = new CollectionCreateStruct();
-        $collectionCreateStruct->type = Collection::TYPE_DYNAMIC;
-
-        $this->collectionValidator->validateCollectionCreateStruct($collectionCreateStruct);
     }
 
     /**
@@ -158,46 +99,6 @@ class CollectionValidatorTest extends TestCase
         $this->collectionValidator->validateQueryUpdateStruct(
             new Query(array('queryType' => new QueryTypeStub('query_type'))),
             new QueryUpdateStruct($params)
-        );
-    }
-
-    public function validateCollectionCreateStructProvider()
-    {
-        return array(
-            array(array('type' => Collection::TYPE_MANUAL), true),
-            array(array('type' => 23), false),
-            array(array('type' => null), false),
-            array(array('type' => 'type'), false),
-            array(
-                array(
-                    'type' => Collection::TYPE_MANUAL,
-                    'itemCreateStructs' => array(
-                        new ItemCreateStruct(
-                            array(
-                                'valueId' => 42,
-                                'valueType' => 'value',
-                                'type' => Item::TYPE_MANUAL,
-                            )
-                        ),
-                    ),
-                ),
-                true,
-            ),
-            array(
-                array(
-                    'type' => Collection::TYPE_MANUAL,
-                    'itemCreateStructs' => array(
-                        new ItemCreateStruct(
-                            array(
-                                'valueId' => null,
-                                'valueType' => 'value',
-                                'type' => Item::TYPE_MANUAL,
-                            )
-                        ),
-                    ),
-                ),
-                false,
-            ),
         );
     }
 

@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\API\Service;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\Query;
@@ -80,15 +79,6 @@ interface CollectionService extends Service
     public function loadQueryDraft($queryId);
 
     /**
-     * Creates a collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct $collectionCreateStruct
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Collection
-     */
-    public function createCollection(CollectionCreateStruct $collectionCreateStruct);
-
-    /**
      * Changes the type of specified collection.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
@@ -101,55 +91,6 @@ interface CollectionService extends Service
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
     public function changeCollectionType(Collection $collection, $newType, QueryCreateStruct $queryCreateStruct = null);
-
-    /**
-     * Copies a specified collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Collection
-     */
-    public function copyCollection(Collection $collection);
-
-    /**
-     * Creates a collection draft.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param bool $discardExisting
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not published
-     *                                                          If draft already exists for collection and $discardExisting is set to false
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Collection
-     */
-    public function createDraft(Collection $collection, $discardExisting = false);
-
-    /**
-     * Discards a collection draft.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
-     */
-    public function discardDraft(Collection $collection);
-
-    /**
-     * Publishes a collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Collection
-     */
-    public function publishCollection(Collection $collection);
-
-    /**
-     * Deletes a specified collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     */
-    public function deleteCollection(Collection $collection);
 
     /**
      * Adds an item to collection.
@@ -198,15 +139,6 @@ interface CollectionService extends Service
      * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
     public function updateQuery(Query $query, QueryUpdateStruct $queryUpdateStruct);
-
-    /**
-     * Creates a new collection create struct.
-     *
-     * @param int $type
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct
-     */
-    public function newCollectionCreateStruct($type);
 
     /**
      * Creates a new item create struct.

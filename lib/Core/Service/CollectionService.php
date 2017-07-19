@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Service\CollectionService as APICollectionService;
 use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct as APICollectionCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct as APIItemCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\Query;
@@ -18,7 +17,6 @@ use Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Persistence\Handler;
-use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryUpdateStruct;
@@ -203,65 +201,6 @@ class CollectionService extends Service implements APICollectionService
     }
 
     /**
-     * Creates a collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct $collectionCreateStruct
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Collection
-     */
-    public function createCollection(APICollectionCreateStruct $collectionCreateStruct)
-    {
-        $this->validator->validateCollectionCreateStruct($collectionCreateStruct);
-
-        $createdCollection = $this->transaction(
-            function () use ($collectionCreateStruct) {
-                $createdCollection = $this->handler->createCollection(
-                    new CollectionCreateStruct(
-                        array(
-                            'status' => Value::STATUS_DRAFT,
-                        )
-                    )
-                );
-
-                foreach ($collectionCreateStruct->itemCreateStructs as $position => $itemCreateStruct) {
-                    $this->handler->addItem(
-                        $createdCollection,
-                        new ItemCreateStruct(
-                            array(
-                                'position' => $position,
-                                'valueId' => $itemCreateStruct->valueId,
-                                'valueType' => $itemCreateStruct->valueType,
-                                'type' => $itemCreateStruct->type,
-                            )
-                        )
-                    );
-                }
-
-                if ($collectionCreateStruct->queryCreateStruct instanceof APIQueryCreateStruct) {
-                    $queryCreateStruct = $collectionCreateStruct->queryCreateStruct;
-
-                    $this->handler->addQuery(
-                        $createdCollection,
-                        new QueryCreateStruct(
-                            array(
-                                'type' => $queryCreateStruct->queryType->getType(),
-                                'parameters' => $this->parameterMapper->serializeValues(
-                                    $queryCreateStruct->queryType,
-                                    $queryCreateStruct->getParameterValues()
-                                ),
-                            )
-                        )
-                    );
-                }
-
-                return $createdCollection;
-            }
-        );
-
-        return $this->mapper->mapCollection($createdCollection);
-    }
-
-    /**
      * Changes the type of specified collection.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
@@ -320,148 +259,6 @@ class CollectionService extends Service implements APICollectionService
         $persistenceCollection = $this->handler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
 
         return $this->mapper->mapCollection($persistenceCollection);
-    }
-
-    /**
-     * Copies a specified collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Collection
-     */
-    public function copyCollection(Collection $collection)
-    {
-        $persistenceCollection = $this->handler->loadCollection($collection->getId(), $collection->getStatus());
-
-        $copiedCollection = $this->transaction(
-            function () use ($persistenceCollection) {
-                return $this->handler->copyCollection($persistenceCollection);
-            }
-        );
-
-        return $this->mapper->mapCollection($copiedCollection);
-    }
-
-    /**
-     * Creates a collection draft.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param bool $discardExisting
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not published
-     *                                                          If draft already exists for collection and $discardExisting is set to false
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Collection
-     */
-    public function createDraft(Collection $collection, $discardExisting = false)
-    {
-        if (!$collection->isPublished()) {
-            throw new BadStateException('collection', 'Draft can be created only from published collections.');
-        }
-
-        $persistenceCollection = $this->handler->loadCollection($collection->getId(), Value::STATUS_PUBLISHED);
-
-        if ($this->handler->collectionExists($persistenceCollection->id, Value::STATUS_DRAFT)) {
-            if (!$discardExisting) {
-                throw new BadStateException('collection', 'The provided collection already has a draft.');
-            }
-        }
-
-        $collectionDraft = $this->transaction(
-            function () use ($persistenceCollection) {
-                $this->handler->deleteCollection($persistenceCollection->id, Value::STATUS_DRAFT);
-
-                return $this->handler->createCollectionStatus($persistenceCollection, Value::STATUS_DRAFT);
-            }
-        );
-
-        return $this->mapper->mapCollection($collectionDraft);
-    }
-
-    /**
-     * Discards a collection draft.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
-     */
-    public function discardDraft(Collection $collection)
-    {
-        if ($collection->isPublished()) {
-            throw new BadStateException('collection', 'Only draft collections can be discarded.');
-        }
-
-        $persistenceCollection = $this->handler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
-
-        $this->transaction(
-            function () use ($persistenceCollection) {
-                $this->handler->deleteCollection(
-                    $persistenceCollection->id,
-                    Value::STATUS_DRAFT
-                );
-            }
-        );
-    }
-
-    /**
-     * Publishes a collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Collection
-     */
-    public function publishCollection(Collection $collection)
-    {
-        if ($collection->isPublished()) {
-            throw new BadStateException('collection', 'Only draft collections can be published.');
-        }
-
-        $persistenceCollection = $this->handler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
-
-        $publishedCollection = $this->transaction(
-            function () use ($persistenceCollection) {
-                $this->handler->deleteCollection($persistenceCollection->id, Value::STATUS_ARCHIVED);
-
-                if ($this->handler->collectionExists($persistenceCollection->id, Value::STATUS_PUBLISHED)) {
-                    $this->handler->createCollectionStatus(
-                        $this->handler->loadCollection(
-                            $persistenceCollection->id,
-                            Value::STATUS_PUBLISHED
-                        ),
-                        Value::STATUS_ARCHIVED
-                    );
-
-                    $this->handler->deleteCollection($persistenceCollection->id, Value::STATUS_PUBLISHED);
-                }
-
-                $publishedCollection = $this->handler->createCollectionStatus($persistenceCollection, Value::STATUS_PUBLISHED);
-                $this->handler->deleteCollection($persistenceCollection->id, Value::STATUS_DRAFT);
-
-                return $publishedCollection;
-            }
-        );
-
-        return $this->mapper->mapCollection($publishedCollection);
-    }
-
-    /**
-     * Deletes a specified collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     */
-    public function deleteCollection(Collection $collection)
-    {
-        $persistenceCollection = $this->handler->loadCollection($collection->getId(), $collection->getStatus());
-
-        $this->transaction(
-            function () use ($persistenceCollection) {
-                $this->handler->deleteCollection(
-                    $persistenceCollection->id
-                );
-            }
-        );
     }
 
     /**
@@ -604,18 +401,6 @@ class CollectionService extends Service implements APICollectionService
         );
 
         return $this->mapper->mapQuery($updatedQuery);
-    }
-
-    /**
-     * Creates a new collection create struct.
-     *
-     * @param int $type
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct
-     */
-    public function newCollectionCreateStruct($type)
-    {
-        return $this->structBuilder->newCollectionCreateStruct($type);
     }
 
     /**

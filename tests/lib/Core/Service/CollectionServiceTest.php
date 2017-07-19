@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\Query;
@@ -156,32 +155,6 @@ abstract class CollectionServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::createCollection
-     */
-    public function testCreateCollection()
-    {
-        $collectionCreateStruct = $this->collectionService->newCollectionCreateStruct(
-            Collection::TYPE_DYNAMIC
-        );
-
-        $collectionCreateStruct->itemCreateStructs = array(
-            $this->collectionService->newItemCreateStruct(Item::TYPE_MANUAL, '66', 'ezcontent'),
-        );
-
-        $collectionCreateStruct->queryCreateStruct = $this->collectionService->newQueryCreateStruct(
-            new QueryType('ezcontent_search')
-        );
-
-        $createdCollection = $this->collectionService->createCollection($collectionCreateStruct);
-
-        $this->assertFalse($createdCollection->isPublished());
-        $this->assertInstanceOf(Collection::class, $createdCollection);
-
-        $this->assertCount(1, $createdCollection->getItems());
-        $this->assertInstanceOf(Query::class, $createdCollection->getQuery());
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::changeCollectionType
      */
     public function testChangeCollectionTypeFromManualToDynamic()
@@ -272,133 +245,6 @@ abstract class CollectionServiceTest extends ServiceTestCase
             $collection,
             Collection::TYPE_DYNAMIC
         );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::copyCollection
-     */
-    public function testCopyCollection()
-    {
-        $collection = $this->collectionService->loadCollection(3);
-        $copiedCollection = $this->collectionService->copyCollection($collection);
-
-        $this->assertEquals($collection->isPublished(), $copiedCollection->isPublished());
-        $this->assertInstanceOf(Collection::class, $copiedCollection);
-        $this->assertEquals(7, $copiedCollection->getId());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::createDraft
-     */
-    public function testCreateDraft()
-    {
-        $collection = $this->collectionService->loadCollection(2);
-        $draftCollection = $this->collectionService->createDraft($collection);
-
-        $this->assertFalse($draftCollection->isPublished());
-        $this->assertInstanceOf(Collection::class, $draftCollection);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::createDraft
-     */
-    public function testCreateDraftWithDiscardingExistingDraft()
-    {
-        $collection = $this->collectionService->loadCollection(3);
-        $draftCollection = $this->collectionService->createDraft($collection, true);
-
-        $this->assertFalse($draftCollection->isPublished());
-        $this->assertInstanceOf(Collection::class, $draftCollection);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::createDraft
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "collection" has an invalid state. Draft can be created only from published collections.
-     */
-    public function testCreateDraftThrowsBadStateExceptionWithNonPublishedCollection()
-    {
-        $collection = $this->collectionService->loadCollectionDraft(3);
-        $this->collectionService->createDraft($collection);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::createDraft
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "collection" has an invalid state. The provided collection already has a draft.
-     */
-    public function testCreateDraftThrowsBadStateExceptionIfDraftAlreadyExists()
-    {
-        $collection = $this->collectionService->loadCollection(3);
-        $this->collectionService->createDraft($collection);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::discardDraft
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find collection with identifier "3"
-     */
-    public function testDiscardDraft()
-    {
-        $collection = $this->collectionService->loadCollectionDraft(3);
-        $this->collectionService->discardDraft($collection);
-
-        $this->collectionService->loadCollectionDraft($collection->getId());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::discardDraft
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "collection" has an invalid state. Only draft collections can be discarded.
-     */
-    public function testDiscardDraftThrowsBadStateExceptionWithNonDraftCollection()
-    {
-        $collection = $this->collectionService->loadCollection(3);
-        $this->collectionService->discardDraft($collection);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::publishCollection
-     */
-    public function testPublishCollection()
-    {
-        $collection = $this->collectionService->loadCollectionDraft(3);
-        $publishedCollection = $this->collectionService->publishCollection($collection);
-
-        $this->assertInstanceOf(Collection::class, $publishedCollection);
-        $this->assertTrue($publishedCollection->isPublished());
-
-        try {
-            $this->collectionService->loadCollectionDraft($collection->getId());
-            self::fail('Draft collection still exists after publishing.');
-        } catch (NotFoundException $e) {
-            // Do nothing
-        }
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::publishCollection
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "collection" has an invalid state. Only draft collections can be published.
-     */
-    public function testPublishCollectionThrowsBadStateExceptionWithNonDraftCollection()
-    {
-        $collection = $this->collectionService->loadCollection(3);
-        $this->collectionService->publishCollection($collection);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteCollection
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find collection with identifier "3"
-     */
-    public function testDeleteCollection()
-    {
-        $collection = $this->collectionService->loadCollection(3);
-
-        $this->collectionService->deleteCollection($collection);
-
-        $this->collectionService->loadCollection($collection->getId());
     }
 
     /**
@@ -532,7 +378,6 @@ abstract class CollectionServiceTest extends ServiceTestCase
 
         $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct();
 
-        $queryUpdateStruct->queryType = new QueryType('ezcontent_search');
         $queryUpdateStruct->setParameterValue('parent_location_id', 3);
         $queryUpdateStruct->setParameterValue('param', 'value');
 
@@ -560,21 +405,6 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $queryUpdateStruct->setParameterValue('param', 'value');
 
         $this->collectionService->updateQuery($query, $queryUpdateStruct);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::newCollectionCreateStruct
-     */
-    public function testNewCollectionCreateStruct()
-    {
-        $this->assertEquals(
-            new CollectionCreateStruct(
-                array(
-                    'type' => Collection::TYPE_DYNAMIC,
-                )
-            ),
-            $this->collectionService->newCollectionCreateStruct(Collection::TYPE_DYNAMIC)
-        );
     }
 
     /**
