@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Layout\Form;
 
 use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\Form\AbstractType;
-use Netgen\BlockManager\Layout\Form\DataTransformer\LayoutTypeTransformer;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Validator\Constraint\LayoutName;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -54,18 +53,18 @@ class CreateType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $choices = array();
-        foreach ($this->layoutTypeRegistry->getLayoutTypes(true) as $layoutType) {
-            $choices[$layoutType->getName()] = $layoutType->getIdentifier();
-        }
-
         $builder->add(
             'layoutType',
             ChoiceType::class,
             array(
                 'label' => 'layout.type',
                 'required' => true,
-                'choices' => $choices,
+                'choices' => $this->layoutTypeRegistry->getLayoutTypes(true),
+                'choice_value' => 'identifier',
+                'choice_label' => function ($layoutType) {
+                    return $layoutType->getName();
+                },
+                'choice_translation_domain' => false,
                 'choices_as_values' => true,
                 'expanded' => true,
                 'constraints' => array(
@@ -73,10 +72,6 @@ class CreateType extends AbstractType
                 ),
                 'property_path' => 'layoutType',
             )
-        );
-
-        $builder->get('layoutType')->addModelTransformer(
-            new LayoutTypeTransformer($this->layoutTypeRegistry)
         );
 
         $builder->add(
@@ -120,14 +115,14 @@ class CreateType extends AbstractType
     }
 
     /**
-     * Builds the form view.
+     * Finishes the form view.
      *
      * @param \Symfony\Component\Form\FormView $view
      * @param \Symfony\Component\Form\FormInterface $form
      * @param array $options
      */
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function finishView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars['layout_types'] = $this->layoutTypeRegistry->getLayoutTypes(true);
+        $view['layoutType']->vars['layout_types'] = $this->layoutTypeRegistry->getLayoutTypes(true);
     }
 }

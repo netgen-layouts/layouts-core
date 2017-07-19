@@ -56,7 +56,7 @@ class CreateTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Form\CreateType::__construct
      * @covers \Netgen\BlockManager\Layout\Form\CreateType::buildForm
-     * @covers \Netgen\BlockManager\Layout\Form\CreateType::buildView
+     * @covers \Netgen\BlockManager\Layout\Form\CreateType::finishView
      */
     public function testSubmitValidData()
     {
@@ -95,12 +95,16 @@ class CreateTypeTest extends FormTestCase
         }
 
         $this->assertEquals(
-            array('4 zones A' => '4_zones_a'),
+            $this->layoutTypeRegistry->getLayoutTypes(true),
             $form->get('layoutType')->getConfig()->getOption('choices')
         );
 
-        $this->assertArrayHasKey('layout_types', $view->vars);
-        $this->assertEquals($view->vars['layout_types'], $this->layoutTypeRegistry->getLayoutTypes(true));
+        $this->assertArrayHasKey('layout_types', $view['layoutType']->vars);
+
+        $this->assertEquals(
+            $this->layoutTypeRegistry->getLayoutTypes(true),
+            $view['layoutType']->vars['layout_types']
+        );
     }
 
     /**
