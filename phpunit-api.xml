@@ -14,9 +14,9 @@
     beStrictAboutTestSize="true"
     beStrictAboutChangesToGlobalState="true"
 >
-	<php>
-		<server name="KERNEL_DIR" value="app/" />
-	</php>
+    <php>
+        <server name="KERNEL_DIR" value="app/" />
+    </php>
 
     <testsuites>
         <testsuite name="Netgen\Bundle\BlockManagerBundle\Controller\API">
