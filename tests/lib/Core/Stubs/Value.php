@@ -21,4 +21,14 @@ class Value extends ValueObject implements APIValue
      * @var mixed
      */
     public $someOtherProperty;
+
+    /**
+     * Returns the status of the value.
+     *
+     * @return int
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
 }

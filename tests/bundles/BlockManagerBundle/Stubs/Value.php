@@ -12,4 +12,13 @@ class Value implements APIValue
     {
         $this->valueParams = $valueParams;
     }
+
+    /**
+     * Returns the status of the value.
+     *
+     * @return int
+     */
+    public function getStatus()
+    {
+    }
 }
