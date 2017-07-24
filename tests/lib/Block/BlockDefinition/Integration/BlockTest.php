@@ -62,7 +62,7 @@ abstract class BlockTest extends ServiceTestCase
         $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
         $blockCreateStruct->viewType = 'default';
         $blockCreateStruct->itemViewType = 'standard';
-        $blockCreateStruct->fillValues($blockDefinition, $parameters);
+        $blockCreateStruct->fill($blockDefinition, $parameters);
 
         $zone = $this->layoutService->loadZoneDraft(1, 'left');
         $createdBlock = $this->blockService->createBlockInZone($blockCreateStruct, $zone);
@@ -101,7 +101,7 @@ abstract class BlockTest extends ServiceTestCase
         $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
         $blockCreateStruct->viewType = 'default';
         $blockCreateStruct->itemViewType = 'standard';
-        $blockCreateStruct->fillValues($blockDefinition, $parameters);
+        $blockCreateStruct->fill($blockDefinition, $parameters);
 
         $zone = $this->layoutService->loadZoneDraft(1, 'left');
         $this->blockService->createBlockInZone($blockCreateStruct, $zone);

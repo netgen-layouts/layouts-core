@@ -79,24 +79,6 @@ abstract class ParameterType implements ParameterTypeInterface
     }
 
     /**
-     * Potentially converts the input value to value usable by the domain.
-     *
-     * If the value cannot be converted, original value should be returned.
-     *
-     * This is a trivial implementation, just returning the provided value, usable by parameters
-     * which have the scalar/hash format equal to domain format.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
-     * @param mixed $value
-     *
-     * @return mixed
-     */
-    public function createValueFromInput(ParameterInterface $parameter, $value)
-    {
-        return $this->fromHash($parameter, $value);
-    }
-
-    /**
      * Returns if the parameter value is empty.
      *
      * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter

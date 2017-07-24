@@ -292,61 +292,6 @@ class LinkTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $convertedValue
-     *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::createValueFromInput
-     * @dataProvider createValueFromInputProvider
-     */
-    public function testCreateValueFromInput($value, $convertedValue)
-    {
-        $type = new LinkType($this->valueTypeRegistry);
-        $this->assertEquals($convertedValue, $type->createValueFromInput(new Parameter(), $value));
-    }
-
-    public function createValueFromInputProvider()
-    {
-        return array(
-            array(
-                42,
-                42,
-            ),
-            array(
-                array(),
-                array(),
-            ),
-            array(
-                array(
-                    'link_type' => 'url',
-                    'link' => 'http://www.google.com',
-                    'link_suffix' => '?suffix',
-                    'new_window' => true,
-                ),
-                new LinkValue(
-                    array(
-                        'linkType' => 'url',
-                        'link' => 'http://www.google.com',
-                        'linkSuffix' => '?suffix',
-                        'newWindow' => true,
-                    )
-                ),
-            ),
-            array(
-                array(
-                    'link_type' => 'url',
-                    'link' => 'http://www.google.com',
-                ),
-                new LinkValue(
-                    array(
-                        'linkType' => 'url',
-                        'link' => 'http://www.google.com',
-                    )
-                ),
-            ),
-        );
-    }
-
-    /**
-     * @param mixed $value
      * @param bool $isEmpty
      *
      * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::isValueEmpty

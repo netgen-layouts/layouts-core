@@ -1,0 +1,13 @@
+<?php
+
+namespace Netgen\BlockManager\Tests\Core\Stubs;
+
+use Netgen\BlockManager\API\Values\ParameterBasedValue as APIParameterBasedValue;
+use Netgen\BlockManager\API\Values\Value as APIValue;
+use Netgen\BlockManager\Core\Values\ParameterBasedValueTrait;
+use Netgen\BlockManager\ValueObject;
+
+class ParameterBasedValue extends ValueObject implements APIValue, APIParameterBasedValue
+{
+    use ParameterBasedValueTrait;
+}

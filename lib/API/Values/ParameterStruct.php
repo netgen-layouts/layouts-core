@@ -7,7 +7,9 @@ use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
 interface ParameterStruct
 {
     /**
-     * Sets the parameter values to the struct.
+     * Sets the provided parameter values to the struct.
+     *
+     * The values need to be in the domain format of the value for the parameter.
      *
      * @param array $parameterValues
      */
@@ -15,6 +17,8 @@ interface ParameterStruct
 
     /**
      * Sets the parameter value to the struct.
+     *
+     * The value needs to be in the domain format of the value for the parameter.
      *
      * @param string $parameterName
      * @param mixed $parameterValue
@@ -49,11 +53,31 @@ interface ParameterStruct
     public function hasParameterValue($parameterName);
 
     /**
-     * Fills the struct values based on provided list of parameters and values.
+     * Sets the provided parameter values to the struct.
+     *
+     * The values need to be in the domain format of the value for the parameter.
      *
      * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
      * @param array $values
-     * @param bool $useDefaults
      */
-    public function fillValues(ParameterCollectionInterface $parameterCollection, $values = array(), $useDefaults = true);
+    public function fill(ParameterCollectionInterface $parameterCollection, array $values = array());
+
+    /**
+     * Fills the struct values based on provided value object.
+     *
+     * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
+     * @param \Netgen\BlockManager\API\Values\ParameterBasedValue $parameterBasedValue
+     */
+    public function fillFromValue(ParameterCollectionInterface $parameterCollection, ParameterBasedValue $parameterBasedValue);
+
+    /**
+     * Fills the struct values based on provided array of values.
+     *
+     * The values in the array need to be in hash format of the value
+     * i.e. the format acceptable by the ParameterTypeInterface::fromHash method.
+     *
+     * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
+     * @param array $values
+     */
+    public function fillFromHash(ParameterCollectionInterface $parameterCollection, array $values = array());
 }

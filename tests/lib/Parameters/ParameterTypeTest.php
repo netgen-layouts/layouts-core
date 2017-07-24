@@ -91,14 +91,6 @@ class ParameterTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType::createValueFromInput
-     */
-    public function testCreateValueFromInput()
-    {
-        $this->assertEquals(42, $this->parameterType->createValueFromInput(new Parameter(), 42));
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType::isValueEmpty
      */
     public function testIsValueEmpty()

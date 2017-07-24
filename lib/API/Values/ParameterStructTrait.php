@@ -5,8 +5,6 @@ namespace Netgen\BlockManager\API\Values;
 use Netgen\BlockManager\Exception\Core\ParameterException;
 use Netgen\BlockManager\Parameters\CompoundParameterInterface;
 use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
-use Netgen\BlockManager\Parameters\ParameterInterface;
-use Netgen\BlockManager\Parameters\ParameterValue;
 
 trait ParameterStructTrait
 {
@@ -16,7 +14,9 @@ trait ParameterStructTrait
     protected $parameterValues = array();
 
     /**
-     * Sets the parameter values to the struct.
+     * Sets the provided parameter values to the struct.
+     *
+     * The values need to be in the domain format of the value for the parameter.
      *
      * @param array $parameterValues
      */
@@ -27,6 +27,8 @@ trait ParameterStructTrait
 
     /**
      * Sets the parameter value to the struct.
+     *
+     * The value needs to be in the domain format of the value for the parameter.
      *
      * @param string $parameterName
      * @param mixed $parameterValue
@@ -77,46 +79,76 @@ trait ParameterStructTrait
     }
 
     /**
-     * Fills the struct values based on provided list of parameters and values.
+     * Sets the provided parameter values to the struct.
+     *
+     * The values need to be in the domain format of the value for the parameter.
      *
      * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
      * @param array $values
-     * @param bool $useDefaults
      */
-    public function fillValues(ParameterCollectionInterface $parameterCollection, $values = array(), $useDefaults = true)
+    public function fill(ParameterCollectionInterface $parameterCollection, array $values = array())
     {
         foreach ($parameterCollection->getParameters() as $parameter) {
-            $value = $this->buildValue($parameter, $values, $useDefaults);
+            $value = array_key_exists($parameter->getName(), $values) ?
+                $values[$parameter->getName()] :
+                $parameter->getDefaultValue();
+
             $this->setParameterValue($parameter->getName(), $value);
 
             if ($parameter instanceof CompoundParameterInterface) {
-                $this->fillValues($parameter, $values, $useDefaults);
+                $this->fill($parameter, $values);
             }
         }
     }
 
     /**
-     * Builds the value suitable for usage by the struct for provided parameter.
+     * Fills the struct values based on provided value object.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
-     * @param array $values
-     * @param bool $useDefaults
-     *
-     * @return mixed
+     * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
+     * @param \Netgen\BlockManager\API\Values\ParameterBasedValue $parameterBasedValue
      */
-    protected function buildValue(ParameterInterface $parameter, array $values = array(), $useDefaults = true)
+    public function fillFromValue(ParameterCollectionInterface $parameterCollection, ParameterBasedValue $parameterBasedValue)
     {
-        if (!array_key_exists($parameter->getName(), $values)) {
-            return $useDefaults ? $parameter->getDefaultValue() : null;
+        foreach ($parameterCollection->getParameters() as $parameter) {
+            $value = null;
+
+            if ($parameterBasedValue->hasParameter($parameter->getName())) {
+                $valueParameter = $parameterBasedValue->getParameter($parameter->getName());
+                if ($valueParameter->getParameter()->getType()->getIdentifier() === $parameter->getType()->getIdentifier()) {
+                    $value = $valueParameter->getValue();
+                    $value = is_object($value) ? clone $value : $value;
+                }
+            }
+
+            $this->setParameterValue($parameter->getName(), $value);
+
+            if ($parameter instanceof CompoundParameterInterface) {
+                $this->fillFromValue($parameter, $parameterBasedValue);
+            }
         }
+    }
 
-        $value = $values[$parameter->getName()];
-        if ($value instanceof ParameterValue) {
-            $value = $value->getValue();
+    /**
+     * Fills the struct values based on provided array of values.
+     *
+     * The values in the array need to be in hash format of the value
+     * i.e. the format acceptable by the ParameterTypeInterface::fromHash method.
+     *
+     * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
+     * @param array $values
+     */
+    public function fillFromHash(ParameterCollectionInterface $parameterCollection, array $values = array())
+    {
+        foreach ($parameterCollection->getParameters() as $parameter) {
+            $value = array_key_exists($parameter->getName(), $values) ?
+                $parameter->getType()->fromHash($parameter, $values[$parameter->getName()]) :
+                $parameter->getDefaultValue();
 
-            return is_object($value) ? clone $value : $value;
+            $this->setParameterValue($parameter->getName(), $value);
+
+            if ($parameter instanceof CompoundParameterInterface) {
+                $this->fillFromHash($parameter, $values);
+            }
         }
-
-        return $parameter->getType()->createValueFromInput($parameter, $value);
     }
 }

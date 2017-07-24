@@ -45,7 +45,7 @@ class CollectionStructBuilder
             )
         );
 
-        $queryCreateStruct->fillValues($queryType);
+        $queryCreateStruct->fill($queryType);
 
         return $queryCreateStruct;
     }
@@ -65,11 +65,7 @@ class CollectionStructBuilder
             return $queryUpdateStruct;
         }
 
-        $queryUpdateStruct->fillValues(
-            $query->getQueryType(),
-            $query->getParameters(),
-            false
-        );
+        $queryUpdateStruct->fillFromValue($query->getQueryType(), $query);
 
         return $queryUpdateStruct;
     }

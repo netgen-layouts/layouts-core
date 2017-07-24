@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Values;
 use Netgen\BlockManager\API\Values\ParameterStructTrait;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\ParameterValue;
+use Netgen\BlockManager\Tests\Core\Stubs\ParameterBasedValue;
 use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameter;
 use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterCollection;
@@ -123,86 +124,143 @@ class ParameterStructTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::fillValues
-     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::buildValue
+     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::fill
      */
-    public function testFillValues()
+    public function testFill()
     {
         $parameterCollection = $this->buildParameterCollection();
 
         $initialValues = array(
-            'css_class' => 'initial_css',
-            'inner' => 'inner_initial',
+            'css_class' => 'css',
+            'css_id' => 'id',
+            'compound' => false,
+            'inner' => 'inner',
         );
 
-        $this->struct->fillValues($parameterCollection, $initialValues);
+        $this->struct->fill($parameterCollection, $initialValues);
 
         $this->assertEquals(
             array(
-                'css_class' => 'initial_css',
+                'css_class' => 'css',
                 'css_id' => 'id',
-                'compound' => true,
-                'inner' => 'inner_initial',
+                'compound' => false,
+                'inner' => 'inner',
             ),
             $this->struct->getParameterValues()
         );
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::fillValues
-     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::buildValue
+     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::fill
      */
-    public function testFillValuesWithParameterValueInstances()
+    public function testFillWithMissingValues()
     {
         $parameterCollection = $this->buildParameterCollection();
 
         $initialValues = array(
-            'css_class' => new ParameterValue(
-                array(
-                    'value' => 'initial_css',
-                )
-            ),
-            'inner' => new ParameterValue(
-                array(
-                    'value' => 'inner_initial',
-                )
-            ),
+            'css_class' => 'css',
+            'inner' => 'inner',
         );
 
-        $this->struct->fillValues($parameterCollection, $initialValues);
+        $this->struct->fill($parameterCollection, $initialValues);
 
         $this->assertEquals(
             array(
-                'css_class' => 'initial_css',
-                'css_id' => 'id',
+                'css_class' => 'css',
+                'css_id' => 'id_default',
                 'compound' => true,
-                'inner' => 'inner_initial',
+                'inner' => 'inner',
             ),
             $this->struct->getParameterValues()
         );
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::fillValues
-     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::buildValue
+     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::fillFromValue
      */
-    public function testFillValuesWithoutDefaults()
+    public function testFillFromValue()
     {
         $parameterCollection = $this->buildParameterCollection();
 
-        $initialValues = array(
-            'css_class' => 'initial_css',
-            'inner' => 'inner_initial',
+        $value = new ParameterBasedValue(
+            array(
+                'parameters' => array(
+                    'css_class' => new ParameterValue(
+                        array(
+                            'value' => 'css',
+                            'parameter' => $parameterCollection->getParameter('css_class'),
+                        )
+                    ),
+                    'inner' => new ParameterValue(
+                        array(
+                            'value' => 'inner',
+                            'parameter' => $parameterCollection->getParameter('compound')->getParameter('inner'),
+                        )
+                    ),
+                ),
+            )
         );
 
-        $this->struct->fillValues($parameterCollection, $initialValues, false);
+        $this->struct->fillFromValue($parameterCollection, $value);
 
         $this->assertEquals(
             array(
-                'css_class' => 'initial_css',
+                'css_class' => 'css',
                 'css_id' => null,
                 'compound' => null,
-                'inner' => 'inner_initial',
+                'inner' => 'inner',
+            ),
+            $this->struct->getParameterValues()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::fillFromHash
+     */
+    public function testFillFromHash()
+    {
+        $parameterCollection = $this->buildParameterCollection();
+
+        $initialValues = array(
+            'css_class' => 'css',
+            'css_id' => 'id',
+            'compound' => false,
+            'inner' => 'inner',
+        );
+
+        $this->struct->fillFromHash($parameterCollection, $initialValues);
+
+        $this->assertEquals(
+            array(
+                'css_class' => 'css',
+                'css_id' => 'id',
+                'compound' => false,
+                'inner' => 'inner',
+            ),
+            $this->struct->getParameterValues()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::fillFromHash
+     */
+    public function testFillFromHashWithMissingValues()
+    {
+        $parameterCollection = $this->buildParameterCollection();
+
+        $initialValues = array(
+            'css_class' => 'css',
+            'inner' => 'inner',
+        );
+
+        $this->struct->fillFromHash($parameterCollection, $initialValues);
+
+        $this->assertEquals(
+            array(
+                'css_class' => 'css',
+                'css_id' => 'id_default',
+                'compound' => true,
+                'inner' => 'inner',
             ),
             $this->struct->getParameterValues()
         );
@@ -238,14 +296,14 @@ class ParameterStructTraitTest extends TestCase
                 array(
                     'name' => 'css_class',
                     'type' => new ParameterType\TextLineType(),
-                    'defaultValue' => 'css',
+                    'defaultValue' => 'css_default',
                 )
             ),
             'css_id' => new Parameter(
                 array(
                     'name' => 'css_id',
                     'type' => new ParameterType\TextLineType(),
-                    'defaultValue' => 'id',
+                    'defaultValue' => 'id_default',
                 )
             ),
             'compound' => $compoundParameter,

@@ -107,14 +107,6 @@ class CompoundParameterTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\CompoundParameterType::createValueFromInput
-     */
-    public function testCreateValueFromInput()
-    {
-        $this->assertEquals(42, $this->parameterType->createValueFromInput(new Parameter(), 42));
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Parameters\CompoundParameterType::isValueEmpty
      */
     public function testIsValueEmpty()

@@ -47,7 +47,7 @@ class BlockStructBuilder
             )
         );
 
-        $blockCreateStruct->fillValues($blockDefinition);
+        $blockCreateStruct->fill($blockDefinition);
 
         return $blockCreateStruct;
     }
@@ -70,14 +70,7 @@ class BlockStructBuilder
         $blockUpdateStruct->viewType = $block->getViewType();
         $blockUpdateStruct->itemViewType = $block->getItemViewType();
         $blockUpdateStruct->name = $block->getName();
-
-        $blockDefinition = $block->getDefinition();
-
-        $blockUpdateStruct->fillValues(
-            $blockDefinition,
-            $block->getParameters(),
-            false
-        );
+        $blockUpdateStruct->fillFromValue($block->getDefinition(), $block);
 
         $this->configStructBuilder->buildConfigUpdateStructs($block, $blockUpdateStruct);
 

@@ -51,18 +51,6 @@ interface ParameterTypeInterface
     public function fromHash(ParameterInterface $parameter, $value);
 
     /**
-     * Potentially converts the input value to value usable by the domain.
-     *
-     * If the value cannot be converted, original value should be returned.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
-     * @param mixed $value
-     *
-     * @return mixed
-     */
-    public function createValueFromInput(ParameterInterface $parameter, $value);
-
-    /**
      * Returns if the parameter value is empty.
      *
      * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter

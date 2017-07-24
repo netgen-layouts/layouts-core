@@ -70,7 +70,7 @@ abstract class BlockTest extends ServiceTestCase
         $blockCreateStruct->itemViewType = 'standard';
 
         $configStruct = new ConfigStruct();
-        $configStruct->fillValues($configDefinition, $config);
+        $configStruct->fill($configDefinition, $config);
         $blockCreateStruct->setConfigStruct('definition', $configStruct);
 
         $zone = $this->layoutService->loadZoneDraft(1, 'left');
@@ -112,7 +112,7 @@ abstract class BlockTest extends ServiceTestCase
         $blockCreateStruct->itemViewType = 'standard';
 
         $configStruct = new ConfigStruct();
-        $configStruct->fillValues($configDefinition, $config);
+        $configStruct->fill($configDefinition, $config);
         $blockCreateStruct->setConfigStruct('definition', $configStruct);
 
         $zone = $this->layoutService->loadZoneDraft(1, 'left');

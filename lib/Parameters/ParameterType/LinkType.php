@@ -110,25 +110,6 @@ class LinkType extends ParameterType
     }
 
     /**
-     * Potentially converts the input value to value usable by the domain.
-     *
-     * If the value cannot be converted, original value should be returned.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
-     * @param mixed $value
-     *
-     * @return mixed
-     */
-    public function createValueFromInput(ParameterInterface $parameter, $value)
-    {
-        if (!is_array($value) || empty($value['link_type'])) {
-            return $value;
-        }
-
-        return $this->fromHash($parameter, $value);
-    }
-
-    /**
      * Returns if the parameter value is empty.
      *
      * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
