@@ -2,9 +2,7 @@
 
 namespace Netgen\BlockManager\API\Values\Block;
 
-use Netgen\BlockManager\API\Values\Value;
-
-interface CollectionReference extends Value
+interface CollectionReference
 {
     /**
      * Returns the block to which the collection is attached.

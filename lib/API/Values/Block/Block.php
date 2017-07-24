@@ -85,13 +85,6 @@ interface Block extends Value, ParameterBasedValue, ConfigAwareValue
     public function hasPlaceholder($identifier);
 
     /**
-     * Returns the status of the block.
-     *
-     * @return int
-     */
-    public function getStatus();
-
-    /**
      * Returns the specified dynamic parameter value or null if parameter does not exist.
      *
      * @param string $parameter

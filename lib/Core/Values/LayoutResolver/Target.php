@@ -48,7 +48,7 @@ class Target extends ValueObject implements APITarget
     }
 
     /**
-     * Returns the target status.
+     * Returns the status of the value.
      *
      * @return int
      */

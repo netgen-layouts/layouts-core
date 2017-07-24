@@ -18,4 +18,11 @@ interface Value
      * @const int
      */
     const STATUS_ARCHIVED = 2;
+
+    /**
+     * Returns the status of the value.
+     *
+     * @return int
+     */
+    public function getStatus();
 }

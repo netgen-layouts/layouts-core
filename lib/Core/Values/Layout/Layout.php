@@ -122,7 +122,7 @@ class Layout extends ValueObject implements APILayout
     }
 
     /**
-     * Returns the status of the layout.
+     * Returns the status of the value.
      *
      * @return int
      */

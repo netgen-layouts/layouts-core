@@ -58,7 +58,7 @@ class Item extends ValueObject implements APIItem
     }
 
     /**
-     * Returns the item status.
+     * Returns the status of the value.
      *
      * @return int
      */

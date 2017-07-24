@@ -5,9 +5,8 @@ namespace Netgen\BlockManager\API\Values\Block;
 use ArrayAccess;
 use Countable;
 use IteratorAggregate;
-use Netgen\BlockManager\API\Values\Value;
 
-interface Placeholder extends Value, ArrayAccess, IteratorAggregate, Countable
+interface Placeholder extends ArrayAccess, IteratorAggregate, Countable
 {
     /**
      * Returns the placeholder identifier.

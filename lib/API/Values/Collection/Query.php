@@ -15,13 +15,6 @@ interface Query extends Value, ParameterBasedValue
     public function getId();
 
     /**
-     * Returns the query status.
-     *
-     * @return int
-     */
-    public function getStatus();
-
-    /**
      * Returns the collection ID the query is in.
      *
      * @return int|string

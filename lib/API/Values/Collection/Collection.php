@@ -24,13 +24,6 @@ interface Collection extends Value
     public function getId();
 
     /**
-     * Returns the collection status.
-     *
-     * @return int
-     */
-    public function getStatus();
-
-    /**
      * Returns the collection type.
      *
      * @return int

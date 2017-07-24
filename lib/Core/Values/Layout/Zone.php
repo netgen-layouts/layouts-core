@@ -53,7 +53,7 @@ class Zone extends ValueObject implements APIZone
     }
 
     /**
-     * Returns the status of the zone.
+     * Returns the status of the value.
      *
      * @return int
      */

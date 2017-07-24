@@ -14,13 +14,6 @@ interface Condition extends Value
     public function getId();
 
     /**
-     * Returns the condition status.
-     *
-     * @return int
-     */
-    public function getStatus();
-
-    /**
      * Returns the rule ID to which this condition belongs to.
      *
      * @return int|string

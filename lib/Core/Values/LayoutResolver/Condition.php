@@ -48,7 +48,7 @@ class Condition extends ValueObject implements APICondition
     }
 
     /**
-     * Returns the condition status.
+     * Returns the status of the value.
      *
      * @return int
      */

@@ -46,7 +46,7 @@ class Query extends ValueObject implements APIQuery
     }
 
     /**
-     * Returns the query status.
+     * Returns the status of the value.
      *
      * @return int
      */

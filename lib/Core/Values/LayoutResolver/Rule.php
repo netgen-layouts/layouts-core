@@ -64,7 +64,7 @@ class Rule extends ValueObject implements APIRule
     }
 
     /**
-     * Returns the rule status.
+     * Returns the status of the value.
      *
      * @return int
      */

@@ -49,7 +49,7 @@ class Collection extends ValueObject implements APICollection
     }
 
     /**
-     * Returns the collection status.
+     * Returns the status of the value.
      *
      * @return int
      */

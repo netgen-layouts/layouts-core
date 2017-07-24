@@ -24,13 +24,6 @@ interface Item extends Value
     public function getId();
 
     /**
-     * Returns the item status.
-     *
-     * @return int
-     */
-    public function getStatus();
-
-    /**
      * Returns the collection ID the item is in.
      *
      * @return int|string

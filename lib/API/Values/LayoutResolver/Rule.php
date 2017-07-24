@@ -14,13 +14,6 @@ interface Rule extends Value
     public function getId();
 
     /**
-     * Returns the rule status.
-     *
-     * @return int
-     */
-    public function getStatus();
-
-    /**
      * Returns resolved layout.
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Layout

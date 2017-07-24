@@ -52,13 +52,6 @@ interface Layout extends Value, ArrayAccess, IteratorAggregate, Countable
     public function getModified();
 
     /**
-     * Returns the status of the layout.
-     *
-     * @return int
-     */
-    public function getStatus();
-
-    /**
      * Returns if the layout is published.
      *
      * @return bool

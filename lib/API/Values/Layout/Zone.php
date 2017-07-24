@@ -21,13 +21,6 @@ interface Zone extends Value
     public function getLayoutId();
 
     /**
-     * Returns the status of the zone.
-     *
-     * @return int
-     */
-    public function getStatus();
-
-    /**
      * Returns if the zone is published.
      *
      * @return bool

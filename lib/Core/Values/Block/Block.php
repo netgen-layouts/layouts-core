@@ -174,7 +174,7 @@ class Block extends ValueObject implements APIBlock
     }
 
     /**
-     * Returns the status of the block.
+     * Returns the status of the value.
      *
      * @return int
      */

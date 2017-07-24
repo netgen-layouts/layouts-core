@@ -14,13 +14,6 @@ interface Target extends Value
     public function getId();
 
     /**
-     * Returns the target status.
-     *
-     * @return int
-     */
-    public function getStatus();
-
-    /**
      * Returns the rule ID where this target belongs.
      *
      * @return int|string
