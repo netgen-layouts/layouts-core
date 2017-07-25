@@ -220,7 +220,7 @@ class CollectionHandler implements CollectionHandlerInterface
             $newQuery->id = null;
             $newQuery->collectionId = $newCollection->id;
 
-            $this->queryHandler->addQuery($newQuery);
+            $this->queryHandler->createQuery($newQuery);
         }
 
         return $newCollection;
@@ -261,7 +261,7 @@ class CollectionHandler implements CollectionHandlerInterface
             $newQuery = clone $collectionQuery;
             $newQuery->status = $newStatus;
 
-            $this->queryHandler->addQuery($newQuery);
+            $this->queryHandler->createQuery($newQuery);
         }
 
         return $newCollection;
@@ -388,7 +388,7 @@ class CollectionHandler implements CollectionHandlerInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
-    public function addQuery(Collection $collection, QueryCreateStruct $queryCreateStruct)
+    public function createQuery(Collection $collection, QueryCreateStruct $queryCreateStruct)
     {
         try {
             $this->loadCollectionQuery($collection);
@@ -407,7 +407,7 @@ class CollectionHandler implements CollectionHandlerInterface
             )
         );
 
-        return $this->queryHandler->addQuery($newQuery);
+        return $this->queryHandler->createQuery($newQuery);
     }
 
     /**
@@ -432,13 +432,13 @@ class CollectionHandler implements CollectionHandlerInterface
     }
 
     /**
-     * Removes a query.
+     * Removes a query from the collection.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      */
-    public function deleteQuery(Query $query)
+    public function deleteCollectionQuery(Collection $collection)
     {
-        $this->queryHandler->deleteQuery($query->id, $query->status);
+        $this->queryHandler->deleteCollectionQuery($collection->id, $collection->status);
     }
 
     /**

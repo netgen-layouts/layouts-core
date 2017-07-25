@@ -155,7 +155,7 @@ interface CollectionHandler
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
-    public function addQuery(Collection $collection, QueryCreateStruct $queryCreateStruct);
+    public function createQuery(Collection $collection, QueryCreateStruct $queryCreateStruct);
 
     /**
      * Updates a query with specified ID.
@@ -168,9 +168,9 @@ interface CollectionHandler
     public function updateQuery(Query $query, QueryUpdateStruct $queryUpdateStruct);
 
     /**
-     * Removes a query.
+     * Removes a query from the collection.
      *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      */
-    public function deleteQuery(Query $query);
+    public function deleteCollectionQuery(Collection $collection);
 }

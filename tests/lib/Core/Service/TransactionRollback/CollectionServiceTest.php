@@ -48,7 +48,7 @@ class CollectionServiceTest extends ServiceTestCase
 
         $this->collectionHandlerMock
             ->expects($this->at(1))
-            ->method('loadCollectionQuery')
+            ->method('deleteCollectionQuery')
             ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler

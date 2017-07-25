@@ -272,7 +272,7 @@ class CollectionHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryData
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollection
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createQuery
      */
     public function testCopyCollection()
     {
@@ -407,7 +407,7 @@ class CollectionHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryData
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollection
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createQuery
      */
     public function testCreateCollectionStatus()
     {
@@ -789,10 +789,10 @@ class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createQuery
      */
-    public function testAddQuery()
+    public function testCreateQuery()
     {
         $collection = $this->collectionHandler->createCollection(
             new CollectionCreateStruct(
@@ -818,7 +818,7 @@ class CollectionHandlerTest extends TestCase
                     'status' => Value::STATUS_PUBLISHED,
                 )
             ),
-            $this->collectionHandler->addQuery(
+            $this->collectionHandler->createQuery(
                 $collection,
                 $queryCreateStruct
             )
@@ -826,12 +826,12 @@ class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createQuery
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      * @expectedExceptionMessage Provided collection already has a query.
      */
-    public function testAddQueryThrowsBadStateExceptionWithExistingQuery()
+    public function testCreateQueryThrowsBadStateExceptionWithExistingQuery()
     {
         $queryCreateStruct = new QueryCreateStruct();
         $queryCreateStruct->type = 'ezcontent_search';
@@ -839,7 +839,7 @@ class CollectionHandlerTest extends TestCase
             'param' => 'value',
         );
 
-        $this->collectionHandler->addQuery(
+        $this->collectionHandler->createQuery(
             $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED),
             $queryCreateStruct
         );
@@ -909,17 +909,18 @@ class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteCollectionQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionQuery
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      * @expectedExceptionMessage Could not find query with identifier "2"
      */
-    public function testDeleteQuery()
+    public function testDeleteCollectionQuery()
     {
-        $this->collectionHandler->deleteQuery(
-            $this->collectionHandler->loadQuery(2, Value::STATUS_PUBLISHED)
+        $this->collectionHandler->deleteCollectionQuery(
+            $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED)
         );
 
+        // Query with ID 2 was in the collection with ID 3
         $this->collectionHandler->loadQuery(2, Value::STATUS_PUBLISHED);
     }
 }

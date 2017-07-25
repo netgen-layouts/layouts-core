@@ -231,8 +231,7 @@ class CollectionService extends Service implements APICollectionService
         $this->transaction(
             function () use ($collection, $persistenceCollection, $newType, $queryCreateStruct) {
                 if ($collection->getType() === Collection::TYPE_DYNAMIC) {
-                    $query = $this->handler->loadCollectionQuery($persistenceCollection);
-                    $this->handler->deleteQuery($query);
+                    $this->handler->deleteCollectionQuery($persistenceCollection);
                 }
 
                 if ($newType === Collection::TYPE_MANUAL) {
@@ -240,7 +239,7 @@ class CollectionService extends Service implements APICollectionService
                         $this->handler->moveItem($item, $index);
                     }
                 } elseif ($newType === Collection::TYPE_DYNAMIC) {
-                    $this->handler->addQuery(
+                    $this->handler->createQuery(
                         $persistenceCollection,
                         new QueryCreateStruct(
                             array(

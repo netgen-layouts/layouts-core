@@ -335,13 +335,13 @@ class CollectionQueryHandler extends QueryHandler
     }
 
     /**
-     * Adds a query.
+     * Creates a query.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
-    public function addQuery(Query $query)
+    public function createQuery(Query $query)
     {
         $dbQuery = $this->connection->createQueryBuilder()
             ->insert('ngbm_collection_query')
@@ -398,27 +398,6 @@ class CollectionQueryHandler extends QueryHandler
         $this->applyStatusCondition($queryBuilder, $query->status);
 
         $queryBuilder->execute();
-    }
-
-    /**
-     * Deletes a query.
-     *
-     * @param int|string $queryId
-     * @param int $status
-     */
-    public function deleteQuery($queryId, $status)
-    {
-        $query = $this->connection->createQueryBuilder();
-
-        $query->delete('ngbm_collection_query')
-            ->where(
-                $query->expr()->eq('id', ':id')
-            )
-            ->setParameter('id', $queryId, Type::INTEGER);
-
-        $this->applyStatusCondition($query, $status);
-
-        $query->execute();
     }
 
     /**
