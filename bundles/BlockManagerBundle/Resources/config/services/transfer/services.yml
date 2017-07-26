@@ -1,0 +1,8 @@
+services:
+    netgen_block_manager.transfer.serializer.native:
+        class: Netgen\BlockManager\Transfer\Serializer\Native
+        arguments:
+            - "@netgen_block_manager.transfer.serializer.visitor.aggregate"
+
+    netgen_block_manager.transfer.serializer:
+        alias: netgen_block_manager.transfer.serializer.native

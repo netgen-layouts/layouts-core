@@ -7,3 +7,12 @@ services:
             - "@database_connection"
         tags:
             - { name: console.command, command: ngbm:migration:query_offset_limit }
+
+    app.command.my_command:
+        class: Netgen\Bundle\BlockManagerBundle\Command\ExportCommand
+        arguments:
+            - "@netgen_block_manager.transfer.serializer"
+            - "@netgen_block_manager.core.service.layout"
+            - "@netgen_block_manager.core.service.layout_resolver"
+        tags:
+            - { name: console.command }
