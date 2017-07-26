@@ -31,6 +31,7 @@ class ParameterBuilderTest extends TestCase
     {
         $this->registry = new ParameterTypeRegistry();
         $this->registry->addParameterType(new ParameterType\TextType());
+        $this->registry->addParameterType(new ParameterType\IntegerType());
         $this->registry->addParameterType(new ParameterType\Compound\BooleanType());
 
         $this->factory = new ParameterBuilderFactory($this->registry);
@@ -161,6 +162,109 @@ class ParameterBuilderTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setOption
+     */
+    public function testSetOption()
+    {
+        $this->builder->add(
+            'test',
+            ParameterType\IntegerType::class,
+            array(
+                'min' => 5,
+                'max' => 100,
+            )
+        );
+
+        $this->builder->get('test')->setOption('min', 42);
+
+        $this->assertEquals(42, $this->builder->get('test')->getOption('min'));
+        $this->assertEquals(100, $this->builder->get('test')->getOption('max'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setOption
+     */
+    public function testSetRequiredOption()
+    {
+        $this->builder->add(
+            'test',
+            ParameterType\IntegerType::class,
+            array(
+                'required' => true,
+            )
+        );
+
+        $this->builder->get('test')->setOption('required', false);
+
+        $this->assertFalse($this->builder->get('test')->isRequired());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setOption
+     */
+    public function testSetDefaultValueOption()
+    {
+        $this->builder->add(
+            'test',
+            ParameterType\IntegerType::class,
+            array(
+                'default_value' => 'test',
+            )
+        );
+
+        $this->builder->get('test')->setOption('default_value', 'test2');
+
+        $this->assertEquals('test2', $this->builder->get('test')->getDefaultValue());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setOption
+     */
+    public function testSetLabelOption()
+    {
+        $this->builder->add(
+            'test',
+            ParameterType\IntegerType::class,
+            array(
+                'label' => 'test',
+            )
+        );
+
+        $this->builder->get('test')->setOption('label', 'test2');
+
+        $this->assertEquals('test2', $this->builder->get('test')->getLabel());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setOption
+     */
+    public function testSetGroupsOption()
+    {
+        $this->builder->add(
+            'test',
+            ParameterType\IntegerType::class,
+            array(
+                'groups' => array('test'),
+            )
+        );
+
+        $this->builder->get('test')->setOption('groups', array('test2'));
+
+        $this->assertEquals(array('test2'), $this->builder->get('test')->getGroups());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setRequired
+     * @expectedException \Netgen\BlockManager\Exception\BadMethodCallException
+     * @expectedExceptionMessage Setting the options is not possible after parameters have been built.
+     */
+    public function testSetOptionAfterBuildingParameters()
+    {
+        $this->builder->buildParameters();
+        $this->builder->setOption('required', true);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::isRequired
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setRequired
      */
@@ -174,6 +278,17 @@ class ParameterBuilderTest extends TestCase
         $this->builder->get('test')->setRequired(true);
 
         $this->assertTrue($this->builder->get('test')->isRequired());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setRequired
+     * @expectedException \Netgen\BlockManager\Exception\BadMethodCallException
+     * @expectedExceptionMessage Setting the required flag is not possible after parameters have been built.
+     */
+    public function testSetRequiredAfterBuildingParameters()
+    {
+        $this->builder->buildParameters();
+        $this->builder->setRequired(true);
     }
 
     /**
@@ -193,6 +308,17 @@ class ParameterBuilderTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setDefaultValue
+     * @expectedException \Netgen\BlockManager\Exception\BadMethodCallException
+     * @expectedExceptionMessage Setting the default value is not possible after parameters have been built.
+     */
+    public function testSetDefaultValueAfterBuildingParameters()
+    {
+        $this->builder->buildParameters();
+        $this->builder->setDefaultValue('test');
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::getLabel
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setLabel
      */
@@ -206,6 +332,17 @@ class ParameterBuilderTest extends TestCase
         $this->builder->get('test')->setLabel('Custom label');
 
         $this->assertEquals('Custom label', $this->builder->get('test')->getLabel());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setLabel
+     * @expectedException \Netgen\BlockManager\Exception\BadMethodCallException
+     * @expectedExceptionMessage Setting the label is not possible after parameters have been built.
+     */
+    public function testSetLabelAfterBuildingParameters()
+    {
+        $this->builder->buildParameters();
+        $this->builder->setLabel('test');
     }
 
     /**
@@ -257,6 +394,17 @@ class ParameterBuilderTest extends TestCase
         );
 
         $this->assertEquals(array('group'), $this->builder->get('test')->get('test2')->getGroups());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setGroups
+     * @expectedException \Netgen\BlockManager\Exception\BadMethodCallException
+     * @expectedExceptionMessage Setting the groups is not possible after parameters have been built.
+     */
+    public function testSetGroupsAfterBuildingParameters()
+    {
+        $this->builder->buildParameters();
+        $this->builder->setGroups(array());
     }
 
     /**

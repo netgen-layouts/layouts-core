@@ -92,18 +92,6 @@ class ParameterBuilder implements ParameterBuilderInterface
         $this->parentBuilder = $parentBuilder;
 
         $this->options = $this->resolveOptions($options);
-
-        $this->isRequired = $this->options['required'];
-        $this->defaultValue = $this->options['default_value'];
-        $this->label = $this->options['label'];
-        $this->groups = $this->options['groups'];
-
-        unset(
-            $this->options['required'],
-            $this->options['default_value'],
-            $this->options['label'],
-            $this->options['groups']
-        );
     }
 
     /**
@@ -167,6 +155,40 @@ class ParameterBuilder implements ParameterBuilderInterface
     }
 
     /**
+     * Sets the option to the provided value.
+     *
+     * This will cause all options to be reinitialized with the internal options resolver
+     * in order to properly validate the new option value.
+     *
+     * The options will keep their existing values (unless the options resolver modifies them
+     * according to rules in the parameter type).
+     *
+     * @param string $name
+     * @param mixed $value
+     *
+     * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface
+     */
+    public function setOption($name, $value)
+    {
+        if ($this->locked) {
+            throw new BadMethodCallException('Setting the options is not possible after parameters have been built.');
+        }
+
+        $options = $this->options + array(
+            'required' => $this->isRequired,
+            'default_value' => $this->defaultValue,
+            'label' => $this->label,
+            'groups' => $this->groups,
+        );
+
+        $options[$name] = $value;
+
+        $this->options = $this->resolveOptions($options);
+
+        return $this;
+    }
+
+    /**
      * Returns if the parameter is required.
      *
      * @return bool
@@ -185,6 +207,10 @@ class ParameterBuilder implements ParameterBuilderInterface
      */
     public function setRequired($isRequired)
     {
+        if ($this->locked) {
+            throw new BadMethodCallException('Setting the required flag is not possible after parameters have been built.');
+        }
+
         $this->isRequired = (bool) $isRequired;
 
         return $this;
@@ -209,6 +235,10 @@ class ParameterBuilder implements ParameterBuilderInterface
      */
     public function setDefaultValue($defaultValue)
     {
+        if ($this->locked) {
+            throw new BadMethodCallException('Setting the default value is not possible after parameters have been built.');
+        }
+
         $this->defaultValue = $defaultValue;
 
         return $this;
@@ -233,6 +263,10 @@ class ParameterBuilder implements ParameterBuilderInterface
      */
     public function setLabel($label)
     {
+        if ($this->locked) {
+            throw new BadMethodCallException('Setting the label is not possible after parameters have been built.');
+        }
+
         $this->label = $label;
 
         return $this;
@@ -257,6 +291,10 @@ class ParameterBuilder implements ParameterBuilderInterface
      */
     public function setGroups(array $groups)
     {
+        if ($this->locked) {
+            throw new BadMethodCallException('Setting the groups is not possible after parameters have been built.');
+        }
+
         $this->groups = $groups;
 
         return $this;
@@ -428,11 +466,14 @@ class ParameterBuilder implements ParameterBuilderInterface
             'groups' => $builder->getGroups(),
         );
 
+        // We build the sub parameters in order to lock the child builders
+        $subParameters = $builder->buildParameters();
+
         if (!$builder->getType() instanceof CompoundParameterTypeInterface) {
             return new Parameter($data);
         }
 
-        $data['parameters'] = $builder->buildParameters();
+        $data['parameters'] = $subParameters;
 
         return new CompoundParameter($data);
     }
@@ -491,7 +532,21 @@ class ParameterBuilder implements ParameterBuilderInterface
             }
         );
 
-        return $optionsResolver->resolve($options);
+        $resolvedOptions = $optionsResolver->resolve($options);
+
+        $this->isRequired = $resolvedOptions['required'];
+        $this->defaultValue = $resolvedOptions['default_value'];
+        $this->label = $resolvedOptions['label'];
+        $this->groups = $resolvedOptions['groups'];
+
+        unset(
+            $resolvedOptions['required'],
+            $resolvedOptions['default_value'],
+            $resolvedOptions['label'],
+            $resolvedOptions['groups']
+        );
+
+        return $resolvedOptions;
     }
 
     /**

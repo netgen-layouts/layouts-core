@@ -48,6 +48,22 @@ interface ParameterBuilderInterface extends Countable
     public function hasOption($name);
 
     /**
+     * Sets the option to the provided value.
+     *
+     * This will cause all options to be reinitialized with the internal options resolver
+     * in order to properly validate the new option value.
+     *
+     * The options will keep their existing values (unless the options resolver modifies them
+     * according to rules in the parameter type).
+     *
+     * @param string $name
+     * @param mixed $value
+     *
+     * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface
+     */
+    public function setOption($name, $value);
+
+    /**
      * Returns if the parameter is required.
      *
      * @return bool
