@@ -12,7 +12,7 @@ services:
         class: Netgen\Bundle\BlockManagerBundle\Command\ExportCommand
         arguments:
             - "@netgen_block_manager.transfer.serializer"
-            - "@netgen_block_manager.core.service.layout"
-            - "@netgen_block_manager.core.service.layout_resolver"
+            - "@netgen_block_manager.api.service.layout"
+            - "@netgen_block_manager.api.service.layout_resolver"
         tags:
             - { name: console.command }
