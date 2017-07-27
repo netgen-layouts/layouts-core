@@ -4,11 +4,12 @@ namespace Netgen\BlockManager\Persistence\Handler;
 
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\QueryUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\QueryTranslationUpdateStruct;
 
 interface CollectionHandler
 {
@@ -88,6 +89,42 @@ interface CollectionHandler
     public function createCollection(CollectionCreateStruct $collectionCreateStruct);
 
     /**
+     * Creates a collection translation.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
+     * @param string $locale
+     * @param string $sourceLocale
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If translation with provided locale already exists
+     *                                                          If translation with provided source locale does not exist
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
+     */
+    public function createCollectionTranslation(Collection $collection, $locale, $sourceLocale);
+
+    /**
+     * Updates the main translation of the collection.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
+     * @param string $mainLocale
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If provided locale does not exist in the collection
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
+     */
+    public function setMainTranslation(Collection $collection, $mainLocale);
+
+    /**
+     * Updates a collection with specified ID.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct $collectionUpdateStruct
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
+     */
+    public function updateCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct);
+
+    /**
      * Copies a collection.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
@@ -113,6 +150,19 @@ interface CollectionHandler
      * @param int $status
      */
     public function deleteCollection($collectionId, $status = null);
+
+    /**
+     * Deletes provided collection translation.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
+     * @param string $locale
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If translation with provided locale does not exist
+     *                                                          If translation with provided locale is the main collection translation
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
+     */
+    public function deleteCollectionTranslation(Collection $collection, $locale);
 
     /**
      * Adds an item to collection.
@@ -158,14 +208,17 @@ interface CollectionHandler
     public function createQuery(Collection $collection, QueryCreateStruct $queryCreateStruct);
 
     /**
-     * Updates a query with specified ID.
+     * Updates a query translation.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\QueryUpdateStruct $queryUpdateStruct
+     * @param string $locale
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\QueryTranslationUpdateStruct $translationUpdateStruct
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If the query does not have the provided locale
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
-    public function updateQuery(Query $query, QueryUpdateStruct $queryUpdateStruct);
+    public function updateQueryTranslation(Query $query, $locale, QueryTranslationUpdateStruct $translationUpdateStruct);
 
     /**
      * Removes a query from the collection.

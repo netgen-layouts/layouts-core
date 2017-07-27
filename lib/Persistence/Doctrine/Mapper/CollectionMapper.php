@@ -20,15 +20,30 @@ class CollectionMapper
         $collections = array();
 
         foreach ($data as $dataItem) {
-            $collections[] = new Collection(
-                array(
-                    'id' => (int) $dataItem['id'],
+            $collectionId = (int) $dataItem['id'];
+            $locale = $dataItem['locale'];
+
+            if (!isset($collections[$collectionId])) {
+                $collections[$collectionId] = array(
+                    'id' => $collectionId,
                     'status' => (int) $dataItem['status'],
-                )
-            );
+                    'isTranslatable' => (bool) $dataItem['translatable'],
+                    'mainLocale' => $dataItem['main_locale'],
+                    'alwaysAvailable' => (bool) $dataItem['always_available'],
+                );
+            }
+
+            $collections[$collectionId]['availableLocales'][] = $locale;
         }
 
-        return $collections;
+        return array_values(
+            array_map(
+                function (array $collectionData) {
+                    return new Collection($collectionData);
+                },
+                $collections
+            )
+        );
     }
 
     /**
@@ -71,21 +86,45 @@ class CollectionMapper
         $queries = array();
 
         foreach ($data as $dataItem) {
-            $parameters = !empty($dataItem['parameters']) ?
-                json_decode($dataItem['parameters'], true) :
-                array();
+            $queryId = (int) $dataItem['id'];
+            $locale = $dataItem['locale'];
 
-            $queries[] = new Query(
-                array(
-                    'id' => (int) $dataItem['id'],
+            if (!isset($queries[$queryId])) {
+                $queries[$queryId] = array(
+                    'id' => $queryId,
                     'collectionId' => (int) $dataItem['collection_id'],
                     'type' => $dataItem['type'],
-                    'parameters' => is_array($parameters) ? $parameters : array(),
                     'status' => (int) $dataItem['status'],
-                )
-            );
+                );
+            }
+
+            $queries[$queryId]['parameters'][$locale] = $this->buildParameters($dataItem['parameters']);
+            $queries[$queryId]['availableLocales'][] = $locale;
         }
 
+        $queries = array_values(
+            array_map(
+                function (array $queryData) {
+                    return new Query($queryData);
+                },
+                $queries
+            )
+        );
+
         return reset($queries);
+    }
+
+    /**
+     * Builds the array of parameters from provided JSON string.
+     *
+     * @param string $parameters
+     *
+     * @return array
+     */
+    protected function buildParameters($parameters)
+    {
+        $parameters = !empty($parameters) ? json_decode($parameters, true) : array();
+
+        return is_array($parameters) ? $parameters : array();
     }
 }

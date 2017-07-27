@@ -73,19 +73,23 @@ interface BlockService extends Service
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param string $identifier
+     * @param array $locales
+     * @param bool $useContext
      *
      * @return \Netgen\BlockManager\API\Values\Block\CollectionReference
      */
-    public function loadCollectionReference(Block $block, $identifier);
+    public function loadCollectionReference(Block $block, $identifier, array $locales = null, $useContext = true);
 
     /**
      * Loads all collection references belonging to the provided block.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
+     * @param array $locales
+     * @param bool $useContext
      *
      * @return \Netgen\BlockManager\API\Values\Block\CollectionReference[]
      */
-    public function loadCollectionReferences(Block $block);
+    public function loadCollectionReferences(Block $block, array $locales = null, $useContext = true);
 
     /**
      * Creates a block in specified block and placeholder.

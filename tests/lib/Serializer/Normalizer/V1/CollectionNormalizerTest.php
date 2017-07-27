@@ -40,6 +40,9 @@ class CollectionNormalizerTest extends TestCase
             array(
                 'id' => 42,
                 'type' => Collection::TYPE_DYNAMIC,
+                'isTranslatable' => true,
+                'availableLocales' => array('en'),
+                'mainLocale' => 'en',
                 'items' => array(
                     new Item(array('position' => 0, 'type' => Item::TYPE_MANUAL)),
                     new Item(array('position' => 1, 'type' => Item::TYPE_MANUAL)),
@@ -75,6 +78,10 @@ class CollectionNormalizerTest extends TestCase
             array(
                 'id' => $collection->getId(),
                 'type' => $collection->getType(),
+                'is_translatable' => $collection->isTranslatable(),
+                'main_locale' => $collection->getMainLocale(),
+                'always_available' => $collection->isAlwaysAvailable(),
+                'available_locales' => $collection->getAvailableLocales(),
                 'items' => array('items'),
                 'query' => array('query'),
             ),

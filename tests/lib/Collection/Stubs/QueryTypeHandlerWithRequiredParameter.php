@@ -49,7 +49,11 @@ class QueryTypeHandlerWithRequiredParameter implements QueryTypeHandlerInterface
                     'name' => 'param',
                     'type' => new TextLineType(),
                     'isRequired' => true,
-                )
+                    'options' => array(
+                        'translatable' => true,
+                    ),
+                ),
+                true
             ),
         );
     }

@@ -1,6 +1,8 @@
 DROP TABLE IF EXISTS `ngbm_block_collection`;
 DROP TABLE IF EXISTS `ngbm_collection_item`;
+DROP TABLE IF EXISTS `ngbm_collection_query_translation`;
 DROP TABLE IF EXISTS `ngbm_collection_query`;
+DROP TABLE IF EXISTS `ngbm_collection_translation`;
 DROP TABLE IF EXISTS `ngbm_collection`;
 DROP TABLE IF EXISTS `ngbm_zone`;
 DROP TABLE IF EXISTS `ngbm_block_translation`;
@@ -83,7 +85,19 @@ CREATE TABLE `ngbm_zone` (
 CREATE TABLE `ngbm_collection` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
+  `translatable` tinyint NOT NULL,
+  `main_locale` varchar(255) NOT NULL,
+  `always_available` tinyint NOT NULL,
   PRIMARY KEY (`id`, `status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `ngbm_collection_translation` (
+  `collection_id` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  `locale` varchar(255) NOT NULL,
+  PRIMARY KEY (`collection_id`, `status`, `locale`),
+  FOREIGN KEY (`collection_id`, `status`)
+    REFERENCES ngbm_collection (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `ngbm_collection_item` (
@@ -104,10 +118,19 @@ CREATE TABLE `ngbm_collection_query` (
   `status` int(11) NOT NULL,
   `collection_id` int(11) NOT NULL,
   `type` varchar(255) NOT NULL,
-  `parameters` text NOT NULL,
   PRIMARY KEY (`id`, `status`),
   FOREIGN KEY (`collection_id`, `status`)
     REFERENCES ngbm_collection (`id`, `status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `ngbm_collection_query_translation` (
+  `query_id` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  `locale` varchar(255) NOT NULL,
+  `parameters` text NOT NULL,
+  PRIMARY KEY (`query_id`, `status`, `locale`),
+  FOREIGN KEY (`query_id`, `status`)
+    REFERENCES ngbm_collection_query (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `ngbm_block_collection` (

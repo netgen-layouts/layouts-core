@@ -37,6 +37,10 @@ class CollectionNormalizer implements NormalizerInterface, SerializerAwareInterf
         return array(
             'id' => $collection->getId(),
             'type' => $collection->getType(),
+            'is_translatable' => $collection->isTranslatable(),
+            'main_locale' => $collection->getMainLocale(),
+            'always_available' => $collection->isAlwaysAvailable(),
+            'available_locales' => $collection->getAvailableLocales(),
             'items' => $this->serializer->normalize($items, $format, $context),
             'query' => $this->serializer->normalize($query, $format, $context),
         );

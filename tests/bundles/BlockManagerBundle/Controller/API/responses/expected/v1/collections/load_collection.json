@@ -1,6 +1,12 @@
 {
     "id": 3,
     "type": 1,
+    "is_translatable": true,
+    "main_locale": "en",
+    "always_available": true,
+    "available_locales": [
+        "en"
+    ],
     "items": [
         {
             "id": 7,
@@ -37,6 +43,13 @@
         "id": 2,
         "collection_id": 3,
         "type": "ezcontent_search",
+        "is_translatable": true,
+        "locale": "en",
+        "main_locale": "en",
+        "always_available": true,
+        "available_locales": [
+            "en"
+        ],
         "parameters": {
             "use_current_location": null,
             "parent_location_id": 2,

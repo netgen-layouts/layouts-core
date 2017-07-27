@@ -1,6 +1,8 @@
 DROP TABLE IF EXISTS "ngbm_block_collection";
 DROP TABLE IF EXISTS "ngbm_collection_item";
+DROP TABLE IF EXISTS "ngbm_collection_query_translation";
 DROP TABLE IF EXISTS "ngbm_collection_query";
+DROP TABLE IF EXISTS "ngbm_collection_translation";
 DROP TABLE IF EXISTS "ngbm_collection";
 DROP TABLE IF EXISTS "ngbm_zone";
 DROP TABLE IF EXISTS "ngbm_block_translation";
@@ -76,7 +78,16 @@ CREATE TABLE "ngbm_zone" (
 
 CREATE TABLE "ngbm_collection" (
   "id" integer NOT NULL,
-  "status" integer NOT NULL
+  "status" integer NOT NULL,
+  "translatable" boolean NOT NULL,
+  "main_locale" character varying(255) NOT NULL,
+  "always_available" boolean NOT NULL
+);
+
+CREATE TABLE "ngbm_collection_translation" (
+  "collection_id" integer NOT NULL,
+  "status" integer NOT NULL,
+  "locale" character varying(255) NOT NULL,
 );
 
 CREATE TABLE "ngbm_collection_item" (
@@ -94,6 +105,12 @@ CREATE TABLE "ngbm_collection_query" (
   "status" integer NOT NULL,
   "collection_id" integer NOT NULL,
   "type" character varying(255) NOT NULL,
+);
+
+CREATE TABLE "ngbm_collection_query_translation" (
+  "query_id" integer NOT NULL,
+  "status" integer NOT NULL,
+  "locale" character varying(255) NOT NULL,
   "parameters" text NOT NULL
 );
 

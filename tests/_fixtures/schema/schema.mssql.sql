@@ -1,6 +1,8 @@
 IF OBJECT_ID('dbo.ngbm_block_collection', 'U') IS NOT NULL DROP TABLE dbo.ngbm_block_collection;
 IF OBJECT_ID('dbo.ngbm_collection_item', 'U') IS NOT NULL DROP TABLE dbo.ngbm_collection_item;
+IF OBJECT_ID('dbo.ngbm_collection_query_translation', 'U') IS NOT NULL DROP TABLE dbo.ngbm_collection_query_translation;
 IF OBJECT_ID('dbo.ngbm_collection_query', 'U') IS NOT NULL DROP TABLE dbo.ngbm_collection_query;
+IF OBJECT_ID('dbo.ngbm_collection_translation', 'U') IS NOT NULL DROP TABLE dbo.ngbm_collection_translation;
 IF OBJECT_ID('dbo.ngbm_collection', 'U') IS NOT NULL DROP TABLE dbo.ngbm_collection;
 IF OBJECT_ID('dbo.ngbm_zone', 'U') IS NOT NULL DROP TABLE dbo.ngbm_zone;
 IF OBJECT_ID('dbo.ngbm_block_translation', 'U') IS NOT NULL DROP TABLE dbo.ngbm_block_translation;
@@ -83,7 +85,19 @@ CREATE TABLE ngbm_zone (
 CREATE TABLE ngbm_collection (
   id int IDENTITY(1, 1),
   status int NOT NULL,
+  translatable tinyint NOT NULL,
+  main_locale nvarchar(255) NOT NULL,
+  always_available tinyint NOT NULL,
   PRIMARY KEY (id, status)
+);
+
+CREATE TABLE ngbm_collection_translation (
+  collection_id int NOT NULL,
+  status int NOT NULL,
+  locale nvarchar(255) NOT NULL,
+  PRIMARY KEY (collection_id, status, locale),
+  FOREIGN KEY (collection_id, status)
+    REFERENCES ngbm_collection (id, status)
 );
 
 CREATE TABLE ngbm_collection_item (
@@ -104,10 +118,19 @@ CREATE TABLE ngbm_collection_query (
   status int NOT NULL,
   collection_id int NOT NULL,
   type nvarchar(255) NOT NULL,
-  parameters nvarchar(max) NOT NULL,
   PRIMARY KEY (id, status),
   FOREIGN KEY (collection_id, status)
     REFERENCES ngbm_collection (id, status)
+);
+
+CREATE TABLE ngbm_collection_query_translation (
+  query_id int NOT NULL,
+  status int NOT NULL,
+  locale nvarchar(255) NOT NULL,
+  parameters nvarchar(max) NOT NULL,
+  PRIMARY KEY (query_id, status, locale),
+  FOREIGN KEY (query_id, status)
+    REFERENCES ngbm_collection_query (id, status)
 );
 
 CREATE TABLE ngbm_block_collection (

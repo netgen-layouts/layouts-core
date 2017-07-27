@@ -135,11 +135,17 @@ class BlockMapper
      *
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      * @param \Netgen\BlockManager\Persistence\Values\Block\CollectionReference $collectionReference
+     * @param array $locales
+     * @param bool $useContext
      *
      * @return \Netgen\BlockManager\API\Values\Block\CollectionReference
      */
-    public function mapCollectionReference(PersistenceBlock $block, PersistenceCollectionReference $collectionReference)
-    {
+    public function mapCollectionReference(
+        PersistenceBlock $block,
+        PersistenceCollectionReference $collectionReference,
+        array $locales = null,
+        $useContext = true
+    ) {
         $collection = $this->persistenceHandler->getCollectionHandler()->loadCollection(
             $collectionReference->collectionId,
             $collectionReference->collectionStatus
@@ -147,8 +153,8 @@ class BlockMapper
 
         return new CollectionReference(
             array(
-                'block' => $this->mapBlock($block),
-                'collection' => $this->collectionMapper->mapCollection($collection),
+                'block' => $this->mapBlock($block, $locales, $useContext),
+                'collection' => $this->collectionMapper->mapCollection($collection, $locales, $useContext),
                 'identifier' => $collectionReference->identifier,
                 'offset' => $collectionReference->offset,
                 'limit' => $collectionReference->limit,

@@ -18,8 +18,9 @@ use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\Query as PersistenceQuery;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\QueryUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\QueryTranslationUpdateStruct;
 
 class CollectionService extends Service implements APICollectionService
 {
@@ -78,12 +79,14 @@ class CollectionService extends Service implements APICollectionService
      * Loads a collection with specified ID.
      *
      * @param int|string $collectionId
+     * @param string[] $locales
+     * @param bool $useContext
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If collection with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function loadCollection($collectionId)
+    public function loadCollection($collectionId, array $locales = null, $useContext = true)
     {
         $this->validator->validateId($collectionId, 'collectionId');
 
@@ -91,7 +94,9 @@ class CollectionService extends Service implements APICollectionService
             $this->handler->loadCollection(
                 $collectionId,
                 Value::STATUS_PUBLISHED
-            )
+            ),
+            $locales,
+            $useContext
         );
     }
 
@@ -99,12 +104,14 @@ class CollectionService extends Service implements APICollectionService
      * Loads a collection draft with specified ID.
      *
      * @param int|string $collectionId
+     * @param string[] $locales
+     * @param bool $useContext
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If collection with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function loadCollectionDraft($collectionId)
+    public function loadCollectionDraft($collectionId, array $locales = null, $useContext = true)
     {
         $this->validator->validateId($collectionId, 'collectionId');
 
@@ -112,7 +119,9 @@ class CollectionService extends Service implements APICollectionService
             $this->handler->loadCollection(
                 $collectionId,
                 Value::STATUS_DRAFT
-            )
+            ),
+            $locales,
+            $useContext
         );
     }
 
@@ -162,12 +171,14 @@ class CollectionService extends Service implements APICollectionService
      * Loads a query with specified ID.
      *
      * @param int|string $queryId
+     * @param string[] $locales
+     * @param bool $useContext
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If query with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
-    public function loadQuery($queryId)
+    public function loadQuery($queryId, array $locales = null, $useContext = true)
     {
         $this->validator->validateId($queryId, 'queryId');
 
@@ -175,7 +186,9 @@ class CollectionService extends Service implements APICollectionService
             $this->handler->loadQuery(
                 $queryId,
                 Value::STATUS_PUBLISHED
-            )
+            ),
+            $locales,
+            $useContext
         );
     }
 
@@ -183,12 +196,14 @@ class CollectionService extends Service implements APICollectionService
      * Loads a query with specified ID.
      *
      * @param int|string $queryId
+     * @param string[] $locales
+     * @param bool $useContext
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If query with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
-    public function loadQueryDraft($queryId)
+    public function loadQueryDraft($queryId, array $locales = null, $useContext = true)
     {
         $this->validator->validateId($queryId, 'queryId');
 
@@ -196,7 +211,9 @@ class CollectionService extends Service implements APICollectionService
             $this->handler->loadQuery(
                 $queryId,
                 Value::STATUS_DRAFT
-            )
+            ),
+            $locales,
+            $useContext
         );
     }
 
@@ -369,6 +386,7 @@ class CollectionService extends Service implements APICollectionService
      * @param \Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct $queryUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If query is not a draft
+     *                                                          If query does not have a specified translation
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
@@ -382,24 +400,21 @@ class CollectionService extends Service implements APICollectionService
 
         $this->validator->validateQueryUpdateStruct($query, $queryUpdateStruct);
 
+        if (!in_array($queryUpdateStruct->locale, $persistenceQuery->availableLocales, true)) {
+            throw new BadStateException('query', 'Query does not have the specified translation.');
+        }
+
         $updatedQuery = $this->transaction(
             function () use ($query, $persistenceQuery, $queryUpdateStruct) {
-                return $this->handler->updateQuery(
+                return $this->updateQueryTranslations(
+                    $query,
                     $persistenceQuery,
-                    new QueryUpdateStruct(
-                        array(
-                            'parameters' => $this->parameterMapper->serializeValues(
-                                $query->getQueryType(),
-                                $queryUpdateStruct->getParameterValues(),
-                                $persistenceQuery->parameters
-                            ),
-                        )
-                    )
+                    $queryUpdateStruct
                 );
             }
         );
 
-        return $this->mapper->mapQuery($updatedQuery);
+        return $this->mapper->mapQuery($updatedQuery, $query->getAvailableLocales());
     }
 
     /**
@@ -431,12 +446,84 @@ class CollectionService extends Service implements APICollectionService
     /**
      * Creates a new query update struct.
      *
+     * @param string $locale
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      *
      * @return \Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct
      */
-    public function newQueryUpdateStruct(Query $query = null)
+    public function newQueryUpdateStruct($locale, Query $query = null)
     {
-        return $this->structBuilder->newQueryUpdateStruct($query);
+        return $this->structBuilder->newQueryUpdateStruct($locale, $query);
+    }
+
+    /**
+     * Updates translations for specified queries.
+     *
+     * This makes sure that untranslatable parameters are always kept in sync between all
+     * available translations in the query. This means that if main translations is updated,
+     * all other translations need to be updated too to reflect changes to untranslatable params,
+     * and if any other translation is updated, it needs to take values of untranslatable params
+     * from the main translation.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $persistenceQuery
+     * @param \Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct $queryUpdateStruct
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
+     */
+    protected function updateQueryTranslations(Query $query, PersistenceQuery $persistenceQuery, APIQueryUpdateStruct $queryUpdateStruct)
+    {
+        if ($queryUpdateStruct->locale === $persistenceQuery->mainLocale) {
+            $persistenceQuery = $this->handler->updateQueryTranslation(
+                $persistenceQuery,
+                $queryUpdateStruct->locale,
+                new QueryTranslationUpdateStruct(
+                    array(
+                        'parameters' => $this->parameterMapper->serializeValues(
+                            $query->getQueryType(),
+                            $queryUpdateStruct->getParameterValues(),
+                            $persistenceQuery->parameters[$persistenceQuery->mainLocale]
+                        ),
+                    )
+                )
+            );
+        }
+
+        $untranslatableParams = $this->parameterMapper->extractUntranslatableParameters(
+            $query->getQueryType(),
+            $persistenceQuery->parameters[$persistenceQuery->mainLocale]
+        );
+
+        $localesToUpdate = array($queryUpdateStruct->locale);
+        if ($persistenceQuery->mainLocale === $queryUpdateStruct->locale) {
+            $localesToUpdate = $persistenceQuery->availableLocales;
+
+            // Remove the main locale from the array, since we already updated that one
+            array_splice($localesToUpdate, array_search($persistenceQuery->mainLocale, $persistenceQuery->availableLocales, true), 1);
+        }
+
+        foreach ($localesToUpdate as $locale) {
+            $params = $persistenceQuery->parameters[$locale];
+
+            if ($locale === $queryUpdateStruct->locale) {
+                $params = $this->parameterMapper->serializeValues(
+                    $query->getQueryType(),
+                    $queryUpdateStruct->getParameterValues(),
+                    $params
+                );
+            }
+
+            $persistenceQuery = $this->handler->updateQueryTranslation(
+                $persistenceQuery,
+                $locale,
+                new QueryTranslationUpdateStruct(
+                    array(
+                        'parameters' => $untranslatableParams + $params,
+                    )
+                )
+            );
+        }
+
+        return $persistenceQuery;
     }
 }

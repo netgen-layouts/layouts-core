@@ -203,17 +203,13 @@ abstract class ServiceTestCase extends TestCase
         $blockDefinition5 = new ContainerDefinition(
             'column',
             array('column' => array('standard')),
-            new ContainerDefinitionHandler(array(), array('main', 'other')),
-            false,
-            array($configDefinition1)
+            new ContainerDefinitionHandler(array(), array('main', 'other'))
         );
 
         $blockDefinition6 = new ContainerDefinition(
             'two_columns',
             array('two_columns_50_50' => array('standard')),
-            new ContainerDefinitionHandler(array(), array('left', 'right')),
-            false,
-            array($configDefinition1)
+            new ContainerDefinitionHandler(array(), array('left', 'right'))
         );
 
         $this->blockDefinitionRegistry = new BlockDefinitionRegistry();
@@ -383,10 +379,17 @@ abstract class ServiceTestCase extends TestCase
      */
     protected function createCollectionMapper()
     {
+        $localeContextMock = $this->createMock(LocaleContextInterface::class);
+        $localeContextMock
+            ->expects($this->any())
+            ->method('getLocaleCodes')
+            ->will($this->returnValue(array('en', 'hr')));
+
         return new CollectionMapper(
             $this->persistenceHandler->getCollectionHandler(),
             $this->createParameterMapper(),
-            $this->queryTypeRegistry
+            $this->queryTypeRegistry,
+            $localeContextMock
         );
     }
 

@@ -25,6 +25,9 @@ class BlockDefinitionHandlerWithRequiredParameter extends BaseBlockDefinitionHan
                     'name' => 'css_class',
                     'type' => new ParameterType\TextLineType(),
                     'isRequired' => true,
+                    'options' => array(
+                        'translatable' => false,
+                    ),
                 ),
                 true
             ),
@@ -32,6 +35,9 @@ class BlockDefinitionHandlerWithRequiredParameter extends BaseBlockDefinitionHan
                 array(
                     'name' => 'css_id',
                     'type' => new ParameterType\TextLineType(),
+                    'options' => array(
+                        'translatable' => false,
+                    ),
                 ),
                 true
             ),

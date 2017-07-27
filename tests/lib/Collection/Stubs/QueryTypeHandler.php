@@ -70,13 +70,21 @@ class QueryTypeHandler implements QueryTypeHandlerInterface
                 array(
                     'name' => 'offset',
                     'type' => new IntegerType(),
-                )
+                    'options' => array(
+                        'translatable' => true,
+                    ),
+                ),
+                true
             ),
             'param' => new Parameter(
                 array(
                     'name' => 'param',
                     'type' => new TextLineType(),
-                )
+                    'options' => array(
+                        'translatable' => true,
+                    ),
+                ),
+                true
             ),
         );
     }

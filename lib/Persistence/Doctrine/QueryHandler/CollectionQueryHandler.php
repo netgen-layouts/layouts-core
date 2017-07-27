@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
 
+use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Type;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
@@ -21,11 +22,11 @@ class CollectionQueryHandler extends QueryHandler
     {
         $query = $this->getCollectionSelectQuery();
         $query->where(
-            $query->expr()->eq('id', ':id')
+            $query->expr()->eq('c.id', ':id')
         )
         ->setParameter('id', $collectionId, Type::INTEGER);
 
-        $this->applyStatusCondition($query, $status);
+        $this->applyStatusCondition($query, $status, 'c.status');
 
         return $query->execute()->fetchAll();
     }
@@ -63,11 +64,11 @@ class CollectionQueryHandler extends QueryHandler
     {
         $query = $this->getQuerySelectQuery();
         $query->where(
-            $query->expr()->eq('id', ':id')
+            $query->expr()->eq('q.id', ':id')
         )
         ->setParameter('id', $queryId, Type::INTEGER);
 
-        $this->applyStatusCondition($query, $status);
+        $this->applyStatusCondition($query, $status, 'q.status');
 
         return $query->execute()->fetchAll();
     }
@@ -95,6 +96,38 @@ class CollectionQueryHandler extends QueryHandler
     }
 
     /**
+     * Loads all collection query IDs.
+     *
+     * @param int|string $collectionId
+     * @param int $status
+     *
+     * @return array
+     */
+    public function loadCollectionQueryIds($collectionId, $status = null)
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->select('DISTINCT id')
+            ->from('ngbm_collection_query')
+            ->where(
+                $query->expr()->eq('collection_id', ':collection_id')
+            )
+            ->setParameter('collection_id', $collectionId, Type::INTEGER);
+
+        if ($status !== null) {
+            $this->applyStatusCondition($query, $status);
+        }
+
+        $result = $query->execute()->fetchAll();
+
+        return array_map(
+            function (array $row) {
+                return $row['id'];
+            },
+            $result
+        );
+    }
+
+    /**
      * Loads all data for queries that belong to collection with specified ID.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
@@ -105,13 +138,11 @@ class CollectionQueryHandler extends QueryHandler
     {
         $query = $this->getQuerySelectQuery();
         $query->where(
-            $query->expr()->eq('collection_id', ':collection_id')
+            $query->expr()->eq('q.collection_id', ':collection_id')
         )
         ->setParameter('collection_id', $collection->id, Type::INTEGER);
 
-        $this->applyStatusCondition($query, $collection->status);
-
-        $query->setMaxResults(1);
+        $this->applyStatusCondition($query, $collection->status, 'q.status');
 
         return $query->execute()->fetchAll();
     }
@@ -156,6 +187,9 @@ class CollectionQueryHandler extends QueryHandler
                 array(
                     'id' => ':id',
                     'status' => ':status',
+                    'translatable' => ':translatable',
+                    'main_locale' => ':main_locale',
+                    'always_available' => ':always_available',
                 )
             )
             ->setValue(
@@ -164,7 +198,10 @@ class CollectionQueryHandler extends QueryHandler
                     (int) $collection->id :
                     $this->connectionHelper->getAutoIncrementValue('ngbm_collection')
             )
-            ->setParameter('status', $collection->status, Type::INTEGER);
+            ->setParameter('status', $collection->status, Type::INTEGER)
+            ->setParameter('translatable', $collection->isTranslatable, Type::BOOLEAN)
+            ->setParameter('main_locale', $collection->mainLocale, Type::STRING)
+            ->setParameter('always_available', $collection->alwaysAvailable, Type::BOOLEAN);
 
         $query->execute();
 
@@ -173,6 +210,56 @@ class CollectionQueryHandler extends QueryHandler
         }
 
         return $collection;
+    }
+
+    /**
+     * Creates a collection translation.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
+     * @param string $locale
+     */
+    public function createCollectionTranslation(Collection $collection, $locale)
+    {
+        $query = $this->connection->createQueryBuilder()
+            ->insert('ngbm_collection_translation')
+            ->values(
+                array(
+                    'collection_id' => ':collection_id',
+                    'status' => ':status',
+                    'locale' => ':locale',
+                )
+            )
+            ->setParameter('collection_id', $collection->id, Type::INTEGER)
+            ->setParameter('status', $collection->status, Type::INTEGER)
+            ->setParameter('locale', $locale, Type::STRING);
+
+        $query->execute();
+    }
+
+    /**
+     * Updates a collection.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
+     */
+    public function updateCollection(Collection $collection)
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query
+            ->update('ngbm_collection')
+            ->set('translatable', ':translatable')
+            ->set('main_locale', ':main_locale')
+            ->set('always_available', ':always_available')
+            ->where(
+                $query->expr()->eq('id', ':id')
+            )
+            ->setParameter('id', $collection->id, Type::INTEGER)
+            ->setParameter('translatable', $collection->isTranslatable, Type::BOOLEAN)
+            ->setParameter('main_locale', $collection->mainLocale, Type::STRING)
+            ->setParameter('always_available', $collection->alwaysAvailable, Type::BOOLEAN);
+
+        $this->applyStatusCondition($query, $collection->status);
+
+        $query->execute();
     }
 
     /**
@@ -210,6 +297,36 @@ class CollectionQueryHandler extends QueryHandler
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status);
+        }
+
+        $query->execute();
+    }
+
+    /*
+     * Deletes collection translations.
+     *
+     * @param int|string $collectionId
+     * @param int $status
+     * @param string $locale
+     */
+    public function deleteCollectionTranslations($collectionId, $status = null, $locale = null)
+    {
+        $query = $this->connection->createQueryBuilder();
+
+        $query->delete('ngbm_collection_translation')
+            ->where(
+                $query->expr()->eq('collection_id', ':collection_id')
+            )
+            ->setParameter('collection_id', $collectionId, Type::INTEGER);
+
+        if ($status !== null) {
+            $this->applyStatusCondition($query, $status);
+        }
+
+        if ($locale !== null) {
+            $query
+                ->andWhere($query->expr()->eq('locale', ':locale'))
+                ->setParameter(':locale', $locale, Type::STRING);
         }
 
         $query->execute();
@@ -351,7 +468,6 @@ class CollectionQueryHandler extends QueryHandler
                     'status' => ':status',
                     'collection_id' => ':collection_id',
                     'type' => ':type',
-                    'parameters' => ':parameters',
                 )
             )
             ->setValue(
@@ -362,8 +478,7 @@ class CollectionQueryHandler extends QueryHandler
             )
             ->setParameter('status', $query->status, Type::INTEGER)
             ->setParameter('collection_id', $query->collectionId, Type::INTEGER)
-            ->setParameter('type', $query->type, Type::STRING)
-            ->setParameter('parameters', $query->parameters, Type::JSON_ARRAY);
+            ->setParameter('type', $query->type, Type::STRING);
 
         $dbQuery->execute();
 
@@ -372,6 +487,32 @@ class CollectionQueryHandler extends QueryHandler
         }
 
         return $query;
+    }
+
+    /**
+     * Creates a query translation.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
+     * @param string $locale
+     */
+    public function createQueryTranslation(Query $query, $locale)
+    {
+        $query = $this->connection->createQueryBuilder()
+            ->insert('ngbm_collection_query_translation')
+            ->values(
+                array(
+                    'query_id' => ':query_id',
+                    'status' => ':status',
+                    'locale' => ':locale',
+                    'parameters' => ':parameters',
+                )
+            )
+            ->setParameter('query_id', $query->id, Type::INTEGER)
+            ->setParameter('status', $query->status, Type::INTEGER)
+            ->setParameter('locale', $locale, Type::STRING)
+            ->setParameter('parameters', $query->parameters[$locale], Type::JSON_ARRAY);
+
+        $query->execute();
     }
 
     /**
@@ -386,14 +527,12 @@ class CollectionQueryHandler extends QueryHandler
             ->update('ngbm_collection_query')
             ->set('collection_id', ':collection_id')
             ->set('type', ':type')
-            ->set('parameters', ':parameters')
             ->where(
                 $queryBuilder->expr()->eq('id', ':id')
             )
             ->setParameter('id', $query->id, Type::INTEGER)
             ->setParameter('collection_id', $query->collectionId, Type::INTEGER)
-            ->setParameter('type', $query->type, Type::STRING)
-            ->setParameter('parameters', $query->parameters, Type::JSON_ARRAY);
+            ->setParameter('type', $query->type, Type::STRING);
 
         $this->applyStatusCondition($queryBuilder, $query->status);
 
@@ -401,23 +540,80 @@ class CollectionQueryHandler extends QueryHandler
     }
 
     /**
-     * Deletes the collection query.
+     * Updates a query translation.
      *
-     * @param int|string $collectionId
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
+     * @param string $locale
+     */
+    public function updateQueryTranslation(Query $query, $locale)
+    {
+        $queryBuilder = $this->connection->createQueryBuilder();
+        $queryBuilder
+            ->update('ngbm_collection_query_translation')
+            ->set('parameters', ':parameters')
+            ->where(
+                $queryBuilder->expr()->andX(
+                    $queryBuilder->expr()->eq('query_id', ':query_id'),
+                    $queryBuilder->expr()->eq('locale', ':locale')
+                )
+            )
+            ->setParameter('query_id', $query->id, Type::INTEGER)
+            ->setParameter('locale', $locale, Type::STRING)
+            ->setParameter('parameters', $query->parameters[$locale], Type::JSON_ARRAY);
+
+        $this->applyStatusCondition($queryBuilder, $query->status);
+
+        $queryBuilder->execute();
+    }
+
+    /**
+     * Deletes the queries with provided IDs.
+     *
+     * @param array $queryIds
      * @param int $status
      */
-    public function deleteCollectionQuery($collectionId, $status = null)
+    public function deleteQuery($queryIds, $status = null)
     {
         $query = $this->connection->createQueryBuilder();
 
         $query->delete('ngbm_collection_query')
             ->where(
-                $query->expr()->eq('collection_id', ':collection_id')
+                $query->expr()->in('id', array(':query_id'))
             )
-            ->setParameter('collection_id', $collectionId, Type::INTEGER);
+            ->setParameter('query_id', $queryIds, Connection::PARAM_INT_ARRAY);
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status);
+        }
+
+        $query->execute();
+    }
+
+    /**
+     * Deletes the query translations with provided query IDs.
+     *
+     * @param array $queryIds
+     * @param int $status
+     * @param string $locale
+     */
+    public function deleteQueryTranslations($queryIds, $status = null, $locale = null)
+    {
+        $query = $this->connection->createQueryBuilder();
+
+        $query->delete('ngbm_collection_query_translation')
+            ->where(
+                $query->expr()->in('query_id', array(':query_id'))
+            )
+            ->setParameter('query_id', $queryIds, Connection::PARAM_INT_ARRAY);
+
+        if ($status !== null) {
+            $this->applyStatusCondition($query, $status);
+        }
+
+        if ($locale !== null) {
+            $query
+                ->andWhere($query->expr()->eq('locale', ':locale'))
+                ->setParameter(':locale', $locale, Type::STRING);
         }
 
         $query->execute();
@@ -431,8 +627,17 @@ class CollectionQueryHandler extends QueryHandler
     protected function getCollectionSelectQuery()
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT ngbm_collection.*')
-            ->from('ngbm_collection');
+        $query->select('DISTINCT c.*, ct.*')
+            ->from('ngbm_collection', 'c')
+            ->innerJoin(
+                'c',
+                'ngbm_collection_translation',
+                'ct',
+                $query->expr()->andX(
+                    $query->expr()->eq('ct.collection_id', 'c.id'),
+                    $query->expr()->eq('ct.status', 'c.status')
+                )
+            );
 
         return $query;
     }
@@ -452,15 +657,24 @@ class CollectionQueryHandler extends QueryHandler
     }
 
     /**
-     * Builds and returns a query database SELECT query.
+     * Builds and returns a block database SELECT query.
      *
      * @return \Doctrine\DBAL\Query\QueryBuilder
      */
     protected function getQuerySelectQuery()
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT ngbm_collection_query.*')
-            ->from('ngbm_collection_query');
+        $query->select('DISTINCT q.*, qt.*')
+            ->from('ngbm_collection_query', 'q')
+            ->innerJoin(
+                'q',
+                'ngbm_collection_query_translation',
+                'qt',
+                $query->expr()->andX(
+                    $query->expr()->eq('qt.query_id', 'q.id'),
+                    $query->expr()->eq('qt.status', 'q.status')
+                )
+            );
 
         return $query;
     }

@@ -239,10 +239,12 @@ class BlockService extends Service implements BlockServiceInterface
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param string $identifier
+     * @param array $locales
+     * @param bool $useContext
      *
      * @return \Netgen\BlockManager\API\Values\Block\CollectionReference
      */
-    public function loadCollectionReference(Block $block, $identifier)
+    public function loadCollectionReference(Block $block, $identifier, array $locales = null, $useContext = true)
     {
         $this->validator->validateIdentifier($identifier, null, true);
 
@@ -253,7 +255,9 @@ class BlockService extends Service implements BlockServiceInterface
             $this->blockHandler->loadCollectionReference(
                 $persistenceBlock,
                 $identifier
-            )
+            ),
+            $locales,
+            $useContext
         );
     }
 
@@ -261,10 +265,12 @@ class BlockService extends Service implements BlockServiceInterface
      * Loads all collection references belonging to the provided block.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
+     * @param array $locales
+     * @param bool $useContext
      *
      * @return \Netgen\BlockManager\API\Values\Block\CollectionReference[]
      */
-    public function loadCollectionReferences(Block $block)
+    public function loadCollectionReferences(Block $block, array $locales = null, $useContext = true)
     {
         $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), $block->getStatus());
         $persistenceCollections = $this->blockHandler->loadCollectionReferences($persistenceBlock);
@@ -273,7 +279,9 @@ class BlockService extends Service implements BlockServiceInterface
         foreach ($persistenceCollections as $persistenceCollection) {
             $collections[] = $this->mapper->mapCollectionReference(
                 $persistenceBlock,
-                $persistenceCollection
+                $persistenceCollection,
+                $locales,
+                $useContext
             );
         }
 
@@ -877,9 +885,22 @@ class BlockService extends Service implements BlockServiceInterface
                         new CollectionCreateStruct(
                             array(
                                 'status' => Value::STATUS_DRAFT,
+                                'alwaysAvailable' => $blockCreateStruct->alwaysAvailable,
+                                'isTranslatable' => $blockCreateStruct->isTranslatable,
+                                'mainLocale' => $persistenceLayout->mainLocale,
                             )
                         )
                     );
+
+                    foreach ($persistenceLayout->availableLocales as $locale) {
+                        if ($locale !== $persistenceLayout->mainLocale) {
+                            $createdCollection = $this->collectionHandler->createCollectionTranslation(
+                                $createdCollection,
+                                $locale,
+                                $createdCollection->mainLocale
+                            );
+                        }
+                    }
 
                     $this->blockHandler->createCollectionReference(
                         $createdBlock,

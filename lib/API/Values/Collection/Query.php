@@ -48,4 +48,62 @@ interface Query extends Value, ParameterBasedValue
      * @return \Netgen\BlockManager\Collection\QueryTypeInterface
      */
     public function getQueryType();
+
+    /**
+     * Returns the list of all available locales in the query.
+     *
+     * @return string[]
+     */
+    public function getAvailableLocales();
+
+    /**
+     * Returns the main locale for the query.
+     *
+     * @return string
+     */
+    public function getMainLocale();
+
+    /**
+     * Returns if the query is translatable.
+     *
+     * @return bool
+     */
+    public function isTranslatable();
+
+    /**
+     * Returns if the main translation of the query is used
+     * in case there are no prioritized translations.
+     *
+     * @return bool
+     */
+    public function isAlwaysAvailable();
+
+    /**
+     * Returns if the query has a translation in specified locale.
+     *
+     * @param string $locale
+     *
+     * @return bool
+     */
+    public function hasTranslation($locale);
+
+    /**
+     * Returns a query translation in specified locale.
+     *
+     * If locale is not specified, first locale in the list of available locales is used.
+     *
+     * @param string $locale
+     *
+     * @throws \Netgen\BlockManager\Exception\Core\TranslationException If the requested translation does not exist
+     *
+     * @return \Netgen\BlockManager\API\Values\Collection\QueryTranslation
+     */
+    public function getTranslation($locale = null);
+
+    /**
+     * Returns all query translations.
+     *
+     * @return \Netgen\BlockManager\API\Values\Collection\QueryTranslation[]
+     */
+    public function getTranslations();
 }

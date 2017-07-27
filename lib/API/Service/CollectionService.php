@@ -16,23 +16,27 @@ interface CollectionService extends Service
      * Loads a collection with specified ID.
      *
      * @param int|string $collectionId
+     * @param string[] $locales
+     * @param bool $useContext
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If collection with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function loadCollection($collectionId);
+    public function loadCollection($collectionId, array $locales = null, $useContext = true);
 
     /**
      * Loads a collection draft with specified ID.
      *
      * @param int|string $collectionId
+     * @param string[] $locales
+     * @param bool $useContext
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If collection with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function loadCollectionDraft($collectionId);
+    public function loadCollectionDraft($collectionId, array $locales = null, $useContext = true);
 
     /**
      * Loads an item with specified ID.
@@ -60,23 +64,27 @@ interface CollectionService extends Service
      * Loads a query with specified ID.
      *
      * @param int|string $queryId
+     * @param string[] $locales
+     * @param bool $useContext
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If query with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
-    public function loadQuery($queryId);
+    public function loadQuery($queryId, array $locales = null, $useContext = true);
 
     /**
      * Loads a query with specified ID.
      *
      * @param int|string $queryId
+     * @param string[] $locales
+     * @param bool $useContext
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If query with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
-    public function loadQueryDraft($queryId);
+    public function loadQueryDraft($queryId, array $locales = null, $useContext = true);
 
     /**
      * Changes the type of specified collection.
@@ -135,6 +143,7 @@ interface CollectionService extends Service
      * @param \Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct $queryUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If query is not a draft
+     *                                                          If query does not have a specified translation
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
@@ -163,9 +172,10 @@ interface CollectionService extends Service
     /**
      * Creates a new query update struct.
      *
+     * @param string $locale
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      *
      * @return \Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct
      */
-    public function newQueryUpdateStruct(Query $query = null);
+    public function newQueryUpdateStruct($locale, Query $query = null);
 }

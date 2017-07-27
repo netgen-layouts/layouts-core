@@ -78,8 +78,12 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
     public function testNewQueryUpdateStruct()
     {
         $this->assertEquals(
-            new QueryUpdateStruct(),
-            $this->structBuilder->newQueryUpdateStruct()
+            new QueryUpdateStruct(
+                array(
+                    'locale' => 'en',
+                )
+            ),
+            $this->structBuilder->newQueryUpdateStruct('en')
         );
     }
 
@@ -93,13 +97,14 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
         $this->assertEquals(
             new QueryUpdateStruct(
                 array(
+                    'locale' => 'en',
                     'parameterValues' => array(
                         'offset' => 0,
                         'param' => null,
                     ),
                 )
             ),
-            $this->structBuilder->newQueryUpdateStruct($query)
+            $this->structBuilder->newQueryUpdateStruct('en', $query)
         );
     }
 }

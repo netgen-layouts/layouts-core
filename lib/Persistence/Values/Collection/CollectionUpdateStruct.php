@@ -4,13 +4,8 @@ namespace Netgen\BlockManager\Persistence\Values\Collection;
 
 use Netgen\BlockManager\ValueObject;
 
-class CollectionCreateStruct extends ValueObject
+class CollectionUpdateStruct extends ValueObject
 {
-    /**
-     * @var int
-     */
-    public $status;
-
     /**
      * @var bool
      */
@@ -20,9 +15,4 @@ class CollectionCreateStruct extends ValueObject
      * @var bool
      */
     public $isTranslatable;
-
-    /**
-     * @var string
-     */
-    public $mainLocale;
 }

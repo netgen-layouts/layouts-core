@@ -147,14 +147,22 @@ class CollectionServiceTest extends ServiceTestCase
      */
     public function testUpdateQuery()
     {
+        $persistenceQuery = new PersistenceQuery(
+            array(
+                'mainLocale' => 'en',
+                'availableLocales' => array('en'),
+                'parameters' => array('en' => array()),
+            )
+        );
+
         $this->collectionHandlerMock
             ->expects($this->at(0))
             ->method('loadQuery')
-            ->will($this->returnValue(new PersistenceQuery(array('parameters' => array()))));
+            ->will($this->returnValue($persistenceQuery));
 
         $this->collectionHandlerMock
             ->expects($this->at(1))
-            ->method('updateQuery')
+            ->method('updateQueryTranslation')
             ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
@@ -168,7 +176,11 @@ class CollectionServiceTest extends ServiceTestCase
                     'queryType' => new QueryType('type'),
                 )
             ),
-            new QueryUpdateStruct()
+            new QueryUpdateStruct(
+                array(
+                    'locale' => 'en',
+                )
+            )
         );
     }
 }

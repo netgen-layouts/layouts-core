@@ -17,6 +17,7 @@ use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceCreateStruct
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\TranslationUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
+use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone;
 
@@ -270,6 +271,16 @@ class BlockHandler implements BlockHandlerInterface
 
         $this->queryHandler->createBlockTranslation($updatedBlock, $locale);
 
+        $collectionReferences = $this->loadCollectionReferences($block);
+        foreach ($collectionReferences as $collectionReference) {
+            $collection = $this->collectionHandler->loadCollection(
+                $collectionReference->collectionId,
+                $collectionReference->collectionStatus
+            );
+
+            $this->collectionHandler->createCollectionTranslation($collection, $locale, $sourceLocale);
+        }
+
         return $updatedBlock;
     }
 
@@ -340,6 +351,23 @@ class BlockHandler implements BlockHandlerInterface
 
         $this->queryHandler->updateBlock($updatedBlock);
 
+        $collectionReferences = $this->loadCollectionReferences($block);
+        foreach ($collectionReferences as $collectionReference) {
+            $collection = $this->collectionHandler->loadCollection(
+                $collectionReference->collectionId,
+                $collectionReference->collectionStatus
+            );
+
+            $collectionUpdateStruct = new CollectionUpdateStruct(
+                array(
+                    'alwaysAvailable' => $updatedBlock->alwaysAvailable,
+                    'isTranslatable' => $updatedBlock->isTranslatable,
+                )
+            );
+
+            $this->collectionHandler->updateCollection($collection, $collectionUpdateStruct);
+        }
+
         return $updatedBlock;
     }
 
@@ -391,6 +419,16 @@ class BlockHandler implements BlockHandlerInterface
         $updatedBlock->mainLocale = $mainLocale;
 
         $this->queryHandler->updateBlock($updatedBlock);
+
+        $collectionReferences = $this->loadCollectionReferences($block);
+        foreach ($collectionReferences as $collectionReference) {
+            $collection = $this->collectionHandler->loadCollection(
+                $collectionReference->collectionId,
+                $collectionReference->collectionStatus
+            );
+
+            $this->collectionHandler->setMainTranslation($collection, $mainLocale);
+        }
 
         return $updatedBlock;
     }
@@ -656,6 +694,16 @@ class BlockHandler implements BlockHandlerInterface
         }
 
         $this->queryHandler->deleteBlockTranslations(array($block->id), $block->status, $locale);
+
+        $collectionReferences = $this->loadCollectionReferences($block);
+        foreach ($collectionReferences as $collectionReference) {
+            $collection = $this->collectionHandler->loadCollection(
+                $collectionReference->collectionId,
+                $collectionReference->collectionStatus
+            );
+
+            $this->collectionHandler->deleteCollectionTranslation($collection, $locale);
+        }
 
         return $this->loadBlock($block->id, $block->status);
     }

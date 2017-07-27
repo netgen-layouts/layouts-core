@@ -31,7 +31,7 @@ class Parameter extends BaseParameter
         if ($enableTranslatable) {
             $optionsResolver->setDefined('translatable');
             $optionsResolver->setAllowedTypes('translatable', 'bool');
-            $optionsResolver->setDefault('translatable', false);
+            $optionsResolver->setDefault('translatable', true);
         }
 
         $options = array_key_exists('options', $properties) ? $properties['options'] : array();

@@ -53,13 +53,15 @@ class CollectionStructBuilder
     /**
      * Creates a new query update struct.
      *
+     * @param string $locale
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      *
      * @return \Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct
      */
-    public function newQueryUpdateStruct(Query $query = null)
+    public function newQueryUpdateStruct($locale, Query $query = null)
     {
         $queryUpdateStruct = new QueryUpdateStruct();
+        $queryUpdateStruct->locale = $locale;
 
         if (!$query instanceof Query) {
             return $queryUpdateStruct;

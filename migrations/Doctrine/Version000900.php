@@ -37,6 +37,8 @@ class Version000900 extends AbstractMigration
         // Fix differences in data in root blocks
         $this->addSql('UPDATE ngbm_block SET parent_id = NULL, placeholder = NULL, position = NULL, config = "[]", parameters = "[]" WHERE parent_id = 0 OR parent_id IS NULL');
 
+        // Layout table translations
+
         $this->addSql('ALTER TABLE ngbm_layout ADD COLUMN main_locale varchar(255) NOT NULL');
 
         $this->addSql(<<<'EOT'
@@ -53,6 +55,8 @@ EOT
 
         $this->addSql('UPDATE ngbm_layout SET main_locale = :main_locale', array('main_locale' => $defaultLocale), array('main_locale' => Type::STRING));
         $this->addSql('INSERT INTO ngbm_layout_translation SELECT id, status, main_locale FROM ngbm_layout');
+
+        // Block table translations
 
         $this->addSql('ALTER TABLE ngbm_block ADD COLUMN translatable tinyint NOT NULL');
         $this->addSql('ALTER TABLE ngbm_block ADD COLUMN main_locale varchar(255) NOT NULL');
@@ -76,6 +80,48 @@ EOT
         $this->addSql('INSERT INTO ngbm_block_translation SELECT id, status, main_locale, parameters FROM ngbm_block');
 
         $this->addSql('ALTER TABLE ngbm_block DROP COLUMN parameters');
+
+        // Collection table translations
+
+        $this->addSql('ALTER TABLE ngbm_collection ADD COLUMN translatable tinyint NOT NULL');
+        $this->addSql('ALTER TABLE ngbm_collection ADD COLUMN main_locale varchar(255) NOT NULL');
+        $this->addSql('ALTER TABLE ngbm_collection ADD COLUMN always_available tinyint NOT NULL');
+
+        $this->addSql(<<<'EOT'
+CREATE TABLE `ngbm_collection_translation` (
+  `collection_id` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  `locale` varchar(255) NOT NULL,
+  PRIMARY KEY (`collection_id`, `status`, `locale`),
+  FOREIGN KEY (`collection_id`, `status`)
+    REFERENCES ngbm_collection (`id`, `status`)
+)
+EOT
+);
+
+        $this->addSql('UPDATE ngbm_collection SET translatable = 0, always_available = 1');
+        $this->addSql('UPDATE ngbm_collection SET main_locale = :main_locale', array('main_locale' => $defaultLocale), array('main_locale' => Type::STRING));
+        $this->addSql('INSERT INTO ngbm_collection_translation SELECT id, status, main_locale FROM ngbm_collection');
+
+        // Collection query table translations
+
+        $this->addSql(<<<'EOT'
+CREATE TABLE `ngbm_collection_query_translation` (
+  `query_id` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  `locale` varchar(255) NOT NULL,
+  `parameters` text NOT NULL,
+  PRIMARY KEY (`query_id`, `status`, `locale`),
+  FOREIGN KEY (`query_id`, `status`)
+    REFERENCES ngbm_collection_query (`id`, `status`)
+)
+EOT
+);
+
+        $this->addSql('INSERT INTO ngbm_collection_query_translation SELECT id, status, "", parameters FROM ngbm_collection_query');
+        $this->addSql('UPDATE ngbm_collection_query_translation SET locale = :locale', array('locale' => $defaultLocale), array('locale' => Type::STRING));
+
+        $this->addSql('ALTER TABLE ngbm_collection_query DROP COLUMN parameters');
     }
 
     /**
@@ -84,6 +130,24 @@ EOT
     public function down(Schema $schema)
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on MySQL.');
+
+        // Collection query table
+
+        $this->addSql('ALTER TABLE ngbm_collection_query ADD COLUMN parameters text NOT NULL AFTER type');
+
+        // ?? $this->addSql('UPDATE ngbm_collection_query q INNER JOIN ngbm_collection_query_translation qt ON q.id = qt.query_id AND q.status = qt.status AND q.main_locale = qt.locale SET q.parameters = qt.parameters');
+
+        $this->addSql('DROP TABLE ngbm_collection_query_translation');
+
+        // Collection table
+
+        $this->addSql('ALTER TABLE ngbm_collection DROP COLUMN translatable');
+        $this->addSql('ALTER TABLE ngbm_collection DROP COLUMN main_locale');
+        $this->addSql('ALTER TABLE ngbm_collection DROP COLUMN always_available');
+
+        $this->addSql('DROP TABLE ngbm_collection_translation');
+
+        // Block table
 
         $this->addSql('ALTER TABLE ngbm_block ADD COLUMN parameters text NOT NULL AFTER config');
 
@@ -94,6 +158,8 @@ EOT
         $this->addSql('ALTER TABLE ngbm_block DROP COLUMN always_available');
 
         $this->addSql('DROP TABLE ngbm_block_translation');
+
+        // Layout table
 
         $this->addSql('ALTER TABLE ngbm_layout DROP COLUMN main_locale');
 

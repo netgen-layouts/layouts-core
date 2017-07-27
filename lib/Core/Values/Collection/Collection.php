@@ -39,6 +39,26 @@ class Collection extends ValueObject implements APICollection
     protected $query;
 
     /**
+     * @var string[]
+     */
+    protected $availableLocales = array();
+
+    /**
+     * @var string
+     */
+    protected $mainLocale;
+
+    /**
+     * @var bool
+     */
+    protected $isTranslatable;
+
+    /**
+     * @var bool
+     */
+    protected $alwaysAvailable;
+
+    /**
      * Returns the collection ID.
      *
      * @return int|string
@@ -174,6 +194,47 @@ class Collection extends ValueObject implements APICollection
     public function hasQuery()
     {
         return $this->query instanceof APIQuery;
+    }
+
+    /**
+     * Returns the list of all available locales in the collection.
+     *
+     * @return string[]
+     */
+    public function getAvailableLocales()
+    {
+        return $this->availableLocales;
+    }
+
+    /**
+     * Returns the main locale for the collection.
+     *
+     * @return string
+     */
+    public function getMainLocale()
+    {
+        return $this->mainLocale;
+    }
+
+    /**
+     * Returns if the collection is translatable.
+     *
+     * @return bool
+     */
+    public function isTranslatable()
+    {
+        return $this->isTranslatable;
+    }
+
+    /**
+     * Returns if the main translation of the collection is used
+     * in case there are no prioritized translations.
+     *
+     * @return bool
+     */
+    public function isAlwaysAvailable()
+    {
+        return $this->alwaysAvailable;
     }
 
     /**

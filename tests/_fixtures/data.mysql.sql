@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.18, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.19, for Linux (x86_64)
 --
 -- Host: localhost    Database: ngbm
 -- ------------------------------------------------------
--- Server version	5.7.18-0ubuntu0.17.04.1
+-- Server version	5.7.19-0ubuntu0.17.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -21,65 +21,65 @@
 
 LOCK TABLES `ngbm_block` WRITE;
 /*!40000 ALTER TABLE `ngbm_block` DISABLE KEYS */;
-INSERT INTO `ngbm_block` VALUES (1,0,1,0,'/1/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (1,1,1,0,'/1/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (2,0,1,0,'/2/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (2,1,1,0,'/2/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (3,0,1,0,'/3/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (3,1,1,0,'/3/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (4,0,1,0,'/4/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (4,1,1,0,'/4/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (5,0,2,0,'/5/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (5,1,2,0,'/5/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (6,0,2,0,'/6/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (6,1,2,0,'/6/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (7,0,2,0,'/7/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (7,1,2,0,'/7/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (8,0,2,0,'/8/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (8,1,2,0,'/8/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (9,0,3,0,'/9/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (9,1,3,0,'/9/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (10,0,3,0,'/10/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (10,1,3,0,'/10/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (11,0,3,0,'/11/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (11,1,3,0,'/11/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (12,0,3,0,'/12/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (12,1,3,0,'/12/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (13,0,4,0,'/13/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (14,0,4,0,'/14/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (15,0,4,0,'/15/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (16,0,4,0,'/16/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (17,0,5,0,'/17/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (17,1,5,0,'/17/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (18,0,5,0,'/18/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (18,1,5,0,'/18/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (19,0,5,0,'/19/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (19,1,5,0,'/19/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (20,0,5,0,'/20/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (20,1,5,0,'/20/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (21,1,6,0,'/21/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (22,1,6,0,'/22/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (23,1,6,0,'/23/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (24,1,6,0,'/24/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (25,0,7,0,'/25/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (26,0,7,0,'/26/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (27,0,7,0,'/27/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (28,0,7,0,'/28/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (29,0,7,0,'/29/',NULL,NULL,NULL,'','','','','','en',1);
-INSERT INTO `ngbm_block` VALUES (31,0,1,1,'/3/31/',3,'root',0,'list','list','standard','{\"en\": {\"number_of_columns\": 2, \"css_id\": \"css-id\"}, \"hr\": {\"css_class\": \"css-class-hr\"}}','','en',1);
-INSERT INTO `ngbm_block` VALUES (31,1,1,1,'/3/31/',3,'root',0,'list','grid','standard_with_intro','{\"en\": {\"number_of_columns\": 3}}','','en',1);
-INSERT INTO `ngbm_block` VALUES (32,0,1,1,'/2/32/',2,'root',0,'list','grid','standard','{\"en\": {\"number_of_columns\": 3}}','{\"http_cache\": {\"use_http_cache\": false}}','en',1);
-INSERT INTO `ngbm_block` VALUES (32,1,1,1,'/2/32/',2,'root',0,'list','grid','standard','{\"en\": {\"number_of_columns\": 3}}','{\"http_cache\": {\"use_http_cache\": false}}','en',1);
-INSERT INTO `ngbm_block` VALUES (33,0,2,1,'/7/33/',7,'root',0,'two_columns','two_columns_50_50','standard','{\"en\": {}}','','en',1);
-INSERT INTO `ngbm_block` VALUES (33,1,2,1,'/7/33/',7,'root',0,'two_columns','two_columns_50_50','standard','{\"en\": {}}','','en',1);
-INSERT INTO `ngbm_block` VALUES (34,0,2,1,'/6/34/',6,'root',0,'title','title','standard','{\"en\": {\"tag\": \"h3\", \"title\": \"Title\"}}','','en',1);
-INSERT INTO `ngbm_block` VALUES (34,1,2,1,'/6/34/',6,'root',0,'title','title','standard','{\"en\": {\"tag\": \"h3\", \"title\": \"Title\"}}','','en',1);
-INSERT INTO `ngbm_block` VALUES (35,0,1,1,'/3/35/',3,'root',1,'list','grid','standard','{\"en\": {\"number_of_columns\": 3}}','','en',1);
-INSERT INTO `ngbm_block` VALUES (35,1,1,1,'/3/35/',3,'root',1,'list','grid','standard','{\"en\": {\"number_of_columns\": 3}}','','en',1);
-INSERT INTO `ngbm_block` VALUES (36,0,2,1,'/7/36/',7,'root',1,'title','title','standard','{\"en\": {\"tag\": \"h3\", \"title\": \"Title\", \"css_class\": \"CSS class\"}}','','en',1);
-INSERT INTO `ngbm_block` VALUES (37,0,2,2,'/7/33/37/',33,'left',0,'text','text','standard','{\"en\": {\"content\": \"Text\"}}','','en',1);
-INSERT INTO `ngbm_block` VALUES (37,1,2,2,'/7/33/37/',33,'left',0,'text','text','standard','{\"en\": {\"content\": \"Text\"}}','','en',1);
-INSERT INTO `ngbm_block` VALUES (38,0,2,1,'/7/38/',7,'root',2,'column','column','standard','{\"en\": {}}','','en',1);
+INSERT INTO `ngbm_block` VALUES (1,0,1,0,'/1/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (1,1,1,0,'/1/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (2,0,1,0,'/2/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (2,1,1,0,'/2/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (3,0,1,0,'/3/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (3,1,1,0,'/3/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (4,0,1,0,'/4/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (4,1,1,0,'/4/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (5,0,2,0,'/5/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (5,1,2,0,'/5/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (6,0,2,0,'/6/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (6,1,2,0,'/6/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (7,0,2,0,'/7/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (7,1,2,0,'/7/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (8,0,2,0,'/8/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (8,1,2,0,'/8/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (9,0,3,0,'/9/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (9,1,3,0,'/9/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (10,0,3,0,'/10/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (10,1,3,0,'/10/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (11,0,3,0,'/11/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (11,1,3,0,'/11/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (12,0,3,0,'/12/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (12,1,3,0,'/12/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (13,0,4,0,'/13/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (14,0,4,0,'/14/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (15,0,4,0,'/15/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (16,0,4,0,'/16/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (17,0,5,0,'/17/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (17,1,5,0,'/17/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (18,0,5,0,'/18/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (18,1,5,0,'/18/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (19,0,5,0,'/19/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (19,1,5,0,'/19/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (20,0,5,0,'/20/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (20,1,5,0,'/20/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (21,1,6,0,'/21/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (22,1,6,0,'/22/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (23,1,6,0,'/23/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (24,1,6,0,'/24/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (25,0,7,0,'/25/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (26,0,7,0,'/26/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (27,0,7,0,'/27/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (28,0,7,0,'/28/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (29,0,7,0,'/29/',NULL,NULL,NULL,'','','','','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (31,0,1,1,'/3/31/',3,'root',0,'list','list','standard','My block','',1,'en',1);
+INSERT INTO `ngbm_block` VALUES (31,1,1,1,'/3/31/',3,'root',0,'list','grid','standard_with_intro','My published block','',1,'en',1);
+INSERT INTO `ngbm_block` VALUES (32,0,1,1,'/2/32/',2,'root',0,'list','grid','standard','My other block','{\"http_cache\": {\"use_http_cache\": false}}',1,'en',1);
+INSERT INTO `ngbm_block` VALUES (32,1,1,1,'/2/32/',2,'root',0,'list','grid','standard','My other block','{\"http_cache\": {\"use_http_cache\": false}}',1,'en',1);
+INSERT INTO `ngbm_block` VALUES (33,0,2,1,'/7/33/',7,'root',0,'two_columns','two_columns_50_50','standard','My third block','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (33,1,2,1,'/7/33/',7,'root',0,'two_columns','two_columns_50_50','standard','My third block','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (34,0,2,1,'/6/34/',6,'root',0,'title','title','standard','My fourth block','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (34,1,2,1,'/6/34/',6,'root',0,'title','title','standard','My fourth block','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (35,0,1,1,'/3/35/',3,'root',1,'list','grid','standard','My fourth block','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (35,1,1,1,'/3/35/',3,'root',1,'list','grid','standard','My fourth block','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (36,0,2,1,'/7/36/',7,'root',1,'title','title','standard','My sixth block','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (37,0,2,2,'/7/33/37/',33,'left',0,'text','text','standard','My seventh block','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (37,1,2,2,'/7/33/37/',33,'left',0,'text','text','standard','My seventh block','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (38,0,2,1,'/7/38/',7,'root',2,'column','column','standard','My eight block','',0,'en',1);
 /*!40000 ALTER TABLE `ngbm_block` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -151,22 +151,24 @@ INSERT INTO `ngbm_block_translation` VALUES (26,0,'en','');
 INSERT INTO `ngbm_block_translation` VALUES (27,0,'en','');
 INSERT INTO `ngbm_block_translation` VALUES (28,0,'en','');
 INSERT INTO `ngbm_block_translation` VALUES (29,0,'en','');
-INSERT INTO `ngbm_block_translation` VALUES (31,0,'en','My block');
-INSERT INTO `ngbm_block_translation` VALUES (31,0,'hr','Moj blok');
-INSERT INTO `ngbm_block_translation` VALUES (31,1,'en','My published block');
-INSERT INTO `ngbm_block_translation` VALUES (31,1,'hr','Moj objavljeni blok');
-INSERT INTO `ngbm_block_translation` VALUES (32,0,'en','My other block');
-INSERT INTO `ngbm_block_translation` VALUES (32,1,'en','My other block');
-INSERT INTO `ngbm_block_translation` VALUES (33,0,'en','My third block');
-INSERT INTO `ngbm_block_translation` VALUES (33,1,'en','My third block');
-INSERT INTO `ngbm_block_translation` VALUES (34,0,'en','My fourth block');
-INSERT INTO `ngbm_block_translation` VALUES (34,1,'en','My fourth block');
-INSERT INTO `ngbm_block_translation` VALUES (35,0,'en','My fourth block');
-INSERT INTO `ngbm_block_translation` VALUES (35,1,'en','My fourth block');
-INSERT INTO `ngbm_block_translation` VALUES (36,0,'en','My sixth block');
-INSERT INTO `ngbm_block_translation` VALUES (37,0,'en','My seventh block');
-INSERT INTO `ngbm_block_translation` VALUES (37,1,'en','My seventh block');
-INSERT INTO `ngbm_block_translation` VALUES (38,0,'en','My eight block');
+INSERT INTO `ngbm_block_translation` VALUES (31,0,'en','{\"number_of_columns\": 2, \"css_class\": \"css-class\", \"css_id\": \"css-id\"}');
+INSERT INTO `ngbm_block_translation` VALUES (31,0,'hr','{\"css_class\": \"css-class-hr\", \"css_id\": \"css-id\"}');
+INSERT INTO `ngbm_block_translation` VALUES (31,1,'en','{\"number_of_columns\": 3}');
+INSERT INTO `ngbm_block_translation` VALUES (31,1,'hr','{\"number_of_columns\": 3}');
+INSERT INTO `ngbm_block_translation` VALUES (32,0,'en','{\"number_of_columns\": 3}');
+INSERT INTO `ngbm_block_translation` VALUES (32,0,'hr','{\"number_of_columns\": 3}');
+INSERT INTO `ngbm_block_translation` VALUES (32,1,'en','{\"number_of_columns\": 3}');
+INSERT INTO `ngbm_block_translation` VALUES (32,1,'hr','{\"number_of_columns\": 3}');
+INSERT INTO `ngbm_block_translation` VALUES (33,0,'en','{}');
+INSERT INTO `ngbm_block_translation` VALUES (33,1,'en','{}');
+INSERT INTO `ngbm_block_translation` VALUES (34,0,'en','{\"tag\": \"h3\", \"title\": \"Title\"}');
+INSERT INTO `ngbm_block_translation` VALUES (34,1,'en','{\"tag\": \"h3\", \"title\": \"Title\"}');
+INSERT INTO `ngbm_block_translation` VALUES (35,0,'en','{\"number_of_columns\": 3}');
+INSERT INTO `ngbm_block_translation` VALUES (35,1,'en','{\"number_of_columns\": 3}');
+INSERT INTO `ngbm_block_translation` VALUES (36,0,'en','{\"tag\": \"h3\", \"title\": \"Title\", \"css_class\": \"CSS class\"}');
+INSERT INTO `ngbm_block_translation` VALUES (37,0,'en','{\"content\": \"Text\"}');
+INSERT INTO `ngbm_block_translation` VALUES (37,1,'en','{\"content\": \"Text\"}');
+INSERT INTO `ngbm_block_translation` VALUES (38,0,'en','{}');
 /*!40000 ALTER TABLE `ngbm_block_translation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -176,14 +178,14 @@ UNLOCK TABLES;
 
 LOCK TABLES `ngbm_collection` WRITE;
 /*!40000 ALTER TABLE `ngbm_collection` DISABLE KEYS */;
-INSERT INTO `ngbm_collection` VALUES (1,0);
-INSERT INTO `ngbm_collection` VALUES (2,1);
-INSERT INTO `ngbm_collection` VALUES (3,0);
-INSERT INTO `ngbm_collection` VALUES (3,1);
-INSERT INTO `ngbm_collection` VALUES (4,0);
-INSERT INTO `ngbm_collection` VALUES (4,1);
-INSERT INTO `ngbm_collection` VALUES (6,0);
-INSERT INTO `ngbm_collection` VALUES (6,1);
+INSERT INTO `ngbm_collection` VALUES (1,0,1,'en',1);
+INSERT INTO `ngbm_collection` VALUES (2,1,1,'en',1);
+INSERT INTO `ngbm_collection` VALUES (3,0,1,'en',1);
+INSERT INTO `ngbm_collection` VALUES (3,1,1,'en',1);
+INSERT INTO `ngbm_collection` VALUES (4,0,0,'en',1);
+INSERT INTO `ngbm_collection` VALUES (4,1,0,'en',1);
+INSERT INTO `ngbm_collection` VALUES (6,0,0,'en',1);
+INSERT INTO `ngbm_collection` VALUES (6,1,0,'en',1);
 /*!40000 ALTER TABLE `ngbm_collection` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -220,12 +222,50 @@ UNLOCK TABLES;
 
 LOCK TABLES `ngbm_collection_query` WRITE;
 /*!40000 ALTER TABLE `ngbm_collection_query` DISABLE KEYS */;
-INSERT INTO `ngbm_collection_query` VALUES (1,1,2,'ezcontent_search','{\"parent_location_id\": 2, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"offset\": 0, \"query_type\": \"list\"}');
-INSERT INTO `ngbm_collection_query` VALUES (2,0,3,'ezcontent_search','{\"parent_location_id\": 2, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"offset\": 0, \"query_type\": \"list\"}');
-INSERT INTO `ngbm_collection_query` VALUES (2,1,3,'ezcontent_search','{\"parent_location_id\": 2, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"offset\": 0, \"query_type\": \"list\"}');
-INSERT INTO `ngbm_collection_query` VALUES (4,0,4,'ezcontent_search','{\"parent_location_id\": 71, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"offset\": 0, \"limit\": 3, \"query_type\": \"list\"}');
-INSERT INTO `ngbm_collection_query` VALUES (4,1,4,'ezcontent_search','{\"parent_location_id\": 71, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"offset\": 0, \"limit\": 3, \"query_type\": \"list\"}');
+INSERT INTO `ngbm_collection_query` VALUES (1,1,2,'ezcontent_search');
+INSERT INTO `ngbm_collection_query` VALUES (2,0,3,'ezcontent_search');
+INSERT INTO `ngbm_collection_query` VALUES (2,1,3,'ezcontent_search');
+INSERT INTO `ngbm_collection_query` VALUES (4,0,4,'ezcontent_search');
+INSERT INTO `ngbm_collection_query` VALUES (4,1,4,'ezcontent_search');
 /*!40000 ALTER TABLE `ngbm_collection_query` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `ngbm_collection_query_translation`
+--
+
+LOCK TABLES `ngbm_collection_query_translation` WRITE;
+/*!40000 ALTER TABLE `ngbm_collection_query_translation` DISABLE KEYS */;
+INSERT INTO `ngbm_collection_query_translation` VALUES (1,1,'en','{\"parent_location_id\": 2, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"offset\": 0, \"query_type\": \"list\"}');
+INSERT INTO `ngbm_collection_query_translation` VALUES (1,1,'hr','{\"parent_location_id\": 2, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"offset\": 0, \"query_type\": \"list\"}');
+INSERT INTO `ngbm_collection_query_translation` VALUES (2,0,'en','{\"parent_location_id\": 2, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"offset\": 0, \"query_type\": \"list\"}');
+INSERT INTO `ngbm_collection_query_translation` VALUES (2,0,'hr','{\"parent_location_id\": 2, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"offset\": 0, \"query_type\": \"list\"}');
+INSERT INTO `ngbm_collection_query_translation` VALUES (2,1,'en','{\"parent_location_id\": 2, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"offset\": 0, \"query_type\": \"list\"}');
+INSERT INTO `ngbm_collection_query_translation` VALUES (2,1,'hr','{\"parent_location_id\": 2, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"offset\": 0, \"query_type\": \"list\"}');
+INSERT INTO `ngbm_collection_query_translation` VALUES (4,0,'en','{\"parent_location_id\": 71, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"offset\": 0, \"limit\": 3, \"query_type\": \"list\"}');
+INSERT INTO `ngbm_collection_query_translation` VALUES (4,1,'en','{\"parent_location_id\": 71, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"offset\": 0, \"limit\": 3, \"query_type\": \"list\"}');
+/*!40000 ALTER TABLE `ngbm_collection_query_translation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `ngbm_collection_translation`
+--
+
+LOCK TABLES `ngbm_collection_translation` WRITE;
+/*!40000 ALTER TABLE `ngbm_collection_translation` DISABLE KEYS */;
+INSERT INTO `ngbm_collection_translation` VALUES (1,0,'en');
+INSERT INTO `ngbm_collection_translation` VALUES (1,0,'hr');
+INSERT INTO `ngbm_collection_translation` VALUES (2,1,'en');
+INSERT INTO `ngbm_collection_translation` VALUES (2,1,'hr');
+INSERT INTO `ngbm_collection_translation` VALUES (3,0,'en');
+INSERT INTO `ngbm_collection_translation` VALUES (3,0,'hr');
+INSERT INTO `ngbm_collection_translation` VALUES (3,1,'en');
+INSERT INTO `ngbm_collection_translation` VALUES (3,1,'hr');
+INSERT INTO `ngbm_collection_translation` VALUES (4,0,'en');
+INSERT INTO `ngbm_collection_translation` VALUES (4,1,'en');
+INSERT INTO `ngbm_collection_translation` VALUES (6,0,'en');
+INSERT INTO `ngbm_collection_translation` VALUES (6,1,'en');
+/*!40000 ALTER TABLE `ngbm_collection_translation` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -462,4 +502,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-06-26 12:00:00
+-- Dump completed on 2017-07-27 17:30:00

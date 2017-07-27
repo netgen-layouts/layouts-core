@@ -41,6 +41,9 @@ class DynamicContainerDefinitionHandler extends BaseDynamicContainerHandler
                     'type' => new ParameterType\TextLineType(),
                     'default_value' => 'some-class',
                     'groups' => $this->parameterGroups,
+                    'options' => array(
+                        'translatable' => false,
+                    ),
                 ),
                 true
             ),
@@ -49,6 +52,9 @@ class DynamicContainerDefinitionHandler extends BaseDynamicContainerHandler
                     'name' => 'css_id',
                     'type' => new ParameterType\TextLineType(),
                     'groups' => $this->parameterGroups,
+                    'options' => array(
+                        'translatable' => false,
+                    ),
                 ),
                 true
             ),

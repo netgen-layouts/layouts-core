@@ -107,4 +107,33 @@ interface Collection extends Value
      * @return bool
      */
     public function hasQuery();
+
+    /**
+     * Returns the list of all available locales in the collection.
+     *
+     * @return string[]
+     */
+    public function getAvailableLocales();
+
+    /**
+     * Returns the main locale for the collection.
+     *
+     * @return string
+     */
+    public function getMainLocale();
+
+    /**
+     * Returns if the collection is translatable.
+     *
+     * @return bool
+     */
+    public function isTranslatable();
+
+    /**
+     * Returns if the main translation of the collection is used
+     * in case there are no prioritized translations.
+     *
+     * @return bool
+     */
+    public function isAlwaysAvailable();
 }

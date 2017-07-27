@@ -20,7 +20,11 @@ class QueryUpdateStructValidatorTest extends ValidatorTestCase
     {
         $this->constraint = new QueryUpdateStructConstraint();
 
-        $this->constraint->payload = new Query(array('queryType' => new QueryTypeStub('query_type')));
+        $this->constraint->payload = new Query(
+            array(
+                'queryType' => new QueryTypeStub('query_type'),
+            )
+        );
 
         parent::setUp();
     }
@@ -87,10 +91,56 @@ class QueryUpdateStructValidatorTest extends ValidatorTestCase
                         'param' => 'value',
                     ),
                 ),
+                false,
+            ),
+            array(
+                array(
+                    'locale' => null,
+                    'parameterValues' => array(
+                        'param' => 'value',
+                    ),
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'locale' => '',
+                    'parameterValues' => array(
+                        'param' => 'value',
+                    ),
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'locale' => 42,
+                    'parameterValues' => array(
+                        'param' => 'value',
+                    ),
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'locale' => 'nonexistent',
+                    'parameterValues' => array(
+                        'param' => 'value',
+                    ),
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'locale' => 'en',
+                    'parameterValues' => array(
+                        'param' => 'value',
+                    ),
+                ),
                 true,
             ),
             array(
                 array(
+                    'locale' => 'en',
                     'parameterValues' => array(
                         'param' => '',
                     ),
@@ -99,6 +149,7 @@ class QueryUpdateStructValidatorTest extends ValidatorTestCase
             ),
             array(
                 array(
+                    'locale' => 'en',
                     'parameterValues' => array(
                         'param' => null,
                     ),
@@ -107,6 +158,7 @@ class QueryUpdateStructValidatorTest extends ValidatorTestCase
             ),
             array(
                 array(
+                    'locale' => 'en',
                     'parameterValues' => array(),
                 ),
                 true,

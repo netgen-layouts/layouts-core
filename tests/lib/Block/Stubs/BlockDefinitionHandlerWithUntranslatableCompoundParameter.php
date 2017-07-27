@@ -40,6 +40,9 @@ class BlockDefinitionHandlerWithUntranslatableCompoundParameter extends BaseBloc
                 'name' => 'compound',
                 'type' => new ParameterType\Compound\BooleanType(),
                 'groups' => $this->parameterGroups,
+                'options' => array(
+                    'translatable' => false,
+                ),
             ),
             true
         );
@@ -51,6 +54,9 @@ class BlockDefinitionHandlerWithUntranslatableCompoundParameter extends BaseBloc
                         'name' => 'inner',
                         'type' => new ParameterType\TextLineType(),
                         'groups' => $this->parameterGroups,
+                        'options' => array(
+                            'translatable' => false,
+                        ),
                     ),
                     true
                 ),
@@ -75,6 +81,9 @@ class BlockDefinitionHandlerWithUntranslatableCompoundParameter extends BaseBloc
                     'name' => 'other',
                     'type' => new ParameterType\TextLineType(),
                     'groups' => $this->parameterGroups,
+                    'options' => array(
+                        'translatable' => false,
+                    ),
                 ),
                 true
             ),
@@ -83,6 +92,9 @@ class BlockDefinitionHandlerWithUntranslatableCompoundParameter extends BaseBloc
                     'name' => 'css_id',
                     'type' => new ParameterType\TextLineType(),
                     'groups' => $this->parameterGroups,
+                    'options' => array(
+                        'translatable' => false,
+                    ),
                 ),
                 true
             ),

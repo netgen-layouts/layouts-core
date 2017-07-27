@@ -75,7 +75,20 @@ DROP TABLE IF EXISTS `ngbm_collection`;
 CREATE TABLE `ngbm_collection` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
+  `translatable` integer NOT NULL,
+  `main_locale` text(255) NOT NULL,
+  `always_available` integer NOT NULL,
   PRIMARY KEY (`id`, `status`)
+);
+
+DROP TABLE IF EXISTS `ngbm_collection_translation`;
+CREATE TABLE `ngbm_collection_translation` (
+  `collection_id` integer NOT NULL,
+  `status` integer NOT NULL,
+  `locale` text(255) NOT NULL,
+  PRIMARY KEY (`collection_id`, `status`, `locale`),
+  FOREIGN KEY (`collection_id`, `status`)
+    REFERENCES `ngbm_collection` (`id`, `status`)
 );
 
 DROP TABLE IF EXISTS `ngbm_collection_item`;
@@ -98,10 +111,20 @@ CREATE TABLE `ngbm_collection_query` (
   `status` integer NOT NULL,
   `collection_id` integer NOT NULL,
   `type` text(255) NOT NULL,
-  `parameters` text NOT NULL,
   PRIMARY KEY (`id`, `status`),
   FOREIGN KEY (`collection_id`, `status`)
     REFERENCES `ngbm_collection` (`id`, `status`)
+);
+
+DROP TABLE IF EXISTS `ngbm_collection_query_translation`;
+CREATE TABLE `ngbm_collection_query_translation` (
+  `query_id` integer NOT NULL,
+  `status` integer NOT NULL,
+  `locale` text(255) NOT NULL,
+  `parameters` text NOT NULL,
+  PRIMARY KEY (`query_id`, `status`, `locale`),
+  FOREIGN KEY (`query_id`, `status`)
+    REFERENCES `ngbm_collection_query` (`id`, `status`)
 );
 
 DROP TABLE IF EXISTS `ngbm_block_collection`;

@@ -10,11 +10,12 @@ use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler
 use Netgen\BlockManager\Persistence\Handler\CollectionHandler as CollectionHandlerInterface;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\QueryUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\QueryTranslationUpdateStruct;
 
 class CollectionHandler implements CollectionHandlerInterface
 {
@@ -128,7 +129,15 @@ class CollectionHandler implements CollectionHandlerInterface
             throw new NotFoundException('query', $queryId);
         }
 
-        return $this->collectionMapper->mapQuery($data);
+        $query = $this->collectionMapper->mapQuery($data);
+
+        $collection = $this->loadCollection($query->collectionId, $query->status);
+
+        $query->isTranslatable = $collection->isTranslatable;
+        $query->mainLocale = $collection->mainLocale;
+        $query->alwaysAvailable = $collection->alwaysAvailable;
+
+        return $query;
     }
 
     /**
@@ -148,7 +157,13 @@ class CollectionHandler implements CollectionHandlerInterface
             throw new NotFoundException('query for collection', $collection->id);
         }
 
-        return $this->collectionMapper->mapQuery($data);
+        $query = $this->collectionMapper->mapQuery($data);
+
+        $query->isTranslatable = $collection->isTranslatable;
+        $query->mainLocale = $collection->mainLocale;
+        $query->alwaysAvailable = $collection->alwaysAvailable;
+
+        return $query;
     }
 
     /**
@@ -176,10 +191,115 @@ class CollectionHandler implements CollectionHandlerInterface
         $newCollection = new Collection(
             array(
                 'status' => $collectionCreateStruct->status,
+                'isTranslatable' => $collectionCreateStruct->isTranslatable,
+                'alwaysAvailable' => $collectionCreateStruct->alwaysAvailable,
+                'mainLocale' => $collectionCreateStruct->mainLocale,
+                'availableLocales' => array($collectionCreateStruct->mainLocale),
             )
         );
 
-        return $this->queryHandler->createCollection($newCollection);
+        $newCollection = $this->queryHandler->createCollection($newCollection);
+
+        $this->queryHandler->createCollectionTranslation(
+            $newCollection,
+            $collectionCreateStruct->mainLocale
+        );
+
+        return $newCollection;
+    }
+
+    /**
+     * Creates a collection translation.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
+     * @param string $locale
+     * @param string $sourceLocale
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If translation with provided locale already exists
+     *                                                          If translation with provided source locale does not exist
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
+     */
+    public function createCollectionTranslation(Collection $collection, $locale, $sourceLocale)
+    {
+        if (in_array($locale, $collection->availableLocales, true)) {
+            throw new BadStateException('locale', 'Collection already has the provided locale.');
+        }
+
+        if (!in_array($sourceLocale, $collection->availableLocales, true)) {
+            throw new BadStateException('locale', 'Collection does not have the provided source locale.');
+        }
+
+        $updatedCollection = clone $collection;
+        $updatedCollection->availableLocales[] = $locale;
+
+        $this->queryHandler->createCollectionTranslation($collection, $locale);
+
+        $query = null;
+        try {
+            $query = $this->loadCollectionQuery($collection);
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
+
+        if ($query instanceof Query) {
+            $updatedQuery = clone $query;
+            $updatedQuery->availableLocales[] = $locale;
+            $updatedQuery->parameters[$locale] = $updatedQuery->parameters[$sourceLocale];
+
+            $this->queryHandler->createQueryTranslation($updatedQuery, $locale);
+        }
+
+        return $updatedCollection;
+    }
+
+    /**
+     * Updates the main translation of the collection.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
+     * @param string $mainLocale
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If provided locale does not exist in the collection
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
+     */
+    public function setMainTranslation(Collection $collection, $mainLocale)
+    {
+        if (!in_array($mainLocale, $collection->availableLocales, true)) {
+            throw new BadStateException('mainLocale', 'Collection does not have the provided locale.');
+        }
+
+        $updatedCollection = clone $collection;
+        $updatedCollection->mainLocale = $mainLocale;
+
+        $this->queryHandler->updateCollection($updatedCollection);
+
+        return $updatedCollection;
+    }
+
+    /**
+     * Updates a collection with specified ID.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct $collectionUpdateStruct
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
+     */
+    public function updateCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct)
+    {
+        $updatedCollection = clone $collection;
+
+        if ($collectionUpdateStruct->isTranslatable !== null) {
+            $updatedCollection->isTranslatable = (bool) $collectionUpdateStruct->isTranslatable;
+        }
+
+        if ($collectionUpdateStruct->alwaysAvailable !== null) {
+            $updatedCollection->alwaysAvailable = (bool) $collectionUpdateStruct->alwaysAvailable;
+        }
+
+        $this->queryHandler->updateCollection($updatedCollection);
+
+        return $updatedCollection;
     }
 
     /**
@@ -195,6 +315,10 @@ class CollectionHandler implements CollectionHandlerInterface
         $newCollection->id = null;
 
         $newCollection = $this->queryHandler->createCollection($newCollection);
+
+        foreach ($newCollection->availableLocales as $locale) {
+            $this->queryHandler->createCollectionTranslation($newCollection, $locale);
+        }
 
         $collectionItems = $this->loadCollectionItems($collection);
 
@@ -221,6 +345,10 @@ class CollectionHandler implements CollectionHandlerInterface
             $newQuery->collectionId = $newCollection->id;
 
             $this->queryHandler->createQuery($newQuery);
+
+            foreach ($newQuery->availableLocales as $locale) {
+                $this->queryHandler->createQueryTranslation($newQuery, $locale);
+            }
         }
 
         return $newCollection;
@@ -240,6 +368,10 @@ class CollectionHandler implements CollectionHandlerInterface
         $newCollection->status = $newStatus;
 
         $this->queryHandler->createCollection($newCollection);
+
+        foreach ($newCollection->availableLocales as $locale) {
+            $this->queryHandler->createCollectionTranslation($newCollection, $locale);
+        }
 
         $collectionItems = $this->loadCollectionItems($collection);
 
@@ -262,6 +394,10 @@ class CollectionHandler implements CollectionHandlerInterface
             $newQuery->status = $newStatus;
 
             $this->queryHandler->createQuery($newQuery);
+
+            foreach ($newQuery->availableLocales as $locale) {
+                $this->queryHandler->createQueryTranslation($newQuery, $locale);
+            }
         }
 
         return $newCollection;
@@ -276,8 +412,42 @@ class CollectionHandler implements CollectionHandlerInterface
     public function deleteCollection($collectionId, $status = null)
     {
         $this->queryHandler->deleteCollectionItems($collectionId, $status);
-        $this->queryHandler->deleteCollectionQuery($collectionId, $status);
+
+        $queryIds = $this->queryHandler->loadCollectionQueryIds($collectionId, $status);
+        $this->queryHandler->deleteQueryTranslations($queryIds, $status);
+        $this->queryHandler->deleteQuery($queryIds, $status);
+
+        $this->queryHandler->deleteCollectionTranslations($collectionId, $status);
         $this->queryHandler->deleteCollection($collectionId, $status);
+    }
+
+    /**
+     * Deletes provided collection translation.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
+     * @param string $locale
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If translation with provided locale does not exist
+     *                                                          If translation with provided locale is the main collection translation
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
+     */
+    public function deleteCollectionTranslation(Collection $collection, $locale)
+    {
+        if (!in_array($locale, $collection->availableLocales, true)) {
+            throw new BadStateException('locale', 'Collection does not have the provided locale.');
+        }
+
+        if ($locale === $collection->mainLocale) {
+            throw new BadStateException('locale', 'Main translation cannot be removed from the collection.');
+        }
+
+        $queryIds = $this->queryHandler->loadCollectionQueryIds($collection->id, $collection->status);
+        $this->queryHandler->deleteQueryTranslations($queryIds, $collection->status, $locale);
+
+        $this->queryHandler->deleteCollectionTranslations($collection->id, $collection->status, $locale);
+
+        return $this->loadCollection($collection->id, $collection->status);
     }
 
     /**
@@ -398,35 +568,57 @@ class CollectionHandler implements CollectionHandlerInterface
             // Do nothing
         }
 
+        $queryParameters = array();
+        foreach ($collection->availableLocales as $collectionLocale) {
+            $queryParameters[$collectionLocale] = $queryCreateStruct->parameters;
+        }
+
         $newQuery = new Query(
             array(
                 'collectionId' => $collection->id,
                 'type' => $queryCreateStruct->type,
-                'parameters' => $queryCreateStruct->parameters,
+                'parameters' => $queryParameters,
                 'status' => $collection->status,
+                'isTranslatable' => $collection->isTranslatable,
+                'alwaysAvailable' => $collection->alwaysAvailable,
+                'mainLocale' => $collection->mainLocale,
+                'availableLocales' => $collection->availableLocales,
             )
         );
 
-        return $this->queryHandler->createQuery($newQuery);
+        $newQuery = $this->queryHandler->createQuery($newQuery);
+
+        foreach ($collection->availableLocales as $collectionLocale) {
+            $this->queryHandler->createQueryTranslation($newQuery, $collectionLocale);
+        }
+
+        return $newQuery;
     }
 
     /**
-     * Updates a query with specified ID.
+     * Updates a query translation.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\QueryUpdateStruct $queryUpdateStruct
+     * @param string $locale
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\QueryTranslationUpdateStruct $translationUpdateStruct
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If the query does not have the provided locale
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
-    public function updateQuery(Query $query, QueryUpdateStruct $queryUpdateStruct)
+    public function updateQueryTranslation(Query $query, $locale, QueryTranslationUpdateStruct $translationUpdateStruct)
     {
         $updatedQuery = clone $query;
 
-        if (is_array($queryUpdateStruct->parameters)) {
-            $updatedQuery->parameters = $queryUpdateStruct->parameters;
+        if (!in_array($locale, $query->availableLocales, true)) {
+            throw new BadStateException('locale', 'Query does not have the provided locale.');
         }
 
-        $this->queryHandler->updateQuery($updatedQuery);
+        if (is_array($translationUpdateStruct->parameters)) {
+            $updatedQuery->parameters[$locale] = $translationUpdateStruct->parameters;
+        }
+
+        $this->queryHandler->updateQueryTranslation($updatedQuery, $locale);
 
         return $updatedQuery;
     }
@@ -438,7 +630,9 @@ class CollectionHandler implements CollectionHandlerInterface
      */
     public function deleteCollectionQuery(Collection $collection)
     {
-        $this->queryHandler->deleteCollectionQuery($collection->id, $collection->status);
+        $queryIds = $this->queryHandler->loadCollectionQueryIds($collection->id, $collection->status);
+        $this->queryHandler->deleteQueryTranslations($queryIds, $collection->status);
+        $this->queryHandler->deleteQuery($queryIds, $collection->status);
     }
 
     /**

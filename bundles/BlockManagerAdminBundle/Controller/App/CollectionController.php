@@ -39,7 +39,7 @@ class CollectionController extends Controller
     {
         $queryTypeConfig = $query->getQueryType()->getConfig();
 
-        $updateStruct = $this->collectionService->newQueryUpdateStruct($query);
+        $updateStruct = $this->collectionService->newQueryUpdateStruct($query->getMainLocale(), $query);
 
         $form = $this->createForm(
             $queryTypeConfig->getForm($formName)->getType(),

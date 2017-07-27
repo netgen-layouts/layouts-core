@@ -52,6 +52,9 @@ class BlockDefinitionHandlerWithTranslatableParameter extends BaseBlockDefinitio
                     'name' => 'css_id',
                     'type' => new ParameterType\TextLineType(),
                     'groups' => $this->parameterGroups,
+                    'options' => array(
+                        'translatable' => false,
+                    ),
                 ),
                 true
             ),

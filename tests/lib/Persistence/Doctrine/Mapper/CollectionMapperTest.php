@@ -30,10 +30,26 @@ class CollectionMapperTest extends TestCase
             array(
                 'id' => 42,
                 'status' => Value::STATUS_PUBLISHED,
+                'locale' => 'en',
+                'translatable' => false,
+                'main_locale' => 'en',
+                'always_available' => true,
             ),
             array(
                 'id' => 43,
                 'status' => Value::STATUS_DRAFT,
+                'locale' => 'en',
+                'translatable' => false,
+                'main_locale' => 'en',
+                'always_available' => true,
+            ),
+            array(
+                'id' => 43,
+                'status' => Value::STATUS_DRAFT,
+                'locale' => 'hr',
+                'translatable' => false,
+                'main_locale' => 'en',
+                'always_available' => true,
             ),
         );
 
@@ -42,12 +58,18 @@ class CollectionMapperTest extends TestCase
                 array(
                     'id' => 42,
                     'status' => Value::STATUS_PUBLISHED,
+                    'mainLocale' => 'en',
+                    'alwaysAvailable' => true,
+                    'availableLocales' => array('en'),
                 )
             ),
             new Collection(
                 array(
                     'id' => 43,
                     'status' => Value::STATUS_DRAFT,
+                    'mainLocale' => 'en',
+                    'alwaysAvailable' => true,
+                    'availableLocales' => array('en', 'hr'),
                 )
             ),
         );
@@ -119,7 +141,16 @@ class CollectionMapperTest extends TestCase
                 'id' => 42,
                 'collection_id' => 1,
                 'type' => 'ezcontent_search',
+                'locale' => 'en',
                 'parameters' => '{"param":"value"}',
+                'status' => Value::STATUS_PUBLISHED,
+            ),
+            array(
+                'id' => 42,
+                'collection_id' => 1,
+                'type' => 'ezcontent_search',
+                'locale' => 'hr',
+                'parameters' => '{"param2":"value2"}',
                 'status' => Value::STATUS_PUBLISHED,
             ),
         );
@@ -129,8 +160,14 @@ class CollectionMapperTest extends TestCase
                 'id' => 42,
                 'collectionId' => 1,
                 'type' => 'ezcontent_search',
+                'availableLocales' => array('en', 'hr'),
                 'parameters' => array(
-                    'param' => 'value',
+                    'en' => array(
+                        'param' => 'value',
+                    ),
+                    'hr' => array(
+                        'param2' => 'value2',
+                    ),
                 ),
                 'status' => Value::STATUS_PUBLISHED,
             )

@@ -48,6 +48,9 @@ class BlockDefinitionHandler extends BaseBlockDefinitionHandler
                     'type' => new ParameterType\TextLineType(),
                     'defaultValue' => 'some-class',
                     'groups' => $this->parameterGroups,
+                    'options' => array(
+                        'translatable' => false,
+                    ),
                 ),
                 true
             ),
@@ -56,6 +59,9 @@ class BlockDefinitionHandler extends BaseBlockDefinitionHandler
                     'name' => 'css_id',
                     'type' => new ParameterType\TextLineType(),
                     'groups' => $this->parameterGroups,
+                    'options' => array(
+                        'translatable' => false,
+                    ),
                 ),
                 true
             ),

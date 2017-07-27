@@ -35,6 +35,34 @@ class Query extends Value
     public $parameters;
 
     /**
+     * Returns if the query is translatable.
+     *
+     * @var bool
+     */
+    public $isTranslatable;
+
+    /**
+     * Returns the main locale of this query.
+     *
+     * @var string
+     */
+    public $mainLocale;
+
+    /**
+     * Returns the list of all locales available in this query.
+     *
+     * @var string[]
+     */
+    public $availableLocales;
+
+    /**
+     * Returns if main locale of this query will be always available.
+     *
+     * @var bool
+     */
+    public $alwaysAvailable;
+
+    /**
      * Item status. One of self::STATUS_* flags.
      *
      * @var int

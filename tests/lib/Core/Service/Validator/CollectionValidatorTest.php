@@ -199,10 +199,56 @@ class CollectionValidatorTest extends TestCase
                         'param' => 'value',
                     ),
                 ),
+                false,
+            ),
+            array(
+                array(
+                    'locale' => null,
+                    'parameterValues' => array(
+                        'param' => 'value',
+                    ),
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'locale' => '',
+                    'parameterValues' => array(
+                        'param' => 'value',
+                    ),
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'locale' => 42,
+                    'parameterValues' => array(
+                        'param' => 'value',
+                    ),
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'locale' => 'nonexistent',
+                    'parameterValues' => array(
+                        'param' => 'value',
+                    ),
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'locale' => 'en',
+                    'parameterValues' => array(
+                        'param' => 'value',
+                    ),
+                ),
                 true,
             ),
             array(
                 array(
+                    'locale' => 'en',
                     'parameterValues' => array(
                         'param' => '',
                     ),
@@ -211,6 +257,7 @@ class CollectionValidatorTest extends TestCase
             ),
             array(
                 array(
+                    'locale' => 'en',
                     'parameterValues' => array(
                         'param' => null,
                     ),
@@ -219,6 +266,7 @@ class CollectionValidatorTest extends TestCase
             ),
             array(
                 array(
+                    'locale' => 'en',
                     'parameterValues' => array(),
                 ),
                 true,
