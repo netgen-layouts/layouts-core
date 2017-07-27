@@ -21,11 +21,11 @@ class LayoutQueryHandler extends QueryHandler
     {
         $query = $this->getLayoutSelectQuery();
         $query->where(
-            $query->expr()->eq('id', ':id')
+            $query->expr()->eq('l.id', ':id')
         )
         ->setParameter('id', $layoutId, Type::INTEGER);
 
-        $this->applyStatusCondition($query, $status);
+        $this->applyStatusCondition($query, $status, 'l.status');
 
         return $query->execute()->fetchAll();
     }
@@ -47,21 +47,21 @@ class LayoutQueryHandler extends QueryHandler
 
         if ($includeDrafts) {
             $query->leftJoin(
-                'ngbm_layout',
+                'l',
                 'ngbm_layout',
                 'l2',
                 $query->expr()->andX(
-                    $query->expr()->eq('ngbm_layout.id', 'l2.id'),
+                    $query->expr()->eq('l.id', 'l2.id'),
                     $query->expr()->eq('l2.status', ':status')
                 )
             );
         }
 
         $query->where(
-            $query->expr()->eq('ngbm_layout.shared', ':shared')
+            $query->expr()->eq('l.shared', ':shared')
         );
 
-        $statusExpr = $query->expr()->eq('ngbm_layout.status', ':status');
+        $statusExpr = $query->expr()->eq('l.status', ':status');
         if ($includeDrafts) {
             $statusExpr = $query->expr()->orX(
                 $statusExpr,
@@ -75,7 +75,7 @@ class LayoutQueryHandler extends QueryHandler
         $query->setParameter('status', Value::STATUS_PUBLISHED, Type::INTEGER);
 
         $this->applyOffsetAndLimit($query, $offset, $limit);
-        $query->orderBy('ngbm_layout.name', 'ASC');
+        $query->orderBy('l.name', 'ASC');
 
         return $query->execute()->fetchAll();
     }
@@ -94,19 +94,19 @@ class LayoutQueryHandler extends QueryHandler
         $query = $this->getLayoutSelectQuery();
 
         $query->innerJoin(
-            'ngbm_layout',
+            'l',
             'ngbm_zone',
             'z',
             $query->expr()->andX(
-                $query->expr()->eq('z.layout_id', 'ngbm_layout.id'),
-                $query->expr()->eq('z.status', 'ngbm_layout.status'),
+                $query->expr()->eq('z.layout_id', 'l.id'),
+                $query->expr()->eq('z.status', 'l.status'),
                 $query->expr()->eq('z.linked_layout_id', ':linked_layout_id')
             )
         )
         ->where(
             $query->expr()->andX(
-                $query->expr()->eq('ngbm_layout.shared', ':shared'),
-                $query->expr()->eq('ngbm_layout.status', ':status')
+                $query->expr()->eq('l.shared', ':shared'),
+                $query->expr()->eq('l.status', ':status')
             )
         )
         ->setParameter('shared', false, Type::BOOLEAN)
@@ -114,7 +114,7 @@ class LayoutQueryHandler extends QueryHandler
         ->setParameter('linked_layout_id', $sharedLayout->id, Type::INTEGER);
 
         $this->applyOffsetAndLimit($query, $offset, $limit);
-        $query->orderBy('ngbm_layout.name', 'ASC');
+        $query->orderBy('l.name', 'ASC');
 
         return $query->execute()->fetchAll();
     }
@@ -309,6 +309,7 @@ class LayoutQueryHandler extends QueryHandler
                     'created' => ':created',
                     'modified' => ':modified',
                     'shared' => ':shared',
+                    'main_locale' => ':main_locale',
                 )
             )
             ->setValue(
@@ -323,7 +324,8 @@ class LayoutQueryHandler extends QueryHandler
             ->setParameter('description', $layout->description, Type::STRING)
             ->setParameter('created', $layout->created, Type::INTEGER)
             ->setParameter('modified', $layout->modified, Type::INTEGER)
-            ->setParameter('shared', $layout->shared, Type::BOOLEAN);
+            ->setParameter('shared', $layout->shared, Type::BOOLEAN)
+            ->setParameter('main_locale', $layout->mainLocale, Type::STRING);
 
         $query->execute();
 
@@ -332,6 +334,30 @@ class LayoutQueryHandler extends QueryHandler
         }
 
         return $layout;
+    }
+
+    /**
+     * Creates a layout translation.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
+     * @param string $locale
+     */
+    public function createLayoutTranslation(Layout $layout, $locale)
+    {
+        $query = $this->connection->createQueryBuilder()
+            ->insert('ngbm_layout_translation')
+            ->values(
+                array(
+                    'layout_id' => ':layout_id',
+                    'status' => ':status',
+                    'locale' => ':locale',
+                )
+            )
+            ->setParameter('layout_id', $layout->id, Type::INTEGER)
+            ->setParameter('status', $layout->status, Type::INTEGER)
+            ->setParameter('locale', $locale, Type::STRING);
+
+        $query->execute();
     }
 
     /**
@@ -379,6 +405,7 @@ class LayoutQueryHandler extends QueryHandler
             ->set('created', ':created')
             ->set('modified', ':modified')
             ->set('shared', ':shared')
+            ->set('main_locale', ':main_locale')
             ->where(
                 $query->expr()->eq('id', ':id')
             )
@@ -388,7 +415,8 @@ class LayoutQueryHandler extends QueryHandler
             ->setParameter('description', $layout->description, Type::STRING)
             ->setParameter('created', $layout->created, Type::INTEGER)
             ->setParameter('modified', $layout->modified, Type::INTEGER)
-            ->setParameter('shared', $layout->shared, Type::BOOLEAN);
+            ->setParameter('shared', $layout->shared, Type::BOOLEAN)
+            ->setParameter('main_locale', $layout->mainLocale, Type::STRING);
 
         $this->applyStatusCondition($query, $layout->status);
 
@@ -496,6 +524,36 @@ class LayoutQueryHandler extends QueryHandler
         $query->execute();
     }
 
+    /*
+     * Deletes layout translations.
+     *
+     * @param int|string $layoutId
+     * @param int $status
+     * @param string $locale
+     */
+    public function deleteLayoutTranslations($layoutId, $status = null, $locale = null)
+    {
+        $query = $this->connection->createQueryBuilder();
+
+        $query->delete('ngbm_layout_translation')
+            ->where(
+                $query->expr()->eq('layout_id', ':layout_id')
+            )
+            ->setParameter('layout_id', $layoutId, Type::INTEGER);
+
+        if ($status !== null) {
+            $this->applyStatusCondition($query, $status);
+        }
+
+        if ($locale !== null) {
+            $query
+                ->andWhere($query->expr()->eq('locale', ':locale'))
+                ->setParameter(':locale', $locale, Type::STRING);
+        }
+
+        $query->execute();
+    }
+
     /**
      * Builds and returns a layout database SELECT query.
      *
@@ -504,8 +562,17 @@ class LayoutQueryHandler extends QueryHandler
     protected function getLayoutSelectQuery()
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT ngbm_layout.*')
-            ->from('ngbm_layout');
+        $query->select('DISTINCT l.*, lt.*')
+            ->from('ngbm_layout', 'l')
+            ->innerJoin(
+                'l',
+                'ngbm_layout_translation',
+                'lt',
+                $query->expr()->andX(
+                    $query->expr()->eq('lt.layout_id', 'l.id'),
+                    $query->expr()->eq('lt.status', 'l.status')
+                )
+            );
 
         return $query;
     }

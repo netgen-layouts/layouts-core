@@ -32,4 +32,9 @@ class LayoutCreateStruct extends ValueObject
      * @var bool
      */
     public $shared;
+
+    /**
+     * @var bool
+     */
+    public $mainLocale;
 }

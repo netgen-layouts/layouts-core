@@ -82,4 +82,35 @@ class ParameterMapper
 
         return $serializedValues + $fallbackValues;
     }
+
+    /**
+     * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
+     * @param array $parameterValues
+     *
+     * @return array
+     */
+    public function extractUntranslatableParameters(ParameterCollectionInterface $parameterCollection, array $parameterValues)
+    {
+        $untranslatableParams = array();
+
+        foreach ($parameterCollection->getParameters() as $paramName => $parameter) {
+            if ($parameter->getOption('translatable')) {
+                continue;
+            }
+
+            $untranslatableParams[$paramName] = isset($parameterValues[$paramName]) ?
+                $parameterValues[$paramName] :
+                null;
+
+            if ($parameter instanceof CompoundParameterInterface) {
+                foreach ($parameter->getParameters() as $subParamName => $subParameter) {
+                    $untranslatableParams[$subParamName] = isset($parameterValues[$subParamName]) ?
+                        $parameterValues[$subParamName] :
+                        null;
+                }
+            }
+        }
+
+        return $untranslatableParams;
+    }
 }

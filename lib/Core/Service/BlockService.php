@@ -24,6 +24,7 @@ use Netgen\BlockManager\Persistence\Values\Block\Block as PersistenceBlock;
 use Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Block\TranslationUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
 
 class BlockService extends Service implements BlockServiceInterface
@@ -111,12 +112,14 @@ class BlockService extends Service implements BlockServiceInterface
      * Loads a block with specified ID.
      *
      * @param int|string $blockId
+     * @param string[] $locales
+     * @param bool $useContext
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If block with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function loadBlock($blockId)
+    public function loadBlock($blockId, array $locales = null, $useContext = true)
     {
         $this->validator->validateId($blockId, 'blockId');
 
@@ -127,19 +130,21 @@ class BlockService extends Service implements BlockServiceInterface
             throw new NotFoundException('block', $blockId);
         }
 
-        return $this->mapper->mapBlock($block);
+        return $this->mapper->mapBlock($block, $locales, $useContext);
     }
 
     /**
      * Loads a block draft with specified ID.
      *
      * @param int|string $blockId
+     * @param string[] $locales
+     * @param bool $useContext
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If block with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function loadBlockDraft($blockId)
+    public function loadBlockDraft($blockId, array $locales = null, $useContext = true)
     {
         $this->validator->validateId($blockId, 'blockId');
 
@@ -150,17 +155,19 @@ class BlockService extends Service implements BlockServiceInterface
             throw new NotFoundException('block', $blockId);
         }
 
-        return $this->mapper->mapBlock($block);
+        return $this->mapper->mapBlock($block, $locales, $useContext);
     }
 
     /**
      * Loads all blocks belonging to provided zone.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
+     * @param string[] $locales
+     * @param bool $useContext
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block[]
      */
-    public function loadZoneBlocks(Zone $zone)
+    public function loadZoneBlocks(Zone $zone, array $locales = null, $useContext = true)
     {
         $persistenceZone = $this->layoutHandler->loadZone(
             $zone->getLayoutId(),
@@ -177,7 +184,7 @@ class BlockService extends Service implements BlockServiceInterface
 
         $blocks = array();
         foreach ($persistenceBlocks as $persistenceBlock) {
-            $blocks[] = $this->mapper->mapBlock($persistenceBlock);
+            $blocks[] = $this->mapper->mapBlock($persistenceBlock, $locales, $useContext);
         }
 
         return $blocks;
@@ -187,10 +194,12 @@ class BlockService extends Service implements BlockServiceInterface
      * Loads all blocks belonging to provided layout.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
+     * @param string[] $locales
+     * @param bool $useContext
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block[]
      */
-    public function loadLayoutBlocks(Layout $layout)
+    public function loadLayoutBlocks(Layout $layout, array $locales = null, $useContext = true)
     {
         $persistenceLayout = $this->layoutHandler->loadLayout(
             $layout->getId(),
@@ -207,7 +216,7 @@ class BlockService extends Service implements BlockServiceInterface
 
         $blocks = array();
         foreach ($persistenceBlocks as $persistenceBlock) {
-            $blocks[] = $this->mapper->mapBlock($persistenceBlock);
+            $blocks[] = $this->mapper->mapBlock($persistenceBlock, $locales, $useContext);
         }
 
         return $blocks;
@@ -366,6 +375,7 @@ class BlockService extends Service implements BlockServiceInterface
      * @param \Netgen\BlockManager\API\Values\Block\BlockUpdateStruct $blockUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If block is not a draft
+     *                                                          If block does not have a specified translation
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
@@ -379,8 +389,18 @@ class BlockService extends Service implements BlockServiceInterface
 
         $this->validator->validateBlockUpdateStruct($block, $blockUpdateStruct);
 
+        if (!in_array($blockUpdateStruct->locale, $persistenceBlock->availableLocales, true)) {
+            throw new BadStateException('block', 'Block does not have the specified translation.');
+        }
+
         $updatedBlock = $this->transaction(
             function () use ($block, $persistenceBlock, $blockUpdateStruct) {
+                $persistenceBlock = $this->updateBlockTranslations(
+                    $block,
+                    $persistenceBlock,
+                    $blockUpdateStruct
+                );
+
                 return $this->blockHandler->updateBlock(
                     $persistenceBlock,
                     new BlockUpdateStruct(
@@ -388,11 +408,7 @@ class BlockService extends Service implements BlockServiceInterface
                             'viewType' => $blockUpdateStruct->viewType,
                             'itemViewType' => $blockUpdateStruct->itemViewType,
                             'name' => $blockUpdateStruct->name,
-                            'parameters' => $this->parameterMapper->serializeValues(
-                                $block->getDefinition(),
-                                $blockUpdateStruct->getParameterValues(),
-                                $persistenceBlock->parameters
-                            ),
+                            'alwaysAvailable' => $blockUpdateStruct->alwaysAvailable,
                             'config' => $this->configMapper->serializeValues(
                                 $blockUpdateStruct->getConfigStructs(),
                                 $block->getDefinition()->getConfigDefinitions(),
@@ -404,7 +420,7 @@ class BlockService extends Service implements BlockServiceInterface
             }
         );
 
-        return $this->mapper->mapBlock($updatedBlock);
+        return $this->mapper->mapBlock($updatedBlock, $block->getAvailableLocales());
     }
 
     /**
@@ -416,6 +432,7 @@ class BlockService extends Service implements BlockServiceInterface
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If source or target block is not a draft
      *                                                          If target block is not a container
+     *                                                          If target block is in a different layout
      *                                                          If placeholder does not exist in the target block
      *                                                          If new block is a container
      *                                                          If target block is within the provided block
@@ -430,6 +447,13 @@ class BlockService extends Service implements BlockServiceInterface
 
         if ($targetBlock->isPublished()) {
             throw new BadStateException('targetBlock', 'You can only copy blocks to draft blocks.');
+        }
+
+        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
+        $persistenceTargetBlock = $this->blockHandler->loadBlock($targetBlock->getId(), Value::STATUS_DRAFT);
+
+        if ($persistenceBlock->layoutId !== $persistenceTargetBlock->layoutId) {
+            throw new BadStateException('targetBlock', 'You can only copy block to blocks in the same layout.');
         }
 
         $this->validator->validateIdentifier($placeholder, 'placeholder', true);
@@ -448,16 +472,13 @@ class BlockService extends Service implements BlockServiceInterface
             throw new BadStateException('block', 'Containers cannot be placed inside containers.');
         }
 
-        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
-        $persistenceTargetBlock = $this->blockHandler->loadBlock($targetBlock->getId(), Value::STATUS_DRAFT);
-
         $copiedBlock = $this->transaction(
             function () use ($persistenceBlock, $persistenceTargetBlock, $placeholder) {
                 return $this->blockHandler->copyBlock($persistenceBlock, $persistenceTargetBlock, $placeholder);
             }
         );
 
-        return $this->mapper->mapBlock($copiedBlock);
+        return $this->mapper->mapBlock($copiedBlock, $block->getAvailableLocales());
     }
 
     /**
@@ -467,6 +488,7 @@ class BlockService extends Service implements BlockServiceInterface
      * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If block or zone are not drafts
+     *                                                          If zone is in a different layout
      *                                                          If block cannot be placed in specified zone
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
@@ -486,6 +508,10 @@ class BlockService extends Service implements BlockServiceInterface
         $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
         $persistenceZone = $this->layoutHandler->loadZone($zone->getLayoutId(), Value::STATUS_DRAFT, $zone->getIdentifier());
 
+        if ($persistenceBlock->layoutId !== $persistenceZone->layoutId) {
+            throw new BadStateException('zone', 'You can only copy block to zone in the same layout.');
+        }
+
         if (!$layout->getLayoutType()->isBlockAllowedInZone($block->getDefinition(), $persistenceZone->identifier)) {
             throw new BadStateException('zone', 'Block is not allowed in specified zone.');
         }
@@ -498,7 +524,7 @@ class BlockService extends Service implements BlockServiceInterface
             }
         );
 
-        return $this->mapper->mapBlock($copiedBlock);
+        return $this->mapper->mapBlock($copiedBlock, $block->getAvailableLocales());
     }
 
     /**
@@ -511,6 +537,7 @@ class BlockService extends Service implements BlockServiceInterface
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If source or target block is not a draft
      *                                                          If target block is not a container
+     *                                                          If target block is in a different layout
      *                                                          If placeholder does not exist in the target block
      *                                                          If new block is a container
      *                                                          If target block is within the provided block
@@ -526,6 +553,13 @@ class BlockService extends Service implements BlockServiceInterface
 
         if ($targetBlock->isPublished()) {
             throw new BadStateException('targetBlock', 'You can only move blocks to draft blocks.');
+        }
+
+        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
+        $persistenceTargetBlock = $this->blockHandler->loadBlock($targetBlock->getId(), Value::STATUS_DRAFT);
+
+        if ($persistenceBlock->layoutId !== $persistenceTargetBlock->layoutId) {
+            throw new BadStateException('targetBlock', 'You can only move block to blocks in the same layout.');
         }
 
         $this->validator->validateIdentifier($placeholder, 'placeholder', true);
@@ -545,10 +579,9 @@ class BlockService extends Service implements BlockServiceInterface
             throw new BadStateException('block', 'Containers cannot be placed inside containers.');
         }
 
-        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
-        $persistenceTargetBlock = $this->blockHandler->loadBlock($targetBlock->getId(), Value::STATUS_DRAFT);
+        $movedBlock = $this->internalMoveBlock($persistenceBlock, $persistenceTargetBlock, $placeholder, $position);
 
-        return $this->internalMoveBlock($persistenceBlock, $persistenceTargetBlock, $placeholder, $position);
+        return $this->mapper->mapBlock($movedBlock, $block->getAvailableLocales());
     }
 
     /**
@@ -592,7 +625,9 @@ class BlockService extends Service implements BlockServiceInterface
 
         $rootBlock = $this->blockHandler->loadBlock($persistenceZone->rootBlockId, $persistenceZone->status);
 
-        return $this->internalMoveBlock($persistenceBlock, $rootBlock, 'root', $position);
+        $movedBlock = $this->internalMoveBlock($persistenceBlock, $rootBlock, 'root', $position);
+
+        return $this->mapper->mapBlock($movedBlock, $block->getAvailableLocales());
     }
 
     /**
@@ -611,14 +646,136 @@ class BlockService extends Service implements BlockServiceInterface
         }
 
         $draftBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
+        $draftLayout = $this->layoutHandler->loadLayout($draftBlock->layoutId, Value::STATUS_DRAFT);
 
         $draftBlock = $this->transaction(
-            function () use ($draftBlock) {
-                return $this->blockHandler->restoreBlock($draftBlock, Value::STATUS_PUBLISHED);
+            function () use ($draftBlock, $draftLayout) {
+                $draftBlock = $this->blockHandler->restoreBlock($draftBlock, Value::STATUS_PUBLISHED);
+
+                foreach ($draftLayout->availableLocales as $locale) {
+                    if (!in_array($locale, $draftBlock->availableLocales, true)) {
+                        $draftBlock = $this->blockHandler->createBlockTranslation(
+                            $draftBlock,
+                            $locale,
+                            $draftBlock->mainLocale
+                        );
+                    }
+                }
+
+                $draftBlock = $this->blockHandler->setMainTranslation($draftBlock, $draftLayout->mainLocale);
+
+                foreach ($draftBlock->availableLocales as $blockLocale) {
+                    if (!in_array($blockLocale, $draftLayout->availableLocales, true)) {
+                        $draftBlock = $this->blockHandler->deleteBlockTranslation($draftBlock, $blockLocale);
+                    }
+                }
+
+                return $draftBlock;
             }
         );
 
-        return $this->mapper->mapBlock($draftBlock);
+        return $this->mapper->mapBlock($draftBlock, array($draftBlock->mainLocale));
+    }
+
+    /**
+     * Enables translating the block.
+     *
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If block is not a draft
+     *                                                          If block is already translatable
+     *
+     * @return \Netgen\BlockManager\API\Values\Block\Block
+     */
+    public function enableTranslations(Block $block)
+    {
+        if ($block->isPublished()) {
+            throw new BadStateException('block', 'You can only enable translations for draft blocks.');
+        }
+
+        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
+
+        if ($persistenceBlock->isTranslatable) {
+            throw new BadStateException('block', 'Block is already translatable.');
+        }
+
+        $persistenceLayout = $this->layoutHandler->loadLayout($persistenceBlock->layoutId, Value::STATUS_DRAFT);
+
+        $updatedBlock = $this->transaction(
+            function () use ($persistenceBlock, $persistenceLayout) {
+                $updatedBlock = $this->blockHandler->updateBlock(
+                    $persistenceBlock,
+                    new BlockUpdateStruct(
+                        array(
+                            'isTranslatable' => true,
+                        )
+                    )
+                );
+
+                foreach ($persistenceLayout->availableLocales as $locale) {
+                    if (!in_array($locale, $updatedBlock->availableLocales, true)) {
+                        $updatedBlock = $this->blockHandler->createBlockTranslation(
+                            $updatedBlock,
+                            $locale,
+                            $updatedBlock->mainLocale
+                        );
+                    }
+                }
+
+                return $updatedBlock;
+            }
+        );
+
+        return $this->mapper->mapBlock($updatedBlock, null, false);
+    }
+
+    /**
+     * Disable translating the block. All translations (except the main one) will be removed.
+     *
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If block is not a draft
+     *                                                          If block is not translatable
+     *
+     * @return \Netgen\BlockManager\API\Values\Block\Block
+     */
+    public function disableTranslations(Block $block)
+    {
+        if ($block->isPublished()) {
+            throw new BadStateException('block', 'You can only disable translations for draft blocks.');
+        }
+
+        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
+
+        if (!$persistenceBlock->isTranslatable) {
+            throw new BadStateException('block', 'Block is not translatable.');
+        }
+
+        $updatedBlock = $this->transaction(
+            function () use ($persistenceBlock) {
+                $persistenceBlock = $this->blockHandler->updateBlock(
+                    $persistenceBlock,
+                    new BlockUpdateStruct(
+                        array(
+                            'isTranslatable' => false,
+                        )
+                    )
+                );
+
+                foreach ($persistenceBlock->availableLocales as $locale) {
+                    if ($locale !== $persistenceBlock->mainLocale) {
+                        $persistenceBlock = $this->blockHandler->deleteBlockTranslation(
+                            $persistenceBlock,
+                            $locale
+                        );
+                    }
+                }
+
+                return $persistenceBlock;
+            }
+        );
+
+        return $this->mapper->mapBlock($updatedBlock, array($block->getMainLocale()));
     }
 
     /**
@@ -658,13 +815,14 @@ class BlockService extends Service implements BlockServiceInterface
     /**
      * Creates a new block update struct.
      *
+     * @param string $locale
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      *
      * @return \Netgen\BlockManager\API\Values\Block\BlockUpdateStruct
      */
-    public function newBlockUpdateStruct(Block $block = null)
+    public function newBlockUpdateStruct($locale, Block $block = null)
     {
-        return $this->structBuilder->newBlockUpdateStruct($block);
+        return $this->structBuilder->newBlockUpdateStruct($locale, $block);
     }
 
     /**
@@ -683,18 +841,21 @@ class BlockService extends Service implements BlockServiceInterface
         $placeholder,
         $position = null
     ) {
+        $persistenceLayout = $this->layoutHandler->loadLayout($targetBlock->layoutId, Value::STATUS_DRAFT);
+
         $createdBlock = $this->transaction(
-            function () use ($targetBlock, $position, $blockCreateStruct, $placeholder) {
+            function () use ($blockCreateStruct, $persistenceLayout, $targetBlock, $placeholder, $position) {
                 $createdBlock = $this->blockHandler->createBlock(
                     new BlockCreateStruct(
                         array(
-                            'layoutId' => $targetBlock->layoutId,
                             'status' => $targetBlock->status,
                             'position' => $position,
                             'definitionIdentifier' => $blockCreateStruct->definition->getIdentifier(),
                             'viewType' => $blockCreateStruct->viewType,
                             'itemViewType' => $blockCreateStruct->itemViewType,
                             'name' => $blockCreateStruct->name,
+                            'alwaysAvailable' => $blockCreateStruct->alwaysAvailable,
+                            'isTranslatable' => $blockCreateStruct->isTranslatable,
                             'parameters' => $this->parameterMapper->serializeValues(
                                 $blockCreateStruct->definition,
                                 $blockCreateStruct->getParameterValues()
@@ -705,6 +866,7 @@ class BlockService extends Service implements BlockServiceInterface
                             ),
                         )
                     ),
+                    $persistenceLayout,
                     $targetBlock,
                     $placeholder
                 );
@@ -736,7 +898,7 @@ class BlockService extends Service implements BlockServiceInterface
             }
         );
 
-        return $this->mapper->mapBlock($createdBlock);
+        return $this->mapper->mapBlock($createdBlock, array($createdBlock->mainLocale));
     }
 
     /**
@@ -747,11 +909,11 @@ class BlockService extends Service implements BlockServiceInterface
      * @param string $placeholder
      * @param int $position
      *
-     * @return \Netgen\BlockManager\API\Values\Block\Block
+     * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
     protected function internalMoveBlock(PersistenceBlock $block, PersistenceBlock $targetBlock, $placeholder, $position)
     {
-        $movedBlock = $this->transaction(
+        return $this->transaction(
             function () use ($block, $targetBlock, $placeholder, $position) {
                 if ($block->parentId === $targetBlock->id && $block->placeholder === $placeholder) {
                     return $this->blockHandler->moveBlockToPosition($block, $position);
@@ -765,7 +927,76 @@ class BlockService extends Service implements BlockServiceInterface
                 );
             }
         );
+    }
 
-        return $this->mapper->mapBlock($movedBlock);
+    /**
+     * Updates translations for specified blocks.
+     *
+     * This makes sure that untranslatable parameters are always kept in sync between all
+     * available translations in the block. This means that if main translation is updated,
+     * all other translations need to be updated too to reflect changes to untranslatable params,
+     * and if any other translation is updated, it needs to take values of untranslatable params
+     * from the main translation.
+     *
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $persistenceBlock
+     * @param \Netgen\BlockManager\API\Values\Block\BlockUpdateStruct $blockUpdateStruct
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Block\Block
+     */
+    protected function updateBlockTranslations(Block $block, PersistenceBlock $persistenceBlock, APIBlockUpdateStruct $blockUpdateStruct)
+    {
+        if ($blockUpdateStruct->locale === $persistenceBlock->mainLocale) {
+            $persistenceBlock = $this->blockHandler->updateBlockTranslation(
+                $persistenceBlock,
+                $blockUpdateStruct->locale,
+                new TranslationUpdateStruct(
+                    array(
+                        'parameters' => $this->parameterMapper->serializeValues(
+                            $block->getDefinition(),
+                            $blockUpdateStruct->getParameterValues(),
+                            $persistenceBlock->parameters[$persistenceBlock->mainLocale]
+                        ),
+                    )
+                )
+            );
+        }
+
+        $untranslatableParams = $this->parameterMapper->extractUntranslatableParameters(
+            $block->getDefinition(),
+            $persistenceBlock->parameters[$persistenceBlock->mainLocale]
+        );
+
+        $localesToUpdate = array($blockUpdateStruct->locale);
+        if ($persistenceBlock->mainLocale === $blockUpdateStruct->locale) {
+            $localesToUpdate = $persistenceBlock->availableLocales;
+
+            // Remove the main locale from the array, since we already updated that one
+            array_splice($localesToUpdate, array_search($persistenceBlock->mainLocale, $persistenceBlock->availableLocales, true), 1);
+        }
+
+        foreach ($localesToUpdate as $locale) {
+            $params = $persistenceBlock->parameters[$locale];
+
+            if ($locale === $blockUpdateStruct->locale) {
+                $params = $this->parameterMapper->serializeValues(
+                    $block->getDefinition(),
+                    $blockUpdateStruct->getParameterValues(),
+                    $params
+                );
+            }
+
+            $persistenceBlock = $this->blockHandler->updateBlockTranslation(
+                $persistenceBlock,
+                $locale,
+                new TranslationUpdateStruct(
+                    array(
+                        'parameters' => $untranslatableParams + $params,
+                    )
+                )
+            );
+        }
+
+        return $persistenceBlock;
     }
 }

@@ -33,4 +33,11 @@ class LayoutCreateStruct extends ValueObject
      * @var bool
      */
     public $shared;
+
+    /**
+     * Specifies the main locale of the layout.
+     *
+     * @var string
+     */
+    public $mainLocale;
 }

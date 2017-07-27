@@ -66,6 +66,20 @@ interface Layout extends Value, ArrayAccess, IteratorAggregate, Countable
     public function isShared();
 
     /**
+     * Returns the main locale for the layout.
+     *
+     * @return string
+     */
+    public function getMainLocale();
+
+    /**
+     * Returns the list of all available locales in the layout.
+     *
+     * @return string[]
+     */
+    public function getAvailableLocales();
+
+    /**
      * Returns all zones from the layout.
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Zone[]

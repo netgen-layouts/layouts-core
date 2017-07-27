@@ -57,6 +57,16 @@ class Layout extends ValueObject implements APILayout
     protected $shared;
 
     /**
+     * @var string
+     */
+    protected $mainLocale;
+
+    /**
+     * @var string[]
+     */
+    protected $availableLocales = array();
+
+    /**
      * @var \Netgen\BlockManager\API\Values\Layout\Zone[]
      */
     protected $zones = array();
@@ -149,6 +159,26 @@ class Layout extends ValueObject implements APILayout
     public function isShared()
     {
         return $this->shared;
+    }
+
+    /**
+     * Returns the main locale for the layout.
+     *
+     * @return string
+     */
+    public function getMainLocale()
+    {
+        return $this->mainLocale;
+    }
+
+    /**
+     * Returns the list of all available locales in the layout.
+     *
+     * @return string[]
+     */
+    public function getAvailableLocales()
+    {
+        return $this->availableLocales;
     }
 
     /**

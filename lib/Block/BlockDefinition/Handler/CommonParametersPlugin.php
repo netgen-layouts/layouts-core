@@ -47,6 +47,7 @@ class CommonParametersPlugin extends Plugin
             array(
                 'groups' => $this->defaultGroups,
                 'label' => 'block.common_params.css_class',
+                'translatable' => false,
             )
         );
 
@@ -56,6 +57,7 @@ class CommonParametersPlugin extends Plugin
             array(
                 'groups' => $this->defaultGroups,
                 'label' => 'block.common_params.css_id',
+                'translatable' => false,
             )
         );
 
@@ -65,6 +67,7 @@ class CommonParametersPlugin extends Plugin
             array(
                 'groups' => $this->defaultGroups,
                 'label' => 'block.common_params.set_container',
+                'translatable' => false,
             )
         );
     }

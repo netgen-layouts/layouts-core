@@ -22,9 +22,14 @@ class BlockUpdateStruct extends ValueObject
     public $name;
 
     /**
-     * @var array
+     * @var bool
      */
-    public $parameters;
+    public $alwaysAvailable;
+
+    /**
+     * @var bool
+     */
+    public $isTranslatable;
 
     /**
      * @var array

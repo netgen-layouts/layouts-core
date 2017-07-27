@@ -27,12 +27,12 @@ class ParameterBuilder implements ParameterBuilderInterface
     /**
      * @var array
      */
-    protected $options;
+    protected $options = array();
 
     /**
      * @var bool
      */
-    protected $isRequired;
+    protected $isRequired = false;
 
     /**
      * @var mixed
@@ -47,7 +47,7 @@ class ParameterBuilder implements ParameterBuilderInterface
     /**
      * @var array
      */
-    protected $groups;
+    protected $groups = array();
 
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterBuilderInterface

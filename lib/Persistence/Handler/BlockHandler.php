@@ -8,6 +8,7 @@ use Netgen\BlockManager\Persistence\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Block\TranslationUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone;
 
@@ -88,14 +89,30 @@ interface BlockHandler
      * Creates a block in specified target block.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct $blockCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $targetBlock
      * @param string $placeholder
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
+     *                                                          If target block does not belong to layout
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
-    public function createBlock(BlockCreateStruct $blockCreateStruct, Block $targetBlock = null, $placeholder = null);
+    public function createBlock(BlockCreateStruct $blockCreateStruct, Layout $layout, Block $targetBlock = null, $placeholder = null);
+
+    /**
+     * Creates a block translation.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
+     * @param string $locale
+     * @param string $sourceLocale
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If translation with provided locale already exists
+     *                                                          If translation with provided source locale does not exist
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Block\Block
+     */
+    public function createBlockTranslation(Block $block, $locale, $sourceLocale);
 
     /**
      * Creates the collection reference.
@@ -116,6 +133,31 @@ interface BlockHandler
      * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
     public function updateBlock(Block $block, BlockUpdateStruct $blockUpdateStruct);
+
+    /**
+     * Updates a block translation.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
+     * @param string $locale
+     * @param \Netgen\BlockManager\Persistence\Values\Block\TranslationUpdateStruct $translationUpdateStruct
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If the block does not have the provided locale
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Block\Block
+     */
+    public function updateBlockTranslation(Block $block, $locale, TranslationUpdateStruct $translationUpdateStruct);
+
+    /**
+     * Updates the main translation of the block.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
+     * @param string $mainLocale
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If provided locale does not exist in the block
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Block\Block
+     */
+    public function setMainTranslation(Block $block, $mainLocale);
 
     /**
      * Updates a collection reference with specified identifier.
@@ -199,6 +241,19 @@ interface BlockHandler
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      */
     public function deleteBlock(Block $block);
+
+    /**
+     * Deletes provided block translation.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
+     * @param string $locale
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If translation with provided locale does not exist
+     *                                                          If translation with provided locale is the main block translation
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Block\Block
+     */
+    public function deleteBlockTranslation(Block $block, $locale);
 
     /**
      * Deletes all blocks belonging to specified layout.

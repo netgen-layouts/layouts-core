@@ -19,9 +19,12 @@ class LayoutMapper
         $layouts = array();
 
         foreach ($data as $dataItem) {
-            $layouts[] = new Layout(
-                array(
-                    'id' => (int) $dataItem['id'],
+            $layoutId = (int) $dataItem['id'];
+            $locale = $dataItem['locale'];
+
+            if (!isset($layouts[$layoutId])) {
+                $layouts[$layoutId] = array(
+                    'id' => $layoutId,
                     'type' => $dataItem['type'],
                     'name' => $dataItem['name'],
                     'description' => $dataItem['description'],
@@ -29,11 +32,21 @@ class LayoutMapper
                     'modified' => (int) $dataItem['modified'],
                     'status' => (int) $dataItem['status'],
                     'shared' => (bool) $dataItem['shared'],
-                )
-            );
+                    'mainLocale' => $dataItem['main_locale'],
+                );
+            }
+
+            $layouts[$layoutId]['availableLocales'][] = $locale;
         }
 
-        return $layouts;
+        return array_values(
+            array_map(
+                function (array $layoutData) {
+                    return new Layout($layoutData);
+                },
+                $layouts
+            )
+        );
     }
 
     /**

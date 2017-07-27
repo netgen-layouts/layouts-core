@@ -83,6 +83,24 @@ class BlockValidator extends Validator
         }
 
         $this->validate(
+            $blockCreateStruct->isTranslatable,
+            array(
+                new Constraints\NotNull(),
+                new Constraints\Type(array('type' => 'bool')),
+            ),
+            'isTranslatable'
+        );
+
+        $this->validate(
+            $blockCreateStruct->alwaysAvailable,
+            array(
+                new Constraints\NotNull(),
+                new Constraints\Type(array('type' => 'bool')),
+            ),
+            'alwaysAvailable'
+        );
+
+        $this->validate(
             $blockCreateStruct,
             array(
                 new ParameterStruct(

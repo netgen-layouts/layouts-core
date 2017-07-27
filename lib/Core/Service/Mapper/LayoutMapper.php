@@ -101,6 +101,8 @@ class LayoutMapper
             'modified' => $this->createDateTime($layout->modified),
             'status' => $layout->status,
             'shared' => $layout->shared,
+            'mainLocale' => $layout->mainLocale,
+            'availableLocales' => $layout->availableLocales,
             'zones' => $zones,
             'published' => $layout->status === Value::STATUS_PUBLISHED,
         );

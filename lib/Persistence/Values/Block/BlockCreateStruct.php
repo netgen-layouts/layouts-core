@@ -7,11 +7,6 @@ use Netgen\BlockManager\ValueObject;
 class BlockCreateStruct extends ValueObject
 {
     /**
-     * @var int|string
-     */
-    public $layoutId;
-
-    /**
      * @var int
      */
     public $status;
@@ -40,6 +35,16 @@ class BlockCreateStruct extends ValueObject
      * @var string
      */
     public $name;
+
+    /**
+     * @var bool
+     */
+    public $alwaysAvailable;
+
+    /**
+     * @var bool
+     */
+    public $isTranslatable;
 
     /**
      * @var array

@@ -67,7 +67,7 @@ class BlockController extends Controller
         $blockDefinition = $block->getDefinition();
         $blockDefinitionConfig = $blockDefinition->getConfig();
 
-        $updateStruct = $this->blockService->newBlockUpdateStruct($block);
+        $updateStruct = $this->blockService->newBlockUpdateStruct($block->getMainLocale(), $block);
 
         $form = $this->createForm(
             $blockDefinitionConfig->getForm($formName)->getType(),
@@ -123,7 +123,7 @@ class BlockController extends Controller
             }
         }
 
-        $updateStruct = $this->blockService->newBlockUpdateStruct($block);
+        $updateStruct = $this->blockService->newBlockUpdateStruct($block->getMainLocale(), $block);
 
         $form = $this->createForm(
             ConfigEditType::class,

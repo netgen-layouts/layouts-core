@@ -17,6 +17,11 @@ services:
         arguments:
             - "@netgen_block_manager.parameters.registry.parameter_type"
 
+    netgen_block_manager.parameters.translatable_parameter_builder_factory:
+        class: Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory
+        arguments:
+            - "@netgen_block_manager.parameters.registry.parameter_type"
+
     # Filters
 
     netgen_block_manager.parameters.parameter_filter.html.html_purifier:

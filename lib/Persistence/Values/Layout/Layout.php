@@ -56,6 +56,20 @@ class Layout extends Value
     public $modified;
 
     /**
+     * Returns the main locale of this layout.
+     *
+     * @var string
+     */
+    public $mainLocale;
+
+    /**
+     * Returns the list of all locales available in this layout.
+     *
+     * @var string[]
+     */
+    public $availableLocales;
+
+    /**
      * Layout status. One of self::STATUS_* flags.
      *
      * @var int

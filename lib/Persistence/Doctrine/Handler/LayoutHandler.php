@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Persistence\Doctrine\Handler;
 
+use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler;
@@ -233,10 +234,92 @@ class LayoutHandler implements LayoutHandlerInterface
                 'modified' => $currentTimeStamp,
                 'status' => $layoutCreateStruct->status,
                 'shared' => $layoutCreateStruct->shared ? true : false,
+                'mainLocale' => $layoutCreateStruct->mainLocale,
+                'availableLocales' => array($layoutCreateStruct->mainLocale),
             )
         );
 
-        return $this->queryHandler->createLayout($newLayout);
+        $newLayout = $this->queryHandler->createLayout($newLayout);
+
+        $this->queryHandler->createLayoutTranslation(
+            $newLayout,
+            $layoutCreateStruct->mainLocale
+        );
+
+        return $newLayout;
+    }
+
+    /**
+     * Creates a layout translation.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
+     * @param string $locale
+     * @param string $sourceLocale
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If translation with provided locale already exists
+     *                                                          If translation with provided source locale does not exist
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
+     */
+    public function createLayoutTranslation(Layout $layout, $locale, $sourceLocale)
+    {
+        if (in_array($locale, $layout->availableLocales, true)) {
+            throw new BadStateException('locale', 'Layout already has the provided locale.');
+        }
+
+        if (!in_array($sourceLocale, $layout->availableLocales, true)) {
+            throw new BadStateException('sourceLocale', 'Layout does not have the provided source locale.');
+        }
+
+        $updatedLayout = clone $layout;
+        $updatedLayout->availableLocales[] = $locale;
+
+        $this->queryHandler->createLayoutTranslation($layout, $locale);
+
+        foreach ($this->blockHandler->loadLayoutBlocks($updatedLayout) as $block) {
+            if ($block->isTranslatable) {
+                $this->blockHandler->createBlockTranslation($block, $locale, $sourceLocale);
+            }
+        }
+
+        return $updatedLayout;
+    }
+
+    /**
+     * Updates the main translation of the layout.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
+     * @param string $mainLocale
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If provided locale does not exist in the layout
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
+     */
+    public function setMainTranslation(Layout $layout, $mainLocale)
+    {
+        if (!in_array($mainLocale, $layout->availableLocales, true)) {
+            throw new BadStateException('mainLocale', 'Layout does not have the provided locale.');
+        }
+
+        $updatedLayout = clone $layout;
+        $updatedLayout->mainLocale = $mainLocale;
+
+        $this->queryHandler->updateLayout($updatedLayout);
+
+        foreach ($this->blockHandler->loadLayoutBlocks($updatedLayout) as $block) {
+            $oldMainLocale = $block->mainLocale;
+            if (!$block->isTranslatable && $oldMainLocale !== $mainLocale) {
+                $block = $this->blockHandler->createBlockTranslation($block, $mainLocale, $oldMainLocale);
+            }
+
+            $block = $this->blockHandler->setMainTranslation($block, $mainLocale);
+
+            if (!$block->isTranslatable && $oldMainLocale !== $mainLocale) {
+                $this->blockHandler->deleteBlockTranslation($block, $oldMainLocale);
+            }
+        }
+
+        return $updatedLayout;
     }
 
     /**
@@ -252,17 +335,19 @@ class LayoutHandler implements LayoutHandlerInterface
         $rootBlock = $this->blockHandler->createBlock(
             new BlockCreateStruct(
                 array(
-                    'layoutId' => $layout->id,
                     'status' => $layout->status,
                     'position' => null,
                     'definitionIdentifier' => '',
                     'viewType' => '',
                     'itemViewType' => '',
                     'name' => '',
+                    'isTranslatable' => false,
+                    'alwaysAvailable' => true,
                     'parameters' => array(),
                     'config' => array(),
                 )
-            )
+            ),
+            $layout
         );
 
         $newZone = new Zone(
@@ -365,6 +450,10 @@ class LayoutHandler implements LayoutHandlerInterface
 
         $copiedLayout = $this->queryHandler->createLayout($copiedLayout);
 
+        foreach ($copiedLayout->availableLocales as $locale) {
+            $this->queryHandler->createLayoutTranslation($copiedLayout, $locale);
+        }
+
         $layoutZones = $this->loadLayoutZones($layout);
         foreach ($layoutZones as $layoutZone) {
             $zoneCreateStruct = new ZoneCreateStruct(
@@ -419,17 +508,19 @@ class LayoutHandler implements LayoutHandlerInterface
             $newRootBlocks[$newZoneIdentifier] = $this->blockHandler->createBlock(
                 new BlockCreateStruct(
                     array(
-                        'layoutId' => $layout->id,
                         'status' => $layout->status,
                         'position' => null,
                         'definitionIdentifier' => '',
                         'viewType' => '',
                         'itemViewType' => '',
                         'name' => '',
+                        'isTranslatable' => false,
+                        'alwaysAvailable' => true,
                         'parameters' => array(),
                         'config' => array(),
                     )
-                )
+                ),
+                $layout
             );
 
             $i = 0;
@@ -488,6 +579,9 @@ class LayoutHandler implements LayoutHandlerInterface
         $newLayout->modified = $currentTimeStamp;
 
         $this->queryHandler->createLayout($newLayout);
+        foreach ($newLayout->availableLocales as $locale) {
+            $this->queryHandler->createLayoutTranslation($newLayout, $locale);
+        }
 
         $layoutBlocks = $this->blockHandler->loadLayoutBlocks($layout);
         foreach ($layoutBlocks as $block) {
@@ -515,6 +609,45 @@ class LayoutHandler implements LayoutHandlerInterface
     {
         $this->queryHandler->deleteLayoutZones($layoutId, $status);
         $this->blockHandler->deleteLayoutBlocks($layoutId, $status);
+        $this->queryHandler->deleteLayoutTranslations($layoutId, $status);
         $this->queryHandler->deleteLayout($layoutId, $status);
+    }
+
+    /**
+     * Deletes provided layout translation.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
+     * @param string $locale
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If translation with provided locale does not exist
+     *                                                          If translation with provided locale is the main layout translation
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
+     */
+    public function deleteLayoutTranslation(Layout $layout, $locale)
+    {
+        if (!in_array($locale, $layout->availableLocales, true)) {
+            throw new BadStateException('locale', 'Layout does not have the provided locale.');
+        }
+
+        if ($locale === $layout->mainLocale) {
+            throw new BadStateException('locale', 'Main translation cannot be removed from the layout.');
+        }
+
+        $this->queryHandler->deleteLayoutTranslations($layout->id, $layout->status, $locale);
+
+        foreach ($this->blockHandler->loadLayoutBlocks($layout) as $block) {
+            if (!in_array($locale, $block->availableLocales, true)) {
+                continue;
+            }
+
+            if (count($block->availableLocales) > 1) {
+                $this->blockHandler->deleteBlockTranslation($block, $locale);
+            } elseif (!empty($block->parentId)) {
+                $this->blockHandler->deleteBlock($block);
+            }
+        }
+
+        return $this->loadLayout($layout->id, $layout->status);
     }
 }

@@ -3,5 +3,6 @@ services:
         class: Netgen\BlockManager\Layout\Form\CreateType
         arguments:
             - "@netgen_block_manager.layout.registry.layout_type"
+            - "@netgen_block_manager.locale.provider"
         tags:
             - { name: form.type }

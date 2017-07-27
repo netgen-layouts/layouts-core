@@ -44,6 +44,8 @@ class BlockStructBuilder
                 'definition' => $blockDefinition,
                 'viewType' => $viewTypeIdentifier,
                 'itemViewType' => $itemViewTypeIdentifier,
+                'isTranslatable' => $config->isTranslatable(),
+                'alwaysAvailable' => true,
             )
         );
 
@@ -55,13 +57,15 @@ class BlockStructBuilder
     /**
      * Creates a new block update struct.
      *
+     * @param string $locale
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      *
      * @return \Netgen\BlockManager\API\Values\Block\BlockUpdateStruct
      */
-    public function newBlockUpdateStruct(Block $block = null)
+    public function newBlockUpdateStruct($locale, Block $block = null)
     {
         $blockUpdateStruct = new BlockUpdateStruct();
+        $blockUpdateStruct->locale = $locale;
 
         if (!$block instanceof Block) {
             return $blockUpdateStruct;
@@ -70,6 +74,7 @@ class BlockStructBuilder
         $blockUpdateStruct->viewType = $block->getViewType();
         $blockUpdateStruct->itemViewType = $block->getItemViewType();
         $blockUpdateStruct->name = $block->getName();
+        $blockUpdateStruct->alwaysAvailable = $block->isAlwaysAvailable();
         $blockUpdateStruct->fillFromValue($block->getDefinition(), $block);
 
         $this->configStructBuilder->buildConfigUpdateStructs($block, $blockUpdateStruct);

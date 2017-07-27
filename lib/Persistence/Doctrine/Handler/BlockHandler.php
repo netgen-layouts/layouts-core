@@ -15,6 +15,7 @@ use Netgen\BlockManager\Persistence\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Block\TranslationUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone;
@@ -181,29 +182,37 @@ class BlockHandler implements BlockHandlerInterface
      * Creates a block in specified target block.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct $blockCreateStruct
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $targetBlock
      * @param string $placeholder
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
+     *                                                          If target block does not belong to layout
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
-    public function createBlock(BlockCreateStruct $blockCreateStruct, Block $targetBlock = null, $placeholder = null)
+    public function createBlock(BlockCreateStruct $blockCreateStruct, Layout $layout, Block $targetBlock = null, $placeholder = null)
     {
+        if ($targetBlock !== null && $targetBlock->layoutId !== $layout->id) {
+            throw new BadStateException('targetBlock', 'Target block is not in the provided layout.');
+        }
+
         $newBlock = new Block(
             array(
                 'depth' => $targetBlock !== null ? $targetBlock->depth + 1 : 0,
                 'path' => $targetBlock !== null ? $targetBlock->path : '/',
                 'parentId' => $targetBlock !== null ? $targetBlock->id : null,
-                'placeholder' => $placeholder,
-                'layoutId' => $blockCreateStruct->layoutId,
-                'position' => $blockCreateStruct->position,
+                'placeholder' => $targetBlock !== null ? $placeholder : null,
+                'layoutId' => $layout->id,
+                'position' => $targetBlock !== null ? $blockCreateStruct->position : null,
                 'definitionIdentifier' => $blockCreateStruct->definitionIdentifier,
-                'parameters' => $blockCreateStruct->parameters,
                 'config' => $blockCreateStruct->config,
                 'viewType' => $blockCreateStruct->viewType,
                 'itemViewType' => $blockCreateStruct->itemViewType,
                 'name' => trim($blockCreateStruct->name),
+                'isTranslatable' => $blockCreateStruct->isTranslatable,
+                'alwaysAvailable' => $blockCreateStruct->alwaysAvailable,
+                'mainLocale' => $layout->mainLocale,
                 'status' => $blockCreateStruct->status,
             )
         );
@@ -219,7 +228,49 @@ class BlockHandler implements BlockHandlerInterface
             );
         }
 
-        return $this->queryHandler->createBlock($newBlock);
+        $newBlock = $this->queryHandler->createBlock($newBlock);
+
+        foreach ($layout->availableLocales as $locale) {
+            if ($locale === $layout->mainLocale || $newBlock->isTranslatable) {
+                $newBlock->availableLocales[] = $locale;
+                $newBlock->parameters[$locale] = $blockCreateStruct->parameters;
+
+                $this->queryHandler->createBlockTranslation($newBlock, $locale);
+            }
+        }
+
+        return $newBlock;
+    }
+
+    /**
+     * Creates a block translation.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
+     * @param string $locale
+     * @param string $sourceLocale
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If translation with provided locale already exists
+     *                                                          If translation with provided source locale does not exist
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Block\Block
+     */
+    public function createBlockTranslation(Block $block, $locale, $sourceLocale)
+    {
+        if (in_array($locale, $block->availableLocales, true)) {
+            throw new BadStateException('locale', 'Block already has the provided locale.');
+        }
+
+        if (!in_array($sourceLocale, $block->availableLocales, true)) {
+            throw new BadStateException('locale', 'Block does not have the provided source locale.');
+        }
+
+        $updatedBlock = clone $block;
+        $updatedBlock->availableLocales[] = $locale;
+        $updatedBlock->parameters[$locale] = $updatedBlock->parameters[$sourceLocale];
+
+        $this->queryHandler->createBlockTranslation($updatedBlock, $locale);
+
+        return $updatedBlock;
     }
 
     /**
@@ -255,6 +306,8 @@ class BlockHandler implements BlockHandlerInterface
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      * @param \Netgen\BlockManager\Persistence\Values\Block\BlockUpdateStruct $blockUpdateStruct
      *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If the block does not have the provided locale
+     *
      * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
     public function updateBlock(Block $block, BlockUpdateStruct $blockUpdateStruct)
@@ -269,17 +322,73 @@ class BlockHandler implements BlockHandlerInterface
             $updatedBlock->itemViewType = (string) $blockUpdateStruct->itemViewType;
         }
 
-        if ($blockUpdateStruct->name !== null) {
-            $updatedBlock->name = trim($blockUpdateStruct->name);
+        if ($blockUpdateStruct->isTranslatable !== null) {
+            $updatedBlock->isTranslatable = (bool) $blockUpdateStruct->isTranslatable;
         }
 
-        if (is_array($blockUpdateStruct->parameters)) {
-            $updatedBlock->parameters = $blockUpdateStruct->parameters;
+        if ($blockUpdateStruct->alwaysAvailable !== null) {
+            $updatedBlock->alwaysAvailable = (bool) $blockUpdateStruct->alwaysAvailable;
+        }
+
+        if ($blockUpdateStruct->name !== null) {
+            $updatedBlock->name = trim($blockUpdateStruct->name);
         }
 
         if (is_array($blockUpdateStruct->config)) {
             $updatedBlock->config = $blockUpdateStruct->config;
         }
+
+        $this->queryHandler->updateBlock($updatedBlock);
+
+        return $updatedBlock;
+    }
+
+    /**
+     * Updates a block translation.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
+     * @param string $locale
+     * @param \Netgen\BlockManager\Persistence\Values\Block\TranslationUpdateStruct $translationUpdateStruct
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If the block does not have the provided locale
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Block\Block
+     */
+    public function updateBlockTranslation(Block $block, $locale, TranslationUpdateStruct $translationUpdateStruct)
+    {
+        $updatedBlock = clone $block;
+
+        if (!in_array($locale, $block->availableLocales, true)) {
+            throw new BadStateException('locale', 'Block does not have the provided locale.');
+        }
+
+        if (is_array($translationUpdateStruct->parameters)) {
+            $updatedBlock->parameters[$locale] = $translationUpdateStruct->parameters;
+        }
+
+        $this->queryHandler->updateBlockTranslation($updatedBlock, $locale);
+
+        return $updatedBlock;
+    }
+
+    /**
+     * Updates the main translation of the block.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
+     * @param string $mainLocale
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If provided locale does not exist in the block
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Block\Block
+     */
+    public function setMainTranslation(Block $block, $mainLocale)
+    {
+        if (!in_array($mainLocale, $block->availableLocales, true)) {
+            throw new BadStateException('mainLocale', 'Block does not have the provided locale.');
+        }
+
+        $updatedBlock = clone $block;
+        $updatedBlock->mainLocale = $mainLocale;
 
         $this->queryHandler->updateBlock($updatedBlock);
 
@@ -354,6 +463,10 @@ class BlockHandler implements BlockHandlerInterface
         );
 
         $newBlock = $this->queryHandler->createBlock($newBlock);
+
+        foreach ($block->availableLocales as $locale) {
+            $this->queryHandler->createBlockTranslation($newBlock, $locale);
+        }
 
         $this->copyBlockCollections($block, $newBlock);
 
@@ -457,6 +570,11 @@ class BlockHandler implements BlockHandlerInterface
         $newBlock->status = $newStatus;
 
         $this->queryHandler->createBlock($newBlock, false);
+
+        foreach ($newBlock->availableLocales as $locale) {
+            $this->queryHandler->createBlockTranslation($newBlock, $locale);
+        }
+
         $this->createBlockCollectionsStatus($block, $newStatus);
 
         return $newBlock;
@@ -517,6 +635,32 @@ class BlockHandler implements BlockHandlerInterface
     }
 
     /**
+     * Deletes provided block translation.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
+     * @param string $locale
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If translation with provided locale does not exist
+     *                                                          If translation with provided locale is the main block translation
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Block\Block
+     */
+    public function deleteBlockTranslation(Block $block, $locale)
+    {
+        if (!in_array($locale, $block->availableLocales, true)) {
+            throw new BadStateException('locale', 'Block does not have the provided locale.');
+        }
+
+        if ($locale === $block->mainLocale) {
+            throw new BadStateException('locale', 'Main translation cannot be removed from the block.');
+        }
+
+        $this->queryHandler->deleteBlockTranslations(array($block->id), $block->status, $locale);
+
+        return $this->loadBlock($block->id, $block->status);
+    }
+
+    /**
      * Deletes all blocks belonging to specified layout.
      *
      * @param int|string $layoutId
@@ -541,6 +685,7 @@ class BlockHandler implements BlockHandlerInterface
     public function deleteBlocks(array $blockIds, $status = null)
     {
         $this->deleteBlockCollections($blockIds, $status);
+        $this->queryHandler->deleteBlockTranslations($blockIds, $status);
         $this->queryHandler->deleteBlocks($blockIds, $status);
     }
 

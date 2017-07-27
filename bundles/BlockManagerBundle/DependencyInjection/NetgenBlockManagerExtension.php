@@ -201,6 +201,7 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
         $loader->load('services/templating.yml');
         $loader->load('services/parameters.yml');
         $loader->load('services/http_cache.yml');
+        $loader->load('services/locale.yml');
 
         $loader->load('services/api.yml');
     }

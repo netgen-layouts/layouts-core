@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Layout\Form;
 use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\Form\AbstractType;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
+use Netgen\BlockManager\Locale\LocaleProviderInterface;
 use Netgen\BlockManager\Validator\Constraint\LayoutName;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -24,13 +25,22 @@ class CreateType extends AbstractType
     protected $layoutTypeRegistry;
 
     /**
+     * @var \Netgen\BlockManager\Locale\LocaleProviderInterface
+     */
+    protected $localeProvider;
+
+    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
+     * @param \Netgen\BlockManager\Locale\LocaleProviderInterface $localeProvider
      */
-    public function __construct(LayoutTypeRegistryInterface $layoutTypeRegistry)
-    {
+    public function __construct(
+        LayoutTypeRegistryInterface $layoutTypeRegistry,
+        LocaleProviderInterface $localeProvider
+    ) {
         $this->layoutTypeRegistry = $layoutTypeRegistry;
+        $this->localeProvider = $localeProvider;
     }
 
     /**
@@ -85,6 +95,23 @@ class CreateType extends AbstractType
                     new LayoutName(),
                 ),
                 'property_path' => 'name',
+            )
+        );
+
+        $builder->add(
+            'mainLocale',
+            ChoiceType::class,
+            array(
+                'label' => 'layout.main_locale',
+                'required' => true,
+                'choices' => array_flip($this->localeProvider->getAvailableLocales()),
+                'choices_as_values' => true,
+                'constraints' => array(
+                    new Constraints\NotBlank(),
+                    new Constraints\Type(array('type' => 'string')),
+                    new Constraints\Locale(),
+                ),
+                'property_path' => 'mainLocale',
             )
         );
 

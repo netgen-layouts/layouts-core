@@ -57,6 +57,16 @@ class LayoutValidator extends Validator
             'layoutType'
         );
 
+        $this->validate(
+            $layoutCreateStruct->mainLocale,
+            array(
+                new Constraints\NotBlank(),
+                new Constraints\Type(array('type' => 'string')),
+                new Constraints\Locale(),
+            ),
+            'mainLocale'
+        );
+
         if ($layoutCreateStruct->shared !== null) {
             $this->validate(
                 $layoutCreateStruct->shared,

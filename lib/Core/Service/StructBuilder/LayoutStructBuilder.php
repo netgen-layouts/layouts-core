@@ -15,15 +15,17 @@ class LayoutStructBuilder
      *
      * @param \Netgen\BlockManager\Layout\Type\LayoutType $layoutType
      * @param string $name
+     * @param string $mainLocale
      *
      * @return \Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct
      */
-    public function newLayoutCreateStruct(LayoutType $layoutType, $name)
+    public function newLayoutCreateStruct(LayoutType $layoutType, $name, $mainLocale)
     {
         return new LayoutCreateStruct(
             array(
                 'layoutType' => $layoutType,
                 'name' => $name,
+                'mainLocale' => $mainLocale,
             )
         );
     }

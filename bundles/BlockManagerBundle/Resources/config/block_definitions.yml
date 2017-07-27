@@ -1,6 +1,7 @@
 block_definitions:
     title:
         name: 'Title'
+        translatable: true
         view_types:
             title:
                 name: 'Title'

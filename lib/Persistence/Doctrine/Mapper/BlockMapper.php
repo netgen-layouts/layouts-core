@@ -19,17 +19,12 @@ class BlockMapper
         $blocks = array();
 
         foreach ($data as $dataItem) {
-            $parameters = !empty($dataItem['parameters']) ?
-                json_decode($dataItem['parameters'], true) :
-                array();
+            $blockId = (int) $dataItem['id'];
+            $locale = $dataItem['locale'];
 
-            $config = !empty($dataItem['config']) ?
-                json_decode($dataItem['config'], true) :
-                array();
-
-            $blocks[] = new Block(
-                array(
-                    'id' => (int) $dataItem['id'],
+            if (!isset($blocks[$blockId])) {
+                $blocks[$blockId] = array(
+                    'id' => $blockId,
                     'layoutId' => (int) $dataItem['layout_id'],
                     'depth' => (int) $dataItem['depth'],
                     'path' => $dataItem['path'],
@@ -40,14 +35,26 @@ class BlockMapper
                     'viewType' => $dataItem['view_type'],
                     'itemViewType' => $dataItem['item_view_type'],
                     'name' => $dataItem['name'],
+                    'isTranslatable' => (bool) $dataItem['translatable'],
+                    'mainLocale' => $dataItem['main_locale'],
+                    'alwaysAvailable' => (bool) $dataItem['always_available'],
                     'status' => (int) $dataItem['status'],
-                    'parameters' => is_array($parameters) ? $parameters : array(),
-                    'config' => is_array($config) ? $config : array(),
-                )
-            );
+                    'config' => $this->buildParameters($dataItem['config']),
+                );
+            }
+
+            $blocks[$blockId]['parameters'][$locale] = $this->buildParameters($dataItem['parameters']);
+            $blocks[$blockId]['availableLocales'][] = $locale;
         }
 
-        return $blocks;
+        return array_values(
+            array_map(
+                function (array $blockData) {
+                    return new Block($blockData);
+                },
+                $blocks
+            )
+        );
     }
 
     /**
@@ -76,5 +83,19 @@ class BlockMapper
         }
 
         return $collectionReferences;
+    }
+
+    /**
+     * Builds the array of parameters from provided JSON string.
+     *
+     * @param string $parameters
+     *
+     * @return array
+     */
+    protected function buildParameters($parameters)
+    {
+        $parameters = !empty($parameters) ? json_decode($parameters, true) : array();
+
+        return is_array($parameters) ? $parameters : array();
     }
 }

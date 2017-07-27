@@ -23,11 +23,11 @@ class BlockQueryHandler extends QueryHandler
     {
         $query = $this->getBlockSelectQuery();
         $query->where(
-            $query->expr()->eq('id', ':id')
+            $query->expr()->eq('b.id', ':id')
         )
         ->setParameter('id', $blockId, Type::INTEGER);
 
-        $this->applyStatusCondition($query, $status);
+        $this->applyStatusCondition($query, $status, 'b.status');
 
         return $query->execute()->fetchAll();
     }
@@ -72,11 +72,11 @@ class BlockQueryHandler extends QueryHandler
     {
         $query = $this->getBlockSelectQuery();
         $query->where(
-            $query->expr()->eq('layout_id', ':layout_id')
+            $query->expr()->eq('b.layout_id', ':layout_id')
         )
         ->setParameter('layout_id', $layout->id, Type::INTEGER);
 
-        $this->applyStatusCondition($query, $layout->status);
+        $this->applyStatusCondition($query, $layout->status, 'b.status');
 
         return $query->execute()->fetchAll();
     }
@@ -92,11 +92,11 @@ class BlockQueryHandler extends QueryHandler
     {
         $query = $this->getBlockSelectQuery();
         $query->where(
-            $query->expr()->like('path', ':path')
+            $query->expr()->like('b.path', ':path')
         )
         ->setParameter('path', '%/' . $zone->rootBlockId . '/%', Type::STRING);
 
-        $this->applyStatusCondition($query, $zone->status);
+        $this->applyStatusCondition($query, $zone->status, 'b.status');
 
         return $query->execute()->fetchAll();
     }
@@ -113,20 +113,20 @@ class BlockQueryHandler extends QueryHandler
     {
         $query = $this->getBlockSelectQuery();
         $query->where(
-            $query->expr()->eq('parent_id', ':parent_id')
+            $query->expr()->eq('b.parent_id', ':parent_id')
         )
         ->setParameter('parent_id', $block->id, Type::INTEGER)
-        ->addOrderBy('placeholder', 'ASC')
-        ->addOrderBy('position', 'ASC');
+        ->addOrderBy('b.placeholder', 'ASC')
+        ->addOrderBy('b.position', 'ASC');
 
         if ($placeholder !== null) {
             $query->andWhere(
-                $query->expr()->eq('placeholder', ':placeholder')
+                $query->expr()->eq('b.placeholder', ':placeholder')
             )
             ->setParameter('placeholder', $placeholder, Type::STRING);
         }
 
-        $this->applyStatusCondition($query, $block->status);
+        $this->applyStatusCondition($query, $block->status, 'b.status');
 
         return $query->execute()->fetchAll();
     }
@@ -182,7 +182,9 @@ class BlockQueryHandler extends QueryHandler
                     'view_type' => ':view_type',
                     'item_view_type' => ':item_view_type',
                     'name' => ':name',
-                    'parameters' => ':parameters',
+                    'translatable' => ':translatable',
+                    'always_available' => ':always_available',
+                    'main_locale' => ':main_locale',
                     'config' => ':config',
                 )
             )
@@ -204,7 +206,9 @@ class BlockQueryHandler extends QueryHandler
             ->setParameter('view_type', $block->viewType, Type::STRING)
             ->setParameter('item_view_type', $block->itemViewType, Type::STRING)
             ->setParameter('name', $block->name, Type::STRING)
-            ->setParameter('parameters', $block->parameters, Type::JSON_ARRAY)
+            ->setParameter('translatable', $block->isTranslatable, Type::BOOLEAN)
+            ->setParameter('always_available', $block->alwaysAvailable, Type::BOOLEAN)
+            ->setParameter('main_locale', $block->mainLocale, Type::STRING)
             ->setParameter('config', $block->config, Type::JSON_ARRAY);
 
         $query->execute();
@@ -236,6 +240,32 @@ class BlockQueryHandler extends QueryHandler
         $query->execute();
 
         return $block;
+    }
+
+    /**
+     * Creates a block translation.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
+     * @param string $locale
+     */
+    public function createBlockTranslation(Block $block, $locale)
+    {
+        $query = $this->connection->createQueryBuilder()
+            ->insert('ngbm_block_translation')
+            ->values(
+                array(
+                    'block_id' => ':block_id',
+                    'status' => ':status',
+                    'locale' => ':locale',
+                    'parameters' => ':parameters',
+                )
+            )
+            ->setParameter('block_id', $block->id, Type::INTEGER)
+            ->setParameter('status', $block->status, Type::INTEGER)
+            ->setParameter('locale', $locale, Type::STRING)
+            ->setParameter('parameters', $block->parameters[$locale], Type::JSON_ARRAY);
+
+        $query->execute();
     }
 
     /**
@@ -290,7 +320,9 @@ class BlockQueryHandler extends QueryHandler
             ->set('view_type', ':view_type')
             ->set('item_view_type', ':item_view_type')
             ->set('name', ':name')
-            ->set('parameters', ':parameters')
+            ->set('translatable', ':translatable')
+            ->set('main_locale', ':main_locale')
+            ->set('always_available', ':always_available')
             ->set('config', ':config')
             ->where(
                 $query->expr()->eq('id', ':id')
@@ -306,8 +338,37 @@ class BlockQueryHandler extends QueryHandler
             ->setParameter('view_type', $block->viewType, Type::STRING)
             ->setParameter('item_view_type', $block->itemViewType, Type::STRING)
             ->setParameter('name', $block->name, Type::STRING)
-            ->setParameter('parameters', $block->parameters, Type::JSON_ARRAY)
+            ->setParameter('translatable', $block->isTranslatable, Type::BOOLEAN)
+            ->setParameter('main_locale', $block->mainLocale, Type::STRING)
+            ->setParameter('always_available', $block->alwaysAvailable, Type::BOOLEAN)
             ->setParameter('config', $block->config, Type::JSON_ARRAY);
+
+        $this->applyStatusCondition($query, $block->status);
+
+        $query->execute();
+    }
+
+    /**
+     * Updates a block translation.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
+     * @param string $locale
+     */
+    public function updateBlockTranslation(Block $block, $locale)
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query
+            ->update('ngbm_block_translation')
+            ->set('parameters', ':parameters')
+            ->where(
+                $query->expr()->andX(
+                    $query->expr()->eq('block_id', ':block_id'),
+                    $query->expr()->eq('locale', ':locale')
+                )
+            )
+            ->setParameter('block_id', $block->id, Type::INTEGER)
+            ->setParameter('locale', $locale, Type::STRING)
+            ->setParameter('parameters', $block->parameters[$locale], Type::JSON_ARRAY);
 
         $this->applyStatusCondition($query, $block->status);
 
@@ -418,6 +479,36 @@ class BlockQueryHandler extends QueryHandler
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status);
+        }
+
+        $query->execute();
+    }
+
+    /**
+     * Deletes block translations.
+     *
+     * @param array $blockIds
+     * @param int $status
+     * @param string $locale
+     */
+    public function deleteBlockTranslations(array $blockIds, $status = null, $locale = null)
+    {
+        $query = $this->connection->createQueryBuilder();
+
+        $query->delete('ngbm_block_translation')
+            ->where(
+                $query->expr()->in('block_id', array(':block_id'))
+            )
+            ->setParameter('block_id', $blockIds, Connection::PARAM_INT_ARRAY);
+
+        if ($status !== null) {
+            $this->applyStatusCondition($query, $status);
+        }
+
+        if ($locale !== null) {
+            $query
+                ->andWhere($query->expr()->eq('locale', ':locale'))
+                ->setParameter(':locale', $locale, Type::STRING);
         }
 
         $query->execute();
@@ -550,8 +641,17 @@ class BlockQueryHandler extends QueryHandler
     protected function getBlockSelectQuery()
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT ngbm_block.*')
-            ->from('ngbm_block');
+        $query->select('DISTINCT b.*, bt.*')
+            ->from('ngbm_block', 'b')
+            ->innerJoin(
+                'b',
+                'ngbm_block_translation',
+                'bt',
+                $query->expr()->andX(
+                    $query->expr()->eq('bt.block_id', 'b.id'),
+                    $query->expr()->eq('bt.status', 'b.status')
+                )
+            );
 
         return $query;
     }

@@ -148,6 +148,7 @@ services:
             - "@netgen_block_manager.core.service.collection.mapper"
             - "@netgen_block_manager.core.service.parameter_mapper"
             - "@netgen_block_manager.core.service.config_mapper"
+            - "@netgen_block_manager.locale.context"
             - "@netgen_block_manager.block.registry.block_definition"
 
     netgen_block_manager.core.service.block.struct_builder:

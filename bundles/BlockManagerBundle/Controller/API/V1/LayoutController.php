@@ -169,7 +169,8 @@ class LayoutController extends Controller
 
         $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
             $layoutType,
-            $request->request->get('name')
+            $request->request->get('name'),
+            $request->request->get('locale')
         );
 
         $layoutCreateStruct->description = $request->request->get('description');

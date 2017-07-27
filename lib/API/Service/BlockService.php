@@ -15,41 +15,49 @@ interface BlockService extends Service
      * Loads a block with specified ID.
      *
      * @param int|string $blockId
+     * @param string[] $locales
+     * @param bool $useContext
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If block with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function loadBlock($blockId);
+    public function loadBlock($blockId, array $locales = null, $useContext = true);
 
     /**
      * Loads a block draft with specified ID.
      *
      * @param int|string $blockId
+     * @param string[] $locales
+     * @param bool $useContext
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If block with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function loadBlockDraft($blockId);
+    public function loadBlockDraft($blockId, array $locales = null, $useContext = true);
 
     /**
      * Loads all blocks belonging to provided zone.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
+     * @param string[] $locales
+     * @param bool $useContext
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block[]
      */
-    public function loadZoneBlocks(Zone $zone);
+    public function loadZoneBlocks(Zone $zone, array $locales = null, $useContext = true);
 
     /**
      * Loads all blocks belonging to provided layout.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
+     * @param string[] $locales
+     * @param bool $useContext
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block[]
      */
-    public function loadLayoutBlocks(Layout $layout);
+    public function loadLayoutBlocks(Layout $layout, array $locales = null, $useContext = true);
 
     /**
      * Returns if provided block has a published status.
@@ -119,6 +127,7 @@ interface BlockService extends Service
      * @param \Netgen\BlockManager\API\Values\Block\BlockUpdateStruct $blockUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If block is not a draft
+     *                                                          If block does not have a specified translation
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
@@ -133,6 +142,7 @@ interface BlockService extends Service
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If source or target block is not a draft
      *                                                          If target block is not a container
+     *                                                          If target block is in a different layout
      *                                                          If placeholder does not exist in the target block
      *                                                          If new block is a container
      *                                                          If target block is within the provided block
@@ -148,6 +158,7 @@ interface BlockService extends Service
      * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If block or zone are not drafts
+     *                                                          If zone is in a different layout
      *                                                          If block cannot be placed in specified zone
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
@@ -164,6 +175,7 @@ interface BlockService extends Service
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If source or target block is not a draft
      *                                                          If target block is not a container
+     *                                                          If target block is in a different layout
      *                                                          If placeholder does not exist in the target block
      *                                                          If new block is a container
      *                                                          If target block is within the provided block
@@ -201,6 +213,28 @@ interface BlockService extends Service
     public function restoreBlock(Block $block);
 
     /**
+     * Enables translating the block.
+     *
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If block is not a draft
+     *
+     * @return \Netgen\BlockManager\API\Values\Block\Block
+     */
+    public function enableTranslations(Block $block);
+
+    /**
+     * Disable translating the block. All translations (except the main one) will be removed.
+     *
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If block is not a draft
+     *
+     * @return \Netgen\BlockManager\API\Values\Block\Block
+     */
+    public function disableTranslations(Block $block);
+
+    /**
      * Deletes a specified block.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
@@ -221,9 +255,10 @@ interface BlockService extends Service
     /**
      * Creates a new block update struct.
      *
+     * @param string $locale
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      *
      * @return \Netgen\BlockManager\API\Values\Block\BlockUpdateStruct
      */
-    public function newBlockUpdateStruct(Block $block = null);
+    public function newBlockUpdateStruct($locale, Block $block = null);
 }

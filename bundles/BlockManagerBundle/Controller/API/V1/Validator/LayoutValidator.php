@@ -24,5 +24,15 @@ class LayoutValidator extends Validator
             ),
             'layout_type'
         );
+
+        $this->validate(
+            $request->request->get('locale'),
+            array(
+                new Constraints\NotBlank(),
+                new Constraints\Type(array('type' => 'string')),
+                new Constraints\Locale(),
+            ),
+            'locale'
+        );
     }
 }

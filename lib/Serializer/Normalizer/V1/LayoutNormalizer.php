@@ -11,6 +11,7 @@ use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
+use Symfony\Component\Intl\Intl;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class LayoutNormalizer implements NormalizerInterface
@@ -51,6 +52,12 @@ class LayoutNormalizer implements NormalizerInterface
         /** @var \Netgen\BlockManager\API\Values\Layout\Layout $layout */
         $layout = $object->getValue();
         $layoutType = $layout->getLayoutType();
+        $localeBundle = Intl::getLocaleBundle();
+
+        $availableLocales = array();
+        foreach ($layout->getAvailableLocales() as $locale) {
+            $availableLocales[$locale] = $localeBundle->getLocaleName($locale);
+        }
 
         $data = array(
             'id' => $layout->getId(),
@@ -62,6 +69,8 @@ class LayoutNormalizer implements NormalizerInterface
             'shared' => $layout->isShared(),
             'name' => $layout->getName(),
             'description' => $layout->getDescription(),
+            'main_locale' => $layout->getMainLocale(),
+            'available_locales' => $availableLocales,
             'zones' => $this->getZones($layout, $layoutType),
         );
 

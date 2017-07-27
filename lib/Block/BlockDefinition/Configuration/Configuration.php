@@ -23,6 +23,11 @@ class Configuration extends ValueObject
     protected $icon;
 
     /**
+     * @var bool
+     */
+    protected $isTranslatable = false;
+
+    /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection[]
      */
     protected $collections = array();
@@ -55,6 +60,16 @@ class Configuration extends ValueObject
     public function getIcon()
     {
         return $this->icon;
+    }
+
+    /**
+     * Returns if the block will be translatable when created.
+     *
+     * @return bool
+     */
+    public function isTranslatable()
+    {
+        return $this->isTranslatable;
     }
 
     /**

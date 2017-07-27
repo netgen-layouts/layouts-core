@@ -131,6 +131,32 @@ interface LayoutHandler
     public function createLayout(LayoutCreateStruct $layoutCreateStruct);
 
     /**
+     * Creates a layout translation.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
+     * @param string $locale
+     * @param string $sourceLocale
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If translation with provided locale already exists
+     *                                                          If translation with provided source locale does not exist
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
+     */
+    public function createLayoutTranslation(Layout $layout, $locale, $sourceLocale);
+
+    /**
+     * Updates the main translation of the layout.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
+     * @param string $mainLocale
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If provided locale does not exist in the layout
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
+     */
+    public function setMainTranslation(Layout $layout, $mainLocale);
+
+    /**
      * Creates a zone in provided layout.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
@@ -198,4 +224,17 @@ interface LayoutHandler
      * @param int $status
      */
     public function deleteLayout($layoutId, $status = null);
+
+    /**
+     * Deletes provided layout translation.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
+     * @param string $locale
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If translation with provided locale does not exist
+     *                                                          If translation with provided locale is the main layout translation
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
+     */
+    public function deleteLayoutTranslation(Layout $layout, $locale);
 }

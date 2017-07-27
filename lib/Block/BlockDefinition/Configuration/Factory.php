@@ -108,6 +108,7 @@ class Factory
                 'identifier' => $identifier,
                 'name' => $config['name'],
                 'icon' => $config['icon'],
+                'isTranslatable' => $config['translatable'],
                 'collections' => $collections,
                 'forms' => $forms,
                 'viewTypes' => $viewTypes,

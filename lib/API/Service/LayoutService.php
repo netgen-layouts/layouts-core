@@ -165,6 +165,54 @@ interface LayoutService extends Service
     public function createLayout(LayoutCreateStruct $layoutCreateStruct);
 
     /**
+     * Adds a translation with provided locale to the layout.
+     *
+     * If the source locale is provided, data for the new translation
+     * will be copied from the source one. If not, data will be copied
+     * from the main translation.
+     *
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
+     * @param string $locale
+     * @param string $sourceLocale
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
+     *                                                          If translation with provided locale already exists
+     *                                                          If translation with provided source locale does not exist
+     *
+     * @return \Netgen\BlockManager\API\Values\Layout\Layout
+     */
+    public function addTranslation(Layout $layout, $locale, $sourceLocale = null);
+
+    /**
+     * Sets the translation with provided locale to be the main one of the provided layout.
+     *
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
+     * @param string $mainLocale
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
+     *                                                          If translation with provided locale does not exist
+     *
+     * @return \Netgen\BlockManager\API\Values\Layout\Layout
+     */
+    public function setMainTranslation(Layout $layout, $mainLocale);
+
+    /**
+     * Removes the translation with provided locale from the layout and all blocks.
+     *
+     * If the translation is the only one for the block, the block is removed too.
+     *
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
+     * @param string $locale
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
+     *                                                          If translation with provided locale does not exist
+     *                                                          If translation with provided locale is the main layout translation
+     *
+     * @return \Netgen\BlockManager\API\Values\Layout\Layout
+     */
+    public function removeTranslation(Layout $layout, $locale);
+
+    /**
      * Updates a specified layout.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
@@ -257,10 +305,11 @@ interface LayoutService extends Service
      *
      * @param \Netgen\BlockManager\Layout\Type\LayoutType $layoutType
      * @param string $name
+     * @param string $mainLocale
      *
      * @return \Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct
      */
-    public function newLayoutCreateStruct(LayoutType $layoutType, $name);
+    public function newLayoutCreateStruct(LayoutType $layoutType, $name, $mainLocale);
 
     /**
      * Creates a new layout update struct.

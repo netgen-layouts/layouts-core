@@ -14,6 +14,13 @@ class BlockUpdateStruct extends ValueObject implements ParameterStruct, ConfigAw
     use ConfigAwareStructTrait;
 
     /**
+     * The locale which will be updated. Required.
+     *
+     * @var string
+     */
+    public $locale;
+
+    /**
      * New view type of the block.
      *
      * @var string
@@ -33,4 +40,11 @@ class BlockUpdateStruct extends ValueObject implements ParameterStruct, ConfigAw
      * @var string
      */
     public $name;
+
+    /**
+     * New state of the always available flag.
+     *
+     * @var bool
+     */
+    public $alwaysAvailable;
 }

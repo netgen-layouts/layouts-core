@@ -40,4 +40,18 @@ class BlockCreateStruct extends ValueObject implements ParameterStruct, ConfigAw
      * @var string
      */
     public $name;
+
+    /**
+     * Specifies if the block will be translatable.
+     *
+     * @var bool
+     */
+    public $isTranslatable;
+
+    /**
+     * Specifies if the block will be always available.
+     *
+     * @var bool
+     */
+    public $alwaysAvailable;
 }
