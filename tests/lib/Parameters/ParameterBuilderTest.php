@@ -254,7 +254,7 @@ class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setRequired
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setOption
      * @expectedException \Netgen\BlockManager\Exception\BadMethodCallException
      * @expectedExceptionMessage Setting the options is not possible after parameters have been built.
      */

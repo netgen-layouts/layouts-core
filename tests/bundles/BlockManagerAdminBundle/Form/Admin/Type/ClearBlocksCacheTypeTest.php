@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerAdminBundle\Tests\Form\Admin\Type;
 
 use Netgen\BlockManager\Core\Values\Block\Block;
+use Netgen\BlockManager\Core\Values\Block\BlockTranslation;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearBlocksCacheType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,7 +22,22 @@ class ClearBlocksCacheTypeTest extends FormTestCase
     {
         parent::setUp();
 
-        $this->blocks = array(42 => new Block(array('id' => 42)), 24 => new Block(array('id' => 24)));
+        $this->blocks = array(
+            42 => new Block(
+                array(
+                    'id' => 42,
+                    'availableLocales' => array('en'),
+                    'translations' => array('en' => new BlockTranslation()),
+                )
+            ),
+            24 => new Block(
+                array(
+                    'id' => 24,
+                    'availableLocales' => array('en'),
+                    'translations' => array('en' => new BlockTranslation()),
+                )
+            ),
+        );
     }
 
     /**

@@ -48,14 +48,16 @@ class BlockDefinitionHandler extends BaseBlockDefinitionHandler
                     'type' => new ParameterType\TextLineType(),
                     'defaultValue' => 'some-class',
                     'groups' => $this->parameterGroups,
-                )
+                ),
+                true
             ),
             'css_id' => new Parameter(
                 array(
                     'name' => 'css_id',
                     'type' => new ParameterType\TextLineType(),
                     'groups' => $this->parameterGroups,
-                )
+                ),
+                true
             ),
         );
     }

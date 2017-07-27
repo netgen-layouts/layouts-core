@@ -5,6 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig\Extension;
 use Exception;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\Core\Values\Block\Block;
+use Netgen\BlockManager\Core\Values\Block\BlockTranslation;
 use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\View\RendererInterface;
@@ -62,11 +63,18 @@ class RenderingExtensionTwigTest extends \Twig_Test_IntegrationTestCase
                                 'definition' => new BlockDefinition(
                                     'twig_block'
                                 ),
-                                'parameters' => array(
-                                    'block_name' => new ParameterValue(
+                                'availableLocales' => array('en'),
+                                'translations' => array(
+                                    'en' => new BlockTranslation(
                                         array(
-                                            'name' => 'block_name',
-                                            'value' => 'my_block',
+                                            'parameters' => array(
+                                                'block_name' => new ParameterValue(
+                                                    array(
+                                                        'name' => 'block_name',
+                                                        'value' => 'my_block',
+                                                    )
+                                                ),
+                                            ),
                                         )
                                     ),
                                 ),

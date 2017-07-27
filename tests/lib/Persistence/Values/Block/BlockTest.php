@@ -24,6 +24,9 @@ class BlockTest extends TestCase
         $this->assertNull($block->viewType);
         $this->assertNull($block->itemViewType);
         $this->assertNull($block->name);
+        $this->assertNull($block->alwaysAvailable);
+        $this->assertNull($block->mainLocale);
+        $this->assertNull($block->availableLocales);
         $this->assertNull($block->status);
     }
 
@@ -46,6 +49,9 @@ class BlockTest extends TestCase
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
                 'name' => 'My block',
+                'alwaysAvailable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => array('en'),
                 'status' => Value::STATUS_DRAFT,
             )
         );
@@ -61,6 +67,9 @@ class BlockTest extends TestCase
         $this->assertEquals('default', $block->viewType);
         $this->assertEquals('standard', $block->itemViewType);
         $this->assertEquals('My block', $block->name);
+        $this->assertEquals('en', $block->mainLocale);
+        $this->assertTrue($block->alwaysAvailable);
+        $this->assertEquals(array('en'), $block->availableLocales);
         $this->assertEquals(Value::STATUS_DRAFT, $block->status);
 
         $this->assertEquals(

@@ -3,7 +3,9 @@ DROP TABLE IF EXISTS "ngbm_collection_item";
 DROP TABLE IF EXISTS "ngbm_collection_query";
 DROP TABLE IF EXISTS "ngbm_collection";
 DROP TABLE IF EXISTS "ngbm_zone";
+DROP TABLE IF EXISTS "ngbm_block_translation";
 DROP TABLE IF EXISTS "ngbm_block";
+DROP TABLE IF EXISTS "ngbm_layout_translation";
 DROP TABLE IF EXISTS "ngbm_layout";
 DROP TABLE IF EXISTS "ngbm_rule_target";
 DROP TABLE IF EXISTS "ngbm_rule_condition";
@@ -27,7 +29,14 @@ CREATE TABLE "ngbm_layout" (
   "description" text NOT NULL,
   "created" integer NOT NULL,
   "modified" integer NOT NULL,
-  "shared" boolean NOT NULL
+  "shared" boolean NOT NULL,
+  "main_locale" character varying(255) NOT NULL
+);
+
+CREATE TABLE "ngbm_layout_translation" (
+  "layout_id" integer NOT NULL,
+  "status" integer NOT NULL,
+  "locale" character varying(255) NOT NULL
 );
 
 CREATE TABLE "ngbm_block" (
@@ -43,8 +52,17 @@ CREATE TABLE "ngbm_block" (
   "view_type" character varying(255) NOT NULL,
   "item_view_type" character varying(255) NOT NULL,
   "name" character varying(255) NOT NULL,
-  "parameters" text NOT NULL,
-  "config" text NOT NULL
+  "config" text NOT NULL,
+  "translatable" boolean NOT NULL,
+  "main_locale" character varying(255) NOT NULL,
+  "always_available" boolean NOT NULL
+);
+
+CREATE TABLE "ngbm_block_translation" (
+  "block_id" integer NOT NULL,
+  "status" integer NOT NULL,
+  "locale" character varying(255) NOT NULL,
+  "parameters" text NOT NULL
 );
 
 CREATE TABLE "ngbm_zone" (
@@ -123,11 +141,17 @@ ALTER TABLE ONLY ngbm_layout ALTER COLUMN id SET DEFAULT nextval('ngbm_layout_id
 
 ALTER TABLE ONLY ngbm_layout ADD CONSTRAINT ngbm_layout_pkey PRIMARY KEY ("id", "status");
 
+ALTER TABLE ONLY ngbm_layout_translation ADD CONSTRAINT ngbm_layout_translation_pkey PRIMARY KEY ("layout_id", "status", "locale");
+ALTER TABLE ONLY ngbm_layout_translation ADD FOREIGN KEY ("layout_id", "status") REFERENCES ngbm_layout ("id", "status");
+
 CREATE SEQUENCE ngbm_block_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE ONLY ngbm_block ALTER COLUMN id SET DEFAULT nextval('ngbm_block_id_seq'::regclass);
 
 ALTER TABLE ONLY ngbm_block ADD CONSTRAINT ngbm_block_pkey PRIMARY KEY ("id", "status");
 ALTER TABLE ONLY ngbm_block ADD FOREIGN KEY ("layout_id", "status") REFERENCES ngbm_layout ("id", "status");
+
+ALTER TABLE ONLY ngbm_block_translation ADD CONSTRAINT ngbm_block_translation_pkey PRIMARY KEY ("block_id", "status", "locale");
+ALTER TABLE ONLY ngbm_block_translation ADD FOREIGN KEY ("block_id", "status") REFERENCES ngbm_block ("id", "status");
 
 ALTER TABLE ONLY ngbm_zone ADD CONSTRAINT ngbm_zone_pkey PRIMARY KEY ("identifier", "layout_id", "status");
 ALTER TABLE ONLY ngbm_zone ADD FOREIGN KEY ("layout_id", "status") REFERENCES ngbm_layout ("id", "status");

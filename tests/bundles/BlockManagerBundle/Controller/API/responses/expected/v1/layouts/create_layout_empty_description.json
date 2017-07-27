@@ -6,6 +6,10 @@
     "shared": false,
     "name": "My new layout",
     "description": "",
+    "main_locale": "en",
+    "available_locales": {
+        "en": "English"
+    },
     "zones": [
         {
             "identifier": "bottom",

@@ -65,7 +65,7 @@ abstract class BlockTest extends ServiceTestCase
         $configDefinition = $this->createConfigDefinition(array_keys($expectedConfig));
 
         $blockDefinition = $this->createBlockDefinition($configDefinition);
-        $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition, 'en');
         $blockCreateStruct->viewType = 'default';
         $blockCreateStruct->itemViewType = 'standard';
 
@@ -107,7 +107,7 @@ abstract class BlockTest extends ServiceTestCase
         );
 
         $blockDefinition = $this->createBlockDefinition($configDefinition);
-        $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition, 'en');
         $blockCreateStruct->viewType = 'default';
         $blockCreateStruct->itemViewType = 'standard';
 

@@ -88,6 +88,8 @@ class LayoutNormalizerTest extends TestCase
                 'modified' => $currentDate,
                 'shared' => true,
                 'published' => false,
+                'mainLocale' => 'en',
+                'availableLocales' => array('en', 'hr'),
                 'zones' => array(
                     'left' => new Zone(
                         array(
@@ -147,6 +149,11 @@ class LayoutNormalizerTest extends TestCase
                 'shared' => true,
                 'name' => $layout->getName(),
                 'description' => $layout->getDescription(),
+                'main_locale' => $layout->getMainLocale(),
+                'available_locales' => array(
+                    'en' => 'English',
+                    'hr' => 'Croatian',
+                ),
                 'zones' => array(
                     array(
                         'identifier' => 'left',

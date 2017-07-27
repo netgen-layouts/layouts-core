@@ -12,6 +12,7 @@ use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Core\Values\Layout\Zone;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Persistence\Values\Block\Block as PersistenceBlock;
+use Netgen\BlockManager\Persistence\Values\Layout\Layout as PersistenceLayout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone as PersistenceZone;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinition;
@@ -47,6 +48,11 @@ class BlockServiceTest extends ServiceTestCase
      */
     public function testCreateBlock()
     {
+        $this->layoutHandlerMock
+            ->expects($this->at(0))
+            ->method('loadLayout')
+            ->will($this->returnValue(new PersistenceLayout(array('availableLocales' => array('en')))));
+
         $this->blockHandlerMock
             ->expects($this->at(0))
             ->method('loadBlock')
@@ -62,7 +68,11 @@ class BlockServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->blockService->createBlock(
-            new BlockCreateStruct(array('definition' => new BlockDefinition('blockDef'))),
+            new BlockCreateStruct(
+                array(
+                    'definition' => new BlockDefinition('blockDef'),
+                )
+            ),
             new Block(
                 array(
                     'published' => false,
@@ -88,12 +98,26 @@ class BlockServiceTest extends ServiceTestCase
         $this->layoutServiceMock
             ->expects($this->at(0))
             ->method('loadLayoutDraft')
-            ->will($this->returnValue(new Layout(array('layoutType' => new LayoutType()))));
+            ->will(
+                $this->returnValue(
+                    new Layout(
+                        array(
+                            'availableLocales' => array('en'),
+                            'layoutType' => new LayoutType(),
+                        )
+                    )
+                )
+            );
 
         $this->layoutHandlerMock
             ->expects($this->at(0))
             ->method('loadZone')
             ->will($this->returnValue(new PersistenceZone()));
+
+        $this->layoutHandlerMock
+            ->expects($this->at(1))
+            ->method('loadLayout')
+            ->will($this->returnValue(new PersistenceLayout()));
 
         $this->blockHandlerMock
             ->expects($this->at(0))
@@ -129,7 +153,9 @@ class BlockServiceTest extends ServiceTestCase
         $persistenceBlock = new PersistenceBlock(
             array(
                 'config' => array(),
-                'parameters' => array(),
+                'mainLocale' => 'en',
+                'availableLocales' => array('en'),
+                'parameters' => array('en' => array()),
             )
         );
 
@@ -140,7 +166,7 @@ class BlockServiceTest extends ServiceTestCase
 
         $this->blockHandlerMock
             ->expects($this->at(1))
-            ->method('updateBlock')
+            ->method('updateBlockTranslation')
             ->will($this->throwException(new Exception('Test exception text')));
 
         $this->persistenceHandler
@@ -155,7 +181,7 @@ class BlockServiceTest extends ServiceTestCase
                     'configs' => array(),
                 )
             ),
-            new BlockUpdateStruct()
+            new BlockUpdateStruct(array('locale' => 'en'))
         );
     }
 
@@ -353,6 +379,54 @@ class BlockServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->blockService->restoreBlock(new Block(array('published' => false)));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::enableTranslations
+     * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
+     */
+    public function testEnableTranslations()
+    {
+        $this->blockHandlerMock
+            ->expects($this->at(0))
+            ->method('loadBlock')
+            ->will($this->returnValue(new PersistenceBlock(array('isTranslatable' => false))));
+
+        $this->blockHandlerMock
+            ->expects($this->at(1))
+            ->method('updateBlock')
+            ->will($this->throwException(new Exception('Test exception text')));
+
+        $this->persistenceHandler
+            ->expects($this->once())
+            ->method('rollbackTransaction');
+
+        $this->blockService->enableTranslations(new Block(array('published' => false)));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::disableTranslations
+     * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
+     */
+    public function testDisableTranslations()
+    {
+        $this->blockHandlerMock
+            ->expects($this->at(0))
+            ->method('loadBlock')
+            ->will($this->returnValue(new PersistenceBlock(array('isTranslatable' => true))));
+
+        $this->blockHandlerMock
+            ->expects($this->at(1))
+            ->method('updateBlock')
+            ->will($this->throwException(new Exception('Test exception text')));
+
+        $this->persistenceHandler
+            ->expects($this->once())
+            ->method('rollbackTransaction');
+
+        $this->blockService->disableTranslations(new Block(array('published' => false)));
     }
 
     /**

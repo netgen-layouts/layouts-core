@@ -28,9 +28,11 @@ use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Layout\Type\Zone;
+use Netgen\BlockManager\Locale\LocaleContextInterface;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithTranslatableParameter;
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
@@ -185,7 +187,7 @@ abstract class ServiceTestCase extends TestCase
         $blockDefinition3 = new BlockDefinition(
             'gallery',
             array('standard' => array('standard')),
-            null,
+            new BlockDefinitionHandlerWithTranslatableParameter(),
             true,
             array($configDefinition1)
         );
@@ -193,7 +195,7 @@ abstract class ServiceTestCase extends TestCase
         $blockDefinition4 = new BlockDefinition(
             'list',
             array('standard' => array('standard')),
-            null,
+            new BlockDefinitionHandlerWithTranslatableParameter(),
             true,
             array($configDefinition1)
         );
@@ -358,11 +360,18 @@ abstract class ServiceTestCase extends TestCase
      */
     protected function createBlockMapper()
     {
+        $localeContextMock = $this->createMock(LocaleContextInterface::class);
+        $localeContextMock
+            ->expects($this->any())
+            ->method('getLocaleCodes')
+            ->will($this->returnValue(array('en', 'hr')));
+
         return new BlockMapper(
             $this->persistenceHandler,
             $this->createCollectionMapper(),
             $this->createParameterMapper(),
             $this->createConfigMapper(),
+            $localeContextMock,
             $this->blockDefinitionRegistry
         );
     }

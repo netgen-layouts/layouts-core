@@ -124,6 +124,72 @@ class LayoutServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::addTranslation
+     * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
+     */
+    public function testAddTranslation()
+    {
+        $this->layoutHandlerMock
+            ->expects($this->at(0))
+            ->method('loadLayout')
+            ->will(
+                $this->returnValue(
+                    new PersistenceLayout(
+                        array(
+                            'mainLocale' => 'en',
+                            'availableLocales' => array('en'),
+                        )
+                    )
+                )
+            );
+
+        $this->layoutHandlerMock
+            ->expects($this->at(1))
+            ->method('createLayoutTranslation')
+            ->will($this->throwException(new Exception('Test exception text')));
+
+        $this->persistenceHandler
+            ->expects($this->once())
+            ->method('rollbackTransaction');
+
+        $this->layoutService->addTranslation(new Layout(array('published' => false)), 'hr');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::removeTranslation
+     * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
+     */
+    public function testRemoveTranslation()
+    {
+        $this->layoutHandlerMock
+            ->expects($this->at(0))
+            ->method('loadLayout')
+            ->will(
+                $this->returnValue(
+                    new PersistenceLayout(
+                        array(
+                            'mainLocale' => 'en',
+                            'availableLocales' => array('en', 'hr'),
+                        )
+                    )
+                )
+            );
+
+        $this->layoutHandlerMock
+            ->expects($this->at(1))
+            ->method('deleteLayoutTranslation')
+            ->will($this->throwException(new Exception('Test exception text')));
+
+        $this->persistenceHandler
+            ->expects($this->once())
+            ->method('rollbackTransaction');
+
+        $this->layoutService->removeTranslation(new Layout(array('published' => false)), 'hr');
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::updateLayout
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text

@@ -918,7 +918,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/copy?html=false',
+            '/bm/api/v1/blocks/34/copy?html=false',
             array(),
             array(),
             array(),
@@ -969,7 +969,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/copy',
+            '/bm/api/v1/blocks/34/copy',
             array(),
             array(),
             array(),
@@ -997,7 +997,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/copy',
+            '/bm/api/v1/blocks/34/copy',
             array(),
             array(),
             array(),
@@ -1025,7 +1025,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/copy',
+            '/bm/api/v1/blocks/34/copy',
             array(),
             array(),
             array(),
@@ -1081,7 +1081,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/copy',
+            '/bm/api/v1/blocks/34/copy',
             array(),
             array(),
             array(),
@@ -1109,7 +1109,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/copy',
+            '/bm/api/v1/blocks/34/copy',
             array(),
             array(),
             array(),
@@ -1136,7 +1136,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/copy',
+            '/bm/api/v1/blocks/34/copy',
             array(),
             array(),
             array(),
@@ -1163,7 +1163,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/copy',
+            '/bm/api/v1/blocks/34/copy',
             array(),
             array(),
             array(),
@@ -1437,7 +1437,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/32/move',
+            '/bm/api/v1/blocks/34/move',
             array(),
             array(),
             array(),
@@ -1564,7 +1564,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/32/move',
+            '/bm/api/v1/blocks/34/move',
             array(),
             array(),
             array(),
@@ -1622,7 +1622,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/32/move',
+            '/bm/api/v1/blocks/34/move',
             array(),
             array(),
             array(),
@@ -1709,7 +1709,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/32/move',
+            '/bm/api/v1/blocks/34/move',
             array(),
             array(),
             array(),
@@ -1738,7 +1738,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/32/move',
+            '/bm/api/v1/blocks/34/move',
             array(),
             array(),
             array(),
@@ -1794,7 +1794,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/32/move',
+            '/bm/api/v1/blocks/34/move',
             array(),
             array(),
             array(),
@@ -1822,7 +1822,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/move',
+            '/bm/api/v1/blocks/34/move',
             array(),
             array(),
             array(),

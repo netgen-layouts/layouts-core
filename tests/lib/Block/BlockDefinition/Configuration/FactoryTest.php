@@ -30,6 +30,7 @@ class FactoryTest extends TestCase
         $config = array(
             'name' => 'Block definition',
             'icon' => '/icon.svg',
+            'translatable' => true,
             'collections' => array(
                 'default' => array(
                     'valid_item_types' => null,
@@ -111,6 +112,7 @@ class FactoryTest extends TestCase
                     'identifier' => 'block_definition',
                     'name' => 'Block definition',
                     'icon' => '/icon.svg',
+                    'isTranslatable' => true,
                     'collections' => array(
                         'default' => new Collection(
                             array(

@@ -6,6 +6,7 @@ use Netgen\BlockManager\Core\Service\Mapper\ParameterMapper;
 use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithCompoundParameter;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithUntranslatableCompoundParameter;
 use PHPUnit\Framework\TestCase;
 
 class ParameterMapperTest extends TestCase
@@ -97,6 +98,38 @@ class ParameterMapperTest extends TestCase
                 'inner' => 'inner-value',
             ),
             $serializedParameters
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper::extractUntranslatableParameters
+     */
+    public function testExtractUntranslatableParameters()
+    {
+        $blockDefinition = new BlockDefinition(
+            'block_definition',
+            array(),
+            new BlockDefinitionHandlerWithUntranslatableCompoundParameter()
+        );
+
+        $untranslatableParams = $this->mapper->extractUntranslatableParameters(
+            $blockDefinition,
+            array(
+                'css_id' => 'some-id',
+                'css_class' => 'some-class',
+                'compound' => true,
+                'inner' => 'inner-value',
+            )
+        );
+
+        $this->assertEquals(
+            array(
+                'css_id' => 'some-id',
+                'compound' => true,
+                'inner' => 'inner-value',
+                'other' => null,
+            ),
+            $untranslatableParams
         );
     }
 }

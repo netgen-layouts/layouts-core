@@ -26,7 +26,9 @@ abstract class BlockMapperTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::__construct
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlock
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlockTranslation
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapPlaceholders
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::getBlockLocales
      */
     public function testMapBlock()
     {
@@ -38,10 +40,16 @@ abstract class BlockMapperTest extends ServiceTestCase
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
                 'name' => 'My block',
+                'alwaysAvailable' => false,
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => array('en'),
                 'status' => Value::STATUS_PUBLISHED,
                 'parameters' => array(
-                    'css_class' => 'test',
-                    'some_param' => 'some_value',
+                    'en' => array(
+                        'css_class' => 'test',
+                        'some_param' => 'some_value',
+                    ),
                 ),
                 'config' => array(
                     'http_cache' => array(
@@ -78,6 +86,172 @@ abstract class BlockMapperTest extends ServiceTestCase
 
         $this->assertTrue($httpCacheConfig->getParameter('use_http_cache')->getValue());
         $this->assertEquals(400, $httpCacheConfig->getParameter('shared_max_age')->getValue());
+
+        $this->assertTrue($block->isTranslatable());
+        $this->assertEquals('en', $block->getMainLocale());
+        $this->assertFalse($block->isAlwaysAvailable());
+        $this->assertEquals(array('en'), $block->getAvailableLocales());
+
+        $this->assertCount(1, $block->getTranslations());
+        $this->assertTrue($block->hasTranslation('en'));
+
+        $blockTranslation = $block->getTranslation('en');
+
+        $this->assertEquals('en', $blockTranslation->getLocale());
+        $this->assertTrue($blockTranslation->isMainTranslation());
+
+        $this->assertEquals('test', $blockTranslation->getParameter('css_class')->getValue());
+        $this->assertNull($blockTranslation->getParameter('css_id')->getValue());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::__construct
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlock
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlockTranslation
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapPlaceholders
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::getBlockLocales
+     */
+    public function testMapBlockWithLocales()
+    {
+        $persistenceBlock = new Block(
+            array(
+                'definitionIdentifier' => 'text',
+                'mainLocale' => 'en',
+                'availableLocales' => array('en', 'hr', 'de'),
+                'parameters' => array('en' => array(), 'hr' => array(), 'de' => array()),
+                'config' => array(),
+            )
+        );
+
+        $block = $this->blockMapper->mapBlock($persistenceBlock, array('hr'));
+
+        $this->assertInstanceOf(APIBlock::class, $block);
+        $this->assertEquals(array('hr'), $block->getAvailableLocales());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::__construct
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlock
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlockTranslation
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapPlaceholders
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::getBlockLocales
+     */
+    public function testMapBlockWithAlwaysAvailableBlock()
+    {
+        $persistenceBlock = new Block(
+            array(
+                'definitionIdentifier' => 'text',
+                'alwaysAvailable' => true,
+                'mainLocale' => 'de',
+                'availableLocales' => array('en', 'hr', 'de'),
+                'parameters' => array('en' => array(), 'hr' => array(), 'de' => array()),
+                'config' => array(),
+            )
+        );
+
+        $block = $this->blockMapper->mapBlock($persistenceBlock);
+
+        $this->assertInstanceOf(APIBlock::class, $block);
+        $this->assertEquals(array('en', 'hr', 'de'), $block->getAvailableLocales());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::__construct
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlock
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlockTranslation
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapPlaceholders
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::getBlockLocales
+     */
+    public function testMapBlockWithNotAlwaysAvailableBlock()
+    {
+        $persistenceBlock = new Block(
+            array(
+                'definitionIdentifier' => 'text',
+                'alwaysAvailable' => false,
+                'mainLocale' => 'de',
+                'availableLocales' => array('en', 'hr', 'de'),
+                'parameters' => array('en' => array(), 'hr' => array(), 'de' => array()),
+                'config' => array(),
+            )
+        );
+
+        $block = $this->blockMapper->mapBlock($persistenceBlock);
+
+        $this->assertInstanceOf(APIBlock::class, $block);
+        $this->assertEquals(array('en', 'hr'), $block->getAvailableLocales());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::__construct
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlock
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlockTranslation
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapPlaceholders
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::getBlockLocales
+     */
+    public function testMapBlockWithLocalesAndNoContext()
+    {
+        $persistenceBlock = new Block(
+            array(
+                'definitionIdentifier' => 'text',
+                'mainLocale' => 'en',
+                'availableLocales' => array('en', 'hr', 'de'),
+                'parameters' => array('en' => array(), 'hr' => array(), 'de' => array()),
+                'config' => array(),
+            )
+        );
+
+        $block = $this->blockMapper->mapBlock($persistenceBlock, array('hr'), false);
+
+        $this->assertInstanceOf(APIBlock::class, $block);
+        $this->assertEquals(array('hr'), $block->getAvailableLocales());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::__construct
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlock
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlockTranslation
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapPlaceholders
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::getBlockLocales
+     */
+    public function testMapBlockWithNoContext()
+    {
+        $persistenceBlock = new Block(
+            array(
+                'definitionIdentifier' => 'text',
+                'mainLocale' => 'en',
+                'availableLocales' => array('en', 'hr', 'de'),
+                'parameters' => array('en' => array(), 'hr' => array(), 'de' => array()),
+                'config' => array(),
+            )
+        );
+
+        $block = $this->blockMapper->mapBlock($persistenceBlock, null, false);
+
+        $this->assertInstanceOf(APIBlock::class, $block);
+        $this->assertEquals(array('en', 'hr', 'de'), $block->getAvailableLocales());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::__construct
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlock
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::getBlockLocales
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find block with identifier "42"
+     */
+    public function testMapBlockWithNoLocales()
+    {
+        $persistenceBlock = new Block(
+            array(
+                'id' => 42,
+                'definitionIdentifier' => 'text',
+                'mainLocale' => 'en',
+                'availableLocales' => array('en', 'hr', 'de'),
+                'parameters' => array('en' => array(), 'hr' => array(), 'de' => array()),
+                'config' => array(),
+            )
+        );
+
+        $this->blockMapper->mapBlock($persistenceBlock, array('fr'));
     }
 
     /**
@@ -92,7 +266,11 @@ abstract class BlockMapperTest extends ServiceTestCase
                 'id' => 33,
                 'definitionIdentifier' => 'two_columns',
                 'status' => Value::STATUS_PUBLISHED,
-                'parameters' => array(),
+                'name' => 'My block',
+                'alwaysAvailable' => false,
+                'mainLocale' => 'en',
+                'availableLocales' => array('en'),
+                'parameters' => array('en' => array()),
                 'config' => array(
                     'http_cache' => array(
                         'use_http_cache' => true,
@@ -135,11 +313,16 @@ abstract class BlockMapperTest extends ServiceTestCase
                 'id' => 31,
                 'definitionIdentifier' => 'text',
                 'parameters' => array(
-                    'some_param' => 'some_value',
+                    'en' => array(
+                        'some_param' => 'some_value',
+                    ),
                 ),
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
                 'name' => 'My block',
+                'alwaysAvailable' => false,
+                'mainLocale' => 'en',
+                'availableLocales' => array('en'),
                 'status' => Value::STATUS_PUBLISHED,
                 'config' => array(
                     'http_cache' => array(

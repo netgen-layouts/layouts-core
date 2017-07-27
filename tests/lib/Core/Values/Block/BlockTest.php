@@ -4,9 +4,11 @@ namespace Netgen\BlockManager\Tests\Core\Values\Block;
 
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\Block\Block;
+use Netgen\BlockManager\Core\Values\Block\BlockTranslation;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\Exception\Core\BlockException;
 use Netgen\BlockManager\Exception\Core\ParameterException;
+use Netgen\BlockManager\Exception\Core\TranslationException;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use PHPUnit\Framework\TestCase;
 
@@ -17,9 +19,6 @@ class BlockTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getId
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getLayoutId
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getDefinition
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getParameters
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getParameter
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasParameter
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getPlaceholders
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getPlaceholder
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasPlaceholder
@@ -28,6 +27,13 @@ class BlockTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getName
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::isPublished
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::isTranslatable
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getMainLocale
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::isAlwaysAvailable
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getAvailableLocales
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getTranslations
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getTranslation
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasTranslation
      */
     public function testSetDefaultProperties()
     {
@@ -36,8 +42,6 @@ class BlockTest extends TestCase
         $this->assertNull($block->getId());
         $this->assertNull($block->getLayoutId());
         $this->assertNull($block->getDefinition());
-        $this->assertEquals(array(), $block->getParameters());
-        $this->assertFalse($block->hasParameter('test'));
         $this->assertEquals(array(), $block->getPlaceholders());
         $this->assertFalse($block->hasPlaceholder('test'));
         $this->assertNull($block->getViewType());
@@ -45,16 +49,17 @@ class BlockTest extends TestCase
         $this->assertNull($block->getName());
         $this->assertNull($block->getStatus());
         $this->assertNull($block->isPublished());
+        $this->assertNull($block->isTranslatable());
+        $this->assertNull($block->getMainLocale());
+        $this->assertNull($block->isAlwaysAvailable());
+        $this->assertEquals(array(), $block->getAvailableLocales());
+
+        $this->assertEquals(array(), $block->getTranslations());
+        $this->assertFalse($block->hasTranslation('en'));
 
         try {
-            $block->getParameter('test');
-        } catch (ParameterException $e) {
-            // Do nothing
-        }
-
-        try {
-            $block->getPlaceholder('test');
-        } catch (BlockException $e) {
+            $block->getTranslation('en');
+        } catch (TranslationException $e) {
             // Do nothing
         }
     }
@@ -75,9 +80,26 @@ class BlockTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getName
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::isPublished
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::isTranslatable
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getMainLocale
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::isAlwaysAvailable
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getAvailableLocales
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getTranslations
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getTranslation
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasTranslation
      */
     public function testSetProperties()
     {
+        $blockTranslation = new BlockTranslation(
+            array(
+                'locale' => 'en',
+                'parameters' => array(
+                    'some_param' => 'some_value',
+                    'some_other_param' => 'some_other_value',
+                ),
+            )
+        );
+
         $block = new Block(
             array(
                 'id' => 42,
@@ -91,9 +113,12 @@ class BlockTest extends TestCase
                 'placeholders' => array(
                     'main' => new Placeholder(array('identifier' => 'main')),
                 ),
-                'parameters' => array(
-                    'some_param' => 'some_value',
-                    'some_other_param' => 'some_other_value',
+                'isTranslatable' => true,
+                'mainLocale' => 'en',
+                'alwaysAvailable' => true,
+                'availableLocales' => array('en'),
+                'translations' => array(
+                    'en' => $blockTranslation,
                 ),
             )
         );
@@ -107,11 +132,18 @@ class BlockTest extends TestCase
         $this->assertEquals(new Placeholder(array('identifier' => 'main')), $block->getPlaceholder('main'));
         $this->assertFalse($block->hasPlaceholder('test'));
         $this->assertTrue($block->hasPlaceholder('main'));
+        $this->assertEquals($blockTranslation, $block->getTranslation('en'));
+        $this->assertFalse($block->hasTranslation('hr'));
+        $this->assertTrue($block->hasTranslation('en'));
         $this->assertEquals('default', $block->getViewType());
         $this->assertEquals('standard', $block->getItemViewType());
         $this->assertEquals('My block', $block->getName());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $block->getStatus());
         $this->assertTrue($block->isPublished());
-        $this->assertTrue($block->isPublished());
+        $this->assertTrue($block->isTranslatable());
+        $this->assertEquals('en', $block->getMainLocale());
+        $this->assertEquals(true, $block->isAlwaysAvailable());
+        $this->assertEquals(array('en'), $block->getAvailableLocales());
 
         $this->assertEquals(
             array(
@@ -137,6 +169,19 @@ class BlockTest extends TestCase
         try {
             $block->getPlaceholder('test');
         } catch (BlockException $e) {
+            // Do nothing
+        }
+
+        $this->assertEquals(
+            array(
+                'en' => $blockTranslation,
+            ),
+            $block->getTranslations()
+        );
+
+        try {
+            $block->getTranslation('hr');
+        } catch (TranslationException $e) {
             // Do nothing
         }
     }

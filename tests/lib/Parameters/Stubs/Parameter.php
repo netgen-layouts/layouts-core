@@ -11,8 +11,9 @@ class Parameter extends BaseParameter
      * Constructor.
      *
      * @param array $properties
+     * @param bool $enableTranslatable
      */
-    public function __construct(array $properties = array())
+    public function __construct(array $properties = array(), $enableTranslatable = false)
     {
         $optionsResolver = new OptionsResolver();
 
@@ -26,6 +27,12 @@ class Parameter extends BaseParameter
         $optionsResolver->setDefault('label', null);
         $optionsResolver->setDefault('required', false);
         $optionsResolver->setDefault('groups', array());
+
+        if ($enableTranslatable) {
+            $optionsResolver->setDefined('translatable');
+            $optionsResolver->setAllowedTypes('translatable', 'bool');
+            $optionsResolver->setDefault('translatable', false);
+        }
 
         $options = array_key_exists('options', $properties) ? $properties['options'] : array();
         $options['required'] = array_key_exists('isRequired', $properties) ? $properties['isRequired'] : false;

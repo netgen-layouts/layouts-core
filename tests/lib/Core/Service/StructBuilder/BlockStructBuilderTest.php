@@ -44,6 +44,8 @@ abstract class BlockStructBuilderTest extends ServiceTestCase
         $this->assertEquals(
             new BlockCreateStruct(
                 array(
+                    'isTranslatable' => false,
+                    'alwaysAvailable' => true,
                     'definition' => $blockDefinition,
                     'viewType' => 'small',
                     'itemViewType' => 'standard',
@@ -53,9 +55,7 @@ abstract class BlockStructBuilderTest extends ServiceTestCase
                     ),
                 )
             ),
-            $this->structBuilder->newBlockCreateStruct(
-                $blockDefinition
-            )
+            $this->structBuilder->newBlockCreateStruct($blockDefinition)
         );
     }
 
@@ -64,9 +64,12 @@ abstract class BlockStructBuilderTest extends ServiceTestCase
      */
     public function testNewBlockUpdateStruct()
     {
+        $blockUpdateStruct = new BlockUpdateStruct();
+        $blockUpdateStruct->locale = 'en';
+
         $this->assertEquals(
-            new BlockUpdateStruct(),
-            $this->structBuilder->newBlockUpdateStruct()
+            $blockUpdateStruct,
+            $this->structBuilder->newBlockUpdateStruct('en')
         );
     }
 
@@ -80,6 +83,8 @@ abstract class BlockStructBuilderTest extends ServiceTestCase
         $this->assertEquals(
             new BlockUpdateStruct(
                 array(
+                    'locale' => 'en',
+                    'alwaysAvailable' => true,
                     'viewType' => $block->getViewType(),
                     'itemViewType' => $block->getItemViewType(),
                     'name' => $block->getName(),
@@ -99,7 +104,7 @@ abstract class BlockStructBuilderTest extends ServiceTestCase
                     ),
                 )
             ),
-            $this->structBuilder->newBlockUpdateStruct($block)
+            $this->structBuilder->newBlockUpdateStruct('en', $block)
         );
     }
 }

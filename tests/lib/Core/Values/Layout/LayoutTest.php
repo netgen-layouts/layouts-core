@@ -27,6 +27,8 @@ class LayoutTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getZone
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::hasZone
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::isPublished
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getMainLocale
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getAvailableLocales
      */
     public function testSetDefaultProperties()
     {
@@ -44,6 +46,8 @@ class LayoutTest extends TestCase
         $this->assertNull($layout->getZone('test'));
         $this->assertFalse($layout->hasZone('test'));
         $this->assertNull($layout->isPublished());
+        $this->assertNull($layout->getMainLocale());
+        $this->assertEquals(array(), $layout->getAvailableLocales());
     }
 
     /**
@@ -66,6 +70,8 @@ class LayoutTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::offsetGet
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::offsetSet
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::offsetUnset
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getMainLocale
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getAvailableLocales
      */
     public function testSetProperties()
     {
@@ -92,6 +98,8 @@ class LayoutTest extends TestCase
                 'shared' => true,
                 'zones' => $zones,
                 'published' => true,
+                'mainLocale' => 'en',
+                'availableLocales' => array('en'),
             )
         );
 
@@ -110,6 +118,8 @@ class LayoutTest extends TestCase
         $this->assertEquals($zones['right'], $layout->getZone('right', true));
         $this->assertTrue($layout->hasZone('right'));
         $this->assertTrue($layout->isPublished());
+        $this->assertEquals('en', $layout->getMainLocale());
+        $this->assertEquals(array('en'), $layout->getAvailableLocales());
 
         $this->assertInstanceOf(Traversable::class, $layout->getIterator());
         $this->assertEquals($zones, iterator_to_array($layout->getIterator()));

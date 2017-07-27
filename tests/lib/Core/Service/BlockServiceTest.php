@@ -226,6 +226,10 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $collection = $this->collectionService->loadCollectionDraft(6);
         $this->assertEquals(Collection::TYPE_MANUAL, $collection->getType());
+
+        $this->assertFalse($block->isTranslatable());
+        $this->assertContains('en', $block->getAvailableLocales());
+        $this->assertTrue($block->hasTranslation('en'));
     }
 
     /**
@@ -259,6 +263,10 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertInstanceOf(Config::class, $httpCacheConfig);
         $this->assertTrue($httpCacheConfig->getParameter('use_http_cache')->getValue());
         $this->assertEquals(400, $httpCacheConfig->getParameter('shared_max_age')->getValue());
+
+        $this->assertFalse($block->isTranslatable());
+        $this->assertContains('en', $block->getAvailableLocales());
+        $this->assertTrue($block->hasTranslation('en'));
     }
 
     /**
@@ -582,12 +590,13 @@ abstract class BlockServiceTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlockTranslations
      */
     public function testUpdateBlock()
     {
         $block = $this->blockService->loadBlockDraft(31);
 
-        $blockUpdateStruct = $this->blockService->newBlockUpdateStruct();
+        $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('hr');
         $blockUpdateStruct->viewType = 'small';
         $blockUpdateStruct->name = 'Super cool block';
         $blockUpdateStruct->setParameterValue('css_class', 'test_value');
@@ -600,18 +609,87 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertEquals('small', $block->getViewType());
         $this->assertEquals('Super cool block', $block->getName());
 
-        $this->assertEquals('test_value', $block->getParameter('css_class')->getValue());
-        $this->assertEquals('some_other_test_value', $block->getParameter('css_id')->getValue());
+        $this->assertEquals('css-class', $block->getTranslation('en')->getParameter('css_class')->getValue());
+        $this->assertEquals('css-id', $block->getTranslation('en')->getParameter('css_id')->getValue());
+
+        $this->assertEquals('test_value', $block->getTranslation('hr')->getParameter('css_class')->getValue());
+
+        // CSS ID is untranslatable, meaning it keeps the value from main locale
+        $this->assertEquals('css-id', $block->getTranslation('hr')->getParameter('css_id')->getValue());
     }
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlockTranslations
+     */
+    public function testUpdateBlockInMainLocale()
+    {
+        $block = $this->blockService->loadBlockDraft(31);
+
+        $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('en');
+        $blockUpdateStruct->viewType = 'small';
+        $blockUpdateStruct->name = 'Super cool block';
+        $blockUpdateStruct->setParameterValue('css_class', 'test_value');
+        $blockUpdateStruct->setParameterValue('css_id', 'some_other_test_value');
+
+        $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
+
+        $this->assertFalse($block->isPublished());
+        $this->assertInstanceOf(Block::class, $block);
+        $this->assertEquals('small', $block->getViewType());
+        $this->assertEquals('Super cool block', $block->getName());
+
+        $this->assertEquals('test_value', $block->getTranslation('en')->getParameter('css_class')->getValue());
+        $this->assertEquals('some_other_test_value', $block->getTranslation('en')->getParameter('css_id')->getValue());
+
+        $this->assertEquals('css-class-hr', $block->getTranslation('hr')->getParameter('css_class')->getValue());
+
+        // CSS ID is untranslatable, meaning it receives the value from the main locale
+        $this->assertEquals('some_other_test_value', $block->getTranslation('hr')->getParameter('css_id')->getValue());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlockTranslations
+     */
+    public function testUpdateBlockWithUntranslatableParameters()
+    {
+        $block = $this->blockService->loadBlockDraft(31);
+
+        $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('en');
+        $blockUpdateStruct->setParameterValue('css_id', 'some_other_test_value');
+        $blockUpdateStruct->setParameterValue('css_class', 'english_css');
+
+        $this->blockService->updateBlock($block, $blockUpdateStruct);
+
+        $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('hr');
+        $blockUpdateStruct->setParameterValue('css_id', 'some_other_test_value_2');
+        $blockUpdateStruct->setParameterValue('css_class', 'croatian_css');
+
+        $this->blockService->updateBlock($block, $blockUpdateStruct);
+
+        // Reload the block with all translations
+        $block = $this->blockService->loadBlockDraft(31, null, false);
+
+        $englishTranslation = $block->getTranslation('en');
+        $croatianTranslation = $block->getTranslation('hr');
+
+        $this->assertEquals('english_css', $englishTranslation->getParameter('css_class')->getValue());
+        $this->assertEquals('some_other_test_value', $englishTranslation->getParameter('css_id')->getValue());
+
+        $this->assertEquals('croatian_css', $croatianTranslation->getParameter('css_class')->getValue());
+        $this->assertEquals('some_other_test_value', $croatianTranslation->getParameter('css_id')->getValue());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlockTranslations
      */
     public function testUpdateBlockWithConfig()
     {
         $block = $this->blockService->loadBlockDraft(32);
 
-        $blockUpdateStruct = $this->blockService->newBlockUpdateStruct();
+        $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('hr');
 
         $httpCacheConfigStruct = new ConfigStruct();
         $httpCacheConfigStruct->setParameterValue('use_http_cache', true);
@@ -634,12 +712,13 @@ abstract class BlockServiceTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlockTranslations
      */
     public function testUpdateBlockWithBlankName()
     {
         $block = $this->blockService->loadBlockDraft(31);
 
-        $blockUpdateStruct = $this->blockService->newBlockUpdateStruct();
+        $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('en');
         $blockUpdateStruct->viewType = 'small';
         $blockUpdateStruct->setParameterValue('css_class', 'test_value');
         $blockUpdateStruct->setParameterValue('css_id', 'some_other_test_value');
@@ -657,12 +736,13 @@ abstract class BlockServiceTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlockTranslations
      */
     public function testUpdateBlockWithBlankViewType()
     {
         $block = $this->blockService->loadBlockDraft(31);
 
-        $blockUpdateStruct = $this->blockService->newBlockUpdateStruct();
+        $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('en');
         $blockUpdateStruct->name = 'Super cool block';
         $blockUpdateStruct->setParameterValue('css_class', 'test_value');
         $blockUpdateStruct->setParameterValue('css_id', 'some_other_test_value');
@@ -687,7 +767,25 @@ abstract class BlockServiceTest extends ServiceTestCase
     {
         $block = $this->blockService->loadBlock(31);
 
-        $blockUpdateStruct = $this->blockService->newBlockUpdateStruct();
+        $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('en');
+        $blockUpdateStruct->viewType = 'small';
+        $blockUpdateStruct->name = 'Super cool block';
+        $blockUpdateStruct->setParameterValue('css_class', 'test_value');
+        $blockUpdateStruct->setParameterValue('css_id', 'some_other_test_value');
+
+        $this->blockService->updateBlock($block, $blockUpdateStruct);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "block" has an invalid state. Block does not have the specified translation.
+     */
+    public function testUpdateBlockThrowsBadStateExceptionWithNonExistingLocale()
+    {
+        $block = $this->blockService->loadBlockDraft(31);
+
+        $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('de');
         $blockUpdateStruct->viewType = 'small';
         $blockUpdateStruct->name = 'Super cool block';
         $blockUpdateStruct->setParameterValue('css_class', 'test_value');
@@ -702,7 +800,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     public function testCopyBlock()
     {
         $copiedBlock = $this->blockService->copyBlock(
-            $this->blockService->loadBlockDraft(31),
+            $this->blockService->loadBlockDraft(34),
             $this->blockService->loadBlockDraft(33),
             'left'
         );
@@ -724,7 +822,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     public function testCopyBlockThrowsBadStateExceptionWithNonDraftBlock()
     {
         $this->blockService->copyBlock(
-            $this->blockService->loadBlock(31),
+            $this->blockService->loadBlock(34),
             $this->blockService->loadBlockDraft(33),
             'main'
         );
@@ -738,7 +836,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     public function testCopyBlockThrowsBadStateExceptionWithNonDraftTargetBlock()
     {
         $this->blockService->copyBlock(
-            $this->blockService->loadBlockDraft(31),
+            $this->blockService->loadBlockDraft(34),
             $this->blockService->loadBlock(33),
             'main'
         );
@@ -752,8 +850,8 @@ abstract class BlockServiceTest extends ServiceTestCase
     public function testCopyBlockThrowsBadStateExceptionWithNonContainerTargetBlock()
     {
         $this->blockService->copyBlock(
-            $this->blockService->loadBlockDraft(31),
-            $this->blockService->loadBlockDraft(32),
+            $this->blockService->loadBlockDraft(34),
+            $this->blockService->loadBlockDraft(37),
             'main'
         );
     }
@@ -766,7 +864,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     public function testCopyBlockThrowsBadStateExceptionWithNoPlaceholder()
     {
         $this->blockService->copyBlock(
-            $this->blockService->loadBlockDraft(31),
+            $this->blockService->loadBlockDraft(34),
             $this->blockService->loadBlockDraft(33),
             'non_existing'
         );
@@ -783,6 +881,20 @@ abstract class BlockServiceTest extends ServiceTestCase
             $this->blockService->loadBlockDraft(33),
             $this->blockService->loadBlockDraft(38),
             'main'
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "targetBlock" has an invalid state. You can only copy block to blocks in the same layout.
+     */
+    public function testCopyBlockThrowsBadStateExceptionWhenTargetBlockIsInDifferentLayout()
+    {
+        $this->blockService->copyBlock(
+            $this->blockService->loadBlockDraft(31),
+            $this->blockService->loadBlockDraft(33),
+            'left'
         );
     }
 
@@ -845,13 +957,26 @@ abstract class BlockServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "zone" has an invalid state. You can only copy block to zone in the same layout.
+     */
+    public function testCopyBlockToZoneThrowsBadStateExceptionWhenZoneIsInDifferentLayout()
+    {
+        $this->blockService->copyBlockToZone(
+            $this->blockService->loadBlockDraft(32),
+            $this->layoutService->loadZoneDraft(4, 'bottom')
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalMoveBlock
      */
     public function testMoveBlock()
     {
         $movedBlock = $this->blockService->moveBlock(
-            $this->blockService->loadBlockDraft(32),
+            $this->blockService->loadBlockDraft(34),
             $this->blockService->loadBlockDraft(33),
             'left',
             0
@@ -859,7 +984,7 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $this->assertFalse($movedBlock->isPublished());
         $this->assertInstanceOf(Block::class, $movedBlock);
-        $this->assertEquals(32, $movedBlock->getId());
+        $this->assertEquals(34, $movedBlock->getId());
 
         $targetBlock = $this->blockService->loadBlockDraft(33);
         $leftPlaceholder = $targetBlock->getPlaceholder('left');
@@ -971,7 +1096,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     public function testMoveBlockThrowsBadStateExceptionWithNoPlaceholder()
     {
         $this->blockService->moveBlock(
-            $this->blockService->loadBlockDraft(31),
+            $this->blockService->loadBlockDraft(34),
             $this->blockService->loadBlockDraft(33),
             'non_existing',
             0
@@ -1001,10 +1126,25 @@ abstract class BlockServiceTest extends ServiceTestCase
     public function testMoveBlockThrowsBadStateExceptionWhenPositionIsTooLarge()
     {
         $this->blockService->moveBlock(
-            $this->blockService->loadBlockDraft(32),
+            $this->blockService->loadBlockDraft(34),
             $this->blockService->loadBlockDraft(33),
             'left',
             9999
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "targetBlock" has an invalid state. You can only move block to blocks in the same layout.
+     */
+    public function testMoveBlockThrowsBadStateExceptionWhenTargetBlockIsInDifferentLayout()
+    {
+        $this->blockService->moveBlock(
+            $this->blockService->loadBlockDraft(31),
+            $this->blockService->loadBlockDraft(33),
+            'left',
+            0
         );
     }
 
@@ -1145,8 +1285,8 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertEquals('standard_with_intro', $restoredBlock->getItemViewType());
         $this->assertEquals('My published block', $restoredBlock->getName());
 
-        $this->assertEquals('some-class', $block->getParameter('css_class')->getValue());
-        $this->assertNull($block->getParameter('css_id')->getValue());
+        $this->assertEquals('some-class', $restoredBlock->getParameter('css_class')->getValue());
+        $this->assertNull($restoredBlock->getParameter('css_id')->getValue());
 
         $collectionReferences = $this->blockService->loadCollectionReferences($restoredBlock);
         $this->assertCount(2, $collectionReferences);
@@ -1176,6 +1316,90 @@ abstract class BlockServiceTest extends ServiceTestCase
         $block = $this->blockService->loadBlock(31);
 
         $this->blockService->restoreBlock($block);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::enableTranslations
+     */
+    public function testEnableTranslations()
+    {
+        $block = $this->blockService->loadBlockDraft(35);
+
+        $updatedBlock = $this->blockService->enableTranslations($block);
+
+        $layout = $this->layoutService->loadLayoutDraft($block->getLayoutId());
+        foreach ($layout->getAvailableLocales() as $locale) {
+            $this->assertContains($locale, $updatedBlock->getAvailableLocales());
+            $this->assertTrue($updatedBlock->hasTranslation($locale));
+        }
+
+        $this->assertTrue($updatedBlock->isTranslatable());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::enableTranslations
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "block" has an invalid state. You can only enable translations for draft blocks.
+     */
+    public function testEnableTranslationsThrowsBadStateExceptionWithNonDraftBlock()
+    {
+        $block = $this->blockService->loadBlock(35);
+
+        $this->blockService->enableTranslations($block);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::enableTranslations
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "block" has an invalid state. Block is already translatable.
+     */
+    public function testEnableTranslationsThrowsBadStateExceptionWithEnabledTranslations()
+    {
+        $block = $this->blockService->loadBlockDraft(31);
+
+        $this->blockService->enableTranslations($block);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::disableTranslations
+     */
+    public function testDisableTranslations()
+    {
+        $block = $this->blockService->loadBlockDraft(31);
+
+        $updatedBlock = $this->blockService->disableTranslations($block);
+
+        $this->assertFalse($updatedBlock->isTranslatable());
+
+        $this->assertNotContains('hr', $updatedBlock->getAvailableLocales());
+        $this->assertFalse($updatedBlock->hasTranslation('hr'));
+
+        $this->assertContains('en', $updatedBlock->getAvailableLocales());
+        $this->assertTrue($updatedBlock->hasTranslation('en'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::disableTranslations
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "block" has an invalid state. You can only disable translations for draft blocks.
+     */
+    public function testDisableTranslationsThrowsBadStateExceptionWithNonDraftBlock()
+    {
+        $block = $this->blockService->loadBlock(31);
+
+        $this->blockService->disableTranslations($block);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::disableTranslations
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "block" has an invalid state. Block is not translatable.
+     */
+    public function testDisableTranslationsThrowsBadStateExceptionWithDisabledTranslations()
+    {
+        $block = $this->blockService->loadBlockDraft(35);
+
+        $this->blockService->disableTranslations($block);
     }
 
     /**
@@ -1212,6 +1436,8 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertEquals(
             new BlockCreateStruct(
                 array(
+                    'isTranslatable' => false,
+                    'alwaysAvailable' => true,
                     'definition' => $blockDefinition,
                     'viewType' => 'small',
                     'itemViewType' => 'standard',
@@ -1221,9 +1447,7 @@ abstract class BlockServiceTest extends ServiceTestCase
                     ),
                 )
             ),
-            $this->blockService->newBlockCreateStruct(
-                $blockDefinition
-            )
+            $this->blockService->newBlockCreateStruct($blockDefinition)
         );
     }
 
@@ -1232,9 +1456,12 @@ abstract class BlockServiceTest extends ServiceTestCase
      */
     public function testNewBlockUpdateStruct()
     {
+        $blockUpdateStruct = new BlockUpdateStruct();
+        $blockUpdateStruct->locale = 'en';
+
         $this->assertEquals(
-            new BlockUpdateStruct(),
-            $this->blockService->newBlockUpdateStruct()
+            $blockUpdateStruct,
+            $this->blockService->newBlockUpdateStruct('en')
         );
     }
 
@@ -1248,6 +1475,8 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertEquals(
             new BlockUpdateStruct(
                 array(
+                    'locale' => 'en',
+                    'alwaysAvailable' => true,
                     'viewType' => $block->getViewType(),
                     'itemViewType' => $block->getItemViewType(),
                     'name' => $block->getName(),
@@ -1267,7 +1496,7 @@ abstract class BlockServiceTest extends ServiceTestCase
                     ),
                 )
             ),
-            $this->blockService->newBlockUpdateStruct($block)
+            $this->blockService->newBlockUpdateStruct('en', $block)
         );
     }
 }

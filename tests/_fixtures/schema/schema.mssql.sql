@@ -3,7 +3,9 @@ IF OBJECT_ID('dbo.ngbm_collection_item', 'U') IS NOT NULL DROP TABLE dbo.ngbm_co
 IF OBJECT_ID('dbo.ngbm_collection_query', 'U') IS NOT NULL DROP TABLE dbo.ngbm_collection_query;
 IF OBJECT_ID('dbo.ngbm_collection', 'U') IS NOT NULL DROP TABLE dbo.ngbm_collection;
 IF OBJECT_ID('dbo.ngbm_zone', 'U') IS NOT NULL DROP TABLE dbo.ngbm_zone;
+IF OBJECT_ID('dbo.ngbm_block_translation', 'U') IS NOT NULL DROP TABLE dbo.ngbm_block_translation;
 IF OBJECT_ID('dbo.ngbm_block', 'U') IS NOT NULL DROP TABLE dbo.ngbm_block;
+IF OBJECT_ID('dbo.ngbm_layout_translation', 'U') IS NOT NULL DROP TABLE dbo.ngbm_layout_translation;
 IF OBJECT_ID('dbo.ngbm_layout', 'U') IS NOT NULL DROP TABLE dbo.ngbm_layout;
 IF OBJECT_ID('dbo.ngbm_rule_target', 'U') IS NOT NULL DROP TABLE dbo.ngbm_rule_target;
 IF OBJECT_ID('dbo.ngbm_rule_condition', 'U') IS NOT NULL DROP TABLE dbo.ngbm_rule_condition;
@@ -19,7 +21,17 @@ CREATE TABLE ngbm_layout (
   created int NOT NULL,
   modified int NOT NULL,
   shared tinyint NOT NULL,
+  main_locale nvarchar(255) NOT NULL,
   PRIMARY KEY (id, status)
+);
+
+CREATE TABLE ngbm_layout_translation (
+  layout_id int NOT NULL,
+  status int NOT NULL,
+  locale nvarchar(255) NOT NULL,
+  PRIMARY KEY (layout_id, status, locale),
+  FOREIGN KEY (layout_id, status)
+    REFERENCES ngbm_layout (id, status)
 );
 
 CREATE TABLE ngbm_block (
@@ -35,11 +47,23 @@ CREATE TABLE ngbm_block (
   view_type nvarchar(255) NOT NULL,
   item_view_type nvarchar(255) NOT NULL,
   name nvarchar(255) NOT NULL,
-  parameters nvarchar(max) NOT NULL,
   config nvarchar(max) NOT NULL,
+  translatable tinyint NOT NULL,
+  main_locale nvarchar(255) NOT NULL,
+  always_available tinyint NOT NULL,
   PRIMARY KEY (id, status),
   FOREIGN KEY (layout_id, status)
     REFERENCES ngbm_layout (id, status)
+);
+
+CREATE TABLE ngbm_block_translation (
+  block_id int NOT NULL,
+  status int NOT NULL,
+  locale nvarchar(255) NOT NULL,
+  parameters nvarchar(max) NOT NULL,
+  PRIMARY KEY (block_id, status, locale),
+  FOREIGN KEY (block_id, status)
+    REFERENCES ngbm_block (id, status)
 );
 
 CREATE TABLE ngbm_zone (

@@ -6,6 +6,11 @@
     "shared": false,
     "name": "My new layout name",
     "description": "My new layout description",
+    "main_locale": "en",
+    "available_locales": {
+        "en": "English",
+        "hr": "Croatian"
+    },
     "zones": [
         {
             "identifier": "bottom",

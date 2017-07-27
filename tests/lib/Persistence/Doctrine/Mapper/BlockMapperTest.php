@@ -22,6 +22,7 @@ class BlockMapperTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper::mapBlocks
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper::buildParameters
      */
     public function testMapBlocks()
     {
@@ -40,6 +41,10 @@ class BlockMapperTest extends TestCase
                 'view_type' => 'default',
                 'item_view_type' => 'standard',
                 'name' => 'My block',
+                'locale' => 'en',
+                'translatable' => false,
+                'main_locale' => 'en',
+                'always_available' => true,
                 'status' => Value::STATUS_PUBLISHED,
             ),
             array(
@@ -56,6 +61,10 @@ class BlockMapperTest extends TestCase
                 'view_type' => 'small',
                 'item_view_type' => 'standard',
                 'name' => 'My other block',
+                'translatable' => true,
+                'locale' => 'en',
+                'main_locale' => 'en',
+                'always_available' => true,
                 'status' => Value::STATUS_PUBLISHED,
             ),
         );
@@ -74,9 +83,15 @@ class BlockMapperTest extends TestCase
                     'viewType' => 'default',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
+                    'isTranslatable' => false,
+                    'mainLocale' => 'en',
+                    'alwaysAvailable' => true,
+                    'availableLocales' => array('en'),
                     'status' => Value::STATUS_PUBLISHED,
                     'parameters' => array(
-                        'param1' => 'param2',
+                        'en' => array(
+                            'param1' => 'param2',
+                        ),
                     ),
                     'config' => array(
                         'config1' => 'config2',
@@ -96,9 +111,15 @@ class BlockMapperTest extends TestCase
                     'viewType' => 'small',
                     'itemViewType' => 'standard',
                     'name' => 'My other block',
+                    'isTranslatable' => true,
+                    'mainLocale' => 'en',
+                    'alwaysAvailable' => true,
+                    'availableLocales' => array('en'),
                     'status' => Value::STATUS_PUBLISHED,
                     'parameters' => array(
-                        'param1' => 42,
+                        'en' => array(
+                            'param1' => 42,
+                        ),
                     ),
                     'config' => array(
                         'config1' => 42,

@@ -34,6 +34,8 @@ class LayoutMapperTest extends TestCase
                 'created' => 123,
                 'modified' => 456,
                 'status' => Value::STATUS_PUBLISHED,
+                'main_locale' => 'en',
+                'locale' => 'en',
                 'shared' => true,
             ),
             array(
@@ -44,6 +46,8 @@ class LayoutMapperTest extends TestCase
                 'created' => 789,
                 'modified' => 111,
                 'status' => Value::STATUS_PUBLISHED,
+                'main_locale' => 'en',
+                'locale' => 'en',
                 'shared' => false,
             ),
         );
@@ -58,6 +62,8 @@ class LayoutMapperTest extends TestCase
                     'created' => 123,
                     'modified' => 456,
                     'status' => Value::STATUS_PUBLISHED,
+                    'mainLocale' => 'en',
+                    'availableLocales' => array('en'),
                     'shared' => true,
                 )
             ),
@@ -70,6 +76,8 @@ class LayoutMapperTest extends TestCase
                     'created' => 789,
                     'modified' => 111,
                     'status' => Value::STATUS_PUBLISHED,
+                    'mainLocale' => 'en',
+                    'availableLocales' => array('en'),
                     'shared' => false,
                 )
             ),

@@ -417,7 +417,8 @@ abstract class LayoutServiceTest extends ServiceTestCase
     {
         $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
             $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
-            'My new layout'
+            'My new layout',
+            'en'
         );
 
         $createdLayout = $this->layoutService->createLayout($layoutCreateStruct);
@@ -435,10 +436,152 @@ abstract class LayoutServiceTest extends ServiceTestCase
     {
         $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
             $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
-            'My layout'
+            'My layout',
+            'en'
         );
 
         $this->layoutService->createLayout($layoutCreateStruct);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::addTranslation
+     */
+    public function testAddTranslation()
+    {
+        $layout = $this->layoutService->loadLayoutDraft(1);
+        $layout = $this->layoutService->addTranslation($layout, 'de');
+
+        $this->assertEquals(array('en', 'hr', 'de'), $layout->getAvailableLocales());
+
+        $layoutBlocks = $this->blockService->loadLayoutBlocks($layout, null, false);
+        foreach ($layoutBlocks as $layoutBlock) {
+            $layoutBlock->isTranslatable() ?
+                $this->assertContains('de', $layoutBlock->getAvailableLocales()) :
+                $this->assertNotContains('de', $layoutBlock->getAvailableLocales());
+
+            $layoutBlock->isTranslatable() ?
+                $this->assertTrue($layoutBlock->hasTranslation('de')) :
+                $this->assertFalse($layoutBlock->hasTranslation('de'));
+        }
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::addTranslation
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "layout" has an invalid state. You can only add translation to draft layouts.
+     */
+    public function testAddTranslationThrowsBadStateExceptionWithNonDraftLayout()
+    {
+        $layout = $this->layoutService->loadLayout(1);
+
+        $this->layoutService->addTranslation($layout, 'de');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::addTranslation
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "locale" has an invalid state. Layout already has the provided locale.
+     */
+    public function testAddTranslationThrowsBadStateExceptionWithExistingLocale()
+    {
+        $layout = $this->layoutService->loadLayoutDraft(1);
+
+        $this->layoutService->addTranslation($layout, 'en');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::setMainTranslation
+     */
+    public function testSetMainTranslation()
+    {
+        $layout = $this->layoutService->loadLayoutDraft(1);
+
+        $layout = $this->layoutService->setMainTranslation($layout, 'hr');
+
+        $this->assertEquals('hr', $layout->getMainLocale());
+        $this->assertEquals(array('en', 'hr'), $layout->getAvailableLocales());
+
+        $layoutBlocks = $this->blockService->loadLayoutBlocks($layout, null, false);
+        foreach ($layoutBlocks as $layoutBlock) {
+            $this->assertEquals('hr', $layoutBlock->getMainLocale());
+        }
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::setMainTranslation
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "layout" has an invalid state. You can only set main translation in draft layouts.
+     */
+    public function testSetMainTranslationThrowsBadStateExceptionWithNonDraftLayout()
+    {
+        $layout = $this->layoutService->loadLayout(1);
+
+        $this->layoutService->setMainTranslation($layout, 'hr');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::setMainTranslation
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "mainLocale" has an invalid state. Layout does not have the provided locale.
+     */
+    public function testSetMainTranslationThrowsBadStateExceptionWithNonExistingLocale()
+    {
+        $layout = $this->layoutService->loadLayoutDraft(1);
+
+        $this->layoutService->setMainTranslation($layout, 'de');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::removeTranslation
+     */
+    public function testRemoveTranslation()
+    {
+        $layout = $this->layoutService->loadLayoutDraft(1);
+
+        $layout = $this->layoutService->removeTranslation($layout, 'hr');
+        $this->assertNotContains('hr', $layout->getAvailableLocales());
+
+        $layoutBlocks = $this->blockService->loadLayoutBlocks($layout, null, false);
+        foreach ($layoutBlocks as $layoutBlock) {
+            $this->assertNotContains('hr', $layoutBlock->getAvailableLocales());
+            $this->assertFalse($layoutBlock->hasTranslation('hr'));
+        }
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::removeTranslation
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "layout" has an invalid state. You can only remove translations from draft layouts.
+     */
+    public function testRemoveTranslationThrowsBadStateExceptionWithNonDraftLayout()
+    {
+        $layout = $this->layoutService->loadLayout(1);
+
+        $this->layoutService->removeTranslation($layout, 'hr');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::removeTranslation
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "locale" has an invalid state. Layout does not have the provided locale.
+     */
+    public function testRemoveTranslationThrowsBadStateExceptionWithNonExistingLocale()
+    {
+        $layout = $this->layoutService->loadLayoutDraft(1);
+
+        $this->layoutService->removeTranslation($layout, 'de');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::removeTranslation
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "locale" has an invalid state. Main translation cannot be removed from the layout.
+     */
+    public function testRemoveTranslationThrowsBadStateExceptionWithMainLocale()
+    {
+        $layout = $this->layoutService->loadLayoutDraft(1);
+
+        $this->layoutService->removeTranslation($layout, 'en');
     }
 
     /**
@@ -727,11 +870,13 @@ abstract class LayoutServiceTest extends ServiceTestCase
                 array(
                     'layoutType' => new LayoutType(array('identifier' => '4_zones_a')),
                     'name' => 'New layout',
+                    'mainLocale' => 'en',
                 )
             ),
             $this->layoutService->newLayoutCreateStruct(
                 new LayoutType(array('identifier' => '4_zones_a')),
-                'New layout'
+                'New layout',
+                'en'
             )
         );
     }

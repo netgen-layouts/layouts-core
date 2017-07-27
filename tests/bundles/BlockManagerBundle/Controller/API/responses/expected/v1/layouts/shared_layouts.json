@@ -9,6 +9,10 @@
         "shared": true,
         "name": "My fifth layout",
         "description": "My fifth layout description",
+        "main_locale": "en",
+        "available_locales": {
+            "en": "English"
+        },
         "zones": [
             {
                 "identifier": "bottom",
@@ -54,6 +58,10 @@
         "shared": true,
         "name": "My third layout",
         "description": "My third layout description",
+        "main_locale": "en",
+        "available_locales": {
+            "en": "English"
+        },
         "zones": [
             {
                 "identifier": "bottom",

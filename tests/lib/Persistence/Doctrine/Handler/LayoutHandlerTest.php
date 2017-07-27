@@ -74,6 +74,8 @@ class LayoutHandlerTest extends TestCase
                     'modified' => 1447065813,
                     'status' => Value::STATUS_PUBLISHED,
                     'shared' => false,
+                    'mainLocale' => 'en',
+                    'availableLocales' => array('en', 'hr'),
                 )
             ),
             $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED)
@@ -143,6 +145,8 @@ class LayoutHandlerTest extends TestCase
                         'modified' => 1447065813,
                         'status' => Value::STATUS_PUBLISHED,
                         'shared' => false,
+                        'mainLocale' => 'en',
+                        'availableLocales' => array('en', 'hr'),
                     )
                 ),
                 new Layout(
@@ -155,6 +159,8 @@ class LayoutHandlerTest extends TestCase
                         'modified' => 1447065813,
                         'status' => Value::STATUS_PUBLISHED,
                         'shared' => false,
+                        'mainLocale' => 'en',
+                        'availableLocales' => array('en'),
                     )
                 ),
                 new Layout(
@@ -167,6 +173,8 @@ class LayoutHandlerTest extends TestCase
                         'modified' => 1447065813,
                         'status' => Value::STATUS_PUBLISHED,
                         'shared' => false,
+                        'mainLocale' => 'en',
+                        'availableLocales' => array('en'),
                     )
                 ),
             ),
@@ -193,6 +201,8 @@ class LayoutHandlerTest extends TestCase
                         'modified' => 1447065813,
                         'status' => Value::STATUS_DRAFT,
                         'shared' => false,
+                        'mainLocale' => 'en',
+                        'availableLocales' => array('en'),
                     )
                 ),
                 new Layout(
@@ -205,6 +215,8 @@ class LayoutHandlerTest extends TestCase
                         'modified' => 1447065813,
                         'status' => Value::STATUS_PUBLISHED,
                         'shared' => false,
+                        'mainLocale' => 'en',
+                        'availableLocales' => array('en', 'hr'),
                     )
                 ),
                 new Layout(
@@ -217,6 +229,8 @@ class LayoutHandlerTest extends TestCase
                         'modified' => 1447065813,
                         'status' => Value::STATUS_PUBLISHED,
                         'shared' => false,
+                        'mainLocale' => 'en',
+                        'availableLocales' => array('en'),
                     )
                 ),
                 new Layout(
@@ -229,6 +243,8 @@ class LayoutHandlerTest extends TestCase
                         'modified' => 1447065813,
                         'status' => Value::STATUS_DRAFT,
                         'shared' => false,
+                        'mainLocale' => 'en',
+                        'availableLocales' => array('en'),
                     )
                 ),
                 new Layout(
@@ -241,6 +257,8 @@ class LayoutHandlerTest extends TestCase
                         'modified' => 1447065813,
                         'status' => Value::STATUS_PUBLISHED,
                         'shared' => false,
+                        'mainLocale' => 'en',
+                        'availableLocales' => array('en'),
                     )
                 ),
             ),
@@ -267,6 +285,8 @@ class LayoutHandlerTest extends TestCase
                         'modified' => 1447065813,
                         'status' => Value::STATUS_PUBLISHED,
                         'shared' => true,
+                        'mainLocale' => 'en',
+                        'availableLocales' => array('en'),
                     )
                 ),
                 new Layout(
@@ -279,6 +299,8 @@ class LayoutHandlerTest extends TestCase
                         'modified' => 1447065813,
                         'status' => Value::STATUS_PUBLISHED,
                         'shared' => true,
+                        'mainLocale' => 'en',
+                        'availableLocales' => array('en'),
                     )
                 ),
             ),
@@ -305,6 +327,8 @@ class LayoutHandlerTest extends TestCase
                         'modified' => 1447065813,
                         'status' => Value::STATUS_PUBLISHED,
                         'shared' => false,
+                        'mainLocale' => 'en',
+                        'availableLocales' => array('en'),
                     )
                 ),
             ),
@@ -526,6 +550,7 @@ class LayoutHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::createLayout
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayout
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayoutTranslation
      */
     public function testCreateLayout()
     {
@@ -535,6 +560,7 @@ class LayoutHandlerTest extends TestCase
         $layoutCreateStruct->description = 'New description';
         $layoutCreateStruct->shared = true;
         $layoutCreateStruct->status = Value::STATUS_DRAFT;
+        $layoutCreateStruct->mainLocale = 'en';
 
         $createdLayout = $this->layoutHandler->createLayout($layoutCreateStruct);
 
@@ -546,12 +572,95 @@ class LayoutHandlerTest extends TestCase
         $this->assertEquals('New description', $createdLayout->description);
         $this->assertEquals(Value::STATUS_DRAFT, $createdLayout->status);
         $this->assertTrue($createdLayout->shared);
+        $this->assertEquals('en', $createdLayout->mainLocale);
 
         $this->assertInternalType('int', $createdLayout->created);
         $this->assertGreaterThan(0, $createdLayout->created);
 
         $this->assertInternalType('int', $createdLayout->modified);
         $this->assertGreaterThan(0, $createdLayout->modified);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::createLayoutTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayoutTranslation
+     */
+    public function testCreateLayoutTranslation()
+    {
+        $layout = $this->layoutHandler->createLayoutTranslation(
+            $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
+            'de',
+            'en'
+        );
+
+        $this->assertInstanceOf(Layout::class, $layout);
+
+        $this->assertEquals('en', $layout->mainLocale);
+        $this->assertEquals(array('en', 'hr', 'de'), $layout->availableLocales);
+
+        $layoutBlocks = $this->blockHandler->loadLayoutBlocks($layout);
+        foreach ($layoutBlocks as $layoutBlock) {
+            $layoutBlock->isTranslatable ?
+                $this->assertContains('de', $layoutBlock->availableLocales) :
+                $this->assertNotContains('de', $layoutBlock->availableLocales);
+        }
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::createLayoutTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayoutTranslation
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "locale" has an invalid state. Layout already has the provided locale.
+     */
+    public function testCreateLayoutTranslationThrowsBadStateExceptionWithExistingLocale()
+    {
+        $this->layoutHandler->createLayoutTranslation(
+            $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
+            'en',
+            'hr'
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::createLayoutTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayoutTranslation
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "sourceLocale" has an invalid state. Layout does not have the provided source locale.
+     */
+    public function testCreateLayoutTranslationThrowsBadStateExceptionWithNonExistingSourceLocale()
+    {
+        $this->layoutHandler->createLayoutTranslation(
+            $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
+            'de',
+            'fr'
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::setMainTranslation
+     */
+    public function testSetMainTranslation()
+    {
+        $layout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
+        $layout = $this->layoutHandler->setMainTranslation($layout, 'hr');
+
+        $this->assertEquals('hr', $layout->mainLocale);
+
+        $layoutBlocks = $this->blockHandler->loadLayoutBlocks($layout);
+        foreach ($layoutBlocks as $layoutBlock) {
+            $this->assertEquals('hr', $layoutBlock->mainLocale);
+        }
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::setMainTranslation
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "mainLocale" has an invalid state. Layout does not have the provided locale.
+     */
+    public function testSetMainTranslationThrowsBadStateExceptionWithNonExistingLocale()
+    {
+        $layout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
+        $this->layoutHandler->setMainTranslation($layout, 'de');
     }
 
     /**
@@ -593,8 +702,12 @@ class LayoutHandlerTest extends TestCase
                     'viewType' => '',
                     'itemViewType' => '',
                     'name' => '',
+                    'isTranslatable' => false,
+                    'mainLocale' => 'en',
+                    'alwaysAvailable' => true,
+                    'availableLocales' => array('en'),
                     'status' => Value::STATUS_DRAFT,
-                    'parameters' => array(),
+                    'parameters' => array('en' => array()),
                     'config' => array(),
                 )
             ),
@@ -649,6 +762,7 @@ class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::copyLayout
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::createZone
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayout
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayoutTranslation
      */
     public function testCopyLayout()
     {
@@ -679,6 +793,8 @@ class LayoutHandlerTest extends TestCase
         $this->assertEquals('New description', $copiedLayout->description);
         $this->assertEquals(Value::STATUS_PUBLISHED, $copiedLayout->status);
         $this->assertFalse($copiedLayout->shared);
+        $this->assertEquals('en', $copiedLayout->mainLocale);
+        $this->assertEquals(array('en', 'hr'), $copiedLayout->availableLocales);
 
         $this->assertGreaterThan(0, $copiedLayout->created);
         $this->assertGreaterThan(0, $copiedLayout->modified);
@@ -744,9 +860,18 @@ class LayoutHandlerTest extends TestCase
                         'viewType' => 'grid',
                         'itemViewType' => 'standard',
                         'name' => 'My other block',
+                        'isTranslatable' => true,
+                        'mainLocale' => 'en',
+                        'alwaysAvailable' => true,
+                        'availableLocales' => array('en', 'hr'),
                         'status' => Value::STATUS_PUBLISHED,
                         'parameters' => array(
-                            'number_of_columns' => 3,
+                            'en' => array(
+                                'number_of_columns' => 3,
+                            ),
+                            'hr' => array(
+                                'number_of_columns' => 3,
+                            ),
                         ),
                         'config' => array(
                             'http_cache' => array(
@@ -776,9 +901,18 @@ class LayoutHandlerTest extends TestCase
                         'viewType' => 'grid',
                         'itemViewType' => 'standard_with_intro',
                         'name' => 'My published block',
+                        'isTranslatable' => true,
+                        'mainLocale' => 'en',
+                        'alwaysAvailable' => true,
+                        'availableLocales' => array('en', 'hr'),
                         'status' => Value::STATUS_PUBLISHED,
                         'parameters' => array(
-                            'number_of_columns' => 3,
+                            'en' => array(
+                                'number_of_columns' => 3,
+                            ),
+                            'hr' => array(
+                                'number_of_columns' => 3,
+                            ),
                         ),
                         'config' => array(),
                     )
@@ -796,9 +930,15 @@ class LayoutHandlerTest extends TestCase
                         'viewType' => 'grid',
                         'itemViewType' => 'standard',
                         'name' => 'My fourth block',
+                        'isTranslatable' => false,
+                        'mainLocale' => 'en',
+                        'alwaysAvailable' => true,
+                        'availableLocales' => array('en'),
                         'status' => Value::STATUS_PUBLISHED,
                         'parameters' => array(
-                            'number_of_columns' => 3,
+                            'en' => array(
+                                'number_of_columns' => 3,
+                            ),
                         ),
                         'config' => array(),
                     )
@@ -941,9 +1081,18 @@ class LayoutHandlerTest extends TestCase
                         'viewType' => 'grid',
                         'itemViewType' => 'standard',
                         'name' => 'My other block',
+                        'isTranslatable' => true,
+                        'mainLocale' => 'en',
+                        'alwaysAvailable' => true,
+                        'availableLocales' => array('en', 'hr'),
                         'status' => Value::STATUS_DRAFT,
                         'parameters' => array(
-                            'number_of_columns' => 3,
+                            'en' => array(
+                                'number_of_columns' => 3,
+                            ),
+                            'hr' => array(
+                                'number_of_columns' => 3,
+                            ),
                         ),
                         'config' => array(
                             'http_cache' => array(
@@ -965,9 +1114,21 @@ class LayoutHandlerTest extends TestCase
                         'viewType' => 'list',
                         'itemViewType' => 'standard',
                         'name' => 'My block',
+                        'isTranslatable' => true,
+                        'mainLocale' => 'en',
+                        'alwaysAvailable' => true,
+                        'availableLocales' => array('en', 'hr'),
                         'status' => Value::STATUS_DRAFT,
                         'parameters' => array(
-                            'number_of_columns' => 2,
+                            'en' => array(
+                                'number_of_columns' => 2,
+                                'css_class' => 'css-class',
+                                'css_id' => 'css-id',
+                            ),
+                            'hr' => array(
+                                'css_class' => 'css-class-hr',
+                                'css_id' => 'css-id',
+                            ),
                         ),
                         'config' => array(),
                     )
@@ -985,9 +1146,15 @@ class LayoutHandlerTest extends TestCase
                         'viewType' => 'grid',
                         'itemViewType' => 'standard',
                         'name' => 'My fourth block',
+                        'isTranslatable' => false,
+                        'mainLocale' => 'en',
+                        'alwaysAvailable' => true,
+                        'availableLocales' => array('en'),
                         'status' => Value::STATUS_DRAFT,
                         'parameters' => array(
-                            'number_of_columns' => 3,
+                            'en' => array(
+                                'number_of_columns' => 3,
+                            ),
                         ),
                         'config' => array(),
                     )
@@ -1046,6 +1213,8 @@ class LayoutHandlerTest extends TestCase
         $this->assertEquals('My layout description', $copiedLayout->description);
         $this->assertEquals(Value::STATUS_ARCHIVED, $copiedLayout->status);
         $this->assertFalse($copiedLayout->shared);
+        $this->assertEquals('en', $copiedLayout->mainLocale);
+        $this->assertEquals(array('en', 'hr'), $copiedLayout->availableLocales);
 
         $this->assertGreaterThan(0, $copiedLayout->created);
         $this->assertGreaterThan(0, $copiedLayout->modified);
@@ -1111,9 +1280,18 @@ class LayoutHandlerTest extends TestCase
                         'viewType' => 'grid',
                         'itemViewType' => 'standard',
                         'name' => 'My other block',
+                        'isTranslatable' => true,
+                        'mainLocale' => 'en',
+                        'alwaysAvailable' => true,
+                        'availableLocales' => array('en', 'hr'),
                         'status' => Value::STATUS_ARCHIVED,
                         'parameters' => array(
-                            'number_of_columns' => 3,
+                            'en' => array(
+                                'number_of_columns' => 3,
+                            ),
+                            'hr' => array(
+                                'number_of_columns' => 3,
+                            ),
                         ),
                         'config' => array(
                             'http_cache' => array(
@@ -1143,9 +1321,18 @@ class LayoutHandlerTest extends TestCase
                         'viewType' => 'grid',
                         'itemViewType' => 'standard_with_intro',
                         'name' => 'My published block',
+                        'isTranslatable' => true,
+                        'mainLocale' => 'en',
+                        'alwaysAvailable' => true,
+                        'availableLocales' => array('en', 'hr'),
                         'status' => Value::STATUS_ARCHIVED,
                         'parameters' => array(
-                            'number_of_columns' => 3,
+                            'en' => array(
+                                'number_of_columns' => 3,
+                            ),
+                            'hr' => array(
+                                'number_of_columns' => 3,
+                            ),
                         ),
                         'config' => array(),
                     )
@@ -1163,9 +1350,15 @@ class LayoutHandlerTest extends TestCase
                         'viewType' => 'grid',
                         'itemViewType' => 'standard',
                         'name' => 'My fourth block',
+                        'isTranslatable' => false,
+                        'mainLocale' => 'en',
+                        'alwaysAvailable' => true,
+                        'availableLocales' => array('en'),
                         'status' => Value::STATUS_ARCHIVED,
                         'parameters' => array(
-                            'number_of_columns' => 3,
+                            'en' => array(
+                                'number_of_columns' => 3,
+                            ),
                         ),
                         'config' => array(),
                     )
@@ -1271,5 +1464,54 @@ class LayoutHandlerTest extends TestCase
 
         $this->assertCount(1, $publishedReferences);
         $this->assertEquals(4, $publishedReferences[0]->collectionId);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::deleteLayoutTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutTranslations
+     */
+    public function testDeleteLayoutTranslation()
+    {
+        $layout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
+
+        $layout = $this->layoutHandler->deleteLayoutTranslation($layout, 'hr');
+
+        $this->assertInstanceOf(Layout::class, $layout);
+
+        $this->assertEquals('en', $layout->mainLocale);
+        $this->assertEquals(array('en'), $layout->availableLocales);
+
+        $layoutBlocks = $this->blockHandler->loadLayoutBlocks($layout);
+        foreach ($layoutBlocks as $layoutBlock) {
+            $this->assertNotContains('hr', $layoutBlock->availableLocales);
+        }
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::deleteLayoutTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutTranslations
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "locale" has an invalid state. Layout does not have the provided locale.
+     */
+    public function testDeleteLayoutTranslationWithNonExistingLocale()
+    {
+        $this->layoutHandler->deleteLayoutTranslation(
+            $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
+            'de'
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::deleteLayoutTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutTranslations
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "locale" has an invalid state. Main translation cannot be removed from the layout.
+     */
+    public function testDeleteLayoutTranslationWithMainLocale()
+    {
+        $this->layoutHandler->deleteLayoutTranslation(
+            $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
+            'en'
+        );
     }
 }

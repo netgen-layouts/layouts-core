@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\Core\Values\Block\Block;
+use Netgen\BlockManager\Core\Values\Block\BlockTranslation;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer;
@@ -52,23 +53,32 @@ class BlockNormalizerTest extends TestCase
                 'definition' => new BlockDefinition('text'),
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
+                'name' => 'My block',
                 'status' => Value::STATUS_PUBLISHED,
                 'published' => true,
-                'name' => 'My block',
                 'placeholders' => array(
                     'main' => new Placeholder(array('identifier' => 'main')),
                 ),
-                'parameters' => array(
-                    'some_param' => new ParameterValue(
+                'isTranslatable' => true,
+                'availableLocales' => array('en'),
+                'mainLocale' => 'en',
+                'translations' => array(
+                    'en' => new BlockTranslation(
                         array(
-                            'name' => 'some_param',
-                            'value' => 'some_value',
-                        )
-                    ),
-                    'some_other_param' => new ParameterValue(
-                        array(
-                            'name' => 'some_other_param',
-                            'value' => 'some_other_value',
+                        'parameters' => array(
+                            'some_param' => new ParameterValue(
+                                array(
+                                    'name' => 'some_param',
+                                    'value' => 'some_value',
+                                )
+                            ),
+                            'some_other_param' => new ParameterValue(
+                                array(
+                                    'name' => 'some_other_param',
+                                    'value' => 'some_other_value',
+                                )
+                            ),
+                        ),
                         )
                     ),
                 ),
@@ -108,6 +118,11 @@ class BlockNormalizerTest extends TestCase
                 'item_view_type' => $block->getItemViewType(),
                 'published' => true,
                 'has_published_state' => true,
+                'is_translatable' => $block->isTranslatable(),
+                'locale' => $block->getTranslation()->getLocale(),
+                'main_locale' => $block->getMainLocale(),
+                'always_available' => $block->isAlwaysAvailable(),
+                'available_locales' => $block->getAvailableLocales(),
                 'is_container' => false,
                 'is_dynamic_container' => false,
                 'placeholders' => array('normalized placeholders'),

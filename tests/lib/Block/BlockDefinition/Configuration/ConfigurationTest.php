@@ -22,6 +22,7 @@ class ConfigurationTest extends TestCase
                 'identifier' => 'block_definition',
                 'name' => 'Block definition',
                 'icon' => '/icon.svg',
+                'isTranslatable' => true,
                 'forms' => array(
                     'content' => new Form(array('identifier' => 'content')),
                 ),
@@ -51,6 +52,14 @@ class ConfigurationTest extends TestCase
     public function testGetIcon()
     {
         $this->assertEquals('/icon.svg', $this->configuration->getIcon());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration::isTranslatable
+     */
+    public function testIsTranslatable()
+    {
+        $this->assertTrue($this->configuration->isTranslatable());
     }
 
     /**

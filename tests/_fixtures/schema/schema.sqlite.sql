@@ -8,7 +8,18 @@ CREATE TABLE `ngbm_layout` (
   `created` integer NOT NULL,
   `modified` integer NOT NULL,
   `shared` integer NOT NULL,
+  `main_locale` text(255) NOT NULL,
   PRIMARY KEY (`id`, `status`)
+);
+
+DROP TABLE IF EXISTS `ngbm_layout_translation`;
+CREATE TABLE `ngbm_layout_translation` (
+  `layout_id` integer NOT NULL,
+  `status` integer NOT NULL,
+  `locale` text(255) NOT NULL,
+  PRIMARY KEY (`layout_id`, `status`, `locale`),
+  FOREIGN KEY (`layout_id`, `status`)
+    REFERENCES `ngbm_layout` (`id`, `status`)
 );
 
 DROP TABLE IF EXISTS `ngbm_block`;
@@ -25,11 +36,24 @@ CREATE TABLE `ngbm_block` (
   `view_type` text(255) NOT NULL,
   `item_view_type` text(255) NOT NULL,
   `name` text(255) NOT NULL,
-  `parameters` text NOT NULL,
   `config` text NOT NULL,
+  `translatable` integer NOT NULL,
+  `main_locale` text(255) NOT NULL,
+  `always_available` integer NOT NULL,
   PRIMARY KEY (`id`, `status`),
   FOREIGN KEY (`layout_id`, `status`)
     REFERENCES `ngbm_layout` (`id`, `status`)
+);
+
+DROP TABLE IF EXISTS `ngbm_block_translation`;
+CREATE TABLE `ngbm_block_translation` (
+  `block_id` integer NOT NULL,
+  `status` integer NOT NULL,
+  `locale` text(255) NOT NULL,
+  `parameters` text NOT NULL,
+  PRIMARY KEY (`block_id`, `status`, `locale`),
+  FOREIGN KEY (`block_id`, `status`)
+    REFERENCES `ngbm_block` (`id`, `status`)
 );
 
 DROP TABLE IF EXISTS `ngbm_zone`;

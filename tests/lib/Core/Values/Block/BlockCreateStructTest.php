@@ -16,6 +16,8 @@ class BlockCreateStructTest extends TestCase
         $this->assertNull($blockCreateStruct->viewType);
         $this->assertNull($blockCreateStruct->itemViewType);
         $this->assertNull($blockCreateStruct->name);
+        $this->assertNull($blockCreateStruct->isTranslatable);
+        $this->assertNull($blockCreateStruct->alwaysAvailable);
     }
 
     public function testSetProperties()
@@ -26,6 +28,8 @@ class BlockCreateStructTest extends TestCase
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
                 'name' => 'My block',
+                'isTranslatable' => true,
+                'alwaysAvailable' => false,
             )
         );
 
@@ -33,5 +37,7 @@ class BlockCreateStructTest extends TestCase
         $this->assertEquals('default', $blockCreateStruct->viewType);
         $this->assertEquals('standard', $blockCreateStruct->itemViewType);
         $this->assertEquals('My block', $blockCreateStruct->name);
+        $this->assertTrue($blockCreateStruct->isTranslatable);
+        $this->assertFalse($blockCreateStruct->alwaysAvailable);
     }
 }

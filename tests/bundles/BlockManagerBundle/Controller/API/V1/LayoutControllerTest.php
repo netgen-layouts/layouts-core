@@ -506,6 +506,7 @@ class LayoutControllerTest extends JsonApiTestCase
                 'layout_type' => '4_zones_a',
                 'name' => 'My new layout',
                 'description' => 'My new layout description',
+                'locale' => 'en',
             )
         );
 
@@ -536,6 +537,7 @@ class LayoutControllerTest extends JsonApiTestCase
             array(
                 'layout_type' => '4_zones_a',
                 'name' => 'My new layout',
+                'locale' => 'en',
             )
         );
 
@@ -567,6 +569,7 @@ class LayoutControllerTest extends JsonApiTestCase
                 'layout_type' => '4_zones_a',
                 'name' => 'My new layout',
                 'description' => '',
+                'locale' => 'en',
             )
         );
 
@@ -597,6 +600,7 @@ class LayoutControllerTest extends JsonApiTestCase
             array(
                 'layout_type' => 42,
                 'name' => 'My new layout',
+                'locale' => 'en',
             )
         );
 
@@ -625,6 +629,7 @@ class LayoutControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             array(
                 'name' => 'My new layout',
+                'locale' => 'en',
             )
         );
 
@@ -654,6 +659,7 @@ class LayoutControllerTest extends JsonApiTestCase
             array(
                 'layout_type' => '4_zones_a',
                 'name' => 42,
+                'locale' => 'en',
             )
         );
 
@@ -682,6 +688,7 @@ class LayoutControllerTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             array(
                 'layout_type' => '4_zones_a',
+                'locale' => 'en',
             )
         );
 
@@ -712,6 +719,7 @@ class LayoutControllerTest extends JsonApiTestCase
                 'layout_type' => '4_zones_a',
                 'name' => 'My name',
                 'description' => 42,
+                'locale' => 'en',
             )
         );
 
@@ -735,12 +743,105 @@ class LayoutControllerTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::create
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\LayoutValidator::validateCreateLayout
      */
+    public function testCreateWithInvalidLocale()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'layout_type' => '4_zones_a',
+                'name' => 'My new layout',
+                'description' => 'My new layout description',
+                'locale' => 42,
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/layouts',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "locale": This value should be of type string.'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::create
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\LayoutValidator::validateCreateLayout
+     */
+    public function testCreateWithMissingLocale()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'layout_type' => '4_zones_a',
+                'name' => 'My new layout',
+                'description' => 'My new layout description',
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/layouts',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "locale": This value should not be blank.'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::create
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\LayoutValidator::validateCreateLayout
+     */
+    public function testCreateWithNonExistentLocale()
+    {
+        $data = $this->jsonEncode(
+            array(
+                'layout_type' => '4_zones_a',
+                'name' => 'My new layout',
+                'description' => 'My new layout description',
+                'locale' => 'unknown',
+            )
+        );
+
+        $this->client->request(
+            'POST',
+            '/bm/api/v1/layouts',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "locale": This value is not a valid locale.'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::create
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\LayoutValidator::validateCreateLayout
+     */
     public function testCreateWithNonExistingLayoutType()
     {
         $data = $this->jsonEncode(
             array(
                 'layout_type' => 'unknown',
                 'name' => 'My new layout',
+                'locale' => 'en',
             )
         );
 
@@ -770,6 +871,7 @@ class LayoutControllerTest extends JsonApiTestCase
             array(
                 'layout_type' => '4_zones_a',
                 'name' => 'My layout',
+                'locale' => 'en',
             )
         );
 

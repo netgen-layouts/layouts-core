@@ -40,7 +40,8 @@ class BlockDefinitionHandlerWithCompoundParameter extends BaseBlockDefinitionHan
                 'name' => 'compound',
                 'type' => new ParameterType\Compound\BooleanType(),
                 'groups' => $this->parameterGroups,
-            )
+            ),
+            true
         );
 
         $compoundParam->setParameters(
@@ -50,7 +51,8 @@ class BlockDefinitionHandlerWithCompoundParameter extends BaseBlockDefinitionHan
                         'name' => 'inner',
                         'type' => new ParameterType\TextLineType(),
                         'groups' => $this->parameterGroups,
-                    )
+                    ),
+                    true
                 ),
             )
         );
@@ -62,14 +64,16 @@ class BlockDefinitionHandlerWithCompoundParameter extends BaseBlockDefinitionHan
                     'type' => new ParameterType\TextLineType(),
                     'defaultValue' => 'some-class',
                     'groups' => $this->parameterGroups,
-                )
+                ),
+                true
             ),
             'css_id' => new Parameter(
                 array(
                     'name' => 'css_id',
                     'type' => new ParameterType\TextLineType(),
                     'groups' => $this->parameterGroups,
-                )
+                ),
+                true
             ),
             'compound' => $compoundParam,
         );

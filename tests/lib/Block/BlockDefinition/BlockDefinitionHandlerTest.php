@@ -5,9 +5,9 @@ namespace Netgen\BlockManager\Tests\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
 use Netgen\BlockManager\Block\DynamicParameters;
 use Netgen\BlockManager\Core\Values\Block\Block;
-use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
+use Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory;
 use PHPUnit\Framework\TestCase;
 
 class BlockDefinitionHandlerTest extends TestCase
@@ -35,7 +35,7 @@ class BlockDefinitionHandlerTest extends TestCase
         $this->parameterTypeRegistry->addParameterType(new ParameterType\TextLineType());
         $this->parameterTypeRegistry->addParameterType(new ParameterType\BooleanType());
 
-        $this->parameterBuilderFactory = new ParameterBuilderFactory(
+        $this->parameterBuilderFactory = new TranslatableParameterBuilderFactory(
             $this->parameterTypeRegistry
         );
     }

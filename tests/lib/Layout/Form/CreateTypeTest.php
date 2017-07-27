@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\Layout\Form\CreateType;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Layout\Type\LayoutType;
+use Netgen\BlockManager\Locale\LocaleProviderInterface;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,6 +16,11 @@ class CreateTypeTest extends FormTestCase
      * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface
      */
     protected $layoutTypeRegistry;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $localeProviderMock;
 
     public function setUp()
     {
@@ -42,6 +48,12 @@ class CreateTypeTest extends FormTestCase
             )
         );
 
+        $this->localeProviderMock = $this->createMock(LocaleProviderInterface::class);
+        $this->localeProviderMock
+            ->expects($this->any())
+            ->method('getAvailableLocales')
+            ->will($this->returnValue(array('en' => 'English')));
+
         parent::setUp();
     }
 
@@ -50,7 +62,7 @@ class CreateTypeTest extends FormTestCase
      */
     public function getMainType()
     {
-        return new CreateType($this->layoutTypeRegistry);
+        return new CreateType($this->layoutTypeRegistry, $this->localeProviderMock);
     }
 
     /**
@@ -64,6 +76,7 @@ class CreateTypeTest extends FormTestCase
             'name' => 'My layout',
             'layoutType' => '4_zones_a',
             'shared' => true,
+            'mainLocale' => 'en',
         );
 
         $updatedStruct = new LayoutCreateStruct();
@@ -76,6 +89,7 @@ class CreateTypeTest extends FormTestCase
             )
         );
         $updatedStruct->shared = true;
+        $updatedStruct->mainLocale = 'en';
 
         $form = $this->factory->create(
             CreateType::class,

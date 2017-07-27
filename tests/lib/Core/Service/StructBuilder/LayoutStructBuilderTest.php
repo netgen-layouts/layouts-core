@@ -41,11 +41,13 @@ abstract class LayoutStructBuilderTest extends ServiceTestCase
                 array(
                     'layoutType' => new LayoutType(array('identifier' => '4_zones_a')),
                     'name' => 'New layout',
+                    'mainLocale' => 'en',
                 )
             ),
             $this->structBuilder->newLayoutCreateStruct(
                 new LayoutType(array('identifier' => '4_zones_a')),
-                'New layout'
+                'New layout',
+                'en'
             )
         );
     }

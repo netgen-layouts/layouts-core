@@ -8,6 +8,11 @@
     "shared": false,
     "name": "My layout",
     "description": "My layout description",
+    "main_locale": "en",
+    "available_locales": {
+        "en": "English",
+        "hr": "Croatian"
+    },
     "zones": [
         {
             "identifier": "bottom",

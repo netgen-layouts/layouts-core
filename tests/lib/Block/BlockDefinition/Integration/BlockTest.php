@@ -12,8 +12,8 @@ use Netgen\BlockManager\Core\Service\Validator\ConfigValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
-use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
 use Netgen\BlockManager\Parameters\ParameterType;
+use Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use Symfony\Component\Validator\Validation;
@@ -59,7 +59,7 @@ abstract class BlockTest extends ServiceTestCase
     public function testCreateBlock(array $parameters, array $expectedParameters)
     {
         $blockDefinition = $this->createBlockDefinition(array_keys($expectedParameters));
-        $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition, 'en');
         $blockCreateStruct->viewType = 'default';
         $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->fill($blockDefinition, $parameters);
@@ -98,7 +98,7 @@ abstract class BlockTest extends ServiceTestCase
             $testedParams !== null ? $testedParams : array_keys($parameters)
         );
 
-        $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition, 'en');
         $blockCreateStruct->viewType = 'default';
         $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->fill($blockDefinition, $parameters);
@@ -163,7 +163,7 @@ abstract class BlockTest extends ServiceTestCase
         $handler = $this->createBlockDefinitionHandler();
         $configuration = $this->createBlockConfiguration();
 
-        $builderFactory = new ParameterBuilderFactory($this->parameterTypeRegistry);
+        $builderFactory = new TranslatableParameterBuilderFactory($this->parameterTypeRegistry);
         $parameterBuilder = $builderFactory->createParameterBuilder();
         $handler->buildParameters($parameterBuilder);
         $parameters = $parameterBuilder->buildParameters();

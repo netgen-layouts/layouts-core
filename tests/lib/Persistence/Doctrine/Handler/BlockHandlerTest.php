@@ -10,6 +10,7 @@ use Netgen\BlockManager\Persistence\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\Block\TranslationUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
@@ -75,12 +76,21 @@ class BlockHandlerTest extends TestCase
                     'position' => 0,
                     'definitionIdentifier' => 'list',
                     'parameters' => array(
-                        'number_of_columns' => 3,
+                        'en' => array(
+                            'number_of_columns' => 3,
+                        ),
+                        'hr' => array(
+                            'number_of_columns' => 3,
+                        ),
                     ),
                     'config' => array(),
                     'viewType' => 'grid',
                     'itemViewType' => 'standard_with_intro',
                     'name' => 'My published block',
+                    'isTranslatable' => true,
+                    'alwaysAvailable' => true,
+                    'availableLocales' => array('en', 'hr'),
+                    'mainLocale' => 'en',
                     'status' => Value::STATUS_PUBLISHED,
                 )
             ),
@@ -173,9 +183,18 @@ class BlockHandlerTest extends TestCase
                         'viewType' => 'grid',
                         'itemViewType' => 'standard_with_intro',
                         'name' => 'My published block',
+                        'isTranslatable' => true,
+                        'alwaysAvailable' => true,
+                        'availableLocales' => array('en', 'hr'),
+                        'mainLocale' => 'en',
                         'status' => Value::STATUS_PUBLISHED,
                         'parameters' => array(
-                            'number_of_columns' => 3,
+                            'en' => array(
+                                'number_of_columns' => 3,
+                            ),
+                            'hr' => array(
+                                'number_of_columns' => 3,
+                            ),
                         ),
                         'config' => array(),
                     )
@@ -193,9 +212,15 @@ class BlockHandlerTest extends TestCase
                         'viewType' => 'grid',
                         'itemViewType' => 'standard',
                         'name' => 'My fourth block',
+                        'isTranslatable' => false,
+                        'alwaysAvailable' => true,
+                        'availableLocales' => array('en'),
+                        'mainLocale' => 'en',
                         'status' => Value::STATUS_PUBLISHED,
                         'parameters' => array(
-                            'number_of_columns' => 3,
+                            'en' => array(
+                                'number_of_columns' => 3,
+                            ),
                         ),
                         'config' => array(),
                     )
@@ -228,9 +253,15 @@ class BlockHandlerTest extends TestCase
                         'viewType' => 'text',
                         'itemViewType' => 'standard',
                         'name' => 'My seventh block',
+                        'isTranslatable' => false,
+                        'alwaysAvailable' => true,
+                        'availableLocales' => array('en'),
+                        'mainLocale' => 'en',
                         'status' => Value::STATUS_DRAFT,
                         'parameters' => array(
-                            'content' => 'Text',
+                            'en' => array(
+                                'content' => 'Text',
+                            ),
                         ),
                         'config' => array(),
                     )
@@ -336,13 +367,15 @@ class BlockHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
     public function testCreateBlock()
     {
         $blockCreateStruct = new BlockCreateStruct();
-        $blockCreateStruct->layoutId = 1;
-        $blockCreateStruct->status = VAlue::STATUS_DRAFT;
+        $blockCreateStruct->isTranslatable = true;
+        $blockCreateStruct->alwaysAvailable = true;
+        $blockCreateStruct->status = Value::STATUS_DRAFT;
         $blockCreateStruct->definitionIdentifier = 'new_block';
         $blockCreateStruct->position = 0;
         $blockCreateStruct->viewType = 'large';
@@ -371,9 +404,18 @@ class BlockHandlerTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
+                    'isTranslatable' => true,
+                    'alwaysAvailable' => true,
+                    'mainLocale' => 'en',
+                    'availableLocales' => array('en', 'hr'),
                     'status' => Value::STATUS_DRAFT,
                     'parameters' => array(
-                        'a_param' => 'A value',
+                        'en' => array(
+                            'a_param' => 'A value',
+                        ),
+                        'hr' => array(
+                            'a_param' => 'A value',
+                        ),
                     ),
                     'config' => array(
                         'config_param' => 'Config value',
@@ -382,6 +424,7 @@ class BlockHandlerTest extends TestCase
             ),
             $this->blockHandler->createBlock(
                 $blockCreateStruct,
+                $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
                 $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
                 'root'
             )
@@ -392,6 +435,143 @@ class BlockHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlockTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
+     */
+    public function testCreateBlockTranslation()
+    {
+        $block = $this->blockHandler->createBlockTranslation(
+            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            'de',
+            'en'
+        );
+
+        $this->assertEquals(
+            new Block(
+                array(
+                    'id' => 31,
+                    'layoutId' => 1,
+                    'depth' => 1,
+                    'path' => '/3/31/',
+                    'parentId' => 3,
+                    'placeholder' => 'root',
+                    'position' => 0,
+                    'definitionIdentifier' => 'list',
+                    'viewType' => 'list',
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
+                    'isTranslatable' => true,
+                    'alwaysAvailable' => true,
+                    'availableLocales' => array('en', 'hr', 'de'),
+                    'mainLocale' => 'en',
+                    'status' => Value::STATUS_DRAFT,
+                    'parameters' => array(
+                        'en' => array(
+                            'number_of_columns' => 2,
+                            'css_class' => 'css-class',
+                            'css_id' => 'css-id',
+                        ),
+                        'hr' => array(
+                            'css_class' => 'css-class-hr',
+                            'css_id' => 'css-id',
+                        ),
+                        'de' => array(
+                            'number_of_columns' => 2,
+                            'css_class' => 'css-class',
+                            'css_id' => 'css-id',
+                        ),
+                    ),
+                    'config' => array(),
+                )
+            ),
+            $block
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlockTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
+     */
+    public function testCreateBlockTranslationWithNonMainSourceLocale()
+    {
+        $block = $this->blockHandler->createBlockTranslation(
+            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            'de',
+            'hr'
+        );
+
+        $this->assertEquals(
+            new Block(
+                array(
+                    'id' => 31,
+                    'layoutId' => 1,
+                    'depth' => 1,
+                    'path' => '/3/31/',
+                    'parentId' => 3,
+                    'placeholder' => 'root',
+                    'position' => 0,
+                    'definitionIdentifier' => 'list',
+                    'viewType' => 'list',
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
+                    'isTranslatable' => true,
+                    'alwaysAvailable' => true,
+                    'availableLocales' => array('en', 'hr', 'de'),
+                    'mainLocale' => 'en',
+                    'status' => Value::STATUS_DRAFT,
+                    'parameters' => array(
+                        'en' => array(
+                            'number_of_columns' => 2,
+                            'css_class' => 'css-class',
+                            'css_id' => 'css-id',
+                        ),
+                        'hr' => array(
+                            'css_class' => 'css-class-hr',
+                            'css_id' => 'css-id',
+                        ),
+                        'de' => array(
+                            'css_class' => 'css-class-hr',
+                            'css_id' => 'css-id',
+                        ),
+                    ),
+                    'config' => array(),
+                )
+            ),
+            $block
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlockTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "locale" has an invalid state. Block already has the provided locale.
+     */
+    public function testCreateBlockTranslationThrowsBadStateExceptionWithExistingLocale()
+    {
+        $this->blockHandler->createBlockTranslation(
+            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            'en',
+            'hr'
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlockTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "locale" has an invalid state. Block does not have the provided source locale.
+     */
+    public function testCreateBlockTranslationThrowsBadStateExceptionWithNonExistingSourceLocale()
+    {
+        $this->blockHandler->createBlockTranslation(
+            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            'de',
+            'fr'
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
@@ -399,8 +579,9 @@ class BlockHandlerTest extends TestCase
     public function testCreateBlockWithNoParent()
     {
         $blockCreateStruct = new BlockCreateStruct();
-        $blockCreateStruct->layoutId = 1;
-        $blockCreateStruct->status = VAlue::STATUS_DRAFT;
+        $blockCreateStruct->isTranslatable = false;
+        $blockCreateStruct->alwaysAvailable = true;
+        $blockCreateStruct->status = Value::STATUS_DRAFT;
         $blockCreateStruct->definitionIdentifier = 'new_block';
         $blockCreateStruct->position = 0;
         $blockCreateStruct->viewType = 'large';
@@ -422,23 +603,32 @@ class BlockHandlerTest extends TestCase
                     'layoutId' => 1,
                     'depth' => 0,
                     'path' => '/39/',
-                    'parentId' => 0,
+                    'parentId' => null,
                     'placeholder' => null,
-                    'position' => 0,
+                    'position' => null,
                     'definitionIdentifier' => 'new_block',
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
+                    'isTranslatable' => false,
+                    'alwaysAvailable' => true,
+                    'mainLocale' => 'en',
+                    'availableLocales' => array('en'),
                     'status' => Value::STATUS_DRAFT,
                     'parameters' => array(
-                        'a_param' => 'A value',
+                        'en' => array(
+                            'a_param' => 'A value',
+                        ),
                     ),
                     'config' => array(
                         'config_param' => 'Config value',
                     ),
                 )
             ),
-            $this->blockHandler->createBlock($blockCreateStruct)
+            $this->blockHandler->createBlock(
+                $blockCreateStruct,
+                $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT)
+            )
         );
     }
 
@@ -450,8 +640,9 @@ class BlockHandlerTest extends TestCase
     public function testCreateBlockWithNoPosition()
     {
         $blockCreateStruct = new BlockCreateStruct();
-        $blockCreateStruct->layoutId = 1;
-        $blockCreateStruct->status = VAlue::STATUS_DRAFT;
+        $blockCreateStruct->isTranslatable = true;
+        $blockCreateStruct->alwaysAvailable = true;
+        $blockCreateStruct->status = Value::STATUS_DRAFT;
         $blockCreateStruct->definitionIdentifier = 'new_block';
         $blockCreateStruct->viewType = 'large';
         $blockCreateStruct->itemViewType = 'standard';
@@ -479,9 +670,18 @@ class BlockHandlerTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
+                    'isTranslatable' => true,
+                    'alwaysAvailable' => true,
+                    'mainLocale' => 'en',
+                    'availableLocales' => array('en', 'hr'),
                     'status' => Value::STATUS_DRAFT,
                     'parameters' => array(
-                        'a_param' => 'A value',
+                        'en' => array(
+                            'a_param' => 'A value',
+                        ),
+                        'hr' => array(
+                            'a_param' => 'A value',
+                        ),
                     ),
                     'config' => array(
                         'config' => 'Config value',
@@ -490,9 +690,40 @@ class BlockHandlerTest extends TestCase
             ),
             $this->blockHandler->createBlock(
                 $blockCreateStruct,
+                $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
                 $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
                 'root'
             )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "targetBlock" has an invalid state. Target block is not in the provided layout.
+     */
+    public function testCreateBlockThrowsBadStateExceptionOnTargetBlockInDifferentLayout()
+    {
+        $blockCreateStruct = new BlockCreateStruct();
+        $blockCreateStruct->isTranslatable = true;
+        $blockCreateStruct->alwaysAvailable = true;
+        $blockCreateStruct->status = Value::STATUS_DRAFT;
+        $blockCreateStruct->definitionIdentifier = 'new_block';
+        $blockCreateStruct->position = 0;
+        $blockCreateStruct->viewType = 'large';
+        $blockCreateStruct->itemViewType = 'standard';
+        $blockCreateStruct->name = 'My block';
+
+        $blockCreateStruct->parameters = array(
+            'a_param' => 'A value',
+        );
+
+        $this->blockHandler->createBlock(
+            $blockCreateStruct,
+            $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(5, Value::STATUS_DRAFT),
+            'root'
         );
     }
 
@@ -505,8 +736,9 @@ class BlockHandlerTest extends TestCase
     public function testCreateBlockThrowsBadStateExceptionOnNegativePosition()
     {
         $blockCreateStruct = new BlockCreateStruct();
-        $blockCreateStruct->layoutId = 1;
-        $blockCreateStruct->status = VAlue::STATUS_DRAFT;
+        $blockCreateStruct->isTranslatable = true;
+        $blockCreateStruct->alwaysAvailable = true;
+        $blockCreateStruct->status = Value::STATUS_DRAFT;
         $blockCreateStruct->definitionIdentifier = 'new_block';
         $blockCreateStruct->position = -5;
         $blockCreateStruct->viewType = 'large';
@@ -519,6 +751,7 @@ class BlockHandlerTest extends TestCase
 
         $this->blockHandler->createBlock(
             $blockCreateStruct,
+            $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
             $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
             'root'
         );
@@ -533,8 +766,9 @@ class BlockHandlerTest extends TestCase
     public function testCreateBlockThrowsBadStateExceptionOnTooLargePosition()
     {
         $blockCreateStruct = new BlockCreateStruct();
-        $blockCreateStruct->layoutId = 1;
-        $blockCreateStruct->status = VAlue::STATUS_DRAFT;
+        $blockCreateStruct->isTranslatable = true;
+        $blockCreateStruct->alwaysAvailable = true;
+        $blockCreateStruct->status = Value::STATUS_DRAFT;
         $blockCreateStruct->definitionIdentifier = 'new_block';
         $blockCreateStruct->position = 9999;
         $blockCreateStruct->viewType = 'large';
@@ -547,6 +781,7 @@ class BlockHandlerTest extends TestCase
 
         $this->blockHandler->createBlock(
             $blockCreateStruct,
+            $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
             $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
             'root'
         );
@@ -596,15 +831,14 @@ class BlockHandlerTest extends TestCase
     public function testUpdateBlock()
     {
         $blockUpdateStruct = new BlockUpdateStruct();
-        $blockUpdateStruct->name = 'My block';
         $blockUpdateStruct->viewType = 'large';
         $blockUpdateStruct->itemViewType = 'new';
+        $blockUpdateStruct->name = 'Updated name';
         $blockUpdateStruct->config = array('config');
-
-        $blockUpdateStruct->parameters = array(
-            'number_of_columns' => 4,
-            'some_param' => 'Some value',
-        );
+        $blockUpdateStruct->isTranslatable = false;
+        $blockUpdateStruct->alwaysAvailable = false;
+        $blockUpdateStruct->mainLocale = 'en';
+        $blockUpdateStruct->config = array('config');
 
         $this->assertEquals(
             new Block(
@@ -619,11 +853,22 @@ class BlockHandlerTest extends TestCase
                     'definitionIdentifier' => 'list',
                     'viewType' => 'large',
                     'itemViewType' => 'new',
-                    'name' => 'My block',
+                    'name' => 'Updated name',
+                    'isTranslatable' => false,
+                    'alwaysAvailable' => false,
+                    'availableLocales' => array('en', 'hr'),
+                    'mainLocale' => 'en',
                     'status' => Value::STATUS_DRAFT,
                     'parameters' => array(
-                        'number_of_columns' => 4,
-                        'some_param' => 'Some value',
+                        'en' => array(
+                            'number_of_columns' => 2,
+                            'css_class' => 'css-class',
+                            'css_id' => 'css-id',
+                        ),
+                        'hr' => array(
+                            'css_class' => 'css-class-hr',
+                            'css_id' => 'css-id',
+                        ),
                     ),
                     'config' => array('config'),
                 )
@@ -657,9 +902,21 @@ class BlockHandlerTest extends TestCase
                     'viewType' => 'list',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
+                    'isTranslatable' => true,
+                    'alwaysAvailable' => true,
+                    'mainLocale' => 'en',
+                    'availableLocales' => array('en', 'hr'),
                     'status' => Value::STATUS_DRAFT,
                     'parameters' => array(
-                        'number_of_columns' => 2,
+                        'en' => array(
+                            'number_of_columns' => 2,
+                            'css_class' => 'css-class',
+                            'css_id' => 'css-id',
+                        ),
+                        'hr' => array(
+                            'css_class' => 'css-class-hr',
+                            'css_id' => 'css-id',
+                        ),
                     ),
                     'config' => array(),
                 )
@@ -669,6 +926,145 @@ class BlockHandlerTest extends TestCase
                 $blockUpdateStruct
             )
         );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::updateBlockTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::updateBlockTranslation
+     */
+    public function testUpdateBlockTranslation()
+    {
+        $translationUpdateStruct = new TranslationUpdateStruct();
+
+        $translationUpdateStruct->parameters = array(
+            'number_of_columns' => 4,
+            'some_param' => 'Some value',
+        );
+
+        $this->assertEquals(
+            new Block(
+                array(
+                    'id' => 31,
+                    'layoutId' => 1,
+                    'depth' => 1,
+                    'path' => '/3/31/',
+                    'parentId' => 3,
+                    'placeholder' => 'root',
+                    'position' => 0,
+                    'definitionIdentifier' => 'list',
+                    'viewType' => 'list',
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
+                    'isTranslatable' => true,
+                    'alwaysAvailable' => true,
+                    'availableLocales' => array('en', 'hr'),
+                    'mainLocale' => 'en',
+                    'status' => Value::STATUS_DRAFT,
+                    'parameters' => array(
+                        'en' => array(
+                            'number_of_columns' => 4,
+                            'some_param' => 'Some value',
+                        ),
+                        'hr' => array(
+                            'css_class' => 'css-class-hr',
+                            'css_id' => 'css-id',
+                        ),
+                    ),
+                    'config' => array(),
+                )
+            ),
+            $this->blockHandler->updateBlockTranslation(
+                $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+                'en',
+                $translationUpdateStruct
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::updateBlockTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::updateBlockTranslation
+     */
+    public function testUpdateBlockTranslationWithDefaultValues()
+    {
+        $translationUpdateStruct = new TranslationUpdateStruct();
+
+        $this->assertEquals(
+            new Block(
+                array(
+                    'id' => 31,
+                    'layoutId' => 1,
+                    'depth' => 1,
+                    'path' => '/3/31/',
+                    'parentId' => 3,
+                    'placeholder' => 'root',
+                    'position' => 0,
+                    'definitionIdentifier' => 'list',
+                    'viewType' => 'list',
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
+                    'isTranslatable' => true,
+                    'alwaysAvailable' => true,
+                    'availableLocales' => array('en', 'hr'),
+                    'mainLocale' => 'en',
+                    'status' => Value::STATUS_DRAFT,
+                    'parameters' => array(
+                        'en' => array(
+                            'number_of_columns' => 2,
+                            'css_class' => 'css-class',
+                            'css_id' => 'css-id',
+                        ),
+                        'hr' => array(
+                            'css_class' => 'css-class-hr',
+                            'css_id' => 'css-id',
+                        ),
+                    ),
+                    'config' => array(),
+                )
+            ),
+            $this->blockHandler->updateBlockTranslation(
+                $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+                'en',
+                $translationUpdateStruct
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::updateBlockTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::updateBlockTranslation
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "locale" has an invalid state. Block does not have the provided locale.
+     */
+    public function testUpdateBlockTranslationThrowsBadStateExceptionWithNonExistingLocale()
+    {
+        $this->blockHandler->updateBlockTranslation(
+            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            'de',
+            new TranslationUpdateStruct()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::setMainTranslation
+     */
+    public function testSetMainTranslation()
+    {
+        $block = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
+        $block = $this->blockHandler->setMainTranslation($block, 'hr');
+
+        $this->assertEquals('hr', $block->mainLocale);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::setMainTranslation
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "mainLocale" has an invalid state. Block does not have the provided locale.
+     */
+    public function testSetMainTranslationThrowsBadStateExceptionWithNonExistingLocale()
+    {
+        $block = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
+        $this->blockHandler->setMainTranslation($block, 'de');
     }
 
     /**
@@ -737,6 +1133,7 @@ class BlockHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlockCollections
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
     public function testCopyBlock()
@@ -761,9 +1158,21 @@ class BlockHandlerTest extends TestCase
                     'viewType' => 'list',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
+                    'isTranslatable' => true,
+                    'alwaysAvailable' => true,
+                    'availableLocales' => array('en', 'hr'),
+                    'mainLocale' => 'en',
                     'status' => Value::STATUS_DRAFT,
                     'parameters' => array(
-                        'number_of_columns' => 2,
+                        'en' => array(
+                            'number_of_columns' => 2,
+                            'css_class' => 'css-class',
+                            'css_id' => 'css-id',
+                        ),
+                        'hr' => array(
+                            'css_class' => 'css-class-hr',
+                            'css_id' => 'css-id',
+                        ),
                     ),
                     'config' => array(),
                 )
@@ -804,6 +1213,7 @@ class BlockHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlockCollections
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
     public function testCopyBlockWithChildBlocks()
@@ -828,7 +1238,14 @@ class BlockHandlerTest extends TestCase
                     'viewType' => 'two_columns_50_50',
                     'itemViewType' => 'standard',
                     'name' => 'My third block',
-                    'parameters' => array(),
+                    'isTranslatable' => false,
+                    'alwaysAvailable' => true,
+                    'availableLocales' => array('en'),
+                    'mainLocale' => 'en',
+                    'status' => Value::STATUS_DRAFT,
+                    'parameters' => array(
+                        'en' => array(),
+                    ),
                     'config' => array(),
                 )
             ),
@@ -851,9 +1268,15 @@ class BlockHandlerTest extends TestCase
                     'viewType' => 'text',
                     'itemViewType' => 'standard',
                     'name' => 'My seventh block',
+                    'isTranslatable' => false,
+                    'alwaysAvailable' => true,
+                    'availableLocales' => array('en'),
+                    'mainLocale' => 'en',
                     'status' => Value::STATUS_DRAFT,
                     'parameters' => array(
-                        'content' => 'Text',
+                        'en' => array(
+                            'content' => 'Text',
+                        ),
                     ),
                     'config' => array(),
                 )
@@ -883,6 +1306,7 @@ class BlockHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlockCollections
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
     public function testCopyBlockToBlockInDifferentLayout()
@@ -907,9 +1331,21 @@ class BlockHandlerTest extends TestCase
                     'viewType' => 'list',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
+                    'isTranslatable' => true,
+                    'alwaysAvailable' => true,
+                    'availableLocales' => array('en', 'hr'),
+                    'mainLocale' => 'en',
                     'status' => Value::STATUS_DRAFT,
                     'parameters' => array(
-                        'number_of_columns' => 2,
+                        'en' => array(
+                            'number_of_columns' => 2,
+                            'css_class' => 'css-class',
+                            'css_id' => 'css-id',
+                        ),
+                        'hr' => array(
+                            'css_class' => 'css-class-hr',
+                            'css_id' => 'css-id',
+                        ),
                     ),
                     'config' => array(),
                 )
@@ -995,8 +1431,14 @@ class BlockHandlerTest extends TestCase
                     'viewType' => 'two_columns_50_50',
                     'itemViewType' => 'standard',
                     'name' => 'My third block',
+                    'isTranslatable' => false,
+                    'alwaysAvailable' => true,
+                    'availableLocales' => array('en'),
+                    'mainLocale' => 'en',
                     'status' => Value::STATUS_DRAFT,
-                    'parameters' => array(),
+                    'parameters' => array(
+                        'en' => array(),
+                    ),
                     'config' => array(),
                 )
             ),
@@ -1022,9 +1464,15 @@ class BlockHandlerTest extends TestCase
                     'viewType' => 'text',
                     'itemViewType' => 'standard',
                     'name' => 'My seventh block',
+                    'isTranslatable' => false,
+                    'alwaysAvailable' => true,
+                    'availableLocales' => array('en'),
+                    'mainLocale' => 'en',
                     'status' => Value::STATUS_DRAFT,
                     'parameters' => array(
-                        'content' => 'Text',
+                        'en' => array(
+                            'content' => 'Text',
+                        ),
                     ),
                     'config' => array(),
                 )
@@ -1129,9 +1577,21 @@ class BlockHandlerTest extends TestCase
                     'viewType' => 'list',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
+                    'isTranslatable' => true,
+                    'alwaysAvailable' => true,
+                    'availableLocales' => array('en', 'hr'),
+                    'mainLocale' => 'en',
                     'status' => Value::STATUS_DRAFT,
                     'parameters' => array(
-                        'number_of_columns' => 2,
+                        'en' => array(
+                            'number_of_columns' => 2,
+                            'css_class' => 'css-class',
+                            'css_id' => 'css-id',
+                        ),
+                        'hr' => array(
+                            'css_class' => 'css-class-hr',
+                            'css_id' => 'css-id',
+                        ),
                     ),
                     'config' => array(),
                 )
@@ -1167,9 +1627,15 @@ class BlockHandlerTest extends TestCase
                     'viewType' => 'grid',
                     'itemViewType' => 'standard',
                     'name' => 'My fourth block',
+                    'isTranslatable' => false,
+                    'alwaysAvailable' => true,
+                    'availableLocales' => array('en'),
+                    'mainLocale' => 'en',
                     'status' => Value::STATUS_DRAFT,
                     'parameters' => array(
-                        'number_of_columns' => 3,
+                        'en' => array(
+                            'number_of_columns' => 3,
+                        ),
                     ),
                     'config' => array(),
                 )
@@ -1242,9 +1708,18 @@ class BlockHandlerTest extends TestCase
                     'viewType' => 'grid',
                     'itemViewType' => 'standard_with_intro',
                     'name' => 'My published block',
+                    'isTranslatable' => true,
+                    'alwaysAvailable' => true,
+                    'availableLocales' => array('en', 'hr'),
+                    'mainLocale' => 'en',
                     'status' => Value::STATUS_DRAFT,
                     'parameters' => array(
-                        'number_of_columns' => 3,
+                        'en' => array(
+                            'number_of_columns' => 3,
+                        ),
+                        'hr' => array(
+                            'number_of_columns' => 3,
+                        ),
                     ),
                     'config' => array(),
                 )
@@ -1294,10 +1769,19 @@ class BlockHandlerTest extends TestCase
                     'definitionIdentifier' => 'list',
                     'viewType' => 'grid',
                     'itemViewType' => 'standard_with_intro',
-                    'name' => 'My published block',
                     'status' => Value::STATUS_DRAFT,
+                    'name' => 'My published block',
+                    'isTranslatable' => true,
+                    'alwaysAvailable' => true,
+                    'availableLocales' => array('en', 'hr'),
+                    'mainLocale' => 'en',
                     'parameters' => array(
-                        'number_of_columns' => 3,
+                        'en' => array(
+                            'number_of_columns' => 3,
+                        ),
+                        'hr' => array(
+                            'number_of_columns' => 3,
+                        ),
                     ),
                     'config' => array(),
                 )
@@ -1383,6 +1867,78 @@ class BlockHandlerTest extends TestCase
         } catch (NotFoundException $e) {
             // Do nothing
         }
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::deleteBlockTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlockTranslations
+     */
+    public function testDeleteBlockTranslation()
+    {
+        $block = $this->blockHandler->deleteBlockTranslation(
+            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            'hr'
+        );
+
+        $this->assertEquals(
+            new Block(
+                array(
+                    'id' => 31,
+                    'layoutId' => 1,
+                    'depth' => 1,
+                    'path' => '/3/31/',
+                    'parentId' => 3,
+                    'placeholder' => 'root',
+                    'position' => 0,
+                    'definitionIdentifier' => 'list',
+                    'viewType' => 'list',
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
+                    'isTranslatable' => true,
+                    'alwaysAvailable' => true,
+                    'availableLocales' => array('en'),
+                    'mainLocale' => 'en',
+                    'status' => Value::STATUS_DRAFT,
+                    'parameters' => array(
+                        'en' => array(
+                            'number_of_columns' => 2,
+                            'css_class' => 'css-class',
+                            'css_id' => 'css-id',
+                        ),
+                    ),
+                    'config' => array(),
+                )
+            ),
+            $block
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::deleteBlockTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlockTranslations
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "locale" has an invalid state. Block does not have the provided locale.
+     */
+    public function testDeleteBlockTranslationWithNonExistingLocale()
+    {
+        $this->blockHandler->deleteBlockTranslation(
+            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            'de'
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::deleteBlockTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlockTranslations
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "locale" has an invalid state. Main translation cannot be removed from the block.
+     */
+    public function testDeleteBlockTranslationWithMainLocale()
+    {
+        $this->blockHandler->deleteBlockTranslation(
+            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            'en'
+        );
     }
 
     /**

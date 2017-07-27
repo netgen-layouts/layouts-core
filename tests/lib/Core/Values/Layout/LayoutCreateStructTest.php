@@ -16,6 +16,7 @@ class LayoutCreateStructTest extends TestCase
         $this->assertNull($layoutCreateStruct->name);
         $this->assertNull($layoutCreateStruct->description);
         $this->assertNull($layoutCreateStruct->shared);
+        $this->assertNull($layoutCreateStruct->mainLocale);
     }
 
     public function testSetProperties()
@@ -26,6 +27,7 @@ class LayoutCreateStructTest extends TestCase
                 'name' => 'My layout',
                 'description' => 'My description',
                 'shared' => true,
+                'mainLocale' => 'en',
             )
         );
 
@@ -33,5 +35,6 @@ class LayoutCreateStructTest extends TestCase
         $this->assertEquals('My layout', $layoutCreateStruct->name);
         $this->assertEquals('My description', $layoutCreateStruct->description);
         $this->assertTrue($layoutCreateStruct->shared);
+        $this->assertEquals('en', $layoutCreateStruct->mainLocale);
     }
 }

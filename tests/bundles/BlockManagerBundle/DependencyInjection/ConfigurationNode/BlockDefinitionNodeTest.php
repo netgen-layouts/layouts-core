@@ -27,6 +27,7 @@ class BlockDefinitionNodeTest extends TestCase
                         'name' => 'Block',
                         'icon' => '/icon.svg',
                         'handler' => 'handler',
+                        'translatable' => true,
                         'collections' => array(
                             'default' => array(
                                 'valid_item_types' => array('type3', 'type4'),
@@ -96,6 +97,7 @@ class BlockDefinitionNodeTest extends TestCase
                     'name' => 'Block',
                     'icon' => '/icon.svg',
                     'handler' => 'handler',
+                    'translatable' => true,
                     'enabled' => true,
                     'collections' => array(
                         'default' => array(
@@ -293,6 +295,70 @@ class BlockDefinitionNodeTest extends TestCase
             $config,
             $expectedConfig,
             'block_definitions.*.enabled'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
+     */
+    public function testBlockDefinitionSettingsWithNoTranslatableConfig()
+    {
+        $config = array(
+            array(
+                'block_definitions' => array(
+                    'block' => array(),
+                ),
+            ),
+        );
+
+        $expectedConfig = array(
+            'block_definitions' => array(
+                'block' => array(
+                    'translatable' => false,
+                ),
+            ),
+        );
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'block_definitions.*.translatable'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\BlockDefinitionNode::getConfigurationNode
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
+     */
+    public function testBlockDefinitionSettingsWithEnabledTranslatableConfig()
+    {
+        $config = array(
+            array(
+                'block_definitions' => array(
+                    'block' => array(
+                        'translatable' => true,
+                    ),
+                ),
+            ),
+        );
+
+        $expectedConfig = array(
+            'block_definitions' => array(
+                'block' => array(
+                    'translatable' => true,
+                ),
+            ),
+        );
+
+        $this->assertProcessedConfigurationEquals(
+            $config,
+            $expectedConfig,
+            'block_definitions.*.translatable'
         );
     }
 

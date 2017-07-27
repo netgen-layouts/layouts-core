@@ -5,14 +5,21 @@
     "name": "My block",
     "parameters": {
         "number_of_columns": 2,
-        "css_class": null,
-        "css_id": null,
+        "css_class": "css-class",
+        "css_id": "css-id",
         "set_container": null
     },
     "view_type": "list",
     "item_view_type": "standard",
     "published": false,
     "has_published_state": false,
+    "is_translatable": true,
+    "locale": "en",
+    "main_locale": "en",
+    "always_available": true,
+    "available_locales": [
+        "en"
+    ],
     "is_container": false,
     "is_dynamic_container": false,
     "placeholders": []

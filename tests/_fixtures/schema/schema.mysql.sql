@@ -3,7 +3,9 @@ DROP TABLE IF EXISTS `ngbm_collection_item`;
 DROP TABLE IF EXISTS `ngbm_collection_query`;
 DROP TABLE IF EXISTS `ngbm_collection`;
 DROP TABLE IF EXISTS `ngbm_zone`;
+DROP TABLE IF EXISTS `ngbm_block_translation`;
 DROP TABLE IF EXISTS `ngbm_block`;
+DROP TABLE IF EXISTS `ngbm_layout_translation`;
 DROP TABLE IF EXISTS `ngbm_layout`;
 DROP TABLE IF EXISTS `ngbm_rule_target`;
 DROP TABLE IF EXISTS `ngbm_rule_condition`;
@@ -19,7 +21,17 @@ CREATE TABLE `ngbm_layout` (
   `created` int(11) NOT NULL,
   `modified` int(11) NOT NULL,
   `shared` tinyint NOT NULL,
+  `main_locale` varchar(255) NOT NULL,
   PRIMARY KEY (`id`, `status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `ngbm_layout_translation` (
+  `layout_id` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  `locale` varchar(255) NOT NULL,
+  PRIMARY KEY (`layout_id`, `status`, `locale`),
+  FOREIGN KEY (`layout_id`, `status`)
+    REFERENCES ngbm_layout (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `ngbm_block` (
@@ -35,11 +47,23 @@ CREATE TABLE `ngbm_block` (
   `view_type` varchar(255) NOT NULL,
   `item_view_type` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `parameters` text NOT NULL,
   `config` text NOT NULL,
+  `translatable` tinyint NOT NULL,
+  `main_locale` varchar(255) NOT NULL,
+  `always_available` tinyint NOT NULL,
   PRIMARY KEY (`id`, `status`),
   FOREIGN KEY (`layout_id`, `status`)
     REFERENCES ngbm_layout (`id`, `status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `ngbm_block_translation` (
+  `block_id` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  `locale` varchar(255) NOT NULL,
+  `parameters` text NOT NULL,
+  PRIMARY KEY (`block_id`, `status`, `locale`),
+  FOREIGN KEY (`block_id`, `status`)
+    REFERENCES ngbm_block (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `ngbm_zone` (
