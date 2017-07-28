@@ -1,5 +1,5 @@
 ngbm_api_v1_blocks_load:
-    path: /blocks/{blockId}/{locale}
+    path: /blocks/{blockId}
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.block:view"
