@@ -18,36 +18,36 @@ ngbm_app_layout_form_create:
     defaults:
         _controller: "netgen_block_manager.controller.app.layout:layoutCreateForm"
 
+ngbm_app_layout_form_edit:
+    path: /app/layouts/{layoutId}/form/edit
+    methods: [GET, POST]
+    defaults:
+        _controller: "netgen_block_manager.controller.app.layout:layoutEditForm"
+
+ngbm_app_layout_form_main_locale:
+    path: /app/layouts/{layoutId}/form/main_locale
+    methods: [GET, POST]
+    defaults:
+        _controller: "netgen_block_manager.controller.app.layout:setMainLocaleForm"
+
+ngbm_app_layout_form_add_locale:
+    path: /app/layouts/{layoutId}/form/add_locale
+    methods: [GET, POST]
+    defaults:
+        _controller: "netgen_block_manager.controller.app.layout:addLocaleForm"
+
+ngbm_app_layout_form_remove_locale:
+    path: /app/layouts/{layoutId}/form/remove_locale
+    methods: [GET, POST]
+    defaults:
+        _controller: "netgen_block_manager.controller.app.layout:removeLocaleForm"
+
 ngbm_app_block_edit:
     path: /app/{locale}/blocks/{blockId}/edit
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.app.block:edit"
         _ngbm_status: draft
-
-ngbm_app_layout_form_edit:
-    path: /app/{locale}/layouts/{layoutId}/form/edit
-    methods: [GET, POST]
-    defaults:
-        _controller: "netgen_block_manager.controller.app.layout:layoutEditForm"
-
-ngbm_app_layout_form_main_locale:
-    path: /app/{locale}/layouts/{layoutId}/form/main_locale
-    methods: [GET, POST]
-    defaults:
-        _controller: "netgen_block_manager.controller.app.layout:setMainLocaleForm"
-
-ngbm_app_layout_form_add_locale:
-    path: /app/{locale}/layouts/{layoutId}/form/add_locale
-    methods: [GET, POST]
-    defaults:
-        _controller: "netgen_block_manager.controller.app.layout:addLocaleForm"
-
-ngbm_app_layout_form_remove_locale:
-    path: /app/{locale}/layouts/{layoutId}/form/remove_locale
-    methods: [GET, POST]
-    defaults:
-        _controller: "netgen_block_manager.controller.app.layout:removeLocaleForm"
 
 ngbm_app_block_form_edit:
     path: /app/{locale}/blocks/{blockId}/form/edit/{formName}
