@@ -11,13 +11,13 @@ ngbm_api_v1_layouts_load:
         _controller: "netgen_block_manager.controller.api.v1.layout:load"
 
 ngbm_api_v1_layouts_blocks:
-    path: /layouts/{layoutId}/blocks
+    path: /{locale}/layouts/{layoutId}/blocks
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.layout:viewLayoutBlocks"
 
 ngbm_api_v1_layouts_zone_blocks:
-    path: /layouts/{layoutId}/zones/{zoneIdentifier}/blocks
+    path: /{locale}/layouts/{layoutId}/zones/{zoneIdentifier}/blocks
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.layout:viewZoneBlocks"
