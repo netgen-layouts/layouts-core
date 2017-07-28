@@ -13,7 +13,7 @@ ngbm_app:
         _controller: "netgen_block_manager.controller.app.index:index"
 
 ngbm_app_block_edit:
-    path: /app/blocks/{blockId}/edit
+    path: /app/blocks/{blockId}/{locale}/edit
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.app.block:edit"
@@ -50,14 +50,14 @@ ngbm_app_layout_form_remove_locale:
         _controller: "netgen_block_manager.controller.app.layout:removeLocaleForm"
 
 ngbm_app_block_form_edit:
-    path: /app/blocks/{blockId}/form/edit/{formName}
+    path: /app/blocks/{blockId}/{locale}/form/edit/{formName}
     methods: [GET, POST]
     defaults:
         _controller: "netgen_block_manager.controller.app.block:editForm"
         _ngbm_status: draft
 
 ngbm_app_block_form_edit_config:
-    path: /app/blocks/{blockId}/config/edit/{configKey}
+    path: /app/blocks/{blockId}/{locale}/config/edit/{configKey}
     methods: [GET, POST]
     defaults:
         _controller: "netgen_block_manager.controller.app.block:editConfigForm"
@@ -65,7 +65,7 @@ ngbm_app_block_form_edit_config:
         configKey: null
 
 ngbm_app_collection_query_form_edit:
-    path: /app/collections/query/{queryId}/form/edit/{formName}
+    path: /app/collections/query/{queryId}/{locale}/form/edit/{formName}
     methods: [GET, POST]
     defaults:
         _controller: "netgen_block_manager.controller.app.collection:queryEditForm"

@@ -57,17 +57,18 @@ class BlockController extends Controller
      * Displays and processes block draft edit form.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
+     * @param string $locale
      * @param string $formName
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
-    public function editForm(Block $block, $formName, Request $request)
+    public function editForm(Block $block, $locale, $formName, Request $request)
     {
         $blockDefinition = $block->getDefinition();
         $blockDefinitionConfig = $blockDefinition->getConfig();
 
-        $updateStruct = $this->blockService->newBlockUpdateStruct($block->getMainLocale(), $block);
+        $updateStruct = $this->blockService->newBlockUpdateStruct($locale, $block);
 
         $form = $this->createForm(
             $blockDefinitionConfig->getForm($formName)->getType(),
@@ -109,13 +110,14 @@ class BlockController extends Controller
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
+     * @param string $locale
      * @param string $configKey
      *
      * @throws \Netgen\BlockManager\Exception\Core\ConfigException If config key does not exist
      *
      * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
-    public function editConfigForm(Request $request, Block $block, $configKey = null)
+    public function editConfigForm(Request $request, Block $block, $locale, $configKey = null)
     {
         if ($configKey !== null) {
             if (!$block->isConfigEnabled($configKey)) {
@@ -123,7 +125,7 @@ class BlockController extends Controller
             }
         }
 
-        $updateStruct = $this->blockService->newBlockUpdateStruct($block->getMainLocale(), $block);
+        $updateStruct = $this->blockService->newBlockUpdateStruct($locale, $block);
 
         $form = $this->createForm(
             ConfigEditType::class,

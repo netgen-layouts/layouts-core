@@ -30,16 +30,17 @@ class CollectionController extends Controller
      * Displays and processes query draft edit form.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
+     * @param string $locale
      * @param string $formName
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
-    public function queryEditForm(Query $query, $formName, Request $request)
+    public function queryEditForm(Query $query, $locale, $formName, Request $request)
     {
         $queryTypeConfig = $query->getQueryType()->getConfig();
 
-        $updateStruct = $this->collectionService->newQueryUpdateStruct($query->getMainLocale(), $query);
+        $updateStruct = $this->collectionService->newQueryUpdateStruct($locale, $query);
 
         $form = $this->createForm(
             $queryTypeConfig->getForm($formName)->getType(),
