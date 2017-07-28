@@ -5,7 +5,6 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Collection\Result\ResultLoaderInterface;
 use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
@@ -80,18 +79,6 @@ class CollectionController extends Controller
     }
 
     /**
-     * Loads the collection query.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     *
-     * @return \Netgen\BlockManager\Serializer\Values\VersionedValue
-     */
-    public function loadCollectionQuery(Collection $collection)
-    {
-        return new VersionedValue($collection->getQuery(), Version::API_V1);
-    }
-
-    /**
      * Loads the item.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Item $item
@@ -133,18 +120,6 @@ class CollectionController extends Controller
         $this->collectionService->deleteItem($item);
 
         return new Response(null, Response::HTTP_NO_CONTENT);
-    }
-
-    /**
-     * Loads the query.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     *
-     * @return \Netgen\BlockManager\Serializer\Values\VersionedValue
-     */
-    public function loadQuery(Query $query)
-    {
-        return new VersionedValue($query, Version::API_V1);
     }
 
     /**

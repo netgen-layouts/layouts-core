@@ -11,7 +11,6 @@ _ngbm_api_v1_block_collections:
 
 _ngbm_api_v1_collections:
     resource: "api_v1/collections.yml"
-    prefix: /{locale}
 
 _ngbm_api_v1_layouts:
     resource: "api_v1/layouts.yml"

@@ -3,21 +3,13 @@
 namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
 use Netgen\BlockManager\Core\Values\Collection\Collection;
-use Netgen\BlockManager\Core\Values\Collection\Item;
-use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Serializer\Normalizer\V1\CollectionNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Serializer\Serializer;
 
 class CollectionNormalizerTest extends TestCase
 {
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $serializerMock;
-
     /**
      * @var \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionNormalizer
      */
@@ -25,10 +17,7 @@ class CollectionNormalizerTest extends TestCase
 
     public function setUp()
     {
-        $this->serializerMock = $this->createMock(Serializer::class);
-
         $this->normalizer = new CollectionNormalizer();
-        $this->normalizer->setSerializer($this->serializerMock);
     }
 
     /**
@@ -43,36 +32,8 @@ class CollectionNormalizerTest extends TestCase
                 'isTranslatable' => true,
                 'availableLocales' => array('en'),
                 'mainLocale' => 'en',
-                'items' => array(
-                    new Item(array('position' => 0, 'type' => Item::TYPE_MANUAL)),
-                    new Item(array('position' => 1, 'type' => Item::TYPE_MANUAL)),
-                ),
-                'query' => new Query(),
             )
         );
-
-        $this->serializerMock
-            ->expects($this->at(0))
-            ->method('normalize')
-            ->with(
-                $this->equalTo(
-                    array(
-                        new VersionedValue(new Item(array('position' => 0, 'type' => Item::TYPE_MANUAL)), 1),
-                        new VersionedValue(new Item(array('position' => 1, 'type' => Item::TYPE_MANUAL)), 1),
-                    )
-                )
-            )
-            ->will($this->returnValue(array('items')));
-
-        $this->serializerMock
-            ->expects($this->at(1))
-            ->method('normalize')
-            ->with(
-                $this->equalTo(
-                    new VersionedValue(new Query(), 1)
-                )
-            )
-            ->will($this->returnValue(array('query')));
 
         $this->assertEquals(
             array(
@@ -82,8 +43,6 @@ class CollectionNormalizerTest extends TestCase
                 'main_locale' => $collection->getMainLocale(),
                 'always_available' => $collection->isAlwaysAvailable(),
                 'available_locales' => $collection->getAvailableLocales(),
-                'items' => array('items'),
-                'query' => array('query'),
             ),
             $this->normalizer->normalize(new VersionedValue($collection, 1))
         );

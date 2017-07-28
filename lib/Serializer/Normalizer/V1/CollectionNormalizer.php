@@ -27,13 +27,6 @@ class CollectionNormalizer implements NormalizerInterface, SerializerAwareInterf
         /** @var \Netgen\BlockManager\API\Values\Collection\Collection $collection */
         $collection = $object->getValue();
 
-        $items = array();
-        foreach ($collection->getItems() as $item) {
-            $items[] = new VersionedValue($item, $object->getVersion());
-        }
-
-        $query = new VersionedValue($collection->getQuery(), $object->getVersion());
-
         return array(
             'id' => $collection->getId(),
             'type' => $collection->getType(),
@@ -41,8 +34,6 @@ class CollectionNormalizer implements NormalizerInterface, SerializerAwareInterf
             'main_locale' => $collection->getMainLocale(),
             'always_available' => $collection->isAlwaysAvailable(),
             'available_locales' => $collection->getAvailableLocales(),
-            'items' => $this->serializer->normalize($items, $format, $context),
-            'query' => $this->serializer->normalize($query, $format, $context),
         );
     }
 
