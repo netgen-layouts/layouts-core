@@ -166,7 +166,12 @@ class LayoutController extends Controller
             $form,
             ViewInterface::CONTEXT_API,
             array(),
-            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
+            new Response(
+                null,
+                $form->isSubmitted() ?
+                    Response::HTTP_UNPROCESSABLE_ENTITY :
+                    Response::HTTP_OK
+            )
         );
     }
 
@@ -210,7 +215,12 @@ class LayoutController extends Controller
             $form,
             ViewInterface::CONTEXT_API,
             array(),
-            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
+            new Response(
+                null,
+                $form->isSubmitted() ?
+                    Response::HTTP_UNPROCESSABLE_ENTITY :
+                    Response::HTTP_OK
+            )
         );
     }
 
@@ -254,7 +264,12 @@ class LayoutController extends Controller
             $form,
             ViewInterface::CONTEXT_API,
             array(),
-            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
+            new Response(
+                null,
+                $form->isSubmitted() ?
+                    Response::HTTP_UNPROCESSABLE_ENTITY :
+                    Response::HTTP_OK
+            )
         );
     }
 
