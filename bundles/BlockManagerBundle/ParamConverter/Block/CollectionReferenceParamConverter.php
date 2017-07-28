@@ -62,10 +62,12 @@ class CollectionReferenceParamConverter extends ParamConverter
      */
     public function loadValueObject(array $values)
     {
+        $locales = isset($values['locale']) ? array($values['locale']) : null;
+
         return $this->blockService->loadCollectionReference(
             $values['published'] ?
-                $this->blockService->loadBlock($values['blockId']) :
-                $this->blockService->loadBlockDraft($values['blockId']),
+                $this->blockService->loadBlock($values['blockId'], $locales) :
+                $this->blockService->loadBlockDraft($values['blockId'], $locales),
             $values['collectionIdentifier']
         );
     }

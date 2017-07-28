@@ -62,10 +62,12 @@ class QueryParamConverter extends ParamConverter
      */
     public function loadValueObject(array $values)
     {
+        $locales = isset($values['locale']) ? array($values['locale']) : null;
+
         if ($values['published']) {
-            return $this->collectionService->loadQuery($values['queryId']);
+            return $this->collectionService->loadQuery($values['queryId'], $locales);
         }
 
-        return $this->collectionService->loadQueryDraft($values['queryId']);
+        return $this->collectionService->loadQueryDraft($values['queryId'], $locales);
     }
 }

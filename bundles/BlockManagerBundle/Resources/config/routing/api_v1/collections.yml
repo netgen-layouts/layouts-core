@@ -1,19 +1,19 @@
 ngbm_api_v1_collections_load:
-    path: /collections/{collectionId}
+    path: /collections/{collectionId}/{locale}
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.collection:loadCollection"
         _ngbm_status: draft
 
 ngbm_api_v1_collections_items:
-    path: /collections/{collectionId}/items
+    path: /collections/{collectionId}/{locale}/items
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.collection:loadCollectionItems"
         _ngbm_status: draft
 
 ngbm_api_v1_collections_query:
-    path: /collections/{collectionId}/query
+    path: /collections/{collectionId}/{locale}/query
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.collection:loadCollectionQuery"
@@ -41,7 +41,7 @@ ngbm_api_v1_collections_delete_item:
         _ngbm_status: draft
 
 ngbm_api_v1_collections_load_query:
-    path: /collections/query/{queryId}
+    path: /collections/query/{queryId}/{locale}
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.collection:loadQuery"

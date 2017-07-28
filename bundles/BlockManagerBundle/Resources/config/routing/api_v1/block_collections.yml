@@ -1,33 +1,33 @@
 ngbm_api_v1_block_collections_load:
-    path: /blocks/{blockId}/collections/{collectionIdentifier}
+    path: /blocks/{blockId}/{locale}/collections/{collectionIdentifier}
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.block_collection:load"
         _ngbm_status: draft
 
 ngbm_api_v1_block_collections_references:
-    path: /blocks/{blockId}/collections
+    path: /blocks/{blockId}/{locale}/collections
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.block_collection:loadCollectionReferences"
         _ngbm_status: draft
 
 ngbm_api_v1_block_collections_result:
-    path: /blocks/{blockId}/collections/{collectionIdentifier}/result
+    path: /blocks/{blockId}/{locale}/collections/{collectionIdentifier}/result
     methods: [GET]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.block_collection:loadCollectionResult"
         _ngbm_status: draft
 
 ngbm_api_v1_block_collections_add_items:
-    path: /blocks/{blockId}/collections/{collectionIdentifier}/items
+    path: /blocks/{blockId}/{locale}/collections/{collectionIdentifier}/items
     methods: [POST]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.block_collection:addItems"
         _ngbm_status: draft
 
 ngbm_api_v1_block_collections_change_type:
-    path: /blocks/{blockId}/collections/{collectionIdentifier}/change_type
+    path: /blocks/{blockId}/{locale}/collections/{collectionIdentifier}/change_type
     methods: [POST]
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.block_collection:changeCollectionType"
