@@ -37,6 +37,10 @@ view:
                 template: "@NetgenBlockManagerAdmin/app/form/query/edit/full.html.twig"
                 match:
                     form\type: Netgen\BlockManager\Collection\Query\Form\FullEditType
+            block\configure_translation:
+                template: "@NetgenBlockManagerAdmin/app/form/block/configure_translation.html.twig"
+                match:
+                    form\type: Netgen\BlockManager\Block\Form\ConfigureTranslationType
             block\config\http_cache\edit:
                 template: "@NetgenBlockManagerAdmin/app/form/block/config/edit/http_cache.html.twig"
                 match:

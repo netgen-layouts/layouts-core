@@ -7,6 +7,7 @@ layout.block.revert: 'Revert'
 layout.block.revert_note: 'To published version'
 layout.block.maximize: 'Maximize'
 layout.block.set_cache: 'Configure cache'
+layout.block.translate: 'Configure translation'
 
 block.edit.tabs.content: 'Content'
 block.edit.tabs.design: 'Design'

@@ -1,0 +1,18 @@
+{% extends '@NetgenBlockManagerAdmin/app/form/modal.html.twig' %}
+
+{% trans_default_domain 'ngbm_forms' %}
+
+{% set block = form.vars.block %}
+
+{% block header %}
+    {{ 'block.configure_translation.title'|trans }}: {{ form.vars.block.name }}
+{% endblock %}
+
+{% block children %}
+    {{ form_row(form.translatable) }}
+{% endblock %}
+
+{% block buttons %}
+    <button type="button" class="btn btn-link action_cancel">{{ 'block.configure_translation.button.cancel'|trans }}</button>
+    <button type="submit" class="btn btn-primary action_apply">{{ 'block.configure_translation.button.set'|trans }}</button>
+{% endblock %}

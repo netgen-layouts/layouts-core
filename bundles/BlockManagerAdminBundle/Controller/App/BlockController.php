@@ -4,6 +4,7 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\App;
 
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Block\Block;
+use Netgen\BlockManager\Block\Form\ConfigureTranslationType;
 use Netgen\BlockManager\Config\Form\EditType as ConfigEditType;
 use Netgen\BlockManager\Exception\Core\ConfigException;
 use Netgen\BlockManager\View\ViewInterface;
@@ -163,6 +164,59 @@ class BlockController extends Controller
             ViewInterface::CONTEXT_API,
             array(),
             new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
+        );
+    }
+
+    /**
+     * Displays and processes form for configuring the block translations.
+     *
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
+     * @param string $locale
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
+     */
+    public function configureTranslationForm(Block $block, $locale, Request $request)
+    {
+        $form = $this->createForm(
+            ConfigureTranslationType::class,
+            null,
+            array(
+                'block' => $block,
+                'action' => $this->generateUrl(
+                    'ngbm_app_block_form_configure_translation',
+                    array(
+                        'blockId' => $block->getId(),
+                        'locale' => $locale,
+                    )
+                ),
+            )
+        );
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $isTranslatable = $form->get('translatable')->getData();
+
+            if ($block->isTranslatable() && !$isTranslatable) {
+                $this->blockService->disableTranslations($block);
+            } elseif (!$block->isTranslatable() && $isTranslatable) {
+                $this->blockService->enableTranslations($block);
+            }
+
+            return new Response(null, Response::HTTP_NO_CONTENT);
+        }
+
+        return $this->buildView(
+            $form,
+            ViewInterface::CONTEXT_API,
+            array(),
+            new Response(
+                null,
+                $form->isSubmitted() ?
+                    Response::HTTP_UNPROCESSABLE_ENTITY :
+                    Response::HTTP_OK
+            )
         );
     }
 
