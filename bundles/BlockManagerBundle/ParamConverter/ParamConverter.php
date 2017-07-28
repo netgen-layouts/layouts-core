@@ -54,6 +54,10 @@ abstract class ParamConverter implements ParamConverterInterface
             $values['published'] = true;
         }
 
+        if ($request->attributes->has('locale')) {
+            $values['locale'] = $request->attributes->get('locale');
+        }
+
         $request->attributes->set(
             $this->getDestinationAttributeName(),
             $this->loadValueObject($values)

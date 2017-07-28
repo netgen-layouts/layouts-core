@@ -62,10 +62,12 @@ class BlockParamConverter extends ParamConverter
      */
     public function loadValueObject(array $values)
     {
+        $locales = isset($values['locale']) ? array($values['locale']) : null;
+
         if ($values['published']) {
-            return $this->blockService->loadBlock($values['blockId']);
+            return $this->blockService->loadBlock($values['blockId'], $locales);
         }
 
-        return $this->blockService->loadBlockDraft($values['blockId']);
+        return $this->blockService->loadBlockDraft($values['blockId'], $locales);
     }
 }

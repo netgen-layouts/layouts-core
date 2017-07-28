@@ -8,6 +8,7 @@ use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\Layout\LayoutTypeException;
+use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Values\View;
@@ -82,14 +83,21 @@ class LayoutController extends Controller
      * Loads all layout blocks.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
+     * @param string $locale
+     *
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If layout does not exist in provided locale
      *
      * @return \Netgen\BlockManager\Serializer\Values\Value
      */
-    public function viewLayoutBlocks(Layout $layout)
+    public function viewLayoutBlocks(Layout $layout, $locale)
     {
+        if (!in_array($locale, $layout->getAvailableLocales(), true)) {
+            throw new NotFoundException('layout', $layout->getId());
+        }
+
         $blocks = array();
         foreach ($layout as $zone) {
-            foreach ($this->blockService->loadZoneBlocks($zone) as $block) {
+            foreach ($this->blockService->loadZoneBlocks($zone, array($locale)) as $block) {
                 $blocks[] = new View($block, Version::API_V1);
             }
         }
@@ -101,13 +109,24 @@ class LayoutController extends Controller
      * Loads all zone blocks.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
+     * @param string $locale
+     *
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If layout does not exist in provided locale
      *
      * @return \Netgen\BlockManager\Serializer\Values\Value
      */
-    public function viewZoneBlocks(Zone $zone)
+    public function viewZoneBlocks(Zone $zone, $locale)
     {
+        $layout = $zone->isPublished() ?
+            $this->layoutService->loadLayout($zone->getLayoutId()) :
+            $this->layoutService->loadLayoutDraft($zone->getLayoutId());
+
+        if (!in_array($locale, $layout->getAvailableLocales(), true)) {
+            throw new NotFoundException('layout', $layout->getId());
+        }
+
         $blocks = array();
-        foreach ($this->blockService->loadZoneBlocks($zone) as $block) {
+        foreach ($this->blockService->loadZoneBlocks($zone, array($locale)) as $block) {
             $blocks[] = new View($block, Version::API_V1);
         }
 
