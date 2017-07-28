@@ -9,6 +9,7 @@ use Netgen\BlockManager\Config\Form\EditType as ConfigEditType;
 use Netgen\BlockManager\Exception\Core\ConfigException;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -204,7 +205,12 @@ class BlockController extends Controller
                 $this->blockService->enableTranslations($block);
             }
 
-            return new Response(null, Response::HTTP_NO_CONTENT);
+            return new JsonResponse(
+                array(
+                    'translatable' => $isTranslatable,
+                ),
+                Response::HTTP_OK
+            );
         }
 
         return $this->buildView(

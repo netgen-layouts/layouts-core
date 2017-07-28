@@ -159,7 +159,12 @@ class LayoutController extends Controller
                 $this->layoutService->setMainTranslation($layout, $mainLocale);
             }
 
-            return new Response(null, Response::HTTP_NO_CONTENT);
+            return new JsonResponse(
+                array(
+                    'main_locale' => $mainLocale,
+                ),
+                Response::HTTP_OK
+            );
         }
 
         return $this->buildView(
@@ -202,13 +207,17 @@ class LayoutController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->layoutService->addTranslation(
-                $layout,
-                $form->get('locale')->getData(),
-                $form->get('sourceLocale')->getData()
-            );
+            $locale = $form->get('locale')->getData();
+            $sourceLocale = $form->get('sourceLocale')->getData();
 
-            return new Response(null, Response::HTTP_NO_CONTENT);
+            $this->layoutService->addTranslation($layout, $locale, $sourceLocale);
+
+            return new JsonResponse(
+                array(
+                    'locale' => $locale,
+                ),
+                Response::HTTP_CREATED
+            );
         }
 
         return $this->buildView(
