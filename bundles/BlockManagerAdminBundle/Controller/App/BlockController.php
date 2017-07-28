@@ -79,6 +79,7 @@ class BlockController extends Controller
                     'ngbm_app_block_form_edit',
                     array(
                         'blockId' => $block->getId(),
+                        'locale' => $locale,
                         'formName' => $formName,
                     )
                 ),
@@ -138,6 +139,7 @@ class BlockController extends Controller
                     'ngbm_app_block_form_edit_config',
                     array(
                         'blockId' => $block->getId(),
+                        'locale' => $locale,
                         'configKey' => $configKey,
                     )
                 ),

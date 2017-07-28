@@ -51,6 +51,7 @@ class CollectionController extends Controller
                     'ngbm_app_collection_query_form_edit',
                     array(
                         'queryId' => $query->getId(),
+                        'locale' => $locale,
                         'formName' => $formName,
                     )
                 ),
