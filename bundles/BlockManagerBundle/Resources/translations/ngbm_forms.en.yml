@@ -11,6 +11,20 @@ layout.edit.button.cancel: 'Cancel'
 layout.edit.button.save: 'Save'
 layout.edit.title: 'Edit layout name and description:'
 
+layout.set_main_locale.title: 'Set main translation'
+layout.set_main_locale.button.cancel: 'Cancel'
+layout.set_main_locale.button.set: 'Set'
+
+layout.add_locale.title: 'New translation'
+layout.add_locale.locale: 'Select translation you want to add'
+layout.add_locale.source_locale: 'Translate based on'
+layout.add_locale.button.cancel: 'Cancel'
+layout.add_locale.button.create: 'Create translation'
+
+layout.remove_locale.title: 'Remove translation(s)'
+layout.remove_locale.button.cancel: 'Cancel'
+layout.remove_locale.button.remove: 'Remove'
+
 target_type.button.cancel: 'Cancel'
 target_type.button.save: 'Save target'
 

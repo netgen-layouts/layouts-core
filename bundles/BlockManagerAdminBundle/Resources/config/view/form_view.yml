@@ -9,6 +9,18 @@ view:
                 template: "@NetgenBlockManagerAdmin/app/form/layout/edit.html.twig"
                 match:
                     form\type: Netgen\BlockManager\Layout\Form\EditType
+            layout\set_main_locale:
+                template: "@NetgenBlockManagerAdmin/app/form/layout/set_main_locale.html.twig"
+                match:
+                    form\type: Netgen\BlockManager\Layout\Form\SetMainLocaleType
+            layout\add_locale:
+                template: "@NetgenBlockManagerAdmin/app/form/layout/add_locale.html.twig"
+                match:
+                    form\type: Netgen\BlockManager\Layout\Form\AddLocaleType
+            layout\remove_locale:
+                template: "@NetgenBlockManagerAdmin/app/form/layout/remove_locale.html.twig"
+                match:
+                    form\type: Netgen\BlockManager\Layout\Form\RemoveLocaleType
             block\full_edit:
                 template: "@NetgenBlockManagerAdmin/app/form/block/edit/full.html.twig"
                 match:

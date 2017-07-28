@@ -1,0 +1,17 @@
+{% extends '@NetgenBlockManagerAdmin/app/form/modal.html.twig' %}
+
+{% trans_default_domain 'ngbm_forms' %}
+
+{% block header %}
+    {{ 'layout.add_locale.title'|trans }}
+{% endblock %}
+
+{% block children %}
+    {{ form_row(form.locale) }}
+    {{ form_row(form.sourceLocale) }}
+{% endblock %}
+
+{% block buttons %}
+    <button type="button" class="btn btn-link action_cancel">{{ 'layout.add_locale.button.cancel'|trans }}</button>
+    <button type="submit" class="btn btn-primary action_apply">{{ 'layout.add_locale.button.create'|trans }}</button>
+{% endblock %}

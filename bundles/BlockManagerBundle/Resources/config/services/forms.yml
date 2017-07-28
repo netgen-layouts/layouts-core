@@ -6,3 +6,10 @@ services:
             - "@netgen_block_manager.locale.provider"
         tags:
             - { name: form.type }
+
+    netgen_block_manager.layout.form.add_locale:
+        class: Netgen\BlockManager\Layout\Form\AddLocaleType
+        arguments:
+            - "@netgen_block_manager.locale.provider"
+        tags:
+            - { name: form.type }
