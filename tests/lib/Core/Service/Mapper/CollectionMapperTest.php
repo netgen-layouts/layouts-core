@@ -75,7 +75,6 @@ abstract class CollectionMapperTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::__construct
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapCollection
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::getCollectionLocales
      */
     public function testMapCollectionWithLocales()
     {
@@ -95,51 +94,28 @@ abstract class CollectionMapperTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::__construct
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapCollection
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::getCollectionLocales
      */
-    public function testMapCollectionWithAlwaysAvailableCollection()
+    public function testMapCollectionWithLocalesAndAlwaysAvailableCollection()
     {
         $persistenceCollection = new Collection(
             array(
+                'mainLocale' => 'en',
                 'alwaysAvailable' => true,
-                'mainLocale' => 'de',
                 'availableLocales' => array('en', 'hr', 'de'),
             )
         );
 
-        $collection = $this->collectionMapper->mapCollection($persistenceCollection);
+        $collection = $this->collectionMapper->mapCollection($persistenceCollection, array('hr'));
 
         $this->assertInstanceOf(APICollection::class, $collection);
-        $this->assertEquals(array('en', 'hr', 'de'), $collection->getAvailableLocales());
+        $this->assertEquals(array('hr', 'en'), $collection->getAvailableLocales());
     }
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::__construct
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapCollection
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::getCollectionLocales
      */
-    public function testMapCollectionWithNotAlwaysAvailableCollection()
-    {
-        $persistenceCollection = new Collection(
-            array(
-                'alwaysAvailable' => false,
-                'mainLocale' => 'de',
-                'availableLocales' => array('en', 'hr', 'de'),
-            )
-        );
-
-        $collection = $this->collectionMapper->mapCollection($persistenceCollection);
-
-        $this->assertInstanceOf(APICollection::class, $collection);
-        $this->assertEquals(array('en', 'hr'), $collection->getAvailableLocales());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::__construct
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapCollection
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::getCollectionLocales
-     */
-    public function testMapCollectionWithLocalesAndNoContext()
+    public function testMapCollectionWithAllLocales()
     {
         $persistenceCollection = new Collection(
             array(
@@ -148,36 +124,15 @@ abstract class CollectionMapperTest extends ServiceTestCase
             )
         );
 
-        $collection = $this->collectionMapper->mapCollection($persistenceCollection, array('hr'), false);
+        $collection = $this->collectionMapper->mapCollection($persistenceCollection, true);
 
         $this->assertInstanceOf(APICollection::class, $collection);
-        $this->assertEquals(array('hr'), $collection->getAvailableLocales());
+        $this->assertEquals(array('de', 'en', 'hr'), $collection->getAvailableLocales());
     }
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::__construct
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapCollection
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::getCollectionLocales
-     */
-    public function testMapCollectionWithNoContext()
-    {
-        $persistenceCollection = new Collection(
-            array(
-                'mainLocale' => 'en',
-                'availableLocales' => array('en', 'hr', 'de'),
-            )
-        );
-
-        $collection = $this->collectionMapper->mapCollection($persistenceCollection, null, false);
-
-        $this->assertInstanceOf(APICollection::class, $collection);
-        $this->assertEquals(array('en', 'hr', 'de'), $collection->getAvailableLocales());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::__construct
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapCollection
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::getCollectionLocales
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      * @expectedExceptionMessage Could not find collection with identifier "42"
      */
@@ -331,7 +286,6 @@ abstract class CollectionMapperTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::__construct
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapQuery
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapQueryTranslation
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::getQueryLocales
      */
     public function testMapQueryWithLocales()
     {
@@ -354,57 +308,31 @@ abstract class CollectionMapperTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::__construct
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapQuery
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapQueryTranslation
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::getQueryLocales
      */
-    public function testMapQueryWithAlwaysAvailableQuery()
+    public function testMapQueryWithLocalesAndAlwaysAvailableQuery()
     {
         $persistenceQuery = new Query(
             array(
                 'type' => 'ezcontent_search',
                 'alwaysAvailable' => true,
-                'mainLocale' => 'de',
+                'mainLocale' => 'en',
                 'availableLocales' => array('en', 'hr', 'de'),
                 'parameters' => array('en' => array(), 'hr' => array(), 'de' => array()),
             )
         );
 
-        $query = $this->collectionMapper->mapQuery($persistenceQuery);
+        $query = $this->collectionMapper->mapQuery($persistenceQuery, array('hr'));
 
         $this->assertInstanceOf(APIQuery::class, $query);
-        $this->assertEquals(array('en', 'hr', 'de'), $query->getAvailableLocales());
+        $this->assertEquals(array('hr', 'en'), $query->getAvailableLocales());
     }
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::__construct
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapQuery
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapQueryTranslation
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::getQueryLocales
      */
-    public function testMapQueryWithNotAlwaysAvailableQuery()
-    {
-        $persistenceQuery = new Query(
-            array(
-                'type' => 'ezcontent_search',
-                'alwaysAvailable' => false,
-                'mainLocale' => 'de',
-                'availableLocales' => array('en', 'hr', 'de'),
-                'parameters' => array('en' => array(), 'hr' => array(), 'de' => array()),
-            )
-        );
-
-        $query = $this->collectionMapper->mapQuery($persistenceQuery);
-
-        $this->assertInstanceOf(APIQuery::class, $query);
-        $this->assertEquals(array('en', 'hr'), $query->getAvailableLocales());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::__construct
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapQuery
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapQueryTranslation
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::getQueryLocales
-     */
-    public function testMapQueryWithLocalesAndNoContext()
+    public function testMapQueryWithAllLocales()
     {
         $persistenceQuery = new Query(
             array(
@@ -415,39 +343,15 @@ abstract class CollectionMapperTest extends ServiceTestCase
             )
         );
 
-        $query = $this->collectionMapper->mapQuery($persistenceQuery, array('hr'), false);
+        $query = $this->collectionMapper->mapQuery($persistenceQuery, true);
 
         $this->assertInstanceOf(APIQuery::class, $query);
-        $this->assertEquals(array('hr'), $query->getAvailableLocales());
+        $this->assertEquals(array('de', 'en', 'hr'), $query->getAvailableLocales());
     }
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::__construct
      * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapQuery
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapQueryTranslation
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::getQueryLocales
-     */
-    public function testMapQueryWithNoContext()
-    {
-        $persistenceQuery = new Query(
-            array(
-                'type' => 'ezcontent_search',
-                'mainLocale' => 'en',
-                'availableLocales' => array('en', 'hr', 'de'),
-                'parameters' => array('en' => array(), 'hr' => array(), 'de' => array()),
-            )
-        );
-
-        $query = $this->collectionMapper->mapQuery($persistenceQuery, null, false);
-
-        $this->assertInstanceOf(APIQuery::class, $query);
-        $this->assertEquals(array('en', 'hr', 'de'), $query->getAvailableLocales());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::__construct
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::mapQuery
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper::getQueryLocales
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      * @expectedExceptionMessage Could not find query with identifier "42"
      */

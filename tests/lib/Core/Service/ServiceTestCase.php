@@ -28,7 +28,6 @@ use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Layout\Type\Zone;
-use Netgen\BlockManager\Locale\LocaleContextInterface;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
@@ -356,18 +355,11 @@ abstract class ServiceTestCase extends TestCase
      */
     protected function createBlockMapper()
     {
-        $localeContextMock = $this->createMock(LocaleContextInterface::class);
-        $localeContextMock
-            ->expects($this->any())
-            ->method('getLocaleCodes')
-            ->will($this->returnValue(array('en', 'hr')));
-
         return new BlockMapper(
             $this->persistenceHandler,
             $this->createCollectionMapper(),
             $this->createParameterMapper(),
             $this->createConfigMapper(),
-            $localeContextMock,
             $this->blockDefinitionRegistry
         );
     }
@@ -379,17 +371,10 @@ abstract class ServiceTestCase extends TestCase
      */
     protected function createCollectionMapper()
     {
-        $localeContextMock = $this->createMock(LocaleContextInterface::class);
-        $localeContextMock
-            ->expects($this->any())
-            ->method('getLocaleCodes')
-            ->will($this->returnValue(array('en', 'hr')));
-
         return new CollectionMapper(
             $this->persistenceHandler->getCollectionHandler(),
             $this->createParameterMapper(),
-            $this->queryTypeRegistry,
-            $localeContextMock
+            $this->queryTypeRegistry
         );
     }
 

@@ -594,7 +594,7 @@ abstract class BlockServiceTest extends ServiceTestCase
      */
     public function testUpdateBlock()
     {
-        $block = $this->blockService->loadBlockDraft(31);
+        $block = $this->blockService->loadBlockDraft(31, array('en', 'hr'));
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('hr');
         $blockUpdateStruct->viewType = 'small';
@@ -624,7 +624,7 @@ abstract class BlockServiceTest extends ServiceTestCase
      */
     public function testUpdateBlockInMainLocale()
     {
-        $block = $this->blockService->loadBlockDraft(31);
+        $block = $this->blockService->loadBlockDraft(31, array('en', 'hr'));
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('en');
         $blockUpdateStruct->viewType = 'small';
@@ -654,7 +654,7 @@ abstract class BlockServiceTest extends ServiceTestCase
      */
     public function testUpdateBlockWithUntranslatableParameters()
     {
-        $block = $this->blockService->loadBlockDraft(31);
+        $block = $this->blockService->loadBlockDraft(31, array('en', 'hr'));
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('en');
         $blockUpdateStruct->setParameterValue('css_id', 'some_other_test_value');
@@ -666,10 +666,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $blockUpdateStruct->setParameterValue('css_id', 'some_other_test_value_2');
         $blockUpdateStruct->setParameterValue('css_class', 'croatian_css');
 
-        $this->blockService->updateBlock($block, $blockUpdateStruct);
-
-        // Reload the block with all translations
-        $block = $this->blockService->loadBlockDraft(31, null, false);
+        $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
         $englishTranslation = $block->getTranslation('en');
         $croatianTranslation = $block->getTranslation('hr');
@@ -1325,7 +1322,10 @@ abstract class BlockServiceTest extends ServiceTestCase
     {
         $block = $this->blockService->loadBlockDraft(35);
 
-        $updatedBlock = $this->blockService->enableTranslations($block);
+        $this->blockService->enableTranslations($block);
+
+        // Reload the block with all translations
+        $updatedBlock = $this->blockService->loadBlockDraft(35, true);
 
         $layout = $this->layoutService->loadLayoutDraft($block->getLayoutId());
         foreach ($layout->getAvailableLocales() as $locale) {

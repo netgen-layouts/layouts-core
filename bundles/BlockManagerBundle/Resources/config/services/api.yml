@@ -148,7 +148,6 @@ services:
             - "@netgen_block_manager.core.service.collection.mapper"
             - "@netgen_block_manager.core.service.parameter_mapper"
             - "@netgen_block_manager.core.service.config_mapper"
-            - "@netgen_block_manager.locale.context"
             - "@netgen_block_manager.block.registry.block_definition"
 
     netgen_block_manager.core.service.block.struct_builder:
@@ -180,7 +179,6 @@ services:
             - "@netgen_block_manager.persistence.collection.handler"
             - "@netgen_block_manager.core.service.parameter_mapper"
             - "@netgen_block_manager.collection.registry.query_type"
-            - "@netgen_block_manager.locale.context"
 
     netgen_block_manager.core.service.collection.struct_builder:
         class: Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder

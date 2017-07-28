@@ -1,19 +1,4 @@
 services:
-    netgen_block_manager.locale.context:
-        alias: netgen_block_manager.locale.context.chained
-
-    netgen_block_manager.locale.context.chained:
-        class: Netgen\BlockManager\Locale\Context\ChainedLocaleContext
-        arguments:
-            - []
-
-    netgen_block_manager.locale.context.request:
-        class: Netgen\BlockManager\Locale\Context\RequestLocaleContext
-        arguments:
-            - "@request_stack"
-        tags:
-            - { name: netgen_block_manager.locale.context }
-
     netgen_block_manager.locale.provider:
         alias: netgen_block_manager.locale.provider.default
 

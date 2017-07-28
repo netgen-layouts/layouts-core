@@ -28,7 +28,6 @@ abstract class BlockMapperTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlock
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlockTranslation
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapPlaceholders
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::getBlockLocales
      */
     public function testMapBlock()
     {
@@ -109,7 +108,6 @@ abstract class BlockMapperTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlock
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlockTranslation
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapPlaceholders
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::getBlockLocales
      */
     public function testMapBlockWithLocales()
     {
@@ -134,25 +132,24 @@ abstract class BlockMapperTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlock
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlockTranslation
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapPlaceholders
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::getBlockLocales
      */
-    public function testMapBlockWithAlwaysAvailableBlock()
+    public function testMapBlockWithLocalesAndAlwaysAvailable()
     {
         $persistenceBlock = new Block(
             array(
                 'definitionIdentifier' => 'text',
                 'alwaysAvailable' => true,
-                'mainLocale' => 'de',
+                'mainLocale' => 'en',
                 'availableLocales' => array('en', 'hr', 'de'),
                 'parameters' => array('en' => array(), 'hr' => array(), 'de' => array()),
                 'config' => array(),
             )
         );
 
-        $block = $this->blockMapper->mapBlock($persistenceBlock);
+        $block = $this->blockMapper->mapBlock($persistenceBlock, array('hr'));
 
         $this->assertInstanceOf(APIBlock::class, $block);
-        $this->assertEquals(array('en', 'hr', 'de'), $block->getAvailableLocales());
+        $this->assertEquals(array('hr', 'en'), $block->getAvailableLocales());
     }
 
     /**
@@ -160,35 +157,8 @@ abstract class BlockMapperTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlock
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlockTranslation
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapPlaceholders
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::getBlockLocales
      */
-    public function testMapBlockWithNotAlwaysAvailableBlock()
-    {
-        $persistenceBlock = new Block(
-            array(
-                'definitionIdentifier' => 'text',
-                'alwaysAvailable' => false,
-                'mainLocale' => 'de',
-                'availableLocales' => array('en', 'hr', 'de'),
-                'parameters' => array('en' => array(), 'hr' => array(), 'de' => array()),
-                'config' => array(),
-            )
-        );
-
-        $block = $this->blockMapper->mapBlock($persistenceBlock);
-
-        $this->assertInstanceOf(APIBlock::class, $block);
-        $this->assertEquals(array('en', 'hr'), $block->getAvailableLocales());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::__construct
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlock
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlockTranslation
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapPlaceholders
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::getBlockLocales
-     */
-    public function testMapBlockWithLocalesAndNoContext()
+    public function testMapBlockWithAllLocales()
     {
         $persistenceBlock = new Block(
             array(
@@ -200,41 +170,15 @@ abstract class BlockMapperTest extends ServiceTestCase
             )
         );
 
-        $block = $this->blockMapper->mapBlock($persistenceBlock, array('hr'), false);
+        $block = $this->blockMapper->mapBlock($persistenceBlock, true);
 
         $this->assertInstanceOf(APIBlock::class, $block);
-        $this->assertEquals(array('hr'), $block->getAvailableLocales());
+        $this->assertEquals(array('de', 'en', 'hr'), $block->getAvailableLocales());
     }
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::__construct
      * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlock
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlockTranslation
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapPlaceholders
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::getBlockLocales
-     */
-    public function testMapBlockWithNoContext()
-    {
-        $persistenceBlock = new Block(
-            array(
-                'definitionIdentifier' => 'text',
-                'mainLocale' => 'en',
-                'availableLocales' => array('en', 'hr', 'de'),
-                'parameters' => array('en' => array(), 'hr' => array(), 'de' => array()),
-                'config' => array(),
-            )
-        );
-
-        $block = $this->blockMapper->mapBlock($persistenceBlock, null, false);
-
-        $this->assertInstanceOf(APIBlock::class, $block);
-        $this->assertEquals(array('en', 'hr', 'de'), $block->getAvailableLocales());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::__construct
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlock
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::getBlockLocales
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      * @expectedExceptionMessage Could not find block with identifier "42"
      */

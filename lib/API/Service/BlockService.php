@@ -15,49 +15,45 @@ interface BlockService extends Service
      * Loads a block with specified ID.
      *
      * @param int|string $blockId
-     * @param string[] $locales
-     * @param bool $useContext
+     * @param string[]|bool $locales
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If block with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function loadBlock($blockId, array $locales = null, $useContext = true);
+    public function loadBlock($blockId, $locales = null);
 
     /**
      * Loads a block draft with specified ID.
      *
      * @param int|string $blockId
-     * @param string[] $locales
-     * @param bool $useContext
+     * @param string[]|bool $locales
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If block with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function loadBlockDraft($blockId, array $locales = null, $useContext = true);
+    public function loadBlockDraft($blockId, $locales = null);
 
     /**
      * Loads all blocks belonging to provided zone.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
-     * @param string[] $locales
-     * @param bool $useContext
+     * @param string[]|bool $locales
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block[]
      */
-    public function loadZoneBlocks(Zone $zone, array $locales = null, $useContext = true);
+    public function loadZoneBlocks(Zone $zone, $locales = null);
 
     /**
      * Loads all blocks belonging to provided layout.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param string[] $locales
-     * @param bool $useContext
+     * @param string[]|bool $locales
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block[]
      */
-    public function loadLayoutBlocks(Layout $layout, array $locales = null, $useContext = true);
+    public function loadLayoutBlocks(Layout $layout, $locales = null);
 
     /**
      * Returns if provided block has a published status.
@@ -73,23 +69,19 @@ interface BlockService extends Service
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param string $identifier
-     * @param array $locales
-     * @param bool $useContext
      *
      * @return \Netgen\BlockManager\API\Values\Block\CollectionReference
      */
-    public function loadCollectionReference(Block $block, $identifier, array $locales = null, $useContext = true);
+    public function loadCollectionReference(Block $block, $identifier);
 
     /**
      * Loads all collection references belonging to the provided block.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param array $locales
-     * @param bool $useContext
      *
      * @return \Netgen\BlockManager\API\Values\Block\CollectionReference[]
      */
-    public function loadCollectionReferences(Block $block, array $locales = null, $useContext = true);
+    public function loadCollectionReferences(Block $block);
 
     /**
      * Creates a block in specified block and placeholder.

@@ -112,14 +112,13 @@ class BlockService extends Service implements BlockServiceInterface
      * Loads a block with specified ID.
      *
      * @param int|string $blockId
-     * @param string[] $locales
-     * @param bool $useContext
+     * @param string[]|bool $locales
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If block with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function loadBlock($blockId, array $locales = null, $useContext = true)
+    public function loadBlock($blockId, $locales = null)
     {
         $this->validator->validateId($blockId, 'blockId');
 
@@ -130,21 +129,20 @@ class BlockService extends Service implements BlockServiceInterface
             throw new NotFoundException('block', $blockId);
         }
 
-        return $this->mapper->mapBlock($block, $locales, $useContext);
+        return $this->mapper->mapBlock($block, $locales);
     }
 
     /**
      * Loads a block draft with specified ID.
      *
      * @param int|string $blockId
-     * @param string[] $locales
-     * @param bool $useContext
+     * @param string[]|bool $locales
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If block with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function loadBlockDraft($blockId, array $locales = null, $useContext = true)
+    public function loadBlockDraft($blockId, $locales = null)
     {
         $this->validator->validateId($blockId, 'blockId');
 
@@ -155,19 +153,18 @@ class BlockService extends Service implements BlockServiceInterface
             throw new NotFoundException('block', $blockId);
         }
 
-        return $this->mapper->mapBlock($block, $locales, $useContext);
+        return $this->mapper->mapBlock($block, $locales);
     }
 
     /**
      * Loads all blocks belonging to provided zone.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
-     * @param string[] $locales
-     * @param bool $useContext
+     * @param string[]|bool $locales
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block[]
      */
-    public function loadZoneBlocks(Zone $zone, array $locales = null, $useContext = true)
+    public function loadZoneBlocks(Zone $zone, $locales = null)
     {
         $persistenceZone = $this->layoutHandler->loadZone(
             $zone->getLayoutId(),
@@ -184,7 +181,11 @@ class BlockService extends Service implements BlockServiceInterface
 
         $blocks = array();
         foreach ($persistenceBlocks as $persistenceBlock) {
-            $blocks[] = $this->mapper->mapBlock($persistenceBlock, $locales, $useContext);
+            try {
+                $blocks[] = $this->mapper->mapBlock($persistenceBlock, $locales);
+            } catch (NotFoundException $e) {
+                // Block does not have the translation, skip it
+            }
         }
 
         return $blocks;
@@ -194,12 +195,11 @@ class BlockService extends Service implements BlockServiceInterface
      * Loads all blocks belonging to provided layout.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param string[] $locales
-     * @param bool $useContext
+     * @param string[]|bool $locales
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block[]
      */
-    public function loadLayoutBlocks(Layout $layout, array $locales = null, $useContext = true)
+    public function loadLayoutBlocks(Layout $layout, $locales = null)
     {
         $persistenceLayout = $this->layoutHandler->loadLayout(
             $layout->getId(),
@@ -216,7 +216,11 @@ class BlockService extends Service implements BlockServiceInterface
 
         $blocks = array();
         foreach ($persistenceBlocks as $persistenceBlock) {
-            $blocks[] = $this->mapper->mapBlock($persistenceBlock, $locales, $useContext);
+            try {
+                $blocks[] = $this->mapper->mapBlock($persistenceBlock, $locales);
+            } catch (NotFoundException $e) {
+                // Block does not have the translation, skip it
+            }
         }
 
         return $blocks;
@@ -239,12 +243,10 @@ class BlockService extends Service implements BlockServiceInterface
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param string $identifier
-     * @param array $locales
-     * @param bool $useContext
      *
      * @return \Netgen\BlockManager\API\Values\Block\CollectionReference
      */
-    public function loadCollectionReference(Block $block, $identifier, array $locales = null, $useContext = true)
+    public function loadCollectionReference(Block $block, $identifier)
     {
         $this->validator->validateIdentifier($identifier, null, true);
 
@@ -256,8 +258,7 @@ class BlockService extends Service implements BlockServiceInterface
                 $persistenceBlock,
                 $identifier
             ),
-            $locales,
-            $useContext
+            $block->getAvailableLocales()
         );
     }
 
@@ -265,12 +266,10 @@ class BlockService extends Service implements BlockServiceInterface
      * Loads all collection references belonging to the provided block.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param array $locales
-     * @param bool $useContext
      *
      * @return \Netgen\BlockManager\API\Values\Block\CollectionReference[]
      */
-    public function loadCollectionReferences(Block $block, array $locales = null, $useContext = true)
+    public function loadCollectionReferences(Block $block)
     {
         $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), $block->getStatus());
         $persistenceCollections = $this->blockHandler->loadCollectionReferences($persistenceBlock);
@@ -280,8 +279,7 @@ class BlockService extends Service implements BlockServiceInterface
             $collections[] = $this->mapper->mapCollectionReference(
                 $persistenceBlock,
                 $persistenceCollection,
-                $locales,
-                $useContext
+                $block->getAvailableLocales()
             );
         }
 
@@ -734,7 +732,7 @@ class BlockService extends Service implements BlockServiceInterface
             }
         );
 
-        return $this->mapper->mapBlock($updatedBlock, null, false);
+        return $this->mapper->mapBlock($updatedBlock, array($updatedBlock->mainLocale));
     }
 
     /**
@@ -783,7 +781,7 @@ class BlockService extends Service implements BlockServiceInterface
             }
         );
 
-        return $this->mapper->mapBlock($updatedBlock, array($block->getMainLocale()));
+        return $this->mapper->mapBlock($updatedBlock, array($updatedBlock->mainLocale));
     }
 
     /**

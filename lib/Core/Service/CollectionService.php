@@ -79,14 +79,13 @@ class CollectionService extends Service implements APICollectionService
      * Loads a collection with specified ID.
      *
      * @param int|string $collectionId
-     * @param string[] $locales
-     * @param bool $useContext
+     * @param string[]|bool $locales
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If collection with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function loadCollection($collectionId, array $locales = null, $useContext = true)
+    public function loadCollection($collectionId, $locales = null)
     {
         $this->validator->validateId($collectionId, 'collectionId');
 
@@ -95,8 +94,7 @@ class CollectionService extends Service implements APICollectionService
                 $collectionId,
                 Value::STATUS_PUBLISHED
             ),
-            $locales,
-            $useContext
+            $locales
         );
     }
 
@@ -104,14 +102,13 @@ class CollectionService extends Service implements APICollectionService
      * Loads a collection draft with specified ID.
      *
      * @param int|string $collectionId
-     * @param string[] $locales
-     * @param bool $useContext
+     * @param string[]|bool $locales
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If collection with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function loadCollectionDraft($collectionId, array $locales = null, $useContext = true)
+    public function loadCollectionDraft($collectionId, $locales = null)
     {
         $this->validator->validateId($collectionId, 'collectionId');
 
@@ -120,8 +117,7 @@ class CollectionService extends Service implements APICollectionService
                 $collectionId,
                 Value::STATUS_DRAFT
             ),
-            $locales,
-            $useContext
+            $locales
         );
     }
 
@@ -171,14 +167,13 @@ class CollectionService extends Service implements APICollectionService
      * Loads a query with specified ID.
      *
      * @param int|string $queryId
-     * @param string[] $locales
-     * @param bool $useContext
+     * @param string[]|bool $locales
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If query with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
-    public function loadQuery($queryId, array $locales = null, $useContext = true)
+    public function loadQuery($queryId, $locales = null)
     {
         $this->validator->validateId($queryId, 'queryId');
 
@@ -187,8 +182,7 @@ class CollectionService extends Service implements APICollectionService
                 $queryId,
                 Value::STATUS_PUBLISHED
             ),
-            $locales,
-            $useContext
+            $locales
         );
     }
 
@@ -196,14 +190,13 @@ class CollectionService extends Service implements APICollectionService
      * Loads a query with specified ID.
      *
      * @param int|string $queryId
-     * @param string[] $locales
-     * @param bool $useContext
+     * @param string[]|bool $locales
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If query with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
-    public function loadQueryDraft($queryId, array $locales = null, $useContext = true)
+    public function loadQueryDraft($queryId, $locales = null)
     {
         $this->validator->validateId($queryId, 'queryId');
 
@@ -212,8 +205,7 @@ class CollectionService extends Service implements APICollectionService
                 $queryId,
                 Value::STATUS_DRAFT
             ),
-            $locales,
-            $useContext
+            $locales
         );
     }
 
