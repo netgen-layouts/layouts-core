@@ -217,6 +217,18 @@ class Collection extends ValueObject implements APICollection
     }
 
     /**
+     * Returns if the collection has the provided locale.
+     *
+     * @param string $locale
+     *
+     * @return bool
+     */
+    public function hasLocale($locale)
+    {
+        return in_array($locale, $this->availableLocales, true);
+    }
+
+    /**
      * Returns if the collection is translatable.
      *
      * @return bool

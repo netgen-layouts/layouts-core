@@ -29,6 +29,7 @@ class LayoutTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::isPublished
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getMainLocale
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getAvailableLocales
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::hasLocale
      */
     public function testSetDefaultProperties()
     {
@@ -48,6 +49,7 @@ class LayoutTest extends TestCase
         $this->assertNull($layout->isPublished());
         $this->assertNull($layout->getMainLocale());
         $this->assertEquals(array(), $layout->getAvailableLocales());
+        $this->assertFalse($layout->hasLocale('en'));
     }
 
     /**
@@ -72,6 +74,7 @@ class LayoutTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::offsetUnset
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getMainLocale
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getAvailableLocales
+     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::hasLocale
      */
     public function testSetProperties()
     {
@@ -120,6 +123,8 @@ class LayoutTest extends TestCase
         $this->assertTrue($layout->isPublished());
         $this->assertEquals('en', $layout->getMainLocale());
         $this->assertEquals(array('en'), $layout->getAvailableLocales());
+        $this->assertTrue($layout->hasLocale('en'));
+        $this->assertFalse($layout->hasLocale('hr'));
 
         $this->assertInstanceOf(Traversable::class, $layout->getIterator());
         $this->assertEquals($zones, iterator_to_array($layout->getIterator()));

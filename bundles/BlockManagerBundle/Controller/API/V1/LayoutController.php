@@ -91,7 +91,7 @@ class LayoutController extends Controller
      */
     public function viewLayoutBlocks(Layout $layout, $locale)
     {
-        if (!in_array($locale, $layout->getAvailableLocales(), true)) {
+        if (!$layout->hasLocale($locale)) {
             throw new NotFoundException('layout', $layout->getId());
         }
 
@@ -121,7 +121,7 @@ class LayoutController extends Controller
             $this->layoutService->loadLayout($zone->getLayoutId()) :
             $this->layoutService->loadLayoutDraft($zone->getLayoutId());
 
-        if (!in_array($locale, $layout->getAvailableLocales(), true)) {
+        if (!$layout->hasLocale($locale)) {
             throw new NotFoundException('layout', $layout->getId());
         }
 

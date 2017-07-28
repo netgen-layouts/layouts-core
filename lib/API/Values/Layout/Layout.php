@@ -80,6 +80,15 @@ interface Layout extends Value, ArrayAccess, IteratorAggregate, Countable
     public function getAvailableLocales();
 
     /**
+     * Returns if the layout has the provided locale.
+     *
+     * @param string $locale
+     *
+     * @return bool
+     */
+    public function hasLocale($locale);
+
+    /**
      * Returns all zones from the layout.
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Zone[]

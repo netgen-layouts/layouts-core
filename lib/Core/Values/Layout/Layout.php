@@ -182,6 +182,18 @@ class Layout extends ValueObject implements APILayout
     }
 
     /**
+     * Returns if the layout has the provided locale.
+     *
+     * @param string $locale
+     *
+     * @return bool
+     */
+    public function hasLocale($locale)
+    {
+        return in_array($locale, $this->availableLocales, true);
+    }
+
+    /**
      * Returns all zones from the layout.
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Zone[]
