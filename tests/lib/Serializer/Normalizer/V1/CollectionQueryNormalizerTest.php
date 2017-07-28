@@ -87,11 +87,9 @@ class CollectionQueryNormalizerTest extends TestCase
                 'id' => $query->getId(),
                 'collection_id' => $query->getCollectionId(),
                 'type' => $query->getQueryType()->getType(),
-                'is_translatable' => $query->isTranslatable(),
                 'locale' => $query->getTranslation()->getLocale(),
-                'main_locale' => $query->getMainLocale(),
+                'is_translatable' => $query->isTranslatable(),
                 'always_available' => $query->isAlwaysAvailable(),
-                'available_locales' => $query->getAvailableLocales(),
                 'parameters' => $serializedParams,
             ),
             $this->normalizer->normalize(new VersionedValue($query, 1))
