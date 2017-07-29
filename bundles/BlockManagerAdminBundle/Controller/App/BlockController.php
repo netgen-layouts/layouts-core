@@ -7,9 +7,10 @@ use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Block\Form\ConfigureTranslationType;
 use Netgen\BlockManager\Config\Form\EditType as ConfigEditType;
 use Netgen\BlockManager\Exception\Core\ConfigException;
+use Netgen\BlockManager\Serializer\Values\View;
+use Netgen\BlockManager\Serializer\Version;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -63,7 +64,7 @@ class BlockController extends Controller
      * @param string $formName
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
-     * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
+     * @return \Netgen\BlockManager\View\ViewInterface|\Netgen\BlockManager\Serializer\Values\View|\Symfony\Component\HttpFoundation\Response
      */
     public function editForm(Block $block, $locale, $formName, Request $request)
     {
@@ -95,9 +96,9 @@ class BlockController extends Controller
         }
 
         if ($form->isValid()) {
-            $this->blockService->updateBlock($block, $form->getData());
+            $block = $this->blockService->updateBlock($block, $form->getData());
 
-            return new Response(null, Response::HTTP_NO_CONTENT);
+            return new View($block, Version::API_V1);
         }
 
         return $this->buildView(
