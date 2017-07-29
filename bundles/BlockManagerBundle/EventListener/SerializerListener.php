@@ -48,10 +48,6 @@ class SerializerListener implements EventSubscriberInterface
         }
 
         $request = $event->getRequest();
-        if ($request->attributes->get(SetIsApiRequestListener::API_FLAG_NAME) !== true) {
-            return;
-        }
-
         $value = $event->getControllerResult();
         if (!$value instanceof ValueInterface) {
             return;

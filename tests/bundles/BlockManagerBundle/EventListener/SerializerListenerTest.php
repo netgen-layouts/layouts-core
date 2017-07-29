@@ -135,26 +135,6 @@ class SerializerListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\SerializerListener::onView
      */
-    public function testOnViewWithNoApiRequest()
-    {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
-        $request = Request::create('/');
-
-        $event = new GetResponseForControllerResultEvent(
-            $kernelMock,
-            $request,
-            HttpKernelInterface::MASTER_REQUEST,
-            new VersionedValue(new Value(), 42)
-        );
-
-        $this->listener->onView($event);
-
-        $this->assertNull($event->getResponse());
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\SerializerListener::onView
-     */
     public function testOnViewInSubRequest()
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
