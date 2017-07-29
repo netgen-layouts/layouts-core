@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Collection\Query\Form;
 
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
-use Netgen\BlockManager\Form\AbstractType;
+use Netgen\BlockManager\Form\TranslatableType;
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
 use Netgen\BlockManager\Validator\Constraint\Structs\QueryUpdateStruct as QueryUpdateStructConstraint;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -13,7 +13,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class FullEditType extends AbstractType
+class FullEditType extends TranslatableType
 {
     /**
      * Configures the options for this type.
@@ -59,6 +59,9 @@ class FullEditType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $locale = $options['data']->locale;
+        $mainLocale = $options['query']->getMainLocale();
+
         /** @var \Netgen\BlockManager\Collection\QueryTypeInterface $queryType */
         $queryType = $options['query']->getQueryType();
 
@@ -73,5 +76,9 @@ class FullEditType extends AbstractType
                 'label_prefix' => 'query.' . $queryType->getType(),
             )
         );
+
+        if ($locale !== $mainLocale) {
+            $this->disableFormsOnNonMainLocale($builder);
+        }
     }
 }
