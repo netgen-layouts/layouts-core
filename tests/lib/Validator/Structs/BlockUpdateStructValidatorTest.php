@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\Tests\Validator\Structs;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithTranslatableCompoundParameter;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
 use Netgen\BlockManager\Validator\Structs\BlockUpdateStructValidator;
@@ -49,31 +48,6 @@ class BlockUpdateStructValidatorTest extends ValidatorTestCase
      */
     public function testValidate($value, $isValid)
     {
-        $this->assertValid($isValid, new BlockUpdateStruct($value));
-    }
-
-    /**
-     * @param array $value
-     * @param bool $isValid
-     *
-     * @covers \Netgen\BlockManager\Validator\Structs\BlockUpdateStructValidator::validate
-     * @covers \Netgen\BlockManager\Validator\Structs\BlockUpdateStructValidator::validateUntranslatableParameters
-     * @dataProvider validateDataProviderWithTranslatableParameters
-     */
-    public function testValidateWithTranslatableParameters($value, $isValid)
-    {
-        $this->constraint->payload = new Block(
-            array(
-                'viewType' => 'large',
-                'mainLocale' => 'en',
-                'definition' => new BlockDefinition(
-                    'block_definition',
-                    array('large' => array('standard')),
-                    new BlockDefinitionHandlerWithTranslatableCompoundParameter()
-                ),
-            )
-        );
-
         $this->assertValid($isValid, new BlockUpdateStruct($value));
     }
 
@@ -413,121 +387,6 @@ class BlockUpdateStructValidatorTest extends ValidatorTestCase
                     'name' => 'My block',
                     'parameterValues' => array(
                         'css_class' => 'class',
-                    ),
-                ),
-                true,
-            ),
-        );
-    }
-
-    public function validateDataProviderWithTranslatableParameters()
-    {
-        return array(
-            array(
-                array(
-                    'locale' => 'en',
-                    'parameterValues' => array(
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ),
-                ),
-                true,
-            ),
-            array(
-                array(
-                    'locale' => 'hr',
-                    'parameterValues' => array(
-                        'css_class' => 'class',
-                    ),
-                ),
-                true,
-            ),
-            array(
-                array(
-                    'locale' => 'hr',
-                    'parameterValues' => array(
-                        'css_class' => null,
-                    ),
-                ),
-                true,
-            ),
-            array(
-                array(
-                    'locale' => 'hr',
-                    'parameterValues' => array(),
-                ),
-                true,
-            ),
-            array(
-                array(
-                    'locale' => 'hr',
-                    'parameterValues' => array(
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ),
-                ),
-                false,
-            ),
-            array(
-                array(
-                    'locale' => 'hr',
-                    'parameterValues' => array(
-                        'css_class' => 'class',
-                        'css_id' => null,
-                    ),
-                ),
-                false,
-            ),
-            array(
-                array(
-                    'locale' => 'en',
-                    'parameterValues' => array(
-                        'compound' => true,
-                    ),
-                ),
-                true,
-            ),
-            array(
-                array(
-                    'locale' => 'en',
-                    'parameterValues' => array(
-                        'inner' => 'test',
-                    ),
-                ),
-                true,
-            ),
-            array(
-                array(
-                    'locale' => 'en',
-                    'parameterValues' => array(
-                        'inner' => null,
-                    ),
-                ),
-                true,
-            ),
-            array(
-                array(
-                    'locale' => 'hr',
-                    'parameterValues' => array(
-                        'compound' => true,
-                    ),
-                ),
-                true,
-            ),
-            array(
-                array(
-                    'locale' => 'hr',
-                    'parameterValues' => array(
-                        'inner' => 'test',
-                    ),
-                ),
-                true,
-            ),
-            array(
-                array(
-                    'locale' => 'hr',
-                    'parameterValues' => array(
-                        'inner' => null,
                     ),
                 ),
                 true,

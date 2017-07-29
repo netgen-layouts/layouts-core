@@ -10,7 +10,6 @@ use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition as BlockDefinitionStub;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithRequiredParameter;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithTranslatableCompoundParameter;
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinition as ContainerDefinitionStub;
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
@@ -93,38 +92,6 @@ class BlockValidatorTest extends TestCase
                     'definition' => new BlockDefinitionStub(
                         'block_definition',
                         array('large' => array('standard'))
-                    ),
-                )
-            ),
-            new BlockUpdateStruct($params)
-        );
-    }
-
-    /**
-     * @param array $params
-     * @param bool $isValid
-     *
-     * @covers \Netgen\BlockManager\Core\Service\Validator\BlockValidator::validateBlockUpdateStruct
-     * @dataProvider validateBlockUpdateStructDataProviderWithTranslatableParameters
-     */
-    public function testValidateBlockUpdateStructWithTranslatableParameters(array $params, $isValid)
-    {
-        if (!$isValid) {
-            $this->expectException(ValidationException::class);
-        }
-
-        // Fake assertion to fix coverage on tests which do not perform assertions
-        $this->assertTrue(true);
-
-        $this->blockValidator->validateBlockUpdateStruct(
-            new Block(
-                array(
-                    'viewType' => 'large',
-                    'mainLocale' => 'en',
-                    'definition' => new BlockDefinitionStub(
-                        'block_definition',
-                        array('large' => array('standard')),
-                        new BlockDefinitionHandlerWithTranslatableCompoundParameter()
                     ),
                 )
             ),
@@ -840,121 +807,6 @@ class BlockValidatorTest extends TestCase
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
-                ),
-                true,
-            ),
-        );
-    }
-
-    public function validateBlockUpdateStructDataProviderWithTranslatableParameters()
-    {
-        return array(
-            array(
-                array(
-                    'locale' => 'en',
-                    'parameterValues' => array(
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ),
-                ),
-                true,
-            ),
-            array(
-                array(
-                    'locale' => 'hr',
-                    'parameterValues' => array(
-                        'css_class' => 'class',
-                    ),
-                ),
-                true,
-            ),
-            array(
-                array(
-                    'locale' => 'hr',
-                    'parameterValues' => array(
-                        'css_class' => null,
-                    ),
-                ),
-                true,
-            ),
-            array(
-                array(
-                    'locale' => 'hr',
-                    'parameterValues' => array(),
-                ),
-                true,
-            ),
-            array(
-                array(
-                    'locale' => 'hr',
-                    'parameterValues' => array(
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ),
-                ),
-                false,
-            ),
-            array(
-                array(
-                    'locale' => 'hr',
-                    'parameterValues' => array(
-                        'css_class' => 'class',
-                        'css_id' => null,
-                    ),
-                ),
-                false,
-            ),
-            array(
-                array(
-                    'locale' => 'en',
-                    'parameterValues' => array(
-                        'compound' => true,
-                    ),
-                ),
-                true,
-            ),
-            array(
-                array(
-                    'locale' => 'en',
-                    'parameterValues' => array(
-                        'inner' => 'test',
-                    ),
-                ),
-                true,
-            ),
-            array(
-                array(
-                    'locale' => 'en',
-                    'parameterValues' => array(
-                        'inner' => null,
-                    ),
-                ),
-                true,
-            ),
-            array(
-                array(
-                    'locale' => 'hr',
-                    'parameterValues' => array(
-                        'compound' => true,
-                    ),
-                ),
-                true,
-            ),
-            array(
-                array(
-                    'locale' => 'hr',
-                    'parameterValues' => array(
-                        'inner' => 'test',
-                    ),
-                ),
-                true,
-            ),
-            array(
-                array(
-                    'locale' => 'hr',
-                    'parameterValues' => array(
-                        'inner' => null,
-                    ),
                 ),
                 true,
             ),
