@@ -205,12 +205,7 @@ class BlockController extends Controller
                 $this->blockService->enableTranslations($block);
             }
 
-            return new JsonResponse(
-                array(
-                    'translatable' => $isTranslatable,
-                ),
-                Response::HTTP_OK
-            );
+            return new Response(null, Response::HTTP_NO_CONTENT);
         }
 
         return $this->buildView(
