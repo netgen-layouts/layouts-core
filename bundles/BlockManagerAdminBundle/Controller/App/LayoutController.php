@@ -43,7 +43,6 @@ class LayoutController extends Controller
     public function layoutCreateForm(Request $request)
     {
         $createStruct = new LayoutCreateStruct();
-        $createStruct->mainLocale = $request->getLocale();
 
         $form = $this->createForm(
             CreateType::class,
