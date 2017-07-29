@@ -14,7 +14,7 @@ class BlockControllerTest extends JsonApiTestCase
      */
     public function testView()
     {
-        $this->client->request('GET', '/bm/api/v1/blocks/31?html=false');
+        $this->client->request('GET', '/bm/api/v1/en/blocks/31?html=false');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -28,7 +28,7 @@ class BlockControllerTest extends JsonApiTestCase
      */
     public function testViewInPublishedState()
     {
-        $this->client->request('GET', '/bm/api/v1/blocks/31?published=true&html=false');
+        $this->client->request('GET', '/bm/api/v1/en/blocks/31?published=true&html=false');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -42,7 +42,7 @@ class BlockControllerTest extends JsonApiTestCase
      */
     public function testViewWithNonExistentBlock()
     {
-        $this->client->request('GET', '/bm/api/v1/blocks/9999');
+        $this->client->request('GET', '/bm/api/v1/en/blocks/9999');
 
         $this->assertException(
             $this->client->getResponse(),
@@ -68,7 +68,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/33?html=false',
+            '/bm/api/v1/en/blocks/33?html=false',
             array(),
             array(),
             array(),
@@ -99,7 +99,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/33?html=false',
+            '/bm/api/v1/en/blocks/33?html=false',
             array(),
             array(),
             array(),
@@ -130,7 +130,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/33?html=false',
+            '/bm/api/v1/en/blocks/33?html=false',
             array(),
             array(),
             array(),
@@ -160,7 +160,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/33?html=false',
+            '/bm/api/v1/en/blocks/33?html=false',
             array(),
             array(),
             array(),
@@ -190,7 +190,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31',
+            '/bm/api/v1/en/blocks/31',
             array(),
             array(),
             array(),
@@ -220,7 +220,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/33',
+            '/bm/api/v1/en/blocks/33',
             array(),
             array(),
             array(),
@@ -250,7 +250,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/33',
+            '/bm/api/v1/en/blocks/33',
             array(),
             array(),
             array(),
@@ -279,7 +279,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/33',
+            '/bm/api/v1/en/blocks/33',
             array(),
             array(),
             array(),
@@ -309,7 +309,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/33',
+            '/bm/api/v1/en/blocks/33',
             array(),
             array(),
             array(),
@@ -338,7 +338,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/33',
+            '/bm/api/v1/en/blocks/33',
             array(),
             array(),
             array(),
@@ -368,7 +368,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/33',
+            '/bm/api/v1/en/blocks/33',
             array(),
             array(),
             array(),
@@ -398,7 +398,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/33',
+            '/bm/api/v1/en/blocks/33',
             array(),
             array(),
             array(),
@@ -428,7 +428,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/33',
+            '/bm/api/v1/en/blocks/33',
             array(),
             array(),
             array(),
@@ -458,7 +458,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/33',
+            '/bm/api/v1/en/blocks/33',
             array(),
             array(),
             array(),
@@ -490,7 +490,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks?html=false',
+            '/bm/api/v1/en/blocks?html=false',
             array(),
             array(),
             array(),
@@ -521,7 +521,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks?html=false',
+            '/bm/api/v1/en/blocks?html=false',
             array(),
             array(),
             array(),
@@ -552,7 +552,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks',
+            '/bm/api/v1/en/blocks',
             array(),
             array(),
             array(),
@@ -582,7 +582,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks',
+            '/bm/api/v1/en/blocks',
             array(),
             array(),
             array(),
@@ -613,7 +613,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks',
+            '/bm/api/v1/en/blocks',
             array(),
             array(),
             array(),
@@ -643,7 +643,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks',
+            '/bm/api/v1/en/blocks',
             array(),
             array(),
             array(),
@@ -674,7 +674,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks',
+            '/bm/api/v1/en/blocks',
             array(),
             array(),
             array(),
@@ -704,7 +704,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks',
+            '/bm/api/v1/en/blocks',
             array(),
             array(),
             array(),
@@ -735,7 +735,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks',
+            '/bm/api/v1/en/blocks',
             array(),
             array(),
             array(),
@@ -766,7 +766,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks',
+            '/bm/api/v1/en/blocks',
             array(),
             array(),
             array(),
@@ -797,7 +797,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks',
+            '/bm/api/v1/en/blocks',
             array(),
             array(),
             array(),
@@ -828,7 +828,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks',
+            '/bm/api/v1/en/blocks',
             array(),
             array(),
             array(),
@@ -859,7 +859,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks',
+            '/bm/api/v1/en/blocks',
             array(),
             array(),
             array(),
@@ -890,7 +890,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks',
+            '/bm/api/v1/en/blocks',
             array(),
             array(),
             array(),
@@ -918,7 +918,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/34/copy?html=false',
+            '/bm/api/v1/en/blocks/34/copy?html=false',
             array(),
             array(),
             array(),
@@ -941,7 +941,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/9999/copy',
+            '/bm/api/v1/en/blocks/9999/copy',
             array(),
             array(),
             array(),
@@ -969,7 +969,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/34/copy',
+            '/bm/api/v1/en/blocks/34/copy',
             array(),
             array(),
             array(),
@@ -997,7 +997,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/34/copy',
+            '/bm/api/v1/en/blocks/34/copy',
             array(),
             array(),
             array(),
@@ -1025,7 +1025,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/34/copy',
+            '/bm/api/v1/en/blocks/34/copy',
             array(),
             array(),
             array(),
@@ -1053,7 +1053,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/33/copy',
+            '/bm/api/v1/en/blocks/33/copy',
             array(),
             array(),
             array(),
@@ -1081,7 +1081,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/34/copy',
+            '/bm/api/v1/en/blocks/34/copy',
             array(),
             array(),
             array(),
@@ -1109,7 +1109,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/34/copy',
+            '/bm/api/v1/en/blocks/34/copy',
             array(),
             array(),
             array(),
@@ -1136,7 +1136,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/34/copy',
+            '/bm/api/v1/en/blocks/34/copy',
             array(),
             array(),
             array(),
@@ -1163,7 +1163,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/34/copy',
+            '/bm/api/v1/en/blocks/34/copy',
             array(),
             array(),
             array(),
@@ -1191,7 +1191,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/copy/zone?html=false',
+            '/bm/api/v1/en/blocks/31/copy/zone?html=false',
             array(),
             array(),
             array(),
@@ -1214,7 +1214,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/9999/copy/zone',
+            '/bm/api/v1/en/blocks/9999/copy/zone',
             array(),
             array(),
             array(),
@@ -1242,7 +1242,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/copy/zone',
+            '/bm/api/v1/en/blocks/31/copy/zone',
             array(),
             array(),
             array(),
@@ -1270,7 +1270,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/copy/zone',
+            '/bm/api/v1/en/blocks/31/copy/zone',
             array(),
             array(),
             array(),
@@ -1298,7 +1298,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/copy/zone',
+            '/bm/api/v1/en/blocks/31/copy/zone',
             array(),
             array(),
             array(),
@@ -1326,7 +1326,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/copy/zone',
+            '/bm/api/v1/en/blocks/31/copy/zone',
             array(),
             array(),
             array(),
@@ -1354,7 +1354,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/copy/zone',
+            '/bm/api/v1/en/blocks/31/copy/zone',
             array(),
             array(),
             array(),
@@ -1381,7 +1381,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/copy/zone',
+            '/bm/api/v1/en/blocks/31/copy/zone',
             array(),
             array(),
             array(),
@@ -1408,7 +1408,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/copy/zone',
+            '/bm/api/v1/en/blocks/31/copy/zone',
             array(),
             array(),
             array(),
@@ -1437,7 +1437,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/34/move',
+            '/bm/api/v1/en/blocks/34/move',
             array(),
             array(),
             array(),
@@ -1462,7 +1462,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/37/move',
+            '/bm/api/v1/en/blocks/37/move',
             array(),
             array(),
             array(),
@@ -1487,7 +1487,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/37/move',
+            '/bm/api/v1/en/blocks/37/move',
             array(),
             array(),
             array(),
@@ -1506,7 +1506,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/9999/move/zone',
+            '/bm/api/v1/en/blocks/9999/move/zone',
             array(),
             array(),
             array(),
@@ -1535,7 +1535,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/32/move',
+            '/bm/api/v1/en/blocks/32/move',
             array(),
             array(),
             array(),
@@ -1564,7 +1564,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/34/move',
+            '/bm/api/v1/en/blocks/34/move',
             array(),
             array(),
             array(),
@@ -1593,7 +1593,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/move',
+            '/bm/api/v1/en/blocks/31/move',
             array(),
             array(),
             array(),
@@ -1622,7 +1622,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/34/move',
+            '/bm/api/v1/en/blocks/34/move',
             array(),
             array(),
             array(),
@@ -1651,7 +1651,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/33/move',
+            '/bm/api/v1/en/blocks/33/move',
             array(),
             array(),
             array(),
@@ -1680,7 +1680,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/32/move',
+            '/bm/api/v1/en/blocks/32/move',
             array(),
             array(),
             array(),
@@ -1709,7 +1709,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/34/move',
+            '/bm/api/v1/en/blocks/34/move',
             array(),
             array(),
             array(),
@@ -1738,7 +1738,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/34/move',
+            '/bm/api/v1/en/blocks/34/move',
             array(),
             array(),
             array(),
@@ -1766,7 +1766,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/32/move',
+            '/bm/api/v1/en/blocks/32/move',
             array(),
             array(),
             array(),
@@ -1794,7 +1794,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/34/move',
+            '/bm/api/v1/en/blocks/34/move',
             array(),
             array(),
             array(),
@@ -1822,7 +1822,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/34/move',
+            '/bm/api/v1/en/blocks/34/move',
             array(),
             array(),
             array(),
@@ -1851,7 +1851,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/move/zone',
+            '/bm/api/v1/en/blocks/31/move/zone',
             array(),
             array(),
             array(),
@@ -1870,7 +1870,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/9999/move/zone',
+            '/bm/api/v1/en/blocks/9999/move/zone',
             array(),
             array(),
             array(),
@@ -1899,7 +1899,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/move/zone',
+            '/bm/api/v1/en/blocks/31/move/zone',
             array(),
             array(),
             array(),
@@ -1928,7 +1928,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/move/zone',
+            '/bm/api/v1/en/blocks/31/move/zone',
             array(),
             array(),
             array(),
@@ -1957,7 +1957,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/move/zone',
+            '/bm/api/v1/en/blocks/31/move/zone',
             array(),
             array(),
             array(),
@@ -1986,7 +1986,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/move/zone',
+            '/bm/api/v1/en/blocks/31/move/zone',
             array(),
             array(),
             array(),
@@ -2015,7 +2015,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/move/zone',
+            '/bm/api/v1/en/blocks/31/move/zone',
             array(),
             array(),
             array(),
@@ -2044,7 +2044,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/move/zone',
+            '/bm/api/v1/en/blocks/31/move/zone',
             array(),
             array(),
             array(),
@@ -2073,7 +2073,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/move/zone',
+            '/bm/api/v1/en/blocks/31/move/zone',
             array(),
             array(),
             array(),
@@ -2101,7 +2101,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/move/zone',
+            '/bm/api/v1/en/blocks/31/move/zone',
             array(),
             array(),
             array(),
@@ -2129,7 +2129,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/move/zone',
+            '/bm/api/v1/en/blocks/31/move/zone',
             array(),
             array(),
             array(),
@@ -2157,7 +2157,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/move/zone',
+            '/bm/api/v1/en/blocks/31/move/zone',
             array(),
             array(),
             array(),
@@ -2180,7 +2180,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/restore?html=false',
+            '/bm/api/v1/en/blocks/31/restore?html=false',
             array(),
             array(),
             array(),
@@ -2203,7 +2203,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/9999/restore',
+            '/bm/api/v1/en/blocks/9999/restore',
             array(),
             array(),
             array(),
@@ -2226,7 +2226,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'DELETE',
-            '/bm/api/v1/blocks/31',
+            '/bm/api/v1/en/blocks/31',
             array(),
             array(),
             array(),
@@ -2245,7 +2245,7 @@ class BlockControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'DELETE',
-            '/bm/api/v1/blocks/9999',
+            '/bm/api/v1/en/blocks/9999',
             array(),
             array(),
             array(),

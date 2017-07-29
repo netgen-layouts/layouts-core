@@ -16,7 +16,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
      */
     public function testLoadCollectionReference()
     {
-        $this->client->request('GET', '/bm/api/v1/blocks/31/collections/default');
+        $this->client->request('GET', '/bm/api/v1/en/blocks/31/collections/default');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -30,7 +30,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
      */
     public function testLoadCollectionReferences()
     {
-        $this->client->request('GET', '/bm/api/v1/blocks/31/collections');
+        $this->client->request('GET', '/bm/api/v1/en/blocks/31/collections');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -44,7 +44,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
      */
     public function testLoadCollectionReferencesWithNonExistentBlock()
     {
-        $this->client->request('GET', '/bm/api/v1/blocks/9999/collections');
+        $this->client->request('GET', '/bm/api/v1/en/blocks/9999/collections');
 
         $this->assertException(
             $this->client->getResponse(),
@@ -59,7 +59,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
      */
     public function testLoadCollectionResult()
     {
-        $this->client->request('GET', '/bm/api/v1/blocks/35/collections/default/result');
+        $this->client->request('GET', '/bm/api/v1/en/blocks/35/collections/default/result');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -74,7 +74,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
      */
     public function testLoadCollectionResultWithOffsetAndLimit()
     {
-        $this->client->request('GET', '/bm/api/v1/blocks/35/collections/default/result?offset=2&limit=2');
+        $this->client->request('GET', '/bm/api/v1/en/blocks/35/collections/default/result?offset=2&limit=2');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -88,7 +88,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
      */
     public function testLoadCollectionResultWithNonExistentBlock()
     {
-        $this->client->request('GET', '/bm/api/v1/blocks/9999/collections/default/result');
+        $this->client->request('GET', '/bm/api/v1/en/blocks/9999/collections/default/result');
 
         $this->assertException(
             $this->client->getResponse(),
@@ -102,7 +102,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
      */
     public function testLoadCollectionResultWithNonExistentCollectionReference()
     {
-        $this->client->request('GET', '/bm/api/v1/blocks/31/collections/unknown/result');
+        $this->client->request('GET', '/bm/api/v1/en/blocks/31/collections/unknown/result');
 
         $this->assertException(
             $this->client->getResponse(),
@@ -137,7 +137,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/collections/default/items',
+            '/bm/api/v1/en/blocks/31/collections/default/items',
             array(),
             array(),
             array(),
@@ -173,7 +173,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/9999/collections/default/items',
+            '/bm/api/v1/en/blocks/9999/collections/default/items',
             array(),
             array(),
             array(),
@@ -213,7 +213,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/collections/unknown/items',
+            '/bm/api/v1/en/blocks/31/collections/unknown/items',
             array(),
             array(),
             array(),
@@ -241,7 +241,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/collections/default/items',
+            '/bm/api/v1/en/blocks/31/collections/default/items',
             array(),
             array(),
             array(),
@@ -269,7 +269,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/collections/default/items',
+            '/bm/api/v1/en/blocks/31/collections/default/items',
             array(),
             array(),
             array(),
@@ -293,7 +293,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/collections/default/items',
+            '/bm/api/v1/en/blocks/31/collections/default/items',
             array(),
             array(),
             array(),
@@ -328,7 +328,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/collections/default/items',
+            '/bm/api/v1/en/blocks/31/collections/default/items',
             array(),
             array(),
             array(),
@@ -362,7 +362,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/collections/default/items',
+            '/bm/api/v1/en/blocks/31/collections/default/items',
             array(),
             array(),
             array(),
@@ -397,7 +397,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/collections/default/items',
+            '/bm/api/v1/en/blocks/31/collections/default/items',
             array(),
             array(),
             array(),
@@ -431,7 +431,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/collections/default/items',
+            '/bm/api/v1/en/blocks/31/collections/default/items',
             array(),
             array(),
             array(),
@@ -466,7 +466,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/collections/default/items',
+            '/bm/api/v1/en/blocks/31/collections/default/items',
             array(),
             array(),
             array(),
@@ -500,7 +500,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/collections/default/items',
+            '/bm/api/v1/en/blocks/31/collections/default/items',
             array(),
             array(),
             array(),
@@ -535,7 +535,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/collections/default/items',
+            '/bm/api/v1/en/blocks/31/collections/default/items',
             array(),
             array(),
             array(),
@@ -569,7 +569,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/collections/featured/items',
+            '/bm/api/v1/en/blocks/31/collections/featured/items',
             array(),
             array(),
             array(),
@@ -604,7 +604,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/collections/default/items',
+            '/bm/api/v1/en/blocks/31/collections/default/items',
             array(),
             array(),
             array(),
@@ -632,7 +632,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/collections/default/change_type',
+            '/bm/api/v1/en/blocks/31/collections/default/change_type',
             array(),
             array(),
             array(),
@@ -657,7 +657,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/collections/default/change_type',
+            '/bm/api/v1/en/blocks/31/collections/default/change_type',
             array(),
             array(),
             array(),
@@ -681,7 +681,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/collections/featured/change_type',
+            '/bm/api/v1/en/blocks/31/collections/featured/change_type',
             array(),
             array(),
             array(),
@@ -706,7 +706,7 @@ class BlockCollectionControllerTest extends JsonApiTestCase
 
         $this->client->request(
             'POST',
-            '/bm/api/v1/blocks/31/collections/featured/change_type',
+            '/bm/api/v1/en/blocks/31/collections/featured/change_type',
             array(),
             array(),
             array(),

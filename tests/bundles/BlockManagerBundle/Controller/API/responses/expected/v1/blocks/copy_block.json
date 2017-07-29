@@ -18,11 +18,7 @@
     "has_published_state": false,
     "is_translatable": false,
     "locale": "en",
-    "main_locale": "en",
     "always_available": true,
-    "available_locales": [
-        "en"
-    ],
     "is_container": false,
     "is_dynamic_container": false,
     "placeholders": []

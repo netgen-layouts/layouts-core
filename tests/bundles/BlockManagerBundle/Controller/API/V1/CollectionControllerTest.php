@@ -66,34 +66,6 @@ class CollectionControllerTest extends JsonApiTestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::loadCollectionQuery
-     */
-    public function testLoadCollectionQuery()
-    {
-        $this->client->request('GET', '/bm/api/v1/collections/3/query');
-
-        $this->assertResponse(
-            $this->client->getResponse(),
-            'v1/collections/load_collection_query',
-            Response::HTTP_OK
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::loadCollectionQuery
-     */
-    public function testLoadCollectionQueryWithNonExistentCollection()
-    {
-        $this->client->request('GET', '/bm/api/v1/collections/9999/query');
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND,
-            'Could not find collection with identifier "9999"'
-        );
-    }
-
-    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::loadItem
      */
     public function testLoadItem()
@@ -283,34 +255,6 @@ class CollectionControllerTest extends JsonApiTestCase
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find item with identifier "9999"'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::loadQuery
-     */
-    public function testLoadQuery()
-    {
-        $this->client->request('GET', '/bm/api/v1/collections/query/2');
-
-        $this->assertResponse(
-            $this->client->getResponse(),
-            'v1/collections/load_query',
-            Response::HTTP_OK
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::loadQuery
-     */
-    public function testLoadQueryWithNonExistentQuery()
-    {
-        $this->client->request('GET', '/bm/api/v1/collections/query/9999');
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND,
-            'Could not find query with identifier "9999"'
         );
     }
 }

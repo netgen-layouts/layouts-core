@@ -73,7 +73,7 @@ class LayoutControllerTest extends JsonApiTestCase
      */
     public function testViewLayoutBlocks()
     {
-        $this->client->request('GET', '/bm/api/v1/layouts/1/blocks?html=false');
+        $this->client->request('GET', '/bm/api/v1/en/layouts/1/blocks?html=false');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -87,7 +87,7 @@ class LayoutControllerTest extends JsonApiTestCase
      */
     public function testViewLayoutBlocksInPublishedState()
     {
-        $this->client->request('GET', '/bm/api/v1/layouts/1/blocks?published=true&html=false');
+        $this->client->request('GET', '/bm/api/v1/en/layouts/1/blocks?published=true&html=false');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -101,7 +101,7 @@ class LayoutControllerTest extends JsonApiTestCase
      */
     public function testViewLayoutBlocksWithNonExistentLayout()
     {
-        $this->client->request('GET', '/bm/api/v1/layouts/9999/blocks');
+        $this->client->request('GET', '/bm/api/v1/en/layouts/9999/blocks');
 
         $this->assertException(
             $this->client->getResponse(),
@@ -115,7 +115,7 @@ class LayoutControllerTest extends JsonApiTestCase
      */
     public function testViewZoneBlocks()
     {
-        $this->client->request('GET', '/bm/api/v1/layouts/1/zones/right/blocks?html=false');
+        $this->client->request('GET', '/bm/api/v1/en/layouts/1/zones/right/blocks?html=false');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -129,7 +129,7 @@ class LayoutControllerTest extends JsonApiTestCase
      */
     public function testViewZoneBlocksInPublishedState()
     {
-        $this->client->request('GET', '/bm/api/v1/layouts/1/zones/right/blocks?published=true&html=false');
+        $this->client->request('GET', '/bm/api/v1/en/layouts/1/zones/right/blocks?published=true&html=false');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -143,7 +143,7 @@ class LayoutControllerTest extends JsonApiTestCase
      */
     public function testViewZoneBlocksWithNonExistentZone()
     {
-        $this->client->request('GET', '/bm/api/v1/layouts/1/zones/unknown/blocks');
+        $this->client->request('GET', '/bm/api/v1/en/layouts/1/zones/unknown/blocks');
 
         $this->assertException(
             $this->client->getResponse(),
@@ -157,7 +157,7 @@ class LayoutControllerTest extends JsonApiTestCase
      */
     public function testViewZoneBlocksWithNonExistentLayout()
     {
-        $this->client->request('GET', '/bm/api/v1/layouts/9999/zones/right/blocks');
+        $this->client->request('GET', '/bm/api/v1/en/layouts/9999/zones/right/blocks');
 
         $this->assertException(
             $this->client->getResponse(),
