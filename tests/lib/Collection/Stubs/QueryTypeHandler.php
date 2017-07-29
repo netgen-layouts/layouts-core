@@ -81,7 +81,7 @@ class QueryTypeHandler implements QueryTypeHandlerInterface
                     'name' => 'param',
                     'type' => new TextLineType(),
                     'options' => array(
-                        'translatable' => true,
+                        'translatable' => false,
                     ),
                 ),
                 true

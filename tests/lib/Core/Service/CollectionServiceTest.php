@@ -374,12 +374,12 @@ abstract class CollectionServiceTest extends ServiceTestCase
      */
     public function testUpdateQuery()
     {
-        $query = $this->collectionService->loadQueryDraft(2);
+        $query = $this->collectionService->loadQueryDraft(2, array('en', 'hr'));
 
-        $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct('en');
+        $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct('hr');
 
-        $queryUpdateStruct->setParameterValue('parent_location_id', 3);
-        $queryUpdateStruct->setParameterValue('param', 'value');
+        $queryUpdateStruct->setParameterValue('offset', 3);
+        $queryUpdateStruct->setParameterValue('param', 'new_value');
 
         $updatedQuery = $this->collectionService->updateQuery($query, $queryUpdateStruct);
 
@@ -389,7 +389,40 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $this->assertEquals('ezcontent_search', $updatedQuery->getQueryType()->getType());
 
         $this->assertEquals(0, $updatedQuery->getTranslation('en')->getParameter('offset')->getValue());
-        $this->assertEquals('value', $updatedQuery->getTranslation('en')->getParameter('param')->getValue());
+        $this->assertNull($updatedQuery->getTranslation('en')->getParameter('param')->getValue());
+
+        $this->assertEquals(3, $updatedQuery->getTranslation('hr')->getParameter('offset')->getValue());
+
+        // "param" parameter is untranslatable, meaning it keeps the value from main locale
+        $this->assertNull($updatedQuery->getTranslation('hr')->getParameter('param')->getValue());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateQuery
+     */
+    public function testUpdateQueryInMainLocale()
+    {
+        $query = $this->collectionService->loadQueryDraft(2, array('en', 'hr'));
+
+        $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct('en');
+
+        $queryUpdateStruct->setParameterValue('offset', 3);
+        $queryUpdateStruct->setParameterValue('param', 'new_value');
+
+        $updatedQuery = $this->collectionService->updateQuery($query, $queryUpdateStruct);
+
+        $this->assertFalse($updatedQuery->isPublished());
+        $this->assertInstanceOf(Query::class, $updatedQuery);
+
+        $this->assertEquals('ezcontent_search', $updatedQuery->getQueryType()->getType());
+
+        $this->assertEquals(3, $updatedQuery->getTranslation('en')->getParameter('offset')->getValue());
+        $this->assertEquals('new_value', $updatedQuery->getTranslation('en')->getParameter('param')->getValue());
+
+        $this->assertEquals(0, $updatedQuery->getTranslation('hr')->getParameter('offset')->getValue());
+
+        // "param" parameter is untranslatable, meaning it keeps the value from main locale
+        $this->assertEquals('new_value', $updatedQuery->getTranslation('hr')->getParameter('param')->getValue());
     }
 
     /**
@@ -402,7 +435,23 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $query = $this->collectionService->loadQuery(2);
 
         $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct('en');
-        $queryUpdateStruct->setParameterValue('parent_location_id', 3);
+        $queryUpdateStruct->setParameterValue('offset', 3);
+        $queryUpdateStruct->setParameterValue('param', 'value');
+
+        $this->collectionService->updateQuery($query, $queryUpdateStruct);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateQuery
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "query" has an invalid state. Query does not have the specified translation.
+     */
+    public function testUpdateQueryThrowsBadStateExceptionWithNonExistingLocale()
+    {
+        $query = $this->collectionService->loadQueryDraft(2);
+
+        $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct('non-existing');
+        $queryUpdateStruct->setParameterValue('offset', 3);
         $queryUpdateStruct->setParameterValue('param', 'value');
 
         $this->collectionService->updateQuery($query, $queryUpdateStruct);
