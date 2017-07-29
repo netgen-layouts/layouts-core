@@ -14,6 +14,7 @@ use Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class RenderingRuntimeTest extends TestCase
 {
@@ -37,7 +38,11 @@ class RenderingRuntimeTest extends TestCase
         $this->blockServiceMock = $this->createMock(BlockService::class);
         $this->rendererMock = $this->createMock(RendererInterface::class);
 
-        $this->runtime = new RenderingRuntime($this->blockServiceMock, $this->rendererMock);
+        $this->runtime = new RenderingRuntime(
+            $this->blockServiceMock,
+            $this->rendererMock,
+            new RequestStack()
+        );
     }
 
     /**

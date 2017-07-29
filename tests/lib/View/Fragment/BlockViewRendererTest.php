@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\View\Fragment;
 
 use Netgen\BlockManager\Core\Values\Block\Block;
+use Netgen\BlockManager\Core\Values\Block\BlockTranslation;
 use Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface;
 use Netgen\BlockManager\View\Fragment\BlockViewRenderer;
 use Netgen\BlockManager\View\View\BlockView;
@@ -85,7 +86,21 @@ class BlockViewRendererTest extends TestCase
      */
     public function testGetController()
     {
-        $view = new BlockView(array('block' => new Block(array('id' => 42))));
+        $block = new Block(
+            array(
+                'id' => 42,
+                'availableLocales' => array('en'),
+                'translations' => array(
+                    'en' => new BlockTranslation(
+                        array(
+                            'locale' => 'en',
+                        )
+                    ),
+                ),
+            )
+        );
+
+        $view = new BlockView(array('block' => $block));
         $view->setContext('default');
 
         $controller = $this->blockViewRenderer->getController($view);
@@ -96,6 +111,7 @@ class BlockViewRendererTest extends TestCase
         $this->assertEquals(
             array(
                 'blockId' => 42,
+                'locale' => 'en',
                 'context' => 'default',
                 '_ngbm_status' => 'published',
             ),

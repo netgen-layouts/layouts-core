@@ -13,6 +13,7 @@ use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime;
 use ReflectionProperty;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Twig_Environment;
 use Twig_Error;
 use Twig_FactoryRuntimeLoader;
@@ -111,7 +112,11 @@ class RenderingExtensionTwigTest extends \Twig_Test_IntegrationTestCase
             );
 
         $this->extension = new RenderingExtension();
-        $this->runtime = new RenderingRuntime($this->blockServiceMock, $this->rendererMock);
+        $this->runtime = new RenderingRuntime(
+            $this->blockServiceMock,
+            $this->rendererMock,
+            new RequestStack()
+        );
     }
 
     /**
