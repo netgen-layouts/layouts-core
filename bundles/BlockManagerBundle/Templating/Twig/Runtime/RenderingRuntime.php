@@ -12,6 +12,8 @@ use Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate;
 use Netgen\BlockManager\View\ViewInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class RenderingRuntime
 {
@@ -31,6 +33,11 @@ class RenderingRuntime
     protected $logger;
 
     /**
+     * @var \Symfony\Component\HttpFoundation\RequestStack
+     */
+    protected $requestStack;
+
+    /**
      * @var bool
      */
     protected $debug = false;
@@ -40,15 +47,18 @@ class RenderingRuntime
      *
      * @param \Netgen\BlockManager\API\Service\BlockService $blockService
      * @param \Netgen\BlockManager\View\RendererInterface $renderer
+     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
      * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
         BlockService $blockService,
         RendererInterface $renderer,
+        RequestStack $requestStack,
         LoggerInterface $logger = null
     ) {
         $this->blockService = $blockService;
         $this->renderer = $renderer;
+        $this->requestStack = $requestStack;
         $this->logger = $logger ?: new NullLogger();
     }
 
@@ -122,7 +132,14 @@ class RenderingRuntime
      */
     public function displayZone(Zone $zone, $viewContext, ContextualizedTwigTemplate $twigTemplate)
     {
-        foreach ($this->blockService->loadZoneBlocks($zone) as $block) {
+        $locales = null;
+
+        $request = $this->requestStack->getCurrentRequest();
+        if ($request instanceof Request) {
+            $locales = array($request->getLocale());
+        }
+
+        foreach ($this->blockService->loadZoneBlocks($zone, $locales) as $block) {
             echo $this->renderBlock(
                 array(
                     'twig_template' => $twigTemplate,

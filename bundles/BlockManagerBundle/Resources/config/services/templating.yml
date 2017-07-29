@@ -28,6 +28,7 @@ services:
         arguments:
             - "@netgen_block_manager.api.service.block"
             - "@netgen_block_manager.view.renderer.fragment"
+            - "@request_stack"
             - "@?logger"
         calls:
             - [setDebug, ["%kernel.debug%"]]
