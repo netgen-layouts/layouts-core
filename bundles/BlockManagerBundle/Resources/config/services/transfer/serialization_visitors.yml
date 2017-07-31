@@ -50,11 +50,6 @@ services:
         tags:
             - { name: netgen_block_manager.transfer.serializer.visitor }
 
-    netgen_block_manager.transfer.serializer.visitor.query_type:
-        class: Netgen\BlockManager\Transfer\Serializer\Visitor\QueryType
-        tags:
-            - { name: netgen_block_manager.transfer.serializer.visitor }
-
     netgen_block_manager.transfer.serializer.visitor.rule:
         class: Netgen\BlockManager\Transfer\Serializer\Visitor\Rule
         tags:

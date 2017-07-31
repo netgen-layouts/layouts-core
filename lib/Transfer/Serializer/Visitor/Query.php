@@ -33,7 +33,7 @@ class Query extends Visitor
             'is_contextual' => $query->isContextual(),
             'internal_limit' => $query->getInternalLimit(),
             'parameters' => $this->visitParameterValues($query, $subVisitor),
-            'query_type' => $subVisitor->visit($query->getQueryType()),
+            'query_type' => $query->getQueryType()->getType(),
         );
     }
 
