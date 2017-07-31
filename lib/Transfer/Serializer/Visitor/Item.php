@@ -48,7 +48,7 @@ class Item extends Visitor
             case ItemValue::TYPE_MANUAL:
                 return 'MANUAL';
             case ItemValue::TYPE_OVERRIDE:
-                return 'DYNAMIC';
+                return 'OVERRIDE';
         }
 
         $typeString = var_export($item->getType(), true);
