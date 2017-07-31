@@ -26,27 +26,7 @@ class Condition extends Visitor
             'type' => $condition->getConditionType()->getType(),
             'status' => $this->getStatusString($condition),
             'is_published' => $condition->isPublished(),
-            'constraints' => $this->visitConstraints($condition),
             'value' => $condition->getValue(),
         );
-    }
-
-    /**
-     * Visit the given $condition constraints into hash representation.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Condition $condition
-     *
-     * @return mixed
-     */
-    private function visitConstraints(ConditionValue $condition)
-    {
-        $hash = array();
-        $constraints = $condition->getConditionType()->getConstraints();
-
-        foreach ($constraints as $constraint) {
-            $hash[] = get_class($constraint);
-        }
-
-        return $hash;
     }
 }

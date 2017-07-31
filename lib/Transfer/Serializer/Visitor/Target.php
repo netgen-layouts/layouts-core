@@ -25,29 +25,9 @@ class Target extends Visitor
             'id' => $target->getId(),
             'status' => $this->getStatusString($target),
             'type' => $target->getTargetType()->getType(),
-            'constraints' => $this->visitConstraints($target),
             'is_published' => $target->isPublished(),
             // todo mixed what? scalar?
             'value' => $target->getValue(),
         );
-    }
-
-    /**
-     * Visit the given $target constraints into hash representation.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Target $target
-     *
-     * @return mixed
-     */
-    private function visitConstraints(TargetValue $target)
-    {
-        $hash = array();
-        $constraints = $target->getTargetType()->getConstraints();
-
-        foreach ($constraints as $constraint) {
-            $hash[] = get_class($constraint);
-        }
-
-        return $hash;
     }
 }
