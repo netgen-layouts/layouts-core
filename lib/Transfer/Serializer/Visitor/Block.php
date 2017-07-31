@@ -139,7 +139,7 @@ class Block extends Visitor
         $collectionReferences = $this->blockService->loadCollectionReferences($block);
 
         foreach ($collectionReferences as $collectionReference) {
-            $hash[] = $subVisitor->visit($collectionReference->getCollection());
+            $hash[$collectionReference->getIdentifier()] = $subVisitor->visit($collectionReference->getCollection());
         }
 
         return $hash;
