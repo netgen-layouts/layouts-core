@@ -46,7 +46,6 @@ class Block extends Visitor
             'item_view_type' => $block->getItemViewType(),
             'name' => $block->getName(),
             'placeholders' => $this->visitPlaceholders($block, $subVisitor),
-            'is_contextual' => $block->isContextual(),
             'parameters' => $this->visitParameterValues($block, $subVisitor),
             'configuration' => $this->visitConfiguration($block, $subVisitor),
             'collections' => $this->visitCollections($block, $subVisitor),

@@ -30,8 +30,6 @@ class Query extends Visitor
             'id' => $query->getId(),
             'status' => $this->getStatusString($query),
             'is_published' => $query->isPublished(),
-            'is_contextual' => $query->isContextual(),
-            'internal_limit' => $query->getInternalLimit(),
             'parameters' => $this->visitParameterValues($query, $subVisitor),
             'query_type' => $query->getQueryType()->getType(),
         );
