@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Transfer\Serializer\Visitor;
 
+use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule as RuleValue;
 use Netgen\BlockManager\Transfer\Serializer\Visitor;
 use RuntimeException;
@@ -26,11 +27,13 @@ class Rule extends Visitor
 
         /* @var \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule */
 
+        $layout = $rule->getLayout();
+
         return array(
             'id' => $rule->getId(),
             'status' => $this->getStatusString($rule),
             'is_published' => $rule->isPublished(),
-            'layout_id' => $rule->getLayout()->getId(),
+            'layout_id' => $layout instanceof Layout ? $layout->getId() : null,
             'is_enabled' => $rule->isEnabled(),
             'can_be_enabled' => $rule->canBeEnabled(),
             'priority' => $rule->getPriority(),
