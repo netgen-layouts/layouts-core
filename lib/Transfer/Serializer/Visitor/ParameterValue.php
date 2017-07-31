@@ -21,6 +21,8 @@ class ParameterValue extends Visitor
     {
         /* @var \Netgen\BlockManager\Parameters\ParameterValue $parameterValue */
 
-        return $parameterValue->getValue();
+        $parameter = $parameterValue->getParameter();
+
+        return $parameter->getType()->toHash($parameter, $parameterValue->getValue());
     }
 }
