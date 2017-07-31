@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Transfer\Serializer\Visitor;
 
 use Netgen\BlockManager\API\Values\Block\Placeholder as PlaceholderValue;
 use Netgen\BlockManager\Transfer\Serializer\Visitor;
+use RuntimeException;
 
 /**
  * Placeholder value visitor.
@@ -19,29 +20,34 @@ class Placeholder extends Visitor
 
     public function visit($placeholder, Visitor $subVisitor = null)
     {
+        if ($subVisitor === null) {
+            throw new RuntimeException('Implementation requires sub-visitor');
+        }
+
         /* @var \Netgen\BlockManager\API\Values\Block\Placeholder $placeholder */
 
         return array(
             'identifier' => $placeholder->getIdentifier(),
-            'block_references' => $this->getBlockReferences($placeholder),
+            'blocks' => $this->visitBlocks($placeholder, $subVisitor),
         );
     }
 
     /**
-     * Return an array of block references for the given $placeholder.
+     * Visit the given $placeholder blocks into hash representation.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Placeholder $placeholder
+     * @param \Netgen\BlockManager\Transfer\Serializer\Visitor $subVisitor
      *
      * @return array
      */
-    private function getBlockReferences(PlaceholderValue $placeholder)
+    private function visitBlocks(PlaceholderValue $placeholder, Visitor $subVisitor)
     {
-        $references = array();
+        $hash = array();
 
         foreach ($placeholder->getBlocks() as $block) {
-            $references[] = $block->getId();
+            $hash[] = $subVisitor->visit($block);
         }
 
-        return $references;
+        return $hash;
     }
 }
