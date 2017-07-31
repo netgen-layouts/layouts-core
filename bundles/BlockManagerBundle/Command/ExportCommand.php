@@ -55,8 +55,8 @@ class ExportCommand extends Command
         $this
             ->setName('netgen_block_manager:export')
             ->setDescription('Exports Block Manager entities')
+            ->addArgument('type', InputArgument::REQUIRED, 'Type of the entity to export')
             ->addArgument('id', InputArgument::REQUIRED, 'ID of the entity to export')
-            ->addArgument('type', InputArgument::OPTIONAL, 'Type of the entity to export', 'layout')
             ->setHelp(
                 <<<EOT
 The command <info>%command.name%</info> exports Block Manager entities.
@@ -66,8 +66,8 @@ EOT
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $id = $input->getArgument('id');
         $type = $input->getArgument('type');
+        $id = $input->getArgument('id');
 
         switch ($type) {
             case 'layout':
