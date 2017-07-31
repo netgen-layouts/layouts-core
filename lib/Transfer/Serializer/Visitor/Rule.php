@@ -35,7 +35,6 @@ class Rule extends Visitor
             'is_published' => $rule->isPublished(),
             'layout_id' => $layout instanceof Layout ? $layout->getId() : null,
             'is_enabled' => $rule->isEnabled(),
-            'can_be_enabled' => $rule->canBeEnabled(),
             'priority' => $rule->getPriority(),
             'comment' => $rule->getComment(),
             'targets' => $this->visitTargets($rule, $subVisitor),
