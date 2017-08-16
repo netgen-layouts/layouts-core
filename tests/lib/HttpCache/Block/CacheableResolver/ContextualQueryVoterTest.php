@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\HttpCache\Block\CacheableResolver;
 
-use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\CollectionReference;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
@@ -18,20 +17,12 @@ class ContextualQueryVoterTest extends TestCase
      */
     protected $voter;
 
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $blockServiceMock;
-
     public function setUp()
     {
-        $this->blockServiceMock = $this->createMock(BlockService::class);
-
-        $this->voter = new ContextualQueryVoter($this->blockServiceMock);
+        $this->voter = new ContextualQueryVoter();
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContextualQueryVoter::__construct
      * @covers \Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContextualQueryVoter::vote
      * @covers \Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContextualQueryVoter::hasContextualQuery
      */
@@ -52,13 +43,7 @@ class ContextualQueryVoterTest extends TestCase
             )
         );
 
-        $this->blockServiceMock
-            ->expects($this->at(0))
-            ->method('loadCollectionReferences')
-            ->with($this->equalTo(new Block()))
-            ->will($this->returnValue(array($reference)));
-
-        $this->assertFalse($this->voter->vote(new Block()));
+        $this->assertFalse($this->voter->vote(new Block(array('collectionReferences' => array($reference)))));
     }
 
     /**
@@ -82,13 +67,7 @@ class ContextualQueryVoterTest extends TestCase
             )
         );
 
-        $this->blockServiceMock
-            ->expects($this->at(0))
-            ->method('loadCollectionReferences')
-            ->with($this->equalTo(new Block()))
-            ->will($this->returnValue(array($reference)));
-
-        $this->assertNull($this->voter->vote(new Block()));
+        $this->assertNull($this->voter->vote(new Block(array('collectionReferences' => array($reference)))));
     }
 
     /**
@@ -107,12 +86,6 @@ class ContextualQueryVoterTest extends TestCase
             )
         );
 
-        $this->blockServiceMock
-            ->expects($this->at(0))
-            ->method('loadCollectionReferences')
-            ->with($this->equalTo(new Block()))
-            ->will($this->returnValue(array($reference)));
-
-        $this->assertNull($this->voter->vote(new Block()));
+        $this->assertNull($this->voter->vote(new Block(array('collectionReferences' => array($reference)))));
     }
 }

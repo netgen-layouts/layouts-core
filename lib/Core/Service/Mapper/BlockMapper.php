@@ -13,7 +13,6 @@ use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Persistence\Values\Block\Block as PersistenceBlock;
-use Netgen\BlockManager\Persistence\Values\Block\CollectionReference as PersistenceCollectionReference;
 
 class BlockMapper
 {
@@ -48,6 +47,11 @@ class BlockMapper
     protected $blockHandler;
 
     /**
+     * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandler
+     */
+    protected $collectionHandler;
+
+    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
@@ -68,6 +72,9 @@ class BlockMapper
         $this->parameterMapper = $parameterMapper;
         $this->configMapper = $configMapper;
         $this->blockDefinitionRegistry = $blockDefinitionRegistry;
+
+        $this->blockHandler = $this->persistenceHandler->getBlockHandler();
+        $this->collectionHandler = $this->persistenceHandler->getCollectionHandler();
     }
 
     /**
@@ -118,6 +125,7 @@ class BlockMapper
             'status' => $block->status,
             'published' => $block->status === Value::STATUS_PUBLISHED,
             'placeholders' => $this->mapPlaceholders($block, $blockDefinition),
+            'collectionReferences' => $this->mapCollectionReferences($block),
             'configs' => $this->configMapper->mapConfig($block->config, $blockDefinition->getConfigDefinitions()),
             'isTranslatable' => $block->isTranslatable,
             'mainLocale' => $block->mainLocale,
@@ -130,33 +138,35 @@ class BlockMapper
     }
 
     /**
-     * Builds the API collection reference value object from persistence one.
+     * Builds the API collection references value object for the provided block.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
-     * @param \Netgen\BlockManager\Persistence\Values\Block\CollectionReference $collectionReference
      * @param string[]|bool $locales
      *
-     * @return \Netgen\BlockManager\API\Values\Block\CollectionReference
+     * @return \Netgen\BlockManager\API\Values\Block\CollectionReference[]
      */
-    public function mapCollectionReference(
-        PersistenceBlock $block,
-        PersistenceCollectionReference $collectionReference,
-        $locales = null
-    ) {
-        $collection = $this->persistenceHandler->getCollectionHandler()->loadCollection(
-            $collectionReference->collectionId,
-            $collectionReference->collectionStatus
-        );
+    protected function mapCollectionReferences(PersistenceBlock $block, $locales = null)
+    {
+        $collectionReferences = $this->blockHandler->loadCollectionReferences($block);
 
-        return new CollectionReference(
-            array(
-                'block' => $this->mapBlock($block, $locales),
-                'collection' => $this->collectionMapper->mapCollection($collection, $locales),
-                'identifier' => $collectionReference->identifier,
-                'offset' => $collectionReference->offset,
-                'limit' => $collectionReference->limit,
-            )
-        );
+        $mappedReferences = array();
+        foreach ($collectionReferences as $collectionReference) {
+            $collection = $this->collectionHandler->loadCollection(
+                $collectionReference->collectionId,
+                $collectionReference->collectionStatus
+            );
+
+            $mappedReferences[$collectionReference->identifier] = new CollectionReference(
+                array(
+                    'collection' => $this->collectionMapper->mapCollection($collection, $locales),
+                    'identifier' => $collectionReference->identifier,
+                    'offset' => $collectionReference->offset,
+                    'limit' => $collectionReference->limit,
+                )
+            );
+        }
+
+        return $mappedReferences;
     }
 
     /**
@@ -201,7 +211,7 @@ class BlockMapper
             return array();
         }
 
-        $childBlocks = $this->persistenceHandler->getBlockHandler()->loadChildBlocks($block);
+        $childBlocks = $this->blockHandler->loadChildBlocks($block);
 
         $placeholders = array();
         foreach ($blockDefinition->getPlaceholders() as $placeholderIdentifier) {

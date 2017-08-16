@@ -239,54 +239,6 @@ class BlockService extends Service implements BlockServiceInterface
     }
 
     /**
-     * Loads the collection reference with specified identifier.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param string $identifier
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\CollectionReference
-     */
-    public function loadCollectionReference(Block $block, $identifier)
-    {
-        $this->validator->validateIdentifier($identifier, null, true);
-
-        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), $block->getStatus());
-
-        return $this->mapper->mapCollectionReference(
-            $persistenceBlock,
-            $this->blockHandler->loadCollectionReference(
-                $persistenceBlock,
-                $identifier
-            ),
-            $block->getAvailableLocales()
-        );
-    }
-
-    /**
-     * Loads all collection references belonging to the provided block.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\CollectionReference[]
-     */
-    public function loadCollectionReferences(Block $block)
-    {
-        $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), $block->getStatus());
-        $persistenceCollections = $this->blockHandler->loadCollectionReferences($persistenceBlock);
-
-        $collections = array();
-        foreach ($persistenceCollections as $persistenceCollection) {
-            $collections[] = $this->mapper->mapCollectionReference(
-                $persistenceBlock,
-                $persistenceCollection,
-                $block->getAvailableLocales()
-            );
-        }
-
-        return $collections;
-    }
-
-    /**
      * Creates a block in specified block and placeholder.
      *
      * @param \Netgen\BlockManager\API\Values\Block\BlockCreateStruct $blockCreateStruct

@@ -6,13 +6,6 @@ services:
         tags:
             - { name: request.param_converter, priority: 0 }
 
-    netgen_block_manager.param_converter.block.collection_reference:
-        class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Block\CollectionReferenceParamConverter
-        arguments:
-            - "@netgen_block_manager.api.service.block"
-        tags:
-            - { name: request.param_converter, priority: 0 }
-
     netgen_block_manager.param_converter.layout.zone:
         class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\ZoneParamConverter
         arguments:

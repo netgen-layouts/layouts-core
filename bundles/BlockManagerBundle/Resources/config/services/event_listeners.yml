@@ -60,7 +60,6 @@ services:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener
         arguments:
             - "@netgen_block_manager.collection.result_loader"
-            - "@netgen_block_manager.api.service.block"
             - "%netgen_block_manager.collection.max_limit%"
             - "%netgen_block_manager.block_view.collection_results_contexts%"
         tags:

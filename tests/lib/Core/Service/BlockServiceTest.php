@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\Tests\Core\Service;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
-use Netgen\BlockManager\API\Values\Block\CollectionReference;
 use Netgen\BlockManager\API\Values\Block\Placeholder;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Config\Config;
@@ -151,50 +150,6 @@ abstract class BlockServiceTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::loadCollectionReference
-     */
-    public function testLoadCollectionReference()
-    {
-        $collection = $this->blockService->loadCollectionReference(
-            $this->blockService->loadBlock(31),
-            'default'
-        );
-
-        $this->assertInstanceOf(CollectionReference::class, $collection);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::loadCollectionReference
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find collection reference with identifier "non_existing"
-     */
-    public function testLoadCollectionReferenceThrowsNotFoundException()
-    {
-        $collection = $this->blockService->loadCollectionReference(
-            $this->blockService->loadBlock(31),
-            'non_existing'
-        );
-
-        $this->assertInstanceOf(CollectionReference::class, $collection);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::loadCollectionReferences
-     */
-    public function testLoadCollectionReferences()
-    {
-        $collections = $this->blockService->loadCollectionReferences(
-            $this->blockService->loadBlock(31)
-        );
-
-        $this->assertNotEmpty($collections);
-
-        foreach ($collections as $collection) {
-            $this->assertInstanceOf(CollectionReference::class, $collection);
-        }
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
      */
@@ -217,12 +172,13 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $this->assertEquals(37, $leftPlaceholder->getBlocks()[1]->getId());
 
-        $collectionReferences = $this->blockService->loadCollectionReferences($block);
+        $collectionReferences = $block->getCollectionReferences();
         $this->assertCount(1, $collectionReferences);
+        $this->assertArrayHasKey('default', $collectionReferences);
 
-        $this->assertEquals('default', $collectionReferences[0]->getIdentifier());
-        $this->assertEquals(0, $collectionReferences[0]->getOffset());
-        $this->assertNull($collectionReferences[0]->getLimit());
+        $this->assertEquals('default', $collectionReferences['default']->getIdentifier());
+        $this->assertEquals(0, $collectionReferences['default']->getOffset());
+        $this->assertNull($collectionReferences['default']->getLimit());
 
         $collection = $this->collectionService->loadCollectionDraft(6);
         $this->assertEquals(Collection::TYPE_MANUAL, $collection->getType());
@@ -408,12 +364,13 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $this->assertEquals(31, $blocks[1]->getId());
 
-        $collectionReferences = $this->blockService->loadCollectionReferences($block);
+        $collectionReferences = $block->getCollectionReferences();
         $this->assertCount(1, $collectionReferences);
+        $this->assertArrayHasKey('default', $collectionReferences);
 
-        $this->assertEquals('default', $collectionReferences[0]->getIdentifier());
-        $this->assertEquals(0, $collectionReferences[0]->getOffset());
-        $this->assertNull($collectionReferences[0]->getLimit());
+        $this->assertEquals('default', $collectionReferences['default']->getIdentifier());
+        $this->assertEquals(0, $collectionReferences['default']->getOffset());
+        $this->assertNull($collectionReferences['default']->getLimit());
 
         $collection = $this->collectionService->loadCollectionDraft(6);
         $this->assertEquals(Collection::TYPE_MANUAL, $collection->getType());
@@ -469,7 +426,7 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $this->assertEquals(31, $blocks[1]->getId());
 
-        $collectionReferences = $this->blockService->loadCollectionReferences($block);
+        $collectionReferences = $block->getCollectionReferences();
         $this->assertCount(0, $collectionReferences);
     }
 
@@ -1285,11 +1242,13 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertEquals('some-class', $restoredBlock->getParameter('css_class')->getValue());
         $this->assertNull($restoredBlock->getParameter('css_id')->getValue());
 
-        $collectionReferences = $this->blockService->loadCollectionReferences($restoredBlock);
+        $collectionReferences = $restoredBlock->getCollectionReferences();
         $this->assertCount(2, $collectionReferences);
+        $this->assertArrayHasKey('default', $collectionReferences);
+        $this->assertArrayHasKey('featured', $collectionReferences);
 
-        $this->assertEquals(2, $collectionReferences[0]->getCollection()->getId());
-        $this->assertEquals(3, $collectionReferences[1]->getCollection()->getId());
+        $this->assertEquals(2, $collectionReferences['default']->getCollection()->getId());
+        $this->assertEquals(3, $collectionReferences['featured']->getCollection()->getId());
 
         $restoredPersistenceBlock = $blockHandler->loadBlock($restoredBlock->getId(), $restoredBlock->getStatus());
 

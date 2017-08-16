@@ -5,13 +5,6 @@ namespace Netgen\BlockManager\API\Values\Block;
 interface CollectionReference
 {
     /**
-     * Returns the block to which the collection is attached.
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\Block
-     */
-    public function getBlock();
-
-    /**
      * Returns the collection.
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
@@ -19,21 +12,21 @@ interface CollectionReference
     public function getCollection();
 
     /**
-     * Returns the configuration identifier.
+     * Returns the collection identifier.
      *
      * @return string
      */
     public function getIdentifier();
 
     /**
-     * Returns the configuration offset.
+     * Returns the collection offset.
      *
      * @return int
      */
     public function getOffset();
 
     /**
-     * Returns the configuration limit.
+     * Returns the collection limit.
      *
      * @return int
      */

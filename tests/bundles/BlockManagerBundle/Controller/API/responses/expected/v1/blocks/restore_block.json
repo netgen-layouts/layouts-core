@@ -18,5 +18,21 @@
     "always_available": true,
     "is_container": false,
     "is_dynamic_container": false,
-    "placeholders": []
+    "placeholders": [],
+    "collections": [
+        {
+            "identifier": "default",
+            "collection_id": 2,
+            "collection_type": 1,
+            "offset": 0,
+            "limit": null
+        },
+        {
+            "identifier": "featured",
+            "collection_id": 3,
+            "collection_type": 1,
+            "offset": 0,
+            "limit": null
+        }
+    ]
 }

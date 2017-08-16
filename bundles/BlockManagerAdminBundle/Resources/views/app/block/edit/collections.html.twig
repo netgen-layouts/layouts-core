@@ -33,8 +33,8 @@
 
 {% set can_change_collection = allowed_query_types|length > 0 or allowed_value_types|length > 0 %}
 
-{% if collections[collection_identifier] is defined and can_change_collection %}
-    {% set collection = collections[collection_identifier] %}
+{% if block.hasCollectionReference(collection_identifier) and can_change_collection %}
+    {% set collection = block.collectionReference(collection_identifier).collection %}
 
     {% set type_manual = constant('TYPE_MANUAL', collection) %}
     {% set type_dynamic = constant('TYPE_DYNAMIC', collection) %}

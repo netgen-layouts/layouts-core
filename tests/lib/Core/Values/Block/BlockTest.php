@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Values\Block;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\BlockTranslation;
+use Netgen\BlockManager\Core\Values\Block\CollectionReference;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\Exception\Core\BlockException;
 use Netgen\BlockManager\Exception\Core\ParameterException;
@@ -22,6 +23,9 @@ class BlockTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getPlaceholders
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getPlaceholder
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasPlaceholder
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getCollectionReferences
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getCollectionReference
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasCollectionReference
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getViewType
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getItemViewType
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getName
@@ -44,6 +48,8 @@ class BlockTest extends TestCase
         $this->assertNull($block->getDefinition());
         $this->assertEquals(array(), $block->getPlaceholders());
         $this->assertFalse($block->hasPlaceholder('test'));
+        $this->assertEquals(array(), $block->getCollectionReferences());
+        $this->assertFalse($block->hasCollectionReference('test'));
         $this->assertNull($block->getViewType());
         $this->assertNull($block->getItemViewType());
         $this->assertNull($block->getName());
@@ -75,6 +81,9 @@ class BlockTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getPlaceholders
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getPlaceholder
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasPlaceholder
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getCollectionReferences
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getCollectionReference
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasCollectionReference
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getViewType
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getItemViewType
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getName
@@ -113,6 +122,9 @@ class BlockTest extends TestCase
                 'placeholders' => array(
                     'main' => new Placeholder(array('identifier' => 'main')),
                 ),
+                'collectionReferences' => array(
+                    'default' => new CollectionReference(array('identifier' => 'default')),
+                ),
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'alwaysAvailable' => true,
@@ -132,6 +144,9 @@ class BlockTest extends TestCase
         $this->assertEquals(new Placeholder(array('identifier' => 'main')), $block->getPlaceholder('main'));
         $this->assertFalse($block->hasPlaceholder('test'));
         $this->assertTrue($block->hasPlaceholder('main'));
+        $this->assertEquals(new CollectionReference(array('identifier' => 'default')), $block->getCollectionReference('default'));
+        $this->assertFalse($block->hasCollectionReference('test'));
+        $this->assertTrue($block->hasCollectionReference('default'));
         $this->assertEquals($blockTranslation, $block->getTranslation('en'));
         $this->assertFalse($block->hasTranslation('hr'));
         $this->assertTrue($block->hasTranslation('en'));
@@ -168,6 +183,19 @@ class BlockTest extends TestCase
 
         try {
             $block->getPlaceholder('test');
+        } catch (BlockException $e) {
+            // Do nothing
+        }
+
+        $this->assertEquals(
+            array(
+                'default' => new CollectionReference(array('identifier' => 'default')),
+            ),
+            $block->getCollectionReferences()
+        );
+
+        try {
+            $block->getCollectionReference('test');
         } catch (BlockException $e) {
             // Do nothing
         }

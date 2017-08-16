@@ -65,25 +65,6 @@ interface BlockService extends Service
     public function hasPublishedState(Block $block);
 
     /**
-     * Loads the collection reference with specified identifier.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param string $identifier
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\CollectionReference
-     */
-    public function loadCollectionReference(Block $block, $identifier);
-
-    /**
-     * Loads all collection references belonging to the provided block.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\CollectionReference[]
-     */
-    public function loadCollectionReferences(Block $block);
-
-    /**
      * Creates a block in specified block and placeholder.
      *
      * @param \Netgen\BlockManager\API\Values\Block\BlockCreateStruct $blockCreateStruct

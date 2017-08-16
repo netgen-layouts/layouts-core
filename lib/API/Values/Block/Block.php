@@ -76,13 +76,40 @@ interface Block extends Value, ParameterBasedValue, ConfigAwareValue
     public function getPlaceholder($identifier);
 
     /**
-     * Returns if blocks has a specified placeholder.
+     * Returns if block has a specified placeholder.
      *
      * @param string $identifier
      *
      * @return bool
      */
     public function hasPlaceholder($identifier);
+
+    /**
+     * Returns all collection references from this block.
+     *
+     * @return \Netgen\BlockManager\API\Values\Block\CollectionReference[]
+     */
+    public function getCollectionReferences();
+
+    /**
+     * Returns the specified collection reference.
+     *
+     * @param string $identifier
+     *
+     * @throws \Netgen\BlockManager\Exception\Core\BlockException If the collection reference does not exist
+     *
+     * @return \Netgen\BlockManager\API\Values\Block\CollectionReference
+     */
+    public function getCollectionReference($identifier);
+
+    /**
+     * Returns if block has a specified collection reference.
+     *
+     * @param string $identifier
+     *
+     * @return bool
+     */
+    public function hasCollectionReference($identifier);
 
     /**
      * Returns the specified dynamic parameter value or null if parameter does not exist.

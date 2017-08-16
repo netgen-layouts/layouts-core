@@ -10,50 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 class BlockCollectionControllerTest extends JsonApiTestCase
 {
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::__construct
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::checkPermissions
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::load
-     */
-    public function testLoadCollectionReference()
-    {
-        $this->client->request('GET', '/bm/api/v1/en/blocks/31/collections/default');
-
-        $this->assertResponse(
-            $this->client->getResponse(),
-            'v1/block_collections/load_collection_reference',
-            Response::HTTP_OK
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::loadCollectionReferences
-     */
-    public function testLoadCollectionReferences()
-    {
-        $this->client->request('GET', '/bm/api/v1/en/blocks/31/collections');
-
-        $this->assertResponse(
-            $this->client->getResponse(),
-            'v1/block_collections/load_collection_references',
-            Response::HTTP_OK
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::loadCollectionReferences
-     */
-    public function testLoadCollectionReferencesWithNonExistentBlock()
-    {
-        $this->client->request('GET', '/bm/api/v1/en/blocks/9999/collections');
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND,
-            'Could not find block with identifier "9999"'
-        );
-    }
-
-    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::loadCollectionResult
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\Validator::validateOffsetAndLimit
      */
@@ -106,8 +62,8 @@ class BlockCollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND,
-            'Could not find collection reference with identifier "unknown"'
+            Response::HTTP_BAD_REQUEST,
+            'Collection with "unknown" identifier does not exist in the block.'
         );
     }
 
@@ -222,8 +178,8 @@ class BlockCollectionControllerTest extends JsonApiTestCase
 
         $this->assertException(
             $this->client->getResponse(),
-            Response::HTTP_NOT_FOUND,
-            'Could not find collection reference with identifier "unknown"'
+            Response::HTTP_BAD_REQUEST,
+            'Collection with "unknown" identifier does not exist in the block.'
         );
     }
 

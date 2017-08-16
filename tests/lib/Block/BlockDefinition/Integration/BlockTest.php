@@ -74,11 +74,9 @@ abstract class BlockTest extends ServiceTestCase
 
         $this->assertEquals($expectedParameters, $createdParameters);
 
-        $collectionReferences = $this->blockService->loadCollectionReferences($createdBlock);
-
         $this->assertEquals(
             $blockDefinition->getConfig()->hasCollection('default'),
-            count($collectionReferences) > 0
+            count($createdBlock->getCollectionReferences()) > 0
         );
     }
 

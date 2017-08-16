@@ -40,18 +40,10 @@ class BlockController extends Controller
      */
     public function edit(Block $block)
     {
-        $collectionReferences = $this->blockService->loadCollectionReferences($block);
-
-        $collections = array();
-        foreach ($collectionReferences as $collectionReference) {
-            $collections[$collectionReference->getIdentifier()] = $collectionReference->getCollection();
-        }
-
         return $this->render(
             '@NetgenBlockManagerAdmin/app/block/edit.html.twig',
             array(
                 'block' => $block,
-                'collections' => $collections,
             )
         );
     }

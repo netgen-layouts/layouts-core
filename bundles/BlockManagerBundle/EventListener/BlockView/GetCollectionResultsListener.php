@@ -2,7 +2,6 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\EventListener\BlockView;
 
-use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\Collection\Result\ResultLoaderInterface;
 use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Event\BlockManagerEvents;
@@ -19,11 +18,6 @@ class GetCollectionResultsListener implements EventSubscriberInterface
     protected $resultLoader;
 
     /**
-     * @var \Netgen\BlockManager\API\Service\BlockService
-     */
-    protected $blockService;
-
-    /**
      * @var int
      */
     protected $maxLimit;
@@ -37,18 +31,15 @@ class GetCollectionResultsListener implements EventSubscriberInterface
      * Constructor.
      *
      * @param \Netgen\BlockManager\Collection\Result\ResultLoaderInterface $resultLoader
-     * @param \Netgen\BlockManager\API\Service\BlockService $blockService
      * @param int $maxLimit
      * @param array $enabledContexts
      */
     public function __construct(
         ResultLoaderInterface $resultLoader,
-        BlockService $blockService,
         $maxLimit,
         array $enabledContexts = array()
     ) {
         $this->resultLoader = $resultLoader;
-        $this->blockService = $blockService;
         $this->maxLimit = $maxLimit;
         $this->enabledContexts = $enabledContexts;
     }
@@ -81,8 +72,7 @@ class GetCollectionResultsListener implements EventSubscriberInterface
 
         $collections = array();
 
-        $collectionReferences = $this->blockService->loadCollectionReferences($view->getBlock());
-        foreach ($collectionReferences as $collectionReference) {
+        foreach ($view->getBlock()->getCollectionReferences() as $collectionReference) {
             $limit = $collectionReference->getLimit();
             if (empty($limit) || $limit > $this->maxLimit) {
                 $limit = $this->maxLimit;

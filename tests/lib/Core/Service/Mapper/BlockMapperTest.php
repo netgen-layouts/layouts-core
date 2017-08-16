@@ -3,12 +3,12 @@
 namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 
 use Netgen\BlockManager\API\Values\Block\Block as APIBlock;
-use Netgen\BlockManager\API\Values\Block\CollectionReference as APICollectionReference;
+use Netgen\BlockManager\API\Values\Block\CollectionReference;
 use Netgen\BlockManager\API\Values\Block\Placeholder;
+use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Config\Config;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Persistence\Values\Block\Block;
-use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
 
 abstract class BlockMapperTest extends ServiceTestCase
@@ -248,26 +248,30 @@ abstract class BlockMapperTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapCollectionReference
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapBlock
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\BlockMapper::mapCollectionReferences
      */
-    public function testMapCollectionReference()
+    public function testMapBlockWithCollectionReferences()
     {
         $persistenceBlock = new Block(
             array(
                 'id' => 31,
+                'layoutId' => 13,
                 'definitionIdentifier' => 'text',
-                'parameters' => array(
-                    'en' => array(
-                        'some_param' => 'some_value',
-                    ),
-                ),
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
                 'name' => 'My block',
                 'alwaysAvailable' => false,
+                'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => array('en'),
                 'status' => Value::STATUS_PUBLISHED,
+                'parameters' => array(
+                    'en' => array(
+                        'css_class' => 'test',
+                        'some_param' => 'some_value',
+                    ),
+                ),
                 'config' => array(
                     'http_cache' => array(
                         'use_http_cache' => true,
@@ -277,31 +281,25 @@ abstract class BlockMapperTest extends ServiceTestCase
             )
         );
 
-        $persistenceReference = new CollectionReference(
-            array(
-                'blockId' => 31,
-                'blockStatus' => Value::STATUS_PUBLISHED,
-                'collectionId' => 2,
-                'collectionStatus' => Value::STATUS_PUBLISHED,
-                'identifier' => 'default',
-                'offset' => 5,
-                'limit' => 10,
-            )
+        $block = $this->blockMapper->mapBlock($persistenceBlock);
+
+        $this->assertEquals(
+            $this->blockDefinitionRegistry->getBlockDefinition('text'),
+            $block->getDefinition()
         );
 
-        $reference = $this->blockMapper->mapCollectionReference(
-            $persistenceBlock,
-            $persistenceReference
-        );
+        $this->assertTrue($block->hasCollectionReference('default'));
+        $this->assertInstanceOf(CollectionReference::class, $block->getCollectionReference('default'));
 
-        $this->assertInstanceOf(APICollectionReference::class, $reference);
+        $collectionReference = $block->getCollectionReference('default');
+        $this->assertEquals('default', $collectionReference->getIdentifier());
+        $this->assertInstanceOf(Collection::class, $collectionReference->getCollection());
 
-        $this->assertEquals(31, $reference->getBlock()->getId());
-        $this->assertEquals(Value::STATUS_PUBLISHED, $reference->getBlock()->getStatus());
-        $this->assertEquals(2, $reference->getCollection()->getId());
-        $this->assertEquals(Value::STATUS_PUBLISHED, $reference->getCollection()->getStatus());
-        $this->assertEquals('default', $reference->getIdentifier());
-        $this->assertEquals(5, $reference->getOffset());
-        $this->assertEquals(10, $reference->getLimit());
+        $this->assertTrue($block->hasCollectionReference('featured'));
+        $this->assertInstanceOf(CollectionReference::class, $block->getCollectionReference('featured'));
+
+        $collectionReference = $block->getCollectionReference('featured');
+        $this->assertEquals('featured', $collectionReference->getIdentifier());
+        $this->assertInstanceOf(Collection::class, $collectionReference->getCollection());
     }
 }

@@ -23,12 +23,10 @@ class CollectionReferenceNormalizer implements NormalizerInterface
         /** @var \Netgen\BlockManager\API\Values\Block\CollectionReference $collectionReference */
         $collectionReference = $object->getValue();
 
-        $block = $collectionReference->getBlock();
         $collection = $collectionReference->getCollection();
 
         return array(
             'identifier' => $collectionReference->getIdentifier(),
-            'block_id' => $block->getId(),
             'collection_id' => $collection->getId(),
             'collection_type' => $collection->getType(),
             'offset' => $collectionReference->getOffset(),

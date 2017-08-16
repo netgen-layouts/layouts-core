@@ -8,11 +8,6 @@ use Netgen\BlockManager\ValueObject;
 class CollectionReference extends ValueObject implements APICollectionReference
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Block\Block
-     */
-    protected $block;
-
-    /**
      * @var \Netgen\BlockManager\API\Values\Collection\Collection
      */
     protected $collection;
@@ -33,16 +28,6 @@ class CollectionReference extends ValueObject implements APICollectionReference
     protected $limit;
 
     /**
-     * Returns the block to which the collection is attached.
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\Block
-     */
-    public function getBlock()
-    {
-        return $this->block;
-    }
-
-    /**
      * Returns the collection.
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
@@ -53,7 +38,7 @@ class CollectionReference extends ValueObject implements APICollectionReference
     }
 
     /**
-     * Returns the configuration identifier.
+     * Returns the collection identifier.
      *
      * @return string
      */
@@ -63,7 +48,7 @@ class CollectionReference extends ValueObject implements APICollectionReference
     }
 
     /**
-     * Returns the configuration offset.
+     * Returns the collection offset.
      *
      * @return int
      */
@@ -73,7 +58,7 @@ class CollectionReference extends ValueObject implements APICollectionReference
     }
 
     /**
-     * Returns the configuration limit.
+     * Returns the collection limit.
      *
      * @return int
      */

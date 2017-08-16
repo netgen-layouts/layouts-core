@@ -53,6 +53,11 @@ class Block extends ValueObject implements APIBlock
     protected $placeholders = array();
 
     /**
+     * @var \Netgen\BlockManager\API\Values\Block\CollectionReference[]
+     */
+    protected $collectionReferences = array();
+
+    /**
      * @var int
      */
     protected $status;
@@ -222,7 +227,7 @@ class Block extends ValueObject implements APIBlock
     }
 
     /**
-     * Returns if blocks has a specified placeholder.
+     * Returns if block has a specified placeholder.
      *
      * @param string $identifier
      *
@@ -231,6 +236,46 @@ class Block extends ValueObject implements APIBlock
     public function hasPlaceholder($identifier)
     {
         return isset($this->placeholders[$identifier]);
+    }
+
+    /**
+     * Returns all collection references from this block.
+     *
+     * @return \Netgen\BlockManager\API\Values\Block\CollectionReference[]
+     */
+    public function getCollectionReferences()
+    {
+        return $this->collectionReferences;
+    }
+
+    /**
+     * Returns the specified collection reference.
+     *
+     * @param string $identifier
+     *
+     * @throws \Netgen\BlockManager\Exception\Core\BlockException If the collection reference does not exist
+     *
+     * @return \Netgen\BlockManager\API\Values\Block\CollectionReference
+     */
+    public function getCollectionReference($identifier)
+    {
+        if ($this->hasCollectionReference($identifier)) {
+            return $this->collectionReferences[$identifier];
+        }
+
+        throw BlockException::noCollection($identifier);
+    }
+
+    /**
+     * Returns if block has a specified collection reference.
+     *
+     * @param string $identifier
+     *
+     * @return bool
+     */
+    public function hasCollectionReference($identifier)
+    {
+        return isset($this->collectionReferences[$identifier]);
     }
 
     /**

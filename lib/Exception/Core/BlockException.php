@@ -21,4 +21,19 @@ class BlockException extends InvalidArgumentException implements Exception
             )
         );
     }
+
+    /**
+     * @param string $collection
+     *
+     * @return \Netgen\BlockManager\Exception\Core\BlockException
+     */
+    public static function noCollection($collection)
+    {
+        return new self(
+            sprintf(
+                'Collection with "%s" identifier does not exist in the block.',
+                $collection
+            )
+        );
+    }
 }

@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator;
 
-use Netgen\BlockManager\API\Values\Block\CollectionReference;
+use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Symfony\Component\Validator\Constraints;
@@ -12,10 +12,11 @@ class BlockCollectionValidator extends Validator
     /**
      * Validates item creation parameters from the request.
      *
-     * @param \Netgen\BlockManager\API\Values\Block\CollectionReference $collectionReference
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
+     * @param string $collectionIdentifier
      * @param array $items
      */
-    public function validateAddItems(CollectionReference $collectionReference, $items)
+    public function validateAddItems(Block $block, $collectionIdentifier, $items)
     {
         $this->validate(
             $items,
@@ -54,7 +55,7 @@ class BlockCollectionValidator extends Validator
             'items'
         );
 
-        $collectionConfig = $this->getCollectionConfig($collectionReference);
+        $collectionConfig = $this->getCollectionConfig($block, $collectionIdentifier);
         if ($collectionConfig === null) {
             return;
         }
@@ -75,13 +76,14 @@ class BlockCollectionValidator extends Validator
     /**
      * Validates block creation parameters from the request.
      *
-     * @param \Netgen\BlockManager\API\Values\Block\CollectionReference $collectionReference
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
+     * @param string $collectionIdentifier
      * @param int $newType
      * @param string $queryType
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If validation failed
      */
-    public function validateChangeCollectionType(CollectionReference $collectionReference, $newType, $queryType)
+    public function validateChangeCollectionType(Block $block, $collectionIdentifier, $newType, $queryType)
     {
         $this->validate(
             $newType,
@@ -100,7 +102,7 @@ class BlockCollectionValidator extends Validator
             'new_type'
         );
 
-        $collectionConfig = $this->getCollectionConfig($collectionReference);
+        $collectionConfig = $this->getCollectionConfig($block, $collectionIdentifier);
         if ($collectionConfig === null) {
             return;
         }
@@ -128,14 +130,14 @@ class BlockCollectionValidator extends Validator
     /**
      * Returns the block collection configuration.
      *
-     * @param \Netgen\BlockManager\API\Values\Block\CollectionReference $collectionReference
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
+     * @param string $collectionIdentifier
      *
      * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection
      */
-    protected function getCollectionConfig(CollectionReference $collectionReference)
+    protected function getCollectionConfig(Block $block, $collectionIdentifier)
     {
-        $collectionIdentifier = $collectionReference->getIdentifier();
-        $blockDefinition = $collectionReference->getBlock()->getDefinition();
+        $blockDefinition = $block->getDefinition();
 
         if (!$blockDefinition->getConfig()->hasCollection($collectionIdentifier)) {
             return null;

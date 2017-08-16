@@ -36,8 +36,6 @@ services:
 
     netgen_block_manager.http_cache.block.cacheable_resolver.voter.contextual_query:
         class: Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContextualQueryVoter
-        arguments:
-            - "@netgen_block_manager.api.service.block"
         tags:
             - { name: netgen_block_manager.http_cache.block.cacheable_resolver.voter }
 

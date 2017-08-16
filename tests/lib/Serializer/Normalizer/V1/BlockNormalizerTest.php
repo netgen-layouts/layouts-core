@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\BlockTranslation;
+use Netgen\BlockManager\Core\Values\Block\CollectionReference;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer;
@@ -59,6 +60,9 @@ class BlockNormalizerTest extends TestCase
                 'placeholders' => array(
                     'main' => new Placeholder(array('identifier' => 'main')),
                 ),
+                'collectionReferences' => array(
+                    'default' => new CollectionReference(array('identifier' => 'default')),
+                ),
                 'isTranslatable' => true,
                 'availableLocales' => array('en'),
                 'mainLocale' => 'en',
@@ -101,6 +105,12 @@ class BlockNormalizerTest extends TestCase
             ->with($this->equalTo(array(new VersionedValue(new Placeholder(array('identifier' => 'main')), 1))))
             ->will($this->returnValue(array('normalized placeholders')));
 
+        $this->serializerMock
+            ->expects($this->at(2))
+            ->method('normalize')
+            ->with($this->equalTo(array(new VersionedValue(new CollectionReference(array('identifier' => 'default')), 1))))
+            ->will($this->returnValue(array('normalized collections')));
+
         $this->blockServiceMock
             ->expects($this->once())
             ->method('hasPublishedState')
@@ -124,6 +134,7 @@ class BlockNormalizerTest extends TestCase
                 'is_container' => false,
                 'is_dynamic_container' => false,
                 'placeholders' => array('normalized placeholders'),
+                'collections' => array('normalized collections'),
             ),
             $this->normalizer->normalize(new VersionedValue($block, 1))
         );

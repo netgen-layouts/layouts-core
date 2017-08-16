@@ -2,7 +2,6 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener\BlockView;
 
-use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\Collection\Result\ResultLoaderInterface;
 use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Core\Values\Block\Block;
@@ -25,11 +24,6 @@ class GetCollectionResultsListenerTest extends TestCase
     protected $resultLoaderMock;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $blockServiceMock;
-
-    /**
      * @var \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener
      */
     protected $listener;
@@ -40,11 +34,9 @@ class GetCollectionResultsListenerTest extends TestCase
     public function setUp()
     {
         $this->resultLoaderMock = $this->createMock(ResultLoaderInterface::class);
-        $this->blockServiceMock = $this->createMock(BlockService::class);
 
         $this->listener = new GetCollectionResultsListener(
             $this->resultLoaderMock,
-            $this->blockServiceMock,
             25,
             array(ViewInterface::CONTEXT_DEFAULT, ViewInterface::CONTEXT_API)
         );
@@ -69,7 +61,6 @@ class GetCollectionResultsListenerTest extends TestCase
     {
         $collectionReference1 = new CollectionReference(
             array(
-                'block' => new Block(),
                 'collection' => new Collection(),
                 'identifier' => 'collection1',
                 'offset' => 3,
@@ -79,7 +70,6 @@ class GetCollectionResultsListenerTest extends TestCase
 
         $collectionReference2 = new CollectionReference(
             array(
-                'block' => new Block(),
                 'collection' => new Collection(),
                 'identifier' => 'collection2',
                 'offset' => 5,
@@ -87,15 +77,9 @@ class GetCollectionResultsListenerTest extends TestCase
             )
         );
 
-        $view = new BlockView(array('block' => new Block()));
+        $view = new BlockView(array('block' => new Block(array('collectionReferences' => array($collectionReference1, $collectionReference2)))));
         $view->setContext(ViewInterface::CONTEXT_DEFAULT);
         $event = new CollectViewParametersEvent($view);
-
-        $this->blockServiceMock
-            ->expects($this->once())
-            ->method('loadCollectionReferences')
-            ->with($this->equalTo(new Block()))
-            ->will($this->returnValue(array($collectionReference1, $collectionReference2)));
 
         $this->resultLoaderMock
             ->expects($this->at(0))
@@ -140,7 +124,6 @@ class GetCollectionResultsListenerTest extends TestCase
     {
         $collectionReference1 = new CollectionReference(
             array(
-                'block' => new Block(),
                 'collection' => new Collection(),
                 'identifier' => 'collection1',
                 'offset' => 3,
@@ -148,15 +131,9 @@ class GetCollectionResultsListenerTest extends TestCase
             )
         );
 
-        $view = new BlockView(array('block' => new Block()));
+        $view = new BlockView(array('block' => new Block(array('collectionReferences' => array($collectionReference1)))));
         $view->setContext(ViewInterface::CONTEXT_API);
         $event = new CollectViewParametersEvent($view);
-
-        $this->blockServiceMock
-            ->expects($this->once())
-            ->method('loadCollectionReferences')
-            ->with($this->equalTo(new Block()))
-            ->will($this->returnValue(array($collectionReference1)));
 
         $this->resultLoaderMock
             ->expects($this->at(0))
@@ -188,7 +165,6 @@ class GetCollectionResultsListenerTest extends TestCase
     {
         $collectionReference = new CollectionReference(
             array(
-                'block' => new Block(),
                 'collection' => new Collection(),
                 'identifier' => 'collection',
                 'offset' => 3,
@@ -196,15 +172,9 @@ class GetCollectionResultsListenerTest extends TestCase
             )
         );
 
-        $view = new BlockView(array('block' => new Block()));
+        $view = new BlockView(array('block' => new Block(array('collectionReferences' => array($collectionReference)))));
         $view->setContext(ViewInterface::CONTEXT_DEFAULT);
         $event = new CollectViewParametersEvent($view);
-
-        $this->blockServiceMock
-            ->expects($this->once())
-            ->method('loadCollectionReferences')
-            ->with($this->equalTo(new Block()))
-            ->will($this->returnValue(array($collectionReference)));
 
         $this->resultLoaderMock
             ->expects($this->at(0))
@@ -235,7 +205,6 @@ class GetCollectionResultsListenerTest extends TestCase
     {
         $collectionReference = new CollectionReference(
             array(
-                'block' => new Block(),
                 'collection' => new Collection(),
                 'identifier' => 'collection',
                 'offset' => 3,
@@ -243,15 +212,9 @@ class GetCollectionResultsListenerTest extends TestCase
             )
         );
 
-        $view = new BlockView(array('block' => new Block()));
+        $view = new BlockView(array('block' => new Block(array('collectionReferences' => array($collectionReference)))));
         $view->setContext(ViewInterface::CONTEXT_DEFAULT);
         $event = new CollectViewParametersEvent($view);
-
-        $this->blockServiceMock
-            ->expects($this->once())
-            ->method('loadCollectionReferences')
-            ->with($this->equalTo(new Block()))
-            ->will($this->returnValue(array($collectionReference)));
 
         $this->resultLoaderMock
             ->expects($this->at(0))

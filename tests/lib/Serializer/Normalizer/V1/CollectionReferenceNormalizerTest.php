@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
-use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\CollectionReference;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Serializer\Normalizer\V1\CollectionReferenceNormalizer;
@@ -37,7 +36,6 @@ class CollectionReferenceNormalizerTest extends TestCase
 
         $collectionReference = new CollectionReference(
             array(
-                'block' => new Block(array('id' => 42)),
                 'collection' => $collection,
                 'identifier' => 'default',
                 'offset' => 10,
@@ -48,7 +46,6 @@ class CollectionReferenceNormalizerTest extends TestCase
         $this->assertEquals(
             array(
                 'identifier' => $collectionReference->getIdentifier(),
-                'block_id' => $collectionReference->getBlock()->getId(),
                 'collection_id' => $collection->getId(),
                 'collection_type' => $collection->getType(),
                 'offset' => $collectionReference->getOffset(),
@@ -73,7 +70,6 @@ class CollectionReferenceNormalizerTest extends TestCase
 
         $collectionReference = new CollectionReference(
             array(
-                'block' => new Block(array('id' => 42)),
                 'collection' => $collection,
                 'identifier' => 'default',
                 'offset' => 10,
@@ -84,7 +80,6 @@ class CollectionReferenceNormalizerTest extends TestCase
         $this->assertEquals(
             array(
                 'identifier' => $collectionReference->getIdentifier(),
-                'block_id' => $collectionReference->getBlock()->getId(),
                 'collection_id' => $collection->getId(),
                 'collection_type' => $collection->getType(),
                 'offset' => $collectionReference->getOffset(),
