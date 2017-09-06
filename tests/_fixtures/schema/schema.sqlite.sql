@@ -1,3 +1,5 @@
+PRAGMA foreign_keys = ON;
+
 DROP TABLE IF EXISTS `ngbm_layout`;
 CREATE TABLE `ngbm_layout` (
   `id` integer NOT NULL,
