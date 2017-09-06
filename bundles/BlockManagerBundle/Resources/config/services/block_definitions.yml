@@ -56,6 +56,7 @@ parameters:
 services:
     netgen_block_manager.block.block_definition_factory:
         class: Netgen\BlockManager\Block\BlockDefinitionFactory
+        public: false
         arguments:
             - "@netgen_block_manager.parameters.translatable_parameter_builder_factory"
             - "@netgen_block_manager.block.registry.handler_plugin"
@@ -65,6 +66,7 @@ services:
 
     netgen_block_manager.block.registry.handler_plugin:
         class: Netgen\BlockManager\Block\Registry\HandlerPluginRegistry
+        public: false
 
     netgen_block_manager.block.registry.block_type:
         class: Netgen\BlockManager\Block\Registry\BlockTypeRegistry
@@ -74,6 +76,7 @@ services:
 
     netgen_block_manager.block.block_definition.handler.plugin.common:
         class: Netgen\BlockManager\Block\BlockDefinition\Handler\CommonParametersPlugin
+        public: false
         arguments:
             - "%netgen_block_manager.block.block_definition.handler.plugin.common.groups%"
         tags:
@@ -81,6 +84,7 @@ services:
 
     netgen_block_manager.block.block_definition.handler.title:
         class: Netgen\BlockManager\Block\BlockDefinition\Handler\TitleHandler
+        public: false
         arguments:
             - "%netgen_block_manager.block.block_definition.handler.title.tags%"
             - "%netgen_block_manager.block.block_definition.handler.title.value_types%"
@@ -89,11 +93,13 @@ services:
 
     netgen_block_manager.block.block_definition.handler.text:
         class: Netgen\BlockManager\Block\BlockDefinition\Handler\TextHandler
+        public: false
         tags:
             - { name: netgen_block_manager.block.block_definition_handler, identifier: text }
 
     netgen_block_manager.block.block_definition.handler.button:
         class: Netgen\BlockManager\Block\BlockDefinition\Handler\ButtonHandler
+        public: false
         arguments:
             - "%netgen_block_manager.block.block_definition.handler.button.styles%"
             - "%netgen_block_manager.block.block_definition.handler.button.value_types%"
@@ -102,9 +108,11 @@ services:
 
     netgen_block_manager.block.block_definition.handler.markdown.parser:
         class: Michelf\MarkdownExtra
+        public: false
 
     netgen_block_manager.block.block_definition.handler.markdown:
         class: Netgen\BlockManager\Block\BlockDefinition\Handler\MarkdownHandler
+        public: false
         arguments:
             - "@netgen_block_manager.block.block_definition.handler.markdown.parser"
         tags:
@@ -112,11 +120,13 @@ services:
 
     netgen_block_manager.block.block_definition.handler.rich_text:
         class: Netgen\BlockManager\Block\BlockDefinition\Handler\RichTextHandler
+        public: false
         tags:
             - { name: netgen_block_manager.block.block_definition_handler, identifier: rich_text }
 
     netgen_block_manager.block.block_definition.handler.external_video:
         class: Netgen\BlockManager\Block\BlockDefinition\Handler\ExternalVideoHandler
+        public: false
         arguments:
             - "%netgen_block_manager.block.block_definition.handler.external_video.services%"
         tags:
@@ -124,11 +134,13 @@ services:
 
     netgen_block_manager.block.block_definition.handler.html_snippet:
         class: Netgen\BlockManager\Block\BlockDefinition\Handler\HtmlSnippetHandler
+        public: false
         tags:
             - { name: netgen_block_manager.block.block_definition_handler, identifier: html_snippet }
 
     netgen_block_manager.block.block_definition.handler.full_view:
         class: Netgen\BlockManager\Block\BlockDefinition\Handler\Twig\FullViewHandler
+        public: false
         arguments:
             - "%netgen_block_manager.block.block_definition.handler.full_view.twig_block_name%"
         tags:
@@ -136,11 +148,13 @@ services:
 
     netgen_block_manager.block.block_definition.handler.twig_block:
         class: Netgen\BlockManager\Block\BlockDefinition\Handler\Twig\TwigBlockHandler
+        public: false
         tags:
             - { name: netgen_block_manager.block.block_definition_handler, identifier: twig_block }
 
     netgen_block_manager.block.block_definition.handler.map:
         class: Netgen\BlockManager\Block\BlockDefinition\Handler\MapHandler
+        public: false
         arguments:
             - "%netgen_block_manager.block.block_definition.handler.map.min_zoom%"
             - "%netgen_block_manager.block.block_definition.handler.map.max_zoom%"
@@ -150,6 +164,7 @@ services:
 
     netgen_block_manager.block.block_definition.handler.list:
         class: Netgen\BlockManager\Block\BlockDefinition\Handler\ListHandler
+        public: false
         arguments:
             - "%netgen_block_manager.block.block_definition.handler.list.columns%"
         tags:
@@ -157,6 +172,7 @@ services:
 
     netgen_block_manager.block.block_definition.handler.gallery:
         class: Netgen\BlockManager\Block\BlockDefinition\Handler\GalleryHandler
+        public: false
         arguments:
             - "%netgen_block_manager.block.block_definition.handler.gallery.min_autoplay_time%"
             - "%netgen_block_manager.block.block_definition.handler.gallery.max_autoplay_time%"
@@ -168,10 +184,12 @@ services:
 
     netgen_block_manager.block.block_definition.handler.column:
         class: Netgen\BlockManager\Block\BlockDefinition\Handler\Container\ColumnHandler
+        public: false
         tags:
             - { name: netgen_block_manager.block.block_definition_handler, identifier: column }
 
     netgen_block_manager.block.block_definition.handler.two_columns:
         class: Netgen\BlockManager\Block\BlockDefinition\Handler\Container\TwoColumnsHandler
+        public: false
         tags:
             - { name: netgen_block_manager.block.block_definition_handler, identifier: two_columns }

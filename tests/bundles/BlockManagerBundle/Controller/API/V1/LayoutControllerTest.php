@@ -1254,7 +1254,7 @@ class LayoutControllerTest extends JsonApiTestCase
 
         /** @var \Mockery\MockInterface $locationMock */
         $layoutServiceMock = $clientContainer->mock(
-            'netgen_block_manager.core.service.layout',
+            'netgen_block_manager.api.service.layout',
             LayoutService::class
         );
 
@@ -1291,7 +1291,7 @@ class LayoutControllerTest extends JsonApiTestCase
             'Argument "test" has an invalid state. Test message.'
         );
 
-        $clientContainer->unmock('netgen_block_manager.core.service.layout');
+        $clientContainer->unmock('netgen_block_manager.api.service.layout');
     }
 
     /**

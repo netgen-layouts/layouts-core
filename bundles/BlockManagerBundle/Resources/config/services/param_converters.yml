@@ -1,6 +1,7 @@
 services:
     netgen_block_manager.param_converter.block.block:
         class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Block\BlockParamConverter
+        public: false
         arguments:
             - "@netgen_block_manager.api.service.block"
         tags:
@@ -8,6 +9,7 @@ services:
 
     netgen_block_manager.param_converter.layout.zone:
         class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\ZoneParamConverter
+        public: false
         arguments:
             - "@netgen_block_manager.api.service.layout"
         tags:
@@ -15,6 +17,7 @@ services:
 
     netgen_block_manager.param_converter.layout.layout:
         class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\LayoutParamConverter
+        public: false
         arguments:
             - "@netgen_block_manager.api.service.layout"
         tags:
@@ -22,6 +25,7 @@ services:
 
     netgen_block_manager.param_converter.collection.collection:
         class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\CollectionParamConverter
+        public: false
         arguments:
             - "@netgen_block_manager.api.service.collection"
         tags:
@@ -29,6 +33,7 @@ services:
 
     netgen_block_manager.param_converter.collection.item:
         class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\ItemParamConverter
+        public: false
         arguments:
             - "@netgen_block_manager.api.service.collection"
         tags:
@@ -36,6 +41,7 @@ services:
 
     netgen_block_manager.param_converter.collection.query:
         class: Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\QueryParamConverter
+        public: false
         arguments:
             - "@netgen_block_manager.api.service.collection"
         tags:
@@ -43,6 +49,7 @@ services:
 
     netgen_block_manager.param_converter.layout_resolver.rule:
         class: Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\RuleParamConverter
+        public: false
         arguments:
             - "@netgen_block_manager.api.service.layout_resolver"
         tags:
@@ -50,6 +57,7 @@ services:
 
     netgen_block_manager.param_converter.layout_resolver.condition:
         class: Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\ConditionParamConverter
+        public: false
         arguments:
             - "@netgen_block_manager.api.service.layout_resolver"
         tags:
@@ -57,6 +65,7 @@ services:
 
     netgen_block_manager.param_converter.layout_resolver.target:
         class: Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\TargetParamConverter
+        public: false
         arguments:
             - "@netgen_block_manager.api.service.layout_resolver"
         tags:

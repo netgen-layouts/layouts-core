@@ -1,12 +1,14 @@
 services:
     netgen_block_manager.collection.result_iterator_factory:
         class: Netgen\BlockManager\Collection\Result\ResultIteratorFactory
+        public: false
         arguments:
             - "@netgen_block_manager.item.item_loader"
             - "@netgen_block_manager.item.item_builder"
 
     netgen_block_manager.collection.collection_iterator_factory:
         class: Netgen\BlockManager\Collection\Result\CollectionIteratorFactory
+        public: false
         arguments:
             - "%netgen_block_manager.collection.contextual_query_limit%"
 
@@ -18,6 +20,7 @@ services:
 
     netgen_block_manager.collection.query_type_factory:
         class: Netgen\BlockManager\Collection\QueryTypeFactory
+        public: false
         arguments:
             - "@netgen_block_manager.parameters.translatable_parameter_builder_factory"
 

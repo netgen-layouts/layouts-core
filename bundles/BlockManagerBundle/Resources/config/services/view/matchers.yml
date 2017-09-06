@@ -1,75 +1,90 @@
 services:
     netgen_block_manager.view.matcher.api_version:
         class: Netgen\BlockManager\View\Matcher\APIVersion
+        public: false
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: api_version }
 
     netgen_block_manager.view.matcher.form.type:
         class: Netgen\BlockManager\View\Matcher\Form\Type
+        public: false
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: form\type }
 
     netgen_block_manager.view.matcher.form.block.definition:
         class: Netgen\BlockManager\View\Matcher\Form\Block\Definition
+        public: false
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: form\block\definition }
 
     netgen_block_manager.view.matcher.form.query.type:
         class: Netgen\BlockManager\View\Matcher\Form\Query\Type
+        public: false
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: form\query\type }
 
     netgen_block_manager.view.matcher.form.config.config_key:
         class: Netgen\BlockManager\View\Matcher\Form\Config\ConfigKey
+        public: false
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: form\config\config_key }
 
     netgen_block_manager.view.matcher.form.config.value_type:
         class: Netgen\BlockManager\View\Matcher\Form\Config\ValueType
+        public: false
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: form\config\value_type }
 
     netgen_block_manager.view.matcher.parameter.type:
         class: Netgen\BlockManager\View\Matcher\Parameter\Type
+        public: false
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: parameter\type }
 
     netgen_block_manager.view.matcher.layout.type:
         class: Netgen\BlockManager\View\Matcher\Layout\Type
+        public: false
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: layout\type }
 
     netgen_block_manager.view.matcher.layout.shared:
         class: Netgen\BlockManager\View\Matcher\Layout\Shared
+        public: false
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: layout\shared }
 
     netgen_block_manager.view.matcher.block.definition:
         class: Netgen\BlockManager\View\Matcher\Block\Definition
+        public: false
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: block\definition }
 
     netgen_block_manager.view.matcher.block.view_type:
         class: Netgen\BlockManager\View\Matcher\Block\ViewType
+        public: false
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: block\view_type }
 
     netgen_block_manager.view.matcher.item.view_type:
         class: Netgen\BlockManager\View\Matcher\Item\ViewType
+        public: false
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: item\view_type }
 
     netgen_block_manager.view.matcher.item.value_type:
         class: Netgen\BlockManager\View\Matcher\Item\ValueType
+        public: false
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: item\value_type }
 
     netgen_block_manager.view.matcher.rule_target.type:
         class: Netgen\BlockManager\View\Matcher\RuleTarget\Type
+        public: false
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: rule_target\type }
 
     netgen_block_manager.view.matcher.rule_condition.type:
         class: Netgen\BlockManager\View\Matcher\RuleCondition\Type
+        public: false
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: rule_condition\type }

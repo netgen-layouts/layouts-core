@@ -11,6 +11,7 @@ services:
 
     netgen_block_manager.templating.global_variable:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable
+        public: false
         arguments:
             - "@netgen_block_manager.configuration"
             - "@netgen_block_manager.layout.resolver"
@@ -20,6 +21,7 @@ services:
 
     netgen_block_manager.templating.twig.extension.rendering:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension
+        public: false
         tags:
             - { name: twig.extension }
 
@@ -39,6 +41,7 @@ services:
 
     netgen_block_manager.templating.twig.extension.item:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\ItemExtension
+        public: false
         tags:
             - { name: twig.extension }
 
@@ -57,8 +60,10 @@ services:
 
     netgen_block_manager.templating.pagelayout_resolver.default:
         class: Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolver
+        public: false
         arguments:
             - "%netgen_block_manager.pagelayout%"
 
     netgen_block_manager.templating.pagelayout_resolver:
         alias: netgen_block_manager.templating.pagelayout_resolver.default
+        public: false

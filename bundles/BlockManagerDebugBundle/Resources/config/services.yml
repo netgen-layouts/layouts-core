@@ -4,6 +4,7 @@ parameters:
 services:
     netgen_block_manager.debug.data_collector:
         class: Netgen\Bundle\BlockManagerDebugBundle\DataCollector\BlockManagerDataCollector
+        public: false
         arguments:
             - "@netgen_block_manager.templating.global_variable"
         tags:

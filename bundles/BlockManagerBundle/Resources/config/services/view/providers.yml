@@ -1,45 +1,54 @@
 services:
     netgen_block_manager.view.provider.parameter:
         class: Netgen\BlockManager\View\Provider\ParameterViewProvider
+        public: false
         tags:
             - { name: netgen_block_manager.view.provider }
 
     netgen_block_manager.view.provider.block:
         class: Netgen\BlockManager\View\Provider\BlockViewProvider
+        public: false
         tags:
             - { name: netgen_block_manager.view.provider }
 
     netgen_block_manager.view.provider.placeholder:
         class: Netgen\BlockManager\View\Provider\PlaceholderViewProvider
+        public: false
         tags:
             - { name: netgen_block_manager.view.provider }
 
     netgen_block_manager.view.provider.item:
         class: Netgen\BlockManager\View\Provider\ItemViewProvider
+        public: false
         tags:
             - { name: netgen_block_manager.view.provider }
 
     netgen_block_manager.view.provider.layout:
         class: Netgen\BlockManager\View\Provider\LayoutViewProvider
+        public: false
         tags:
             - { name: netgen_block_manager.view.provider, priority: 10 }
 
     netgen_block_manager.view.provider.form:
         class: Netgen\BlockManager\View\Provider\FormViewProvider
+        public: false
         tags:
             - { name: netgen_block_manager.view.provider }
 
     netgen_block_manager.view.provider.rule:
         class: Netgen\BlockManager\View\Provider\RuleViewProvider
+        public: false
         tags:
             - { name: netgen_block_manager.view.provider }
 
     netgen_block_manager.view.provider.rule_target:
         class: Netgen\BlockManager\View\Provider\RuleTargetViewProvider
+        public: false
         tags:
             - { name: netgen_block_manager.view.provider }
 
     netgen_block_manager.view.provider.rule_condition:
         class: Netgen\BlockManager\View\Provider\RuleConditionViewProvider
+        public: false
         tags:
             - { name: netgen_block_manager.view.provider }

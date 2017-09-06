@@ -1,21 +1,25 @@
 services:
     netgen_block_manager.http_cache.fos.cache_manager:
         synthetic: true
+        public: false
 
     netgen_block_manager.http_cache.client:
         alias: netgen_block_manager.http_cache.client.fos
 
     netgen_block_manager.http_cache.client.fos:
         class: Netgen\BlockManager\HttpCache\FOSClient
+        public: false
         arguments:
             - "@netgen_block_manager.http_cache.fos.cache_manager"
             - "@netgen_block_manager.http_cache.layout.id_provider"
 
     netgen_block_manager.http_cache.client.null:
         class: Netgen\BlockManager\HttpCache\NullClient
+        public: false
 
     netgen_block_manager.http_cache.tagger:
         class: Netgen\BlockManager\HttpCache\Tagger
+        public: false
 
     # BLOCK
 
@@ -24,6 +28,7 @@ services:
 
     netgen_block_manager.http_cache.block.cacheable_resolver.voter.container:
         class: Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContainerVoter
+        public: false
         arguments:
             - "@netgen_block_manager.http_cache.block.cacheable_resolver"
         tags:
@@ -31,11 +36,13 @@ services:
 
     netgen_block_manager.http_cache.block.cacheable_resolver.voter.contextual_block:
         class: Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContextualBlockVoter
+        public: false
         tags:
             - { name: netgen_block_manager.http_cache.block.cacheable_resolver.voter }
 
     netgen_block_manager.http_cache.block.cacheable_resolver.voter.contextual_query:
         class: Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContextualQueryVoter
+        public: false
         tags:
             - { name: netgen_block_manager.http_cache.block.cacheable_resolver.voter }
 
@@ -43,5 +50,6 @@ services:
 
     netgen_block_manager.http_cache.layout.id_provider:
         class: Netgen\BlockManager\HttpCache\Layout\IdProvider
+        public: false
         arguments:
             - "@netgen_block_manager.api.service.layout"

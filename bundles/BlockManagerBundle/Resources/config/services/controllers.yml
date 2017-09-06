@@ -66,17 +66,21 @@ services:
 
     netgen_block_manager.controller.api.v1.validator:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\Validator
+        public: false
         calls:
             - [setValidator, ["@validator"]]
 
     netgen_block_manager.controller.api.v1.block.validator:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator
+        public: false
         parent: netgen_block_manager.controller.api.v1.validator
 
     netgen_block_manager.controller.api.v1.block_collection.validator:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator
+        public: false
         parent: netgen_block_manager.controller.api.v1.validator
 
     netgen_block_manager.controller.api.v1.layout.validator:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\LayoutValidator
+        public: false
         parent: netgen_block_manager.controller.api.v1.validator

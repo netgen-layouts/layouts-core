@@ -1,6 +1,7 @@
 services:
     netgen_block_manager.browser.backend.layout:
         class: Netgen\BlockManager\Browser\Backend\LayoutBackend
+        public: false
         arguments:
             - "@netgen_block_manager.api.service.layout"
         tags:
@@ -8,16 +9,19 @@ services:
 
     netgen_block_manager.browser.column_value_provider.layout.layout_id:
         class: Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\LayoutId
+        public: false
         tags:
             - { name: netgen_content_browser.column_value_provider, identifier: ngbm_layout\layout_id }
 
     netgen_block_manager.browser.column_value_provider.layout.type:
         class: Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Type
+        public: false
         tags:
             - { name: netgen_content_browser.column_value_provider, identifier: ngbm_layout\type }
 
     netgen_block_manager.browser.column_value_provider.layout.created:
         class: Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Created
+        public: false
         arguments:
             - "%netgen_content_browser.columns.date_format%"
         tags:
@@ -25,6 +29,7 @@ services:
 
     netgen_block_manager.browser.column_value_provider.layout.modified:
         class: Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Modified
+        public: false
         arguments:
             - "%netgen_content_browser.columns.date_format%"
         tags:
@@ -32,5 +37,6 @@ services:
 
     netgen_block_manager.browser.column_value_provider.layout.shared:
         class: Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Shared
+        public: false
         tags:
             - { name: netgen_content_browser.column_value_provider, identifier: ngbm_layout\shared }
