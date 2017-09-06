@@ -27,6 +27,9 @@ class CacheManagerPassTest extends AbstractCompilerPassTestCase
             0,
             new Reference('fos_http_cache.proxy_client.varnish')
         );
+
+        $def = $this->container->findDefinition('netgen_block_manager.http_cache.fos.cache_manager');
+        $this->assertFalse($def->isPublic());
     }
 
     /**

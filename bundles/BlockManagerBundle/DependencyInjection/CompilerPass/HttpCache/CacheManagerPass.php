@@ -34,5 +34,8 @@ class CacheManagerPass implements CompilerPassInterface
             'netgen_block_manager.http_cache.fos.cache_manager',
             $cacheManager
         );
+
+        $container->findDefinition('netgen_block_manager.http_cache.fos.cache_manager')
+            ->setPublic(false);
     }
 }

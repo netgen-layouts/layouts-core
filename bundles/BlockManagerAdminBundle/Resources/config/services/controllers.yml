@@ -26,6 +26,7 @@ services:
 
     netgen_block_manager.controller.admin.layout_resolver.validator:
         class: Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Validator\LayoutResolverValidator
+        public: false
         calls:
             - [setValidator, ["@validator"]]
 

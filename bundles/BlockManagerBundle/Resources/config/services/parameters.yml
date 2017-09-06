@@ -212,7 +212,7 @@ services:
 
     # Form
 
-    netgen_block_manager.parameters.form.type.parameters:
+    netgen_block_manager.parameters.form.parameters:
         class: Netgen\BlockManager\Parameters\Form\Type\ParametersType
         arguments:
             - "@netgen_block_manager.parameters.registry.form_mapper"
