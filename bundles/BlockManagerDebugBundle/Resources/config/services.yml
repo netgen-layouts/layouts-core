@@ -10,8 +10,8 @@ services:
         tags:
             - { name: data_collector, template: '@NetgenBlockManagerDebug/data_collector/ngbm.html.twig', id: ngbm }
 
-    netgen_block_manager.debug.data_collector.event_listener.block_view:
-        class: Netgen\Bundle\BlockManagerDebugBundle\DataCollector\EventListener\BlockViewListener
+    netgen_block_manager.event_listener.debug.data_collector.block_view:
+        class: Netgen\Bundle\BlockManagerDebugBundle\EventListener\DataCollector\BlockViewListener
         arguments:
             - "@netgen_block_manager.debug.data_collector"
             - "%netgen_block_manager.debug.block_collector.enabled_contexts%"

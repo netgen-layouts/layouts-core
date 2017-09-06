@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerDebugBundle\DataCollector\EventListener;
+namespace Netgen\Bundle\BlockManagerDebugBundle\EventListener\DataCollector;
 
 use Netgen\BlockManager\Event\BlockManagerEvents;
 use Netgen\BlockManager\Event\CollectViewParametersEvent;
