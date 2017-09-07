@@ -118,6 +118,7 @@ class BlockManagerDataCollector extends DataCollector
             'view_type' => $blockDefinition->getConfig()->getViewType(
                 $block->getViewType()
             )->getName(),
+            'locale' => $block->getTranslation()->getLocale(),
             'template' => $blockView->getTemplate(),
         );
     }
