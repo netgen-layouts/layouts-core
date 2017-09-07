@@ -30,6 +30,7 @@ services:
         arguments:
             - "@netgen_block_manager.api.service.block"
             - "@netgen_block_manager.view.renderer.fragment"
+            - "@netgen_block_manager.locale.provider"
             - "@request_stack"
             - "@?logger"
         calls:

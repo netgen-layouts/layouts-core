@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Locale;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Intl\Intl;
 
 class LocaleProvider implements LocaleProviderInterface
@@ -45,5 +46,23 @@ class LocaleProvider implements LocaleProviderInterface
         }
 
         return $availableLocales;
+    }
+
+    /**
+     * Returns the list of locale codes available for the provided request.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return string[]
+     */
+    public function getRequestLocales(Request $request)
+    {
+        $requestLocale = $request->getLocale();
+
+        if (empty($this->enabledLocales) || in_array($requestLocale, $this->enabledLocales, true)) {
+            return array($requestLocale);
+        }
+
+        return array();
     }
 }

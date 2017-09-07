@@ -8,6 +8,7 @@ use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Item\Item;
+use Netgen\BlockManager\Locale\LocaleProviderInterface;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate;
@@ -29,6 +30,11 @@ class RenderingRuntimeTest extends TestCase
     protected $rendererMock;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $localeProviderMock;
+
+    /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime
      */
     protected $runtime;
@@ -37,10 +43,12 @@ class RenderingRuntimeTest extends TestCase
     {
         $this->blockServiceMock = $this->createMock(BlockService::class);
         $this->rendererMock = $this->createMock(RendererInterface::class);
+        $this->localeProviderMock = $this->createMock(LocaleProviderInterface::class);
 
         $this->runtime = new RenderingRuntime(
             $this->blockServiceMock,
             $this->rendererMock,
+            $this->localeProviderMock,
             new RequestStack()
         );
     }

@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Locale;
 
 use Netgen\BlockManager\Locale\LocaleProvider;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Request;
 
 class LocaleProviderTest extends TestCase
 {
@@ -49,5 +50,50 @@ class LocaleProviderTest extends TestCase
         $localeProvider = new LocaleProvider();
 
         $this->assertNotEmpty($localeProvider->getAvailableLocales());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Locale\LocaleProvider::getRequestLocales
+     */
+    public function testGetRequestLocales()
+    {
+        $localeProvider = new LocaleProvider();
+
+        $requestMock = $this->createMock(Request::class);
+        $requestMock->expects($this->any())
+            ->method('getLocale')
+            ->will($this->returnValue('en'));
+
+        $this->assertEquals(array('en'), $localeProvider->getRequestLocales($requestMock));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Locale\LocaleProvider::getRequestLocales
+     */
+    public function testGetRequestLocalesWithEnabledLocales()
+    {
+        $localeProvider = new LocaleProvider(array('en', 'hr'));
+
+        $requestMock = $this->createMock(Request::class);
+        $requestMock->expects($this->any())
+            ->method('getLocale')
+            ->will($this->returnValue('en'));
+
+        $this->assertEquals(array('en'), $localeProvider->getRequestLocales($requestMock));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Locale\LocaleProvider::getRequestLocales
+     */
+    public function testGetRequestLocalesWithNonEnabledLocale()
+    {
+        $localeProvider = new LocaleProvider(array('en', 'hr'));
+
+        $requestMock = $this->createMock(Request::class);
+        $requestMock->expects($this->any())
+            ->method('getLocale')
+            ->will($this->returnValue('de'));
+
+        $this->assertEquals(array(), $localeProvider->getRequestLocales($requestMock));
     }
 }

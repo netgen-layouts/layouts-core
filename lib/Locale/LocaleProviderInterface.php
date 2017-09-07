@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\Locale;
 
+use Symfony\Component\HttpFoundation\Request;
+
 interface LocaleProviderInterface
 {
     /**
@@ -12,4 +14,13 @@ interface LocaleProviderInterface
      * @return string[]
      */
     public function getAvailableLocales();
+
+    /**
+     * Returns the list of locale codes available for the provided request.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return string[]
+     */
+    public function getRequestLocales(Request $request);
 }

@@ -7,6 +7,7 @@ use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Item\ItemInterface;
+use Netgen\BlockManager\Locale\LocaleProviderInterface;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate;
 use Netgen\BlockManager\View\ViewInterface;
@@ -28,6 +29,11 @@ class RenderingRuntime
     protected $renderer;
 
     /**
+     * @var \Netgen\BlockManager\Locale\LocaleProviderInterface
+     */
+    protected $localeProvider;
+
+    /**
      * @var \Psr\Log\NullLogger
      */
     protected $logger;
@@ -47,17 +53,20 @@ class RenderingRuntime
      *
      * @param \Netgen\BlockManager\API\Service\BlockService $blockService
      * @param \Netgen\BlockManager\View\RendererInterface $renderer
+     * @param \Netgen\BlockManager\Locale\LocaleProviderInterface $localeProvider
      * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
      * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
         BlockService $blockService,
         RendererInterface $renderer,
+        LocaleProviderInterface $localeProvider,
         RequestStack $requestStack,
         LoggerInterface $logger = null
     ) {
         $this->blockService = $blockService;
         $this->renderer = $renderer;
+        $this->localeProvider = $localeProvider;
         $this->requestStack = $requestStack;
         $this->logger = $logger ?: new NullLogger();
     }
@@ -136,7 +145,7 @@ class RenderingRuntime
 
         $request = $this->requestStack->getCurrentRequest();
         if ($request instanceof Request) {
-            $locales = array($request->getLocale());
+            $locales = $this->localeProvider->getRequestLocales($request);
         }
 
         foreach ($this->blockService->loadZoneBlocks($zone, $locales) as $block) {

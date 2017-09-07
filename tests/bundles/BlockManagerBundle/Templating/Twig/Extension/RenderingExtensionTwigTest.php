@@ -6,6 +6,7 @@ use Exception;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\BlockTranslation;
+use Netgen\BlockManager\Locale\LocaleProviderInterface;
 use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\View\RendererInterface;
@@ -32,6 +33,11 @@ class RenderingExtensionTwigTest extends \Twig_Test_IntegrationTestCase
     protected $rendererMock;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $localeProviderMock;
+
+    /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension
      */
     protected $extension;
@@ -45,6 +51,7 @@ class RenderingExtensionTwigTest extends \Twig_Test_IntegrationTestCase
     {
         $this->blockServiceMock = $this->createMock(BlockService::class);
         $this->rendererMock = $this->createMock(RendererInterface::class);
+        $this->localeProviderMock = $this->createMock(LocaleProviderInterface::class);
 
         $this->blockServiceMock
             ->expects($this->any())
@@ -115,6 +122,7 @@ class RenderingExtensionTwigTest extends \Twig_Test_IntegrationTestCase
         $this->runtime = new RenderingRuntime(
             $this->blockServiceMock,
             $this->rendererMock,
+            $this->localeProviderMock,
             new RequestStack()
         );
     }
