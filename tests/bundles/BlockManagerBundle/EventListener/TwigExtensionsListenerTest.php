@@ -8,8 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Twig_Environment;
-use Twig_Extensions_Extension_Intl;
+use Twig\Environment;
+use Twig\Extensions\IntlExtension;
 
 class TwigExtensionsListenerTest extends TestCase
 {
@@ -25,7 +25,7 @@ class TwigExtensionsListenerTest extends TestCase
 
     public function setUp()
     {
-        $this->twigMock = $this->createMock(Twig_Environment::class);
+        $this->twigMock = $this->createMock(Environment::class);
 
         $this->listener = new TwigExtensionsListener($this->twigMock);
     }
@@ -53,13 +53,13 @@ class TwigExtensionsListenerTest extends TestCase
         $this->twigMock
             ->expects($this->once())
             ->method('hasExtension')
-            ->with($this->equalTo(Twig_Extensions_Extension_Intl::class))
+            ->with($this->equalTo(IntlExtension::class))
             ->will($this->returnValue(false));
 
         $this->twigMock
             ->expects($this->once())
             ->method('addExtension')
-            ->with($this->equalTo(new Twig_Extensions_Extension_Intl()));
+            ->with($this->equalTo(new IntlExtension()));
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
@@ -76,7 +76,7 @@ class TwigExtensionsListenerTest extends TestCase
         $this->twigMock
             ->expects($this->once())
             ->method('hasExtension')
-            ->with($this->equalTo(Twig_Extensions_Extension_Intl::class))
+            ->with($this->equalTo(IntlExtension::class))
             ->will($this->returnValue(true));
 
         $this->twigMock

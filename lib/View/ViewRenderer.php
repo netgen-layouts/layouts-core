@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\View;
 use Netgen\BlockManager\Event\BlockManagerEvents;
 use Netgen\BlockManager\Event\CollectViewParametersEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Twig_Environment;
+use Twig\Environment;
 
 class ViewRenderer implements ViewRendererInterface
 {
@@ -15,7 +15,7 @@ class ViewRenderer implements ViewRendererInterface
     protected $eventDispatcher;
 
     /**
-     * @var \Twig_Environment
+     * @var \Twig\Environment
      */
     protected $twig;
 
@@ -23,9 +23,9 @@ class ViewRenderer implements ViewRendererInterface
      * Constructor.
      *
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     * @param \Twig_Environment $twig
+     * @param \Twig\Environment $twig
      */
-    public function __construct(EventDispatcherInterface $eventDispatcher, Twig_Environment $twig)
+    public function __construct(EventDispatcherInterface $eventDispatcher, Environment $twig)
     {
         $this->eventDispatcher = $eventDispatcher;
         $this->twig = $twig;

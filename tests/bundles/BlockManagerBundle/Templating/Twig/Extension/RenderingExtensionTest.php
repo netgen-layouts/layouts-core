@@ -4,8 +4,8 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig\Extension;
 
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension;
 use PHPUnit\Framework\TestCase;
-use Twig_SimpleFunction;
-use Twig_TokenParser;
+use Twig\TokenParser\TokenParserInterface;
+use Twig\TwigFunction;
 
 class RenderingExtensionTest extends TestCase
 {
@@ -35,7 +35,7 @@ class RenderingExtensionTest extends TestCase
         $this->assertNotEmpty($this->extension->getFunctions());
 
         foreach ($this->extension->getFunctions() as $function) {
-            $this->assertInstanceOf(Twig_SimpleFunction::class, $function);
+            $this->assertInstanceOf(TwigFunction::class, $function);
         }
     }
 
@@ -47,7 +47,7 @@ class RenderingExtensionTest extends TestCase
         $this->assertNotEmpty($this->extension->getTokenParsers());
 
         foreach ($this->extension->getTokenParsers() as $tokenParser) {
-            $this->assertInstanceOf(Twig_TokenParser::class, $tokenParser);
+            $this->assertInstanceOf(TokenParserInterface::class, $tokenParser);
         }
     }
 }

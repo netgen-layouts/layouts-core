@@ -5,22 +5,22 @@ namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Twig_Environment;
-use Twig_Extensions_Extension_Intl;
+use Twig\Environment;
+use Twig\Extensions\IntlExtension;
 
 class TwigExtensionsListener implements EventSubscriberInterface
 {
     /**
-     * @var \Twig_Environment
+     * @var \Twig\Environment
      */
     protected $twig;
 
     /**
      * Constructor.
      *
-     * @param \Twig_Environment $twig
+     * @param \Twig\Environment $twig
      */
-    public function __construct(Twig_Environment $twig)
+    public function __construct(Environment $twig)
     {
         $this->twig = $twig;
     }
@@ -42,10 +42,10 @@ class TwigExtensionsListener implements EventSubscriberInterface
      */
     public function onKernelRequest(GetResponseEvent $event)
     {
-        if ($this->twig->hasExtension(Twig_Extensions_Extension_Intl::class)) {
+        if ($this->twig->hasExtension(IntlExtension::class)) {
             return;
         }
 
-        $this->twig->addExtension(new Twig_Extensions_Extension_Intl());
+        $this->twig->addExtension(new IntlExtension());
     }
 }

@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\View\Twig;
 use Exception;
 use Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate;
 use PHPUnit\Framework\TestCase;
-use Twig_Template;
+use Twig\Template;
 
 class ContextualizedTwigTemplateTest extends TestCase
 {
@@ -15,7 +15,7 @@ class ContextualizedTwigTemplateTest extends TestCase
      */
     public function testRenderBlock()
     {
-        $templateMock = $this->createMock(Twig_Template::class);
+        $templateMock = $this->createMock(Template::class);
 
         $templateMock
             ->expects($this->any())
@@ -45,7 +45,7 @@ class ContextualizedTwigTemplateTest extends TestCase
      */
     public function testRenderBlockNonExistingBlock()
     {
-        $templateMock = $this->createMock(Twig_Template::class);
+        $templateMock = $this->createMock(Template::class);
 
         $templateMock
             ->expects($this->any())
@@ -69,7 +69,7 @@ class ContextualizedTwigTemplateTest extends TestCase
      */
     public function testRenderBlockWithException()
     {
-        $templateMock = $this->createMock(Twig_Template::class);
+        $templateMock = $this->createMock(Template::class);
 
         $templateMock
             ->expects($this->any())

@@ -7,7 +7,7 @@ use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\ViewRenderer;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Twig_Environment;
+use Twig\Environment;
 
 class ViewRendererTest extends TestCase
 {
@@ -32,7 +32,7 @@ class ViewRendererTest extends TestCase
             ->createMock(EventDispatcherInterface::class);
 
         $this->twigEnvironmentMock = $this
-            ->createMock(Twig_Environment::class);
+            ->createMock(Environment::class);
 
         $this->viewRenderer = new ViewRenderer(
             $this->eventDispatcherMock,

@@ -15,12 +15,13 @@ use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtensio
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime;
 use ReflectionProperty;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Twig_Environment;
-use Twig_Error;
-use Twig_FactoryRuntimeLoader;
-use Twig_Loader_Array;
+use Twig\Environment;
+use Twig\Error\Error;
+use Twig\Loader\ArrayLoader;
+use Twig\RuntimeLoader\FactoryRuntimeLoader;
+use Twig\Test\IntegrationTestCase;
 
-class RenderingExtensionTwigTest extends \Twig_Test_IntegrationTestCase
+class RenderingExtensionTwigTest extends IntegrationTestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
@@ -144,7 +145,7 @@ class RenderingExtensionTwigTest extends \Twig_Test_IntegrationTestCase
     }
 
     /**
-     * @return \Twig_ExtensionInterface[]
+     * @return \Twig\Extension\ExtensionInterface[]
      */
     protected function getExtensions()
     {
@@ -154,7 +155,7 @@ class RenderingExtensionTwigTest extends \Twig_Test_IntegrationTestCase
     protected function getRuntimeLoaders()
     {
         return array(
-            new Twig_FactoryRuntimeLoader(
+            new FactoryRuntimeLoader(
                 array(
                     RenderingRuntime::class => function () {
                         return $this->runtime;
@@ -185,14 +186,14 @@ class RenderingExtensionTwigTest extends \Twig_Test_IntegrationTestCase
             }
         }
 
-        $loader = new Twig_Loader_Array($templates);
+        $loader = new ArrayLoader($templates);
 
         foreach ($outputs as $i => $match) {
             $config = array_merge(array(
                 'cache' => false,
                 'strict_variables' => true,
             ), $match[2] ? eval($match[2] . ';') : array());
-            $twig = new Twig_Environment($loader, $config);
+            $twig = new Environment($loader, $config);
             $twig->addGlobal('global', 'global');
             foreach ($this->getExtensions() as $extension) {
                 $twig->addExtension($extension);
@@ -231,7 +232,7 @@ class RenderingExtensionTwigTest extends \Twig_Test_IntegrationTestCase
                     return;
                 }
 
-                throw new Twig_Error(sprintf('%s: %s', get_class($e), $e->getMessage()), -1, $file, $e);
+                throw new Error(sprintf('%s: %s', get_class($e), $e->getMessage()), -1, $file, $e);
             }
 
             try {
@@ -243,7 +244,7 @@ class RenderingExtensionTwigTest extends \Twig_Test_IntegrationTestCase
                     return;
                 }
 
-                $e = new Twig_Error(sprintf('%s: %s', get_class($e), $e->getMessage()), -1, $file, $e);
+                $e = new Error(sprintf('%s: %s', get_class($e), $e->getMessage()), -1, $file, $e);
 
                 $output = trim(sprintf('%s: %s', get_class($e), $e->getMessage()));
             }

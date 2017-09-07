@@ -2,7 +2,9 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig\Node;
 
-abstract class NodeTest extends \Twig_Test_NodeTestCase
+use Twig\Test\NodeTestCase;
+
+abstract class NodeTest extends NodeTestCase
 {
     protected function getNodeGetter($name, $line = false)
     {

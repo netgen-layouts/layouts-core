@@ -4,10 +4,10 @@ namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension;
 
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone;
-use Twig_Extension;
-use Twig_SimpleFunction;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
-class RenderingExtension extends Twig_Extension
+class RenderingExtension extends AbstractExtension
 {
     /**
      * Returns the name of the extension.
@@ -22,12 +22,12 @@ class RenderingExtension extends Twig_Extension
     /**
      * Returns a list of functions to add to the existing list.
      *
-     * @return \Twig_SimpleFunction[]
+     * @return \Twig\TwigFunction[]
      */
     public function getFunctions()
     {
         return array(
-            new Twig_SimpleFunction(
+            new TwigFunction(
                 'ngbm_render_item',
                 array(RenderingRuntime::class, 'renderItem'),
                 array(
@@ -35,7 +35,7 @@ class RenderingExtension extends Twig_Extension
                     'is_safe' => array('html'),
                 )
             ),
-            new Twig_SimpleFunction(
+            new TwigFunction(
                 'ngbm_render_layout',
                 array(RenderingRuntime::class, 'renderValueObject'),
                 array(
@@ -43,7 +43,7 @@ class RenderingExtension extends Twig_Extension
                     'is_safe' => array('html'),
                 )
             ),
-            new Twig_SimpleFunction(
+            new TwigFunction(
                 'ngbm_render_parameter',
                 array(RenderingRuntime::class, 'renderValueObject'),
                 array(
@@ -51,7 +51,7 @@ class RenderingExtension extends Twig_Extension
                     'is_safe' => array('html'),
                 )
             ),
-            new Twig_SimpleFunction(
+            new TwigFunction(
                 'ngbm_render_block',
                 array(RenderingRuntime::class, 'renderBlock'),
                 array(
@@ -59,7 +59,7 @@ class RenderingExtension extends Twig_Extension
                     'is_safe' => array('html'),
                 )
             ),
-            new Twig_SimpleFunction(
+            new TwigFunction(
                 'ngbm_render_placeholder',
                 array(RenderingRuntime::class, 'renderPlaceholder'),
                 array(
@@ -67,7 +67,7 @@ class RenderingExtension extends Twig_Extension
                     'is_safe' => array('html'),
                 )
             ),
-            new Twig_SimpleFunction(
+            new TwigFunction(
                 'ngbm_render_rule',
                 array(RenderingRuntime::class, 'renderValueObject'),
                 array(
@@ -75,7 +75,7 @@ class RenderingExtension extends Twig_Extension
                     'is_safe' => array('html'),
                 )
             ),
-            new Twig_SimpleFunction(
+            new TwigFunction(
                 'ngbm_render_rule_target',
                 array(RenderingRuntime::class, 'renderValueObject'),
                 array(
@@ -83,7 +83,7 @@ class RenderingExtension extends Twig_Extension
                     'is_safe' => array('html'),
                 )
             ),
-            new Twig_SimpleFunction(
+            new TwigFunction(
                 'ngbm_render_rule_condition',
                 array(RenderingRuntime::class, 'renderValueObject'),
                 array(
@@ -91,7 +91,7 @@ class RenderingExtension extends Twig_Extension
                     'is_safe' => array('html'),
                 )
             ),
-            new Twig_SimpleFunction(
+            new TwigFunction(
                 'ngbm_render_value_object',
                 array(RenderingRuntime::class, 'renderValueObject'),
                 array(
@@ -105,7 +105,7 @@ class RenderingExtension extends Twig_Extension
     /**
      * Returns the token parser instances to add to the existing list.
      *
-     * @return \Twig_TokenParserInterface[]
+     * @return \Twig\TokenParser\TokenParserInterface[]
      */
     public function getTokenParsers()
     {

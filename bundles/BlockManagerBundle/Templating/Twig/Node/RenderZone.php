@@ -6,24 +6,24 @@ use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime;
-use Twig_Compiler;
-use Twig_Node;
-use Twig_Node_Expression;
+use Twig\Compiler;
+use Twig\Node\Expression\AbstractExpression;
+use Twig\Node\Node;
 
-class RenderZone extends Twig_Node
+class RenderZone extends Node
 {
     /**
      * Constructor.
      *
-     * @param \Twig_Node_Expression $zone
-     * @param Twig_Node_Expression $context
+     * @param \Twig\Node\Expression\AbstractExpression $zone
+     * @param \Twig\Node\Expression\AbstractExpression $context
      * @param int $line
      * @param string $tag
      */
-    public function __construct(Twig_Node_Expression $zone, Twig_Node_Expression $context = null, $line = 0, $tag = null)
+    public function __construct(AbstractExpression $zone, AbstractExpression $context = null, $line = 0, $tag = null)
     {
         $nodes = array('zone' => $zone);
-        if ($context instanceof Twig_Node_Expression) {
+        if ($context instanceof AbstractExpression) {
             $nodes['context'] = $context;
         }
 
@@ -33,9 +33,9 @@ class RenderZone extends Twig_Node
     /**
      * Compiles the node to PHP.
      *
-     * @param \Twig_Compiler $compiler
+     * @param \Twig\Compiler $compiler
      */
-    public function compile(Twig_Compiler $compiler)
+    public function compile(Compiler $compiler)
     {
         $compiler
             ->addDebugInfo($this)
@@ -59,16 +59,16 @@ class RenderZone extends Twig_Node
     /**
      * Compiles the context node.
      *
-     * @param \Twig_Compiler $compiler
+     * @param \Twig\Compiler $compiler
      */
-    protected function compileContextNode(Twig_Compiler $compiler)
+    protected function compileContextNode(Compiler $compiler)
     {
         $contextNode = null;
         if ($this->hasNode('context')) {
             $contextNode = $this->getNode('context');
         }
 
-        if ($contextNode instanceof Twig_Node) {
+        if ($contextNode instanceof Node) {
             $compiler
                 ->write('$ngbmContext = ')
                     ->subcompile($this->getNode('context'))

@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderZone;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime;
-use Twig_Node_Expression_Name;
+use Twig\Node\Expression\NameExpression;
 
 class RenderZoneTest extends NodeTest
 {
@@ -15,8 +15,8 @@ class RenderZoneTest extends NodeTest
      */
     public function testConstructor()
     {
-        $zone = new Twig_Node_Expression_Name('zone', 1);
-        $context = new Twig_Node_Expression_Name('context', 1);
+        $zone = new NameExpression('zone', 1);
+        $context = new NameExpression('context', 1);
         $node = new RenderZone($zone, $context, 1);
 
         $this->assertEquals($zone, $node->getNode('zone'));
@@ -28,29 +28,11 @@ class RenderZoneTest extends NodeTest
      */
     public function testConstructorWithNoContext()
     {
-        $zone = new Twig_Node_Expression_Name('zone', 1);
+        $zone = new NameExpression('zone', 1);
         $node = new RenderZone($zone, null, 1);
 
         $this->assertEquals($zone, $node->getNode('zone'));
         $this->assertFalse($node->hasNode('context'));
-    }
-
-    /**
-     * Overriden to enable 'covers' annotation.
-     *
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderZone::compile
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderZone::compileContextNode
-     *
-     * @param \Twig_Node $node
-     * @param string $source
-     * @param \Twig_Environment $environment
-     * @param bool $isPattern
-     *
-     * @dataProvider getTests
-     */
-    public function testCompile($node, $source, $environment = null, $isPattern = false)
-    {
-        parent::testCompile($node, $source, $environment, $isPattern);
     }
 
     public function getTests()
@@ -62,8 +44,8 @@ class RenderZoneTest extends NodeTest
         $runtimeClass = RenderingRuntime::class;
         $templateClass = ContextualizedTwigTemplate::class;
 
-        $zone = new Twig_Node_Expression_Name('zone', 1);
-        $context = new Twig_Node_Expression_Name('context', 1);
+        $zone = new NameExpression('zone', 1);
+        $context = new NameExpression('context', 1);
 
         return array(
             array(
@@ -95,5 +77,23 @@ EOT
                 $environment,
             ),
         );
+    }
+
+    /**
+     * Overriden to enable 'covers' annotation.
+     *
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderZone::compile
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderZone::compileContextNode
+     *
+     * @param \Twig\Node\Node $node
+     * @param string $source
+     * @param \Twig\Environment $environment
+     * @param bool $isPattern
+     *
+     * @dataProvider getTests
+     */
+    public function testCompile($node, $source, $environment = null, $isPattern = false)
+    {
+        parent::testCompile($node, $source, $environment, $isPattern);
     }
 }

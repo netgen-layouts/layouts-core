@@ -3,42 +3,42 @@
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser;
 
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderZone as RenderZoneNode;
-use Twig_Error_Syntax;
-use Twig_Token;
-use Twig_TokenParser;
+use Twig\Error\SyntaxError;
+use Twig\Token;
+use Twig\TokenParser\AbstractTokenParser;
 
-class RenderZone extends Twig_TokenParser
+class RenderZone extends AbstractTokenParser
 {
     /**
      * Parses a token and returns a node.
      *
-     * @param \Twig_Token $token
+     * @param \Twig\Token $token
      *
-     * @throws \Twig_Error_Syntax
+     * @throws \Twig\Error\SyntaxError
      *
      * @return \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderZone
      */
-    public function parse(Twig_Token $token)
+    public function parse(Token $token)
     {
         $stream = $this->parser->getStream();
 
         $context = null;
         $zone = $this->parser->getExpressionParser()->parseExpression();
 
-        while (!$stream->test(Twig_Token::BLOCK_END_TYPE)) {
-            if ($stream->test(Twig_Token::NAME_TYPE, 'context')) {
+        while (!$stream->test(Token::BLOCK_END_TYPE)) {
+            if ($stream->test(Token::NAME_TYPE, 'context')) {
                 $stream->next();
-                $stream->expect(Twig_Token::OPERATOR_TYPE, '=');
+                $stream->expect(Token::OPERATOR_TYPE, '=');
                 $context = $this->parser->getExpressionParser()->parseExpression();
 
                 continue;
             }
 
             $token = $stream->getCurrent();
-            throw new Twig_Error_Syntax(
+            throw new SyntaxError(
                 sprintf(
                     'Unexpected token "%s" of value "%s".',
-                    Twig_Token::typeToEnglish($token->getType()),
+                    Token::typeToEnglish($token->getType()),
                     $token->getValue()
                 ),
                 $token->getLine(),
@@ -46,7 +46,7 @@ class RenderZone extends Twig_TokenParser
             );
         }
 
-        $stream->expect(Twig_Token::BLOCK_END_TYPE);
+        $stream->expect(Token::BLOCK_END_TYPE);
 
         return new RenderZoneNode($zone, $context, $token->getLine(), $this->getTag());
     }

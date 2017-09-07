@@ -3,14 +3,14 @@
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\Loader;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Twig_RuntimeLoaderInterface;
+use Twig\RuntimeLoader\RuntimeLoaderInterface;
 
 /**
  * Runtime loader for Netgen Block Manager Twig runtimes.
  *
  * @deprecated Remove when support for Symfony 2.8 ends.
  */
-class ContainerRuntimeLoader implements Twig_RuntimeLoaderInterface
+class ContainerRuntimeLoader implements RuntimeLoaderInterface
 {
     /**
      * @var \Symfony\Component\DependencyInjection\ContainerInterface

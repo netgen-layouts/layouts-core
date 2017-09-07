@@ -4,7 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig\Extension;
 
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\ItemExtension;
 use PHPUnit\Framework\TestCase;
-use Twig_SimpleFunction;
+use Twig\TwigFunction;
 
 class ItemExtensionTest extends TestCase
 {
@@ -34,7 +34,7 @@ class ItemExtensionTest extends TestCase
         $this->assertNotEmpty($this->extension->getFunctions());
 
         foreach ($this->extension->getFunctions() as $function) {
-            $this->assertInstanceOf(Twig_SimpleFunction::class, $function);
+            $this->assertInstanceOf(TwigFunction::class, $function);
         }
     }
 }

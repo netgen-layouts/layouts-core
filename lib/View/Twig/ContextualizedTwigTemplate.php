@@ -3,12 +3,12 @@
 namespace Netgen\BlockManager\View\Twig;
 
 use Exception;
-use Twig_Template;
+use Twig\Template;
 
 class ContextualizedTwigTemplate
 {
     /**
-     * @var \Twig_Template
+     * @var \Twig\Template
      */
     protected $template;
 
@@ -25,11 +25,11 @@ class ContextualizedTwigTemplate
     /**
      * Constructor.
      *
-     * @param \Twig_Template $template
+     * @param \Twig\Template $template
      * @param array $context
      * @param array $blocks
      */
-    public function __construct(Twig_Template $template, array $context = array(), array $blocks = array())
+    public function __construct(Template $template, array $context = array(), array $blocks = array())
     {
         $this->template = $template;
         $this->context = $context;
