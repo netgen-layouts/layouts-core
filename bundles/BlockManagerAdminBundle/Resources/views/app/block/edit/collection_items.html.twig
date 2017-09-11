@@ -15,7 +15,7 @@
         </a>
 
         <div class="collapse in" id="collapseItems">
-            <div class="collection-items">
+            <div class="collection-items" {% if block.translation.locale != block.mainLocale %}data-disabled="true"{% endif %}>
                 <div class="value-type-wrapper">
                     <select class="js-browser-config-selector">
                         {% for value_type in ngbm.config.parameter('value_types') %}
