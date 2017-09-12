@@ -32,6 +32,26 @@ class ParamConverterTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter::apply
      */
+    public function testApplyWithLocale()
+    {
+        $request = Request::create('/');
+        $request->attributes->set('id', 42);
+        $request->attributes->set('locale', 'en');
+        $configuration = new ParamConverterConfiguration(array());
+        $configuration->setClass(Value::class);
+
+        $paramConverter = new ParamConverter();
+        $this->assertTrue($paramConverter->apply($request, $configuration));
+        $this->assertTrue($request->attributes->has('value'));
+        $this->assertEquals(
+            new Value(array('id' => 42, 'locale' => 'en', 'published' => false)),
+            $request->attributes->get('value')
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter::apply
+     */
     public function testApplyWithPublishedRouteStatusParam()
     {
         $request = Request::create('/');

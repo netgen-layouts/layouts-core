@@ -4,6 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig\Extension;
 
 use Exception;
 use Netgen\BlockManager\API\Service\BlockService;
+use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\BlockTranslation;
 use Netgen\BlockManager\Locale\LocaleProviderInterface;
@@ -14,6 +15,7 @@ use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime;
 use ReflectionProperty;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Environment;
 use Twig\Error\Error;
@@ -39,6 +41,11 @@ class RenderingExtensionTwigTest extends IntegrationTestCase
     protected $localeProviderMock;
 
     /**
+     * @var \Symfony\Component\HttpFoundation\RequestStack
+     */
+    protected $requestStack;
+
+    /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension
      */
     protected $extension;
@@ -53,10 +60,77 @@ class RenderingExtensionTwigTest extends IntegrationTestCase
         $this->blockServiceMock = $this->createMock(BlockService::class);
         $this->rendererMock = $this->createMock(RendererInterface::class);
         $this->localeProviderMock = $this->createMock(LocaleProviderInterface::class);
+        $this->requestStack = new RequestStack();
+
+        $this->extension = new RenderingExtension();
+        $this->runtime = new RenderingRuntime(
+            $this->blockServiceMock,
+            $this->rendererMock,
+            $this->localeProviderMock,
+            $this->requestStack
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::displayZone
+     * @dataProvider getTests
+     *
+     * @param mixed $file
+     * @param mixed $message
+     * @param mixed $condition
+     * @param mixed $templates
+     * @param mixed $exception
+     * @param mixed $outputs
+     */
+    public function testIntegration($file, $message, $condition, $templates, $exception, $outputs)
+    {
+        $this->configureMocks();
+
+        $this->doIntegrationTest($file, $message, $condition, $templates, $exception, $outputs);
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::displayZone
+     * @dataProvider getTests
+     *
+     * @param mixed $file
+     * @param mixed $message
+     * @param mixed $condition
+     * @param mixed $templates
+     * @param mixed $exception
+     * @param mixed $outputs
+     */
+    public function testIntegrationWithLocale($file, $message, $condition, $templates, $exception, $outputs)
+    {
+        $request = Request::create('');
+        $this->requestStack->push($request);
+
+        $this->configureMocks();
+
+        $this->doIntegrationTest($file, $message, $condition, $templates, $exception, $outputs);
+    }
+
+    protected function configureMocks()
+    {
+        $request = $this->requestStack->getCurrentRequest();
+
+        $request instanceof Request ?
+            $this->localeProviderMock
+                ->expects($this->any())
+                ->method('getRequestLocales')
+                ->with($this->equalTo($request))
+                ->will($this->returnValue(array('en'))) :
+            $this->localeProviderMock
+                ->expects($this->never())
+                ->method('getRequestLocales');
 
         $this->blockServiceMock
             ->expects($this->any())
             ->method('loadZoneBlocks')
+            ->with(
+                $this->isInstanceOf(Zone::class),
+                $this->equalTo($request instanceof Request ? array('en') : null)
+            )
             ->will(
                 $this->returnValue(
                     array(
@@ -118,30 +192,6 @@ class RenderingExtensionTwigTest extends IntegrationTestCase
                     }
                 )
             );
-
-        $this->extension = new RenderingExtension();
-        $this->runtime = new RenderingRuntime(
-            $this->blockServiceMock,
-            $this->rendererMock,
-            $this->localeProviderMock,
-            new RequestStack()
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::displayZone
-     * @dataProvider getTests
-     *
-     * @param mixed $file
-     * @param mixed $message
-     * @param mixed $condition
-     * @param mixed $templates
-     * @param mixed $exception
-     * @param mixed $outputs
-     */
-    public function testIntegration($file, $message, $condition, $templates, $exception, $outputs)
-    {
-        $this->doIntegrationTest($file, $message, $condition, $templates, $exception, $outputs);
     }
 
     /**
