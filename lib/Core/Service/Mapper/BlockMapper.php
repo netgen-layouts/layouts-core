@@ -125,7 +125,7 @@ class BlockMapper
             'status' => $block->status,
             'published' => $block->status === Value::STATUS_PUBLISHED,
             'placeholders' => $this->mapPlaceholders($block, $blockDefinition),
-            'collectionReferences' => $this->mapCollectionReferences($block),
+            'collectionReferences' => $this->mapCollectionReferences($block, $locales),
             'configs' => $this->configMapper->mapConfig($block->config, $blockDefinition->getConfigDefinitions()),
             'isTranslatable' => $block->isTranslatable,
             'mainLocale' => $block->mainLocale,
