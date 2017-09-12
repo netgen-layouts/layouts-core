@@ -516,30 +516,6 @@ class CollectionQueryHandler extends QueryHandler
     }
 
     /**
-     * Updates a query.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
-     */
-    public function updateQuery(Query $query)
-    {
-        $queryBuilder = $this->connection->createQueryBuilder();
-        $queryBuilder
-            ->update('ngbm_collection_query')
-            ->set('collection_id', ':collection_id')
-            ->set('type', ':type')
-            ->where(
-                $queryBuilder->expr()->eq('id', ':id')
-            )
-            ->setParameter('id', $query->id, Type::INTEGER)
-            ->setParameter('collection_id', $query->collectionId, Type::INTEGER)
-            ->setParameter('type', $query->type, Type::STRING);
-
-        $this->applyStatusCondition($queryBuilder, $query->status);
-
-        $queryBuilder->execute();
-    }
-
-    /**
      * Updates a query translation.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
