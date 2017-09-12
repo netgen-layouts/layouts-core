@@ -644,6 +644,9 @@ class LayoutHandler implements LayoutHandlerInterface
             if (count($block->availableLocales) > 1) {
                 $this->blockHandler->deleteBlockTranslation($block, $locale);
             } elseif (!empty($block->parentId)) {
+                // This case should never happen (when block has only one translation,
+                // which is not the main one), but if it does, we will delete the block
+                // to preserve the data integrity.
                 $this->blockHandler->deleteBlock($block);
             }
         }
