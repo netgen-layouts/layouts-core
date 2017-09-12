@@ -172,6 +172,7 @@ abstract class ServiceTestCase extends TestCase
             array('small' => array('standard')),
             null,
             false,
+            true,
             array($configDefinition1)
         );
 
@@ -179,6 +180,7 @@ abstract class ServiceTestCase extends TestCase
             'text',
             array('standard' => array('standard')),
             null,
+            false,
             false,
             array($configDefinition1)
         );
@@ -188,6 +190,7 @@ abstract class ServiceTestCase extends TestCase
             array('standard' => array('standard')),
             new BlockDefinitionHandlerWithTranslatableParameter(),
             true,
+            false,
             array($configDefinition1)
         );
 
@@ -196,6 +199,7 @@ abstract class ServiceTestCase extends TestCase
             array('standard' => array('standard')),
             new BlockDefinitionHandlerWithTranslatableParameter(),
             true,
+            false,
             array($configDefinition1)
         );
 

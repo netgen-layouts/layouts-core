@@ -192,6 +192,40 @@ abstract class BlockServiceTest extends ServiceTestCase
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
      */
+    public function testCreateTranslatableBlock()
+    {
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct(
+            $this->blockDefinitionRegistry->getBlockDefinition('title')
+        );
+
+        $zone = $this->layoutService->loadZoneDraft(1, 'left');
+
+        $this->blockService->createBlockInZone($blockCreateStruct, $zone, 0);
+
+        // Reload the block will all translations
+        $block = $this->blockService->loadBlockDraft(39, true);
+
+        $this->assertFalse($block->isPublished());
+        $this->assertInstanceOf(Block::class, $block);
+
+        $collectionReferences = $block->getCollectionReferences();
+        $this->assertCount(0, $collectionReferences);
+
+        $this->assertTrue($block->isTranslatable());
+        $this->assertEquals('en', $block->getMainLocale());
+
+        $this->assertCount(2, $block->getAvailableLocales());
+        $this->assertContains('en', $block->getAvailableLocales());
+        $this->assertContains('hr', $block->getAvailableLocales());
+
+        $this->assertTrue($block->hasTranslation('en'));
+        $this->assertTrue($block->hasTranslation('hr'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
+     */
     public function testCreateBlockWithConfig()
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
@@ -1264,6 +1298,31 @@ abstract class BlockServiceTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::restoreBlock
+     */
+    public function testRestoreBlockRestoresMissingTranslations()
+    {
+        $block = $this->blockService->loadBlockDraft(31);
+
+        $layout = $this->layoutService->loadLayoutDraft(1);
+        $this->layoutService->addTranslation($layout, 'de', 'en');
+
+        $this->blockService->restoreBlock($block);
+
+        // Reload the block to get all translations
+        $restoredBlock = $this->blockService->loadBlockDraft(31, true);
+
+        $this->assertFalse($restoredBlock->isPublished());
+        $this->assertInstanceOf(Block::class, $restoredBlock);
+        $this->assertTrue($restoredBlock->isTranslatable());
+
+        $this->assertCount(3, $restoredBlock->getTranslations());
+        $this->assertTrue($restoredBlock->hasTranslation('en'));
+        $this->assertTrue($restoredBlock->hasTranslation('hr'));
+        $this->assertTrue($restoredBlock->hasTranslation('de'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::restoreBlock
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      * @expectedExceptionMessage Argument "block" has an invalid state. Only draft blocks can be restored.
      */
@@ -1395,7 +1454,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertEquals(
             new BlockCreateStruct(
                 array(
-                    'isTranslatable' => false,
+                    'isTranslatable' => true,
                     'alwaysAvailable' => true,
                     'definition' => $blockDefinition,
                     'viewType' => 'small',

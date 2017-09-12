@@ -837,7 +837,6 @@ class BlockHandlerTest extends TestCase
         $blockUpdateStruct->config = array('config');
         $blockUpdateStruct->isTranslatable = false;
         $blockUpdateStruct->alwaysAvailable = false;
-        $blockUpdateStruct->mainLocale = 'en';
         $blockUpdateStruct->config = array('config');
 
         $this->assertEquals(
@@ -1047,6 +1046,7 @@ class BlockHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::setMainTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::updateBlock
      */
     public function testSetMainTranslation()
     {

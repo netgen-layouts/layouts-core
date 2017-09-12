@@ -133,6 +133,7 @@ class CollectionMapperTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper::mapQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper::buildParameters
      */
     public function testMapQuery()
     {

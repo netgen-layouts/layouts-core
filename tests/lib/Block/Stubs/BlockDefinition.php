@@ -35,6 +35,11 @@ class BlockDefinition implements BlockDefinitionInterface
     protected $hasCollection;
 
     /**
+     * @var bool
+     */
+    protected $isTranslatable;
+
+    /**
      * @var \Netgen\BlockManager\Config\ConfigDefinitionInterface[]
      */
     protected $configDefinitions;
@@ -46,6 +51,7 @@ class BlockDefinition implements BlockDefinitionInterface
      * @param array $viewTypes
      * @param \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface $handler
      * @param bool $hasCollection
+     * @param bool $isTranslatable
      * @param \Netgen\BlockManager\Config\ConfigDefinitionInterface[] $configDefinitions
      */
     public function __construct(
@@ -53,11 +59,13 @@ class BlockDefinition implements BlockDefinitionInterface
         array $viewTypes = array(),
         BlockDefinitionHandlerInterface $handler = null,
         $hasCollection = false,
+        $isTranslatable = false,
         array $configDefinitions = array()
     ) {
         $this->identifier = $identifier;
         $this->viewTypes = $viewTypes;
         $this->hasCollection = $hasCollection;
+        $this->isTranslatable = $isTranslatable;
 
         $this->handler = $handler ?: new BlockDefinitionHandler();
         $this->configDefinitions = $configDefinitions;
@@ -181,6 +189,7 @@ class BlockDefinition implements BlockDefinitionInterface
         return new Configuration(
             array(
                 'identifier' => $this->identifier,
+                'isTranslatable' => $this->isTranslatable,
                 'collections' => $collections,
                 'viewTypes' => $viewTypes,
             )

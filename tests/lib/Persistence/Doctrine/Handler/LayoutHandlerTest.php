@@ -1490,6 +1490,31 @@ class LayoutHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::deleteLayoutTranslation
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutTranslations
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find block with identifier "31"
+     */
+    public function testDeleteLayoutTranslationWithInconsistentBlock()
+    {
+        $layout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
+
+        $block = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
+
+        $block = $this->blockHandler->setMainTranslation($block, 'hr');
+        $this->blockHandler->deleteBlockTranslation($block, 'en');
+
+        $layout = $this->layoutHandler->deleteLayoutTranslation($layout, 'hr');
+
+        $this->assertInstanceOf(Layout::class, $layout);
+
+        $this->assertEquals('en', $layout->mainLocale);
+        $this->assertEquals(array('en'), $layout->availableLocales);
+
+        $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::deleteLayoutTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutTranslations
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      * @expectedExceptionMessage Argument "locale" has an invalid state. Layout does not have the provided locale.
      */

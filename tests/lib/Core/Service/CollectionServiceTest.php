@@ -371,6 +371,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateQuery
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateQueryTranslations
      */
     public function testUpdateQuery()
     {
@@ -399,6 +400,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateQuery
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateQueryTranslations
      */
     public function testUpdateQueryInMainLocale()
     {

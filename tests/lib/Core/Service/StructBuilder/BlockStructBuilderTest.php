@@ -44,7 +44,7 @@ abstract class BlockStructBuilderTest extends ServiceTestCase
         $this->assertEquals(
             new BlockCreateStruct(
                 array(
-                    'isTranslatable' => false,
+                    'isTranslatable' => true,
                     'alwaysAvailable' => true,
                     'definition' => $blockDefinition,
                     'viewType' => 'small',

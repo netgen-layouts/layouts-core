@@ -5,10 +5,12 @@ namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\QueryTranslationUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 use PHPUnit\Framework\TestCase;
@@ -286,6 +288,292 @@ class CollectionHandlerTest extends TestCase
                 )
             ),
             $createdCollection
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createCollectionTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollectionTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createQueryTranslation
+     */
+    public function testCreateCollectionTranslation()
+    {
+        $collection = $this->collectionHandler->createCollectionTranslation(
+            $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED),
+            'de',
+            'en'
+        );
+
+        $this->assertEquals(
+            new Collection(
+                array(
+                    'id' => 2,
+                    'status' => Value::STATUS_PUBLISHED,
+                    'isTranslatable' => true,
+                    'mainLocale' => 'en',
+                    'availableLocales' => array('en', 'hr', 'de'),
+                    'alwaysAvailable' => true,
+                )
+            ),
+            $collection
+        );
+
+        $query = $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED);
+
+        $this->assertEquals(
+            new Query(
+                array(
+                    'id' => 1,
+                    'collectionId' => $collection->id,
+                    'type' => 'ezcontent_search',
+                    'isTranslatable' => true,
+                    'mainLocale' => 'en',
+                    'availableLocales' => array('de', 'en', 'hr'),
+                    'alwaysAvailable' => true,
+                    'parameters' => array(
+                        'en' => array(
+                            'parent_location_id' => 2,
+                            'sort_direction' => 'descending',
+                            'sort_type' => 'date_published',
+                            'offset' => 0,
+                            'query_type' => 'list',
+                        ),
+                        'hr' => array(
+                            'parent_location_id' => 2,
+                            'sort_direction' => 'descending',
+                            'sort_type' => 'date_published',
+                            'offset' => 0,
+                            'query_type' => 'list',
+                        ),
+                        'de' => array(
+                            'parent_location_id' => 2,
+                            'sort_direction' => 'descending',
+                            'sort_type' => 'date_published',
+                            'offset' => 0,
+                            'query_type' => 'list',
+                        ),
+                    ),
+                    'status' => Value::STATUS_PUBLISHED,
+                )
+            ),
+            $query
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createCollectionTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollectionTranslation
+     */
+    public function testCreateCollectionTranslationWithNonMainSourceLocale()
+    {
+        $collection = $this->collectionHandler->createCollectionTranslation(
+            $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED),
+            'de',
+            'hr'
+        );
+
+        $this->assertEquals(
+            new Collection(
+                array(
+                    'id' => 2,
+                    'status' => Value::STATUS_PUBLISHED,
+                    'isTranslatable' => true,
+                    'mainLocale' => 'en',
+                    'availableLocales' => array('en', 'hr', 'de'),
+                    'alwaysAvailable' => true,
+                )
+            ),
+            $collection
+        );
+
+        $query = $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED);
+
+        $this->assertEquals(
+            new Query(
+                array(
+                    'id' => 1,
+                    'collectionId' => $collection->id,
+                    'type' => 'ezcontent_search',
+                    'isTranslatable' => true,
+                    'mainLocale' => 'en',
+                    'availableLocales' => array('de', 'en', 'hr'),
+                    'alwaysAvailable' => true,
+                    'parameters' => array(
+                        'en' => array(
+                            'parent_location_id' => 2,
+                            'sort_direction' => 'descending',
+                            'sort_type' => 'date_published',
+                            'offset' => 0,
+                            'query_type' => 'list',
+                        ),
+                        'hr' => array(
+                            'parent_location_id' => 2,
+                            'sort_direction' => 'descending',
+                            'sort_type' => 'date_published',
+                            'offset' => 0,
+                            'query_type' => 'list',
+                        ),
+                        'de' => array(
+                            'parent_location_id' => 2,
+                            'sort_direction' => 'descending',
+                            'sort_type' => 'date_published',
+                            'offset' => 0,
+                            'query_type' => 'list',
+                        ),
+                    ),
+                    'status' => Value::STATUS_PUBLISHED,
+                )
+            ),
+            $query
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createCollectionTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollectionTranslation
+     */
+    public function testCreateCollectionTranslationForCollectionWithNoQuery()
+    {
+        $collection = $this->collectionHandler->createCollectionTranslation(
+            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+            'de',
+            'en'
+        );
+
+        $this->assertEquals(
+            new Collection(
+                array(
+                    'id' => 1,
+                    'status' => Value::STATUS_DRAFT,
+                    'isTranslatable' => true,
+                    'mainLocale' => 'en',
+                    'availableLocales' => array('en', 'hr', 'de'),
+                    'alwaysAvailable' => true,
+                )
+            ),
+            $collection
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createCollectionTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollectionTranslation
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "locale" has an invalid state. Collection already has the provided locale.
+     */
+    public function testCreateCollectionTranslationThrowsBadStateExceptionWithExistingLocale()
+    {
+        $this->collectionHandler->createCollectionTranslation(
+            $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED),
+            'en',
+            'hr'
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createCollectionTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollectionTranslation
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "locale" has an invalid state. Collection does not have the provided source locale.
+     */
+    public function testCreateCollectionTranslationThrowsBadStateExceptionWithNonExistingSourceLocale()
+    {
+        $this->collectionHandler->createCollectionTranslation(
+            $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED),
+            'de',
+            'fr'
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::setMainTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateCollection
+     */
+    public function testSetMainTranslation()
+    {
+        $collection = $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED);
+        $collection = $this->collectionHandler->setMainTranslation($collection, 'hr');
+
+        $this->assertEquals('hr', $collection->mainLocale);
+
+        $query = $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED);
+        $this->assertEquals('hr', $query->mainLocale);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::setMainTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateCollection
+     */
+    public function testSetMainTranslationForCollectionWithNoQuery()
+    {
+        $collection = $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT);
+        $collection = $this->collectionHandler->setMainTranslation($collection, 'hr');
+
+        $this->assertEquals('hr', $collection->mainLocale);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::setMainTranslation
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "mainLocale" has an invalid state. Collection does not have the provided locale.
+     */
+    public function testSetMainTranslationThrowsBadStateExceptionWithNonExistingLocale()
+    {
+        $collection = $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED);
+        $this->collectionHandler->setMainTranslation($collection, 'de');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::updateCollection
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateCollection
+     */
+    public function testUpdateCollection()
+    {
+        $collectionUpdateStruct = new CollectionUpdateStruct();
+        $collectionUpdateStruct->isTranslatable = false;
+        $collectionUpdateStruct->alwaysAvailable = false;
+
+        $this->assertEquals(
+            new Collection(
+                array(
+                    'id' => 1,
+                    'status' => Value::STATUS_DRAFT,
+                    'isTranslatable' => false,
+                    'mainLocale' => 'en',
+                    'availableLocales' => array('en', 'hr'),
+                    'alwaysAvailable' => false,
+                )
+            ),
+            $this->collectionHandler->updateCollection(
+                $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+                $collectionUpdateStruct
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::updateCollection
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateCollection
+     */
+    public function testUpdateCollectionWithDefaultValues()
+    {
+        $collectionUpdateStruct = new CollectionUpdateStruct();
+
+        $this->assertEquals(
+            new Collection(
+                array(
+                    'id' => 1,
+                    'status' => Value::STATUS_DRAFT,
+                    'isTranslatable' => true,
+                    'mainLocale' => 'en',
+                    'availableLocales' => array('en', 'hr'),
+                    'alwaysAvailable' => true,
+                )
+            ),
+            $this->collectionHandler->updateCollection(
+                $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+                $collectionUpdateStruct
+            )
         );
     }
 
@@ -629,6 +917,7 @@ class CollectionHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteCollection
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryIds
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionItems
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollection
@@ -644,6 +933,7 @@ class CollectionHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteCollection
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryIds
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionItems
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollection
@@ -662,6 +952,115 @@ class CollectionHandlerTest extends TestCase
         }
 
         $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteCollectionTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryIds
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionTranslations
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteQueryTranslations
+     */
+    public function testDeleteCollectionTranslation()
+    {
+        $collection = $this->collectionHandler->deleteCollectionTranslation(
+            $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED),
+            'hr'
+        );
+
+        $this->assertEquals(
+            new Collection(
+                array(
+                    'id' => 2,
+                    'status' => Value::STATUS_PUBLISHED,
+                    'isTranslatable' => true,
+                    'mainLocale' => 'en',
+                    'availableLocales' => array('en'),
+                    'alwaysAvailable' => true,
+                )
+            ),
+            $collection
+        );
+
+        $query = $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED);
+
+        $this->assertEquals(
+            new Query(
+                array(
+                    'id' => 1,
+                    'collectionId' => $collection->id,
+                    'type' => 'ezcontent_search',
+                    'isTranslatable' => true,
+                    'mainLocale' => 'en',
+                    'availableLocales' => array('en'),
+                    'alwaysAvailable' => true,
+                    'parameters' => array(
+                        'en' => array(
+                            'parent_location_id' => 2,
+                            'sort_direction' => 'descending',
+                            'sort_type' => 'date_published',
+                            'offset' => 0,
+                            'query_type' => 'list',
+                        ),
+                    ),
+                    'status' => Value::STATUS_PUBLISHED,
+                )
+            ),
+            $query
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteCollectionTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionTranslations
+     */
+    public function testDeleteCollectionTranslationForCollectionWithNoQuery()
+    {
+        $collection = $this->collectionHandler->deleteCollectionTranslation(
+            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+            'hr'
+        );
+
+        $this->assertEquals(
+            new Collection(
+                array(
+                    'id' => 1,
+                    'status' => Value::STATUS_DRAFT,
+                    'isTranslatable' => true,
+                    'mainLocale' => 'en',
+                    'availableLocales' => array('en'),
+                    'alwaysAvailable' => true,
+                )
+            ),
+            $collection
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteCollectionTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionTranslations
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "locale" has an invalid state. Collection does not have the provided locale.
+     */
+    public function testDeleteCollectionTranslationWithNonExistingLocale()
+    {
+        $this->collectionHandler->deleteCollectionTranslation(
+            $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED),
+            'de'
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteCollectionTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionTranslations
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "locale" has an invalid state. Main translation cannot be removed from the collection.
+     */
+    public function testDeleteCollectionTranslationWithMainLocale()
+    {
+        $this->collectionHandler->deleteCollectionTranslation(
+            $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED),
+            'en'
+        );
     }
 
     /**
@@ -939,7 +1338,115 @@ class CollectionHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::updateQueryTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateQueryTranslation
+     */
+    public function testUpdateQueryTranslation()
+    {
+        $translationUpdateStruct = new QueryTranslationUpdateStruct();
+
+        $translationUpdateStruct->parameters = array(
+            'parent_location_id' => 999,
+            'some_param' => 'Some value',
+        );
+
+        $this->assertEquals(
+            new Query(
+                array(
+                    'id' => 1,
+                    'collectionId' => 2,
+                    'type' => 'ezcontent_search',
+                    'isTranslatable' => true,
+                    'mainLocale' => 'en',
+                    'availableLocales' => array('en', 'hr'),
+                    'alwaysAvailable' => true,
+                    'parameters' => array(
+                        'en' => array(
+                            'parent_location_id' => 999,
+                            'some_param' => 'Some value',
+                        ),
+                        'hr' => array(
+                            'parent_location_id' => 2,
+                            'sort_direction' => 'descending',
+                            'sort_type' => 'date_published',
+                            'offset' => 0,
+                            'query_type' => 'list',
+                        ),
+                    ),
+                    'status' => Value::STATUS_PUBLISHED,
+                )
+            ),
+            $this->collectionHandler->updateQueryTranslation(
+                $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED),
+                'en',
+                $translationUpdateStruct
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::updateQueryTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateQueryTranslation
+     */
+    public function testUpdateQueryTranslationWithDefaultValues()
+    {
+        $translationUpdateStruct = new QueryTranslationUpdateStruct();
+
+        $this->assertEquals(
+            new Query(
+                array(
+                    'id' => 1,
+                    'collectionId' => 2,
+                    'type' => 'ezcontent_search',
+                    'isTranslatable' => true,
+                    'mainLocale' => 'en',
+                    'availableLocales' => array('en', 'hr'),
+                    'alwaysAvailable' => true,
+                    'parameters' => array(
+                        'en' => array(
+                            'parent_location_id' => 2,
+                            'sort_direction' => 'descending',
+                            'sort_type' => 'date_published',
+                            'offset' => 0,
+                            'query_type' => 'list',
+                        ),
+                        'hr' => array(
+                            'parent_location_id' => 2,
+                            'sort_direction' => 'descending',
+                            'sort_type' => 'date_published',
+                            'offset' => 0,
+                            'query_type' => 'list',
+                        ),
+                    ),
+                    'status' => Value::STATUS_PUBLISHED,
+                )
+            ),
+            $this->collectionHandler->updateQueryTranslation(
+                $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED),
+                'en',
+                $translationUpdateStruct
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::updateQueryTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateQueryTranslation
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "locale" has an invalid state. Query does not have the provided locale.
+     */
+    public function testUpdateQueryTranslationThrowsBadStateExceptionWithNonExistingLocale()
+    {
+        $this->collectionHandler->updateQueryTranslation(
+            $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED),
+            'de',
+            new QueryTranslationUpdateStruct()
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteCollectionQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryIds
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteQuery
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      * @expectedExceptionMessage Could not find query with identifier "2"
