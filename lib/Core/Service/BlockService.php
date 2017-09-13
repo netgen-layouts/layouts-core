@@ -842,7 +842,7 @@ class BlockService extends Service implements BlockServiceInterface
                         )
                     );
 
-                    if ($blockConfig->isTranslatable()) {
+                    if ($blockCreateStruct->isTranslatable) {
                         foreach ($persistenceLayout->availableLocales as $locale) {
                             if ($locale !== $persistenceLayout->mainLocale) {
                                 $createdCollection = $this->collectionHandler->createCollectionTranslation(
