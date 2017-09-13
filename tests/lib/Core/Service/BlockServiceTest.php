@@ -180,7 +180,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertEquals(0, $collectionReferences['default']->getOffset());
         $this->assertNull($collectionReferences['default']->getLimit());
 
-        $collection = $this->collectionService->loadCollectionDraft(6);
+        $collection = $this->collectionService->loadCollectionDraft(7);
         $this->assertEquals(Collection::TYPE_MANUAL, $collection->getType());
 
         $this->assertFalse($block->isTranslatable());
@@ -195,8 +195,10 @@ abstract class BlockServiceTest extends ServiceTestCase
     public function testCreateTranslatableBlock()
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            $this->blockDefinitionRegistry->getBlockDefinition('title')
+            $this->blockDefinitionRegistry->getBlockDefinition('list')
         );
+
+        $blockCreateStruct->isTranslatable = true;
 
         $zone = $this->layoutService->loadZoneDraft(1, 'left');
 
@@ -209,7 +211,16 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertInstanceOf(Block::class, $block);
 
         $collectionReferences = $block->getCollectionReferences();
-        $this->assertCount(0, $collectionReferences);
+        $this->assertCount(1, $collectionReferences);
+        $this->assertArrayHasKey('default', $collectionReferences);
+
+        $collection = $this->collectionService->loadCollectionDraft(7, true);
+        $this->assertTrue($collection->isTranslatable());
+        $this->assertEquals('en', $collection->getMainLocale());
+
+        $this->assertCount(2, $collection->getAvailableLocales());
+        $this->assertContains('en', $collection->getAvailableLocales());
+        $this->assertContains('hr', $collection->getAvailableLocales());
 
         $this->assertTrue($block->isTranslatable());
         $this->assertEquals('en', $block->getMainLocale());
@@ -406,7 +417,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertEquals(0, $collectionReferences['default']->getOffset());
         $this->assertNull($collectionReferences['default']->getLimit());
 
-        $collection = $this->collectionService->loadCollectionDraft(6);
+        $collection = $this->collectionService->loadCollectionDraft(7);
         $this->assertEquals(Collection::TYPE_MANUAL, $collection->getType());
     }
 
