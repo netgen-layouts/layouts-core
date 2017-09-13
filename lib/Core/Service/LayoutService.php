@@ -450,9 +450,7 @@ class LayoutService extends Service implements LayoutServiceInterface
     /**
      * Adds a translation with provided locale to the layout.
      *
-     * If the source locale is provided, data for the new translation
-     * will be copied from the source one. If not, data will be copied
-     * from the main translation.
+     * Data for the new translation will be copied from the translation with provided source locale.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      * @param string $locale
@@ -464,14 +462,13 @@ class LayoutService extends Service implements LayoutServiceInterface
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
-    public function addTranslation(Layout $layout, $locale, $sourceLocale = null)
+    public function addTranslation(Layout $layout, $locale, $sourceLocale)
     {
         if ($layout->isPublished()) {
             throw new BadStateException('layout', 'You can only add translation to draft layouts.');
         }
 
         $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Value::STATUS_DRAFT);
-        $sourceLocale = $sourceLocale ?: $persistenceLayout->mainLocale;
 
         $updatedLayout = $this->transaction(
             function () use ($persistenceLayout, $locale, $sourceLocale) {

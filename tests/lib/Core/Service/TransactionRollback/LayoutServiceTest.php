@@ -153,7 +153,7 @@ class LayoutServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->addTranslation(new Layout(array('published' => false)), 'hr');
+        $this->layoutService->addTranslation(new Layout(array('published' => false)), 'hr', 'en');
     }
 
     /**

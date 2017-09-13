@@ -449,7 +449,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     public function testAddTranslation()
     {
         $layout = $this->layoutService->loadLayoutDraft(1);
-        $layout = $this->layoutService->addTranslation($layout, 'de');
+        $layout = $this->layoutService->addTranslation($layout, 'de', 'en');
 
         $this->assertEquals(array('en', 'hr', 'de'), $layout->getAvailableLocales());
 
@@ -474,7 +474,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     {
         $layout = $this->layoutService->loadLayout(1);
 
-        $this->layoutService->addTranslation($layout, 'de');
+        $this->layoutService->addTranslation($layout, 'de', 'en');
     }
 
     /**
@@ -486,7 +486,7 @@ abstract class LayoutServiceTest extends ServiceTestCase
     {
         $layout = $this->layoutService->loadLayoutDraft(1);
 
-        $this->layoutService->addTranslation($layout, 'en');
+        $this->layoutService->addTranslation($layout, 'en', 'hr');
     }
 
     /**

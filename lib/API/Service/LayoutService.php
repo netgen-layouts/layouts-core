@@ -167,9 +167,7 @@ interface LayoutService extends Service
     /**
      * Adds a translation with provided locale to the layout.
      *
-     * If the source locale is provided, data for the new translation
-     * will be copied from the source one. If not, data will be copied
-     * from the main translation.
+     * Data for the new translation will be copied from the translation with provided source locale.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      * @param string $locale
@@ -181,7 +179,7 @@ interface LayoutService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
-    public function addTranslation(Layout $layout, $locale, $sourceLocale = null);
+    public function addTranslation(Layout $layout, $locale, $sourceLocale);
 
     /**
      * Sets the translation with provided locale to be the main one of the provided layout.
