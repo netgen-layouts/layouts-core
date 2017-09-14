@@ -24,8 +24,10 @@ layout.add_locale.button.create: 'Create translation'
 layout.add_locale.button.close: 'Close'
 
 layout.remove_locale.title: 'Remove translation(s)'
+layout.remove_locale.no_locales: 'There are no locales to remove.'
 layout.remove_locale.button.cancel: 'Cancel'
 layout.remove_locale.button.remove: 'Remove'
+layout.remove_locale.button.close: 'Close'
 
 target_type.button.cancel: 'Cancel'
 target_type.button.save: 'Save target'

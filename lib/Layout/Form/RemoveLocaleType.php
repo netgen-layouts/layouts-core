@@ -35,27 +35,19 @@ class RemoveLocaleType extends AbstractType
     {
         $localeBundle = Intl::getLocaleBundle();
 
+        $locales = array();
+        foreach ($options['layout']->getAvailableLocales() as $locale) {
+            if ($locale !== $options['layout']->getMainLocale()) {
+                $locales[$localeBundle->getLocaleName($locale) . ' (' . $locale . ')'] = $locale;
+            }
+        }
+
         $builder->add(
             'locales',
             ChoiceType::class,
             array(
                 'required' => true,
-                'choices' => $options['layout']->getAvailableLocales(),
-                'choice_label' => function ($value, $key, $index) use ($options, $localeBundle) {
-                    $localeName = $localeBundle->getLocaleName($value) . ' (' . $value . ')';
-                    if ($value === $options['layout']->getMainLocale()) {
-                        return $localeName . ' - main';
-                    }
-
-                    return $localeName;
-                },
-                'choice_attr' => function ($value, $key, $index) use ($options) {
-                    if ($value === $options['layout']->getMainLocale()) {
-                        return array('disabled' => true);
-                    }
-
-                    return array();
-                },
+                'choices' => $locales,
                 'choices_as_values' => true,
                 'expanded' => true,
                 'multiple' => true,
