@@ -9,7 +9,7 @@ use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 class ConfigStructBuilder
 {
     /**
-     * Creates new config structs.
+     * Fills the provided config aware struct with config structs, according to the provided value.
      *
      * @param \Netgen\BlockManager\API\Values\Config\ConfigAwareValue $configAwareValue
      * @param \Netgen\BlockManager\API\Values\Config\ConfigAwareStruct $configAwareStruct

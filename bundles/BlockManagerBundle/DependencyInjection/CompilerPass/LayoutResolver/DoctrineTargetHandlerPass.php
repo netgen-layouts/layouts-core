@@ -12,11 +12,6 @@ class DoctrineTargetHandlerPass implements CompilerPassInterface
     const SERVICE_NAME = 'netgen_block_manager.persistence.doctrine.layout_resolver.query_handler';
     const TAG_NAME = 'netgen_block_manager.persistence.doctrine.layout_resolver.query_handler.target_handler';
 
-    /**
-     * You can modify the container here before it is dumped to PHP code.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container)
     {
         if (!$container->has(self::SERVICE_NAME)) {

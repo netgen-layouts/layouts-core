@@ -22,15 +22,12 @@ class ItemLink extends Constraint
     public $valueTypeNotAllowedMessage = 'netgen_block_manager.item_link.value_type_not_allowed';
 
     /**
+     * If not empty, will limit valid value types to the specified list.
+     *
      * @var array
      */
     public $valueTypes = array();
 
-    /**
-     * Returns the name of the class that validates this constraint.
-     *
-     * @return string
-     */
     public function validatedBy()
     {
         return 'ngbm_item_link';

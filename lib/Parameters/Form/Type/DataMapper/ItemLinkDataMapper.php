@@ -4,16 +4,12 @@ namespace Netgen\BlockManager\Parameters\Form\Type\DataMapper;
 
 use Symfony\Component\Form\DataMapperInterface;
 
+/**
+ * Mapper used to convert to and from the "link" to an item in "value_type://value_id"
+ * format to the Symfony form structure.
+ */
 class ItemLinkDataMapper implements DataMapperInterface
 {
-    /**
-     * Maps properties of some data to a list of forms.
-     *
-     * @param mixed $data Structured data
-     * @param \Symfony\Component\Form\FormInterface[] $forms A list of {@link FormInterface} instances
-     *
-     * @throws \Symfony\Component\Form\Exception\UnexpectedTypeException if the type of the data parameter is not supported
-     */
     public function mapDataToForms($data, $forms)
     {
         $parsedData = parse_url($data);
@@ -24,14 +20,6 @@ class ItemLinkDataMapper implements DataMapperInterface
         }
     }
 
-    /**
-     * Maps the data of a list of forms into the properties of some data.
-     *
-     * @param \Symfony\Component\Form\FormInterface[] $forms A list of {@link FormInterface} instances
-     * @param mixed $data Structured data
-     *
-     * @throws \Symfony\Component\Form\Exception\UnexpectedTypeException if the type of the data parameter is not supported
-     */
     public function mapFormsToData($forms, &$data)
     {
         $forms = iterator_to_array($forms);

@@ -21,11 +21,6 @@ class BlockController extends Controller
      */
     protected $debug = false;
 
-    /**
-     * Constructor.
-     *
-     * @param \Psr\Log\LoggerInterface $logger
-     */
     public function __construct(LoggerInterface $logger = null)
     {
         $this->logger = $logger ?: new NullLogger();
@@ -69,9 +64,6 @@ class BlockController extends Controller
         }
     }
 
-    /**
-     * Performs access checks on the controller.
-     */
     protected function checkPermissions()
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_ANONYMOUSLY');

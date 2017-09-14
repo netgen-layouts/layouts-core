@@ -18,25 +18,11 @@ class ViewNormalizer implements NormalizerInterface, SerializerAwareInterface
      */
     protected $viewRenderer;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\View\RendererInterface $viewRenderer
-     */
     public function __construct(RendererInterface $viewRenderer)
     {
         $this->viewRenderer = $viewRenderer;
     }
 
-    /**
-     * Normalizes an object into a set of arrays/scalars.
-     *
-     * @param \Netgen\BlockManager\Serializer\Values\View $object
-     * @param string $format
-     * @param array $context
-     *
-     * @return array
-     */
     public function normalize($object, $format = null, array $context = array())
     {
         $normalizedData = $this->serializer->normalize(
@@ -62,14 +48,6 @@ class ViewNormalizer implements NormalizerInterface, SerializerAwareInterface
         return $normalizedData;
     }
 
-    /**
-     * Checks whether the given class is supported for normalization by this normalizer.
-     *
-     * @param mixed $data
-     * @param string $format
-     *
-     * @return bool
-     */
     public function supportsNormalization($data, $format = null)
     {
         return $data instanceof View;

@@ -10,7 +10,9 @@ abstract class Validator
     use ValidatorTrait;
 
     /**
-     * Validates the provided ID.
+     * Validates the provided ID to be an integer or string.
+     *
+     * Use the $propertyPath to change the name of the validated property in the error message.
      *
      * @param int|string $id
      * @param string $propertyPath
@@ -30,7 +32,11 @@ abstract class Validator
     }
 
     /**
-     * Validates the provided identifier.
+     * Validates the provided identifier to be a string.
+     *
+     * If $isRequired is set to false, null value is also allowed.
+     *
+     * Use the $propertyPath to change the name of the validated property in the error message.
      *
      * @param string $identifier
      * @param string $propertyPath
@@ -58,7 +64,11 @@ abstract class Validator
     }
 
     /**
-     * Validates the provided position.
+     * Validates the provided position to be an integer greater than or equal to 0.
+     *
+     * If $isRequired is set to false, null value is also allowed.
+     *
+     * Use the $propertyPath to change the name of the validated property in the error message.
      *
      * @param int $position
      * @param string $propertyPath
@@ -82,7 +92,7 @@ abstract class Validator
     }
 
     /**
-     * Validates the provided offset and limit values.
+     * Validates the provided offset and limit values to be integers.
      *
      * @param int $offset
      * @param int $limit

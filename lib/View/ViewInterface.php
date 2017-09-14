@@ -6,10 +6,19 @@ use Symfony\Component\HttpFoundation\Response;
 
 interface ViewInterface
 {
+    /**
+     * Context used to render the value objects in the frontend.
+     */
     const CONTEXT_DEFAULT = 'default';
 
+    /**
+     * Context used to render the value objects in administration interface.
+     */
     const CONTEXT_ADMIN = 'admin';
 
+    /**
+     * Context used to render the value objects in the REST API.
+     */
     const CONTEXT_API = 'api';
 
     /**
@@ -28,6 +37,9 @@ interface ViewInterface
 
     /**
      * Returns the view fallback context.
+     *
+     * Fallback context will be used if no match rules
+     * for the original context could be found.
      *
      * @return string|null
      */

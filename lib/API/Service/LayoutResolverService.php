@@ -39,7 +39,7 @@ interface LayoutResolverService extends Service
     public function loadRuleDraft($ruleId);
 
     /**
-     * Loads all rules.
+     * Loads all published rules.
      *
      * @param int $offset
      * @param int $limit
@@ -49,7 +49,7 @@ interface LayoutResolverService extends Service
     public function loadRules($offset = 0, $limit = null);
 
     /**
-     * Returns the number of rules pointing to provided layout.
+     * Returns the number of published rules pointing to provided layout.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      *
@@ -63,7 +63,7 @@ interface LayoutResolverService extends Service
      * Returns all rules that match specified target type and value.
      *
      * @param string $targetType
-     * @param mixed $targetValue
+     * @param int|string $targetValue
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule[]
      */
@@ -309,7 +309,7 @@ interface LayoutResolverService extends Service
     public function newRuleMetadataUpdateStruct();
 
     /**
-     * Creates a new target create struct.
+     * Creates a new target create struct from the provided values.
      *
      * @param string $type
      *
@@ -325,7 +325,7 @@ interface LayoutResolverService extends Service
     public function newTargetUpdateStruct();
 
     /**
-     * Creates a new condition create struct.
+     * Creates a new condition create struct from the provided values.
      *
      * @param string $type
      *

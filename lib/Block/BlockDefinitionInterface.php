@@ -5,10 +5,15 @@ namespace Netgen\BlockManager\Block;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
 
+/**
+ * Block definition represents the model of the block, built from configuration.
+ * This model specifies which parameters, view types and item view types
+ * the block can have.
+ */
 interface BlockDefinitionInterface extends ParameterCollectionInterface
 {
     /**
-     * Returns block definition identifier.
+     * Returns the block definition identifier.
      *
      * @return string
      */

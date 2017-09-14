@@ -32,15 +32,6 @@ class ItemBuilder implements ItemBuilderInterface
         $this->valueConverters = $valueConverters;
     }
 
-    /**
-     * Builds the item from provided object.
-     *
-     * @param mixed $object
-     *
-     * @throws \Netgen\BlockManager\Exception\Item\ValueException if value converter does not exist
-     *
-     * @return \Netgen\BlockManager\Item\ItemInterface
-     */
     public function build($object)
     {
         foreach ($this->valueConverters as $valueConverter) {

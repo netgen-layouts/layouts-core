@@ -19,25 +19,12 @@ class ViewRenderer implements ViewRendererInterface
      */
     protected $twig;
 
-    /**
-     * Constructor.
-     *
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     * @param \Twig\Environment $twig
-     */
     public function __construct(EventDispatcherInterface $eventDispatcher, Environment $twig)
     {
         $this->eventDispatcher = $eventDispatcher;
         $this->twig = $twig;
     }
 
-    /**
-     * Renders the view.
-     *
-     * @param \Netgen\BlockManager\View\ViewInterface $view
-     *
-     * @return string
-     */
     public function renderView(ViewInterface $view)
     {
         $event = new CollectViewParametersEvent($view);

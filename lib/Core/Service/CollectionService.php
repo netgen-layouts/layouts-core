@@ -49,15 +49,6 @@ class CollectionService extends Service implements APICollectionService
      */
     protected $handler;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
-     * @param \Netgen\BlockManager\Core\Service\Validator\CollectionValidator $validator
-     * @param \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper $mapper
-     * @param \Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder $structBuilder
-     * @param \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper $parameterMapper
-     */
     public function __construct(
         Handler $persistenceHandler,
         CollectionValidator $validator,
@@ -75,16 +66,6 @@ class CollectionService extends Service implements APICollectionService
         $this->handler = $persistenceHandler->getCollectionHandler();
     }
 
-    /**
-     * Loads a collection with specified ID.
-     *
-     * @param int|string $collectionId
-     * @param string[]|bool $locales
-     *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If collection with specified ID does not exist
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Collection
-     */
     public function loadCollection($collectionId, $locales = null)
     {
         $this->validator->validateId($collectionId, 'collectionId');
@@ -98,16 +79,6 @@ class CollectionService extends Service implements APICollectionService
         );
     }
 
-    /**
-     * Loads a collection draft with specified ID.
-     *
-     * @param int|string $collectionId
-     * @param string[]|bool $locales
-     *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If collection with specified ID does not exist
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Collection
-     */
     public function loadCollectionDraft($collectionId, $locales = null)
     {
         $this->validator->validateId($collectionId, 'collectionId');
@@ -121,15 +92,6 @@ class CollectionService extends Service implements APICollectionService
         );
     }
 
-    /**
-     * Loads an item with specified ID.
-     *
-     * @param int|string $itemId
-     *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If item with specified ID does not exist
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item
-     */
     public function loadItem($itemId)
     {
         $this->validator->validateId($itemId, 'itemId');
@@ -142,15 +104,6 @@ class CollectionService extends Service implements APICollectionService
         );
     }
 
-    /**
-     * Loads an item draft with specified ID.
-     *
-     * @param int|string $itemId
-     *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If item with specified ID does not exist
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item
-     */
     public function loadItemDraft($itemId)
     {
         $this->validator->validateId($itemId, 'itemId');
@@ -163,16 +116,6 @@ class CollectionService extends Service implements APICollectionService
         );
     }
 
-    /**
-     * Loads a query with specified ID.
-     *
-     * @param int|string $queryId
-     * @param string[]|bool $locales
-     *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If query with specified ID does not exist
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Query
-     */
     public function loadQuery($queryId, $locales = null)
     {
         $this->validator->validateId($queryId, 'queryId');
@@ -186,16 +129,6 @@ class CollectionService extends Service implements APICollectionService
         );
     }
 
-    /**
-     * Loads a query with specified ID.
-     *
-     * @param int|string $queryId
-     * @param string[]|bool $locales
-     *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If query with specified ID does not exist
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Query
-     */
     public function loadQueryDraft($queryId, $locales = null)
     {
         $this->validator->validateId($queryId, 'queryId');
@@ -209,18 +142,6 @@ class CollectionService extends Service implements APICollectionService
         );
     }
 
-    /**
-     * Changes the type of specified collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param int $newType
-     * @param \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct $queryCreateStruct
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
-     *                                                          If collection type cannot be changed
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Collection
-     */
     public function changeCollectionType(Collection $collection, $newType, APIQueryCreateStruct $queryCreateStruct = null)
     {
         if ($collection->isPublished()) {
@@ -269,18 +190,6 @@ class CollectionService extends Service implements APICollectionService
         return $this->mapper->mapCollection($persistenceCollection);
     }
 
-    /**
-     * Adds an item to collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\API\Values\Collection\ItemCreateStruct $itemCreateStruct
-     * @param int $position
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
-     *                                                          If position is out of range (for manual collections)
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item
-     */
     public function addItem(Collection $collection, APIItemCreateStruct $itemCreateStruct, $position = null)
     {
         if ($collection->isPublished()) {
@@ -316,17 +225,6 @@ class CollectionService extends Service implements APICollectionService
         return $this->mapper->mapItem($createdItem);
     }
 
-    /**
-     * Moves an item within the collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Item $item
-     * @param int $position
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If item is not a draft
-     *                                                          If position is out of range (for manual collections)
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item
-     */
     public function moveItem(Item $item, $position)
     {
         if ($item->isPublished()) {
@@ -349,13 +247,6 @@ class CollectionService extends Service implements APICollectionService
         return $this->mapper->mapItem($movedItem);
     }
 
-    /**
-     * Removes an item.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Item $item
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If item is not a draft
-     */
     public function deleteItem(Item $item)
     {
         if ($item->isPublished()) {
@@ -371,17 +262,6 @@ class CollectionService extends Service implements APICollectionService
         );
     }
 
-    /**
-     * Updates a query.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     * @param \Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct $queryUpdateStruct
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If query is not a draft
-     *                                                          If query does not have a specified translation
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Query
-     */
     public function updateQuery(Query $query, APIQueryUpdateStruct $queryUpdateStruct)
     {
         if ($query->isPublished()) {
@@ -409,50 +289,26 @@ class CollectionService extends Service implements APICollectionService
         return $this->mapper->mapQuery($updatedQuery, $query->getAvailableLocales());
     }
 
-    /**
-     * Creates a new item create struct.
-     *
-     * @param int $type
-     * @param int|string $valueId
-     * @param string $valueType
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\ItemCreateStruct
-     */
     public function newItemCreateStruct($type, $valueId, $valueType)
     {
         return $this->structBuilder->newItemCreateStruct($type, $valueId, $valueType);
     }
 
-    /**
-     * Creates a new query create struct.
-     *
-     * @param \Netgen\BlockManager\Collection\QueryTypeInterface $queryType
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct
-     */
     public function newQueryCreateStruct(QueryTypeInterface $queryType)
     {
         return $this->structBuilder->newQueryCreateStruct($queryType);
     }
 
-    /**
-     * Creates a new query update struct.
-     *
-     * @param string $locale
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct
-     */
     public function newQueryUpdateStruct($locale, Query $query = null)
     {
         return $this->structBuilder->newQueryUpdateStruct($locale, $query);
     }
 
     /**
-     * Updates translations for specified queries.
+     * Updates translations for specified query.
      *
      * This makes sure that untranslatable parameters are always kept in sync between all
-     * available translations in the query. This means that if main translations is updated,
+     * available translations in the query. This means that if main translation is updated,
      * all other translations need to be updated too to reflect changes to untranslatable params,
      * and if any other translation is updated, it needs to take values of untranslatable params
      * from the main translation.

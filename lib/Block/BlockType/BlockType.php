@@ -4,6 +4,12 @@ namespace Netgen\BlockManager\Block\BlockType;
 
 use Netgen\BlockManager\ValueObject;
 
+/**
+ * Block type represents the starting configuration of the block. E.g. while
+ * block definition specifies what view types the block can have, block type
+ * specifies the exact view type the new block will have once created. The
+ * same goes for item view types and all of the block parameters.
+ */
 class BlockType extends ValueObject
 {
     /**

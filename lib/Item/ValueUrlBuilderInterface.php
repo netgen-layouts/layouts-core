@@ -2,6 +2,11 @@
 
 namespace Netgen\BlockManager\Item;
 
+/**
+ * Value URL builder generates the URL/path for the provided CMS object.
+ * It is used and injected into UrlBuilderInterface which is a central
+ * point for generating URLs for items.
+ */
 interface ValueUrlBuilderInterface
 {
     /**

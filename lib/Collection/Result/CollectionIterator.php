@@ -23,12 +23,6 @@ class CollectionIterator implements Iterator, Countable
      */
     protected $queryIterator;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param \Iterator $queryIterator
-     */
     public function __construct(Collection $collection, Iterator $queryIterator)
     {
         $this->collection = $collection;
@@ -37,11 +31,6 @@ class CollectionIterator implements Iterator, Countable
         $this->pointer = 0;
     }
 
-    /**
-     * Count the elements of the collection.
-     *
-     * @return int
-     */
     public function count()
     {
         $totalCount = 0;
@@ -72,11 +61,6 @@ class CollectionIterator implements Iterator, Countable
         return $totalCount;
     }
 
-    /**
-     * Return the current element.
-     *
-     * @return mixed
-     */
     public function current()
     {
         if ($this->collection->hasOverrideItem($this->pointer)) {
@@ -88,9 +72,6 @@ class CollectionIterator implements Iterator, Countable
         return $this->queryIterator->current();
     }
 
-    /**
-     * Move forward to next element.
-     */
     public function next()
     {
         if ($this->advanceQuery()) {
@@ -100,21 +81,11 @@ class CollectionIterator implements Iterator, Countable
         ++$this->pointer;
     }
 
-    /**
-     * Return the key of the current element.
-     *
-     * @return mixed
-     */
     public function key()
     {
         return $this->pointer;
     }
 
-    /**
-     * Checks if current position is valid.
-     *
-     * @return bool
-     */
     public function valid()
     {
         if ($this->collection->hasOverrideItem($this->pointer)) {
@@ -128,9 +99,6 @@ class CollectionIterator implements Iterator, Countable
         return $this->queryIterator->valid();
     }
 
-    /**
-     * Rewind the Iterator to the first element.
-     */
     public function rewind()
     {
         $this->pointer = 0;

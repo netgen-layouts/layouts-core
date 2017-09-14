@@ -121,7 +121,7 @@ interface Block extends Value, ParameterBasedValue, ConfigAwareValue
     public function getDynamicParameter($parameter);
 
     /**
-     * Returns if the object has a specified parameter value.
+     * Returns if the object has a specified dynamic parameter.
      *
      * @param string $parameter
      *
@@ -177,7 +177,7 @@ interface Block extends Value, ParameterBasedValue, ConfigAwareValue
     /**
      * Returns a block translation in specified locale.
      *
-     * If locale is not specified, first locale in the list of available locales is used.
+     * If locale is not specified, first locale in the list of available locales is returned.
      *
      * @param string $locale
      *

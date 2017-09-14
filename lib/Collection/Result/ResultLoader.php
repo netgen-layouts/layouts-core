@@ -16,12 +16,6 @@ class ResultLoader implements ResultLoaderInterface
      */
     protected $collectionIteratorFactory;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Collection\Result\ResultIteratorFactory $resultIteratorFactory
-     * @param \Netgen\BlockManager\Collection\Result\CollectionIteratorFactory $collectionIteratorFactory
-     */
     public function __construct(
         ResultIteratorFactory $resultIteratorFactory,
         CollectionIteratorFactory $collectionIteratorFactory
@@ -30,16 +24,6 @@ class ResultLoader implements ResultLoaderInterface
         $this->collectionIteratorFactory = $collectionIteratorFactory;
     }
 
-    /**
-     * Loads the result set for provided collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param int $offset
-     * @param int $limit
-     * @param int $flags
-     *
-     * @return \Netgen\BlockManager\Collection\Result\ResultSet
-     */
     public function load(Collection $collection, $offset = 0, $limit = null, $flags = 0)
     {
         $collectionIterator = $this->collectionIteratorFactory->getCollectionIterator(

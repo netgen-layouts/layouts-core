@@ -13,53 +13,26 @@ class ItemParamConverter extends ParamConverter
      */
     protected $collectionService;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\API\Service\CollectionService $collectionService
-     */
     public function __construct(CollectionService $collectionService)
     {
         $this->collectionService = $collectionService;
     }
 
-    /**
-     * Returns source attribute name.
-     *
-     * @return array
-     */
     public function getSourceAttributeNames()
     {
         return array('itemId');
     }
 
-    /**
-     * Returns destination attribute name.
-     *
-     * @return string
-     */
     public function getDestinationAttributeName()
     {
         return 'item';
     }
 
-    /**
-     * Returns the supported class.
-     *
-     * @return string
-     */
     public function getSupportedClass()
     {
         return Item::class;
     }
 
-    /**
-     * Returns the value object.
-     *
-     * @param array $values
-     *
-     * @return \Netgen\BlockManager\API\Values\Value
-     */
     public function loadValueObject(array $values)
     {
         if ($values['published']) {

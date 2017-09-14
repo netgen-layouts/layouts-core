@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\View;
 interface ViewBuilderInterface
 {
     /**
-     * Builds the view.
+     * Builds the view from the provided value object in specified context.
      *
      * @param mixed $valueObject
      * @param string $context

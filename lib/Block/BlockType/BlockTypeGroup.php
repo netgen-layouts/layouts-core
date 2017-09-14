@@ -4,6 +4,10 @@ namespace Netgen\BlockManager\Block\BlockType;
 
 use Netgen\BlockManager\ValueObject;
 
+/**
+ * Block type group is used to group together a list of block types for
+ * grouped display in the app interface.
+ */
 class BlockTypeGroup extends ValueObject
 {
     /**

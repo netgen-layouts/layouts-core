@@ -14,7 +14,7 @@ class Query extends Value
     public $id;
 
     /**
-     * Collection ID to which this query belongs.
+     * ID of the collection to which this query belongs.
      *
      * @var int|string
      */
@@ -63,7 +63,7 @@ class Query extends Value
     public $alwaysAvailable;
 
     /**
-     * Item status. One of self::STATUS_* flags.
+     * Query status. One of self::STATUS_* flags.
      *
      * @var int
      */

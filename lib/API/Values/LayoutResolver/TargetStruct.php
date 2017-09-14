@@ -9,7 +9,7 @@ abstract class TargetStruct extends ValueObject
     /**
      * The value of the target.
      *
-     * @var mixed
+     * @var int|string
      */
     public $value;
 }

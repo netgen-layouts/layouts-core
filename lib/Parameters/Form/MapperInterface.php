@@ -5,6 +5,9 @@ namespace Netgen\BlockManager\Parameters\Form;
 use Netgen\BlockManager\Parameters\ParameterInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
+/**
+ * Mapper used to create a Symfony form for editing a parameter type.
+ */
 interface MapperInterface
 {
     /**

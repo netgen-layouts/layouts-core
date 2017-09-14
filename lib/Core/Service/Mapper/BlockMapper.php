@@ -51,15 +51,6 @@ class BlockMapper
      */
     protected $collectionHandler;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
-     * @param \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper $collectionMapper
-     * @param \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper $parameterMapper
-     * @param \Netgen\BlockManager\Core\Service\Mapper\ConfigMapper $configMapper
-     * @param \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface $blockDefinitionRegistry
-     */
     public function __construct(
         Handler $persistenceHandler,
         CollectionMapper $collectionMapper,
@@ -79,6 +70,10 @@ class BlockMapper
 
     /**
      * Builds the API block value object from persistence one.
+     *
+     * If $locales is an array, returned block will only have specified translations.
+     * If $locales is true, returned block will have all translations, otherwise, the main
+     * translation will be returned.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      * @param string[]|bool $locales
@@ -138,7 +133,11 @@ class BlockMapper
     }
 
     /**
-     * Builds the API collection references value object for the provided block.
+     * Builds the API collection reference value objects for the provided block.
+     *
+     * If $locales is an array, returned references will only have specified translations.
+     * If $locales is true, returned references will have all translations, otherwise, the main
+     * translation will be returned.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      * @param string[]|bool $locales

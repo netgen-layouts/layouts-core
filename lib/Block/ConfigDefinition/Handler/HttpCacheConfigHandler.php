@@ -9,6 +9,10 @@ use Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 use Netgen\BlockManager\Parameters\ParameterType;
 
+/**
+ * This handler specifies the model of HTTP cache configuration within
+ * the blocks.
+ */
 class HttpCacheConfigHandler implements ConfigDefinitionHandlerInterface
 {
     /**
@@ -16,21 +20,11 @@ class HttpCacheConfigHandler implements ConfigDefinitionHandlerInterface
      */
     protected $cacheableResolver;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface $cacheableResolver
-     */
     public function __construct(CacheableResolverInterface $cacheableResolver)
     {
         $this->cacheableResolver = $cacheableResolver;
     }
 
-    /**
-     * Builds the parameters by using provided parameter builder.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $builder
-     */
     public function buildParameters(ParameterBuilderInterface $builder)
     {
         $builder->add(
@@ -50,13 +44,6 @@ class HttpCacheConfigHandler implements ConfigDefinitionHandlerInterface
         );
     }
 
-    /**
-     * Returns if this config definition is enabled for current config aware value.
-     *
-     * @param \Netgen\BlockManager\API\Values\Config\ConfigAwareValue $configAwareValue
-     *
-     * @return bool
-     */
     public function isEnabled(ConfigAwareValue $configAwareValue)
     {
         if (!$configAwareValue instanceof Block) {

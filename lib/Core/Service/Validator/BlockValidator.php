@@ -19,18 +19,13 @@ class BlockValidator extends Validator
      */
     protected $configValidator;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Core\Service\Validator\ConfigValidator $configValidator
-     */
     public function __construct(ConfigValidator $configValidator)
     {
         $this->configValidator = $configValidator;
     }
 
     /**
-     * Validates block create struct.
+     * Validates the provided block create struct.
      *
      * @param \Netgen\BlockManager\API\Values\Block\BlockCreateStruct $blockCreateStruct
      *
@@ -119,7 +114,7 @@ class BlockValidator extends Validator
     }
 
     /**
-     * Validates block update struct.
+     * Validates the provided block update struct.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param \Netgen\BlockManager\API\Values\Block\BlockUpdateStruct $blockUpdateStruct

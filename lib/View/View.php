@@ -42,61 +42,31 @@ abstract class View implements ViewInterface
         $this->parameters = $parameters;
     }
 
-    /**
-     * Returns the view context.
-     *
-     * @return string
-     */
     public function getContext()
     {
         return $this->context;
     }
 
-    /**
-     * Returns the view fallback context.
-     *
-     * @return string|null
-     */
     public function getFallbackContext()
     {
         return null;
     }
 
-    /**
-     * Sets the view context.
-     *
-     * @param string $context
-     */
     public function setContext($context)
     {
         $this->context = $context;
     }
 
-    /**
-     * Returns the view template.
-     *
-     * @return string
-     */
     public function getTemplate()
     {
         return $this->template;
     }
 
-    /**
-     * Sets the view template.
-     *
-     * @param string $template
-     */
     public function setTemplate($template)
     {
         $this->template = $template;
     }
 
-    /**
-     * Returns the response which will be used to render the view.
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
     public function getResponse()
     {
         if ($this->response === null) {
@@ -106,23 +76,11 @@ abstract class View implements ViewInterface
         return $this->response;
     }
 
-    /**
-     * Sets the response which will be used to render the view.
-     *
-     * @param \Symfony\Component\HttpFoundation\Response
-     */
     public function setResponse(Response $response)
     {
         $this->response = $response;
     }
 
-    /**
-     * Returns if the view has a parameter.
-     *
-     * @param string $identifier
-     *
-     * @return bool
-     */
     public function hasParameter($identifier)
     {
         $parameters = $this->getParameters();
@@ -130,15 +88,6 @@ abstract class View implements ViewInterface
         return isset($parameters[$identifier]);
     }
 
-    /**
-     * Returns the view parameter by identifier.
-     *
-     * @param string $identifier
-     *
-     * @throws \Netgen\BlockManager\Exception\View\ViewException If view does not have the parameter
-     *
-     * @return mixed
-     */
     public function getParameter($identifier)
     {
         if (!$this->hasParameter($identifier)) {
@@ -150,32 +99,16 @@ abstract class View implements ViewInterface
         return $parameters[$identifier];
     }
 
-    /**
-     * Returns the view parameters.
-     *
-     * @return array
-     */
     public function getParameters()
     {
         return $this->parameters + $this->customParameters;
     }
 
-    /**
-     * Adds a parameter to the view.
-     *
-     * @param string $parameterName
-     * @param mixed $parameterValue
-     */
     public function addParameter($parameterName, $parameterValue)
     {
         $this->customParameters[$parameterName] = $parameterValue;
     }
 
-    /**
-     * Adds parameters to the view.
-     *
-     * @param array $parameters
-     */
     public function addParameters(array $parameters = array())
     {
         $this->customParameters = $parameters + $this->customParameters;

@@ -14,7 +14,7 @@ interface Condition extends Value
     public function getId();
 
     /**
-     * Returns the rule ID to which this condition belongs to.
+     * Returns the ID of the rule to which this condition belongs to.
      *
      * @return int|string
      */
@@ -36,6 +36,9 @@ interface Condition extends Value
 
     /**
      * Returns the condition value.
+     *
+     * Value of the condition can be a scalar, an associative array, numeric array or a nested
+     * combination of these.
      *
      * @return mixed
      */

@@ -29,12 +29,6 @@ class CreateType extends AbstractType
      */
     protected $localeProvider;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
-     * @param \Netgen\BlockManager\Locale\LocaleProviderInterface $localeProvider
-     */
     public function __construct(
         LayoutTypeRegistryInterface $layoutTypeRegistry,
         LocaleProviderInterface $localeProvider
@@ -43,11 +37,6 @@ class CreateType extends AbstractType
         $this->localeProvider = $localeProvider;
     }
 
-    /**
-     * Configures the options for this type.
-     *
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver The resolver for the options
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
@@ -55,12 +44,6 @@ class CreateType extends AbstractType
         $resolver->setAllowedTypes('data', LayoutCreateStruct::class);
     }
 
-    /**
-     * Builds the form.
-     *
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder The form builder
-     * @param array $options The options
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add(
@@ -141,13 +124,6 @@ class CreateType extends AbstractType
         );
     }
 
-    /**
-     * Finishes the form view.
-     *
-     * @param \Symfony\Component\Form\FormView $view
-     * @param \Symfony\Component\Form\FormInterface $form
-     * @param array $options
-     */
     public function finishView(FormView $view, FormInterface $form, array $options)
     {
         $layoutTypeFormConfig = $form['layoutType']->getConfig();

@@ -53,101 +53,51 @@ class Rule extends ValueObject implements APIRule
      */
     protected $conditions = array();
 
-    /**
-     * Returns the rule ID.
-     *
-     * @return int|string
-     */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * Returns the status of the value.
-     *
-     * @return int
-     */
     public function getStatus()
     {
         return $this->status;
     }
 
-    /**
-     * Returns resolved layout.
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\Layout
-     */
     public function getLayout()
     {
         return $this->layout;
     }
 
-    /**
-     * Returns if the rule is published.
-     *
-     * @return bool
-     */
     public function isPublished()
     {
         return $this->published;
     }
 
-    /**
-     * Returns if the rule is enabled.
-     *
-     * @return bool
-     */
     public function isEnabled()
     {
         return $this->enabled;
     }
 
-    /**
-     * Returns the rule priority.
-     *
-     * @return int
-     */
     public function getPriority()
     {
         return $this->priority;
     }
 
-    /**
-     * Returns the rule comment.
-     *
-     * @return string
-     */
     public function getComment()
     {
         return $this->comment;
     }
 
-    /**
-     * Returns the target this rule applies to.
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Target[]
-     */
     public function getTargets()
     {
         return $this->targets;
     }
 
-    /**
-     * Returns rule conditions.
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Condition[]
-     */
     public function getConditions()
     {
         return $this->conditions;
     }
 
-    /**
-     * Returns if the rule can be enabled.
-     *
-     * @return bool
-     */
     public function canBeEnabled()
     {
         if (!$this->published) {

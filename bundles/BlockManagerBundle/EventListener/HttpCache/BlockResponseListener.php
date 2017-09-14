@@ -15,27 +15,19 @@ class BlockResponseListener implements EventSubscriberInterface
      */
     protected $tagger;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\HttpCache\TaggerInterface $tagger
-     */
     public function __construct(TaggerInterface $tagger)
     {
         $this->tagger = $tagger;
     }
 
-    /**
-     * Returns an array of event names this subscriber wants to listen to.
-     *
-     * @return array
-     */
     public static function getSubscribedEvents()
     {
         return array(KernelEvents::VIEW => 'onView');
     }
 
     /**
+     * Tags the response with the data for block provided by the event.
+     *
      * @param \Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent $event
      */
     public function onView(GetResponseForControllerResultEvent $event)

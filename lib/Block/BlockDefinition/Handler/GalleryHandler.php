@@ -56,11 +56,6 @@ class GalleryHandler extends BlockDefinitionHandler
         $this->aspectRatios = array_flip($aspectRatios);
     }
 
-    /**
-     * Builds the parameters by using provided parameter builder.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $builder
-     */
     public function buildParameters(ParameterBuilderInterface $builder)
     {
         $builder->add(

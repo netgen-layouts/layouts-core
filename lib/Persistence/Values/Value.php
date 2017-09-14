@@ -4,6 +4,9 @@ namespace Netgen\BlockManager\Persistence\Values;
 
 use Netgen\BlockManager\ValueObject;
 
+/**
+ * Classes extending this class represent a versionable entity.
+ */
 abstract class Value extends ValueObject
 {
     /**

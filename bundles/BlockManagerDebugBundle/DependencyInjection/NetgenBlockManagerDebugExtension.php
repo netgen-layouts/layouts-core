@@ -9,14 +9,6 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 class NetgenBlockManagerDebugExtension extends Extension
 {
-    /**
-     * Loads a specific configuration.
-     *
-     * @param array $configs
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     *
-     * @throws \InvalidArgumentException When provided tag is not defined in this extension
-     */
     public function load(array $configs, ContainerBuilder $container)
     {
         $loader = new YamlFileLoader(

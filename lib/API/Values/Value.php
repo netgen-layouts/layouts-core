@@ -22,6 +22,8 @@ interface Value
     /**
      * Returns the status of the value.
      *
+     * A value can have one of three statuses: draft, published or archived.
+     *
      * @return int
      */
     public function getStatus();

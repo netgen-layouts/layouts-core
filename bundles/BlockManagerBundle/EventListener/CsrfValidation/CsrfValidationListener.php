@@ -36,11 +36,6 @@ class CsrfValidationListener implements EventSubscriberInterface
         $this->csrfTokenId = $csrfTokenId;
     }
 
-    /**
-     * Returns an array of event names this subscriber wants to listen to.
-     *
-     * @return array
-     */
     public static function getSubscribedEvents()
     {
         return array(KernelEvents::REQUEST => 'onKernelRequest');

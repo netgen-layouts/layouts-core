@@ -26,27 +26,12 @@ class LayoutNormalizer implements NormalizerInterface
      */
     protected $blockService;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
-     * @param \Netgen\BlockManager\API\Service\BlockService $blockService
-     */
     public function __construct(LayoutService $layoutService, BlockService $blockService)
     {
         $this->layoutService = $layoutService;
         $this->blockService = $blockService;
     }
 
-    /**
-     * Normalizes an object into a set of arrays/scalars.
-     *
-     * @param \Netgen\BlockManager\Serializer\Values\VersionedValue $object
-     * @param string $format
-     * @param array $context
-     *
-     * @return array
-     */
     public function normalize($object, $format = null, array $context = array())
     {
         /** @var \Netgen\BlockManager\API\Values\Layout\Layout $layout */
@@ -77,14 +62,6 @@ class LayoutNormalizer implements NormalizerInterface
         return $data;
     }
 
-    /**
-     * Checks whether the given class is supported for normalization by this normalizer.
-     *
-     * @param mixed $data
-     * @param string $format
-     *
-     * @return bool
-     */
     public function supportsNormalization($data, $format = null)
     {
         if (!$data instanceof VersionedValue) {

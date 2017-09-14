@@ -58,15 +58,6 @@ class GlobalVariable
      */
     protected $pageLayoutTemplate;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\Bundle\BlockManagerBundle\Configuration\ConfigurationInterface $configuration
-     * @param \Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface $layoutResolver
-     * @param \Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolverInterface $pageLayoutResolver
-     * @param \Netgen\BlockManager\View\ViewBuilderInterface $viewBuilder
-     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
-     */
     public function __construct(
         ConfigurationInterface $configuration,
         LayoutResolverInterface $layoutResolver,

@@ -11,7 +11,9 @@ class QueryUpdateStruct extends ValueObject implements ParameterStruct
     use ParameterStructTrait;
 
     /**
-     * The locale which will be updated. Required.
+     * The locale which will be updated.
+     *
+     * Required.
      *
      * @var string
      */

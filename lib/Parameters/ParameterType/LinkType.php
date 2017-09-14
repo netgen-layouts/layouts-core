@@ -11,6 +11,10 @@ use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
+/**
+ * Parameter type used to store and validate a URL. Valid value for this type
+ * is an object which is an instance of Netgen\BlockManager\Parameters\Value\LinkValue.
+ */
 class LinkType extends ParameterType
 {
     /**
@@ -18,31 +22,16 @@ class LinkType extends ParameterType
      */
     protected $valueTypeRegistry;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface $valueTypeRegistry
-     */
     public function __construct(ValueTypeRegistryInterface $valueTypeRegistry)
     {
         $this->valueTypeRegistry = $valueTypeRegistry;
     }
 
-    /**
-     * Returns the parameter type identifier.
-     *
-     * @return string
-     */
     public function getIdentifier()
     {
         return 'link';
     }
 
-    /**
-     * Configures the options for this parameter.
-     *
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
-     */
     public function configureOptions(OptionsResolver $optionsResolver)
     {
         $optionsResolver->setRequired(array('value_types'));
@@ -63,14 +52,6 @@ class LinkType extends ParameterType
         );
     }
 
-    /**
-     * Converts the parameter value from a domain format to scalar/hash format.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
-     * @param mixed $value
-     *
-     * @return mixed
-     */
     public function toHash(ParameterInterface $parameter, $value)
     {
         if (!$value instanceof LinkValue) {
@@ -85,14 +66,6 @@ class LinkType extends ParameterType
         );
     }
 
-    /**
-     * Converts the provided parameter value to value usable by the domain.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
-     * @param mixed $value
-     *
-     * @return mixed
-     */
     public function fromHash(ParameterInterface $parameter, $value)
     {
         if (!is_array($value) || empty($value['link_type'])) {
@@ -109,14 +82,6 @@ class LinkType extends ParameterType
         );
     }
 
-    /**
-     * Returns if the parameter value is empty.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
-     * @param mixed $value
-     *
-     * @return bool
-     */
     public function isValueEmpty(ParameterInterface $parameter, $value)
     {
         if (!$value instanceof LinkValue) {
@@ -126,14 +91,6 @@ class LinkType extends ParameterType
         return empty($value->getLinkType()) || empty($value->getLink());
     }
 
-    /**
-     * Returns constraints that will be used to validate the parameter value.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
-     * @param mixed $value
-     *
-     * @return \Symfony\Component\Validator\Constraint[]
-     */
     protected function getValueConstraints(ParameterInterface $parameter, $value)
     {
         return array(

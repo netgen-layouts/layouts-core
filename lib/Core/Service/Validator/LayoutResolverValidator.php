@@ -27,12 +27,6 @@ class LayoutResolverValidator extends Validator
      */
     protected $conditionTypeRegistry;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface $targetTypeRegistry
-     * @param \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface $conditionTypeRegistry
-     */
     public function __construct(
         TargetTypeRegistryInterface $targetTypeRegistry,
         ConditionTypeRegistryInterface $conditionTypeRegistry
@@ -42,7 +36,7 @@ class LayoutResolverValidator extends Validator
     }
 
     /**
-     * Validates rule create struct.
+     * Validates the provided rule create struct.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleCreateStruct $ruleCreateStruct
      *
@@ -93,7 +87,7 @@ class LayoutResolverValidator extends Validator
     }
 
     /**
-     * Validates rule update struct.
+     * Validates the provided rule update struct.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleUpdateStruct $ruleUpdateStruct
      *
@@ -124,7 +118,7 @@ class LayoutResolverValidator extends Validator
     }
 
     /**
-     * Validates rule metadata update struct.
+     * Validates the provided rule metadata update struct.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleMetadataUpdateStruct $ruleUpdateStruct
      *
@@ -145,7 +139,7 @@ class LayoutResolverValidator extends Validator
     }
 
     /**
-     * Validates target create struct.
+     * Validates the provided target create struct.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct $targetCreateStruct
      *
@@ -172,7 +166,7 @@ class LayoutResolverValidator extends Validator
     }
 
     /**
-     * Validates target update struct.
+     * Validates the provided target update struct.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Target $target
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct $targetUpdateStruct
@@ -191,7 +185,7 @@ class LayoutResolverValidator extends Validator
     }
 
     /**
-     * Validates condition create struct.
+     * Validates the provided condition create struct.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct $conditionCreateStruct
      *
@@ -218,7 +212,7 @@ class LayoutResolverValidator extends Validator
     }
 
     /**
-     * Validates condition update struct.
+     * Validates the provided condition update struct.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Condition $condition
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\ConditionUpdateStruct $conditionUpdateStruct

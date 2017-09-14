@@ -12,18 +12,13 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class GetTwigBlockContentListener implements EventSubscriberInterface
 {
-    /**
-     * Returns an array of event names this subscriber wants to listen to.
-     *
-     * @return array
-     */
     public static function getSubscribedEvents()
     {
         return array(BlockManagerEvents::RENDER_VIEW => 'onRenderView');
     }
 
     /**
-     * Includes the Twig block content from a Twig block.
+     * Adds a parameter to the view with the Twig block content.
      *
      * @param \Netgen\BlockManager\Event\CollectViewParametersEvent $event
      */

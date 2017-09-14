@@ -11,7 +11,7 @@ use Netgen\BlockManager\Collection\QueryTypeInterface;
 class CollectionStructBuilder
 {
     /**
-     * Creates a new item create struct.
+     * Creates a new item create struct from provided values.
      *
      * @param int $type
      * @param int|string $valueId
@@ -31,7 +31,7 @@ class CollectionStructBuilder
     }
 
     /**
-     * Creates a new query create struct.
+     * Creates a new query create struct from provided query type.
      *
      * @param \Netgen\BlockManager\Collection\QueryTypeInterface $queryType
      *
@@ -51,7 +51,9 @@ class CollectionStructBuilder
     }
 
     /**
-     * Creates a new query update struct.
+     * Creates a new query update struct for provided locale.
+     *
+     * If query is provided, initial data is copied from the query.
      *
      * @param string $locale
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query

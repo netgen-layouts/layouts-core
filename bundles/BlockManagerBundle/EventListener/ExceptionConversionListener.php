@@ -32,11 +32,6 @@ class ExceptionConversionListener implements EventSubscriberInterface
         BaseInvalidArgumentException::class => BadRequestHttpException::class,
     );
 
-    /**
-     * Returns an array of event names this subscriber wants to listen to.
-     *
-     * @return array
-     */
     public static function getSubscribedEvents()
     {
         return array(KernelEvents::EXCEPTION => array('onException', 10));

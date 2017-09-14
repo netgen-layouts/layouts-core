@@ -22,13 +22,6 @@ class LocaleProvider implements LocaleProviderInterface
         $this->enabledLocales = $enabledLocales;
     }
 
-    /**
-     * Returns the list of locales available in the system.
-     *
-     * Keys are locale codes and values are locale names.
-     *
-     * @return string[]
-     */
     public function getAvailableLocales()
     {
         $availableLocales = Intl::getLocaleBundle()->getLocaleNames();
@@ -48,13 +41,6 @@ class LocaleProvider implements LocaleProviderInterface
         return $availableLocales;
     }
 
-    /**
-     * Returns the list of locale codes available for the provided request.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return string[]
-     */
     public function getRequestLocales(Request $request)
     {
         $requestLocale = $request->getLocale();

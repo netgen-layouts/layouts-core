@@ -67,6 +67,8 @@ interface ParameterInterface
     public function getLabel();
 
     /**
+     * Returns the list of all parameter groups.
+     *
      * @return array
      */
     public function getGroups();

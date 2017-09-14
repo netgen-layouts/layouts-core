@@ -11,24 +11,11 @@ class ParameterFilterRegistry implements ParameterFilterRegistryInterface
      */
     protected $parameterFilters = array();
 
-    /**
-     * Adds a parameter filter to registry.
-     *
-     * @param $parameterType
-     * @param \Netgen\BlockManager\Parameters\ParameterFilterInterface $parameterFilter
-     */
     public function addParameterFilter($parameterType, ParameterFilterInterface $parameterFilter)
     {
         $this->parameterFilters[$parameterType][] = $parameterFilter;
     }
 
-    /**
-     * Returns all parameter filters for provided parameter type.
-     *
-     * @param string $parameterType
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterFilterInterface[]
-     */
     public function getParameterFilters($parameterType)
     {
         return isset($this->parameterFilters[$parameterType]) ?

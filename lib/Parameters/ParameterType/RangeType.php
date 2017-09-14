@@ -8,23 +8,17 @@ use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
+/**
+ * Parameter type used to store and validate an integer specified
+ * between provided minimum and maximum value.
+ */
 class RangeType extends ParameterType
 {
-    /**
-     * Returns the parameter type identifier.
-     *
-     * @return string
-     */
     public function getIdentifier()
     {
         return 'range';
     }
 
-    /**
-     * Configures the options for this parameter.
-     *
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
-     */
     public function configureOptions(OptionsResolver $optionsResolver)
     {
         $optionsResolver->setRequired(array('min', 'max'));
@@ -55,27 +49,11 @@ class RangeType extends ParameterType
         );
     }
 
-    /**
-     * Returns if the parameter value is empty.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
-     * @param mixed $value
-     *
-     * @return bool
-     */
     public function isValueEmpty(ParameterInterface $parameter, $value)
     {
         return $value === null;
     }
 
-    /**
-     * Returns constraints that will be used to validate the parameter value.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
-     * @param mixed $value
-     *
-     * @return \Symfony\Component\Validator\Constraint[]
-     */
     protected function getValueConstraints(ParameterInterface $parameter, $value)
     {
         $options = $parameter->getOptions();

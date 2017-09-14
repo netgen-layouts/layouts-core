@@ -41,13 +41,6 @@ class BlockViewRenderer implements ViewRendererInterface
         $this->supportedContexts = $supportedContexts;
     }
 
-    /**
-     * Returns if the view renderer supports the view.
-     *
-     * @param \Netgen\BlockManager\View\ViewInterface $view
-     *
-     * @return bool
-     */
     public function supportsView(ViewInterface $view)
     {
         if (!$view instanceof BlockViewInterface) {
@@ -61,13 +54,6 @@ class BlockViewRenderer implements ViewRendererInterface
         return $this->cacheableResolver->isCacheable($view->getBlock());
     }
 
-    /**
-     * Returns the controller that will be used to render the fragment.
-     *
-     * @param \Netgen\BlockManager\View\ViewInterface $view
-     *
-     * @return \Symfony\Component\HttpKernel\Controller\ControllerReference
-     */
     public function getController(ViewInterface $view)
     {
         /* @var \Netgen\BlockManager\View\View\BlockViewInterface $view */

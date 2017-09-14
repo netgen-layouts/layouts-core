@@ -6,23 +6,11 @@ use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 
 abstract class ExtensionPlugin implements ExtensionPluginInterface
 {
-    /**
-     * Pre-processes the configuration before it is resolved.
-     *
-     * @param array $configs
-     *
-     * @return array
-     */
     public function preProcessConfiguration(array $configs)
     {
         return $configs;
     }
 
-    /**
-     * Processes the configuration for the bundle.
-     *
-     * @param \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition
-     */
     public function addConfiguration(ArrayNodeDefinition $rootNode)
     {
         $children = $rootNode->children();
@@ -32,11 +20,6 @@ abstract class ExtensionPlugin implements ExtensionPluginInterface
         }
     }
 
-    /**
-     * Returns available configuration nodes for the bundle.
-     *
-     * @return \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNodeInterface[]
-     */
     public function getConfigurationNodes()
     {
         return array();
@@ -54,11 +37,6 @@ abstract class ExtensionPlugin implements ExtensionPluginInterface
         return $config;
     }
 
-    /**
-     * Returns the array of files to be appended to main bundle configuration.
-     *
-     * @return array
-     */
     public function appendConfigurationFiles()
     {
         return array();

@@ -17,20 +17,19 @@ class BlockItemViewType extends Constraint
     public $message = 'netgen_block_manager.block_item_view_type.no_item_view_type';
 
     /**
+     * View type used to check item view type against.
+     *
      * @var string
      */
     public $viewType;
 
     /**
+     * Block definition used to check item view type against.
+     *
      * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
     public $definition;
 
-    /**
-     * Returns the name of the class that validates this constraint.
-     *
-     * @return string
-     */
     public function validatedBy()
     {
         return 'ngbm_block_item_view_type';

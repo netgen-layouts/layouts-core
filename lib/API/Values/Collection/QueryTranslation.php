@@ -14,7 +14,7 @@ interface QueryTranslation extends ParameterBasedValue
     public function getLocale();
 
     /**
-     * Returns if the translation is the main one in the block.
+     * Returns if the translation is the main one in the query.
      *
      * @return bool
      */

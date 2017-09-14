@@ -9,12 +9,16 @@ class LayoutCreateStruct extends ValueObject
     /**
      * Layout type from which the new layout will be created.
      *
+     * Required.
+     *
      * @var \Netgen\BlockManager\Layout\Type\LayoutType
      */
     public $layoutType;
 
     /**
      * Human readable name of the layout.
+     *
+     * Required.
      *
      * @var string
      */
@@ -32,10 +36,12 @@ class LayoutCreateStruct extends ValueObject
      *
      * @var bool
      */
-    public $shared;
+    public $shared = false;
 
     /**
      * Specifies the main locale of the layout.
+     *
+     * Required.
      *
      * @var string
      */

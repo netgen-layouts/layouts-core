@@ -19,11 +19,6 @@ class BlockManagerDataCollector extends DataCollector
      */
     protected $globalVariable;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable $globalVariable
-     */
     public function __construct(GlobalVariable $globalVariable)
     {
         $this->globalVariable = $globalVariable;
@@ -34,13 +29,6 @@ class BlockManagerDataCollector extends DataCollector
         $this->data['version'] = Version::VERSION;
     }
 
-    /**
-     * Collects data for the given Request and Response.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     * @param \Exception $exception
-     */
     public function collect(Request $request, Response $response, Exception $exception = null)
     {
         $rule = $this->globalVariable->getRule();
@@ -133,11 +121,6 @@ class BlockManagerDataCollector extends DataCollector
         return $this->data;
     }
 
-    /**
-     * Returns the name of the collector.
-     *
-     * @return string The collector name
-     */
     public function getName()
     {
         return 'ngbm';

@@ -6,6 +6,9 @@ use Netgen\BlockManager\Parameters\ParameterInterface;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
 use Symfony\Component\Form\DataMapperInterface;
 
+/**
+ * Mapper used to convert to and from the LinkValue object to the Symfony form structure.
+ */
 class LinkDataMapper implements DataMapperInterface
 {
     /**
@@ -13,24 +16,11 @@ class LinkDataMapper implements DataMapperInterface
      */
     protected $parameter;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
-     */
     public function __construct(ParameterInterface $parameter)
     {
         $this->parameter = $parameter;
     }
 
-    /**
-     * Maps properties of some data to a list of forms.
-     *
-     * @param mixed $data Structured data
-     * @param \Symfony\Component\Form\FormInterface[] $forms A list of {@link FormInterface} instances
-     *
-     * @throws \Symfony\Component\Form\Exception\UnexpectedTypeException if the type of the data parameter is not supported
-     */
     public function mapDataToForms($data, $forms)
     {
         if (!$data instanceof LinkValue) {
@@ -48,14 +38,6 @@ class LinkDataMapper implements DataMapperInterface
         }
     }
 
-    /**
-     * Maps the data of a list of forms into the properties of some data.
-     *
-     * @param \Symfony\Component\Form\FormInterface[] $forms A list of {@link FormInterface} instances
-     * @param mixed $data Structured data
-     *
-     * @throws \Symfony\Component\Form\Exception\UnexpectedTypeException if the type of the data parameter is not supported
-     */
     public function mapFormsToData($forms, &$data)
     {
         $forms = iterator_to_array($forms);

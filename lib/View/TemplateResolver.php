@@ -40,13 +40,6 @@ class TemplateResolver implements TemplateResolverInterface
         $this->viewConfig = $viewConfig;
     }
 
-    /**
-     * Resolves a view template.
-     *
-     * @param \Netgen\BlockManager\View\ViewInterface $view
-     *
-     * @throws \RuntimeException If there's no template defined for specified view
-     */
     public function resolveTemplate(ViewInterface $view)
     {
         $viewContext = $view->getContext();

@@ -14,11 +14,6 @@ class QueryIterator extends IteratorIterator implements Countable
      */
     protected $query;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     */
     public function __construct(Query $query)
     {
         $this->query = $query;
@@ -26,11 +21,6 @@ class QueryIterator extends IteratorIterator implements Countable
         parent::__construct($this->buildIterator());
     }
 
-    /**
-     * Count elements of an object.
-     *
-     * @return int
-     */
     public function count()
     {
         return $this->query->getQueryType()->getCount($this->query);

@@ -10,23 +10,10 @@ use Symfony\Component\Yaml\Yaml;
 
 class NetgenBlockManagerFixturesExtension extends Extension implements PrependExtensionInterface
 {
-    /**
-     * Loads a specific configuration.
-     *
-     * @param array $configs
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     *
-     * @throws \InvalidArgumentException When provided tag is not defined in this extension
-     */
     public function load(array $configs, ContainerBuilder $container)
     {
     }
 
-    /**
-     * Allow an extension to prepend the extension configurations.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
     public function prepend(ContainerBuilder $container)
     {
         $prependConfigs = array(

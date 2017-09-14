@@ -4,6 +4,10 @@ namespace Netgen\BlockManager\Layout\Resolver\Form\TargetType;
 
 use Symfony\Component\Form\FormBuilderInterface;
 
+/**
+ * Implementations of this interface provide all info to create Symfony forms
+ * used to create/edit target objects.
+ */
 interface MapperInterface
 {
     /**

@@ -19,11 +19,6 @@ class PageLayoutResolver implements PageLayoutResolverInterface
         $this->pageLayout = $pageLayout;
     }
 
-    /**
-     * Resolves the main page layout used to render the page.
-     *
-     * @return string
-     */
     public function resolvePageLayout()
     {
         return $this->pageLayout;

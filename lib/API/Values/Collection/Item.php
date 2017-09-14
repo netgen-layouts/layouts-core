@@ -7,11 +7,15 @@ use Netgen\BlockManager\API\Values\Value;
 interface Item extends Value
 {
     /**
+     * Item of this type is inserted between items coming from the collection query.
+     *
      * @const int
      */
     const TYPE_MANUAL = 0;
 
     /**
+     * Items of this type override the item from the query at the specified position.
+     *
      * @const int
      */
     const TYPE_OVERRIDE = 1;
@@ -24,7 +28,7 @@ interface Item extends Value
     public function getId();
 
     /**
-     * Returns the collection ID the item is in.
+     * Returns the ID of the collection to which the item belongs.
      *
      * @return int|string
      */
@@ -45,7 +49,10 @@ interface Item extends Value
     public function getPosition();
 
     /**
-     * Returns the type of item in the collection.
+     * Returns the type of this item.
+     *
+     * Type can either be manual (inserted between items returned from the query),
+     * or override (replaces the item from the query in the same position).
      *
      * @return int
      */

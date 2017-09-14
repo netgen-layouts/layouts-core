@@ -16,11 +16,6 @@ class CollectionController extends Controller
      */
     protected $collectionService;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\API\Service\CollectionService $collectionService
-     */
     public function __construct(CollectionService $collectionService)
     {
         $this->collectionService = $collectionService;
@@ -78,9 +73,6 @@ class CollectionController extends Controller
         );
     }
 
-    /**
-     * Performs access checks on the controller.
-     */
     protected function checkPermissions()
     {
         $this->denyAccessUnlessGranted('ROLE_NGBM_EDITOR');

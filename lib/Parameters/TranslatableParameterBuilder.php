@@ -7,11 +7,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TranslatableParameterBuilder extends ParameterBuilder
 {
-    /**
-     * Configures the parameter options.
-     *
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
-     */
     protected function configureOptions(OptionsResolver $optionsResolver)
     {
         $optionsResolver->setDefault('translatable', true);

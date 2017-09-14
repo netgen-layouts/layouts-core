@@ -32,13 +32,6 @@ class ItemRuntime
      */
     protected $debug = false;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Item\ItemLoaderInterface $itemLoader
-     * @param \Netgen\BlockManager\Item\UrlBuilderInterface $urlBuilder
-     * @param \Psr\Log\LoggerInterface $logger
-     */
     public function __construct(
         ItemLoaderInterface $itemLoader,
         UrlBuilderInterface $urlBuilder,

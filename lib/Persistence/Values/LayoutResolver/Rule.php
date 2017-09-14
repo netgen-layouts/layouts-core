@@ -7,31 +7,43 @@ use Netgen\BlockManager\Persistence\Values\Value;
 class Rule extends Value
 {
     /**
+     * Rule ID.
+     *
      * @var int|string
      */
     public $id;
 
     /**
+     * Rule status. One of self::STATUS_* flags.
+     *
      * @var int
      */
     public $status;
 
     /**
-     * @var int|string
+     * ID of the layout mapped to this rule. Can be null if there's no mapped layout.
+     *
+     * @var int|string|null
      */
     public $layoutId;
 
     /**
+     * A flag indicating if the rule is enabled or not.
+     *
      * @var bool
      */
     public $enabled;
 
     /**
+     * Rule priority.
+     *
      * @var int
      */
     public $priority;
 
     /**
+     * Human readable comment of the rule.
+     *
      * @var string
      */
     public $comment;

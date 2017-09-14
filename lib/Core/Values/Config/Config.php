@@ -20,17 +20,11 @@ class Config extends ValueObject implements APIConfig
      */
     protected $definition;
 
-    /**
-     * @return string
-     */
     public function getConfigKey()
     {
         return $this->configKey;
     }
 
-    /**
-     * @return \Netgen\BlockManager\Config\ConfigDefinitionInterface
-     */
     public function getDefinition()
     {
         return $this->definition;

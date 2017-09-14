@@ -5,6 +5,12 @@ namespace Netgen\BlockManager\Config;
 use Netgen\BlockManager\API\Values\Config\ConfigAwareValue;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 
+/**
+ * Config definition handler represents the dynamic/runtime part of the
+ * config definitions.
+ *
+ * Implement this interface to create your own config definitions for an entity.
+ */
 interface ConfigDefinitionHandlerInterface
 {
     /**
@@ -15,7 +21,7 @@ interface ConfigDefinitionHandlerInterface
     public function buildParameters(ParameterBuilderInterface $builder);
 
     /**
-     * Returns if this config definition is enabled for current config aware value.
+     * Returns if this config definition is enabled for provided config aware value.
      *
      * @param \Netgen\BlockManager\API\Values\Config\ConfigAwareValue $configAwareValue
      *

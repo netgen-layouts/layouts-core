@@ -10,23 +10,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class ItemLinkMapper extends Mapper
 {
-    /**
-     * Returns the form type for the parameter.
-     *
-     * @return string
-     */
     public function getFormType()
     {
         return ContentBrowserDynamicType::class;
     }
 
-    /**
-     * Maps parameter options to Symfony form options.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
-     *
-     * @return array
-     */
     public function mapOptions(ParameterInterface $parameter)
     {
         return array(
@@ -34,12 +22,6 @@ class ItemLinkMapper extends Mapper
         );
     }
 
-    /**
-     * Allows the mapper to do any kind of processing to created form.
-     *
-     * @param \Symfony\Component\Form\FormBuilderInterface $form
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
-     */
     public function handleForm(FormBuilderInterface $form, ParameterInterface $parameter)
     {
         $form->setDataMapper(new ItemLinkDataMapper());

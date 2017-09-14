@@ -14,25 +14,11 @@ abstract class Service implements APIService
      */
     protected $persistenceHandler;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
-     */
     public function __construct(Handler $persistenceHandler)
     {
         $this->persistenceHandler = $persistenceHandler;
     }
 
-    /**
-     * Runs the callable inside a transaction.
-     *
-     * @param callable $callable
-     *
-     * @throws \Exception when an error occurs
-     *
-     * @return $mixed
-     */
     public function transaction(callable $callable)
     {
         $this->beginTransaction();
@@ -49,19 +35,11 @@ abstract class Service implements APIService
         return $return;
     }
 
-    /**
-     * Begins a transaction.
-     */
     public function beginTransaction()
     {
         $this->persistenceHandler->beginTransaction();
     }
 
-    /**
-     * Commits the transaction.
-     *
-     * @throws \Netgen\BlockManager\Exception\RuntimeException If no transaction has been started
-     */
     public function commitTransaction()
     {
         try {
@@ -71,11 +49,6 @@ abstract class Service implements APIService
         }
     }
 
-    /**
-     * Rollbacks the transaction.
-     *
-     * @throws \Netgen\BlockManager\Exception\RuntimeException If no transaction has been started
-     */
     public function rollbackTransaction()
     {
         try {

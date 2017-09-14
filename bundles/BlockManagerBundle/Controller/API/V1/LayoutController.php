@@ -35,13 +35,6 @@ class LayoutController extends Controller
      */
     protected $validator;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
-     * @param \Netgen\BlockManager\API\Service\BlockService $blockService
-     * @param \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\LayoutValidator $validator
-     */
     public function __construct(LayoutService $layoutService, BlockService $blockService, LayoutValidator $validator)
     {
         $this->layoutService = $layoutService;
@@ -296,9 +289,6 @@ class LayoutController extends Controller
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
 
-    /**
-     * Performs access checks on the controller.
-     */
     protected function checkPermissions()
     {
         $this->denyAccessUnlessGranted('ROLE_NGBM_API');

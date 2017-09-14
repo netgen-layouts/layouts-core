@@ -4,6 +4,13 @@ namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 
+/**
+ * Classes implementing this interface process the query to add a section of the query
+ * which matches the targets from the table with the provided value.
+ *
+ * This is done in layout resolving process to return the targets only matching
+ * the specified value (extracted from the request on which the layout resolving is ran).
+ */
 interface TargetHandler
 {
     /**

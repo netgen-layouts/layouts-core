@@ -6,9 +6,24 @@ use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Block\DynamicParameters;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 
+/**
+ * Block definition handler represents the dynamic/runtime part of the
+ * Block definition.
+ *
+ * Implement this interface to create your own custom blocks.
+ */
 interface BlockDefinitionHandlerInterface
 {
+    /**
+     * Use this group in the parameters you wish to show
+     * in the Content part of the block edit interface.
+     */
     const GROUP_CONTENT = 'content';
+
+    /**
+     * Use this group in the parameters you wish to show
+     * in the Design part of the block edit interface.
+     */
     const GROUP_DESIGN = 'design';
 
     /**

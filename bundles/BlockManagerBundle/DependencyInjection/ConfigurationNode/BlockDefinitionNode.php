@@ -11,11 +11,6 @@ use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
 class BlockDefinitionNode implements ConfigurationNodeInterface
 {
-    /**
-     * Returns node definition for block definitions.
-     *
-     * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition
-     */
     public function getConfigurationNode()
     {
         $treeBuilder = new TreeBuilder();

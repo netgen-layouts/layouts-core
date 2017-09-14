@@ -13,6 +13,8 @@ class QueryCreateStruct extends ValueObject implements ParameterStruct
     /**
      * Query type for which the new query will be created.
      *
+     * Required.
+     *
      * @var \Netgen\BlockManager\Collection\QueryTypeInterface
      */
     public $queryType;

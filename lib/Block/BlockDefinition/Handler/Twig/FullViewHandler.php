@@ -6,6 +6,11 @@ use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
 use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
 
+/**
+ * Block used to render the full view (or rather, the result of the controller).
+ *
+ * The default block name to use & render is provided by the constructor.
+ */
 class FullViewHandler extends BlockDefinitionHandler implements TwigBlockDefinitionHandlerInterface
 {
     /**
@@ -23,25 +28,11 @@ class FullViewHandler extends BlockDefinitionHandler implements TwigBlockDefinit
         $this->twigBlockName = $twigBlockName;
     }
 
-    /**
-     * Returns if the provided block is dependent on a context, i.e. current request.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     *
-     * @return bool
-     */
     public function isContextual(Block $block)
     {
         return true;
     }
 
-    /**
-     * Returns the name of the Twig block to use.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     *
-     * @return string
-     */
     public function getTwigBlockName(Block $block)
     {
         return $this->twigBlockName;

@@ -13,21 +13,11 @@ class ExternalVideoHandler extends BlockDefinitionHandler
      */
     protected $services = array();
 
-    /**
-     * Constructor.
-     *
-     * @param array $services
-     */
     public function __construct(array $services = array())
     {
         $this->services = array_flip($services);
     }
 
-    /**
-     * Builds the parameters by using provided parameter builder.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $builder
-     */
     public function buildParameters(ParameterBuilderInterface $builder)
     {
         $builder->add(

@@ -24,7 +24,7 @@ interface Layout extends Value, ArrayAccess, IteratorAggregate, Countable
     public function getLayoutType();
 
     /**
-     * Returns the layout human readable name.
+     * Returns human readable name of the layout.
      *
      * @return string
      */
@@ -38,7 +38,7 @@ interface Layout extends Value, ArrayAccess, IteratorAggregate, Countable
     public function getDescription();
 
     /**
-     * Returns when was the layout created.
+     * Returns when was the layout first created.
      *
      * @return \DateTime
      */
@@ -66,7 +66,7 @@ interface Layout extends Value, ArrayAccess, IteratorAggregate, Countable
     public function isShared();
 
     /**
-     * Returns the main locale for the layout.
+     * Returns the main locale of the layout.
      *
      * @return string
      */
@@ -98,7 +98,9 @@ interface Layout extends Value, ArrayAccess, IteratorAggregate, Countable
     /**
      * Returns the specified zone or null if zone does not exist.
      *
-     * By default, this method will return the linked zone if the requested zone has one.
+     * By default, this method will return the linked zone if the
+     * requested zone has one. Set $ignoreLinkedZone to true to
+     * always return the original zone.
      *
      * @param string $zoneIdentifier
      * @param bool $ignoreLinkedZone

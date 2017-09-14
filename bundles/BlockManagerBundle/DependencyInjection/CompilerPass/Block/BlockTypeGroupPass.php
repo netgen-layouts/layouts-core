@@ -13,11 +13,6 @@ class BlockTypeGroupPass implements CompilerPassInterface
     const SERVICE_NAME = 'netgen_block_manager.block.registry.block_type_group';
     const TAG_NAME = 'netgen_block_manager.block.block_type_group';
 
-    /**
-     * You can modify the container here before it is dumped to PHP code.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container)
     {
         if (!$container->has(self::SERVICE_NAME)) {

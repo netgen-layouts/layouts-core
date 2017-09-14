@@ -8,6 +8,9 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
+/**
+ * Validates if the provided layout name already exists in the system.
+ */
 class LayoutNameValidator extends ConstraintValidator
 {
     /**
@@ -15,22 +18,11 @@ class LayoutNameValidator extends ConstraintValidator
      */
     protected $layoutService;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
-     */
     public function __construct(LayoutService $layoutService)
     {
         $this->layoutService = $layoutService;
     }
 
-    /**
-     * Checks if the passed value is valid.
-     *
-     * @param mixed $value The value that should be validated
-     * @param \Symfony\Component\Validator\Constraint $constraint The constraint for the validation
-     */
     public function validate($value, Constraint $constraint)
     {
         if (!$constraint instanceof LayoutName) {

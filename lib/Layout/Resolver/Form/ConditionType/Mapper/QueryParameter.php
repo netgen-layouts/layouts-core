@@ -8,21 +8,11 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class QueryParameter extends Mapper
 {
-    /**
-     * Returns the form type that will be used to edit the value of this condition type.
-     *
-     * @return string
-     */
     public function getFormType()
     {
         return KeyValuesType::class;
     }
 
-    /**
-     * Returns the form options.
-     *
-     * @return array
-     */
     public function getFormOptions()
     {
         return array(

@@ -6,6 +6,10 @@ use Netgen\BlockManager\Exception\InvalidInterfaceException;
 use Netgen\BlockManager\View\Fragment\ViewRendererInterface as FragmentViewRendererInterface;
 use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
 
+/**
+ * This renderer is used in the frontend to enable rendering some of the entities
+ * with ESI fragments.
+ */
 class FragmentRenderer implements RendererInterface
 {
     /**
@@ -58,15 +62,6 @@ class FragmentRenderer implements RendererInterface
         $this->fragmentViewRenderers = $fragmentViewRenderers;
     }
 
-    /**
-     * Renders the value object.
-     *
-     * @param mixed $valueObject
-     * @param string $context
-     * @param array $parameters
-     *
-     * @return string
-     */
     public function renderValueObject($valueObject, $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = array())
     {
         $view = $this->viewBuilder->buildView($valueObject, $context, $parameters);

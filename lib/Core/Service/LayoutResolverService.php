@@ -50,14 +50,6 @@ class LayoutResolverService extends Service implements APILayoutResolverService
      */
     protected $handler;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
-     * @param \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator $validator
-     * @param \Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper $mapper
-     * @param \Netgen\BlockManager\Core\Service\StructBuilder\LayoutResolverStructBuilder $structBuilder
-     */
     public function __construct(
         Handler $persistenceHandler,
         LayoutResolverValidator $validator,
@@ -73,13 +65,6 @@ class LayoutResolverService extends Service implements APILayoutResolverService
         $this->handler = $persistenceHandler->getLayoutResolverHandler();
     }
 
-    /**
-     * Loads a rule by its' ID.
-     *
-     * @param int|string $ruleId
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule If rule with specified ID does not exist
-     */
     public function loadRule($ruleId)
     {
         $this->validator->validateId($ruleId, 'ruleId');
@@ -92,15 +77,6 @@ class LayoutResolverService extends Service implements APILayoutResolverService
         );
     }
 
-    /**
-     * Loads a rule draft by its' ID.
-     *
-     * @param int|string $ruleId
-     *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If rule with specified ID does not exist
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
-     */
     public function loadRuleDraft($ruleId)
     {
         $this->validator->validateId($ruleId, 'ruleId');
@@ -113,14 +89,6 @@ class LayoutResolverService extends Service implements APILayoutResolverService
         );
     }
 
-    /**
-     * Loads all rules.
-     *
-     * @param int $offset
-     * @param int $limit
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule[]
-     */
     public function loadRules($offset = 0, $limit = null)
     {
         $this->validator->validateOffsetAndLimit($offset, $limit);
@@ -139,15 +107,6 @@ class LayoutResolverService extends Service implements APILayoutResolverService
         return $rules;
     }
 
-    /**
-     * Returns the number of rules pointing to provided layout.
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException if provided layout is not published
-     *
-     * @return int
-     */
     public function getRuleCount(Layout $layout)
     {
         if (!$layout->isPublished()) {
@@ -162,14 +121,6 @@ class LayoutResolverService extends Service implements APILayoutResolverService
         return $this->handler->getRuleCount($persistenceLayout);
     }
 
-    /**
-     * Returns all rules that match specified target type and value.
-     *
-     * @param string $targetType
-     * @param mixed $targetValue
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule[]
-     */
     public function matchRules($targetType, $targetValue)
     {
         $persistenceRules = $this->handler->matchRules($targetType, $targetValue);
@@ -182,15 +133,6 @@ class LayoutResolverService extends Service implements APILayoutResolverService
         return $rules;
     }
 
-    /**
-     * Loads a target by its' ID.
-     *
-     * @param int|string $targetId
-     *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If target with specified ID does not exist
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Target
-     */
     public function loadTarget($targetId)
     {
         $this->validator->validateId($targetId, 'targetId');
@@ -203,15 +145,6 @@ class LayoutResolverService extends Service implements APILayoutResolverService
         );
     }
 
-    /**
-     * Loads a target draft by its' ID.
-     *
-     * @param int|string $targetId
-     *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If target with specified ID does not exist
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Target
-     */
     public function loadTargetDraft($targetId)
     {
         $this->validator->validateId($targetId, 'targetId');
@@ -224,15 +157,6 @@ class LayoutResolverService extends Service implements APILayoutResolverService
         );
     }
 
-    /**
-     * Loads a condition by its' ID.
-     *
-     * @param int|string $conditionId
-     *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If condition with specified ID does not exist
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Condition
-     */
     public function loadCondition($conditionId)
     {
         $this->validator->validateId($conditionId, 'conditionId');
@@ -245,15 +169,6 @@ class LayoutResolverService extends Service implements APILayoutResolverService
         );
     }
 
-    /**
-     * Loads a condition draft by its' ID.
-     *
-     * @param int|string $conditionId
-     *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If condition with specified ID does not exist
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Condition
-     */
     public function loadConditionDraft($conditionId)
     {
         $this->validator->validateId($conditionId, 'conditionId');
@@ -266,13 +181,6 @@ class LayoutResolverService extends Service implements APILayoutResolverService
         );
     }
 
-    /**
-     * Creates a rule.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleCreateStruct $ruleCreateStruct
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
-     */
     public function createRule(APIRuleCreateStruct $ruleCreateStruct)
     {
         $this->validator->validateRuleCreateStruct($ruleCreateStruct);
@@ -296,16 +204,6 @@ class LayoutResolverService extends Service implements APILayoutResolverService
         return $this->mapper->mapRule($createdRule);
     }
 
-    /**
-     * Updates a rule.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleUpdateStruct $ruleUpdateStruct
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
-     */
     public function updateRule(Rule $rule, APIRuleUpdateStruct $ruleUpdateStruct)
     {
         if ($rule->isPublished()) {
@@ -333,16 +231,6 @@ class LayoutResolverService extends Service implements APILayoutResolverService
         return $this->mapper->mapRule($updatedRule);
     }
 
-    /**
-     * Updates rule metadata.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\RuleMetadataUpdateStruct $ruleUpdateStruct
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not published
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
-     */
     public function updateRuleMetadata(Rule $rule, APIRuleMetadataUpdateStruct $ruleUpdateStruct)
     {
         if (!$rule->isPublished()) {
@@ -369,13 +257,6 @@ class LayoutResolverService extends Service implements APILayoutResolverService
         return $this->mapper->mapRule($updatedRule);
     }
 
-    /**
-     * Copies a rule.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
-     */
     public function copyRule(Rule $rule)
     {
         $persistenceRule = $this->handler->loadRule($rule->getId(), $rule->getStatus());
@@ -389,17 +270,6 @@ class LayoutResolverService extends Service implements APILayoutResolverService
         return $this->mapper->mapRule($copiedRule);
     }
 
-    /**
-     * Creates a rule draft.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
-     * @param bool $discardExisting
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not published
-     *                                                          If draft already exists for the rule and $discardExisting is set to false
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
-     */
     public function createDraft(Rule $rule, $discardExisting = false)
     {
         if (!$rule->isPublished()) {
@@ -425,14 +295,6 @@ class LayoutResolverService extends Service implements APILayoutResolverService
         return $this->mapper->mapRule($ruleDraft);
     }
 
-    /**
-     * Discards a rule draft.
-     *
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
-     */
     public function discardDraft(Rule $rule)
     {
         if ($rule->isPublished()) {
@@ -451,15 +313,6 @@ class LayoutResolverService extends Service implements APILayoutResolverService
         );
     }
 
-    /**
-     * Publishes a rule.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
-     */
     public function publishRule(Rule $rule)
     {
         if ($rule->isPublished()) {
@@ -505,11 +358,6 @@ class LayoutResolverService extends Service implements APILayoutResolverService
         return $this->mapper->mapRule($publishedRule);
     }
 
-    /**
-     * Deletes a rule.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
-     */
     public function deleteRule(Rule $rule)
     {
         $persistenceRule = $this->handler->loadRule($rule->getId(), $rule->getStatus());
@@ -523,16 +371,6 @@ class LayoutResolverService extends Service implements APILayoutResolverService
         );
     }
 
-    /**
-     * Enables a rule.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not published
-     *                                                          If rule cannot be enabled
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
-     */
     public function enableRule(Rule $rule)
     {
         if (!$rule->isPublished()) {
@@ -569,16 +407,6 @@ class LayoutResolverService extends Service implements APILayoutResolverService
         return $this->mapper->mapRule($updatedRule);
     }
 
-    /**
-     * Disables a rule.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not published
-     *                                                          If rule cannot be disabled
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
-     */
     public function disableRule(Rule $rule)
     {
         if (!$rule->isPublished()) {
@@ -607,17 +435,6 @@ class LayoutResolverService extends Service implements APILayoutResolverService
         return $this->mapper->mapRule($updatedRule);
     }
 
-    /**
-     * Adds a target to rule.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct $targetCreateStruct
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
-     *                                                          If target of different type than it already exists in the rule is added
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Target
-     */
     public function addTarget(Rule $rule, APITargetCreateStruct $targetCreateStruct)
     {
         if ($rule->isPublished()) {
@@ -657,16 +474,6 @@ class LayoutResolverService extends Service implements APILayoutResolverService
         return $this->mapper->mapTarget($createdTarget);
     }
 
-    /**
-     * Updates a target.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Target $target
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct $targetUpdateStruct
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Target
-     */
     public function updateTarget(Target $target, APITargetUpdateStruct $targetUpdateStruct)
     {
         if ($target->isPublished()) {
@@ -693,13 +500,6 @@ class LayoutResolverService extends Service implements APILayoutResolverService
         return $this->mapper->mapTarget($updatedTarget);
     }
 
-    /**
-     * Removes a target.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Target $target
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
-     */
     public function deleteTarget(Target $target)
     {
         if ($target->isPublished()) {
@@ -715,16 +515,6 @@ class LayoutResolverService extends Service implements APILayoutResolverService
         );
     }
 
-    /**
-     * Adds a condition to rule.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct $conditionCreateStruct
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Condition
-     */
     public function addCondition(Rule $rule, APIConditionCreateStruct $conditionCreateStruct)
     {
         if ($rule->isPublished()) {
@@ -752,16 +542,6 @@ class LayoutResolverService extends Service implements APILayoutResolverService
         return $this->mapper->mapCondition($createdCondition);
     }
 
-    /**
-     * Updates a condition.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Condition $condition
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\ConditionUpdateStruct $conditionUpdateStruct
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If condition is not a draft
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Condition
-     */
     public function updateCondition(Condition $condition, APIConditionUpdateStruct $conditionUpdateStruct)
     {
         if ($condition->isPublished()) {
@@ -788,13 +568,6 @@ class LayoutResolverService extends Service implements APILayoutResolverService
         return $this->mapper->mapCondition($updatedCondition);
     }
 
-    /**
-     * Removes a condition.
-     *
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Condition $condition
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If condition is not a draft
-     */
     public function deleteCondition(Condition $condition)
     {
         if ($condition->isPublished()) {
@@ -810,75 +583,36 @@ class LayoutResolverService extends Service implements APILayoutResolverService
         );
     }
 
-    /**
-     * Creates a new rule create struct.
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\RuleCreateStruct
-     */
     public function newRuleCreateStruct()
     {
         return $this->structBuilder->newRuleCreateStruct();
     }
 
-    /**
-     * Creates a new rule update struct.
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\RuleUpdateStruct
-     */
     public function newRuleUpdateStruct()
     {
         return $this->structBuilder->newRuleUpdateStruct();
     }
 
-    /**
-     * Creates a new rule metadata update struct.
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\RuleMetadataUpdateStruct
-     */
     public function newRuleMetadataUpdateStruct()
     {
         return $this->structBuilder->newRuleMetadataUpdateStruct();
     }
 
-    /**
-     * Creates a new target create struct.
-     *
-     * @param string $type
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct
-     */
     public function newTargetCreateStruct($type)
     {
         return $this->structBuilder->newTargetCreateStruct($type);
     }
 
-    /**
-     * Creates a new target update struct.
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct
-     */
     public function newTargetUpdateStruct()
     {
         return $this->structBuilder->newTargetUpdateStruct();
     }
 
-    /**
-     * Creates a new condition create struct.
-     *
-     * @param string $type
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct
-     */
     public function newConditionCreateStruct($type)
     {
         return $this->structBuilder->newConditionCreateStruct($type);
     }
 
-    /**
-     * Creates a new condition update struct.
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\ConditionUpdateStruct
-     */
     public function newConditionUpdateStruct()
     {
         return $this->structBuilder->newConditionUpdateStruct();

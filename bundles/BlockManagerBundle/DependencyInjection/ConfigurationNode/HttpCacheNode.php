@@ -7,11 +7,6 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 class HttpCacheNode implements ConfigurationNodeInterface
 {
-    /**
-     * Returns node definition for HTTP cache configuration.
-     *
-     * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition
-     */
     public function getConfigurationNode()
     {
         $treeBuilder = new TreeBuilder();

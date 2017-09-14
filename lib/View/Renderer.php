@@ -14,12 +14,6 @@ class Renderer implements RendererInterface
      */
     protected $viewRenderer;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\View\ViewBuilderInterface $viewBuilder
-     * @param \Netgen\BlockManager\View\ViewRendererInterface $viewRenderer
-     */
     public function __construct(
         ViewBuilderInterface $viewBuilder,
         ViewRendererInterface $viewRenderer
@@ -28,15 +22,6 @@ class Renderer implements RendererInterface
         $this->viewRenderer = $viewRenderer;
     }
 
-    /**
-     * Renders the value object.
-     *
-     * @param mixed $valueObject
-     * @param string $context
-     * @param array $parameters
-     *
-     * @return string
-     */
     public function renderValueObject($valueObject, $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = array())
     {
         return $this->viewRenderer->renderView(

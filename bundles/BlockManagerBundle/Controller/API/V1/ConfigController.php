@@ -132,9 +132,6 @@ class ConfigController extends Controller
         return $token->getValue();
     }
 
-    /**
-     * Performs access checks on the controller.
-     */
     protected function checkPermissions()
     {
         $this->denyAccessUnlessGranted('ROLE_NGBM_API');

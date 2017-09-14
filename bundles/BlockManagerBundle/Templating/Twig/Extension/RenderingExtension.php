@@ -9,21 +9,11 @@ use Twig\TwigFunction;
 
 class RenderingExtension extends AbstractExtension
 {
-    /**
-     * Returns the name of the extension.
-     *
-     * @return string The extension name
-     */
     public function getName()
     {
         return self::class;
     }
 
-    /**
-     * Returns a list of functions to add to the existing list.
-     *
-     * @return \Twig\TwigFunction[]
-     */
     public function getFunctions()
     {
         return array(
@@ -102,11 +92,6 @@ class RenderingExtension extends AbstractExtension
         );
     }
 
-    /**
-     * Returns the token parser instances to add to the existing list.
-     *
-     * @return \Twig\TokenParser\TokenParserInterface[]
-     */
     public function getTokenParsers()
     {
         return array(new RenderZone());

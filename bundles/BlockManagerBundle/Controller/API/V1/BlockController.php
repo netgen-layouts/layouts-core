@@ -32,13 +32,6 @@ class BlockController extends Controller
      */
     protected $validator;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\API\Service\BlockService $blockService
-     * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
-     * @param \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator $validator
-     */
     public function __construct(
         BlockService $blockService,
         LayoutService $layoutService,
@@ -275,9 +268,6 @@ class BlockController extends Controller
         return $blockCreateStruct;
     }
 
-    /**
-     * Performs access checks on the controller.
-     */
     protected function checkPermissions()
     {
         $this->denyAccessUnlessGranted('ROLE_NGBM_API');

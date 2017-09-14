@@ -34,13 +34,6 @@ class LayoutHandler implements LayoutHandlerInterface
      */
     protected $layoutMapper;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler $queryHandler
-     * @param \Netgen\BlockManager\Persistence\Handler\BlockHandler $blockHandler
-     * @param \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper $layoutMapper
-     */
     public function __construct(
         LayoutQueryHandler $queryHandler,
         BaseBlockHandler $blockHandler,
@@ -51,16 +44,6 @@ class LayoutHandler implements LayoutHandlerInterface
         $this->layoutMapper = $layoutMapper;
     }
 
-    /**
-     * Loads a layout with specified ID.
-     *
-     * @param int|string $layoutId
-     * @param int $status
-     *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID does not exist
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
-     */
     public function loadLayout($layoutId, $status)
     {
         $data = $this->queryHandler->loadLayoutData($layoutId, $status);
@@ -74,17 +57,6 @@ class LayoutHandler implements LayoutHandlerInterface
         return reset($data);
     }
 
-    /**
-     * Loads a zone with specified identifier.
-     *
-     * @param int|string $layoutId
-     * @param int $status
-     * @param string $identifier
-     *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID or zone with specified identifier do not exist
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Layout\Zone
-     */
     public function loadZone($layoutId, $status, $identifier)
     {
         $data = $this->queryHandler->loadZoneData($layoutId, $status, $identifier);
@@ -98,16 +70,6 @@ class LayoutHandler implements LayoutHandlerInterface
         return reset($data);
     }
 
-    /**
-     * Loads all layouts. If $includeDrafts is set to true, drafts which have no
-     * published status will also be included.
-     *
-     * @param bool $includeDrafts
-     * @param int $offset
-     * @param int $limit
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout[]
-     */
     public function loadLayouts($includeDrafts = false, $offset = 0, $limit = null)
     {
         $data = $this->queryHandler->loadLayoutsData($includeDrafts, false, $offset, $limit);
@@ -115,16 +77,6 @@ class LayoutHandler implements LayoutHandlerInterface
         return $this->layoutMapper->mapLayouts($data);
     }
 
-    /**
-     * Loads all shared layouts. If $includeDrafts is set to true, drafts which have no
-     * published status will also be included.
-     *
-     * @param bool $includeDrafts
-     * @param int $offset
-     * @param int $limit
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout[]
-     */
     public function loadSharedLayouts($includeDrafts = false, $offset = 0, $limit = null)
     {
         $data = $this->queryHandler->loadLayoutsData($includeDrafts, true, $offset, $limit);
@@ -132,15 +84,6 @@ class LayoutHandler implements LayoutHandlerInterface
         return $this->layoutMapper->mapLayouts($data);
     }
 
-    /**
-     * Loads all layouts related to provided shared layout.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $sharedLayout
-     * @param int $offset
-     * @param int $limit
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout[]
-     */
     public function loadRelatedLayouts(Layout $sharedLayout, $offset = 0, $limit = null)
     {
         $data = $this->queryHandler->loadRelatedLayoutsData($sharedLayout, $offset, $limit);
@@ -148,52 +91,21 @@ class LayoutHandler implements LayoutHandlerInterface
         return $this->layoutMapper->mapLayouts($data);
     }
 
-    /**
-     * Loads the count of layouts related to provided shared layout.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $sharedLayout
-     *
-     * @return int
-     */
     public function getRelatedLayoutsCount(Layout $sharedLayout)
     {
         return $this->queryHandler->getRelatedLayoutsCount($sharedLayout);
     }
 
-    /**
-     * Returns if layout with specified ID exists.
-     *
-     * @param int|string $layoutId
-     * @param int $status
-     *
-     * @return bool
-     */
     public function layoutExists($layoutId, $status)
     {
         return $this->queryHandler->layoutExists($layoutId, $status);
     }
 
-    /**
-     * Returns if zone with specified identifier exists in the layout.
-     *
-     * @param int|string $layoutId
-     * @param int $status
-     * @param string $identifier
-     *
-     * @return bool
-     */
     public function zoneExists($layoutId, $status, $identifier)
     {
         return $this->queryHandler->zoneExists($layoutId, $status, $identifier);
     }
 
-    /**
-     * Loads all zones that belong to layout with specified ID.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Layout\Zone[]
-     */
     public function loadLayoutZones(Layout $layout)
     {
         return $this->layoutMapper->mapZones(
@@ -201,26 +113,11 @@ class LayoutHandler implements LayoutHandlerInterface
         );
     }
 
-    /**
-     * Returns if layout with provided name exists.
-     *
-     * @param string $name
-     * @param int|string $excludedLayoutId
-     *
-     * @return bool
-     */
     public function layoutNameExists($name, $excludedLayoutId = null)
     {
         return $this->queryHandler->layoutNameExists($name, $excludedLayoutId);
     }
 
-    /**
-     * Creates a layout.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\LayoutCreateStruct $layoutCreateStruct
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
-     */
     public function createLayout(LayoutCreateStruct $layoutCreateStruct)
     {
         $currentTimeStamp = time();
@@ -249,18 +146,6 @@ class LayoutHandler implements LayoutHandlerInterface
         return $newLayout;
     }
 
-    /**
-     * Creates a layout translation.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
-     * @param string $locale
-     * @param string $sourceLocale
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If translation with provided locale already exists
-     *                                                          If translation with provided source locale does not exist
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
-     */
     public function createLayoutTranslation(Layout $layout, $locale, $sourceLocale)
     {
         if (in_array($locale, $layout->availableLocales, true)) {
@@ -285,16 +170,6 @@ class LayoutHandler implements LayoutHandlerInterface
         return $updatedLayout;
     }
 
-    /**
-     * Updates the main translation of the layout.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
-     * @param string $mainLocale
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If provided locale does not exist in the layout
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
-     */
     public function setMainTranslation(Layout $layout, $mainLocale)
     {
         if (!in_array($mainLocale, $layout->availableLocales, true)) {
@@ -322,14 +197,6 @@ class LayoutHandler implements LayoutHandlerInterface
         return $updatedLayout;
     }
 
-    /**
-     * Creates a zone in provided layout.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\ZoneCreateStruct $zoneCreateStruct
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Layout\Zone
-     */
     public function createZone(Layout $layout, ZoneCreateStruct $zoneCreateStruct)
     {
         $rootBlock = $this->blockHandler->createBlock(
@@ -366,14 +233,6 @@ class LayoutHandler implements LayoutHandlerInterface
         return $newZone;
     }
 
-    /**
-     * Updates a layout with specified ID.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\LayoutUpdateStruct $layoutUpdateStruct
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
-     */
     public function updateLayout(Layout $layout, LayoutUpdateStruct $layoutUpdateStruct)
     {
         $updatedLayout = clone $layout;
@@ -395,14 +254,6 @@ class LayoutHandler implements LayoutHandlerInterface
         return $updatedLayout;
     }
 
-    /**
-     * Updates a specified zone.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\Zone $zone
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\ZoneUpdateStruct $zoneUpdateStruct
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Layout\Zone
-     */
     public function updateZone(Zone $zone, ZoneUpdateStruct $zoneUpdateStruct)
     {
         $updatedZone = clone $zone;
@@ -423,14 +274,6 @@ class LayoutHandler implements LayoutHandlerInterface
         return $updatedZone;
     }
 
-    /**
-     * Copies the layout.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\LayoutCopyStruct $layoutCopyStruct
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
-     */
     public function copyLayout(Layout $layout, LayoutCopyStruct $layoutCopyStruct)
     {
         $copiedLayout = clone $layout;
@@ -482,15 +325,6 @@ class LayoutHandler implements LayoutHandlerInterface
         return $copiedLayout;
     }
 
-    /**
-     * Changes the provided layout type.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
-     * @param string $targetLayoutType
-     * @param array $zoneMappings
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
-     */
     public function changeLayoutType(Layout $layout, $targetLayoutType, array $zoneMappings = array())
     {
         $newRootBlocks = array();
@@ -561,14 +395,6 @@ class LayoutHandler implements LayoutHandlerInterface
         return $newLayout;
     }
 
-    /**
-     * Creates a new layout status.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
-     * @param int $newStatus
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
-     */
     public function createLayoutStatus(Layout $layout, $newStatus)
     {
         $currentTimeStamp = time();
@@ -599,12 +425,6 @@ class LayoutHandler implements LayoutHandlerInterface
         return $newLayout;
     }
 
-    /**
-     * Deletes a layout with specified ID.
-     *
-     * @param int|string $layoutId
-     * @param int $status
-     */
     public function deleteLayout($layoutId, $status = null)
     {
         $this->queryHandler->deleteLayoutZones($layoutId, $status);
@@ -613,17 +433,6 @@ class LayoutHandler implements LayoutHandlerInterface
         $this->queryHandler->deleteLayout($layoutId, $status);
     }
 
-    /**
-     * Deletes provided layout translation.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
-     * @param string $locale
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If translation with provided locale does not exist
-     *                                                          If translation with provided locale is the main layout translation
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
-     */
     public function deleteLayoutTranslation(Layout $layout, $locale)
     {
         if (!in_array($locale, $layout->availableLocales, true)) {

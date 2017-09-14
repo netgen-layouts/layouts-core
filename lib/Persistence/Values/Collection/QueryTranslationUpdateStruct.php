@@ -7,6 +7,8 @@ use Netgen\BlockManager\ValueObject;
 class QueryTranslationUpdateStruct extends ValueObject
 {
     /**
+     * New parameter values for the query.
+     *
      * @var array
      */
     public $parameters;

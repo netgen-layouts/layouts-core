@@ -21,11 +21,6 @@ class BlockController extends Controller
      */
     protected $blockService;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\API\Service\BlockService $blockService
-     */
     public function __construct(BlockService $blockService)
     {
         $this->blockService = $blockService;
@@ -214,9 +209,6 @@ class BlockController extends Controller
         );
     }
 
-    /**
-     * Performs access checks on the controller.
-     */
     protected function checkPermissions()
     {
         $this->denyAccessUnlessGranted('ROLE_NGBM_EDITOR');

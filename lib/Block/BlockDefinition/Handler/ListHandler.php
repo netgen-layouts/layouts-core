@@ -13,21 +13,11 @@ class ListHandler extends BlockDefinitionHandler
      */
     protected $columns = array();
 
-    /**
-     * Constructor.
-     *
-     * @param array $columns
-     */
     public function __construct(array $columns = array())
     {
         $this->columns = array_flip($columns);
     }
 
-    /**
-     * Builds the parameters by using provided parameter builder.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $builder
-     */
     public function buildParameters(ParameterBuilderInterface $builder)
     {
         $builder->add(

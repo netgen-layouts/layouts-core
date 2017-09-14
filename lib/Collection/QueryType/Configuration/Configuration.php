@@ -5,6 +5,12 @@ namespace Netgen\BlockManager\Collection\QueryType\Configuration;
 use Netgen\BlockManager\Exception\Collection\QueryTypeException;
 use Netgen\BlockManager\ValueObject;
 
+/**
+ * This class and the corresponding namespace are the object representation
+ * of the query type configuration, which includes basic query type
+ * information (name, identifier) as well as the list of forms available to edit
+ * the query.
+ */
 class Configuration extends ValueObject
 {
     /**

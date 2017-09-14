@@ -7,11 +7,6 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 class LayoutTypeNode implements ConfigurationNodeInterface
 {
-    /**
-     * Returns node definition for layouts.
-     *
-     * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition
-     */
     public function getConfigurationNode()
     {
         $treeBuilder = new TreeBuilder();

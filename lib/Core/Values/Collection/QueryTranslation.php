@@ -20,21 +20,11 @@ class QueryTranslation extends ValueObject implements APIQueryTranslation
      */
     protected $isMainTranslation;
 
-    /**
-     * Returns the translation locale.
-     *
-     * @return string
-     */
     public function getLocale()
     {
         return $this->locale;
     }
 
-    /**
-     * Returns if the translation is the main one in the block.
-     *
-     * @return bool
-     */
     public function isMainTranslation()
     {
         return $this->isMainTranslation;

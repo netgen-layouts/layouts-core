@@ -5,6 +5,11 @@ namespace Netgen\BlockManager\Event;
 use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Component\EventDispatcher\Event;
 
+/**
+ * This event object is used for build_view and render_view events.
+ * It allows modification of template parameters before they are passed
+ * to the template.
+ */
 class CollectViewParametersEvent extends Event
 {
     /**

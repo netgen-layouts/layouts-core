@@ -15,28 +15,18 @@ class ViewRendererListener implements EventSubscriberInterface
      */
     protected $viewRenderer;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\View\ViewRendererInterface $viewRenderer
-     */
     public function __construct(ViewRendererInterface $viewRenderer)
     {
         $this->viewRenderer = $viewRenderer;
     }
 
-    /**
-     * Returns an array of event names this subscriber wants to listen to.
-     *
-     * @return array
-     */
     public static function getSubscribedEvents()
     {
         return array(KernelEvents::VIEW => array('onView', -255));
     }
 
     /**
-     * Renders the view.
+     * Renders the view provided by the event.
      *
      * @param \Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent $event
      */

@@ -12,11 +12,6 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ClearLayoutsCacheType extends AbstractType
 {
-    /**
-     * Configures the options for this type.
-     *
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver The resolver for the options
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
@@ -25,12 +20,6 @@ class ClearLayoutsCacheType extends AbstractType
         $resolver->setAllowedTypes('layouts', 'array');
     }
 
-    /**
-     * Builds the form.
-     *
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder The form builder
-     * @param array $options The options
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add(
@@ -57,13 +46,6 @@ class ClearLayoutsCacheType extends AbstractType
         );
     }
 
-    /**
-     * Builds the form view.
-     *
-     * @param \Symfony\Component\Form\FormView $view
-     * @param \Symfony\Component\Form\FormInterface $form
-     * @param array $options
-     */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $layouts = array();

@@ -48,15 +48,6 @@ class RenderingRuntime
      */
     protected $debug = false;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\API\Service\BlockService $blockService
-     * @param \Netgen\BlockManager\View\RendererInterface $renderer
-     * @param \Netgen\BlockManager\Locale\LocaleProviderInterface $localeProvider
-     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
-     * @param \Psr\Log\LoggerInterface $logger
-     */
     public function __construct(
         BlockService $blockService,
         RendererInterface $renderer,

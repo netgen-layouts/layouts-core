@@ -15,11 +15,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class FullEditType extends TranslatableType
 {
-    /**
-     * Configures the options for this type.
-     *
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver The resolver for the options
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
@@ -39,24 +34,11 @@ class FullEditType extends TranslatableType
         });
     }
 
-    /**
-     * Builds the form view.
-     *
-     * @param \Symfony\Component\Form\FormView $view
-     * @param \Symfony\Component\Form\FormInterface $form
-     * @param array $options
-     */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars['query'] = $options['query'];
     }
 
-    /**
-     * Builds the form.
-     *
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder The form builder
-     * @param array $options The options
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $locale = $options['data']->locale;

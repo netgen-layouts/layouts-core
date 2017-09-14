@@ -19,23 +19,12 @@ class SetAdminPageLayoutListener implements EventSubscriberInterface
      */
     protected $defaultTemplate;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\Bundle\BlockManagerAdminBundle\Templating\Twig\GlobalVariable $globalVariable
-     * @param string $defaultTemplate
-     */
     public function __construct(GlobalVariable $globalVariable, $defaultTemplate)
     {
         $this->globalVariable = $globalVariable;
         $this->defaultTemplate = $defaultTemplate;
     }
 
-    /**
-     * Returns an array of event names this subscriber wants to listen to.
-     *
-     * @return array
-     */
     public static function getSubscribedEvents()
     {
         return array(BlockManagerAdminEvents::ADMIN_MATCH => array('onAdminMatch', -65535));

@@ -73,14 +73,6 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
         return $this->plugins;
     }
 
-    /**
-     * Loads a specific configuration.
-     *
-     * @param array $configs
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     *
-     * @throws \InvalidArgumentException When provided tag is not defined in this extension
-     */
     public function load(array $configs, ContainerBuilder $container)
     {
         $extensionAlias = $this->getAlias();
@@ -107,11 +99,6 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
         }
     }
 
-    /**
-     * Allow an extension to prepend the extension configurations.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
     public function prepend(ContainerBuilder $container)
     {
         $prependConfigs = array(
@@ -148,14 +135,6 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
         }
     }
 
-    /**
-     * Returns extension configuration.
-     *
-     * @param array $config
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     *
-     * @return \Symfony\Component\Config\Definition\ConfigurationInterface
-     */
     public function getConfiguration(array $config, ContainerBuilder $container)
     {
         return new Configuration($this);

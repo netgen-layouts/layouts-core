@@ -7,7 +7,7 @@ use Netgen\BlockManager\ValueObject;
 class RuleCreateStruct extends ValueObject
 {
     /**
-     * The ID of the layout to which the rule will be linked.
+     * The ID of the layout to which the rule will be mapped.
      *
      * @var int|string
      */

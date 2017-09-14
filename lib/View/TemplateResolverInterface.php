@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\View;
 interface TemplateResolverInterface
 {
     /**
-     * Resolves a view template.
+     * Resolves a view template from the matching configuration.
      *
      * @param \Netgen\BlockManager\View\ViewInterface $view
      */

@@ -22,11 +22,6 @@ class Configuration implements ConfigurationInterface
         $this->extension = $extension;
     }
 
-    /**
-     * Generates the configuration tree builder.
-     *
-     * @return \Symfony\Component\Config\Definition\Builder\TreeBuilder
-     */
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();

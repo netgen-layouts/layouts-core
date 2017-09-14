@@ -7,11 +7,6 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 class ApiKeysNode implements ConfigurationNodeInterface
 {
-    /**
-     * Returns node definition for Google Maps.
-     *
-     * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition
-     */
     public function getConfigurationNode()
     {
         $treeBuilder = new TreeBuilder();

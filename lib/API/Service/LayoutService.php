@@ -34,7 +34,7 @@ interface LayoutService extends Service
     public function loadLayoutDraft($layoutId);
 
     /**
-     * Loads all layouts. If $includeDrafts is set to true, drafts which have no
+     * Loads all published layouts. If $includeDrafts is set to true, drafts which have no
      * published status will also be included.
      *
      * @param bool $includeDrafts
@@ -46,7 +46,7 @@ interface LayoutService extends Service
     public function loadLayouts($includeDrafts = false, $offset = 0, $limit = null);
 
     /**
-     * Loads all shared layouts. If $includeDrafts is set to true, drafts which have no
+     * Loads all published shared layouts. If $includeDrafts is set to true, drafts which have no
      * published status will also be included.
      *
      * @param bool $includeDrafts
@@ -58,7 +58,7 @@ interface LayoutService extends Service
     public function loadSharedLayouts($includeDrafts = false, $offset = 0, $limit = null);
 
     /**
-     * Loads all layouts related to provided shared layout.
+     * Loads all published layouts related to provided shared layout.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $sharedLayout
      * @param int $offset
@@ -72,7 +72,7 @@ interface LayoutService extends Service
     public function loadRelatedLayouts(Layout $sharedLayout, $offset = 0, $limit = null);
 
     /**
-     * Loads the count of layouts related to provided shared layout.
+     * Returns the count of published layouts related to provided shared layout.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $sharedLayout
      *
@@ -119,6 +119,8 @@ interface LayoutService extends Service
     /**
      * Returns if layout with provided name exists.
      *
+     * If $excludedLayoutId is provided, the check will not apply to the provided ID.
+     *
      * @param string $name
      * @param int|string $excludedLayoutId
      *
@@ -143,7 +145,7 @@ interface LayoutService extends Service
     public function linkZone(Zone $zone, Zone $linkedZone);
 
     /**
-     * Removes the link in the zone.
+     * Removes the existing zone link from the provided zone.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
      *
@@ -167,7 +169,7 @@ interface LayoutService extends Service
     /**
      * Adds a translation with provided locale to the layout.
      *
-     * Data for the new translation will be copied from the translation with provided source locale.
+     * Data for the new translation will be copied from the translation with provided $sourceLocale.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      * @param string $locale
@@ -197,7 +199,7 @@ interface LayoutService extends Service
     /**
      * Removes the translation with provided locale from the layout and all blocks.
      *
-     * If the translation is the only one for the block, the block is removed too.
+     * If the translation is the only one for the block, the block will be removed too.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      * @param string $locale
@@ -299,7 +301,7 @@ interface LayoutService extends Service
     public function deleteLayout(Layout $layout);
 
     /**
-     * Creates a new layout create struct.
+     * Creates a new layout create struct from the provided values.
      *
      * @param \Netgen\BlockManager\Layout\Type\LayoutType $layoutType
      * @param string $name
@@ -312,6 +314,8 @@ interface LayoutService extends Service
     /**
      * Creates a new layout update struct.
      *
+     * If the layout is provided, initial data is copied from the layout.
+     *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      *
      * @return \Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct
@@ -320,6 +324,8 @@ interface LayoutService extends Service
 
     /**
      * Creates a new layout copy struct.
+     *
+     * If the layout is provided, initial data is copied from the layout.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      *

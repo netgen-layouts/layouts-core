@@ -14,7 +14,9 @@ class BlockUpdateStruct extends ValueObject implements ParameterStruct, ConfigAw
     use ConfigAwareStructTrait;
 
     /**
-     * The locale which will be updated. Required.
+     * The locale which will be updated.
+     *
+     * Required.
      *
      * @var string
      */

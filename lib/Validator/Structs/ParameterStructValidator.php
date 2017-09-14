@@ -12,6 +12,10 @@ use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
+/**
+ * Validates the parameters stored inside the value object
+ * implementing ParameterStruct interface.
+ */
 class ParameterStructValidator extends ConstraintValidator
 {
     /**
@@ -19,22 +23,11 @@ class ParameterStructValidator extends ConstraintValidator
      */
     protected $parameterFilterRegistry;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistryInterface $parameterFilterRegistry
-     */
     public function __construct(ParameterFilterRegistryInterface $parameterFilterRegistry)
     {
         $this->parameterFilterRegistry = $parameterFilterRegistry;
     }
 
-    /**
-     * Checks if the passed value is valid.
-     *
-     * @param mixed $value The value that should be validated
-     * @param \Symfony\Component\Validator\Constraint $constraint The constraint for the validation
-     */
     public function validate($value, Constraint $constraint)
     {
         if (!$constraint instanceof ParameterStructConstraint) {

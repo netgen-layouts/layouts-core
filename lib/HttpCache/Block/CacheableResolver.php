@@ -33,15 +33,6 @@ class CacheableResolver implements CacheableResolverInterface
         $this->voters = $voters;
     }
 
-    /**
-     * Returns if the block is cacheable by HTTP caches.
-     *
-     * In all other caches, block is cacheable.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     *
-     * @return mixed
-     */
     public function isCacheable(Block $block)
     {
         foreach ($this->voters as $voter) {

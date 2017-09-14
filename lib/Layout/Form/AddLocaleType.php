@@ -18,21 +18,11 @@ class AddLocaleType extends AbstractType
      */
     protected $localeProvider;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Locale\LocaleProviderInterface $localeProvider
-     */
     public function __construct(LocaleProviderInterface $localeProvider)
     {
         $this->localeProvider = $localeProvider;
     }
 
-    /**
-     * Configures the options for this type.
-     *
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver The resolver for the options
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
@@ -43,12 +33,6 @@ class AddLocaleType extends AbstractType
         $resolver->setDefault('translation_domain', 'ngbm_forms');
     }
 
-    /**
-     * Builds the form.
-     *
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder The form builder
-     * @param array $options The options
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $newLocales = array();

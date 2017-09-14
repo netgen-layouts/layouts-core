@@ -2,6 +2,9 @@
 
 namespace Netgen\BlockManager\HttpCache\Layout;
 
+/**
+ * ID provider is used to extract all related layout IDs for the provided ID.
+ */
 interface IdProviderInterface
 {
     /**

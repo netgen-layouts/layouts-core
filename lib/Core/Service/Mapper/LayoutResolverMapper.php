@@ -36,14 +36,6 @@ class LayoutResolverMapper
      */
     protected $conditionTypeRegistry;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
-     * @param \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper $layoutMapper
-     * @param \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface $targetTypeRegistry
-     * @param \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface $conditionTypeRegistry
-     */
     public function __construct(
         Handler $persistenceHandler,
         LayoutMapper $layoutMapper,

@@ -8,11 +8,6 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class CacheManagerPass implements CompilerPassInterface
 {
-    /**
-     * You can modify the container here before it is dumped to PHP code.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container)
     {
         if (

@@ -7,11 +7,6 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 class AppNode implements ConfigurationNodeInterface
 {
-    /**
-     * Returns node definition for admin interface.
-     *
-     * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition
-     */
     public function getConfigurationNode()
     {
         $treeBuilder = new TreeBuilder();

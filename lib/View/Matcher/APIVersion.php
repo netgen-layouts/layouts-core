@@ -4,16 +4,12 @@ namespace Netgen\BlockManager\View\Matcher;
 
 use Netgen\BlockManager\View\ViewInterface;
 
+/**
+ * This matcher matches if the view has an `api_version`
+ * parameter with the value specified in the configuration.
+ */
 class APIVersion implements MatcherInterface
 {
-    /**
-     * Returns if the view matches the config.
-     *
-     * @param \Netgen\BlockManager\View\ViewInterface $view
-     * @param array $config
-     *
-     * @return bool
-     */
     public function match(ViewInterface $view, array $config)
     {
         if (!$view->hasParameter('api_version')) {

@@ -18,21 +18,11 @@ class RequestBodyListener implements EventSubscriberInterface
      */
     protected $decoder;
 
-    /**
-     * Constructor.
-     *
-     * @param \Symfony\Component\Serializer\Encoder\DecoderInterface $decoder
-     */
     public function __construct(DecoderInterface $decoder)
     {
         $this->decoder = $decoder;
     }
 
-    /**
-     * Returns an array of event names this subscriber wants to listen to.
-     *
-     * @return array
-     */
     public static function getSubscribedEvents()
     {
         return array(KernelEvents::REQUEST => 'onKernelRequest');

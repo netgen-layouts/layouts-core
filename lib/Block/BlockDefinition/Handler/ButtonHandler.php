@@ -18,23 +18,12 @@ class ButtonHandler extends BlockDefinitionHandler
      */
     protected $valueTypes = array();
 
-    /**
-     * Constructor.
-     *
-     * @param array $styles
-     * @param array $valueTypes
-     */
     public function __construct(array $styles = array(), array $valueTypes = array())
     {
         $this->styles = array_flip($styles);
         $this->valueTypes = $valueTypes;
     }
 
-    /**
-     * Builds the parameters by using provided parameter builder.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $builder
-     */
     public function buildParameters(ParameterBuilderInterface $builder)
     {
         $builder->add(

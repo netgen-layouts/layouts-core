@@ -9,6 +9,8 @@ class LayoutCopyStruct extends ValueObject
     /**
      * Human readable name of the copied layout.
      *
+     * Required.
+     *
      * @var string
      */
     public $name;

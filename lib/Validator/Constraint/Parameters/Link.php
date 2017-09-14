@@ -7,20 +7,19 @@ use Symfony\Component\Validator\Constraint;
 class Link extends Constraint
 {
     /**
+     * If true, link value cannot be empty.
+     *
      * @var bool
      */
     public $required = false;
 
     /**
+     * If not empty, will limit valid value types to the specified list.
+     *
      * @var array
      */
     public $valueTypes = array();
 
-    /**
-     * Returns the name of the class that validates this constraint.
-     *
-     * @return string
-     */
     public function validatedBy()
     {
         return 'ngbm_link';

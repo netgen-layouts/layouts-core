@@ -38,11 +38,6 @@ class ConditionType extends AbstractType
         $this->mappers = $mappers;
     }
 
-    /**
-     * Configures the options for this type.
-     *
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver The resolver for the options
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
@@ -52,12 +47,6 @@ class ConditionType extends AbstractType
         $resolver->setAllowedTypes('data', ConditionStruct::class);
     }
 
-    /**
-     * Builds the form.
-     *
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder The form builder
-     * @param array $options The options
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         /** @var \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface $conditionType */

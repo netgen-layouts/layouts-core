@@ -11,7 +11,7 @@ use Netgen\BlockManager\Layout\Type\LayoutType;
 class LayoutStructBuilder
 {
     /**
-     * Creates a new layout create struct.
+     * Creates a new layout create struct from the provided values.
      *
      * @param \Netgen\BlockManager\Layout\Type\LayoutType $layoutType
      * @param string $name
@@ -33,6 +33,8 @@ class LayoutStructBuilder
     /**
      * Creates a new layout update struct.
      *
+     * If the layout is provided, initial data is copied from the layout.
+     *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      *
      * @return \Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct
@@ -53,6 +55,8 @@ class LayoutStructBuilder
 
     /**
      * Creates a new layout copy struct.
+     *
+     * If the layout is provided, initial data is copied from the layout.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      *

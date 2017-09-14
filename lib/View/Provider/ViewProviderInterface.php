@@ -2,6 +2,12 @@
 
 namespace Netgen\BlockManager\View\Provider;
 
+/**
+ * For every view, an instance of this interface needs to be implemented with
+ * creates the view based on provided value object and parameters.
+ *
+ * Basically, implementations of this interface are view factories.
+ */
 interface ViewProviderInterface
 {
     /**

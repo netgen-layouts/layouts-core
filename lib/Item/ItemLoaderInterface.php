@@ -2,6 +2,9 @@
 
 namespace Netgen\BlockManager\Item;
 
+/**
+ * Item loader is a central point for loading value objects from CMS.
+ */
 interface ItemLoaderInterface
 {
     /**

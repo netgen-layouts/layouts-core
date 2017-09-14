@@ -47,15 +47,6 @@ class LayoutResolverController extends Controller
      */
     protected $validator;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\API\Service\LayoutResolverService $layoutResolverService
-     * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
-     * @param \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface $targetTypeRegistry
-     * @param \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface $conditionTypeRegistry
-     * @param \Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Validator\LayoutResolverValidator $validator
-     */
     public function __construct(
         LayoutResolverService $layoutResolverService,
         LayoutService $layoutService,
@@ -545,9 +536,6 @@ class LayoutResolverController extends Controller
         );
     }
 
-    /**
-     * Performs access checks on the controller.
-     */
     protected function checkPermissions()
     {
         $this->denyAccessUnlessGranted('ROLE_NGBM_ADMIN');

@@ -10,6 +10,9 @@ use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
+/**
+ * Parameter type used to store and validate a link to an existing item in the system.
+ */
 class ItemLinkType extends ParameterType
 {
     /**
@@ -17,31 +20,16 @@ class ItemLinkType extends ParameterType
      */
     protected $valueTypeRegistry;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface $valueTypeRegistry
-     */
     public function __construct(ValueTypeRegistryInterface $valueTypeRegistry)
     {
         $this->valueTypeRegistry = $valueTypeRegistry;
     }
 
-    /**
-     * Returns the parameter type identifier.
-     *
-     * @return string
-     */
     public function getIdentifier()
     {
         return 'item_link';
     }
 
-    /**
-     * Configures the options for this parameter.
-     *
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
-     */
     public function configureOptions(OptionsResolver $optionsResolver)
     {
         $optionsResolver->setRequired(array('value_types'));
@@ -62,14 +50,6 @@ class ItemLinkType extends ParameterType
         );
     }
 
-    /**
-     * Returns if the parameter value is empty.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
-     * @param mixed $value
-     *
-     * @return bool
-     */
     public function isValueEmpty(ParameterInterface $parameter, $value)
     {
         $parsedValue = parse_url($value);
@@ -77,14 +57,6 @@ class ItemLinkType extends ParameterType
         return empty($parsedValue['scheme']) || empty($parsedValue['host']);
     }
 
-    /**
-     * Returns constraints that will be used to validate the parameter value.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
-     * @param mixed $value
-     *
-     * @return \Symfony\Component\Validator\Constraint[]
-     */
     protected function getValueConstraints(ParameterInterface $parameter, $value)
     {
         return array(

@@ -22,11 +22,6 @@ class ContainerRuntimeLoader implements RuntimeLoaderInterface
      */
     protected $runtimeMap = array();
 
-    /**
-     * Constructor.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
-     */
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;

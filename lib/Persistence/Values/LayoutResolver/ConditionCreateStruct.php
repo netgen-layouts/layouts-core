@@ -7,11 +7,15 @@ use Netgen\BlockManager\ValueObject;
 class ConditionCreateStruct extends ValueObject
 {
     /**
+     * Identifier of the condition type.
+     *
      * @var string
      */
     public $type;
 
     /**
+     * Condition value. Can be a scalar or a multidimensional array of scalars.
+     *
      * @var mixed
      */
     public $value;

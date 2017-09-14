@@ -8,23 +8,18 @@ use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
+/**
+ * Parameter type used to store and validate a selection option.
+ *
+ * It can have a single value (string) or a multiple value (array of strings).
+ */
 class ChoiceType extends ParameterType
 {
-    /**
-     * Returns the parameter type identifier.
-     *
-     * @return string
-     */
     public function getIdentifier()
     {
         return 'choice';
     }
 
-    /**
-     * Configures the options for this parameter.
-     *
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
-     */
     public function configureOptions(OptionsResolver $optionsResolver)
     {
         $optionsResolver->setDefault('multiple', false);
@@ -59,14 +54,6 @@ class ChoiceType extends ParameterType
         );
     }
 
-    /**
-     * Converts the provided parameter value to value usable by the domain.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
-     * @param mixed $value
-     *
-     * @return mixed
-     */
     public function fromHash(ParameterInterface $parameter, $value)
     {
         if ($value === null || $value === array()) {
@@ -80,27 +67,11 @@ class ChoiceType extends ParameterType
         return is_array($value) ? array_values($value)[0] : $value;
     }
 
-    /**
-     * Returns if the parameter value is empty.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
-     * @param mixed $value
-     *
-     * @return bool
-     */
     public function isValueEmpty(ParameterInterface $parameter, $value)
     {
         return $value === null || $value === array();
     }
 
-    /**
-     * Returns constraints that will be used to validate the parameter value.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
-     * @param mixed $value
-     *
-     * @return \Symfony\Component\Validator\Constraint[]
-     */
     protected function getValueConstraints(ParameterInterface $parameter, $value)
     {
         $options = $parameter->getOptions();

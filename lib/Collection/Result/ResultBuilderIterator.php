@@ -11,6 +11,9 @@ use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Item\NullItem;
 
+/**
+ * This iterator builds a result object from the collection item.
+ */
 class ResultBuilderIterator extends IteratorIterator
 {
     /**
@@ -23,13 +26,6 @@ class ResultBuilderIterator extends IteratorIterator
      */
     protected $itemBuilder;
 
-    /**
-     * Constructor.
-     *
-     * @param \Iterator $iterator
-     * @param \Netgen\BlockManager\Item\ItemLoaderInterface $itemLoader
-     * @param \Netgen\BlockManager\Item\ItemBuilderInterface $itemBuilder
-     */
     public function __construct(
         Iterator $iterator,
         ItemLoaderInterface $itemLoader,

@@ -25,11 +25,6 @@ class ContextualQueryIterator extends QueryIterator
         parent::__construct($query);
     }
 
-    /**
-     * Count elements of an object.
-     *
-     * @return int
-     */
     public function count()
     {
         $count = $this->query->getInternalLimit();
@@ -40,11 +35,6 @@ class ContextualQueryIterator extends QueryIterator
         return $count;
     }
 
-    /**
-     * Returns an iterator that iterates over the collection query.
-     *
-     * @return \Iterator
-     */
     protected function buildIterator()
     {
         $queryValues = iterator_to_array(

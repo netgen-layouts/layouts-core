@@ -7,14 +7,14 @@ use Netgen\BlockManager\API\Values\Value;
 interface Zone extends Value
 {
     /**
-     * Returns zone identifier.
+     * Returns the zone identifier.
      *
      * @return string
      */
     public function getIdentifier();
 
     /**
-     * Returns the layout ID to which this zone belongs.
+     * Returns the ID of the layout to which this zone belongs.
      *
      * @return int|string
      */

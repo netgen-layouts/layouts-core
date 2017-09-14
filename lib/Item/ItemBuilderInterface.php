@@ -2,6 +2,10 @@
 
 namespace Netgen\BlockManager\Item;
 
+/**
+ * Item builder is a service used as a central point for building items
+ * from provided CMS value objects.
+ */
 interface ItemBuilderInterface
 {
     /**

@@ -9,15 +9,6 @@ use Twig\TokenParser\AbstractTokenParser;
 
 class RenderZone extends AbstractTokenParser
 {
-    /**
-     * Parses a token and returns a node.
-     *
-     * @param \Twig\Token $token
-     *
-     * @throws \Twig\Error\SyntaxError
-     *
-     * @return \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderZone
-     */
     public function parse(Token $token)
     {
         $stream = $this->parser->getStream();
@@ -51,11 +42,6 @@ class RenderZone extends AbstractTokenParser
         return new RenderZoneNode($zone, $context, $token->getLine(), $this->getTag());
     }
 
-    /**
-     * Gets the tag name associated with this token parser.
-     *
-     * @return string
-     */
     public function getTag()
     {
         return 'ngbm_render_zone';

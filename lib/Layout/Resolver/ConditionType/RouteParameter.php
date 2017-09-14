@@ -8,21 +8,11 @@ use Symfony\Component\Validator\Constraints;
 
 class RouteParameter implements ConditionTypeInterface
 {
-    /**
-     * Returns the condition type.
-     *
-     * @return string
-     */
     public function getType()
     {
         return 'route_parameter';
     }
 
-    /**
-     * Returns the constraints that will be used to validate the condition value.
-     *
-     * @return \Symfony\Component\Validator\Constraint[]
-     */
     public function getConstraints()
     {
         return array(
@@ -56,14 +46,6 @@ class RouteParameter implements ConditionTypeInterface
         );
     }
 
-    /**
-     * Returns if this request matches the provided value.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param mixed $value
-     *
-     * @return bool
-     */
     public function matches(Request $request, $value)
     {
         if (!is_array($value)) {

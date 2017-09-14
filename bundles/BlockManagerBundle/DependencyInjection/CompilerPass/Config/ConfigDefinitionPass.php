@@ -17,11 +17,6 @@ class ConfigDefinitionPass implements CompilerPassInterface
 
     protected $seenConfigKeys = array();
 
-    /**
-     * You can modify the container here before it is dumped to PHP code.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container)
     {
         foreach (self::TAG_NAMES as $type => $tagName) {

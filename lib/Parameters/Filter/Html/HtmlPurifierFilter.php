@@ -6,6 +6,9 @@ use HTMLPurifier;
 use HTMLPurifier_Config;
 use Netgen\BlockManager\Parameters\ParameterFilterInterface;
 
+/**
+ * Filter used to remove all unsafe HTML from the provided value.
+ */
 class HtmlPurifierFilter implements ParameterFilterInterface
 {
     /**
@@ -18,9 +21,6 @@ class HtmlPurifierFilter implements ParameterFilterInterface
      */
     protected $purifier;
 
-    /**
-     * Constructor.
-     */
     public function __construct()
     {
         $this->config = HTMLPurifier_Config::createDefault();
@@ -28,13 +28,6 @@ class HtmlPurifierFilter implements ParameterFilterInterface
         $this->purifier = new HTMLPurifier($this->config);
     }
 
-    /**
-     * Filters the parameter value.
-     *
-     * @param mixed $value
-     *
-     * @return mixed
-     */
     public function filter($value)
     {
         return $this->purifier->purify($value);

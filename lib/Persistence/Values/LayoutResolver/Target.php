@@ -7,27 +7,37 @@ use Netgen\BlockManager\Persistence\Values\Value;
 class Target extends Value
 {
     /**
+     * Target ID.
+     *
      * @var int|string
      */
     public $id;
 
     /**
+     * Target status. One of self::STATUS_* flags.
+     *
      * @var int
      */
     public $status;
 
     /**
+     * ID of the rule where this target is located.
+     *
      * @var int|string
      */
     public $ruleId;
 
     /**
+     * Identifier of the target type.
+     *
      * @var string
      */
     public $type;
 
     /**
-     * @var mixed
+     * Target value.
+     *
+     * @var int|string
      */
     public $value;
 }

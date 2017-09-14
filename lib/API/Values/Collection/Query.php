@@ -15,7 +15,7 @@ interface Query extends Value, ParameterBasedValue
     public function getId();
 
     /**
-     * Returns the collection ID the query is in.
+     * Returns the ID of the collection to which this query belongs.
      *
      * @return int|string
      */
@@ -29,7 +29,11 @@ interface Query extends Value, ParameterBasedValue
     public function isPublished();
 
     /**
-     * Returns the limit internal to the query.
+     * Returns the internal limit of the query.
+     *
+     * This limit is used to signal to the system how many items
+     * will the query produce at maximum. If this value is null, query
+     * will return the unknown (or rather unlimited) number of items.
      *
      * @return int
      */
@@ -71,7 +75,7 @@ interface Query extends Value, ParameterBasedValue
     public function isTranslatable();
 
     /**
-     * Returns if the main translation of the query is used
+     * Returns if the main translation of the query will be used
      * in case there are no prioritized translations.
      *
      * @return bool
@@ -90,7 +94,7 @@ interface Query extends Value, ParameterBasedValue
     /**
      * Returns a query translation in specified locale.
      *
-     * If locale is not specified, first locale in the list of available locales is used.
+     * If locale is not specified, first locale in the list of available locales is returned.
      *
      * @param string $locale
      *

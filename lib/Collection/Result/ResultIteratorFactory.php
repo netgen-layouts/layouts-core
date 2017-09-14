@@ -19,12 +19,6 @@ class ResultIteratorFactory
      */
     protected $itemBuilder;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Item\ItemLoaderInterface $itemLoader
-     * @param \Netgen\BlockManager\Item\ItemBuilderInterface $itemBuilder
-     */
     public function __construct(
         ItemLoaderInterface $itemLoader,
         ItemBuilderInterface $itemBuilder
@@ -34,7 +28,7 @@ class ResultIteratorFactory
     }
 
     /**
-     * Builds and returns result iterator from provided iterator.
+     * Builds and returns result iterator from provided collection iterator.
      *
      * @param \Iterator $iterator
      * @param int $offset

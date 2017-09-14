@@ -2,6 +2,12 @@
 
 namespace Netgen\BlockManager\Serializer\Values;
 
+/**
+ * Represents a serialized version of a view object.
+ *
+ * Allows rendering the view and injecting the rendered HTML in
+ * the serialization output.
+ */
 interface ViewInterface extends VersionedValueInterface
 {
     /**

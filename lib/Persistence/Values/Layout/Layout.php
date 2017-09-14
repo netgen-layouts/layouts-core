@@ -56,14 +56,14 @@ class Layout extends Value
     public $modified;
 
     /**
-     * Returns the main locale of this layout.
+     * Main locale of this layout.
      *
      * @var string
      */
     public $mainLocale;
 
     /**
-     * Returns the list of all locales available in this layout.
+     * List of all locales available in this layout.
      *
      * @var string[]
      */

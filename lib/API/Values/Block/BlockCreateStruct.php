@@ -16,6 +16,8 @@ class BlockCreateStruct extends ValueObject implements ParameterStruct, ConfigAw
     /**
      * Block definition to create the new block from.
      *
+     * Required.
+     *
      * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
     public $definition;
@@ -23,12 +25,16 @@ class BlockCreateStruct extends ValueObject implements ParameterStruct, ConfigAw
     /**
      * View type of the new block.
      *
+     * Required.
+     *
      * @var string
      */
     public $viewType;
 
     /**
      * Item view type of the new block.
+     *
+     * Required.
      *
      * @var string
      */
@@ -44,12 +50,16 @@ class BlockCreateStruct extends ValueObject implements ParameterStruct, ConfigAw
     /**
      * Specifies if the block will be translatable.
      *
+     * Required.
+     *
      * @var bool
      */
     public $isTranslatable;
 
     /**
      * Specifies if the block will be always available.
+     *
+     * Required.
      *
      * @var bool
      */

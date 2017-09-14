@@ -24,7 +24,7 @@ class Item extends Value
     public $id;
 
     /**
-     * Collection ID to which this item belongs.
+     * ID of the collection to which this item belongs.
      *
      * @var int|string
      */
@@ -45,14 +45,14 @@ class Item extends Value
     public $type;
 
     /**
-     * ID of value this item holds.
+     * ID of value from CMS this item wraps.
      *
      * @var int|string
      */
     public $valueId;
 
     /**
-     * Type of value this item holds.
+     * Type of value from CMS this item wraps.
      *
      * @var string
      */

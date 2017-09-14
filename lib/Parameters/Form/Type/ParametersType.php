@@ -18,21 +18,11 @@ class ParametersType extends AbstractType
      */
     protected $formMapperRegistry;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Parameters\Registry\FormMapperRegistryInterface $formMapperRegistry
-     */
     public function __construct(FormMapperRegistryInterface $formMapperRegistry)
     {
         $this->formMapperRegistry = $formMapperRegistry;
     }
 
-    /**
-     * Configures the options for this type.
-     *
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver The resolver for the options
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
@@ -53,12 +43,6 @@ class ParametersType extends AbstractType
         $resolver->setDefault('groups', array());
     }
 
-    /**
-     * Builds the form.
-     *
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder
-     * @param array $options
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         /** @var \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection */
@@ -108,7 +92,7 @@ class ParametersType extends AbstractType
     }
 
     /**
-     * Returns if the parameter will be included in the form.
+     * Returns if the parameter will be included in the form based on provided groups.
      *
      * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
      * @param array $groups

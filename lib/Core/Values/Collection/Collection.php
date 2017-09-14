@@ -58,199 +58,99 @@ class Collection extends ValueObject implements APICollection
      */
     protected $alwaysAvailable;
 
-    /**
-     * Returns the collection ID.
-     *
-     * @return int|string
-     */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * Returns the status of the value.
-     *
-     * @return int
-     */
     public function getStatus()
     {
         return $this->status;
     }
 
-    /**
-     * Returns the collection type.
-     *
-     * @return int
-     */
     public function getType()
     {
         return $this->type;
     }
 
-    /**
-     * Returns if the collection is published.
-     *
-     * @return bool
-     */
     public function isPublished()
     {
         return $this->published;
     }
 
-    /**
-     * Returns all collection items.
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item[]
-     */
     public function getItems()
     {
         return $this->items;
     }
 
-    /**
-     * Returns if the collection has a manual item at specified position.
-     *
-     * @param int $position
-     *
-     * @return bool
-     */
     public function hasManualItem($position)
     {
         return $this->hasItem(Item::TYPE_MANUAL, $position);
     }
 
-    /**
-     * Returns the manual item at specified position.
-     *
-     * @param int $position
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item
-     */
     public function getManualItem($position)
     {
         return $this->getItem(Item::TYPE_MANUAL, $position);
     }
 
-    /**
-     * Returns the manual items.
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item[]
-     */
     public function getManualItems()
     {
         return $this->filterItems(Item::TYPE_MANUAL);
     }
 
-    /**
-     * Returns if the collection has an override item at specified position.
-     *
-     * @param int $position
-     *
-     * @return bool
-     */
     public function hasOverrideItem($position)
     {
         return $this->hasItem(Item::TYPE_OVERRIDE, $position);
     }
 
-    /**
-     * Returns the override item at specified position.
-     *
-     * @param int $position
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item
-     */
     public function getOverrideItem($position)
     {
         return $this->getItem(Item::TYPE_OVERRIDE, $position);
     }
 
-    /**
-     * Returns the override items.
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item[]
-     */
     public function getOverrideItems()
     {
         return $this->filterItems(Item::TYPE_OVERRIDE);
     }
 
-    /**
-     * Returns the query from the collection.
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Query
-     */
     public function getQuery()
     {
         return $this->query;
     }
 
-    /**
-     * Returns if the query exists in the collection.
-     *
-     * @return bool
-     */
     public function hasQuery()
     {
         return $this->query instanceof APIQuery;
     }
 
-    /**
-     * Returns the list of all available locales in the collection.
-     *
-     * @return string[]
-     */
     public function getAvailableLocales()
     {
         return $this->availableLocales;
     }
 
-    /**
-     * Returns the main locale for the collection.
-     *
-     * @return string
-     */
     public function getMainLocale()
     {
         return $this->mainLocale;
     }
 
-    /**
-     * Returns if the collection has the provided locale.
-     *
-     * @param string $locale
-     *
-     * @return bool
-     */
     public function hasLocale($locale)
     {
         return in_array($locale, $this->availableLocales, true);
     }
 
-    /**
-     * Returns if the collection is translatable.
-     *
-     * @return bool
-     */
     public function isTranslatable()
     {
         return $this->isTranslatable;
     }
 
-    /**
-     * Returns if the main translation of the collection is used
-     * in case there are no prioritized translations.
-     *
-     * @return bool
-     */
     public function isAlwaysAvailable()
     {
         return $this->alwaysAvailable;
     }
 
     /**
-     * Returns if the item exists at specified position.
+     * Returns if the item with specified type (manual or override)
+     * exists at specified position.
      *
      * @param int $type
      * @param int $position
@@ -269,7 +169,8 @@ class Collection extends ValueObject implements APICollection
     }
 
     /**
-     * Returns the item at specified position.
+     * Returns the item of specified type (manual or override)
+     * at specified position.
      *
      * @param int $type
      * @param int $position
@@ -286,7 +187,7 @@ class Collection extends ValueObject implements APICollection
     }
 
     /**
-     * Returns all items of specified type.
+     * Returns all items of specified type (manual or override).
      *
      * @param int $type
      *

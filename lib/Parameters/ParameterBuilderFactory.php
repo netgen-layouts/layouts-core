@@ -13,23 +13,11 @@ class ParameterBuilderFactory implements ParameterBuilderFactoryInterface
      */
     protected $parameterTypeRegistry;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface $parameterTypeRegistry
-     */
     public function __construct(ParameterTypeRegistryInterface $parameterTypeRegistry)
     {
         $this->parameterTypeRegistry = $parameterTypeRegistry;
     }
 
-    /**
-     * Returns the new instance of parameter builder.
-     *
-     * @param array $config
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface
-     */
     public function createParameterBuilder(array $config = array())
     {
         $config = $this->resolveOptions($config);

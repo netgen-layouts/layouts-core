@@ -11,11 +11,6 @@ class ConfigDefinitionFactory
      */
     protected $parameterBuilderFactory;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface $parameterBuilderFactory
-     */
     public function __construct(ParameterBuilderFactoryInterface $parameterBuilderFactory)
     {
         $this->parameterBuilderFactory = $parameterBuilderFactory;

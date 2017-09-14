@@ -16,28 +16,19 @@ class RelatedLayoutsCountListener implements EventSubscriberInterface
      */
     protected $layoutService;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
-     */
     public function __construct(LayoutService $layoutService)
     {
         $this->layoutService = $layoutService;
     }
 
-    /**
-     * Returns an array of event names this subscriber wants to listen to.
-     *
-     * @return array
-     */
     public static function getSubscribedEvents()
     {
         return array(BlockManagerEvents::BUILD_VIEW => 'onBuildView');
     }
 
     /**
-     * Injects the rule count to the layout.
+     * Injects the number of layouts connected to the shared layout
+     * provided by the event.
      *
      * @param \Netgen\BlockManager\Event\CollectViewParametersEvent $event
      */

@@ -14,7 +14,7 @@ class Block extends Value
     public $id;
 
     /**
-     * Layout ID.
+     * ID of the layout where block is located.
      *
      * @var int|string
      */

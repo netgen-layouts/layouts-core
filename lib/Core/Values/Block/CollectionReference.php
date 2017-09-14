@@ -27,41 +27,21 @@ class CollectionReference extends ValueObject implements APICollectionReference
      */
     protected $limit;
 
-    /**
-     * Returns the collection.
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Collection
-     */
     public function getCollection()
     {
         return $this->collection;
     }
 
-    /**
-     * Returns the collection identifier.
-     *
-     * @return string
-     */
     public function getIdentifier()
     {
         return $this->identifier;
     }
 
-    /**
-     * Returns the collection offset.
-     *
-     * @return int
-     */
     public function getOffset()
     {
         return $this->offset;
     }
 
-    /**
-     * Returns the collection limit.
-     *
-     * @return int
-     */
     public function getLimit()
     {
         return $this->limit;

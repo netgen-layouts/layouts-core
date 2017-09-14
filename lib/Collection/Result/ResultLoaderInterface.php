@@ -4,6 +4,9 @@ namespace Netgen\BlockManager\Collection\Result;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
 
+/**
+ * Result loader is a service responsible for generating a result of a collection.
+ */
 interface ResultLoaderInterface
 {
     /**

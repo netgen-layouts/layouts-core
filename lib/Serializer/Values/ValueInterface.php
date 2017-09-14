@@ -2,6 +2,9 @@
 
 namespace Netgen\BlockManager\Serializer\Values;
 
+/**
+ * Represents a serialized entity.
+ */
 interface ValueInterface
 {
     /**

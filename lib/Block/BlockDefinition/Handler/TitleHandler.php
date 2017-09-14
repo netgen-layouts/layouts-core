@@ -18,23 +18,12 @@ class TitleHandler extends BlockDefinitionHandler
      */
     protected $linkValueTypes = array();
 
-    /**
-     * Constructor.
-     *
-     * @param array $tags
-     * @param array $linkValueTypes
-     */
     public function __construct(array $tags = array(), array $linkValueTypes = array())
     {
         $this->tags = array_flip($tags);
         $this->linkValueTypes = $linkValueTypes;
     }
 
-    /**
-     * Builds the parameters by using provided parameter builder.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $builder
-     */
     public function buildParameters(ParameterBuilderInterface $builder)
     {
         $builder->add(

@@ -5,6 +5,10 @@ namespace Netgen\BlockManager\Collection;
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
 
+/**
+ * Query type represents a model of the query which is used to inject
+ * items from CMS to a block collection.
+ */
 interface QueryTypeInterface extends ParameterCollectionInterface
 {
     /**
@@ -43,7 +47,11 @@ interface QueryTypeInterface extends ParameterCollectionInterface
     public function getCount(Query $query);
 
     /**
-     * Returns the limit internal to provided query.
+     * Returns the internal limit of the provided query.
+     *
+     * This limit is used to signal to the system how many items
+     * will the query produce at maximum. If this value is null, query
+     * will return the unknown (or rather unlimited) number of items.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      *

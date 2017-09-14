@@ -13,25 +13,11 @@ class FormViewNormalizer implements NormalizerInterface
      */
     protected $viewRenderer;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\View\RendererInterface $viewRenderer
-     */
     public function __construct(RendererInterface $viewRenderer)
     {
         $this->viewRenderer = $viewRenderer;
     }
 
-    /**
-     * Normalizes an object into a set of arrays/scalars.
-     *
-     * @param \Netgen\BlockManager\Serializer\Values\FormView $object
-     * @param string $format
-     * @param array $context
-     *
-     * @return array
-     */
     public function normalize($object, $format = null, array $context = array())
     {
         return array(
@@ -45,14 +31,6 @@ class FormViewNormalizer implements NormalizerInterface
         );
     }
 
-    /**
-     * Checks whether the given class is supported for normalization by this normalizer.
-     *
-     * @param mixed $data
-     * @param string $format
-     *
-     * @return bool
-     */
     public function supportsNormalization($data, $format = null)
     {
         return $data instanceof FormView;

@@ -12,20 +12,19 @@ class ParameterStruct extends Constraint
     public $message = 'netgen_block_manager.parameter_struct.invalid_value';
 
     /**
+     * Parameter collection used to validate parameter values against.
+     *
      * @var \Netgen\BlockManager\Parameters\ParameterCollectionInterface
      */
     public $parameterCollection;
 
     /**
+     * If true, missing parameters will pass validation (e.g. when updating the value).
+     *
      * @var bool
      */
     public $allowMissingFields = false;
 
-    /**
-     * Returns the name of the class that validates this constraint.
-     *
-     * @return string
-     */
     public function validatedBy()
     {
         return 'ngbm_parameter_struct';

@@ -19,12 +19,6 @@ abstract class QueryHandler
      */
     protected $connectionHelper;
 
-    /**
-     * Constructor.
-     *
-     * @param \Doctrine\DBAL\Connection $connection
-     * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper $connectionHelper
-     */
     public function __construct(Connection $connection, ConnectionHelper $connectionHelper)
     {
         $this->connection = $connection;

@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints;
 class ConfigValidator extends Validator
 {
     /**
-     * Validates config structs.
+     * Validates the provided config structs according to provided config definitions.
      *
      * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface[] $configStructs
      * @param \Netgen\BlockManager\Config\ConfigDefinitionInterface[] $configDefinitions

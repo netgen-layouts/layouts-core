@@ -17,21 +17,11 @@ class InvalidationListener implements EventSubscriberInterface
      */
     protected $httpCacheClient;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\HttpCache\ClientInterface $httpCacheClient
-     */
     public function __construct(ClientInterface $httpCacheClient)
     {
         $this->httpCacheClient = $httpCacheClient;
     }
 
-    /**
-     * Returns an array of event names this subscriber wants to listen to.
-     *
-     * @return array
-     */
     public static function getSubscribedEvents()
     {
         return array(
@@ -43,6 +33,8 @@ class InvalidationListener implements EventSubscriberInterface
     }
 
     /**
+     * Commits all the collected invalidation requests.
+     *
      * @param \Symfony\Component\HttpKernel\Event\PostResponseEvent $event
      */
     public function onKernelTerminate(PostResponseEvent $event)
@@ -51,6 +43,8 @@ class InvalidationListener implements EventSubscriberInterface
     }
 
     /**
+     * Commits all the collected invalidation requests.
+     *
      * @param \Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent $event
      */
     public function onKernelException(GetResponseForExceptionEvent $event)
@@ -59,6 +53,8 @@ class InvalidationListener implements EventSubscriberInterface
     }
 
     /**
+     * Commits all the collected invalidation requests.
+     *
      * @param \Symfony\Component\Console\Event\ConsoleEvent $event
      */
     public function onConsoleTerminate(ConsoleEvent $event)

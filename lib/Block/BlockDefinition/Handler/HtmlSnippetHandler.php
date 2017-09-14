@@ -8,11 +8,6 @@ use Netgen\BlockManager\Parameters\ParameterType;
 
 class HtmlSnippetHandler extends BlockDefinitionHandler
 {
-    /**
-     * Builds the parameters by using provided parameter builder.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $builder
-     */
     public function buildParameters(ParameterBuilderInterface $builder)
     {
         $builder->add(

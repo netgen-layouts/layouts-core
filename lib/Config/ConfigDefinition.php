@@ -20,23 +20,11 @@ class ConfigDefinition extends ValueObject implements ConfigDefinitionInterface
      */
     protected $handler;
 
-    /**
-     * Returns the config key for the definition.
-     *
-     * @return string
-     */
     public function getConfigKey()
     {
         return $this->configKey;
     }
 
-    /**
-     * Returns if this config definition is enabled for current config aware value.
-     *
-     * @param \Netgen\BlockManager\API\Values\Config\ConfigAwareValue $configAwareValue
-     *
-     * @return bool
-     */
     public function isEnabled(ConfigAwareValue $configAwareValue)
     {
         return $this->handler->isEnabled($configAwareValue);

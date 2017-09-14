@@ -7,7 +7,9 @@ use Netgen\BlockManager\ValueObject;
 class TargetUpdateStruct extends ValueObject
 {
     /**
-     * @var mixed
+     * New value of the target.
+     *
+     * @var int|string
      */
     public $value;
 }

@@ -74,17 +74,6 @@ class BlockService extends Service implements BlockServiceInterface
      */
     protected $layoutService;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Persistence\Handler $persistenceHandler
-     * @param \Netgen\BlockManager\Core\Service\Validator\BlockValidator $validator
-     * @param \Netgen\BlockManager\Core\Service\Mapper\BlockMapper $mapper
-     * @param \Netgen\BlockManager\Core\Service\StructBuilder\BlockStructBuilder $structBuilder
-     * @param \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper $parameterMapper
-     * @param \Netgen\BlockManager\Core\Service\Mapper\ConfigMapper $configMapper
-     * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
-     */
     public function __construct(
         Handler $persistenceHandler,
         BlockValidator $validator,
@@ -108,16 +97,6 @@ class BlockService extends Service implements BlockServiceInterface
         $this->collectionHandler = $persistenceHandler->getCollectionHandler();
     }
 
-    /**
-     * Loads a block with specified ID.
-     *
-     * @param int|string $blockId
-     * @param string[]|bool $locales
-     *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If block with specified ID does not exist
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\Block
-     */
     public function loadBlock($blockId, $locales = null)
     {
         $this->validator->validateId($blockId, 'blockId');
@@ -132,16 +111,6 @@ class BlockService extends Service implements BlockServiceInterface
         return $this->mapper->mapBlock($block, $locales);
     }
 
-    /**
-     * Loads a block draft with specified ID.
-     *
-     * @param int|string $blockId
-     * @param string[]|bool $locales
-     *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If block with specified ID does not exist
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\Block
-     */
     public function loadBlockDraft($blockId, $locales = null)
     {
         $this->validator->validateId($blockId, 'blockId');
@@ -156,14 +125,6 @@ class BlockService extends Service implements BlockServiceInterface
         return $this->mapper->mapBlock($block, $locales);
     }
 
-    /**
-     * Loads all blocks belonging to provided zone.
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
-     * @param string[]|bool $locales
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\Block[]
-     */
     public function loadZoneBlocks(Zone $zone, $locales = null)
     {
         $persistenceZone = $this->layoutHandler->loadZone(
@@ -191,14 +152,6 @@ class BlockService extends Service implements BlockServiceInterface
         return $blocks;
     }
 
-    /**
-     * Loads all blocks belonging to provided layout.
-     *
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param string[]|bool $locales
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\Block[]
-     */
     public function loadLayoutBlocks(Layout $layout, $locales = null)
     {
         $persistenceLayout = $this->layoutHandler->loadLayout(
@@ -226,34 +179,11 @@ class BlockService extends Service implements BlockServiceInterface
         return $blocks;
     }
 
-    /**
-     * Returns if provided block has a published status.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     *
-     * @return bool
-     */
     public function hasPublishedState(Block $block)
     {
         return $this->blockHandler->blockExists($block->getId(), Value::STATUS_PUBLISHED);
     }
 
-    /**
-     * Creates a block in specified block and placeholder.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\BlockCreateStruct $blockCreateStruct
-     * @param \Netgen\BlockManager\API\Values\Block\Block $targetBlock
-     * @param string $placeholder
-     * @param int $position
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If target block is not a draft
-     *                                                          If target block is not a container
-     *                                                          If placeholder does not exist in the target block
-     *                                                          If new block is a container
-     *                                                          If provided position is out of range
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\Block
-     */
     public function createBlock(APIBlockCreateStruct $blockCreateStruct, Block $targetBlock, $placeholder, $position = null)
     {
         if ($targetBlock->isPublished()) {
@@ -283,19 +213,6 @@ class BlockService extends Service implements BlockServiceInterface
         return $this->internalCreateBlock($blockCreateStruct, $persistenceBlock, $placeholder, $position);
     }
 
-    /**
-     * Creates a block in specified zone.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\BlockCreateStruct $blockCreateStruct
-     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
-     * @param int $position
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If zone is not a draft
-     *                                                          If provided position is out of range
-     *                                                          If block cannot be placed in specified zone
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\Block
-     */
     public function createBlockInZone(APIBlockCreateStruct $blockCreateStruct, Zone $zone, $position = null)
     {
         if ($zone->isPublished()) {
@@ -326,17 +243,6 @@ class BlockService extends Service implements BlockServiceInterface
         return $this->internalCreateBlock($blockCreateStruct, $rootBlock, 'root', $position);
     }
 
-    /**
-     * Updates a specified block.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param \Netgen\BlockManager\API\Values\Block\BlockUpdateStruct $blockUpdateStruct
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If block is not a draft
-     *                                                          If block does not have a specified translation
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\Block
-     */
     public function updateBlock(Block $block, APIBlockUpdateStruct $blockUpdateStruct)
     {
         if ($block->isPublished()) {
@@ -381,22 +287,6 @@ class BlockService extends Service implements BlockServiceInterface
         return $this->mapper->mapBlock($updatedBlock, $block->getAvailableLocales());
     }
 
-    /**
-     * Copies a block to a specified target block.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param \Netgen\BlockManager\API\Values\Block\Block $targetBlock
-     * @param string $placeholder
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If source or target block is not a draft
-     *                                                          If target block is not a container
-     *                                                          If target block is in a different layout
-     *                                                          If placeholder does not exist in the target block
-     *                                                          If new block is a container
-     *                                                          If target block is within the provided block
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\Block
-     */
     public function copyBlock(Block $block, Block $targetBlock, $placeholder)
     {
         if ($block->isPublished()) {
@@ -439,18 +329,6 @@ class BlockService extends Service implements BlockServiceInterface
         return $this->mapper->mapBlock($copiedBlock, $block->getAvailableLocales());
     }
 
-    /**
-     * Copies a block to a specified zone.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If block or zone are not drafts
-     *                                                          If zone is in a different layout
-     *                                                          If block cannot be placed in specified zone
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\Block
-     */
     public function copyBlockToZone(Block $block, Zone $zone)
     {
         if ($block->isPublished()) {
@@ -485,24 +363,6 @@ class BlockService extends Service implements BlockServiceInterface
         return $this->mapper->mapBlock($copiedBlock, $block->getAvailableLocales());
     }
 
-    /**
-     * Moves a block to specified target block.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param \Netgen\BlockManager\API\Values\Block\Block $targetBlock
-     * @param string $placeholder
-     * @param int $position
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If source or target block is not a draft
-     *                                                          If target block is not a container
-     *                                                          If target block is in a different layout
-     *                                                          If placeholder does not exist in the target block
-     *                                                          If new block is a container
-     *                                                          If target block is within the provided block
-     *                                                          If provided position is out of range
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\Block
-     */
     public function moveBlock(Block $block, Block $targetBlock, $placeholder, $position)
     {
         if ($block->isPublished()) {
@@ -542,20 +402,6 @@ class BlockService extends Service implements BlockServiceInterface
         return $this->mapper->mapBlock($movedBlock, $block->getAvailableLocales());
     }
 
-    /**
-     * Moves a block to specified position inside the zone.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
-     * @param int $position
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If block or zone are not drafts
-     *                                                          If zone is in a different layout
-     *                                                          If provided position is out of range
-     *                                                          If block cannot be placed in specified zone
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\Block
-     */
     public function moveBlockToZone(Block $block, Zone $zone, $position)
     {
         if ($block->isPublished()) {
@@ -588,15 +434,6 @@ class BlockService extends Service implements BlockServiceInterface
         return $this->mapper->mapBlock($movedBlock, $block->getAvailableLocales());
     }
 
-    /**
-     * Restores the specified block from the published status. Position of the block is kept as is.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If block is not a draft
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\Block
-     */
     public function restoreBlock(Block $block)
     {
         if ($block->isPublished()) {
@@ -635,16 +472,6 @@ class BlockService extends Service implements BlockServiceInterface
         return $this->mapper->mapBlock($draftBlock, array($draftBlock->mainLocale));
     }
 
-    /**
-     * Enables translating the block.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If block is not a draft
-     *                                                          If block is already translatable
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\Block
-     */
     public function enableTranslations(Block $block)
     {
         if ($block->isPublished()) {
@@ -687,16 +514,6 @@ class BlockService extends Service implements BlockServiceInterface
         return $this->mapper->mapBlock($updatedBlock, array($updatedBlock->mainLocale));
     }
 
-    /**
-     * Disable translating the block. All translations (except the main one) will be removed.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If block is not a draft
-     *                                                          If block is not translatable
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\Block
-     */
     public function disableTranslations(Block $block)
     {
         if ($block->isPublished()) {
@@ -736,13 +553,6 @@ class BlockService extends Service implements BlockServiceInterface
         return $this->mapper->mapBlock($updatedBlock, array($updatedBlock->mainLocale));
     }
 
-    /**
-     * Deletes a specified block.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If block is not a draft
-     */
     public function deleteBlock(Block $block)
     {
         if ($block->isPublished()) {
@@ -758,33 +568,22 @@ class BlockService extends Service implements BlockServiceInterface
         );
     }
 
-    /**
-     * Creates a new block create struct.
-     *
-     * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\BlockCreateStruct
-     */
     public function newBlockCreateStruct(BlockDefinitionInterface $blockDefinition)
     {
         return $this->structBuilder->newBlockCreateStruct($blockDefinition);
     }
 
-    /**
-     * Creates a new block update struct.
-     *
-     * @param string $locale
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\BlockUpdateStruct
-     */
     public function newBlockUpdateStruct($locale, Block $block = null)
     {
         return $this->structBuilder->newBlockUpdateStruct($locale, $block);
     }
 
     /**
-     * Creates a block. Internal method unifying creating a block in a zone and a parent block.
+     * Creates a block at specified target block and placeholder and position.
+     *
+     * If position is not provided, block is placed at the end of the placeholder.
+     *
+     * This is an internal method unifying creating a block in a zone and a parent block.
      *
      * @param \Netgen\BlockManager\API\Values\Block\BlockCreateStruct $blockCreateStruct
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $targetBlock
@@ -875,7 +674,9 @@ class BlockService extends Service implements BlockServiceInterface
     }
 
     /**
-     * Moves a block. Internal method unifying moving a block to a zone and to a parent block.
+     * Moves a block to specified target block and placeholder and position.
+     *
+     * This is an internal method unifying moving a block to a zone and to a parent block.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $targetBlock
@@ -903,7 +704,7 @@ class BlockService extends Service implements BlockServiceInterface
     }
 
     /**
-     * Updates translations for specified blocks.
+     * Updates translations for specified block.
      *
      * This makes sure that untranslatable parameters are always kept in sync between all
      * available translations in the block. This means that if main translation is updated,

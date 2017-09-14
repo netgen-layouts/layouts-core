@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints;
 class CollectionValidator extends Validator
 {
     /**
-     * Validates item create struct.
+     * Validates the provided item create struct.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\ItemCreateStruct $itemCreateStruct
      *
@@ -61,7 +61,7 @@ class CollectionValidator extends Validator
     }
 
     /**
-     * Validates query create struct.
+     * Validates the provided query create struct.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct $queryCreateStruct
      *
@@ -92,7 +92,7 @@ class CollectionValidator extends Validator
     }
 
     /**
-     * Validates query update struct.
+     * Validates the provided query update struct.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      * @param \Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct $queryUpdateStruct

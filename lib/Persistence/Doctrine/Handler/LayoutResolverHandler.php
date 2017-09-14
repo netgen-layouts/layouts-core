@@ -31,28 +31,12 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
      */
     protected $mapper;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler $queryHandler
-     * @param \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper $mapper
-     */
     public function __construct(LayoutResolverQueryHandler $queryHandler, LayoutResolverMapper $mapper)
     {
         $this->queryHandler = $queryHandler;
         $this->mapper = $mapper;
     }
 
-    /**
-     * Loads a rule with specified ID.
-     *
-     * @param int|string $ruleId
-     * @param int $status
-     *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If rule with specified ID does not exist
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule
-     */
     public function loadRule($ruleId, $status)
     {
         $data = $this->queryHandler->loadRuleData($ruleId, $status);
@@ -66,15 +50,6 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return reset($data);
     }
 
-    /**
-     * Loads all rules.
-     *
-     * @param int $status
-     * @param int $offset
-     * @param int $limit
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule[]
-     */
     public function loadRules($status, $offset = 0, $limit = null)
     {
         $data = $this->queryHandler->loadRulesData($status, $offset, $limit);
@@ -88,26 +63,11 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $data;
     }
 
-    /**
-     * Returns the number of rules pointing to provided layout.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
-     *
-     * @return int
-     */
     public function getRuleCount(Layout $layout)
     {
         return $this->queryHandler->getRuleCount($layout->id, Value::STATUS_PUBLISHED);
     }
 
-    /**
-     * Returns all rules that match specified target type and value.
-     *
-     * @param string $targetType
-     * @param mixed $targetValue
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule[]
-     */
     public function matchRules($targetType, $targetValue)
     {
         $data = $this->queryHandler->matchRules($targetType, $targetValue);
@@ -121,16 +81,6 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $data;
     }
 
-    /**
-     * Loads an target with specified ID.
-     *
-     * @param int|string $targetId
-     * @param int $status
-     *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If target with specified ID does not exist
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target
-     */
     public function loadTarget($targetId, $status)
     {
         $data = $this->queryHandler->loadTargetData($targetId, $status);
@@ -144,13 +94,6 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return reset($data);
     }
 
-    /**
-     * Loads all targets that belong to rule with specified ID.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target[]
-     */
     public function loadRuleTargets(Rule $rule)
     {
         return $this->mapper->mapTargets(
@@ -158,28 +101,11 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
         );
     }
 
-    /**
-     * Loads the count of targets within the rule with specified ID.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
-     *
-     * @return int
-     */
     public function getTargetCount(Rule $rule)
     {
         return $this->queryHandler->getTargetCount($rule);
     }
 
-    /**
-     * Loads a condition with specified ID.
-     *
-     * @param int|string $conditionId
-     * @param int $status
-     *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If condition with specified ID does not exist
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition
-     */
     public function loadCondition($conditionId, $status)
     {
         $data = $this->queryHandler->loadConditionData($conditionId, $status);
@@ -193,13 +119,6 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return reset($data);
     }
 
-    /**
-     * Loads all conditions that belong to rule with specified ID.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition[]
-     */
     public function loadRuleConditions(Rule $rule)
     {
         return $this->mapper->mapConditions(
@@ -207,26 +126,11 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
         );
     }
 
-    /**
-     * Returns if rule with specified ID exists.
-     *
-     * @param int|string $ruleId
-     * @param int $status
-     *
-     * @return bool
-     */
     public function ruleExists($ruleId, $status)
     {
         return $this->queryHandler->ruleExists($ruleId, $status);
     }
 
-    /**
-     * Creates a rule.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleCreateStruct $ruleCreateStruct
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule
-     */
     public function createRule(RuleCreateStruct $ruleCreateStruct)
     {
         $newRule = new Rule(
@@ -244,14 +148,6 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $this->queryHandler->createRule($newRule);
     }
 
-    /**
-     * Updates a rule with specified ID.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleUpdateStruct $ruleUpdateStruct
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule
-     */
     public function updateRule(Rule $rule, RuleUpdateStruct $ruleUpdateStruct)
     {
         $updatedRule = clone $rule;
@@ -272,14 +168,6 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $updatedRule;
     }
 
-    /**
-     * Updates rule metadata.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleMetadataUpdateStruct $ruleUpdateStruct
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule
-     */
     public function updateRuleMetadata(Rule $rule, RuleMetadataUpdateStruct $ruleUpdateStruct)
     {
         $updatedRule = clone $rule;
@@ -297,13 +185,6 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $updatedRule;
     }
 
-    /**
-     * Copies a rule.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule
-     */
     public function copyRule(Rule $rule)
     {
         // First copy the rule
@@ -342,14 +223,6 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $copiedRule;
     }
 
-    /**
-     * Creates a new rule status.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
-     * @param int $newStatus
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule
-     */
     public function createRuleStatus(Rule $rule, $newStatus)
     {
         // First copy the rule
@@ -384,12 +257,6 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $copiedRule;
     }
 
-    /**
-     * Deletes a rule with specified ID.
-     *
-     * @param int|string $ruleId
-     * @param int $status
-     */
     public function deleteRule($ruleId, $status = null)
     {
         $this->queryHandler->deleteRuleTargets($ruleId, $status);
@@ -397,14 +264,6 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
         $this->queryHandler->deleteRule($ruleId, $status);
     }
 
-    /**
-     * Adds a target to rule.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetCreateStruct $targetCreateStruct
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target
-     */
     public function addTarget(Rule $rule, TargetCreateStruct $targetCreateStruct)
     {
         $newTarget = new Target(
@@ -419,14 +278,6 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $this->queryHandler->addTarget($newTarget);
     }
 
-    /**
-     * Updates a target with specified ID.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target $target
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetUpdateStruct $targetUpdateStruct
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target
-     */
     public function updateTarget(Target $target, TargetUpdateStruct $targetUpdateStruct)
     {
         $updatedTarget = clone $target;
@@ -437,24 +288,11 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $updatedTarget;
     }
 
-    /**
-     * Removes a target.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target $target
-     */
     public function deleteTarget(Target $target)
     {
         $this->queryHandler->deleteTarget($target->id, $target->status);
     }
 
-    /**
-     * Adds a condition to rule.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionCreateStruct $conditionCreateStruct
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition
-     */
     public function addCondition(Rule $rule, ConditionCreateStruct $conditionCreateStruct)
     {
         $newCondition = new Condition(
@@ -469,14 +307,6 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $this->queryHandler->addCondition($newCondition);
     }
 
-    /**
-     * Updates a condition with specified ID.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition $condition
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionUpdateStruct $conditionUpdateStruct
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition
-     */
     public function updateCondition(Condition $condition, ConditionUpdateStruct $conditionUpdateStruct)
     {
         $updatedCondition = clone $condition;
@@ -488,11 +318,6 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $updatedCondition;
     }
 
-    /**
-     * Removes a condition.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition $condition
-     */
     public function deleteCondition(Condition $condition)
     {
         $this->queryHandler->deleteCondition($condition->id, $condition->status);

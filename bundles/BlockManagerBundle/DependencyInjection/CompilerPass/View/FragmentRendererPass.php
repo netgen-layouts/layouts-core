@@ -11,11 +11,6 @@ class FragmentRendererPass implements CompilerPassInterface
     const SERVICE_NAME = 'netgen_block_manager.view.renderer.fragment';
     const TAG_NAME = 'netgen_block_manager.view.fragment_view_renderer';
 
-    /**
-     * You can modify the container here before it is dumped to PHP code.
-     *
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
     public function process(ContainerBuilder $container)
     {
         if (!$container->has(self::SERVICE_NAME)) {

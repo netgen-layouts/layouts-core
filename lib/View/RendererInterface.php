@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\View;
 interface RendererInterface
 {
     /**
-     * Renders the value object.
+     * Renders the value object in the provided view context.
      *
      * @param mixed $valueObject
      * @param string $context

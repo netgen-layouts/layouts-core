@@ -36,15 +36,6 @@ class Handler implements HandlerInterface
      */
     protected $layoutResolverHandler;
 
-    /**
-     * Constructor.
-     *
-     * @param \Doctrine\DBAL\Connection $connection
-     * @param \Netgen\BlockManager\Persistence\Handler\LayoutHandler $layoutHandler
-     * @param \Netgen\BlockManager\Persistence\Handler\BlockHandler $blockHandler
-     * @param \Netgen\BlockManager\Persistence\Handler\CollectionHandler $collectionHandler
-     * @param \Netgen\BlockManager\Persistence\Handler\LayoutResolverHandler $layoutResolverHandler
-     */
     public function __construct(
         Connection $connection,
         LayoutHandler $layoutHandler,
@@ -59,65 +50,36 @@ class Handler implements HandlerInterface
         $this->layoutResolverHandler = $layoutResolverHandler;
     }
 
-    /**
-     * Returns the layout handler.
-     *
-     * @return \Netgen\BlockManager\Persistence\Handler\LayoutHandler
-     */
     public function getLayoutHandler()
     {
         return $this->layoutHandler;
     }
 
-    /**
-     * Returns the block handler.
-     *
-     * @return \Netgen\BlockManager\Persistence\Handler\BlockHandler
-     */
     public function getBlockHandler()
     {
         return $this->blockHandler;
     }
 
-    /**
-     * Returns the collection handler.
-     *
-     * @return \Netgen\BlockManager\Persistence\Handler\CollectionHandler
-     */
     public function getCollectionHandler()
     {
         return $this->collectionHandler;
     }
 
-    /**
-     * Returns the layout resolver handler.
-     *
-     * @return \Netgen\BlockManager\Persistence\Handler\LayoutResolverHandler
-     */
     public function getLayoutResolverHandler()
     {
         return $this->layoutResolverHandler;
     }
 
-    /**
-     * Begins the transaction.
-     */
     public function beginTransaction()
     {
         $this->connection->beginTransaction();
     }
 
-    /**
-     * Commits the transaction.
-     */
     public function commitTransaction()
     {
         $this->connection->commit();
     }
 
-    /**
-     * Rollbacks the transaction.
-     */
     public function rollbackTransaction()
     {
         $this->connection->rollBack();

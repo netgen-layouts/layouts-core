@@ -8,11 +8,6 @@ use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
 class BlockTypeNode implements ConfigurationNodeInterface
 {
-    /**
-     * Returns node definition for block types.
-     *
-     * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition
-     */
     public function getConfigurationNode()
     {
         $treeBuilder = new TreeBuilder();

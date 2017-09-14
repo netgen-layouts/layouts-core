@@ -2,6 +2,9 @@
 
 namespace Netgen\BlockManager\Item;
 
+/**
+ * Serves as a central point for generating URLs/paths to items.
+ */
 interface UrlBuilderInterface
 {
     /**

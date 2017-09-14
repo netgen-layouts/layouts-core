@@ -43,7 +43,7 @@ class LayoutResolverStructBuilder
     }
 
     /**
-     * Creates a new target create struct.
+     * Creates a new target create struct from the provided values.
      *
      * @param string $type
      *
@@ -69,7 +69,7 @@ class LayoutResolverStructBuilder
     }
 
     /**
-     * Creates a new condition create struct.
+     * Creates a new condition create struct from the provided values.
      *
      * @param string $type
      *

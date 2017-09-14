@@ -34,13 +34,6 @@ class CollectionHandler implements CollectionHandlerInterface
      */
     protected $positionHelper;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler $queryHandler
-     * @param \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper $collectionMapper
-     * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper $positionHelper
-     */
     public function __construct(
         CollectionQueryHandler $queryHandler,
         CollectionMapper $collectionMapper,
@@ -51,16 +44,6 @@ class CollectionHandler implements CollectionHandlerInterface
         $this->positionHelper = $positionHelper;
     }
 
-    /**
-     * Loads a collection with specified ID.
-     *
-     * @param int|string $collectionId
-     * @param int $status
-     *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If collection with specified ID does not exist
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
-     */
     public function loadCollection($collectionId, $status)
     {
         $data = $this->queryHandler->loadCollectionData($collectionId, $status);
@@ -74,16 +57,6 @@ class CollectionHandler implements CollectionHandlerInterface
         return reset($data);
     }
 
-    /**
-     * Loads an item with specified ID.
-     *
-     * @param int|string $itemId
-     * @param int $status
-     *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If item with specified ID does not exist
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Item
-     */
     public function loadItem($itemId, $status)
     {
         $data = $this->queryHandler->loadItemData($itemId, $status);
@@ -97,13 +70,6 @@ class CollectionHandler implements CollectionHandlerInterface
         return reset($data);
     }
 
-    /**
-     * Loads all items that belong to collection with specified ID.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Item[]
-     */
     public function loadCollectionItems(Collection $collection)
     {
         return $this->collectionMapper->mapItems(
@@ -111,16 +77,6 @@ class CollectionHandler implements CollectionHandlerInterface
         );
     }
 
-    /**
-     * Loads a query with specified ID.
-     *
-     * @param int|string $queryId
-     * @param int $status
-     *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If query with specified ID does not exist
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
-     */
     public function loadQuery($queryId, $status)
     {
         $data = $this->queryHandler->loadQueryData($queryId, $status);
@@ -140,15 +96,6 @@ class CollectionHandler implements CollectionHandlerInterface
         return $query;
     }
 
-    /**
-     * Loads the query that belongs to collection with specified ID.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If query for specified collection does not exist
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
-     */
     public function loadCollectionQuery(Collection $collection)
     {
         $data = $this->queryHandler->loadCollectionQueryData($collection);
@@ -166,26 +113,11 @@ class CollectionHandler implements CollectionHandlerInterface
         return $query;
     }
 
-    /**
-     * Returns if collection with specified ID exists.
-     *
-     * @param int|string $collectionId
-     * @param int $status
-     *
-     * @return bool
-     */
     public function collectionExists($collectionId, $status)
     {
         return $this->queryHandler->collectionExists($collectionId, $status);
     }
 
-    /**
-     * Creates a collection.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct $collectionCreateStruct
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
-     */
     public function createCollection(CollectionCreateStruct $collectionCreateStruct)
     {
         $newCollection = new Collection(
@@ -208,18 +140,6 @@ class CollectionHandler implements CollectionHandlerInterface
         return $newCollection;
     }
 
-    /**
-     * Creates a collection translation.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param string $locale
-     * @param string $sourceLocale
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If translation with provided locale already exists
-     *                                                          If translation with provided source locale does not exist
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
-     */
     public function createCollectionTranslation(Collection $collection, $locale, $sourceLocale)
     {
         if (in_array($locale, $collection->availableLocales, true)) {
@@ -253,16 +173,6 @@ class CollectionHandler implements CollectionHandlerInterface
         return $updatedCollection;
     }
 
-    /**
-     * Updates the main translation of the collection.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param string $mainLocale
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If provided locale does not exist in the collection
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
-     */
     public function setMainTranslation(Collection $collection, $mainLocale)
     {
         if (!in_array($mainLocale, $collection->availableLocales, true)) {
@@ -277,14 +187,6 @@ class CollectionHandler implements CollectionHandlerInterface
         return $updatedCollection;
     }
 
-    /**
-     * Updates a collection with specified ID.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct $collectionUpdateStruct
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
-     */
     public function updateCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct)
     {
         $updatedCollection = clone $collection;
@@ -302,13 +204,6 @@ class CollectionHandler implements CollectionHandlerInterface
         return $updatedCollection;
     }
 
-    /**
-     * Copies a collection.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
-     */
     public function copyCollection(Collection $collection)
     {
         $newCollection = clone $collection;
@@ -354,14 +249,6 @@ class CollectionHandler implements CollectionHandlerInterface
         return $newCollection;
     }
 
-    /**
-     * Creates a new collection status.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param int $newStatus
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
-     */
     public function createCollectionStatus(Collection $collection, $newStatus)
     {
         $newCollection = clone $collection;
@@ -403,12 +290,6 @@ class CollectionHandler implements CollectionHandlerInterface
         return $newCollection;
     }
 
-    /**
-     * Deletes a collection with specified ID.
-     *
-     * @param int|string $collectionId
-     * @param int $status
-     */
     public function deleteCollection($collectionId, $status = null)
     {
         $this->queryHandler->deleteCollectionItems($collectionId, $status);
@@ -421,17 +302,6 @@ class CollectionHandler implements CollectionHandlerInterface
         $this->queryHandler->deleteCollection($collectionId, $status);
     }
 
-    /**
-     * Deletes provided collection translation.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param string $locale
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If translation with provided locale does not exist
-     *                                                          If translation with provided locale is the main collection translation
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
-     */
     public function deleteCollectionTranslation(Collection $collection, $locale)
     {
         if (!in_array($locale, $collection->availableLocales, true)) {
@@ -450,16 +320,6 @@ class CollectionHandler implements CollectionHandlerInterface
         return $this->loadCollection($collection->id, $collection->status);
     }
 
-    /**
-     * Adds an item to collection.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct $itemCreateStruct
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range (for manual collections)
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Item
-     */
     public function addItem(Collection $collection, ItemCreateStruct $itemCreateStruct)
     {
         $isDynamic = true;
@@ -492,16 +352,6 @@ class CollectionHandler implements CollectionHandlerInterface
         return $this->queryHandler->addItem($newItem);
     }
 
-    /**
-     * Moves an item to specified position in the collection.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Item $item
-     * @param int $position
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range (for manual collections)
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Item
-     */
     public function moveItem(Item $item, $position)
     {
         $collection = $this->loadCollection($item->collectionId, $item->status);
@@ -530,11 +380,6 @@ class CollectionHandler implements CollectionHandlerInterface
         return $movedItem;
     }
 
-    /**
-     * Removes an item.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Item $item
-     */
     public function deleteItem(Item $item)
     {
         $this->queryHandler->deleteItem($item->id, $item->status);
@@ -548,16 +393,6 @@ class CollectionHandler implements CollectionHandlerInterface
         );
     }
 
-    /**
-     * Adds a query to collection.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct $queryCreateStruct
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection already has a query
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
-     */
     public function createQuery(Collection $collection, QueryCreateStruct $queryCreateStruct)
     {
         try {
@@ -595,17 +430,6 @@ class CollectionHandler implements CollectionHandlerInterface
         return $newQuery;
     }
 
-    /**
-     * Updates a query translation.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
-     * @param string $locale
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\QueryTranslationUpdateStruct $translationUpdateStruct
-     *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If the query does not have the provided locale
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
-     */
     public function updateQueryTranslation(Query $query, $locale, QueryTranslationUpdateStruct $translationUpdateStruct)
     {
         $updatedQuery = clone $query;
@@ -623,11 +447,6 @@ class CollectionHandler implements CollectionHandlerInterface
         return $updatedQuery;
     }
 
-    /**
-     * Removes a query from the collection.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     */
     public function deleteCollectionQuery(Collection $collection)
     {
         $queryIds = $this->queryHandler->loadCollectionQueryIds($collection->id, $collection->status);

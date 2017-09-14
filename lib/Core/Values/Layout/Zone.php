@@ -32,61 +32,31 @@ class Zone extends ValueObject implements APIZone
      */
     protected $linkedZone;
 
-    /**
-     * Returns zone identifier.
-     *
-     * @return string
-     */
     public function getIdentifier()
     {
         return $this->identifier;
     }
 
-    /**
-     * Returns the layout ID to which this zone belongs.
-     *
-     * @return int|string
-     */
     public function getLayoutId()
     {
         return $this->layoutId;
     }
 
-    /**
-     * Returns the status of the value.
-     *
-     * @return int
-     */
     public function getStatus()
     {
         return $this->status;
     }
 
-    /**
-     * Returns if the zone is published.
-     *
-     * @return bool
-     */
     public function isPublished()
     {
         return $this->published;
     }
 
-    /**
-     * Returns if the zone has a linked zone.
-     *
-     * @return bool
-     */
     public function hasLinkedZone()
     {
         return $this->linkedZone instanceof APIZone;
     }
 
-    /**
-     * Returns the linked zone.
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\Zone
-     */
     public function getLinkedZone()
     {
         return $this->linkedZone;

@@ -14,7 +14,7 @@ interface Target extends Value
     public function getId();
 
     /**
-     * Returns the rule ID where this target belongs.
+     * Returns the ID of the rule where this target belongs.
      *
      * @return int|string
      */
@@ -36,6 +36,8 @@ interface Target extends Value
 
     /**
      * Returns the target value.
+     *
+     * Target value is always a scalar.
      *
      * @return mixed
      */

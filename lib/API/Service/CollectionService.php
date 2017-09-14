@@ -15,6 +15,10 @@ interface CollectionService extends Service
     /**
      * Loads a collection with specified ID.
      *
+     * If $locales is an array, returned collection will only have specified translations.
+     * If $locales is true, returned collection will have all translations, otherwise, the main
+     * translation will be returned.
+     *
      * @param int|string $collectionId
      * @param string[]|bool $locales
      *
@@ -26,6 +30,10 @@ interface CollectionService extends Service
 
     /**
      * Loads a collection draft with specified ID.
+     *
+     * If $locales is an array, returned collection will only have specified translations.
+     * If $locales is true, returned collection will have all translations, otherwise, the main
+     * translation will be returned.
      *
      * @param int|string $collectionId
      * @param string[]|bool $locales
@@ -73,6 +81,10 @@ interface CollectionService extends Service
     /**
      * Loads a query with specified ID.
      *
+     * If $locales is an array, returned query will only have specified translations.
+     * If $locales is true, returned query will have all translations, otherwise, the main
+     * translation will be returned.
+     *
      * @param int|string $queryId
      * @param string[]|bool $locales
      *
@@ -84,6 +96,9 @@ interface CollectionService extends Service
 
     /**
      * Changes the type of specified collection.
+     *
+     * If new type is a dynamic collection, you also need to provide the QueryCreateStruct used to
+     * create the query in the collection.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      * @param int $newType
@@ -97,7 +112,9 @@ interface CollectionService extends Service
     public function changeCollectionType(Collection $collection, $newType, QueryCreateStruct $queryCreateStruct = null);
 
     /**
-     * Adds an item to collection.
+     * Adds an item to collection at specified position.
+     *
+     * If position is not provided, item is placed at the end of the collection.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      * @param \Netgen\BlockManager\API\Values\Collection\ItemCreateStruct $itemCreateStruct
@@ -146,7 +163,7 @@ interface CollectionService extends Service
     public function updateQuery(Query $query, QueryUpdateStruct $queryUpdateStruct);
 
     /**
-     * Creates a new item create struct.
+     * Creates a new item create struct from provided values.
      *
      * @param int $type
      * @param int|string $valueId
@@ -157,7 +174,7 @@ interface CollectionService extends Service
     public function newItemCreateStruct($type, $valueId, $valueType);
 
     /**
-     * Creates a new query create struct.
+     * Creates a new query create struct from provided query type.
      *
      * @param \Netgen\BlockManager\Collection\QueryTypeInterface $queryType
      *
@@ -166,7 +183,9 @@ interface CollectionService extends Service
     public function newQueryCreateStruct(QueryTypeInterface $queryType);
 
     /**
-     * Creates a new query update struct.
+     * Creates a new query update struct for provided locale.
+     *
+     * If query is provided, initial data is copied from the query.
      *
      * @param string $locale
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query

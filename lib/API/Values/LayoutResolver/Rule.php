@@ -14,7 +14,7 @@ interface Rule extends Value
     public function getId();
 
     /**
-     * Returns resolved layout.
+     * Returns the layout mapped to this rule.
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
@@ -49,14 +49,14 @@ interface Rule extends Value
     public function getComment();
 
     /**
-     * Returns the targets this rule applies to.
+     * Returns all the targets in the rule.
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Target[]
      */
     public function getTargets();
 
     /**
-     * Returns rule conditions.
+     * Returns all conditions in the rule.
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Condition[]
      */
@@ -64,6 +64,8 @@ interface Rule extends Value
 
     /**
      * Returns if the rule can be enabled.
+     *
+     * Rule can be enabled if it is published and has a mapped layout and at least one target.
      *
      * @return bool
      */

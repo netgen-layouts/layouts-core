@@ -32,13 +32,6 @@ class CollectionMapper
      */
     protected $queryTypeRegistry;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Persistence\Handler\CollectionHandler $collectionHandler
-     * @param \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper $parameterMapper
-     * @param \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface $queryTypeRegistry
-     */
     public function __construct(
         CollectionHandler $collectionHandler,
         ParameterMapper $parameterMapper,
@@ -51,6 +44,10 @@ class CollectionMapper
 
     /**
      * Builds the API collection value object from persistence one.
+     *
+     * If $locales is an array, returned collection will only have specified translations.
+     * If $locales is true, returned collection will have all translations, otherwise, the main
+     * translation will be returned.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      * @param string[]|bool $locales
@@ -141,6 +138,10 @@ class CollectionMapper
 
     /**
      * Builds the API query value object from persistence one.
+     *
+     * If $locales is an array, returned query will only have specified translations.
+     * If $locales is true, returned query will have all translations, otherwise, the main
+     * translation will be returned.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
      * @param string[]|bool $locales

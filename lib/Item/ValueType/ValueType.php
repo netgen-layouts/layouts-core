@@ -4,6 +4,13 @@ namespace Netgen\BlockManager\Item\ValueType;
 
 use Netgen\BlockManager\ValueObject;
 
+/**
+ * Value type represents a model of a type of CMS value available in Netgen Layouts.
+ *
+ * A value type is defined in configuration and specifies the identifier of the value
+ * which is used, together with the ID of the value, to reference a single instance
+ * in Netgen Layouts.
+ */
 class ValueType extends ValueObject
 {
     /**

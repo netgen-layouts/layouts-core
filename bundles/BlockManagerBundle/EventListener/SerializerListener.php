@@ -16,28 +16,18 @@ class SerializerListener implements EventSubscriberInterface
      */
     protected $serializer;
 
-    /**
-     * Constructor.
-     *
-     * @param \Symfony\Component\Serializer\SerializerInterface $serializer
-     */
     public function __construct(SerializerInterface $serializer)
     {
         $this->serializer = $serializer;
     }
 
-    /**
-     * Returns an array of event names this subscriber wants to listen to.
-     *
-     * @return array
-     */
     public static function getSubscribedEvents()
     {
         return array(KernelEvents::VIEW => 'onView');
     }
 
     /**
-     * Serializes the value.
+     * Serializes the value provided by the event.
      *
      * @param \Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent $event
      */

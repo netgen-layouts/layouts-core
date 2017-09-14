@@ -14,18 +14,13 @@ class BlockStructBuilder
      */
     protected $configStructBuilder;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Core\Service\StructBuilder\ConfigStructBuilder $configStructBuilder
-     */
     public function __construct(ConfigStructBuilder $configStructBuilder)
     {
         $this->configStructBuilder = $configStructBuilder;
     }
 
     /**
-     * Creates a new block create struct.
+     * Creates a new block create struct from data found in provided block definition.
      *
      * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition
      *
@@ -55,7 +50,9 @@ class BlockStructBuilder
     }
 
     /**
-     * Creates a new block update struct.
+     * Creates a new block update struct in specified locale.
+     *
+     * If block is provided, initial data is copied from the block.
      *
      * @param string $locale
      * @param \Netgen\BlockManager\API\Values\Block\Block $block

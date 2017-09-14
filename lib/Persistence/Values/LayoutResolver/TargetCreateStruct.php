@@ -7,12 +7,16 @@ use Netgen\BlockManager\ValueObject;
 class TargetCreateStruct extends ValueObject
 {
     /**
+     * Identifier of the type of the new target.
+     *
      * @var string
      */
     public $type;
 
     /**
-     * @var mixed
+     * Value of the new target.
+     *
+     * @var int|string
      */
     public $value;
 }

@@ -2,6 +2,11 @@
 
 namespace Netgen\BlockManager\Item;
 
+/**
+ * Value converter is used to convert the loaded CMS value object to an item.
+ * This is achieved by providing information (ID, name, visibility...) used by
+ * the item builder service which actually builds the item.
+ */
 interface ValueConverterInterface
 {
     /**

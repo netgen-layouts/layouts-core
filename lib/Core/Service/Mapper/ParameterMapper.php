@@ -9,7 +9,7 @@ use Netgen\BlockManager\Parameters\ParameterValue;
 class ParameterMapper
 {
     /**
-     * Maps the parameter value in regard to provided list of parameters.
+     * Maps the parameter values based on provided collection of parameters.
      *
      * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
      * @param array $parameterValues
@@ -49,7 +49,7 @@ class ParameterMapper
     }
 
     /**
-     * Serializes the existing struct values based on provided parameters.
+     * Serializes the parameter values based on provided collection of parameters.
      *
      * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
      * @param array $parameterValues

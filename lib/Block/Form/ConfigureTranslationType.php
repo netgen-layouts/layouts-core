@@ -13,11 +13,6 @@ use Symfony\Component\Validator\Constraints;
 
 class ConfigureTranslationType extends AbstractType
 {
-    /**
-     * Configures the options for this type.
-     *
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver The resolver for the options
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
@@ -28,12 +23,6 @@ class ConfigureTranslationType extends AbstractType
         $resolver->setDefault('translation_domain', 'ngbm_forms');
     }
 
-    /**
-     * Builds the form.
-     *
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder The form builder
-     * @param array $options The options
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add(
@@ -50,13 +39,6 @@ class ConfigureTranslationType extends AbstractType
         );
     }
 
-    /**
-     * Builds the form view.
-     *
-     * @param \Symfony\Component\Form\FormView $view
-     * @param \Symfony\Component\Form\FormInterface $form
-     * @param array $options
-     */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars['block'] = $options['block'];

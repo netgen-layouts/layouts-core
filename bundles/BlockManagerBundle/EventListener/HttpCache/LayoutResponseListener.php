@@ -15,27 +15,19 @@ class LayoutResponseListener implements EventSubscriberInterface
      */
     protected $tagger;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\HttpCache\TaggerInterface $tagger
-     */
     public function __construct(TaggerInterface $tagger)
     {
         $this->tagger = $tagger;
     }
 
-    /**
-     * Returns an array of event names this subscriber wants to listen to.
-     *
-     * @return array
-     */
     public static function getSubscribedEvents()
     {
         return array(KernelEvents::RESPONSE => 'onKernelResponse');
     }
 
     /**
+     * Tags the response with the data for layout provided by the event.
+     *
      * @param \Symfony\Component\HttpKernel\Event\FilterResponseEvent $event
      */
     public function onKernelResponse(FilterResponseEvent $event)

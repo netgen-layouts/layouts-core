@@ -6,16 +6,13 @@ use Netgen\BlockManager\View\Matcher\MatcherInterface;
 use Netgen\BlockManager\View\View\FormViewInterface;
 use Netgen\BlockManager\View\ViewInterface;
 
+/**
+ * This matcher matches if the form in the provided view
+ * is used to edit the config with the config key equal to
+ * value provided in the configuration.
+ */
 class ConfigKey implements MatcherInterface
 {
-    /**
-     * Returns if the view matches the config.
-     *
-     * @param \Netgen\BlockManager\View\ViewInterface $view
-     * @param array $config
-     *
-     * @return bool
-     */
     public function match(ViewInterface $view, array $config)
     {
         if (!$view instanceof FormViewInterface) {

@@ -9,11 +9,6 @@ class ContainerDefinition extends BlockDefinition implements ContainerDefinition
      */
     protected $handler;
 
-    /**
-     * Returns placeholder identifiers.
-     *
-     * @return string[]
-     */
     public function getPlaceholders()
     {
         if ($this->isDynamicContainer()) {
@@ -23,11 +18,6 @@ class ContainerDefinition extends BlockDefinition implements ContainerDefinition
         return $this->handler->getPlaceholderIdentifiers();
     }
 
-    /**
-     * Returns if this block definition is a dynamic container.
-     *
-     * @return bool
-     */
     public function isDynamicContainer()
     {
         return $this->handler->isDynamicContainer();

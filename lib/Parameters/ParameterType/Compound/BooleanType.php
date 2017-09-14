@@ -8,23 +8,23 @@ use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
+/**
+ * Parameter type used to store and validate a boolean.
+ *
+ * Difference of this parameter type from the regular boolean type is
+ * that this type allows enabling/disabling validation of parameters
+ * which are specified as "sub-parameters" of a parameter which has this type.
+ *
+ * If the boolean is checked, sub-parameters will be validated and stored,
+ * and if the boolean is false, sub-parameter values will not be stored at all.
+ */
 class BooleanType extends CompoundParameterType
 {
-    /**
-     * Returns the parameter type identifier.
-     *
-     * @return string
-     */
     public function getIdentifier()
     {
         return 'compound_boolean';
     }
 
-    /**
-     * Configures the options for this parameter.
-     *
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $optionsResolver
-     */
     public function configureOptions(OptionsResolver $optionsResolver)
     {
         $optionsResolver->setRequired(array('reverse'));
@@ -40,27 +40,11 @@ class BooleanType extends CompoundParameterType
         });
     }
 
-    /**
-     * Returns if the parameter value is empty.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
-     * @param mixed $value
-     *
-     * @return bool
-     */
     public function isValueEmpty(ParameterInterface $parameter, $value)
     {
         return $value === null;
     }
 
-    /**
-     * Returns constraints that will be used when parameter is required.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
-     * @param mixed $value
-     *
-     * @return \Symfony\Component\Validator\Constraint[]
-     */
     protected function getRequiredConstraints(ParameterInterface $parameter, $value)
     {
         if ($parameter->isRequired()) {
@@ -72,14 +56,6 @@ class BooleanType extends CompoundParameterType
         return array();
     }
 
-    /**
-     * Returns constraints that will be used to validate the parameter value.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
-     * @param mixed $value
-     *
-     * @return \Symfony\Component\Validator\Constraint[]
-     */
     protected function getValueConstraints(ParameterInterface $parameter, $value)
     {
         return array(

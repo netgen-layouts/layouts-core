@@ -23,11 +23,6 @@ class LayoutController extends Controller
      */
     protected $layoutService;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
-     */
     public function __construct(LayoutService $layoutService)
     {
         $this->layoutService = $layoutService;
@@ -281,9 +276,6 @@ class LayoutController extends Controller
         );
     }
 
-    /**
-     * Performs access checks on the controller.
-     */
     protected function checkPermissions()
     {
         $this->denyAccessUnlessGranted('ROLE_NGBM_EDITOR');

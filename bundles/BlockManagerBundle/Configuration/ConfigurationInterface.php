@@ -2,6 +2,14 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Configuration;
 
+/**
+ * This is a lightweight wrapper around container parameters set by
+ * Netgen Layouts (those starting with `netgen_block_manager`).
+ *
+ * It allows accessing the parameter values from various places (mainly
+ * Twig templates through a global variable), without directly accessing
+ * the container.
+ */
 interface ConfigurationInterface
 {
     const PARAMETER_NAMESPACE = 'netgen_block_manager';

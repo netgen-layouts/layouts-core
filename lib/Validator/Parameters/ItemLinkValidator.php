@@ -10,6 +10,9 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
+/**
+ * Validates if the provided value is a valid link to an item.
+ */
 class ItemLinkValidator extends ConstraintValidator
 {
     /**
@@ -17,22 +20,11 @@ class ItemLinkValidator extends ConstraintValidator
      */
     protected $itemLoader;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Item\ItemLoaderInterface $itemLoader
-     */
     public function __construct(ItemLoaderInterface $itemLoader)
     {
         $this->itemLoader = $itemLoader;
     }
 
-    /**
-     * Checks if the passed value is valid.
-     *
-     * @param mixed $value The value that should be validated
-     * @param \Symfony\Component\Validator\Constraint $constraint The constraint for the validation
-     */
     public function validate($value, Constraint $constraint)
     {
         if ($value === null) {

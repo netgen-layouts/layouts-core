@@ -11,11 +11,6 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 class AdminAuthenticationExceptionListener implements EventSubscriberInterface
 {
-    /**
-     * Returns an array of event names this subscriber wants to listen to.
-     *
-     * @return array
-     */
     public static function getSubscribedEvents()
     {
         // Priority needs to be higher than built in exception listener
@@ -23,7 +18,7 @@ class AdminAuthenticationExceptionListener implements EventSubscriberInterface
     }
 
     /**
-     * Converts exceptions to Symfony HTTP exceptions.
+     * Converts Symfony authentication exceptions to HTTP Access Denied exception.
      *
      * @param \Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent $event
      */

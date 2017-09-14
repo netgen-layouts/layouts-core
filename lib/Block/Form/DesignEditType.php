@@ -7,12 +7,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class DesignEditType extends EditType
 {
-    /**
-     * Builds the form.
-     *
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder The form builder
-     * @param array $options The options
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $locale = $options['data']->locale;

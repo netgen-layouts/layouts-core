@@ -31,13 +31,6 @@ class LayoutsController extends Controller
      */
     protected $httpCacheClient;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
-     * @param \Netgen\BlockManager\API\Service\BlockService $blockService
-     * @param \Netgen\BlockManager\HttpCache\ClientInterface $httpCacheClient
-     */
     public function __construct(
         LayoutService $layoutService,
         BlockService $blockService,
@@ -224,9 +217,6 @@ class LayoutsController extends Controller
         );
     }
 
-    /**
-     * Performs access checks on the controller.
-     */
     protected function checkPermissions()
     {
         $this->denyAccessUnlessGranted('ROLE_NGBM_ADMIN');

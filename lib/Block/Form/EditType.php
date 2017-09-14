@@ -38,11 +38,6 @@ abstract class EditType extends TranslatableType
      */
     protected $viewTypesByParameters = array();
 
-    /**
-     * Configures the options for this type.
-     *
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver The resolver for the options
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
@@ -62,13 +57,6 @@ abstract class EditType extends TranslatableType
         });
     }
 
-    /**
-     * Builds the form view.
-     *
-     * @param \Symfony\Component\Form\FormView $view
-     * @param \Symfony\Component\Form\FormInterface $form
-     * @param array $options
-     */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars['block'] = $options['block'];
@@ -76,7 +64,7 @@ abstract class EditType extends TranslatableType
     }
 
     /**
-     * Adds view type and item view type form children to form.
+     * Adds view type and item view type forms to the provided form builder.
      *
      * @param \Symfony\Component\Form\FormBuilderInterface $builder
      * @param array $options
@@ -117,7 +105,7 @@ abstract class EditType extends TranslatableType
     }
 
     /**
-     * Adds a name form child to form.
+     * Adds a name form to the provided form builders.
      *
      * @param \Symfony\Component\Form\FormBuilderInterface $builder
      * @param array $options
@@ -140,7 +128,7 @@ abstract class EditType extends TranslatableType
     }
 
     /**
-     * Adds parameters form child to form.
+     * Adds the parameters form to the provided builder.
      *
      * @param \Symfony\Component\Form\FormBuilderInterface $builder
      * @param array $options
@@ -166,7 +154,11 @@ abstract class EditType extends TranslatableType
     }
 
     /**
-     * Processes the view type config and builds arrays used by the forms.
+     * Generates the list of valid view types for every item view type
+     * and for every parameter, according to config provided by the block definition.
+     *
+     * These lists are used by the interface to hide and show item view types
+     * and parameters based on selected view type.
      *
      * @todo Move this code somewhere else
      *

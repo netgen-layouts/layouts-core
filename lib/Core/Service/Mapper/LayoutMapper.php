@@ -25,12 +25,6 @@ class LayoutMapper
      */
     protected $layoutTypeRegistry;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Persistence\Handler\LayoutHandler $layoutHandler
-     * @param \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry
-     */
     public function __construct(LayoutHandler $layoutHandler, LayoutTypeRegistryInterface $layoutTypeRegistry)
     {
         $this->layoutHandler = $layoutHandler;
@@ -111,7 +105,7 @@ class LayoutMapper
     }
 
     /**
-     * Returns \DateTime object from the timestamp.
+     * Builds and returns the \DateTime object from the provided timestamp.
      *
      * @param int $timestamp
      *

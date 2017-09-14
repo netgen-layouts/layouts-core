@@ -15,7 +15,7 @@ class LayoutCreateStructTest extends TestCase
         $this->assertNull($layoutCreateStruct->layoutType);
         $this->assertNull($layoutCreateStruct->name);
         $this->assertNull($layoutCreateStruct->description);
-        $this->assertNull($layoutCreateStruct->shared);
+        $this->assertFalse($layoutCreateStruct->shared);
         $this->assertNull($layoutCreateStruct->mainLocale);
     }
 

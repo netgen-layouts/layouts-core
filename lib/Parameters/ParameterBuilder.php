@@ -94,45 +94,21 @@ class ParameterBuilder implements ParameterBuilderInterface
         $this->options = $this->resolveOptions($options);
     }
 
-    /**
-     * Returns the parameter name.
-     *
-     * @return string
-     */
     public function getName()
     {
         return $this->name;
     }
 
-    /**
-     * Returns the parameter type.
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterTypeInterface
-     */
     public function getType()
     {
         return $this->type;
     }
 
-    /**
-     * Returns the parameter options.
-     *
-     * @return array
-     */
     public function getOptions()
     {
         return $this->options;
     }
 
-    /**
-     * Returns the parameter option with provided name.
-     *
-     * @param string $name
-     *
-     * @throws \Netgen\BlockManager\Exception\Parameters\ParameterBuilderException If the option does not exist
-     *
-     * @return mixed
-     */
     public function getOption($name)
     {
         if (!array_key_exists($name, $this->options)) {
@@ -142,32 +118,11 @@ class ParameterBuilder implements ParameterBuilderInterface
         return $this->options[$name];
     }
 
-    /**
-     * Returns if the parameter option with provided name exists.
-     *
-     * @param string $name
-     *
-     * @return bool
-     */
     public function hasOption($name)
     {
         return array_key_exists($name, $this->options);
     }
 
-    /**
-     * Sets the option to the provided value.
-     *
-     * This will cause all options to be reinitialized with the internal options resolver
-     * in order to properly validate the new option value.
-     *
-     * The options will keep their existing values (unless the options resolver modifies them
-     * according to rules in the parameter type).
-     *
-     * @param string $name
-     * @param mixed $value
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface
-     */
     public function setOption($name, $value)
     {
         if ($this->locked) {
@@ -188,23 +143,11 @@ class ParameterBuilder implements ParameterBuilderInterface
         return $this;
     }
 
-    /**
-     * Returns if the parameter is required.
-     *
-     * @return bool
-     */
     public function isRequired()
     {
         return $this->isRequired;
     }
 
-    /**
-     * Sets if the parameter is required.
-     *
-     * @param bool $isRequired
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface
-     */
     public function setRequired($isRequired)
     {
         if ($this->locked) {
@@ -216,23 +159,11 @@ class ParameterBuilder implements ParameterBuilderInterface
         return $this;
     }
 
-    /**
-     * Returns the default value of the parameter.
-     *
-     * @return mixed
-     */
     public function getDefaultValue()
     {
         return $this->defaultValue;
     }
 
-    /**
-     * Sets the default value of the parameter.
-     *
-     * @param mixed $defaultValue
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface
-     */
     public function setDefaultValue($defaultValue)
     {
         if ($this->locked) {
@@ -244,23 +175,11 @@ class ParameterBuilder implements ParameterBuilderInterface
         return $this;
     }
 
-    /**
-     * Returns the parameter label.
-     *
-     * @return string
-     */
     public function getLabel()
     {
         return $this->label;
     }
 
-    /**
-     * Sets the parameter label.
-     *
-     * @param string $label
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface
-     */
     public function setLabel($label)
     {
         if ($this->locked) {
@@ -272,23 +191,11 @@ class ParameterBuilder implements ParameterBuilderInterface
         return $this;
     }
 
-    /**
-     * Returns the parameter groups.
-     *
-     * @return array
-     */
     public function getGroups()
     {
         return $this->groups;
     }
 
-    /**
-     * Sets the parameter groups.
-     *
-     * @param array $groups
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface
-     */
     public function setGroups(array $groups)
     {
         if ($this->locked) {
@@ -300,15 +207,6 @@ class ParameterBuilder implements ParameterBuilderInterface
         return $this;
     }
 
-    /**
-     * Adds the parameter to the builder.
-     *
-     * @param string $name
-     * @param string $type
-     * @param array $options
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface
-     */
     public function add($name, $type, array $options = array())
     {
         if ($this->locked) {
@@ -338,13 +236,6 @@ class ParameterBuilder implements ParameterBuilderInterface
         return $this;
     }
 
-    /**
-     * Returns the builder for parameter with provided name.
-     *
-     * @param string $name
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface
-     */
     public function get($name)
     {
         if ($this->locked) {
@@ -358,13 +249,6 @@ class ParameterBuilder implements ParameterBuilderInterface
         return $this->unresolvedChildren[$name];
     }
 
-    /**
-     * Returns the builders for all parameters, optionally filtered by the group.
-     *
-     * @param string $group
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface[]
-     */
     public function all($group = null)
     {
         if ($this->locked) {
@@ -383,25 +267,11 @@ class ParameterBuilder implements ParameterBuilderInterface
         );
     }
 
-    /**
-     * Returns if the builder has the parameter with provided name.
-     *
-     * @param string $name
-     *
-     * @return bool
-     */
     public function has($name)
     {
         return isset($this->unresolvedChildren[$name]);
     }
 
-    /**
-     * Removes the parameter from the builder.
-     *
-     * @param string $name
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface
-     */
     public function remove($name)
     {
         if ($this->locked) {
@@ -413,21 +283,11 @@ class ParameterBuilder implements ParameterBuilderInterface
         return $this;
     }
 
-    /**
-     * Returns the count of the parameters.
-     *
-     * @return int
-     */
     public function count()
     {
         return count($this->unresolvedChildren);
     }
 
-    /**
-     * Builds the parameters.
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
-     */
     public function buildParameters()
     {
         if ($this->locked) {

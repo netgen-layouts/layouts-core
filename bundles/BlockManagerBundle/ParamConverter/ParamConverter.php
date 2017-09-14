@@ -11,14 +11,6 @@ abstract class ParamConverter implements ParamConverterInterface
 {
     const ROUTE_STATUS_PARAM = '_ngbm_status';
 
-    /**
-     * Stores the object in the request.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request The request
-     * @param \Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter $configuration Contains the name, class and options of the object
-     *
-     * @return bool True if the object has been successfully set, else false
-     */
     public function apply(Request $request, ParamConverterConfiguration $configuration)
     {
         $sourceAttributeNames = $this->getSourceAttributeNames();
@@ -66,13 +58,6 @@ abstract class ParamConverter implements ParamConverterInterface
         return true;
     }
 
-    /**
-     * Checks if the object is supported.
-     *
-     * @param \Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter $configuration Should be an instance of ParamConverter
-     *
-     * @return bool True if the object is supported, else false
-     */
     public function supports(ParamConverterConfiguration $configuration)
     {
         return is_a($configuration->getClass(), $this->getSupportedClass(), true);

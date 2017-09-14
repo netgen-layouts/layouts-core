@@ -5,6 +5,11 @@ namespace Netgen\Bundle\BlockManagerBundle\Configuration;
 use Netgen\Bundle\BlockManagerBundle\Exception\ConfigurationException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * This is a default implementation of ConfigurationInterface,
+ * allowing some parameters to be injected into constructor and
+ * returned first if they exist, before checking the container.
+ */
 class ContainerConfiguration implements ConfigurationInterface
 {
     /**
@@ -29,13 +34,6 @@ class ContainerConfiguration implements ConfigurationInterface
         $this->parameters = $parameters;
     }
 
-    /**
-     * Returns if parameter exists in configuration.
-     *
-     * @param string $parameterName
-     *
-     * @return bool
-     */
     public function hasParameter($parameterName)
     {
         if (array_key_exists($parameterName, $this->parameters)) {
@@ -47,15 +45,6 @@ class ContainerConfiguration implements ConfigurationInterface
         );
     }
 
-    /**
-     * Returns the parameter from configuration.
-     *
-     * @param string $parameterName
-     *
-     * @throws \Netgen\Bundle\BlockManagerBundle\Exception\ConfigurationException If parameter is undefined
-     *
-     * @return mixed
-     */
     public function getParameter($parameterName)
     {
         if (!$this->hasParameter($parameterName)) {

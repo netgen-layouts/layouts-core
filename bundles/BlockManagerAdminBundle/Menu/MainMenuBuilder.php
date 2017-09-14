@@ -17,12 +17,6 @@ class MainMenuBuilder
      */
     protected $authorizationChecker;
 
-    /**
-     * Constructor.
-     *
-     * @param \Knp\Menu\FactoryInterface $factory
-     * @param \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface $authorizationChecker
-     */
     public function __construct(FactoryInterface $factory, AuthorizationCheckerInterface $authorizationChecker)
     {
         $this->factory = $factory;

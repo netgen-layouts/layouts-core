@@ -9,8 +9,8 @@ use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 interface PluginInterface
 {
     /**
-     * Returns the fully qualified class name of the handler which this
-     * plugin extends. If you wish to extend every existing handler,
+     * Returns the fully qualified class name of the block definition handler
+     * which this plugin extends. If you wish to extend every existing handler,
      * return the FQCN of the block handler interface. You can also return
      * the list of FQCNs to make the plugin work on a set of blocks.
      *

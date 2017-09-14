@@ -7,7 +7,7 @@ use Netgen\BlockManager\API\Values\ParameterBasedValue;
 interface Config extends ParameterBasedValue
 {
     /**
-     * Returns the config config key.
+     * Returns the config key.
      *
      * @return string
      */

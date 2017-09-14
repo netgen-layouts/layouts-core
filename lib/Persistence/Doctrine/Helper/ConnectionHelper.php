@@ -18,11 +18,6 @@ class ConnectionHelper
      */
     protected $databaseSpecificHelpers = array();
 
-    /**
-     * Constructor.
-     *
-     * @param \Doctrine\DBAL\Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;

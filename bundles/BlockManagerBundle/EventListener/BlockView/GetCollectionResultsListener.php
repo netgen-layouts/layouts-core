@@ -44,18 +44,13 @@ class GetCollectionResultsListener implements EventSubscriberInterface
         $this->enabledContexts = $enabledContexts;
     }
 
-    /**
-     * Returns an array of event names this subscriber wants to listen to.
-     *
-     * @return array
-     */
     public static function getSubscribedEvents()
     {
         return array(BlockManagerEvents::RENDER_VIEW => 'onRenderView');
     }
 
     /**
-     * Includes results built from all block collections, if specified so.
+     * Adds a parameter to the view with results built from all block collections.
      *
      * @param \Netgen\BlockManager\Event\CollectViewParametersEvent $event
      */

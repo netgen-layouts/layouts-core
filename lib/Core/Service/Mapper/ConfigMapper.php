@@ -12,18 +12,13 @@ class ConfigMapper
      */
     protected $parameterMapper;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper $parameterMapper
-     */
     public function __construct(ParameterMapper $parameterMapper)
     {
         $this->parameterMapper = $parameterMapper;
     }
 
     /**
-     * Maps the provided config to API values.
+     * Maps the provided config array to API values according to provided config definitions.
      *
      * @param array $config
      * @param \Netgen\BlockManager\Config\ConfigDefinitionInterface[] $configDefinitions
@@ -56,7 +51,7 @@ class ConfigMapper
     }
 
     /**
-     * Serializes the existing struct values based on provided parameters.
+     * Serializes the existing config struct values based on provided config definitions.
      *
      * @param \Netgen\BlockManager\API\Values\ParameterStruct[] $configStructs
      * @param \Netgen\BlockManager\Config\ConfigDefinitionInterface[] $configDefinitions

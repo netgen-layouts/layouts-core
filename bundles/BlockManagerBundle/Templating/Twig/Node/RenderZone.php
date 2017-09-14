@@ -30,11 +30,6 @@ class RenderZone extends Node
         parent::__construct($nodes, array(), $line, $tag);
     }
 
-    /**
-     * Compiles the node to PHP.
-     *
-     * @param \Twig\Compiler $compiler
-     */
     public function compile(Compiler $compiler)
     {
         $compiler

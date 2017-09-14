@@ -5,8 +5,18 @@ namespace Netgen\BlockManager\Collection\QueryType;
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 
+/**
+ * Query type handler represents the dynamic/runtime part of the query type.
+ * It is mainly used to implement the fetching of items from the CMS.
+ *
+ * Implement this interface to create your own query types.
+ */
 interface QueryTypeHandlerInterface
 {
+    /**
+     * Use this group in your parameters if you wish to show them in the
+     * Advanced section of query edit interface.
+     */
     const GROUP_ADVANCED = 'advanced';
 
     /**
@@ -37,7 +47,11 @@ interface QueryTypeHandlerInterface
     public function getCount(Query $query);
 
     /**
-     * Returns the limit internal to this query.
+     * Returns the internal limit of the provided query.
+     *
+     * This limit is used to signal to the system how many items
+     * will the query produce at maximum. If this value is null, query
+     * will return the unknown (or rather unlimited) number of items.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      *

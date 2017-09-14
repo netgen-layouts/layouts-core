@@ -19,11 +19,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class LinkType extends AbstractType
 {
-    /**
-     * Configures the options for this type.
-     *
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver The resolver for the options
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
@@ -35,12 +30,6 @@ class LinkType extends AbstractType
         $resolver->setDefault('value_types', array());
     }
 
-    /**
-     * Builds the form.
-     *
-     * @param \Symfony\Component\Form\FormBuilderInterface $builder
-     * @param array $options
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add(
@@ -132,13 +121,6 @@ class LinkType extends AbstractType
         );
     }
 
-    /**
-     * Builds the form view.
-     *
-     * @param \Symfony\Component\Form\FormView $view
-     * @param \Symfony\Component\Form\FormInterface $form
-     * @param array $options
-     */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $linkType = $form->get('link_type')->getData();
@@ -154,14 +136,6 @@ class LinkType extends AbstractType
         }
     }
 
-    /**
-     * Returns the prefix of the template block name for this type.
-     *
-     * The block prefixes default to the underscored short class name with
-     * the "Type" suffix removed (e.g. "UserProfileType" => "user_profile").
-     *
-     * @return string The prefix of the template block name
-     */
     public function getBlockPrefix()
     {
         return 'ngbm_link';

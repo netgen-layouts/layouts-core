@@ -9,6 +9,8 @@ class ItemCreateStruct extends ValueObject
     /**
      * The ID of the value within the item.
      *
+     * Required.
+     *
      * @var int|string
      */
     public $valueId;
@@ -16,12 +18,16 @@ class ItemCreateStruct extends ValueObject
     /**
      * The type of the value within the item.
      *
+     * Required.
+     *
      * @var string
      */
     public $valueType;
 
     /**
      * Type of the item. One of Item::TYPE_* constants.
+     *
+     * Required.
      *
      * @var int
      */

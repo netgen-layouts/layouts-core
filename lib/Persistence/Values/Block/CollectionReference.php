@@ -28,7 +28,7 @@ class CollectionReference extends Value
     public $collectionId;
 
     /**
-     * Collection ID.
+     * Collection status.
      *
      * @var int|string
      */
@@ -42,14 +42,14 @@ class CollectionReference extends Value
     public $identifier;
 
     /**
-     * The offset of the reference.
+     * The starting offset for the collection results.
      *
      * @var int
      */
     public $offset;
 
     /**
-     * The limit of the reference.
+     * The starting limit for the collection results.
      *
      * @var int
      */

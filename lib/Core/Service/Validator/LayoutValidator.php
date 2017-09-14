@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints;
 class LayoutValidator extends Validator
 {
     /**
-     * Validates layout create struct.
+     * Validates the provided layout create struct.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct $layoutCreateStruct
      *
@@ -79,7 +79,7 @@ class LayoutValidator extends Validator
     }
 
     /**
-     * Validates layout update struct.
+     * Validates the provided layout update struct.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct $layoutUpdateStruct
      *
@@ -118,7 +118,7 @@ class LayoutValidator extends Validator
     }
 
     /**
-     * Validates layout create struct.
+     * Validates the provided layout create struct.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct $layoutCopyStruct
      *
@@ -155,7 +155,7 @@ class LayoutValidator extends Validator
     }
 
     /**
-     * Validates zone mappings for changing a layout type.
+     * Validates zone mappings for changing the provided layout type.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      * @param \Netgen\BlockManager\Layout\Type\LayoutType $targetLayoutType

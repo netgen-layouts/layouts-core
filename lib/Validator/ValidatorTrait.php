@@ -13,11 +13,6 @@ trait ValidatorTrait
      */
     protected $validator;
 
-    /**
-     * Constructor.
-     *
-     * @param \Symfony\Component\Validator\Validator\ValidatorInterface $validator
-     */
     public function setValidator(ValidatorInterface $validator)
     {
         $this->validator = $validator;

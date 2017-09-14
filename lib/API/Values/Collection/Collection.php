@@ -26,6 +26,9 @@ interface Collection extends Value
     /**
      * Returns the collection type.
      *
+     * The type can be manual (can have only manual items)
+     * or dynamic (can have manual items as well as a query).
+     *
      * @return int
      */
     public function getType();
@@ -63,7 +66,7 @@ interface Collection extends Value
     public function getManualItem($position);
 
     /**
-     * Returns the manual items.
+     * Returns all the manual items.
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Item[]
      */
@@ -88,7 +91,7 @@ interface Collection extends Value
     public function getOverrideItem($position);
 
     /**
-     * Returns the override items.
+     * Returns all the override items.
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Item[]
      */
@@ -139,7 +142,7 @@ interface Collection extends Value
     public function isTranslatable();
 
     /**
-     * Returns if the main translation of the collection is used
+     * Returns if the main translation of the collection will be used
      * in case there are no prioritized translations.
      *
      * @return bool

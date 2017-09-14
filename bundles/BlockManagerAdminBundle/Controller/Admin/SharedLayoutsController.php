@@ -23,12 +23,6 @@ class SharedLayoutsController extends Controller
      */
     protected $httpCacheClient;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
-     * @param \Netgen\BlockManager\HttpCache\ClientInterface $httpCacheClient
-     */
     public function __construct(LayoutService $layoutService, ClientInterface $httpCacheClient)
     {
         $this->layoutService = $layoutService;
@@ -115,9 +109,6 @@ class SharedLayoutsController extends Controller
         );
     }
 
-    /**
-     * Performs access checks on the controller.
-     */
     protected function checkPermissions()
     {
         $this->denyAccessUnlessGranted('ROLE_NGBM_ADMIN');

@@ -15,21 +15,11 @@ class TwigExtensionsListener implements EventSubscriberInterface
      */
     protected $twig;
 
-    /**
-     * Constructor.
-     *
-     * @param \Twig\Environment $twig
-     */
     public function __construct(Environment $twig)
     {
         $this->twig = $twig;
     }
 
-    /**
-     * Returns an array of event names this subscriber wants to listen to.
-     *
-     * @return array
-     */
     public static function getSubscribedEvents()
     {
         return array(KernelEvents::REQUEST => 'onKernelRequest');

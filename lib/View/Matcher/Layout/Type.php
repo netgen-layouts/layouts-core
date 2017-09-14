@@ -6,16 +6,12 @@ use Netgen\BlockManager\View\Matcher\MatcherInterface;
 use Netgen\BlockManager\View\View\LayoutViewInterface;
 use Netgen\BlockManager\View\ViewInterface;
 
+/**
+ * This matcher matches if the layout in the provided view
+ * has a layout type with the value specified in the configuration.
+ */
 class Type implements MatcherInterface
 {
-    /**
-     * Returns if the view matches the config.
-     *
-     * @param \Netgen\BlockManager\View\ViewInterface $view
-     * @param array $config
-     *
-     * @return bool
-     */
     public function match(ViewInterface $view, array $config)
     {
         if (!$view instanceof LayoutViewInterface) {

@@ -21,12 +21,6 @@ class BlockDefinitionFactory
      */
     protected $handlerPluginRegistry;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface $parameterBuilderFactory
-     * @param \Netgen\BlockManager\Block\Registry\HandlerPluginRegistryInterface $handlerPluginRegistry
-     */
     public function __construct(
         ParameterBuilderFactoryInterface $parameterBuilderFactory,
         HandlerPluginRegistryInterface $handlerPluginRegistry

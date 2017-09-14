@@ -6,6 +6,9 @@ use FilterIterator;
 use Iterator;
 use Netgen\BlockManager\Item\NullItem;
 
+/**
+ * Filters the result set by using the filtering flags provided in the constructor.
+ */
 class ResultFilterIterator extends FilterIterator
 {
     /**
@@ -27,7 +30,8 @@ class ResultFilterIterator extends FilterIterator
     }
 
     /**
-     * Returns true if result should be included in the result set.
+     * Returns true if result should be included in the result set, as defined
+     * by the flags used in the constructor (including invisible or invalid items and so on.).
      *
      * @return bool
      */

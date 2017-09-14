@@ -5,6 +5,13 @@ namespace Netgen\BlockManager\Block\BlockDefinition\Configuration;
 use Netgen\BlockManager\Exception\Block\BlockDefinitionException;
 use Netgen\BlockManager\ValueObject;
 
+/**
+ * This class and the corresponding namespace are the object representation
+ * of the block definition configuration, which includes basic block definition
+ * information (name, identifier, icon) as well as the list of view types and
+ * item view types the block can have, the list of forms available to edit
+ * the block and the list of collections the block has.
+ */
 class Configuration extends ValueObject
 {
     /**

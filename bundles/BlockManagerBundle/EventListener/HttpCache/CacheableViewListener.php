@@ -11,11 +11,6 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class CacheableViewListener implements EventSubscriberInterface
 {
-    /**
-     * Returns an array of event names this subscriber wants to listen to.
-     *
-     * @return array
-     */
     public static function getSubscribedEvents()
     {
         return array(
@@ -25,6 +20,8 @@ class CacheableViewListener implements EventSubscriberInterface
     }
 
     /**
+     * Adds the caching headers for the view provided by the event.
+     *
      * @param \Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent $event
      */
     public function onView(GetResponseForControllerResultEvent $event)

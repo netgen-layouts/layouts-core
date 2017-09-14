@@ -24,23 +24,12 @@ class ExceptionSerializerListener implements EventSubscriberInterface
      */
     protected $logger;
 
-    /**
-     * Constructor.
-     *
-     * @param \Symfony\Component\Serializer\SerializerInterface $serializer
-     * @param \Psr\Log\LoggerInterface $logger
-     */
     public function __construct(SerializerInterface $serializer, LoggerInterface $logger = null)
     {
         $this->serializer = $serializer;
         $this->logger = $logger ?: new NullLogger();
     }
 
-    /**
-     * Returns an array of event names this subscriber wants to listen to.
-     *
-     * @return array
-     */
     public static function getSubscribedEvents()
     {
         // Must happen BEFORE Symfony Security component ExceptionListener

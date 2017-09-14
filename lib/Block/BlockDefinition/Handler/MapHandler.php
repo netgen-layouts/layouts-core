@@ -37,11 +37,6 @@ class MapHandler extends BlockDefinitionHandler
         $this->mapTypes = array_flip($mapTypes);
     }
 
-    /**
-     * Builds the parameters by using provided parameter builder.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $builder
-     */
     public function buildParameters(ParameterBuilderInterface $builder)
     {
         $builder->add(

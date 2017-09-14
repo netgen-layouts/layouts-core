@@ -7,11 +7,15 @@ use Netgen\BlockManager\ValueObject;
 class CollectionUpdateStruct extends ValueObject
 {
     /**
+     * Flag indicating if the collection will be always available.
+     *
      * @var bool
      */
     public $alwaysAvailable;
 
     /**
+     * Flag indicating if the collection will be translatable.
+     *
      * @var bool
      */
     public $isTranslatable;
