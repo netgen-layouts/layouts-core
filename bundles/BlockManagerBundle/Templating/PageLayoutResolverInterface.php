@@ -2,6 +2,10 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Templating;
 
+/**
+ * Page layout resolvers are used to programmatically define which
+ * pagelayout will be used to render the page.
+ */
 interface PageLayoutResolverInterface
 {
     /**
