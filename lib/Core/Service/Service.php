@@ -12,7 +12,7 @@ abstract class Service implements APIService
     /**
      * @var \Netgen\BlockManager\Persistence\Handler
      */
-    protected $persistenceHandler;
+    private $persistenceHandler;
 
     public function __construct(Handler $persistenceHandler)
     {

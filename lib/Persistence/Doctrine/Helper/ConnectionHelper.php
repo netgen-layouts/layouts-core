@@ -11,12 +11,12 @@ class ConnectionHelper
     /**
      * @var \Doctrine\DBAL\Connection
      */
-    protected $connection;
+    private $connection;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper[]
      */
-    protected $databaseSpecificHelpers = array();
+    private $databaseSpecificHelpers = array();
 
     public function __construct(Connection $connection)
     {

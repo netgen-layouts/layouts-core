@@ -12,12 +12,12 @@ class BlockDefinitionRegistryTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
-    protected $blockDefinition;
+    private $blockDefinition;
 
     /**
      * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry
      */
-    protected $registry;
+    private $registry;
 
     public function setUp()
     {

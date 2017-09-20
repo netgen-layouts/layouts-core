@@ -12,7 +12,7 @@ class ValueTypeRegistry implements ValueTypeRegistryInterface
     /**
      * @var \Netgen\BlockManager\Item\ValueType\ValueType[]
      */
-    protected $valueTypes = array();
+    private $valueTypes = array();
 
     public function addValueType($identifier, ValueType $valueType)
     {

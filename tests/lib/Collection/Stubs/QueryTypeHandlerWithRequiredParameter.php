@@ -13,7 +13,7 @@ class QueryTypeHandlerWithRequiredParameter implements QueryTypeHandlerInterface
     /**
      * @var array
      */
-    protected $values = array();
+    private $values = array();
 
     /**
      * Constructor.

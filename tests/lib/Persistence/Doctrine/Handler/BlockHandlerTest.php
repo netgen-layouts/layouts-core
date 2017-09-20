@@ -23,17 +23,17 @@ class BlockHandlerTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler
      */
-    protected $blockHandler;
+    private $blockHandler;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler
      */
-    protected $layoutHandler;
+    private $layoutHandler;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler
      */
-    protected $collectionHandler;
+    private $collectionHandler;
 
     /**
      * Sets up the tests.

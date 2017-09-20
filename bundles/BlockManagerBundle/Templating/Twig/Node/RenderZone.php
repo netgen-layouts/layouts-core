@@ -56,7 +56,7 @@ class RenderZone extends Node
      *
      * @param \Twig\Compiler $compiler
      */
-    protected function compileContextNode(Compiler $compiler)
+    private function compileContextNode(Compiler $compiler)
     {
         $contextNode = null;
         if ($this->hasNode('context')) {

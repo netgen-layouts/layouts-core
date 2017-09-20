@@ -12,7 +12,7 @@ class LayoutTypeTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Layout\Type\LayoutType
      */
-    protected $layoutType;
+    private $layoutType;
 
     public function setUp()
     {

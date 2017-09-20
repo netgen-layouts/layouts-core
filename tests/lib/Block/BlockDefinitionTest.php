@@ -15,17 +15,17 @@ class BlockDefinitionTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface
      */
-    protected $handler;
+    private $handler;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $configMock;
+    private $configMock;
 
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition
      */
-    protected $blockDefinition;
+    private $blockDefinition;
 
     public function setUp()
     {

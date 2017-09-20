@@ -13,7 +13,7 @@ class ModifiedTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Modified
      */
-    protected $provider;
+    private $provider;
 
     public function setUp()
     {

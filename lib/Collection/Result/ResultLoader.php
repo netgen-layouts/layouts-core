@@ -9,12 +9,12 @@ class ResultLoader implements ResultLoaderInterface
     /**
      * @var \Netgen\BlockManager\Collection\Result\ResultIteratorFactory
      */
-    protected $resultIteratorFactory;
+    private $resultIteratorFactory;
 
     /**
      * @var \Netgen\BlockManager\Collection\Result\CollectionIteratorFactory
      */
-    protected $collectionIteratorFactory;
+    private $collectionIteratorFactory;
 
     public function __construct(
         ResultIteratorFactory $resultIteratorFactory,

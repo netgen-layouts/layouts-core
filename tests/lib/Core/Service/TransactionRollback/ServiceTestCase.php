@@ -32,6 +32,11 @@ abstract class ServiceTestCase extends BaseServiceTestCase
     protected $layoutResolverHandlerMock;
 
     /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $persistenceHandler;
+
+    /**
      * Prepares the prerequisites for using services in tests.
      */
     public function preparePersistence()

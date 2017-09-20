@@ -7,7 +7,7 @@ class GlobalVariable
     /**
      * @var string
      */
-    protected $pageLayoutTemplate;
+    private $pageLayoutTemplate;
 
     /**
      * Sets the pagelayout template.

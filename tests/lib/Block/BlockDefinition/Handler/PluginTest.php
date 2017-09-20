@@ -15,17 +15,17 @@ class PluginTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Handler\Plugin
      */
-    protected $plugin;
+    private $plugin;
 
     /**
      * @var \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface
      */
-    protected $parameterTypeRegistry;
+    private $parameterTypeRegistry;
 
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface
      */
-    protected $parameterBuilderFactory;
+    private $parameterBuilderFactory;
 
     public function setUp()
     {

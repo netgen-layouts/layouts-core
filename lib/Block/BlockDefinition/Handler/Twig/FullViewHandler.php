@@ -16,7 +16,7 @@ class FullViewHandler extends BlockDefinitionHandler implements TwigBlockDefinit
     /**
      * @var string
      */
-    protected $twigBlockName;
+    private $twigBlockName;
 
     /**
      * Constructor.

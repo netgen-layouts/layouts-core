@@ -13,12 +13,12 @@ class FormViewTest extends TestCase
     /**
      * @var \Symfony\Component\Form\FormInterface
      */
-    protected $form;
+    private $form;
 
     /**
      * @var \Netgen\BlockManager\View\View\FormViewInterface
      */
-    protected $view;
+    private $view;
 
     public function setUp()
     {

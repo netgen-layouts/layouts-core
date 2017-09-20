@@ -51,7 +51,7 @@ class HttpCacheNode implements ConfigurationNodeInterface
      *
      * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition
      */
-    protected function configureTtlNode($node)
+    private function configureTtlNode($node)
     {
         $node
             ->addDefaultsIfNotSet()

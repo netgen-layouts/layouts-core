@@ -16,27 +16,27 @@ class ConfigController extends Controller
     /**
      * @var \Netgen\BlockManager\Block\Registry\BlockTypeRegistryInterface
      */
-    protected $blockTypeRegistry;
+    private $blockTypeRegistry;
 
     /**
      * @var \Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistryInterface
      */
-    protected $blockTypeGroupRegistry;
+    private $blockTypeGroupRegistry;
 
     /**
      * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface
      */
-    protected $layoutTypeRegistry;
+    private $layoutTypeRegistry;
 
     /**
      * @var \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface
      */
-    protected $csrfTokenManager;
+    private $csrfTokenManager;
 
     /**
      * @var string
      */
-    protected $csrfTokenId;
+    private $csrfTokenId;
 
     /**
      * Constructor.
@@ -117,12 +117,17 @@ class ConfigController extends Controller
         return new Value($layoutTypes);
     }
 
+    protected function checkPermissions()
+    {
+        $this->denyAccessUnlessGranted('ROLE_NGBM_API');
+    }
+
     /**
      * Returns the CSRF token.
      *
      * @return string|null
      */
-    protected function getCsrfToken()
+    private function getCsrfToken()
     {
         $token = $this->csrfTokenManager->getToken($this->csrfTokenId);
         if (!$this->csrfTokenManager->isTokenValid($token)) {
@@ -130,10 +135,5 @@ class ConfigController extends Controller
         }
 
         return $token->getValue();
-    }
-
-    protected function checkPermissions()
-    {
-        $this->denyAccessUnlessGranted('ROLE_NGBM_API');
     }
 }

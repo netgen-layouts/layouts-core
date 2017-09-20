@@ -13,12 +13,12 @@ class CollectionParamConverterTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $collectionServiceMock;
+    private $collectionServiceMock;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\CollectionParamConverter
      */
-    protected $paramConverter;
+    private $paramConverter;
 
     public function setUp()
     {

@@ -18,7 +18,7 @@ class FullEditTypeTest extends FormTestCase
     /**
      * @var \Netgen\BlockManager\API\Values\Collection\Query
      */
-    protected $query;
+    private $query;
 
     /**
      * Sets up the test.

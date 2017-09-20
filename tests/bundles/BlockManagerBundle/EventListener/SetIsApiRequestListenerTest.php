@@ -14,7 +14,7 @@ class SetIsApiRequestListenerTest extends TestCase
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener
      */
-    protected $listener;
+    private $listener;
 
     public function setUp()
     {

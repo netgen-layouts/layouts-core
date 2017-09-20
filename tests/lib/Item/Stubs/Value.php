@@ -7,7 +7,7 @@ class Value
     /**
      * @var int|string
      */
-    protected $id;
+    private $id;
 
     /**
      * Constructor.

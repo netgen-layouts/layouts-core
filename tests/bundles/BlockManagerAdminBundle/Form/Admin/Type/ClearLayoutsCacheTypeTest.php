@@ -12,7 +12,7 @@ class ClearLayoutsCacheTypeTest extends FormTestCase
     /**
      * @var \Netgen\BlockManager\API\Values\Block\Block
      */
-    protected $layouts;
+    private $layouts;
 
     /**
      * Sets up the test.

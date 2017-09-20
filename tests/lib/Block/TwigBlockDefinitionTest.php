@@ -13,17 +13,17 @@ class TwigBlockDefinitionTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface
      */
-    protected $handler;
+    private $handler;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $configMock;
+    private $configMock;
 
     /**
      * @var \Netgen\BlockManager\Block\TwigBlockDefinition
      */
-    protected $blockDefinition;
+    private $blockDefinition;
 
     public function setUp()
     {

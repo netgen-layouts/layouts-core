@@ -19,12 +19,12 @@ class ResultBuilderIteratorTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $itemLoaderMock;
+    private $itemLoaderMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $itemBuilderMock;
+    private $itemBuilderMock;
 
     public function setUp()
     {
@@ -140,7 +140,7 @@ class ResultBuilderIteratorTest extends TestCase
     /**
      * @return mixed[]
      */
-    protected function getItems()
+    private function getItems()
     {
         return array(
             new stdClass(),

@@ -15,7 +15,7 @@ class CollectionIteratorFactoryTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Collection\Result\CollectionIteratorFactory
      */
-    protected $factory;
+    private $factory;
 
     public function setUp()
     {

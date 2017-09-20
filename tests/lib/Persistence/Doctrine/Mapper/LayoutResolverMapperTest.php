@@ -14,7 +14,7 @@ class LayoutResolverMapperTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper
      */
-    protected $mapper;
+    private $mapper;
 
     public function setUp()
     {

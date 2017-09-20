@@ -19,12 +19,12 @@ class LayoutNormalizer implements NormalizerInterface
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService
      */
-    protected $layoutService;
+    private $layoutService;
 
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService
      */
-    protected $blockService;
+    private $blockService;
 
     public function __construct(LayoutService $layoutService, BlockService $blockService)
     {
@@ -79,7 +79,7 @@ class LayoutNormalizer implements NormalizerInterface
      *
      * @return array
      */
-    protected function getZones(Layout $layout, LayoutType $layoutType)
+    private function getZones(Layout $layout, LayoutType $layoutType)
     {
         $zones = array();
 
@@ -115,7 +115,7 @@ class LayoutNormalizer implements NormalizerInterface
      *
      * @return string
      */
-    protected function getZoneName(Zone $zone, LayoutType $layoutType)
+    private function getZoneName(Zone $zone, LayoutType $layoutType)
     {
         if ($layoutType->hasZone($zone->getIdentifier())) {
             return $layoutType->getZone($zone->getIdentifier())->getName();
@@ -133,7 +133,7 @@ class LayoutNormalizer implements NormalizerInterface
      *
      * @return array|bool
      */
-    protected function getAllowedBlocks(Zone $zone, LayoutType $layoutType)
+    private function getAllowedBlocks(Zone $zone, LayoutType $layoutType)
     {
         if ($layoutType->hasZone($zone->getIdentifier())) {
             $layoutTypeZone = $layoutType->getZone($zone->getIdentifier());

@@ -22,17 +22,17 @@ class CollectionHandler implements CollectionHandlerInterface
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler
      */
-    protected $queryHandler;
+    private $queryHandler;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper
      */
-    protected $collectionMapper;
+    private $collectionMapper;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper
      */
-    protected $positionHelper;
+    private $positionHelper;
 
     public function __construct(
         CollectionQueryHandler $queryHandler,
@@ -462,7 +462,7 @@ class CollectionHandler implements CollectionHandlerInterface
      *
      * @return array
      */
-    protected function getPositionHelperItemConditions($collectionId, $status)
+    private function getPositionHelperItemConditions($collectionId, $status)
     {
         return array(
             'table' => 'ngbm_collection_item',

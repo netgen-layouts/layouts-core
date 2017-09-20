@@ -13,7 +13,7 @@ class HandlerPluginRegistryTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Block\Registry\HandlerPluginRegistry
      */
-    protected $registry;
+    private $registry;
 
     public function setUp()
     {

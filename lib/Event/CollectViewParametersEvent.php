@@ -17,14 +17,14 @@ class CollectViewParametersEvent extends Event
      *
      * @var \Netgen\BlockManager\View\ViewInterface
      */
-    protected $view;
+    private $view;
 
     /**
      * Parameters to be injected into the view.
      *
      * @var array
      */
-    protected $parameters = array();
+    private $parameters = array();
 
     /**
      * Constructor.

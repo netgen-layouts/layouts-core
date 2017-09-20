@@ -11,7 +11,7 @@ class IdentifierMapperTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Parameters\Form\Mapper\IdentifierMapper
      */
-    protected $mapper;
+    private $mapper;
 
     public function setUp()
     {

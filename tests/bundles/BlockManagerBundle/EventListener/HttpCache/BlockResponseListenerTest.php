@@ -18,12 +18,12 @@ class BlockResponseListenerTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $taggerMock;
+    private $taggerMock;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\BlockResponseListener
      */
-    protected $listener;
+    private $listener;
 
     public function setUp()
     {

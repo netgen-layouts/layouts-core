@@ -12,7 +12,7 @@ class RenderingExtensionTest extends TestCase
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension
      */
-    protected $extension;
+    private $extension;
 
     public function setUp()
     {

@@ -12,7 +12,7 @@ class PositionHelper
     /**
      * @var \Doctrine\DBAL\Connection
      */
-    protected $connection;
+    private $connection;
 
     public function __construct(Connection $connection)
     {
@@ -140,7 +140,7 @@ class PositionHelper
      * @param int $startPosition
      * @param int $endPosition
      */
-    protected function incrementPositions(array $conditions, $startPosition = null, $endPosition = null)
+    private function incrementPositions(array $conditions, $startPosition = null, $endPosition = null)
     {
         $columnName = $conditions['column'];
 
@@ -172,7 +172,7 @@ class PositionHelper
      * @param int $startPosition
      * @param int $endPosition
      */
-    protected function decrementPositions(array $conditions, $startPosition = null, $endPosition = null)
+    private function decrementPositions(array $conditions, $startPosition = null, $endPosition = null)
     {
         $columnName = $conditions['column'];
 
@@ -203,7 +203,7 @@ class PositionHelper
      * @param \Doctrine\DBAL\Query\QueryBuilder $query
      * @param array $conditions
      */
-    protected function applyConditions(QueryBuilder $query, array $conditions)
+    private function applyConditions(QueryBuilder $query, array $conditions)
     {
         foreach ($conditions as $identifier => $value) {
             $query->andWhere(

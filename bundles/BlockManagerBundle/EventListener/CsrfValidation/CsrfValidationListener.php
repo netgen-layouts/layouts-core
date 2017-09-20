@@ -17,12 +17,12 @@ class CsrfValidationListener implements EventSubscriberInterface
     /**
      * @var \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface
      */
-    protected $csrfTokenManager;
+    private $csrfTokenManager;
 
     /**
      * @var string
      */
-    protected $csrfTokenId;
+    private $csrfTokenId;
 
     /**
      * Constructor.
@@ -77,7 +77,7 @@ class CsrfValidationListener implements EventSubscriberInterface
      *
      * @return bool
      */
-    protected function validateCsrfToken(Request $request)
+    private function validateCsrfToken(Request $request)
     {
         if (!$request->headers->has(self::CSRF_TOKEN_HEADER)) {
             return false;

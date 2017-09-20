@@ -54,7 +54,7 @@ class GetTwigBlockContentListener implements EventSubscriberInterface
      *
      * @return string
      */
-    protected function getTwigBlockContent(
+    private function getTwigBlockContent(
         TwigBlockDefinitionInterface $blockDefinition,
         Block $block,
         array $parameters = array()

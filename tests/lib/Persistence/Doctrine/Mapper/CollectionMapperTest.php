@@ -14,7 +14,7 @@ class CollectionMapperTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper
      */
-    protected $mapper;
+    private $mapper;
 
     public function setUp()
     {

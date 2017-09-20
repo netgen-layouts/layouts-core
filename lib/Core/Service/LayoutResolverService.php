@@ -33,22 +33,27 @@ class LayoutResolverService extends Service implements APILayoutResolverService
     /**
      * @var \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator
      */
-    protected $validator;
+    private $validator;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper
      */
-    protected $mapper;
+    private $mapper;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\StructBuilder\LayoutResolverStructBuilder
      */
-    protected $structBuilder;
+    private $structBuilder;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\LayoutResolverHandler
      */
-    protected $handler;
+    private $handler;
+
+    /**
+     * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandler
+     */
+    private $layoutHandler;
 
     public function __construct(
         Handler $persistenceHandler,
@@ -63,6 +68,7 @@ class LayoutResolverService extends Service implements APILayoutResolverService
         $this->structBuilder = $structBuilder;
 
         $this->handler = $persistenceHandler->getLayoutResolverHandler();
+        $this->layoutHandler = $persistenceHandler->getLayoutHandler();
     }
 
     public function loadRule($ruleId)
@@ -113,7 +119,7 @@ class LayoutResolverService extends Service implements APILayoutResolverService
             throw new BadStateException('layout', 'Only published layouts can be used in rules.');
         }
 
-        $persistenceLayout = $this->persistenceHandler->getLayoutHandler()->loadLayout(
+        $persistenceLayout = $this->layoutHandler->loadLayout(
             $layout->getId(),
             Value::STATUS_PUBLISHED
         );

@@ -7,12 +7,12 @@ trait CacheableViewTrait
     /**
      * @var bool
      */
-    protected $isCacheable = true;
+    private $isCacheable = true;
 
     /**
      * @var int
      */
-    protected $sharedMaxAge;
+    private $sharedMaxAge;
 
     /**
      * Returns if the view is cacheable.

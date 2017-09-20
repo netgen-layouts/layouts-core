@@ -11,12 +11,12 @@ class RuleViewTest extends TestCase
     /**
      * @var \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
-    protected $rule;
+    private $rule;
 
     /**
      * @var \Netgen\BlockManager\View\View\RuleViewInterface
      */
-    protected $view;
+    private $view;
 
     public function setUp()
     {

@@ -157,7 +157,7 @@ class Collection extends ValueObject implements APICollection
      *
      * @return bool
      */
-    protected function hasItem($type, $position)
+    private function hasItem($type, $position)
     {
         foreach ($this->items as $item) {
             if ($item->getType() === $type && $item->getPosition() === $position) {
@@ -177,7 +177,7 @@ class Collection extends ValueObject implements APICollection
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Item
      */
-    protected function getItem($type, $position)
+    private function getItem($type, $position)
     {
         foreach ($this->items as $item) {
             if ($item->getType() === $type && $item->getPosition() === $position) {
@@ -193,7 +193,7 @@ class Collection extends ValueObject implements APICollection
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Item[]
      */
-    protected function filterItems($type)
+    private function filterItems($type)
     {
         $items = array();
 

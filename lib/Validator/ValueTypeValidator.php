@@ -16,7 +16,7 @@ class ValueTypeValidator extends ConstraintValidator
     /**
      * @var \Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface
      */
-    protected $valueTypeRegistry;
+    private $valueTypeRegistry;
 
     public function __construct(ValueTypeRegistryInterface $valueTypeRegistry)
     {

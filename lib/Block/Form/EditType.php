@@ -21,22 +21,22 @@ abstract class EditType extends TranslatableType
     /**
      * @var array
      */
-    protected $viewTypes = array();
+    private $viewTypes = array();
 
     /**
      * @var array
      */
-    protected $itemViewTypes = array();
+    private $itemViewTypes = array();
 
     /**
      * @var array
      */
-    protected $viewTypesByItemViewType = array();
+    private $viewTypesByItemViewType = array();
 
     /**
      * @var array
      */
-    protected $viewTypesByParameters = array();
+    private $viewTypesByParameters = array();
 
     public function configureOptions(OptionsResolver $resolver)
     {
@@ -164,7 +164,7 @@ abstract class EditType extends TranslatableType
      *
      * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition
      */
-    protected function processViewTypeConfig(BlockDefinitionInterface $blockDefinition)
+    private function processViewTypeConfig(BlockDefinitionInterface $blockDefinition)
     {
         $blockDefinitionParameters = array_keys($blockDefinition->getParameters());
 

@@ -10,7 +10,7 @@ class DynamicParametersTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Block\DynamicParameters
      */
-    protected $dynamicParams;
+    private $dynamicParams;
 
     public function setUp()
     {

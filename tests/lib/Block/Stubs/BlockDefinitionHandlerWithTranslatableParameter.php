@@ -13,7 +13,7 @@ class BlockDefinitionHandlerWithTranslatableParameter extends BaseBlockDefinitio
     /**
      * @var array
      */
-    protected $parameterGroups = array();
+    private $parameterGroups = array();
 
     /**
      * Constructor.

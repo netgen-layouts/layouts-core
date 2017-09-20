@@ -20,17 +20,17 @@ class BlockNormalizerTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $serializerMock;
+    private $serializerMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $blockServiceMock;
+    private $blockServiceMock;
 
     /**
      * @var \Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer
      */
-    protected $normalizer;
+    private $normalizer;
 
     public function setUp()
     {

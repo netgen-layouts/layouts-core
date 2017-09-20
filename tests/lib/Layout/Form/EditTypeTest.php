@@ -13,7 +13,7 @@ class EditTypeTest extends FormTestCase
     /**
      * @var \Netgen\BlockManager\API\Values\Layout\Layout
      */
-    protected $layout;
+    private $layout;
 
     public function setUp()
     {

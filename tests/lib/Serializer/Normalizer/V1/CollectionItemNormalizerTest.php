@@ -16,12 +16,12 @@ class CollectionItemNormalizerTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $itemLoaderMock;
+    private $itemLoaderMock;
 
     /**
      * @var \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionItemNormalizer
      */
-    protected $normalizer;
+    private $normalizer;
 
     public function setUp()
     {

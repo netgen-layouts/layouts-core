@@ -14,6 +14,7 @@ use Netgen\BlockManager\View\RendererInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime;
+use PHPUnit\Framework\Constraint\Exception as ConstraintException;
 use ReflectionProperty;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -28,32 +29,32 @@ class RenderingExtensionTwigTest extends IntegrationTestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $blockServiceMock;
+    private $blockServiceMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $rendererMock;
+    private $rendererMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $localeProviderMock;
+    private $localeProviderMock;
 
     /**
      * @var \Symfony\Component\HttpFoundation\RequestStack
      */
-    protected $requestStack;
+    private $requestStack;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension
      */
-    protected $extension;
+    private $extension;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime
      */
-    protected $runtime;
+    private $runtime;
 
     public function setUp()
     {
@@ -108,90 +109,6 @@ class RenderingExtensionTwigTest extends IntegrationTestCase
         $this->configureMocks();
 
         $this->doIntegrationTest($file, $message, $condition, $templates, $exception, $outputs);
-    }
-
-    protected function configureMocks()
-    {
-        $request = $this->requestStack->getCurrentRequest();
-
-        $request instanceof Request ?
-            $this->localeProviderMock
-                ->expects($this->any())
-                ->method('getRequestLocales')
-                ->with($this->equalTo($request))
-                ->will($this->returnValue(array('en'))) :
-            $this->localeProviderMock
-                ->expects($this->never())
-                ->method('getRequestLocales');
-
-        $this->blockServiceMock
-            ->expects($this->any())
-            ->method('loadZoneBlocks')
-            ->with(
-                $this->isInstanceOf(Zone::class),
-                $this->equalTo($request instanceof Request ? array('en') : null)
-            )
-            ->will(
-                $this->returnValue(
-                    array(
-                        new Block(
-                            array(
-                                'definition' => new BlockDefinition(
-                                    'block_definition'
-                                ),
-                            )
-                        ),
-                        new Block(
-                            array(
-                                'definition' => new BlockDefinition(
-                                    'twig_block'
-                                ),
-                                'availableLocales' => array('en'),
-                                'translations' => array(
-                                    'en' => new BlockTranslation(
-                                        array(
-                                            'parameters' => array(
-                                                'block_name' => new ParameterValue(
-                                                    array(
-                                                        'name' => 'block_name',
-                                                        'value' => 'my_block',
-                                                    )
-                                                ),
-                                            ),
-                                        )
-                                    ),
-                                ),
-                            )
-                        ),
-                        new Block(
-                            array(
-                                'definition' => new BlockDefinition(
-                                    'block_definition'
-                                ),
-                            )
-                        ),
-                    )
-                )
-            );
-
-        $this->rendererMock
-            ->expects($this->any())
-            ->method('renderValueObject')
-            ->will(
-                $this->returnCallback(
-                    function (Block $block, $context) {
-                        if ($block->getDefinition()->getIdentifier() === 'twig_block') {
-                            return 'rendered twig block' . PHP_EOL;
-                        } elseif ($context === ViewInterface::CONTEXT_DEFAULT) {
-                            return 'rendered block' . PHP_EOL;
-                        } elseif ($context === 'json') {
-                            return '{"block_id": 5}' . PHP_EOL;
-                        }
-
-                        return '';
-                    }
-                )
-            );
     }
 
     /**
@@ -277,7 +194,7 @@ class RenderingExtensionTwigTest extends IntegrationTestCase
                     $message = $e->getMessage();
                     $this->assertSame(trim($exception), trim(sprintf('%s: %s', get_class($e), $message)));
                     $last = substr($message, strlen($message) - 1);
-                    $this->assertTrue('.' === $last || '?' === $last, $message, 'Exception message must end with a dot or a question mark.');
+                    $this->assertTrue('.' === $last || '?' === $last, $message);
 
                     return;
                 }
@@ -301,7 +218,7 @@ class RenderingExtensionTwigTest extends IntegrationTestCase
 
             if (false !== $exception) {
                 list($class) = explode(':', $exception);
-                $this->assertThat(null, new PHPUnit_Framework_Constraint_Exception($class));
+                $this->assertThat(null, new ConstraintException($class));
             }
 
             $expected = trim($match[3], "\n ");
@@ -316,5 +233,89 @@ class RenderingExtensionTwigTest extends IntegrationTestCase
             }
             $this->assertEquals($expected, $output, $message . ' (in ' . $file . ')');
         }
+    }
+
+    private function configureMocks()
+    {
+        $request = $this->requestStack->getCurrentRequest();
+
+        $request instanceof Request ?
+            $this->localeProviderMock
+                ->expects($this->any())
+                ->method('getRequestLocales')
+                ->with($this->equalTo($request))
+                ->will($this->returnValue(array('en'))) :
+            $this->localeProviderMock
+                ->expects($this->never())
+                ->method('getRequestLocales');
+
+        $this->blockServiceMock
+            ->expects($this->any())
+            ->method('loadZoneBlocks')
+            ->with(
+                $this->isInstanceOf(Zone::class),
+                $this->equalTo($request instanceof Request ? array('en') : null)
+            )
+            ->will(
+                $this->returnValue(
+                    array(
+                        new Block(
+                            array(
+                                'definition' => new BlockDefinition(
+                                    'block_definition'
+                                ),
+                            )
+                        ),
+                        new Block(
+                            array(
+                                'definition' => new BlockDefinition(
+                                    'twig_block'
+                                ),
+                                'availableLocales' => array('en'),
+                                'translations' => array(
+                                    'en' => new BlockTranslation(
+                                        array(
+                                            'parameters' => array(
+                                                'block_name' => new ParameterValue(
+                                                    array(
+                                                        'name' => 'block_name',
+                                                        'value' => 'my_block',
+                                                    )
+                                                ),
+                                            ),
+                                        )
+                                    ),
+                                ),
+                            )
+                        ),
+                        new Block(
+                            array(
+                                'definition' => new BlockDefinition(
+                                    'block_definition'
+                                ),
+                            )
+                        ),
+                    )
+                )
+            );
+
+        $this->rendererMock
+            ->expects($this->any())
+            ->method('renderValueObject')
+            ->will(
+                $this->returnCallback(
+                    function (Block $block, $context) {
+                        if ($block->getDefinition()->getIdentifier() === 'twig_block') {
+                            return 'rendered twig block' . PHP_EOL;
+                        } elseif ($context === ViewInterface::CONTEXT_DEFAULT) {
+                            return 'rendered block' . PHP_EOL;
+                        } elseif ($context === 'json') {
+                            return '{"block_id": 5}' . PHP_EOL;
+                        }
+
+                        return '';
+                    }
+                )
+            );
     }
 }

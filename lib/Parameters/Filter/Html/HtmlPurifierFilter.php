@@ -14,12 +14,12 @@ class HtmlPurifierFilter implements ParameterFilterInterface
     /**
      * @var \HTMLPurifier_Config
      */
-    protected $config;
+    private $config;
 
     /**
      * @var \HTMLPurifier
      */
-    protected $purifier;
+    private $purifier;
 
     public function __construct()
     {

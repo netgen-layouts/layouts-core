@@ -10,7 +10,7 @@ class CacheableViewTraitTest extends TestCase
     /**
      * @var \Netgen\BlockManager\View\CacheableViewInterface
      */
-    protected $view;
+    private $view;
 
     public function setUp()
     {

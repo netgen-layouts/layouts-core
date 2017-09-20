@@ -13,7 +13,7 @@ class TypeTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Type
      */
-    protected $provider;
+    private $provider;
 
     public function setUp()
     {

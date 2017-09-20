@@ -13,7 +13,7 @@ class ViewRendererListener implements EventSubscriberInterface
     /**
      * @var \Netgen\BlockManager\View\ViewRendererInterface
      */
-    protected $viewRenderer;
+    private $viewRenderer;
 
     public function __construct(ViewRendererInterface $viewRenderer)
     {

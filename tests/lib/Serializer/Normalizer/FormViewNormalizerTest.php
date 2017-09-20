@@ -17,12 +17,12 @@ class FormViewNormalizerTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $viewRendererMock;
+    private $viewRendererMock;
 
     /**
      * @var \Netgen\BlockManager\Serializer\Normalizer\FormViewNormalizer
      */
-    protected $normalizer;
+    private $normalizer;
 
     public function setUp()
     {

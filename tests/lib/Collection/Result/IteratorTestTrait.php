@@ -12,7 +12,7 @@ trait IteratorTestTrait
      * @param array $expected
      * @param \Iterator $iterator
      */
-    protected function assertIteratorValues(array $expected, Iterator $iterator)
+    private function assertIteratorValues(array $expected, Iterator $iterator)
     {
         $i = 0;
 

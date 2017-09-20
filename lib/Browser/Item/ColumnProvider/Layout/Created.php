@@ -10,7 +10,7 @@ class Created implements ColumnValueProviderInterface
     /**
      * @var string
      */
-    protected $dateFormat;
+    private $dateFormat;
 
     /**
      * Constructor.

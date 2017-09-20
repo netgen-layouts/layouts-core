@@ -16,7 +16,7 @@ class ViewNormalizer implements NormalizerInterface, SerializerAwareInterface
     /**
      * @var \Netgen\BlockManager\View\RendererInterface
      */
-    protected $viewRenderer;
+    private $viewRenderer;
 
     public function __construct(RendererInterface $viewRenderer)
     {

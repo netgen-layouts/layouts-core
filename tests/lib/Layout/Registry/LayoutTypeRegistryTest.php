@@ -12,17 +12,17 @@ class LayoutTypeRegistryTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Layout\Type\LayoutType
      */
-    protected $layoutType1;
+    private $layoutType1;
 
     /**
      * @var \Netgen\BlockManager\Layout\Type\LayoutType
      */
-    protected $layoutType2;
+    private $layoutType2;
 
     /**
      * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry
      */
-    protected $registry;
+    private $registry;
 
     public function setUp()
     {

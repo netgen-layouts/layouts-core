@@ -11,12 +11,12 @@ class TemplateResolver implements TemplateResolverInterface
     /**
      * @var \Netgen\BlockManager\View\Matcher\MatcherInterface[]
      */
-    protected $matchers = array();
+    private $matchers = array();
 
     /**
      * @var array
      */
-    protected $viewConfig = array();
+    private $viewConfig = array();
 
     /**
      * Constructor.
@@ -79,7 +79,7 @@ class TemplateResolver implements TemplateResolverInterface
      *
      * @return bool
      */
-    protected function matches(ViewInterface $view, array $matchConfig)
+    private function matches(ViewInterface $view, array $matchConfig)
     {
         foreach ($matchConfig as $matcher => $matcherConfig) {
             if (!isset($this->matchers[$matcher])) {

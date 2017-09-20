@@ -15,12 +15,12 @@ class ValueNormalizerTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $serializerMock;
+    private $serializerMock;
 
     /**
      * @var \Netgen\BlockManager\Serializer\Normalizer\ValueNormalizer
      */
-    protected $normalizer;
+    private $normalizer;
 
     public function setUp()
     {

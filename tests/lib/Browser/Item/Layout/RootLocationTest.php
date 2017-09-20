@@ -10,7 +10,7 @@ class RootLocationTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Browser\Item\Layout\RootLocation
      */
-    protected $location;
+    private $location;
 
     public function setUp()
     {

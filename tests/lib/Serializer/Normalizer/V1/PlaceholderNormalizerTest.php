@@ -16,12 +16,12 @@ class PlaceholderNormalizerTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $serializerMock;
+    private $serializerMock;
 
     /**
      * @var \Netgen\BlockManager\Serializer\Normalizer\V1\PlaceholderNormalizer
      */
-    protected $normalizer;
+    private $normalizer;
 
     public function setUp()
     {

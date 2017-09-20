@@ -11,12 +11,12 @@ class TitleHandler extends BlockDefinitionHandler
     /**
      * @var array
      */
-    protected $tags = array();
+    private $tags = array();
 
     /**
      * @var array
      */
-    protected $linkValueTypes = array();
+    private $linkValueTypes = array();
 
     public function __construct(array $tags = array(), array $linkValueTypes = array())
     {

@@ -16,12 +16,12 @@ class TwigExtensionsListenerTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $twigMock;
+    private $twigMock;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\EventListener\TwigExtensionsListener
      */
-    protected $listener;
+    private $listener;
 
     public function setUp()
     {

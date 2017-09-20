@@ -13,12 +13,12 @@ class BlockViewListener implements EventSubscriberInterface
     /**
      * @var \Netgen\Bundle\BlockManagerDebugBundle\DataCollector\BlockManagerDataCollector
      */
-    protected $dataCollector;
+    private $dataCollector;
 
     /**
      * @var string[]
      */
-    protected $enabledContexts;
+    private $enabledContexts;
 
     /**
      * Constructor.

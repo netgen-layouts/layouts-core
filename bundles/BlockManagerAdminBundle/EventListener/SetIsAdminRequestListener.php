@@ -17,7 +17,7 @@ class SetIsAdminRequestListener implements EventSubscriberInterface
     /**
      * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
      */
-    protected $eventDispatcher;
+    private $eventDispatcher;
 
     public function __construct(EventDispatcherInterface $eventDispatcher)
     {

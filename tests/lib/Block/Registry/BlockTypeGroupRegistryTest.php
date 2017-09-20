@@ -12,17 +12,17 @@ class BlockTypeGroupRegistryTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Block\BlockType\BlockTypeGroup
      */
-    protected $blockTypeGroup;
+    private $blockTypeGroup;
 
     /**
      * @var \Netgen\BlockManager\Block\BlockType\BlockTypeGroup
      */
-    protected $blockTypeGroup2;
+    private $blockTypeGroup2;
 
     /**
      * @var \Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistry
      */
-    protected $registry;
+    private $registry;
 
     public function setUp()
     {

@@ -25,27 +25,27 @@ class LayoutResolverController extends Controller
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutResolverService
      */
-    protected $layoutResolverService;
+    private $layoutResolverService;
 
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService
      */
-    protected $layoutService;
+    private $layoutService;
 
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface
      */
-    protected $targetTypeRegistry;
+    private $targetTypeRegistry;
 
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface
      */
-    protected $conditionTypeRegistry;
+    private $conditionTypeRegistry;
 
     /**
      * @var \Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Validator\LayoutResolverValidator
      */
-    protected $validator;
+    private $validator;
 
     public function __construct(
         LayoutResolverService $layoutResolverService,

@@ -14,7 +14,7 @@ class PlaceholderViewProviderTest extends TestCase
     /**
      * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface
      */
-    protected $placeholderViewProvider;
+    private $placeholderViewProvider;
 
     public function setUp()
     {

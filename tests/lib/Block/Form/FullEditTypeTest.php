@@ -18,7 +18,7 @@ class FullEditTypeTest extends FormTestCase
     /**
      * @var \Netgen\BlockManager\API\Values\Block\Block
      */
-    protected $block;
+    private $block;
 
     /**
      * Sets up the test.

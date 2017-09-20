@@ -12,12 +12,12 @@ class ViewRenderer implements ViewRendererInterface
     /**
      * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
      */
-    protected $eventDispatcher;
+    private $eventDispatcher;
 
     /**
      * @var \Twig\Environment
      */
-    protected $twig;
+    private $twig;
 
     public function __construct(EventDispatcherInterface $eventDispatcher, Environment $twig)
     {

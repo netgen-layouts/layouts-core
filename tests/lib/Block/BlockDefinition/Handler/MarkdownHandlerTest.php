@@ -15,12 +15,12 @@ class MarkdownHandlerTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $markdownMock;
+    private $markdownMock;
 
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Handler\MarkdownHandler
      */
-    protected $handler;
+    private $handler;
 
     public function setUp()
     {

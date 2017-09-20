@@ -15,17 +15,17 @@ class QueryTypeFactoryTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $configMock;
+    private $configMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $parameterBuilderFactoryMock;
+    private $parameterBuilderFactoryMock;
 
     /**
      * @var \Netgen\BlockManager\Collection\QueryTypeFactory
      */
-    protected $factory;
+    private $factory;
 
     public function setUp()
     {

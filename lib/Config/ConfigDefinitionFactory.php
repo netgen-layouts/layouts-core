@@ -9,7 +9,7 @@ class ConfigDefinitionFactory
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface
      */
-    protected $parameterBuilderFactory;
+    private $parameterBuilderFactory;
 
     public function __construct(ParameterBuilderFactoryInterface $parameterBuilderFactory)
     {

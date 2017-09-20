@@ -16,47 +16,47 @@ class GlobalVariable
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Configuration\ConfigurationInterface
      */
-    protected $configuration;
+    private $configuration;
 
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface
      */
-    protected $layoutResolver;
+    private $layoutResolver;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolverInterface
      */
-    protected $pageLayoutResolver;
+    private $pageLayoutResolver;
 
     /**
      * @var \Netgen\BlockManager\View\ViewBuilderInterface
      */
-    protected $viewBuilder;
+    private $viewBuilder;
 
     /**
      * @var \Symfony\Component\HttpFoundation\RequestStack
      */
-    protected $requestStack;
+    private $requestStack;
 
     /**
      * @var \Netgen\BlockManager\API\Values\Layout\Layout
      */
-    protected $layout;
+    private $layout;
 
     /**
      * @var \Netgen\BlockManager\API\Values\LayoutResolver\Rule
      */
-    protected $rule;
+    private $rule;
 
     /**
      * @var \Netgen\BlockManager\View\View\LayoutViewInterface|bool
      */
-    protected $layoutView;
+    private $layoutView;
 
     /**
      * @var string
      */
-    protected $pageLayoutTemplate;
+    private $pageLayoutTemplate;
 
     public function __construct(
         ConfigurationInterface $configuration,
@@ -150,7 +150,7 @@ class GlobalVariable
      *
      * @param string $context
      */
-    protected function buildLayoutView($context = ViewInterface::CONTEXT_DEFAULT)
+    private function buildLayoutView($context = ViewInterface::CONTEXT_DEFAULT)
     {
         $resolvedRules = $this->layoutResolver->resolveRules();
         if (empty($resolvedRules)) {

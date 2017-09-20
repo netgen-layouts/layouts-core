@@ -12,17 +12,17 @@ class ConnectionHelperTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $databasePlatformMock;
+    private $databasePlatformMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $databaseConnectionMock;
+    private $databaseConnectionMock;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper
      */
-    protected $connectionHelper;
+    private $connectionHelper;
 
     /**
      * Sets up the tests.

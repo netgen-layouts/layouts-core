@@ -23,12 +23,12 @@ class InvalidationListenerTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $httpCacheClientMock;
+    private $httpCacheClientMock;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\InvalidationListener
      */
-    protected $listener;
+    private $listener;
 
     public function setUp()
     {

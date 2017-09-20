@@ -16,7 +16,7 @@ class LayoutBackend implements BackendInterface
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService
      */
-    protected $layoutService;
+    private $layoutService;
 
     public function __construct(LayoutService $layoutService)
     {
@@ -89,7 +89,7 @@ class LayoutBackend implements BackendInterface
      *
      * @return \Netgen\BlockManager\Browser\Item\Layout\Item
      */
-    protected function buildItem(Layout $layout)
+    private function buildItem(Layout $layout)
     {
         return new Item($layout);
     }
@@ -101,7 +101,7 @@ class LayoutBackend implements BackendInterface
      *
      * @return \Netgen\BlockManager\Browser\Item\Layout\Item[]
      */
-    protected function buildItems(array $layouts)
+    private function buildItems(array $layouts)
     {
         return array_map(
             function (Layout $layout) {

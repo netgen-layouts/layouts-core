@@ -14,7 +14,7 @@ class ItemViewProviderTest extends TestCase
     /**
      * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface
      */
-    protected $itemViewProvider;
+    private $itemViewProvider;
 
     public function setUp()
     {

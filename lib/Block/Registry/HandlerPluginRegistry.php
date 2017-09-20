@@ -9,7 +9,7 @@ class HandlerPluginRegistry implements HandlerPluginRegistryInterface
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinitionInterface[]
      */
-    protected $handlerPlugins = array();
+    private $handlerPlugins = array();
 
     public function addPlugin(PluginInterface $plugin)
     {

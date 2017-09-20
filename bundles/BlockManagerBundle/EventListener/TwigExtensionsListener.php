@@ -13,7 +13,7 @@ class TwigExtensionsListener implements EventSubscriberInterface
     /**
      * @var \Twig\Environment
      */
-    protected $twig;
+    private $twig;
 
     public function __construct(Environment $twig)
     {

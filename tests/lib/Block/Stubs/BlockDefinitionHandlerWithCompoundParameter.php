@@ -14,7 +14,7 @@ class BlockDefinitionHandlerWithCompoundParameter extends BaseBlockDefinitionHan
     /**
      * @var array
      */
-    protected $parameterGroups = array();
+    private $parameterGroups = array();
 
     /**
      * Constructor.

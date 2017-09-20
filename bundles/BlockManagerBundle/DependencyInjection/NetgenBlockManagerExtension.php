@@ -16,7 +16,7 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ExtensionPluginInterface[]
      */
-    protected $plugins = array();
+    private $plugins = array();
 
     /**
      * Adds a plugin to the extension.
@@ -145,7 +145,7 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
      *
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    protected function loadConfigFiles(ContainerBuilder $container)
+    private function loadConfigFiles(ContainerBuilder $container)
     {
         $loader = new YamlFileLoader(
             $container,
@@ -191,7 +191,7 @@ class NetgenBlockManagerExtension extends Extension implements PrependExtensionI
      * @param array $config
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    protected function processHttpCacheConfiguration(array $config, ContainerBuilder $container)
+    private function processHttpCacheConfiguration(array $config, ContainerBuilder $container)
     {
         $container->setParameter(
             'netgen_block_manager.http_cache.ttl.default.block',

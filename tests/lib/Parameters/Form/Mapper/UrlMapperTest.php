@@ -11,7 +11,7 @@ class UrlMapperTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Parameters\Form\Mapper\UrlMapper
      */
-    protected $mapper;
+    private $mapper;
 
     public function setUp()
     {

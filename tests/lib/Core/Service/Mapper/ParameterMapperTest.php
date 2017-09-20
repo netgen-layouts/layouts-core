@@ -14,7 +14,7 @@ class ParameterMapperTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper
      */
-    protected $mapper;
+    private $mapper;
 
     /**
      * Sets up the tests.

@@ -10,7 +10,7 @@ class ItemViewTypeTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType
      */
-    protected $itemViewType;
+    private $itemViewType;
 
     public function setUp()
     {

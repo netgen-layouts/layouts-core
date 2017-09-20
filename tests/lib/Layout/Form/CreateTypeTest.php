@@ -15,12 +15,12 @@ class CreateTypeTest extends FormTestCase
     /**
      * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface
      */
-    protected $layoutTypeRegistry;
+    private $layoutTypeRegistry;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $localeProviderMock;
+    private $localeProviderMock;
 
     public function setUp()
     {

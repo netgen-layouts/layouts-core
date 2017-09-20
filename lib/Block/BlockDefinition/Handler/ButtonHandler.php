@@ -11,12 +11,12 @@ class ButtonHandler extends BlockDefinitionHandler
     /**
      * @var array
      */
-    protected $styles = array();
+    private $styles = array();
 
     /**
      * @var array
      */
-    protected $valueTypes = array();
+    private $valueTypes = array();
 
     public function __construct(array $styles = array(), array $valueTypes = array())
     {

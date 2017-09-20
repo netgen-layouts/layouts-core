@@ -12,7 +12,7 @@ class BlockDefinitionRegistry implements BlockDefinitionRegistryInterface
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinitionInterface[]
      */
-    protected $blockDefinitions = array();
+    private $blockDefinitions = array();
 
     public function addBlockDefinition($identifier, BlockDefinitionInterface $blockDefinition)
     {

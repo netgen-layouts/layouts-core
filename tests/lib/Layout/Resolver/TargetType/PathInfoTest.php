@@ -12,7 +12,7 @@ class PathInfoTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\TargetType\PathInfo
      */
-    protected $targetType;
+    private $targetType;
 
     public function setUp()
     {

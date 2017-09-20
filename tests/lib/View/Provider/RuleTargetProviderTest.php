@@ -14,7 +14,7 @@ class RuleTargetProviderTest extends TestCase
     /**
      * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface
      */
-    protected $ruleTargetViewProvider;
+    private $ruleTargetViewProvider;
 
     public function setUp()
     {

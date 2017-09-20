@@ -12,7 +12,7 @@ class TargetTypeRegistry implements TargetTypeRegistryInterface
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\TargetTypeInterface[]
      */
-    protected $targetTypes = array();
+    private $targetTypes = array();
 
     public function addTargetType(TargetTypeInterface $targetType)
     {

@@ -13,12 +13,12 @@ class IdProviderTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $layoutServiceMock;
+    private $layoutServiceMock;
 
     /**
      * @var \Netgen\BlockManager\HttpCache\Layout\IdProvider
      */
-    protected $idProvider;
+    private $idProvider;
 
     public function setUp()
     {

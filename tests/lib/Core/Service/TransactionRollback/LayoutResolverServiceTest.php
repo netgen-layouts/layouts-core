@@ -20,11 +20,6 @@ use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target as PersistenceT
 class LayoutResolverServiceTest extends ServiceTestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutResolverService
-     */
-    protected $layoutResolverService;
-
-    /**
      * Sets up the tests.
      */
     public function setUp()

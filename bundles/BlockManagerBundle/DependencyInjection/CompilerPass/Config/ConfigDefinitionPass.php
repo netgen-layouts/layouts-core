@@ -15,7 +15,7 @@ class ConfigDefinitionPass implements CompilerPassInterface
         'block' => 'netgen_block_manager.block.config_definition_handler',
     );
 
-    protected $seenConfigKeys = array();
+    private $seenConfigKeys = array();
 
     public function process(ContainerBuilder $container)
     {

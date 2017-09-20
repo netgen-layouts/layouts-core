@@ -11,17 +11,17 @@ class MapHandler extends BlockDefinitionHandler
     /**
      * @var int
      */
-    protected $minZoom;
+    private $minZoom;
 
     /**
      * @var int
      */
-    protected $maxZoom;
+    private $maxZoom;
 
     /**
      * @var array
      */
-    protected $mapTypes = array();
+    private $mapTypes = array();
 
     /**
      * Constructor.

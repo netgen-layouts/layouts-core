@@ -20,27 +20,27 @@ class BlockCollectionController extends Controller
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService
      */
-    protected $blockService;
+    private $blockService;
 
     /**
      * @var \Netgen\BlockManager\API\Service\CollectionService
      */
-    protected $collectionService;
+    private $collectionService;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator
      */
-    protected $validator;
+    private $validator;
 
     /**
      * @var \Netgen\BlockManager\Collection\Result\ResultLoaderInterface
      */
-    protected $resultLoader;
+    private $resultLoader;
 
     /**
      * @var int
      */
-    protected $maxLimit;
+    private $maxLimit;
 
     /**
      * Constructor.

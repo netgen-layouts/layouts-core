@@ -14,7 +14,7 @@ class LinkDataMapperTest extends DataMapperTest
     /**
      * @var \Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper
      */
-    protected $mapper;
+    private $mapper;
 
     public function setUp()
     {

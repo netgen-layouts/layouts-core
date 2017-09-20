@@ -87,7 +87,7 @@ class RuntimeLoaderPassTest extends AbstractCompilerPassTestCase
      * @param array $arguments
      * @param int|null $index
      */
-    protected function assertContainerBuilderNotHasServiceDefinitionWithMethodCall(
+    private function assertContainerBuilderNotHasServiceDefinitionWithMethodCall(
         $serviceId,
         $method,
         array $arguments = array(),

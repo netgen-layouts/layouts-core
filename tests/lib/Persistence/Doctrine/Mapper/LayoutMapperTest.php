@@ -13,7 +13,7 @@ class LayoutMapperTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper
      */
-    protected $mapper;
+    private $mapper;
 
     public function setUp()
     {

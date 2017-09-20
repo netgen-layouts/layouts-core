@@ -14,7 +14,7 @@ class SharedTest extends TestCase
     /**
      * @var \Netgen\BlockManager\View\Matcher\MatcherInterface
      */
-    protected $matcher;
+    private $matcher;
 
     public function setUp()
     {

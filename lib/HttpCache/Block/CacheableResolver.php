@@ -11,7 +11,7 @@ class CacheableResolver implements CacheableResolverInterface
     /**
      * @var \Netgen\BlockManager\HttpCache\Block\CacheableResolver\VoterInterface[]
      */
-    protected $voters = array();
+    private $voters = array();
 
     /**
      * Sets the available voters.

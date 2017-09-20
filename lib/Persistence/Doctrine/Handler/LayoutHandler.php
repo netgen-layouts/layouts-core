@@ -22,17 +22,17 @@ class LayoutHandler implements LayoutHandlerInterface
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler
      */
-    protected $queryHandler;
+    private $queryHandler;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\BlockHandler
      */
-    protected $blockHandler;
+    private $blockHandler;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper
      */
-    protected $layoutMapper;
+    private $layoutMapper;
 
     public function __construct(
         LayoutQueryHandler $queryHandler,

@@ -19,17 +19,17 @@ class LayoutNormalizerTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $layoutServiceMock;
+    private $layoutServiceMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $blockServiceMock;
+    private $blockServiceMock;
 
     /**
      * @var \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutNormalizer
      */
-    protected $normalizer;
+    private $normalizer;
 
     public function setUp()
     {

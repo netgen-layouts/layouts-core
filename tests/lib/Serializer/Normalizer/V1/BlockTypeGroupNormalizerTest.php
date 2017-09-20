@@ -14,7 +14,7 @@ class BlockTypeGroupNormalizerTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Serializer\Normalizer\V1\BlockTypeGroupNormalizer
      */
-    protected $normalizer;
+    private $normalizer;
 
     public function setUp()
     {

@@ -12,12 +12,12 @@ class ParameterViewTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterValue
      */
-    protected $parameterValue;
+    private $parameterValue;
 
     /**
      * @var \Netgen\BlockManager\View\View\ParameterViewInterface
      */
-    protected $view;
+    private $view;
 
     public function setUp()
     {

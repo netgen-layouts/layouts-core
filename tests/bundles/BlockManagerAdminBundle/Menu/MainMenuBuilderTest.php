@@ -15,12 +15,12 @@ class MainMenuBuilderTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $authorizationCheckerMock;
+    private $authorizationCheckerMock;
 
     /**
      * @var \Netgen\Bundle\BlockManagerAdminBundle\Menu\MainMenuBuilder
      */
-    protected $builder;
+    private $builder;
 
     public function setUp()
     {

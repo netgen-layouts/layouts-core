@@ -14,7 +14,7 @@ class BlockDefinitionHandlerWithUntranslatableCompoundParameter extends BaseBloc
     /**
      * @var array
      */
-    protected $parameterGroups = array();
+    private $parameterGroups = array();
 
     /**
      * Constructor.

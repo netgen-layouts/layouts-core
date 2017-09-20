@@ -14,17 +14,17 @@ class ViewBuilder implements ViewBuilderInterface
     /**
      * @var \Netgen\BlockManager\View\TemplateResolverInterface
      */
-    protected $templateResolver;
+    private $templateResolver;
 
     /**
      * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
      */
-    protected $eventDispatcher;
+    private $eventDispatcher;
 
     /**
      * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface[]
      */
-    protected $viewProviders = array();
+    private $viewProviders = array();
 
     /**
      * Constructor.
@@ -75,7 +75,7 @@ class ViewBuilder implements ViewBuilderInterface
      *
      * @return \Netgen\BlockManager\View\Provider\ViewProviderInterface
      */
-    protected function getViewProvider($valueObject)
+    private function getViewProvider($valueObject)
     {
         foreach ($this->viewProviders as $viewProvider) {
             if ($viewProvider->supports($valueObject)) {

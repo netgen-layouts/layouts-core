@@ -12,17 +12,17 @@ class ValueTypeRegistryTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Item\ValueType\ValueType
      */
-    protected $valueType1;
+    private $valueType1;
 
     /**
      * @var \Netgen\BlockManager\Item\ValueType\ValueType
      */
-    protected $valueType2;
+    private $valueType2;
 
     /**
      * @var \Netgen\BlockManager\Item\Registry\ValueTypeRegistry
      */
-    protected $registry;
+    private $registry;
 
     public function setUp()
     {

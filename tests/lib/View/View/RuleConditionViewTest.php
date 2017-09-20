@@ -11,12 +11,12 @@ class RuleConditionViewTest extends TestCase
     /**
      * @var \Netgen\BlockManager\API\Values\LayoutResolver\Condition
      */
-    protected $condition;
+    private $condition;
 
     /**
      * @var \Netgen\BlockManager\View\View\RuleConditionViewInterface
      */
-    protected $view;
+    private $view;
 
     public function setUp()
     {

@@ -10,12 +10,12 @@ class ItemLoader implements ItemLoaderInterface
     /**
      * @var \Netgen\BlockManager\Item\ItemBuilderInterface
      */
-    protected $itemBuilder;
+    private $itemBuilder;
 
     /**
      * @var \Netgen\BlockManager\Item\ValueLoaderInterface[]
      */
-    protected $valueLoaders;
+    private $valueLoaders;
 
     /**
      * Constructor.

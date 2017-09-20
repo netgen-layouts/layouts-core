@@ -12,12 +12,12 @@ class ResultIteratorFactory
     /**
      * @var \Netgen\BlockManager\Item\ItemLoaderInterface
      */
-    protected $itemLoader;
+    private $itemLoader;
 
     /**
      * @var \Netgen\BlockManager\Item\ItemBuilderInterface
      */
-    protected $itemBuilder;
+    private $itemBuilder;
 
     public function __construct(
         ItemLoaderInterface $itemLoader,

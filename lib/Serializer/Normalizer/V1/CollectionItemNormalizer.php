@@ -14,7 +14,7 @@ class CollectionItemNormalizer implements NormalizerInterface
     /**
      * @var \Netgen\BlockManager\Item\ItemLoaderInterface
      */
-    protected $itemLoader;
+    private $itemLoader;
 
     public function __construct(ItemLoaderInterface $itemLoader)
     {

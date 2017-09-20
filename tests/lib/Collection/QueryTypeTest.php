@@ -13,12 +13,12 @@ class QueryTypeTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $configMock;
+    private $configMock;
 
     /**
      * @var \Netgen\BlockManager\Collection\QueryType
      */
-    protected $queryType;
+    private $queryType;
 
     public function setUp()
     {

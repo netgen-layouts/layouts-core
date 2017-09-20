@@ -10,7 +10,7 @@ class ColumnHandlerTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Handler\Container\ColumnHandler
      */
-    protected $handler;
+    private $handler;
 
     public function setUp()
     {

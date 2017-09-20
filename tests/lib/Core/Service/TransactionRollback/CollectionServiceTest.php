@@ -16,11 +16,6 @@ use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 class CollectionServiceTest extends ServiceTestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\CollectionService
-     */
-    protected $collectionService;
-
-    /**
      * Sets up the tests.
      */
     public function setUp()

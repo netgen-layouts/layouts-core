@@ -11,7 +11,7 @@ class TargetParamConverter extends ParamConverter
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutResolverService
      */
-    protected $layoutResolverService;
+    private $layoutResolverService;
 
     public function __construct(LayoutResolverService $layoutResolverService)
     {

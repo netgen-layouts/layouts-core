@@ -27,27 +27,27 @@ class CollectionService extends Service implements APICollectionService
     /**
      * @var \Netgen\BlockManager\Core\Service\Validator\CollectionValidator
      */
-    protected $validator;
+    private $validator;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper
      */
-    protected $mapper;
+    private $mapper;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder
      */
-    protected $structBuilder;
+    private $structBuilder;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper
      */
-    protected $parameterMapper;
+    private $parameterMapper;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandler
      */
-    protected $handler;
+    private $handler;
 
     public function __construct(
         Handler $persistenceHandler,
@@ -319,7 +319,7 @@ class CollectionService extends Service implements APICollectionService
      *
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
      */
-    protected function updateQueryTranslations(Query $query, PersistenceQuery $persistenceQuery, APIQueryUpdateStruct $queryUpdateStruct)
+    private function updateQueryTranslations(Query $query, PersistenceQuery $persistenceQuery, APIQueryUpdateStruct $queryUpdateStruct)
     {
         if ($queryUpdateStruct->locale === $persistenceQuery->mainLocale) {
             $persistenceQuery = $this->handler->updateQueryTranslation(

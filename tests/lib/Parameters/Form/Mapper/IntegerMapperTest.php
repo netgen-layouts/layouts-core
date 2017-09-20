@@ -11,7 +11,7 @@ class IntegerMapperTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Parameters\Form\Mapper\IntegerMapper
      */
-    protected $mapper;
+    private $mapper;
 
     public function setUp()
     {

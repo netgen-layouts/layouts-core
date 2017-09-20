@@ -16,7 +16,7 @@ class LinkTypeTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface
      */
-    protected $valueTypeRegistry;
+    private $valueTypeRegistry;
 
     public function setUp()
     {

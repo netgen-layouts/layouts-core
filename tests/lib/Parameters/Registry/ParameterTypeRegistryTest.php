@@ -12,12 +12,12 @@ class ParameterTypeRegistryTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterType
      */
-    protected $parameterType;
+    private $parameterType;
 
     /**
      * @var \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry
      */
-    protected $registry;
+    private $registry;
 
     public function setUp()
     {

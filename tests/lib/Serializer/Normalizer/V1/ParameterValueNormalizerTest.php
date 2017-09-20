@@ -15,7 +15,7 @@ class ParameterValueNormalizerTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Serializer\Normalizer\V1\ParameterValueNormalizer
      */
-    protected $normalizer;
+    private $normalizer;
 
     public function setUp()
     {

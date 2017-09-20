@@ -10,7 +10,7 @@ class HtmlPurifierFilterTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Parameters\Filter\Html\HtmlPurifierFilter
      */
-    protected $filter;
+    private $filter;
 
     public function setUp()
     {

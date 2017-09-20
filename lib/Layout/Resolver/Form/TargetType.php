@@ -16,7 +16,7 @@ class TargetType extends AbstractType
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\Form\TargetType\MapperInterface[]
      */
-    protected $mappers;
+    private $mappers;
 
     /**
      * Constructor.

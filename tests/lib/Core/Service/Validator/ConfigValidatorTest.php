@@ -17,17 +17,17 @@ class ConfigValidatorTest extends TestCase
     /**
      * @var \Symfony\Component\Validator\Validator\ValidatorInterface
      */
-    protected $validator;
+    private $validator;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $configValidatorMock;
+    private $configValidatorMock;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\Validator\ConfigValidator
      */
-    protected $configValidator;
+    private $configValidator;
 
     /**
      * Sets up the test.
@@ -156,7 +156,7 @@ class ConfigValidatorTest extends TestCase
      *
      * @return \Netgen\BlockManager\Config\ConfigDefinitionInterface
      */
-    protected function getConfigDefinition($configKey)
+    private function getConfigDefinition($configKey)
     {
         $handler = new HttpCacheConfigHandler();
 

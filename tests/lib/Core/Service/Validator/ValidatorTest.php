@@ -13,12 +13,12 @@ class ValidatorTest extends TestCase
     /**
      * @var \Symfony\Component\Validator\Validator\ValidatorInterface
      */
-    protected $baseValidator;
+    private $baseValidator;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\Validator\Validator
      */
-    protected $validator;
+    private $validator;
 
     /**
      * Sets up the test.

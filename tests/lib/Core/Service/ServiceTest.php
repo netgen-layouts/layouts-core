@@ -12,12 +12,12 @@ class ServiceTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $persistenceHandlerMock;
+    private $persistenceHandlerMock;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\Service
      */
-    protected $service;
+    private $service;
 
     /**
      * Sets up the tests.

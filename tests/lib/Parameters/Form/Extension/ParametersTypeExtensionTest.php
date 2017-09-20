@@ -15,7 +15,7 @@ class ParametersTypeExtensionTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension
      */
-    protected $formTypeExtension;
+    private $formTypeExtension;
 
     public function setUp()
     {

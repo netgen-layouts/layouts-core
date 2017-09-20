@@ -23,17 +23,17 @@ class ResultLoaderTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Item\ItemBuilderInterface
      */
-    protected $itemBuilder;
+    private $itemBuilder;
 
     /**
      * @var \Netgen\BlockManager\Item\ItemLoaderInterface
      */
-    protected $itemLoader;
+    private $itemLoader;
 
     /**
      * @var \Netgen\BlockManager\Collection\Result\ResultLoaderInterface
      */
-    protected $resultLoader;
+    private $resultLoader;
 
     public function setUp()
     {
@@ -115,7 +115,7 @@ class ResultLoaderTest extends TestCase
      *
      * @return \Netgen\BlockManager\Core\Values\Collection\Collection
      */
-    protected function buildCollection(
+    private function buildCollection(
         array $manualIds = array(),
         array $overrideIds = array(),
         array $queryValues = array(),
@@ -170,7 +170,7 @@ class ResultLoaderTest extends TestCase
      *
      * @return \Netgen\BlockManager\Tests\Item\Stubs\Value[]
      */
-    protected function buildQueryValues(array $ids = array())
+    private function buildQueryValues(array $ids = array())
     {
         return array_map(
             function ($id) {

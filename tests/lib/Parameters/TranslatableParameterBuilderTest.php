@@ -12,17 +12,17 @@ class TranslatableParameterBuilderTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface
      */
-    protected $registry;
+    private $registry;
 
     /**
      * @var \Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory
      */
-    protected $factory;
+    private $factory;
 
     /**
      * @var \Netgen\BlockManager\Parameters\TranslatableParameterBuilder
      */
-    protected $builder;
+    private $builder;
 
     public function setUp()
     {

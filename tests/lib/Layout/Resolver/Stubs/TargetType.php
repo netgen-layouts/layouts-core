@@ -11,12 +11,12 @@ class TargetType implements TargetTypeInterface
     /**
      * @var string
      */
-    protected $type;
+    private $type;
 
     /**
      * @var mixed
      */
-    protected $value;
+    private $value;
 
     /**
      * Constructor.

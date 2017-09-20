@@ -13,17 +13,17 @@ class ItemRuntimeTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $itemLoaderMock;
+    private $itemLoaderMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $urlBuilderMock;
+    private $urlBuilderMock;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntime
      */
-    protected $runtime;
+    private $runtime;
 
     public function setUp()
     {

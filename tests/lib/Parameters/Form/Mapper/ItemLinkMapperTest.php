@@ -19,12 +19,12 @@ class ItemLinkMapperTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface
      */
-    protected $valueTypeRegistry;
+    private $valueTypeRegistry;
 
     /**
      * @var \Netgen\BlockManager\Parameters\Form\Mapper\ItemLinkMapper
      */
-    protected $mapper;
+    private $mapper;
 
     public function setUp()
     {

@@ -12,12 +12,12 @@ class ParameterTypeRegistry implements ParameterTypeRegistryInterface
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterTypeInterface[]
      */
-    protected $parameterTypes = array();
+    private $parameterTypes = array();
 
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterTypeInterface[]
      */
-    protected $parameterTypesByClass = array();
+    private $parameterTypesByClass = array();
 
     public function addParameterType(ParameterTypeInterface $parameterType)
     {

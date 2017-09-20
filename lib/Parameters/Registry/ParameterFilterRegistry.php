@@ -9,7 +9,7 @@ class ParameterFilterRegistry implements ParameterFilterRegistryInterface
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterFilterInterface[][]
      */
-    protected $parameterFilters = array();
+    private $parameterFilters = array();
 
     public function addParameterFilter($parameterType, ParameterFilterInterface $parameterFilter)
     {

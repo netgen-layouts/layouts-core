@@ -19,37 +19,37 @@ class BlockMapper
     /**
      * @var \Netgen\BlockManager\Persistence\Handler
      */
-    protected $persistenceHandler;
+    private $persistenceHandler;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\Mapper\CollectionMapper
      */
-    protected $collectionMapper;
+    private $collectionMapper;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper
      */
-    protected $parameterMapper;
+    private $parameterMapper;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\Mapper\ConfigMapper
      */
-    protected $configMapper;
+    private $configMapper;
 
     /**
      * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface
      */
-    protected $blockDefinitionRegistry;
+    private $blockDefinitionRegistry;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\BlockHandler
      */
-    protected $blockHandler;
+    private $blockHandler;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandler
      */
-    protected $collectionHandler;
+    private $collectionHandler;
 
     public function __construct(
         Handler $persistenceHandler,
@@ -144,7 +144,7 @@ class BlockMapper
      *
      * @return \Netgen\BlockManager\API\Values\Block\CollectionReference[]
      */
-    protected function mapCollectionReferences(PersistenceBlock $block, $locales = null)
+    private function mapCollectionReferences(PersistenceBlock $block, $locales = null)
     {
         $collectionReferences = $this->blockHandler->loadCollectionReferences($block);
 
@@ -177,7 +177,7 @@ class BlockMapper
      *
      * @return \Netgen\BlockManager\Core\Values\Block\BlockTranslation
      */
-    protected function mapBlockTranslation(PersistenceBlock $block, BlockDefinitionInterface $definition, $locale)
+    private function mapBlockTranslation(PersistenceBlock $block, BlockDefinitionInterface $definition, $locale)
     {
         $untranslatableParams = $this->parameterMapper->extractUntranslatableParameters(
             $definition,
@@ -204,7 +204,7 @@ class BlockMapper
      *
      * @return \Netgen\BlockManager\Core\Values\Block\Placeholder[]
      */
-    protected function mapPlaceholders(PersistenceBlock $block, BlockDefinitionInterface $blockDefinition)
+    private function mapPlaceholders(PersistenceBlock $block, BlockDefinitionInterface $blockDefinition)
     {
         if (!$blockDefinition instanceof ContainerDefinitionInterface) {
             return array();

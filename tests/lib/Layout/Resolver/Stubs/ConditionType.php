@@ -11,12 +11,12 @@ class ConditionType implements ConditionTypeInterface
     /**
      * @var string
      */
-    protected $type;
+    private $type;
 
     /**
      * @var bool
      */
-    protected $matches = true;
+    private $matches = true;
 
     /**
      * Constructor.

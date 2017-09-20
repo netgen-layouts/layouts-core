@@ -11,7 +11,7 @@ class FullViewHandlerTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Handler\Twig\FullViewHandler
      */
-    protected $handler;
+    private $handler;
 
     public function setUp()
     {

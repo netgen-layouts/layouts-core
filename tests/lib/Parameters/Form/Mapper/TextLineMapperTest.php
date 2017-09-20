@@ -11,7 +11,7 @@ class TextLineMapperTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Parameters\Form\Mapper\TextLineMapper
      */
-    protected $mapper;
+    private $mapper;
 
     public function setUp()
     {

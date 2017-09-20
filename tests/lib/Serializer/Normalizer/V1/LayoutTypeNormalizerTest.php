@@ -15,7 +15,7 @@ class LayoutTypeNormalizerTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutTypeNormalizer
      */
-    protected $normalizer;
+    private $normalizer;
 
     public function setUp()
     {

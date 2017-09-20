@@ -23,17 +23,17 @@ class LayoutController extends Controller
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService
      */
-    protected $layoutService;
+    private $layoutService;
 
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService
      */
-    protected $blockService;
+    private $blockService;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\LayoutValidator
      */
-    protected $validator;
+    private $validator;
 
     public function __construct(LayoutService $layoutService, BlockService $blockService, LayoutValidator $validator)
     {

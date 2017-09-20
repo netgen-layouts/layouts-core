@@ -13,17 +13,17 @@ class FOSClientTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $fosInvalidatorMock;
+    private $fosInvalidatorMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $idProviderMock;
+    private $idProviderMock;
 
     /**
      * @var \Netgen\BlockManager\HttpCache\FOSClient
      */
-    protected $client;
+    private $client;
 
     public function setUp()
     {

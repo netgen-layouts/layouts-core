@@ -13,7 +13,7 @@ class BlockResponseListener implements EventSubscriberInterface
     /**
      * @var \Netgen\BlockManager\HttpCache\TaggerInterface
      */
-    protected $tagger;
+    private $tagger;
 
     public function __construct(TaggerInterface $tagger)
     {

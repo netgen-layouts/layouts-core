@@ -12,7 +12,7 @@ class BlockTypeGroupRegistry implements BlockTypeGroupRegistryInterface
     /**
      * @var array
      */
-    protected $blockTypeGroups = array();
+    private $blockTypeGroups = array();
 
     public function addBlockTypeGroup($identifier, BlockTypeGroup $blockTypeGroup)
     {

@@ -10,7 +10,7 @@ class LocaleProvider implements LocaleProviderInterface
     /**
      * @var string[]
      */
-    protected $enabledLocales;
+    private $enabledLocales;
 
     /**
      * Constructor.

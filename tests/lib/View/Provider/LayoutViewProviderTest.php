@@ -14,7 +14,7 @@ class LayoutViewProviderTest extends TestCase
     /**
      * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface
      */
-    protected $layoutViewProvider;
+    private $layoutViewProvider;
 
     public function setUp()
     {

@@ -15,7 +15,7 @@ class TemplateResolverTest extends TestCase
     /**
      * @var \Netgen\BlockManager\View\ViewInterface
      */
-    protected $view;
+    private $view;
 
     public function setUp()
     {

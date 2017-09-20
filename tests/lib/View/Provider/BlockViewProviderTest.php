@@ -17,7 +17,7 @@ class BlockViewProviderTest extends TestCase
     /**
      * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface
      */
-    protected $blockViewProvider;
+    private $blockViewProvider;
 
     public function setUp()
     {

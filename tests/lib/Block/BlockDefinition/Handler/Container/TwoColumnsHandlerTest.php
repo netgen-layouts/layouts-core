@@ -10,7 +10,7 @@ class TwoColumnsHandlerTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Handler\Container\TwoColumnsHandler
      */
-    protected $handler;
+    private $handler;
 
     public function setUp()
     {

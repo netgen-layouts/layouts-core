@@ -15,7 +15,7 @@ class FormViewProviderTest extends TestCase
     /**
      * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface
      */
-    protected $formViewProvider;
+    private $formViewProvider;
 
     public function setUp()
     {

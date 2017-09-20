@@ -31,7 +31,7 @@ trait TestCaseTrait
      *
      * @return \Netgen\BlockManager\Persistence\Handler
      */
-    protected function createPersistenceHandler(Connection $connection = null)
+    private function createPersistenceHandler(Connection $connection = null)
     {
         $this->databaseConnection = $connection;
         if ($this->databaseConnection === null) {
@@ -52,7 +52,7 @@ trait TestCaseTrait
      *
      * @return \Netgen\BlockManager\Persistence\Handler\LayoutHandler
      */
-    protected function createLayoutHandler()
+    private function createLayoutHandler()
     {
         $connectionHelper = new ConnectionHelper($this->databaseConnection);
 
@@ -71,7 +71,7 @@ trait TestCaseTrait
      *
      * @return \Netgen\BlockManager\Persistence\Handler\BlockHandler
      */
-    protected function createBlockHandler()
+    private function createBlockHandler()
     {
         return new BlockHandler(
             new BlockQueryHandler(
@@ -89,7 +89,7 @@ trait TestCaseTrait
      *
      * @return \Netgen\BlockManager\Persistence\Handler\CollectionHandler
      */
-    protected function createCollectionHandler()
+    private function createCollectionHandler()
     {
         return new CollectionHandler(
             new CollectionQueryHandler(
@@ -106,7 +106,7 @@ trait TestCaseTrait
      *
      * @return \Netgen\BlockManager\Persistence\Handler\LayoutResolverHandler
      */
-    protected function createLayoutResolverHandler()
+    private function createLayoutResolverHandler()
     {
         return new LayoutResolverHandler(
             new LayoutResolverQueryHandler(

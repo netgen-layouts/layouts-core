@@ -12,12 +12,12 @@ class ConfigDefinitionTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface
      */
-    protected $handler;
+    private $handler;
 
     /**
      * @var \Netgen\BlockManager\Config\ConfigDefinition
      */
-    protected $configDefinition;
+    private $configDefinition;
 
     public function setUp()
     {

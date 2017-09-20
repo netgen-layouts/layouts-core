@@ -11,12 +11,12 @@ class ContainerConfigurationTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $containerMock;
+    private $containerMock;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Configuration\ContainerConfiguration
      */
-    protected $configuration;
+    private $configuration;
 
     public function setUp()
     {
@@ -120,7 +120,7 @@ class ContainerConfigurationTest extends TestCase
         $this->configuration->getParameter('some_param');
     }
 
-    protected function createConfiguration(array $injectedParameters = array())
+    private function createConfiguration(array $injectedParameters = array())
     {
         $this->containerMock = $this->createMock(ContainerInterface::class);
         $this->configuration = new ContainerConfiguration($this->containerMock, $injectedParameters);

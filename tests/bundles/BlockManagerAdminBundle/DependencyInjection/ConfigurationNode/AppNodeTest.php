@@ -194,7 +194,7 @@ class AppNodeTest extends TestCase
      *
      * @return \Symfony\Component\Config\Definition\ConfigurationInterface
      */
-    protected function getConfiguration()
+    private function getConfiguration()
     {
         $extension = new NetgenBlockManagerExtension();
         $extension->addPlugin(new ExtensionPlugin());

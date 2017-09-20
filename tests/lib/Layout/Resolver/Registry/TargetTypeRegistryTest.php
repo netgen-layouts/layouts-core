@@ -12,12 +12,12 @@ class TargetTypeRegistryTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\TargetTypeInterface
      */
-    protected $targetType;
+    private $targetType;
 
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry
      */
-    protected $registry;
+    private $registry;
 
     public function setUp()
     {

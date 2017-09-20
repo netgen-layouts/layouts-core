@@ -16,7 +16,7 @@ class CompoundParameterTypeTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Parameters\CompoundParameterTypeInterface
      */
-    protected $parameterType;
+    private $parameterType;
 
     public function setUp()
     {

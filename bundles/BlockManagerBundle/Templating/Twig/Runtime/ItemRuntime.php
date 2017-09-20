@@ -15,22 +15,22 @@ class ItemRuntime
     /**
      * @var \Netgen\BlockManager\Item\ItemLoaderInterface
      */
-    protected $itemLoader;
+    private $itemLoader;
 
     /**
      * @var \Netgen\BlockManager\Item\UrlBuilderInterface
      */
-    protected $urlBuilder;
+    private $urlBuilder;
 
     /**
      * @var \Psr\Log\NullLogger
      */
-    protected $logger;
+    private $logger;
 
     /**
      * @var bool
      */
-    protected $debug = false;
+    private $debug = false;
 
     public function __construct(
         ItemLoaderInterface $itemLoader,

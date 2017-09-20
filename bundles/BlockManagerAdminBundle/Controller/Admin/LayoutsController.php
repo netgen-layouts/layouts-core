@@ -19,17 +19,17 @@ class LayoutsController extends Controller
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService
      */
-    protected $layoutService;
+    private $layoutService;
 
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService
      */
-    protected $blockService;
+    private $blockService;
 
     /**
      * @var \Netgen\BlockManager\HttpCache\ClientInterface
      */
-    protected $httpCacheClient;
+    private $httpCacheClient;
 
     public function __construct(
         LayoutService $layoutService,

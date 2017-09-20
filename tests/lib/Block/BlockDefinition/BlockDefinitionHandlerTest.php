@@ -15,17 +15,17 @@ class BlockDefinitionHandlerTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler
      */
-    protected $handler;
+    private $handler;
 
     /**
      * @var \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface
      */
-    protected $parameterTypeRegistry;
+    private $parameterTypeRegistry;
 
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface
      */
-    protected $parameterBuilderFactory;
+    private $parameterBuilderFactory;
 
     public function setUp()
     {

@@ -17,17 +17,17 @@ class ViewNormalizerTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $viewRendererMock;
+    private $viewRendererMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $serializerMock;
+    private $serializerMock;
 
     /**
      * @var \Netgen\BlockManager\Serializer\Normalizer\ViewNormalizer
      */
-    protected $normalizer;
+    private $normalizer;
 
     public function setUp()
     {

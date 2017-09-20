@@ -10,7 +10,7 @@ class CollectionTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection
      */
-    protected $collection;
+    private $collection;
 
     public function setUp()
     {

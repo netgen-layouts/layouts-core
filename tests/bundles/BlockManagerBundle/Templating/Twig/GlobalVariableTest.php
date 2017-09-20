@@ -19,32 +19,32 @@ class GlobalVariableTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $configMock;
+    private $configMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $layoutResolverMock;
+    private $layoutResolverMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $pageLayoutResolverMock;
+    private $pageLayoutResolverMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $viewBuilderMock;
+    private $viewBuilderMock;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable
      */
-    protected $globalVariable;
+    private $globalVariable;
 
     /**
      * @var \Symfony\Component\HttpFoundation\RequestStack
      */
-    protected $requestStack;
+    private $requestStack;
 
     public function setUp()
     {

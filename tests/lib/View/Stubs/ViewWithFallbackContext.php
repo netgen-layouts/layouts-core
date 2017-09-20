@@ -9,7 +9,7 @@ class ViewWithFallbackContext extends BaseView
     /**
      * @var string
      */
-    protected $fallbackContext;
+    private $fallbackContext;
 
     /**
      * Constructor.

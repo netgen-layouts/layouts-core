@@ -16,7 +16,7 @@ class AddLocaleType extends AbstractType
     /**
      * @var \Netgen\BlockManager\Locale\LocaleProviderInterface
      */
-    protected $localeProvider;
+    private $localeProvider;
 
     public function __construct(LocaleProviderInterface $localeProvider)
     {

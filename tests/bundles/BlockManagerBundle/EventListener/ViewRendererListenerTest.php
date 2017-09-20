@@ -18,12 +18,12 @@ class ViewRendererListenerTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $viewRendererMock;
+    private $viewRendererMock;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\EventListener\ViewRendererListener
      */
-    protected $listener;
+    private $listener;
 
     public function setUp()
     {

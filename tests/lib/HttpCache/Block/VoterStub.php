@@ -10,7 +10,7 @@ class VoterStub implements VoterInterface
     /**
      * @var bool|null
      */
-    protected $vote;
+    private $vote;
 
     /**
      * Constructor.

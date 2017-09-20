@@ -13,7 +13,7 @@ class ExceptionNormalizer implements NormalizerInterface
     /**
      * @var bool
      */
-    protected $outputDebugInfo = false;
+    private $outputDebugInfo = false;
 
     /**
      * Sets if the normalizer should output debugging information.

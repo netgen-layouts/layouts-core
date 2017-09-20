@@ -18,7 +18,7 @@ class ItemLinkValidator extends ConstraintValidator
     /**
      * @var \Netgen\BlockManager\Item\ItemLoaderInterface
      */
-    protected $itemLoader;
+    private $itemLoader;
 
     public function __construct(ItemLoaderInterface $itemLoader)
     {

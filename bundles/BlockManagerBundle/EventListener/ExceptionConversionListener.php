@@ -22,7 +22,7 @@ class ExceptionConversionListener implements EventSubscriberInterface
     /**
      * @var array
      */
-    protected $exceptionMap = array(
+    private $exceptionMap = array(
         NotFoundException::class => NotFoundHttpException::class,
         InvalidArgumentException::class => BadRequestHttpException::class,
         ValidationException::class => BadRequestHttpException::class,

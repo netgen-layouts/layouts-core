@@ -12,7 +12,7 @@ class MapperTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Parameters\Form\MapperInterface
      */
-    protected $mapper;
+    private $mapper;
 
     public function setUp()
     {

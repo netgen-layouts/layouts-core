@@ -13,7 +13,7 @@ class CollectionNormalizerTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionNormalizer
      */
-    protected $normalizer;
+    private $normalizer;
 
     public function setUp()
     {

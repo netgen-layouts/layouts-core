@@ -14,7 +14,7 @@ class LinkDataMapper implements DataMapperInterface
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterInterface
      */
-    protected $parameter;
+    private $parameter;
 
     public function __construct(ParameterInterface $parameter)
     {

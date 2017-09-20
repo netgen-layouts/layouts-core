@@ -11,7 +11,7 @@ class ListHandler extends BlockDefinitionHandler
     /**
      * @var array
      */
-    protected $columns = array();
+    private $columns = array();
 
     public function __construct(array $columns = array())
     {

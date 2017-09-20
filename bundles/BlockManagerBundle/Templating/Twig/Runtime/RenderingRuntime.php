@@ -21,32 +21,32 @@ class RenderingRuntime
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService
      */
-    protected $blockService;
+    private $blockService;
 
     /**
      * @var \Netgen\BlockManager\View\RendererInterface
      */
-    protected $renderer;
+    private $renderer;
 
     /**
      * @var \Netgen\BlockManager\Locale\LocaleProviderInterface
      */
-    protected $localeProvider;
+    private $localeProvider;
 
     /**
      * @var \Psr\Log\NullLogger
      */
-    protected $logger;
+    private $logger;
 
     /**
      * @var \Symfony\Component\HttpFoundation\RequestStack
      */
-    protected $requestStack;
+    private $requestStack;
 
     /**
      * @var bool
      */
-    protected $debug = false;
+    private $debug = false;
 
     public function __construct(
         BlockService $blockService,
@@ -222,7 +222,7 @@ class RenderingRuntime
      *
      * @return string
      */
-    protected function handleException(Exception $exception, $errorMessage)
+    private function handleException(Exception $exception, $errorMessage)
     {
         $this->logger->error($errorMessage . ': ' . $exception->getMessage());
 
@@ -242,7 +242,7 @@ class RenderingRuntime
      *
      * @return string
      */
-    protected function getViewContext(array $context, $viewContext = null)
+    private function getViewContext(array $context, $viewContext = null)
     {
         if ($viewContext !== null) {
             return $viewContext;
@@ -262,7 +262,7 @@ class RenderingRuntime
      *
      * @return \Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate
      */
-    protected function getTwigTemplate(array $context)
+    private function getTwigTemplate(array $context)
     {
         if (!isset($context['twig_template'])) {
             return null;

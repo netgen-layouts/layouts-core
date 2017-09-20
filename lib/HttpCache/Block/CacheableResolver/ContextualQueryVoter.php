@@ -21,7 +21,7 @@ class ContextualQueryVoter implements VoterInterface
      *
      * @return bool
      */
-    protected function hasContextualQuery(Block $block)
+    private function hasContextualQuery(Block $block)
     {
         foreach ($block->getCollectionReferences() as $collectionReference) {
             $collection = $collectionReference->getCollection();

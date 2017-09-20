@@ -12,12 +12,12 @@ class ConditionTypeRegistryTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface
      */
-    protected $conditionType;
+    private $conditionType;
 
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry
      */
-    protected $registry;
+    private $registry;
 
     public function setUp()
     {

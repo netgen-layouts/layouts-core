@@ -15,12 +15,12 @@ class ValidatorTraitTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $validatorMock;
+    private $validatorMock;
 
     /**
      * @var \Netgen\BlockManager\Tests\Validator\Stubs\ValidatorValue
      */
-    protected $validator;
+    private $validator;
 
     /**
      * Sets up the test.

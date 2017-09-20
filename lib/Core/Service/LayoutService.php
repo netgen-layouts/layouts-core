@@ -26,27 +26,27 @@ class LayoutService extends Service implements LayoutServiceInterface
     /**
      * @var \Netgen\BlockManager\Core\Service\Validator\LayoutValidator
      */
-    protected $validator;
+    private $validator;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper
      */
-    protected $mapper;
+    private $mapper;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\StructBuilder\LayoutStructBuilder
      */
-    protected $structBuilder;
+    private $structBuilder;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandler
      */
-    protected $layoutHandler;
+    private $layoutHandler;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\BlockHandler
      */
-    protected $blockHandler;
+    private $blockHandler;
 
     public function __construct(
         Handler $persistenceHandler,

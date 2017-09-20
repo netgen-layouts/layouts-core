@@ -12,17 +12,17 @@ class BlockViewRenderer implements ViewRendererInterface
     /**
      * @var \Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface
      */
-    protected $cacheableResolver;
+    private $cacheableResolver;
 
     /**
      * @var string
      */
-    protected $blockController;
+    private $blockController;
 
     /**
      * @var array
      */
-    protected $supportedContexts;
+    private $supportedContexts;
 
     /**
      * Constructor.

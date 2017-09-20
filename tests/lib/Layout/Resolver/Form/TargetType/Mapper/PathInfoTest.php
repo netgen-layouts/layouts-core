@@ -11,7 +11,7 @@ class PathInfoTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\Form\TargetType\MapperInterface
      */
-    protected $mapper;
+    private $mapper;
 
     public function setUp()
     {

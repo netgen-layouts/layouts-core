@@ -10,7 +10,7 @@ class ZoneTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Layout\Type\Zone
      */
-    protected $zone;
+    private $zone;
 
     public function setUp()
     {

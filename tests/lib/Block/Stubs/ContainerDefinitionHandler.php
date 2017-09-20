@@ -13,12 +13,12 @@ class ContainerDefinitionHandler extends BaseContainerDefinitionHandler
     /**
      * @var array
      */
-    protected $parameterGroups = array();
+    private $parameterGroups = array();
 
     /**
      * @var array
      */
-    protected $placeholderIdentifiers = array();
+    private $placeholderIdentifiers = array();
 
     /**
      * Constructor.

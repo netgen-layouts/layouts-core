@@ -9,7 +9,7 @@ class Sqlite
     /**
      * @var \Doctrine\DBAL\Connection
      */
-    protected $connection;
+    private $connection;
 
     public function __construct(Connection $connection)
     {

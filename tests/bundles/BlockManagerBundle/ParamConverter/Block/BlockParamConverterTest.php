@@ -13,12 +13,12 @@ class BlockParamConverterTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $blockServiceMock;
+    private $blockServiceMock;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\ParamConverter\Block\BlockParamConverter
      */
-    protected $paramConverter;
+    private $paramConverter;
 
     public function setUp()
     {

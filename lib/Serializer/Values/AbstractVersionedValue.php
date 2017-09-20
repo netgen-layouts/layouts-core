@@ -9,7 +9,7 @@ abstract class AbstractVersionedValue extends AbstractValue
     /**
      * @var int
      */
-    protected $version;
+    private $version;
 
     /**
      * Constructor.

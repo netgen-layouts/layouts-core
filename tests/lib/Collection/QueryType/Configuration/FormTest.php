@@ -10,7 +10,7 @@ class FormTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Collection\QueryType\Configuration\Form
      */
-    protected $form;
+    private $form;
 
     public function setUp()
     {

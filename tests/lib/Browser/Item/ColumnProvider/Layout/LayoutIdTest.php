@@ -12,7 +12,7 @@ class LayoutIdTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\LayoutId
      */
-    protected $provider;
+    private $provider;
 
     public function setUp()
     {

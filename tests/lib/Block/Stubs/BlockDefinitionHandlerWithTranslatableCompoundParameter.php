@@ -14,7 +14,7 @@ class BlockDefinitionHandlerWithTranslatableCompoundParameter extends BaseBlockD
     /**
      * @var array
      */
-    protected $parameterGroups = array();
+    private $parameterGroups = array();
 
     /**
      * Constructor.

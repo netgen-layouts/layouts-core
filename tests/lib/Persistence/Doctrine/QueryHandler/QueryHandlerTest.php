@@ -11,12 +11,12 @@ class QueryHandlerTest extends TestCase
     /**
      * @var \Doctrine\DBAL\Connection
      */
-    protected $databaseConnection;
+    private $databaseConnection;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\QueryHandler
      */
-    protected $queryHandler;
+    private $queryHandler;
 
     public function setUp()
     {

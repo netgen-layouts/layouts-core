@@ -12,7 +12,7 @@ class CollectViewParametersEventTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Event\CollectViewParametersEvent
      */
-    protected $event;
+    private $event;
 
     public function setUp()
     {

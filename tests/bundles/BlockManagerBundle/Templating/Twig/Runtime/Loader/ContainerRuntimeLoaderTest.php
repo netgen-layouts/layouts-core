@@ -12,12 +12,12 @@ class ContainerRuntimeLoaderTest extends TestCase
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\Loader\ContainerRuntimeLoader
      */
-    protected $runtimeLoader;
+    private $runtimeLoader;
 
     /**
      * @var \Symfony\Component\DependencyInjection\ContainerInterface
      */
-    protected $container;
+    private $container;
 
     public function setUp()
     {

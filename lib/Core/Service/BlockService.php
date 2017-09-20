@@ -32,47 +32,47 @@ class BlockService extends Service implements BlockServiceInterface
     /**
      * @var \Netgen\BlockManager\Core\Service\Validator\BlockValidator
      */
-    protected $validator;
+    private $validator;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\Mapper\BlockMapper
      */
-    protected $mapper;
+    private $mapper;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\StructBuilder\BlockStructBuilder
      */
-    protected $structBuilder;
+    private $structBuilder;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper
      */
-    protected $parameterMapper;
+    private $parameterMapper;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\Mapper\ConfigMapper
      */
-    protected $configMapper;
+    private $configMapper;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\BlockHandler
      */
-    protected $blockHandler;
+    private $blockHandler;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandler
      */
-    protected $layoutHandler;
+    private $layoutHandler;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandler
      */
-    protected $collectionHandler;
+    private $collectionHandler;
 
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService
      */
-    protected $layoutService;
+    private $layoutService;
 
     public function __construct(
         Handler $persistenceHandler,
@@ -592,7 +592,7 @@ class BlockService extends Service implements BlockServiceInterface
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    protected function internalCreateBlock(
+    private function internalCreateBlock(
         APIBlockCreateStruct $blockCreateStruct,
         PersistenceBlock $targetBlock,
         $placeholder,
@@ -685,7 +685,7 @@ class BlockService extends Service implements BlockServiceInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
-    protected function internalMoveBlock(PersistenceBlock $block, PersistenceBlock $targetBlock, $placeholder, $position)
+    private function internalMoveBlock(PersistenceBlock $block, PersistenceBlock $targetBlock, $placeholder, $position)
     {
         return $this->transaction(
             function () use ($block, $targetBlock, $placeholder, $position) {
@@ -718,7 +718,7 @@ class BlockService extends Service implements BlockServiceInterface
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
-    protected function updateBlockTranslations(Block $block, PersistenceBlock $persistenceBlock, APIBlockUpdateStruct $blockUpdateStruct)
+    private function updateBlockTranslations(Block $block, PersistenceBlock $persistenceBlock, APIBlockUpdateStruct $blockUpdateStruct)
     {
         if ($blockUpdateStruct->locale === $persistenceBlock->mainLocale) {
             $persistenceBlock = $this->blockHandler->updateBlockTranslation(

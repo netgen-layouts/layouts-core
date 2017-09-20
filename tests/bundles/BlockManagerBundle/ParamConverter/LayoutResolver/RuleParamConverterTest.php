@@ -13,12 +13,12 @@ class RuleParamConverterTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $layoutResolverServiceMock;
+    private $layoutResolverServiceMock;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\RuleParamConverter
      */
-    protected $paramConverter;
+    private $paramConverter;
 
     public function setUp()
     {

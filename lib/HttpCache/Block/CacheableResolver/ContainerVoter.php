@@ -14,7 +14,7 @@ class ContainerVoter implements VoterInterface
     /**
      * @var \Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface
      */
-    protected $cacheableResolver;
+    private $cacheableResolver;
 
     public function __construct(CacheableResolverInterface $cacheableResolver)
     {

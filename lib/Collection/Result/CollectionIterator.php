@@ -11,17 +11,17 @@ class CollectionIterator implements Iterator, Countable
     /**
      * @var \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    protected $collection;
+    private $collection;
 
     /**
      * @var int
      */
-    protected $pointer;
+    private $pointer;
 
     /**
      * @var \Iterator
      */
-    protected $queryIterator;
+    private $queryIterator;
 
     public function __construct(Collection $collection, Iterator $queryIterator)
     {
@@ -111,7 +111,7 @@ class CollectionIterator implements Iterator, Countable
      *
      * @return bool
      */
-    protected function advanceQuery()
+    private function advanceQuery()
     {
         if ($this->collection->hasOverrideItem($this->pointer)) {
             return true;

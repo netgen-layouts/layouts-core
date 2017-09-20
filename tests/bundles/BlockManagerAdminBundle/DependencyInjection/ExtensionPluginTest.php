@@ -11,7 +11,7 @@ class ExtensionPluginTest extends TestCase
     /**
      * @var \Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection\ExtensionPlugin
      */
-    protected $plugin;
+    private $plugin;
 
     public function setUp()
     {

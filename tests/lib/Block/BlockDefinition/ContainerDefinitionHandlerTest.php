@@ -10,7 +10,7 @@ class ContainerDefinitionHandlerTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\ContainerDefinitionHandler
      */
-    protected $handler;
+    private $handler;
 
     public function setUp()
     {

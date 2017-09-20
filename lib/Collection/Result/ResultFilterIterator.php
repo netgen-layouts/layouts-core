@@ -14,7 +14,7 @@ class ResultFilterIterator extends FilterIterator
     /**
      * @var int
      */
-    protected $flags;
+    private $flags;
 
     /**
      * Constructor.

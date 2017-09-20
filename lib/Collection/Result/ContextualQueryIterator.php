@@ -10,7 +10,7 @@ class ContextualQueryIterator extends QueryIterator
     /**
      * @var int
      */
-    protected $limit;
+    private $limit;
 
     /**
      * Constructor.
@@ -49,7 +49,7 @@ class ContextualQueryIterator extends QueryIterator
      *
      * @return \Generator
      */
-    protected function generateSlots()
+    private function generateSlots()
     {
         for ($i = 0, $count = $this->count(); $i < $count; ++$i) {
             yield new Slot();

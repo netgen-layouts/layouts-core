@@ -15,7 +15,7 @@ abstract class LayoutStructBuilderTest extends ServiceTestCase
     /**
      * @var \Netgen\BlockManager\Core\Service\StructBuilder\LayoutStructBuilder
      */
-    protected $structBuilder;
+    private $structBuilder;
 
     /**
      * Sets up the tests.

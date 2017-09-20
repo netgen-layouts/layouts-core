@@ -15,17 +15,17 @@ class ConfigMapperTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Config\ConfigDefinitionInterface
      */
-    protected $configDefinition;
+    private $configDefinition;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $parameterMapperMock;
+    private $parameterMapperMock;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\Mapper\ConfigMapper
      */
-    protected $mapper;
+    private $mapper;
 
     /**
      * Sets up the tests.

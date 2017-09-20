@@ -17,22 +17,22 @@ class CsrfValidationListenerTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $csrfTokenManagerMock;
+    private $csrfTokenManagerMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $sessionMock;
+    private $sessionMock;
 
     /**
      * @var string
      */
-    protected $csrfTokenId;
+    private $csrfTokenId;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener
      */
-    protected $listener;
+    private $listener;
 
     /**
      * Sets up the test.

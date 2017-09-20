@@ -22,12 +22,12 @@ class CreateType extends AbstractType
     /**
      * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface
      */
-    protected $layoutTypeRegistry;
+    private $layoutTypeRegistry;
 
     /**
      * @var \Netgen\BlockManager\Locale\LocaleProviderInterface
      */
-    protected $localeProvider;
+    private $localeProvider;
 
     public function __construct(
         LayoutTypeRegistryInterface $layoutTypeRegistry,

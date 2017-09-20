@@ -7,12 +7,12 @@ class Renderer implements RendererInterface
     /**
      * @var \Netgen\BlockManager\View\ViewBuilderInterface
      */
-    protected $viewBuilder;
+    private $viewBuilder;
 
     /**
      * @var \Netgen\BlockManager\View\ViewRendererInterface
      */
-    protected $viewRenderer;
+    private $viewRenderer;
 
     public function __construct(
         ViewBuilderInterface $viewBuilder,

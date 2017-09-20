@@ -17,12 +17,12 @@ class ValidatorFactory implements ConstraintValidatorFactoryInterface
     /**
      * @var \PHPUnit\Framework\TestCase
      */
-    protected $testCase;
+    private $testCase;
 
     /**
      * @var \Symfony\Component\Validator\ConstraintValidatorFactoryInterface
      */
-    protected $baseValidatorFactory;
+    private $baseValidatorFactory;
 
     /**
      * Constructor.

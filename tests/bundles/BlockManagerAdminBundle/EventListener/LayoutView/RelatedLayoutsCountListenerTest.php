@@ -18,12 +18,12 @@ class RelatedLayoutsCountListenerTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $layoutServiceMock;
+    private $layoutServiceMock;
 
     /**
      * @var \Netgen\Bundle\BlockManagerAdminBundle\EventListener\LayoutView\RelatedLayoutsCountListener
      */
-    protected $listener;
+    private $listener;
 
     /**
      * Sets up the test.

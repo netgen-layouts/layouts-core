@@ -16,7 +16,7 @@ class ParametersType extends AbstractType
     /**
      * @var \Netgen\BlockManager\Parameters\Registry\FormMapperRegistryInterface
      */
-    protected $formMapperRegistry;
+    private $formMapperRegistry;
 
     public function __construct(FormMapperRegistryInterface $formMapperRegistry)
     {
@@ -99,7 +99,7 @@ class ParametersType extends AbstractType
      *
      * @return bool
      */
-    protected function includeParameter(ParameterInterface $parameter, array $groups = array())
+    private function includeParameter(ParameterInterface $parameter, array $groups = array())
     {
         $parameterGroups = $parameter->getGroups();
 

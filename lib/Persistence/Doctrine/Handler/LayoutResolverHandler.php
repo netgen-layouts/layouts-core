@@ -24,12 +24,12 @@ class LayoutResolverHandler implements LayoutResolverHandlerInterface
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler
      */
-    protected $queryHandler;
+    private $queryHandler;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper
      */
-    protected $mapper;
+    private $mapper;
 
     public function __construct(LayoutResolverQueryHandler $queryHandler, LayoutResolverMapper $mapper)
     {

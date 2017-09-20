@@ -13,12 +13,12 @@ class HttpCacheConfigHandlerTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $cacheableResolverMock;
+    private $cacheableResolverMock;
 
     /**
      * @var \Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface
      */
-    protected $handler;
+    private $handler;
 
     public function setUp()
     {

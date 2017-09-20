@@ -11,12 +11,12 @@ class BlockViewTest extends TestCase
     /**
      * @var \Netgen\BlockManager\API\Values\Block\Block
      */
-    protected $block;
+    private $block;
 
     /**
      * @var \Netgen\BlockManager\View\View\BlockViewInterface
      */
-    protected $view;
+    private $view;
 
     public function setUp()
     {

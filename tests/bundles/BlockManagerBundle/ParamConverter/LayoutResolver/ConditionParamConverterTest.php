@@ -13,12 +13,12 @@ class ConditionParamConverterTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $layoutResolverServiceMock;
+    private $layoutResolverServiceMock;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\ConditionParamConverter
      */
-    protected $paramConverter;
+    private $paramConverter;
 
     public function setUp()
     {

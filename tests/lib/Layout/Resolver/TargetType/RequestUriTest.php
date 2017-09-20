@@ -12,7 +12,7 @@ class RequestUriTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\TargetType\RequestUri
      */
-    protected $targetType;
+    private $targetType;
 
     public function setUp()
     {

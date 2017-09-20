@@ -18,7 +18,7 @@ class BlockNormalizer implements NormalizerInterface, SerializerAwareInterface
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService
      */
-    protected $blockService;
+    private $blockService;
 
     public function __construct(BlockService $blockService)
     {

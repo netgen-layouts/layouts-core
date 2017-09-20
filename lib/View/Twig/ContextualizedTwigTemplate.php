@@ -14,17 +14,17 @@ class ContextualizedTwigTemplate
     /**
      * @var \Twig\Template
      */
-    protected $template;
+    private $template;
 
     /**
      * @var array
      */
-    protected $context;
+    private $context;
 
     /**
      * @var array
      */
-    protected $blocks;
+    private $blocks;
 
     /**
      * Constructor.

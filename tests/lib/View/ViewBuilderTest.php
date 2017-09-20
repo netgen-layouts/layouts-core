@@ -16,17 +16,17 @@ class ViewBuilderTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $viewProviderMock;
+    private $viewProviderMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $templateResolverMock;
+    private $templateResolverMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $eventDispatcherMock;
+    private $eventDispatcherMock;
 
     public function setUp()
     {

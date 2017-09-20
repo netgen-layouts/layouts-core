@@ -126,7 +126,7 @@ class ResultFilterIteratorTest extends TestCase
     /**
      * @return \Netgen\BlockManager\Collection\Result\Result[]
      */
-    protected function getResults()
+    private function getResults()
     {
         return array(
             new Result(

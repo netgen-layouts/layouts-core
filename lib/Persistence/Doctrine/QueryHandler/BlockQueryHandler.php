@@ -638,7 +638,7 @@ class BlockQueryHandler extends QueryHandler
      *
      * @return \Doctrine\DBAL\Query\QueryBuilder
      */
-    protected function getBlockSelectQuery()
+    private function getBlockSelectQuery()
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT b.*, bt.*')

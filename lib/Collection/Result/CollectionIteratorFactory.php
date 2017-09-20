@@ -10,7 +10,7 @@ class CollectionIteratorFactory
     /**
      * @var int
      */
-    protected $contextualQueryLimit;
+    private $contextualQueryLimit;
 
     /**
      * Constructor.
@@ -45,7 +45,7 @@ class CollectionIteratorFactory
      *
      * @return \Iterator
      */
-    protected function getQueryIterator(Collection $collection, $flags = 0)
+    private function getQueryIterator(Collection $collection, $flags = 0)
     {
         if (!$collection->hasQuery()) {
             return new ArrayIterator();

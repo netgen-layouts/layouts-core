@@ -11,12 +11,12 @@ class ItemTest extends TestCase
     /**
      * @var \Netgen\BlockManager\API\Values\Layout\Layout
      */
-    protected $layout;
+    private $layout;
 
     /**
      * @var \Netgen\BlockManager\Browser\Item\Layout\Item
      */
-    protected $item;
+    private $item;
 
     public function setUp()
     {

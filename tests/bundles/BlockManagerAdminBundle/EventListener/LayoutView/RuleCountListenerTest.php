@@ -18,12 +18,12 @@ class RuleCountListenerTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $layoutResolverServiceMock;
+    private $layoutResolverServiceMock;
 
     /**
      * @var \Netgen\Bundle\BlockManagerAdminBundle\EventListener\LayoutView\RuleCountListener
      */
-    protected $listener;
+    private $listener;
 
     /**
      * Sets up the test.

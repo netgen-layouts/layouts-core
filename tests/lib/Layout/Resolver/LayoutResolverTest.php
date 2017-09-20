@@ -19,22 +19,22 @@ class LayoutResolverTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $layoutResolverServiceMock;
+    private $layoutResolverServiceMock;
 
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface
      */
-    protected $targetTypeRegistry;
+    private $targetTypeRegistry;
 
     /**
      * @var \Symfony\Component\HttpFoundation\RequestStack
      */
-    protected $requestStack;
+    private $requestStack;
 
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface
      */
-    protected $layoutResolver;
+    private $layoutResolver;
 
     public function setUp()
     {

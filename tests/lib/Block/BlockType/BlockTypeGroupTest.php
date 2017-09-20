@@ -11,7 +11,7 @@ class BlockTypeGroupTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Block\BlockType\BlockTypeGroup
      */
-    protected $blockTypeGroup;
+    private $blockTypeGroup;
 
     public function setUp()
     {

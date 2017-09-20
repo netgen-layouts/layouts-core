@@ -14,7 +14,7 @@ class CollectionController extends Controller
     /**
      * @var \Netgen\BlockManager\API\Service\CollectionService
      */
-    protected $collectionService;
+    private $collectionService;
 
     public function __construct(CollectionService $collectionService)
     {

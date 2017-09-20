@@ -16,12 +16,12 @@ class HandlerTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Handler
      */
-    protected $handler;
+    private $handler;
 
     /**
      * Sets up the database connection.
      */
-    protected function setUp()
+    public function setUp()
     {
         $this->databaseConnection = $this->createMock(Connection::class);
 

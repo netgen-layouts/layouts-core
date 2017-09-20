@@ -169,7 +169,7 @@ class QueryUpdateStructValidatorTest extends ValidatorTestCase
     /**
      * @return \Netgen\BlockManager\Collection\QueryType
      */
-    protected function getQueryType()
+    private function getQueryType()
     {
         $handler = new QueryTypeHandlerWithRequiredParameter();
 

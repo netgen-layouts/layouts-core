@@ -13,7 +13,7 @@ class ContextualBlockVoterTest extends TestCase
     /**
      * @var \Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContextualBlockVoter
      */
-    protected $voter;
+    private $voter;
 
     public function setUp()
     {

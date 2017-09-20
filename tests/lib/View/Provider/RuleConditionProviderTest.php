@@ -14,7 +14,7 @@ class RuleConditionProviderTest extends TestCase
     /**
      * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface
      */
-    protected $ruleConditionViewProvider;
+    private $ruleConditionViewProvider;
 
     public function setUp()
     {

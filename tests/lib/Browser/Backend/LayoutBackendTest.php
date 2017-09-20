@@ -15,12 +15,12 @@ class LayoutBackendTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $layoutServiceMock;
+    private $layoutServiceMock;
 
     /**
      * @var \Netgen\BlockManager\Browser\Backend\LayoutBackend
      */
-    protected $backend;
+    private $backend;
 
     public function setUp()
     {
@@ -219,7 +219,7 @@ class LayoutBackendTest extends TestCase
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
-    protected function getLayout($id = null)
+    private function getLayout($id = null)
     {
         return new Layout(
             array(

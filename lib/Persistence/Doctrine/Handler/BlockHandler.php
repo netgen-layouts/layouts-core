@@ -26,22 +26,22 @@ class BlockHandler implements BlockHandlerInterface
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler
      */
-    protected $queryHandler;
+    private $queryHandler;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandler
      */
-    protected $collectionHandler;
+    private $collectionHandler;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper
      */
-    protected $blockMapper;
+    private $blockMapper;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper
      */
-    protected $positionHelper;
+    private $positionHelper;
 
     public function __construct(
         BlockQueryHandler $queryHandler,
@@ -518,7 +518,7 @@ class BlockHandler implements BlockHandlerInterface
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $targetBlock
      */
-    protected function copyBlockCollections(Block $block, Block $targetBlock)
+    private function copyBlockCollections(Block $block, Block $targetBlock)
     {
         $collectionReferences = $this->loadCollectionReferences($block);
 
@@ -555,7 +555,7 @@ class BlockHandler implements BlockHandlerInterface
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      * @param int $newStatus
      */
-    protected function createBlockCollectionsStatus(Block $block, $newStatus)
+    private function createBlockCollectionsStatus(Block $block, $newStatus)
     {
         $collectionReferences = $this->loadCollectionReferences($block);
 
@@ -595,7 +595,7 @@ class BlockHandler implements BlockHandlerInterface
      * @param array $blockIds
      * @param int $status
      */
-    protected function deleteBlockCollections(array $blockIds, $status = null)
+    private function deleteBlockCollections(array $blockIds, $status = null)
     {
         $collectionIds = $this->queryHandler->loadBlockCollectionIds($blockIds, $status);
         foreach ($collectionIds as $collectionId) {
@@ -614,7 +614,7 @@ class BlockHandler implements BlockHandlerInterface
      *
      * @return array
      */
-    protected function getPositionHelperConditions($parentId, $status, $placeholder)
+    private function getPositionHelperConditions($parentId, $status, $placeholder)
     {
         return array(
             'table' => 'ngbm_block',

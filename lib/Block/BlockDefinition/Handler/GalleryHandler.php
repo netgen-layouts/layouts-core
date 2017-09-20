@@ -11,27 +11,27 @@ class GalleryHandler extends BlockDefinitionHandler
     /**
      * @var int
      */
-    protected $minAutoplayTime;
+    private $minAutoplayTime;
 
     /**
      * @var int
      */
-    protected $maxAutoplayTime;
+    private $maxAutoplayTime;
 
     /**
      * @var array
      */
-    protected $paginationTypes = array();
+    private $paginationTypes = array();
 
     /**
      * @var array
      */
-    protected $transitions = array();
+    private $transitions = array();
 
     /**
      * @var array
      */
-    protected $aspectRatios = array();
+    private $aspectRatios = array();
 
     /**
      * Constructor.

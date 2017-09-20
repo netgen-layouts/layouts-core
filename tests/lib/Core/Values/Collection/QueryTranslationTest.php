@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Core\Values\Block;
+namespace Netgen\BlockManager\Tests\Core\Values\Collection;
 
 use Netgen\BlockManager\Core\Values\Collection\QueryTranslation;
 use Netgen\BlockManager\Exception\Core\ParameterException;

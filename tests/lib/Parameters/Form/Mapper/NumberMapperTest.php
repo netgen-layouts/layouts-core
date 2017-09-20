@@ -13,7 +13,7 @@ class NumberMapperTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Parameters\Form\Mapper\NumberMapper
      */
-    protected $mapper;
+    private $mapper;
 
     public function setUp()
     {

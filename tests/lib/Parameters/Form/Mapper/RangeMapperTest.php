@@ -13,7 +13,7 @@ class RangeMapperTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Parameters\Form\Mapper\RangeMapper
      */
-    protected $mapper;
+    private $mapper;
 
     public function setUp()
     {

@@ -15,12 +15,12 @@ class SetAdminPageLayoutListenerTest extends TestCase
     /**
      * @var \Netgen\Bundle\BlockManagerAdminBundle\EventListener\SetAdminPageLayoutListener
      */
-    protected $listener;
+    private $listener;
 
     /**
      * @var \Netgen\Bundle\BlockManagerAdminBundle\Templating\Twig\GlobalVariable
      */
-    protected $globalVariable;
+    private $globalVariable;
 
     public function setUp()
     {

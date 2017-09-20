@@ -13,7 +13,7 @@ class SqliteTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite
      */
-    protected $helper;
+    private $helper;
 
     /**
      * Sets up the tests.

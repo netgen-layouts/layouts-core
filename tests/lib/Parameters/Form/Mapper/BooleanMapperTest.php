@@ -11,7 +11,7 @@ class BooleanMapperTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Parameters\Form\Mapper\BooleanMapper
      */
-    protected $mapper;
+    private $mapper;
 
     public function setUp()
     {

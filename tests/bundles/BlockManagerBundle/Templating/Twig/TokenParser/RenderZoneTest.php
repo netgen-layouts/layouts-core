@@ -17,12 +17,12 @@ class RenderZoneTest extends TestCase
     /**
      * @var \Twig\Environment
      */
-    protected $environment;
+    private $environment;
 
     /**
-     * @var \Parser
+     * @var \Twig\Parser
      */
-    protected $parser;
+    private $parser;
 
     public function setUp()
     {

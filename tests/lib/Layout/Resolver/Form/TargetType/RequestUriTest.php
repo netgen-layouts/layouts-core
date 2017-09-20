@@ -14,7 +14,7 @@ class RequestUriTest extends FormTestCase
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\TargetTypeInterface
      */
-    protected $targetType;
+    private $targetType;
 
     public function setUp()
     {

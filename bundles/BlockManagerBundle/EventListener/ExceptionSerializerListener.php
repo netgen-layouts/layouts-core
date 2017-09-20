@@ -16,12 +16,12 @@ class ExceptionSerializerListener implements EventSubscriberInterface
     /**
      * @var \Symfony\Component\Serializer\SerializerInterface
      */
-    protected $serializer;
+    private $serializer;
 
     /**
      * @var \Psr\Log\LoggerInterface
      */
-    protected $logger;
+    private $logger;
 
     public function __construct(SerializerInterface $serializer, LoggerInterface $logger = null)
     {

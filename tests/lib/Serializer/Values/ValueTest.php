@@ -12,7 +12,7 @@ class ValueTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Serializer\Values\Value
      */
-    protected $value;
+    private $value;
 
     public function setUp()
     {

@@ -19,22 +19,22 @@ class LayoutResolverMapper
     /**
      * @var \Netgen\BlockManager\Persistence\Handler
      */
-    protected $persistenceHandler;
+    private $persistenceHandler;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper
      */
-    protected $layoutMapper;
+    private $layoutMapper;
 
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface
      */
-    protected $targetTypeRegistry;
+    private $targetTypeRegistry;
 
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface
      */
-    protected $conditionTypeRegistry;
+    private $conditionTypeRegistry;
 
     public function __construct(
         Handler $persistenceHandler,

@@ -22,12 +22,12 @@ class CollectionValidatorTest extends TestCase
     /**
      * @var \Symfony\Component\Validator\Validator\ValidatorInterface
      */
-    protected $validator;
+    private $validator;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\Validator\CollectionValidator
      */
-    protected $collectionValidator;
+    private $collectionValidator;
 
     /**
      * Sets up the test.
@@ -277,7 +277,7 @@ class CollectionValidatorTest extends TestCase
     /**
      * @return \Netgen\BlockManager\Collection\QueryType
      */
-    protected function getQueryType()
+    private function getQueryType()
     {
         $handler = new QueryTypeHandlerWithRequiredParameter();
 

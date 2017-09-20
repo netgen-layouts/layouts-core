@@ -47,7 +47,7 @@ class BlockTypePass implements CompilerPassInterface
      *
      * @return array
      */
-    protected function generateBlockTypeConfig(array $blockTypes, array $blockDefinitions)
+    private function generateBlockTypeConfig(array $blockTypes, array $blockDefinitions)
     {
         foreach ($blockDefinitions as $identifier => $blockDefinition) {
             if (
@@ -109,7 +109,7 @@ class BlockTypePass implements CompilerPassInterface
      *
      * @return array
      */
-    protected function buildBlockTypes(ContainerBuilder $container, array $blockTypes)
+    private function buildBlockTypes(ContainerBuilder $container, array $blockTypes)
     {
         $blockTypeServices = array();
 
@@ -146,7 +146,7 @@ class BlockTypePass implements CompilerPassInterface
      *
      * @throws \Netgen\BlockManager\Exception\RuntimeException If validation failed
      */
-    protected function validateBlockTypes(array $blockTypes, array $blockDefinitions)
+    private function validateBlockTypes(array $blockTypes, array $blockDefinitions)
     {
         foreach ($blockTypes as $identifier => $blockType) {
             if (!isset($blockDefinitions[$blockType['definition_identifier']])) {

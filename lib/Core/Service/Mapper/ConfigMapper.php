@@ -10,7 +10,7 @@ class ConfigMapper
     /**
      * @var \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper
      */
-    protected $parameterMapper;
+    private $parameterMapper;
 
     public function __construct(ParameterMapper $parameterMapper)
     {

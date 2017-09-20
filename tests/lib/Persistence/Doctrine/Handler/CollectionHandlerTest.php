@@ -22,7 +22,7 @@ class CollectionHandlerTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler
      */
-    protected $collectionHandler;
+    private $collectionHandler;
 
     /**
      * Sets up the tests.

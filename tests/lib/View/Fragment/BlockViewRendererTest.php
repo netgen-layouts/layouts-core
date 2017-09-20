@@ -16,12 +16,12 @@ class BlockViewRendererTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $cacheableResolverMock;
+    private $cacheableResolverMock;
 
     /**
      * @var \Netgen\BlockManager\View\Fragment\BlockViewRenderer
      */
-    protected $blockViewRenderer;
+    private $blockViewRenderer;
 
     public function setUp()
     {

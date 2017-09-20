@@ -12,12 +12,12 @@ class SetAdminPageLayoutListener implements EventSubscriberInterface
     /**
      * @var \Netgen\Bundle\BlockManagerAdminBundle\Templating\Twig\GlobalVariable
      */
-    protected $globalVariable;
+    private $globalVariable;
 
     /**
      * @var string
      */
-    protected $defaultTemplate;
+    private $defaultTemplate;
 
     public function __construct(GlobalVariable $globalVariable, $defaultTemplate)
     {

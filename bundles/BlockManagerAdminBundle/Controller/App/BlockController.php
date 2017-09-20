@@ -19,7 +19,7 @@ class BlockController extends Controller
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService
      */
-    protected $blockService;
+    private $blockService;
 
     public function __construct(BlockService $blockService)
     {

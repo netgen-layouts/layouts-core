@@ -14,7 +14,7 @@ class ConditionTypeTest extends FormTestCase
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface
      */
-    protected $conditionType;
+    private $conditionType;
 
     public function setUp()
     {

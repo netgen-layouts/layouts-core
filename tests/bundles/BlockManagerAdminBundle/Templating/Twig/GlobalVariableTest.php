@@ -10,7 +10,7 @@ class GlobalVariableTest extends TestCase
     /**
      * @var \Netgen\Bundle\BlockManagerAdminBundle\Templating\Twig\GlobalVariable
      */
-    protected $globalVariable;
+    private $globalVariable;
 
     public function setUp()
     {

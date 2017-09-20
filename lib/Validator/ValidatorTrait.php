@@ -11,7 +11,7 @@ trait ValidatorTrait
     /**
      * @var \Symfony\Component\Validator\Validator\ValidatorInterface
      */
-    protected $validator;
+    private $validator;
 
     public function setValidator(ValidatorInterface $validator)
     {

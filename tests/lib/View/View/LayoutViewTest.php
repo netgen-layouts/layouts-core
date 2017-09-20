@@ -11,12 +11,12 @@ class LayoutViewTest extends TestCase
     /**
      * @var \Netgen\BlockManager\API\Values\Layout\Layout
      */
-    protected $layout;
+    private $layout;
 
     /**
      * @var \Netgen\BlockManager\View\View\LayoutViewInterface
      */
-    protected $view;
+    private $view;
 
     public function setUp()
     {

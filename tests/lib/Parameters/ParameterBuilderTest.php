@@ -15,17 +15,17 @@ class ParameterBuilderTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface
      */
-    protected $registry;
+    private $registry;
 
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterBuilderFactory
      */
-    protected $factory;
+    private $factory;
 
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterBuilder
      */
-    protected $builder;
+    private $builder;
 
     public function setUp()
     {

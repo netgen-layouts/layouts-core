@@ -17,12 +17,12 @@ class RequestBodyListenerTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $decoderMock;
+    private $decoderMock;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\EventListener\RequestBodyListener
      */
-    protected $listener;
+    private $listener;
 
     public function setUp()
     {

@@ -20,7 +20,7 @@ class GetTwigBlockContentListenerTest extends TestCase
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetTwigBlockContentListener
      */
-    protected $listener;
+    private $listener;
 
     /**
      * Sets up the test.

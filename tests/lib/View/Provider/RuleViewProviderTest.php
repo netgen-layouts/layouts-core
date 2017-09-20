@@ -14,7 +14,7 @@ class RuleViewProviderTest extends TestCase
     /**
      * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface
      */
-    protected $ruleViewProvider;
+    private $ruleViewProvider;
 
     public function setUp()
     {

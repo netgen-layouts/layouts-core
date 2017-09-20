@@ -10,7 +10,7 @@ class DynamicParameters implements ArrayAccess, Countable
     /**
      * @var array
      */
-    protected $dynamicParameters = array();
+    private $dynamicParameters = array();
 
     public function count()
     {

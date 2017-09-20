@@ -38,7 +38,7 @@ class LayoutTypeNormalizer implements NormalizerInterface
      *
      * @return array
      */
-    protected function getZones(LayoutType $layoutType)
+    private function getZones(LayoutType $layoutType)
     {
         $zones = array();
 

@@ -20,17 +20,17 @@ class CollectionMapper
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandler
      */
-    protected $collectionHandler;
+    private $collectionHandler;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper
      */
-    protected $parameterMapper;
+    private $parameterMapper;
 
     /**
      * @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface
      */
-    protected $queryTypeRegistry;
+    private $queryTypeRegistry;
 
     public function __construct(
         CollectionHandler $collectionHandler,
@@ -203,7 +203,7 @@ class CollectionMapper
      *
      * @return \Netgen\BlockManager\Core\Values\Collection\QueryTranslation
      */
-    protected function mapQueryTranslation(PersistenceQuery $query, QueryTypeInterface $queryType, $locale)
+    private function mapQueryTranslation(PersistenceQuery $query, QueryTypeInterface $queryType, $locale)
     {
         $untranslatableParams = $this->parameterMapper->extractUntranslatableParameters(
             $queryType,

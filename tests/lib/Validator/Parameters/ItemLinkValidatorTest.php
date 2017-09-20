@@ -15,7 +15,7 @@ class ItemLinkValidatorTest extends ValidatorTestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $itemLoaderMock;
+    private $itemLoaderMock;
 
     public function setUp()
     {

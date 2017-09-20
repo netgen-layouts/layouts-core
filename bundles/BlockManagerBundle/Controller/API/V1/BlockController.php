@@ -20,17 +20,17 @@ class BlockController extends Controller
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService
      */
-    protected $blockService;
+    private $blockService;
 
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService
      */
-    protected $layoutService;
+    private $layoutService;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockValidator
      */
-    protected $validator;
+    private $validator;
 
     public function __construct(
         BlockService $blockService,
@@ -240,6 +240,11 @@ class BlockController extends Controller
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
 
+    protected function checkPermissions()
+    {
+        $this->denyAccessUnlessGranted('ROLE_NGBM_API');
+    }
+
     /**
      * Creates a new block create struct.
      *
@@ -247,7 +252,7 @@ class BlockController extends Controller
      *
      * @return \Netgen\BlockManager\API\Values\Block\BlockCreateStruct
      */
-    protected function createBlockCreateStruct(BlockType $blockType)
+    private function createBlockCreateStruct(BlockType $blockType)
     {
         $blockDefinition = $blockType->getDefinition();
         $blockDefinitionConfig = $blockDefinition->getConfig();
@@ -266,10 +271,5 @@ class BlockController extends Controller
         }
 
         return $blockCreateStruct;
-    }
-
-    protected function checkPermissions()
-    {
-        $this->denyAccessUnlessGranted('ROLE_NGBM_API');
     }
 }

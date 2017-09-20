@@ -16,7 +16,7 @@ class IdProvider implements IdProviderInterface
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService
      */
-    protected $layoutService;
+    private $layoutService;
 
     public function __construct(LayoutService $layoutService)
     {

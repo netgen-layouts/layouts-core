@@ -17,7 +17,7 @@ class BlockManagerDataCollector extends DataCollector
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable
      */
-    protected $globalVariable;
+    private $globalVariable;
 
     public function __construct(GlobalVariable $globalVariable)
     {

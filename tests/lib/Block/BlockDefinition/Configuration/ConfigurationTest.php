@@ -13,7 +13,7 @@ class ConfigurationTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration
      */
-    protected $configuration;
+    private $configuration;
 
     public function setUp()
     {

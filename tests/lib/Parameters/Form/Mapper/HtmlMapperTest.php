@@ -11,7 +11,7 @@ class HtmlMapperTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Parameters\Form\Mapper\HtmlMapper
      */
-    protected $mapper;
+    private $mapper;
 
     public function setUp()
     {

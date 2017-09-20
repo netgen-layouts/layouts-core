@@ -13,7 +13,7 @@ class UrlBuilderTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Item\UrlBuilderInterface
      */
-    protected $urlBuilder;
+    private $urlBuilder;
 
     public function setUp()
     {

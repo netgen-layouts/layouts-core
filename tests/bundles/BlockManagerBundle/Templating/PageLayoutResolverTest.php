@@ -10,7 +10,7 @@ class PageLayoutResolverTest extends TestCase
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolver
      */
-    protected $resolver;
+    private $resolver;
 
     public function setUp()
     {

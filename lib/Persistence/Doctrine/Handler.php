@@ -14,27 +14,27 @@ class Handler implements HandlerInterface
     /**
      * @var \Doctrine\DBAL\Connection
      */
-    protected $connection;
+    private $connection;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandler
      */
-    protected $layoutHandler;
+    private $layoutHandler;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\BlockHandler
      */
-    protected $blockHandler;
+    private $blockHandler;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandler
      */
-    protected $collectionHandler;
+    private $collectionHandler;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\LayoutResolverHandler
      */
-    protected $layoutResolverHandler;
+    private $layoutResolverHandler;
 
     public function __construct(
         Connection $connection,

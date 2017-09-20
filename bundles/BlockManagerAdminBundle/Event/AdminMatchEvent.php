@@ -12,7 +12,7 @@ class AdminMatchEvent extends Event
      *
      * @var Request
      */
-    protected $request;
+    private $request;
 
     /**
      * The request type the kernel is currently processing.  One of
@@ -20,14 +20,14 @@ class AdminMatchEvent extends Event
      *
      * @var int
      */
-    protected $requestType;
+    private $requestType;
 
     /**
      * Pagelayout template to be used by admin interface.
      *
      * @var string
      */
-    protected $pageLayoutTemplate;
+    private $pageLayoutTemplate;
 
     /**
      * Constructor.

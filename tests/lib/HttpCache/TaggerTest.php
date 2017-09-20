@@ -13,7 +13,7 @@ class TaggerTest extends TestCase
     /**
      * @var \Netgen\BlockManager\HttpCache\Tagger
      */
-    protected $tagger;
+    private $tagger;
 
     public function setUp()
     {

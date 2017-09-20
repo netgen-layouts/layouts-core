@@ -14,17 +14,17 @@ class LayoutResolver implements LayoutResolverInterface
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutResolverService
      */
-    protected $layoutResolverService;
+    private $layoutResolverService;
 
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface
      */
-    protected $targetTypeRegistry;
+    private $targetTypeRegistry;
 
     /**
      * @var \Symfony\Component\HttpFoundation\RequestStack
      */
-    protected $requestStack;
+    private $requestStack;
 
     public function __construct(
         LayoutResolverService $layoutResolverService,

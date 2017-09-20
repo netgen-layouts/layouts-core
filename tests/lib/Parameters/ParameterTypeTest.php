@@ -13,7 +13,7 @@ class ParameterTypeTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterTypeInterface
      */
-    protected $parameterType;
+    private $parameterType;
 
     public function setUp()
     {

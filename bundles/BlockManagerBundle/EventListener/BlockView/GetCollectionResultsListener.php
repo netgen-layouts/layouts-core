@@ -15,17 +15,17 @@ class GetCollectionResultsListener implements EventSubscriberInterface
     /**
      * @var \Netgen\BlockManager\Collection\Result\ResultLoaderInterface
      */
-    protected $resultLoader;
+    private $resultLoader;
 
     /**
      * @var int
      */
-    protected $maxLimit;
+    private $maxLimit;
 
     /**
      * @var array
      */
-    protected $enabledContexts;
+    private $enabledContexts;
 
     /**
      * Constructor.

@@ -12,7 +12,7 @@ class RouteTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\TargetType\Route
      */
-    protected $targetType;
+    private $targetType;
 
     public function setUp()
     {

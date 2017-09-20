@@ -13,12 +13,12 @@ class BlockDefinitionHandler extends BaseBlockDefinitionHandler
     /**
      * @var array
      */
-    protected $parameterGroups = array();
+    private $parameterGroups = array();
 
     /**
      * @var bool
      */
-    protected $isContextual;
+    private $isContextual;
 
     /**
      * Constructor.

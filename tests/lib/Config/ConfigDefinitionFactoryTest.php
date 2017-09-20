@@ -14,17 +14,17 @@ class ConfigDefinitionFactoryTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $handlerMock;
+    private $handlerMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $parameterBuilderFactoryMock;
+    private $parameterBuilderFactoryMock;
 
     /**
      * @var \Netgen\BlockManager\Config\ConfigDefinitionFactory
      */
-    protected $factory;
+    private $factory;
 
     public function setUp()
     {

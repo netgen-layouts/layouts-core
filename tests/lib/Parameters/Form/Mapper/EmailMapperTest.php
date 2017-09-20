@@ -11,7 +11,7 @@ class EmailMapperTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Parameters\Form\Mapper\EmailMapper
      */
-    protected $mapper;
+    private $mapper;
 
     public function setUp()
     {

@@ -14,12 +14,12 @@ class BlockTypeNormalizerTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Serializer\Normalizer\V1\BlockTypeNormalizer
      */
-    protected $normalizer;
+    private $normalizer;
 
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
-    protected $blockDefinition;
+    private $blockDefinition;
 
     public function setUp()
     {

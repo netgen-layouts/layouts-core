@@ -10,7 +10,7 @@ class UrlBuilder implements UrlBuilderInterface
     /**
      * @var \Netgen\BlockManager\Item\ValueUrlBuilderInterface[]
      */
-    protected $valueUrlBuilders;
+    private $valueUrlBuilders;
 
     /**
      * Constructor.

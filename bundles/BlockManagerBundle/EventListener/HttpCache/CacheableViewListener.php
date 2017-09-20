@@ -59,7 +59,7 @@ class CacheableViewListener implements EventSubscriberInterface
      * @param \Netgen\BlockManager\View\CacheableViewInterface $cacheableView
      * @param \Symfony\Component\HttpFoundation\Response $response
      */
-    protected function setUpCachingHeaders(CacheableViewInterface $cacheableView, Response $response)
+    private function setUpCachingHeaders(CacheableViewInterface $cacheableView, Response $response)
     {
         if (!$cacheableView->isCacheable()) {
             return;

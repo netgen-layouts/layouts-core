@@ -559,7 +559,7 @@ class LayoutQueryHandler extends QueryHandler
      *
      * @return \Doctrine\DBAL\Query\QueryBuilder
      */
-    protected function getLayoutSelectQuery()
+    private function getLayoutSelectQuery()
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT l.*, lt.*')
@@ -582,7 +582,7 @@ class LayoutQueryHandler extends QueryHandler
      *
      * @return \Doctrine\DBAL\Query\QueryBuilder
      */
-    protected function getZoneSelectQuery()
+    private function getZoneSelectQuery()
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT ngbm_zone.*')

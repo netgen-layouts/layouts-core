@@ -12,12 +12,12 @@ class PlaceholderViewTest extends TestCase
     /**
      * @var \Netgen\BlockManager\API\Values\Block\Placeholder
      */
-    protected $placeholder;
+    private $placeholder;
 
     /**
      * @var \Netgen\BlockManager\View\View\PlaceholderViewInterface
      */
-    protected $view;
+    private $view;
 
     public function setUp()
     {

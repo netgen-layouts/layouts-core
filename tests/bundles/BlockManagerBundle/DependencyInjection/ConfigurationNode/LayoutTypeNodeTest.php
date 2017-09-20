@@ -401,7 +401,7 @@ class LayoutTypeNodeTest extends TestCase
      *
      * @return \Symfony\Component\Config\Definition\ConfigurationInterface
      */
-    protected function getConfiguration()
+    private function getConfiguration()
     {
         return new Configuration(new NetgenBlockManagerExtension());
     }

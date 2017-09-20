@@ -15,12 +15,12 @@ class ContainerRuntimeLoader implements RuntimeLoaderInterface
     /**
      * @var \Symfony\Component\DependencyInjection\ContainerInterface
      */
-    protected $container;
+    private $container;
 
     /**
      * @var array
      */
-    protected $runtimeMap = array();
+    private $runtimeMap = array();
 
     public function __construct(ContainerInterface $container)
     {

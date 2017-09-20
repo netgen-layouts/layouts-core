@@ -10,7 +10,7 @@ class Configuration implements ConfigurationInterface
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension
      */
-    protected $extension;
+    private $extension;
 
     /**
      * Constructor.
@@ -47,7 +47,7 @@ class Configuration implements ConfigurationInterface
      *
      * @return \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNodeInterface[]
      */
-    protected function getNodes()
+    private function getNodes()
     {
         return array(
             new ConfigurationNode\ViewNode(),

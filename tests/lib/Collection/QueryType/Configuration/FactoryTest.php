@@ -12,7 +12,7 @@ class FactoryTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Collection\QueryType\Configuration\Factory
      */
-    protected $factory;
+    private $factory;
 
     public function setUp()
     {

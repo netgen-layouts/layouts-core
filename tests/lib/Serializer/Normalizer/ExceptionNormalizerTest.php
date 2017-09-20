@@ -14,7 +14,7 @@ class ExceptionNormalizerTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer
      */
-    protected $exceptionNormalizer;
+    private $exceptionNormalizer;
 
     public function setUp()
     {

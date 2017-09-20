@@ -32,7 +32,7 @@ class ExceptionConversionListenerTest extends TestCase
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener
      */
-    protected $listener;
+    private $listener;
 
     public function setUp()
     {

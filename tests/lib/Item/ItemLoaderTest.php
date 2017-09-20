@@ -15,12 +15,12 @@ class ItemLoaderTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $itemBuilderMock;
+    private $itemBuilderMock;
 
     /**
      * @var \Netgen\BlockManager\Item\ItemLoaderInterface
      */
-    protected $itemLoader;
+    private $itemLoader;
 
     public function setUp()
     {

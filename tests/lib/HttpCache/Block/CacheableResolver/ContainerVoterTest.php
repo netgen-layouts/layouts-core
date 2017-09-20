@@ -14,14 +14,14 @@ use PHPUnit\Framework\TestCase;
 class ContainerVoterTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\HttpCache\Block\CacheableResolver\TwigBlockVoter
+     * @var \Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContainerVoter
      */
-    protected $voter;
+    private $voter;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $cacheableResolverMock;
+    private $cacheableResolverMock;
 
     public function setUp()
     {

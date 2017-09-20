@@ -15,7 +15,7 @@ abstract class BlockStructBuilderTest extends ServiceTestCase
     /**
      * @var \Netgen\BlockManager\Core\Service\StructBuilder\BlockStructBuilder
      */
-    protected $structBuilder;
+    private $structBuilder;
 
     /**
      * Sets up the tests.

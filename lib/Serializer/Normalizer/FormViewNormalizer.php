@@ -11,7 +11,7 @@ class FormViewNormalizer implements NormalizerInterface
     /**
      * @var \Netgen\BlockManager\View\RendererInterface
      */
-    protected $viewRenderer;
+    private $viewRenderer;
 
     public function __construct(RendererInterface $viewRenderer)
     {

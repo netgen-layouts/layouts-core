@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Values\Value as APIValue;
 
 class Value implements APIValue
 {
-    protected $valueParams;
+    private $valueParams;
 
     public function __construct($valueParams)
     {

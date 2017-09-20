@@ -13,7 +13,7 @@ class DynamicContainerDefinitionHandler extends BaseDynamicContainerHandler
     /**
      * @var array
      */
-    protected $parameterGroups = array();
+    private $parameterGroups = array();
 
     /**
      * Constructor.

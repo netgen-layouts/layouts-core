@@ -12,7 +12,7 @@ class RouteParameterTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter
      */
-    protected $conditionType;
+    private $conditionType;
 
     /**
      * Sets up the route target tests.

@@ -17,7 +17,7 @@ class CacheableViewListenerTest extends TestCase
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewListener
      */
-    protected $listener;
+    private $listener;
 
     public function setUp()
     {

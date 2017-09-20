@@ -20,12 +20,12 @@ class LayoutResolverValidator extends Validator
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface
      */
-    protected $targetTypeRegistry;
+    private $targetTypeRegistry;
 
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface
      */
-    protected $conditionTypeRegistry;
+    private $conditionTypeRegistry;
 
     public function __construct(
         TargetTypeRegistryInterface $targetTypeRegistry,

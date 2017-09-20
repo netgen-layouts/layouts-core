@@ -10,22 +10,22 @@ class Collection implements APICollection
     /**
      * @var array
      */
-    protected $manualItems;
+    private $manualItems;
 
     /**
      * @var array
      */
-    protected $overrideItems;
+    private $overrideItems;
 
     /**
      * @var array
      */
-    protected $queryValues;
+    private $queryValues;
 
     /**
      * @var int
      */
-    protected $queryCount;
+    private $queryCount;
 
     /**
      * Constructor.

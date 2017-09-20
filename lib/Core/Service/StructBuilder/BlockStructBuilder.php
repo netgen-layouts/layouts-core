@@ -12,7 +12,7 @@ class BlockStructBuilder
     /**
      * @var \Netgen\BlockManager\Core\Service\StructBuilder\ConfigStructBuilder
      */
-    protected $configStructBuilder;
+    private $configStructBuilder;
 
     public function __construct(ConfigStructBuilder $configStructBuilder)
     {

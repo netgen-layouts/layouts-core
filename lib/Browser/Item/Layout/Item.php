@@ -10,7 +10,7 @@ class Item implements ItemInterface, LayoutInterface
     /**
      * @var \Netgen\BlockManager\API\Values\Layout\Layout
      */
-    protected $layout;
+    private $layout;
 
     public function __construct(Layout $layout)
     {

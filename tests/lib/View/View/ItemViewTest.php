@@ -11,12 +11,12 @@ class ItemViewTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Item\ItemInterface
      */
-    protected $item;
+    private $item;
 
     /**
      * @var \Netgen\BlockManager\View\View\ItemViewInterface
      */
-    protected $view;
+    private $view;
 
     public function setUp()
     {

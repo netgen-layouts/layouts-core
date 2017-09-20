@@ -45,7 +45,7 @@ class BlockTypeGroupPass implements CompilerPassInterface
      *
      * @return array
      */
-    protected function generateBlockTypeGroupConfig(array $blockTypeGroups, array $blockTypes)
+    private function generateBlockTypeGroupConfig(array $blockTypeGroups, array $blockTypes)
     {
         $missingBlockTypes = array();
 
@@ -80,7 +80,7 @@ class BlockTypeGroupPass implements CompilerPassInterface
      *
      * @return array
      */
-    protected function buildBlockTypeGroups(ContainerBuilder $container, array $blockTypeGroups, array $blockTypes)
+    private function buildBlockTypeGroups(ContainerBuilder $container, array $blockTypeGroups, array $blockTypes)
     {
         $blockTypeGroupServices = array();
 

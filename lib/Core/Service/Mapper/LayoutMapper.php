@@ -18,12 +18,12 @@ class LayoutMapper
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandler
      */
-    protected $layoutHandler;
+    private $layoutHandler;
 
     /**
      * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface
      */
-    protected $layoutTypeRegistry;
+    private $layoutTypeRegistry;
 
     public function __construct(LayoutHandler $layoutHandler, LayoutTypeRegistryInterface $layoutTypeRegistry)
     {
@@ -111,7 +111,7 @@ class LayoutMapper
      *
      * @return \DateTime
      */
-    protected function createDateTime($timestamp)
+    private function createDateTime($timestamp)
     {
         $dateTime = new DateTime();
         $dateTime->setTimestamp((int) $timestamp);

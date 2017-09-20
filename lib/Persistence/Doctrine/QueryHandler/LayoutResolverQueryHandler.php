@@ -16,19 +16,9 @@ use Netgen\BlockManager\Persistence\Values\Value;
 class LayoutResolverQueryHandler extends QueryHandler
 {
     /**
-     * @var \Doctrine\DBAL\Connection
-     */
-    protected $connection;
-
-    /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper
-     */
-    protected $connectionHelper;
-
-    /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver\TargetHandler[]
      */
-    protected $targetHandlers = array();
+    private $targetHandlers = array();
 
     /**
      * Constructor.
@@ -650,7 +640,7 @@ class LayoutResolverQueryHandler extends QueryHandler
      *
      * @return \Doctrine\DBAL\Query\QueryBuilder
      */
-    protected function getRuleSelectQuery()
+    private function getRuleSelectQuery()
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT r.*', 'rd.*')
@@ -670,7 +660,7 @@ class LayoutResolverQueryHandler extends QueryHandler
      *
      * @return \Doctrine\DBAL\Query\QueryBuilder
      */
-    protected function getTargetSelectQuery()
+    private function getTargetSelectQuery()
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT ngbm_rule_target.*')
@@ -684,7 +674,7 @@ class LayoutResolverQueryHandler extends QueryHandler
      *
      * @return \Doctrine\DBAL\Query\QueryBuilder
      */
-    protected function getConditionSelectQuery()
+    private function getConditionSelectQuery()
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT ngbm_rule_condition.*')

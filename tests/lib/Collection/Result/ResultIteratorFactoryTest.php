@@ -16,12 +16,12 @@ class ResultIteratorFactoryTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $itemLoaderMock;
+    private $itemLoaderMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $itemBuilderMock;
+    private $itemBuilderMock;
 
     public function setUp()
     {

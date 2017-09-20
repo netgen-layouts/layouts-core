@@ -11,7 +11,7 @@ class ConfigStructTest extends TestCase
     /**
      * @var \Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait
      */
-    protected $struct;
+    private $struct;
 
     public function setUp()
     {

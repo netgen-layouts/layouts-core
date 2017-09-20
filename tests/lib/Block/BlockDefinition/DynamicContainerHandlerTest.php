@@ -10,7 +10,7 @@ class DynamicContainerHandlerTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\DynamicContainerHandler
      */
-    protected $handler;
+    private $handler;
 
     public function setUp()
     {

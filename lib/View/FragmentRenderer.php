@@ -15,22 +15,22 @@ class FragmentRenderer implements RendererInterface
     /**
      * @var \Netgen\BlockManager\View\ViewBuilderInterface
      */
-    protected $viewBuilder;
+    private $viewBuilder;
 
     /**
      * @var \Netgen\BlockManager\View\ViewRendererInterface
      */
-    protected $viewRenderer;
+    private $viewRenderer;
 
     /**
      * @var \Symfony\Component\HttpKernel\Fragment\FragmentHandler
      */
-    protected $fragmentHandler;
+    private $fragmentHandler;
 
     /**
      * @var \Netgen\BlockManager\View\Fragment\ViewRendererInterface[]
      */
-    protected $fragmentViewRenderers;
+    private $fragmentViewRenderers;
 
     /**
      * Constructor.
@@ -87,7 +87,7 @@ class FragmentRenderer implements RendererInterface
      *
      * @return \Netgen\BlockManager\View\Fragment\ViewRendererInterface|null
      */
-    protected function getFragmentViewRenderer(ViewInterface $view)
+    private function getFragmentViewRenderer(ViewInterface $view)
     {
         foreach ($this->fragmentViewRenderers as $fragmentViewRenderer) {
             if (!$fragmentViewRenderer->supportsView($view)) {

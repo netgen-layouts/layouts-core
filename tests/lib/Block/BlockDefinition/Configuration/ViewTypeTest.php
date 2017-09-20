@@ -11,7 +11,7 @@ class ViewTypeTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType
      */
-    protected $viewType;
+    private $viewType;
 
     public function setUp()
     {

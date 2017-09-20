@@ -19,12 +19,12 @@ class SerializerListenerTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $serializerMock;
+    private $serializerMock;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\EventListener\SerializerListener
      */
-    protected $listener;
+    private $listener;
 
     public function setUp()
     {

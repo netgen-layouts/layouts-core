@@ -13,7 +13,7 @@ class ExtensionPluginTest extends TestCase
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ExtensionPlugin
      */
-    protected $plugin;
+    private $plugin;
 
     public function setUp()
     {
@@ -43,8 +43,8 @@ class ExtensionPluginTest extends TestCase
      */
     public function testAddConfiguration()
     {
-        $node1 = new ConfigurationNode('test1');
-        $node2 = new ConfigurationNode('test2');
+        $node1 = new ConfigurationNode();
+        $node2 = new ConfigurationNode();
 
         $this->plugin = $this->getMockForAbstractClass(
             ExtensionPlugin::class,

@@ -250,7 +250,7 @@ class Block extends ValueObject implements APIBlock
     /**
      * Builds the dynamic parameters of the block from the block definition.
      */
-    protected function buildDynamicParameters()
+    private function buildDynamicParameters()
     {
         if ($this->dynamicParameters === null) {
             $this->dynamicParameters = $this->definition->getDynamicParameters($this);

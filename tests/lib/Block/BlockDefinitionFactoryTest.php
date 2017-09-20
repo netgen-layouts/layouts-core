@@ -24,27 +24,27 @@ class BlockDefinitionFactoryTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $handlerMock;
+    private $handlerMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $configMock;
+    private $configMock;
 
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface
      */
-    protected $parameterBuilderFactory;
+    private $parameterBuilderFactory;
 
     /**
      * @var \Netgen\BlockManager\Block\Registry\HandlerPluginRegistryInterface
      */
-    protected $handlerPluginRegistry;
+    private $handlerPluginRegistry;
 
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinitionFactory
      */
-    protected $factory;
+    private $factory;
 
     public function setUp()
     {
@@ -180,7 +180,7 @@ class BlockDefinitionFactoryTest extends TestCase
      *
      * @return \Netgen\BlockManager\Config\ConfigDefinitionInterface
      */
-    protected function getConfigDefinition($identifier)
+    private function getConfigDefinition($identifier)
     {
         $handler = new HttpCacheConfigHandler();
 

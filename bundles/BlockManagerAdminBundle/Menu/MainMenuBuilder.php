@@ -10,12 +10,12 @@ class MainMenuBuilder
     /**
      * @var \Knp\Menu\FactoryInterface
      */
-    protected $factory;
+    private $factory;
 
     /**
      * @var \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface
      */
-    protected $authorizationChecker;
+    private $authorizationChecker;
 
     public function __construct(FactoryInterface $factory, AuthorizationCheckerInterface $authorizationChecker)
     {

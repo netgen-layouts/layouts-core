@@ -17,12 +17,12 @@ class DefinitionTest extends TestCase
     /**
      * @var \Symfony\Component\Form\FormFactoryInterface
      */
-    protected $formFactory;
+    private $formFactory;
 
     /**
      * @var \Netgen\BlockManager\View\Matcher\MatcherInterface
      */
-    protected $matcher;
+    private $matcher;
 
     public function setUp()
     {

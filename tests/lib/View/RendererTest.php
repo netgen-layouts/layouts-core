@@ -15,17 +15,17 @@ class RendererTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $viewBuilderMock;
+    private $viewBuilderMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $viewRendererMock;
+    private $viewRendererMock;
 
     /**
      * @var \Netgen\BlockManager\View\Renderer
      */
-    protected $renderer;
+    private $renderer;
 
     public function setUp()
     {

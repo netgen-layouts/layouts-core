@@ -11,12 +11,12 @@ class ConfigDefinition implements ConfigDefinitionInterface
     /**
      * @var string
      */
-    protected $configKey;
+    private $configKey;
 
     /**
      * @var \Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionHandler
      */
-    protected $handler;
+    private $handler;
 
     /**
      * Constructor.

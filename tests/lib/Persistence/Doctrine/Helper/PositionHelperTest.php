@@ -15,12 +15,12 @@ class PositionHelperTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper
      */
-    protected $positionHelper;
+    private $positionHelper;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandler
      */
-    protected $collectionHandler;
+    private $collectionHandler;
 
     /**
      * Sets up the tests.
@@ -185,7 +185,7 @@ class PositionHelperTest extends TestCase
      *
      * @return array
      */
-    protected function getPositionHelperConditions()
+    private function getPositionHelperConditions()
     {
         return array(
             'table' => 'ngbm_collection_item',
@@ -202,7 +202,7 @@ class PositionHelperTest extends TestCase
      *
      * @return array
      */
-    protected function getPositionData()
+    private function getPositionData()
     {
         $query = $this->databaseConnection->createQueryBuilder();
         $query->select('position')

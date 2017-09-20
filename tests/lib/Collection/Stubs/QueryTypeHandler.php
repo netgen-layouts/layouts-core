@@ -14,22 +14,22 @@ class QueryTypeHandler implements QueryTypeHandlerInterface
     /**
      * @var array
      */
-    protected $values = array();
+    private $values = array();
 
     /**
      * @var int|null
      */
-    protected $count;
+    private $count;
 
     /**
      * @var int|null
      */
-    protected $internalLimit;
+    private $internalLimit;
 
     /**
      * @var bool
      */
-    protected $contextual;
+    private $contextual;
 
     /**
      * Constructor.

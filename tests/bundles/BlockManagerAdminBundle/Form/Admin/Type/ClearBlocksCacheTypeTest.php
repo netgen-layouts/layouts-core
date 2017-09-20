@@ -13,7 +13,7 @@ class ClearBlocksCacheTypeTest extends FormTestCase
     /**
      * @var \Netgen\BlockManager\API\Values\Block\Block
      */
-    protected $blocks;
+    private $blocks;
 
     /**
      * Sets up the test.

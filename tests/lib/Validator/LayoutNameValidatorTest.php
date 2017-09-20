@@ -13,7 +13,7 @@ class LayoutNameValidatorTest extends ValidatorTestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $layoutServiceMock;
+    private $layoutServiceMock;
 
     public function setUp()
     {

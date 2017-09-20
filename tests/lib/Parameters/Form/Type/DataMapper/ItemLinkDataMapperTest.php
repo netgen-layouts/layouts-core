@@ -10,7 +10,7 @@ class ItemLinkDataMapperTest extends DataMapperTest
     /**
      * @var \Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper
      */
-    protected $mapper;
+    private $mapper;
 
     public function setUp()
     {

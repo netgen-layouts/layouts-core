@@ -15,7 +15,7 @@ class ContextualQueryVoterTest extends TestCase
     /**
      * @var \Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContextualQueryVoter
      */
-    protected $voter;
+    private $voter;
 
     public function setUp()
     {

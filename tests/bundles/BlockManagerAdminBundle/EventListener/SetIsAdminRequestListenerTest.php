@@ -15,7 +15,7 @@ class SetIsAdminRequestListenerTest extends TestCase
     /**
      * @var \Netgen\Bundle\BlockManagerAdminBundle\EventListener\SetIsAdminRequestListener
      */
-    protected $listener;
+    private $listener;
 
     public function setUp()
     {

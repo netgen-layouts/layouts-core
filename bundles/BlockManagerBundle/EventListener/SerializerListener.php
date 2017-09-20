@@ -14,7 +14,7 @@ class SerializerListener implements EventSubscriberInterface
     /**
      * @var \Symfony\Component\Serializer\SerializerInterface
      */
-    protected $serializer;
+    private $serializer;
 
     public function __construct(SerializerInterface $serializer)
     {

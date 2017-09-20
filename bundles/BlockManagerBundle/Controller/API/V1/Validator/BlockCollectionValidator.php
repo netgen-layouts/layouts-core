@@ -135,7 +135,7 @@ class BlockCollectionValidator extends Validator
      *
      * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection
      */
-    protected function getCollectionConfig(Block $block, $collectionIdentifier)
+    private function getCollectionConfig(Block $block, $collectionIdentifier)
     {
         $blockDefinition = $block->getDefinition();
 

@@ -16,7 +16,7 @@ class ParameterStructTraitTest extends TestCase
     /**
      * @var \Netgen\BlockManager\API\Values\ParameterStructTrait
      */
-    protected $struct;
+    private $struct;
 
     public function setUp()
     {
@@ -269,7 +269,7 @@ class ParameterStructTraitTest extends TestCase
     /**
      * @return \Netgen\BlockManager\Tests\Parameters\Stubs\ParameterCollection
      */
-    protected function buildParameterCollection()
+    private function buildParameterCollection()
     {
         $compoundParameter = new CompoundParameter(
             array(

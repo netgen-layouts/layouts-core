@@ -12,17 +12,17 @@ class QueryType implements QueryTypeInterface
     /**
      * @var string
      */
-    protected $type;
+    private $type;
 
     /**
      * @var \Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandler
      */
-    protected $handler;
+    private $handler;
 
     /**
      * @var array
      */
-    protected $values;
+    private $values;
 
     /**
      * Constructor.

@@ -20,27 +20,27 @@ class FragmentRendererTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $viewBuilderMock;
+    private $viewBuilderMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $viewRendererMock;
+    private $viewRendererMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $fragmentHandlerMock;
+    private $fragmentHandlerMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $blockFragmentRendererMock;
+    private $blockFragmentRendererMock;
 
     /**
      * @var \Netgen\BlockManager\View\FragmentRenderer
      */
-    protected $renderer;
+    private $renderer;
 
     public function setUp()
     {

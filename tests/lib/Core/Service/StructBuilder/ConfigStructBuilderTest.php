@@ -16,7 +16,7 @@ abstract class ConfigStructBuilderTest extends ServiceTestCase
     /**
      * @var \Netgen\BlockManager\Core\Service\StructBuilder\ConfigStructBuilder
      */
-    protected $structBuilder;
+    private $structBuilder;
 
     /**
      * Sets up the tests.

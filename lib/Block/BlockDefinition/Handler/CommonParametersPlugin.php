@@ -15,7 +15,7 @@ class CommonParametersPlugin extends Plugin
     /**
      * @var array
      */
-    protected $defaultGroups = array();
+    private $defaultGroups = array();
 
     public function __construct(array $defaultGroups = array())
     {

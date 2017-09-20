@@ -12,7 +12,7 @@ class QueryParameterTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\ConditionType\QueryParameter
      */
-    protected $conditionType;
+    private $conditionType;
 
     /**
      * Sets up the query target tests.

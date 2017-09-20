@@ -12,12 +12,12 @@ class QueryTypeRegistryTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Collection\QueryTypeInterface
      */
-    protected $queryType;
+    private $queryType;
 
     /**
      * @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry
      */
-    protected $registry;
+    private $registry;
 
     public function setUp()
     {

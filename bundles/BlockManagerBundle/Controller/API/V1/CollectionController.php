@@ -18,17 +18,17 @@ class CollectionController extends Controller
     /**
      * @var \Netgen\BlockManager\API\Service\CollectionService
      */
-    protected $collectionService;
+    private $collectionService;
 
     /**
      * @var \Netgen\BlockManager\Collection\Result\ResultLoaderInterface
      */
-    protected $resultLoader;
+    private $resultLoader;
 
     /**
      * @var int
      */
-    protected $maxLimit;
+    private $maxLimit;
 
     /**
      * Constructor.

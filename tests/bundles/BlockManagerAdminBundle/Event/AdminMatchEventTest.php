@@ -12,17 +12,17 @@ class AdminMatchEventTest extends TestCase
     /**
      * @var \Symfony\Component\HttpFoundation\Request
      */
-    protected $request;
+    private $request;
 
     /**
      * @var int
      */
-    protected $requestType;
+    private $requestType;
 
     /**
      * @var \Netgen\Bundle\BlockManagerAdminBundle\Event\AdminMatchEvent
      */
-    protected $event;
+    private $event;
 
     public function setUp()
     {

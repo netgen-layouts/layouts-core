@@ -18,7 +18,7 @@ class HttpCacheConfigHandler implements ConfigDefinitionHandlerInterface
     /**
      * @var \Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface
      */
-    protected $cacheableResolver;
+    private $cacheableResolver;
 
     public function __construct(CacheableResolverInterface $cacheableResolver)
     {

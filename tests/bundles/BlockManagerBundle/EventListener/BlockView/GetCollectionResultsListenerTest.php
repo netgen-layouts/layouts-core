@@ -21,12 +21,12 @@ class GetCollectionResultsListenerTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $resultLoaderMock;
+    private $resultLoaderMock;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener
      */
-    protected $listener;
+    private $listener;
 
     /**
      * Sets up the test.

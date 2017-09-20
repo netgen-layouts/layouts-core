@@ -20,12 +20,12 @@ class LayoutValidatorTest extends TestCase
     /**
      * @var \Symfony\Component\Validator\Validator\ValidatorInterface
      */
-    protected $validator;
+    private $validator;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\Validator\LayoutValidator
      */
-    protected $layoutValidator;
+    private $layoutValidator;
 
     /**
      * Sets up the test.

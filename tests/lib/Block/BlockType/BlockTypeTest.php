@@ -11,12 +11,12 @@ class BlockTypeTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Block\BlockType\BlockType
      */
-    protected $blockType;
+    private $blockType;
 
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
-    protected $blockDefinition;
+    private $blockDefinition;
 
     public function setUp()
     {

@@ -12,7 +12,7 @@ class LayoutTypeRegistry implements LayoutTypeRegistryInterface
     /**
      * @var array
      */
-    protected $layoutTypes = array();
+    private $layoutTypes = array();
 
     public function addLayoutType($identifier, LayoutType $layoutType)
     {

@@ -13,7 +13,7 @@ class ViewTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Serializer\Values\View
      */
-    protected $value;
+    private $value;
 
     public function setUp()
     {

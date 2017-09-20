@@ -15,12 +15,12 @@ class ContainerConfiguration implements ConfigurationInterface
     /**
      * @var \Symfony\Component\DependencyInjection\ContainerInterface
      */
-    protected $container;
+    private $container;
 
     /**
      * @var array
      */
-    protected $parameters;
+    private $parameters;
 
     /**
      * Constructor.

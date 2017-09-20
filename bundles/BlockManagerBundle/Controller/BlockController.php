@@ -14,12 +14,12 @@ class BlockController extends Controller
     /**
      * @var \Psr\Log\LoggerInterface
      */
-    protected $logger;
+    private $logger;
 
     /**
      * @var bool
      */
-    protected $debug = false;
+    private $debug = false;
 
     public function __construct(LoggerInterface $logger = null)
     {

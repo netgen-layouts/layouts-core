@@ -11,12 +11,12 @@ class RuleTargetViewTest extends TestCase
     /**
      * @var \Netgen\BlockManager\API\Values\LayoutResolver\Target
      */
-    protected $target;
+    private $target;
 
     /**
      * @var \Netgen\BlockManager\View\View\RuleTargetViewInterface
      */
-    protected $view;
+    private $view;
 
     public function setUp()
     {

@@ -15,7 +15,7 @@ class InvalidationListener implements EventSubscriberInterface
     /**
      * @var \Netgen\BlockManager\HttpCache\ClientInterface
      */
-    protected $httpCacheClient;
+    private $httpCacheClient;
 
     public function __construct(ClientInterface $httpCacheClient)
     {

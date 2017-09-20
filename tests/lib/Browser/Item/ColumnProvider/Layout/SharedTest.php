@@ -12,7 +12,7 @@ class SharedTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Shared
      */
-    protected $provider;
+    private $provider;
 
     public function setUp()
     {

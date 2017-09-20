@@ -21,14 +21,9 @@ use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
 class BlockServiceTest extends ServiceTestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\BlockService
-     */
-    protected $blockService;
-
-    /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $layoutServiceMock;
+    private $layoutServiceMock;
 
     /**
      * Sets up the tests.

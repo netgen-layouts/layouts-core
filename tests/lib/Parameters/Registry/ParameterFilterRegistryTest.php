@@ -11,12 +11,12 @@ class ParameterFilterRegistryTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterFilterInterface
      */
-    protected $filter;
+    private $filter;
 
     /**
      * @var \Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry
      */
-    protected $registry;
+    private $registry;
 
     public function setUp()
     {

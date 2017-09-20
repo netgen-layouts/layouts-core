@@ -22,22 +22,22 @@ class RenderingRuntimeTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $blockServiceMock;
+    private $blockServiceMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $rendererMock;
+    private $rendererMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $localeProviderMock;
+    private $localeProviderMock;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime
      */
-    protected $runtime;
+    private $runtime;
 
     public function setUp()
     {

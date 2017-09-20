@@ -26,22 +26,22 @@ class LayoutResolverValidatorTest extends TestCase
     /**
      * @var \Symfony\Component\Validator\Validator\ValidatorInterface
      */
-    protected $validator;
+    private $validator;
 
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface
      */
-    protected $targetTypeRegistry;
+    private $targetTypeRegistry;
 
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface
      */
-    protected $conditionTypeRegistry;
+    private $conditionTypeRegistry;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator
      */
-    protected $layoutResolverValidator;
+    private $layoutResolverValidator;
 
     /**
      * Sets up the test.

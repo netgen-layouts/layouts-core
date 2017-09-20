@@ -12,12 +12,12 @@ class FormMapperRegistryTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Parameters\Form\MapperInterface
      */
-    protected $formMapper;
+    private $formMapper;
 
     /**
      * @var \Netgen\BlockManager\Parameters\Registry\FormMapperRegistry
      */
-    protected $registry;
+    private $registry;
 
     public function setUp()
     {

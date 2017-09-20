@@ -44,7 +44,7 @@ class LayoutTypePass implements CompilerPassInterface
      *
      * @return array
      */
-    protected function buildLayoutTypes(ContainerBuilder $container, array $layoutTypes)
+    private function buildLayoutTypes(ContainerBuilder $container, array $layoutTypes)
     {
         $layoutTypeServices = array();
 
@@ -70,7 +70,7 @@ class LayoutTypePass implements CompilerPassInterface
      *
      * @throws \Netgen\BlockManager\Exception\RuntimeException If validation failed
      */
-    protected function validateLayoutTypes(array $layoutTypes, array $blockDefinitions)
+    private function validateLayoutTypes(array $layoutTypes, array $blockDefinitions)
     {
         foreach ($layoutTypes as $layoutType => $layoutTypeConfig) {
             foreach ($layoutTypeConfig['zones'] as $zoneConfig) {

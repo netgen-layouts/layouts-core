@@ -24,16 +24,6 @@ use Symfony\Component\Validator\Validation;
 
 abstract class BlockTest extends ServiceTestCase
 {
-    /**
-     * @var \Netgen\BlockManager\API\Service\BlockService
-     */
-    protected $blockService;
-
-    /**
-     * @var \Netgen\BlockManager\API\Service\LayoutService
-     */
-    protected $layoutService;
-
     public function setUp()
     {
         parent::setUp();
@@ -65,7 +55,7 @@ abstract class BlockTest extends ServiceTestCase
         $configDefinition = $this->createConfigDefinition(array_keys($expectedConfig));
 
         $blockDefinition = $this->createBlockDefinition($configDefinition);
-        $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition, 'en');
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
         $blockCreateStruct->viewType = 'default';
         $blockCreateStruct->itemViewType = 'standard';
 
@@ -107,7 +97,7 @@ abstract class BlockTest extends ServiceTestCase
         );
 
         $blockDefinition = $this->createBlockDefinition($configDefinition);
-        $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition, 'en');
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
         $blockCreateStruct->viewType = 'default';
         $blockCreateStruct->itemViewType = 'standard';
 
@@ -162,7 +152,7 @@ abstract class BlockTest extends ServiceTestCase
      *
      * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
-    protected function createBlockDefinition(ConfigDefinitionInterface $configDefinition)
+    private function createBlockDefinition(ConfigDefinitionInterface $configDefinition)
     {
         $handler = new TitleHandler();
         $configuration = $this->createBlockConfiguration();
@@ -187,7 +177,7 @@ abstract class BlockTest extends ServiceTestCase
      *
      * @return \Netgen\BlockManager\Config\ConfigDefinitionInterface
      */
-    protected function createConfigDefinition(array $parameterNames = array())
+    private function createConfigDefinition(array $parameterNames = array())
     {
         $handler = $this->createConfigDefinitionHandler();
 
@@ -217,7 +207,7 @@ abstract class BlockTest extends ServiceTestCase
     /**
      * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration
      */
-    protected function createBlockConfiguration()
+    private function createBlockConfiguration()
     {
         return new Configuration(
             array(
@@ -234,7 +224,7 @@ abstract class BlockTest extends ServiceTestCase
         );
     }
 
-    protected function prepareParameterTypeRegistry()
+    private function prepareParameterTypeRegistry()
     {
         $this->parameterTypeRegistry->addParameterType(new ParameterType\TextLineType());
         $this->parameterTypeRegistry->addParameterType(new ParameterType\TextType());

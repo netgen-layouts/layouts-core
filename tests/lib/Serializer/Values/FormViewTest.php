@@ -13,7 +13,7 @@ class FormViewTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Serializer\Values\FormView
      */
-    protected $value;
+    private $value;
 
     public function setUp()
     {

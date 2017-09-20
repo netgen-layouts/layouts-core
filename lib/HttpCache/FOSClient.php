@@ -11,12 +11,12 @@ class FOSClient implements ClientInterface
     /**
      * @var \FOS\HttpCache\CacheInvalidator
      */
-    protected $fosInvalidator;
+    private $fosInvalidator;
 
     /**
      * @var \Netgen\BlockManager\HttpCache\Layout\IdProviderInterface
      */
-    protected $layoutIdProvider;
+    private $layoutIdProvider;
 
     public function __construct(CacheInvalidator $fosInvalidator, IdProviderInterface $layoutIdProvider)
     {

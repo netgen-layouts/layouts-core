@@ -18,7 +18,7 @@ class AdminAuthenticationExceptionListenerTest extends TestCase
     /**
      * @var \Netgen\Bundle\BlockManagerAdminBundle\EventListener\AdminAuthenticationExceptionListener
      */
-    protected $listener;
+    private $listener;
 
     public function setUp()
     {

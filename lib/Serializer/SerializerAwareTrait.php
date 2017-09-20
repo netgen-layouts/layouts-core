@@ -12,7 +12,7 @@ trait SerializerAwareTrait
     /**
      * @var \Symfony\Component\Serializer\SerializerInterface
      */
-    protected $serializer;
+    private $serializer;
 
     /**
      * Sets the serializer.

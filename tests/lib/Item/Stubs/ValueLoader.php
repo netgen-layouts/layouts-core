@@ -7,7 +7,7 @@ use Netgen\BlockManager\Item\ValueLoaderInterface;
 
 class ValueLoader implements ValueLoaderInterface
 {
-    protected $throwException = false;
+    private $throwException = false;
 
     /**
      * Constructor.

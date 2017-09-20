@@ -16,7 +16,7 @@ class RequestBodyListener implements EventSubscriberInterface
     /**
      * @var \Symfony\Component\Serializer\Encoder\DecoderInterface
      */
-    protected $decoder;
+    private $decoder;
 
     public function __construct(DecoderInterface $decoder)
     {
@@ -69,7 +69,7 @@ class RequestBodyListener implements EventSubscriberInterface
      *
      * @return bool
      */
-    protected function isDecodeable(Request $request)
+    private function isDecodeable(Request $request)
     {
         if (
             !in_array(

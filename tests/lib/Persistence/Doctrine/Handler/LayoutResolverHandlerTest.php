@@ -24,12 +24,12 @@ class LayoutResolverHandlerTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler
      */
-    protected $handler;
+    private $handler;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler
      */
-    protected $layoutHandler;
+    private $layoutHandler;
 
     /**
      * Sets up the tests.

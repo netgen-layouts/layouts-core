@@ -16,17 +16,17 @@ class ContainerDefinition implements ContainerDefinitionInterface
     /**
      * @var string
      */
-    protected $identifier;
+    private $identifier;
 
     /**
      * @var \Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler
      */
-    protected $handler;
+    private $handler;
 
     /**
      * @var array
      */
-    protected $viewTypes;
+    private $viewTypes;
 
     /**
      * Constructor.

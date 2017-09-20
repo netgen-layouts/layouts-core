@@ -10,7 +10,7 @@ class ValueTypeTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Item\ValueType\ValueType
      */
-    protected $valueType;
+    private $valueType;
 
     public function setUp()
     {

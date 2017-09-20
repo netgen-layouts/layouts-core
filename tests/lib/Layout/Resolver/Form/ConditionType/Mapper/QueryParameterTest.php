@@ -12,7 +12,7 @@ class QueryParameterTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\MapperInterface
      */
-    protected $mapper;
+    private $mapper;
 
     public function setUp()
     {

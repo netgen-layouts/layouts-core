@@ -14,7 +14,7 @@ class ParameterViewProviderTest extends TestCase
     /**
      * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface
      */
-    protected $parameterViewProvider;
+    private $parameterViewProvider;
 
     public function setUp()
     {

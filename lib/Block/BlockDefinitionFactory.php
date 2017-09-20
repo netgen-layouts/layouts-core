@@ -14,12 +14,12 @@ class BlockDefinitionFactory
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface
      */
-    protected $parameterBuilderFactory;
+    private $parameterBuilderFactory;
 
     /**
      * @var \Netgen\BlockManager\Block\Registry\HandlerPluginRegistryInterface
      */
-    protected $handlerPluginRegistry;
+    private $handlerPluginRegistry;
 
     public function __construct(
         ParameterBuilderFactoryInterface $parameterBuilderFactory,
@@ -117,7 +117,7 @@ class BlockDefinitionFactory
      *
      * @return array
      */
-    protected function getCommonBlockDefinitionData(
+    private function getCommonBlockDefinitionData(
         $identifier,
         BlockDefinitionHandlerInterface $handler,
         Configuration $config,

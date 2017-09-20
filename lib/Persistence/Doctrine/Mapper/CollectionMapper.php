@@ -121,7 +121,7 @@ class CollectionMapper
      *
      * @return array
      */
-    protected function buildParameters($parameters)
+    private function buildParameters($parameters)
     {
         $parameters = !empty($parameters) ? json_decode($parameters, true) : array();
 

@@ -10,7 +10,7 @@ class ItemBuilder implements ItemBuilderInterface
     /**
      * @var \Netgen\BlockManager\Item\ValueConverterInterface[]
      */
-    protected $valueConverters = array();
+    private $valueConverters = array();
 
     /**
      * Constructor.

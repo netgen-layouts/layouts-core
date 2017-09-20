@@ -9,12 +9,12 @@ abstract class AbstractValue
     /**
      * @var mixed
      */
-    protected $value;
+    private $value;
 
     /**
      * @var int
      */
-    protected $statusCode;
+    private $statusCode;
 
     /**
      * Constructor.

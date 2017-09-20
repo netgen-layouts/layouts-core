@@ -11,7 +11,7 @@ class PageLayoutResolver implements PageLayoutResolverInterface
     /**
      * @var string
      */
-    protected $pageLayout;
+    private $pageLayout;
 
     /**
      * Constructor.

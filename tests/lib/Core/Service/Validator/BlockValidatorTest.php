@@ -21,17 +21,17 @@ class BlockValidatorTest extends TestCase
     /**
      * @var \Symfony\Component\Validator\Validator\ValidatorInterface
      */
-    protected $validator;
+    private $validator;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $configValidatorMock;
+    private $configValidatorMock;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\Validator\BlockValidator
      */
-    protected $blockValidator;
+    private $blockValidator;
 
     /**
      * Sets up the test.
@@ -816,7 +816,7 @@ class BlockValidatorTest extends TestCase
     /**
      * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
-    protected function getBlockDefinition()
+    private function getBlockDefinition()
     {
         $handler = new BlockDefinitionHandlerWithRequiredParameter();
 
@@ -830,7 +830,7 @@ class BlockValidatorTest extends TestCase
     /**
      * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
-    protected function getContainerDefinition()
+    private function getContainerDefinition()
     {
         $handler = new ContainerDefinitionHandler(array(), array('main'));
 

@@ -600,7 +600,7 @@ class CollectionQueryHandler extends QueryHandler
      *
      * @return \Doctrine\DBAL\Query\QueryBuilder
      */
-    protected function getCollectionSelectQuery()
+    private function getCollectionSelectQuery()
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT c.*, ct.*')
@@ -623,7 +623,7 @@ class CollectionQueryHandler extends QueryHandler
      *
      * @return \Doctrine\DBAL\Query\QueryBuilder
      */
-    protected function getItemSelectQuery()
+    private function getItemSelectQuery()
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT ngbm_collection_item.*')
@@ -637,7 +637,7 @@ class CollectionQueryHandler extends QueryHandler
      *
      * @return \Doctrine\DBAL\Query\QueryBuilder
      */
-    protected function getQuerySelectQuery()
+    private function getQuerySelectQuery()
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT q.*, qt.*')

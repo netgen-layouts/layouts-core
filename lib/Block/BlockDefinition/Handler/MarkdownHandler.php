@@ -14,7 +14,7 @@ class MarkdownHandler extends BlockDefinitionHandler
     /**
      * @var \Michelf\MarkdownInterface
      */
-    protected $markdownParser;
+    private $markdownParser;
 
     public function __construct(MarkdownInterface $markdownParser)
     {

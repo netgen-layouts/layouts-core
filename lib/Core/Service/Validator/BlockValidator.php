@@ -17,7 +17,7 @@ class BlockValidator extends Validator
     /**
      * @var \Netgen\BlockManager\Core\Service\Validator\ConfigValidator
      */
-    protected $configValidator;
+    private $configValidator;
 
     public function __construct(ConfigValidator $configValidator)
     {

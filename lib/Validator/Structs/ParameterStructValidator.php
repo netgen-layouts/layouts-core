@@ -21,7 +21,7 @@ class ParameterStructValidator extends ConstraintValidator
     /**
      * @var \Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistryInterface
      */
-    protected $parameterFilterRegistry;
+    private $parameterFilterRegistry;
 
     public function __construct(ParameterFilterRegistryInterface $parameterFilterRegistry)
     {
@@ -60,7 +60,7 @@ class ParameterStructValidator extends ConstraintValidator
      * @param \Netgen\BlockManager\API\Values\ParameterStruct $parameterStruct
      * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
      */
-    protected function filterParameters(ParameterStruct $parameterStruct, ParameterCollectionInterface $parameterCollection)
+    private function filterParameters(ParameterStruct $parameterStruct, ParameterCollectionInterface $parameterCollection)
     {
         foreach ($parameterStruct->getParameterValues() as $parameterName => $parameterValue) {
             if (!$parameterCollection->hasParameter($parameterName)) {
@@ -87,7 +87,7 @@ class ParameterStructValidator extends ConstraintValidator
      *
      * @return array
      */
-    protected function buildConstraintFields(ParameterStruct $parameterStruct, ParameterStructConstraint $constraint)
+    private function buildConstraintFields(ParameterStruct $parameterStruct, ParameterStructConstraint $constraint)
     {
         $fields = array();
         foreach ($constraint->parameterCollection->getParameters() as $parameter) {

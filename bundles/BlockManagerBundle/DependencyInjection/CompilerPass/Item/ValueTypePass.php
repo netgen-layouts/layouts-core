@@ -40,7 +40,7 @@ class ValueTypePass implements CompilerPassInterface
      *
      * @return array
      */
-    protected function buildValueTypes(ContainerBuilder $container, array $valueTypes)
+    private function buildValueTypes(ContainerBuilder $container, array $valueTypes)
     {
         $valueTypeServices = array();
 

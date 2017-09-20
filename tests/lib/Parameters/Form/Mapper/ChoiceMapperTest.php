@@ -13,7 +13,7 @@ class ChoiceMapperTest extends TestCase
     /**
      * @var \Netgen\BlockManager\Parameters\Form\Mapper\ChoiceMapper
      */
-    protected $mapper;
+    private $mapper;
 
     public function setUp()
     {

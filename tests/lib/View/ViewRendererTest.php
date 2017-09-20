@@ -14,17 +14,17 @@ class ViewRendererTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $eventDispatcherMock;
+    private $eventDispatcherMock;
 
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    protected $twigEnvironmentMock;
+    private $twigEnvironmentMock;
 
     /**
      * @var \Netgen\BlockManager\View\ViewRenderer
      */
-    protected $viewRenderer;
+    private $viewRenderer;
 
     public function setUp()
     {
