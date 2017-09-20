@@ -24,7 +24,7 @@ class HandlerPluginRegistry implements HandlerPluginRegistryInterface
                 function (PluginInterface $plugin) use ($handlerClass) {
                     $extendedHandlers = (array) $plugin::getExtendedHandler();
                     foreach ($extendedHandlers as $extendedHandler) {
-                        if (is_a($handlerClass, $plugin::getExtendedHandler(), true)) {
+                        if (is_a($handlerClass, $extendedHandler, true)) {
                             return true;
                         }
                     }
