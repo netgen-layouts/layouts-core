@@ -13,29 +13,29 @@ trait DatabaseTrait
     /**
      * @var string
      */
-    private $inMemoryDsn = 'sqlite://:memory:';
+    protected $inMemoryDsn = 'sqlite://:memory:';
 
     /**
      * @var string
      */
-    private $databaseUri;
+    protected $databaseUri;
 
     /**
      * @var string
      */
-    private $databaseServer;
+    protected $databaseServer;
 
     /**
      * @var \Doctrine\DBAL\Connection
      */
-    private $databaseConnection;
+    protected $databaseConnection;
 
     /**
      * Sets up the database connection.
      *
      * @param string $fixturesPath
      */
-    private function createDatabase($fixturesPath = __DIR__ . '/../../../_fixtures')
+    protected function createDatabase($fixturesPath = __DIR__ . '/../../../_fixtures')
     {
         $this->databaseUri = getenv('DATABASE');
         if (empty($this->databaseUri)) {
@@ -69,7 +69,7 @@ trait DatabaseTrait
     /**
      * Closes the database connection.
      */
-    private function closeDatabase()
+    protected function closeDatabase()
     {
         if ($this->databaseUri !== $this->inMemoryDsn) {
             $this->databaseConnection->close();
@@ -82,7 +82,7 @@ trait DatabaseTrait
      * @param string $schemaPath
      * @param string $fileName
      */
-    private function executeStatements($schemaPath, $fileName = 'schema')
+    protected function executeStatements($schemaPath, $fileName = 'schema')
     {
         $fullPath = $schemaPath . '/' . $fileName . '.' . $this->databaseServer . '.sql';
         if (!file_exists($fullPath)) {
@@ -103,7 +103,7 @@ trait DatabaseTrait
     /**
      * Creates the database schema from all available Doctrine migrations.
      */
-    private function executeMigrations()
+    protected function executeMigrations()
     {
         $configuration = new YamlConfiguration($this->databaseConnection);
         $configuration->load(__DIR__ . '/../../../../migrations/doctrine.yml');
@@ -118,7 +118,7 @@ trait DatabaseTrait
      *
      * @param string $fixturesPath
      */
-    private function insertDatabaseFixtures($fixturesPath)
+    protected function insertDatabaseFixtures($fixturesPath)
     {
         $data = require $fixturesPath . '/data.php';
 
