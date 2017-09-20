@@ -57,7 +57,11 @@ class BlockDefinitionFactoryTest extends TestCase
         );
 
         $this->handlerPluginRegistry = new HandlerPluginRegistry();
-        $this->handlerPluginRegistry->addPlugin(new HandlerPlugin());
+        $this->handlerPluginRegistry->addPlugin(
+            HandlerPlugin::instance(
+                array(BlockDefinitionHandlerInterface::class)
+            )
+        );
 
         $this->factory = new BlockDefinitionFactory(
             $this->parameterBuilderFactory,

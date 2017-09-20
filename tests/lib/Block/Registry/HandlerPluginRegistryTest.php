@@ -2,8 +2,10 @@
 
 namespace Netgen\BlockManager\Tests\Block\Registry;
 
+use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
+use Netgen\BlockManager\Block\BlockDefinition\Handler\ListHandler;
+use Netgen\BlockManager\Block\BlockDefinition\Handler\TitleHandler;
 use Netgen\BlockManager\Block\Registry\HandlerPluginRegistry;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Tests\Block\Stubs\HandlerPlugin;
 use PHPUnit\Framework\TestCase;
 use stdClass;
@@ -26,13 +28,23 @@ class HandlerPluginRegistryTest extends TestCase
      */
     public function testRegistry()
     {
-        $handlerPlugin = new HandlerPlugin();
+        $handlerPlugin = HandlerPlugin::instance(array(TitleHandler::class, ListHandler::class));
 
         $this->registry->addPlugin($handlerPlugin);
 
         $this->assertEquals(
             array($handlerPlugin),
-            $this->registry->getPlugins(BlockDefinitionHandler::class)
+            $this->registry->getPlugins(TitleHandler::class)
+        );
+
+        $this->assertEquals(
+            array($handlerPlugin),
+            $this->registry->getPlugins(ListHandler::class)
+        );
+
+        $this->assertEquals(
+            array(),
+            $this->registry->getPlugins(stdClass::class)
         );
     }
 
@@ -40,11 +52,21 @@ class HandlerPluginRegistryTest extends TestCase
      * @covers \Netgen\BlockManager\Block\Registry\HandlerPluginRegistry::addPlugin
      * @covers \Netgen\BlockManager\Block\Registry\HandlerPluginRegistry::getPlugins
      */
-    public function testRegistryWithUnknownClass()
+    public function testRegistryWithInterface()
     {
-        $handlerPlugin = new HandlerPlugin();
+        $handlerPlugin = HandlerPlugin::instance(array(BlockDefinitionHandlerInterface::class));
 
         $this->registry->addPlugin($handlerPlugin);
+
+        $this->assertEquals(
+            array($handlerPlugin),
+            $this->registry->getPlugins(TitleHandler::class)
+        );
+
+        $this->assertEquals(
+            array($handlerPlugin),
+            $this->registry->getPlugins(ListHandler::class)
+        );
 
         $this->assertEquals(
             array(),

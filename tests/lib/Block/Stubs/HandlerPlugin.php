@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Block\Stubs;
 
 use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\Handler\Plugin;
 use Netgen\BlockManager\Block\DynamicParameters;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
@@ -11,6 +10,23 @@ use Netgen\BlockManager\Parameters\ParameterType;
 
 class HandlerPlugin extends Plugin
 {
+    /**
+     * @var string[]
+     */
+    private static $extendedHandlers = array();
+
+    /**
+     * @param string[] $extendedHandlers
+     *
+     * @return \Netgen\BlockManager\Tests\Block\Stubs\HandlerPlugin
+     */
+    public static function instance(array $extendedHandlers = array())
+    {
+        self::$extendedHandlers = $extendedHandlers;
+
+        return new self();
+    }
+
     /**
      * Returns the fully qualified class name of the handler which this
      * plugin extends. If you wish to extend every existing handler,
@@ -21,7 +37,7 @@ class HandlerPlugin extends Plugin
      */
     public static function getExtendedHandler()
     {
-        return BlockDefinitionHandlerInterface::class;
+        return self::$extendedHandlers;
     }
 
     /**
