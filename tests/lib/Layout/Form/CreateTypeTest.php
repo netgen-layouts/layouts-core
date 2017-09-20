@@ -69,6 +69,8 @@ class CreateTypeTest extends FormTestCase
      * @covers \Netgen\BlockManager\Layout\Form\CreateType::__construct
      * @covers \Netgen\BlockManager\Layout\Form\CreateType::buildForm
      * @covers \Netgen\BlockManager\Layout\Form\CreateType::finishView
+     *
+     * @group legacy
      */
     public function testSubmitValidData()
     {

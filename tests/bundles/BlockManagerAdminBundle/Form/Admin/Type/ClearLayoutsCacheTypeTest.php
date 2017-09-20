@@ -35,6 +35,8 @@ class ClearLayoutsCacheTypeTest extends FormTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearLayoutsCacheType::buildForm
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearLayoutsCacheType::buildView
+     *
+     * @group legacy
      */
     public function testSubmitValidData()
     {

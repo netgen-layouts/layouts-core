@@ -43,6 +43,8 @@ class LinkTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\LinkType::buildForm
+     *
+     * @group legacy
      */
     public function testSubmitValidData()
     {
@@ -89,6 +91,8 @@ class LinkTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\LinkType::buildForm
+     *
+     * @group legacy
      */
     public function testSubmitInvalidData()
     {
@@ -128,6 +132,8 @@ class LinkTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\LinkType::buildView
+     *
+     * @group legacy
      */
     public function testBuildView()
     {
@@ -161,6 +167,8 @@ class LinkTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\LinkType::buildView
+     *
+     * @group legacy
      */
     public function testBuildViewWithInvalidData()
     {

@@ -51,6 +51,8 @@ class ClearBlocksCacheTypeTest extends FormTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearBlocksCacheType::buildForm
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearBlocksCacheType::buildView
+     *
+     * @group legacy
      */
     public function testSubmitValidData()
     {
