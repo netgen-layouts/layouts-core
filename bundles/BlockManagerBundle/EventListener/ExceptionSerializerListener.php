@@ -2,7 +2,6 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 
-use Exception;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
