@@ -83,31 +83,9 @@ interface Query extends Value, ParameterBasedValue
     public function isAlwaysAvailable();
 
     /**
-     * Returns if the query has a translation in specified locale.
+     * Returns the locale of the currently loaded translation.
      *
-     * @param string $locale
-     *
-     * @return bool
+     * @return string
      */
-    public function hasTranslation($locale);
-
-    /**
-     * Returns a query translation in specified locale.
-     *
-     * If locale is not specified, first locale in the list of available locales is returned.
-     *
-     * @param string $locale
-     *
-     * @throws \Netgen\BlockManager\Exception\Core\TranslationException If the requested translation does not exist
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\QueryTranslation
-     */
-    public function getTranslation($locale = null);
-
-    /**
-     * Returns all query translations.
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\QueryTranslation[]
-     */
-    public function getTranslations();
+    public function getLocale();
 }

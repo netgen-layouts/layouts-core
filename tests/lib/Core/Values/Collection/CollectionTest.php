@@ -23,9 +23,9 @@ class CollectionTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isPublished
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getMainLocale
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getAvailableLocales
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::hasLocale
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isTranslatable
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isAlwaysAvailable
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getLocale
      */
     public function testSetDefaultProperties()
     {
@@ -37,9 +37,9 @@ class CollectionTest extends TestCase
         $this->assertNull($collection->isPublished());
         $this->assertNull($collection->getMainLocale());
         $this->assertEquals(array(), $collection->getAvailableLocales());
-        $this->assertFalse($collection->hasLocale('en'));
         $this->assertNull($collection->isTranslatable());
         $this->assertNull($collection->isAlwaysAvailable());
+        $this->assertNull($collection->getLocale());
         $this->assertEquals(array(), $collection->getItems());
         $this->assertEquals(array(), $collection->getManualItems());
         $this->assertEquals(array(), $collection->getOverrideItems());
@@ -67,9 +67,9 @@ class CollectionTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isPublished
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getMainLocale
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getAvailableLocales
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::hasLocale
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isTranslatable
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isAlwaysAvailable
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getLocale
      */
     public function testSetProperties()
     {
@@ -85,9 +85,10 @@ class CollectionTest extends TestCase
                 'type' => Collection::TYPE_DYNAMIC,
                 'published' => true,
                 'mainLocale' => 'en',
-                'availableLocales' => array('en'),
+                'availableLocales' => array('en', 'hr'),
                 'isTranslatable' => true,
                 'alwaysAvailable' => false,
+                'locale' => 'en',
                 'items' => $items,
                 'query' => new Query(),
             )
@@ -98,11 +99,10 @@ class CollectionTest extends TestCase
         $this->assertEquals(Collection::TYPE_DYNAMIC, $collection->getType());
         $this->assertTrue($collection->isPublished());
         $this->assertEquals('en', $collection->getMainLocale());
-        $this->assertEquals(array('en'), $collection->getAvailableLocales());
-        $this->assertTrue($collection->hasLocale('en'));
-        $this->assertFalse($collection->hasLocale('hr'));
+        $this->assertEquals(array('en', 'hr'), $collection->getAvailableLocales());
         $this->assertTrue($collection->isTranslatable());
         $this->assertFalse($collection->isAlwaysAvailable());
+        $this->assertEquals('en', $collection->getLocale());
         $this->assertCount(2, $collection->getItems());
         $this->assertCount(1, $collection->getManualItems());
         $this->assertCount(1, $collection->getOverrideItems());

@@ -4,13 +4,14 @@ namespace Netgen\BlockManager\Core\Values\Block;
 
 use Netgen\BlockManager\API\Values\Block\Block as APIBlock;
 use Netgen\BlockManager\Core\Values\Config\ConfigAwareValueTrait;
+use Netgen\BlockManager\Core\Values\ParameterBasedValueTrait;
 use Netgen\BlockManager\Exception\Core\BlockException;
-use Netgen\BlockManager\Exception\Core\TranslationException;
 use Netgen\BlockManager\ValueObject;
 
 class Block extends ValueObject implements APIBlock
 {
     use ConfigAwareValueTrait;
+    use ParameterBasedValueTrait;
 
     /**
      * @var int|string
@@ -88,9 +89,9 @@ class Block extends ValueObject implements APIBlock
     protected $alwaysAvailable;
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Block\BlockTranslation[]
+     * @var string
      */
-    protected $translations = array();
+    protected $locale;
 
     public function getId()
     {
@@ -125,21 +126,6 @@ class Block extends ValueObject implements APIBlock
     public function getName()
     {
         return $this->name;
-    }
-
-    public function getParameters()
-    {
-        return $this->getTranslation()->getParameters();
-    }
-
-    public function getParameter($parameterName)
-    {
-        return $this->getTranslation()->getParameter($parameterName);
-    }
-
-    public function hasParameter($parameterName)
-    {
-        return $this->getTranslation()->hasParameter($parameterName);
     }
 
     public function getPlaceholders()
@@ -224,27 +210,9 @@ class Block extends ValueObject implements APIBlock
         return $this->alwaysAvailable;
     }
 
-    public function hasTranslation($locale)
+    public function getLocale()
     {
-        return array_key_exists($locale, $this->translations);
-    }
-
-    public function getTranslation($locale = null)
-    {
-        if ($locale === null) {
-            return $this->translations[$this->availableLocales[0]];
-        }
-
-        if (!$this->hasTranslation($locale)) {
-            throw TranslationException::noTranslation($locale);
-        }
-
-        return $this->translations[$locale];
-    }
-
-    public function getTranslations()
-    {
-        return $this->translations;
+        return $this->locale;
     }
 
     /**

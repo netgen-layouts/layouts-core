@@ -126,15 +126,6 @@ interface Collection extends Value
     public function getMainLocale();
 
     /**
-     * Returns if the collection has the provided locale.
-     *
-     * @param string $locale
-     *
-     * @return bool
-     */
-    public function hasLocale($locale);
-
-    /**
      * Returns if the collection is translatable.
      *
      * @return bool
@@ -148,4 +139,11 @@ interface Collection extends Value
      * @return bool
      */
     public function isAlwaysAvailable();
+
+    /**
+     * Returns the locale of the currently loaded translation.
+     *
+     * @return string
+     */
+    public function getLocale();
 }

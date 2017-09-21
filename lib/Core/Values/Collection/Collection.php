@@ -58,6 +58,11 @@ class Collection extends ValueObject implements APICollection
      */
     protected $alwaysAvailable;
 
+    /**
+     * @var string
+     */
+    protected $locale;
+
     public function getId()
     {
         return $this->id;
@@ -133,11 +138,6 @@ class Collection extends ValueObject implements APICollection
         return $this->mainLocale;
     }
 
-    public function hasLocale($locale)
-    {
-        return in_array($locale, $this->availableLocales, true);
-    }
-
     public function isTranslatable()
     {
         return $this->isTranslatable;
@@ -146,6 +146,11 @@ class Collection extends ValueObject implements APICollection
     public function isAlwaysAvailable()
     {
         return $this->alwaysAvailable;
+    }
+
+    public function getLocale()
+    {
+        return $this->locale;
     }
 
     /**

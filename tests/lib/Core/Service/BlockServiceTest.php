@@ -185,7 +185,7 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $this->assertFalse($block->isTranslatable());
         $this->assertContains('en', $block->getAvailableLocales());
-        $this->assertTrue($block->hasTranslation('en'));
+        $this->assertEquals('en', $block->getLocale());
     }
 
     /**
@@ -202,10 +202,7 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $zone = $this->layoutService->loadZoneDraft(1, 'left');
 
-        $this->blockService->createBlockInZone($blockCreateStruct, $zone, 0);
-
-        // Reload the block will all translations
-        $block = $this->blockService->loadBlockDraft(39, true);
+        $block = $this->blockService->createBlockInZone($blockCreateStruct, $zone, 0);
 
         $this->assertFalse($block->isPublished());
         $this->assertInstanceOf(Block::class, $block);
@@ -229,8 +226,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertContains('en', $block->getAvailableLocales());
         $this->assertContains('hr', $block->getAvailableLocales());
 
-        $this->assertTrue($block->hasTranslation('en'));
-        $this->assertTrue($block->hasTranslation('hr'));
+        $this->assertEquals('en', $block->getLocale());
     }
 
     /**
@@ -267,7 +263,7 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $this->assertFalse($block->isTranslatable());
         $this->assertContains('en', $block->getAvailableLocales());
-        $this->assertTrue($block->hasTranslation('en'));
+        $this->assertEquals('en', $block->getLocale());
     }
 
     /**
@@ -596,7 +592,7 @@ abstract class BlockServiceTest extends ServiceTestCase
      */
     public function testUpdateBlock()
     {
-        $block = $this->blockService->loadBlockDraft(31, array('en', 'hr'));
+        $block = $this->blockService->loadBlockDraft(31, 'en');
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('hr');
         $blockUpdateStruct->viewType = 'small';
@@ -611,13 +607,15 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertEquals('small', $block->getViewType());
         $this->assertEquals('Super cool block', $block->getName());
 
-        $this->assertEquals('css-class', $block->getTranslation('en')->getParameter('css_class')->getValue());
-        $this->assertEquals('css-id', $block->getTranslation('en')->getParameter('css_id')->getValue());
+        $this->assertEquals('css-class', $block->getParameter('css_class')->getValue());
+        $this->assertEquals('css-id', $block->getParameter('css_id')->getValue());
 
-        $this->assertEquals('test_value', $block->getTranslation('hr')->getParameter('css_class')->getValue());
+        $croBlock = $this->blockService->loadBlockDraft(31, 'hr');
+
+        $this->assertEquals('test_value', $croBlock->getParameter('css_class')->getValue());
 
         // CSS ID is untranslatable, meaning it keeps the value from main locale
-        $this->assertEquals('css-id', $block->getTranslation('hr')->getParameter('css_id')->getValue());
+        $this->assertEquals('css-id', $croBlock->getParameter('css_id')->getValue());
     }
 
     /**
@@ -626,7 +624,7 @@ abstract class BlockServiceTest extends ServiceTestCase
      */
     public function testUpdateBlockInMainLocale()
     {
-        $block = $this->blockService->loadBlockDraft(31, array('en', 'hr'));
+        $block = $this->blockService->loadBlockDraft(31, 'en');
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('en');
         $blockUpdateStruct->viewType = 'small';
@@ -641,13 +639,15 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertEquals('small', $block->getViewType());
         $this->assertEquals('Super cool block', $block->getName());
 
-        $this->assertEquals('test_value', $block->getTranslation('en')->getParameter('css_class')->getValue());
-        $this->assertEquals('some_other_test_value', $block->getTranslation('en')->getParameter('css_id')->getValue());
+        $this->assertEquals('test_value', $block->getParameter('css_class')->getValue());
+        $this->assertEquals('some_other_test_value', $block->getParameter('css_id')->getValue());
 
-        $this->assertEquals('css-class-hr', $block->getTranslation('hr')->getParameter('css_class')->getValue());
+        $croBlock = $this->blockService->loadBlockDraft(31, 'hr');
+
+        $this->assertEquals('css-class-hr', $croBlock->getParameter('css_class')->getValue());
 
         // CSS ID is untranslatable, meaning it receives the value from the main locale
-        $this->assertEquals('some_other_test_value', $block->getTranslation('hr')->getParameter('css_id')->getValue());
+        $this->assertEquals('some_other_test_value', $croBlock->getParameter('css_id')->getValue());
     }
 
     /**
@@ -656,7 +656,7 @@ abstract class BlockServiceTest extends ServiceTestCase
      */
     public function testUpdateBlockWithUntranslatableParameters()
     {
-        $block = $this->blockService->loadBlockDraft(31, array('en', 'hr'));
+        $block = $this->blockService->loadBlockDraft(31, 'en');
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('en');
         $blockUpdateStruct->setParameterValue('css_id', 'some_other_test_value');
@@ -670,14 +670,13 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
-        $englishTranslation = $block->getTranslation('en');
-        $croatianTranslation = $block->getTranslation('hr');
+        $croBlock = $this->blockService->loadBlockDraft(31, 'hr');
 
-        $this->assertEquals('english_css', $englishTranslation->getParameter('css_class')->getValue());
-        $this->assertEquals('some_other_test_value', $englishTranslation->getParameter('css_id')->getValue());
+        $this->assertEquals('english_css', $block->getParameter('css_class')->getValue());
+        $this->assertEquals('some_other_test_value', $block->getParameter('css_id')->getValue());
 
-        $this->assertEquals('croatian_css', $croatianTranslation->getParameter('css_class')->getValue());
-        $this->assertEquals('some_other_test_value', $croatianTranslation->getParameter('css_id')->getValue());
+        $this->assertEquals('croatian_css', $croBlock->getParameter('css_class')->getValue());
+        $this->assertEquals('some_other_test_value', $croBlock->getParameter('css_id')->getValue());
     }
 
     /**
@@ -1317,19 +1316,16 @@ abstract class BlockServiceTest extends ServiceTestCase
         $layout = $this->layoutService->loadLayoutDraft(1);
         $this->layoutService->addTranslation($layout, 'de', 'en');
 
-        $this->blockService->restoreBlock($block);
-
-        // Reload the block to get all translations
-        $restoredBlock = $this->blockService->loadBlockDraft(31, true);
+        $restoredBlock = $this->blockService->restoreBlock($block);
 
         $this->assertFalse($restoredBlock->isPublished());
         $this->assertInstanceOf(Block::class, $restoredBlock);
         $this->assertTrue($restoredBlock->isTranslatable());
 
-        $this->assertCount(3, $restoredBlock->getTranslations());
-        $this->assertTrue($restoredBlock->hasTranslation('en'));
-        $this->assertTrue($restoredBlock->hasTranslation('hr'));
-        $this->assertTrue($restoredBlock->hasTranslation('de'));
+        $this->assertCount(3, $restoredBlock->getAvailableLocales());
+        $this->assertContains('en', $restoredBlock->getAvailableLocales());
+        $this->assertContains('hr', $restoredBlock->getAvailableLocales());
+        $this->assertContains('de', $restoredBlock->getAvailableLocales());
     }
 
     /**
@@ -1351,15 +1347,11 @@ abstract class BlockServiceTest extends ServiceTestCase
     {
         $block = $this->blockService->loadBlockDraft(35);
 
-        $this->blockService->enableTranslations($block);
-
-        // Reload the block with all translations
-        $updatedBlock = $this->blockService->loadBlockDraft(35, true);
+        $updatedBlock = $this->blockService->enableTranslations($block);
 
         $layout = $this->layoutService->loadLayoutDraft($block->getLayoutId());
         foreach ($layout->getAvailableLocales() as $locale) {
             $this->assertContains($locale, $updatedBlock->getAvailableLocales());
-            $this->assertTrue($updatedBlock->hasTranslation($locale));
         }
 
         $this->assertTrue($updatedBlock->isTranslatable());
@@ -1401,10 +1393,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertFalse($updatedBlock->isTranslatable());
 
         $this->assertNotContains('hr', $updatedBlock->getAvailableLocales());
-        $this->assertFalse($updatedBlock->hasTranslation('hr'));
-
         $this->assertContains('en', $updatedBlock->getAvailableLocales());
-        $this->assertTrue($updatedBlock->hasTranslation('en'));
     }
 
     /**

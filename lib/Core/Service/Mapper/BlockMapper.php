@@ -7,7 +7,6 @@ use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Block\ContainerDefinitionInterface;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Core\Values\Block\Block;
-use Netgen\BlockManager\Core\Values\Block\BlockTranslation;
 use Netgen\BlockManager\Core\Values\Block\CollectionReference;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\Exception\NotFoundException;
@@ -71,44 +70,47 @@ class BlockMapper
     /**
      * Builds the API block value object from persistence one.
      *
-     * If $locales is an array, returned block will only have specified translations.
-     * If $locales is true, returned block will have all translations, otherwise, the main
-     * translation will be returned.
+     * If $locale is a string, the block is loaded in specified locale.
+     * If $locale is an array of strings, the first available locale will
+     * be returned.
+     *
+     * If the block is always available and $useMainLocale is set to true,
+     * block in main locale will be returned if none of the locales in $locale
+     * array are found.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
-     * @param string[]|bool $locales
+     * @param string|string[] $locale
+     * @param bool $useMainLocale
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If the block does not have any currently available translations
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If the block does not have any requested translations
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function mapBlock(PersistenceBlock $block, $locales = null)
+    public function mapBlock(PersistenceBlock $block, $locale = null, $useMainLocale = true)
     {
         $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition(
             $block->definitionIdentifier
         );
 
-        if ($locales === true) {
-            $locales = $block->availableLocales;
-            sort($locales);
-        } elseif (!is_array($locales) || empty($locales)) {
-            $locales = array($block->mainLocale);
+        if (!is_array($locale)) {
+            $locale = array(is_string($locale) ? $locale : $block->mainLocale);
+            $useMainLocale = false;
         }
 
-        if ($block->alwaysAvailable && !in_array($block->mainLocale, $locales, true)) {
-            $locales[] = $block->mainLocale;
+        if ($useMainLocale && $block->alwaysAvailable) {
+            $locale[] = $block->mainLocale;
         }
 
-        $translations = array();
-        foreach ($locales as $locale) {
-            if (in_array($locale, $block->availableLocales, true)) {
-                $translations[$locale] = $this->mapBlockTranslation($block, $blockDefinition, $locale);
-            }
-        }
-
-        if (empty($translations)) {
+        $validLocales = array_unique(array_intersect($locale, $block->availableLocales));
+        if (empty($validLocales)) {
             throw new NotFoundException('block', $block->id);
         }
+
+        $blockLocale = reset($validLocales);
+        $untranslatableParams = $this->parameterMapper->extractUntranslatableParameters(
+            $blockDefinition,
+            $block->parameters[$block->mainLocale]
+        );
 
         $blockData = array(
             'id' => $block->id,
@@ -119,14 +121,18 @@ class BlockMapper
             'name' => $block->name,
             'status' => $block->status,
             'published' => $block->status === Value::STATUS_PUBLISHED,
-            'placeholders' => $this->mapPlaceholders($block, $blockDefinition),
-            'collectionReferences' => $this->mapCollectionReferences($block, $locales),
+            'placeholders' => $this->mapPlaceholders($block, $blockDefinition, $locale),
+            'collectionReferences' => $this->mapCollectionReferences($block, $locale),
             'configs' => $this->configMapper->mapConfig($block->config, $blockDefinition->getConfigDefinitions()),
             'isTranslatable' => $block->isTranslatable,
             'mainLocale' => $block->mainLocale,
             'alwaysAvailable' => $block->alwaysAvailable,
-            'availableLocales' => array_keys($translations),
-            'translations' => $translations,
+            'availableLocales' => $block->availableLocales,
+            'locale' => $blockLocale,
+            'parameters' => $this->parameterMapper->mapParameters(
+                $blockDefinition,
+                $untranslatableParams + $block->parameters[$blockLocale]
+            ),
         );
 
         return new Block($blockData);
@@ -135,16 +141,12 @@ class BlockMapper
     /**
      * Builds the API collection reference value objects for the provided block.
      *
-     * If $locales is an array, returned references will only have specified translations.
-     * If $locales is true, returned references will have all translations, otherwise, the main
-     * translation will be returned.
-     *
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
-     * @param string[]|bool $locales
+     * @param array $locales
      *
      * @return \Netgen\BlockManager\API\Values\Block\CollectionReference[]
      */
-    private function mapCollectionReferences(PersistenceBlock $block, $locales = null)
+    private function mapCollectionReferences(PersistenceBlock $block, array $locales)
     {
         $collectionReferences = $this->blockHandler->loadCollectionReferences($block);
 
@@ -157,7 +159,7 @@ class BlockMapper
 
             $mappedReferences[$collectionReference->identifier] = new CollectionReference(
                 array(
-                    'collection' => $this->collectionMapper->mapCollection($collection, $locales),
+                    'collection' => $this->collectionMapper->mapCollection($collection, $locales, false),
                     'identifier' => $collectionReference->identifier,
                     'offset' => $collectionReference->offset,
                     'limit' => $collectionReference->limit,
@@ -169,42 +171,15 @@ class BlockMapper
     }
 
     /**
-     * Maps the block translation for the provided locale.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
-     * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $definition
-     * @param string $locale
-     *
-     * @return \Netgen\BlockManager\Core\Values\Block\BlockTranslation
-     */
-    private function mapBlockTranslation(PersistenceBlock $block, BlockDefinitionInterface $definition, $locale)
-    {
-        $untranslatableParams = $this->parameterMapper->extractUntranslatableParameters(
-            $definition,
-            $block->parameters[$block->mainLocale]
-        );
-
-        return new BlockTranslation(
-            array(
-                'locale' => $locale,
-                'isMainTranslation' => $locale === $block->mainLocale,
-                'parameters' => $this->parameterMapper->mapParameters(
-                    $definition,
-                    $untranslatableParams + $block->parameters[$locale]
-                ),
-            )
-        );
-    }
-
-    /**
      * Maps the placeholder from persistence parameters.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition
+     * @param array $locales
      *
      * @return \Netgen\BlockManager\Core\Values\Block\Placeholder[]
      */
-    private function mapPlaceholders(PersistenceBlock $block, BlockDefinitionInterface $blockDefinition)
+    private function mapPlaceholders(PersistenceBlock $block, BlockDefinitionInterface $blockDefinition, array $locales)
     {
         if (!$blockDefinition instanceof ContainerDefinitionInterface) {
             return array();
@@ -217,7 +192,7 @@ class BlockMapper
             $placeholderBlocks = array();
             foreach ($childBlocks as $childBlock) {
                 if ($childBlock->placeholder === $placeholderIdentifier) {
-                    $placeholderBlocks[] = $this->mapBlock($childBlock);
+                    $placeholderBlocks[] = $this->mapBlock($childBlock, $locales, false);
                 }
             }
 

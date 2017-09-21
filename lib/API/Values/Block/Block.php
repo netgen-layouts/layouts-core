@@ -158,39 +158,16 @@ interface Block extends Value, ParameterBasedValue, ConfigAwareValue
     public function isTranslatable();
 
     /**
-     * Returns if the main translation of the block is used
-     * in case there are no prioritized translations.
+     * Returns if the block is always available.
      *
      * @return bool
      */
     public function isAlwaysAvailable();
 
     /**
-     * Returns if the block has a translation in specified locale.
+     * Returns the locale of the currently loaded translation.
      *
-     * @param string $locale
-     *
-     * @return bool
+     * @return string
      */
-    public function hasTranslation($locale);
-
-    /**
-     * Returns a block translation in specified locale.
-     *
-     * If locale is not specified, first locale in the list of available locales is returned.
-     *
-     * @param string $locale
-     *
-     * @throws \Netgen\BlockManager\Exception\Core\TranslationException If the requested translation does not exist
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\BlockTranslation
-     */
-    public function getTranslation($locale = null);
-
-    /**
-     * Returns all block translations.
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\BlockTranslation[]
-     */
-    public function getTranslations();
+    public function getLocale();
 }

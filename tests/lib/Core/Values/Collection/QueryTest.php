@@ -4,9 +4,7 @@ namespace Netgen\BlockManager\Tests\Core\Values\Collection;
 
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\Collection\Query;
-use Netgen\BlockManager\Core\Values\Collection\QueryTranslation;
 use Netgen\BlockManager\Exception\Core\ParameterException;
-use Netgen\BlockManager\Exception\Core\TranslationException;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 
@@ -19,16 +17,12 @@ class QueryTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getCollectionId
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getQueryType
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getParameters
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getParameter
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::hasParameter
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::isPublished
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::isTranslatable
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getMainLocale
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::isAlwaysAvailable
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getAvailableLocales
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getTranslations
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getTranslation
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::hasTranslation
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getLocale
      */
     public function testSetDefaultProperties()
     {
@@ -38,20 +32,13 @@ class QueryTest extends TestCase
         $this->assertNull($query->getStatus());
         $this->assertNull($query->getCollectionId());
         $this->assertNull($query->getQueryType());
+        $this->assertEquals(array(), $query->getParameters());
         $this->assertNull($query->isPublished());
         $this->assertNull($query->isTranslatable());
         $this->assertNull($query->getMainLocale());
         $this->assertNull($query->isAlwaysAvailable());
         $this->assertEquals(array(), $query->getAvailableLocales());
-
-        $this->assertEquals(array(), $query->getTranslations());
-        $this->assertFalse($query->hasTranslation('en'));
-
-        try {
-            $query->getTranslation('en');
-        } catch (TranslationException $e) {
-            // Do nothing
-        }
+        $this->assertNull($query->getLocale());
     }
 
     /**
@@ -68,21 +55,10 @@ class QueryTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getMainLocale
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::isAlwaysAvailable
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getAvailableLocales
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getTranslations
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getTranslation
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::hasTranslation
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getLocale
      */
     public function testSetProperties()
     {
-        $queryTranslation = new QueryTranslation(
-            array(
-                'locale' => 'en',
-                'parameters' => array(
-                    'param' => 'value',
-                ),
-            )
-        );
-
         $query = new Query(
             array(
                 'id' => 42,
@@ -94,8 +70,9 @@ class QueryTest extends TestCase
                 'mainLocale' => 'en',
                 'alwaysAvailable' => true,
                 'availableLocales' => array('en'),
-                'translations' => array(
-                    'en' => $queryTranslation,
+                'locale' => 'en',
+                'parameters' => array(
+                    'param' => 'value',
                 ),
             )
         );
@@ -108,14 +85,12 @@ class QueryTest extends TestCase
         $this->assertEquals('value', $query->getParameter('param'));
         $this->assertFalse($query->hasParameter('test'));
         $this->assertTrue($query->hasParameter('param'));
-        $this->assertEquals($queryTranslation, $query->getTranslation('en'));
-        $this->assertFalse($query->hasTranslation('hr'));
-        $this->assertTrue($query->hasTranslation('en'));
         $this->assertEquals(Value::STATUS_PUBLISHED, $query->getStatus());
         $this->assertTrue($query->isTranslatable());
         $this->assertEquals('en', $query->getMainLocale());
         $this->assertEquals(true, $query->isAlwaysAvailable());
         $this->assertEquals(array('en'), $query->getAvailableLocales());
+        $this->assertEquals('en', $query->getLocale());
 
         $this->assertEquals(
             array(
@@ -127,19 +102,6 @@ class QueryTest extends TestCase
         try {
             $query->getParameter('test');
         } catch (ParameterException $e) {
-            // Do nothing
-        }
-
-        $this->assertEquals(
-            array(
-                'en' => $queryTranslation,
-            ),
-            $query->getTranslations()
-        );
-
-        try {
-            $query->getTranslation('hr');
-        } catch (TranslationException $e) {
             // Do nothing
         }
     }

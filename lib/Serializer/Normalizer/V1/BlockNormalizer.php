@@ -58,7 +58,7 @@ class BlockNormalizer implements NormalizerInterface, SerializerAwareInterface
             'item_view_type' => $block->getItemViewType(),
             'published' => $block->isPublished(),
             'has_published_state' => $this->blockService->hasPublishedState($block),
-            'locale' => $block->getTranslation()->getLocale(),
+            'locale' => $block->getLocale(),
             'is_translatable' => $block->isTranslatable(),
             'always_available' => $block->isAlwaysAvailable(),
             'is_container' => $isContainer,

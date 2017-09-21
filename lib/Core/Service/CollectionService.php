@@ -66,7 +66,7 @@ class CollectionService extends Service implements APICollectionService
         $this->handler = $persistenceHandler->getCollectionHandler();
     }
 
-    public function loadCollection($collectionId, $locales = null)
+    public function loadCollection($collectionId, $locale = null, $useMainLocale = true)
     {
         $this->validator->validateId($collectionId, 'collectionId');
 
@@ -75,11 +75,12 @@ class CollectionService extends Service implements APICollectionService
                 $collectionId,
                 Value::STATUS_PUBLISHED
             ),
-            $locales
+            $locale,
+            $useMainLocale
         );
     }
 
-    public function loadCollectionDraft($collectionId, $locales = null)
+    public function loadCollectionDraft($collectionId, $locale = null, $useMainLocale = true)
     {
         $this->validator->validateId($collectionId, 'collectionId');
 
@@ -88,7 +89,8 @@ class CollectionService extends Service implements APICollectionService
                 $collectionId,
                 Value::STATUS_DRAFT
             ),
-            $locales
+            $locale,
+            $useMainLocale
         );
     }
 
@@ -116,7 +118,7 @@ class CollectionService extends Service implements APICollectionService
         );
     }
 
-    public function loadQuery($queryId, $locales = null)
+    public function loadQuery($queryId, $locale = null, $useMainLocale = true)
     {
         $this->validator->validateId($queryId, 'queryId');
 
@@ -125,11 +127,12 @@ class CollectionService extends Service implements APICollectionService
                 $queryId,
                 Value::STATUS_PUBLISHED
             ),
-            $locales
+            $locale,
+            $useMainLocale
         );
     }
 
-    public function loadQueryDraft($queryId, $locales = null)
+    public function loadQueryDraft($queryId, $locale = null, $useMainLocale = true)
     {
         $this->validator->validateId($queryId, 'queryId');
 
@@ -138,7 +141,8 @@ class CollectionService extends Service implements APICollectionService
                 $queryId,
                 Value::STATUS_DRAFT
             ),
-            $locales
+            $locale,
+            $useMainLocale
         );
     }
 
@@ -187,7 +191,7 @@ class CollectionService extends Service implements APICollectionService
 
         $persistenceCollection = $this->handler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
 
-        return $this->mapper->mapCollection($persistenceCollection);
+        return $this->mapper->mapCollection($persistenceCollection, $collection->getLocale());
     }
 
     public function addItem(Collection $collection, APIItemCreateStruct $itemCreateStruct, $position = null)
@@ -286,7 +290,7 @@ class CollectionService extends Service implements APICollectionService
             }
         );
 
-        return $this->mapper->mapQuery($updatedQuery, $query->getAvailableLocales());
+        return $this->mapper->mapQuery($updatedQuery, $query->getLocale());
     }
 
     public function newItemCreateStruct($type, $valueId, $valueType)

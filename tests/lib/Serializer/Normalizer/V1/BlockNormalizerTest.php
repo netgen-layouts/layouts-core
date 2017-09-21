@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\Core\Values\Block\Block;
-use Netgen\BlockManager\Core\Values\Block\BlockTranslation;
 use Netgen\BlockManager\Core\Values\Block\CollectionReference;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\Parameters\ParameterValue;
@@ -66,23 +65,18 @@ class BlockNormalizerTest extends TestCase
                 'isTranslatable' => true,
                 'availableLocales' => array('en'),
                 'mainLocale' => 'en',
-                'translations' => array(
-                    'en' => new BlockTranslation(
+                'locale' => 'en',
+                'parameters' => array(
+                    'some_param' => new ParameterValue(
                         array(
-                        'parameters' => array(
-                            'some_param' => new ParameterValue(
-                                array(
-                                    'name' => 'some_param',
-                                    'value' => 'some_value',
-                                )
-                            ),
-                            'some_other_param' => new ParameterValue(
-                                array(
-                                    'name' => 'some_other_param',
-                                    'value' => 'some_other_value',
-                                )
-                            ),
-                        ),
+                            'name' => 'some_param',
+                            'value' => 'some_value',
+                        )
+                    ),
+                    'some_other_param' => new ParameterValue(
+                        array(
+                            'name' => 'some_other_param',
+                            'value' => 'some_other_value',
                         )
                     ),
                 ),
@@ -128,7 +122,7 @@ class BlockNormalizerTest extends TestCase
                 'item_view_type' => $block->getItemViewType(),
                 'published' => true,
                 'has_published_state' => true,
-                'locale' => $block->getTranslation()->getLocale(),
+                'locale' => $block->getLocale(),
                 'is_translatable' => $block->isTranslatable(),
                 'always_available' => $block->isAlwaysAvailable(),
                 'is_container' => false,

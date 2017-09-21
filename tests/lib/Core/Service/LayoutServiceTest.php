@@ -460,8 +460,8 @@ abstract class LayoutServiceTest extends ServiceTestCase
                 $this->assertNotContains('de', $layoutBlock->getAvailableLocales());
 
             $layoutBlock->isTranslatable() ?
-                $this->assertTrue($layoutBlock->hasTranslation('de')) :
-                $this->assertFalse($layoutBlock->hasTranslation('de'));
+                $this->assertContains('de', $layoutBlock->getAvailableLocales()) :
+                $this->assertNotContains('de', $layoutBlock->getAvailableLocales());
         }
     }
 
@@ -544,7 +544,6 @@ abstract class LayoutServiceTest extends ServiceTestCase
         $layoutBlocks = $this->blockService->loadLayoutBlocks($layout, true);
         foreach ($layoutBlocks as $layoutBlock) {
             $this->assertNotContains('hr', $layoutBlock->getAvailableLocales());
-            $this->assertFalse($layoutBlock->hasTranslation('hr'));
         }
     }
 

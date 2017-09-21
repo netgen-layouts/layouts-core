@@ -5,6 +5,7 @@
     "main_locale": "en",
     "always_available": true,
     "available_locales": [
-        "en"
+        "en",
+        "hr"
     ]
 }

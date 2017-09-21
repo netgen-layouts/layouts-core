@@ -27,7 +27,7 @@ class CollectionQueryNormalizer implements NormalizerInterface, SerializerAwareI
             'id' => $query->getId(),
             'collection_id' => $query->getCollectionId(),
             'type' => $query->getQueryType()->getType(),
-            'locale' => $query->getTranslation()->getLocale(),
+            'locale' => $query->getLocale(),
             'is_translatable' => $query->isTranslatable(),
             'always_available' => $query->isAlwaysAvailable(),
             'parameters' => $this->serializer->normalize($parameters, $format, $context),

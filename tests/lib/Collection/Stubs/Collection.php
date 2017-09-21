@@ -211,17 +211,6 @@ class Collection implements APICollection
     }
 
     /**
-     * Returns if the collection has the provided locale.
-     *
-     * @param string $locale
-     *
-     * @return bool
-     */
-    public function hasLocale($locale)
-    {
-    }
-
-    /**
      * Returns if the collection is translatable.
      *
      * @return bool
@@ -237,6 +226,15 @@ class Collection implements APICollection
      * @return bool
      */
     public function isAlwaysAvailable()
+    {
+    }
+
+    /**
+     * Returns the locale of the currently loaded translation.
+     *
+     * @return string
+     */
+    public function getLocale()
     {
     }
 }

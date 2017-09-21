@@ -97,7 +97,7 @@ class BlockService extends Service implements BlockServiceInterface
         $this->collectionHandler = $persistenceHandler->getCollectionHandler();
     }
 
-    public function loadBlock($blockId, $locales = null)
+    public function loadBlock($blockId, $locale = null, $useMainLocale = true)
     {
         $this->validator->validateId($blockId, 'blockId');
 
@@ -108,10 +108,10 @@ class BlockService extends Service implements BlockServiceInterface
             throw new NotFoundException('block', $blockId);
         }
 
-        return $this->mapper->mapBlock($block, $locales);
+        return $this->mapper->mapBlock($block, $locale, $useMainLocale);
     }
 
-    public function loadBlockDraft($blockId, $locales = null)
+    public function loadBlockDraft($blockId, $locale = null, $useMainLocale = true)
     {
         $this->validator->validateId($blockId, 'blockId');
 
@@ -122,10 +122,10 @@ class BlockService extends Service implements BlockServiceInterface
             throw new NotFoundException('block', $blockId);
         }
 
-        return $this->mapper->mapBlock($block, $locales);
+        return $this->mapper->mapBlock($block, $locale, $useMainLocale);
     }
 
-    public function loadZoneBlocks(Zone $zone, $locales = null)
+    public function loadZoneBlocks(Zone $zone, $locale = null, $useMainLocale = true)
     {
         $persistenceZone = $this->layoutHandler->loadZone(
             $zone->getLayoutId(),
@@ -143,7 +143,7 @@ class BlockService extends Service implements BlockServiceInterface
         $blocks = array();
         foreach ($persistenceBlocks as $persistenceBlock) {
             try {
-                $blocks[] = $this->mapper->mapBlock($persistenceBlock, $locales);
+                $blocks[] = $this->mapper->mapBlock($persistenceBlock, $locale, $useMainLocale);
             } catch (NotFoundException $e) {
                 // Block does not have the translation, skip it
             }
@@ -152,7 +152,7 @@ class BlockService extends Service implements BlockServiceInterface
         return $blocks;
     }
 
-    public function loadLayoutBlocks(Layout $layout, $locales = null)
+    public function loadLayoutBlocks(Layout $layout, $locale = null, $useMainLocale = true)
     {
         $persistenceLayout = $this->layoutHandler->loadLayout(
             $layout->getId(),
@@ -170,7 +170,7 @@ class BlockService extends Service implements BlockServiceInterface
         $blocks = array();
         foreach ($persistenceBlocks as $persistenceBlock) {
             try {
-                $blocks[] = $this->mapper->mapBlock($persistenceBlock, $locales);
+                $blocks[] = $this->mapper->mapBlock($persistenceBlock, $locale, $useMainLocale);
             } catch (NotFoundException $e) {
                 // Block does not have the translation, skip it
             }
@@ -284,7 +284,7 @@ class BlockService extends Service implements BlockServiceInterface
             }
         );
 
-        return $this->mapper->mapBlock($updatedBlock, $block->getAvailableLocales());
+        return $this->mapper->mapBlock($updatedBlock, $block->getLocale());
     }
 
     public function copyBlock(Block $block, Block $targetBlock, $placeholder)
@@ -326,7 +326,7 @@ class BlockService extends Service implements BlockServiceInterface
             }
         );
 
-        return $this->mapper->mapBlock($copiedBlock, $block->getAvailableLocales());
+        return $this->mapper->mapBlock($copiedBlock, $block->getLocale());
     }
 
     public function copyBlockToZone(Block $block, Zone $zone)
@@ -360,7 +360,7 @@ class BlockService extends Service implements BlockServiceInterface
             }
         );
 
-        return $this->mapper->mapBlock($copiedBlock, $block->getAvailableLocales());
+        return $this->mapper->mapBlock($copiedBlock, $block->getLocale());
     }
 
     public function moveBlock(Block $block, Block $targetBlock, $placeholder, $position)
@@ -399,7 +399,7 @@ class BlockService extends Service implements BlockServiceInterface
 
         $movedBlock = $this->internalMoveBlock($persistenceBlock, $persistenceTargetBlock, $placeholder, $position);
 
-        return $this->mapper->mapBlock($movedBlock, $block->getAvailableLocales());
+        return $this->mapper->mapBlock($movedBlock, $block->getLocale());
     }
 
     public function moveBlockToZone(Block $block, Zone $zone, $position)
@@ -431,7 +431,7 @@ class BlockService extends Service implements BlockServiceInterface
 
         $movedBlock = $this->internalMoveBlock($persistenceBlock, $rootBlock, 'root', $position);
 
-        return $this->mapper->mapBlock($movedBlock, $block->getAvailableLocales());
+        return $this->mapper->mapBlock($movedBlock, $block->getLocale());
     }
 
     public function restoreBlock(Block $block)
@@ -469,7 +469,7 @@ class BlockService extends Service implements BlockServiceInterface
             }
         );
 
-        return $this->mapper->mapBlock($draftBlock, array($draftBlock->mainLocale));
+        return $this->mapper->mapBlock($draftBlock, $draftBlock->mainLocale);
     }
 
     public function enableTranslations(Block $block)
@@ -511,7 +511,7 @@ class BlockService extends Service implements BlockServiceInterface
             }
         );
 
-        return $this->mapper->mapBlock($updatedBlock, array($updatedBlock->mainLocale));
+        return $this->mapper->mapBlock($updatedBlock, $updatedBlock->mainLocale);
     }
 
     public function disableTranslations(Block $block)
@@ -550,7 +550,7 @@ class BlockService extends Service implements BlockServiceInterface
             }
         );
 
-        return $this->mapper->mapBlock($updatedBlock, array($updatedBlock->mainLocale));
+        return $this->mapper->mapBlock($updatedBlock, $updatedBlock->mainLocale);
     }
 
     public function deleteBlock(Block $block)
@@ -670,7 +670,7 @@ class BlockService extends Service implements BlockServiceInterface
             }
         );
 
-        return $this->mapper->mapBlock($createdBlock, array($createdBlock->mainLocale));
+        return $this->mapper->mapBlock($createdBlock, $createdBlock->mainLocale);
     }
 
     /**

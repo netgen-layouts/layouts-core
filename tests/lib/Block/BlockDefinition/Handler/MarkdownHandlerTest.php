@@ -6,7 +6,6 @@ use Michelf\MarkdownInterface;
 use Netgen\BlockManager\Block\BlockDefinition\Handler\MarkdownHandler;
 use Netgen\BlockManager\Block\DynamicParameters;
 use Netgen\BlockManager\Core\Values\Block\Block;
-use Netgen\BlockManager\Core\Values\Block\BlockTranslation;
 use Netgen\BlockManager\Parameters\ParameterValue;
 use PHPUnit\Framework\TestCase;
 
@@ -44,16 +43,11 @@ class MarkdownHandlerTest extends TestCase
         $block = new Block(
             array(
                 'availableLocales' => array('en'),
-                'translations' => array(
-                    'en' => new BlockTranslation(
+                'locale' => 'en',
+                'parameters' => array(
+                    'content' => new ParameterValue(
                         array(
-                            'parameters' => array(
-                                'content' => new ParameterValue(
-                                    array(
-                                        'value' => '# Title',
-                                    )
-                                ),
-                            ),
+                            'value' => '# Title',
                         )
                     ),
                 ),

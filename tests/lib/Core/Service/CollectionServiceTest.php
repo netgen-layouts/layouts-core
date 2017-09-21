@@ -375,7 +375,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
      */
     public function testUpdateQuery()
     {
-        $query = $this->collectionService->loadQueryDraft(2, array('en', 'hr'));
+        $query = $this->collectionService->loadQueryDraft(2, 'en');
 
         $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct('hr');
 
@@ -389,13 +389,15 @@ abstract class CollectionServiceTest extends ServiceTestCase
 
         $this->assertEquals('ezcontent_search', $updatedQuery->getQueryType()->getType());
 
-        $this->assertEquals(0, $updatedQuery->getTranslation('en')->getParameter('offset')->getValue());
-        $this->assertNull($updatedQuery->getTranslation('en')->getParameter('param')->getValue());
+        $this->assertEquals(0, $updatedQuery->getParameter('offset')->getValue());
+        $this->assertNull($updatedQuery->getParameter('param')->getValue());
 
-        $this->assertEquals(3, $updatedQuery->getTranslation('hr')->getParameter('offset')->getValue());
+        $croQuery = $this->collectionService->loadQueryDraft(2, 'hr');
+
+        $this->assertEquals(3, $croQuery->getParameter('offset')->getValue());
 
         // "param" parameter is untranslatable, meaning it keeps the value from main locale
-        $this->assertNull($updatedQuery->getTranslation('hr')->getParameter('param')->getValue());
+        $this->assertNull($croQuery->getParameter('param')->getValue());
     }
 
     /**
@@ -404,7 +406,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
      */
     public function testUpdateQueryInMainLocale()
     {
-        $query = $this->collectionService->loadQueryDraft(2, array('en', 'hr'));
+        $query = $this->collectionService->loadQueryDraft(2, 'en');
 
         $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct('en');
 
@@ -418,13 +420,15 @@ abstract class CollectionServiceTest extends ServiceTestCase
 
         $this->assertEquals('ezcontent_search', $updatedQuery->getQueryType()->getType());
 
-        $this->assertEquals(3, $updatedQuery->getTranslation('en')->getParameter('offset')->getValue());
-        $this->assertEquals('new_value', $updatedQuery->getTranslation('en')->getParameter('param')->getValue());
+        $croQuery = $this->collectionService->loadQueryDraft(2, 'hr');
 
-        $this->assertEquals(0, $updatedQuery->getTranslation('hr')->getParameter('offset')->getValue());
+        $this->assertEquals(3, $updatedQuery->getParameter('offset')->getValue());
+        $this->assertEquals('new_value', $updatedQuery->getParameter('param')->getValue());
+
+        $this->assertEquals(0, $croQuery->getParameter('offset')->getValue());
 
         // "param" parameter is untranslatable, meaning it keeps the value from main locale
-        $this->assertEquals('new_value', $updatedQuery->getTranslation('hr')->getParameter('param')->getValue());
+        $this->assertEquals('new_value', $croQuery->getParameter('param')->getValue());
     }
 
     /**

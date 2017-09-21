@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Core\Values\Collection;
 
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
 use Netgen\BlockManager\Core\Values\ParameterBasedValueTrait;
-use Netgen\BlockManager\Exception\Core\TranslationException;
 use Netgen\BlockManager\ValueObject;
 
 class Query extends ValueObject implements APIQuery
@@ -57,9 +56,9 @@ class Query extends ValueObject implements APIQuery
     protected $alwaysAvailable;
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Collection\QueryTranslation[]
+     * @var string
      */
-    protected $translations = array();
+    protected $locale;
 
     public function getId()
     {
@@ -96,21 +95,6 @@ class Query extends ValueObject implements APIQuery
         return $this->queryType;
     }
 
-    public function getParameters()
-    {
-        return $this->getTranslation()->getParameters();
-    }
-
-    public function getParameter($parameterName)
-    {
-        return $this->getTranslation()->getParameter($parameterName);
-    }
-
-    public function hasParameter($parameterName)
-    {
-        return $this->getTranslation()->hasParameter($parameterName);
-    }
-
     public function getAvailableLocales()
     {
         return $this->availableLocales;
@@ -131,26 +115,8 @@ class Query extends ValueObject implements APIQuery
         return $this->alwaysAvailable;
     }
 
-    public function hasTranslation($locale)
+    public function getLocale()
     {
-        return array_key_exists($locale, $this->translations);
-    }
-
-    public function getTranslation($locale = null)
-    {
-        if ($locale === null) {
-            return $this->translations[$this->availableLocales[0]];
-        }
-
-        if (!$this->hasTranslation($locale)) {
-            throw TranslationException::noTranslation($locale);
-        }
-
-        return $this->translations[$locale];
-    }
-
-    public function getTranslations()
-    {
-        return $this->translations;
+        return $this->locale;
     }
 }

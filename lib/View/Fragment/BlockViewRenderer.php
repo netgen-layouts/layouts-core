@@ -62,7 +62,7 @@ class BlockViewRenderer implements ViewRendererInterface
             $this->blockController,
             array(
                 'blockId' => $view->getBlock()->getId(),
-                'locale' => $view->getBlock()->getTranslation()->getLocale(),
+                'locale' => $view->getBlock()->getLocale(),
                 'context' => $view->getContext(),
                 '_ngbm_status' => 'published',
             )

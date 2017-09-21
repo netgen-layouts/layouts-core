@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
 use Netgen\BlockManager\Core\Values\Collection\Query;
-use Netgen\BlockManager\Core\Values\Collection\QueryTranslation;
 use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Serializer\Normalizer\V1\CollectionQueryNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
@@ -45,24 +44,19 @@ class CollectionQueryNormalizerTest extends TestCase
                 'isTranslatable' => true,
                 'availableLocales' => array('en'),
                 'mainLocale' => 'en',
-                'translations' => array(
-                    'en' => new QueryTranslation(
+                'locale' => 'en',
+                'parameters' => array(
+                    'param' => new ParameterValue(
                         array(
-                            'parameters' => array(
-                                'param' => new ParameterValue(
-                                    array(
-                                        'name' => 'param',
-                                        'value' => 'value',
-                                    )
-                                ),
-                                'param2' => new ParameterValue(
-                                    array(
-                                        'name' => 'param2',
-                                        'value' => array(
-                                            'param3' => 'value3',
-                                        ),
-                                    )
-                                ),
+                            'name' => 'param',
+                            'value' => 'value',
+                        )
+                    ),
+                    'param2' => new ParameterValue(
+                        array(
+                            'name' => 'param2',
+                            'value' => array(
+                                'param3' => 'value3',
                             ),
                         )
                     ),
@@ -87,7 +81,7 @@ class CollectionQueryNormalizerTest extends TestCase
                 'id' => $query->getId(),
                 'collection_id' => $query->getCollectionId(),
                 'type' => $query->getQueryType()->getType(),
-                'locale' => $query->getTranslation()->getLocale(),
+                'locale' => $query->getLocale(),
                 'is_translatable' => $query->isTranslatable(),
                 'always_available' => $query->isAlwaysAvailable(),
                 'parameters' => $serializedParams,

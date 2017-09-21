@@ -6,7 +6,6 @@ use Exception;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Core\Values\Block\Block;
-use Netgen\BlockManager\Core\Values\Block\BlockTranslation;
 use Netgen\BlockManager\Locale\LocaleProviderInterface;
 use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
@@ -272,17 +271,12 @@ class RenderingExtensionTwigTest extends IntegrationTestCase
                                     'twig_block'
                                 ),
                                 'availableLocales' => array('en'),
-                                'translations' => array(
-                                    'en' => new BlockTranslation(
+                                'locale' => 'en',
+                                'parameters' => array(
+                                    'block_name' => new ParameterValue(
                                         array(
-                                            'parameters' => array(
-                                                'block_name' => new ParameterValue(
-                                                    array(
-                                                        'name' => 'block_name',
-                                                        'value' => 'my_block',
-                                                    )
-                                                ),
-                                            ),
+                                            'name' => 'block_name',
+                                            'value' => 'my_block',
                                         )
                                     ),
                                 ),

@@ -3,12 +3,10 @@
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
 use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Collection\QueryTypeInterface;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
-use Netgen\BlockManager\Core\Values\Collection\QueryTranslation;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandler;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceCollection;
@@ -45,19 +43,40 @@ class CollectionMapper
     /**
      * Builds the API collection value object from persistence one.
      *
-     * If $locales is an array, returned collection will only have specified translations.
-     * If $locales is true, returned collection will have all translations, otherwise, the main
-     * translation will be returned.
+     * If $locale is a string, the collection is loaded in specified locale.
+     * If $locale is an array of strings, the first available locale will
+     * be returned.
+     *
+     * If the collection is always available and $useMainLocale is set to true,
+     * collection in main locale will be returned if none of the locales in $locale
+     * array are found.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param string[]|bool $locales
+     * @param string|string[] $locale
+     * @param bool $useMainLocale
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If the collection does not have any currently available translations
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If the collection does not have any requested translations
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function mapCollection(PersistenceCollection $collection, $locales = null)
+    public function mapCollection(PersistenceCollection $collection, $locale = null, $useMainLocale = true)
     {
+        if (!is_array($locale)) {
+            $locale = array(is_string($locale) ? $locale : $collection->mainLocale);
+            $useMainLocale = false;
+        }
+
+        if ($useMainLocale && $collection->alwaysAvailable) {
+            $locale[] = $collection->mainLocale;
+        }
+
+        $validLocales = array_unique(array_intersect($locale, $collection->availableLocales));
+        if (empty($validLocales)) {
+            throw new NotFoundException('collection', $collection->id);
+        }
+
+        $collectionLocale = reset($validLocales);
+
         $persistenceItems = $this->collectionHandler->loadCollectionItems($collection);
 
         $items = array();
@@ -76,25 +95,8 @@ class CollectionMapper
         }
 
         if ($persistenceQuery instanceof PersistenceQuery) {
-            $query = $this->mapQuery($persistenceQuery, $locales);
+            $query = $this->mapQuery($persistenceQuery, $locale, false);
             $type = Collection::TYPE_DYNAMIC;
-        }
-
-        if ($locales === true) {
-            $locales = $collection->availableLocales;
-            sort($locales);
-        } elseif (!is_array($locales) || empty($locales)) {
-            $locales = array($collection->mainLocale);
-        }
-
-        if ($collection->alwaysAvailable && !in_array($collection->mainLocale, $locales, true)) {
-            $locales[] = $collection->mainLocale;
-        }
-
-        $locales = array_values(array_intersect($locales, $collection->availableLocales));
-
-        if (empty($locales)) {
-            throw new NotFoundException('collection', $collection->id);
         }
 
         $collectionData = array(
@@ -107,7 +109,8 @@ class CollectionMapper
             'isTranslatable' => $collection->isTranslatable,
             'mainLocale' => $collection->mainLocale,
             'alwaysAvailable' => $collection->alwaysAvailable,
-            'availableLocales' => $locales,
+            'availableLocales' => $collection->availableLocales,
+            'locale' => $collectionLocale,
         );
 
         return new Collection($collectionData);
@@ -139,44 +142,45 @@ class CollectionMapper
     /**
      * Builds the API query value object from persistence one.
      *
-     * If $locales is an array, returned query will only have specified translations.
-     * If $locales is true, returned query will have all translations, otherwise, the main
-     * translation will be returned.
+     * If $locale is a string, the query is loaded in specified locale.
+     * If $locale is an array of strings, the first available locale will
+     * be returned.
+     *
+     * If the query is always available and $useMainLocale is set to true,
+     * query in main locale will be returned if none of the locales in $locale
+     * array are found.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
-     * @param string[]|bool $locales
+     * @param string|string[] $locale
+     * @param bool $useMainLocale
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If the query does not have any currently available translations
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If the query does not have any requested locales
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
-    public function mapQuery(PersistenceQuery $query, $locales = null)
+    public function mapQuery(PersistenceQuery $query, $locale = null, $useMainLocale = true)
     {
-        $queryType = $this->queryTypeRegistry->getQueryType(
-            $query->type
-        );
+        $queryType = $this->queryTypeRegistry->getQueryType($query->type);
 
-        if ($locales === true) {
-            $locales = $query->availableLocales;
-            sort($locales);
-        } elseif (!is_array($locales) || empty($locales)) {
-            $locales = array($query->mainLocale);
+        if (!is_array($locale)) {
+            $locale = array(is_string($locale) ? $locale : $query->mainLocale);
+            $useMainLocale = false;
         }
 
-        if ($query->alwaysAvailable && !in_array($query->mainLocale, $locales, true)) {
-            $locales[] = $query->mainLocale;
+        if ($useMainLocale && $query->alwaysAvailable) {
+            $locale[] = $query->mainLocale;
         }
 
-        $translations = array();
-        foreach ($locales as $locale) {
-            if (in_array($locale, $query->availableLocales, true)) {
-                $translations[$locale] = $this->mapQueryTranslation($query, $queryType, $locale);
-            }
-        }
-
-        if (empty($translations)) {
+        $validLocales = array_unique(array_intersect($locale, $query->availableLocales));
+        if (empty($validLocales)) {
             throw new NotFoundException('query', $query->id);
         }
+
+        $queryLocale = reset($validLocales);
+        $untranslatableParams = $this->parameterMapper->extractUntranslatableParameters(
+            $queryType,
+            $query->parameters[$query->mainLocale]
+        );
 
         $queryData = array(
             'id' => $query->id,
@@ -187,38 +191,14 @@ class CollectionMapper
             'isTranslatable' => $query->isTranslatable,
             'mainLocale' => $query->mainLocale,
             'alwaysAvailable' => $query->alwaysAvailable,
-            'availableLocales' => array_keys($translations),
-            'translations' => $translations,
+            'availableLocales' => $query->availableLocales,
+            'locale' => $queryLocale,
+            'parameters' => $this->parameterMapper->mapParameters(
+                $queryType,
+                $untranslatableParams + $query->parameters[$queryLocale]
+            ),
         );
 
         return new Query($queryData);
-    }
-
-    /**
-     * Maps the query translation for the provided locale.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
-     * @param \Netgen\BlockManager\Collection\QueryTypeInterface $queryType
-     * @param string $locale
-     *
-     * @return \Netgen\BlockManager\Core\Values\Collection\QueryTranslation
-     */
-    private function mapQueryTranslation(PersistenceQuery $query, QueryTypeInterface $queryType, $locale)
-    {
-        $untranslatableParams = $this->parameterMapper->extractUntranslatableParameters(
-            $queryType,
-            $query->parameters[$query->mainLocale]
-        );
-
-        return new QueryTranslation(
-            array(
-                'locale' => $locale,
-                'isMainTranslation' => $locale === $query->mainLocale,
-                'parameters' => $this->parameterMapper->mapParameters(
-                    $queryType,
-                    $untranslatableParams + $query->parameters[$locale]
-                ),
-            )
-        );
     }
 }
