@@ -15,13 +15,13 @@ interface CollectionService extends Service
     /**
      * Loads a collection with specified ID.
      *
-     * If $locale is a string, the collection is loaded in specified locale.
-     * If $locale is an array of strings, the first available locale will
-     * be returned.
+     * By default, collection is loaded in main locale. If $locale is a string,
+     * the collection is loaded in specified locale.
      *
-     * If the collection is always available and $useMainLocale is set to true,
-     * collection in main locale will be returned if none of the locales in $locale
-     * array are found.
+     * If $locale is an array of strings, the first available locale will
+     * be returned. If the collection is always available and $useMainLocale is
+     * set to true, collection in main locale will be returned if none of the
+     * locales in $locale array are found.
      *
      * @param int|string $collectionId
      * @param string|string[] $locale
@@ -36,13 +36,13 @@ interface CollectionService extends Service
     /**
      * Loads a collection draft with specified ID.
      *
-     * If $locale is a string, the collection is loaded in specified locale.
-     * If $locale is an array of strings, the first available locale will
-     * be returned.
+     * By default, collection is loaded in main locale. If $locale is a string,
+     * the collection is loaded in specified locale.
      *
-     * If the collection is always available and $useMainLocale is set to true,
-     * collection in main locale will be returned if none of the locales in $locale
-     * array are found.
+     * If $locale is an array of strings, the first available locale will
+     * be returned. If the collection is always available and $useMainLocale is
+     * set to true, collection in main locale will be returned if none of the
+     * locales in $locale array are found.
      *
      * @param int|string $collectionId
      * @param string|string[] $locale
@@ -79,13 +79,13 @@ interface CollectionService extends Service
     /**
      * Loads a query with specified ID.
      *
-     * If $locale is a string, the query is loaded in specified locale.
-     * If $locale is an array of strings, the first available locale will
-     * be returned.
+     * By default, query is loaded in main locale. If $locale is a string,
+     * the query is loaded in specified locale.
      *
-     * If the query is always available and $useMainLocale is set to true,
-     * query in main locale will be returned if none of the locales in $locale
-     * array are found.
+     * If $locale is an array of strings, the first available locale will
+     * be returned. If the query is always available and $useMainLocale is
+     * set to true, query in main locale will be returned if none of the
+     * locales in $locale array are found.
      *
      * @param int|string $queryId
      * @param string|string[] $locale
@@ -100,13 +100,13 @@ interface CollectionService extends Service
     /**
      * Loads a query with specified ID.
      *
-     * If $locale is a string, the query is loaded in specified locale.
-     * If $locale is an array of strings, the first available locale will
-     * be returned.
+     * By default, query is loaded in main locale. If $locale is a string,
+     * the query is loaded in specified locale.
      *
-     * If the query is always available and $useMainLocale is set to true,
-     * query in main locale will be returned if none of the locales in $locale
-     * array are found.
+     * If $locale is an array of strings, the first available locale will
+     * be returned. If the query is always available and $useMainLocale is
+     * set to true, query in main locale will be returned if none of the
+     * locales in $locale array are found.
      *
      * @param int|string $queryId
      * @param string|string[] $locale

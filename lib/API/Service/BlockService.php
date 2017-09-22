@@ -14,13 +14,13 @@ interface BlockService extends Service
     /**
      * Loads a block with specified ID.
      *
-     * If $locale is a string, the block is loaded in specified locale.
-     * If $locale is an array of strings, the first available locale will
-     * be returned.
+     * By default, block is loaded in main locale. If $locale is a string,
+     * the block is loaded in specified locale.
      *
-     * If the block is always available and $useMainLocale is set to true,
-     * block in main locale will be returned if none of the locales in $locale
-     * array are found.
+     * If $locale is an array of strings, the first available locale will
+     * be returned. If the block is always available and $useMainLocale is
+     * set to true, block in main locale will be returned if none of the
+     * locales in $locale array are found.
      *
      * @param int|string $blockId
      * @param string|string[] $locale
@@ -35,13 +35,13 @@ interface BlockService extends Service
     /**
      * Loads a block draft with specified ID.
      *
-     * If $locale is a string, the block is loaded in specified locale.
-     * If $locale is an array of strings, the first available locale will
-     * be returned.
+     * By default, block is loaded in main locale. If $locale is a string,
+     * the block is loaded in specified locale.
      *
-     * If the block is always available and $useMainLocale is set to true,
-     * block in main locale will be returned if none of the locales in $locale
-     * array are found.
+     * If $locale is an array of strings, the first available locale will
+     * be returned. If the block is always available and $useMainLocale is
+     * set to true, block in main locale will be returned if none of the
+     * locales in $locale array are found.
      *
      * @param int|string $blockId
      * @param string|string[] $locale
@@ -56,13 +56,13 @@ interface BlockService extends Service
     /**
      * Loads all blocks belonging to provided zone.
      *
-     * If $locale is a string, the block is loaded in specified locale.
-     * If $locale is an array of strings, the first available locale will
-     * be returned.
+     * By default, block is loaded in main locale. If $locale is a string,
+     * the block is loaded in specified locale.
      *
-     * If the block is always available and $useMainLocale is set to true,
-     * block in main locale will be returned if none of the locales in $locale
-     * array are found.
+     * If $locale is an array of strings, the first available locale will
+     * be returned. If the block is always available and $useMainLocale is
+     * set to true, block in main locale will be returned if none of the
+     * locales in $locale array are found.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
      * @param string|string[] $locale
@@ -75,13 +75,13 @@ interface BlockService extends Service
     /**
      * Loads all blocks belonging to provided layout.
      *
-     * If $locale is a string, the block is loaded in specified locale.
-     * If $locale is an array of strings, the first available locale will
-     * be returned.
+     * By default, block is loaded in main locale. If $locale is a string,
+     * the block is loaded in specified locale.
      *
-     * If the block is always available and $useMainLocale is set to true,
-     * block in main locale will be returned if none of the locales in $locale
-     * array are found.
+     * If $locale is an array of strings, the first available locale will
+     * be returned. If the block is always available and $useMainLocale is
+     * set to true, block in main locale will be returned if none of the
+     * locales in $locale array are found.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      * @param string|string[] $locale
