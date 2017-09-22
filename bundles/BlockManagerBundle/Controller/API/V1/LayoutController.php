@@ -90,6 +90,7 @@ class LayoutController extends Controller
 
         $blocks = array();
         foreach ($layout as $zone) {
+            // We're using array of locales to activate fallback to the main locale
             foreach ($this->blockService->loadZoneBlocks($zone, array($locale)) as $block) {
                 $blocks[] = new View($block, Version::API_V1);
             }
@@ -119,6 +120,7 @@ class LayoutController extends Controller
         }
 
         $blocks = array();
+        // We're using array of locales to activate fallback to the main locale
         foreach ($this->blockService->loadZoneBlocks($zone, array($locale)) as $block) {
             $blocks[] = new View($block, Version::API_V1);
         }

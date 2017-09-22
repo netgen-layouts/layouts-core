@@ -35,12 +35,12 @@ class CollectionParamConverter extends ParamConverter
 
     public function loadValueObject(array $values)
     {
-        $locales = isset($values['locale']) ? array($values['locale']) : null;
+        $locale = isset($values['locale']) ? $values['locale'] : null;
 
         if ($values['published']) {
-            return $this->collectionService->loadCollection($values['collectionId'], $locales);
+            return $this->collectionService->loadCollection($values['collectionId'], $locale);
         }
 
-        return $this->collectionService->loadCollectionDraft($values['collectionId'], $locales);
+        return $this->collectionService->loadCollectionDraft($values['collectionId'], $locale);
     }
 }
