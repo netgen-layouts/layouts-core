@@ -5,8 +5,8 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\Core\Helper\TranslationHelper;
 use Lakion\ApiTestCase\JsonApiTestCase as BaseJsonApiTestCase;
-use Netgen\BlockManager\Ez\Collection\QueryType\Handler\ContentSearchHandler;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\DatabaseTrait;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -25,7 +25,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
 
         $this->setUpClient();
         $this->mockItemLoader();
-        $this->mockSearchHandler();
+        $this->mockQueryType();
         $this->mockTranslationHelper();
         $this->createDatabase();
 
@@ -66,25 +66,15 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         }
     }
 
-    protected function mockSearchHandler()
+    protected function mockQueryType()
     {
-        /** @var \Mockery\MockInterface $searchHandlerMock */
-        $searchHandlerMock = $this->clientContainer->mock(
-            'netgen_block_manager.collection.query_type.handler.ezcontent_search',
-            ContentSearchHandler::class
-        );
-
-        $searchHandlerMock->makePartial();
-
         $searchFixtures = require __DIR__ . '/fixtures/search.php';
 
-        $searchHandlerMock
-            ->shouldReceive('getCount')
-            ->andReturn(count($searchFixtures));
+        $queryTypeRegistry = $this->clientContainer
+            ->get('netgen_block_manager.collection.registry.query_type');
 
-        $searchHandlerMock
-            ->shouldReceive('getValues')
-            ->andReturn($searchFixtures);
+        $queryType = new QueryType('ezcontent_search', $searchFixtures, count($searchFixtures));
+        $queryTypeRegistry->addQueryType('ezcontent_search', $queryType);
     }
 
     protected function mockTranslationHelper()
