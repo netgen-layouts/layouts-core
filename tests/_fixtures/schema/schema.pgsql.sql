@@ -87,7 +87,7 @@ CREATE TABLE "ngbm_collection" (
 CREATE TABLE "ngbm_collection_translation" (
   "collection_id" integer NOT NULL,
   "status" integer NOT NULL,
-  "locale" character varying(255) NOT NULL,
+  "locale" character varying(255) NOT NULL
 );
 
 CREATE TABLE "ngbm_collection_item" (
@@ -104,7 +104,7 @@ CREATE TABLE "ngbm_collection_query" (
   "id" integer NOT NULL,
   "status" integer NOT NULL,
   "collection_id" integer NOT NULL,
-  "type" character varying(255) NOT NULL,
+  "type" character varying(255) NOT NULL
 );
 
 CREATE TABLE "ngbm_collection_query_translation" (
