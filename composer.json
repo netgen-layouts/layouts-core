@@ -64,7 +64,6 @@
     },
     "autoload-dev": {
         "files": [
-            "tests/bootstrap.php",
             "vendor/symfony/symfony/src/Symfony/Component/VarDumper/Resources/functions/dump.php"
         ]
     },
