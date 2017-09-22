@@ -3,10 +3,10 @@ services:
         class: Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter
         public: false
         tags:
-            - { name: netgen_block_manager.layout.resolver.condition_type, priority: 0 }
+            - { name: netgen_block_manager.layout.resolver.condition_type }
 
     netgen_block_manager.layout.resolver.condition_type.query_parameter:
         class: Netgen\BlockManager\Layout\Resolver\ConditionType\QueryParameter
         public: false
         tags:
-            - { name: netgen_block_manager.layout.resolver.condition_type, priority: 0 }
+            - { name: netgen_block_manager.layout.resolver.condition_type }

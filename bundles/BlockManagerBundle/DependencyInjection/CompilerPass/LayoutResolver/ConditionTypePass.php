@@ -19,19 +19,11 @@ class ConditionTypePass implements CompilerPassInterface
 
         $conditionTypeRegistry = $container->findDefinition(self::SERVICE_NAME);
 
-        $conditionTypes = array();
-        foreach ($container->findTaggedServiceIds(self::TAG_NAME) as $conditionType => $tag) {
-            $priority = isset($tag[0]['priority']) ? (int) $tag[0]['priority'] : 0;
-            $conditionTypes[$priority][] = new Reference($conditionType);
-        }
-
-        krsort($conditionTypes);
-        $conditionTypes = array_merge(...$conditionTypes);
-
-        foreach ($conditionTypes as $conditionType) {
+        $conditionTypeServices = array_keys($container->findTaggedServiceIds(self::TAG_NAME));
+        foreach ($conditionTypeServices as $conditionTypeService) {
             $conditionTypeRegistry->addMethodCall(
                 'addConditionType',
-                array($conditionType)
+                array(new Reference($conditionTypeService))
             );
         }
     }
