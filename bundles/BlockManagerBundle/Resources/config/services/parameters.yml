@@ -32,7 +32,7 @@ services:
         class: Netgen\BlockManager\Parameters\Filter\Html\HtmlPurifierFilter
         public: false
         tags:
-            - { name: netgen_block_manager.parameters.parameter_filter, type: html }
+            - { name: netgen_block_manager.parameters.parameter_filter, type: html, priority: 0 }
 
     # Parameter types
 
