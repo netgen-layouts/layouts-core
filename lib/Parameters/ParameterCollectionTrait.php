@@ -9,7 +9,7 @@ trait ParameterCollectionTrait
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterInterface[]
      */
-    protected $parameters;
+    protected $parameters = array();
 
     /**
      * Returns the list of parameters in the object.

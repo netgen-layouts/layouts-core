@@ -18,7 +18,7 @@ class CompoundParameterTest extends TestCase
     {
         $parameter = new CompoundParameter();
 
-        $this->assertNull($parameter->getParameters());
+        $this->assertEquals(array(), $parameter->getParameters());
     }
 
     /**
