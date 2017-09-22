@@ -68,7 +68,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
 
     protected function mockSearchHandler()
     {
-        /** @var \Mockery\MockInterface $locationMock */
+        /** @var \Mockery\MockInterface $searchHandlerMock */
         $searchHandlerMock = $this->clientContainer->mock(
             'netgen_block_manager.collection.query_type.handler.ezcontent_search',
             ContentSearchHandler::class
