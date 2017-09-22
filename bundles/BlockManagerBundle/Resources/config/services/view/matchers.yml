@@ -17,11 +17,23 @@ services:
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: form\block\definition }
 
+    netgen_block_manager.view.matcher.form.block.locale:
+        class: Netgen\BlockManager\View\Matcher\Form\Block\Locale
+        public: false
+        tags:
+            - { name: netgen_block_manager.view.template_matcher, identifier: form\block\locale }
+
     netgen_block_manager.view.matcher.form.query.type:
         class: Netgen\BlockManager\View\Matcher\Form\Query\Type
         public: false
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: form\query\type }
+
+    netgen_block_manager.view.matcher.form.query.locale:
+        class: Netgen\BlockManager\View\Matcher\Form\Query\Locale
+        public: false
+        tags:
+            - { name: netgen_block_manager.view.template_matcher, identifier: form\query\locale }
 
     netgen_block_manager.view.matcher.form.config.config_key:
         class: Netgen\BlockManager\View\Matcher\Form\Config\ConfigKey
@@ -64,6 +76,12 @@ services:
         public: false
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: block\view_type }
+
+    netgen_block_manager.view.matcher.block.locale:
+        class: Netgen\BlockManager\View\Matcher\Block\Locale
+        public: false
+        tags:
+            - { name: netgen_block_manager.view.template_matcher, identifier: block\locale }
 
     netgen_block_manager.view.matcher.item.view_type:
         class: Netgen\BlockManager\View\Matcher\Item\ViewType
