@@ -70,37 +70,32 @@ class BlockMapper
     /**
      * Builds the API block value object from persistence one.
      *
-     * If $locale is a string, the block is loaded in specified locale.
-     * If $locale is an array of strings, the first available locale will
-     * be returned.
+     * If not empty, the first available locale in $locales array will be returned.
      *
      * If the block is always available and $useMainLocale is set to true,
-     * block in main locale will be returned if none of the locales in $locale
+     * block in main locale will be returned if none of the locales in $locales
      * array are found.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
-     * @param string|string[] $locale
+     * @param string[] $locales
      * @param bool $useMainLocale
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If the block does not have any requested translations
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function mapBlock(PersistenceBlock $block, $locale = null, $useMainLocale = true)
+    public function mapBlock(PersistenceBlock $block, array $locales = null, $useMainLocale = true)
     {
         $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition(
             $block->definitionIdentifier
         );
 
-        if (!is_array($locale)) {
-            $locale = array(is_string($locale) ? $locale : $block->mainLocale);
-        }
-
+        $locales = !empty($locales) ? $locales : array($block->mainLocale);
         if ($useMainLocale && $block->alwaysAvailable) {
-            $locale[] = $block->mainLocale;
+            $locales[] = $block->mainLocale;
         }
 
-        $validLocales = array_unique(array_intersect($locale, $block->availableLocales));
+        $validLocales = array_unique(array_intersect($locales, $block->availableLocales));
         if (empty($validLocales)) {
             throw new NotFoundException('block', $block->id);
         }
@@ -120,8 +115,8 @@ class BlockMapper
             'name' => $block->name,
             'status' => $block->status,
             'published' => $block->status === Value::STATUS_PUBLISHED,
-            'placeholders' => $this->mapPlaceholders($block, $blockDefinition, $locale),
-            'collectionReferences' => $this->mapCollectionReferences($block, $locale),
+            'placeholders' => $this->mapPlaceholders($block, $blockDefinition, $locales),
+            'collectionReferences' => $this->mapCollectionReferences($block, $locales),
             'configs' => $this->configMapper->mapConfig($block->config, $blockDefinition->getConfigDefinitions()),
             'isTranslatable' => $block->isTranslatable,
             'mainLocale' => $block->mainLocale,

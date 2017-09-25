@@ -15,44 +15,42 @@ interface CollectionService extends Service
     /**
      * Loads a collection with specified ID.
      *
-     * By default, collection is loaded in main locale. If $locale is a string,
-     * the collection is loaded in specified locale.
+     * By default, collection is loaded in main locale.
      *
-     * If $locale is an array of strings, the first available locale will
+     * If $locales is an array of strings, the first available locale will
      * be returned. If the collection is always available and $useMainLocale is
      * set to true, collection in main locale will be returned if none of the
-     * locales in $locale array are found.
+     * locales in $locales array are found.
      *
      * @param int|string $collectionId
-     * @param string|string[] $locale
+     * @param string[] $locales
      * @param bool $useMainLocale
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If collection with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function loadCollection($collectionId, $locale = null, $useMainLocale = true);
+    public function loadCollection($collectionId, array $locales = null, $useMainLocale = true);
 
     /**
      * Loads a collection draft with specified ID.
      *
-     * By default, collection is loaded in main locale. If $locale is a string,
-     * the collection is loaded in specified locale.
+     * By default, collection is loaded in main locale.
      *
-     * If $locale is an array of strings, the first available locale will
+     * If $locales is an array of strings, the first available locale will
      * be returned. If the collection is always available and $useMainLocale is
      * set to true, collection in main locale will be returned if none of the
-     * locales in $locale array are found.
+     * locales in $locales array are found.
      *
      * @param int|string $collectionId
-     * @param string|string[] $locale
+     * @param string[] $locales
      * @param bool $useMainLocale
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If collection with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function loadCollectionDraft($collectionId, $locale = null, $useMainLocale = true);
+    public function loadCollectionDraft($collectionId, array $locales = null, $useMainLocale = true);
 
     /**
      * Loads an item with specified ID.
@@ -79,44 +77,42 @@ interface CollectionService extends Service
     /**
      * Loads a query with specified ID.
      *
-     * By default, query is loaded in main locale. If $locale is a string,
-     * the query is loaded in specified locale.
+     * By default, query is loaded in main locale.
      *
-     * If $locale is an array of strings, the first available locale will
+     * If $locales is an array of strings, the first available locale will
      * be returned. If the query is always available and $useMainLocale is
      * set to true, query in main locale will be returned if none of the
-     * locales in $locale array are found.
+     * locales in $locales array are found.
      *
      * @param int|string $queryId
-     * @param string|string[] $locale
+     * @param string[] $locales
      * @param bool $useMainLocale
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If query with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
-    public function loadQuery($queryId, $locale = null, $useMainLocale = true);
+    public function loadQuery($queryId, array $locales = null, $useMainLocale = true);
 
     /**
      * Loads a query with specified ID.
      *
-     * By default, query is loaded in main locale. If $locale is a string,
-     * the query is loaded in specified locale.
+     * By default, query is loaded in main locale.
      *
-     * If $locale is an array of strings, the first available locale will
+     * If $locales is an array of strings, the first available locale will
      * be returned. If the query is always available and $useMainLocale is
      * set to true, query in main locale will be returned if none of the
-     * locales in $locale array are found.
+     * locales in $locales array are found.
      *
      * @param int|string $queryId
-     * @param string|string[] $locale
+     * @param string[] $locales
      * @param bool $useMainLocale
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If query with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
-    public function loadQueryDraft($queryId, $locale = null, $useMainLocale = true);
+    public function loadQueryDraft($queryId, array $locales = null, $useMainLocale = true);
 
     /**
      * Changes the type of specified collection.

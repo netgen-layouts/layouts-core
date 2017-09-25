@@ -14,89 +14,81 @@ interface BlockService extends Service
     /**
      * Loads a block with specified ID.
      *
-     * By default, block is loaded in main locale. If $locale is a string,
-     * the block is loaded in specified locale.
+     * By default, block is loaded in main locale.
      *
-     * If $locale is an array of strings, the first available locale will
+     * If $locales is an array of strings, the first available locale will
      * be returned. If the block is always available and $useMainLocale is
      * set to true, block in main locale will be returned if none of the
-     * locales in $locale array are found.
+     * locales in $locales array are found.
      *
      * @param int|string $blockId
-     * @param string|string[] $locale
+     * @param string[] $locales
      * @param bool $useMainLocale
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If block with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function loadBlock($blockId, $locale = null, $useMainLocale = true);
+    public function loadBlock($blockId, array $locales = null, $useMainLocale = true);
 
     /**
      * Loads a block draft with specified ID.
      *
-     * By default, block is loaded in main locale. If $locale is a string,
-     * the block is loaded in specified locale.
+     * By default, block is loaded in main locale.
      *
-     * If $locale is an array of strings, the first available locale will
+     * If $locales is an array of strings, the first available locale will
      * be returned. If the block is always available and $useMainLocale is
      * set to true, block in main locale will be returned if none of the
-     * locales in $locale array are found.
+     * locales in $locales array are found.
      *
      * @param int|string $blockId
-     * @param string|string[] $locale
+     * @param string[] $locales
      * @param bool $useMainLocale
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If block with specified ID does not exist
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function loadBlockDraft($blockId, $locale = null, $useMainLocale = true);
+    public function loadBlockDraft($blockId, array $locales = null, $useMainLocale = true);
 
     /**
      * Loads all blocks belonging to provided zone.
      *
-     * By default, block is loaded in main locale. If $locale is a string,
-     * the block is loaded in specified locale.
+     * By default, block is loaded in main locale.
      *
-     * If $locale is an array of strings, the first available locale will
+     * If $locales is an array of strings, the first available locale will
      * be returned. If the block is always available and $useMainLocale is
      * set to true, block in main locale will be returned if none of the
-     * locales in $locale array are found.
+     * locales in $locales array are found.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
-     * @param string|string[] $locale
+     * @param string[] $locales
      * @param bool $useMainLocale
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block[]
      */
-    public function loadZoneBlocks(Zone $zone, $locale = null, $useMainLocale = true);
+    public function loadZoneBlocks(Zone $zone, array $locales = null, $useMainLocale = true);
 
     /**
      * Loads all blocks belonging to provided layout.
      *
-     * By default, block is loaded in main locale. If $locale is a string,
-     * the block is loaded in specified locale.
+     * By default, block is loaded in main locale.
      *
-     * If $locale is an array of strings, the first available locale will
+     * If $locales is an array of strings, the first available locale will
      * be returned. If the block is always available and $useMainLocale is
      * set to true, block in main locale will be returned if none of the
-     * locales in $locale array are found.
+     * locales in $locales array are found.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param string|string[] $locale
+     * @param string[] $locales
      * @param bool $useMainLocale
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block[]
      */
-    public function loadLayoutBlocks(Layout $layout, $locale = null, $useMainLocale = true);
+    public function loadLayoutBlocks(Layout $layout, array $locales = null, $useMainLocale = true);
 
     /**
      * Returns if provided block has a published status.
-     *
-     * If $locales is an array, returned blocks will only have specified translations.
-     * If $locales is true, returned blocks will have all translations, otherwise, the main
-     * translation will be returned.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      *

@@ -113,7 +113,7 @@ abstract class BlockMapperTest extends ServiceTestCase
             )
         );
 
-        $block = $this->blockMapper->mapBlock($persistenceBlock, 'hr');
+        $block = $this->blockMapper->mapBlock($persistenceBlock, array('hr'));
 
         $this->assertInstanceOf(APIBlock::class, $block);
         $this->assertEquals(array('en', 'hr', 'de'), $block->getAvailableLocales());

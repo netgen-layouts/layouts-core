@@ -211,7 +211,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertCount(1, $collectionReferences);
         $this->assertArrayHasKey('default', $collectionReferences);
 
-        $collection = $this->collectionService->loadCollectionDraft(7, true);
+        $collection = $this->collectionService->loadCollectionDraft(7, array('en', 'hr'));
         $this->assertTrue($collection->isTranslatable());
         $this->assertEquals('en', $collection->getMainLocale());
 
@@ -592,7 +592,7 @@ abstract class BlockServiceTest extends ServiceTestCase
      */
     public function testUpdateBlock()
     {
-        $block = $this->blockService->loadBlockDraft(31, 'en');
+        $block = $this->blockService->loadBlockDraft(31, array('en'));
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('hr');
         $blockUpdateStruct->viewType = 'small';
@@ -610,7 +610,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertEquals('css-class', $block->getParameter('css_class')->getValue());
         $this->assertEquals('css-id', $block->getParameter('css_id')->getValue());
 
-        $croBlock = $this->blockService->loadBlockDraft(31, 'hr');
+        $croBlock = $this->blockService->loadBlockDraft(31, array('hr'));
 
         $this->assertEquals('test_value', $croBlock->getParameter('css_class')->getValue());
 
@@ -624,7 +624,7 @@ abstract class BlockServiceTest extends ServiceTestCase
      */
     public function testUpdateBlockInMainLocale()
     {
-        $block = $this->blockService->loadBlockDraft(31, 'en');
+        $block = $this->blockService->loadBlockDraft(31, array('en'));
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('en');
         $blockUpdateStruct->viewType = 'small';
@@ -642,7 +642,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertEquals('test_value', $block->getParameter('css_class')->getValue());
         $this->assertEquals('some_other_test_value', $block->getParameter('css_id')->getValue());
 
-        $croBlock = $this->blockService->loadBlockDraft(31, 'hr');
+        $croBlock = $this->blockService->loadBlockDraft(31, array('hr'));
 
         $this->assertEquals('css-class-hr', $croBlock->getParameter('css_class')->getValue());
 
@@ -656,7 +656,7 @@ abstract class BlockServiceTest extends ServiceTestCase
      */
     public function testUpdateBlockWithUntranslatableParameters()
     {
-        $block = $this->blockService->loadBlockDraft(31, 'en');
+        $block = $this->blockService->loadBlockDraft(31, array('en'));
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('en');
         $blockUpdateStruct->setParameterValue('css_id', 'some_other_test_value');
@@ -670,7 +670,7 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
-        $croBlock = $this->blockService->loadBlockDraft(31, 'hr');
+        $croBlock = $this->blockService->loadBlockDraft(31, array('hr'));
 
         $this->assertEquals('english_css', $block->getParameter('css_class')->getValue());
         $this->assertEquals('some_other_test_value', $block->getParameter('css_id')->getValue());

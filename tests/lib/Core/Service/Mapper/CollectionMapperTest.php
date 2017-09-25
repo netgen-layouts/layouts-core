@@ -85,7 +85,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
             )
         );
 
-        $collection = $this->collectionMapper->mapCollection($persistenceCollection, 'hr');
+        $collection = $this->collectionMapper->mapCollection($persistenceCollection, array('hr'));
 
         $this->assertInstanceOf(APICollection::class, $collection);
         $this->assertEquals(array('en', 'hr', 'de'), $collection->getAvailableLocales());
@@ -105,7 +105,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
             )
         );
 
-        $collection = $this->collectionMapper->mapCollection($persistenceCollection, 'hr', 'en');
+        $collection = $this->collectionMapper->mapCollection($persistenceCollection, array('hr', 'en'));
 
         $this->assertInstanceOf(APICollection::class, $collection);
         $this->assertEquals(array('en', 'hr', 'de'), $collection->getAvailableLocales());
@@ -170,7 +170,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
             )
         );
 
-        $this->collectionMapper->mapCollection($persistenceCollection, array('fr', 'no'), false);
+        $this->collectionMapper->mapCollection($persistenceCollection, array('fr', 'no'));
     }
 
     /**
@@ -315,7 +315,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
             )
         );
 
-        $query = $this->collectionMapper->mapQuery($persistenceQuery, 'hr');
+        $query = $this->collectionMapper->mapQuery($persistenceQuery, array('hr'));
 
         $this->assertInstanceOf(APIQuery::class, $query);
         $this->assertEquals(array('en', 'hr', 'de'), $query->getAvailableLocales());

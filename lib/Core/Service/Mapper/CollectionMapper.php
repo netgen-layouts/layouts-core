@@ -43,33 +43,28 @@ class CollectionMapper
     /**
      * Builds the API collection value object from persistence one.
      *
-     * If $locale is a string, the collection is loaded in specified locale.
-     * If $locale is an array of strings, the first available locale will
-     * be returned.
+     * If not empty, the first available locale in $locales array will be returned.
      *
      * If the collection is always available and $useMainLocale is set to true,
-     * collection in main locale will be returned if none of the locales in $locale
+     * collection in main locale will be returned if none of the locales in $locales
      * array are found.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
-     * @param string|string[] $locale
+     * @param string[] $locales
      * @param bool $useMainLocale
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If the collection does not have any requested translations
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    public function mapCollection(PersistenceCollection $collection, $locale = null, $useMainLocale = true)
+    public function mapCollection(PersistenceCollection $collection, array $locales = null, $useMainLocale = true)
     {
-        if (!is_array($locale)) {
-            $locale = array(is_string($locale) ? $locale : $collection->mainLocale);
-        }
-
+        $locales = !empty($locales) ? $locales : array($collection->mainLocale);
         if ($useMainLocale && $collection->alwaysAvailable) {
-            $locale[] = $collection->mainLocale;
+            $locales[] = $collection->mainLocale;
         }
 
-        $validLocales = array_unique(array_intersect($locale, $collection->availableLocales));
+        $validLocales = array_unique(array_intersect($locales, $collection->availableLocales));
         if (empty($validLocales)) {
             throw new NotFoundException('collection', $collection->id);
         }
@@ -94,7 +89,7 @@ class CollectionMapper
         }
 
         if ($persistenceQuery instanceof PersistenceQuery) {
-            $query = $this->mapQuery($persistenceQuery, $locale, false);
+            $query = $this->mapQuery($persistenceQuery, $locales, false);
             $type = Collection::TYPE_DYNAMIC;
         }
 
@@ -141,35 +136,30 @@ class CollectionMapper
     /**
      * Builds the API query value object from persistence one.
      *
-     * If $locale is a string, the query is loaded in specified locale.
-     * If $locale is an array of strings, the first available locale will
-     * be returned.
+     * If not empty, the first available locale in $locales array will be returned.
      *
      * If the query is always available and $useMainLocale is set to true,
-     * query in main locale will be returned if none of the locales in $locale
+     * query in main locale will be returned if none of the locales in $locales
      * array are found.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Query $query
-     * @param string|string[] $locale
+     * @param string[] $locales
      * @param bool $useMainLocale
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException If the query does not have any requested locales
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
-    public function mapQuery(PersistenceQuery $query, $locale = null, $useMainLocale = true)
+    public function mapQuery(PersistenceQuery $query, array $locales = null, $useMainLocale = true)
     {
         $queryType = $this->queryTypeRegistry->getQueryType($query->type);
 
-        if (!is_array($locale)) {
-            $locale = array(is_string($locale) ? $locale : $query->mainLocale);
-        }
-
+        $locales = !empty($locales) ? $locales : array($query->mainLocale);
         if ($useMainLocale && $query->alwaysAvailable) {
-            $locale[] = $query->mainLocale;
+            $locales[] = $query->mainLocale;
         }
 
-        $validLocales = array_unique(array_intersect($locale, $query->availableLocales));
+        $validLocales = array_unique(array_intersect($locales, $query->availableLocales));
         if (empty($validLocales)) {
             throw new NotFoundException('query', $query->id);
         }

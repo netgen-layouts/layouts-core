@@ -375,7 +375,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
      */
     public function testUpdateQuery()
     {
-        $query = $this->collectionService->loadQueryDraft(2, 'en');
+        $query = $this->collectionService->loadQueryDraft(2, array('en'));
 
         $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct('hr');
 
@@ -392,7 +392,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $this->assertEquals(0, $updatedQuery->getParameter('offset')->getValue());
         $this->assertNull($updatedQuery->getParameter('param')->getValue());
 
-        $croQuery = $this->collectionService->loadQueryDraft(2, 'hr');
+        $croQuery = $this->collectionService->loadQueryDraft(2, array('hr'));
 
         $this->assertEquals(3, $croQuery->getParameter('offset')->getValue());
 
@@ -406,7 +406,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
      */
     public function testUpdateQueryInMainLocale()
     {
-        $query = $this->collectionService->loadQueryDraft(2, 'en');
+        $query = $this->collectionService->loadQueryDraft(2, array('en'));
 
         $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct('en');
 
@@ -420,7 +420,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
 
         $this->assertEquals('ezcontent_search', $updatedQuery->getQueryType()->getType());
 
-        $croQuery = $this->collectionService->loadQueryDraft(2, 'hr');
+        $croQuery = $this->collectionService->loadQueryDraft(2, array('hr'));
 
         $this->assertEquals(3, $updatedQuery->getParameter('offset')->getValue());
         $this->assertEquals('new_value', $updatedQuery->getParameter('param')->getValue());
