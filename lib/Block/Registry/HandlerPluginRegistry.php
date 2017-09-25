@@ -7,7 +7,7 @@ use Netgen\BlockManager\Block\BlockDefinition\Handler\PluginInterface;
 class HandlerPluginRegistry implements HandlerPluginRegistryInterface
 {
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinitionInterface[]
+     * @var \Netgen\BlockManager\Block\BlockDefinition\Handler\PluginInterface[]
      */
     private $handlerPlugins = array();
 

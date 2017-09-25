@@ -133,7 +133,7 @@ class BlockCollectionValidator extends Validator
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param string $collectionIdentifier
      *
-     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection
+     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection|null
      */
     private function getCollectionConfig(Block $block, $collectionIdentifier)
     {

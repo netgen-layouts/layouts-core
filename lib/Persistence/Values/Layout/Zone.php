@@ -35,16 +35,16 @@ class Zone extends Value
     public $rootBlockId;
 
     /**
-     * ID of layout this zone is linked to.
+     * ID of layout this zone is linked to or null if no zone is linked.
      *
-     * @var int
+     * @var int|string|null
      */
     public $linkedLayoutId;
 
     /**
-     * Zone identifier this zone is linked to.
+     * Zone identifier this zone is linked to or null if no zone is linked.
      *
-     * @var string
+     * @var string|null
      */
     public $linkedZoneIdentifier;
 }

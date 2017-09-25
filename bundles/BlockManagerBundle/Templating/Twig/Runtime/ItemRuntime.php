@@ -23,7 +23,7 @@ class ItemRuntime
     private $urlBuilder;
 
     /**
-     * @var \Psr\Log\NullLogger
+     * @var \Psr\Log\LoggerInterface
      */
     private $logger;
 

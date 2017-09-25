@@ -34,7 +34,7 @@ class RenderingRuntime
     private $localeProvider;
 
     /**
-     * @var \Psr\Log\NullLogger
+     * @var \Psr\Log\LoggerInterface
      */
     private $logger;
 
@@ -260,7 +260,7 @@ class RenderingRuntime
      *
      * @param array $context
      *
-     * @return \Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate
+     * @return \Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate|null
      */
     private function getTwigTemplate(array $context)
     {

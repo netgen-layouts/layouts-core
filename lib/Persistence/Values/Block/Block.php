@@ -35,23 +35,23 @@ class Block extends Value
     public $path;
 
     /**
-     * ID of the parent block.
+     * ID of the parent block or null if block has no parent.
      *
-     * @var int
+     * @var int|string|null
      */
     public $parentId;
 
     /**
-     * Placeholder to which this block belongs in the parent block.
+     * Placeholder to which this block belongs in the parent block or null if block has no parent.
      *
-     * @var string
+     * @var string|null
      */
     public $placeholder;
 
     /**
-     * Position of the block in the parent block.
+     * Position of the block in the parent block or null if block has no parent.
      *
-     * @var int
+     * @var int|null
      */
     public $position;
 
