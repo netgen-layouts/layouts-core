@@ -94,7 +94,6 @@ class BlockMapper
 
         if (!is_array($locale)) {
             $locale = array(is_string($locale) ? $locale : $block->mainLocale);
-            $useMainLocale = false;
         }
 
         if ($useMainLocale && $block->alwaysAvailable) {

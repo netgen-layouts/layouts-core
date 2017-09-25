@@ -63,7 +63,6 @@ class CollectionMapper
     {
         if (!is_array($locale)) {
             $locale = array(is_string($locale) ? $locale : $collection->mainLocale);
-            $useMainLocale = false;
         }
 
         if ($useMainLocale && $collection->alwaysAvailable) {
@@ -164,7 +163,6 @@ class CollectionMapper
 
         if (!is_array($locale)) {
             $locale = array(is_string($locale) ? $locale : $query->mainLocale);
-            $useMainLocale = false;
         }
 
         if ($useMainLocale && $query->alwaysAvailable) {
