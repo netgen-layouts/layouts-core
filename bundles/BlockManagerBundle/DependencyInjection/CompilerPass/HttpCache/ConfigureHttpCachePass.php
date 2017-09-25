@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Http
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class ConfigureHttpCachePass implements CompilerPassInterface
+final class ConfigureHttpCachePass implements CompilerPassInterface
 {
     const SERVICE_NAME = 'netgen_block_manager.http_cache.client';
 

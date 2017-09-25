@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter;
 
-class ItemParamConverter extends ParamConverter
+final class ItemParamConverter extends ParamConverter
 {
     /**
      * @var \Netgen\BlockManager\API\Service\CollectionService

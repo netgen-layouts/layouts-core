@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Item;
 use Netgen\BlockManager\Exception\InvalidInterfaceException;
 use Netgen\BlockManager\Exception\Item\ValueException;
 
-class ItemBuilder implements ItemBuilderInterface
+final class ItemBuilder implements ItemBuilderInterface
 {
     /**
      * @var \Netgen\BlockManager\Item\ValueConverterInterface[]

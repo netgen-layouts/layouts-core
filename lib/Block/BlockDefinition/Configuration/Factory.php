@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Block\BlockDefinition\Configuration;
 
 use Netgen\BlockManager\Exception\RuntimeException;
 
-class Factory
+final class Factory
 {
     /**
      * Builds the block definition configuration.

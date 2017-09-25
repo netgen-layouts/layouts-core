@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Validator\Constraint\Structs;
 
 use Symfony\Component\Validator\Constraint;
 
-class ParameterStruct extends Constraint
+final class ParameterStruct extends Constraint
 {
     /**
      * @var string

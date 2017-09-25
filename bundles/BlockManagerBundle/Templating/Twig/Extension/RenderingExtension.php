@@ -7,7 +7,7 @@ use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-class RenderingExtension extends AbstractExtension
+final class RenderingExtension extends AbstractExtension
 {
     public function getName()
     {

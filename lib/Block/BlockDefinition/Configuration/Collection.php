@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Block\BlockDefinition\Configuration;
 
 use Netgen\BlockManager\ValueObject;
 
-class Collection extends ValueObject
+final class Collection extends ValueObject
 {
     /**
      * @var string

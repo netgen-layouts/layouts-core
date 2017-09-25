@@ -6,7 +6,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-class SetIsApiRequestListener implements EventSubscriberInterface
+final class SetIsApiRequestListener implements EventSubscriberInterface
 {
     const API_FLAG_NAME = 'ngbm_is_api_request';
     const API_ROUTE_PREFIX = 'ngbm_api_';

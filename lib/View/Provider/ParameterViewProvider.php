@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\View\Provider;
 use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\View\View\ParameterView;
 
-class ParameterViewProvider implements ViewProviderInterface
+final class ParameterViewProvider implements ViewProviderInterface
 {
     public function provideView($valueObject, array $parameters = array())
     {

@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Item;
 use Netgen\BlockManager\Exception\InvalidInterfaceException;
 use Netgen\BlockManager\Exception\Item\ValueException;
 
-class UrlBuilder implements UrlBuilderInterface
+final class UrlBuilder implements UrlBuilderInterface
 {
     /**
      * @var \Netgen\BlockManager\Item\ValueUrlBuilderInterface[]

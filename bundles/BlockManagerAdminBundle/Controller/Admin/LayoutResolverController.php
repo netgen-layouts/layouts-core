@@ -20,7 +20,7 @@ use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class LayoutResolverController extends Controller
+final class LayoutResolverController extends Controller
 {
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutResolverService

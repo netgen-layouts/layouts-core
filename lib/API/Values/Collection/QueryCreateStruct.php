@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Values\ParameterStruct;
 use Netgen\BlockManager\API\Values\ParameterStructTrait;
 use Netgen\BlockManager\ValueObject;
 
-class QueryCreateStruct extends ValueObject implements ParameterStruct
+final class QueryCreateStruct extends ValueObject implements ParameterStruct
 {
     use ParameterStructTrait;
 

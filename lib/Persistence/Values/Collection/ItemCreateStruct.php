@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Persistence\Values\Collection;
 
 use Netgen\BlockManager\ValueObject;
 
-class ItemCreateStruct extends ValueObject
+final class ItemCreateStruct extends ValueObject
 {
     /**
      * Position of the new item in the collection.

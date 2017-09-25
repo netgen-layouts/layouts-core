@@ -7,7 +7,7 @@ use Netgen\BlockManager\Exception\Layout\TargetTypeException;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;
 
-class TargetTypeRegistry implements TargetTypeRegistryInterface
+final class TargetTypeRegistry implements TargetTypeRegistryInterface
 {
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\TargetTypeInterface[]

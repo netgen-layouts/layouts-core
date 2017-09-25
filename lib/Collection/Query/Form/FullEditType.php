@@ -13,7 +13,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class FullEditType extends TranslatableType
+final class FullEditType extends TranslatableType
 {
     public function configureOptions(OptionsResolver $resolver)
     {

@@ -6,6 +6,9 @@ use Netgen\BlockManager\Exception\InvalidInterfaceException;
 use Netgen\BlockManager\Exception\View\TemplateResolverException;
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
 
+/**
+ * @final
+ */
 class TemplateResolver implements TemplateResolverInterface
 {
     /**

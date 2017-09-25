@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\HttpCache;
 
-class NullClient implements ClientInterface
+final class NullClient implements ClientInterface
 {
     public function invalidateLayouts(array $layoutIds)
     {

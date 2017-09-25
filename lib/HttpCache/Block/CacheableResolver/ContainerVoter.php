@@ -9,7 +9,7 @@ use Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface;
 /**
  * This voter votes NO if the block is a container with a contextual query within it.
  */
-class ContainerVoter implements VoterInterface
+final class ContainerVoter implements VoterInterface
 {
     /**
      * @var \Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface

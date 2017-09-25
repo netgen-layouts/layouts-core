@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Persistence\Values\Collection;
 
 use Netgen\BlockManager\ValueObject;
 
-class CollectionUpdateStruct extends ValueObject
+final class CollectionUpdateStruct extends ValueObject
 {
     /**
      * Flag indicating if the collection will be always available.

@@ -15,7 +15,7 @@ use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface;
 use Symfony\Component\Validator\Constraints;
 
-class LayoutResolverValidator extends Validator
+final class LayoutResolverValidator extends Validator
 {
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface

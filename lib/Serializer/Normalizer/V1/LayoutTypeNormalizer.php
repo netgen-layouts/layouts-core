@@ -7,7 +7,7 @@ use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class LayoutTypeNormalizer implements NormalizerInterface
+final class LayoutTypeNormalizer implements NormalizerInterface
 {
     public function normalize($object, $format = null, array $context = array())
     {

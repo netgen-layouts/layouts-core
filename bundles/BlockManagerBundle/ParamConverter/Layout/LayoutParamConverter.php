@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter;
 
-class LayoutParamConverter extends ParamConverter
+final class LayoutParamConverter extends ParamConverter
 {
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService

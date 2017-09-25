@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-class BlockTypeGroupPass implements CompilerPassInterface
+final class BlockTypeGroupPass implements CompilerPassInterface
 {
     const SERVICE_NAME = 'netgen_block_manager.block.registry.block_type_group';
     const TAG_NAME = 'netgen_block_manager.block.block_type_group';

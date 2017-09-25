@@ -7,7 +7,7 @@ use Netgen\BlockManager\Exception\Layout\LayoutTypeException;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 
-class LayoutTypeRegistry implements LayoutTypeRegistryInterface
+final class LayoutTypeRegistry implements LayoutTypeRegistryInterface
 {
     /**
      * @var array

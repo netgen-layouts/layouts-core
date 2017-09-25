@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class SerializerListener implements EventSubscriberInterface
+final class SerializerListener implements EventSubscriberInterface
 {
     /**
      * @var \Symfony\Component\Serializer\SerializerInterface

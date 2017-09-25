@@ -13,7 +13,7 @@ use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Persistence\Values\Value;
 
-class LayoutResolverQueryHandler extends QueryHandler
+final class LayoutResolverQueryHandler extends QueryHandler
 {
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver\TargetHandler[]

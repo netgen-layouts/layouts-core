@@ -21,7 +21,7 @@ use Netgen\BlockManager\Persistence\Values\Layout\LayoutUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\ZoneCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\ZoneUpdateStruct;
 
-class LayoutService extends Service implements LayoutServiceInterface
+final class LayoutService extends Service implements LayoutServiceInterface
 {
     /**
      * @var \Netgen\BlockManager\Core\Service\Validator\LayoutValidator

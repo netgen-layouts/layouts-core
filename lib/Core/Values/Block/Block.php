@@ -8,7 +8,7 @@ use Netgen\BlockManager\Core\Values\ParameterBasedValueTrait;
 use Netgen\BlockManager\Exception\Core\BlockException;
 use Netgen\BlockManager\ValueObject;
 
-class Block extends ValueObject implements APIBlock
+final class Block extends ValueObject implements APIBlock
 {
     use ConfigAwareValueTrait;
     use ParameterBasedValueTrait;

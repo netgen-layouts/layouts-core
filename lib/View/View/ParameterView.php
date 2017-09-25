@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\View\View;
 
 use Netgen\BlockManager\View\View;
 
-class ParameterView extends View implements ParameterViewInterface
+final class ParameterView extends View implements ParameterViewInterface
 {
     public function getParameterValue()
     {

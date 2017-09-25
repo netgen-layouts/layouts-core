@@ -9,7 +9,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-class SetIsAdminRequestListener implements EventSubscriberInterface
+final class SetIsAdminRequestListener implements EventSubscriberInterface
 {
     const ADMIN_FLAG_NAME = 'ngbm_is_admin_request';
     const ADMIN_ROUTE_PREFIX = 'ngbm_admin_';

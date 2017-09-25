@@ -10,7 +10,7 @@ use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerAwareInterface;
 
-class PlaceholderNormalizer implements NormalizerInterface, SerializerAwareInterface
+final class PlaceholderNormalizer implements NormalizerInterface, SerializerAwareInterface
 {
     use SerializerAwareTrait;
 

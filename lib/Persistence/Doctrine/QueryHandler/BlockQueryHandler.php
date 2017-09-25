@@ -9,7 +9,7 @@ use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone;
 
-class BlockQueryHandler extends QueryHandler
+final class BlockQueryHandler extends QueryHandler
 {
     /**
      * Loads all block data.

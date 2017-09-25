@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Persistence\Values\LayoutResolver;
 
 use Netgen\BlockManager\ValueObject;
 
-class RuleUpdateStruct extends ValueObject
+final class RuleUpdateStruct extends ValueObject
 {
     /**
      * ID of the mapped layout. Set to 0 to remove the existing mapping.

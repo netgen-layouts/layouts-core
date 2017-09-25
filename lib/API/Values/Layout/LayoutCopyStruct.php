@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\API\Values\Layout;
 
 use Netgen\BlockManager\ValueObject;
 
-class LayoutCopyStruct extends ValueObject
+final class LayoutCopyStruct extends ValueObject
 {
     /**
      * Human readable name of the copied layout.

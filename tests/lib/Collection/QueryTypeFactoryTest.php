@@ -15,11 +15,6 @@ class QueryTypeFactoryTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    private $configMock;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
     private $parameterBuilderFactoryMock;
 
     /**
@@ -29,8 +24,6 @@ class QueryTypeFactoryTest extends TestCase
 
     public function setUp()
     {
-        $this->configMock = $this->createMock(Configuration::class);
-
         $this->parameterBuilderFactoryMock = $this->createMock(ParameterBuilderFactoryInterface::class);
         $this->parameterBuilderFactoryMock
             ->expects($this->any())
@@ -53,11 +46,11 @@ class QueryTypeFactoryTest extends TestCase
         $queryType = $this->factory->buildQueryType(
             'type',
             $this->createMock(QueryTypeHandlerInterface::class),
-            $this->configMock
+            new Configuration()
         );
 
         $this->assertInstanceOf(QueryTypeInterface::class, $queryType);
         $this->assertEquals('type', $queryType->getType());
-        $this->assertEquals($this->configMock, $queryType->getConfig());
+        $this->assertEquals(new Configuration(), $queryType->getConfig());
     }
 }

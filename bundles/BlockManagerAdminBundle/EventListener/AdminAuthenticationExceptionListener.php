@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
-class AdminAuthenticationExceptionListener implements EventSubscriberInterface
+final class AdminAuthenticationExceptionListener implements EventSubscriberInterface
 {
     public static function getSubscribedEvents()
     {

@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Item\ValueType;
 
-class ValueTypeFactory
+final class ValueTypeFactory
 {
     /**
      * Builds the value type.

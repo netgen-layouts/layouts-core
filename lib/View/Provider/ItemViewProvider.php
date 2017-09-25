@@ -6,7 +6,7 @@ use Netgen\BlockManager\Exception\View\ViewProviderException;
 use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\View\View\ItemView;
 
-class ItemViewProvider implements ViewProviderInterface
+final class ItemViewProvider implements ViewProviderInterface
 {
     public function provideView($valueObject, array $parameters = array())
     {

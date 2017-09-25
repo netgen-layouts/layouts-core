@@ -10,7 +10,7 @@ use Netgen\BlockManager\View\ViewInterface;
  * This matcher matches if the shared flag of the layout in the provided view
  * matches the value provided in the configuration.
  */
-class Shared implements MatcherInterface
+final class Shared implements MatcherInterface
 {
     public function match(ViewInterface $view, array $config)
     {

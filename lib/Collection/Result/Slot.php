@@ -9,7 +9,7 @@ use Netgen\BlockManager\ValueObject;
  * The slot represents a placeholder for an item when executing
  * a context dependant query when there's no context.
  */
-class Slot extends ValueObject implements ItemInterface
+final class Slot extends ValueObject implements ItemInterface
 {
     public function getValueId()
     {

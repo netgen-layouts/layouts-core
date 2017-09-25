@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Collection\Result;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
 
-class ResultLoader implements ResultLoaderInterface
+final class ResultLoader implements ResultLoaderInterface
 {
     /**
      * @var \Netgen\BlockManager\Collection\Result\ResultIteratorFactory

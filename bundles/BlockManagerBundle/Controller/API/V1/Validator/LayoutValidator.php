@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints;
 
-class LayoutValidator extends Validator
+final class LayoutValidator extends Validator
 {
     /**
      * Validates layout creation parameters from the request.

@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
-class QueryTypePass implements CompilerPassInterface
+final class QueryTypePass implements CompilerPassInterface
 {
     const SERVICE_NAME = 'netgen_block_manager.collection.registry.query_type';
     const TAG_NAME = 'netgen_block_manager.collection.query_type_handler';

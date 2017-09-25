@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Persistence\Doctrine\Mapper;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone;
 
-class LayoutMapper
+final class LayoutMapper
 {
     /**
      * Maps data from database to layout value objects.

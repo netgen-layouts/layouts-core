@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Persistence\Values\Layout;
 
 use Netgen\BlockManager\ValueObject;
 
-class ZoneCreateStruct extends ValueObject
+final class ZoneCreateStruct extends ValueObject
 {
     /**
      * Identifier for the new zone.

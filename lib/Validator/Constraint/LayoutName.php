@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Validator\Constraint;
 
 use Symfony\Component\Validator\Constraint;
 
-class LayoutName extends Constraint
+final class LayoutName extends Constraint
 {
     /**
      * @var string

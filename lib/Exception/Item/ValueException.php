@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Exception\Item;
 use InvalidArgumentException;
 use Netgen\BlockManager\Exception\Exception;
 
-class ValueException extends InvalidArgumentException implements Exception
+final class ValueException extends InvalidArgumentException implements Exception
 {
     /**
      * @param string $valueType

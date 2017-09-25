@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\App;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class IndexController extends Controller
+final class IndexController extends Controller
 {
     /**
      * Displays the Block Manager app index page.

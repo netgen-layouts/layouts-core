@@ -10,7 +10,7 @@ use Netgen\BlockManager\View\ViewInterface;
  * This matcher matches if the form in the provided view
  * has a form type with the value specified in the configuration.
  */
-class Type implements MatcherInterface
+final class Type implements MatcherInterface
 {
     public function match(ViewInterface $view, array $config)
     {

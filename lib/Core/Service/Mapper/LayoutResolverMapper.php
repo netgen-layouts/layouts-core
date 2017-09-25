@@ -14,7 +14,7 @@ use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition as Persisten
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule as PersistenceRule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
 
-class LayoutResolverMapper
+final class LayoutResolverMapper
 {
     /**
      * @var \Netgen\BlockManager\Persistence\Handler

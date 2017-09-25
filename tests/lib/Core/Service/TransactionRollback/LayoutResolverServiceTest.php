@@ -13,6 +13,8 @@ use Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
+use Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter;
+use Netgen\BlockManager\Layout\Resolver\TargetType\Route;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition as PersistenceCondition;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule as PersistenceRule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
@@ -325,7 +327,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
 
         $this->layoutResolverService->addTarget(
             new Rule(array('published' => false)),
-            new TargetCreateStruct()
+            new TargetCreateStruct(array('type' => 'route'))
         );
     }
 
@@ -351,7 +353,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->updateTarget(
-            new Target(array('published' => false)),
+            new Target(array('published' => false, 'targetType' => new Route())),
             new TargetUpdateStruct()
         );
     }
@@ -403,7 +405,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
 
         $this->layoutResolverService->addCondition(
             new Rule(array('published' => false)),
-            new ConditionCreateStruct()
+            new ConditionCreateStruct(array('type' => 'route_parameter'))
         );
     }
 
@@ -429,7 +431,7 @@ class LayoutResolverServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->updateCondition(
-            new Condition(array('published' => false)),
+            new Condition(array('published' => false, 'conditionType' => new RouteParameter())),
             new ConditionUpdateStruct()
         );
     }

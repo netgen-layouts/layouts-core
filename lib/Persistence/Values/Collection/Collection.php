@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Persistence\Values\Collection;
 
 use Netgen\BlockManager\Persistence\Values\Value;
 
-class Collection extends Value
+final class Collection extends Value
 {
     /**
      * Collection ID.

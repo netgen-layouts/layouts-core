@@ -2,6 +2,6 @@
 
 namespace Netgen\BlockManager\Serializer\Values;
 
-class Value extends AbstractValue implements ValueInterface
+final class Value extends AbstractValue implements ValueInterface
 {
 }

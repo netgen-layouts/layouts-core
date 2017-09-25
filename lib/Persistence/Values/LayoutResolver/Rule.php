@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Persistence\Values\LayoutResolver;
 
 use Netgen\BlockManager\Persistence\Values\Value;
 
-class Rule extends Value
+final class Rule extends Value
 {
     /**
      * Rule ID.

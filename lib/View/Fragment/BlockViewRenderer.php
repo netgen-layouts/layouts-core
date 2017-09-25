@@ -7,7 +7,7 @@ use Netgen\BlockManager\View\View\BlockViewInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
 
-class BlockViewRenderer implements ViewRendererInterface
+final class BlockViewRenderer implements ViewRendererInterface
 {
     /**
      * @var \Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface

@@ -10,7 +10,7 @@ use Netgen\BlockManager\View\View\BlockViewInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class GetCollectionResultsListener implements EventSubscriberInterface
+final class GetCollectionResultsListener implements EventSubscriberInterface
 {
     /**
      * @var \Netgen\BlockManager\Collection\Result\ResultLoaderInterface

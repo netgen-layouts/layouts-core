@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter;
 
-class ConditionParamConverter extends ParamConverter
+final class ConditionParamConverter extends ParamConverter
 {
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutResolverService

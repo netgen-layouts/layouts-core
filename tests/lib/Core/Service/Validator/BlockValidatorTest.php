@@ -24,11 +24,6 @@ class BlockValidatorTest extends TestCase
     private $validator;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    private $configValidatorMock;
-
-    /**
      * @var \Netgen\BlockManager\Core\Service\Validator\BlockValidator
      */
     private $blockValidator;
@@ -42,9 +37,10 @@ class BlockValidatorTest extends TestCase
             ->setConstraintValidatorFactory(new ValidatorFactory($this))
             ->getValidator();
 
-        $this->configValidatorMock = $this->createMock(ConfigValidator::class);
+        $configValidator = new ConfigValidator();
+        $configValidator->setValidator($this->validator);
 
-        $this->blockValidator = new BlockValidator($this->configValidatorMock);
+        $this->blockValidator = new BlockValidator($configValidator);
         $this->blockValidator->setValidator($this->validator);
     }
 

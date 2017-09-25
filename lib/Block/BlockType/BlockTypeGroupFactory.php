@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Block\BlockType;
 
-class BlockTypeGroupFactory
+final class BlockTypeGroupFactory
 {
     /**
      * Builds the block type group.

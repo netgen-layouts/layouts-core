@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Exception;
 
 use Exception as BaseException;
 
-class BadStateException extends BaseException implements Exception
+final class BadStateException extends BaseException implements Exception
 {
     /**
      * Creates a new bad state exception.

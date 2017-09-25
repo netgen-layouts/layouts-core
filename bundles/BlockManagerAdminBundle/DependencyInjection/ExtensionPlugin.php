@@ -4,7 +4,7 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection;
 
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\ExtensionPlugin as BaseExtensionPlugin;
 
-class ExtensionPlugin extends BaseExtensionPlugin
+final class ExtensionPlugin extends BaseExtensionPlugin
 {
     /**
      * Returns available configuration nodes for the bundle.

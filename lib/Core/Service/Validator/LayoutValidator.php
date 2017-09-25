@@ -10,7 +10,7 @@ use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use Symfony\Component\Validator\Constraints;
 
-class LayoutValidator extends Validator
+final class LayoutValidator extends Validator
 {
     /**
      * Validates the provided layout create struct.

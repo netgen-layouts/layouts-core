@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Browser\Item\ColumnProvider\Layout;
 use Netgen\ContentBrowser\Item\ColumnProvider\ColumnValueProviderInterface;
 use Netgen\ContentBrowser\Item\ItemInterface;
 
-class Created implements ColumnValueProviderInterface
+final class Created implements ColumnValueProviderInterface
 {
     /**
      * @var string

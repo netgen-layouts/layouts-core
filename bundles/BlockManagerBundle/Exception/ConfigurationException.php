@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Exception;
 use InvalidArgumentException;
 use Netgen\BlockManager\Exception\Exception;
 
-class ConfigurationException extends InvalidArgumentException implements Exception
+final class ConfigurationException extends InvalidArgumentException implements Exception
 {
     /**
      * @param string $parameterName

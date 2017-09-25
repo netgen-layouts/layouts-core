@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Layout\Type;
 
 use Netgen\BlockManager\ValueObject;
 
-class Zone extends ValueObject
+final class Zone extends ValueObject
 {
     /**
      * @var string

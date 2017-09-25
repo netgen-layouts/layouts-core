@@ -6,7 +6,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-class ViewBuilderPass implements CompilerPassInterface
+final class ViewBuilderPass implements CompilerPassInterface
 {
     const SERVICE_NAME = 'netgen_block_manager.view.view_builder';
     const TAG_NAME = 'netgen_block_manager.view.provider';

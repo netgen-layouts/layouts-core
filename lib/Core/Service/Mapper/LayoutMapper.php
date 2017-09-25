@@ -13,7 +13,7 @@ use Netgen\BlockManager\Persistence\Values\Layout\Layout as PersistenceLayout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone as PersistenceZone;
 use Netgen\BlockManager\Persistence\Values\Value as PersistenceValue;
 
-class LayoutMapper
+final class LayoutMapper
 {
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandler

@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Parameters\Value;
 
 use Netgen\BlockManager\ValueObject;
 
-class LinkValue extends ValueObject
+final class LinkValue extends ValueObject
 {
     const LINK_TYPE_URL = 'url';
 

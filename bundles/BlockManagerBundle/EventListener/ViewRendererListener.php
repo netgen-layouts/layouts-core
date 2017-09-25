@@ -8,7 +8,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-class ViewRendererListener implements EventSubscriberInterface
+final class ViewRendererListener implements EventSubscriberInterface
 {
     /**
      * @var \Netgen\BlockManager\View\ViewRendererInterface

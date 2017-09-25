@@ -9,7 +9,7 @@ use Netgen\BlockManager\Parameters\ParameterFilterInterface;
 /**
  * Filter used to remove all unsafe HTML from the provided value.
  */
-class HtmlPurifierFilter implements ParameterFilterInterface
+final class HtmlPurifierFilter implements ParameterFilterInterface
 {
     /**
      * @var \HTMLPurifier_Config

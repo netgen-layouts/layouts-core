@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-class UrlBuilderPass implements CompilerPassInterface
+final class UrlBuilderPass implements CompilerPassInterface
 {
     const SERVICE_NAME = 'netgen_block_manager.item.url_builder';
     const TAG_NAME = 'netgen_block_manager.item.value_url_builder';

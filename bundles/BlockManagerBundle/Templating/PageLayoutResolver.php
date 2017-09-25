@@ -6,7 +6,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Templating;
  * This is a default implementation of page layout resolver
  * which just provides the pagelayout specified in the constructor.
  */
-class PageLayoutResolver implements PageLayoutResolverInterface
+final class PageLayoutResolver implements PageLayoutResolverInterface
 {
     /**
      * @var string

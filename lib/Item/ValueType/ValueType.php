@@ -10,6 +10,8 @@ use Netgen\BlockManager\ValueObject;
  * A value type is defined in configuration and specifies the identifier of the value
  * which is used, together with the ID of the value, to reference a single instance
  * in Netgen Layouts.
+ *
+ * @final
  */
 class ValueType extends ValueObject
 {

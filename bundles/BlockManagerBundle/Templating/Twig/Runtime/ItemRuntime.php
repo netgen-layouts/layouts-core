@@ -10,7 +10,7 @@ use Netgen\BlockManager\Item\UrlBuilderInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
-class ItemRuntime
+final class ItemRuntime
 {
     /**
      * @var \Netgen\BlockManager\Item\ItemLoaderInterface

@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
-class EditType extends AbstractType
+final class EditType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver)
     {

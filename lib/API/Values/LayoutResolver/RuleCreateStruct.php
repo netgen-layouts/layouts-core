@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\API\Values\LayoutResolver;
 
 use Netgen\BlockManager\ValueObject;
 
-class RuleCreateStruct extends ValueObject
+final class RuleCreateStruct extends ValueObject
 {
     /**
      * The ID of the layout to which the rule will be mapped.

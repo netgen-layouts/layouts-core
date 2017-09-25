@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-class ConditionTypePass implements CompilerPassInterface
+final class ConditionTypePass implements CompilerPassInterface
 {
     const SERVICE_NAME = 'netgen_block_manager.layout.resolver.form.condition_type';
     const TAG_NAME = 'netgen_block_manager.layout.resolver.form.condition_type.mapper';

@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\View\Provider;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\View\View\LayoutView;
 
-class LayoutViewProvider implements ViewProviderInterface
+final class LayoutViewProvider implements ViewProviderInterface
 {
     public function provideView($valueObject, array $parameters = array())
     {

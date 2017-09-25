@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\View\Provider;
 use Netgen\BlockManager\API\Values\LayoutResolver\Target;
 use Netgen\BlockManager\View\View\RuleTargetView;
 
-class RuleTargetViewProvider implements ViewProviderInterface
+final class RuleTargetViewProvider implements ViewProviderInterface
 {
     public function provideView($valueObject, array $parameters = array())
     {

@@ -12,7 +12,7 @@ use Netgen\BlockManager\View\ViewInterface;
  * is used to edit the block with the locale equal to
  * value provided in the configuration.
  */
-class Locale implements MatcherInterface
+final class Locale implements MatcherInterface
 {
     public function match(ViewInterface $view, array $config)
     {

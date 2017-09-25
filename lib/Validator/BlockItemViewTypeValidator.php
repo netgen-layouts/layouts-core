@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
  * Validates if passed item view type is valid for the block definition
  * and view type specified by the constraint.
  */
-class BlockItemViewTypeValidator extends ConstraintValidator
+final class BlockItemViewTypeValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint)
     {

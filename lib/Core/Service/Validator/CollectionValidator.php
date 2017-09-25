@@ -13,7 +13,7 @@ use Netgen\BlockManager\Validator\Constraint\Structs\QueryUpdateStruct as QueryU
 use Netgen\BlockManager\Validator\Constraint\ValueType;
 use Symfony\Component\Validator\Constraints;
 
-class CollectionValidator extends Validator
+final class CollectionValidator extends Validator
 {
     /**
      * Validates the provided item create struct.

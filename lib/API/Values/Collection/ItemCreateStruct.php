@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\API\Values\Collection;
 
 use Netgen\BlockManager\ValueObject;
 
-class ItemCreateStruct extends ValueObject
+final class ItemCreateStruct extends ValueObject
 {
     /**
      * The ID of the value within the item.

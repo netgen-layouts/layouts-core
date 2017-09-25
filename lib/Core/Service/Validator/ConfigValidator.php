@@ -8,7 +8,7 @@ use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct as ParameterStructConstraint;
 use Symfony\Component\Validator\Constraints;
 
-class ConfigValidator extends Validator
+final class ConfigValidator extends Validator
 {
     /**
      * Validates the provided config structs according to provided config definitions.

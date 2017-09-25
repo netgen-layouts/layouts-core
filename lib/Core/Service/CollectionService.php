@@ -22,7 +22,7 @@ use Netgen\BlockManager\Persistence\Values\Collection\Query as PersistenceQuery;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryTranslationUpdateStruct;
 
-class CollectionService extends Service implements APICollectionService
+final class CollectionService extends Service implements APICollectionService
 {
     /**
      * @var \Netgen\BlockManager\Core\Service\Validator\CollectionValidator

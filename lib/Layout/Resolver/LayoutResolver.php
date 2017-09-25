@@ -9,7 +9,7 @@ use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-class LayoutResolver implements LayoutResolverInterface
+final class LayoutResolver implements LayoutResolverInterface
 {
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutResolverService

@@ -6,7 +6,7 @@ use Exception as BaseException;
 use InvalidArgumentException as BaseInvalidArgumentException;
 use Netgen\BlockManager\Exception\Exception;
 
-class ValidationException extends BaseInvalidArgumentException implements Exception
+final class ValidationException extends BaseInvalidArgumentException implements Exception
 {
     /**
      * @param string $propertyPath

@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\View\View;
 
 use Netgen\BlockManager\View\View;
 
-class PlaceholderView extends View implements PlaceholderViewInterface
+final class PlaceholderView extends View implements PlaceholderViewInterface
 {
     public function getPlaceholder()
     {

@@ -9,9 +9,6 @@ use Netgen\BlockManager\API\Values\Block\Placeholder;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Config\Config;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
-use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
-use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
-use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 
 abstract class BlockServiceTest extends ServiceTestCase
 {
@@ -22,17 +19,11 @@ abstract class BlockServiceTest extends ServiceTestCase
     {
         parent::setUp();
 
-        $this->blockService = $this->createBlockService(
-            $this->createMock(BlockValidator::class)
-        );
+        $this->blockService = $this->createBlockService();
 
-        $this->layoutService = $this->createLayoutService(
-            $this->createMock(LayoutValidator::class)
-        );
+        $this->layoutService = $this->createLayoutService();
 
-        $this->collectionService = $this->createCollectionService(
-            $this->createMock(CollectionValidator::class)
-        );
+        $this->collectionService = $this->createCollectionService();
     }
 
     /**

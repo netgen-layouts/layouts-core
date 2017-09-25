@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Exception;
 
 use RuntimeException as BaseRuntimeException;
 
-class InvalidInterfaceException extends BaseRuntimeException implements Exception
+final class InvalidInterfaceException extends BaseRuntimeException implements Exception
 {
     public function __construct($what, $identifier, $interface)
     {

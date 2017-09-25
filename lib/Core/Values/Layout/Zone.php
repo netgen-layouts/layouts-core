@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Core\Values\Layout;
 use Netgen\BlockManager\API\Values\Layout\Zone as APIZone;
 use Netgen\BlockManager\ValueObject;
 
-class Zone extends ValueObject implements APIZone
+final class Zone extends ValueObject implements APIZone
 {
     /**
      * @var string

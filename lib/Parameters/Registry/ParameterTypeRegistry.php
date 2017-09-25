@@ -7,7 +7,7 @@ use Netgen\BlockManager\Exception\Parameters\ParameterTypeException;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Parameters\ParameterTypeInterface;
 
-class ParameterTypeRegistry implements ParameterTypeRegistryInterface
+final class ParameterTypeRegistry implements ParameterTypeRegistryInterface
 {
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterTypeInterface[]

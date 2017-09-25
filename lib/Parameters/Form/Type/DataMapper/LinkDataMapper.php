@@ -9,7 +9,7 @@ use Symfony\Component\Form\DataMapperInterface;
 /**
  * Mapper used to convert to and from the LinkValue object to the Symfony form structure.
  */
-class LinkDataMapper implements DataMapperInterface
+final class LinkDataMapper implements DataMapperInterface
 {
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterInterface

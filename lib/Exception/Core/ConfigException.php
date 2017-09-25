@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Exception\Core;
 use InvalidArgumentException;
 use Netgen\BlockManager\Exception\Exception;
 
-class ConfigException extends InvalidArgumentException implements Exception
+final class ConfigException extends InvalidArgumentException implements Exception
 {
     /**
      * @param string $configKey

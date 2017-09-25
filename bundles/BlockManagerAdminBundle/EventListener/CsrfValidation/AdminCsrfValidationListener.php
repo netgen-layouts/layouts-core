@@ -6,7 +6,7 @@ use Netgen\Bundle\BlockManagerAdminBundle\EventListener\SetIsAdminRequestListene
 use Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\CsrfValidationListener;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
-class AdminCsrfValidationListener extends CsrfValidationListener
+final class AdminCsrfValidationListener extends CsrfValidationListener
 {
     public function onKernelRequest(GetResponseEvent $event)
     {

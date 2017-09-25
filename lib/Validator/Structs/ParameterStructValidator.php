@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
  * Validates the parameters stored inside the value object
  * implementing ParameterStruct interface.
  */
-class ParameterStructValidator extends ConstraintValidator
+final class ParameterStructValidator extends ConstraintValidator
 {
     /**
      * @var \Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistryInterface

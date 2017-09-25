@@ -6,7 +6,7 @@ use Netgen\BlockManager\Validator\ValidatorTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints;
 
-class LayoutResolverValidator
+final class LayoutResolverValidator
 {
     use ValidatorTrait;
 

@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Persistence\Values\Layout;
 
 use Netgen\BlockManager\Persistence\Values\Value;
 
-class Zone extends Value
+final class Zone extends Value
 {
     /**
      * Zone identifier.

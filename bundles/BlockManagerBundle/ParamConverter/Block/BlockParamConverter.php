@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter;
 
-class BlockParamConverter extends ParamConverter
+final class BlockParamConverter extends ParamConverter
 {
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService

@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection\Configuratio
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNodeInterface;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
-class AdminNode implements ConfigurationNodeInterface
+final class AdminNode implements ConfigurationNodeInterface
 {
     public function getConfigurationNode()
     {

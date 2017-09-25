@@ -12,7 +12,7 @@ use Netgen\BlockManager\View\ViewInterface;
  * is used to edit the query with the query type equal to
  * value provided in the configuration.
  */
-class Type implements MatcherInterface
+final class Type implements MatcherInterface
 {
     public function match(ViewInterface $view, array $config)
     {

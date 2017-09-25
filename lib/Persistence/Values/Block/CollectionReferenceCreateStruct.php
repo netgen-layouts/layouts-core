@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Persistence\Values\Block;
 
 use Netgen\BlockManager\ValueObject;
 
-class CollectionReferenceCreateStruct extends ValueObject
+final class CollectionReferenceCreateStruct extends ValueObject
 {
     /**
      * Identifier of the reference.

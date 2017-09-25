@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\Reference;
  *
  * @deprecated Remove when support for Symfony 2.8 ends.
  */
-class RuntimeLoaderPass implements CompilerPassInterface
+final class RuntimeLoaderPass implements CompilerPassInterface
 {
     const SERVICE_NAME = 'netgen_block_manager.templating.twig.runtime.container_loader';
     const TAG_NAME = 'netgen_block_manager.twig.runtime';

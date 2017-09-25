@@ -14,7 +14,7 @@ use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Intl\Intl;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class LayoutNormalizer implements NormalizerInterface
+final class LayoutNormalizer implements NormalizerInterface
 {
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService

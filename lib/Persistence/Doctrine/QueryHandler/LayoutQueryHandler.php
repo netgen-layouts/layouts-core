@@ -7,7 +7,7 @@ use Netgen\BlockManager\Persistence\Values\Layout\Layout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone;
 use Netgen\BlockManager\Persistence\Values\Value;
 
-class LayoutQueryHandler extends QueryHandler
+final class LayoutQueryHandler extends QueryHandler
 {
     /**
      * Loads all data for layout with specified ID.

@@ -19,7 +19,7 @@ use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Value;
 
-class LayoutResolverHandler implements LayoutResolverHandlerInterface
+final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 {
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler

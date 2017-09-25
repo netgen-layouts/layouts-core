@@ -28,7 +28,7 @@ use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetUpdateStruct;
 
-class LayoutResolverService extends Service implements APILayoutResolverService
+final class LayoutResolverService extends Service implements APILayoutResolverService
 {
     /**
      * @var \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator

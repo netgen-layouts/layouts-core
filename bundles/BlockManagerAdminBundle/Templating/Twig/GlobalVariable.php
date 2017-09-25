@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerAdminBundle\Templating\Twig;
 
-class GlobalVariable
+final class GlobalVariable
 {
     /**
      * @var string

@@ -11,7 +11,7 @@ use Symfony\Component\Intl\Intl;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
-class AddLocaleType extends AbstractType
+final class AddLocaleType extends AbstractType
 {
     /**
      * @var \Netgen\BlockManager\Locale\LocaleProviderInterface

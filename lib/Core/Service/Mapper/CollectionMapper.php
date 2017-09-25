@@ -13,7 +13,7 @@ use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceC
 use Netgen\BlockManager\Persistence\Values\Collection\Item as PersistenceItem;
 use Netgen\BlockManager\Persistence\Values\Collection\Query as PersistenceQuery;
 
-class CollectionMapper
+final class CollectionMapper
 {
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandler

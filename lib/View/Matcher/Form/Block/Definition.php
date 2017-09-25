@@ -12,7 +12,7 @@ use Netgen\BlockManager\View\ViewInterface;
  * is used to edit the block with the block definition equal to
  * value provided in the configuration.
  */
-class Definition implements MatcherInterface
+final class Definition implements MatcherInterface
 {
     public function match(ViewInterface $view, array $config)
     {

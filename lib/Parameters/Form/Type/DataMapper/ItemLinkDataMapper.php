@@ -8,7 +8,7 @@ use Symfony\Component\Form\DataMapperInterface;
  * Mapper used to convert to and from the "link" to an item in "value_type://value_id"
  * format to the Symfony form structure.
  */
-class ItemLinkDataMapper implements DataMapperInterface
+final class ItemLinkDataMapper implements DataMapperInterface
 {
     public function mapDataToForms($data, $forms)
     {

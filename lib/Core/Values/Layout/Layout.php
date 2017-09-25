@@ -7,7 +7,7 @@ use Netgen\BlockManager\API\Values\Layout\Layout as APILayout;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\ValueObject;
 
-class Layout extends ValueObject implements APILayout
+final class Layout extends ValueObject implements APILayout
 {
     /**
      * @var int|string

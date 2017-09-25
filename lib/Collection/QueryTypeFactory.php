@@ -6,7 +6,7 @@ use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
 use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface;
 
-class QueryTypeFactory
+final class QueryTypeFactory
 {
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface

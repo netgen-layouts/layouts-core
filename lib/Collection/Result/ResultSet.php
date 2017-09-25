@@ -14,7 +14,7 @@ use Netgen\BlockManager\ValueObject;
  * Result set is a calculated result of the collection
  * containing manual items + items received from running the query.
  */
-class ResultSet extends ValueObject implements ArrayAccess, IteratorAggregate, Countable
+final class ResultSet extends ValueObject implements ArrayAccess, IteratorAggregate, Countable
 {
     /**
      * If specified, the result will include any invisible items

@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
-class KeyValuesType extends AbstractType
+final class KeyValuesType extends AbstractType
 {
     /**
      * Configures the options for this type.

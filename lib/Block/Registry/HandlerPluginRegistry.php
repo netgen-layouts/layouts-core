@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Block\Registry;
 
 use Netgen\BlockManager\Block\BlockDefinition\Handler\PluginInterface;
 
-class HandlerPluginRegistry implements HandlerPluginRegistryInterface
+final class HandlerPluginRegistry implements HandlerPluginRegistryInterface
 {
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Handler\PluginInterface[]

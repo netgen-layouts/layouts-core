@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Persistence\Values\Block;
 
 use Netgen\BlockManager\ValueObject;
 
-class TranslationUpdateStruct extends ValueObject
+final class TranslationUpdateStruct extends ValueObject
 {
     /**
      * New block parameters.

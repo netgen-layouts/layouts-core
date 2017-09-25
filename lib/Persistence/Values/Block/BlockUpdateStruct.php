@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Persistence\Values\Block;
 
 use Netgen\BlockManager\ValueObject;
 
-class BlockUpdateStruct extends ValueObject
+final class BlockUpdateStruct extends ValueObject
 {
     /**
      * New view type of the block.

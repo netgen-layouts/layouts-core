@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Exception;
 use Exception as BaseException;
 use InvalidArgumentException as BaseInvalidArgumentException;
 
-class InvalidArgumentException extends BaseInvalidArgumentException implements Exception
+final class InvalidArgumentException extends BaseInvalidArgumentException implements Exception
 {
     /**
      * Creates a new invalid argument exception.

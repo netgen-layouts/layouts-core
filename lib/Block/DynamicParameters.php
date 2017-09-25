@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Block;
 use ArrayAccess;
 use Countable;
 
-class DynamicParameters implements ArrayAccess, Countable
+final class DynamicParameters implements ArrayAccess, Countable
 {
     /**
      * @var array

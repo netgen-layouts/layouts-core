@@ -6,7 +6,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-class TargetTypePass implements CompilerPassInterface
+final class TargetTypePass implements CompilerPassInterface
 {
     const SERVICE_NAME = 'netgen_block_manager.layout.resolver.registry.target_type';
     const TAG_NAME = 'netgen_block_manager.layout.resolver.target_type';

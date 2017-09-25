@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Exception\View;
 use Netgen\BlockManager\Exception\Exception;
 use RuntimeException;
 
-class ViewException extends RuntimeException implements Exception
+final class ViewException extends RuntimeException implements Exception
 {
     /**
      * @param string $parameterName

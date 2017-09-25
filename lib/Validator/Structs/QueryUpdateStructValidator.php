@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 /**
  * Validates the complete QueryUpdateStruct value object.
  */
-class QueryUpdateStructValidator extends ConstraintValidator
+final class QueryUpdateStructValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint)
     {

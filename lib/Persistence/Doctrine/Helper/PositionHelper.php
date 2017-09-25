@@ -7,7 +7,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Type;
 use Netgen\BlockManager\Exception\BadStateException;
 
-class PositionHelper
+final class PositionHelper
 {
     /**
      * @var \Doctrine\DBAL\Connection

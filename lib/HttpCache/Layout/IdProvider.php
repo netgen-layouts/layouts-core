@@ -11,7 +11,7 @@ use Netgen\BlockManager\Exception\NotFoundException;
  * 1) If layout is shared, its ID and IDs of all reverse related layouts is returned.
  * 2) Otherwise, only the provided layout ID is returned.
  */
-class IdProvider implements IdProviderInterface
+final class IdProvider implements IdProviderInterface
 {
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService

@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Browser\Item\Layout;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\ContentBrowser\Item\ItemInterface;
 
-class Item implements ItemInterface, LayoutInterface
+final class Item implements ItemInterface, LayoutInterface
 {
     /**
      * @var \Netgen\BlockManager\API\Values\Layout\Layout

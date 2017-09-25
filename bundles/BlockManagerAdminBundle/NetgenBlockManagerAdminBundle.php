@@ -6,7 +6,7 @@ use Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection\ExtensionPlugin;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class NetgenBlockManagerAdminBundle extends Bundle
+final class NetgenBlockManagerAdminBundle extends Bundle
 {
     public function build(ContainerBuilder $container)
     {

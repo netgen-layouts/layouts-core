@@ -8,7 +8,7 @@ use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
 
-class CollectionQueryHandler extends QueryHandler
+final class CollectionQueryHandler extends QueryHandler
 {
     /**
      * Loads all collection data for collection with specified ID.

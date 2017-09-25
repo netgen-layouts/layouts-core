@@ -8,7 +8,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-class LayoutResponseListener implements EventSubscriberInterface
+final class LayoutResponseListener implements EventSubscriberInterface
 {
     /**
      * @var \Netgen\BlockManager\HttpCache\TaggerInterface

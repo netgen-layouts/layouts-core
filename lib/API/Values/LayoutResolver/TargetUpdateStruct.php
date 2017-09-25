@@ -2,6 +2,6 @@
 
 namespace Netgen\BlockManager\API\Values\LayoutResolver;
 
-class TargetUpdateStruct extends TargetStruct
+final class TargetUpdateStruct extends TargetStruct
 {
 }

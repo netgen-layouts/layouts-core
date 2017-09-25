@@ -21,7 +21,7 @@ use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone;
 
-class BlockHandler implements BlockHandlerInterface
+final class BlockHandler implements BlockHandlerInterface
 {
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler

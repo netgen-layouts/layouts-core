@@ -2,6 +2,9 @@
 
 namespace Netgen\BlockManager\View;
 
+/**
+ * @final
+ */
 class Renderer implements RendererInterface
 {
     /**

@@ -12,7 +12,7 @@ use Netgen\BlockManager\Validator\Constraint\Structs\BlockUpdateStruct as BlockU
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
 use Symfony\Component\Validator\Constraints;
 
-class BlockValidator extends Validator
+final class BlockValidator extends Validator
 {
     /**
      * @var \Netgen\BlockManager\Core\Service\Validator\ConfigValidator

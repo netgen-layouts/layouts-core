@@ -9,7 +9,7 @@ use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\SerializerAwareInterface;
 
-class CollectionQueryNormalizer implements NormalizerInterface, SerializerAwareInterface
+final class CollectionQueryNormalizer implements NormalizerInterface, SerializerAwareInterface
 {
     use SerializerAwareTrait;
 

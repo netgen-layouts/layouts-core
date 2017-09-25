@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
  * Validates if the provided value is a valid instance of
  * \Netgen\BlockManager\Parameters\Value\LinkValue object.
  */
-class LinkValidator extends ConstraintValidator
+final class LinkValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint)
     {

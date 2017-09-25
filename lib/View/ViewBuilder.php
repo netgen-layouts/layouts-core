@@ -9,7 +9,7 @@ use Netgen\BlockManager\Exception\View\ViewProviderException;
 use Netgen\BlockManager\View\Provider\ViewProviderInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class ViewBuilder implements ViewBuilderInterface
+final class ViewBuilder implements ViewBuilderInterface
 {
     /**
      * @var \Netgen\BlockManager\View\TemplateResolverInterface

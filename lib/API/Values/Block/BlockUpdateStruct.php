@@ -8,7 +8,7 @@ use Netgen\BlockManager\API\Values\ParameterStruct;
 use Netgen\BlockManager\API\Values\ParameterStructTrait;
 use Netgen\BlockManager\ValueObject;
 
-class BlockUpdateStruct extends ValueObject implements ParameterStruct, ConfigAwareStruct
+final class BlockUpdateStruct extends ValueObject implements ParameterStruct, ConfigAwareStruct
 {
     use ParameterStructTrait;
     use ConfigAwareStructTrait;

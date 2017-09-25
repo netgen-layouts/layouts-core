@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Validator\Constraint\Parameters;
 
 use Symfony\Component\Validator\Constraint;
 
-class ItemLink extends Constraint
+final class ItemLink extends Constraint
 {
     /**
      * @var string

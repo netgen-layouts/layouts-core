@@ -6,7 +6,7 @@ use Exception as BaseException;
 use Netgen\BlockManager\Exception\Exception;
 use RuntimeException;
 
-class TemplateResolverException extends RuntimeException implements Exception
+final class TemplateResolverException extends RuntimeException implements Exception
 {
     public function __construct($message = '', $code = 0, BaseException $previous = null)
     {

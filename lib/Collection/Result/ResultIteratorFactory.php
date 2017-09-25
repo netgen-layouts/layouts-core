@@ -7,7 +7,7 @@ use LimitIterator;
 use Netgen\BlockManager\Item\ItemBuilderInterface;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 
-class ResultIteratorFactory
+final class ResultIteratorFactory
 {
     /**
      * @var \Netgen\BlockManager\Item\ItemLoaderInterface

@@ -6,7 +6,7 @@ use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntime;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-class ItemExtension extends AbstractExtension
+final class ItemExtension extends AbstractExtension
 {
     public function getName()
     {

@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation;
 use Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
-class ApiCsrfValidationListener extends CsrfValidationListener
+final class ApiCsrfValidationListener extends CsrfValidationListener
 {
     public function onKernelRequest(GetResponseEvent $event)
     {

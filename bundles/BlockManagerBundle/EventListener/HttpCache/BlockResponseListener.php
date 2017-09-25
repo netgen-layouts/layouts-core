@@ -8,7 +8,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-class BlockResponseListener implements EventSubscriberInterface
+final class BlockResponseListener implements EventSubscriberInterface
 {
     /**
      * @var \Netgen\BlockManager\HttpCache\TaggerInterface

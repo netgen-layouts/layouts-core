@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Config;
 
 use Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface;
 
-class ConfigDefinitionFactory
+final class ConfigDefinitionFactory
 {
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface

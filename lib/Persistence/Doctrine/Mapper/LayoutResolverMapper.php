@@ -6,7 +6,7 @@ use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
 
-class LayoutResolverMapper
+final class LayoutResolverMapper
 {
     /**
      * Maps data from database to rule value objects.

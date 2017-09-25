@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-class CacheableViewListener implements EventSubscriberInterface
+final class CacheableViewListener implements EventSubscriberInterface
 {
     public static function getSubscribedEvents()
     {

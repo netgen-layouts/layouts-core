@@ -285,7 +285,7 @@ class CollectionValidatorTest extends TestCase
             array(
                 'type' => 'query_type',
                 'handler' => new QueryTypeHandlerWithRequiredParameter(),
-                'config' => $this->createMock(Configuration::class),
+                'config' => new Configuration(),
                 'parameters' => $handler->getParameters(),
             )
         );

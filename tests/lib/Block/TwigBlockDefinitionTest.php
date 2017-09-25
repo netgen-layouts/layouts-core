@@ -16,11 +16,6 @@ class TwigBlockDefinitionTest extends TestCase
     private $handler;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    private $configMock;
-
-    /**
      * @var \Netgen\BlockManager\Block\TwigBlockDefinition
      */
     private $blockDefinition;
@@ -29,13 +24,11 @@ class TwigBlockDefinitionTest extends TestCase
     {
         $this->handler = new TwigBlockDefinitionHandler();
 
-        $this->configMock = $this->createMock(Configuration::class);
-
         $this->blockDefinition = new TwigBlockDefinition(
             array(
                 'identifier' => 'block_definition',
                 'handler' => $this->handler,
-                'config' => $this->configMock,
+                'config' => new Configuration(),
             )
         );
     }

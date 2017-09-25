@@ -10,7 +10,7 @@ use Symfony\Component\Intl\Intl;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
-class SetMainLocaleType extends AbstractType
+final class SetMainLocaleType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver)
     {

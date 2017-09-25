@@ -17,7 +17,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
-class CreateType extends AbstractType
+final class CreateType extends AbstractType
 {
     /**
      * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface

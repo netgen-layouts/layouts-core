@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 /**
  * Validates if the provided value type exists in the system.
  */
-class ValueTypeValidator extends ConstraintValidator
+final class ValueTypeValidator extends ConstraintValidator
 {
     /**
      * @var \Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface

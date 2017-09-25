@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Persistence\Values\Layout;
 
 use Netgen\BlockManager\Persistence\Values\Value;
 
-class Layout extends Value
+final class Layout extends Value
 {
     /**
      * Layout ID.

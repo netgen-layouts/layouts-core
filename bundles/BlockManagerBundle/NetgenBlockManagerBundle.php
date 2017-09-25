@@ -6,7 +6,7 @@ use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class NetgenBlockManagerBundle extends Bundle
+final class NetgenBlockManagerBundle extends Bundle
 {
     public function build(ContainerBuilder $container)
     {

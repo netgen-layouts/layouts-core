@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Layout\Type;
 
-class LayoutTypeFactory
+final class LayoutTypeFactory
 {
     /**
      * Builds the layout type.

@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Browser\Item\ColumnProvider\Layout;
 use Netgen\ContentBrowser\Item\ColumnProvider\ColumnValueProviderInterface;
 use Netgen\ContentBrowser\Item\ItemInterface;
 
-class LayoutId implements ColumnValueProviderInterface
+final class LayoutId implements ColumnValueProviderInterface
 {
     public function getValue(ItemInterface $item)
     {

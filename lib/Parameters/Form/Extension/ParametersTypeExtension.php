@@ -13,7 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * This form extension attaches the parameter being edited
  * to the form used to edit the parameter.
  */
-class ParametersTypeExtension extends AbstractTypeExtension
+final class ParametersTypeExtension extends AbstractTypeExtension
 {
     public function getExtendedType()
     {

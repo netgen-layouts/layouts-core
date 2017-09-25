@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Parameters;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TranslatableParameterBuilder extends ParameterBuilder
+final class TranslatableParameterBuilder extends ParameterBuilder
 {
     protected function configureOptions(OptionsResolver $optionsResolver)
     {

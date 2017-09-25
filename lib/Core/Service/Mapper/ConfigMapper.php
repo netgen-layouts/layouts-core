@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Core\Service\Mapper;
 use Netgen\BlockManager\API\Values\ParameterStruct;
 use Netgen\BlockManager\Core\Values\Config\Config;
 
-class ConfigMapper
+final class ConfigMapper
 {
     /**
      * @var \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper

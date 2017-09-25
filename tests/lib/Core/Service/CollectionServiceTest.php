@@ -8,7 +8,6 @@ use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
-use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 
@@ -21,9 +20,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     {
         parent::setUp();
 
-        $this->collectionService = $this->createCollectionService(
-            $this->createMock(CollectionValidator::class)
-        );
+        $this->collectionService = $this->createCollectionService();
     }
 
     /**

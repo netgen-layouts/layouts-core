@@ -6,7 +6,7 @@ use FOS\HttpCache\CacheInvalidator;
 use FOS\HttpCache\Exception\ExceptionCollection;
 use Netgen\BlockManager\HttpCache\Layout\IdProviderInterface;
 
-class FOSClient implements ClientInterface
+final class FOSClient implements ClientInterface
 {
     /**
      * @var \FOS\HttpCache\CacheInvalidator

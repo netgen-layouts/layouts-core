@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\View\View;
 
 use Netgen\BlockManager\View\View;
 
-class LayoutView extends View implements LayoutViewInterface
+final class LayoutView extends View implements LayoutViewInterface
 {
     public function getLayout()
     {

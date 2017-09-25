@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
-class CopyType extends AbstractType
+final class CopyType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver)
     {

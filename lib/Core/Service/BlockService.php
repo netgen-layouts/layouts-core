@@ -27,7 +27,7 @@ use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceCreateStruct
 use Netgen\BlockManager\Persistence\Values\Block\TranslationUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
 
-class BlockService extends Service implements BlockServiceInterface
+final class BlockService extends Service implements BlockServiceInterface
 {
     /**
      * @var \Netgen\BlockManager\Core\Service\Validator\BlockValidator

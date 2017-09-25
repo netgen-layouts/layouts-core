@@ -11,7 +11,7 @@ use Netgen\BlockManager\View\ViewInterface;
  * is used to edit the config with the value type equal to
  * value provided in the configuration.
  */
-class ValueType implements MatcherInterface
+final class ValueType implements MatcherInterface
 {
     public function match(ViewInterface $view, array $config)
     {

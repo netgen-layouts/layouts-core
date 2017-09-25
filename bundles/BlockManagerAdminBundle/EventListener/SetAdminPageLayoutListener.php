@@ -7,7 +7,7 @@ use Netgen\Bundle\BlockManagerAdminBundle\Event\BlockManagerAdminEvents;
 use Netgen\Bundle\BlockManagerAdminBundle\Templating\Twig\GlobalVariable;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class SetAdminPageLayoutListener implements EventSubscriberInterface
+final class SetAdminPageLayoutListener implements EventSubscriberInterface
 {
     /**
      * @var \Netgen\Bundle\BlockManagerAdminBundle\Templating\Twig\GlobalVariable

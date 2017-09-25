@@ -9,7 +9,7 @@ use Twig\Template;
  * Wrapper around a Twig template with a context included (all variables
  * available inside the template).
  */
-class ContextualizedTwigTemplate
+final class ContextualizedTwigTemplate
 {
     /**
      * @var \Twig\Template

@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\View\View;
 
 use Netgen\BlockManager\View\View;
 
-class ItemView extends View implements ItemViewInterface
+final class ItemView extends View implements ItemViewInterface
 {
     public function getItem()
     {

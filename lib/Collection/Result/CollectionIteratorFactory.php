@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Collection\Result;
 use ArrayIterator;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 
-class CollectionIteratorFactory
+final class CollectionIteratorFactory
 {
     /**
      * @var int

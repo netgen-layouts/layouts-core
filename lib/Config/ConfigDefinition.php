@@ -6,6 +6,9 @@ use Netgen\BlockManager\API\Values\Config\ConfigAwareValue;
 use Netgen\BlockManager\Parameters\ParameterCollectionTrait;
 use Netgen\BlockManager\ValueObject;
 
+/**
+ * @final
+ */
 class ConfigDefinition extends ValueObject implements ConfigDefinitionInterface
 {
     use ParameterCollectionTrait;

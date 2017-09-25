@@ -11,7 +11,7 @@ use Netgen\BlockManager\Serializer\Version;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
-class ConfigController extends Controller
+final class ConfigController extends Controller
 {
     /**
      * @var \Netgen\BlockManager\Block\Registry\BlockTypeRegistryInterface

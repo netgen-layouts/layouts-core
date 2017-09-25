@@ -7,7 +7,7 @@ use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Item\ValueType\ValueType;
 
-class ValueTypeRegistry implements ValueTypeRegistryInterface
+final class ValueTypeRegistry implements ValueTypeRegistryInterface
 {
     /**
      * @var \Netgen\BlockManager\Item\ValueType\ValueType[]

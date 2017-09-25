@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Persistence\Values\LayoutResolver;
 
 use Netgen\BlockManager\ValueObject;
 
-class ConditionCreateStruct extends ValueObject
+final class ConditionCreateStruct extends ValueObject
 {
     /**
      * Identifier of the condition type.

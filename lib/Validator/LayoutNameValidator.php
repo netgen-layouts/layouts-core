@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 /**
  * Validates if the provided layout name already exists in the system.
  */
-class LayoutNameValidator extends ConstraintValidator
+final class LayoutNameValidator extends ConstraintValidator
 {
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService

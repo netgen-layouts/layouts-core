@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Persistence\Doctrine\Mapper;
 use Netgen\BlockManager\Persistence\Values\Block\Block;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
 
-class BlockMapper
+final class BlockMapper
 {
     /**
      * Maps data from database to block value objects.

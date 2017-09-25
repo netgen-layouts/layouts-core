@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\View\Provider;
 use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\View\View\RuleConditionView;
 
-class RuleConditionViewProvider implements ViewProviderInterface
+final class RuleConditionViewProvider implements ViewProviderInterface
 {
     public function provideView($valueObject, array $parameters = array())
     {

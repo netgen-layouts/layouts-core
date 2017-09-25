@@ -7,7 +7,7 @@ use Netgen\BlockManager\Exception\Layout\ConditionTypeException;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
 
-class ConditionTypeRegistry implements ConditionTypeRegistryInterface
+final class ConditionTypeRegistry implements ConditionTypeRegistryInterface
 {
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface[]

@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Values\Config\Config as APIConfig;
 use Netgen\BlockManager\Core\Values\ParameterBasedValueTrait;
 use Netgen\BlockManager\ValueObject;
 
-class Config extends ValueObject implements APIConfig
+final class Config extends ValueObject implements APIConfig
 {
     use ParameterBasedValueTrait;
 

@@ -15,11 +15,6 @@ class ContainerDefinitionTest extends TestCase
     private $handler;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    private $configMock;
-
-    /**
      * @var \Netgen\BlockManager\Block\ContainerDefinition
      */
     private $blockDefinition;
@@ -28,13 +23,11 @@ class ContainerDefinitionTest extends TestCase
     {
         $this->handler = new ContainerDefinitionHandler();
 
-        $this->configMock = $this->createMock(Configuration::class);
-
         $this->blockDefinition = new ContainerDefinition(
             array(
                 'identifier' => 'block_definition',
                 'handler' => $this->handler,
-                'config' => $this->configMock,
+                'config' => new Configuration(),
             )
         );
     }

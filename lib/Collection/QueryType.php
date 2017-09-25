@@ -6,6 +6,9 @@ use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Parameters\ParameterCollectionTrait;
 use Netgen\BlockManager\ValueObject;
 
+/**
+ * @final
+ */
 class QueryType extends ValueObject implements QueryTypeInterface
 {
     use ParameterCollectionTrait;

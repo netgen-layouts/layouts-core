@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Validator\Constraint;
 
 use Symfony\Component\Validator\Constraint;
 
-class BlockItemViewType extends Constraint
+final class BlockItemViewType extends Constraint
 {
     /**
      * @var string

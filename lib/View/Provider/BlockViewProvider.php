@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\View\Provider;
 use Netgen\BlockManager\API\Values\Block\Block as APIBlock;
 use Netgen\BlockManager\View\View\BlockView;
 
-class BlockViewProvider implements ViewProviderInterface
+final class BlockViewProvider implements ViewProviderInterface
 {
     public function provideView($valueObject, array $parameters = array())
     {

@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter;
 
-class ZoneParamConverter extends ParamConverter
+final class ZoneParamConverter extends ParamConverter
 {
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService

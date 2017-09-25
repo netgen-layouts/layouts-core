@@ -8,7 +8,7 @@ use Netgen\BlockManager\View\View\BlockViewInterface;
 use Netgen\Bundle\BlockManagerDebugBundle\DataCollector\BlockManagerDataCollector;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class BlockViewListener implements EventSubscriberInterface
+final class BlockViewListener implements EventSubscriberInterface
 {
     /**
      * @var \Netgen\Bundle\BlockManagerDebugBundle\DataCollector\BlockManagerDataCollector

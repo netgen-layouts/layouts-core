@@ -2,6 +2,6 @@
 
 namespace Netgen\BlockManager\API\Values\LayoutResolver;
 
-class ConditionUpdateStruct extends ConditionStruct
+final class ConditionUpdateStruct extends ConditionStruct
 {
 }

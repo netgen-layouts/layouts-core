@@ -7,7 +7,7 @@ use Netgen\BlockManager\API\Values\Block\Placeholder;
 use Netgen\BlockManager\Exception\View\ViewProviderException;
 use Netgen\BlockManager\View\View\PlaceholderView;
 
-class PlaceholderViewProvider implements ViewProviderInterface
+final class PlaceholderViewProvider implements ViewProviderInterface
 {
     public function provideView($valueObject, array $parameters = array())
     {

@@ -14,7 +14,7 @@ use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class LayoutsController extends Controller
+final class LayoutsController extends Controller
 {
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService

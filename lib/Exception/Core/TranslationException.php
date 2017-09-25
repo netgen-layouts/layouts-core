@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Exception\Core;
 use InvalidArgumentException;
 use Netgen\BlockManager\Exception\Exception;
 
-class TranslationException extends InvalidArgumentException implements Exception
+final class TranslationException extends InvalidArgumentException implements Exception
 {
     /**
      * @param string $locale

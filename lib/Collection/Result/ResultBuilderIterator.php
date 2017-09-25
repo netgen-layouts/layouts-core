@@ -14,7 +14,7 @@ use Netgen\BlockManager\Item\NullItem;
 /**
  * This iterator builds a result object from the collection item.
  */
-class ResultBuilderIterator extends IteratorIterator
+final class ResultBuilderIterator extends IteratorIterator
 {
     /**
      * @var \Netgen\BlockManager\Item\ItemLoaderInterface

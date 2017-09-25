@@ -7,7 +7,7 @@ use Netgen\BlockManager\Event\CollectViewParametersEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Twig\Environment;
 
-class ViewRenderer implements ViewRendererInterface
+final class ViewRenderer implements ViewRendererInterface
 {
     /**
      * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface

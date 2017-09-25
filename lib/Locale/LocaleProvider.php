@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Locale;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Intl\Intl;
 
-class LocaleProvider implements LocaleProviderInterface
+final class LocaleProvider implements LocaleProviderInterface
 {
     /**
      * @var string[]

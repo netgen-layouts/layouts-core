@@ -17,7 +17,7 @@ use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-class ExceptionConversionListener implements EventSubscriberInterface
+final class ExceptionConversionListener implements EventSubscriberInterface
 {
     /**
      * @var array

@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
  * This renderer is used in the frontend to enable rendering some of the entities
  * with ESI fragments.
  */
-class FragmentRenderer implements RendererInterface
+final class FragmentRenderer implements RendererInterface
 {
     /**
      * @var \Netgen\BlockManager\View\ViewBuilderInterface

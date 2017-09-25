@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\API\Values\LayoutResolver;
 
-class ConditionCreateStruct extends ConditionStruct
+final class ConditionCreateStruct extends ConditionStruct
 {
     /**
      * The type of the condition.

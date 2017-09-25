@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Persistence\Values\Collection;
 
 use Netgen\BlockManager\ValueObject;
 
-class QueryTranslationUpdateStruct extends ValueObject
+final class QueryTranslationUpdateStruct extends ValueObject
 {
     /**
      * New parameter values for the query.

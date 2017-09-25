@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
-class ConfigDefinitionPass implements CompilerPassInterface
+final class ConfigDefinitionPass implements CompilerPassInterface
 {
     const TAG_NAMES = array(
         'block' => 'netgen_block_manager.block.config_definition_handler',

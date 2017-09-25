@@ -7,7 +7,7 @@ use Netgen\BlockManager\Block\BlockType\BlockType;
 use Netgen\BlockManager\Exception\Block\BlockTypeException;
 use Netgen\BlockManager\Exception\RuntimeException;
 
-class BlockTypeRegistry implements BlockTypeRegistryInterface
+final class BlockTypeRegistry implements BlockTypeRegistryInterface
 {
     /**
      * @var array

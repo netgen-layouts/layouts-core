@@ -13,8 +13,6 @@ use Netgen\BlockManager\API\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\Target;
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct;
-use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
-use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Exception\NotFoundException;
 
 abstract class LayoutResolverServiceTest extends ServiceTestCase
@@ -26,13 +24,9 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     {
         parent::setUp();
 
-        $this->layoutService = $this->createLayoutService(
-            $this->createMock(LayoutValidator::class)
-        );
+        $this->layoutService = $this->createLayoutService();
 
-        $this->layoutResolverService = $this->createLayoutResolverService(
-            $this->createMock(LayoutResolverValidator::class)
-        );
+        $this->layoutResolverService = $this->createLayoutResolverService();
     }
 
     /**

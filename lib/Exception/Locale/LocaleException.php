@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Exception\Locale;
 use Netgen\BlockManager\Exception\Exception;
 use RuntimeException;
 
-class LocaleException extends RuntimeException implements Exception
+final class LocaleException extends RuntimeException implements Exception
 {
     /**
      * @return \Netgen\BlockManager\Exception\Locale\LocaleException

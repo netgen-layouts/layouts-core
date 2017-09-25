@@ -7,7 +7,7 @@ use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Exception\Block\BlockDefinitionException;
 use Netgen\BlockManager\Exception\RuntimeException;
 
-class BlockDefinitionRegistry implements BlockDefinitionRegistryInterface
+final class BlockDefinitionRegistry implements BlockDefinitionRegistryInterface
 {
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinitionInterface[]

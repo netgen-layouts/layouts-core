@@ -9,7 +9,7 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\HttpFoundation\Response;
 
-class BlockController extends Controller
+final class BlockController extends Controller
 {
     /**
      * @var \Psr\Log\LoggerInterface

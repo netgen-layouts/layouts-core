@@ -9,7 +9,7 @@ use Netgen\BlockManager\View\View\LayoutViewInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class RelatedLayoutsCountListener implements EventSubscriberInterface
+final class RelatedLayoutsCountListener implements EventSubscriberInterface
 {
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService

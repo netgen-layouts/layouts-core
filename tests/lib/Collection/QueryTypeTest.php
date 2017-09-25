@@ -11,24 +11,17 @@ use PHPUnit\Framework\TestCase;
 class QueryTypeTest extends TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    private $configMock;
-
-    /**
      * @var \Netgen\BlockManager\Collection\QueryType
      */
     private $queryType;
 
     public function setUp()
     {
-        $this->configMock = $this->createMock(Configuration::class);
-
         $this->queryType = new QueryType(
             array(
                 'type' => 'query_type',
                 'handler' => new QueryTypeHandler(array('val1', 'val2'), null, 3),
-                'config' => $this->configMock,
+                'config' => new Configuration(),
             )
         );
     }
@@ -55,7 +48,7 @@ class QueryTypeTest extends TestCase
      */
     public function testGetConfig()
     {
-        $this->assertEquals($this->configMock, $this->queryType->getConfig());
+        $this->assertEquals(new Configuration(), $this->queryType->getConfig());
     }
 
     /**
@@ -75,7 +68,7 @@ class QueryTypeTest extends TestCase
             array(
                 'type' => 'query_type',
                 'handler' => new QueryTypeHandler(array('val1', 'val2'), null, 1),
-                'config' => $this->configMock,
+                'config' => new Configuration(),
             )
         );
 

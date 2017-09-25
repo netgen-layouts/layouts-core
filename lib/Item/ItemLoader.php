@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Item;
 use Netgen\BlockManager\Exception\InvalidInterfaceException;
 use Netgen\BlockManager\Exception\Item\ItemException;
 
-class ItemLoader implements ItemLoaderInterface
+final class ItemLoader implements ItemLoaderInterface
 {
     /**
      * @var \Netgen\BlockManager\Item\ItemBuilderInterface

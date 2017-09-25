@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNodeInterface;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
-class HttpCacheNode implements ConfigurationNodeInterface
+final class HttpCacheNode implements ConfigurationNodeInterface
 {
     public function getConfigurationNode()
     {

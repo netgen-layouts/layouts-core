@@ -9,7 +9,7 @@ use Netgen\BlockManager\Item\NullItem;
 /**
  * Filters the result set by using the filtering flags provided in the constructor.
  */
-class ResultFilterIterator extends FilterIterator
+final class ResultFilterIterator extends FilterIterator
 {
     /**
      * @var int

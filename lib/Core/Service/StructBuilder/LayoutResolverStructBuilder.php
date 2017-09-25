@@ -10,7 +10,7 @@ use Netgen\BlockManager\API\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct;
 
-class LayoutResolverStructBuilder
+final class LayoutResolverStructBuilder
 {
     /**
      * Creates a new rule create struct.

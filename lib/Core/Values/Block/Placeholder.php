@@ -13,7 +13,7 @@ use Netgen\BlockManager\ValueObject;
  * Each container block can have multiple placeholders, allowing to render
  * each block set separately.
  */
-class Placeholder extends ValueObject implements APIPlaceholder
+final class Placeholder extends ValueObject implements APIPlaceholder
 {
     /**
      * @var string

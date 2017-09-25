@@ -9,7 +9,7 @@ use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class CollectionItemNormalizer implements NormalizerInterface
+final class CollectionItemNormalizer implements NormalizerInterface
 {
     /**
      * @var \Netgen\BlockManager\Item\ItemLoaderInterface

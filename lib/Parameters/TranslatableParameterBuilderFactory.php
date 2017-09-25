@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Parameters;
 
-class TranslatableParameterBuilderFactory extends ParameterBuilderFactory
+final class TranslatableParameterBuilderFactory extends ParameterBuilderFactory
 {
     public function createParameterBuilder(array $config = array())
     {

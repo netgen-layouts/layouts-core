@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
 use Netgen\BlockManager\ValueObject;
 
-class Collection extends ValueObject implements APICollection
+final class Collection extends ValueObject implements APICollection
 {
     /**
      * @var int|string

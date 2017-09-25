@@ -7,7 +7,7 @@ use Netgen\BlockManager\Exception\Parameters\ParameterTypeException;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Parameters\Form\MapperInterface;
 
-class FormMapperRegistry implements FormMapperRegistryInterface
+final class FormMapperRegistry implements FormMapperRegistryInterface
 {
     /**
      * @var \Netgen\BlockManager\Parameters\Form\MapperInterface[]

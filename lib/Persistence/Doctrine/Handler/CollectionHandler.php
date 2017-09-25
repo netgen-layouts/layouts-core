@@ -17,7 +17,7 @@ use Netgen\BlockManager\Persistence\Values\Collection\Query;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryTranslationUpdateStruct;
 
-class CollectionHandler implements CollectionHandlerInterface
+final class CollectionHandler implements CollectionHandlerInterface
 {
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler

@@ -7,7 +7,7 @@ use Netgen\BlockManager\API\Values\Block\Block;
 /**
  * This voter votes NO if the block has a collection with contextual query.
  */
-class ContextualQueryVoter implements VoterInterface
+final class ContextualQueryVoter implements VoterInterface
 {
     public function vote(Block $block)
     {

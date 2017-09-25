@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1;
 
-use Netgen\BlockManager\Core\Service\LayoutService;
+use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;

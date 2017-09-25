@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 
 use Doctrine\DBAL\Connection;
 
-class Sqlite
+final class Sqlite
 {
     /**
      * @var \Doctrine\DBAL\Connection

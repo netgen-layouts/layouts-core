@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\View\View;
 
 use Netgen\BlockManager\View\View;
 
-class RuleTargetView extends View implements RuleTargetViewInterface
+final class RuleTargetView extends View implements RuleTargetViewInterface
 {
     public function getTarget()
     {

@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Persistence\Values\LayoutResolver;
 
 use Netgen\BlockManager\Persistence\Values\Value;
 
-class Target extends Value
+final class Target extends Value
 {
     /**
      * Target ID.

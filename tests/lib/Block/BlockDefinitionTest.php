@@ -18,11 +18,6 @@ class BlockDefinitionTest extends TestCase
     private $handler;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    private $configMock;
-
-    /**
      * @var \Netgen\BlockManager\Block\BlockDefinition
      */
     private $blockDefinition;
@@ -31,8 +26,6 @@ class BlockDefinitionTest extends TestCase
     {
         $this->handler = new BlockDefinitionHandler(array(), true);
 
-        $this->configMock = $this->createMock(Configuration::class);
-
         $this->blockDefinition = new BlockDefinition(
             array(
                 'identifier' => 'block_definition',
@@ -40,7 +33,7 @@ class BlockDefinitionTest extends TestCase
                 'handlerPlugins' => array(
                     new HandlerPlugin(),
                 ),
-                'config' => $this->configMock,
+                'config' => new Configuration(),
                 'configDefinitions' => array(42),
             )
         );
@@ -91,7 +84,7 @@ class BlockDefinitionTest extends TestCase
      */
     public function testGetConfig()
     {
-        $this->assertEquals($this->configMock, $this->blockDefinition->getConfig());
+        $this->assertEquals(new Configuration(), $this->blockDefinition->getConfig());
     }
 
     /**

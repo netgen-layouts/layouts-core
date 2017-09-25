@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\View\View;
 use Netgen\BlockManager\View\CacheableViewTrait;
 use Netgen\BlockManager\View\View;
 
-class BlockView extends View implements BlockViewInterface
+final class BlockView extends View implements BlockViewInterface
 {
     use CacheableViewTrait;
 

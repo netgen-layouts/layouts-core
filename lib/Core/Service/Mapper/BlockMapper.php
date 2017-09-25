@@ -13,7 +13,7 @@ use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Persistence\Values\Block\Block as PersistenceBlock;
 
-class BlockMapper
+final class BlockMapper
 {
     /**
      * @var \Netgen\BlockManager\Persistence\Handler

@@ -7,7 +7,7 @@ use Netgen\BlockManager\Collection\QueryTypeInterface;
 use Netgen\BlockManager\Exception\Collection\QueryTypeException;
 use Netgen\BlockManager\Exception\RuntimeException;
 
-class QueryTypeRegistry implements QueryTypeRegistryInterface
+final class QueryTypeRegistry implements QueryTypeRegistryInterface
 {
     /**
      * @var \Netgen\BlockManager\Collection\QueryTypeInterface[]

@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\API\Values\Layout;
 
 use Netgen\BlockManager\ValueObject;
 
-class LayoutUpdateStruct extends ValueObject
+final class LayoutUpdateStruct extends ValueObject
 {
     /**
      * New human readable name of the layout.

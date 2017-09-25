@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Menu;
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
-class MainMenuBuilder
+final class MainMenuBuilder
 {
     /**
      * @var \Knp\Menu\FactoryInterface

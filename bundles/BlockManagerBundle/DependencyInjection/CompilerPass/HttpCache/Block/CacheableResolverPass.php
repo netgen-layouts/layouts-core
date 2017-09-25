@@ -6,7 +6,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-class CacheableResolverPass implements CompilerPassInterface
+final class CacheableResolverPass implements CompilerPassInterface
 {
     const SERVICE_NAME = 'netgen_block_manager.http_cache.block.cacheable_resolver';
     const TAG_NAME = 'netgen_block_manager.http_cache.block.cacheable_resolver.voter';

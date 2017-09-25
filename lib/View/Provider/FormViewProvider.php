@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\View\Provider;
 use Netgen\BlockManager\View\View\FormView;
 use Symfony\Component\Form\FormInterface;
 
-class FormViewProvider implements ViewProviderInterface
+final class FormViewProvider implements ViewProviderInterface
 {
     public function provideView($valueObject, array $parameters = array())
     {

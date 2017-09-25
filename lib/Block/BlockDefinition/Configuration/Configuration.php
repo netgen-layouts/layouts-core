@@ -12,7 +12,7 @@ use Netgen\BlockManager\ValueObject;
  * item view types the block can have, the list of forms available to edit
  * the block and the list of collections the block has.
  */
-class Configuration extends ValueObject
+final class Configuration extends ValueObject
 {
     /**
      * @var string

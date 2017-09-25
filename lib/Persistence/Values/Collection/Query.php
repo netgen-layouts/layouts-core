@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Persistence\Values\Collection;
 
 use Netgen\BlockManager\Persistence\Values\Value;
 
-class Query extends Value
+final class Query extends Value
 {
     /**
      * Query ID.

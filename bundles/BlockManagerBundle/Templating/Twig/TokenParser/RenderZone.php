@@ -7,7 +7,7 @@ use Twig\Error\SyntaxError;
 use Twig\Token;
 use Twig\TokenParser\AbstractTokenParser;
 
-class RenderZone extends AbstractTokenParser
+final class RenderZone extends AbstractTokenParser
 {
     public function parse(Token $token)
     {

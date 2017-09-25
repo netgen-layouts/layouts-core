@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\View\View;
 
 use Netgen\BlockManager\View\View;
 
-class FormView extends View implements FormViewInterface
+final class FormView extends View implements FormViewInterface
 {
     public function getForm()
     {

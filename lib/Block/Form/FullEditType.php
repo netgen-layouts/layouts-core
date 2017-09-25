@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Block\Form;
 
 use Symfony\Component\Form\FormBuilderInterface;
 
-class FullEditType extends EditType
+final class FullEditType extends EditType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

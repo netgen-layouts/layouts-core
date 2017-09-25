@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Persistence\Values\Collection;
 
 use Netgen\BlockManager\Persistence\Values\Value;
 
-class Item extends Value
+final class Item extends Value
 {
     /**
      * @const int

@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Persistence\Values\Layout;
 
 use Netgen\BlockManager\ValueObject;
 
-class LayoutUpdateStruct extends ValueObject
+final class LayoutUpdateStruct extends ValueObject
 {
     /**
      * Layout modification timestamp.

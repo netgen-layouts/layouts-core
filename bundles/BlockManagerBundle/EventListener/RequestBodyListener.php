@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\Encoder\DecoderInterface;
 use Symfony\Component\Serializer\Exception\UnexpectedValueException;
 
-class RequestBodyListener implements EventSubscriberInterface
+final class RequestBodyListener implements EventSubscriberInterface
 {
     /**
      * @var \Symfony\Component\Serializer\Encoder\DecoderInterface

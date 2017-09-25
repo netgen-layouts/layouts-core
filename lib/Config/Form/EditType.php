@@ -13,7 +13,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class EditType extends AbstractType
+final class EditType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver)
     {

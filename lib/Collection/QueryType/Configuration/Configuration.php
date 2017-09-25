@@ -11,7 +11,7 @@ use Netgen\BlockManager\ValueObject;
  * information (name, identifier) as well as the list of forms available to edit
  * the query.
  */
-class Configuration extends ValueObject
+final class Configuration extends ValueObject
 {
     /**
      * @var string

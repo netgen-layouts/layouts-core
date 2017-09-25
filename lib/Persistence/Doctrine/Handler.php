@@ -9,7 +9,7 @@ use Netgen\BlockManager\Persistence\Handler\CollectionHandler;
 use Netgen\BlockManager\Persistence\Handler\LayoutHandler;
 use Netgen\BlockManager\Persistence\Handler\LayoutResolverHandler;
 
-class Handler implements HandlerInterface
+final class Handler implements HandlerInterface
 {
     /**
      * @var \Doctrine\DBAL\Connection

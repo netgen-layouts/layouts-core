@@ -6,7 +6,7 @@ use Netgen\BlockManager\Collection\Query\Form\FullEditType;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNodeInterface;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
-class QueryTypeNode implements ConfigurationNodeInterface
+final class QueryTypeNode implements ConfigurationNodeInterface
 {
     public function getConfigurationNode()
     {

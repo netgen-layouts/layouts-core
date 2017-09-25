@@ -6,7 +6,7 @@ use Netgen\BlockManager\Serializer\Values\FormView;
 use Netgen\BlockManager\View\RendererInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class FormViewNormalizer implements NormalizerInterface
+final class FormViewNormalizer implements NormalizerInterface
 {
     /**
      * @var \Netgen\BlockManager\View\RendererInterface

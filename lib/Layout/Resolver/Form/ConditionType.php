@@ -11,7 +11,7 @@ use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\MapperInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ConditionType extends AbstractType
+final class ConditionType extends AbstractType
 {
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\MapperInterface[]

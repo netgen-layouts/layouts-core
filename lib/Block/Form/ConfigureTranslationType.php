@@ -11,7 +11,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
-class ConfigureTranslationType extends AbstractType
+final class ConfigureTranslationType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver)
     {

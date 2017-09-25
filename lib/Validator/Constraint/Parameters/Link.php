@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Validator\Constraint\Parameters;
 
 use Symfony\Component\Validator\Constraint;
 
-class Link extends Constraint
+final class Link extends Constraint
 {
     /**
      * If true, link value cannot be empty.

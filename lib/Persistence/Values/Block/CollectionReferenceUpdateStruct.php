@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Persistence\Values\Block;
 
 use Netgen\BlockManager\ValueObject;
 
-class CollectionReferenceUpdateStruct extends ValueObject
+final class CollectionReferenceUpdateStruct extends ValueObject
 {
     /**
      * The collection to link to.

@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Persistence\Values\LayoutResolver;
 
 use Netgen\BlockManager\Persistence\Values\Value;
 
-class Condition extends Value
+final class Condition extends Value
 {
     /**
      * Condition ID.

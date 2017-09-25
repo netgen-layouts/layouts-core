@@ -11,7 +11,7 @@ use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class SharedLayoutsController extends Controller
+final class SharedLayoutsController extends Controller
 {
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService

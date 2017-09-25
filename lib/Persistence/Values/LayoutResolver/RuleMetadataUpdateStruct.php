@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Persistence\Values\LayoutResolver;
 
 use Netgen\BlockManager\ValueObject;
 
-class RuleMetadataUpdateStruct extends ValueObject
+final class RuleMetadataUpdateStruct extends ValueObject
 {
     /**
      * Flag indicating if the rule will be enabled or not.

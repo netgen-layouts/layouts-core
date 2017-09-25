@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Event;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\Request;
 
-class AdminMatchEvent extends Event
+final class AdminMatchEvent extends Event
 {
     /**
      * The request the kernel is currently processing.

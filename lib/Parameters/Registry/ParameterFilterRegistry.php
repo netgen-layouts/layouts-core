@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Parameters\Registry;
 
 use Netgen\BlockManager\Parameters\ParameterFilterInterface;
 
-class ParameterFilterRegistry implements ParameterFilterRegistryInterface
+final class ParameterFilterRegistry implements ParameterFilterRegistryInterface
 {
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterFilterInterface[][]

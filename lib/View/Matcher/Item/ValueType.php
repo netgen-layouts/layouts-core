@@ -10,7 +10,7 @@ use Netgen\BlockManager\View\ViewInterface;
  * This matcher matches if the value type of the item in the provided view
  * has a value specified in the configuration.
  */
-class ValueType implements MatcherInterface
+final class ValueType implements MatcherInterface
 {
     public function match(ViewInterface $view, array $config)
     {

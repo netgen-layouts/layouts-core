@@ -9,7 +9,7 @@ use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterfac
 use Netgen\BlockManager\Block\Registry\HandlerPluginRegistryInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface;
 
-class BlockDefinitionFactory
+final class BlockDefinitionFactory
 {
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface

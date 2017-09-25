@@ -10,7 +10,7 @@ use Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate;
 use Netgen\BlockManager\View\View\BlockViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class GetTwigBlockContentListener implements EventSubscriberInterface
+final class GetTwigBlockContentListener implements EventSubscriberInterface
 {
     public static function getSubscribedEvents()
     {

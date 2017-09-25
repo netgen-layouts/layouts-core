@@ -9,7 +9,7 @@ use Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNodeInterf
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
-class BlockDefinitionNode implements ConfigurationNodeInterface
+final class BlockDefinitionNode implements ConfigurationNodeInterface
 {
     public function getConfigurationNode()
     {

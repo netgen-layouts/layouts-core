@@ -11,7 +11,7 @@ use Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolverInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-class GlobalVariable
+final class GlobalVariable
 {
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Configuration\ConfigurationInterface

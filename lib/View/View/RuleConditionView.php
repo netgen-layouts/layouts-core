@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\View\View;
 
 use Netgen\BlockManager\View\View;
 
-class RuleConditionView extends View implements RuleConditionViewInterface
+final class RuleConditionView extends View implements RuleConditionViewInterface
 {
     public function getCondition()
     {

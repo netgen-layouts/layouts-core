@@ -6,7 +6,7 @@ use Countable;
 use Iterator;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 
-class CollectionIterator implements Iterator, Countable
+final class CollectionIterator implements Iterator, Countable
 {
     /**
      * @var \Netgen\BlockManager\API\Values\Collection\Collection

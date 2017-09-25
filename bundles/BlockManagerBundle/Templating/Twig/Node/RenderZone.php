@@ -10,7 +10,7 @@ use Twig\Compiler;
 use Twig\Node\Expression\AbstractExpression;
 use Twig\Node\Node;
 
-class RenderZone extends Node
+final class RenderZone extends Node
 {
     /**
      * Constructor.

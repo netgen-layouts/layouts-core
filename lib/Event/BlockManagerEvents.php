@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Event;
 
-class BlockManagerEvents
+final class BlockManagerEvents
 {
     /**
      * This event will be dispatched when the view object is being built.

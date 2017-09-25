@@ -8,7 +8,7 @@ use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 
-class LayoutStructBuilder
+final class LayoutStructBuilder
 {
     /**
      * Creates a new layout create struct from the provided values.

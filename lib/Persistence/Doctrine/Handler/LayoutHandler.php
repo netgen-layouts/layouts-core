@@ -17,7 +17,7 @@ use Netgen\BlockManager\Persistence\Values\Layout\Zone;
 use Netgen\BlockManager\Persistence\Values\Layout\ZoneCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\ZoneUpdateStruct;
 
-class LayoutHandler implements LayoutHandlerInterface
+final class LayoutHandler implements LayoutHandlerInterface
 {
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler

@@ -7,7 +7,7 @@ use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Symfony\Component\Validator\Constraints;
 
-class BlockCollectionValidator extends Validator
+final class BlockCollectionValidator extends Validator
 {
     /**
      * Validates item creation parameters from the request.

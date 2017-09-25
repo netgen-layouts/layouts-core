@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Collection\QueryType\Configuration;
 
-class Factory
+final class Factory
 {
     /**
      * Builds the query type configuration.

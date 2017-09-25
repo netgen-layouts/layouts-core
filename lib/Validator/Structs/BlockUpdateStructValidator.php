@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 /**
  * Validates the complete BlockUpdateStruct value object.
  */
-class BlockUpdateStructValidator extends ConstraintValidator
+final class BlockUpdateStructValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint)
     {

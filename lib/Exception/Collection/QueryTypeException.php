@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Exception\Collection;
 use InvalidArgumentException;
 use Netgen\BlockManager\Exception\Exception;
 
-class QueryTypeException extends InvalidArgumentException implements Exception
+final class QueryTypeException extends InvalidArgumentException implements Exception
 {
     /**
      * @param string $identifier

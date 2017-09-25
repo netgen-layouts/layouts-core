@@ -8,7 +8,7 @@ use Netgen\BlockManager\View\ViewInterface;
  * This matcher matches if the view has an `api_version`
  * parameter with the value specified in the configuration.
  */
-class APIVersion implements MatcherInterface
+final class APIVersion implements MatcherInterface
 {
     public function match(ViewInterface $view, array $config)
     {

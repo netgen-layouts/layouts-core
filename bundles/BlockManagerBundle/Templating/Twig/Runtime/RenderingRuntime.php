@@ -16,7 +16,7 @@ use Psr\Log\NullLogger;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-class RenderingRuntime
+final class RenderingRuntime
 {
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService

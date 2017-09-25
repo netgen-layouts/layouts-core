@@ -11,7 +11,7 @@ use Netgen\BlockManager\Parameters\Registry\FormMapperRegistryInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ParametersType extends AbstractType
+final class ParametersType extends AbstractType
 {
     /**
      * @var \Netgen\BlockManager\Parameters\Registry\FormMapperRegistryInterface

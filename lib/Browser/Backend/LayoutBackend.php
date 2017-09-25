@@ -11,7 +11,7 @@ use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\ContentBrowser\Item\LocationInterface;
 
-class LayoutBackend implements BackendInterface
+final class LayoutBackend implements BackendInterface
 {
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService

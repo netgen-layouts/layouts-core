@@ -9,7 +9,7 @@ use Netgen\BlockManager\View\View\LayoutViewInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class RuleCountListener implements EventSubscriberInterface
+final class RuleCountListener implements EventSubscriberInterface
 {
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutResolverService

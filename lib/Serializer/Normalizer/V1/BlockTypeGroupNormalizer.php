@@ -8,7 +8,7 @@ use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class BlockTypeGroupNormalizer implements NormalizerInterface
+final class BlockTypeGroupNormalizer implements NormalizerInterface
 {
     public function normalize($object, $format = null, array $context = array())
     {

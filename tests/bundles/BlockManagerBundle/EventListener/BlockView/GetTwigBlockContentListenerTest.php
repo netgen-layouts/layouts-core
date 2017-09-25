@@ -14,6 +14,7 @@ use Netgen\BlockManager\View\View\BlockView;
 use Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetTwigBlockContentListener;
 use PHPUnit\Framework\TestCase;
 use stdClass;
+use Twig\Template;
 
 class GetTwigBlockContentListenerTest extends TestCase
 {
@@ -56,13 +57,19 @@ class GetTwigBlockContentListenerTest extends TestCase
 
         $blockView = new BlockView(array('block' => $block));
 
-        $twigTemplateMock = $this->createMock(ContextualizedTwigTemplate::class);
+        $twigTemplateMock = $this->createMock(Template::class);
+
         $twigTemplateMock
             ->expects($this->once())
-            ->method('renderBlock')
-            ->will($this->returnValue('rendered twig block'));
+            ->method('hasBlock')
+            ->will($this->returnValue(true));
 
-        $blockView->addParameter('twig_template', $twigTemplateMock);
+        $twigTemplateMock
+            ->expects($this->once())
+            ->method('displayBlock')
+            ->will($this->returnCallback(function () { echo 'rendered twig block'; }));
+
+        $blockView->addParameter('twig_template', new ContextualizedTwigTemplate($twigTemplateMock));
 
         $event = new CollectViewParametersEvent($blockView);
         $this->listener->onRenderView($event);

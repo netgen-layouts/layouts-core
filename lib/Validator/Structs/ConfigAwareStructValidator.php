@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 /**
  * Validates the complete value object which implements ConfigAwareStruct interface.
  */
-class ConfigAwareStructValidator extends ConstraintValidator
+final class ConfigAwareStructValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint)
     {

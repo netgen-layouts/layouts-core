@@ -9,7 +9,7 @@ use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CollectionController extends Controller
+final class CollectionController extends Controller
 {
     /**
      * @var \Netgen\BlockManager\API\Service\CollectionService

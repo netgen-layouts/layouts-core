@@ -6,7 +6,7 @@ use Doctrine\DBAL\Connection;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper\Postgres;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite;
 
-class ConnectionHelper
+final class ConnectionHelper
 {
     /**
      * @var \Doctrine\DBAL\Connection

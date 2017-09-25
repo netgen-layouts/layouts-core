@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Event\PostResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-class InvalidationListener implements EventSubscriberInterface
+final class InvalidationListener implements EventSubscriberInterface
 {
     /**
      * @var \Netgen\BlockManager\HttpCache\ClientInterface

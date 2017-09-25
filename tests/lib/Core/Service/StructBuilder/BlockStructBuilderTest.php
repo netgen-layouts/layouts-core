@@ -7,7 +7,6 @@ use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Core\Service\StructBuilder\BlockStructBuilder;
 use Netgen\BlockManager\Core\Service\StructBuilder\ConfigStructBuilder;
-use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
 
 abstract class BlockStructBuilderTest extends ServiceTestCase
@@ -24,9 +23,7 @@ abstract class BlockStructBuilderTest extends ServiceTestCase
     {
         parent::setUp();
 
-        $this->blockService = $this->createBlockService(
-            $this->createMock(BlockValidator::class)
-        );
+        $this->blockService = $this->createBlockService();
 
         $this->structBuilder = new BlockStructBuilder(
             new ConfigStructBuilder()

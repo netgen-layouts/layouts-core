@@ -10,7 +10,7 @@ use Twig\RuntimeLoader\RuntimeLoaderInterface;
  *
  * @deprecated Remove when support for Symfony 2.8 ends.
  */
-class ContainerRuntimeLoader implements RuntimeLoaderInterface
+final class ContainerRuntimeLoader implements RuntimeLoaderInterface
 {
     /**
      * @var \Symfony\Component\DependencyInjection\ContainerInterface

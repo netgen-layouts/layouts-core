@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Exception\InvalidInterfaceException;
 use Netgen\BlockManager\HttpCache\Block\CacheableResolver\VoterInterface;
 
-class CacheableResolver implements CacheableResolverInterface
+final class CacheableResolver implements CacheableResolverInterface
 {
     /**
      * @var \Netgen\BlockManager\HttpCache\Block\CacheableResolver\VoterInterface[]

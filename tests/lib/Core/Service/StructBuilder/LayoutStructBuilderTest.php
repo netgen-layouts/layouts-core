@@ -6,7 +6,6 @@ use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\BlockManager\Core\Service\StructBuilder\LayoutStructBuilder;
-use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
 
@@ -24,9 +23,7 @@ abstract class LayoutStructBuilderTest extends ServiceTestCase
     {
         parent::setUp();
 
-        $this->layoutService = $this->createLayoutService(
-            $this->createMock(LayoutValidator::class)
-        );
+        $this->layoutService = $this->createLayoutService();
 
         $this->structBuilder = new LayoutStructBuilder();
     }

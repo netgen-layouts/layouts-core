@@ -27,11 +27,6 @@ class BlockDefinitionFactoryTest extends TestCase
     private $handlerMock;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    private $configMock;
-
-    /**
      * @var \Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface
      */
     private $parameterBuilderFactory;
@@ -48,8 +43,6 @@ class BlockDefinitionFactoryTest extends TestCase
 
     public function setUp()
     {
-        $this->configMock = $this->createMock(Configuration::class);
-
         $parameterTypeRegistry = new ParameterTypeRegistry();
         $parameterTypeRegistry->addParameterType(new TextLineType());
         $this->parameterBuilderFactory = new ParameterBuilderFactory(
@@ -81,7 +74,7 @@ class BlockDefinitionFactoryTest extends TestCase
         $blockDefinition = $this->factory->buildBlockDefinition(
             'definition',
             $this->handlerMock,
-            $this->configMock,
+            new Configuration(),
             array(
                 $this->getConfigDefinition('test'),
                 $this->getConfigDefinition('test2'),
@@ -90,7 +83,7 @@ class BlockDefinitionFactoryTest extends TestCase
 
         $this->assertInstanceOf(BlockDefinitionInterface::class, $blockDefinition);
         $this->assertEquals('definition', $blockDefinition->getIdentifier());
-        $this->assertEquals($this->configMock, $blockDefinition->getConfig());
+        $this->assertEquals(new Configuration(), $blockDefinition->getConfig());
 
         $this->assertArrayHasKey('test_param', $blockDefinition->getParameters());
         $this->assertArrayHasKey('dynamic_param', $blockDefinition->getDynamicParameters(new Block()));
@@ -115,7 +108,7 @@ class BlockDefinitionFactoryTest extends TestCase
         $blockDefinition = $this->factory->buildTwigBlockDefinition(
             'definition',
             $this->handlerMock,
-            $this->configMock,
+            new Configuration(),
             array(
                 $this->getConfigDefinition('test'),
                 $this->getConfigDefinition('test2'),
@@ -124,7 +117,7 @@ class BlockDefinitionFactoryTest extends TestCase
 
         $this->assertInstanceOf(TwigBlockDefinitionInterface::class, $blockDefinition);
         $this->assertEquals('definition', $blockDefinition->getIdentifier());
-        $this->assertEquals($this->configMock, $blockDefinition->getConfig());
+        $this->assertEquals(new Configuration(), $blockDefinition->getConfig());
 
         $this->assertArrayHasKey('test_param', $blockDefinition->getParameters());
         $this->assertArrayHasKey('dynamic_param', $blockDefinition->getDynamicParameters(new Block()));
@@ -154,7 +147,7 @@ class BlockDefinitionFactoryTest extends TestCase
         $blockDefinition = $this->factory->buildContainerDefinition(
             'definition',
             $this->handlerMock,
-            $this->configMock,
+            new Configuration(),
             array(
                 $this->getConfigDefinition('test'),
                 $this->getConfigDefinition('test2'),
@@ -163,7 +156,7 @@ class BlockDefinitionFactoryTest extends TestCase
 
         $this->assertInstanceOf(BlockDefinitionInterface::class, $blockDefinition);
         $this->assertEquals('definition', $blockDefinition->getIdentifier());
-        $this->assertEquals($this->configMock, $blockDefinition->getConfig());
+        $this->assertEquals(new Configuration(), $blockDefinition->getConfig());
 
         $this->assertArrayHasKey('test_param', $blockDefinition->getParameters());
         $this->assertArrayHasKey('dynamic_param', $blockDefinition->getDynamicParameters(new Block()));

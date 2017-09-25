@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 /**
  * Validates if the provided value is a valid link to an item.
  */
-class ItemLinkValidator extends ConstraintValidator
+final class ItemLinkValidator extends ConstraintValidator
 {
     /**
      * @var \Netgen\BlockManager\Item\ItemLoaderInterface

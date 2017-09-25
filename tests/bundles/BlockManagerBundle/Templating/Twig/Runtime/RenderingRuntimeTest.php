@@ -16,6 +16,7 @@ use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Twig\Template;
 
 class RenderingRuntimeTest extends TestCase
 {
@@ -70,7 +71,9 @@ class RenderingRuntimeTest extends TestCase
                 $this->equalTo(
                     array(
                         'param' => 'value',
-                        'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
+                        'twig_template' => new ContextualizedTwigTemplate(
+                            $this->createMock(Template::class)
+                        ),
                     )
                 )
             )
@@ -80,7 +83,9 @@ class RenderingRuntimeTest extends TestCase
             'rendered block',
             $this->runtime->renderBlock(
                 array(
-                    'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
+                    'twig_template' => new ContextualizedTwigTemplate(
+                        $this->createMock(Template::class)
+                    ),
                 ),
                 new Block(),
                 array('param' => 'value')
@@ -136,7 +141,9 @@ class RenderingRuntimeTest extends TestCase
                 $this->equalTo(
                     array(
                         'param' => 'value',
-                        'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
+                        'twig_template' => new ContextualizedTwigTemplate(
+                            $this->createMock(Template::class)
+                        ),
                     )
                 )
             )
@@ -146,7 +153,9 @@ class RenderingRuntimeTest extends TestCase
             'rendered block',
             $this->runtime->renderBlock(
                 array(
-                    'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
+                    'twig_template' => new ContextualizedTwigTemplate(
+                        $this->createMock(Template::class)
+                    ),
                 ),
                 new Block(),
                 array('param' => 'value'),
@@ -171,7 +180,9 @@ class RenderingRuntimeTest extends TestCase
                 $this->equalTo(
                     array(
                         'param' => 'value',
-                        'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
+                        'twig_template' => new ContextualizedTwigTemplate(
+                            $this->createMock(Template::class)
+                        ),
                     )
                 )
             )
@@ -182,7 +193,9 @@ class RenderingRuntimeTest extends TestCase
             $this->runtime->renderBlock(
                 array(
                     'view_context' => ViewInterface::CONTEXT_API,
-                    'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
+                    'twig_template' => new ContextualizedTwigTemplate(
+                        $this->createMock(Template::class)
+                    ),
                 ),
                 new Block(),
                 array('param' => 'value')
@@ -207,7 +220,9 @@ class RenderingRuntimeTest extends TestCase
 
         $renderedBlock = $this->runtime->renderBlock(
             array(
-                'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
+                'twig_template' => new ContextualizedTwigTemplate(
+                    $this->createMock(Template::class)
+                ),
             ),
             $block
         );
@@ -236,7 +251,9 @@ class RenderingRuntimeTest extends TestCase
 
         $this->runtime->renderBlock(
             array(
-                'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
+                'twig_template' => new ContextualizedTwigTemplate(
+                    $this->createMock(Template::class)
+                ),
             ),
             $block
         );
@@ -267,7 +284,9 @@ class RenderingRuntimeTest extends TestCase
                     array(
                         'block' => $block,
                         'param' => 'value',
-                        'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
+                        'twig_template' => new ContextualizedTwigTemplate(
+                            $this->createMock(Template::class)
+                        ),
                     )
                 )
             )
@@ -277,7 +296,9 @@ class RenderingRuntimeTest extends TestCase
             'rendered placeholder',
             $this->runtime->renderPlaceholder(
                 array(
-                    'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
+                    'twig_template' => new ContextualizedTwigTemplate(
+                        $this->createMock(Template::class)
+                    ),
                 ),
                 $block,
                 'main',
@@ -359,7 +380,9 @@ class RenderingRuntimeTest extends TestCase
                     array(
                         'block' => $block,
                         'param' => 'value',
-                        'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
+                        'twig_template' => new ContextualizedTwigTemplate(
+                            $this->createMock(Template::class)
+                        ),
                     )
                 )
             )
@@ -369,7 +392,9 @@ class RenderingRuntimeTest extends TestCase
             'rendered placeholder',
             $this->runtime->renderPlaceholder(
                 array(
-                    'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
+                    'twig_template' => new ContextualizedTwigTemplate(
+                        $this->createMock(Template::class)
+                    ),
                 ),
                 $block,
                 'main',
@@ -407,7 +432,9 @@ class RenderingRuntimeTest extends TestCase
                     array(
                         'block' => $block,
                         'param' => 'value',
-                        'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
+                        'twig_template' => new ContextualizedTwigTemplate(
+                            $this->createMock(Template::class)
+                        ),
                     )
                 )
             )
@@ -418,7 +445,9 @@ class RenderingRuntimeTest extends TestCase
             $this->runtime->renderPlaceholder(
                 array(
                     'view_context' => ViewInterface::CONTEXT_API,
-                    'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
+                    'twig_template' => new ContextualizedTwigTemplate(
+                        $this->createMock(Template::class)
+                    ),
                 ),
                 $block,
                 'main',
@@ -447,7 +476,9 @@ class RenderingRuntimeTest extends TestCase
 
         $renderedBlock = $this->runtime->renderPlaceholder(
             array(
-                'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
+                'twig_template' => new ContextualizedTwigTemplate(
+                    $this->createMock(Template::class)
+                ),
             ),
             $block,
             'main'
@@ -477,7 +508,9 @@ class RenderingRuntimeTest extends TestCase
 
         $this->runtime->renderPlaceholder(
             array(
-                'twig_template' => $this->createMock(ContextualizedTwigTemplate::class),
+                'twig_template' => new ContextualizedTwigTemplate(
+                    $this->createMock(Template::class)
+                ),
             ),
             $block,
             'main'

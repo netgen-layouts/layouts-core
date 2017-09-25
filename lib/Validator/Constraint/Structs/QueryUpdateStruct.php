@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Validator\Constraint\Structs;
 
 use Symfony\Component\Validator\Constraint;
 
-class QueryUpdateStruct extends Constraint
+final class QueryUpdateStruct extends Constraint
 {
     public function validatedBy()
     {

@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Exception\Layout;
 use InvalidArgumentException;
 use Netgen\BlockManager\Exception\Exception;
 
-class ConditionTypeException extends InvalidArgumentException implements Exception
+final class ConditionTypeException extends InvalidArgumentException implements Exception
 {
     /**
      * @param string $conditionType

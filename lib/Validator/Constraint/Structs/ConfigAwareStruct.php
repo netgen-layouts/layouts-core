@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Validator\Constraint\Structs;
 
 use Symfony\Component\Validator\Constraint;
 
-class ConfigAwareStruct extends Constraint
+final class ConfigAwareStruct extends Constraint
 {
     public function validatedBy()
     {

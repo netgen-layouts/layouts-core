@@ -6,7 +6,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-class ItemBuilderPass implements CompilerPassInterface
+final class ItemBuilderPass implements CompilerPassInterface
 {
     const SERVICE_NAME = 'netgen_block_manager.item.item_builder';
     const TAG_NAME = 'netgen_block_manager.item.value_converter';

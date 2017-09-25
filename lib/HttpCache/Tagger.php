@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Symfony\Component\HttpFoundation\Response;
 
-class Tagger implements TaggerInterface
+final class Tagger implements TaggerInterface
 {
     public function tagLayout(Response $response, Layout $layout)
     {

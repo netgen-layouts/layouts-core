@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Values\Config\ConfigAwareStruct;
 use Netgen\BlockManager\API\Values\Config\ConfigAwareValue;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 
-class ConfigStructBuilder
+final class ConfigStructBuilder
 {
     /**
      * Fills the provided config aware struct with config structs, according to the provided value.

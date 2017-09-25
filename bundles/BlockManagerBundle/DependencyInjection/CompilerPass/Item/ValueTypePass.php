@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-class ValueTypePass implements CompilerPassInterface
+final class ValueTypePass implements CompilerPassInterface
 {
     const SERVICE_NAME = 'netgen_block_manager.item.registry.value_type';
     const TAG_NAME = 'netgen_block_manager.item.value_type';

@@ -2,6 +2,6 @@
 
 namespace Netgen\BlockManager\Serializer\Values;
 
-class VersionedValue extends AbstractVersionedValue implements VersionedValueInterface
+final class VersionedValue extends AbstractVersionedValue implements VersionedValueInterface
 {
 }

@@ -6,7 +6,7 @@ use Netgen\BlockManager\Parameters\CompoundParameterInterface;
 use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
 use Netgen\BlockManager\Parameters\ParameterValue;
 
-class ParameterMapper
+final class ParameterMapper
 {
     /**
      * Maps the parameter values based on provided collection of parameters.

@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class ClearBlocksCacheType extends AbstractType
+final class ClearBlocksCacheType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver)
     {

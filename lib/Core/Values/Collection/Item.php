@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Core\Values\Collection;
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\ValueObject;
 
-class Item extends ValueObject implements APIItem
+final class Item extends ValueObject implements APIItem
 {
     /**
      * @var int|string

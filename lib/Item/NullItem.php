@@ -8,7 +8,7 @@ use Netgen\BlockManager\ValueObject;
  * NullItem represents a value from CMS which could not be
  * loaded (for example, if the value does not exist any more).
  */
-class NullItem extends ValueObject implements ItemInterface
+final class NullItem extends ValueObject implements ItemInterface
 {
     /**
      * @var int|string

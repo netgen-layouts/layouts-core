@@ -10,6 +10,8 @@ use Netgen\BlockManager\ValueObject;
  * This class and corresponding namespace represent an model of layout type
  * as specified in configuration. In addition to layout type identifier, name
  * and icon, it provides a list of zones available in the layout type.
+ *
+ * @final
  */
 class LayoutType extends ValueObject
 {

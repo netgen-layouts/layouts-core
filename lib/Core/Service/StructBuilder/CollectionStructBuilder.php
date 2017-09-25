@@ -8,7 +8,7 @@ use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
 use Netgen\BlockManager\Collection\QueryTypeInterface;
 
-class CollectionStructBuilder
+final class CollectionStructBuilder
 {
     /**
      * Creates a new item create struct from provided values.

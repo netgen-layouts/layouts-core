@@ -7,7 +7,7 @@ use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 
-class BlockStructBuilder
+final class BlockStructBuilder
 {
     /**
      * @var \Netgen\BlockManager\Core\Service\StructBuilder\ConfigStructBuilder

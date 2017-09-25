@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Values\Config\Config;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Core\Service\Mapper\ConfigMapper;
 use Netgen\BlockManager\Core\Service\Mapper\ParameterMapper;
+use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Tests\Config\Stubs\Block\HttpCacheConfigHandler;
 use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinition;
 use PHPUnit\Framework\TestCase;
@@ -18,11 +19,6 @@ class ConfigMapperTest extends TestCase
     private $configDefinition;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    private $parameterMapperMock;
-
-    /**
      * @var \Netgen\BlockManager\Core\Service\Mapper\ConfigMapper
      */
     private $mapper;
@@ -32,11 +28,9 @@ class ConfigMapperTest extends TestCase
      */
     public function setUp()
     {
-        $this->parameterMapperMock = $this->createMock(ParameterMapper::class);
+        $this->configDefinition = new ConfigDefinition('http_cache', new HttpCacheConfigHandler());
 
-        $this->configDefinition = new ConfigDefinition('test', new HttpCacheConfigHandler());
-
-        $this->mapper = new ConfigMapper($this->parameterMapperMock);
+        $this->mapper = new ConfigMapper(new ParameterMapper());
     }
 
     /**
@@ -45,33 +39,33 @@ class ConfigMapperTest extends TestCase
      */
     public function testMapConfig()
     {
-        $this->parameterMapperMock
-            ->expects($this->once())
-            ->method('mapParameters')
-            ->with(
-                $this->equalTo($this->configDefinition),
-                $this->equalTo(array('config' => 'value'))
-            )
-            ->will($this->returnValue(array('config' => 'mapped_value')));
-
         $mappedConfig = $this->mapper->mapConfig(
             array(
-                'test' => array(
-                    'config' => 'value',
+                'http_cache' => array(
+                    'use_http_cache' => true,
+                    'shared_max_age' => 300,
                 ),
             ),
             array($this->configDefinition)
         );
 
         $this->assertInternalType('array', $mappedConfig);
-        $this->assertArrayHasKey('test', $mappedConfig);
+        $this->assertArrayHasKey('http_cache', $mappedConfig);
 
-        $config = $mappedConfig['test'];
+        $config = $mappedConfig['http_cache'];
 
         $this->assertInstanceOf(Config::class, $config);
-        $this->assertEquals('test', $config->getConfigKey());
+        $this->assertEquals('http_cache', $config->getConfigKey());
         $this->assertEquals($this->configDefinition, $config->getDefinition());
-        $this->assertEquals(array('config' => 'mapped_value'), $config->getParameters());
+
+        $this->assertTrue($config->hasParameter('use_http_cache'));
+        $this->assertTrue($config->hasParameter('shared_max_age'));
+
+        $this->assertInstanceOf(ParameterValue::class, $config->getParameter('use_http_cache'));
+        $this->assertInstanceOf(ParameterValue::class, $config->getParameter('shared_max_age'));
+
+        $this->assertTrue($config->getParameter('use_http_cache')->getValue());
+        $this->assertEquals(300, $config->getParameter('shared_max_age')->getValue());
     }
 
     /**
@@ -79,35 +73,26 @@ class ConfigMapperTest extends TestCase
      */
     public function testSerializeValues()
     {
-        $this->parameterMapperMock
-            ->expects($this->once())
-            ->method('serializeValues')
-            ->with(
-                $this->equalTo($this->configDefinition),
-                $this->equalTo(array('config' => 'value')),
-                $this->equalTo(array('fallback' => 'value'))
-            )
-            ->will($this->returnValue(array('config' => 'serialized_value')));
-
         $configStruct = new ConfigStruct();
-        $configStruct->setParameterValue('config', 'value');
+        $configStruct->setParameterValue('use_http_cache', true);
 
         $serializedConfig = $this->mapper->serializeValues(
             array(
-                'test' => $configStruct,
+                'http_cache' => $configStruct,
             ),
             array($this->configDefinition),
             array(
-                'test' => array(
-                    'fallback' => 'value',
+                'http_cache' => array(
+                    'shared_max_age' => 300,
                 ),
             )
         );
 
         $this->assertEquals(
             array(
-                'test' => array(
-                    'config' => 'serialized_value',
+                'http_cache' => array(
+                    'use_http_cache' => true,
+                    'shared_max_age' => 300,
                 ),
             ),
             $serializedConfig

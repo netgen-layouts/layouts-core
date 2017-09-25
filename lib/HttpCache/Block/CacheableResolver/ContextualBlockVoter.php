@@ -7,7 +7,7 @@ use Netgen\BlockManager\API\Values\Block\Block;
 /**
  * This voter votes NO if the block is contextual.
  */
-class ContextualBlockVoter implements VoterInterface
+final class ContextualBlockVoter implements VoterInterface
 {
     public function vote(Block $block)
     {

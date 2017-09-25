@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
 use Netgen\BlockManager\Core\Values\ParameterBasedValueTrait;
 use Netgen\BlockManager\ValueObject;
 
-class Query extends ValueObject implements APIQuery
+final class Query extends ValueObject implements APIQuery
 {
     use ParameterBasedValueTrait;
 

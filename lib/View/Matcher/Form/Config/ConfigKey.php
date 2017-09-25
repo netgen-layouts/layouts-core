@@ -11,7 +11,7 @@ use Netgen\BlockManager\View\ViewInterface;
  * is used to edit the config with the config key equal to
  * value provided in the configuration.
  */
-class ConfigKey implements MatcherInterface
+final class ConfigKey implements MatcherInterface
 {
     public function match(ViewInterface $view, array $config)
     {

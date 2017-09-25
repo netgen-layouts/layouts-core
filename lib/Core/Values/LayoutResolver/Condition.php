@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Core\Values\LayoutResolver;
 use Netgen\BlockManager\API\Values\LayoutResolver\Condition as APICondition;
 use Netgen\BlockManager\ValueObject;
 
-class Condition extends ValueObject implements APICondition
+final class Condition extends ValueObject implements APICondition
 {
     /**
      * @var int|string

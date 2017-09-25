@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Block\BlockType;
 
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 
-class BlockTypeFactory
+final class BlockTypeFactory
 {
     /**
      * Builds the block type.

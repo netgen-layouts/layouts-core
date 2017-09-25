@@ -10,7 +10,7 @@ use Symfony\Component\EventDispatcher\Event;
  * It allows modification of template parameters before they are passed
  * to the template.
  */
-class CollectViewParametersEvent extends Event
+final class CollectViewParametersEvent extends Event
 {
     /**
      * Copy of the view object that is being built.

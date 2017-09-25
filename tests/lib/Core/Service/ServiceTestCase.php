@@ -21,6 +21,7 @@ use Netgen\BlockManager\Core\Service\StructBuilder\LayoutResolverStructBuilder;
 use Netgen\BlockManager\Core\Service\StructBuilder\LayoutStructBuilder;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
+use Netgen\BlockManager\Core\Service\Validator\ConfigValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry;
@@ -40,6 +41,8 @@ use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinition;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Validator\ConstraintViolationList;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class ServiceTestCase extends TestCase
 {
@@ -252,19 +255,26 @@ abstract class ServiceTestCase extends TestCase
     /**
      * Creates a layout service under test.
      *
-     * @param \Netgen\BlockManager\Core\Service\Validator\LayoutValidator $validator
+     * @param \Netgen\BlockManager\Core\Service\Validator\LayoutValidator $layoutValidator
      *
      * @return \Netgen\BlockManager\Core\Service\LayoutService
      */
-    protected function createLayoutService(LayoutValidator $validator = null)
+    protected function createLayoutService(LayoutValidator $layoutValidator = null)
     {
-        if ($validator === null) {
-            $validator = $this->createMock(LayoutValidator::class);
+        if ($layoutValidator === null) {
+            $validator = $this->createMock(ValidatorInterface::class);
+
+            $validator->expects($this->any())
+                ->method('validate')
+                ->will($this->returnValue(new ConstraintViolationList()));
+
+            $layoutValidator = new LayoutValidator();
+            $layoutValidator->setValidator($validator);
         }
 
         return new LayoutService(
             $this->persistenceHandler,
-            $validator,
+            $layoutValidator,
             $this->createLayoutMapper(),
             new LayoutStructBuilder()
         );
@@ -273,19 +283,29 @@ abstract class ServiceTestCase extends TestCase
     /**
      * Creates a block service under test.
      *
-     * @param \Netgen\BlockManager\Core\Service\Validator\BlockValidator $validator
+     * @param \Netgen\BlockManager\Core\Service\Validator\BlockValidator $blockValidator
      *
      * @return \Netgen\BlockManager\API\Service\BlockService
      */
-    protected function createBlockService(BlockValidator $validator = null)
+    protected function createBlockService(BlockValidator $blockValidator = null)
     {
-        if ($validator === null) {
-            $validator = $this->createMock(BlockValidator::class);
+        if ($blockValidator === null) {
+            $validator = $this->createMock(ValidatorInterface::class);
+
+            $validator->expects($this->any())
+                ->method('validate')
+                ->will($this->returnValue(new ConstraintViolationList()));
+
+            $configValidator = new ConfigValidator();
+            $configValidator->setValidator($validator);
+
+            $blockValidator = new BlockValidator($configValidator);
+            $blockValidator->setValidator($validator);
         }
 
         return new BlockService(
             $this->persistenceHandler,
-            $validator,
+            $blockValidator,
             $this->createBlockMapper(),
             new BlockStructBuilder(
                 new ConfigStructBuilder()
@@ -299,19 +319,26 @@ abstract class ServiceTestCase extends TestCase
     /**
      * Creates a collection service under test.
      *
-     * @param \Netgen\BlockManager\Core\Service\Validator\CollectionValidator $validator
+     * @param \Netgen\BlockManager\Core\Service\Validator\CollectionValidator $collectionValidator
      *
      * @return \Netgen\BlockManager\API\Service\CollectionService
      */
-    protected function createCollectionService(CollectionValidator $validator = null)
+    protected function createCollectionService(CollectionValidator $collectionValidator = null)
     {
-        if ($validator === null) {
-            $validator = $this->createMock(CollectionValidator::class);
+        if ($collectionValidator === null) {
+            $validator = $this->createMock(ValidatorInterface::class);
+
+            $validator->expects($this->any())
+                ->method('validate')
+                ->will($this->returnValue(new ConstraintViolationList()));
+
+            $collectionValidator = new CollectionValidator();
+            $collectionValidator->setValidator($validator);
         }
 
         return new CollectionService(
             $this->persistenceHandler,
-            $validator,
+            $collectionValidator,
             $this->createCollectionMapper(),
             new CollectionStructBuilder(),
             $this->createParameterMapper()
@@ -321,19 +348,30 @@ abstract class ServiceTestCase extends TestCase
     /**
      * Creates a layout resolver service under test.
      *
-     * @param \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator $validator
+     * @param \Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator $layoutResolverValidator
      *
      * @return \Netgen\BlockManager\API\Service\LayoutResolverService
      */
-    protected function createLayoutResolverService(LayoutResolverValidator $validator = null)
+    protected function createLayoutResolverService(LayoutResolverValidator $layoutResolverValidator = null)
     {
-        if ($validator === null) {
-            $validator = $this->createMock(LayoutResolverValidator::class);
+        if ($layoutResolverValidator === null) {
+            $validator = $this->createMock(ValidatorInterface::class);
+
+            $validator->expects($this->any())
+                ->method('validate')
+                ->will($this->returnValue(new ConstraintViolationList()));
+
+            $layoutResolverValidator = new LayoutResolverValidator(
+                $this->targetTypeRegistry,
+                $this->conditionTypeRegistry
+            );
+
+            $layoutResolverValidator->setValidator($validator);
         }
 
         return new LayoutResolverService(
             $this->persistenceHandler,
-            $validator,
+            $layoutResolverValidator,
             $this->createLayoutResolverMapper(),
             new LayoutResolverStructBuilder()
         );

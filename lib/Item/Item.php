@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Item;
 
 use Netgen\BlockManager\ValueObject;
 
-class Item extends ValueObject implements ItemInterface
+final class Item extends ValueObject implements ItemInterface
 {
     /**
      * @var int|string

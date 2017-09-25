@@ -2,6 +2,6 @@
 
 namespace Netgen\BlockManager\Serializer\Values;
 
-class FormView extends AbstractView implements ViewInterface
+final class FormView extends AbstractView implements ViewInterface
 {
 }

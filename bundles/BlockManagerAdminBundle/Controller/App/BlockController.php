@@ -14,7 +14,7 @@ use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class BlockController extends Controller
+final class BlockController extends Controller
 {
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService
