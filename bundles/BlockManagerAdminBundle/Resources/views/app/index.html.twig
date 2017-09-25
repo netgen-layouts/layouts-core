@@ -45,14 +45,14 @@
         <script src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}" async defer></script>
     {% endif %}
 
-    {% block javascripts %}
-        <script src="{{ asset('netgen-block-manager.js', 'ngbm_app_js') }}"></script>
-    {% endblock %}
-
     {% block custom_javascripts %}
         {% for javascript in ngbm.config.parameter('app').javascripts %}
-            <link rel="javascript" href="{{ javascript }}">
+            <script src="{{ javascript }}"></script>
         {% endfor %}
+    {% endblock %}
+
+    {% block javascripts %}
+        <script src="{{ asset('netgen-block-manager.js', 'ngbm_app_js') }}"></script>
     {% endblock %}
 </body>
 </html>
