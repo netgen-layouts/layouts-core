@@ -8,12 +8,14 @@ block_definitions:
 
     text:
         name: 'Text'
+        translatable: true
         view_types:
             text:
                 name: 'Text'
 
     button:
         name: 'Button / Link'
+        translatable: true
         view_types:
             button:
                 name: 'Button / Link'
@@ -21,12 +23,14 @@ block_definitions:
     markdown:
         name: 'Markdown'
         enabled: false
+        translatable: true
         view_types:
             markdown:
                 name: 'Markdown'
 
     rich_text:
         name: 'Rich text'
+        translatable: true
         view_types:
             rich_text:
                 name: 'Rich text'
