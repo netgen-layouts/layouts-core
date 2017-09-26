@@ -43,7 +43,7 @@ services:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\TwigExtensionsListener
         arguments:
             - "@twig"
-        # Set as lazy to prevent crashing of eZ Platform siteaccess aware config (@todo fix?)
+        # Set as lazy to prevent crashing of eZ Platform siteaccess aware config
         lazy: true
         tags:
             - { name: kernel.event_subscriber }
