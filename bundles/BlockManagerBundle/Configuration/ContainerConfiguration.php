@@ -9,6 +9,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * This is a default implementation of ConfigurationInterface,
  * allowing some parameters to be injected into constructor and
  * returned first if they exist, before checking the container.
+ * 
+ * @final
  */
 class ContainerConfiguration implements ConfigurationInterface
 {

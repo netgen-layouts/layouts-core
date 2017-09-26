@@ -8,6 +8,9 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Twig\Environment;
 use Twig\Extensions\IntlExtension;
 
+/**
+ * @final
+ */
 class TwigExtensionsListener implements EventSubscriberInterface
 {
     /**
