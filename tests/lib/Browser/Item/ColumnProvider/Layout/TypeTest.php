@@ -6,6 +6,7 @@ use Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Type;
 use Netgen\BlockManager\Browser\Item\Layout\Item;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Layout\Type\LayoutType;
+use Netgen\ContentBrowser\Tests\Stubs\Item as StubItem;
 use PHPUnit\Framework\TestCase;
 
 class TypeTest extends TestCase
@@ -41,5 +42,13 @@ class TypeTest extends TestCase
             '4 zones A',
             $this->provider->getValue($item)
         );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Type::getValue
+     */
+    public function testGetValueWithInvalidItem()
+    {
+        $this->assertNull($this->provider->getValue(new StubItem()));
     }
 }

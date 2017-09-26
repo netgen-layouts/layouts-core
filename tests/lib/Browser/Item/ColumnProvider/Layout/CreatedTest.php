@@ -6,6 +6,7 @@ use DateTime;
 use Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Created;
 use Netgen\BlockManager\Browser\Item\Layout\Item;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
+use Netgen\ContentBrowser\Tests\Stubs\Item as StubItem;
 use PHPUnit\Framework\TestCase;
 
 class CreatedTest extends TestCase
@@ -42,5 +43,13 @@ class CreatedTest extends TestCase
             '17.07.2016 18:15:42',
             $this->provider->getValue($item)
         );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Created::getValue
+     */
+    public function testGetValueWithInvalidItem()
+    {
+        $this->assertNull($this->provider->getValue(new StubItem()));
     }
 }

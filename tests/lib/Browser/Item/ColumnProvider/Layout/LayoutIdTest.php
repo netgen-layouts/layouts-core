@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Browser\Item\ColumnProvider\Layout;
 use Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\LayoutId;
 use Netgen\BlockManager\Browser\Item\Layout\Item;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
+use Netgen\ContentBrowser\Tests\Stubs\Item as StubItem;
 use PHPUnit\Framework\TestCase;
 
 class LayoutIdTest extends TestCase
@@ -36,5 +37,13 @@ class LayoutIdTest extends TestCase
             42,
             $this->provider->getValue($item)
         );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\LayoutId::getValue
+     */
+    public function testGetValueWithInvalidItem()
+    {
+        $this->assertNull($this->provider->getValue(new StubItem()));
     }
 }
