@@ -17,7 +17,7 @@
 {%- endblock radio_label -%}
 
 {%- block checkbox_radio_row -%}
-    <div {% if errors|length > 0 %} class="error-input" {% endif %}>
+    <div class="row-input{% if errors|length > 0 %}error-input{% endif %} {% if form.vars.disabled %}disabled-input{% endif %}" >
         {{- form_widget(form) -}}
         {{- form_label(form) -}}
         {{- form_errors(form) -}}
