@@ -19,6 +19,11 @@ final class ValueTypePass implements CompilerPassInterface
             return;
         }
 
+        if (!$container->hasParameter('netgen_block_manager.items')) {
+            // By default, no value types are registered in the system
+            return;
+        }
+
         $itemConfig = $container->getParameter('netgen_block_manager.items');
         $valueTypeServices = $this->buildValueTypes($container, $itemConfig['value_types']);
 

@@ -45,6 +45,19 @@ class ValueTypePassTest extends AbstractCompilerPassTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ValueTypePass::process
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ValueTypePass::buildValueTypes
+     */
+    public function testProcessWithNoItems()
+    {
+        $this->container->setDefinition('netgen_block_manager.item.registry.value_type', new Definition());
+
+        $this->compile();
+
+        $this->assertContainerBuilderNotHasService('netgen_block_manager.item.value_type.test');
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ValueTypePass::process
      */
     public function testProcessWithEmptyContainer()
     {
