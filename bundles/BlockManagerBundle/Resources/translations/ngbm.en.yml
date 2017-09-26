@@ -1,6 +1,6 @@
 layout.type: 'Layout type'
 layout.name: 'Name'
-layout.main_locale: 'Main locale'
+layout.main_locale: 'Main translation'
 layout.description: 'Description'
 layout.shared: 'Shared'
 

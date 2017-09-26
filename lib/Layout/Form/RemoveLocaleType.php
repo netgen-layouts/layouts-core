@@ -6,6 +6,8 @@ use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\Intl\Intl;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
@@ -54,5 +56,10 @@ final class RemoveLocaleType extends AbstractType
                 ),
             )
         );
+    }
+
+    public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        $view->vars['layout'] = $options['layout'];
     }
 }

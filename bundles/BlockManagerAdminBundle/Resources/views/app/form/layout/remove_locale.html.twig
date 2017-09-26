@@ -10,12 +10,14 @@
     {% if form.locales.vars.choices is not empty %}
         {{ form_start(form) }}
             {{ form_errors(form) }}
-                {{ form_row(form.locales) }}
+                {{ form_row(form.locales, {label: false}) }}
             {{ form_rest(form) }}
         {{ form_end(form) }}
     {% else %}
         <p>{{ 'layout.remove_locale.no_locales'|trans }}</p>
     {% endif %}
+
+    <p class="note">{{ 'layout.remove_locale.note'|trans({'%mainTranslation%': form.vars.layout.mainLocale|ngbm_locale_name})|raw }}</p>
 {% endblock %}
 
 {% block buttons %}
