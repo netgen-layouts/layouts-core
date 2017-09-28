@@ -14,7 +14,7 @@
         "netgen/block-manager-ui": "~0.10.0@dev",
         "netgen/content-browser": "~0.10.0@dev",
         "symfony/symfony": "^2.8|^3.3",
-        "twig/twig": "^1.34.4|^2.4.3",
+        "twig/twig": "^1.34.4|^2.4.4",
         "twig/extensions": "^1.5.1",
         "sensio/framework-extra-bundle": "^3.0",
         "doctrine/dbal": "^2.5",

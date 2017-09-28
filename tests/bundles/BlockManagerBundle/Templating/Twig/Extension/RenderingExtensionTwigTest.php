@@ -2,7 +2,6 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig\Extension;
 
-use Exception;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Core\Values\Block\Block;
@@ -13,13 +12,8 @@ use Netgen\BlockManager\View\RendererInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime;
-use PHPUnit\Framework\Constraint\Exception as ConstraintException;
-use ReflectionProperty;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Twig\Environment;
-use Twig\Error\Error;
-use Twig\Loader\ArrayLoader;
 use Twig\RuntimeLoader\FactoryRuntimeLoader;
 use Twig\Test\IntegrationTestCase;
 
@@ -137,101 +131,6 @@ class RenderingExtensionTwigTest extends IntegrationTestCase
     protected function getFixturesDir()
     {
         return __DIR__ . '/_fixtures/';
-    }
-
-    protected function doIntegrationTest($file, $message, $condition, $templates, $exception, $outputs)
-    {
-        if (!$outputs) {
-            $this->markTestSkipped('no legacy tests to run');
-        }
-
-        if ($condition) {
-            eval('$ret = ' . $condition . ';');
-            if (!$ret) {
-                $this->markTestSkipped($condition);
-            }
-        }
-
-        $loader = new ArrayLoader($templates);
-
-        foreach ($outputs as $i => $match) {
-            $config = array_merge(array(
-                'cache' => false,
-                'strict_variables' => true,
-            ), $match[2] ? eval($match[2] . ';') : array());
-            $twig = new Environment($loader, $config);
-            $twig->addGlobal('global', 'global');
-            foreach ($this->getExtensions() as $extension) {
-                $twig->addExtension($extension);
-            }
-
-            foreach ($this->getTwigFilters() as $filter) {
-                $twig->addFilter($filter);
-            }
-
-            foreach ($this->getTwigTests() as $test) {
-                $twig->addTest($test);
-            }
-
-            foreach ($this->getTwigFunctions() as $function) {
-                $twig->addFunction($function);
-            }
-
-            foreach ($this->getRuntimeLoaders() as $runtimeLoader) {
-                $twig->addRuntimeLoader($runtimeLoader);
-            }
-
-            // avoid using the same PHP class name for different cases
-            $p = new ReflectionProperty($twig, 'templateClassPrefix');
-            $p->setAccessible(true);
-            $p->setValue($twig, '__TwigTemplate_' . hash('sha256', uniqid(mt_rand(), true), false) . '_');
-
-            try {
-                $template = $twig->loadTemplate('index.twig');
-            } catch (Exception $e) {
-                if (false !== $exception) {
-                    $message = $e->getMessage();
-                    $this->assertSame(trim($exception), trim(sprintf('%s: %s', get_class($e), $message)));
-                    $last = substr($message, strlen($message) - 1);
-                    $this->assertTrue('.' === $last || '?' === $last, $message);
-
-                    return;
-                }
-
-                throw new Error(sprintf('%s: %s', get_class($e), $e->getMessage()), -1, $file, $e);
-            }
-
-            try {
-                $output = trim($template->render(eval($match[1] . ';')), "\n ");
-            } catch (Exception $e) {
-                if (false !== $exception) {
-                    $this->assertSame(trim($exception), trim(sprintf('%s: %s', get_class($e), $e->getMessage())));
-
-                    return;
-                }
-
-                $e = new Error(sprintf('%s: %s', get_class($e), $e->getMessage()), -1, $file, $e);
-
-                $output = trim(sprintf('%s: %s', get_class($e), $e->getMessage()));
-            }
-
-            if (false !== $exception) {
-                list($class) = explode(':', $exception);
-                $this->assertThat(null, new ConstraintException($class));
-            }
-
-            $expected = trim($match[3], "\n ");
-
-            if ($expected !== $output) {
-                printf("Compiled templates that failed on case %d:\n", $i + 1);
-
-                foreach (array_keys($templates) as $name) {
-                    echo "Template: $name\n";
-                    echo $twig->compile($twig->parse($twig->tokenize($twig->getLoader()->getSourceContext($name))));
-                }
-            }
-            $this->assertEquals($expected, $output, $message . ' (in ' . $file . ')');
-        }
     }
 
     private function configureMocks()
