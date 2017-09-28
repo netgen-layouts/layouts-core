@@ -20,19 +20,10 @@ class Version000900 extends AbstractMigration
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on MySQL.');
 
-        $io = new SymfonyStyle(new ArgvInput(), new ConsoleOutput());
-
-        $defaultLocale = $io->ask(
-            'Please input the default locale for existing layouts',
-            null,
-            function ($locale) {
-                if (Intl::getLocaleBundle()->getLocaleName($locale) === null) {
-                    throw new RuntimeException('Specified locale is not valid');
-                }
-
-                return $locale;
-            }
-        );
+        $defaultLocale = '';
+        if ($this->hasLayouts()) {
+            $defaultLocale = $this->askDefaultLocale();
+        }
 
         // Fix differences in data in root blocks
         $this->addSql('UPDATE ngbm_block SET parent_id = NULL, placeholder = NULL, position = NULL, config = "[]", parameters = "[]" WHERE parent_id = 0 OR parent_id IS NULL');
@@ -164,5 +155,43 @@ EOT
         $this->addSql('ALTER TABLE ngbm_layout DROP COLUMN main_locale');
 
         $this->addSql('DROP TABLE ngbm_layout_translation');
+    }
+
+    /**
+     * Returns if the database already contains some layouts.
+     *
+     * @return bool
+     */
+    private function hasLayouts()
+    {
+        $queryBuilder = $this->connection->createQueryBuilder();
+        $queryBuilder->select('count(id) as count')
+            ->from('ngbm_layout');
+
+        $result = $queryBuilder->execute()->fetchAll();
+
+        return (int) $result[0]['count'] > 0;
+    }
+
+    /**
+     * Asks the user for default layout locale and returns it.
+     *
+     * @return string
+     */
+    private function askDefaultLocale()
+    {
+        $io = new SymfonyStyle(new ArgvInput(), new ConsoleOutput());
+
+        return $io->ask(
+            'Please input the default locale for existing layouts',
+            null,
+            function ($locale) {
+                if (Intl::getLocaleBundle()->getLocaleName($locale) === null) {
+                    throw new RuntimeException('Specified locale is not valid');
+                }
+
+                return $locale;
+            }
+        );
     }
 }
