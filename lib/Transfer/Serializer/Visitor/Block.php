@@ -14,16 +14,6 @@ use RuntimeException;
  */
 class Block extends Visitor
 {
-    /**
-     * @var \Netgen\BlockManager\API\Service\BlockService
-     */
-    private $blockService;
-
-    public function __construct(BlockService $blockService)
-    {
-        $this->blockService = $blockService;
-    }
-
     public function accept($value)
     {
         return $value instanceof BlockValue;
@@ -135,9 +125,8 @@ class Block extends Visitor
     private function visitCollections(BlockValue $block, Visitor $subVisitor)
     {
         $hash = array();
-        $collectionReferences = $this->blockService->loadCollectionReferences($block);
 
-        foreach ($collectionReferences as $collectionReference) {
+        foreach ($block->getCollectionReferences() as $collectionReference) {
             $hash[$collectionReference->getIdentifier()] = $subVisitor->visit($collectionReference->getCollection());
         }
 

@@ -6,7 +6,7 @@ use Netgen\BlockManager\Transfer\Serializer\Visitor;
 use RuntimeException;
 
 /**
- * Aggregate implementation of Visitor.
+ * Aggregate implementation of the Visitor.
  */
 class Aggregate extends Visitor
 {

@@ -26,7 +26,6 @@ class Target extends Visitor
             'status' => $this->getStatusString($target),
             'type' => $target->getTargetType()->getType(),
             'is_published' => $target->isPublished(),
-            // todo mixed what? scalar?
             'value' => $target->getValue(),
         );
     }
