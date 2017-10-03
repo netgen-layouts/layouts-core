@@ -30,6 +30,10 @@ class Query extends Visitor
             'id' => $query->getId(),
             'status' => $this->getStatusString($query),
             'is_published' => $query->isPublished(),
+            'is_translatable' => $query->isTranslatable(),
+            'is_always_available' => $query->isAlwaysAvailable(),
+            'main_locale' => $query->getMainLocale(),
+            'available_locales' => $query->getAvailableLocales(),
             'parameters' => $this->visitParameterValues($query, $subVisitor),
             'query_type' => $query->getQueryType()->getType(),
         );
