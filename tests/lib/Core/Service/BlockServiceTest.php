@@ -265,13 +265,13 @@ abstract class BlockServiceTest extends ServiceTestCase
     public function testCreateBlockThrowsBadStateExceptionWithNonDraftTargetBlock()
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            $this->blockDefinitionRegistry->getBlockDefinition('title')
+            $this->blockDefinitionRegistry->getBlockDefinition('list')
         );
 
         $this->blockService->createBlock(
             $blockCreateStruct,
             $this->blockService->loadBlock(33),
-            'main',
+            'left',
             0
         );
     }
@@ -284,7 +284,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     public function testCreateBlockThrowsBadStateExceptionWithNonContainerTargetBlock()
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            $this->blockDefinitionRegistry->getBlockDefinition('title')
+            $this->blockDefinitionRegistry->getBlockDefinition('list')
         );
 
         $this->blockService->createBlock(
@@ -302,7 +302,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     public function testCreateBlockThrowsBadStateExceptionWithNoPlaceholder()
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            $this->blockDefinitionRegistry->getBlockDefinition('title')
+            $this->blockDefinitionRegistry->getBlockDefinition('list')
         );
 
         $this->blockService->createBlock(
@@ -319,7 +319,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     public function testCreateBlockWithNoPosition()
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            $this->blockDefinitionRegistry->getBlockDefinition('title')
+            $this->blockDefinitionRegistry->getBlockDefinition('list')
         );
 
         $targetBlock = $this->blockService->loadBlockDraft(33);
@@ -342,7 +342,7 @@ abstract class BlockServiceTest extends ServiceTestCase
     public function testCreateBlockThrowsBadStateExceptionWhenPositionIsTooLarge()
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            $this->blockDefinitionRegistry->getBlockDefinition('title')
+            $this->blockDefinitionRegistry->getBlockDefinition('list')
         );
 
         $this->blockService->createBlock(

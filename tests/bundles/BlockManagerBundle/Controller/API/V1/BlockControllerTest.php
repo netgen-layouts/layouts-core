@@ -450,7 +450,7 @@ class BlockControllerTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             array(
-                'block_type' => 'title',
+                'block_type' => 'list',
                 'placeholder' => 'left',
                 'position' => 9999,
             )
