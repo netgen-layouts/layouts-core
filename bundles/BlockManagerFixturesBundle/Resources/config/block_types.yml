@@ -5,3 +5,8 @@ block_types:
         defaults:
             view_type: test_grid
             item_view_type: test_item
+
+block_type_groups:
+    test_blocks:
+        name: 'Test blocks'
+        block_types: [test_grid, list_without_value_types]

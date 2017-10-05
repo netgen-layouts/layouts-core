@@ -6,3 +6,13 @@ block_definitions:
                 item_view_types:
                     test_item:
                         name: 'Test item'
+
+    list_without_value_types:
+        name: 'List without value types'
+        handler: list
+        collections:
+            default:
+                valid_item_types: []
+        view_types:
+            list:
+                name: 'List'
