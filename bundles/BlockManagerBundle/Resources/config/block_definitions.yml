@@ -139,12 +139,14 @@ block_definitions:
 
     column:
         name: 'Column'
+        translatable: true
         view_types:
             column:
                 name: 'Column'
 
     two_columns:
         name: 'Two columns'
+        translatable: true
         view_types:
             two_columns_50_50:
                 name: '50:50'
