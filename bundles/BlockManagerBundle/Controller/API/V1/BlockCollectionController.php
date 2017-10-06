@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\Collection\Result\ResultLoaderInterface;
+use Netgen\BlockManager\Collection\Result\ResultBuilderInterface;
 use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
@@ -33,9 +33,9 @@ final class BlockCollectionController extends Controller
     private $validator;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Result\ResultLoaderInterface
+     * @var \Netgen\BlockManager\Collection\Result\ResultBuilderInterface
      */
-    private $resultLoader;
+    private $resultBuilder;
 
     /**
      * @var int
@@ -48,20 +48,20 @@ final class BlockCollectionController extends Controller
      * @param \Netgen\BlockManager\API\Service\BlockService $blockService
      * @param \Netgen\BlockManager\API\Service\CollectionService $collectionService
      * @param \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator $validator
-     * @param \Netgen\BlockManager\Collection\Result\ResultLoaderInterface $resultLoader
+     * @param \Netgen\BlockManager\Collection\Result\ResultBuilderInterface $resultBuilder
      * @param int $maxLimit
      */
     public function __construct(
         BlockService $blockService,
         CollectionService $collectionService,
         BlockCollectionValidator $validator,
-        ResultLoaderInterface $resultLoader,
+        ResultBuilderInterface $resultBuilder,
         $maxLimit
     ) {
         $this->blockService = $blockService;
         $this->collectionService = $collectionService;
         $this->validator = $validator;
-        $this->resultLoader = $resultLoader;
+        $this->resultBuilder = $resultBuilder;
         $this->maxLimit = $maxLimit;
     }
 
@@ -86,7 +86,7 @@ final class BlockCollectionController extends Controller
         }
 
         return new VersionedValue(
-            $this->resultLoader->load(
+            $this->resultBuilder->build(
                 $block->getCollectionReference($collectionIdentifier)->getCollection(),
                 (int) $offset,
                 (int) $limit,

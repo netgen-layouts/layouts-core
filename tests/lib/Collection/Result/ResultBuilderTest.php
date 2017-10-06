@@ -4,8 +4,8 @@ namespace Netgen\BlockManager\Tests\Collection\Result;
 
 use Netgen\BlockManager\Collection\Result\CollectionIteratorFactory;
 use Netgen\BlockManager\Collection\Result\Result;
+use Netgen\BlockManager\Collection\Result\ResultBuilder;
 use Netgen\BlockManager\Collection\Result\ResultIteratorFactory;
-use Netgen\BlockManager\Collection\Result\ResultLoader;
 use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
@@ -18,7 +18,7 @@ use Netgen\BlockManager\Tests\Item\Stubs\ValueConverter;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueLoader;
 use PHPUnit\Framework\TestCase;
 
-class ResultLoaderTest extends TestCase
+class ResultBuilderTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Item\ItemBuilderInterface
@@ -31,9 +31,9 @@ class ResultLoaderTest extends TestCase
     private $itemLoader;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Result\ResultLoaderInterface
+     * @var \Netgen\BlockManager\Collection\Result\ResultBuilderInterface
      */
-    private $resultLoader;
+    private $resultBuilder;
 
     public function setUp()
     {
@@ -46,7 +46,7 @@ class ResultLoaderTest extends TestCase
             array('value' => new ValueLoader())
         );
 
-        $this->resultLoader = new ResultLoader(
+        $this->resultBuilder = new ResultBuilder(
             new ResultIteratorFactory(
                 $this->itemLoader,
                 $this->itemBuilder
@@ -56,8 +56,8 @@ class ResultLoaderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\ResultLoader::__construct
-     * @covers \Netgen\BlockManager\Collection\Result\ResultLoader::load
+     * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::__construct
+     * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::build
      */
     public function testLoadForManualCollection()
     {
@@ -65,7 +65,7 @@ class ResultLoaderTest extends TestCase
             array(42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54)
         );
 
-        $resultSet = $this->resultLoader->load($collection, 0, 5);
+        $resultSet = $this->resultBuilder->build($collection, 0, 5);
 
         $this->assertInstanceOf(ResultSet::class, $resultSet);
         $this->assertEquals($collection, $resultSet->getCollection());
@@ -80,7 +80,7 @@ class ResultLoaderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\ResultLoader::load
+     * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::build
      */
     public function testLoadForDynamicCollection()
     {
@@ -91,7 +91,7 @@ class ResultLoaderTest extends TestCase
             13
         );
 
-        $result = $this->resultLoader->load($collection, 0, 5);
+        $result = $this->resultBuilder->build($collection, 0, 5);
 
         $this->assertInstanceOf(ResultSet::class, $result);
         $this->assertEquals($collection, $result->getCollection());

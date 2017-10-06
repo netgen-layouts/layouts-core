@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\EventListener\BlockView;
 
-use Netgen\BlockManager\Collection\Result\ResultLoaderInterface;
+use Netgen\BlockManager\Collection\Result\ResultBuilderInterface;
 use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Event\BlockManagerEvents;
 use Netgen\BlockManager\Event\CollectViewParametersEvent;
@@ -13,9 +13,9 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 final class GetCollectionResultsListener implements EventSubscriberInterface
 {
     /**
-     * @var \Netgen\BlockManager\Collection\Result\ResultLoaderInterface
+     * @var \Netgen\BlockManager\Collection\Result\ResultBuilderInterface
      */
-    private $resultLoader;
+    private $resultBuilder;
 
     /**
      * @var int
@@ -30,16 +30,16 @@ final class GetCollectionResultsListener implements EventSubscriberInterface
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Collection\Result\ResultLoaderInterface $resultLoader
+     * @param \Netgen\BlockManager\Collection\Result\ResultBuilderInterface $resultBuilder
      * @param int $maxLimit
      * @param array $enabledContexts
      */
     public function __construct(
-        ResultLoaderInterface $resultLoader,
+        ResultBuilderInterface $resultBuilder,
         $maxLimit,
         array $enabledContexts = array()
     ) {
-        $this->resultLoader = $resultLoader;
+        $this->resultBuilder = $resultBuilder;
         $this->maxLimit = $maxLimit;
         $this->enabledContexts = $enabledContexts;
     }
@@ -73,7 +73,7 @@ final class GetCollectionResultsListener implements EventSubscriberInterface
                 $limit = $this->maxLimit;
             }
 
-            $collections[$collectionReference->getIdentifier()] = $this->resultLoader->load(
+            $collections[$collectionReference->getIdentifier()] = $this->resultBuilder->build(
                 $collectionReference->getCollection(),
                 $collectionReference->getOffset(),
                 $limit,

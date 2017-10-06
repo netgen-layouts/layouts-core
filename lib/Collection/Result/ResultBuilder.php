@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Collection\Result;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
 
-final class ResultLoader implements ResultLoaderInterface
+final class ResultBuilder implements ResultBuilderInterface
 {
     /**
      * @var \Netgen\BlockManager\Collection\Result\ResultIteratorFactory
@@ -24,7 +24,7 @@ final class ResultLoader implements ResultLoaderInterface
         $this->collectionIteratorFactory = $collectionIteratorFactory;
     }
 
-    public function load(Collection $collection, $offset = 0, $limit = null, $flags = 0)
+    public function build(Collection $collection, $offset = 0, $limit = null, $flags = 0)
     {
         $collectionIterator = $this->collectionIteratorFactory->getCollectionIterator(
             $collection,

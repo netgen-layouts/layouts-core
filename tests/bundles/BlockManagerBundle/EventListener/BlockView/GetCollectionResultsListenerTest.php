@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener\BlockView;
 
-use Netgen\BlockManager\Collection\Result\ResultLoaderInterface;
+use Netgen\BlockManager\Collection\Result\ResultBuilderInterface;
 use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\CollectionReference;
@@ -21,7 +21,7 @@ class GetCollectionResultsListenerTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    private $resultLoaderMock;
+    private $resultBuilderMock;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener
@@ -33,10 +33,10 @@ class GetCollectionResultsListenerTest extends TestCase
      */
     public function setUp()
     {
-        $this->resultLoaderMock = $this->createMock(ResultLoaderInterface::class);
+        $this->resultBuilderMock = $this->createMock(ResultBuilderInterface::class);
 
         $this->listener = new GetCollectionResultsListener(
-            $this->resultLoaderMock,
+            $this->resultBuilderMock,
             25,
             array(ViewInterface::CONTEXT_DEFAULT, ViewInterface::CONTEXT_API)
         );
@@ -81,9 +81,9 @@ class GetCollectionResultsListenerTest extends TestCase
         $view->setContext(ViewInterface::CONTEXT_DEFAULT);
         $event = new CollectViewParametersEvent($view);
 
-        $this->resultLoaderMock
+        $this->resultBuilderMock
             ->expects($this->at(0))
-            ->method('load')
+            ->method('build')
             ->with(
                 $this->equalTo(new Collection()),
                 $this->equalTo(3),
@@ -92,9 +92,9 @@ class GetCollectionResultsListenerTest extends TestCase
             )
             ->will($this->returnValue(new ResultSet(array('collection' => new Collection()))));
 
-        $this->resultLoaderMock
+        $this->resultBuilderMock
             ->expects($this->at(1))
-            ->method('load')
+            ->method('build')
             ->with(
                 $this->equalTo(new Collection()),
                 $this->equalTo(5),
@@ -135,9 +135,9 @@ class GetCollectionResultsListenerTest extends TestCase
         $view->setContext(ViewInterface::CONTEXT_API);
         $event = new CollectViewParametersEvent($view);
 
-        $this->resultLoaderMock
+        $this->resultBuilderMock
             ->expects($this->at(0))
-            ->method('load')
+            ->method('build')
             ->with(
                 $this->equalTo(new Collection()),
                 $this->equalTo(3),
@@ -176,9 +176,9 @@ class GetCollectionResultsListenerTest extends TestCase
         $view->setContext(ViewInterface::CONTEXT_DEFAULT);
         $event = new CollectViewParametersEvent($view);
 
-        $this->resultLoaderMock
+        $this->resultBuilderMock
             ->expects($this->at(0))
-            ->method('load')
+            ->method('build')
             ->with(
                 $this->equalTo(new Collection()),
                 $this->equalTo(3),
@@ -216,9 +216,9 @@ class GetCollectionResultsListenerTest extends TestCase
         $view->setContext(ViewInterface::CONTEXT_DEFAULT);
         $event = new CollectViewParametersEvent($view);
 
-        $this->resultLoaderMock
+        $this->resultBuilderMock
             ->expects($this->at(0))
-            ->method('load')
+            ->method('build')
             ->with(
                 $this->equalTo(new Collection()),
                 $this->equalTo(3),
