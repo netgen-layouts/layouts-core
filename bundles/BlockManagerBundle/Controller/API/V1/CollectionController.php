@@ -5,7 +5,6 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\Collection\Result\ResultLoaderInterface;
 use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
@@ -21,30 +20,13 @@ final class CollectionController extends Controller
     private $collectionService;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Result\ResultLoaderInterface
-     */
-    private $resultLoader;
-
-    /**
-     * @var int
-     */
-    private $maxLimit;
-
-    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\API\Service\CollectionService $collectionService
-     * @param \Netgen\BlockManager\Collection\Result\ResultLoaderInterface $resultLoader
-     * @param int $maxLimit
      */
-    public function __construct(
-        CollectionService $collectionService,
-        ResultLoaderInterface $resultLoader,
-        $maxLimit
-    ) {
+    public function __construct(CollectionService $collectionService)
+    {
         $this->collectionService = $collectionService;
-        $this->resultLoader = $resultLoader;
-        $this->maxLimit = $maxLimit;
     }
 
     /**

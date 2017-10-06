@@ -61,8 +61,6 @@ services:
         parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.collection"
-            - "@netgen_block_manager.collection.result_loader"
-            - "%netgen_block_manager.collection.max_limit%"
 
     netgen_block_manager.controller.api.v1.validator:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\Validator
