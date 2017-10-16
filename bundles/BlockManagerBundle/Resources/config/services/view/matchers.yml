@@ -83,6 +83,12 @@ services:
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: block\locale }
 
+    netgen_block_manager.view.matcher.block.collection_identifier:
+        class: Netgen\BlockManager\View\Matcher\Block\CollectionIdentifier
+        public: false
+        tags:
+            - { name: netgen_block_manager.view.template_matcher, identifier: block\collection\identifier }
+
     netgen_block_manager.view.matcher.item.view_type:
         class: Netgen\BlockManager\View\Matcher\Item\ViewType
         public: false
