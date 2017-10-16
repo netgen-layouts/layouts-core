@@ -38,31 +38,23 @@ final class BlockCollectionController extends Controller
     private $resultBuilder;
 
     /**
-     * @var int
-     */
-    private $maxLimit;
-
-    /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\API\Service\BlockService $blockService
      * @param \Netgen\BlockManager\API\Service\CollectionService $collectionService
      * @param \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator $validator
      * @param \Netgen\BlockManager\Collection\Result\ResultBuilderInterface $resultBuilder
-     * @param int $maxLimit
      */
     public function __construct(
         BlockService $blockService,
         CollectionService $collectionService,
         BlockCollectionValidator $validator,
-        ResultBuilderInterface $resultBuilder,
-        $maxLimit
+        ResultBuilderInterface $resultBuilder
     ) {
         $this->blockService = $blockService;
         $this->collectionService = $collectionService;
         $this->validator = $validator;
         $this->resultBuilder = $resultBuilder;
-        $this->maxLimit = $maxLimit;
     }
 
     /**
@@ -80,10 +72,6 @@ final class BlockCollectionController extends Controller
         $limit = $request->query->get('limit');
 
         $this->validator->validateOffsetAndLimit($offset, $limit);
-
-        if (empty($limit) || $limit > $this->maxLimit) {
-            $limit = $this->maxLimit;
-        }
 
         return new VersionedValue(
             $this->resultBuilder->build(
