@@ -4,6 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime;
 
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Context\ContextInterface;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\View\ViewFactoryInterface;
 use Symfony\Component\HttpKernel\UriSigner;
@@ -67,6 +68,30 @@ final class AjaxRenderingRuntime
         $viewName = $viewName !== null ? $viewName : $this->defaultPagerfantaView;
 
         return $this->pagerfantaViewFactory->get($viewName)->render($pagerfanta, $routeGenerator, $options);
+    }
+
+    /**
+     * Returns the URL of the provided pager and page number.
+     *
+     * @param \Pagerfanta\Pagerfanta $pagerfanta
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
+     * @param string $collectionIdentifier
+     * @param int $page
+     *
+     * @return string
+     */
+    public function getAjaxBlockPageUrl(Pagerfanta $pagerfanta, Block $block, $collectionIdentifier, $page = 1)
+    {
+        if ($page < 1 || $page > $pagerfanta->getNbPages()) {
+            throw new InvalidArgumentException(
+                'page',
+                sprintf('Page %d is out of bounds', (int) $page)
+            );
+        }
+
+        $routeGenerator = $this->createRouteGenerator($block, $collectionIdentifier);
+
+        return $routeGenerator($page);
     }
 
     /**

@@ -23,6 +23,10 @@ final class AjaxRenderingExtension extends AbstractExtension
                     'is_safe' => array('html'),
                 )
             ),
+            new TwigFunction(
+                'ngbm_ajax_block_page_url',
+                array(AjaxRenderingRuntime::class, 'getAjaxBlockPageUrl')
+            ),
         );
     }
 }
