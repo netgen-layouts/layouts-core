@@ -60,8 +60,8 @@ services:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener
         arguments:
             - "@netgen_block_manager.collection.result_builder"
-            - "%netgen_block_manager.collection.max_limit%"
             - "%netgen_block_manager.block_view.collection_results_contexts%"
+            - "%netgen_block_manager.collection.max_limit%"
         tags:
             - { name: kernel.event_subscriber }
 
