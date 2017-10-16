@@ -12,11 +12,6 @@ services:
         calls:
             - [setValidator, ["@validator"]]
 
-    netgen_block_manager.controller.block.validator:
-        class: Netgen\Bundle\BlockManagerBundle\Controller\Validator\BlockValidator
-        public: false
-        parent: netgen_block_manager.controller.validator
-
     netgen_block_manager.controller.block:
         class: Netgen\Bundle\BlockManagerBundle\Controller\BlockController
         parent: netgen_block_manager.controller.base
