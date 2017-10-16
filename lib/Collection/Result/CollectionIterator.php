@@ -14,21 +14,31 @@ final class CollectionIterator implements Iterator, Countable
     private $collection;
 
     /**
-     * @var int
-     */
-    private $pointer;
-
-    /**
      * @var \Iterator
      */
     private $queryIterator;
 
-    public function __construct(Collection $collection, Iterator $queryIterator)
+    /**
+     * @var int
+     */
+    private $offset;
+
+    /**
+     * @var int
+     */
+    private $limit;
+
+    /**
+     * @var int
+     */
+    private $pointer;
+
+    public function __construct(Collection $collection, Iterator $queryIterator, $offset, $limit)
     {
         $this->collection = $collection;
         $this->queryIterator = $queryIterator;
-
-        $this->pointer = 0;
+        $this->pointer = $this->offset = $offset;
+        $this->limit = $limit;
     }
 
     public function count()
@@ -88,6 +98,10 @@ final class CollectionIterator implements Iterator, Countable
 
     public function valid()
     {
+        if ($this->pointer >= $this->offset + $this->limit) {
+            return false;
+        }
+
         if ($this->collection->hasOverrideItem($this->pointer)) {
             return true;
         }
@@ -101,7 +115,7 @@ final class CollectionIterator implements Iterator, Countable
 
     public function rewind()
     {
-        $this->pointer = 0;
+        $this->pointer = $this->offset;
 
         $this->queryIterator->rewind();
     }

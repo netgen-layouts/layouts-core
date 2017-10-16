@@ -22,11 +22,6 @@ class QueryTypeHandler implements QueryTypeHandlerInterface
     private $count;
 
     /**
-     * @var int|null
-     */
-    private $internalLimit;
-
-    /**
      * @var bool
      */
     private $contextual;
@@ -39,11 +34,10 @@ class QueryTypeHandler implements QueryTypeHandlerInterface
      * @param int $internalLimit
      * @param bool $contextual
      */
-    public function __construct(array $values = array(), $count = null, $internalLimit = null, $contextual = false)
+    public function __construct(array $values = array(), $count = null, $contextual = false)
     {
         $this->values = $values;
         $this->count = $count;
-        $this->internalLimit = $internalLimit;
         $this->contextual = $contextual;
     }
 
@@ -117,18 +111,6 @@ class QueryTypeHandler implements QueryTypeHandlerInterface
         }
 
         return count($this->values);
-    }
-
-    /**
-     * Returns the limit internal to this query.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     *
-     * @return int
-     */
-    public function getInternalLimit(Query $query)
-    {
-        return $this->internalLimit;
     }
 
     /**

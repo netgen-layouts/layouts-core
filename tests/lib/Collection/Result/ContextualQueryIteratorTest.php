@@ -25,7 +25,7 @@ class ContextualQueryIteratorTest extends TestCase
         $queryType = new QueryType('query', $queryItems);
         $query = new Query(array('queryType' => $queryType));
 
-        $queryIterator = new ContextualQueryIterator($query, 5);
+        $queryIterator = new ContextualQueryIterator($query, 0, 5);
 
         $values = array();
         foreach ($queryIterator as $value) {

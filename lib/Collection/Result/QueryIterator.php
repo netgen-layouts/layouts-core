@@ -14,9 +14,28 @@ class QueryIterator extends IteratorIterator implements Countable
      */
     protected $query;
 
-    public function __construct(Query $query)
+    /**
+     * @var int
+     */
+    protected $offset;
+
+    /**
+     * @var int
+     */
+    protected $limit;
+
+    /**
+     * Constructor.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
+     * @param int $offset
+     * @param int $limit
+     */
+    public function __construct(Query $query, $offset = 0, $limit = null)
     {
         $this->query = $query;
+        $this->offset = $offset;
+        $this->limit = $limit;
 
         parent::__construct($this->buildIterator());
     }
@@ -33,7 +52,11 @@ class QueryIterator extends IteratorIterator implements Countable
      */
     protected function buildIterator()
     {
-        $queryValues = $this->query->getQueryType()->getValues($this->query);
+        $queryValues = $this->query->getQueryType()->getValues(
+            $this->query,
+            $this->offset,
+            $this->limit
+        );
 
         return new ArrayIterator($queryValues);
     }

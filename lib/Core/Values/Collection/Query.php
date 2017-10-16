@@ -80,11 +80,6 @@ final class Query extends ValueObject implements APIQuery
         return $this->published;
     }
 
-    public function getInternalLimit()
-    {
-        return $this->queryType->getInternalLimit($this);
-    }
-
     public function isContextual()
     {
         return $this->queryType->isContextual($this);

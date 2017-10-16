@@ -37,7 +37,7 @@ class QueryType implements QueryTypeInterface
         $this->type = $type;
         $this->values = $values;
 
-        $this->handler = new QueryTypeHandler($this->values, $count, $count, $contextual);
+        $this->handler = new QueryTypeHandler($this->values, $count, $contextual);
     }
 
     /**
@@ -104,18 +104,6 @@ class QueryType implements QueryTypeInterface
     public function getCount(Query $query)
     {
         return $this->handler->getCount($query);
-    }
-
-    /**
-     * Returns the limit internal to provided query.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     *
-     * @return int
-     */
-    public function getInternalLimit(Query $query)
-    {
-        return $this->handler->getInternalLimit($query);
     }
 
     /**

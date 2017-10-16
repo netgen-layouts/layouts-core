@@ -40,19 +40,7 @@ class QueryType extends ValueObject implements QueryTypeInterface
 
     public function getCount(Query $query)
     {
-        $queryCount = $this->handler->getCount($query);
-
-        $internalLimit = $this->handler->getInternalLimit($query);
-        if ($internalLimit !== null && $queryCount > $internalLimit) {
-            $queryCount = $internalLimit;
-        }
-
-        return $queryCount;
-    }
-
-    public function getInternalLimit(Query $query)
-    {
-        return $this->handler->getInternalLimit($query);
+        return $this->handler->getCount($query);
     }
 
     public function isContextual(Query $query)

@@ -29,17 +29,6 @@ interface Query extends Value, ParameterBasedValue
     public function isPublished();
 
     /**
-     * Returns the internal limit of the query.
-     *
-     * This limit is used to signal to the system how many items
-     * will the query produce at maximum. If this value is null, query
-     * will return the unknown (or rather unlimited) number of items.
-     *
-     * @return int
-     */
-    public function getInternalLimit();
-
-    /**
      * Returns if the query is dependent on a context, i.e. current request.
      *
      * @return bool

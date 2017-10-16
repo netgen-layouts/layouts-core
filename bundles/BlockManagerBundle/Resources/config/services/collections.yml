@@ -17,6 +17,7 @@ services:
         arguments:
             - "@netgen_block_manager.collection.result_iterator_factory"
             - "@netgen_block_manager.collection.collection_iterator_factory"
+            - "%netgen_block_manager.collection.max_limit%"
 
     netgen_block_manager.collection.query_type_factory:
         class: Netgen\BlockManager\Collection\QueryTypeFactory

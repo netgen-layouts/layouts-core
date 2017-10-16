@@ -47,19 +47,6 @@ interface QueryTypeInterface extends ParameterCollectionInterface
     public function getCount(Query $query);
 
     /**
-     * Returns the internal limit of the provided query.
-     *
-     * This limit is used to signal to the system how many items
-     * will the query produce at maximum. If this value is null, query
-     * will return the unknown (or rather unlimited) number of items.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     *
-     * @return int
-     */
-    public function getInternalLimit(Query $query);
-
-    /**
      * Returns if the provided query is dependent on a context, i.e. current request.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query

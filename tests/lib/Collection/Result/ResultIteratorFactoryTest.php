@@ -35,7 +35,7 @@ class ResultIteratorFactoryTest extends TestCase
      */
     public function testGetResultIterator()
     {
-        $collectionIterator = new CollectionIterator(new Collection(), new ArrayIterator());
+        $collectionIterator = new CollectionIterator(new Collection(), new ArrayIterator(), 0, 200);
         $factory = new ResultIteratorFactory(
             $this->itemLoaderMock,
             $this->itemBuilderMock

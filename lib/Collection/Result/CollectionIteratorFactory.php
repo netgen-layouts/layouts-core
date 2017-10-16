@@ -26,26 +26,33 @@ final class CollectionIteratorFactory
      * Builds and returns result iterator from provided collection iterator.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     * @param int $offset
+     * @param int $limit
      * @param int $flags
      *
      * @return \Netgen\BlockManager\Collection\Result\CollectionIterator
      */
-    public function getCollectionIterator(Collection $collection, $flags = 0)
+    public function getCollectionIterator(Collection $collection, $offset = 0, $limit = null, $flags = 0)
     {
-        $queryIterator = $this->getQueryIterator($collection, $flags);
+        $queryOffset = $offset - $this->getManualItemsCount($collection, 0, $offset);
+        $queryLimit = $limit - $this->getManualItemsCount($collection, $offset, $offset + $limit);
 
-        return new CollectionIterator($collection, $queryIterator);
+        $queryIterator = $this->getQueryIterator($collection, $queryOffset, $queryLimit, $flags);
+
+        return new CollectionIterator($collection, $queryIterator, $offset, $limit);
     }
 
     /**
      * Builds the query iterator for use by the collection iterator.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     * @param int $offset
+     * @param int $limit
      * @param int $flags
      *
      * @return \Iterator
      */
-    private function getQueryIterator(Collection $collection, $flags = 0)
+    private function getQueryIterator(Collection $collection, $offset = 0, $limit = null, $flags = 0)
     {
         if (!$collection->hasQuery()) {
             return new ArrayIterator();
@@ -55,9 +62,31 @@ final class CollectionIteratorFactory
 
         $query = $collection->getQuery();
         if ($query->isContextual() && $showContextualSlots) {
-            return new ContextualQueryIterator($query, $this->contextualQueryLimit);
+            return new ContextualQueryIterator($query, 0, $limit > 0 ? $limit : $this->contextualQueryLimit);
         }
 
-        return new QueryIterator($query);
+        return new QueryIterator($query, $offset, $limit);
+    }
+
+    /**
+     * Returns the count of manual items in a collection between $startOffset
+     * and $endOffset.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     * @param int $startOffset
+     * @param int $endOffset
+     *
+     * @return int
+     */
+    private function getManualItemsCount(Collection $collection, $startOffset, $endOffset)
+    {
+        return count(
+            array_filter(
+                array_keys($collection->getManualItems()),
+                function ($position) use ($startOffset, $endOffset) {
+                    return $position >= $startOffset && $position < $endOffset;
+                }
+            )
+        );
     }
 }

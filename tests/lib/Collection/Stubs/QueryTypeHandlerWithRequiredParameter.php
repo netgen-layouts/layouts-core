@@ -85,17 +85,6 @@ class QueryTypeHandlerWithRequiredParameter implements QueryTypeHandlerInterface
     }
 
     /**
-     * Returns the limit internal to this query.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     *
-     * @return int
-     */
-    public function getInternalLimit(Query $query)
-    {
-    }
-
-    /**
      * Returns if the provided query is dependent on a context, i.e. current request.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
