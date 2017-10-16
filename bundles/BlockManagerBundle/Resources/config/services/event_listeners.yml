@@ -114,3 +114,8 @@ services:
             - "@uri_signer"
         tags:
             - { name: kernel.event_subscriber }
+
+    netgen_block_manager.event_listener.ajax_block_request:
+        class: Netgen\Bundle\BlockManagerBundle\EventListener\AjaxBlockRequestListener
+        tags:
+            - { name: kernel.event_subscriber }
