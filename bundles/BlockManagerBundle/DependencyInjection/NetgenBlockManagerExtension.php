@@ -161,6 +161,7 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
         $loader->load('services/block_definitions.yml');
         $loader->load('services/config_definitions.yml');
         $loader->load('services/forms.yml');
+        $loader->load('services/context.yml');
 
         $loader->load('services/layout_resolver/layout_resolver.yml');
         $loader->load('services/layout_resolver/condition_types.yml');

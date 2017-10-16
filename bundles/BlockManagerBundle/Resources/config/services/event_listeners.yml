@@ -95,3 +95,12 @@ services:
             - "@netgen_block_manager.http_cache.tagger"
         tags:
             - { name: kernel.event_subscriber }
+
+    netgen_block_manager.event_listener.context:
+        class: Netgen\Bundle\BlockManagerBundle\EventListener\ContextListener
+        arguments:
+            - "@netgen_block_manager.context"
+            - "@netgen_block_manager.context.builder"
+            - "@uri_signer"
+        tags:
+            - { name: kernel.event_subscriber }

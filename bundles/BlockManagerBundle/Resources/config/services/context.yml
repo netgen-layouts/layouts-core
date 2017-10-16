@@ -1,0 +1,8 @@
+services:
+    netgen_block_manager.context:
+        class: Netgen\BlockManager\Context\Context
+        public: false
+
+    netgen_block_manager.context.builder:
+        class: Netgen\BlockManager\Context\ContextBuilder
+        public: false

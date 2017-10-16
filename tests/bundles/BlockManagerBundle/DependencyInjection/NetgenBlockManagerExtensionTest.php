@@ -111,6 +111,7 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasService('netgen_block_manager.collection.result_builder');
         $this->assertContainerBuilderHasService('netgen_block_manager.item.item_builder');
         $this->assertContainerBuilderHasService('netgen_block_manager.http_cache.client');
+        $this->assertContainerBuilderHasService('netgen_block_manager.context');
 
         $this->assertContainerBuilderHasService('netgen_block_manager.core.service.block');
         $this->assertContainerBuilderHasAlias(
