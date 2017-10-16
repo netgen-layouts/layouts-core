@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator;
 
+use Netgen\Bundle\BlockManagerBundle\Controller\Validator\Validator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints;
 

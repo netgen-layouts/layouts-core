@@ -5,6 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
+use Netgen\Bundle\BlockManagerBundle\Controller\Validator\Validator;
 use Symfony\Component\Validator\Constraints;
 
 final class BlockCollectionValidator extends Validator

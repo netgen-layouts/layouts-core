@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator;
+namespace Netgen\Bundle\BlockManagerBundle\Controller\Validator;
 
 use Netgen\BlockManager\Validator\ValidatorTrait;
 use Symfony\Component\Validator\Constraints;
