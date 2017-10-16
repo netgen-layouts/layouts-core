@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Transfer\Serializer;
+namespace Netgen\BlockManager\Transfer\Output;
 
 use Netgen\BlockManager\API\Values\Value;
 use RuntimeException;
@@ -28,11 +28,12 @@ abstract class Visitor
      * Visit the given $value into hash representation.
      *
      * @param mixed $value
-     * @param \Netgen\BlockManager\Transfer\Serializer\Visitor|null $subVisitor
+     * @param \Netgen\BlockManager\Transfer\Output\Visitor|null $subVisitor
+     * @param array|null $context
      *
      * @return mixed
      */
-    abstract public function visit($value, Visitor $subVisitor = null);
+    abstract public function visit($value, Visitor $subVisitor = null, array $context = null);
 
     /**
      * Return status string representation for the given $layout.

@@ -1,9 +1,10 @@
 <?php
 
-namespace Netgen\BlockManager\Transfer\Serializer\Visitor;
+namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\API\Values\Layout\Layout as LayoutValue;
-use Netgen\BlockManager\Transfer\Serializer\Visitor;
+use Netgen\BlockManager\Transfer\Descriptor;
+use Netgen\BlockManager\Transfer\Output\Visitor;
 use RuntimeException;
 
 /**
@@ -11,14 +12,14 @@ use RuntimeException;
  *
  * @see \Netgen\BlockManager\API\Values\Layout\Layout
  */
-class Layout extends Visitor
+final class Layout extends Visitor
 {
     public function accept($value)
     {
         return $value instanceof LayoutValue;
     }
 
-    public function visit($layout, Visitor $subVisitor = null)
+    public function visit($layout, Visitor $subVisitor = null, array $context = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');
@@ -27,9 +28,13 @@ class Layout extends Visitor
         /* @var \Netgen\BlockManager\API\Values\Layout\Layout $layout */
 
         return array(
+            '__format' => array(
+                'type' => Descriptor::LAYOUT_FORMAT_TYPE,
+                'version' => Descriptor::LAYOUT_FORMAT_VERSION,
+            ),
             'id' => $layout->getId(),
             'type_identifier' => $layout->getLayoutType()->getIdentifier(),
-            'name' => $layout->getName(),
+            'name' => $this->getExportedLayoutName($layout),
             'description' => $layout->getDescription(),
             'status' => $this->getStatusString($layout),
             'is_published' => $layout->isPublished(),
@@ -42,20 +47,30 @@ class Layout extends Visitor
         );
     }
 
+    private function getExportedLayoutName(LayoutValue $layout)
+    {
+        $timestamp = time();
+
+        return $layout->getName() . " [EXPORTED: {$timestamp}]";
+    }
+
     /**
      * Visit the given $layout zones into hash representation.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param \Netgen\BlockManager\Transfer\Serializer\Visitor $subVisitor
+     * @param \Netgen\BlockManager\Transfer\Output\Visitor $subVisitor
      *
      * @return array
      */
     private function visitZones(LayoutValue $layout, Visitor $subVisitor)
     {
         $hash = array();
+        $context = array(
+            'mainLocale' => $layout->getMainLocale(),
+        );
 
         foreach ($layout->getZones() as $zone) {
-            $hash[$zone->getIdentifier()] = $subVisitor->visit($zone);
+            $hash[$zone->getIdentifier()] = $subVisitor->visit($zone, $subVisitor, $context);
         }
 
         return $hash;

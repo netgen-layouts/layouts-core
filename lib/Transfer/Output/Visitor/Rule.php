@@ -1,10 +1,10 @@
 <?php
 
-namespace Netgen\BlockManager\Transfer\Serializer\Visitor;
+namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule as RuleValue;
-use Netgen\BlockManager\Transfer\Serializer\Visitor;
+use Netgen\BlockManager\Transfer\Output\Visitor;
 use RuntimeException;
 
 /**
@@ -12,14 +12,14 @@ use RuntimeException;
  *
  * @see \Netgen\BlockManager\API\Values\LayoutResolver\Rule
  */
-class Rule extends Visitor
+final class Rule extends Visitor
 {
     public function accept($value)
     {
         return $value instanceof RuleValue;
     }
 
-    public function visit($rule, Visitor $subVisitor = null)
+    public function visit($rule, Visitor $subVisitor = null, array $context = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');
@@ -46,7 +46,7 @@ class Rule extends Visitor
      * Visit the given $rule targets into hash representation.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
-     * @param \Netgen\BlockManager\Transfer\Serializer\Visitor $subVisitor
+     * @param \Netgen\BlockManager\Transfer\Output\Visitor $subVisitor
      *
      * @return mixed
      */
@@ -66,7 +66,7 @@ class Rule extends Visitor
      * Visit the given $rule conditions into hash representation.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
-     * @param \Netgen\BlockManager\Transfer\Serializer\Visitor $subVisitor
+     * @param \Netgen\BlockManager\Transfer\Output\Visitor $subVisitor
      *
      * @return mixed
      */

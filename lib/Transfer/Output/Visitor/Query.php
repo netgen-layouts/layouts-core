@@ -1,9 +1,9 @@
 <?php
 
-namespace Netgen\BlockManager\Transfer\Serializer\Visitor;
+namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\API\Values\Collection\Query as QueryValue;
-use Netgen\BlockManager\Transfer\Serializer\Visitor;
+use Netgen\BlockManager\Transfer\Output\Visitor;
 use RuntimeException;
 
 /**
@@ -11,14 +11,14 @@ use RuntimeException;
  *
  * @see \Netgen\BlockManager\API\Values\Collection\Query
  */
-class Query extends Visitor
+final class Query extends Visitor
 {
     public function accept($value)
     {
         return $value instanceof QueryValue;
     }
 
-    public function visit($query, Visitor $subVisitor = null)
+    public function visit($query, Visitor $subVisitor = null, array $context = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');
@@ -43,7 +43,7 @@ class Query extends Visitor
      * Visit the given $query parameters into hash representation.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     * @param \Netgen\BlockManager\Transfer\Serializer\Visitor $subVisitor
+     * @param \Netgen\BlockManager\Transfer\Output\Visitor $subVisitor
      *
      * @return array
      */

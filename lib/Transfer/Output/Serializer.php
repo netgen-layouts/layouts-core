@@ -1,23 +1,26 @@
 <?php
 
-namespace Netgen\BlockManager\Transfer\Serializer;
+namespace Netgen\BlockManager\Transfer\Output;
 
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\Transfer\Serializer;
 
 /**
- * Native implementation of the Serializer.
+ * Serializer serializes domain entity into hash representation, which can be
+ * transferred through a plain text format, like JSON or XML.
+ *
+ * Hash format is either a scalar value, a hash array (associative array),
+ * a pure numeric array or a nested combination of these.
  */
-class Native extends Serializer
+final class Serializer
 {
     /**
-     * @var \Netgen\BlockManager\Transfer\Serializer\Visitor
+     * @var \Netgen\BlockManager\Transfer\Output\Visitor
      */
     private $visitor;
 
     /**
-     * @param \Netgen\BlockManager\Transfer\Serializer\Visitor $visitor
+     * @param \Netgen\BlockManager\Transfer\Output\Visitor $visitor
      */
     public function __construct(Visitor $visitor)
     {

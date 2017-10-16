@@ -1,9 +1,9 @@
 <?php
 
-namespace Netgen\BlockManager\Transfer\Serializer\Visitor;
+namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\API\Values\Collection\Item as ItemValue;
-use Netgen\BlockManager\Transfer\Serializer\Visitor;
+use Netgen\BlockManager\Transfer\Output\Visitor;
 use RuntimeException;
 
 /**
@@ -11,14 +11,14 @@ use RuntimeException;
  *
  * @see \Netgen\BlockManager\API\Values\Collection\Item
  */
-class Item extends Visitor
+final class Item extends Visitor
 {
     public function accept($value)
     {
         return $value instanceof ItemValue;
     }
 
-    public function visit($item, Visitor $subVisitor = null)
+    public function visit($item, Visitor $subVisitor = null, array $context = null)
     {
         /* @var \Netgen\BlockManager\API\Values\Collection\Item $item */
 

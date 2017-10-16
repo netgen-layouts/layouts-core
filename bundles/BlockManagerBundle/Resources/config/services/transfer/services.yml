@@ -1,8 +1,23 @@
 services:
-    netgen_block_manager.transfer.serializer.native:
-        class: Netgen\BlockManager\Transfer\Serializer\Native
+    netgen_block_manager.transfer.serializer:
+        class: Netgen\BlockManager\Transfer\Output\Serializer
         arguments:
             - "@netgen_block_manager.transfer.serializer.visitor.aggregate"
+        public: false
 
-    netgen_block_manager.transfer.serializer:
-        alias: netgen_block_manager.transfer.serializer.native
+    netgen_block_manager.transfer.input.data_handler.layout:
+        class: Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler
+        arguments:
+            - "@netgen_block_manager.api.service.block"
+            - "@netgen_block_manager.block.registry.block_definition"
+            - "@netgen_block_manager.api.service.collection"
+            - "@netgen_block_manager.api.service.layout"
+            - "@netgen_block_manager.layout.registry.layout_type"
+            - "@netgen_block_manager.collection.registry.query_type"
+        public: false
+
+    netgen_block_manager.transfer.input.importer:
+        class: Netgen\BlockManager\Transfer\Input\Importer
+        arguments:
+            - "@netgen_block_manager.transfer.input.data_handler.layout"
+        public: false

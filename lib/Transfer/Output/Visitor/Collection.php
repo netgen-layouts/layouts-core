@@ -1,9 +1,9 @@
 <?php
 
-namespace Netgen\BlockManager\Transfer\Serializer\Visitor;
+namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\API\Values\Collection\Collection as CollectionValue;
-use Netgen\BlockManager\Transfer\Serializer\Visitor;
+use Netgen\BlockManager\Transfer\Output\Visitor;
 use RuntimeException;
 
 /**
@@ -11,14 +11,14 @@ use RuntimeException;
  *
  * @see \Netgen\BlockManager\API\Values\Collection\Collection
  */
-class Collection extends Visitor
+final class Collection extends Visitor
 {
     public function accept($value)
     {
         return $value instanceof CollectionValue;
     }
 
-    public function visit($collection, Visitor $subVisitor = null)
+    public function visit($collection, Visitor $subVisitor = null, array $context = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');
@@ -68,7 +68,7 @@ class Collection extends Visitor
      * Visit the given collection $items into hash representation.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Item[] $items
-     * @param \Netgen\BlockManager\Transfer\Serializer\Visitor $subVisitor
+     * @param \Netgen\BlockManager\Transfer\Output\Visitor $subVisitor
      *
      * @return array
      */
@@ -89,7 +89,7 @@ class Collection extends Visitor
      * Visit the given $collection query into hash representation.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\Transfer\Serializer\Visitor $subVisitor
+     * @param \Netgen\BlockManager\Transfer\Output\Visitor $subVisitor
      *
      * @return mixed
      */

@@ -1,10 +1,10 @@
 <?php
 
-namespace Netgen\BlockManager\Transfer\Serializer\Visitor;
+namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Block\Block as BlockValue;
-use Netgen\BlockManager\Transfer\Serializer\Visitor;
+use Netgen\BlockManager\Transfer\Output\Visitor;
 use RuntimeException;
 
 /**
@@ -12,14 +12,24 @@ use RuntimeException;
  *
  * @see \Netgen\BlockManager\API\Values\Block\Block
  */
-class Block extends Visitor
+final class Block extends Visitor
 {
+    /**
+     * @var \Netgen\BlockManager\API\Service\BlockService
+     */
+    private $blockService;
+
+    public function __construct(BlockService $blockService)
+    {
+        $this->blockService = $blockService;
+    }
+
     public function accept($value)
     {
         return $value instanceof BlockValue;
     }
 
-    public function visit($block, Visitor $subVisitor = null)
+    public function visit($block, Visitor $subVisitor = null, array $context = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');
@@ -50,7 +60,7 @@ class Block extends Visitor
      * Visit the given $block placeholders into hash representation.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param \Netgen\BlockManager\Transfer\Serializer\Visitor $subVisitor
+     * @param \Netgen\BlockManager\Transfer\Output\Visitor $subVisitor
      *
      * @return array
      */
@@ -74,18 +84,56 @@ class Block extends Visitor
      * Visit the given $block parameters into hash representation.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param \Netgen\BlockManager\Transfer\Serializer\Visitor $subVisitor
+     * @param \Netgen\BlockManager\Transfer\Output\Visitor $subVisitor
+     *
+     * @throws \Netgen\BlockManager\Exception\NotFoundException
      *
      * @return array
      */
     private function visitParameterValues(BlockValue $block, Visitor $subVisitor)
     {
+        $parameterValuesByLanguage = array(
+            $block->getLocale() => $this->visitBlockTranslationParameterValues($block, $subVisitor),
+        );
+
+        foreach ($block->getAvailableLocales() as $availableLocale) {
+            if ($availableLocale === $block->getLocale()) {
+                continue;
+            }
+
+            $translatedBlock = $this->blockService->loadBlock(
+                $block->getId(),
+                [$availableLocale],
+                false
+            );
+
+            $parameterValuesByLanguage[$availableLocale] = $this->visitBlockTranslationParameterValues(
+                $translatedBlock,
+                $subVisitor
+            );
+        }
+
+        ksort($parameterValuesByLanguage);
+
+        return $parameterValuesByLanguage;
+    }
+
+    /**
+     * Return parameters for the given $block.
+     *
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
+     * @param \Netgen\BlockManager\Transfer\Output\Visitor $subVisitor
+     *
+     * @return mixed|null
+     */
+    private function visitBlockTranslationParameterValues(BlockValue $block, Visitor $subVisitor)
+    {
+        $hash = array();
         $parameterValues = $block->getParameters();
+
         if (empty($parameterValues)) {
             return null;
         }
-
-        $hash = array();
 
         foreach ($parameterValues as $parameterValue) {
             $hash[$parameterValue->getName()] = $subVisitor->visit($parameterValue);
@@ -98,7 +146,7 @@ class Block extends Visitor
      * Visit the given $block configuration into hash representation.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param \Netgen\BlockManager\Transfer\Serializer\Visitor $subVisitor
+     * @param \Netgen\BlockManager\Transfer\Output\Visitor $subVisitor
      *
      * @return array
      */
@@ -122,7 +170,7 @@ class Block extends Visitor
      * Visit the given $block collections into hash representation.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param \Netgen\BlockManager\Transfer\Serializer\Visitor $subVisitor
+     * @param \Netgen\BlockManager\Transfer\Output\Visitor $subVisitor
      *
      * @return array
      */

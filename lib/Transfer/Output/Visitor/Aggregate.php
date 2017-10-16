@@ -1,26 +1,26 @@
 <?php
 
-namespace Netgen\BlockManager\Transfer\Serializer\Visitor;
+namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
-use Netgen\BlockManager\Transfer\Serializer\Visitor;
+use Netgen\BlockManager\Transfer\Output\Visitor;
 use RuntimeException;
 
 /**
  * Aggregate implementation of the Visitor.
  */
-class Aggregate extends Visitor
+final class Aggregate extends Visitor
 {
     /**
      * Internal collection of visitors.
      *
-     * @var \Netgen\BlockManager\Transfer\Serializer\Visitor[]
+     * @var \Netgen\BlockManager\Transfer\Output\Visitor[]
      */
     private $visitors = array();
 
     /**
      * Construct from the optional array of $visitors.
      *
-     * @param \Netgen\BlockManager\Transfer\Serializer\Visitor[] $visitors
+     * @param \Netgen\BlockManager\Transfer\Output\Visitor[] $visitors
      */
     public function __construct(array $visitors = array())
     {
@@ -32,7 +32,7 @@ class Aggregate extends Visitor
     /**
      * Add given $visitor to the internal collection.
      *
-     * @param \Netgen\BlockManager\Transfer\Serializer\Visitor $visitor
+     * @param \Netgen\BlockManager\Transfer\Output\Visitor $visitor
      */
     public function addVisitor(Visitor $visitor)
     {
@@ -44,11 +44,11 @@ class Aggregate extends Visitor
         return true;
     }
 
-    public function visit($value, Visitor $subVisitor = null)
+    public function visit($value, Visitor $subVisitor = null, array $context = null)
     {
         foreach ($this->visitors as $visitor) {
             if ($visitor->accept($value)) {
-                return $visitor->visit($value, $this);
+                return $visitor->visit($value, $this, $context);
             }
         }
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace Netgen\BlockManager\Transfer\Serializer\Visitor;
+namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\API\Values\Block\Placeholder as PlaceholderValue;
-use Netgen\BlockManager\Transfer\Serializer\Visitor;
+use Netgen\BlockManager\Transfer\Output\Visitor;
 use RuntimeException;
 
 /**
@@ -11,14 +11,14 @@ use RuntimeException;
  *
  * @see \Netgen\BlockManager\API\Values\Block\Placeholder
  */
-class Placeholder extends Visitor
+final class Placeholder extends Visitor
 {
     public function accept($value)
     {
         return $value instanceof PlaceholderValue;
     }
 
-    public function visit($placeholder, Visitor $subVisitor = null)
+    public function visit($placeholder, Visitor $subVisitor = null, array $context = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');
@@ -36,7 +36,7 @@ class Placeholder extends Visitor
      * Visit the given $placeholder blocks into hash representation.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Placeholder $placeholder
-     * @param \Netgen\BlockManager\Transfer\Serializer\Visitor $subVisitor
+     * @param \Netgen\BlockManager\Transfer\Output\Visitor $subVisitor
      *
      * @return array
      */

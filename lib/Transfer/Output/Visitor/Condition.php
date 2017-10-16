@@ -1,23 +1,23 @@
 <?php
 
-namespace Netgen\BlockManager\Transfer\Serializer\Visitor;
+namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\Condition as ConditionValue;
-use Netgen\BlockManager\Transfer\Serializer\Visitor;
+use Netgen\BlockManager\Transfer\Output\Visitor;
 
 /**
  * Condition value visitor.
  *
  * @see \Netgen\BlockManager\API\Values\LayoutResolver\Condition
  */
-class Condition extends Visitor
+final class Condition extends Visitor
 {
     public function accept($value)
     {
         return $value instanceof ConditionValue;
     }
 
-    public function visit($condition, Visitor $subVisitor = null)
+    public function visit($condition, Visitor $subVisitor = null, array $context = null)
     {
         /* @var \Netgen\BlockManager\API\Values\LayoutResolver\Condition $condition */
 

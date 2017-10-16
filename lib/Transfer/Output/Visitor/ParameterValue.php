@@ -1,23 +1,23 @@
 <?php
 
-namespace Netgen\BlockManager\Transfer\Serializer\Visitor;
+namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\Parameters\ParameterValue as ParameterValueValue;
-use Netgen\BlockManager\Transfer\Serializer\Visitor;
+use Netgen\BlockManager\Transfer\Output\Visitor;
 
 /**
  * ParameterValue value visitor.
  *
  * @see \Netgen\BlockManager\Parameters\ParameterValue
  */
-class ParameterValue extends Visitor
+final class ParameterValue extends Visitor
 {
     public function accept($value)
     {
         return $value instanceof ParameterValueValue;
     }
 
-    public function visit($parameterValue, Visitor $subVisitor = null)
+    public function visit($parameterValue, Visitor $subVisitor = null, array $context = null)
     {
         /* @var \Netgen\BlockManager\Parameters\ParameterValue $parameterValue */
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace Netgen\BlockManager\Transfer\Serializer\Visitor;
+namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\API\Values\Config\Config as ConfigValue;
-use Netgen\BlockManager\Transfer\Serializer\Visitor;
+use Netgen\BlockManager\Transfer\Output\Visitor;
 use RuntimeException;
 
 /**
@@ -11,14 +11,14 @@ use RuntimeException;
  *
  * @see \Netgen\BlockManager\API\Values\Config\Config
  */
-class Config extends Visitor
+final class Config extends Visitor
 {
     public function accept($value)
     {
         return $value instanceof ConfigValue;
     }
 
-    public function visit($config, Visitor $subVisitor = null)
+    public function visit($config, Visitor $subVisitor = null, array $context = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');

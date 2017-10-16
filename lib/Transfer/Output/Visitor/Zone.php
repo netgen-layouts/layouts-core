@@ -1,10 +1,10 @@
 <?php
 
-namespace Netgen\BlockManager\Transfer\Serializer\Visitor;
+namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Layout\Zone as ZoneValue;
-use Netgen\BlockManager\Transfer\Serializer\Visitor;
+use Netgen\BlockManager\Transfer\Output\Visitor;
 use RuntimeException;
 
 /**
@@ -12,7 +12,7 @@ use RuntimeException;
  *
  * @see \Netgen\BlockManager\API\Values\Layout\Zone
  */
-class Zone extends Visitor
+final class Zone extends Visitor
 {
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService
@@ -29,10 +29,16 @@ class Zone extends Visitor
         return $value instanceof ZoneValue;
     }
 
-    public function visit($zone, Visitor $subVisitor = null)
+    public function visit($zone, Visitor $subVisitor = null, array $context = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');
+        }
+
+        if ($context === null || !array_key_exists('mainLocale', $context)) {
+            throw new RuntimeException(
+                'Implementation requires main locale context'
+            );
         }
 
         /* @var \Netgen\BlockManager\API\Values\Layout\Zone $zone */
@@ -42,7 +48,7 @@ class Zone extends Visitor
             'status' => $this->getStatusString($zone),
             'is_published' => $zone->isPublished(),
             'linked_zone' => $this->visitLinkedZone($zone),
-            'blocks' => $this->visitBlocks($zone, $subVisitor),
+            'blocks' => $this->visitBlocks($zone, $subVisitor, $context),
         );
     }
 
@@ -73,17 +79,21 @@ class Zone extends Visitor
      * Note: here we rely on API returning blocks already sorted by their position in the zone.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
-     * @param \Netgen\BlockManager\Transfer\Serializer\Visitor $subVisitor
+     * @param \Netgen\BlockManager\Transfer\Output\Visitor $subVisitor
+     * @param array $context
+     *
+     * @throws \RuntimeException
      *
      * @return mixed
      */
-    private function visitBlocks(ZoneValue $zone, Visitor $subVisitor)
+    private function visitBlocks(ZoneValue $zone, Visitor $subVisitor, array $context)
     {
         $hash = array();
-        $blocks = $this->blockService->loadZoneBlocks($zone);
+        $mainLocale = $context['mainLocale'];
+        $blocks = $this->blockService->loadZoneBlocks($zone, [$mainLocale]);
 
         foreach ($blocks as $block) {
-            $hash[] = $subVisitor->visit($block);
+            $hash[] = $subVisitor->visit($block, $subVisitor);
         }
 
         return $hash;
