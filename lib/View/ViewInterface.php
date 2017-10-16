@@ -12,6 +12,11 @@ interface ViewInterface
     const CONTEXT_DEFAULT = 'default';
 
     /**
+     * Context used to render the value objects (mostly blocks) via AJAX based controller.
+     */
+    const CONTEXT_AJAX = 'ajax';
+
+    /**
      * Context used to render the value objects in administration interface.
      */
     const CONTEXT_ADMIN = 'admin';
