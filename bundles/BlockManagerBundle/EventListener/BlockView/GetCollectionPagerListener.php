@@ -2,13 +2,10 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\EventListener\BlockView;
 
-use Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter;
-use Netgen\BlockManager\Collection\Result\ResultBuilderInterface;
+use Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilder;
 use Netgen\BlockManager\Event\BlockManagerEvents;
 use Netgen\BlockManager\Event\CollectViewParametersEvent;
 use Netgen\BlockManager\View\View\BlockViewInterface;
-use Pagerfanta\Adapter\AdapterInterface;
-use Pagerfanta\Pagerfanta;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -16,7 +13,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 final class GetCollectionPagerListener implements EventSubscriberInterface
 {
     /**
-     * @var \Netgen\BlockManager\Collection\Result\ResultBuilderInterface
+     * @var \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilder
      */
     private $resultBuilder;
 
@@ -30,21 +27,14 @@ final class GetCollectionPagerListener implements EventSubscriberInterface
      */
     private $enabledContexts;
 
-    /**
-     * @var int
-     */
-    private $maxLimit;
-
     public function __construct(
-        ResultBuilderInterface $resultBuilder,
+        ResultBuilder $resultBuilder,
         RequestStack $requestStack,
-        array $enabledContexts,
-        $maxLimit
+        array $enabledContexts
     ) {
         $this->resultBuilder = $resultBuilder;
         $this->requestStack = $requestStack;
         $this->enabledContexts = $enabledContexts;
-        $this->maxLimit = $maxLimit;
     }
 
     public static function getSubscribedEvents()
@@ -54,8 +44,6 @@ final class GetCollectionPagerListener implements EventSubscriberInterface
 
     /**
      * Adds a parameter to the view with results built from all block collections.
-     *
-     * @todo Refactor out the collection result generation into a separate service
      *
      * @param \Netgen\BlockManager\Event\CollectViewParametersEvent $event
      */
@@ -80,41 +68,13 @@ final class GetCollectionPagerListener implements EventSubscriberInterface
         $currentPage = (int) $currentRequest->query->get('page', 1);
         $currentPage = $currentPage > 0 ? $currentPage : 1;
 
-        $collectionReference = $view->getBlock()->getCollectionReference($collectionIdentifier);
-
-        $pagerAdapter = new ResultBuilderAdapter(
-            $this->resultBuilder,
-            $collectionReference->getCollection(),
-            $collectionReference->getOffset()
+        $resultPager = $this->resultBuilder->build(
+            $view->getBlock()->getCollectionReference($collectionIdentifier)
         );
 
-        $pager = $this->buildPager(
-            $pagerAdapter,
-            $collectionReference->getLimit(),
-            $currentPage
-        );
+        $resultPager->setCurrentPage($currentPage);
 
-        $event->addParameter('collection', $pager->getCurrentPageResults());
-        $event->addParameter('pager', $pager);
-    }
-
-    /**
-     * Builds the pager from provided adapter.
-     *
-     * @param \Pagerfanta\Adapter\AdapterInterface $adapter
-     * @param int $limit
-     * @param int $currentPage
-     *
-     * @return \Pagerfanta\Pagerfanta
-     */
-    private function buildPager(AdapterInterface $adapter, $limit, $currentPage)
-    {
-        $pager = new Pagerfanta($adapter);
-
-        $pager->setNormalizeOutOfRangePages(true);
-        $pager->setMaxPerPage($limit > 0 ? $limit : $this->maxLimit);
-        $pager->setCurrentPage($currentPage > 0 ? $currentPage : 1);
-
-        return $pager;
+        $event->addParameter('collection', $resultPager->getCurrentPageResults());
+        $event->addParameter('pager', $resultPager);
     }
 }

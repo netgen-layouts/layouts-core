@@ -59,19 +59,17 @@ services:
     netgen_block_manager.event_listener.block_view.get_collection_results:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener
         arguments:
-            - "@netgen_block_manager.collection.result_builder"
+            - "@netgen_block_manager.collection.result_builder.pagerfanta"
             - "%netgen_block_manager.block_view.collection_results_contexts%"
-            - "%netgen_block_manager.collection.max_limit%"
         tags:
             - { name: kernel.event_subscriber }
 
     netgen_block_manager.event_listener.block_view.get_collection_pager:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionPagerListener
         arguments:
-            - "@netgen_block_manager.collection.result_builder"
+            - "@netgen_block_manager.collection.result_builder.pagerfanta"
             - "@request_stack"
             - "%netgen_block_manager.block_view.collection_pager_contexts%"
-            - "%netgen_block_manager.collection.max_limit%"
         tags:
             - { name: kernel.event_subscriber }
 
