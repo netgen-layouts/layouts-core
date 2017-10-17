@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener\BlockView;
 
-use Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilder;
+use Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory;
 use Netgen\BlockManager\Collection\Result\ResultBuilderInterface;
 use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Core\Values\Block\Block;
@@ -38,7 +38,7 @@ class GetCollectionResultsListenerTest extends TestCase
         $this->resultBuilderMock = $this->createMock(ResultBuilderInterface::class);
 
         $this->listener = new GetCollectionResultsListener(
-            new ResultBuilder(
+            new PagerFactory(
                 $this->resultBuilderMock,
                 200
             ),

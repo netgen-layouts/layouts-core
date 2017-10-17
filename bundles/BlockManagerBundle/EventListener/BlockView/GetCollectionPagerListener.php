@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\EventListener\BlockView;
 
-use Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilder;
+use Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory;
 use Netgen\BlockManager\Event\BlockManagerEvents;
 use Netgen\BlockManager\Event\CollectViewParametersEvent;
 use Netgen\BlockManager\View\View\BlockViewInterface;
@@ -13,9 +13,9 @@ use Symfony\Component\HttpFoundation\RequestStack;
 final class GetCollectionPagerListener implements EventSubscriberInterface
 {
     /**
-     * @var \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilder
+     * @var \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory
      */
-    private $resultBuilder;
+    private $pagerFactory;
 
     /**
      * @var \Symfony\Component\HttpFoundation\RequestStack
@@ -28,11 +28,11 @@ final class GetCollectionPagerListener implements EventSubscriberInterface
     private $enabledContexts;
 
     public function __construct(
-        ResultBuilder $resultBuilder,
+        PagerFactory $pagerFactory,
         RequestStack $requestStack,
         array $enabledContexts
     ) {
-        $this->resultBuilder = $resultBuilder;
+        $this->pagerFactory = $pagerFactory;
         $this->requestStack = $requestStack;
         $this->enabledContexts = $enabledContexts;
     }
@@ -63,16 +63,13 @@ final class GetCollectionPagerListener implements EventSubscriberInterface
             return;
         }
 
+        $currentPage = (int) $currentRequest->query->get('page', 1);
         $collectionIdentifier = $view->getParameter('collection_identifier');
 
-        $currentPage = (int) $currentRequest->query->get('page', 1);
-        $currentPage = $currentPage > 0 ? $currentPage : 1;
-
-        $resultPager = $this->resultBuilder->build(
-            $view->getBlock()->getCollectionReference($collectionIdentifier)
+        $resultPager = $this->pagerFactory->getPager(
+            $view->getBlock()->getCollectionReference($collectionIdentifier),
+            $currentPage > 0 ? $currentPage : 1
         );
-
-        $resultPager->setCurrentPage($currentPage);
 
         $event->addParameter('collection', $resultPager->getCurrentPageResults());
         $event->addParameter('pager', $resultPager);

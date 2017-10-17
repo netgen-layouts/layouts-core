@@ -19,8 +19,8 @@ services:
             - "@netgen_block_manager.collection.collection_iterator_factory"
             - "%netgen_block_manager.collection.max_limit%"
 
-    netgen_block_manager.collection.result_builder.pagerfanta:
-        class: Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilder
+    netgen_block_manager.collection.result.pagerfanta.factory:
+        class: Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory
         arguments:
             - "@netgen_block_manager.collection.result_builder"
             - "%netgen_block_manager.collection.max_limit%"

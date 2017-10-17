@@ -2,7 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\EventListener\BlockView;
 
-use Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilder;
+use Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory;
 use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Event\BlockManagerEvents;
 use Netgen\BlockManager\Event\CollectViewParametersEvent;
@@ -13,18 +13,18 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 final class GetCollectionResultsListener implements EventSubscriberInterface
 {
     /**
-     * @var \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilder
+     * @var \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory
      */
-    private $resultBuilder;
+    private $pagerFactory;
 
     /**
      * @var array
      */
     private $enabledContexts;
 
-    public function __construct(ResultBuilder $resultBuilder, array $enabledContexts)
+    public function __construct(PagerFactory $pagerFactory, array $enabledContexts)
     {
-        $this->resultBuilder = $resultBuilder;
+        $this->pagerFactory = $pagerFactory;
         $this->enabledContexts = $enabledContexts;
     }
 
@@ -58,11 +58,9 @@ final class GetCollectionResultsListener implements EventSubscriberInterface
         $pagers = array();
 
         foreach ($view->getBlock()->getCollectionReferences() as $collectionReference) {
-            $pager = $this->resultBuilder->build($collectionReference, $flags);
-
             // In non AJAX scenarios, we're always rendering the first page of the collection
             // as specified by offset and limit in the collection itself
-            $pager->setCurrentPage(1);
+            $pager = $this->pagerFactory->getPager($collectionReference, 1, $flags);
 
             $collections[$collectionReference->getIdentifier()] = $pager->getCurrentPageResults();
             $pagers[$collectionReference->getIdentifier()] = $pager;
