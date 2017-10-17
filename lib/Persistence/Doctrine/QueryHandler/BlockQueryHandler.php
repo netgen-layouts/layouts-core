@@ -376,39 +376,6 @@ final class BlockQueryHandler extends QueryHandler
     }
 
     /**
-     * Updates a collection reference.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Block\CollectionReference $collectionReference
-     */
-    public function updateCollectionReference(CollectionReference $collectionReference)
-    {
-        $query = $this->connection->createQueryBuilder();
-        $query
-            ->update('ngbm_block_collection')
-            ->set('collection_id', ':collection_id')
-            ->set('collection_status', ':collection_status')
-            ->set('start', ':start')
-            ->set('length', ':length')
-            ->where(
-                $query->expr()->andX(
-                    $query->expr()->eq('block_id', ':block_id'),
-                    $query->expr()->eq('block_status', ':block_status'),
-                    $query->expr()->eq('identifier', ':identifier')
-                )
-            )
-            ->setParameter('block_id', $collectionReference->blockId, Type::INTEGER)
-            ->setParameter('identifier', $collectionReference->identifier, Type::STRING)
-            ->setParameter('collection_id', $collectionReference->collectionId, Type::INTEGER)
-            ->setParameter('collection_status', $collectionReference->collectionStatus, Type::INTEGER)
-            ->setParameter('start', $collectionReference->offset, Type::INTEGER)
-            ->setParameter('length', $collectionReference->limit, Type::INTEGER);
-
-        $this->applyStatusCondition($query, $collectionReference->blockStatus, 'block_status', 'block_status');
-
-        $query->execute();
-    }
-
-    /**
      * Moves a block. If the target block is not provided, the block is only moved within its
      * current parent ID and placeholder.
      *

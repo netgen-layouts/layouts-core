@@ -14,9 +14,7 @@ use Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\TranslationUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone;
@@ -302,28 +300,6 @@ final class BlockHandler implements BlockHandlerInterface
         }
 
         return $updatedBlock;
-    }
-
-    public function updateCollectionReference(CollectionReference $collectionReference, CollectionReferenceUpdateStruct $updateStruct)
-    {
-        $updatedCollectionReference = clone $collectionReference;
-
-        if ($updateStruct->offset !== null) {
-            $updatedCollectionReference->offset = (int) $updateStruct->offset;
-        }
-
-        if ($updateStruct->limit !== null) {
-            $updatedCollectionReference->limit = (int) $updateStruct->limit;
-        }
-
-        if ($updateStruct->collection instanceof Collection) {
-            $updatedCollectionReference->collectionId = $updateStruct->collection->id;
-            $updatedCollectionReference->collectionStatus = $updateStruct->collection->status;
-        }
-
-        $this->queryHandler->updateCollectionReference($updatedCollectionReference);
-
-        return $updatedCollectionReference;
     }
 
     public function copyBlock(Block $block, Block $targetBlock, $placeholder)

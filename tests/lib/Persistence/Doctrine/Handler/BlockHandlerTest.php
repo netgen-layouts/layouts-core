@@ -9,9 +9,7 @@ use Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\TranslationUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 use PHPUnit\Framework\TestCase;
@@ -1065,68 +1063,6 @@ class BlockHandlerTest extends TestCase
     {
         $block = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
         $this->blockHandler->setMainTranslation($block, 'de');
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::updateCollectionReference
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::updateCollectionReference
-     */
-    public function testUpdateCollectionReference()
-    {
-        $this->assertEquals(
-            new CollectionReference(
-                array(
-                    'blockId' => 31,
-                    'blockStatus' => Value::STATUS_DRAFT,
-                    'collectionId' => 2,
-                    'collectionStatus' => Value::STATUS_PUBLISHED,
-                    'identifier' => 'default',
-                    'offset' => 3,
-                    'limit' => 6,
-                )
-            ),
-            $this->blockHandler->updateCollectionReference(
-                $this->blockHandler->loadCollectionReference(
-                    $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-                    'default'
-                ),
-                new CollectionReferenceUpdateStruct(
-                    array(
-                        'collection' => new Collection(array('id' => 2, 'status' => Value::STATUS_PUBLISHED)),
-                        'offset' => 3,
-                        'limit' => 6,
-                    )
-                )
-            )
-        );
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::updateCollectionReference
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::updateCollectionReference
-     */
-    public function testUpdateCollectionReferenceWithDefaultValues()
-    {
-        $this->assertEquals(
-            new CollectionReference(
-                array(
-                    'blockId' => 31,
-                    'blockStatus' => Value::STATUS_DRAFT,
-                    'collectionId' => 1,
-                    'collectionStatus' => Value::STATUS_DRAFT,
-                    'identifier' => 'default',
-                    'offset' => 0,
-                    'limit' => null,
-                )
-            ),
-            $this->blockHandler->updateCollectionReference(
-                $this->blockHandler->loadCollectionReference(
-                    $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-                    'default'
-                ),
-                new CollectionReferenceUpdateStruct()
-            )
-        );
     }
 
     /**

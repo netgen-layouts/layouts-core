@@ -5,9 +5,7 @@ namespace Netgen\BlockManager\Persistence\Handler;
 use Netgen\BlockManager\Persistence\Values\Block\Block;
 use Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\BlockUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\TranslationUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone;
@@ -158,16 +156,6 @@ interface BlockHandler
      * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
     public function setMainTranslation(Block $block, $mainLocale);
-
-    /**
-     * Updates a collection reference with specified identifier.
-     *
-     * @param \Netgen\BlockManager\Persistence\Values\Block\CollectionReference $collectionReference
-     * @param \Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceUpdateStruct $updateStruct
-     *
-     * @return \Netgen\BlockManager\Persistence\Values\Block\CollectionReference
-     */
-    public function updateCollectionReference(CollectionReference $collectionReference, CollectionReferenceUpdateStruct $updateStruct);
 
     /**
      * Copies a block to a specified target block and placeholder.
