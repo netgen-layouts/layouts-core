@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener\BlockView;
 
+use Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilder;
 use Netgen\BlockManager\Collection\Result\ResultBuilderInterface;
 use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Core\Values\Block\Block;
@@ -14,6 +15,7 @@ use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\View\BlockView;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener;
+use Pagerfanta\Pagerfanta;
 use PHPUnit\Framework\TestCase;
 
 class GetCollectionResultsListenerTest extends TestCase
@@ -36,8 +38,10 @@ class GetCollectionResultsListenerTest extends TestCase
         $this->resultBuilderMock = $this->createMock(ResultBuilderInterface::class);
 
         $this->listener = new GetCollectionResultsListener(
-            $this->resultBuilderMock,
-            25,
+            new ResultBuilder(
+                $this->resultBuilderMock,
+                200
+            ),
             array(ViewInterface::CONTEXT_DEFAULT, ViewInterface::CONTEXT_API)
         );
     }
@@ -107,13 +111,14 @@ class GetCollectionResultsListenerTest extends TestCase
 
         $this->assertEquals(
             array(
-                'collections' => array(
-                    'collection1' => new ResultSet(array('collection' => new Collection())),
-                    'collection2' => new ResultSet(array('collection' => new Collection())),
-                ),
+                'collection1' => new ResultSet(array('collection' => new Collection())),
+                'collection2' => new ResultSet(array('collection' => new Collection())),
             ),
-            $event->getParameters()
+            $event->getParameters()['collections']
         );
+
+        $this->assertInstanceOf(Pagerfanta::class, $event->getParameters()['pagers']['collection1']);
+        $this->assertInstanceOf(Pagerfanta::class, $event->getParameters()['pagers']['collection2']);
     }
 
     /**
@@ -150,92 +155,12 @@ class GetCollectionResultsListenerTest extends TestCase
 
         $this->assertEquals(
             array(
-                'collections' => array(
-                    'collection1' => new ResultSet(array('collection' => new Collection())),
-                ),
+                'collection1' => new ResultSet(array('collection' => new Collection())),
             ),
-            $event->getParameters()
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::onRenderView
-     */
-    public function testOnRenderViewWithEmptyLimit()
-    {
-        $collectionReference = new CollectionReference(
-            array(
-                'collection' => new Collection(),
-                'identifier' => 'collection',
-                'offset' => 3,
-                'limit' => null,
-            )
+            $event->getParameters()['collections']
         );
 
-        $view = new BlockView(array('block' => new Block(array('collectionReferences' => array($collectionReference)))));
-        $view->setContext(ViewInterface::CONTEXT_DEFAULT);
-        $event = new CollectViewParametersEvent($view);
-
-        $this->resultBuilderMock
-            ->expects($this->at(0))
-            ->method('build')
-            ->with(
-                $this->equalTo(new Collection()),
-                $this->equalTo(3),
-                $this->equalTo(25)
-            )
-            ->will($this->returnValue(new ResultSet(array('collection' => new Collection()))));
-
-        $this->listener->onRenderView($event);
-
-        $this->assertEquals(
-            array(
-                'collections' => array(
-                    'collection' => new ResultSet(array('collection' => new Collection())),
-                ),
-            ),
-            $event->getParameters()
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::onRenderView
-     */
-    public function testOnRenderViewWithTooLargeLimit()
-    {
-        $collectionReference = new CollectionReference(
-            array(
-                'collection' => new Collection(),
-                'identifier' => 'collection',
-                'offset' => 3,
-                'limit' => 9999,
-            )
-        );
-
-        $view = new BlockView(array('block' => new Block(array('collectionReferences' => array($collectionReference)))));
-        $view->setContext(ViewInterface::CONTEXT_DEFAULT);
-        $event = new CollectViewParametersEvent($view);
-
-        $this->resultBuilderMock
-            ->expects($this->at(0))
-            ->method('build')
-            ->with(
-                $this->equalTo(new Collection()),
-                $this->equalTo(3),
-                $this->equalTo(25)
-            )
-            ->will($this->returnValue(new ResultSet(array('collection' => new Collection()))));
-
-        $this->listener->onRenderView($event);
-
-        $this->assertEquals(
-            array(
-                'collections' => array(
-                    'collection' => new ResultSet(array('collection' => new Collection())),
-                ),
-            ),
-            $event->getParameters()
-        );
+        $this->assertInstanceOf(Pagerfanta::class, $event->getParameters()['pagers']['collection1']);
     }
 
     /**

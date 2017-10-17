@@ -57,15 +57,15 @@ final class GetCollectionResultsListener implements EventSubscriberInterface
         $collections = array();
         $pagers = array();
 
-        foreach ($view->getBlock()->getCollectionReferences() as $collectionIdentifier => $collectionReference) {
+        foreach ($view->getBlock()->getCollectionReferences() as $collectionReference) {
             $pager = $this->resultBuilder->build($collectionReference, $flags);
 
             // In non AJAX scenarios, we're always rendering the first page of the collection
             // as specified by offset and limit in the collection itself
             $pager->setCurrentPage(1);
 
-            $collections[$collectionIdentifier] = $pager->getCurrentPageResults();
-            $pagers[$collectionIdentifier] = $pager;
+            $collections[$collectionReference->getIdentifier()] = $pager->getCurrentPageResults();
+            $pagers[$collectionReference->getIdentifier()] = $pager;
         }
 
         $event->addParameter('collections', $collections);
