@@ -47,7 +47,7 @@ final class CollectionIterator implements Iterator, Countable
 
         $queryCount = count($this->queryIterator);
 
-        for ($i = 0; ; ++$i) {
+        for ($i = 0;; ++$i) {
             if ($this->collection->hasOverrideItem($i)) {
                 ++$totalCount;
                 --$queryCount;
