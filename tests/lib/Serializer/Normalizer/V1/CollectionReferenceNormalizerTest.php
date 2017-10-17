@@ -31,6 +31,8 @@ class CollectionReferenceNormalizerTest extends TestCase
                 'id' => 24,
                 'type' => Collection::TYPE_MANUAL,
                 'status' => Value::STATUS_PUBLISHED,
+                'offset' => 10,
+                'limit' => 5,
             )
         );
 
@@ -38,8 +40,6 @@ class CollectionReferenceNormalizerTest extends TestCase
             array(
                 'collection' => $collection,
                 'identifier' => 'default',
-                'offset' => 10,
-                'limit' => 5,
             )
         );
 
@@ -48,8 +48,8 @@ class CollectionReferenceNormalizerTest extends TestCase
                 'identifier' => $collectionReference->getIdentifier(),
                 'collection_id' => $collection->getId(),
                 'collection_type' => $collection->getType(),
-                'offset' => $collectionReference->getOffset(),
-                'limit' => $collectionReference->getLimit(),
+                'offset' => $collection->getOffset(),
+                'limit' => $collection->getLimit(),
             ),
             $this->normalizer->normalize(new VersionedValue($collectionReference, 1))
         );
@@ -65,6 +65,8 @@ class CollectionReferenceNormalizerTest extends TestCase
                 'id' => 24,
                 'type' => Collection::TYPE_MANUAL,
                 'status' => Value::STATUS_DRAFT,
+                'offset' => 10,
+                'limit' => 5,
             )
         );
 
@@ -72,8 +74,6 @@ class CollectionReferenceNormalizerTest extends TestCase
             array(
                 'collection' => $collection,
                 'identifier' => 'default',
-                'offset' => 10,
-                'limit' => 5,
             )
         );
 
@@ -82,8 +82,8 @@ class CollectionReferenceNormalizerTest extends TestCase
                 'identifier' => $collectionReference->getIdentifier(),
                 'collection_id' => $collection->getId(),
                 'collection_type' => $collection->getType(),
-                'offset' => $collectionReference->getOffset(),
-                'limit' => $collectionReference->getLimit(),
+                'offset' => $collection->getOffset(),
+                'limit' => $collection->getLimit(),
             ),
             $this->normalizer->normalize(new VersionedValue($collectionReference, 1))
         );

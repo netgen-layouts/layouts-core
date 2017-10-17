@@ -13,8 +13,8 @@
     "item_view_type": "standard",
     "published": false,
     "has_published_state": false,
-    "is_translatable": true,
     "locale": "en",
+    "is_translatable": true,
     "always_available": true,
     "is_container": false,
     "is_dynamic_container": false,
@@ -31,8 +31,8 @@
             "identifier": "featured",
             "collection_id": 8,
             "collection_type": 1,
-            "offset": 0,
-            "limit": null
+            "offset": 4,
+            "limit": 2
         }
     ]
 }

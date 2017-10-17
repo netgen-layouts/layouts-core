@@ -32,6 +32,8 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $persistenceCollection = new Collection(
             array(
                 'id' => 2,
+                'offset' => 10,
+                'limit' => 20,
                 'alwaysAvailable' => false,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
@@ -46,6 +48,8 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertEquals(2, $collection->getId());
         $this->assertEquals(APICollection::TYPE_DYNAMIC, $collection->getType());
         $this->assertEquals(Value::STATUS_PUBLISHED, $collection->getStatus());
+        $this->assertEquals(10, $collection->getOffset());
+        $this->assertEquals(20, $collection->getLimit());
         $this->assertTrue($collection->isPublished());
         $this->assertTrue($collection->isTranslatable());
         $this->assertEquals('en', $collection->getMainLocale());
@@ -181,6 +185,8 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $persistenceCollection = new Collection(
             array(
                 'id' => 1,
+                'offset' => 10,
+                'limit' => 20,
                 'alwaysAvailable' => false,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
@@ -195,6 +201,8 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertEquals(1, $collection->getId());
         $this->assertEquals(APICollection::TYPE_MANUAL, $collection->getType());
         $this->assertEquals(Value::STATUS_PUBLISHED, $collection->getStatus());
+        $this->assertEquals(10, $collection->getOffset());
+        $this->assertEquals(20, $collection->getLimit());
         $this->assertTrue($collection->isPublished());
         $this->assertTrue($collection->isTranslatable());
         $this->assertEquals('en', $collection->getMainLocale());

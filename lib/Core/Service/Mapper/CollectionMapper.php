@@ -96,6 +96,8 @@ final class CollectionMapper
         $collectionData = array(
             'id' => $collection->id,
             'status' => $collection->status,
+            'offset' => $collection->offset,
+            'limit' => $collection->limit,
             'type' => $type,
             'items' => $items,
             'query' => $query,

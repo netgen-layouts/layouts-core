@@ -14,6 +14,20 @@ final class Collection extends Value
     public $id;
 
     /**
+     * The starting offset for the collection results.
+     *
+     * @var int
+     */
+    public $offset;
+
+    /**
+     * The starting limit for the collection results.
+     *
+     * @var int
+     */
+    public $limit;
+
+    /**
      * Returns if the collection is translatable.
      *
      * @var bool

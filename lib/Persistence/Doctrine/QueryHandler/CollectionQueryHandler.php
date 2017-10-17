@@ -187,6 +187,8 @@ final class CollectionQueryHandler extends QueryHandler
                 array(
                     'id' => ':id',
                     'status' => ':status',
+                    'start' => ':start',
+                    'length' => ':length',
                     'translatable' => ':translatable',
                     'main_locale' => ':main_locale',
                     'always_available' => ':always_available',
@@ -199,6 +201,8 @@ final class CollectionQueryHandler extends QueryHandler
                     $this->connectionHelper->getAutoIncrementValue('ngbm_collection')
             )
             ->setParameter('status', $collection->status, Type::INTEGER)
+            ->setParameter('start', $collection->offset, Type::INTEGER)
+            ->setParameter('length', $collection->limit, Type::INTEGER)
             ->setParameter('translatable', $collection->isTranslatable, Type::BOOLEAN)
             ->setParameter('main_locale', $collection->mainLocale, Type::STRING)
             ->setParameter('always_available', $collection->alwaysAvailable, Type::BOOLEAN);
@@ -246,6 +250,8 @@ final class CollectionQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder();
         $query
             ->update('ngbm_collection')
+            ->set('start', ':start')
+            ->set('length', ':length')
             ->set('translatable', ':translatable')
             ->set('main_locale', ':main_locale')
             ->set('always_available', ':always_available')
@@ -253,6 +259,8 @@ final class CollectionQueryHandler extends QueryHandler
                 $query->expr()->eq('id', ':id')
             )
             ->setParameter('id', $collection->id, Type::INTEGER)
+            ->setParameter('start', $collection->offset, Type::INTEGER)
+            ->setParameter('length', $collection->limit, Type::INTEGER)
             ->setParameter('translatable', $collection->isTranslatable, Type::BOOLEAN)
             ->setParameter('main_locale', $collection->mainLocale, Type::STRING)
             ->setParameter('always_available', $collection->alwaysAvailable, Type::BOOLEAN);

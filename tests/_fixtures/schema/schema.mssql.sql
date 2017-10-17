@@ -85,6 +85,8 @@ CREATE TABLE ngbm_zone (
 CREATE TABLE ngbm_collection (
   id int IDENTITY(1, 1),
   status int NOT NULL,
+  start int NOT NULL,
+  length int,
   translatable tinyint NOT NULL,
   main_locale nvarchar(255) NOT NULL,
   always_available tinyint NOT NULL,
@@ -139,8 +141,6 @@ CREATE TABLE ngbm_block_collection (
   collection_id int NOT NULL,
   collection_status int NOT NULL,
   identifier nvarchar(255) NOT NULL,
-  start int NOT NULL,
-  length int,
   PRIMARY KEY (block_id, block_status, identifier),
   FOREIGN KEY (block_id, block_status)
     REFERENCES ngbm_block (id, status),

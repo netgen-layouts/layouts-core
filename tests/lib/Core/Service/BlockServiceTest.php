@@ -168,8 +168,8 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertArrayHasKey('default', $collectionReferences);
 
         $this->assertEquals('default', $collectionReferences['default']->getIdentifier());
-        $this->assertEquals(0, $collectionReferences['default']->getOffset());
-        $this->assertNull($collectionReferences['default']->getLimit());
+        $this->assertEquals(0, $collectionReferences['default']->getCollection()->getOffset());
+        $this->assertNull($collectionReferences['default']->getCollection()->getLimit());
 
         $collection = $this->collectionService->loadCollectionDraft(7);
         $this->assertEquals(Collection::TYPE_MANUAL, $collection->getType());
@@ -401,8 +401,8 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertArrayHasKey('default', $collectionReferences);
 
         $this->assertEquals('default', $collectionReferences['default']->getIdentifier());
-        $this->assertEquals(0, $collectionReferences['default']->getOffset());
-        $this->assertNull($collectionReferences['default']->getLimit());
+        $this->assertEquals(0, $collectionReferences['default']->getCollection()->getOffset());
+        $this->assertNull($collectionReferences['default']->getCollection()->getLimit());
 
         $collection = $this->collectionService->loadCollectionDraft(7);
         $this->assertEquals(Collection::TYPE_MANUAL, $collection->getType());

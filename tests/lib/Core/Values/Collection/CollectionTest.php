@@ -15,6 +15,8 @@ class CollectionTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getId
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getType
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getOffset
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getLimit
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getItems
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getManualItems
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getOverrideItems
@@ -34,6 +36,8 @@ class CollectionTest extends TestCase
         $this->assertNull($collection->getId());
         $this->assertNull($collection->getStatus());
         $this->assertNull($collection->getType());
+        $this->assertNull($collection->getOffset());
+        $this->assertNull($collection->getLimit());
         $this->assertNull($collection->isPublished());
         $this->assertNull($collection->getMainLocale());
         $this->assertEquals(array(), $collection->getAvailableLocales());
@@ -52,6 +56,8 @@ class CollectionTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getId
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getType
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getOffset
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getLimit
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::hasItem
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getItem
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::filterItems
@@ -83,6 +89,8 @@ class CollectionTest extends TestCase
                 'id' => 42,
                 'status' => Value::STATUS_PUBLISHED,
                 'type' => Collection::TYPE_DYNAMIC,
+                'offset' => 5,
+                'limit' => 10,
                 'published' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => array('en', 'hr'),
@@ -97,6 +105,8 @@ class CollectionTest extends TestCase
         $this->assertEquals(42, $collection->getId());
         $this->assertTrue($collection->isPublished());
         $this->assertEquals(Collection::TYPE_DYNAMIC, $collection->getType());
+        $this->assertEquals(5, $collection->getOffset());
+        $this->assertEquals(10, $collection->getLimit());
         $this->assertTrue($collection->isPublished());
         $this->assertEquals('en', $collection->getMainLocale());
         $this->assertEquals(array('en', 'hr'), $collection->getAvailableLocales());

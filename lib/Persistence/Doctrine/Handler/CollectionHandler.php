@@ -123,6 +123,8 @@ final class CollectionHandler implements CollectionHandlerInterface
         $newCollection = new Collection(
             array(
                 'status' => $collectionCreateStruct->status,
+                'offset' => $collectionCreateStruct->offset,
+                'limit' => $collectionCreateStruct->limit,
                 'isTranslatable' => $collectionCreateStruct->isTranslatable,
                 'alwaysAvailable' => $collectionCreateStruct->alwaysAvailable,
                 'mainLocale' => $collectionCreateStruct->mainLocale,
@@ -190,6 +192,14 @@ final class CollectionHandler implements CollectionHandlerInterface
     public function updateCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct)
     {
         $updatedCollection = clone $collection;
+
+        if ($collectionUpdateStruct->offset !== null) {
+            $updatedCollection->offset = (int) $collectionUpdateStruct->offset;
+        }
+
+        if ($collectionUpdateStruct->limit !== null) {
+            $updatedCollection->limit = (int) $collectionUpdateStruct->limit;
+        }
 
         if ($collectionUpdateStruct->isTranslatable !== null) {
             $updatedCollection->isTranslatable = (bool) $collectionUpdateStruct->isTranslatable;

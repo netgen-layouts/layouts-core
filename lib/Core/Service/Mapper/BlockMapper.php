@@ -155,8 +155,6 @@ final class BlockMapper
                 array(
                     'collection' => $this->collectionMapper->mapCollection($collection, $locales, false),
                     'identifier' => $collectionReference->identifier,
-                    'offset' => $collectionReference->offset,
-                    'limit' => $collectionReference->limit,
                 )
             );
         }

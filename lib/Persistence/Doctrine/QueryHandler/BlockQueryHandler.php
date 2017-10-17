@@ -43,7 +43,7 @@ final class BlockQueryHandler extends QueryHandler
     public function loadCollectionReferencesData(Block $block, $identifier = null)
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('block_id', 'block_status', 'collection_id', 'collection_status', 'identifier', 'start', 'length')
+        $query->select('block_id', 'block_status', 'collection_id', 'collection_status', 'identifier')
             ->from('ngbm_block_collection')
             ->where(
                 $query->expr()->eq('block_id', ':block_id')
@@ -285,17 +285,13 @@ final class BlockQueryHandler extends QueryHandler
                     'collection_id' => ':collection_id',
                     'collection_status' => ':collection_status',
                     'identifier' => ':identifier',
-                    'start' => ':start',
-                    'length' => ':length',
                 )
             )
             ->setParameter('block_id', $collectionReference->blockId, Type::INTEGER)
             ->setParameter('block_status', $collectionReference->blockStatus, Type::INTEGER)
             ->setParameter('collection_id', $collectionReference->collectionId, Type::INTEGER)
             ->setParameter('collection_status', $collectionReference->collectionStatus, Type::INTEGER)
-            ->setParameter('identifier', $collectionReference->identifier, Type::STRING)
-            ->setParameter('start', $collectionReference->offset, Type::INTEGER)
-            ->setParameter('length', $collectionReference->limit, Type::INTEGER);
+            ->setParameter('identifier', $collectionReference->identifier, Type::STRING);
 
         $query->execute();
     }

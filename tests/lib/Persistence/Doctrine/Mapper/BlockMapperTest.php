@@ -143,8 +143,6 @@ class BlockMapperTest extends TestCase
                 'collection_id' => 42,
                 'collection_status' => Value::STATUS_PUBLISHED,
                 'identifier' => 'default',
-                'start' => 5,
-                'length' => 10,
             ),
             array(
                 'block_id' => 2,
@@ -152,8 +150,6 @@ class BlockMapperTest extends TestCase
                 'collection_id' => 43,
                 'collection_status' => Value::STATUS_PUBLISHED,
                 'identifier' => 'featured',
-                'start' => 10,
-                'length' => 15,
             ),
         );
 
@@ -165,8 +161,6 @@ class BlockMapperTest extends TestCase
                     'collectionId' => 42,
                     'collectionStatus' => Value::STATUS_PUBLISHED,
                     'identifier' => 'default',
-                    'offset' => 5,
-                    'limit' => 10,
                 )
             ),
             new CollectionReference(
@@ -176,8 +170,6 @@ class BlockMapperTest extends TestCase
                     'collectionId' => 43,
                     'collectionStatus' => Value::STATUS_PUBLISHED,
                     'identifier' => 'featured',
-                    'offset' => 10,
-                    'limit' => 15,
                 )
             ),
         );

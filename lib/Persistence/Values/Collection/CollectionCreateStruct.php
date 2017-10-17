@@ -14,6 +14,20 @@ final class CollectionCreateStruct extends ValueObject
     public $status;
 
     /**
+     * Starting offset for the collection results.
+     *
+     * @var int
+     */
+    public $offset;
+
+    /**
+     * Starting limit for the collection results.
+     *
+     * @var int
+     */
+    public $limit;
+
+    /**
      * Flag indicating if the collection will be always available.
      *
      * @var bool

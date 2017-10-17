@@ -20,8 +20,8 @@ final class CollectionReferenceNormalizer implements NormalizerInterface
             'identifier' => $collectionReference->getIdentifier(),
             'collection_id' => $collection->getId(),
             'collection_type' => $collection->getType(),
-            'offset' => $collectionReference->getOffset(),
-            'limit' => $collectionReference->getLimit(),
+            'offset' => $collection->getOffset(),
+            'limit' => $collection->getLimit(),
         );
     }
 

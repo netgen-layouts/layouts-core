@@ -40,18 +40,4 @@ final class CollectionReference extends Value
      * @var string
      */
     public $identifier;
-
-    /**
-     * The starting offset for the collection results.
-     *
-     * @var int
-     */
-    public $offset;
-
-    /**
-     * The starting limit for the collection results.
-     *
-     * @var int
-     */
-    public $limit;
 }

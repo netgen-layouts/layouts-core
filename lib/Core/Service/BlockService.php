@@ -634,6 +634,8 @@ final class BlockService extends Service implements BlockServiceInterface
                         new CollectionCreateStruct(
                             array(
                                 'status' => Value::STATUS_DRAFT,
+                                'offset' => 0,
+                                'limit' => null,
                                 'alwaysAvailable' => $blockCreateStruct->alwaysAvailable,
                                 'isTranslatable' => $blockCreateStruct->isTranslatable,
                                 'mainLocale' => $persistenceLayout->mainLocale,
@@ -659,8 +661,6 @@ final class BlockService extends Service implements BlockServiceInterface
                             array(
                                 'identifier' => $collectionConfig->getIdentifier(),
                                 'collection' => $createdCollection,
-                                'offset' => 0,
-                                'limit' => null,
                             )
                         )
                     );

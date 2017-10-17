@@ -201,8 +201,6 @@ final class BlockHandler implements BlockHandlerInterface
                 'collectionId' => $createStruct->collection->id,
                 'collectionStatus' => $createStruct->collection->status,
                 'identifier' => $createStruct->identifier,
-                'offset' => $createStruct->offset,
-                'limit' => $createStruct->limit,
             )
         );
 
@@ -513,8 +511,6 @@ final class BlockHandler implements BlockHandlerInterface
                     'collectionId' => $collection->id,
                     'collectionStatus' => $collection->status,
                     'identifier' => $collectionReference->identifier,
-                    'offset' => $collectionReference->offset,
-                    'limit' => $collectionReference->limit,
                 )
             );
 
@@ -553,8 +549,6 @@ final class BlockHandler implements BlockHandlerInterface
                     'collectionId' => $collection->id,
                     'collectionStatus' => $collection->status,
                     'identifier' => $collectionReference->identifier,
-                    'offset' => $collectionReference->offset,
-                    'limit' => $collectionReference->limit,
                 )
             );
 

@@ -89,14 +89,14 @@ UNLOCK TABLES;
 
 LOCK TABLES `ngbm_block_collection` WRITE;
 /*!40000 ALTER TABLE `ngbm_block_collection` DISABLE KEYS */;
-INSERT INTO `ngbm_block_collection` VALUES (31,0,1,0,'default',0,NULL);
-INSERT INTO `ngbm_block_collection` VALUES (31,0,3,0,'featured',0,NULL);
-INSERT INTO `ngbm_block_collection` VALUES (31,1,2,1,'default',0,NULL);
-INSERT INTO `ngbm_block_collection` VALUES (31,1,3,1,'featured',0,NULL);
-INSERT INTO `ngbm_block_collection` VALUES (35,0,4,0,'default',0,NULL);
-INSERT INTO `ngbm_block_collection` VALUES (35,1,4,1,'default',0,NULL);
-INSERT INTO `ngbm_block_collection` VALUES (37,0,6,0,'default',0,NULL);
-INSERT INTO `ngbm_block_collection` VALUES (37,1,6,1,'default',0,NULL);
+INSERT INTO `ngbm_block_collection` VALUES (31,0,1,0,'default');
+INSERT INTO `ngbm_block_collection` VALUES (31,0,3,0,'featured');
+INSERT INTO `ngbm_block_collection` VALUES (31,1,2,1,'default');
+INSERT INTO `ngbm_block_collection` VALUES (31,1,3,1,'featured');
+INSERT INTO `ngbm_block_collection` VALUES (35,0,4,0,'default');
+INSERT INTO `ngbm_block_collection` VALUES (35,1,4,1,'default');
+INSERT INTO `ngbm_block_collection` VALUES (37,0,6,0,'default');
+INSERT INTO `ngbm_block_collection` VALUES (37,1,6,1,'default');
 /*!40000 ALTER TABLE `ngbm_block_collection` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -178,14 +178,14 @@ UNLOCK TABLES;
 
 LOCK TABLES `ngbm_collection` WRITE;
 /*!40000 ALTER TABLE `ngbm_collection` DISABLE KEYS */;
-INSERT INTO `ngbm_collection` VALUES (1,0,1,'en',1);
-INSERT INTO `ngbm_collection` VALUES (2,1,1,'en',1);
-INSERT INTO `ngbm_collection` VALUES (3,0,1,'en',1);
-INSERT INTO `ngbm_collection` VALUES (3,1,1,'en',1);
-INSERT INTO `ngbm_collection` VALUES (4,0,0,'en',1);
-INSERT INTO `ngbm_collection` VALUES (4,1,0,'en',1);
-INSERT INTO `ngbm_collection` VALUES (6,0,0,'en',1);
-INSERT INTO `ngbm_collection` VALUES (6,1,0,'en',1);
+INSERT INTO `ngbm_collection` VALUES (1,0,0,NULL,1,'en',1);
+INSERT INTO `ngbm_collection` VALUES (2,1,0,NULL,1,'en',1);
+INSERT INTO `ngbm_collection` VALUES (3,0,4,2,1,'en',1);
+INSERT INTO `ngbm_collection` VALUES (3,1,4,2,1,'en',1);
+INSERT INTO `ngbm_collection` VALUES (4,0,0,NULL,0,'en',1);
+INSERT INTO `ngbm_collection` VALUES (4,1,0,NULL,0,'en',1);
+INSERT INTO `ngbm_collection` VALUES (6,0,10,5,0,'en',1);
+INSERT INTO `ngbm_collection` VALUES (6,1,10,5,0,'en',1);
 /*!40000 ALTER TABLE `ngbm_collection` ENABLE KEYS */;
 UNLOCK TABLES;
 

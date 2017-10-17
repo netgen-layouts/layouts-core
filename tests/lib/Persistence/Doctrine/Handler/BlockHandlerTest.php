@@ -300,8 +300,6 @@ class BlockHandlerTest extends TestCase
                     'collectionId' => 1,
                     'collectionStatus' => Value::STATUS_DRAFT,
                     'identifier' => 'default',
-                    'offset' => 0,
-                    'limit' => null,
                 )
             ),
             $this->blockHandler->loadCollectionReference(
@@ -340,8 +338,6 @@ class BlockHandlerTest extends TestCase
                         'collectionId' => 1,
                         'collectionStatus' => Value::STATUS_DRAFT,
                         'identifier' => 'default',
-                        'offset' => 0,
-                        'limit' => null,
                     )
                 ),
                 new CollectionReference(
@@ -351,8 +347,6 @@ class BlockHandlerTest extends TestCase
                         'collectionId' => 3,
                         'collectionStatus' => Value::STATUS_DRAFT,
                         'identifier' => 'featured',
-                        'offset' => 0,
-                        'limit' => null,
                     )
                 ),
             ),
@@ -800,8 +794,6 @@ class BlockHandlerTest extends TestCase
                 array(
                     'identifier' => 'new',
                     'collection' => $collection,
-                    'offset' => 5,
-                    'limit' => 10,
                 )
             )
         );
@@ -814,8 +806,6 @@ class BlockHandlerTest extends TestCase
                     'collectionId' => $collection->id,
                     'collectionStatus' => $collection->status,
                     'identifier' => 'new',
-                    'offset' => 5,
-                    'limit' => 10,
                 )
             ),
             $reference
@@ -1125,8 +1115,6 @@ class BlockHandlerTest extends TestCase
                         'collectionId' => 7,
                         'collectionStatus' => Value::STATUS_DRAFT,
                         'identifier' => 'default',
-                        'offset' => 0,
-                        'limit' => null,
                     )
                 ),
                 new CollectionReference(
@@ -1136,8 +1124,6 @@ class BlockHandlerTest extends TestCase
                         'collectionId' => 8,
                         'collectionStatus' => Value::STATUS_DRAFT,
                         'identifier' => 'featured',
-                        'offset' => 0,
-                        'limit' => null,
                     )
                 ),
             ),
@@ -1229,8 +1215,6 @@ class BlockHandlerTest extends TestCase
                         'collectionId' => 7,
                         'collectionStatus' => Value::STATUS_DRAFT,
                         'identifier' => 'default',
-                        'offset' => 0,
-                        'limit' => null,
                     )
                 ),
             ),
@@ -1298,8 +1282,6 @@ class BlockHandlerTest extends TestCase
                         'collectionId' => 7,
                         'collectionStatus' => Value::STATUS_DRAFT,
                         'identifier' => 'default',
-                        'offset' => 0,
-                        'limit' => null,
                     )
                 ),
                 new CollectionReference(
@@ -1309,8 +1291,6 @@ class BlockHandlerTest extends TestCase
                         'collectionId' => 8,
                         'collectionStatus' => Value::STATUS_DRAFT,
                         'identifier' => 'featured',
-                        'offset' => 0,
-                        'limit' => null,
                     )
                 ),
             ),

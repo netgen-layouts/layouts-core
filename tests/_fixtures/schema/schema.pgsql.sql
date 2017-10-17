@@ -79,6 +79,8 @@ CREATE TABLE "ngbm_zone" (
 CREATE TABLE "ngbm_collection" (
   "id" integer NOT NULL,
   "status" integer NOT NULL,
+  "start" integer NOT NULL,
+  "length" integer,
   "translatable" boolean NOT NULL,
   "main_locale" character varying(255) NOT NULL,
   "always_available" boolean NOT NULL
@@ -119,9 +121,7 @@ CREATE TABLE "ngbm_block_collection" (
   "block_status" integer NOT NULL,
   "collection_id" integer NOT NULL,
   "collection_status" integer NOT NULL,
-  "identifier" character varying(255) NOT NULL,
-  "start" integer NOT NULL,
-  "length" integer
+  "identifier" character varying(255) NOT NULL
 );
 
 CREATE TABLE "ngbm_rule" (

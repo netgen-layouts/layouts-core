@@ -17,16 +17,6 @@ final class CollectionReference extends ValueObject implements APICollectionRefe
      */
     protected $identifier;
 
-    /**
-     * @var int
-     */
-    protected $offset;
-
-    /**
-     * @var int
-     */
-    protected $limit;
-
     public function getCollection()
     {
         return $this->collection;
@@ -35,15 +25,5 @@ final class CollectionReference extends ValueObject implements APICollectionRefe
     public function getIdentifier()
     {
         return $this->identifier;
-    }
-
-    public function getOffset()
-    {
-        return $this->offset;
-    }
-
-    public function getLimit()
-    {
-        return $this->limit;
     }
 }

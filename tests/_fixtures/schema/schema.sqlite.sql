@@ -77,6 +77,8 @@ DROP TABLE IF EXISTS `ngbm_collection`;
 CREATE TABLE `ngbm_collection` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
+  `start` integer NOT NULL,
+  `length` integer DEFAULT NULL,
   `translatable` integer NOT NULL,
   `main_locale` text(255) NOT NULL,
   `always_available` integer NOT NULL,
@@ -136,8 +138,6 @@ CREATE TABLE `ngbm_block_collection` (
   `collection_id` integer NOT NULL,
   `collection_status` integer NOT NULL,
   `identifier` text(255) NOT NULL,
-  `start` integer NOT NULL,
-  `length` integer DEFAULT NULL,
   PRIMARY KEY (`block_id`, `block_status`, `identifier`),
   FOREIGN KEY (`block_id`, `block_status`)
     REFERENCES `ngbm_block` (`id`, `status`),

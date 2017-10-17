@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Collection\Result\Pagerfanta;
 
-use Netgen\BlockManager\API\Values\Block\CollectionReference;
+use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Collection\Result\ResultBuilderInterface;
 use Pagerfanta\Adapter\AdapterInterface;
 use Pagerfanta\Pagerfanta;
@@ -26,26 +26,26 @@ final class PagerFactory
     }
 
     /**
-     * Builds and returns the Pagerfanta pager for provided collection reference.
+     * Builds and returns the Pagerfanta pager for provided collection.
      *
      * The pager starting page will be set to $startPage.
      *
-     * @param \Netgen\BlockManager\API\Values\Block\CollectionReference $collectionReference
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      * @param int $startPage
      * @param int $flags
      *
      * @return \Pagerfanta\Pagerfanta
      */
-    public function getPager(CollectionReference $collectionReference, $startPage, $flags = 0)
+    public function getPager(Collection $collection, $startPage, $flags = 0)
     {
         $pagerAdapter = new ResultBuilderAdapter(
             $this->resultBuilder,
-            $collectionReference->getCollection(),
-            $collectionReference->getOffset(),
+            $collection,
+            $collection->getOffset(),
             $flags
         );
 
-        $pager = $this->buildPager($pagerAdapter, $collectionReference->getLimit());
+        $pager = $this->buildPager($pagerAdapter, $collection->getLimit());
         $pager->setCurrentPage((int) $startPage);
 
         return $pager;

@@ -14,8 +14,8 @@
         "item_view_type": "standard_with_intro",
         "published": true,
         "has_published_state": true,
-        "is_translatable": true,
         "locale": "en",
+        "is_translatable": true,
         "always_available": true,
         "is_container": false,
         "is_dynamic_container": false,
@@ -32,8 +32,8 @@
                 "identifier": "featured",
                 "collection_id": 3,
                 "collection_type": 1,
-                "offset": 0,
-                "limit": null
+                "offset": 4,
+                "limit": 2
             }
         ]
     },
@@ -52,8 +52,8 @@
         "item_view_type": "standard",
         "published": true,
         "has_published_state": true,
-        "is_translatable": false,
         "locale": "en",
+        "is_translatable": false,
         "always_available": true,
         "is_container": false,
         "is_dynamic_container": false,

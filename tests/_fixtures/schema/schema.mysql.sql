@@ -85,6 +85,8 @@ CREATE TABLE `ngbm_zone` (
 CREATE TABLE `ngbm_collection` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
+  `start` int(11) NOT NULL,
+  `length` int(11),
   `translatable` tinyint NOT NULL,
   `main_locale` varchar(255) NOT NULL,
   `always_available` tinyint NOT NULL,
@@ -139,8 +141,6 @@ CREATE TABLE `ngbm_block_collection` (
   `collection_id` int(11) NOT NULL,
   `collection_status` int(11) NOT NULL,
   `identifier` varchar(255) NOT NULL,
-  `start` int(11) NOT NULL,
-  `length` int(11),
   PRIMARY KEY (`block_id`, `block_status`, `identifier`),
   FOREIGN KEY (`block_id`, `block_status`)
     REFERENCES ngbm_block (`id`, `status`),

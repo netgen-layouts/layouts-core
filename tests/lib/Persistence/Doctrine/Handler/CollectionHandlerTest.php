@@ -56,6 +56,8 @@ class CollectionHandlerTest extends TestCase
                 array(
                     'id' => 1,
                     'status' => Value::STATUS_DRAFT,
+                    'offset' => 0,
+                    'limit' => null,
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
                     'availableLocales' => array('en', 'hr'),
@@ -270,6 +272,8 @@ class CollectionHandlerTest extends TestCase
     {
         $collectionCreateStruct = new CollectionCreateStruct();
         $collectionCreateStruct->status = Value::STATUS_DRAFT;
+        $collectionCreateStruct->offset = 5;
+        $collectionCreateStruct->limit = 10;
         $collectionCreateStruct->mainLocale = 'en';
         $collectionCreateStruct->isTranslatable = true;
         $collectionCreateStruct->alwaysAvailable = true;
@@ -281,6 +285,8 @@ class CollectionHandlerTest extends TestCase
                 array(
                     'id' => 7,
                     'status' => Value::STATUS_DRAFT,
+                    'offset' => 5,
+                    'limit' => 10,
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
                     'availableLocales' => array('en'),
@@ -309,6 +315,8 @@ class CollectionHandlerTest extends TestCase
                 array(
                     'id' => 2,
                     'status' => Value::STATUS_PUBLISHED,
+                    'offset' => 0,
+                    'limit' => null,
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
                     'availableLocales' => array('en', 'hr', 'de'),
@@ -377,6 +385,8 @@ class CollectionHandlerTest extends TestCase
                 array(
                     'id' => 2,
                     'status' => Value::STATUS_PUBLISHED,
+                    'offset' => 0,
+                    'limit' => null,
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
                     'availableLocales' => array('en', 'hr', 'de'),
@@ -445,6 +455,8 @@ class CollectionHandlerTest extends TestCase
                 array(
                     'id' => 1,
                     'status' => Value::STATUS_DRAFT,
+                    'offset' => 0,
+                    'limit' => null,
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
                     'availableLocales' => array('en', 'hr', 'de'),
@@ -530,6 +542,8 @@ class CollectionHandlerTest extends TestCase
     public function testUpdateCollection()
     {
         $collectionUpdateStruct = new CollectionUpdateStruct();
+        $collectionUpdateStruct->offset = 5;
+        $collectionUpdateStruct->limit = 10;
         $collectionUpdateStruct->isTranslatable = false;
         $collectionUpdateStruct->alwaysAvailable = false;
 
@@ -538,6 +552,8 @@ class CollectionHandlerTest extends TestCase
                 array(
                     'id' => 1,
                     'status' => Value::STATUS_DRAFT,
+                    'offset' => 5,
+                    'limit' => 10,
                     'isTranslatable' => false,
                     'mainLocale' => 'en',
                     'availableLocales' => array('en', 'hr'),
@@ -564,6 +580,8 @@ class CollectionHandlerTest extends TestCase
                 array(
                     'id' => 1,
                     'status' => Value::STATUS_DRAFT,
+                    'offset' => 0,
+                    'limit' => null,
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
                     'availableLocales' => array('en', 'hr'),
@@ -597,6 +615,8 @@ class CollectionHandlerTest extends TestCase
                 array(
                     'id' => 7,
                     'status' => Value::STATUS_PUBLISHED,
+                    'offset' => 4,
+                    'limit' => 2,
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
                     'availableLocales' => array('en', 'hr'),
@@ -696,6 +716,8 @@ class CollectionHandlerTest extends TestCase
                 array(
                     'id' => 7,
                     'status' => Value::STATUS_DRAFT,
+                    'offset' => 0,
+                    'limit' => null,
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
                     'availableLocales' => array('en', 'hr'),
@@ -766,6 +788,8 @@ class CollectionHandlerTest extends TestCase
                 array(
                     'id' => 3,
                     'status' => Value::STATUS_ARCHIVED,
+                    'offset' => 4,
+                    'limit' => 2,
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
                     'availableLocales' => array('en', 'hr'),
@@ -866,6 +890,8 @@ class CollectionHandlerTest extends TestCase
                 array(
                     'id' => 1,
                     'status' => Value::STATUS_ARCHIVED,
+                    'offset' => 0,
+                    'limit' => null,
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
                     'availableLocales' => array('en', 'hr'),
@@ -972,6 +998,8 @@ class CollectionHandlerTest extends TestCase
                 array(
                     'id' => 2,
                     'status' => Value::STATUS_PUBLISHED,
+                    'offset' => 0,
+                    'limit' => null,
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
                     'availableLocales' => array('en'),
@@ -1025,6 +1053,8 @@ class CollectionHandlerTest extends TestCase
                 array(
                     'id' => 1,
                     'status' => Value::STATUS_DRAFT,
+                    'offset' => 0,
+                    'limit' => null,
                     'isTranslatable' => true,
                     'mainLocale' => 'en',
                     'availableLocales' => array('en'),

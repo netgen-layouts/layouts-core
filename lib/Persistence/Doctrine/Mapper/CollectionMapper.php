@@ -27,6 +27,8 @@ final class CollectionMapper
                 $collections[$collectionId] = array(
                     'id' => $collectionId,
                     'status' => (int) $dataItem['status'],
+                    'offset' => (int) $dataItem['start'],
+                    'limit' => $dataItem['length'] !== null ? (int) $dataItem['length'] : null,
                     'isTranslatable' => (bool) $dataItem['translatable'],
                     'mainLocale' => $dataItem['main_locale'],
                     'alwaysAvailable' => (bool) $dataItem['always_available'],

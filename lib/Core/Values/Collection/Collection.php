@@ -29,6 +29,16 @@ final class Collection extends ValueObject implements APICollection
     protected $published;
 
     /**
+     * @var int
+     */
+    protected $offset;
+
+    /**
+     * @var int
+     */
+    protected $limit;
+
+    /**
      * @var \Netgen\BlockManager\API\Values\Collection\Item[]
      */
     protected $items = array();
@@ -81,6 +91,16 @@ final class Collection extends ValueObject implements APICollection
     public function isPublished()
     {
         return $this->published;
+    }
+
+    public function getOffset()
+    {
+        return $this->offset;
+    }
+
+    public function getLimit()
+    {
+        return $this->limit;
     }
 
     public function getItems()

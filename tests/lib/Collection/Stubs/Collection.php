@@ -84,6 +84,24 @@ class Collection implements APICollection
     }
 
     /**
+     * Returns the starting collection offset.
+     *
+     * @return int
+     */
+    public function getOffset()
+    {
+    }
+
+    /**
+     * Returns the starting collection limit.
+     *
+     * @return int
+     */
+    public function getLimit()
+    {
+    }
+
+    /**
      * Returns all collection items.
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Item[]

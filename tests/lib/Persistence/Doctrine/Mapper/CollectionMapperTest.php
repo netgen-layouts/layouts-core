@@ -30,6 +30,8 @@ class CollectionMapperTest extends TestCase
             array(
                 'id' => 42,
                 'status' => Value::STATUS_PUBLISHED,
+                'start' => 5,
+                'length' => 10,
                 'locale' => 'en',
                 'translatable' => false,
                 'main_locale' => 'en',
@@ -38,6 +40,8 @@ class CollectionMapperTest extends TestCase
             array(
                 'id' => 43,
                 'status' => Value::STATUS_DRAFT,
+                'start' => 10,
+                'length' => 20,
                 'locale' => 'en',
                 'translatable' => false,
                 'main_locale' => 'en',
@@ -46,6 +50,8 @@ class CollectionMapperTest extends TestCase
             array(
                 'id' => 43,
                 'status' => Value::STATUS_DRAFT,
+                'start' => 10,
+                'length' => 20,
                 'locale' => 'hr',
                 'translatable' => false,
                 'main_locale' => 'en',
@@ -58,6 +64,8 @@ class CollectionMapperTest extends TestCase
                 array(
                     'id' => 42,
                     'status' => Value::STATUS_PUBLISHED,
+                    'offset' => 5,
+                    'limit' => 10,
                     'mainLocale' => 'en',
                     'alwaysAvailable' => true,
                     'availableLocales' => array('en'),
@@ -67,6 +75,8 @@ class CollectionMapperTest extends TestCase
                 array(
                     'id' => 43,
                     'status' => Value::STATUS_DRAFT,
+                    'offset' => 10,
+                    'limit' => 20,
                     'mainLocale' => 'en',
                     'alwaysAvailable' => true,
                     'availableLocales' => array('en', 'hr'),

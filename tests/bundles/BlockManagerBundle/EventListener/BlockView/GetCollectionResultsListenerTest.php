@@ -63,21 +63,19 @@ class GetCollectionResultsListenerTest extends TestCase
      */
     public function testOnRenderView()
     {
+        $collection1 = new Collection(array('offset' => 3, 'limit' => 5));
         $collectionReference1 = new CollectionReference(
             array(
-                'collection' => new Collection(),
+                'collection' => $collection1,
                 'identifier' => 'collection1',
-                'offset' => 3,
-                'limit' => 5,
             )
         );
 
+        $collection2 = new Collection(array('offset' => 5, 'limit' => 10));
         $collectionReference2 = new CollectionReference(
             array(
-                'collection' => new Collection(),
+                'collection' => $collection2,
                 'identifier' => 'collection2',
-                'offset' => 5,
-                'limit' => 10,
             )
         );
 
@@ -89,30 +87,30 @@ class GetCollectionResultsListenerTest extends TestCase
             ->expects($this->at(0))
             ->method('build')
             ->with(
-                $this->equalTo(new Collection()),
+                $this->equalTo($collection1),
                 $this->equalTo(3),
                 $this->equalTo(5),
                 $this->equalTo(0)
             )
-            ->will($this->returnValue(new ResultSet(array('collection' => new Collection()))));
+            ->will($this->returnValue(new ResultSet(array('collection' => $collection1))));
 
         $this->resultBuilderMock
             ->expects($this->at(1))
             ->method('build')
             ->with(
-                $this->equalTo(new Collection()),
+                $this->equalTo($collection2),
                 $this->equalTo(5),
                 $this->equalTo(10),
                 $this->equalTo(0)
             )
-            ->will($this->returnValue(new ResultSet(array('collection' => new Collection()))));
+            ->will($this->returnValue(new ResultSet(array('collection' => $collection2))));
 
         $this->listener->onRenderView($event);
 
         $this->assertEquals(
             array(
-                'collection1' => new ResultSet(array('collection' => new Collection())),
-                'collection2' => new ResultSet(array('collection' => new Collection())),
+                'collection1' => new ResultSet(array('collection' => $collection1)),
+                'collection2' => new ResultSet(array('collection' => $collection2)),
             ),
             $event->getParameters()['collections']
         );
@@ -127,12 +125,11 @@ class GetCollectionResultsListenerTest extends TestCase
      */
     public function testOnRenderViewWithAPIContext()
     {
+        $collection1 = new Collection(array('offset' => 3, 'limit' => 5));
         $collectionReference1 = new CollectionReference(
             array(
-                'collection' => new Collection(),
+                'collection' => $collection1,
                 'identifier' => 'collection1',
-                'offset' => 3,
-                'limit' => 5,
             )
         );
 
@@ -144,18 +141,18 @@ class GetCollectionResultsListenerTest extends TestCase
             ->expects($this->at(0))
             ->method('build')
             ->with(
-                $this->equalTo(new Collection()),
+                $this->equalTo($collection1),
                 $this->equalTo(3),
                 $this->equalTo(5),
                 $this->equalTo(ResultSet::INCLUDE_UNKNOWN_ITEMS)
             )
-            ->will($this->returnValue(new ResultSet(array('collection' => new Collection()))));
+            ->will($this->returnValue(new ResultSet(array('collection' => $collection1))));
 
         $this->listener->onRenderView($event);
 
         $this->assertEquals(
             array(
-                'collection1' => new ResultSet(array('collection' => new Collection())),
+                'collection1' => new ResultSet(array('collection' => $collection1)),
             ),
             $event->getParameters()['collections']
         );
