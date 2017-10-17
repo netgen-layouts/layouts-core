@@ -77,7 +77,7 @@ final class BlockCollectionController extends Controller
             $this->resultBuilder->build(
                 $block->getCollectionReference($collectionIdentifier)->getCollection(),
                 (int) $offset,
-                (int) $limit,
+                $limit > 0 ? (int) $limit : null,
                 ResultSet::INCLUDE_INVISIBLE_ITEMS |
                 ResultSet::INCLUDE_INVALID_ITEMS |
                 ResultSet::INCLUDE_UNKNOWN_ITEMS
