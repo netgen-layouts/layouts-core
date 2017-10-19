@@ -113,8 +113,8 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
                 array(
                     'queryType' => new QueryType('ezcontent_search'),
                     'parameterValues' => array(
-                        'offset' => null,
                         'param' => null,
+                        'param2' => null,
                     ),
                 )
             ),
@@ -149,8 +149,8 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
                 array(
                     'locale' => 'en',
                     'parameterValues' => array(
-                        'offset' => 0,
                         'param' => null,
+                        'param2' => 0,
                     ),
                 )
             ),

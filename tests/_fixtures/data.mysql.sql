@@ -236,14 +236,14 @@ UNLOCK TABLES;
 
 LOCK TABLES `ngbm_collection_query_translation` WRITE;
 /*!40000 ALTER TABLE `ngbm_collection_query_translation` DISABLE KEYS */;
-INSERT INTO `ngbm_collection_query_translation` VALUES (1,1,'en','{\"parent_location_id\": 2, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"offset\": 0, \"query_type\": \"list\"}');
-INSERT INTO `ngbm_collection_query_translation` VALUES (1,1,'hr','{\"parent_location_id\": 2, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"offset\": 0, \"query_type\": \"list\"}');
-INSERT INTO `ngbm_collection_query_translation` VALUES (2,0,'en','{\"parent_location_id\": 2, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"offset\": 0, \"query_type\": \"list\"}');
-INSERT INTO `ngbm_collection_query_translation` VALUES (2,0,'hr','{\"parent_location_id\": 2, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"offset\": 0, \"query_type\": \"list\"}');
-INSERT INTO `ngbm_collection_query_translation` VALUES (2,1,'en','{\"parent_location_id\": 2, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"offset\": 0, \"query_type\": \"list\"}');
-INSERT INTO `ngbm_collection_query_translation` VALUES (2,1,'hr','{\"parent_location_id\": 2, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"offset\": 0, \"query_type\": \"list\"}');
-INSERT INTO `ngbm_collection_query_translation` VALUES (4,0,'en','{\"parent_location_id\": 71, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"offset\": 0, \"limit\": 3, \"query_type\": \"list\"}');
-INSERT INTO `ngbm_collection_query_translation` VALUES (4,1,'en','{\"parent_location_id\": 71, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"offset\": 0, \"limit\": 3, \"query_type\": \"list\"}');
+INSERT INTO `ngbm_collection_query_translation` VALUES (1,1,'en','{\"parent_location_id\": 2, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"query_type\": \"list\"}');
+INSERT INTO `ngbm_collection_query_translation` VALUES (1,1,'hr','{\"parent_location_id\": 2, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"query_type\": \"list\"}');
+INSERT INTO `ngbm_collection_query_translation` VALUES (2,0,'en','{\"parent_location_id\": 2, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"query_type\": \"list\"}');
+INSERT INTO `ngbm_collection_query_translation` VALUES (2,0,'hr','{\"parent_location_id\": 2, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"query_type\": \"list\"}');
+INSERT INTO `ngbm_collection_query_translation` VALUES (2,1,'en','{\"parent_location_id\": 2, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"query_type\": \"list\"}');
+INSERT INTO `ngbm_collection_query_translation` VALUES (2,1,'hr','{\"parent_location_id\": 2, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"query_type\": \"list\"}');
+INSERT INTO `ngbm_collection_query_translation` VALUES (4,0,'en','{\"parent_location_id\": 71, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"query_type\": \"list\"}');
+INSERT INTO `ngbm_collection_query_translation` VALUES (4,1,'en','{\"parent_location_id\": 71, \"sort_direction\": \"descending\", \"sort_type\": \"date_published\", \"query_type\": \"list\"}');
 /*!40000 ALTER TABLE `ngbm_collection_query_translation` ENABLE KEYS */;
 UNLOCK TABLES;
 

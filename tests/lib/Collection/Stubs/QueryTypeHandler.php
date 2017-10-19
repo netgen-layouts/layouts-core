@@ -60,22 +60,22 @@ class QueryTypeHandler implements QueryTypeHandlerInterface
     public function getParameters()
     {
         return array(
-            'offset' => new Parameter(
-                array(
-                    'name' => 'offset',
-                    'type' => new IntegerType(),
-                    'options' => array(
-                        'translatable' => true,
-                    ),
-                ),
-                true
-            ),
             'param' => new Parameter(
                 array(
                     'name' => 'param',
                     'type' => new TextLineType(),
                     'options' => array(
                         'translatable' => false,
+                    ),
+                ),
+                true
+            ),
+            'param2' => new Parameter(
+                array(
+                    'name' => 'param2',
+                    'type' => new IntegerType(),
+                    'options' => array(
+                        'translatable' => true,
                     ),
                 ),
                 true

@@ -419,8 +419,8 @@ abstract class CollectionServiceTest extends ServiceTestCase
 
         $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct('hr');
 
-        $queryUpdateStruct->setParameterValue('offset', 3);
         $queryUpdateStruct->setParameterValue('param', 'new_value');
+        $queryUpdateStruct->setParameterValue('param2', 3);
 
         $updatedQuery = $this->collectionService->updateQuery($query, $queryUpdateStruct);
 
@@ -429,15 +429,15 @@ abstract class CollectionServiceTest extends ServiceTestCase
 
         $this->assertEquals('ezcontent_search', $updatedQuery->getQueryType()->getType());
 
-        $this->assertEquals(0, $updatedQuery->getParameter('offset')->getValue());
         $this->assertNull($updatedQuery->getParameter('param')->getValue());
+        $this->assertEquals(0, $updatedQuery->getParameter('param2')->getValue());
 
         $croQuery = $this->collectionService->loadQueryDraft(2, array('hr'));
 
-        $this->assertEquals(3, $croQuery->getParameter('offset')->getValue());
-
         // "param" parameter is untranslatable, meaning it keeps the value from main locale
         $this->assertNull($croQuery->getParameter('param')->getValue());
+
+        $this->assertEquals(3, $croQuery->getParameter('param2')->getValue());
     }
 
     /**
@@ -450,8 +450,8 @@ abstract class CollectionServiceTest extends ServiceTestCase
 
         $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct('en');
 
-        $queryUpdateStruct->setParameterValue('offset', 3);
         $queryUpdateStruct->setParameterValue('param', 'new_value');
+        $queryUpdateStruct->setParameterValue('param2', 3);
 
         $updatedQuery = $this->collectionService->updateQuery($query, $queryUpdateStruct);
 
@@ -462,13 +462,13 @@ abstract class CollectionServiceTest extends ServiceTestCase
 
         $croQuery = $this->collectionService->loadQueryDraft(2, array('hr'));
 
-        $this->assertEquals(3, $updatedQuery->getParameter('offset')->getValue());
         $this->assertEquals('new_value', $updatedQuery->getParameter('param')->getValue());
-
-        $this->assertEquals(0, $croQuery->getParameter('offset')->getValue());
+        $this->assertEquals(3, $updatedQuery->getParameter('param2')->getValue());
 
         // "param" parameter is untranslatable, meaning it keeps the value from main locale
         $this->assertEquals('new_value', $croQuery->getParameter('param')->getValue());
+
+        $this->assertEquals(0, $croQuery->getParameter('param2')->getValue());
     }
 
     /**
@@ -481,8 +481,8 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $query = $this->collectionService->loadQuery(2);
 
         $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct('en');
-        $queryUpdateStruct->setParameterValue('offset', 3);
         $queryUpdateStruct->setParameterValue('param', 'value');
+        $queryUpdateStruct->setParameterValue('param2', 3);
 
         $this->collectionService->updateQuery($query, $queryUpdateStruct);
     }
@@ -497,8 +497,8 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $query = $this->collectionService->loadQueryDraft(2);
 
         $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct('non-existing');
-        $queryUpdateStruct->setParameterValue('offset', 3);
         $queryUpdateStruct->setParameterValue('param', 'value');
+        $queryUpdateStruct->setParameterValue('param2', 3);
 
         $this->collectionService->updateQuery($query, $queryUpdateStruct);
     }
@@ -586,8 +586,8 @@ abstract class CollectionServiceTest extends ServiceTestCase
                 array(
                     'queryType' => new QueryType('ezcontent_search'),
                     'parameterValues' => array(
-                        'offset' => null,
                         'param' => null,
+                        'param2' => null,
                     ),
                 )
             ),
@@ -622,8 +622,8 @@ abstract class CollectionServiceTest extends ServiceTestCase
                 array(
                     'locale' => 'en',
                     'parameterValues' => array(
-                        'offset' => 0,
                         'param' => null,
+                        'param2' => 0,
                     ),
                 )
             ),

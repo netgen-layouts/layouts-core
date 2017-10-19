@@ -299,13 +299,13 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertFalse($query->isAlwaysAvailable());
         $this->assertEquals(array('en'), $query->getAvailableLocales());
 
-        $this->assertNull($query->getParameter('offset')->getValue());
         $this->assertEquals('value', $query->getParameter('param')->getValue());
+        $this->assertNull($query->getParameter('param2')->getValue());
 
         $this->assertEquals('en', $query->getLocale());
 
-        $this->assertNull($query->getParameter('offset')->getValue());
         $this->assertEquals('value', $query->getParameter('param')->getValue());
+        $this->assertNull($query->getParameter('param2')->getValue());
     }
 
     /**
