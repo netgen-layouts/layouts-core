@@ -3,6 +3,8 @@
 {% trans_default_domain 'ngbm_forms' %}
 
 {% block children %}
-    {{ form_row(form.offset) }}
-    {{ form_row(form.limit) }}
+    <div class="row">
+        <div class="col-xs-6">{{ form_row(form.offset) }}</div>
+        <div class="col-xs-6">{{ form_row(form.limit) }}</div>
+    </div>
 {% endblock %}
