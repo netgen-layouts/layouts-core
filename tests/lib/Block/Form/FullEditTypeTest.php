@@ -69,8 +69,6 @@ class FullEditTypeTest extends FormTestCase
      * @covers \Netgen\BlockManager\Block\Form\EditType::processViewTypeConfig
      * @covers \Netgen\BlockManager\Block\Form\EditType::addBlockNameForm
      * @covers \Netgen\BlockManager\Block\Form\EditType::addParametersForm
-     *
-     * @group legacy
      */
     public function testSubmitValidData()
     {
