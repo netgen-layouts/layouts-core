@@ -5,6 +5,11 @@ namespace Netgen\BlockManager\Collection\Result;
 use ArrayIterator;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 
+/**
+ * A builder that uses iterators to generate the collection results. Note that in order to disable
+ * fetching unlimited number of results (for performance reasons), the number of results is hardcoded
+ * to a max limit provided in the constructor.
+ */
 final class ResultBuilder implements ResultBuilderInterface
 {
     /**
