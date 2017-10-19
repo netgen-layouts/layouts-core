@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\StructBuilder;
 
+use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
@@ -27,6 +28,58 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
         $this->collectionService = $this->createCollectionService();
 
         $this->structBuilder = new CollectionStructBuilder();
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder::newCollectionUpdateStruct
+     */
+    public function testNewCollectionUpdateStruct()
+    {
+        $this->assertEquals(
+            new CollectionUpdateStruct(
+                array(
+                    'offset' => null,
+                    'limit' => null,
+                )
+            ),
+            $this->collectionService->newCollectionUpdateStruct()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder::newCollectionUpdateStruct
+     */
+    public function testNewCollectionUpdateStructWithCollection()
+    {
+        $this->assertEquals(
+            new CollectionUpdateStruct(
+                array(
+                    'offset' => 4,
+                    'limit' => 2,
+                )
+            ),
+            $this->collectionService->newCollectionUpdateStruct(
+                $this->collectionService->loadCollectionDraft(3)
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder::newCollectionUpdateStruct
+     */
+    public function testNewCollectionUpdateStructWithUnlimitedCollection()
+    {
+        $this->assertEquals(
+            new CollectionUpdateStruct(
+                array(
+                    'offset' => 0,
+                    'limit' => 0,
+                )
+            ),
+            $this->collectionService->newCollectionUpdateStruct(
+                $this->collectionService->loadCollectionDraft(1)
+            )
+        );
     }
 
     /**

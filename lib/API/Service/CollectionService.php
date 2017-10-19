@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\API\Service;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\Query;
@@ -51,6 +52,18 @@ interface CollectionService extends Service
      * @return \Netgen\BlockManager\API\Values\Collection\Collection
      */
     public function loadCollectionDraft($collectionId, array $locales = null, $useMainLocale = true);
+
+    /**
+     * Updates a collection.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     * @param \Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct $collectionUpdateStruct
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
+     *
+     * @return \Netgen\BlockManager\API\Values\Collection\Collection
+     */
+    public function updateCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct);
 
     /**
      * Loads an item with specified ID.
@@ -181,6 +194,17 @@ interface CollectionService extends Service
      * @return \Netgen\BlockManager\API\Values\Collection\Query
      */
     public function updateQuery(Query $query, QueryUpdateStruct $queryUpdateStruct);
+
+    /**
+     * Creates a new collection update struct.
+     *
+     * If collection is provided, initial data is copied from the collection.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     *
+     * @return \Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct
+     */
+    public function newCollectionUpdateStruct(Collection $collection = null);
 
     /**
      * Creates a new item create struct from provided values.

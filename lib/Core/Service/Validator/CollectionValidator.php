@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Core\Service\Validator;
 
+use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\Query;
@@ -15,6 +16,40 @@ use Symfony\Component\Validator\Constraints;
 
 final class CollectionValidator extends Validator
 {
+    /**
+     * Validates the provided collection update struct.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct $collectionUpdateStruct
+     *
+     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
+     */
+    public function validateCollectionUpdateStruct(CollectionUpdateStruct $collectionUpdateStruct)
+    {
+        if ($collectionUpdateStruct->offset !== null) {
+            $this->validate(
+                $collectionUpdateStruct->offset,
+                array(
+                    new Constraints\NotBlank(),
+                    new Constraints\Type(array('type' => 'int')),
+                    new Constraints\GreaterThanOrEqual(array('value' => 0)),
+                ),
+                'offset'
+            );
+        }
+
+        if ($collectionUpdateStruct->limit !== null) {
+            $this->validate(
+                $collectionUpdateStruct->limit,
+                array(
+                    new Constraints\NotBlank(),
+                    new Constraints\Type(array('type' => 'int')),
+                    new Constraints\GreaterThanOrEqual(array('value' => 0)),
+                ),
+                'limit'
+            );
+        }
+    }
+
     /**
      * Validates the provided item create struct.
      *

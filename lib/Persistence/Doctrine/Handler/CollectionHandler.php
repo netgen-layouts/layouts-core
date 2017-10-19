@@ -198,7 +198,10 @@ final class CollectionHandler implements CollectionHandlerInterface
         }
 
         if ($collectionUpdateStruct->limit !== null) {
-            $updatedCollection->limit = (int) $collectionUpdateStruct->limit;
+            // Limit can be 0 to indicate that we want to disable the limit
+            $updatedCollection->limit = $collectionUpdateStruct->limit !== 0 ?
+                (int) $collectionUpdateStruct->limit :
+                null;
         }
 
         if ($collectionUpdateStruct->isTranslatable !== null) {

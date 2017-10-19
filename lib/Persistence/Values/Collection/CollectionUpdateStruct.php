@@ -16,6 +16,8 @@ final class CollectionUpdateStruct extends ValueObject
     /**
      * Starting limit for the collection results.
      *
+     * Set to 0 to disable the limit.
+     *
      * @var int
      */
     public $limit;

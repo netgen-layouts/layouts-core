@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\Query;
@@ -65,6 +66,48 @@ abstract class CollectionServiceTest extends ServiceTestCase
     public function testLoadCollectionDraftThrowsNotFoundException()
     {
         $this->collectionService->loadCollectionDraft(999999);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateCollection
+     */
+    public function testUpdateCollection()
+    {
+        $collection = $this->collectionService->loadCollectionDraft(3);
+
+        $collectionUpdateStruct = $this->collectionService->newCollectionUpdateStruct();
+
+        $collectionUpdateStruct->offset = 6;
+        $collectionUpdateStruct->limit = 3;
+
+        $updatedCollection = $this->collectionService->updateCollection($collection, $collectionUpdateStruct);
+
+        $this->assertFalse($updatedCollection->isPublished());
+        $this->assertInstanceOf(Collection::class, $updatedCollection);
+
+        $this->assertEquals(6, $updatedCollection->getOffset());
+        $this->assertEquals(3, $updatedCollection->getLimit());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateCollection
+     */
+    public function testUpdateCollectionWithNoLimit()
+    {
+        $collection = $this->collectionService->loadCollectionDraft(3);
+
+        $collectionUpdateStruct = $this->collectionService->newCollectionUpdateStruct();
+
+        $collectionUpdateStruct->offset = 6;
+        $collectionUpdateStruct->limit = 0;
+
+        $updatedCollection = $this->collectionService->updateCollection($collection, $collectionUpdateStruct);
+
+        $this->assertFalse($updatedCollection->isPublished());
+        $this->assertInstanceOf(Collection::class, $updatedCollection);
+
+        $this->assertEquals(6, $updatedCollection->getOffset());
+        $this->assertNull($updatedCollection->getLimit());
     }
 
     /**
@@ -458,6 +501,58 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $queryUpdateStruct->setParameterValue('param', 'value');
 
         $this->collectionService->updateQuery($query, $queryUpdateStruct);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::newCollectionUpdateStruct
+     */
+    public function testNewCollectionUpdateStruct()
+    {
+        $this->assertEquals(
+            new CollectionUpdateStruct(
+                array(
+                    'offset' => null,
+                    'limit' => null,
+                )
+            ),
+            $this->collectionService->newCollectionUpdateStruct()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::newCollectionUpdateStruct
+     */
+    public function testNewCollectionUpdateStructWithCollection()
+    {
+        $this->assertEquals(
+            new CollectionUpdateStruct(
+                array(
+                    'offset' => 4,
+                    'limit' => 2,
+                )
+            ),
+            $this->collectionService->newCollectionUpdateStruct(
+                $this->collectionService->loadCollectionDraft(3)
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::newCollectionUpdateStruct
+     */
+    public function testNewCollectionUpdateStructWithUnlimitedCollection()
+    {
+        $this->assertEquals(
+            new CollectionUpdateStruct(
+                array(
+                    'offset' => 0,
+                    'limit' => 0,
+                )
+            ),
+            $this->collectionService->newCollectionUpdateStruct(
+                $this->collectionService->loadCollectionDraft(1)
+            )
+        );
     }
 
     /**

@@ -571,6 +571,36 @@ class CollectionHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::updateCollection
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateCollection
      */
+    public function testUpdateCollectionWithNoLimit()
+    {
+        $collectionUpdateStruct = new CollectionUpdateStruct();
+        $collectionUpdateStruct->offset = 5;
+        $collectionUpdateStruct->limit = 0;
+
+        $this->assertEquals(
+            new Collection(
+                array(
+                    'id' => 3,
+                    'status' => Value::STATUS_DRAFT,
+                    'offset' => 5,
+                    'limit' => null,
+                    'isTranslatable' => true,
+                    'mainLocale' => 'en',
+                    'availableLocales' => array('en', 'hr'),
+                    'alwaysAvailable' => true,
+                )
+            ),
+            $this->collectionHandler->updateCollection(
+                $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT),
+                $collectionUpdateStruct
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::updateCollection
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateCollection
+     */
     public function testUpdateCollectionWithDefaultValues()
     {
         $collectionUpdateStruct = new CollectionUpdateStruct();

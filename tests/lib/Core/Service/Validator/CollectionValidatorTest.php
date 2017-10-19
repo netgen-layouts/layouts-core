@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
+use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
@@ -40,6 +41,27 @@ class CollectionValidatorTest extends TestCase
 
         $this->collectionValidator = new CollectionValidator();
         $this->collectionValidator->setValidator($this->validator);
+    }
+
+    /**
+     * @param array $params
+     * @param array $isValid
+     *
+     * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateCollectionUpdateStruct
+     * @dataProvider validateCollectionUpdateStructProvider
+     */
+    public function testValidateCollectionUpdateStruct(array $params, $isValid)
+    {
+        if (!$isValid) {
+            $this->expectException(ValidationException::class);
+        }
+
+        // Fake assertion to fix coverage on tests which do not perform assertions
+        $this->assertTrue(true);
+
+        $this->collectionValidator->validateCollectionUpdateStruct(
+            new CollectionUpdateStruct($params)
+        );
     }
 
     /**
@@ -99,6 +121,72 @@ class CollectionValidatorTest extends TestCase
         $this->collectionValidator->validateQueryUpdateStruct(
             new Query(array('queryType' => new QueryTypeStub('query_type'))),
             new QueryUpdateStruct($params)
+        );
+    }
+
+    public function validateCollectionUpdateStructProvider()
+    {
+        return array(
+            array(
+                array(
+                    'offset' => 6,
+                ),
+                true,
+            ),
+            array(
+                array(
+                    'offset' => 0,
+                ),
+                true,
+            ),
+            array(
+                array(
+                    'offset' => null,
+                ),
+                true,
+            ),
+            array(
+                array(
+                    'offset' => -6,
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'offset' => '6',
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'limit' => 6,
+                ),
+                true,
+            ),
+            array(
+                array(
+                    'limit' => 0,
+                ),
+                true,
+            ),
+            array(
+                array(
+                    'limit' => null,
+                ),
+                true,
+            ),
+            array(
+                array(
+                    'limit' => -6,
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'limit' => '6',
+                ),
+                false,
+            ),
         );
     }
 

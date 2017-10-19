@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\Core\Service\StructBuilder;
 
+use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
@@ -10,6 +12,30 @@ use Netgen\BlockManager\Collection\QueryTypeInterface;
 
 final class CollectionStructBuilder
 {
+    /**
+     * Creates a new collection update struct.
+     *
+     * If collection is provided, initial data is copied from the collection.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     *
+     * @return \Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct
+     */
+    public function newCollectionUpdateStruct(Collection $collection = null)
+    {
+        $collectionUpdateStruct = new CollectionUpdateStruct();
+
+        if ($collection !== null) {
+            $collectionUpdateStruct->offset = $collection->getOffset();
+            $collectionUpdateStruct->limit = $collection->getLimit();
+            if ($collectionUpdateStruct->limit === null) {
+                $collectionUpdateStruct->limit = 0;
+            }
+        }
+
+        return $collectionUpdateStruct;
+    }
+
     /**
      * Creates a new item create struct from provided values.
      *

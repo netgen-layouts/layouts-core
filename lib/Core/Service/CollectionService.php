@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Service\CollectionService as APICollectionService;
 use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct as APICollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct as APIItemCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\Query;
@@ -17,6 +18,7 @@ use Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Persistence\Handler;
+use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Query as PersistenceQuery;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
@@ -92,6 +94,33 @@ final class CollectionService extends Service implements APICollectionService
             $locales,
             $useMainLocale
         );
+    }
+
+    public function updateCollection(Collection $collection, APICollectionUpdateStruct $collectionUpdateStruct)
+    {
+        if ($collection->isPublished()) {
+            throw new BadStateException('collection', 'Only draft collections can be updated.');
+        }
+
+        $persistenceCollection = $this->handler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
+
+        $this->validator->validateCollectionUpdateStruct($collectionUpdateStruct);
+
+        $updatedCollection = $this->transaction(
+            function () use ($collection, $persistenceCollection, $collectionUpdateStruct) {
+                return $this->handler->updateCollection(
+                    $persistenceCollection,
+                    new CollectionUpdateStruct(
+                        array(
+                            'offset' => $collectionUpdateStruct->offset,
+                            'limit' => $collectionUpdateStruct->limit,
+                        )
+                    )
+                );
+            }
+        );
+
+        return $this->mapper->mapCollection($updatedCollection, array($collection->getLocale()));
     }
 
     public function loadItem($itemId)
@@ -291,6 +320,11 @@ final class CollectionService extends Service implements APICollectionService
         );
 
         return $this->mapper->mapQuery($updatedQuery, array($query->getLocale()));
+    }
+
+    public function newCollectionUpdateStruct(Collection $collection = null)
+    {
+        return $this->structBuilder->newCollectionUpdateStruct($collection);
     }
 
     public function newItemCreateStruct($type, $valueId, $valueType)
