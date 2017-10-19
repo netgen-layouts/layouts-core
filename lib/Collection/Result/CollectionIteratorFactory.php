@@ -62,7 +62,8 @@ final class CollectionIteratorFactory
 
         $query = $collection->getQuery();
         if ($query->isContextual() && $showContextualSlots) {
-            return new ContextualQueryIterator($query, 0, $limit > 0 ? $limit : $this->contextualQueryLimit);
+            $limit = $limit > 0 && $limit < $this->contextualQueryLimit ? $limit : $this->contextualQueryLimit;
+            return new ContextualQueryIterator($query, 0, $limit);
         }
 
         return new QueryIterator($query, $offset, $limit);
