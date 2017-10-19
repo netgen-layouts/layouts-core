@@ -25,7 +25,6 @@ final class CollectionResultSetNormalizer implements NormalizerInterface, Serial
 
         return array(
             'items' => $this->serializer->normalize($results, $format, $context),
-            'item_count' => $resultSet->getTotalCount(),
         );
     }
 

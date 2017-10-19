@@ -41,7 +41,6 @@ class CollectionResultSetNormalizerTest extends TestCase
                     new Result(),
                     new Result(),
                 ),
-                'totalCount' => 5,
             )
         );
 
@@ -61,7 +60,6 @@ class CollectionResultSetNormalizerTest extends TestCase
         $this->assertEquals(
             array(
                 'items' => array('items'),
-                'item_count' => 5,
             ),
             $this->normalizer->normalize(new VersionedValue($result, 1))
         );
