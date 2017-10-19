@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Layout\Form;
 
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\Form\AbstractType;
+use Netgen\BlockManager\Form\ChoicesAsValuesTrait;
 use Netgen\BlockManager\Locale\LocaleProviderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -13,6 +14,8 @@ use Symfony\Component\Validator\Constraints;
 
 final class AddLocaleType extends AbstractType
 {
+    use ChoicesAsValuesTrait;
+
     /**
      * @var \Netgen\BlockManager\Locale\LocaleProviderInterface
      */
@@ -52,13 +55,12 @@ final class AddLocaleType extends AbstractType
                 'label' => 'layout.add_locale.locale',
                 'required' => true,
                 'choices' => $newLocales,
-                'choices_as_values' => true,
                 'constraints' => array(
                     new Constraints\NotBlank(),
                     new Constraints\Type(array('type' => 'string')),
                     new Constraints\Locale(),
                 ),
-            )
+            ) + $this->getChoicesAsValuesOption()
         );
 
         $builder->add(
@@ -77,13 +79,12 @@ final class AddLocaleType extends AbstractType
 
                     return $localeName;
                 },
-                'choices_as_values' => true,
                 'constraints' => array(
                     new Constraints\NotBlank(),
                     new Constraints\Type(array('type' => 'string')),
                     new Constraints\Locale(),
                 ),
-            )
+            ) + $this->getChoicesAsValuesOption()
         );
     }
 }

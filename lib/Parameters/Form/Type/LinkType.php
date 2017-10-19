@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Parameters\Form\Type;
 
 use Netgen\BlockManager\Form\AbstractType;
+use Netgen\BlockManager\Form\ChoicesAsValuesTrait;
 use Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
 use Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType;
@@ -19,6 +20,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class LinkType extends AbstractType
 {
+    use ChoicesAsValuesTrait;
+
     public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
@@ -43,10 +46,9 @@ final class LinkType extends AbstractType
                     'link.link_type.phone' => LinkValue::LINK_TYPE_PHONE,
                     'link.link_type.internal' => LinkValue::LINK_TYPE_INTERNAL,
                 ),
-                'choices_as_values' => true,
                 'required' => true,
                 'property_path' => 'linkType',
-            )
+            ) + $this->getChoicesAsValuesOption()
         );
 
         $builder->add(

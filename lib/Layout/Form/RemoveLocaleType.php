@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Layout\Form;
 
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\Form\AbstractType;
+use Netgen\BlockManager\Form\ChoicesAsValuesTrait;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -14,6 +15,8 @@ use Symfony\Component\Validator\Constraints;
 
 final class RemoveLocaleType extends AbstractType
 {
+    use ChoicesAsValuesTrait;
+
     public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
@@ -39,7 +42,6 @@ final class RemoveLocaleType extends AbstractType
             array(
                 'required' => true,
                 'choices' => $locales,
-                'choices_as_values' => true,
                 'expanded' => true,
                 'multiple' => true,
                 'constraints' => array(
@@ -54,7 +56,7 @@ final class RemoveLocaleType extends AbstractType
                         )
                     ),
                 ),
-            )
+            ) + $this->getChoicesAsValuesOption()
         );
     }
 

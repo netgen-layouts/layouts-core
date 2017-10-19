@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Block\Form;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
+use Netgen\BlockManager\Form\ChoicesAsValuesTrait;
 use Netgen\BlockManager\Form\TranslatableType;
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
 use Netgen\BlockManager\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
@@ -18,6 +19,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class EditType extends TranslatableType
 {
+    use ChoicesAsValuesTrait;
+
     /**
      * @var array
      */
@@ -82,9 +85,8 @@ abstract class EditType extends TranslatableType
             array(
                 'label' => 'block.view_type',
                 'choices' => array_flip($this->viewTypes),
-                'choices_as_values' => true,
                 'property_path' => 'viewType',
-            )
+            ) + $this->getChoicesAsValuesOption()
         );
 
         $builder->add(
@@ -98,9 +100,8 @@ abstract class EditType extends TranslatableType
                         'data-master' => implode(',', $this->viewTypesByItemViewType[$value]),
                     );
                 },
-                'choices_as_values' => true,
                 'property_path' => 'itemViewType',
-            )
+            ) + $this->getChoicesAsValuesOption()
         );
     }
 

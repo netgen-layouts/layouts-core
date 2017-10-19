@@ -2,12 +2,15 @@
 
 namespace Netgen\BlockManager\Parameters\Form\Mapper;
 
+use Netgen\BlockManager\Form\ChoicesAsValuesTrait;
 use Netgen\BlockManager\Parameters\Form\Mapper;
 use Netgen\BlockManager\Parameters\ParameterInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ChoiceMapper extends Mapper
 {
+    use ChoicesAsValuesTrait;
+
     public function getFormType()
     {
         return ChoiceType::class;
@@ -22,7 +25,6 @@ class ChoiceMapper extends Mapper
             'choices' => is_callable($options['options']) ?
                 $options['options']() :
                 $options['options'],
-            'choices_as_values' => true,
-        );
+        ) + $this->getChoicesAsValuesOption();
     }
 }

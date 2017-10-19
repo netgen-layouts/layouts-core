@@ -28,7 +28,11 @@ final class InvalidationListener implements EventSubscriberInterface
             KernelEvents::TERMINATE => 'onKernelTerminate',
             KernelEvents::EXCEPTION => 'onKernelException',
             ConsoleEvents::TERMINATE => 'onConsoleTerminate',
-            ConsoleEvents::EXCEPTION => 'onConsoleTerminate',
+            // ConsoleEvents::EXCEPTION is @deprecated in Symfony 3.3 and removed in Symfony 4.0,
+            // so we're using a string instead of constant in order to support previous versions.
+            // It is replaced with ConsoleEvents::ERROR, so we're listening for that event too.
+            'console.exception' => 'onConsoleTerminate',
+            'console.error' => 'onConsoleTerminate',
         );
     }
 

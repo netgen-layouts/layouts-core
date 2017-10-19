@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type;
 
 use Netgen\BlockManager\Form\AbstractType;
+use Netgen\BlockManager\Form\ChoicesAsValuesTrait;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -12,6 +13,8 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 final class ClearLayoutsCacheType extends AbstractType
 {
+    use ChoicesAsValuesTrait;
+
     public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
@@ -35,14 +38,13 @@ final class ClearLayoutsCacheType extends AbstractType
                 },
                 'translation_domain' => false,
                 'choice_translation_domain' => false,
-                'choices_as_values' => true,
                 'required' => true,
                 'multiple' => true,
                 'expanded' => true,
                 'constraints' => array(
                     new NotBlank(),
                 ),
-            )
+            ) + $this->getChoicesAsValuesOption()
         );
     }
 

@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Layout\Form;
 
 use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\Form\AbstractType;
+use Netgen\BlockManager\Form\ChoicesAsValuesTrait;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Locale\LocaleProviderInterface;
 use Netgen\BlockManager\Validator\Constraint\LayoutName;
@@ -19,6 +20,8 @@ use Symfony\Component\Validator\Constraints;
 
 final class CreateType extends AbstractType
 {
+    use ChoicesAsValuesTrait;
+
     /**
      * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface
      */
@@ -58,13 +61,12 @@ final class CreateType extends AbstractType
                     return $layoutType->getName();
                 },
                 'choice_translation_domain' => false,
-                'choices_as_values' => true,
                 'expanded' => true,
                 'constraints' => array(
                     new Constraints\NotBlank(),
                 ),
                 'property_path' => 'layoutType',
-            )
+            ) + $this->getChoicesAsValuesOption()
         );
 
         $builder->add(
@@ -88,14 +90,13 @@ final class CreateType extends AbstractType
                 'label' => 'layout.main_locale',
                 'required' => true,
                 'choices' => array_flip($this->localeProvider->getAvailableLocales()),
-                'choices_as_values' => true,
                 'constraints' => array(
                     new Constraints\NotBlank(),
                     new Constraints\Type(array('type' => 'string')),
                     new Constraints\Locale(),
                 ),
                 'property_path' => 'mainLocale',
-            )
+            ) + $this->getChoicesAsValuesOption()
         );
 
         $builder->add(
