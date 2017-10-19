@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Transfer\Input;
 
+use Netgen\BlockManager\Exception\Transfer\DataNotAcceptedException;
 use Netgen\BlockManager\Transfer\Descriptor;
 use Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler;
-use RuntimeException;
 
 /**
  * Importer creates Block Manager entities from the serialized JSON data.
@@ -25,19 +25,18 @@ final class Importer
     }
 
     /**
-     * Create a new Layout from the given $data string.
+     * Create a new Layout from the given $data array.
      *
-     * @param string $data
+     * @param array $data
      *
-     * @throws \RuntimeException If $data is not accepted for import
+     * @throws \Netgen\BlockManager\Exception\Transfer\DataNotAcceptedException If $data is not accepted for import
      * @throws \Exception If thrown by the underlying API
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
-    public function importLayout($data)
+    public function importLayout(array $data)
     {
-        $data = $this->deserialize($data);
-        $this->accept($data);
+        $this->acceptLayout($data);
 
         return $this->layoutDataHandler->createLayout($data);
     }
@@ -47,43 +46,27 @@ final class Importer
      *
      * @param array $data
      *
-     * @throws \RuntimeException If $data is not accepted
+     * @throws \Netgen\BlockManager\Exception\Transfer\DataNotAcceptedException If $data is not accepted
      *
      * @return void
      */
-    private function accept(array $data)
+    private function acceptLayout(array $data)
     {
         if (!array_key_exists('__format', $data)) {
-            throw new RuntimeException('Could not find format information in the provided data');
+            throw DataNotAcceptedException::noFormatInformation();
         }
 
         $actualType = $data['__format']['type'];
-        $supportedType = Descriptor::LAYOUT_FORMAT_TYPE;
+        $expectedType = Descriptor::LAYOUT_FORMAT_TYPE;
         $actualVersion = $data['__format']['version'];
-        $supportedVersion = Descriptor::LAYOUT_FORMAT_VERSION;
+        $expectedVersion = Descriptor::LAYOUT_FORMAT_VERSION;
 
-        if ($actualType !== $supportedType) {
-            throw new RuntimeException(
-                "Supported type is '{$supportedVersion}', type '{$actualVersion}' was given"
-            );
+        if ($actualType !== $expectedType) {
+            throw DataNotAcceptedException::typeNotAccepted($expectedType, $actualType);
         }
 
-        if ($actualVersion !== $supportedVersion) {
-            throw new RuntimeException(
-                "Supported version is {$supportedVersion}, version {$actualVersion} was given"
-            );
+        if ($actualVersion !== $expectedVersion) {
+            throw DataNotAcceptedException::versionNotAccepted($expectedVersion, $actualVersion);
         }
-    }
-
-    /**
-     * Deserialize given JSON $string.
-     *
-     * @param $string
-     *
-     * @return mixed
-     */
-    private function deserialize($string)
-    {
-        return json_decode($string, true);
     }
 }

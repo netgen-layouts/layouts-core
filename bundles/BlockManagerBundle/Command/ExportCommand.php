@@ -55,8 +55,16 @@ class ExportCommand extends Command
         $this
             ->setName('netgen_block_manager:export')
             ->setDescription('Exports Block Manager entities')
-            ->addArgument('type', InputArgument::REQUIRED, 'Type of the entity to export')
-            ->addArgument('id', InputArgument::REQUIRED, 'ID of the entity to export')
+            ->addArgument(
+                'type',
+                InputArgument::REQUIRED,
+                'Type of the entity to export'
+            )
+            ->addArgument(
+                'ids',
+                InputArgument::REQUIRED,
+                'Comma-separated list of IDs of the entities to export'
+            )
             ->setHelp(
                 <<<EOT
 The command <info>%command.name%</info> exports Block Manager entities.
@@ -67,21 +75,63 @@ EOT
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $type = $input->getArgument('type');
-        $id = $input->getArgument('id');
+        $ids = explode(',', $input->getArgument('ids'));
 
         switch ($type) {
             case 'layout':
-                $value = $this->layoutService->loadLayout($id);
-                $hash = $this->serializer->serializeLayout($value);
+                $hash = $this->serializeLayouts($ids);
                 break;
             case 'rule':
-                $value = $this->layoutResolverService->loadRule($id);
-                $hash = $this->serializer->serializeRule($value);
+                $hash = $this->serializeRules($ids);
                 break;
             default:
                 throw new RuntimeException("Unhandled type '{$type}'");
         }
 
         $output->writeln(json_encode($hash, JSON_PRETTY_PRINT));
+    }
+
+    /**
+     * Serialize all Layouts form the given array of Layout $ids.
+     *
+     * @param string[]|int[] $ids
+     *
+     * @return array
+     *
+     * @throws \Netgen\BlockManager\Exception\NotFoundException
+     */
+    private function serializeLayouts(array $ids)
+    {
+        $layouts = [];
+
+        foreach ($ids as $id) {
+            $layouts[] = $this->serializer->serializeLayout(
+                $this->layoutService->loadLayout($id)
+            );
+        }
+
+        return $layouts;
+    }
+
+    /**
+     * Serialize all Rules form the given array of Rule $ids.
+     *
+     * @param string[]|int[] $ids
+     *
+     * @return array
+     *
+     * @throws \Netgen\BlockManager\Exception\NotFoundException
+     */
+    private function serializeRules(array $ids)
+    {
+        $rules = [];
+
+        foreach ($ids as $id) {
+            $rules[] = $this->serializer->serializeRule(
+                $this->layoutResolverService->loadRule($id)
+            );
+        }
+
+        return $rules;
     }
 }
