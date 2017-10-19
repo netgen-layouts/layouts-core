@@ -23,7 +23,7 @@ final class CollectionIteratorFactory
     }
 
     /**
-     * Builds and returns result iterator from provided collection iterator.
+     * Builds and returns the collection iterator for provided collection.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      * @param int $offset
@@ -34,6 +34,11 @@ final class CollectionIteratorFactory
      */
     public function getCollectionIterator(Collection $collection, $offset = 0, $limit = null, $flags = 0)
     {
+        $showContextualSlots = (bool) ($flags & ResultSet::INCLUDE_UNKNOWN_ITEMS);
+        if ($collection->hasQuery() && $collection->getQuery()->isContextual() && $showContextualSlots) {
+            $limit = $limit > 0 && $limit < $this->contextualQueryLimit ? $limit : $this->contextualQueryLimit;
+        }
+
         $queryOffset = $offset - $this->getManualItemsCount($collection, 0, $offset);
         $queryLimit = $limit - $this->getManualItemsCount($collection, $offset, $offset + $limit);
 
@@ -62,7 +67,6 @@ final class CollectionIteratorFactory
 
         $query = $collection->getQuery();
         if ($query->isContextual() && $showContextualSlots) {
-            $limit = $limit > 0 && $limit < $this->contextualQueryLimit ? $limit : $this->contextualQueryLimit;
             return new ContextualQueryIterator($query, 0, $limit);
         }
 
