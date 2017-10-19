@@ -3,7 +3,9 @@
 namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\App;
 
 use Netgen\BlockManager\API\Service\CollectionService;
+use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\Query;
+use Netgen\BlockManager\Collection\Form\EditType;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,6 +21,52 @@ final class CollectionController extends Controller
     public function __construct(CollectionService $collectionService)
     {
         $this->collectionService = $collectionService;
+    }
+
+    /**
+     * Displays and processes collection draft edit form.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
+     */
+    public function collectionEditForm(Collection $collection, Request $request)
+    {
+        $updateStruct = $this->collectionService->newCollectionUpdateStruct($collection);
+
+        $form = $this->createForm(
+            EditType::class,
+            $updateStruct,
+            array(
+                'collection' => $collection,
+                'action' => $this->generateUrl(
+                    'ngbm_app_collection_collection_form_edit',
+                    array(
+                        'collectionId' => $collection->getId(),
+                    )
+                ),
+            )
+        );
+
+        $form->handleRequest($request);
+
+        if (!$form->isSubmitted()) {
+            return $this->buildView($form, ViewInterface::CONTEXT_API);
+        }
+
+        if ($form->isValid()) {
+            $this->collectionService->updateCollection($collection, $form->getData());
+
+            return new Response(null, Response::HTTP_NO_CONTENT);
+        }
+
+        return $this->buildView(
+            $form,
+            ViewInterface::CONTEXT_API,
+            array(),
+            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
+        );
     }
 
     /**

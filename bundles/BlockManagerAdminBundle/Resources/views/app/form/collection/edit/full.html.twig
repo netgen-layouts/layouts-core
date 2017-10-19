@@ -1,0 +1,8 @@
+{% extends '@NetgenBlockManagerAdmin/form/form.html.twig' %}
+
+{% trans_default_domain 'ngbm_forms' %}
+
+{% block children %}
+    {{ form_row(form.offset) }}
+    {{ form_row(form.limit) }}
+{% endblock %}

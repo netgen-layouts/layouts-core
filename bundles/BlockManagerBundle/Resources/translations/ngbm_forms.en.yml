@@ -1,3 +1,6 @@
+collection.offset: 'Offset'
+collection.limit: 'Limit'
+
 query.advanced_options: 'Advanced options'
 
 layout.copy.title: 'Enter the name for the new layout:'

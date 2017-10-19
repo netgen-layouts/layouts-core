@@ -4,11 +4,13 @@
 
 <section>
     {% if block_definition.config.hasForm('full') %}
-        {% include '@NetgenBlockManagerAdmin/app/block/edit/collections.html.twig' %}
+        {% include '@NetgenBlockManagerAdmin/app/block/edit/collection_type.html.twig' %}
 
         <div data-form="{{ path('ngbm_app_block_form_edit', {'blockId': block.id, 'locale': block.locale, 'formName': 'full'}) }}"></div>
 
         {% include '@NetgenBlockManagerAdmin/app/block/edit/collection_query.html.twig' %}
+
+        {% include '@NetgenBlockManagerAdmin/app/block/edit/collection.html.twig' %}
 
         {% include '@NetgenBlockManagerAdmin/app/block/edit/collection_items.html.twig' %}
     {% elseif block_definition.config.hasForm('design') and block_definition.config.hasForm('content') %}
@@ -27,9 +29,11 @@
                     <div class="collapse in" id="collapseSettings">
                         <div data-form="{{ path('ngbm_app_block_form_edit', {'blockId': block.id, 'locale': block.locale, 'formName': 'content'}) }}"></div>
 
-                        {% include '@NetgenBlockManagerAdmin/app/block/edit/collections.html.twig' %}
+                        {% include '@NetgenBlockManagerAdmin/app/block/edit/collection_type.html.twig' %}
 
                         {% include '@NetgenBlockManagerAdmin/app/block/edit/collection_query.html.twig' %}
+
+                        {% include '@NetgenBlockManagerAdmin/app/block/edit/collection.html.twig' %}
                     </div>
                 </div>
 
