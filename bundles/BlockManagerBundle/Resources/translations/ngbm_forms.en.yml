@@ -1,5 +1,6 @@
 collection.offset: 'Offset'
 collection.limit: 'Limit'
+collection.offset_limit: 'Offset & limit'
 
 query.advanced_options: 'Advanced options'
 

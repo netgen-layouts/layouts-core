@@ -3,8 +3,14 @@
 {% trans_default_domain 'ngbm_forms' %}
 
 {% block children %}
-    <div class="row">
-        <div class="col-xs-6">{{ form_row(form.offset) }}</div>
-        <div class="col-xs-6">{{ form_row(form.limit) }}</div>
+    <a class="toggle-link sub-toggle" role="button" data-toggle="collapse" href="#collapseOffsetLimit" aria-expanded="true" aria-controls="collapseOffsetLimit">
+        {{ 'collection.offset_limit'|trans }}
+    </a>
+
+    <div class="collapse in" id="collapseOffsetLimit">
+        <div class="row">
+            <div class="col-xs-6">{{ form_row(form.offset) }}</div>
+            <div class="col-xs-6">{{ form_row(form.limit) }}</div>
+        </div>
     </div>
 {% endblock %}
