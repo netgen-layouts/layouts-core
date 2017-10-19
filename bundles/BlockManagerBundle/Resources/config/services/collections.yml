@@ -21,6 +21,7 @@ services:
 
     netgen_block_manager.collection.result.pagerfanta.factory:
         class: Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory
+        public: false
         arguments:
             - "@netgen_block_manager.collection.result_builder"
             - "%netgen_block_manager.collection.max_limit%"
