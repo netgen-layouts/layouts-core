@@ -3,5 +3,9 @@
 {% if block.hasCollectionReference(collection_identifier) %}
     {% set collection = block.collectionReference(collection_identifier).collection %}
 
-    <div data-query-form="true" data-form="{{ path('ngbm_app_collection_collection_form_edit', {'collectionId': collection.id}) }}"></div>
+    <div
+        data-query-form="true"
+        data-form="{{ path('ngbm_app_collection_collection_form_edit', {'collectionId': collection.id}) }}"
+        data-input {% if block.locale != block.mainLocale %}data-disabled="true"{% endif %}>
+    </div>
 {% endif %}
