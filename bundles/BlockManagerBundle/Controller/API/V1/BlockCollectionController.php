@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\Collection\Result\ResultBuilderInterface;
+use Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory;
 use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
@@ -33,9 +33,9 @@ final class BlockCollectionController extends Controller
     private $validator;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Result\ResultBuilderInterface
+     * @var \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory
      */
-    private $resultBuilder;
+    private $pagerFactory;
 
     /**
      * Constructor.
@@ -43,18 +43,18 @@ final class BlockCollectionController extends Controller
      * @param \Netgen\BlockManager\API\Service\BlockService $blockService
      * @param \Netgen\BlockManager\API\Service\CollectionService $collectionService
      * @param \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator $validator
-     * @param \Netgen\BlockManager\Collection\Result\ResultBuilderInterface $resultBuilder
+     * @param \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory $pagerFactory
      */
     public function __construct(
         BlockService $blockService,
         CollectionService $collectionService,
         BlockCollectionValidator $validator,
-        ResultBuilderInterface $resultBuilder
+        PagerFactory $pagerFactory
     ) {
         $this->blockService = $blockService;
         $this->collectionService = $collectionService;
         $this->validator = $validator;
-        $this->resultBuilder = $resultBuilder;
+        $this->pagerFactory = $pagerFactory;
     }
 
     /**
@@ -62,28 +62,24 @@ final class BlockCollectionController extends Controller
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param string $collectionIdentifier
-     * @param \Symfony\Component\HttpFoundation\Request $request
      *
      * @return \Netgen\BlockManager\Serializer\Values\VersionedValue
      */
-    public function loadCollectionResult(Block $block, $collectionIdentifier, Request $request)
+    public function loadCollectionResult(Block $block, $collectionIdentifier)
     {
-        $offset = $request->query->get('offset');
-        $limit = $request->query->get('limit');
+        $collection = $block->getCollectionReference($collectionIdentifier)->getCollection();
 
-        $this->validator->validateOffsetAndLimit($offset, $limit);
-
-        return new VersionedValue(
-            $this->resultBuilder->build(
-                $block->getCollectionReference($collectionIdentifier)->getCollection(),
-                (int) $offset,
-                $limit > 0 ? (int) $limit : null,
-                ResultSet::INCLUDE_INVISIBLE_ITEMS |
-                ResultSet::INCLUDE_INVALID_ITEMS |
-                ResultSet::INCLUDE_UNKNOWN_ITEMS
-            ),
-            Version::API_V1
+        // In non AJAX scenarios, we're always rendering the first page of the collection
+        // as specified by offset and limit in the collection itself
+        $pager = $this->pagerFactory->getPager(
+            $collection,
+            1,
+            ResultSet::INCLUDE_INVISIBLE_ITEMS |
+            ResultSet::INCLUDE_INVALID_ITEMS |
+            ResultSet::INCLUDE_UNKNOWN_ITEMS
         );
+
+        return new VersionedValue($pager->getCurrentPageResults(), Version::API_V1);
     }
 
     /**

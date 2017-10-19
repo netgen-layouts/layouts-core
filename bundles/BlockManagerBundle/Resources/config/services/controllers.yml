@@ -60,7 +60,7 @@ services:
             - "@netgen_block_manager.api.service.block"
             - "@netgen_block_manager.api.service.collection"
             - "@netgen_block_manager.controller.api.v1.block_collection.validator"
-            - "@netgen_block_manager.collection.result_builder"
+            - "@netgen_block_manager.collection.result.pagerfanta.factory"
 
     netgen_block_manager.controller.api.v1.collection:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController

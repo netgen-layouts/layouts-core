@@ -26,21 +26,6 @@ class BlockCollectionControllerTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::loadCollectionResult
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\Validator::validateOffsetAndLimit
-     */
-    public function testLoadCollectionResultWithOffsetAndLimit()
-    {
-        $this->client->request('GET', '/bm/api/v1/en/blocks/35/collections/default/result?offset=2&limit=2');
-
-        $this->assertResponse(
-            $this->client->getResponse(),
-            'v1/block_collections/load_collection_result_limited',
-            Response::HTTP_OK
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::loadCollectionResult
      */
     public function testLoadCollectionResultWithNonExistentBlock()
     {
