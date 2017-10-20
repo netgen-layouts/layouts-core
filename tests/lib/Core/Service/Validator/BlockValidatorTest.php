@@ -4,7 +4,9 @@ namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
 use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
+use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
+use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Service\Validator\ConfigValidator;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
@@ -14,6 +16,7 @@ use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinition as ContainerDefini
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use Symfony\Component\Validator\Validation;
 
 class BlockValidatorTest extends TestCase
@@ -40,7 +43,10 @@ class BlockValidatorTest extends TestCase
         $configValidator = new ConfigValidator();
         $configValidator->setValidator($this->validator);
 
-        $this->blockValidator = new BlockValidator($configValidator);
+        $collectionValidator = new CollectionValidator();
+        $collectionValidator->setValidator($this->validator);
+
+        $this->blockValidator = new BlockValidator($configValidator, $collectionValidator);
         $this->blockValidator->setValidator($this->validator);
     }
 
@@ -463,6 +469,59 @@ class BlockValidatorTest extends TestCase
                     ),
                 ),
                 true,
+            ),
+
+            array(
+                array(
+                    'definition' => $this->getBlockDefinition(),
+                    'viewType' => 'large',
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
+                    'isTranslatable' => false,
+                    'alwaysAvailable' => true,
+                    'parameterValues' => array(
+                        'css_class' => 'class',
+                        'css_id' => 'id',
+                    ),
+                    'collectionCreateStructs' => array(),
+                ),
+                true,
+            ),
+            array(
+                array(
+                    'definition' => $this->getBlockDefinition(),
+                    'viewType' => 'large',
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
+                    'isTranslatable' => false,
+                    'alwaysAvailable' => true,
+                    'parameterValues' => array(
+                        'css_class' => 'class',
+                        'css_id' => 'id',
+                    ),
+                    'collectionCreateStructs' => array(
+                        'default' => new CollectionCreateStruct(),
+                    ),
+                ),
+                true,
+            ),
+            array(
+                array(
+                    'definition' => $this->getBlockDefinition(),
+                    'viewType' => 'large',
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
+                    'isTranslatable' => false,
+                    'alwaysAvailable' => true,
+                    'parameterValues' => array(
+                        'css_class' => 'class',
+                        'css_id' => 'id',
+                    ),
+                    'collectionCreateStructs' => array(
+                        'default' => new stdClass(),
+                    ),
+                ),
+                false,
             ),
         );
     }

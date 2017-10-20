@@ -5,6 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Block\Block;
+use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\Block\BlockType\BlockType;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\Block\BlockTypeException;
@@ -268,6 +269,11 @@ final class BlockController extends Controller
             $blockCreateStruct->itemViewType = $viewType->hasItemViewType($blockType->getDefaultItemViewType()) ?
                 $blockType->getDefaultItemViewType() :
                 $viewType->getItemViewTypeIdentifiers()[0];
+        }
+
+        $blockConfig = $blockDefinition->getConfig();
+        foreach ($blockConfig->getCollections() as $collectionConfig) {
+            $blockCreateStruct->collectionCreateStructs[$collectionConfig->getIdentifier()] = new CollectionCreateStruct();
         }
 
         return $blockCreateStruct;

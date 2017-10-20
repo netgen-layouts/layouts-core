@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
@@ -501,6 +502,23 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $queryUpdateStruct->setParameterValue('param2', 3);
 
         $this->collectionService->updateQuery($query, $queryUpdateStruct);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::newCollectionCreateStruct
+     */
+    public function testNewCollectionCreateStruct()
+    {
+        $this->assertEquals(
+            new CollectionCreateStruct(
+                array(
+                    'offset' => 0,
+                    'limit' => null,
+                    'queryCreateStruct' => new QueryCreateStruct(),
+                )
+            ),
+            $this->collectionService->newCollectionCreateStruct(new QueryCreateStruct())
+        );
     }
 
     /**

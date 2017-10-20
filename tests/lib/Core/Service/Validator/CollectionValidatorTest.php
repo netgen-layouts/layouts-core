@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
+use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
@@ -16,6 +17,7 @@ use Netgen\BlockManager\Tests\Collection\Stubs\QueryType as QueryTypeStub;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandlerWithRequiredParameter;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 use Symfony\Component\Validator\Validation;
 
 class CollectionValidatorTest extends TestCase
@@ -41,6 +43,27 @@ class CollectionValidatorTest extends TestCase
 
         $this->collectionValidator = new CollectionValidator();
         $this->collectionValidator->setValidator($this->validator);
+    }
+
+    /**
+     * @param array $params
+     * @param array $isValid
+     *
+     * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateCollectionCreateStruct
+     * @dataProvider validateCollectionCreateStructProvider
+     */
+    public function testValidateCollectionCreateStruct(array $params, $isValid)
+    {
+        if (!$isValid) {
+            $this->expectException(ValidationException::class);
+        }
+
+        // Fake assertion to fix coverage on tests which do not perform assertions
+        $this->assertTrue(true);
+
+        $this->collectionValidator->validateCollectionCreateStruct(
+            new CollectionCreateStruct($params)
+        );
     }
 
     /**
@@ -121,6 +144,107 @@ class CollectionValidatorTest extends TestCase
         $this->collectionValidator->validateQueryUpdateStruct(
             new Query(array('queryType' => new QueryTypeStub('query_type'))),
             new QueryUpdateStruct($params)
+        );
+    }
+
+    public function validateCollectionCreateStructProvider()
+    {
+        return array(
+            array(
+                array(
+                    'offset' => 0,
+                    'limit' => null,
+                ),
+                true,
+            ),
+            array(
+                array(
+                    'offset' => 3,
+                    'limit' => null,
+                ),
+                true,
+            ),
+            array(
+                array(
+                    'limit' => null,
+                ),
+                true,
+            ),
+            array(
+                array(
+                    'offset' => null,
+                    'limit' => null,
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'offset' => -3,
+                    'limit' => null,
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'offset' => '3',
+                    'limit' => null,
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'offset' => 0,
+                ),
+                true,
+            ),
+            array(
+                array(
+                    'offset' => 0,
+                    'limit' => 3,
+                ),
+                true,
+            ),
+            array(
+                array(
+                    'offset' => 0,
+                    'limit' => 0,
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'offset' => 0,
+                    'limit' => -3,
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'offset' => 0,
+                    'limit' => '3',
+                ),
+                false,
+            ),
+            array(
+                array(
+                    'offset' => 0,
+                    'limit' => null,
+                    'queryCreateStruct' => new QueryCreateStruct(
+                        array(
+                            'queryType' => new QueryTypeStub('test'),
+                        )
+                    ),
+                ),
+                true,
+            ),
+            array(
+                array(
+                    'offset' => 0,
+                    'limit' => null,
+                    'queryCreateStruct' => new stdClass(),
+                ),
+                false,
+            ),
         );
     }
 

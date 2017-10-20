@@ -322,6 +322,11 @@ final class CollectionService extends Service implements APICollectionService
         return $this->mapper->mapQuery($updatedQuery, array($query->getLocale()));
     }
 
+    public function newCollectionCreateStruct(APIQueryCreateStruct $queryCreateStruct = null)
+    {
+        return $this->structBuilder->newCollectionCreateStruct($queryCreateStruct);
+    }
+
     public function newCollectionUpdateStruct(Collection $collection = null)
     {
         return $this->structBuilder->newCollectionUpdateStruct($collection);

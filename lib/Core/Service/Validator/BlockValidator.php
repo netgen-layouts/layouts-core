@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Core\Service\Validator;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
+use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Validator\Constraint\BlockItemViewType;
 use Netgen\BlockManager\Validator\Constraint\BlockViewType;
@@ -19,9 +20,15 @@ final class BlockValidator extends Validator
      */
     private $configValidator;
 
-    public function __construct(ConfigValidator $configValidator)
+    /**
+     * @var \Netgen\BlockManager\Core\Service\Validator\CollectionValidator
+     */
+    private $collectionValidator;
+
+    public function __construct(ConfigValidator $configValidator, CollectionValidator $collectionValidator)
     {
         $this->configValidator = $configValidator;
+        $this->collectionValidator = $collectionValidator;
     }
 
     /**
@@ -111,6 +118,23 @@ final class BlockValidator extends Validator
             $blockCreateStruct->getConfigStructs(),
             $blockCreateStruct->definition->getConfigDefinitions()
         );
+
+        if ($blockCreateStruct->collectionCreateStructs !== null) {
+            $this->validate(
+                $blockCreateStruct->collectionCreateStructs,
+                array(
+                    new Constraints\Type(array('type' => 'array')),
+                    new Constraints\All(
+                        array(
+                            'constraints' => array(
+                                new Constraints\Type(array('type' => CollectionCreateStruct::class)),
+                            ),
+                        )
+                    ),
+                ),
+                'collectionCreateStructs'
+            );
+        }
     }
 
     /**

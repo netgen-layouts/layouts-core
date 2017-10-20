@@ -7,6 +7,7 @@ use Netgen\BlockManager\API\Service\LayoutService as APILayoutService;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Block\BlockCreateStruct as APIBlockCreateStruct;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct as APIBlockUpdateStruct;
+use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct as APIQueryCreateStruct;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\API\Values\Value;
@@ -26,6 +27,7 @@ use Netgen\BlockManager\Persistence\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReferenceCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\TranslationUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
 
 final class BlockService extends Service implements BlockServiceInterface
 {
@@ -628,42 +630,55 @@ final class BlockService extends Service implements BlockServiceInterface
                     $placeholder
                 );
 
-                $blockConfig = $blockCreateStruct->definition->getConfig();
-                foreach ($blockConfig->getCollections() as $collectionConfig) {
-                    $createdCollection = $this->collectionHandler->createCollection(
-                        new CollectionCreateStruct(
-                            array(
-                                'status' => Value::STATUS_DRAFT,
-                                'offset' => 0,
-                                'limit' => null,
-                                'alwaysAvailable' => $blockCreateStruct->alwaysAvailable,
-                                'isTranslatable' => $blockCreateStruct->isTranslatable,
-                                'mainLocale' => $persistenceLayout->mainLocale,
+                if (!empty($blockCreateStruct->collectionCreateStructs)) {
+                    foreach ($blockCreateStruct->collectionCreateStructs as $identifier => $collectionCreateStruct) {
+                        $createdCollection = $this->collectionHandler->createCollection(
+                            new CollectionCreateStruct(
+                                array(
+                                    'status' => Value::STATUS_DRAFT,
+                                    'offset' => $collectionCreateStruct->offset,
+                                    'limit' => $collectionCreateStruct->limit,
+                                    'alwaysAvailable' => $blockCreateStruct->alwaysAvailable,
+                                    'isTranslatable' => $blockCreateStruct->isTranslatable,
+                                    'mainLocale' => $persistenceLayout->mainLocale,
+                                )
                             )
-                        )
-                    );
+                        );
 
-                    if ($blockCreateStruct->isTranslatable) {
-                        foreach ($persistenceLayout->availableLocales as $locale) {
-                            if ($locale !== $persistenceLayout->mainLocale) {
-                                $createdCollection = $this->collectionHandler->createCollectionTranslation(
-                                    $createdCollection,
-                                    $locale,
-                                    $createdCollection->mainLocale
-                                );
+                        if ($collectionCreateStruct->queryCreateStruct instanceof APIQueryCreateStruct) {
+                            $this->collectionHandler->createQuery(
+                                $createdCollection,
+                                new QueryCreateStruct(
+                                    array(
+                                        'queryType' => $collectionCreateStruct->queryCreateStruct->queryType->getType(),
+                                        'parameters' => array(),
+                                    )
+                                )
+                            );
+                        }
+
+                        if ($blockCreateStruct->isTranslatable) {
+                            foreach ($persistenceLayout->availableLocales as $locale) {
+                                if ($locale !== $persistenceLayout->mainLocale) {
+                                    $createdCollection = $this->collectionHandler->createCollectionTranslation(
+                                        $createdCollection,
+                                        $locale,
+                                        $createdCollection->mainLocale
+                                    );
+                                }
                             }
                         }
-                    }
 
-                    $this->blockHandler->createCollectionReference(
-                        $createdBlock,
-                        new CollectionReferenceCreateStruct(
-                            array(
-                                'identifier' => $collectionConfig->getIdentifier(),
-                                'collection' => $createdCollection,
+                        $this->blockHandler->createCollectionReference(
+                            $createdBlock,
+                            new CollectionReferenceCreateStruct(
+                                array(
+                                    'identifier' => $identifier,
+                                    'collection' => $createdCollection,
+                                )
                             )
-                        )
-                    );
+                        );
+                    }
                 }
 
                 return $createdBlock;

@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Core\Service\StructBuilder;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\Query;
@@ -12,6 +13,22 @@ use Netgen\BlockManager\Collection\QueryTypeInterface;
 
 final class CollectionStructBuilder
 {
+    /**
+     * Creates a new collection create struct.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct $queryCreateStruct
+     *
+     * @return \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct
+     */
+    public function newCollectionCreateStruct(QueryCreateStruct $queryCreateStruct = null)
+    {
+        return new CollectionCreateStruct(
+            array(
+                'queryCreateStruct' => $queryCreateStruct,
+            )
+        );
+    }
+
     /**
      * Creates a new collection update struct.
      *

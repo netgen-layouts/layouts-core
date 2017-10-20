@@ -196,6 +196,15 @@ interface CollectionService extends Service
     public function updateQuery(Query $query, QueryUpdateStruct $queryUpdateStruct);
 
     /**
+     * Creates a new collection create struct.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct $queryCreateStruct
+     *
+     * @return \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct
+     */
+    public function newCollectionCreateStruct(QueryCreateStruct $queryCreateStruct = null);
+
+    /**
      * Creates a new collection update struct.
      *
      * If collection is provided, initial data is copied from the collection.

@@ -299,7 +299,10 @@ abstract class ServiceTestCase extends TestCase
             $configValidator = new ConfigValidator();
             $configValidator->setValidator($validator);
 
-            $blockValidator = new BlockValidator($configValidator);
+            $collectionValidator = new CollectionValidator();
+            $collectionValidator->setValidator($validator);
+
+            $blockValidator = new BlockValidator($configValidator, $collectionValidator);
             $blockValidator->setValidator($validator);
         }
 

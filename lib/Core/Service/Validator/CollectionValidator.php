@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Core\Service\Validator;
 
+use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
@@ -16,6 +17,49 @@ use Symfony\Component\Validator\Constraints;
 
 final class CollectionValidator extends Validator
 {
+    /**
+     * Validates the provided collection create struct.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct $collectionCreateStruct
+     *
+     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
+     */
+    public function validateCollectionCreateStruct(CollectionCreateStruct $collectionCreateStruct)
+    {
+        $this->validate(
+            $collectionCreateStruct->offset,
+            array(
+                new Constraints\NotBlank(),
+                new Constraints\Type(array('type' => 'int')),
+                new Constraints\GreaterThanOrEqual(array('value' => 0)),
+            ),
+            'offset'
+        );
+
+        if ($collectionCreateStruct->limit !== null) {
+            $this->validate(
+                $collectionCreateStruct->limit,
+                array(
+                    new Constraints\Type(array('type' => 'int')),
+                    new Constraints\GreaterThan(array('value' => 0)),
+                ),
+                'limit'
+            );
+        }
+
+        if ($collectionCreateStruct->queryCreateStruct !== null) {
+            $this->validate(
+                $collectionCreateStruct->queryCreateStruct,
+                array(
+                    new Constraints\Type(array('type' => QueryCreateStruct::class)),
+                ),
+                'queryCreateStruct'
+            );
+
+            $this->validateQueryCreateStruct($collectionCreateStruct->queryCreateStruct);
+        }
+    }
+
     /**
      * Validates the provided collection update struct.
      *

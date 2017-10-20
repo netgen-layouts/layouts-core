@@ -64,4 +64,14 @@ final class BlockCreateStruct extends ValueObject implements ParameterStruct, Co
      * @var bool
      */
     public $alwaysAvailable;
+
+    /**
+     * The list of collections to create in the block.
+     *
+     * The keys should be collection identifiers, while the values should be
+     * instances of CollectionCreateStruct objects.
+     *
+     * @var \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct[]
+     */
+    public $collectionCreateStructs = array();
 }

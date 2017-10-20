@@ -143,6 +143,7 @@ services:
         public: false
         arguments:
             - "@netgen_block_manager.core.validator.config"
+            - "@netgen_block_manager.core.service.collection.validator"
         calls:
             - [setValidator, ["@validator"]]
 
