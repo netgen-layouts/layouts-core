@@ -1,6 +1,7 @@
 services:
     netgen_block_manager.controller.admin.layout_resolver:
         class: Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\LayoutResolverController
+        public: true
         parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.layout_resolver"
@@ -11,6 +12,7 @@ services:
 
     netgen_block_manager.controller.admin.layouts:
         class: Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\LayoutsController
+        public: true
         parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.layout"
@@ -19,6 +21,7 @@ services:
 
     netgen_block_manager.controller.admin.shared_layouts:
         class: Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\SharedLayoutsController
+        public: true
         parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.layout"
@@ -32,22 +35,26 @@ services:
 
     netgen_block_manager.controller.app.index:
         class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\IndexController
+        public: true
         parent: netgen_block_manager.controller.base
 
     netgen_block_manager.controller.app.layout:
         class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\LayoutController
+        public: true
         parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.layout"
 
     netgen_block_manager.controller.app.block:
         class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\BlockController
+        public: true
         parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.block"
 
     netgen_block_manager.controller.app.collection:
         class: Netgen\Bundle\BlockManagerAdminBundle\Controller\App\CollectionController
+        public: true
         parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.collection"

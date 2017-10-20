@@ -102,6 +102,7 @@ final class BlockTypeGroupPass implements CompilerPassInterface
             $container->register($serviceIdentifier, BlockTypeGroup::class)
                 ->setArguments(array($identifier, $blockTypeGroup, $blockTypeReferences))
                 ->setLazy(true)
+                ->setPublic(true)
                 ->setFactory(array(BlockTypeGroupFactory::class, 'buildBlockTypeGroup'));
 
             $blockTypeGroupServices[$identifier] = $serviceIdentifier;

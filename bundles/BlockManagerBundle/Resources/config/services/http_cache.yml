@@ -1,9 +1,11 @@
 services:
     netgen_block_manager.http_cache.fos.cache_manager:
         synthetic: true
+        public: false
 
     netgen_block_manager.http_cache.client:
         alias: netgen_block_manager.http_cache.client.fos
+        public: true
 
     netgen_block_manager.http_cache.client.fos:
         class: Netgen\BlockManager\HttpCache\FOSClient

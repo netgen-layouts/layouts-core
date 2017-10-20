@@ -63,6 +63,7 @@ services:
 
     netgen_block_manager.block.registry.block_definition:
         class: Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry
+        public: true
 
     netgen_block_manager.block.registry.handler_plugin:
         class: Netgen\BlockManager\Block\Registry\HandlerPluginRegistry
@@ -70,9 +71,11 @@ services:
 
     netgen_block_manager.block.registry.block_type:
         class: Netgen\BlockManager\Block\Registry\BlockTypeRegistry
+        public: true
 
     netgen_block_manager.block.registry.block_type_group:
         class: Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistry
+        public: true
 
     netgen_block_manager.block.block_definition.handler.plugin.common:
         class: Netgen\BlockManager\Block\BlockDefinition\Handler\CommonParametersPlugin

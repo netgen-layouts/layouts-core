@@ -1,19 +1,23 @@
 services:
     netgen_block_manager.item.item_builder:
         class: Netgen\BlockManager\Item\ItemBuilder
+        public: true
         arguments:
             - []
 
     netgen_block_manager.item.item_loader:
         class: Netgen\BlockManager\Item\ItemLoader
+        public: true
         arguments:
             - "@netgen_block_manager.item.item_builder"
             - []
 
     netgen_block_manager.item.url_builder:
         class: Netgen\BlockManager\Item\UrlBuilder
+        public: true
         arguments:
             - []
 
     netgen_block_manager.item.registry.value_type:
         class: Netgen\BlockManager\Item\Registry\ValueTypeRegistry
+        public: true

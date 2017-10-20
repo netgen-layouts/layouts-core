@@ -1,6 +1,7 @@
 services:
     netgen_block_manager.event_listener.layout_view.rule_count:
         class: Netgen\Bundle\BlockManagerAdminBundle\EventListener\LayoutView\RuleCountListener
+        # public: false
         arguments:
             - "@netgen_block_manager.api.service.layout_resolver"
         tags:
@@ -8,6 +9,7 @@ services:
 
     netgen_block_manager.event_listener.layout_view.related_layouts_count:
         class: Netgen\Bundle\BlockManagerAdminBundle\EventListener\LayoutView\RelatedLayoutsCountListener
+        # public: false
         arguments:
             - "@netgen_block_manager.api.service.layout"
         tags:
@@ -15,6 +17,7 @@ services:
 
     netgen_block_manager.event_listener.rule_view.rule_count:
         class: Netgen\Bundle\BlockManagerAdminBundle\EventListener\RuleView\RuleCountListener
+        # public: false
         arguments:
             - "@netgen_block_manager.api.service.layout_resolver"
         tags:
@@ -22,11 +25,13 @@ services:
 
     netgen_block_manager.event_listener.admin_authentication_exception:
         class: Netgen\Bundle\BlockManagerAdminBundle\EventListener\AdminAuthenticationExceptionListener
+        # public: false
         tags:
             - { name: kernel.event_subscriber }
 
     netgen_block_manager.event_listener.set_is_admin_request:
         class: Netgen\Bundle\BlockManagerAdminBundle\EventListener\SetIsAdminRequestListener
+        # public: false
         arguments:
             - "@event_dispatcher"
         tags:
@@ -34,6 +39,7 @@ services:
 
     netgen_block_manager.event_listener.set_admin_pagelayout:
         class: Netgen\Bundle\BlockManagerAdminBundle\EventListener\SetAdminPageLayoutListener
+        # public: false
         arguments:
             - "@netgen_block_manager.templating.admin_global_variable"
             - "%netgen_block_manager.admin.pagelayout%"
@@ -42,6 +48,7 @@ services:
 
     netgen_block_manager.event_listener.admin_csrf_validation_listener:
         class: Netgen\Bundle\BlockManagerAdminBundle\EventListener\CsrfValidation\AdminCsrfValidationListener
+        # public: false
         arguments:
             - "@security.csrf.token_manager"
             - "%netgen_block_manager.admin.csrf_token_id%"

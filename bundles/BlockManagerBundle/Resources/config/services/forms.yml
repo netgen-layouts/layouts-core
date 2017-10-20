@@ -1,6 +1,7 @@
 services:
     netgen_block_manager.layout.form.create:
         class: Netgen\BlockManager\Layout\Form\CreateType
+        # public: false
         arguments:
             - "@netgen_block_manager.layout.registry.layout_type"
             - "@netgen_block_manager.locale.provider"
@@ -9,6 +10,7 @@ services:
 
     netgen_block_manager.layout.form.add_locale:
         class: Netgen\BlockManager\Layout\Form\AddLocaleType
+        # public: false
         arguments:
             - "@netgen_block_manager.locale.provider"
         tags:

@@ -70,6 +70,7 @@ final class QueryTypePass implements CompilerPassInterface
             $queryTypeService = new Definition(QueryType::class);
 
             $queryTypeService->setLazy(true);
+            $queryTypeService->setPublic(true);
             $queryTypeService->addArgument($type);
             $queryTypeService->addArgument(new Reference($foundHandler));
             $queryTypeService->addArgument(new Reference($configServiceName));

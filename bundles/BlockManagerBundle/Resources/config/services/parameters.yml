@@ -3,6 +3,7 @@ services:
 
     netgen_block_manager.parameters.registry.parameter_type:
         class: Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry
+        public: true
 
     netgen_block_manager.parameters.registry.form_mapper:
         class: Netgen\BlockManager\Parameters\Registry\FormMapperRegistry
@@ -214,6 +215,7 @@ services:
 
     netgen_block_manager.parameters.form.parameters:
         class: Netgen\BlockManager\Parameters\Form\Type\ParametersType
+        # public: false
         arguments:
             - "@netgen_block_manager.parameters.registry.form_mapper"
         tags:
@@ -221,5 +223,6 @@ services:
 
     netgen_block_manager.parameters.form.extension.parameters:
         class: Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension
+        # public: false
         tags:
             - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FormType }

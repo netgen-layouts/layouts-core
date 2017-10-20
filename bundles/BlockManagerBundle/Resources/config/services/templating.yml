@@ -27,6 +27,7 @@ services:
 
     netgen_block_manager.templating.twig.runtime.rendering:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime
+        # public: false
         arguments:
             - "@netgen_block_manager.api.service.block"
             - "@netgen_block_manager.view.renderer.fragment"
@@ -48,6 +49,7 @@ services:
 
     netgen_block_manager.templating.twig.runtime.ajax_rendering:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\AjaxRenderingRuntime
+        # public: false
         arguments:
             - "@netgen_block_manager.context"
             - "@uri_signer"
@@ -66,6 +68,7 @@ services:
 
     netgen_block_manager.templating.twig.runtime.item:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntime
+        # public: false
         arguments:
             - "@netgen_block_manager.item.item_loader"
             - "@netgen_block_manager.item.url_builder"
@@ -85,6 +88,7 @@ services:
 
     netgen_block_manager.templating.twig.runtime.helpers:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\HelpersRuntime
+        # public: false
         tags:
             - { name: twig.runtime }
             - { name: netgen_block_manager.twig.runtime }

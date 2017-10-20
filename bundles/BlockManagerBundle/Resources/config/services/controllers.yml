@@ -1,6 +1,7 @@
 services:
     netgen_block_manager.controller.base:
         class: Netgen\Bundle\BlockManagerBundle\Controller\Controller
+        public: true
         abstract: true
         calls:
             - [initialize, ["@service_container"]]
@@ -14,6 +15,7 @@ services:
 
     netgen_block_manager.controller.block:
         class: Netgen\Bundle\BlockManagerBundle\Controller\BlockController
+        public: true
         parent: netgen_block_manager.controller.base
         arguments:
             - "@?logger"
@@ -24,11 +26,13 @@ services:
 
     ngbm_block:
         alias: netgen_block_manager.controller.block
+        public: true
 
     # API controllers
 
     netgen_block_manager.controller.api.v1.config:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\ConfigController
+        public: true
         parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.block.registry.block_type"
@@ -39,6 +43,7 @@ services:
 
     netgen_block_manager.controller.api.v1.layout:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController
+        public: true
         parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.layout"
@@ -47,6 +52,7 @@ services:
 
     netgen_block_manager.controller.api.v1.block:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockController
+        public: true
         parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.block"
@@ -55,6 +61,7 @@ services:
 
     netgen_block_manager.controller.api.v1.block_collection:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController
+        public: true
         parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.block"
@@ -64,6 +71,7 @@ services:
 
     netgen_block_manager.controller.api.v1.collection:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController
+        public: true
         parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.collection"

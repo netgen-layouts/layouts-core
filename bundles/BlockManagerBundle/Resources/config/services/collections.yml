@@ -14,6 +14,7 @@ services:
 
     netgen_block_manager.collection.result_builder:
         class: Netgen\BlockManager\Collection\Result\ResultBuilder
+        public: true
         arguments:
             - "@netgen_block_manager.collection.result_iterator_factory"
             - "@netgen_block_manager.collection.collection_iterator_factory"
@@ -34,3 +35,4 @@ services:
 
     netgen_block_manager.collection.registry.query_type:
         class: Netgen\BlockManager\Collection\Registry\QueryTypeRegistry
+        public: true

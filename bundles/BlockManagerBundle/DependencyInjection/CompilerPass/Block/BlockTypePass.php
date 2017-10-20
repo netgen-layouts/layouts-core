@@ -130,6 +130,7 @@ final class BlockTypePass implements CompilerPassInterface
                     )
                 )
                 ->setLazy(true)
+                ->setPublic(true)
                 ->setFactory(array(BlockTypeFactory::class, 'buildBlockType'));
 
             $blockTypeServices[$identifier] = $serviceIdentifier;

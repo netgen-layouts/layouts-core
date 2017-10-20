@@ -3,6 +3,7 @@ services:
 
     netgen_block_manager.layout.resolver.form.target_type:
         class: Netgen\BlockManager\Layout\Resolver\Form\TargetType
+        # public: false
         arguments:
             - []
         tags:
@@ -10,6 +11,7 @@ services:
 
     netgen_block_manager.layout.resolver.form.condition_type:
         class: Netgen\BlockManager\Layout\Resolver\Form\ConditionType
+        # public: false
         arguments:
             - []
         tags:

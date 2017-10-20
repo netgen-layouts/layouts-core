@@ -92,6 +92,7 @@ final class BlockDefinitionPass implements CompilerPassInterface
             $blockDefinitionService = new Definition($definitionClass);
 
             $blockDefinitionService->setLazy(true);
+            $blockDefinitionService->setPublic(true);
             $blockDefinitionService->addArgument($identifier);
             $blockDefinitionService->addArgument(new Reference($foundHandler));
             $blockDefinitionService->addArgument(new Reference($configServiceName));

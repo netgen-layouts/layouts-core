@@ -1,11 +1,13 @@
 services:
     netgen_block_manager.event_listener.exception_conversion:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener
+        # public: false
         tags:
             - { name: kernel.event_subscriber }
 
     netgen_block_manager.event_listener.exception_serializer:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionSerializerListener
+        # public: false
         arguments:
             - "@serializer"
             - "@?logger"
@@ -15,6 +17,7 @@ services:
 
     netgen_block_manager.event_listener.serializer:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\SerializerListener
+        # public: false
         arguments:
             - "@serializer"
         tags:
@@ -22,6 +25,7 @@ services:
 
     netgen_block_manager.event_listener.request_body_listener:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\RequestBodyListener
+        # public: false
         arguments:
             - "@serializer"
         tags:
@@ -29,6 +33,7 @@ services:
 
     netgen_block_manager.event_listener.view_renderer:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\ViewRendererListener
+        # public: false
         arguments:
             - "@netgen_block_manager.view.view_renderer"
         tags:
@@ -36,11 +41,13 @@ services:
 
     netgen_block_manager.event_listener.set_is_api_request:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener
+        # public: false
         tags:
             - { name: kernel.event_subscriber }
 
     netgen_block_manager.event_listener.twig_extensions:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\TwigExtensionsListener
+        # public: false
         arguments:
             - "@twig"
         # Set as lazy to prevent crashing of eZ Platform siteaccess aware config
@@ -50,6 +57,7 @@ services:
 
     netgen_block_manager.event_listener.api_csrf_validation_listener:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\CsrfValidation\ApiCsrfValidationListener
+        # public: false
         arguments:
             - "@security.csrf.token_manager"
             - "%netgen_block_manager.api.csrf_token_id%"
@@ -58,6 +66,7 @@ services:
 
     netgen_block_manager.event_listener.block_view.get_collection_results:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener
+        # public: false
         arguments:
             - "@netgen_block_manager.collection.result.pagerfanta.factory"
             - "%netgen_block_manager.block_view.collection_results_contexts%"
@@ -66,6 +75,7 @@ services:
 
     netgen_block_manager.event_listener.block_view.get_collection_pager:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionPagerListener
+        # public: false
         arguments:
             - "@netgen_block_manager.collection.result.pagerfanta.factory"
             - "@request_stack"
@@ -75,11 +85,13 @@ services:
 
     netgen_block_manager.event_listener.block_view.get_twig_block_content:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetTwigBlockContentListener
+        # public: false
         tags:
             - { name: kernel.event_subscriber }
 
     netgen_block_manager.event_listener.http_cache.invalidation:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\InvalidationListener
+        # public: false
         arguments:
             - "@netgen_block_manager.http_cache.client"
         tags:
@@ -87,11 +99,13 @@ services:
 
     netgen_block_manager.event_listener.http_cache.cacheable_view:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewListener
+        # public: false
         tags:
             - { name: kernel.event_subscriber }
 
     netgen_block_manager.event_listener.http_cache.layout_response:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\LayoutResponseListener
+        # public: false
         arguments:
             - "@netgen_block_manager.http_cache.tagger"
         tags:
@@ -99,6 +113,7 @@ services:
 
     netgen_block_manager.event_listener.http_cache.block_response:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\BlockResponseListener
+        # public: false
         arguments:
             - "@netgen_block_manager.http_cache.tagger"
         tags:
@@ -106,6 +121,7 @@ services:
 
     netgen_block_manager.event_listener.context:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\ContextListener
+        # public: false
         arguments:
             - "@netgen_block_manager.context"
             - "@netgen_block_manager.context.builder"
@@ -115,5 +131,6 @@ services:
 
     netgen_block_manager.event_listener.ajax_block_request:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\AjaxBlockRequestListener
+        # public: false
         tags:
             - { name: kernel.event_subscriber }
