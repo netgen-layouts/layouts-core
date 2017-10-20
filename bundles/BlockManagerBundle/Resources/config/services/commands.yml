@@ -1,0 +1,9 @@
+services:
+    netgen_block_manager.command.migration.query_offset_limit:
+        class: Netgen\Bundle\BlockManagerBundle\Command\Migration\MigrateQueryOffsetLimitCommand
+        # public: false
+        arguments:
+            - "@netgen_block_manager.collection.registry.query_type"
+            - "@database_connection"
+        tags:
+            - { name: console.command, command: ngbm:migrate:query_offset_limit }
