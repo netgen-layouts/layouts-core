@@ -19,14 +19,6 @@ class HelpersExtensionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\HelpersExtension::getName
-     */
-    public function testGetName()
-    {
-        $this->assertEquals(get_class($this->extension), $this->extension->getName());
-    }
-
-    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\HelpersExtension::getFilters
      */
     public function testGetFilters()

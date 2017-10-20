@@ -20,14 +20,6 @@ class RenderingExtensionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getName
-     */
-    public function testGetName()
-    {
-        $this->assertEquals(get_class($this->extension), $this->extension->getName());
-    }
-
-    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getFunctions
      */
     public function testGetFunctions()

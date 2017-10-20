@@ -8,11 +8,6 @@ use Twig\TwigFilter;
 
 final class HelpersExtension extends AbstractExtension
 {
-    public function getName()
-    {
-        return self::class;
-    }
-
     public function getFilters()
     {
         return array(

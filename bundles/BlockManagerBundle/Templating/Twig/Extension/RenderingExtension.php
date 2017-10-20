@@ -9,11 +9,6 @@ use Twig\TwigFunction;
 
 final class RenderingExtension extends AbstractExtension
 {
-    public function getName()
-    {
-        return self::class;
-    }
-
     public function getFunctions()
     {
         return array(

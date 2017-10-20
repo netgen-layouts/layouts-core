@@ -19,14 +19,6 @@ class ItemExtensionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\ItemExtension::getName
-     */
-    public function testGetName()
-    {
-        $this->assertEquals(get_class($this->extension), $this->extension->getName());
-    }
-
-    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\ItemExtension::getFunctions
      */
     public function testGetFunctions()
