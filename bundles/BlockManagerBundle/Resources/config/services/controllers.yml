@@ -1,7 +1,7 @@
 services:
     netgen_block_manager.controller.base:
         class: Netgen\Bundle\BlockManagerBundle\Controller\Controller
-        public: true
+        public: false
         abstract: true
         calls:
             - [initialize, ["@service_container"]]
