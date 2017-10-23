@@ -32,23 +32,16 @@ final class AjaxRenderingRuntime
      */
     private $pagerfantaViewFactory;
 
-    /**
-     * @var string
-     */
-    private $defaultPagerfantaView;
-
     public function __construct(
         ContextInterface $context,
         UriSigner $uriSigner,
         RouterInterface $router,
-        ViewFactoryInterface $pagerfantaViewFactory,
-        $defaultPagerfantaView
+        ViewFactoryInterface $pagerfantaViewFactory
     ) {
         $this->context = $context;
         $this->uriSigner = $uriSigner;
         $this->router = $router;
         $this->pagerfantaViewFactory = $pagerfantaViewFactory;
-        $this->defaultPagerfantaView = $defaultPagerfantaView;
     }
 
     /**
@@ -62,10 +55,9 @@ final class AjaxRenderingRuntime
      *
      * @return string
      */
-    public function renderAjaxBlockPager(Pagerfanta $pagerfanta, Block $block, $collectionIdentifier, $viewName = null, array $options = array())
+    public function renderAjaxBlockPager(Pagerfanta $pagerfanta, Block $block, $collectionIdentifier, $viewName, array $options = array())
     {
         $routeGenerator = $this->createRouteGenerator($block, $collectionIdentifier);
-        $viewName = $viewName !== null ? $viewName : $this->defaultPagerfantaView;
 
         return $this->pagerfantaViewFactory->get($viewName)->render($pagerfanta, $routeGenerator, $options);
     }
