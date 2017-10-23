@@ -59,6 +59,9 @@ final class AjaxRenderingRuntime
     {
         $routeGenerator = $this->createRouteGenerator($block, $collectionIdentifier);
 
+        $options['block'] = $block;
+        $options['collection_identifier'] = $collectionIdentifier;
+
         return $this->pagerfantaViewFactory->get($viewName)->render($pagerfanta, $routeGenerator, $options);
     }
 

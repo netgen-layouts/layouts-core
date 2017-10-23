@@ -5,3 +5,4 @@ parameters:
     netgen_block_manager.api.csrf_token_id: ngbm_api
     netgen_block_manager.collection.max_limit: 200
     netgen_block_manager.collection.contextual_query_limit: 12
+    netgen_block_manager.collection.pager.template: '@@NetgenBlockManager/collection/pager.html.twig'

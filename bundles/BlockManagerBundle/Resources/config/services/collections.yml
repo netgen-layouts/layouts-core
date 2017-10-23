@@ -27,6 +27,15 @@ services:
             - "@netgen_block_manager.collection.result_builder"
             - "%netgen_block_manager.collection.max_limit%"
 
+    netgen_block_manager.collection.result.pagerfanta.view.ngbm_collection_pager:
+        class: Netgen\BlockManager\Collection\Result\Pagerfanta\View\CollectionPagerView
+        public: false
+        arguments:
+            - "@twig"
+            - "%netgen_block_manager.collection.pager.template%"
+        tags:
+            - {name: pagerfanta.view, alias: ngbm_collection_pager}
+
     netgen_block_manager.collection.query_type_factory:
         class: Netgen\BlockManager\Collection\QueryTypeFactory
         public: false
