@@ -55,7 +55,7 @@ final class AjaxRenderingRuntime
      *
      * @return string
      */
-    public function renderAjaxBlockPager(Pagerfanta $pagerfanta, Block $block, $collectionIdentifier, $viewName, array $options = array())
+    public function renderAjaxCollectionPager(Pagerfanta $pagerfanta, Block $block, $collectionIdentifier, $viewName, array $options = array())
     {
         $routeGenerator = $this->createRouteGenerator($block, $collectionIdentifier);
 
@@ -72,7 +72,7 @@ final class AjaxRenderingRuntime
      *
      * @return string
      */
-    public function getAjaxBlockPageUrl(Pagerfanta $pagerfanta, Block $block, $collectionIdentifier, $page = 1)
+    public function getAjaxCollectionPageUrl(Pagerfanta $pagerfanta, Block $block, $collectionIdentifier, $page = 1)
     {
         if ($page < 1 || $page > $pagerfanta->getNbPages()) {
             throw new InvalidArgumentException(

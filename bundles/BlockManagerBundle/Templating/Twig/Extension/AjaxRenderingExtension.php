@@ -12,15 +12,15 @@ final class AjaxRenderingExtension extends AbstractExtension
     {
         return array(
             new TwigFunction(
-                'ngbm_ajax_block_pager',
-                array(AjaxRenderingRuntime::class, 'renderAjaxBlockPager'),
+                'ngbm_ajax_collection_pager',
+                array(AjaxRenderingRuntime::class, 'renderAjaxCollectionPager'),
                 array(
                     'is_safe' => array('html'),
                 )
             ),
             new TwigFunction(
-                'ngbm_ajax_block_page_url',
-                array(AjaxRenderingRuntime::class, 'getAjaxBlockPageUrl')
+                'ngbm_ajax_collection_page_url',
+                array(AjaxRenderingRuntime::class, 'getAjaxCollectionPageUrl')
             ),
         );
     }
