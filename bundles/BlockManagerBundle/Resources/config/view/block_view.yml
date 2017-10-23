@@ -96,6 +96,17 @@ view:
                 match:
                     block\definition: two_columns
                     block\view_type: two_columns_66_33
+        ajax:
+            list\list:
+                template: "@NetgenBlockManager/block/list/list_ajax.html.twig"
+                match:
+                    block\definition: list
+                    block\view_type: list
+            list\grid:
+                template: "@NetgenBlockManager/block/list/grid_ajax.html.twig"
+                match:
+                    block\definition: list
+                    block\view_type: grid
         api:
             title:
                 template: "@NetgenBlockManager/api/block/title.html.twig"
