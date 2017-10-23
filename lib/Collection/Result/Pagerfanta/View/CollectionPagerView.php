@@ -6,7 +6,7 @@ use Pagerfanta\PagerfantaInterface;
 use Pagerfanta\View\ViewInterface;
 use Twig\Environment;
 
-class CollectionPagerView implements ViewInterface
+final class CollectionPagerView implements ViewInterface
 {
     /**
      * @var \Twig\Environment
