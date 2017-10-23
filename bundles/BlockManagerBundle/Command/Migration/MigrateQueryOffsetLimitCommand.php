@@ -44,6 +44,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
         $this->queryTypeRegistry = $queryTypeRegistry;
         $this->connection = $connection;
 
+        // Parent constructor call is mandatory in commands registered as services
         parent::__construct();
     }
 
