@@ -78,7 +78,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
         $this->style->caution(
             sprintf(
                 "%s\n%s",
-                'This script will migrate values of offset and limit parameters from your query types to its collection.',
+                'This script will perform changes to data in your database.',
                 'Make sure to backup your database before running the script in case any errors occur.'
             )
         );
