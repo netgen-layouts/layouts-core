@@ -6,4 +6,4 @@ services:
             - "@netgen_block_manager.collection.registry.query_type"
             - "@database_connection"
         tags:
-            - { name: console.command, command: ngbm:migrate:query_offset_limit }
+            - { name: console.command, command: ngbm:migration:query_offset_limit }

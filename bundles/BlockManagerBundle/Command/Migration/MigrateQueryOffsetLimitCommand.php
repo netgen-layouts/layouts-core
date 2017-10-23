@@ -50,7 +50,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('ngbm:migrate:query_offset_limit')
+            ->setName('ngbm:migration:query_offset_limit')
             ->setDescription('Migrates the query offset and limit parameters to collection offset and limit after upgrade to version 0.10.');
     }
 
