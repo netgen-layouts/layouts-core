@@ -1,7 +1,7 @@
 <div class="list-row">
     {% for result in collection %}
         <div class="list-item">
-            {{ ngbm_render_item(result.item, block.itemViewType, {}, view_context) }}
+            {{ ngbm_render_item(result.item, block.itemViewType, {}, 'default') }}
         </div>
     {% endfor %}
 </div>
