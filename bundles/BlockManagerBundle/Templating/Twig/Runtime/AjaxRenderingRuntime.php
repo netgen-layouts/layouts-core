@@ -32,16 +32,23 @@ final class AjaxRenderingRuntime
      */
     private $pagerfantaViewFactory;
 
+    /**
+     * @var string
+     */
+    private $defaultPagerfantaView;
+
     public function __construct(
         ContextInterface $context,
         UriSigner $uriSigner,
         RouterInterface $router,
-        ViewFactoryInterface $pagerfantaViewFactory
+        ViewFactoryInterface $pagerfantaViewFactory,
+        $defaultPagerfantaView
     ) {
         $this->context = $context;
         $this->uriSigner = $uriSigner;
         $this->router = $router;
         $this->pagerfantaViewFactory = $pagerfantaViewFactory;
+        $this->defaultPagerfantaView = $defaultPagerfantaView;
     }
 
     /**
@@ -55,9 +62,10 @@ final class AjaxRenderingRuntime
      *
      * @return string
      */
-    public function renderAjaxCollectionPager(Pagerfanta $pagerfanta, Block $block, $collectionIdentifier, $viewName, array $options = array())
+    public function renderCollectionPager(Pagerfanta $pagerfanta, Block $block, $collectionIdentifier, $viewName = null, array $options = array())
     {
         $routeGenerator = $this->createRouteGenerator($block, $collectionIdentifier);
+        $viewName = $viewName !== null ? $viewName : $this->defaultPagerfantaView;
 
         $options['block'] = $block;
         $options['collection_identifier'] = $collectionIdentifier;
@@ -75,7 +83,7 @@ final class AjaxRenderingRuntime
      *
      * @return string
      */
-    public function getAjaxCollectionPageUrl(Pagerfanta $pagerfanta, Block $block, $collectionIdentifier, $page = 1)
+    public function getCollectionPageUrl(Pagerfanta $pagerfanta, Block $block, $collectionIdentifier, $page = 1)
     {
         if ($page < 1 || $page > $pagerfanta->getNbPages()) {
             throw new InvalidArgumentException(

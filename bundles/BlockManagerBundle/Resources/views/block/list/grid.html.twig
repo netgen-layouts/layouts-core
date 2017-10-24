@@ -1,5 +1,6 @@
 {% extends '@NetgenBlockManager/block/block.html.twig' %}
 
+{% set collection_identifier = 'default' %}
 {% set number_of_columns = block.parameter('number_of_columns').value|default(2) %}
 
 {% set template_name = '@NetgenBlockManager/block/list/grid/' ~ number_of_columns ~ '_columns.html.twig' %}
@@ -8,9 +9,9 @@
 {% endif %}
 
 {% block content %}
-    {% if collections.default is defined and collections.default is not empty %}
+    {% if collections[collection_identifier] is defined and collections[collection_identifier] is not empty %}
         <div class="row">
-            {% for result in collections.default %}
+            {% for result in collections[collection_identifier] %}
                 {% include template_name %}
             {% endfor %}
         </div>

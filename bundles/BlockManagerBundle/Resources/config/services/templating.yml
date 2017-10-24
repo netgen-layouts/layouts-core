@@ -55,6 +55,7 @@ services:
             - "@uri_signer"
             - "@router"
             - "@white_october_pagerfanta.view_factory"
+            - "%netgen_block_manager.collection.pager.view%"
         tags:
             - { name: twig.runtime }
             - { name: netgen_block_manager.twig.runtime }

@@ -6,7 +6,7 @@ use Pagerfanta\PagerfantaInterface;
 use Pagerfanta\View\ViewInterface;
 use Twig\Environment;
 
-final class CollectionPagerView implements ViewInterface
+final class CollectionView implements ViewInterface
 {
     /**
      * @var \Twig\Environment
@@ -30,7 +30,7 @@ final class CollectionPagerView implements ViewInterface
 
     public function getName()
     {
-        return 'ngbm_collection_pager';
+        return 'ngbm_collection';
     }
 
     public function render(PagerfantaInterface $pagerfanta, $routeGenerator, array $options = array())

@@ -2,6 +2,8 @@
 
 {% import '@NetgenBlockManager/parts/macros.html.twig' as macros %}
 
+{% set collection_identifier = 'default' %}
+
 {% block content %}
-    {{ macros.collection(collections, 'default', block.itemViewType, view_context) }}
+    {{ macros.collection(collections, collection_identifier, block.itemViewType, view_context) }}
 {% endblock %}

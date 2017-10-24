@@ -6,3 +6,4 @@ parameters:
     netgen_block_manager.collection.max_limit: 200
     netgen_block_manager.collection.contextual_query_limit: 12
     netgen_block_manager.collection.pager.template: '@@NetgenBlockManager/collection/pager.html.twig'
+    netgen_block_manager.collection.pager.view: 'ngbm_collection'
