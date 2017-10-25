@@ -57,7 +57,14 @@ final class ContextListener implements EventSubscriberInterface
         }
 
         $request = $event->getRequest();
-        if ($request->query->has('ngbmContext')) {
+        if ($request->attributes->has('ngbmContext')) {
+            $context = $request->attributes->get('ngbmContext');
+            $context = is_array($context) ? $context : array();
+
+            $this->context->add($context);
+
+            return;
+        } elseif ($request->query->has('ngbmContext')) {
             $this->context->add($this->getUriContext($request));
 
             return;

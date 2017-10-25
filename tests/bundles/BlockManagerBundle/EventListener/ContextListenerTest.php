@@ -111,10 +111,34 @@ class ContextListenerTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ContextListener::onKernelRequest
+     */
+    public function testOnKernelRequestWithContextFromAttributes()
+    {
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $request = Request::create('/');
+
+        $request->attributes->set('ngbmContext', array('var' => 'value'));
+
+        $this->contextBuilderMock
+            ->expects($this->never())
+            ->method('buildContext');
+
+        $this->uriSignerMock
+            ->expects($this->never())
+            ->method('check');
+
+        $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
+        $this->listener->onKernelRequest($event);
+
+        $this->assertEquals(array('var' => 'value'), $this->context->all());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ContextListener::onKernelRequest
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ContextListener::getUriContext
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ContextListener::getUri
      */
-    public function testOnKernelRequestWithContextFromRequestAttribute()
+    public function testOnKernelRequestWithContextFromRequestOverrideAttribute()
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
