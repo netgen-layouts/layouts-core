@@ -105,7 +105,7 @@ class BlockViewRendererTest extends TestCase
             array(
                 'blockId' => 42,
                 'locale' => 'en',
-                'context' => 'default',
+                'viewContext' => 'default',
                 '_ngbm_status' => 'published',
             ),
             $controller->attributes

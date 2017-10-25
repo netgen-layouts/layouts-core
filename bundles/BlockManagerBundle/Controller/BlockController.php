@@ -42,16 +42,16 @@ final class BlockController extends Controller
      * we log an error and just return an empty response in order not to crash the page.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param string $context
+     * @param string $viewContext
      *
      * @throws \Exception If rendering fails
      *
      * @return \Netgen\BlockManager\View\View\BlockViewInterface|\Symfony\Component\HttpFoundation\Response
      */
-    public function viewBlock(Block $block, $context = ViewInterface::CONTEXT_DEFAULT)
+    public function viewBlock(Block $block, $viewContext = ViewInterface::CONTEXT_DEFAULT)
     {
         try {
-            return $this->buildView($block, $context);
+            return $this->buildView($block, $viewContext);
         } catch (Exception $e) {
             $errorMessage = sprintf('Error rendering a block with ID %d', $block->getId());
 
@@ -70,18 +70,18 @@ final class BlockController extends Controller
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param string $collectionIdentifier
-     * @param string $context
+     * @param string $viewContext
      *
      * @throws \Exception If rendering fails
      *
      * @return \Netgen\BlockManager\View\View\BlockViewInterface|\Symfony\Component\HttpFoundation\Response
      */
-    public function viewAjaxBlock(Block $block, $collectionIdentifier, $context = ViewInterface::CONTEXT_AJAX)
+    public function viewAjaxBlock(Block $block, $collectionIdentifier, $viewContext = ViewInterface::CONTEXT_AJAX)
     {
         try {
             return $this->buildView(
                 $block,
-                $context,
+                $viewContext,
                 array(
                     'collection_identifier' => $collectionIdentifier,
                 )
