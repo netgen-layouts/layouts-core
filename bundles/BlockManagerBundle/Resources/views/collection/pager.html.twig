@@ -1,3 +1,28 @@
-PAGER TEMPLATE
+{% set hasPager = true %}
 
-{{ dump(_context) }}
+{# template has available parameters:
+    pages: number of total pages
+    page: current page
+    url: function that takes page number and returns url for that page
+#}
+{% set pagerTemplate =
+    "<ul>
+        <li <%=if (this.page === 1) {%>class='disabled'<%=}%>><a href='<%=this.url(this.page - 1)%>' class='ajax-nav-prev'>Previous</a></li>
+        <%=for(var i = 1; i <= this.pages; i++) {%>
+            <li <%=if (this.page === i) {%>class='current'<%=}%>><a href='<%=this.url(i)%>' class='ajax-nav-link'><%=i%></a></li>
+        <%=}%>
+        <li <%=if (this.page === this.pages) {%>class='disabled'<%=}%>><a href='<%=this.url(this.page + 1)%>' class='ajax-nav-next'>Next</a></li>
+    </ul>"
+%}
+
+{% set loadMoreTemplate = "<%=if (this.page < this.pages) {%><a href='<%=this.url(this.page + 1)%>' class='ajax-load-more'>Load more</a><%=}%>" %}
+
+<nav class="ajax-navigation"
+    data-page="{{ pager.currentPage }}"
+    data-total-pages="{{ pager.nbPages }}"
+    {% if hasPager %}data-pager{% endif %}
+    data-template-pager="{{ pagerTemplate }}"
+    data-template-load-more="{{ loadMoreTemplate }}"
+    data-url="{{ pager_uri }}"
+    >
+</nav>

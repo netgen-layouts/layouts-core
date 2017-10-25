@@ -5,8 +5,6 @@
     {% set template_name = column_templates[number_of_columns] %}
 {% endif %}
 
-<div class="row">
-    {% for result in collection %}
-        {% include template_name with {view_context: 'default'} %}
-    {% endfor %}
-</div>
+{% for result in collection %}
+    {% include template_name with {view_context: 'default'} %}
+{% endfor %}

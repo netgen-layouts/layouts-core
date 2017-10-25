@@ -8,12 +8,21 @@
     {% set template_name = column_templates[number_of_columns] %}
 {% endif %}
 
+{% set loadInitialWithAjax = false %}
+
 {% block content %}
     {% if collections[collection_identifier] is defined and collections[collection_identifier] is not empty %}
-        <div class="row">
-            {% for result in collections[collection_identifier] %}
-                {% include template_name %}
-            {% endfor %}
+        <div class="ajax-collection" {% if loadInitialWithAjax %}data-load-initial="{{ ngbm_collection_page_url(pagers[collection_identifier], block, collection_identifier) }}"{% endif %}>
+            <div class="row ajax-container">
+                {% if not loadInitialWithAjax %}
+                    {% for result in collections[collection_identifier] %}
+                        {% include template_name %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+            {% if pagers[collection_identifier].haveToPaginate %}
+                {{ ngbm_collection_pager(pagers[collection_identifier], block, collection_identifier) }}
+            {% endif %}
         </div>
     {% endif %}
 {% endblock %}
