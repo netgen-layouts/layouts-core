@@ -22,23 +22,23 @@ final class BlockViewRenderer implements ViewRendererInterface
     /**
      * @var array
      */
-    private $supportedContexts;
+    private $supportedViewContexts;
 
     /**
      * Constructor.
      *
      * @param \Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface $cacheableResolver
      * @param string $blockController
-     * @param array $supportedContexts
+     * @param array $supportedViewContexts
      */
     public function __construct(
         CacheableResolverInterface $cacheableResolver,
         $blockController,
-        array $supportedContexts = array(ViewInterface::CONTEXT_DEFAULT)
+        array $supportedViewContexts = array(ViewInterface::CONTEXT_DEFAULT)
     ) {
         $this->cacheableResolver = $cacheableResolver;
         $this->blockController = $blockController;
-        $this->supportedContexts = $supportedContexts;
+        $this->supportedViewContexts = $supportedViewContexts;
     }
 
     public function supportsView(ViewInterface $view)
@@ -47,7 +47,7 @@ final class BlockViewRenderer implements ViewRendererInterface
             return false;
         }
 
-        if (!in_array($view->getContext(), $this->supportedContexts, true)) {
+        if (!in_array($view->getContext(), $this->supportedViewContexts, true)) {
             return false;
         }
 
