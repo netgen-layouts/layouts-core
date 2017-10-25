@@ -7,22 +7,22 @@ use Countable;
 use IteratorIterator;
 use Netgen\BlockManager\API\Values\Collection\Query;
 
-class QueryIterator extends IteratorIterator implements Countable
+final class QueryIterator extends IteratorIterator implements Countable
 {
     /**
      * @var \Netgen\BlockManager\API\Values\Collection\Query
      */
-    protected $query;
+    private $query;
 
     /**
      * @var int
      */
-    protected $offset;
+    private $offset;
 
     /**
      * @var int
      */
-    protected $limit;
+    private $limit;
 
     /**
      * Constructor.
@@ -50,7 +50,7 @@ class QueryIterator extends IteratorIterator implements Countable
      *
      * @return \Iterator
      */
-    protected function buildIterator()
+    private function buildIterator()
     {
         $queryValues = $this->query->getQueryType()->getValues(
             $this->query,

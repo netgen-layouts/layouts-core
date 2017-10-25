@@ -4,8 +4,6 @@ namespace Netgen\BlockManager\Tests\Collection\Result;
 
 use Netgen\BlockManager\Collection\Result\ContextualQueryIterator;
 use Netgen\BlockManager\Collection\Result\Slot;
-use Netgen\BlockManager\Core\Values\Collection\Query;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 
 class ContextualQueryIteratorTest extends TestCase
@@ -20,12 +18,7 @@ class ContextualQueryIteratorTest extends TestCase
      */
     public function testIterator()
     {
-        $queryItems = array(40, 41, 42, 43, 44, 45, 46, 47, 48);
-
-        $queryType = new QueryType('query', $queryItems);
-        $query = new Query(array('queryType' => $queryType));
-
-        $queryIterator = new ContextualQueryIterator($query, 0, 5);
+        $queryIterator = new ContextualQueryIterator(5);
 
         $values = array();
         foreach ($queryIterator as $value) {

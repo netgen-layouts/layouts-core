@@ -3,9 +3,28 @@
 namespace Netgen\BlockManager\Collection\Result;
 
 use ArrayIterator;
+use Countable;
+use IteratorIterator;
 
-final class ContextualQueryIterator extends QueryIterator
+final class ContextualQueryIterator extends IteratorIterator implements Countable
 {
+    /**
+     * @var int
+     */
+    private $limit;
+
+    /**
+     * Constructor.
+     *
+     *   @param int $limit
+     */
+    public function __construct($limit = null)
+    {
+        $this->limit = $limit;
+
+        parent::__construct($this->buildIterator());
+    }
+
     public function count()
     {
         return $this->limit;
@@ -13,9 +32,7 @@ final class ContextualQueryIterator extends QueryIterator
 
     protected function buildIterator()
     {
-        $queryValues = iterator_to_array(
-            $this->generateSlots()
-        );
+        $queryValues = iterator_to_array($this->generateSlots());
 
         return new ArrayIterator($queryValues);
     }
