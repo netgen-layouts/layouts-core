@@ -3,29 +3,16 @@
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime;
 
 use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\Context\ContextInterface;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\View\ViewFactoryInterface;
-use Symfony\Component\HttpKernel\UriSigner;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class CollectionPagerRuntime
 {
     /**
-     * @var \Netgen\BlockManager\Context\ContextInterface
+     * @var callable
      */
-    private $context;
-
-    /**
-     * @var \Symfony\Component\HttpKernel\UriSigner
-     */
-    private $uriSigner;
-
-    /**
-     * @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface
-     */
-    private $urlGenerator;
+    private $routeGenerator;
 
     /**
      * @var \Pagerfanta\View\ViewFactoryInterface
@@ -37,16 +24,17 @@ final class CollectionPagerRuntime
      */
     private $defaultPagerfantaView;
 
+    /**
+     * @param callable $routeGenerator
+     * @param \Pagerfanta\View\ViewFactoryInterface $pagerfantaViewFactory
+     * @param string $defaultPagerfantaView
+     */
     public function __construct(
-        ContextInterface $context,
-        UriSigner $uriSigner,
-        UrlGeneratorInterface $urlGenerator,
+        callable $routeGenerator,
         ViewFactoryInterface $pagerfantaViewFactory,
         $defaultPagerfantaView
     ) {
-        $this->context = $context;
-        $this->uriSigner = $uriSigner;
-        $this->urlGenerator = $urlGenerator;
+        $this->routeGenerator = $routeGenerator;
         $this->pagerfantaViewFactory = $pagerfantaViewFactory;
         $this->defaultPagerfantaView = $defaultPagerfantaView;
     }
@@ -64,13 +52,12 @@ final class CollectionPagerRuntime
      */
     public function renderCollectionPager(Pagerfanta $pagerfanta, Block $block, $collectionIdentifier, $viewName = null, array $options = array())
     {
-        $routeGenerator = $this->createRouteGenerator($block, $collectionIdentifier);
         $viewName = $viewName !== null ? $viewName : $this->defaultPagerfantaView;
 
         $options['block'] = $block;
         $options['collection_identifier'] = $collectionIdentifier;
 
-        return $this->pagerfantaViewFactory->get($viewName)->render($pagerfanta, $routeGenerator, $options);
+        return $this->pagerfantaViewFactory->get($viewName)->render($pagerfanta, $this->routeGenerator, $options);
     }
 
     /**
@@ -92,39 +79,8 @@ final class CollectionPagerRuntime
             );
         }
 
-        $routeGenerator = $this->createRouteGenerator($block, $collectionIdentifier);
+        $routeGenerator = $this->routeGenerator;
 
-        return $routeGenerator($page);
-    }
-
-    /**
-     * Creates a callable that will be used by Pagerfanta view factory to generate
-     * the URLs for each page.
-     *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param string $collectionIdentifier
-     *
-     * @return \Closure
-     */
-    private function createRouteGenerator(Block $block, $collectionIdentifier)
-    {
-        return function ($page) use ($block, $collectionIdentifier) {
-            $routeParams = array(
-                'blockId' => $block->getId(),
-                'locale' => $block->getLocale(),
-                'collectionIdentifier' => $collectionIdentifier,
-                'ngbmContext' => $this->context->all(),
-            );
-
-            $signedUri = $this->uriSigner->sign(
-                $this->urlGenerator->generate('ngbm_ajax_block', $routeParams)
-            );
-
-            if ($page > 1) {
-                $signedUri .= '&' . 'page=' . (int) $page;
-            }
-
-            return $signedUri;
-        };
+        return $routeGenerator($block, $collectionIdentifier, $page);
     }
 }

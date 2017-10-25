@@ -51,14 +51,20 @@ services:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\CollectionPagerRuntime
         # public: false
         arguments:
-            - "@netgen_block_manager.context"
-            - "@uri_signer"
-            - "@router"
+            - "@netgen_block_manager.templating.twig.runtime.collection_pager.route_generator"
             - "@white_october_pagerfanta.view_factory"
             - "%netgen_block_manager.collection.pager.view%"
         tags:
             - { name: twig.runtime }
             - { name: netgen_block_manager.twig.runtime }
+
+    netgen_block_manager.templating.twig.runtime.collection_pager.route_generator:
+        class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\CollectionPager\RouteGenerator
+        public: false
+        arguments:
+            - "@netgen_block_manager.context"
+            - "@uri_signer"
+            - "@router"
 
     netgen_block_manager.templating.twig.extension.item:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\ItemExtension
