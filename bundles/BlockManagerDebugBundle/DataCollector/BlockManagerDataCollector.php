@@ -23,10 +23,9 @@ final class BlockManagerDataCollector extends DataCollector
     {
         $this->globalVariable = $globalVariable;
 
-        $this->data['rule'] = null;
-        $this->data['layout'] = null;
-        $this->data['blocks'] = array();
         $this->data['version'] = Version::VERSION;
+
+        $this->reset();
     }
 
     public function collect(Request $request, Response $response, Exception $exception = null)
@@ -43,6 +42,13 @@ final class BlockManagerDataCollector extends DataCollector
         } elseif ($layoutView === false) {
             $this->data['layout'] = false;
         }
+    }
+
+    public function reset()
+    {
+        $this->data['rule'] = null;
+        $this->data['layout'] = null;
+        $this->data['blocks'] = array();
     }
 
     /**
@@ -112,7 +118,7 @@ final class BlockManagerDataCollector extends DataCollector
     }
 
     /**
-     * Returns the resolved layout.
+     * Returns the collected data.
      *
      * @return array
      */
