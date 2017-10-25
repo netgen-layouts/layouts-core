@@ -41,14 +41,14 @@ services:
             - { name: netgen_block_manager.twig.runtime }
             - { name: monolog.logger, channel: ngbm }
 
-    netgen_block_manager.templating.twig.extension.ajax_rendering:
-        class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\AjaxRenderingExtension
+    netgen_block_manager.templating.twig.extension.collection_pager:
+        class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\CollectionPagerExtension
         public: false
         tags:
             - { name: twig.extension }
 
-    netgen_block_manager.templating.twig.runtime.ajax_rendering:
-        class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\AjaxRenderingRuntime
+    netgen_block_manager.templating.twig.runtime.collection_pager:
+        class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\CollectionPagerRuntime
         # public: false
         arguments:
             - "@netgen_block_manager.context"

@@ -64,7 +64,7 @@ final class PagerFactory
         $pager = new Pagerfanta($adapter);
 
         $pager->setNormalizeOutOfRangePages(true);
-        $pager->setMaxPerPage($limit > 0 ? $limit : $this->maxLimit);
+        $pager->setMaxPerPage($limit > 0 && $limit < $this->maxLimit ? $limit : $this->maxLimit);
 
         return $pager;
     }

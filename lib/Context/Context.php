@@ -47,11 +47,6 @@ final class Context implements ContextInterface
         return count($this->contextVariables);
     }
 
-    public function jsonSerialize()
-    {
-        return $this->contextVariables;
-    }
-
     public function getIterator()
     {
         return new ArrayIterator($this->contextVariables);
@@ -69,7 +64,7 @@ final class Context implements ContextInterface
 
     public function offsetSet($offset, $value)
     {
-        $this->add($offset, $value);
+        $this->set($offset, $value);
     }
 
     public function offsetUnset($offset)

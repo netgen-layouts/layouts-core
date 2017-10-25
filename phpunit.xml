@@ -37,6 +37,7 @@
             <exclude>
                 <file>bundles/BlockManagerBundle/NetgenBlockManagerBundle.php</file>
                 <file>bundles/BlockManagerAdminBundle/NetgenBlockManagerAdminBundle.php</file>
+                <directory>bundles/*Bundle/Command</directory>
                 <directory>bundles/*Bundle/Controller</directory>
                 <directory>bundles/*Bundle/Resources</directory>
             </exclude>

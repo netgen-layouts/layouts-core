@@ -46,21 +46,14 @@ class ResultBuilderTest extends TestCase
             array('value' => new ValueLoader())
         );
 
-        $this->resultBuilder = new ResultBuilder(
-            new ResultIteratorFactory(
-                $this->itemLoader,
-                $this->itemBuilder
-            ),
-            new CollectionIteratorFactory(12),
-            200
-        );
+        $this->resultBuilder = $this->buildResultBuilder(200);
     }
 
     /**
      * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::__construct
      * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::build
      */
-    public function testLoadForManualCollection()
+    public function testBuildForManualCollection()
     {
         $collection = $this->buildCollection(
             array(42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54)
@@ -81,9 +74,35 @@ class ResultBuilderTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::__construct
      * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::build
      */
-    public function testLoadForDynamicCollection()
+    public function testBuildWithLimitLargerThanMaxLimit()
+    {
+        $resultBuilder = $this->buildResultBuilder(3);
+
+        $collection = $this->buildCollection(
+            array(42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54)
+        );
+
+        $resultSet = $resultBuilder->build($collection, 0, 5);
+
+        $this->assertInstanceOf(ResultSet::class, $resultSet);
+        $this->assertEquals($collection, $resultSet->getCollection());
+        $this->assertEquals(0, $resultSet->getOffset());
+        $this->assertEquals(3, $resultSet->getLimit());
+
+        foreach ($resultSet as $index => $result) {
+            $this->assertInstanceOf(Result::class, $result);
+            $this->assertEquals(Result::TYPE_MANUAL, $result->getType());
+            $this->assertEquals($index, $result->getPosition());
+        }
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::build
+     */
+    public function testBuildForDynamicCollection()
     {
         $collection = $this->buildCollection(
             array(2 => 10, 7 => 14, 8 => 16, 11 => 20),
@@ -104,6 +123,18 @@ class ResultBuilderTest extends TestCase
             $this->assertEquals($index, $resultItem->getPosition());
             // @todo Test item types
         }
+    }
+
+    private function buildResultBuilder($maxLimit)
+    {
+        return new ResultBuilder(
+            new ResultIteratorFactory(
+                $this->itemLoader,
+                $this->itemBuilder
+            ),
+            new CollectionIteratorFactory(12),
+            $maxLimit
+        );
     }
 
     /**

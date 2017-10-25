@@ -32,7 +32,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionStructBuilder::newCollectionCreateStruct
+     * @covers \Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder::newCollectionCreateStruct
      */
     public function testNewCollectionCreateStruct()
     {

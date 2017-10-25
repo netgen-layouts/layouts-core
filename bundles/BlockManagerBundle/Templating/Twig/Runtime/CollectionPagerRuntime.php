@@ -8,9 +8,9 @@ use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\View\ViewFactoryInterface;
 use Symfony\Component\HttpKernel\UriSigner;
-use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-final class AjaxRenderingRuntime
+final class CollectionPagerRuntime
 {
     /**
      * @var \Netgen\BlockManager\Context\ContextInterface
@@ -23,9 +23,9 @@ final class AjaxRenderingRuntime
     private $uriSigner;
 
     /**
-     * @var \Symfony\Component\Routing\RouterInterface
+     * @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface
      */
-    private $router;
+    private $urlGenerator;
 
     /**
      * @var \Pagerfanta\View\ViewFactoryInterface
@@ -40,13 +40,13 @@ final class AjaxRenderingRuntime
     public function __construct(
         ContextInterface $context,
         UriSigner $uriSigner,
-        RouterInterface $router,
+        UrlGeneratorInterface $urlGenerator,
         ViewFactoryInterface $pagerfantaViewFactory,
         $defaultPagerfantaView
     ) {
         $this->context = $context;
         $this->uriSigner = $uriSigner;
-        $this->router = $router;
+        $this->urlGenerator = $urlGenerator;
         $this->pagerfantaViewFactory = $pagerfantaViewFactory;
         $this->defaultPagerfantaView = $defaultPagerfantaView;
     }
@@ -117,7 +117,7 @@ final class AjaxRenderingRuntime
             );
 
             $signedUri = $this->uriSigner->sign(
-                $this->router->generate('ngbm_ajax_block', $routeParams)
+                $this->urlGenerator->generate('ngbm_ajax_block', $routeParams)
             );
 
             if ($page > 1) {

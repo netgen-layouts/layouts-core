@@ -8,6 +8,8 @@ use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Block\Placeholder;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
+use Netgen\BlockManager\API\Values\Collection\Query;
+use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\Config\Config;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 
@@ -200,6 +202,55 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $collection = $this->collectionService->loadCollectionDraft(7);
         $this->assertEquals(Collection::TYPE_MANUAL, $collection->getType());
+        $this->assertFalse($collection->hasQuery());
+
+        $this->assertEquals($block->isTranslatable(), $collection->isTranslatable());
+        $this->assertEquals($block->isAlwaysAvailable(), $collection->isAlwaysAvailable());
+        $this->assertEquals($block->getAvailableLocales(), $collection->getAvailableLocales());
+        $this->assertEquals($block->getMainLocale(), $collection->getMainLocale());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
+     */
+    public function testCreateBlockWithDynamicCollection()
+    {
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct(
+            $this->blockDefinitionRegistry->getBlockDefinition('list')
+        );
+
+        $blockCreateStruct->isTranslatable = true;
+
+        $queryCreateStruct = new QueryCreateStruct();
+        $queryCreateStruct->queryType = $this->queryTypeRegistry->getQueryType('ezcontent_search');
+
+        $collectionCreateStruct = new CollectionCreateStruct();
+        $collectionCreateStruct->queryCreateStruct = $queryCreateStruct;
+
+        $blockCreateStruct->collectionCreateStructs = array(
+            'default' => $collectionCreateStruct,
+        );
+
+        $targetBlock = $this->blockService->loadBlockDraft(33);
+        $block = $this->blockService->createBlock($blockCreateStruct, $targetBlock, 'left', 0);
+
+        $this->assertFalse($block->isPublished());
+        $this->assertInstanceOf(Block::class, $block);
+
+        $collectionReferences = $block->getCollectionReferences();
+        $this->assertCount(1, $collectionReferences);
+        $this->assertArrayHasKey('default', $collectionReferences);
+
+        $this->assertEquals('default', $collectionReferences['default']->getIdentifier());
+        $this->assertEquals(0, $collectionReferences['default']->getCollection()->getOffset());
+        $this->assertNull($collectionReferences['default']->getCollection()->getLimit());
+
+        $collection = $this->collectionService->loadCollectionDraft(7);
+        $this->assertEquals(Collection::TYPE_DYNAMIC, $collection->getType());
+        $this->assertTrue($collection->hasQuery());
+        $this->assertInstanceOf(Query::class, $collection->getQuery());
+        $this->assertEquals('ezcontent_search', $collection->getQuery()->getQueryType()->getType());
 
         $this->assertEquals($block->isTranslatable(), $collection->isTranslatable());
         $this->assertEquals($block->isAlwaysAvailable(), $collection->isAlwaysAvailable());

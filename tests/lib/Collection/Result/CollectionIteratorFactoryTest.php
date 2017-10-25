@@ -26,6 +26,7 @@ class CollectionIteratorFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\CollectionIteratorFactory::__construct
      * @covers \Netgen\BlockManager\Collection\Result\CollectionIteratorFactory::getCollectionIterator
      * @covers \Netgen\BlockManager\Collection\Result\CollectionIteratorFactory::getQueryIterator
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionIteratorFactory::getManualItemsCount
      */
     public function testGetCollectionIterator()
     {
@@ -47,6 +48,7 @@ class CollectionIteratorFactoryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Result\CollectionIteratorFactory::getCollectionIterator
      * @covers \Netgen\BlockManager\Collection\Result\CollectionIteratorFactory::getQueryIterator
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionIteratorFactory::getManualItemsCount
      */
     public function testGetCollectionIteratorWithContextualQuery()
     {
@@ -60,6 +62,8 @@ class CollectionIteratorFactoryTest extends TestCase
                     ),
                 )
             ),
+            0,
+            null,
             ResultSet::INCLUDE_UNKNOWN_ITEMS
         );
 
@@ -69,13 +73,37 @@ class CollectionIteratorFactoryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Result\CollectionIteratorFactory::getCollectionIterator
      * @covers \Netgen\BlockManager\Collection\Result\CollectionIteratorFactory::getQueryIterator
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionIteratorFactory::getManualItemsCount
+     */
+    public function testGetCollectionIteratorWithContextualQueryAndLimitLargerThanMaxLimit()
+    {
+        $iterator = $this->factory->getCollectionIterator(
+            new Collection(
+                array(
+                    'query' => new Query(
+                        array(
+                            'queryType' => new QueryType('type', array(), null, true),
+                        )
+                    ),
+                )
+            ),
+            0,
+            25,
+            ResultSet::INCLUDE_UNKNOWN_ITEMS
+        );
+
+        $this->assertInstanceOf(CollectionIterator::class, $iterator);
+        $this->assertEquals(12, count($iterator));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionIteratorFactory::getCollectionIterator
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionIteratorFactory::getQueryIterator
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionIteratorFactory::getManualItemsCount
      */
     public function testGetCollectionIteratorWithNoQuery()
     {
-        $iterator = $this->factory->getCollectionIterator(
-            new Collection(),
-            ResultSet::INCLUDE_UNKNOWN_ITEMS
-        );
+        $iterator = $this->factory->getCollectionIterator(new Collection());
 
         $this->assertInstanceOf(CollectionIterator::class, $iterator);
     }

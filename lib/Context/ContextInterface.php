@@ -5,9 +5,8 @@ namespace Netgen\BlockManager\Context;
 use ArrayAccess;
 use Countable;
 use IteratorAggregate;
-use JsonSerializable;
 
-interface ContextInterface extends IteratorAggregate, Countable, ArrayAccess, JsonSerializable
+interface ContextInterface extends IteratorAggregate, Countable, ArrayAccess
 {
     /**
      * Sets a variable to the context. Variable value needs to be

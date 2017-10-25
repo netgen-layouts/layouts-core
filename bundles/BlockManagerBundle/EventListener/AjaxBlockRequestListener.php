@@ -44,8 +44,8 @@ final class AjaxBlockRequestListener implements EventSubscriberInterface
         // the URI with parse_url/parse_str and then rebuilding it, just to remove
         // a single query parameter with a known name and format.
         $requestUri = preg_replace(
-            array('/&page=\d+/', '/\?page=\d+&/'),
-            array('', '?'),
+            array('/&page=\d+/', '/\?page=\d+&/', '/\?page=\d+/'),
+            array('', '?', ''),
             $request->getRequestUri()
         );
 

@@ -650,7 +650,7 @@ final class BlockService extends Service implements BlockServiceInterface
                                 $createdCollection,
                                 new QueryCreateStruct(
                                     array(
-                                        'queryType' => $collectionCreateStruct->queryCreateStruct->queryType->getType(),
+                                        'type' => $collectionCreateStruct->queryCreateStruct->queryType->getType(),
                                         'parameters' => array(),
                                     )
                                 )

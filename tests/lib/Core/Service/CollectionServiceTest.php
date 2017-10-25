@@ -112,6 +112,23 @@ abstract class CollectionServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateCollection
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "collection" has an invalid state. Only draft collections can be updated.
+     */
+    public function testUpdateCollectionThrowsBadStateExceptionWithNonDraftCollection()
+    {
+        $collection = $this->collectionService->loadCollection(3);
+
+        $collectionUpdateStruct = $this->collectionService->newCollectionUpdateStruct();
+
+        $collectionUpdateStruct->offset = 6;
+        $collectionUpdateStruct->limit = 0;
+
+        $this->collectionService->updateCollection($collection, $collectionUpdateStruct);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadItem
      */
     public function testLoadItem()
