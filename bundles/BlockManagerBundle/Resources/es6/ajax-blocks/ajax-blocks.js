@@ -107,7 +107,9 @@ class AjaxBlock {
     }
 }
 
-const ajaxCollections = document.getElementsByClassName('ajax-collection');
-[].forEach.call(ajaxCollections, (el) => {
-    const ajaxBlock = new AjaxBlock(el);
+document.addEventListener('DOMContentLoaded', function() {
+    const ajaxCollections = document.getElementsByClassName('ajax-collection');
+    [].forEach.call(ajaxCollections, (el) => {
+        const ajaxBlock = new AjaxBlock(el);
+    });
 });
