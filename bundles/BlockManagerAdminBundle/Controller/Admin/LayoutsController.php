@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Layout\Layout;
+use Netgen\BlockManager\Block\BlockDefinition\Handler\PagedCollectionsPlugin;
 use Netgen\BlockManager\HttpCache\ClientInterface;
 use Netgen\BlockManager\Layout\Form\CopyType;
 use Netgen\BlockManager\View\ViewInterface;
@@ -158,6 +159,12 @@ final class LayoutsController extends Controller
             array_filter(
                 $this->blockService->loadLayoutBlocks($layout),
                 function (Block $block) {
+                    if ($block->getDefinition()->hasPlugin(PagedCollectionsPlugin::class)) {
+                        if ($block->getParameter('paged_collections:enabled')->getValue()) {
+                            return true;
+                        }
+                    }
+
                     $blockConfig = $block->getConfig('http_cache');
 
                     return $blockConfig->getParameter('use_http_cache')->getValue();

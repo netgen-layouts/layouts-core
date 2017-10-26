@@ -9,6 +9,7 @@ use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Tests\Block\Stubs\HandlerPlugin;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 class BlockDefinitionTest extends TestCase
 {
@@ -93,5 +94,21 @@ class BlockDefinitionTest extends TestCase
     public function testGetConfigDefinitions()
     {
         $this->assertEquals(array(42), $this->blockDefinition->getConfigDefinitions());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition::hasPlugin
+     */
+    public function testHasPlugin()
+    {
+        $this->assertTrue($this->blockDefinition->hasPlugin(HandlerPlugin::class));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinition::hasPlugin
+     */
+    public function testHasPluginWithUnknownPlugin()
+    {
+        $this->assertFalse($this->blockDefinition->hasPlugin(stdClass::class));
     }
 }

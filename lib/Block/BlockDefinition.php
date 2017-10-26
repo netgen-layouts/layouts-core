@@ -67,4 +67,15 @@ class BlockDefinition extends ValueObject implements BlockDefinitionInterface
     {
         return $this->configDefinitions;
     }
+
+    public function hasPlugin($className)
+    {
+        foreach ($this->handlerPlugins as $handlerPlugin) {
+            if (is_a($handlerPlugin, $className, true)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

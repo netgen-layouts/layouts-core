@@ -50,4 +50,13 @@ interface BlockDefinitionInterface extends ParameterCollectionInterface
      * @return \Netgen\BlockManager\Config\ConfigDefinitionInterface[]
      */
     public function getConfigDefinitions();
+
+    /**
+     * Returns if the block definition has a plugin with provided FQCN.
+     *
+     * @param string $className
+     *
+     * @return bool
+     */
+    public function hasPlugin($className);
 }

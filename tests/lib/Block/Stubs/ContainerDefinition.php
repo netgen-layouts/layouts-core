@@ -196,4 +196,16 @@ class ContainerDefinition implements ContainerDefinitionInterface
     {
         return array();
     }
+
+    /**
+     * Returns if the block definition has a plugin with provided FQCN.
+     *
+     * @param string $className
+     *
+     * @return bool
+     */
+    public function hasPlugin($className)
+    {
+        return false;
+    }
 }
