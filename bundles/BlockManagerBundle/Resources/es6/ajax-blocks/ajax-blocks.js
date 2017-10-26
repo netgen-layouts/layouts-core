@@ -5,8 +5,8 @@ const templateEngine = (html, options) => {
     let cursor = 0;
     let match;
     const add = (line, js) => {
-        js ? (code += line.match(reExp) ? line + '\n' : 'r.push(' + line + ');\n') :
-            (code += line !== '' ? 'r.push("' + line.replace(/"/g, '\\"') + '");\n' : '');
+        js ? (code += line.match(reExp) ? `${line}\n` : `r.push(${line});\n`) :
+            (code += line !== '' ? `r.push("${line.replace(/"/g, '\\"')}");\n` : '');
         return add;
     };
     while (match = re.exec(html)) {
@@ -23,7 +23,8 @@ class AjaxBlock {
         this.el = el;
         this.container = el.querySelector('.ajax-container');
         this.nav = el.querySelector('.ajax-navigation');
-        this.loadInitial = this.el.dataset.loadInitial;
+        this.loadInitial = this.el.hasAttribute('data-load-initial');
+        this.baseUrl = this.el.dataset.baseUrl;
 
         this.init();
     }
@@ -34,23 +35,21 @@ class AjaxBlock {
     }
 
     initPaging() {
-        this.pager = this.nav.hasAttribute('data-pager');
         this.pagerData = { ...this.nav.dataset };
         this.page = parseInt(this.pagerData.page, 10);
         this.totalPages = parseInt(this.pagerData.totalPages, 10);
-        this.nav.removeAttribute('data-template-pager');
-        this.nav.removeAttribute('data-template-load-more');
+        this.nav.removeAttribute('data-template');
 
         this.renderNavigation();
         this.setupEvents();
     }
 
     renderNavigation() {
-        this.nav.innerHTML = templateEngine(this.pager ? this.pagerData.templatePager : this.pagerData.templateLoadMore, { pages: this.totalPages, page: this.page, url: this.generateUrl.bind(this) });
+        this.nav.innerHTML = templateEngine(this.pagerData.template, { pages: this.totalPages, page: this.page, url: this.generateUrl.bind(this) });
     }
 
     generateUrl(page) {
-        return `${this.pagerData.url}&page=${page}`;
+        return `${this.baseUrl}&page=${page}`;
     }
 
     setupEvents() {
@@ -89,7 +88,13 @@ class AjaxBlock {
     }
 
     renderNewBlocks(html) {
-        this.pager ? (this.container.innerHTML = html) : (this.container.innerHTML += html);
+        switch (this.pagerData.type) {
+            case 'load_more':
+                this.container.insertAdjacentHTML('beforeend', html);
+                break;
+            default:
+                this.container.innerHTML = html;
+        }
         this.el.dispatchEvent(new CustomEvent('ajax-blocks-added', { bubbles: true, cancelable: true }));
     }
 
