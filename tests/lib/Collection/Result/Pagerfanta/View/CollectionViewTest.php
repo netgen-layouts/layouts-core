@@ -50,7 +50,6 @@ class CollectionViewTest extends TestCase
                 $this->equalTo(
                     array(
                         'pager' => $pagerMock,
-                        'pager_uri' => '/route/1',
                         'block' => new Block(),
                         'collection_identifier' => 'default',
                     )
@@ -84,7 +83,6 @@ class CollectionViewTest extends TestCase
                 $this->equalTo(
                     array(
                         'pager' => $pagerMock,
-                        'pager_uri' => '/route/1',
                         'block' => new Block(),
                         'collection_identifier' => 'default',
                     )

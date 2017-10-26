@@ -64,7 +64,6 @@ final class CollectionView implements ViewInterface
             $pagerTemplate,
             array(
                 'pager' => $pagerfanta,
-                'pager_uri' => $routeGenerator($options['block'], $options['collection_identifier'], 1),
             ) + $options
         );
     }
