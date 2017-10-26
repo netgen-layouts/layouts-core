@@ -13,7 +13,7 @@ module.exports = function (grunt) {
     var config = {
         resources_dir: 'Resources',
         public_dir: 'Resources/public',
-        dev_dir: 'Resources/public/dev',
+        dev_dir: 'Resources/public/dev'
     };
 
     // Define the configuration for all the tasks
