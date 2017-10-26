@@ -1,0 +1,27 @@
+{% extends '@NetgenBlockManager/collection/pager.html.twig' %}
+
+{# templates have the following parameters:
+    pages: number of total pages
+    page: current page
+    url: function that takes page number and returns URL for that page
+#}
+
+{% block pager_template %}
+{% verbatim %}
+    <ul>
+        <li <%=if (this.page === 1) {%>class='disabled'<%=}%>><a href='<%=this.url(this.page - 1)%>' class='ajax-nav-prev'>Previous</a></li>
+        <%=for(var i = 1; i <= this.pages; i++) {%>
+            <li <%=if (this.page === i) {%>class='current'<%=}%>><a href='<%=this.url(i)%>' class='ajax-nav-link'><%=i%></a></li>
+        <%=}%>
+        <li <%=if (this.page === this.pages) {%>class='disabled'<%=}%>><a href='<%=this.url(this.page + 1)%>' class='ajax-nav-next'>Next</a></li>
+    </ul>
+{% endverbatim %}
+{% endblock %}
+
+{% block load_more_template %}
+{% verbatim %}
+    <%=if (this.page < this.pages) {%>
+        <a href='<%=this.url(this.page + 1)%>' class='ajax-load-more'>Load more</a>
+    <%=}%>
+{% endverbatim %}
+{% endblock %}
