@@ -11,7 +11,7 @@ use Netgen\BlockManager\Parameters\ParameterType;
 class PagedCollectionsPlugin extends Plugin
 {
     /**
-     * The list of pager types available in the plugin
+     * The list of pager types available in the plugin.
      *
      * @var array
      */
