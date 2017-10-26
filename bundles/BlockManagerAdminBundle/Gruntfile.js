@@ -11,8 +11,8 @@ module.exports = function (grunt) {
 
     // Configurable paths
     var config = {
-        resources_dir: 'Resources/',
-        public_dir: 'Resources/public/'
+        resources_dir: 'Resources',
+        public_dir: 'Resources/public'
     };
 
     // Define the configuration for all the tasks
@@ -20,7 +20,7 @@ module.exports = function (grunt) {
         // Project settings
         config: config,
 
-        //Prevent multiple grunt instances
+        // Prevent multiple grunt instances
         lockfile: {
             grunt: {
                 path: 'grunt.lock'
