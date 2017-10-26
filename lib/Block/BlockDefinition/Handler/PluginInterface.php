@@ -9,6 +9,18 @@ use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 interface PluginInterface
 {
     /**
+     * Use this group in the parameters you wish to show
+     * in the Content part of the block edit interface.
+     */
+    const GROUP_CONTENT = 'content';
+
+    /**
+     * Use this group in the parameters you wish to show
+     * in the Design part of the block edit interface.
+     */
+    const GROUP_DESIGN = 'design';
+
+    /**
      * Returns the fully qualified class name of the block definition handler
      * which this plugin extends. If you wish to extend every existing handler,
      * return the FQCN of the block handler interface. You can also return

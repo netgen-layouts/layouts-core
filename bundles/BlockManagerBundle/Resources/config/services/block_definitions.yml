@@ -77,6 +77,12 @@ services:
         class: Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistry
         public: true
 
+    netgen_block_manager.block.block_definition.handler.plugin.paged_collections:
+        class: Netgen\BlockManager\Block\BlockDefinition\Handler\PagedCollectionsPlugin
+        public: false
+        tags:
+            - { name: netgen_block_manager.block.block_definition_handler.plugin, priority: 10 }
+
     netgen_block_manager.block.block_definition.handler.plugin.common:
         class: Netgen\BlockManager\Block\BlockDefinition\Handler\CommonParametersPlugin
         public: false

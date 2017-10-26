@@ -1,4 +1,4 @@
-{% set load_initial_with_ajax = false %}
+{% set load_initial_with_ajax = block.parameter('paged_collections:ajax_first').value %}
 {% set collection_page_url = ngbm_collection_page_url(pager, block, collection_identifier) %}
 
 {% set wrap_css_id = block('wrap_css_id') is defined ? block('wrap_css_id') : '' %}

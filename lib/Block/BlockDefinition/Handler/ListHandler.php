@@ -6,7 +6,7 @@ use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 use Netgen\BlockManager\Parameters\ParameterType;
 
-class ListHandler extends BlockDefinitionHandler
+class ListHandler extends BlockDefinitionHandler implements PagedCollectionsPluginInterface
 {
     /**
      * @var array

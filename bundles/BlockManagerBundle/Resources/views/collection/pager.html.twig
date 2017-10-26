@@ -3,7 +3,7 @@
 <nav class="ajax-navigation"
     data-page="{{ pager.currentPage }}"
     data-total-pages="{{ pager.nbPages }}"
-    data-type="{{ pager_type }}"
+    data-type="{{ block.parameter('paged_collections:type').value }}"
     data-template="{{ block(pager_type ~ '_template')|e }}"
     >
 </nav>

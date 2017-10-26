@@ -1,6 +1,5 @@
 {% extends '@NetgenBlockManager/block/block.html.twig' %}
 
-{% set ajax_collection_enabled = true %}
 {% set collection_identifier = 'default' %}
 {% set number_of_columns = block.parameter('number_of_columns').value|default(2) %}
 
@@ -17,7 +16,7 @@
 
 {% block content %}
     {% if collections[collection_identifier] is defined and collections[collection_identifier] is not empty %}
-        {% if ajax_collection_enabled %}
+        {% if block.parameter('paged_collections:enabled').value %}
             {% embed '@NetgenBlockManager/collection/ajax_collection.html.twig' with {pager: pagers[collection_identifier]} %}
                 {% block wrap_css_class %}row{% endblock %}
 
