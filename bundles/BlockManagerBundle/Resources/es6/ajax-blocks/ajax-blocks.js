@@ -30,7 +30,7 @@ class AjaxBlock {
     }
 
     init() {
-        this.loadInitial && this.getPage(this.loadInitial);
+        this.loadInitial && this.getPage(this.baseUrl);
         this.nav && this.initPaging();
     }
 
