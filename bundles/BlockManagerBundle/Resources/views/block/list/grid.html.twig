@@ -1,5 +1,6 @@
 {% extends '@NetgenBlockManager/block/block.html.twig' %}
 
+{% set ajax_collection_enabled = false %}
 {% set collection_identifier = 'default' %}
 {% set number_of_columns = block.parameter('number_of_columns').value|default(2) %}
 
@@ -8,22 +9,26 @@
     {% set template_name = column_templates[number_of_columns] %}
 {% endif %}
 
-{% set load_initial_with_ajax = false %}
+{% set collection_html %}
+    {% for result in collections[collection_identifier] %}
+        {% include template_name %}
+    {% endfor %}
+{% endset %}
 
 {% block content %}
     {% if collections[collection_identifier] is defined and collections[collection_identifier] is not empty %}
-        <div class="ajax-collection" {% if load_initial_with_ajax %}data-load-initial="{{ ngbm_collection_page_url(pagers[collection_identifier], block, collection_identifier) }}"{% endif %}>
-            <div class="row ajax-container">
-                {% if not load_initial_with_ajax %}
-                    {% for result in collections[collection_identifier] %}
-                        {% include template_name %}
-                    {% endfor %}
-                {% endif %}
-            </div>
+        {% if ajax_collection_enabled %}
+            {% embed '@NetgenBlockManager/collection/ajax_collection.html.twig' with {pager: pagers[collection_identifier]} %}
+                {% block wrap_css_class %}row{% endblock %}
 
-            {% if pagers[collection_identifier].haveToPaginate %}
-                {{ ngbm_collection_pager(pagers[collection_identifier], block, collection_identifier) }}
-            {% endif %}
-        </div>
+                {% block collection_page %}
+                    {{ collection_html }}
+                {% endblock %}
+            {% endembed %}
+        {% else %}
+            <div class="row">
+                {{ collection_html }}
+            </div>
+        {% endif %}
     {% endif %}
 {% endblock %}

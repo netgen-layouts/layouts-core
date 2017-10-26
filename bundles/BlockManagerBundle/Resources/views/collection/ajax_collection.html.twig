@@ -1,0 +1,17 @@
+{% set load_initial_with_ajax = false %}
+{% set collection_page_url = ngbm_collection_page_url(pager, block, collection_identifier) %}
+
+{% set wrap_css_id = block('wrap_css_id') is defined ? block('wrap_css_id') : '' %}
+{% set wrap_css_class = block('wrap_css_class') is defined ? block('wrap_css_class') : '' %}
+
+<div class="ajax-collection" {% if load_initial_with_ajax %}data-load-initial="{{ collection_page_url }}"{% endif %}>
+    <div class="ajax-container {{ wrap_css_class }}" {% if wrap_css_id is not empty %}id="{{ wrap_css_id }}"{% endif %}>
+        {% if not load_initial_with_ajax %}
+            {% block collection_page %}{% endblock %}
+        {% endif %}
+    </div>
+
+    {% if pager.haveToPaginate %}
+        {{ ngbm_collection_pager(pager, block, collection_identifier) }}
+    {% endif %}
+</div>
