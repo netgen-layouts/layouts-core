@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\View\Fragment;
 
+use Netgen\BlockManager\Context\ContextInterface;
 use Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface;
 use Netgen\BlockManager\View\View\BlockViewInterface;
 use Netgen\BlockManager\View\ViewInterface;
@@ -9,6 +10,11 @@ use Symfony\Component\HttpKernel\Controller\ControllerReference;
 
 final class BlockViewRenderer implements ViewRendererInterface
 {
+    /**
+     * @var \Netgen\BlockManager\Context\ContextInterface
+     */
+    private $context;
+
     /**
      * @var \Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface
      */
@@ -25,17 +31,18 @@ final class BlockViewRenderer implements ViewRendererInterface
     private $supportedViewContexts;
 
     /**
-     * Constructor.
-     *
+     * @param \Netgen\BlockManager\Context\ContextInterface $context
      * @param \Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface $cacheableResolver
      * @param string $blockController
      * @param array $supportedViewContexts
      */
     public function __construct(
+        ContextInterface $context,
         CacheableResolverInterface $cacheableResolver,
         $blockController,
         array $supportedViewContexts = array(ViewInterface::CONTEXT_DEFAULT)
     ) {
+        $this->context = $context;
         $this->cacheableResolver = $cacheableResolver;
         $this->blockController = $blockController;
         $this->supportedViewContexts = $supportedViewContexts;
@@ -64,6 +71,7 @@ final class BlockViewRenderer implements ViewRendererInterface
                 'blockId' => $view->getBlock()->getId(),
                 'locale' => $view->getBlock()->getLocale(),
                 'viewContext' => $view->getContext(),
+                'ngbmContext' => $this->context->all(),
                 '_ngbm_status' => 'published',
             )
         );

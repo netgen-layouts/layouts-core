@@ -39,6 +39,7 @@ services:
         class: Netgen\BlockManager\View\Fragment\BlockViewRenderer
         public: false
         arguments:
+            - "@netgen_block_manager.context"
             - "@netgen_block_manager.http_cache.block.cacheable_resolver"
             - "%netgen_block_manager.controller.block_controller%"
         tags:

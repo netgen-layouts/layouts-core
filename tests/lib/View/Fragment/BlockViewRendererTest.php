@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\View\Fragment;
 
+use Netgen\BlockManager\Context\ContextInterface;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface;
 use Netgen\BlockManager\View\Fragment\BlockViewRenderer;
@@ -15,6 +16,11 @@ class BlockViewRendererTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
+    private $contextMock;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
     private $cacheableResolverMock;
 
     /**
@@ -24,9 +30,11 @@ class BlockViewRendererTest extends TestCase
 
     public function setUp()
     {
+        $this->contextMock = $this->createMock(ContextInterface::class);
         $this->cacheableResolverMock = $this->createMock(CacheableResolverInterface::class);
 
         $this->blockViewRenderer = new BlockViewRenderer(
+            $this->contextMock,
             $this->cacheableResolverMock,
             'block_controller',
             array('default', 'api')
@@ -85,6 +93,10 @@ class BlockViewRendererTest extends TestCase
      */
     public function testGetController()
     {
+        $this->contextMock->expects($this->once())
+            ->method('all')
+            ->will($this->returnValue(array('var' => 'value')));
+
         $block = new Block(
             array(
                 'id' => 42,
@@ -106,6 +118,7 @@ class BlockViewRendererTest extends TestCase
                 'blockId' => 42,
                 'locale' => 'en',
                 'viewContext' => 'default',
+                'ngbmContext' => array('var' => 'value'),
                 '_ngbm_status' => 'published',
             ),
             $controller->attributes
