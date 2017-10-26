@@ -14,6 +14,25 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 final class MigrateQueryOffsetLimitCommand extends Command
 {
+    private $knownQueryTypes = array(
+        'ezcontent_search' => array(
+            'offset' => 'offset',
+            'limit' => 'limit',
+        ),
+        'ezcontent_relation_list' => array(
+            'offset' => 'offset',
+            'limit' => 'limit',
+        ),
+        'ezcontent_tags' => array(
+            'offset' => 'offset',
+            'limit' => 'limit',
+        ),
+        'google_analytics' => array(
+            'offset' => null,
+            'limit' => 'limit',
+        ),
+    );
+
     /**
      * @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface
      */
@@ -92,6 +111,13 @@ final class MigrateQueryOffsetLimitCommand extends Command
         $queryTypeParameters = array();
 
         foreach ($queryTypes as $queryType) {
+            $queryTypeIdentifier = $queryType->getType();
+            if (isset($this->knownQueryTypes[$queryTypeIdentifier])) {
+                $queryTypeParameters[$queryTypeIdentifier] = $this->knownQueryTypes[$queryTypeIdentifier];
+
+                continue;
+            }
+
             do {
                 $mapping = $this->askForOffsetAndLimitParameter($queryType);
             } while (
@@ -104,7 +130,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
                             "Your '%1\$s' query type has a limit parameter named '%3\$s'\n" :
                             "Your '%1\$s' query type DOES NOT have a limit parameter\n") .
                         'Is this correct?',
-                        $queryType->getType(),
+                        $queryTypeIdentifier,
                         $mapping['offset'],
                         $mapping['limit']
                     ),
@@ -112,7 +138,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
                 )
             );
 
-            $queryTypeParameters[$queryType->getType()] = $mapping;
+            $queryTypeParameters[$queryTypeIdentifier] = $mapping;
         }
 
         if (!$this->style->confirm('Do you want to start the migration now?', true)) {
@@ -121,7 +147,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
 
         $this->migrateOffsetAndLimit($queryTypeParameters);
 
-        $this->style->success('Migration done. Now edit all your query types to remove the offset and limit parameters.');
+        $this->style->success('Migration done. Now edit all your custom query types to remove the offset and limit parameters.');
 
         return 0;
     }
