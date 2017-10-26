@@ -24,7 +24,7 @@ class PagedCollectionsPlugin extends Plugin
 
     public static function getExtendedHandler()
     {
-        return PagedCollectionsPluginInterface::class;
+        return PagedCollectionsBlockInterface::class;
     }
 
     public function buildParameters(ParameterBuilderInterface $builder)
