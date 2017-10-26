@@ -57,7 +57,7 @@ final class RouteGenerator
         );
 
         if ($page > 1) {
-            $signedUri .= '&' . 'page=' . (int) $page;
+            $signedUri .= (strpos($signedUri, '?') === false ? '?' : '&') . 'page=' . (int) $page;
         }
 
         return $signedUri;
