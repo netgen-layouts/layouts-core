@@ -52,8 +52,7 @@ services:
         # public: false
         arguments:
             - "@netgen_block_manager.templating.twig.runtime.collection_pager.route_generator"
-            - "@white_october_pagerfanta.view_factory"
-            - "%netgen_block_manager.collection.pager.view%"
+            - "@netgen_block_manager.collection.result.pagerfanta.view"
         tags:
             - { name: twig.runtime }
             - { name: netgen_block_manager.twig.runtime }

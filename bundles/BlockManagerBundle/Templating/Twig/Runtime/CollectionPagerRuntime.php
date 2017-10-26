@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Pagerfanta\Pagerfanta;
-use Pagerfanta\View\ViewFactoryInterface;
+use Pagerfanta\View\ViewInterface;
 
 final class CollectionPagerRuntime
 {
@@ -15,28 +15,18 @@ final class CollectionPagerRuntime
     private $routeGenerator;
 
     /**
-     * @var \Pagerfanta\View\ViewFactoryInterface
+     * @var \Pagerfanta\View\ViewInterface
      */
-    private $pagerfantaViewFactory;
-
-    /**
-     * @var string
-     */
-    private $defaultPagerfantaView;
+    private $pagerfantaView;
 
     /**
      * @param callable $routeGenerator
-     * @param \Pagerfanta\View\ViewFactoryInterface $pagerfantaViewFactory
-     * @param string $defaultPagerfantaView
+     * @param \Pagerfanta\View\ViewInterface $pagerfantaView
      */
-    public function __construct(
-        callable $routeGenerator,
-        ViewFactoryInterface $pagerfantaViewFactory,
-        $defaultPagerfantaView
-    ) {
+    public function __construct(callable $routeGenerator, ViewInterface $pagerfantaView)
+    {
         $this->routeGenerator = $routeGenerator;
-        $this->pagerfantaViewFactory = $pagerfantaViewFactory;
-        $this->defaultPagerfantaView = $defaultPagerfantaView;
+        $this->pagerfantaView = $pagerfantaView;
     }
 
     /**
@@ -45,19 +35,16 @@ final class CollectionPagerRuntime
      * @param \Pagerfanta\Pagerfanta $pagerfanta
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param string $collectionIdentifier
-     * @param string $viewName
      * @param array $options
      *
      * @return string
      */
-    public function renderCollectionPager(Pagerfanta $pagerfanta, Block $block, $collectionIdentifier, $viewName = null, array $options = array())
+    public function renderCollectionPager(Pagerfanta $pagerfanta, Block $block, $collectionIdentifier, array $options = array())
     {
-        $viewName = $viewName !== null ? $viewName : $this->defaultPagerfantaView;
-
         $options['block'] = $block;
         $options['collection_identifier'] = $collectionIdentifier;
 
-        return $this->pagerfantaViewFactory->get($viewName)->render($pagerfanta, $this->routeGenerator, $options);
+        return $this->pagerfantaView->render($pagerfanta, $this->routeGenerator, $options);
     }
 
     /**

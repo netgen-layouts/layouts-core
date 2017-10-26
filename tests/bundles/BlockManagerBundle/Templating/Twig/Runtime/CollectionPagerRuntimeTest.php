@@ -6,7 +6,6 @@ use Netgen\BlockManager\API\Values\Block\Block as APIBlock;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\CollectionPagerRuntime;
 use Pagerfanta\Pagerfanta;
-use Pagerfanta\View\ViewFactoryInterface;
 use Pagerfanta\View\ViewInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -20,17 +19,7 @@ class CollectionPagerRuntimeTest extends TestCase
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
-    private $pagerfantaViewFactoryMock;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
     private $pagerfantaViewMock;
-
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
-     */
-    private $defaultPagerfantaView;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\CollectionPagerRuntime
@@ -43,14 +32,11 @@ class CollectionPagerRuntimeTest extends TestCase
             return '/generated/uri';
         };
 
-        $this->pagerfantaViewFactoryMock = $this->createMock(ViewFactoryInterface::class);
         $this->pagerfantaViewMock = $this->createMock(ViewInterface::class);
-        $this->defaultPagerfantaView = 'ngbm_collection';
 
         $this->runtime = new CollectionPagerRuntime(
             $this->routeGenerator,
-            $this->pagerfantaViewFactoryMock,
-            $this->defaultPagerfantaView
+            $this->pagerfantaViewMock
         );
     }
 
@@ -61,11 +47,6 @@ class CollectionPagerRuntimeTest extends TestCase
     public function testRenderCollectionPager()
     {
         $pagerfanta = $this->createMock(Pagerfanta::class);
-
-        $this->pagerfantaViewFactoryMock->expects($this->once())
-            ->method('get')
-            ->with($this->equalTo('ngbm_collection'))
-            ->will($this->returnValue($this->pagerfantaViewMock));
 
         $this->pagerfantaViewMock->expects($this->once())
             ->method('render')
@@ -91,48 +72,9 @@ class CollectionPagerRuntimeTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\CollectionPagerRuntime::renderCollectionPager
      */
-    public function testRenderCollectionPagerWithOverridenViewName()
-    {
-        $pagerfanta = $this->createMock(Pagerfanta::class);
-
-        $this->pagerfantaViewFactoryMock->expects($this->once())
-            ->method('get')
-            ->with($this->equalTo('other_view'))
-            ->will($this->returnValue($this->pagerfantaViewMock));
-
-        $this->pagerfantaViewMock->expects($this->once())
-            ->method('render')
-            ->with(
-                $this->equalTo($pagerfanta),
-                $this->equalTo($this->routeGenerator),
-                array(
-                    'block' => new Block(),
-                    'collection_identifier' => 'default',
-                )
-            )
-            ->will($this->returnValue('rendered view'));
-
-        $renderedPagerfanta = $this->runtime->renderCollectionPager(
-            $pagerfanta,
-            new Block(),
-            'default',
-            'other_view'
-        );
-
-        $this->assertEquals('rendered view', $renderedPagerfanta);
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\CollectionPagerRuntime::renderCollectionPager
-     */
     public function testRenderCollectionPagerWithOptions()
     {
         $pagerfanta = $this->createMock(Pagerfanta::class);
-
-        $this->pagerfantaViewFactoryMock->expects($this->once())
-            ->method('get')
-            ->with($this->equalTo('ngbm_collection'))
-            ->will($this->returnValue($this->pagerfantaViewMock));
 
         $this->pagerfantaViewMock->expects($this->once())
             ->method('render')
@@ -151,7 +93,6 @@ class CollectionPagerRuntimeTest extends TestCase
             $pagerfanta,
             new Block(),
             'default',
-            null,
             array(
                 'var' => 'value',
             )
