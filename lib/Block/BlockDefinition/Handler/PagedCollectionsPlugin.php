@@ -10,6 +10,18 @@ use Netgen\BlockManager\Parameters\ParameterType;
  */
 class PagedCollectionsPlugin extends Plugin
 {
+    /**
+     * The list of pager types available in the plugin
+     *
+     * @var array
+     */
+    private $pagerTypes;
+
+    public function __construct(array $pagerTypes)
+    {
+        $this->pagerTypes = array_flip($pagerTypes);
+    }
+
     public static function getExtendedHandler()
     {
         return PagedCollectionsPluginInterface::class;
@@ -32,10 +44,7 @@ class PagedCollectionsPlugin extends Plugin
             'paged_collections:type',
             ParameterType\ChoiceType::class,
             array(
-                'options' => array(
-                    'Pager' => 'pager',
-                    'Load more' => 'load_more',
-                ),
+                'options' => $this->pagerTypes,
                 'label' => 'block.paged_collections.type',
                 'groups' => array(
                     self::GROUP_DESIGN,

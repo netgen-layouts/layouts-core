@@ -1,6 +1,10 @@
 parameters:
     netgen_block_manager.block.block_definition.handler.plugin.common.groups: ['design', 'common']
 
+    netgen_block_manager.block.block_definition.handler.plugin.paged_collections.pager_types:
+        pager: 'Pager'
+        load_more: 'Load more'
+
     netgen_block_manager.block.block_definition.handler.title.tags:
         h1: 'Heading 1'
         h2: 'Heading 2'
@@ -80,6 +84,8 @@ services:
     netgen_block_manager.block.block_definition.handler.plugin.paged_collections:
         class: Netgen\BlockManager\Block\BlockDefinition\Handler\PagedCollectionsPlugin
         public: false
+        arguments:
+            - "%netgen_block_manager.block.block_definition.handler.plugin.paged_collections.pager_types%"
         tags:
             - { name: netgen_block_manager.block.block_definition_handler.plugin, priority: 10 }
 
