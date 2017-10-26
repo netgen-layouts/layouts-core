@@ -22,7 +22,7 @@ final class CollectionView implements ViewInterface
 
     /**
      * @param \Twig\Environment $twig
-     * @param $template
+     * @param string $template
      */
     public function __construct(Environment $twig, $template)
     {
