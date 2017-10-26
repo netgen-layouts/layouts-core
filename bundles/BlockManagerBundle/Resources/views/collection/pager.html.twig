@@ -1,9 +1,9 @@
-{% set hasPager = true %}
+{% set has_pager = true %}
 
 <nav class="ajax-navigation"
     data-page="{{ pager.currentPage }}"
     data-total-pages="{{ pager.nbPages }}"
-    {% if hasPager %}data-pager{% endif %}
+    {% if has_pager %}data-pager{% endif %}
     data-template-pager="{{ block('pager_template')|e }}"
     data-template-load-more="{{ block('load_more_template')|e }}"
     data-url="{{ pager_uri }}"
