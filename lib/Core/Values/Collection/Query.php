@@ -3,12 +3,12 @@
 namespace Netgen\BlockManager\Core\Values\Collection;
 
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
-use Netgen\BlockManager\Core\Values\ParameterBasedValueTrait;
+use Netgen\BlockManager\Core\Values\ParameterAwareValueTrait;
 use Netgen\BlockManager\ValueObject;
 
 final class Query extends ValueObject implements APIQuery
 {
-    use ParameterBasedValueTrait;
+    use ParameterAwareValueTrait;
 
     /**
      * @var int|string

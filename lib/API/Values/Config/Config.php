@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\API\Values\Config;
 
-use Netgen\BlockManager\API\Values\ParameterBasedValue;
+use Netgen\BlockManager\API\Values\ParameterAwareValue;
 
-interface Config extends ParameterBasedValue
+interface Config extends ParameterAwareValue
 {
     /**
      * Returns the config key.

@@ -105,15 +105,15 @@ trait ParameterStructTrait
      * Fills the struct values based on provided value object.
      *
      * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
-     * @param \Netgen\BlockManager\API\Values\ParameterBasedValue $parameterBasedValue
+     * @param \Netgen\BlockManager\API\Values\ParameterAwareValue $parameterAwareValue
      */
-    public function fillFromValue(ParameterCollectionInterface $parameterCollection, ParameterBasedValue $parameterBasedValue)
+    public function fillFromValue(ParameterCollectionInterface $parameterCollection, ParameterAwareValue $parameterAwareValue)
     {
         foreach ($parameterCollection->getParameters() as $parameter) {
             $value = null;
 
-            if ($parameterBasedValue->hasParameter($parameter->getName())) {
-                $valueParameter = $parameterBasedValue->getParameter($parameter->getName());
+            if ($parameterAwareValue->hasParameter($parameter->getName())) {
+                $valueParameter = $parameterAwareValue->getParameter($parameter->getName());
                 if ($valueParameter->getParameter()->getType()->getIdentifier() === $parameter->getType()->getIdentifier()) {
                     $value = $valueParameter->getValue();
                     $value = is_object($value) ? clone $value : $value;
@@ -123,7 +123,7 @@ trait ParameterStructTrait
             $this->setParameterValue($parameter->getName(), $value);
 
             if ($parameter instanceof CompoundParameterInterface) {
-                $this->fillFromValue($parameter, $parameterBasedValue);
+                $this->fillFromValue($parameter, $parameterAwareValue);
             }
         }
     }

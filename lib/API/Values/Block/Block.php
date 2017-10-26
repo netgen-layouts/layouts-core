@@ -3,10 +3,10 @@
 namespace Netgen\BlockManager\API\Values\Block;
 
 use Netgen\BlockManager\API\Values\Config\ConfigAwareValue;
-use Netgen\BlockManager\API\Values\ParameterBasedValue;
+use Netgen\BlockManager\API\Values\ParameterAwareValue;
 use Netgen\BlockManager\API\Values\Value;
 
-interface Block extends Value, ParameterBasedValue, ConfigAwareValue
+interface Block extends Value, ParameterAwareValue, ConfigAwareValue
 {
     /**
      * Returns the block ID.

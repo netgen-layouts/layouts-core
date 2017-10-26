@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\API\Values\Collection;
 
-use Netgen\BlockManager\API\Values\ParameterBasedValue;
+use Netgen\BlockManager\API\Values\ParameterAwareValue;
 use Netgen\BlockManager\API\Values\Value;
 
-interface Query extends Value, ParameterBasedValue
+interface Query extends Value, ParameterAwareValue
 {
     /**
      * Returns the query ID.

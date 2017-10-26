@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Core\Values;
 
 use Netgen\BlockManager\Exception\Core\ParameterException;
 
-trait ParameterBasedValueTrait
+trait ParameterAwareValueTrait
 {
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterValue[]
