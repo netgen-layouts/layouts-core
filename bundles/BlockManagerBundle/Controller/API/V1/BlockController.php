@@ -260,7 +260,7 @@ final class BlockController extends Controller
 
         $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
         $blockCreateStruct->name = $blockType->getDefaultName();
-        $blockCreateStruct->fillFromHash($blockDefinition, $blockType->getDefaultParameters());
+        $blockCreateStruct->fillParametersFromHash($blockDefinition, $blockType->getDefaultParameters());
 
         if ($blockDefinitionConfig->hasViewType($blockType->getDefaultViewType())) {
             $viewType = $blockDefinitionConfig->getViewType($blockType->getDefaultViewType());

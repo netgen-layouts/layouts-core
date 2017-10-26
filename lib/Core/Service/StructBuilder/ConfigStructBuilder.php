@@ -18,7 +18,7 @@ final class ConfigStructBuilder
     {
         foreach ($configAwareValue->getConfigs() as $configIdentifier => $config) {
             $configStruct = new ConfigStruct();
-            $configStruct->fillFromValue($config->getDefinition(), $config);
+            $configStruct->fillParametersFromConfig($config);
             $configAwareStruct->setConfigStruct($configIdentifier, $configStruct);
         }
     }

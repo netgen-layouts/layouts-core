@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Values\Config\ConfigAwareStruct;
 use Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait;
 use Netgen\BlockManager\API\Values\ParameterStruct;
 use Netgen\BlockManager\API\Values\ParameterStructTrait;
+use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\ValueObject;
 
 final class BlockCreateStruct extends ValueObject implements ParameterStruct, ConfigAwareStruct
@@ -74,4 +75,41 @@ final class BlockCreateStruct extends ValueObject implements ParameterStruct, Co
      * @var \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct[]
      */
     public $collectionCreateStructs = array();
+
+    /**
+     * Sets the provided parameter values to the struct.
+     *
+     * The values need to be in the domain format of the value for the parameter.
+     *
+     * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition
+     * @param array $values
+     */
+    public function fillParameters(BlockDefinitionInterface $blockDefinition, array $values = array())
+    {
+        $this->fill($blockDefinition, $values);
+    }
+
+    /**
+     * Fills the parameter values based on provided block.
+     *
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
+     */
+    public function fillParametersFromBlock(Block $block)
+    {
+        $this->fillFromValue($block->getDefinition(), $block);
+    }
+
+    /**
+     * Fills the parameter values based on provided array of values.
+     *
+     * The values in the array need to be in hash format of the value
+     * i.e. the format acceptable by the ParameterTypeInterface::fromHash method.
+     *
+     * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition
+     * @param array $values
+     */
+    public function fillParametersFromHash(BlockDefinitionInterface $blockDefinition, array $values = array())
+    {
+        $this->fillFromHash($blockDefinition, $values);
+    }
 }

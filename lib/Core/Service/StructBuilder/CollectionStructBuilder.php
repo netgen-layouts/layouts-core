@@ -88,7 +88,7 @@ final class CollectionStructBuilder
             )
         );
 
-        $queryCreateStruct->fill($queryType);
+        $queryCreateStruct->fillParameters($queryType);
 
         return $queryCreateStruct;
     }
@@ -112,7 +112,7 @@ final class CollectionStructBuilder
             return $queryUpdateStruct;
         }
 
-        $queryUpdateStruct->fillFromValue($query->getQueryType(), $query);
+        $queryUpdateStruct->fillParametersFromQuery($query);
 
         return $queryUpdateStruct;
     }
