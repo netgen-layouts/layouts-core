@@ -3,6 +3,7 @@
 coverage/
 node_modules/
 /vendor/
+/**/Resources/public/dev/
 composer.phar
 composer.lock
 grunt.lock

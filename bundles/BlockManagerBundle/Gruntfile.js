@@ -12,7 +12,8 @@ module.exports = function (grunt) {
     // Configurable paths
     var config = {
         resources_dir: 'Resources',
-        public_dir: 'Resources/public'
+        public_dir: 'Resources/public',
+        dev_dir: 'Resources/public/dev',
     };
 
     // Define the configuration for all the tasks
@@ -54,7 +55,7 @@ module.exports = function (grunt) {
             },
             dist: {
                 files: {
-                    '<%= config.public_dir %>/js/app.js': ['<%= config.resources_dir %>/es6/app.js']
+                    '<%= config.dev_dir %>/js/app.js': ['<%= config.resources_dir %>/es6/app.js']
                 }
             }
         },
@@ -93,7 +94,7 @@ module.exports = function (grunt) {
                     expand: true,
                     cwd: '.tmp/css/',
                     src: '{,*/}*.css',
-                    dest: '<%= config.public_dir %>/css'
+                    dest: '<%= config.dev_dir %>/css'
                 }]
             }
         },
@@ -105,7 +106,7 @@ module.exports = function (grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: '<%= config.public_dir %>/css',
+                    cwd: '<%= config.dev_dir %>/css',
                     src: ['*.css', '!*.min.css'],
                     dest: '<%= config.public_dir %>/css',
                     ext: '.css'
@@ -116,7 +117,7 @@ module.exports = function (grunt) {
         uglify: {
             my_target: {
                 files: {
-                    '<%= config.public_dir %>/js/app.js': ['<%= config.public_dir %>/js/app.js']
+                    '<%= config.public_dir %>/js/app.js': ['<%= config.dev_dir %>/js/app.js']
                 }
             }
         }
