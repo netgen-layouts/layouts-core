@@ -4,6 +4,8 @@
 {% set wrap_css_id = block('wrap_css_id') is defined ? block('wrap_css_id') : '' %}
 {% set wrap_css_class = block('wrap_css_class') is defined ? block('wrap_css_class') : '' %}
 
+{% set pager_template = pager_template|default(null) %}
+
 <div class="ajax-collection" {% if load_initial_with_ajax %}data-load-initial{% endif %} data-base-url="{{ collection_page_url }}">
     <div class="ajax-container {{ wrap_css_class }}" {% if wrap_css_id is not empty %}id="{{ wrap_css_id }}"{% endif %}>
         {% if not load_initial_with_ajax %}
@@ -12,6 +14,6 @@
     </div>
 
     {% if pager.haveToPaginate %}
-        {{ ngbm_collection_pager(pager, block, collection_identifier) }}
+        {{ ngbm_collection_pager(pager, block, collection_identifier, null, {template: pager_template}) }}
     {% endif %}
 </div>

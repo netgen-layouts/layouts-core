@@ -39,7 +39,10 @@ final class CollectionView implements ViewInterface
     {
         $pagerTemplate = $this->template;
         if (array_key_exists('template', $options)) {
-            $pagerTemplate = $options['template'];
+            if (is_string($options['template'])) {
+                $pagerTemplate = $options['template'];
+            }
+
             unset($options['template']);
         }
 
