@@ -171,6 +171,9 @@ interface LayoutService extends Service
      *
      * Data for the new translation will be copied from the translation with provided $sourceLocale.
      *
+     * All blocks and their collections and queries in the layout will receive the newly added
+     * translation, except those that are marked as untranslatable.
+     *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      * @param string $locale
      * @param string $sourceLocale
@@ -186,6 +189,9 @@ interface LayoutService extends Service
     /**
      * Sets the translation with provided locale to be the main one of the provided layout.
      *
+     * Setting the main translation will propagate to all the blocks and their collections and
+     * queries.
+     *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      * @param string $mainLocale
      *
@@ -197,9 +203,10 @@ interface LayoutService extends Service
     public function setMainTranslation(Layout $layout, $mainLocale);
 
     /**
-     * Removes the translation with provided locale from the layout and all blocks.
+     * Removes the translation with provided locale from the layout.
      *
-     * If the translation is the only one for the block, the block will be removed too.
+     * Translation will be removed from all blocks and their collections and queries too. If the
+     * translation being removed is the only one for a block, the block will be removed too.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      * @param string $locale
