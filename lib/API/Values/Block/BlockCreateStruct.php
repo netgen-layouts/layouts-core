@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\API\Values\Block;
 
+use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\Config\ConfigAwareStruct;
 use Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait;
 use Netgen\BlockManager\API\Values\ParameterStruct;
@@ -69,12 +70,32 @@ final class BlockCreateStruct extends ValueObject implements ParameterStruct, Co
     /**
      * The list of collections to create in the block.
      *
-     * The keys should be collection identifiers, while the values should be
-     * instances of CollectionCreateStruct objects.
+     * The keys are collection identifiers, while the values are instances of CollectionCreateStruct objects.
      *
      * @var \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct[]
      */
-    public $collectionCreateStructs = array();
+    protected $collectionCreateStructs = array();
+
+    /**
+     * Adds a collection create struct with specified identifier to the struct.
+     *
+     * @param string $identifier
+     * @param \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct $collectionCreateStruct
+     */
+    public function addCollectionCreateStruct($identifier, CollectionCreateStruct $collectionCreateStruct)
+    {
+        $this->collectionCreateStructs[$identifier] = $collectionCreateStruct;
+    }
+
+    /**
+     * Returns all collection create structs from this struct.
+     *
+     * @return \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct[]
+     */
+    public function getCollectionCreateStructs()
+    {
+        return $this->collectionCreateStructs;
+    }
 
     /**
      * Sets the provided parameter values to the struct.

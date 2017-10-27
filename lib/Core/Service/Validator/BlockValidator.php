@@ -119,9 +119,10 @@ final class BlockValidator extends Validator
             $blockCreateStruct->definition->getConfigDefinitions()
         );
 
-        if ($blockCreateStruct->collectionCreateStructs !== null) {
+        $collectionCreateStructs = $blockCreateStruct->getCollectionCreateStructs();
+        if (!empty($collectionCreateStructs)) {
             $this->validate(
-                $blockCreateStruct->collectionCreateStructs,
+                $collectionCreateStructs,
                 array(
                     new Constraints\Type(array('type' => 'array')),
                     new Constraints\All(

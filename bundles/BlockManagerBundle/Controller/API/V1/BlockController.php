@@ -273,7 +273,10 @@ final class BlockController extends Controller
 
         $blockConfig = $blockDefinition->getConfig();
         foreach ($blockConfig->getCollections() as $collectionConfig) {
-            $blockCreateStruct->collectionCreateStructs[$collectionConfig->getIdentifier()] = new CollectionCreateStruct();
+            $blockCreateStruct->addCollectionCreateStruct(
+                $collectionConfig->getIdentifier(),
+                new CollectionCreateStruct()
+            );
         }
 
         return $blockCreateStruct;

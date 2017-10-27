@@ -630,8 +630,9 @@ final class BlockService extends Service implements BlockServiceInterface
                     $placeholder
                 );
 
-                if (!empty($blockCreateStruct->collectionCreateStructs)) {
-                    foreach ($blockCreateStruct->collectionCreateStructs as $identifier => $collectionCreateStruct) {
+                $collectionCreateStructs = $blockCreateStruct->getCollectionCreateStructs();
+                if (!empty($collectionCreateStructs)) {
+                    foreach ($collectionCreateStructs as $identifier => $collectionCreateStruct) {
                         $createdCollection = $this->collectionHandler->createCollection(
                             new CollectionCreateStruct(
                                 array(
