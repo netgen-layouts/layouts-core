@@ -5,6 +5,9 @@
     "name": "",
     "parameters": {
         "number_of_columns": 3,
+        "paged_collections:enabled": null,
+        "paged_collections:type": null,
+        "paged_collections:ajax_first": null,
         "css_class": null,
         "css_id": null,
         "set_container": null

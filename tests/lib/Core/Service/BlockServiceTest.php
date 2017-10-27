@@ -182,9 +182,7 @@ abstract class BlockServiceTest extends ServiceTestCase
             $this->blockDefinitionRegistry->getBlockDefinition('list')
         );
 
-        $blockCreateStruct->collectionCreateStructs = array(
-            'default' => new CollectionCreateStruct(),
-        );
+        $blockCreateStruct->addCollectionCreateStruct('default', new CollectionCreateStruct());
 
         $targetBlock = $this->blockService->loadBlockDraft(33);
         $block = $this->blockService->createBlock($blockCreateStruct, $targetBlock, 'left', 0);
@@ -228,9 +226,7 @@ abstract class BlockServiceTest extends ServiceTestCase
         $collectionCreateStruct = new CollectionCreateStruct();
         $collectionCreateStruct->queryCreateStruct = $queryCreateStruct;
 
-        $blockCreateStruct->collectionCreateStructs = array(
-            'default' => $collectionCreateStruct,
-        );
+        $blockCreateStruct->addCollectionCreateStruct('default', $collectionCreateStruct);
 
         $targetBlock = $this->blockService->loadBlockDraft(33);
         $block = $this->blockService->createBlock($blockCreateStruct, $targetBlock, 'left', 0);
