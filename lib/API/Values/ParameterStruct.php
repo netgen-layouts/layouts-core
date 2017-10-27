@@ -66,9 +66,9 @@ interface ParameterStruct
      * Fills the struct values based on provided value object.
      *
      * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
-     * @param \Netgen\BlockManager\API\Values\ParameterAwareValue $parameterAwareValue
+     * @param \Netgen\BlockManager\API\Values\ParameterBasedValue $parameterBasedValue
      */
-    public function fillFromValue(ParameterCollectionInterface $parameterCollection, ParameterAwareValue $parameterAwareValue);
+    public function fillFromValue(ParameterCollectionInterface $parameterCollection, ParameterBasedValue $parameterBasedValue);
 
     /**
      * Fills the struct values based on provided array of values.

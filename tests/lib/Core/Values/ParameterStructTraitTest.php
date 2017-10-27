@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Values;
 use Netgen\BlockManager\API\Values\ParameterStructTrait;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\ParameterValue;
-use Netgen\BlockManager\Tests\Core\Stubs\ParameterAwareValue;
+use Netgen\BlockManager\Tests\Core\Stubs\ParameterBasedValue;
 use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameter;
 use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterCollection;
@@ -182,7 +182,7 @@ class ParameterStructTraitTest extends TestCase
     {
         $parameterCollection = $this->buildParameterCollection();
 
-        $value = new ParameterAwareValue(
+        $value = new ParameterBasedValue(
             array(
                 'parameters' => array(
                     'css_class' => new ParameterValue(

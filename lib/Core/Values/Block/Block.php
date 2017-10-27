@@ -4,14 +4,14 @@ namespace Netgen\BlockManager\Core\Values\Block;
 
 use Netgen\BlockManager\API\Values\Block\Block as APIBlock;
 use Netgen\BlockManager\Core\Values\Config\ConfigAwareValueTrait;
-use Netgen\BlockManager\Core\Values\ParameterAwareValueTrait;
+use Netgen\BlockManager\Core\Values\ParameterBasedValueTrait;
 use Netgen\BlockManager\Exception\Core\BlockException;
 use Netgen\BlockManager\ValueObject;
 
 final class Block extends ValueObject implements APIBlock
 {
     use ConfigAwareValueTrait;
-    use ParameterAwareValueTrait;
+    use ParameterBasedValueTrait;
 
     /**
      * @var int|string

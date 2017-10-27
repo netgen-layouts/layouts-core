@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\API\Values;
 
-interface ParameterAwareValue
+interface ParameterBasedValue
 {
     /**
      * Returns all parameter values.
@@ -14,20 +14,20 @@ interface ParameterAwareValue
     /**
      * Returns the specified parameter value.
      *
-     * @param string $parameterName
+     * @param string $parameter
      *
-     * @throws \Netgen\BlockManager\Exception\Core\ParameterException If the requested parameter value does not exist
+     * @throws \Netgen\BlockManager\Exception\Core\ParameterException If the requested parameter does not exist
      *
      * @return \Netgen\BlockManager\Parameters\ParameterValue
      */
-    public function getParameter($parameterName);
+    public function getParameter($parameter);
 
     /**
      * Returns if the object has a specified parameter value.
      *
-     * @param string $parameterName
+     * @param string $parameter
      *
      * @return bool
      */
-    public function hasParameter($parameterName);
+    public function hasParameter($parameter);
 }

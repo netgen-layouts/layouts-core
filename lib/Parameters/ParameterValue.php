@@ -4,10 +4,6 @@ namespace Netgen\BlockManager\Parameters;
 
 use Netgen\BlockManager\ValueObject;
 
-/**
- * Class that wraps the value of a parameter and enriches is with some additional properties like
- * the name of the parameter, parameter itself, flag indicating if the value is empty...
- */
 final class ParameterValue extends ValueObject
 {
     /**
