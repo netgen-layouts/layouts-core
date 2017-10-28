@@ -156,22 +156,8 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
 
         $this->assertInternalType('array', $config);
 
-        $this->assertArrayHasKey('block_definitions', $config);
-        $this->assertArrayHasKey('title', $config['block_definitions']);
-
-        $this->assertArrayHasKey('block_type_groups', $config);
-        $this->assertArrayHasKey('basic', $config['block_type_groups']);
-
-        $this->assertArrayHasKey('block_types', $config);
-        $this->assertArrayHasKey('grid', $config['block_types']);
-
-        $this->assertArrayHasKey('layout_types', $config);
-        $this->assertArrayHasKey('layout_1', $config['layout_types']);
-
         $this->assertArrayHasKey('view', $config);
 
-        $this->assertArrayHasKey('block_view', $config['view']);
-        $this->assertArrayHasKey('layout_view', $config['view']);
         $this->assertArrayHasKey('parameter_view', $config['view']);
 
         $this->assertArrayHasKey('default_view_templates', $config);

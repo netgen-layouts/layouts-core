@@ -1,20 +1,3 @@
 block_type_groups:
-    basic:
-        name: 'Basic'
-        block_types: [title, text, button, rich_text, external_video, map, html_snippet]
-    listing:
-        name: 'Listing'
-        block_types: [list, grid]
-    gallery:
-        name: 'Gallery'
-        block_types: [slider, thumb_gallery, grid_gallery, sushi_bar]
-    containers:
-        name: 'Containers'
-        block_types:
-            - column
-            - two_columns
-    placeholders:
-        name: 'Placeholders'
-        block_types: [twig_block, full_view]
     custom:
         name: 'Custom blocks'

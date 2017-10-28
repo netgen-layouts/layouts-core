@@ -1,9 +1,0 @@
-{% extends '@NetgenBlockManager/api/block/block.html.twig' %}
-
-{% trans_default_domain 'ngbm_app' %}
-
-{% block content %}
-    <div class="rich-text-editor" contenteditable="true" data-attr="content" data-placeholder="{{ 'block.placeholder.rich_text'|trans }}">
-        {{ block.parameter('content').value|raw }}
-    </div>
-{% endblock %}

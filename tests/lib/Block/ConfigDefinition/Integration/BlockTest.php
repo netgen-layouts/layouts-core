@@ -8,7 +8,6 @@ use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
-use Netgen\BlockManager\Block\BlockDefinition\Handler\TitleHandler;
 use Netgen\BlockManager\Config\ConfigDefinition;
 use Netgen\BlockManager\Config\ConfigDefinitionInterface;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
@@ -19,6 +18,7 @@ use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
 use Netgen\BlockManager\Parameters\ParameterType;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use Symfony\Component\Validator\Validation;
@@ -158,7 +158,7 @@ abstract class BlockTest extends ServiceTestCase
      */
     private function createBlockDefinition(ConfigDefinitionInterface $configDefinition)
     {
-        $handler = new TitleHandler();
+        $handler = new BlockDefinitionHandler();
         $configuration = $this->createBlockConfiguration();
 
         $blockDefinition = new BlockDefinition(

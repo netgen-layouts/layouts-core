@@ -8,57 +8,6 @@ block.view_type: 'View type'
 block.item_view_type: 'Item view type'
 block.name: 'Block label'
 
-block.common_params.css_class: 'CSS class'
-block.common_params.css_id: 'CSS ID'
-block.common_params.set_container: 'Wrap in container'
-
-block.paged_collections.enabled: 'Enable paging'
-block.paged_collections.type: 'Paging type'
-block.paged_collections.ajax_first: 'Load first page via AJAX'
-
-block.title.tag: 'Heading level'
-block.title.title: 'Title'
-block.title.use_link: 'Use link'
-block.title.link: 'Link'
-
-block.text.content: 'Content'
-
-block.button.text: 'Text'
-block.button.style: 'Style'
-
-block.markdown.content: 'Content'
-
-block.rich_text.content: 'Content'
-
-block.map.latitude: 'Latitude'
-block.map.longitude: 'Longitude'
-block.map.zoom: 'Zoom'
-block.map.map_type: 'Map type'
-block.map.show_marker: 'Show marker'
-
-block.external_video.service: 'Video service'
-block.external_video.video_id: 'Video ID'
-block.external_video.caption: 'Caption'
-
-block.html_snippet.content: 'Content'
-
-block.list.number_of_columns: 'Number of columns'
-
-block.gallery.next_and_previous: 'Show next & previous controls'
-block.gallery.show_pagination: 'Show pagination'
-block.gallery.pagination_type: 'Pagination type'
-block.gallery.infinite_loop: 'Infinite loop'
-block.gallery.transition: 'Transition'
-block.gallery.autoplay: 'Autoplay'
-block.gallery.autoplay_time: 'Time (in seconds)'
-block.gallery.aspect_ratio: 'Aspect ratio'
-block.gallery.show_details: 'Show title and description'
-block.gallery.show_details_on_hover: 'Show only on hover'
-block.gallery.number_of_thumbnails: 'Thumbnails per row/slide'
-block.gallery.enable_lightbox: 'Enable lightbox'
-
-block.twig_block.block_name: 'Twig block name'
-
 config.block.http_cache: 'HTTP cache'
 config.block.http_cache.use_http_cache: 'Enable cache'
 config.block.http_cache.shared_max_age: 'Shared max age'

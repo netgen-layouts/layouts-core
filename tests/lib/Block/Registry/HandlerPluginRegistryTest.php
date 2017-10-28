@@ -3,8 +3,7 @@
 namespace Netgen\BlockManager\Tests\Block\Registry;
 
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
-use Netgen\BlockManager\Block\BlockDefinition\Handler\ListHandler;
-use Netgen\BlockManager\Block\BlockDefinition\Handler\TitleHandler;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Block\Registry\HandlerPluginRegistry;
 use Netgen\BlockManager\Tests\Block\Stubs\HandlerPlugin;
 use PHPUnit\Framework\TestCase;
@@ -28,18 +27,13 @@ class HandlerPluginRegistryTest extends TestCase
      */
     public function testRegistry()
     {
-        $handlerPlugin = HandlerPlugin::instance(array(TitleHandler::class, ListHandler::class));
+        $handlerPlugin = HandlerPlugin::instance(array(BlockDefinitionHandler::class));
 
         $this->registry->addPlugin($handlerPlugin);
 
         $this->assertEquals(
             array($handlerPlugin),
-            $this->registry->getPlugins(TitleHandler::class)
-        );
-
-        $this->assertEquals(
-            array($handlerPlugin),
-            $this->registry->getPlugins(ListHandler::class)
+            $this->registry->getPlugins(BlockDefinitionHandler::class)
         );
 
         $this->assertEquals(
@@ -60,12 +54,7 @@ class HandlerPluginRegistryTest extends TestCase
 
         $this->assertEquals(
             array($handlerPlugin),
-            $this->registry->getPlugins(TitleHandler::class)
-        );
-
-        $this->assertEquals(
-            array($handlerPlugin),
-            $this->registry->getPlugins(ListHandler::class)
+            $this->registry->getPlugins(BlockDefinitionHandler::class)
         );
 
         $this->assertEquals(
