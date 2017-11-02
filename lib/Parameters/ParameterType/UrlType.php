@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints;
 /**
  * Parameter type used to store and validate an URL as a string.
  */
-class UrlType extends ParameterType
+final class UrlType extends ParameterType
 {
     public function getIdentifier()
     {

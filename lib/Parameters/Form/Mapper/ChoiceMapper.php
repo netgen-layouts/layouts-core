@@ -7,7 +7,7 @@ use Netgen\BlockManager\Parameters\Form\Mapper;
 use Netgen\BlockManager\Parameters\ParameterInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class ChoiceMapper extends Mapper
+final class ChoiceMapper extends Mapper
 {
     use ChoicesAsValuesTrait;
 

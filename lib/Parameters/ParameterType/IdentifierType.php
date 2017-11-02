@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints;
  * An identifier is a string starting with a letter, followed by any
  * combination of letters, numbers and underscores.
  */
-class IdentifierType extends ParameterType
+final class IdentifierType extends ParameterType
 {
     public function getIdentifier()
     {

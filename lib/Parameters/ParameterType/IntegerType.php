@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints;
 /**
  * Parameter type used to store and validate an integer.
  */
-class IntegerType extends ParameterType
+final class IntegerType extends ParameterType
 {
     public function getIdentifier()
     {

@@ -2,6 +2,9 @@
 
 namespace Netgen\BlockManager\Block;
 
+/**
+ * @final
+ */
 class ContainerDefinition extends BlockDefinition implements ContainerDefinitionInterface
 {
     /**

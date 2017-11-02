@@ -6,7 +6,7 @@ use Netgen\BlockManager\Parameters\Form\Mapper;
 use Netgen\BlockManager\Parameters\ParameterInterface;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
-class NumberMapper extends Mapper
+final class NumberMapper extends Mapper
 {
     public function getFormType()
     {

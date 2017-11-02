@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints;
 /**
  * Parameter type used to store and validate any kind of number.
  */
-class NumberType extends ParameterType
+final class NumberType extends ParameterType
 {
     public function getIdentifier()
     {

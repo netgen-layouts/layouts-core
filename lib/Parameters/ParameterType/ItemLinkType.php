@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints;
 /**
  * Parameter type used to store and validate a link to an existing item in the system.
  */
-class ItemLinkType extends ParameterType
+final class ItemLinkType extends ParameterType
 {
     /**
      * @var \Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface

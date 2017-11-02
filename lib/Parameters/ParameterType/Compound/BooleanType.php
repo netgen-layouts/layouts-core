@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Constraints;
  * If the boolean is checked, sub-parameters will be validated and stored,
  * and if the boolean is false, sub-parameter values will not be stored at all.
  */
-class BooleanType extends CompoundParameterType
+final class BooleanType extends CompoundParameterType
 {
     public function getIdentifier()
     {

@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints;
  * Parameter type used to store and validate an integer specified
  * between provided minimum and maximum value.
  */
-class RangeType extends ParameterType
+final class RangeType extends ParameterType
 {
     public function getIdentifier()
     {

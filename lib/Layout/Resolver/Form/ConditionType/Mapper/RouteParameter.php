@@ -6,7 +6,7 @@ use Netgen\BlockManager\Form\KeyValuesType;
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class RouteParameter extends Mapper
+final class RouteParameter extends Mapper
 {
     public function getFormType()
     {

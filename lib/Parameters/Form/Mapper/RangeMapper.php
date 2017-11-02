@@ -6,7 +6,7 @@ use Netgen\BlockManager\Parameters\Form\Mapper;
 use Netgen\BlockManager\Parameters\ParameterInterface;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
 
-class RangeMapper extends Mapper
+final class RangeMapper extends Mapper
 {
     public function getFormType()
     {

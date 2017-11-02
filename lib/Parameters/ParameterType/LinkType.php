@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints;
  * Parameter type used to store and validate a URL. Valid value for this type
  * is an object which is an instance of Netgen\BlockManager\Parameters\Value\LinkValue.
  */
-class LinkType extends ParameterType
+final class LinkType extends ParameterType
 {
     /**
      * @var \Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface

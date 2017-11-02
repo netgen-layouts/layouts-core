@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints;
 /**
  * Parameter type used to store and validate an e-mail address.
  */
-class EmailType extends ParameterType
+final class EmailType extends ParameterType
 {
     public function getIdentifier()
     {

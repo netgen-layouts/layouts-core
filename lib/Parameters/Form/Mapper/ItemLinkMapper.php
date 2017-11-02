@@ -8,7 +8,7 @@ use Netgen\BlockManager\Parameters\ParameterInterface;
 use Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class ItemLinkMapper extends Mapper
+final class ItemLinkMapper extends Mapper
 {
     public function getFormType()
     {

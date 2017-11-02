@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Intl\Intl;
 
-class Version000900 extends AbstractMigration
+final class Version000900 extends AbstractMigration
 {
     /**
      * @param \Doctrine\DBAL\Schema\Schema $schema

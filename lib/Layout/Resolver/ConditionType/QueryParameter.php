@@ -6,7 +6,7 @@ use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints;
 
-class QueryParameter implements ConditionTypeInterface
+final class QueryParameter implements ConditionTypeInterface
 {
     public function getType()
     {

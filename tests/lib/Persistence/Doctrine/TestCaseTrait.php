@@ -115,10 +115,10 @@ trait TestCaseTrait
                 array(
                     'route' => new TargetHandler\Route(),
                     'route_prefix' => new TargetHandler\RoutePrefix(),
-                    'path_info' => new TargetHandler\PathInfo(),
-                    'path_info_prefix' => new TargetHandler\PathInfoPrefix(),
-                    'request_uri' => new TargetHandler\RequestUri(),
-                    'request_uri_prefix' => new TargetHandler\RequestUriPrefix(),
+                    'path_info' => new TargetHandler\Route(),
+                    'path_info_prefix' => new TargetHandler\RoutePrefix(),
+                    'request_uri' => new TargetHandler\Route(),
+                    'request_uri_prefix' => new TargetHandler\RoutePrefix(),
                 )
             ),
             new LayoutResolverMapper()

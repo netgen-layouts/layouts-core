@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints;
  *
  * It can have a single value (string) or a multiple value (array of strings).
  */
-class ChoiceType extends ParameterType
+final class ChoiceType extends ParameterType
 {
     public function getIdentifier()
     {

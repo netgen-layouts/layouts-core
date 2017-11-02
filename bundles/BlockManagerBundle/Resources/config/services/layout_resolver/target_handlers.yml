@@ -12,25 +12,25 @@ services:
             - { name: netgen_block_manager.persistence.doctrine.layout_resolver.query_handler.target_handler, target_type: route_prefix }
 
     netgen_block_manager.persistence.doctrine.layout_resolver.query_handler.target_handler.path_info:
-        class: Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver\TargetHandler\PathInfo
+        class: Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver\TargetHandler\Route
         public: false
         tags:
             - { name: netgen_block_manager.persistence.doctrine.layout_resolver.query_handler.target_handler, target_type: path_info }
 
     netgen_block_manager.persistence.doctrine.layout_resolver.query_handler.target_handler.path_info_prefix:
-        class: Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver\TargetHandler\PathInfoPrefix
+        class: Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver\TargetHandler\RoutePrefix
         public: false
         tags:
             - { name: netgen_block_manager.persistence.doctrine.layout_resolver.query_handler.target_handler, target_type: path_info_prefix }
 
     netgen_block_manager.persistence.doctrine.layout_resolver.query_handler.target_handler.request_uri:
-        class: Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver\TargetHandler\RequestUri
+        class: Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver\TargetHandler\Route
         public: false
         tags:
             - { name: netgen_block_manager.persistence.doctrine.layout_resolver.query_handler.target_handler, target_type: request_uri }
 
     netgen_block_manager.persistence.doctrine.layout_resolver.query_handler.target_handler.request_uri_prefix:
-        class: Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver\TargetHandler\RequestUriPrefix
+        class: Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver\TargetHandler\RoutePrefix
         public: false
         tags:
             - { name: netgen_block_manager.persistence.doctrine.layout_resolver.query_handler.target_handler, target_type: request_uri_prefix }

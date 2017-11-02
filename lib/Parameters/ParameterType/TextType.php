@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints;
 /**
  * Parameter type used to store and validate a multi-line string.
  */
-class TextType extends ParameterType
+final class TextType extends ParameterType
 {
     public function getIdentifier()
     {

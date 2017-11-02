@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Layout\Resolver\TargetType;
 
-class PathInfoPrefix extends PathInfo
+final class PathInfoPrefix extends PathInfo
 {
     public function getType()
     {

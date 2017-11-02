@@ -8,7 +8,7 @@ use Netgen\BlockManager\Parameters\Form\Type\LinkType;
 use Netgen\BlockManager\Parameters\ParameterInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class LinkMapper extends Mapper
+final class LinkMapper extends Mapper
 {
     public function getFormType()
     {

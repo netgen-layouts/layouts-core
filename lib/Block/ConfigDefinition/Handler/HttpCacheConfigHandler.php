@@ -13,7 +13,7 @@ use Netgen\BlockManager\Parameters\ParameterType;
  * This handler specifies the model of HTTP cache configuration within
  * the blocks.
  */
-class HttpCacheConfigHandler implements ConfigDefinitionHandlerInterface
+final class HttpCacheConfigHandler implements ConfigDefinitionHandlerInterface
 {
     /**
      * @var \Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface

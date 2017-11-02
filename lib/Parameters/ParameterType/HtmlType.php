@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints;
  *
  * It will be filtered by the system to remove any unsafe markup.
  */
-class HtmlType extends ParameterType
+final class HtmlType extends ParameterType
 {
     public function getIdentifier()
     {

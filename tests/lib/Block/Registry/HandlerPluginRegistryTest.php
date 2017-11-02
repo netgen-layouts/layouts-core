@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Tests\Block\Registry;
 
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Block\Registry\HandlerPluginRegistry;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Tests\Block\Stubs\HandlerPlugin;
 use PHPUnit\Framework\TestCase;
 use stdClass;

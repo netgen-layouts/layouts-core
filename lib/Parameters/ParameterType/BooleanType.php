@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints;
 /**
  * Parameter type used to store and validate a boolean.
  */
-class BooleanType extends ParameterType
+final class BooleanType extends ParameterType
 {
     public function getIdentifier()
     {
