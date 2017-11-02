@@ -1,7 +1,7 @@
 services:
     netgen_block_manager.http_cache.fos.cache_manager:
         synthetic: true
-        public: false
+        public: true
 
     netgen_block_manager.http_cache.client:
         alias: netgen_block_manager.http_cache.client.fos
