@@ -29,7 +29,7 @@ interface BlockDefinitionInterface extends ParameterCollectionInterface
     public function getDynamicParameters(Block $block);
 
     /**
-     * Returns if the provided block is dependent on a context, i.e. current request.
+     * Returns if the provided block is dependent on a context, i.e. currently displayed page.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      *

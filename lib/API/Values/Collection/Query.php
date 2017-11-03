@@ -29,7 +29,7 @@ interface Query extends Value, ParameterBasedValue
     public function isPublished();
 
     /**
-     * Returns if the query is dependent on a context, i.e. current request.
+     * Returns if the query is dependent on a context, i.e. currently displayed page.
      *
      * @return bool
      */

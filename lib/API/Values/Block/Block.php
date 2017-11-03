@@ -130,7 +130,7 @@ interface Block extends Value, ParameterBasedValue, ConfigAwareValue
     public function hasDynamicParameter($parameter);
 
     /**
-     * Returns if the block is dependent on a context, i.e. current request.
+     * Returns if the block is dependent on a context, i.e. currently displayed page.
      *
      * @return bool
      */

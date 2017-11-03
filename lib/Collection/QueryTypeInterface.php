@@ -47,7 +47,7 @@ interface QueryTypeInterface extends ParameterCollectionInterface
     public function getCount(Query $query);
 
     /**
-     * Returns if the provided query is dependent on a context, i.e. current request.
+     * Returns if the provided query is dependent on a context, i.e. currently displayed page.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      *
