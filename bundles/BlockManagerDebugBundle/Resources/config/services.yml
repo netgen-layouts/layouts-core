@@ -7,6 +7,7 @@ services:
         public: false
         arguments:
             - "@netgen_block_manager.templating.global_variable"
+            - "@twig"
         tags:
             - { name: data_collector, template: '@NetgenBlockManagerDebug/data_collector/ngbm.html.twig', id: ngbm }
 

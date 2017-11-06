@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection;
 
 use Netgen\BlockManager\Exception\RuntimeException;
+use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -90,6 +91,7 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
         }
 
         $this->processHttpCacheConfiguration($config['http_cache'], $container);
+        $this->validateCurrentDesign($config['design'], array_keys($config['design_list']));
 
         $this->loadConfigFiles($container);
 
@@ -114,6 +116,7 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
             'framework/framework.yml' => 'framework',
             'framework/twig.yml' => 'twig',
             'framework/security.yml' => 'security',
+            'design.yml' => 'netgen_block_manager',
             'http_cache.yml' => 'netgen_block_manager',
             'block_type_groups.yml' => 'netgen_block_manager',
             'view/item_view.yml' => 'netgen_block_manager',
@@ -167,6 +170,7 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
         $loader->load('services/forms.yml');
         $loader->load('services/context.yml');
         $loader->load('services/commands.yml');
+        $loader->load('services/design.yml');
 
         $loader->load('services/layout_resolver/layout_resolver.yml');
         $loader->load('services/layout_resolver/condition_types.yml');
@@ -208,5 +212,24 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
             'netgen_block_manager.http_cache.ttl.block_definition',
             $config['ttl']['block_definition']
         );
+    }
+
+    /**
+     * Validates that the design specified in configuration exists in the system.
+     *
+     * @param string $currentDesign
+     * @param array $designList
+     */
+    private function validateCurrentDesign($currentDesign, array $designList)
+    {
+        if ($currentDesign !== 'standard' && !in_array($currentDesign, $designList, true)) {
+            throw new InvalidConfigurationException(
+                sprintf(
+                    'Design "%s" does not exist. Available designs are: %s',
+                    $currentDesign,
+                    implode(', ', $designList)
+                )
+            );
+        }
     }
 }

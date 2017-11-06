@@ -11,6 +11,7 @@ use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
+use Twig\Environment;
 
 final class BlockManagerDataCollector extends DataCollector
 {
@@ -19,9 +20,15 @@ final class BlockManagerDataCollector extends DataCollector
      */
     private $globalVariable;
 
-    public function __construct(GlobalVariable $globalVariable)
+    /**
+     * @var \Twig\Environment
+     */
+    private $twig;
+
+    public function __construct(GlobalVariable $globalVariable, Environment $twig)
     {
         $this->globalVariable = $globalVariable;
+        $this->twig = $twig;
 
         $this->data['version'] = Version::VERSION;
 
@@ -59,13 +66,15 @@ final class BlockManagerDataCollector extends DataCollector
     public function collectLayout(LayoutViewInterface $layoutView)
     {
         $layout = $layoutView->getLayout();
+        $templateSource = $this->getTemplateSource($layoutView->getTemplate());
 
         $this->data['layout'] = array(
             'id' => $layout->getId(),
             'name' => $layout->getName(),
             'type' => $layout->getLayoutType()->getName(),
             'context' => $layoutView->getContext(),
-            'template' => $layoutView->getTemplate(),
+            'template' => $templateSource->getName(),
+            'template_path' => $templateSource->getPath(),
         );
     }
 
@@ -104,6 +113,7 @@ final class BlockManagerDataCollector extends DataCollector
     {
         $block = $blockView->getBlock();
         $blockDefinition = $block->getDefinition();
+        $templateSource = $this->getTemplateSource($blockView->getTemplate());
 
         $this->data['blocks'][] = array(
             'id' => $block->getId(),
@@ -113,7 +123,8 @@ final class BlockManagerDataCollector extends DataCollector
                 $block->getViewType()
             )->getName(),
             'locale' => $block->getLocale(),
-            'template' => $blockView->getTemplate(),
+            'template' => $templateSource->getName(),
+            'template_path' => $templateSource->getPath(),
         );
     }
 
@@ -130,5 +141,15 @@ final class BlockManagerDataCollector extends DataCollector
     public function getName()
     {
         return 'ngbm';
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return \Twig_Source
+     */
+    private function getTemplateSource($name)
+    {
+        return $this->twig->load($name)->getSourceContext();
     }
 }

@@ -51,6 +51,8 @@ final class Configuration implements ConfigurationInterface
     {
         return array(
             new ConfigurationNode\ViewNode(),
+            new ConfigurationNode\DesignNode(),
+            new ConfigurationNode\DesignListNode(),
             new ConfigurationNode\DefaultViewTemplatesNode(),
             new ConfigurationNode\HttpCacheNode(),
             new ConfigurationNode\BlockDefinitionNode(),

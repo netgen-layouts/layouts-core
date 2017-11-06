@@ -124,7 +124,13 @@
 
                     <div class="metrics">
                         <div class="metric">
-                            <span class="value">{{ layout.template }}</span>
+                            <span class="value">
+                                {% if layout.template_path is not empty %}
+                                    <a href="{{ layout.template_path|file_link(1) }}">{{ layout.template }}</a>
+                                {% else %}
+                                    {{ layout.template }}
+                                {% endif %}
+                            </span>
                             <span class="label">Template</span>
                         </div>
                         <div class="metric">
@@ -228,7 +234,13 @@
                                         <strong>Locale</strong>: {{ block.locale }}
                                     </div>
                                 </td>
-                                <td>{{ block.template }}</td>
+                                <td>
+                                    {% if block.template_path is not empty %}
+                                        <a href="{{ block.template_path|file_link(1) }}">{{ block.template }}</a>
+                                    {% else %}
+                                        {{ block.template }}
+                                    {% endif %}
+                                </td>
                             </tr>
                         {% endfor %}
                         </tbody>

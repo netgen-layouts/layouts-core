@@ -10,6 +10,14 @@ use Netgen\Bundle\ContentBrowserBundle\DependencyInjection\NetgenContentBrowserE
 
 class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
 {
+    private $minimalConfig = array(
+        'design_list' => array(
+            'standard' => array(
+                'standard',
+            ),
+        ),
+    );
+
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::addPlugin
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::hasPlugin
@@ -66,7 +74,7 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
      */
     public function testParameters()
     {
-        $this->load();
+        $this->load($this->minimalConfig);
 
         $this->assertContainerBuilderHasParameter('netgen_block_manager.route_prefix', '/bm');
         $this->assertContainerBuilderHasParameter('netgen_block_manager.block_definitions', array());
@@ -76,6 +84,8 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasParameter('netgen_block_manager.query_types', array());
         $this->assertContainerBuilderHasParameter('netgen_block_manager.view', array());
         $this->assertContainerBuilderHasParameter('netgen_block_manager.http_cache');
+        $this->assertContainerBuilderHasParameter('netgen_block_manager.design_list', array('standard' => array('standard')));
+        $this->assertContainerBuilderHasParameter('netgen_block_manager.design', 'standard');
         $this->assertContainerBuilderHasParameter('netgen_block_manager.pagelayout',
             '@NetgenBlockManager/empty_pagelayout.html.twig'
         );
@@ -89,7 +99,7 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
      */
     public function testServices()
     {
-        $this->load();
+        $this->load($this->minimalConfig);
 
         $this->assertContainerBuilderHasService('netgen_block_manager.block.registry.block_definition');
         $this->assertContainerBuilderHasService('netgen_block_manager.controller.base');
@@ -156,6 +166,10 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
 
         $this->assertInternalType('array', $config);
 
+        $this->assertArrayHasKey('design_list', $config);
+        $this->assertArrayHasKey('standard', $config['design_list']);
+        $this->assertEquals(array('standard'), $config['design_list']['standard']);
+
         $this->assertArrayHasKey('view', $config);
 
         $this->assertArrayHasKey('parameter_view', $config['view']);
@@ -204,7 +218,7 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
      */
     public function testHttpCacheConfiguration()
     {
-        $this->load();
+        $this->load($this->minimalConfig);
 
         $this->assertContainerBuilderHasParameter(
             'netgen_block_manager.http_cache.ttl.default.block',
