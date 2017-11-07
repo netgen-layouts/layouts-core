@@ -16,29 +16,17 @@ final class ThemePass implements CompilerPassInterface
 
         $twigLoader = $container->getDefinition('twig.loader.native_filesystem');
 
-        // Reversing the list of bundles so bundles added at end have higher priority
-        // when searching for a template
-        $bundles = array_reverse($container->getParameter('kernel.bundles_metadata'));
         $designList = $container->getParameter('netgen_block_manager.design_list');
         $themeList = array_unique(array_merge(...array_values($designList)));
 
-        $themeDirs = array();
-
-        $this->populateThemeDirs($container, $themeList, $this->getAppDir($container) . '/Resources/views/ngbm/themes', $themeDirs);
-
-        if ($container->hasParameter('twig.default_path')) {
-            $defaultTwigDir = $container->getParameterBag()->resolveValue($container->getParameter('twig.default_path'));
-            $this->populateThemeDirs($container, $themeList, $defaultTwigDir . '/ngbm/themes', $themeDirs);
-        }
-
-        foreach ($bundles as $bundleName => $bundleMetadata) {
-            $this->populateThemeDirs($container, $themeList, $bundleMetadata['path'] . '/Resources/views/ngbm/themes', $themeDirs);
-        }
+        $themeDirs = $this->getThemeDirs($container, $themeList);
 
         foreach ($designList as $designName => $designThemes) {
             foreach ($designThemes as $themeName) {
-                foreach ($themeDirs[$themeName] as $themeDir => $themeDirExists) {
-                    if ($themeDirExists) {
+                foreach ($themeDirs[$themeName] as $themeDir) {
+                    $container->addResource(new FileExistenceResource($themeDir));
+
+                    if (is_dir($themeDir)) {
                         $twigLoader->addMethodCall('addPath', array($themeDir, 'ngbm_' . $designName));
                     }
                 }
@@ -47,25 +35,46 @@ final class ThemePass implements CompilerPassInterface
     }
 
     /**
-     * Fills the $themeDirs with all found paths for provided theme list and path.
+     * Returns an array with all found paths for provided theme list.
      *
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      * @param array $themeList
-     * @param string $path
-     * @param array $themeDirs
+     *
+     * @return array
      */
-    private function populateThemeDirs(ContainerBuilder $container, array $themeList, $path, array &$themeDirs)
+    private function getThemeDirs(ContainerBuilder $container, array $themeList)
     {
-        if (!is_dir($path)) {
-            return;
+        $paths = array_map(
+            function (array $bundleMetadata) {
+                return $bundleMetadata['path'] . '/Resources/views/ngbm/themes';
+            },
+            // Reversing the list of bundles so bundles added at end have higher priority
+            // when searching for a template
+            array_reverse($container->getParameter('kernel.bundles_metadata'))
+        );
+
+        $paths = array_values(array_filter($paths, 'is_dir'));
+
+        if ($container->hasParameter('twig.default_path')) {
+            $defaultTwigDir = $container->getParameterBag()->resolveValue($container->getParameter('twig.default_path')) . '/ngbm/themes';
+            if (is_dir($defaultTwigDir)) {
+                array_unshift($paths, $defaultTwigDir);
+            }
         }
 
-        foreach ($themeList as $themeName) {
-            $themeDir = $path . '/' . $themeName;
-            $themeDirs[$themeName][$themeDir] = is_dir($themeDir);
-
-            $container->addResource(new FileExistenceResource($themeDir));
+        $appDir = $this->getAppDir($container) . '/Resources/views/ngbm/themes';
+        if (is_dir($appDir)) {
+            array_unshift($paths, $appDir);
         }
+
+        $themeDirs = array();
+        foreach ($paths as $path) {
+            foreach ($themeList as $themeName) {
+                $themeDirs[$themeName][] = $path . '/' . $themeName;
+            }
+        }
+
+        return $themeDirs;
     }
 
     /**
