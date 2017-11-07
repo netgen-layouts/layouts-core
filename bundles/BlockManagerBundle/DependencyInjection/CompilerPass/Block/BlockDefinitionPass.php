@@ -71,11 +71,7 @@ final class BlockDefinitionPass implements CompilerPassInterface
             }
 
             $handlerClass = $container->findDefinition($foundHandler)->getClass();
-            if (strpos($handlerClass, '%') === 0) {
-                $handlerClass = $container->getParameter(
-                    str_replace('%', '', $handlerClass)
-                );
-            }
+            $handlerClass = $container->getParameterBag()->resolveValue($handlerClass);
 
             $factoryMethod = 'buildBlockDefinition';
             $definitionClass = BlockDefinition::class;
