@@ -11,11 +11,6 @@ final class ParameterView extends View implements ParameterViewInterface
         return $this->parameters['parameter'];
     }
 
-    public function getFallbackContext()
-    {
-        return self::CONTEXT_DEFAULT;
-    }
-
     public function getIdentifier()
     {
         return 'parameter_view';

@@ -41,6 +41,13 @@ interface ViewInterface
     public function getContext();
 
     /**
+     * Sets the view context.
+     *
+     * @param string $context
+     */
+    public function setContext($context);
+
+    /**
      * Returns the view fallback context.
      *
      * Fallback context will be used if no match rules
@@ -51,11 +58,14 @@ interface ViewInterface
     public function getFallbackContext();
 
     /**
-     * Sets the view context.
+     * Sets the view fallback context.
      *
-     * @param string $context
+     * Fallback context will be used if no match rules
+     * for the original context could be found.
+     *
+     * @param string $fallbackContext
      */
-    public function setContext($context);
+    public function setFallbackContext($fallbackContext);
 
     /**
      * Returns the view template.

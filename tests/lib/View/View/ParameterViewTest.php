@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Tests\View\View;
 
 use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\View\View\ParameterView;
-use Netgen\BlockManager\View\ViewInterface;
 use PHPUnit\Framework\TestCase;
 
 class ParameterViewTest extends TestCase
@@ -62,13 +61,5 @@ class ParameterViewTest extends TestCase
     public function testGetIdentifier()
     {
         $this->assertEquals('parameter_view', $this->view->getIdentifier());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\View\View\ParameterView::getFallbackContext
-     */
-    public function testGetFallbackContext()
-    {
-        $this->assertEquals(ViewInterface::CONTEXT_DEFAULT, $this->view->getFallbackContext());
     }
 }

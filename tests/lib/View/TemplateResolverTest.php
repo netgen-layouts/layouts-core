@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\Tests\View;
 use DateTime;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
-use Netgen\BlockManager\Tests\View\Stubs\ViewWithFallbackContext;
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
 use Netgen\BlockManager\View\TemplateResolver;
 use PHPUnit\Framework\TestCase;
@@ -152,14 +151,8 @@ class TemplateResolverTest extends TestCase
      */
     public function testResolveTemplateWithFallbackContext()
     {
-        $this->view = new ViewWithFallbackContext(
-            'fallback',
-            array(
-                'value' => new Value(),
-            )
-        );
-
         $this->view->setContext('context');
+        $this->view->setFallbackContext('fallback');
 
         $viewConfiguration = array(
             'view' => array(

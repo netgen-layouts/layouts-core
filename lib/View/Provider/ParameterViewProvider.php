@@ -9,11 +9,15 @@ final class ParameterViewProvider implements ViewProviderInterface
 {
     public function provideView($valueObject, array $parameters = array())
     {
-        return new ParameterView(
+        $view = new ParameterView(
             array(
                 'parameter' => $valueObject,
             )
         );
+
+        $view->setFallbackContext(ParameterView::CONTEXT_DEFAULT);
+
+        return $view;
     }
 
     public function supports($valueObject)

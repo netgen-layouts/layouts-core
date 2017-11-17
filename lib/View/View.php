@@ -15,6 +15,11 @@ abstract class View implements ViewInterface
     /**
      * @var string
      */
+    protected $fallbackContext;
+
+    /**
+     * @var string
+     */
     protected $template;
 
     /**
@@ -47,14 +52,19 @@ abstract class View implements ViewInterface
         return $this->context;
     }
 
-    public function getFallbackContext()
-    {
-        return null;
-    }
-
     public function setContext($context)
     {
         $this->context = $context;
+    }
+
+    public function getFallbackContext()
+    {
+        return $this->fallbackContext;
+    }
+
+    public function setFallbackContext($fallbackContext)
+    {
+        $this->fallbackContext = $fallbackContext;
     }
 
     public function getTemplate()

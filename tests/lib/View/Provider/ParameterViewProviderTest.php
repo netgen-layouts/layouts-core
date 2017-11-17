@@ -7,6 +7,7 @@ use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\Provider\ParameterViewProvider;
 use Netgen\BlockManager\View\View\ParameterViewInterface;
+use Netgen\BlockManager\View\ViewInterface;
 use PHPUnit\Framework\TestCase;
 
 class ParameterViewProviderTest extends TestCase
@@ -34,6 +35,7 @@ class ParameterViewProviderTest extends TestCase
         $this->assertInstanceOf(ParameterViewInterface::class, $view);
 
         $this->assertEquals($parameterValue, $view->getParameterValue());
+        $this->assertEquals(ViewInterface::CONTEXT_DEFAULT, $view->getFallbackContext());
         $this->assertNull($view->getTemplate());
         $this->assertEquals(
             array(
