@@ -82,8 +82,7 @@ class RequestBodyListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertEquals(
-            false,
+        $this->assertFalse(
             $event->getRequest()->attributes->has('test')
         );
     }
@@ -103,8 +102,7 @@ class RequestBodyListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertEquals(
-            false,
+        $this->assertFalse(
             $event->getRequest()->attributes->has('test')
         );
     }
@@ -124,8 +122,7 @@ class RequestBodyListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertEquals(
-            false,
+        $this->assertFalse(
             $event->getRequest()->attributes->has('test')
         );
     }
@@ -146,8 +143,7 @@ class RequestBodyListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertEquals(
-            false,
+        $this->assertFalse(
             $event->getRequest()->attributes->has('test')
         );
     }

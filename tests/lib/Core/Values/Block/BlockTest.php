@@ -134,7 +134,7 @@ class BlockTest extends TestCase
         $this->assertTrue($block->isPublished());
         $this->assertTrue($block->isTranslatable());
         $this->assertEquals('en', $block->getMainLocale());
-        $this->assertEquals(true, $block->isAlwaysAvailable());
+        $this->assertTrue($block->isAlwaysAvailable());
         $this->assertEquals(array('en'), $block->getAvailableLocales());
         $this->assertEquals('en', $block->getLocale());
 

@@ -25,7 +25,7 @@ class NullItemTest extends TestCase
         $this->assertEquals(42, $value->getValueId());
         $this->assertEquals('null', $value->getValueType());
         $this->assertEquals('(INVALID ITEM)', $value->getName());
-        $this->assertEquals(true, $value->isVisible());
+        $this->assertTrue($value->isVisible());
         $this->assertNull($value->getObject());
     }
 }

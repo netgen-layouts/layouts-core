@@ -30,7 +30,7 @@ class ItemTest extends TestCase
         $this->assertEquals(42, $value->getValueId());
         $this->assertEquals('type', $value->getValueType());
         $this->assertEquals('Value name', $value->getName());
-        $this->assertEquals(true, $value->isVisible());
+        $this->assertTrue($value->isVisible());
         $this->assertEquals(new stdClass(), $value->getObject());
     }
 }

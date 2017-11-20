@@ -38,6 +38,6 @@ class RootLocationTest extends TestCase
      */
     public function testGetParentId()
     {
-        $this->assertEquals(null, $this->location->getParentId());
+        $this->assertNull($this->location->getParentId());
     }
 }

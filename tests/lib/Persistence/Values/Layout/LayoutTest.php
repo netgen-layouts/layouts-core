@@ -41,7 +41,7 @@ class LayoutTest extends TestCase
         $this->assertEquals('4_zones_a', $layout->type);
         $this->assertEquals('My layout', $layout->name);
         $this->assertEquals('My description', $layout->description);
-        $this->assertEquals(true, $layout->shared);
+        $this->assertTrue($layout->shared);
         $this->assertEquals(123, $layout->created);
         $this->assertEquals(456, $layout->modified);
         $this->assertEquals(Value::STATUS_PUBLISHED, $layout->status);

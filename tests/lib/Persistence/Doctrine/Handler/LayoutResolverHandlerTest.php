@@ -310,7 +310,7 @@ class LayoutResolverHandlerTest extends TestCase
         $this->assertNull($createdRule->layoutId);
         $this->assertEquals(0, $createdRule->priority);
         $this->assertFalse($createdRule->enabled);
-        $this->assertEquals(null, $createdRule->comment);
+        $this->assertEquals('', $createdRule->comment);
         $this->assertEquals(Value::STATUS_DRAFT, $createdRule->status);
     }
 

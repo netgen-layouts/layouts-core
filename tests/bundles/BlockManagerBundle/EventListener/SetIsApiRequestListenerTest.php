@@ -44,10 +44,7 @@ class SetIsApiRequestListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertEquals(
-            true,
-            $event->getRequest()->attributes->get(SetIsApiRequestListener::API_FLAG_NAME)
-        );
+        $this->assertTrue($event->getRequest()->attributes->get(SetIsApiRequestListener::API_FLAG_NAME));
     }
 
     /**
@@ -62,10 +59,7 @@ class SetIsApiRequestListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertEquals(
-            false,
-            $event->getRequest()->attributes->get(SetIsApiRequestListener::API_FLAG_NAME)
-        );
+        $this->assertFalse($event->getRequest()->attributes->has(SetIsApiRequestListener::API_FLAG_NAME));
     }
 
     /**
@@ -79,9 +73,6 @@ class SetIsApiRequestListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        $this->assertEquals(
-            false,
-            $event->getRequest()->attributes->has(SetIsApiRequestListener::API_FLAG_NAME)
-        );
+        $this->assertFalse($event->getRequest()->attributes->has(SetIsApiRequestListener::API_FLAG_NAME));
     }
 }

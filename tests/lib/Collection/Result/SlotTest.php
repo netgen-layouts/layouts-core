@@ -21,7 +21,7 @@ class SlotTest extends TestCase
         $this->assertEquals(0, $value->getValueId());
         $this->assertEquals('slot', $value->getValueType());
         $this->assertEquals('(UNKNOWN ITEM)', $value->getName());
-        $this->assertEquals(true, $value->isVisible());
+        $this->assertTrue($value->isVisible());
         $this->assertNull($value->getObject());
     }
 }

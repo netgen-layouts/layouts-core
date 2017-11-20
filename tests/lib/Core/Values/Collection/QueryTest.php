@@ -88,7 +88,7 @@ class QueryTest extends TestCase
         $this->assertEquals(Value::STATUS_PUBLISHED, $query->getStatus());
         $this->assertTrue($query->isTranslatable());
         $this->assertEquals('en', $query->getMainLocale());
-        $this->assertEquals(true, $query->isAlwaysAvailable());
+        $this->assertTrue($query->isAlwaysAvailable());
         $this->assertEquals(array('en'), $query->getAvailableLocales());
         $this->assertEquals('en', $query->getLocale());
 
