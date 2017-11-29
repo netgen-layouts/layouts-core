@@ -34,7 +34,7 @@ final class Layout extends Visitor
             ),
             'id' => $layout->getId(),
             'type_identifier' => $layout->getLayoutType()->getIdentifier(),
-            'name' => $this->getExportedLayoutName($layout),
+            'name' => $layout->getName(),
             'description' => $layout->getDescription(),
             'status' => $this->getStatusString($layout),
             'main_locale' => $layout->getMainLocale(),
@@ -44,13 +44,6 @@ final class Layout extends Visitor
             'is_shared' => $layout->isShared(),
             'zones' => $this->visitZones($layout, $subVisitor),
         );
-    }
-
-    private function getExportedLayoutName(LayoutValue $layout)
-    {
-        $timestamp = time();
-
-        return $layout->getName() . " [EXPORTED: {$timestamp}]";
     }
 
     /**
