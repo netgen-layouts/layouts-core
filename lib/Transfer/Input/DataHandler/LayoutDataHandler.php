@@ -257,9 +257,8 @@ final class LayoutDataHandler
      */
     private function processZone(Zone $zone, array $zoneData)
     {
-        if ($zoneData['linked_zone'] === null) {
-            $this->createBlocks($zone, $zoneData['blocks']);
-        } else {
+        $this->createBlocks($zone, $zoneData['blocks']);
+        if (!empty($zoneData['linked_zone'])) {
             $this->linkZone($zone, $zoneData['linked_zone']);
         }
     }
