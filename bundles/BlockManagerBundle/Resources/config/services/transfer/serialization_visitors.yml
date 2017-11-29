@@ -59,6 +59,8 @@ services:
     netgen_block_manager.transfer.serializer.visitor.query:
         class: Netgen\BlockManager\Transfer\Output\Visitor\Query
         public: false
+        arguments:
+            - "@netgen_block_manager.api.service.collection"
         tags:
             - { name: netgen_block_manager.transfer.serializer.visitor }
 

@@ -9,6 +9,7 @@ use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\Item;
+use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\Zone;
@@ -176,6 +177,14 @@ final class LayoutDataHandler
             $translationsData = $data['data']['parameters'];
 
             $this->updateBlockTranslations($id, $translationsData);
+
+            foreach ($data['data']['collections'] as $collectionData) {
+                if (empty($collectionData['query'])) {
+                    continue;
+                }
+
+                $this->updateQueryTranslations($collectionData['query']['id'], $collectionData['query']['parameters']);
+            }
         }
     }
 
@@ -223,6 +232,52 @@ final class LayoutDataHandler
         $updateStruct->fillParametersFromHash($block->getDefinition(), $parameterData);
 
         $this->blockService->updateBlock($block, $updateStruct);
+    }
+
+    /**
+     * Update all translations of the query with the given $id with $parameterData.
+     *
+     * @param int|string $id Query id
+     * @param array $translationsData Query parameters data by translation locale
+     *
+     * @throws \Netgen\BlockManager\Exception\RuntimeException If translation data is not consistent
+     * @throws \Exception If thrown by the underlying API
+     */
+    private function updateQueryTranslations($id, array $translationsData)
+    {
+        $queryDraft = $this->collectionService->loadQueryDraft($id);
+        $mainLocale = $queryDraft->getMainLocale();
+
+        foreach ($queryDraft->getAvailableLocales() as $locale) {
+            if ($locale === $mainLocale) {
+                continue;
+            }
+
+            if (!array_key_exists($locale, $translationsData)) {
+                throw new RuntimeException(
+                    sprintf("Could not find locale '%s' in the given data", $locale)
+                );
+            }
+
+            $this->updateQueryTranslation($queryDraft, $translationsData[$locale], $locale);
+        }
+    }
+
+    /**
+     * Update given $query with $parameterData for the $locale.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
+     * @param array $parameterData
+     * @param string $locale
+     *
+     * @throws \Exception If thrown by the underlying API
+     */
+    private function updateQueryTranslation(Query $query, array $parameterData, $locale)
+    {
+        $updateStruct = $this->collectionService->newQueryUpdateStruct($locale, $query);
+        $updateStruct->fillParametersFromHash($query->getQueryType(), $parameterData);
+
+        $this->collectionService->updateQuery($query, $updateStruct);
     }
 
     /**
@@ -411,7 +466,7 @@ final class LayoutDataHandler
                 $queryType = $this->queryTypeRegistry->getQueryType($collectionData['query']['query_type']);
                 $queryCreateStruct = $this->collectionService->newQueryCreateStruct($queryType);
 
-                $queryCreateStruct->fillParametersFromHash($queryType, $collectionData['query']['parameters']);
+                $queryCreateStruct->fillParametersFromHash($queryType, $collectionData['query']['parameters'][$collectionData['main_locale']]);
             }
 
             $collectionCreateStruct = $this->collectionService->newCollectionCreateStruct($queryCreateStruct);
