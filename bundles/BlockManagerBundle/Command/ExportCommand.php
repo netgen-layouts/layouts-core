@@ -4,8 +4,8 @@ namespace Netgen\Bundle\BlockManagerBundle\Command;
 
 use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\Transfer\Output\Serializer;
 use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Transfer\Output\Serializer;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -67,7 +67,7 @@ final class ExportCommand extends Command
                 $hash = $this->serializeRules($ids);
                 break;
             default:
-                throw new RuntimeException(sprintf("Unhandled type %s", $type));
+                throw new RuntimeException(sprintf('Unhandled type %s', $type));
         }
 
         $output->writeln(json_encode($hash, JSON_PRETTY_PRINT));
@@ -82,7 +82,7 @@ final class ExportCommand extends Command
      */
     private function serializeLayouts(array $ids)
     {
-        $layouts = [];
+        $layouts = array();
 
         foreach ($ids as $id) {
             $layouts[] = $this->serializer->serializeLayout(
@@ -102,7 +102,7 @@ final class ExportCommand extends Command
      */
     private function serializeRules(array $ids)
     {
-        $rules = [];
+        $rules = array();
 
         foreach ($ids as $id) {
             $rules[] = $this->serializer->serializeRule(

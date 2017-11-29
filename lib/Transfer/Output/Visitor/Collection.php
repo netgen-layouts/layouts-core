@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\API\Values\Collection\Collection as CollectionValue;
-use Netgen\BlockManager\Transfer\Output\Visitor;
 use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Transfer\Output\Visitor;
 
 /**
  * Collection value visitor.

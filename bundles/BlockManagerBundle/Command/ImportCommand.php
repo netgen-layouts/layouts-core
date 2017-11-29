@@ -2,14 +2,14 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Command;
 
-use Netgen\BlockManager\Transfer\Input\Importer;
+use Exception;
 use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Transfer\Input\Importer;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Exception;
 
 /**
  * Command to import Netgen Layouts entities.
@@ -26,7 +26,8 @@ final class ImportCommand extends Command
      */
     private $io;
 
-    public function __construct(Importer $importer) {
+    public function __construct(Importer $importer)
+    {
         $this->importer = $importer;
 
         // Parent constructor call is mandatory in commands registered as services
@@ -58,6 +59,7 @@ final class ImportCommand extends Command
                 break;
             default:
                 $this->io->error(sprintf("Unknown entity type '%s'", $type));
+
                 return 1;
         }
 
@@ -87,14 +89,14 @@ final class ImportCommand extends Command
             try {
                 $layout = $this->importer->importLayout($layoutData);
 
-                $this->io->note(sprintf("Imported layout #%d into layout ID %d", $index, $layout->getId()));
+                $this->io->note(sprintf('Imported layout #%d into layout ID %d', $index, $layout->getId()));
             } catch (Exception $e) {
-                $this->io->error(sprintf("Could not import layout with ID #%d", $index));
+                $this->io->error(sprintf('Could not import layout with ID #%d', $index));
                 $this->io->section('Exception stack:');
                 $this->renderExceptionStack($e);
                 $this->io->newLine();
 
-                $errorCount++;
+                ++$errorCount;
             }
         }
 
@@ -109,12 +111,12 @@ final class ImportCommand extends Command
      */
     private function renderExceptionStack(Exception $exception, $number = 0)
     {
-        $this->io->writeln(sprintf(" #%d:", $number));
+        $this->io->writeln(sprintf(' #%d:', $number));
         $exceptionClass = get_class($exception);
-        $this->io->writeln(sprintf("  - exception: %s", $exceptionClass));
-        $this->io->writeln(sprintf("  - file: %s", $exception->getFile()));
-        $this->io->writeln(sprintf("  - line: %d", $exception->getLine()));
-        $this->io->writeln(sprintf("  - message: %s", $exception->getMessage()));
+        $this->io->writeln(sprintf('  - exception: %s', $exceptionClass));
+        $this->io->writeln(sprintf('  - file: %s', $exception->getFile()));
+        $this->io->writeln(sprintf('  - line: %d', $exception->getLine()));
+        $this->io->writeln(sprintf('  - message: %s', $exception->getMessage()));
 
         $previous = $exception->getPrevious();
 
@@ -128,9 +130,9 @@ final class ImportCommand extends Command
      *
      * @param string $data
      *
-     * @return mixed
-     *
      * @throws \Netgen\BlockManager\Exception\RuntimeException If given $data string could not be decoded
+     *
+     * @return mixed
      */
     private function decode($data)
     {
@@ -139,7 +141,7 @@ final class ImportCommand extends Command
         if (!is_array($value)) {
             $type = gettype($value);
             throw new RuntimeException(
-                sprintf("Data is malformed, expected array, got %s", $type)
+                sprintf('Data is malformed, expected array, got %s', $type)
             );
         }
 

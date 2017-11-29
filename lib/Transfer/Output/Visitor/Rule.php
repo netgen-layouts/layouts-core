@@ -4,8 +4,8 @@ namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule as RuleValue;
-use Netgen\BlockManager\Transfer\Output\Visitor;
 use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Transfer\Output\Visitor;
 
 /**
  * Rule value visitor.

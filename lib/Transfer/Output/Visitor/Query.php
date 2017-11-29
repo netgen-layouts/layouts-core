@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\API\Values\Collection\Query as QueryValue;
-use Netgen\BlockManager\Transfer\Output\Visitor;
 use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Transfer\Output\Visitor;
 
 /**
  * Query value visitor.

@@ -15,8 +15,8 @@ use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
-use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry;
 
 /**
  * LayoutDataHandler handles serialized Layout data.
@@ -83,7 +83,7 @@ final class LayoutDataHandler
         $layoutType = $this->layoutTypeRegistry->getLayoutType($data['type_identifier']);
         $createStruct = $this->layoutService->newLayoutCreateStruct(
             $layoutType,
-            sprintf("%s (%d)", $data['name'], time()),
+            sprintf('%s (%d)', $data['name'], time()),
             $data['main_locale']
         );
         $createStruct->description = $data['description'];
@@ -297,10 +297,10 @@ final class LayoutDataHandler
 
         foreach ($blocksData as $blockData) {
             $block = $this->createBlock($zone, $blockData);
-            $blockDataMap[] = [
+            $blockDataMap[] = array(
                 'id' => $block->getId(),
                 'data' => $blockData,
-            ];
+            );
         }
 
         return $blockDataMap;
@@ -369,7 +369,7 @@ final class LayoutDataHandler
     }
 
     /**
-     * Builds the block create struct from provided $blockData
+     * Builds the block create struct from provided $blockData.
      *
      * @param array $blockData
      *
@@ -438,7 +438,7 @@ final class LayoutDataHandler
         array $configurationData
     ) {
         $configDefinitions = $blockDefinition->getConfigDefinitions();
-        $configDefinitionMap = [];
+        $configDefinitionMap = array();
 
         foreach ($configDefinitions as $configDefinition) {
             $configDefinitionMap[$configDefinition->getConfigKey()] = $configDefinition;

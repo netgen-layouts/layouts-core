@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\API\Values\Block\Placeholder as PlaceholderValue;
-use Netgen\BlockManager\Transfer\Output\Visitor;
 use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Transfer\Output\Visitor;
 
 /**
  * Placeholder value visitor.

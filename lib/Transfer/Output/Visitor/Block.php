@@ -4,8 +4,8 @@ namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Block\Block as BlockValue;
-use Netgen\BlockManager\Transfer\Output\Visitor;
 use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Transfer\Output\Visitor;
 
 /**
  * Block value visitor.
@@ -102,7 +102,7 @@ final class Block extends Visitor
 
             $translatedBlock = $this->blockService->loadBlock(
                 $block->getId(),
-                [$availableLocale],
+                array($availableLocale),
                 false
             );
 

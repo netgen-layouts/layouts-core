@@ -33,7 +33,7 @@ abstract class Visitor
      *
      * @return mixed
      */
-    abstract public function visit($value, Visitor $subVisitor = null, array $context = null);
+    abstract public function visit($value, self $subVisitor = null, array $context = null);
 
     /**
      * Return status string representation for the given $layout.

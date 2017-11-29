@@ -4,8 +4,8 @@ namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Layout\Zone as ZoneValue;
-use Netgen\BlockManager\Transfer\Output\Visitor;
 use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Transfer\Output\Visitor;
 
 /**
  * Zone value visitor.
@@ -89,7 +89,7 @@ final class Zone extends Visitor
     {
         $hash = array();
         $mainLocale = $context['mainLocale'];
-        $blocks = $this->blockService->loadZoneBlocks($zone, [$mainLocale]);
+        $blocks = $this->blockService->loadZoneBlocks($zone, array($mainLocale));
 
         foreach ($blocks as $block) {
             $hash[] = $subVisitor->visit($block, $subVisitor);
