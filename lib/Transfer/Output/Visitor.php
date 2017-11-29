@@ -29,11 +29,10 @@ abstract class Visitor
      *
      * @param mixed $value
      * @param \Netgen\BlockManager\Transfer\Output\Visitor|null $subVisitor
-     * @param array|null $context
      *
      * @return mixed
      */
-    abstract public function visit($value, self $subVisitor = null, array $context = null);
+    abstract public function visit($value, self $subVisitor = null);
 
     /**
      * Return status string representation for the given $layout.

@@ -43,11 +43,11 @@ final class Aggregate extends Visitor
         return true;
     }
 
-    public function visit($value, Visitor $subVisitor = null, array $context = null)
+    public function visit($value, Visitor $subVisitor = null)
     {
         foreach ($this->visitors as $visitor) {
             if ($visitor->accept($value)) {
-                return $visitor->visit($value, $this, $context);
+                return $visitor->visit($value, $this);
             }
         }
 

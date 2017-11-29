@@ -18,7 +18,7 @@ final class Item extends Visitor
         return $value instanceof ItemValue;
     }
 
-    public function visit($item, Visitor $subVisitor = null, array $context = null)
+    public function visit($item, Visitor $subVisitor = null)
     {
         /* @var \Netgen\BlockManager\API\Values\Collection\Item $item */
 

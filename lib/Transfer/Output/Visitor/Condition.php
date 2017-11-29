@@ -17,7 +17,7 @@ final class Condition extends Visitor
         return $value instanceof ConditionValue;
     }
 
-    public function visit($condition, Visitor $subVisitor = null, array $context = null)
+    public function visit($condition, Visitor $subVisitor = null)
     {
         /* @var \Netgen\BlockManager\API\Values\LayoutResolver\Condition $condition */
 

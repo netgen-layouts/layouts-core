@@ -18,7 +18,7 @@ final class Placeholder extends Visitor
         return $value instanceof PlaceholderValue;
     }
 
-    public function visit($placeholder, Visitor $subVisitor = null, array $context = null)
+    public function visit($placeholder, Visitor $subVisitor = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');

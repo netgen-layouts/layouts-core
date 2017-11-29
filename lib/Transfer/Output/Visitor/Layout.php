@@ -19,7 +19,7 @@ final class Layout extends Visitor
         return $value instanceof LayoutValue;
     }
 
-    public function visit($layout, Visitor $subVisitor = null, array $context = null)
+    public function visit($layout, Visitor $subVisitor = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');
@@ -57,12 +57,9 @@ final class Layout extends Visitor
     private function visitZones(LayoutValue $layout, Visitor $subVisitor)
     {
         $hash = array();
-        $context = array(
-            'mainLocale' => $layout->getMainLocale(),
-        );
 
         foreach ($layout->getZones() as $zone) {
-            $hash[$zone->getIdentifier()] = $subVisitor->visit($zone, $subVisitor, $context);
+            $hash[$zone->getIdentifier()] = $subVisitor->visit($zone, $subVisitor);
         }
 
         return $hash;

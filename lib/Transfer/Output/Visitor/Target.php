@@ -17,7 +17,7 @@ final class Target extends Visitor
         return $value instanceof TargetValue;
     }
 
-    public function visit($target, Visitor $subVisitor = null, array $context = null)
+    public function visit($target, Visitor $subVisitor = null)
     {
         /* @var \Netgen\BlockManager\API\Values\LayoutResolver\Target $target */
 

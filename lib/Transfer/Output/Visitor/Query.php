@@ -18,7 +18,7 @@ final class Query extends Visitor
         return $value instanceof QueryValue;
     }
 
-    public function visit($query, Visitor $subVisitor = null, array $context = null)
+    public function visit($query, Visitor $subVisitor = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');
