@@ -24,7 +24,6 @@ final class Condition extends Visitor
         return array(
             'id' => $condition->getId(),
             'type' => $condition->getConditionType()->getType(),
-            'status' => $this->getStatusString($condition),
             'value' => $condition->getValue(),
         );
     }

@@ -29,7 +29,6 @@ final class Collection extends Visitor
         return array(
             'id' => $collection->getId(),
             'type' => $this->getTypeString($collection),
-            'status' => $this->getStatusString($collection),
             'offset' => $collection->getOffset(),
             'limit' => $collection->getLimit(),
             'is_translatable' => $collection->isTranslatable(),

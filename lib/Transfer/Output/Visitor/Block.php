@@ -40,7 +40,6 @@ final class Block extends Visitor
         return array(
             'id' => $block->getId(),
             'definition_identifier' => $block->getDefinition()->getIdentifier(),
-            'status' => $this->getStatusString($block),
             'is_translatable' => $block->isTranslatable(),
             'is_always_available' => $block->isAlwaysAvailable(),
             'main_locale' => $block->getMainLocale(),

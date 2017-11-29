@@ -24,7 +24,6 @@ final class Item extends Visitor
 
         return array(
             'id' => $item->getId(),
-            'status' => $this->getStatusString($item),
             'type' => $this->getTypeString($item),
             'position' => $item->getPosition(),
             'value_id' => $item->getValueId(),

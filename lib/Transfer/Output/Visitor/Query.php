@@ -28,7 +28,6 @@ final class Query extends Visitor
 
         return array(
             'id' => $query->getId(),
-            'status' => $this->getStatusString($query),
             'is_translatable' => $query->isTranslatable(),
             'is_always_available' => $query->isAlwaysAvailable(),
             'main_locale' => $query->getMainLocale(),

@@ -45,7 +45,6 @@ final class Zone extends Visitor
 
         return array(
             'identifier' => $zone->getIdentifier(),
-            'status' => $this->getStatusString($zone),
             'linked_zone' => $this->visitLinkedZone($zone),
             'blocks' => $this->visitBlocks($zone, $subVisitor, $context),
         );

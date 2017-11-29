@@ -23,7 +23,6 @@ final class Target extends Visitor
 
         return array(
             'id' => $target->getId(),
-            'status' => $this->getStatusString($target),
             'type' => $target->getTargetType()->getType(),
             'value' => $target->getValue(),
         );
