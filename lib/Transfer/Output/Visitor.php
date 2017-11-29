@@ -57,6 +57,6 @@ abstract class Visitor
 
         $statusString = var_export($value->getStatus(), true);
 
-        throw new RuntimeException("Unknown status '{$statusString}'");
+        throw new RuntimeException(sprintf("Unknown status '%s'", $statusString));
     }
 }

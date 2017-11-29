@@ -114,7 +114,9 @@ final class LayoutDataHandler
 
         foreach ($layout->getZones() as $zone) {
             if (!array_key_exists($zone->getIdentifier(), $layoutData['zones'])) {
-                throw new RuntimeException("Missing data for zone '{$zone->getIdentifier()}'");
+                throw new RuntimeException(
+                    sprintf("Missing data for zone '%s'", $zone->getIdentifier())
+                );
             }
 
             $blockDataMapByZone[] = $this->processZone($zone, $layoutData['zones'][$zone->getIdentifier()]);
@@ -197,7 +199,9 @@ final class LayoutDataHandler
             }
 
             if (!array_key_exists($locale, $translationsData)) {
-                throw new RuntimeException("Could not find locale '{$locale}' in the given data");
+                throw new RuntimeException(
+                    sprintf("Could not find locale '%s' in the given data", $locale)
+                );
             }
 
             $this->updateBlockTranslation($blockDraft, $translationsData[$locale], $locale);
@@ -510,6 +514,6 @@ final class LayoutDataHandler
                 return Item::TYPE_OVERRIDE;
         }
 
-        throw new RuntimeException("Unknown item type '{$typeString}'");
+        throw new RuntimeException(sprintf("Unknown item type '%s'", $typeString));
     }
 }

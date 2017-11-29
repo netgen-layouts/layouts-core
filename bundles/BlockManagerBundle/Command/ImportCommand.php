@@ -53,7 +53,7 @@ EOT
                 $this->importLayouts($data, $output);
                 break;
             default:
-                throw new RuntimeException("Unhandled type '{$type}'");
+                throw new RuntimeException(sprintf("Unhandled type %s", $type));
         }
 
         $output->writeln('Finished.');
@@ -74,7 +74,7 @@ EOT
         if (!is_array($layouts)) {
             $type = gettype($layouts);
             throw new RuntimeException(
-                "Data is malformed, expected array, got {$type}"
+                sprintf("Data is malformed, expected array, got %s", $type)
             );
         }
 
@@ -82,7 +82,7 @@ EOT
             try {
                 $layout = $this->importer->importLayout($layoutData);
             } catch (Exception $e) {
-                $output->writeln("Could not import layout #{$index}");
+                $output->writeln(sprintf("Could not import layout #%d", $index));
                 $output->writeln('Exception stack:');
                 $this->renderExceptionStack($e, $output);
                 $output->writeln('');
@@ -90,7 +90,7 @@ EOT
                 continue;
             }
 
-            $output->writeln("Imported layout #{$index} into Layout ID={$layout->getId()}");
+            $output->writeln(sprintf("Imported layout #%d into layout ID %d", $index, $layout->getId()));
             $output->writeln('');
         }
     }
@@ -104,12 +104,12 @@ EOT
      */
     private function renderExceptionStack(Exception $exception, OutputInterface $output, $number = 0)
     {
-        $output->writeln(" #{$number}:");
+        $output->writeln(sprintf(" #%d:", $number));
         $exceptionClass = get_class($exception);
-        $output->writeln("  - exception: {$exceptionClass}");
-        $output->writeln("  - file: {$exception->getFile()}");
-        $output->writeln("  - line: {$exception->getLine()}");
-        $output->writeln("  - message: {$exception->getMessage()}");
+        $output->writeln(sprintf("  - exception: %s", $exceptionClass));
+        $output->writeln(sprintf("  - file: %s", $exception->getFile()));
+        $output->writeln(sprintf("  - line: %d", $exception->getLine()));
+        $output->writeln(sprintf("  - message: %s", $exception->getMessage()));
 
         $previous = $exception->getPrevious();
 

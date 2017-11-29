@@ -54,7 +54,7 @@ final class Aggregate extends Visitor
         $valueType = is_object($value) ? get_class($value) : var_export($value, true);
 
         throw new RuntimeException(
-            "No visitor available for value of type '{$valueType}'"
+            sprintf("No visitor available for value of type '%s'", $valueType)
         );
     }
 }

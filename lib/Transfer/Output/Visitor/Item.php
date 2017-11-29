@@ -52,6 +52,6 @@ final class Item extends Visitor
 
         $typeString = var_export($item->getType(), true);
 
-        throw new RuntimeException("Unknown type '{$typeString}'");
+        throw new RuntimeException(sprintf("Unknown type '%s'", $typeString));
     }
 }

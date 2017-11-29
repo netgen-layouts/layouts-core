@@ -62,7 +62,7 @@ final class Collection extends Visitor
 
         $typeString = var_export($collection->getType(), true);
 
-        throw new RuntimeException("Unknown type '{$typeString}'");
+        throw new RuntimeException(sprintf("Unknown type '%s'", $typeString));
     }
 
     /**

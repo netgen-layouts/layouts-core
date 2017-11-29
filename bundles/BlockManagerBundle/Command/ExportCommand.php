@@ -79,7 +79,7 @@ EOT
                 $hash = $this->serializeRules($ids);
                 break;
             default:
-                throw new RuntimeException("Unhandled type '{$type}'");
+                throw new RuntimeException(sprintf("Unhandled type %s", $type));
         }
 
         $output->writeln(json_encode($hash, JSON_PRETTY_PRINT));
