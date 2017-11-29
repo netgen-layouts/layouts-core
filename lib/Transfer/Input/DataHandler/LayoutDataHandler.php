@@ -222,7 +222,7 @@ final class LayoutDataHandler
     private function updateBlockTranslation(Block $block, array $parameterData, $locale)
     {
         $updateStruct = $this->blockService->newBlockUpdateStruct($locale, $block);
-        $updateStruct->fillFromHash($block->getDefinition(), $parameterData);
+        $updateStruct->fillParametersFromHash($block->getDefinition(), $parameterData);
 
         $this->blockService->updateBlock($block, $updateStruct);
     }
@@ -320,6 +320,67 @@ final class LayoutDataHandler
      */
     private function createBlock(Zone $zone, array $blockData)
     {
+        $blockCreateStruct = $this->buildBlockCreateStruct($blockData);
+        $block = $this->blockService->createBlockInZone($blockCreateStruct, $zone);
+
+        $this->processPlaceholderBlocks($block, $blockData['placeholders']);
+        $this->processCollections($block, $blockData['collections']);
+
+        return $block;
+    }
+
+    /**
+     * Create a block in the given $targetBlock and $placeholder from the given $blockData.
+     *
+     * @param \Netgen\BlockManager\API\Values\Block\Block $targetBlock
+     * @param string $placeholder
+     * @param array $blockData
+     *
+     * @throws \Exception If thrown by the underlying API
+     *
+     * @return \Netgen\BlockManager\API\Values\Block\Block
+     */
+    private function createBlockInBlock(Block $targetBlock, $placeholder, array $blockData)
+    {
+        $blockCreateStruct = $this->buildBlockCreateStruct($blockData);
+        $block = $this->blockService->createBlock($blockCreateStruct, $targetBlock, $placeholder);
+
+        $this->processPlaceholderBlocks($block, $blockData['placeholders']);
+        $this->processCollections($block, $blockData['collections']);
+
+        return $block;
+    }
+
+    /**
+     * Creates sub-blocks in $targetBlock from provided placeholder $data.
+     *
+     * @param \Netgen\BlockManager\API\Values\Block\Block $targetBlock
+     * @param array $data
+     */
+    private function processPlaceholderBlocks(Block $targetBlock, array $data = null)
+    {
+        if (empty($data)) {
+            return;
+        }
+
+        foreach ($data as $placeholder => $placeholderData) {
+            foreach ($placeholderData['blocks'] as $blockData) {
+                $this->createBlockInBlock($targetBlock, $placeholder, $blockData);
+            }
+        }
+    }
+
+    /**
+     * Builds the block create struct from provided $blockData
+     *
+     * @param array $blockData
+     *
+     * @throws \Exception If thrown by the underlying API
+     *
+     * @return \Netgen\BlockManager\API\Values\Block\BlockCreateStruct
+     */
+    private function buildBlockCreateStruct(array $blockData)
+    {
         $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition($blockData['definition_identifier']);
 
         $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
@@ -328,14 +389,39 @@ final class LayoutDataHandler
         $blockCreateStruct->itemViewType = $blockData['item_view_type'];
         $blockCreateStruct->isTranslatable = $blockData['is_translatable'];
         $blockCreateStruct->alwaysAvailable = $blockData['is_always_available'];
-        $blockCreateStruct->fillFromHash($blockDefinition, $blockData['parameters'][$blockData['main_locale']]);
+        $blockCreateStruct->fillParametersFromHash($blockDefinition, $blockData['parameters'][$blockData['main_locale']]);
         $this->setConfigStructs($blockCreateStruct, $blockDefinition, $blockData['configuration']);
+        $this->setCollectionStructs($blockCreateStruct, $blockData['collections']);
 
-        $block = $this->blockService->createBlockInZone($blockCreateStruct, $zone);
+        return $blockCreateStruct;
+    }
 
-        $this->processCollections($block, $blockData['collections']);
+    /**
+     * Set collection structs to the given $blockCreateStruct.
+     *
+     * @param \Netgen\BlockManager\API\Values\Block\BlockCreateStruct $blockCreateStruct
+     * @param array $data
+     *
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException
+     * @throws \Exception If thrown by the underlying API
+     */
+    private function setCollectionStructs(BlockCreateStruct $blockCreateStruct, array $data)
+    {
+        foreach ($data as $collectionIdentifier => $collectionData) {
+            $queryCreateStruct = null;
+            if ($collectionData['query'] !== null) {
+                $queryType = $this->queryTypeRegistry->getQueryType($collectionData['query']['query_type']);
+                $queryCreateStruct = $this->collectionService->newQueryCreateStruct($queryType);
 
-        return $block;
+                $queryCreateStruct->fillParametersFromHash($queryType, $collectionData['query']['parameters']);
+            }
+
+            $collectionCreateStruct = $this->collectionService->newCollectionCreateStruct($queryCreateStruct);
+            $collectionCreateStruct->offset = $collectionData['offset'];
+            $collectionCreateStruct->limit = $collectionData['limit'];
+
+            $blockCreateStruct->addCollectionCreateStruct($collectionIdentifier, $collectionCreateStruct);
+        }
     }
 
     /**
@@ -362,7 +448,7 @@ final class LayoutDataHandler
 
         foreach ($configurationData as $configKey => $hash) {
             $configStruct = new ConfigStruct();
-            $configStruct->fillFromHash($configDefinitionMap[$configKey], $hash);
+            $configStruct->fillParametersFromHash($configDefinitionMap[$configKey], $hash);
             $blockCreateStruct->setConfigStruct($configKey, $configStruct);
         }
     }
@@ -381,43 +467,13 @@ final class LayoutDataHandler
             return;
         }
 
-        // We can only have one collection ATM, the 'default' collection
-        $collectionReference = $block->getCollectionReferences()['default'];
-        $collection = $collectionReference->getCollection();
-        $collectionData = $collectionsData['default'];
+        foreach ($block->getCollectionReferences() as $collectionReference) {
+            $collection = $collectionReference->getCollection();
+            $collectionData = $collectionsData[$collectionReference->getIdentifier()];
 
-        $this->setCollectionQuery($collection, $collectionData);
-        $this->createManualItems($collection, $collectionData['manual_items']);
-    }
-
-    /**
-     * Creates a query in the given $collection from the $collectionData.
-     *
-     * @see \Netgen\BlockManager\API\Values\Collection\Query
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param array $collectionData
-     *
-     * @throws \Exception If thrown by the underlying API
-     */
-    private function setCollectionQuery(Collection $collection, array $collectionData)
-    {
-        $collectionType = $this->mapCollectionType($collectionData['type']);
-
-        if ($collectionType !== Collection::TYPE_DYNAMIC || $collectionData['query'] === null) {
-            return;
+            $this->createItems($collection, $collectionData['manual_items']);
+            $this->createItems($collection, $collectionData['override_items']);
         }
-
-        $queryTypeIdentifier = $collectionData['query']['query_type'];
-        $queryType = $this->queryTypeRegistry->getQueryType($queryTypeIdentifier);
-        $queryCreateStruct = $this->collectionService->newQueryCreateStruct($queryType);
-        $queryCreateStruct->fillFromHash($queryType, $collectionData['query']['parameters']);
-
-        $this->collectionService->changeCollectionType(
-            $collection,
-            $collectionType,
-            $queryCreateStruct
-        );
     }
 
     /**
@@ -429,7 +485,7 @@ final class LayoutDataHandler
      * @throws \Netgen\BlockManager\Exception\BadStateException
      * @throws \Netgen\BlockManager\Exception\RuntimeException
      */
-    private function createManualItems(Collection $collection, array $itemsData)
+    private function createItems(Collection $collection, array $itemsData)
     {
         foreach ($itemsData as $itemData) {
             $itemCreateStruct = $this->collectionService->newItemCreateStruct(
@@ -440,27 +496,6 @@ final class LayoutDataHandler
 
             $this->collectionService->addItem($collection, $itemCreateStruct, $itemData['position']);
         }
-    }
-
-    /**
-     * Map collection's exported type string to the real type value.
-     *
-     * @param string $typeString Collection exported type string
-     *
-     * @throws \Netgen\BlockManager\Exception\RuntimeException If type string is not recognized
-     *
-     * @return int
-     */
-    private function mapCollectionType($typeString)
-    {
-        switch ($typeString) {
-            case 'MANUAL':
-                return Collection::TYPE_MANUAL;
-            case 'DYNAMIC':
-                return Collection::TYPE_DYNAMIC;
-        }
-
-        throw new RuntimeException("Unknown collection type '{$typeString}'");
     }
 
     /**
