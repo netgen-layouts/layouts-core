@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\Reference;
 /**
  * Compiler pass registering serialization visitors with aggregate visitor.
  */
-class SerializationVisitorPass implements CompilerPassInterface
+final class SerializationVisitorPass implements CompilerPassInterface
 {
     /**
      * Tag used for serialization visitors.
@@ -28,29 +28,18 @@ class SerializationVisitorPass implements CompilerPassInterface
 
     public function process(ContainerBuilder $container)
     {
-        if (!$container->hasDefinition(static::$aggregateVisitorId)) {
+        if (!$container->has(static::$aggregateVisitorId)) {
             return;
         }
 
         $aggregateVisitorDefinition = $container->getDefinition(static::$aggregateVisitorId);
         $visitors = $container->findTaggedServiceIds(static::$visitorTag);
 
-        $this->addVisitors($aggregateVisitorDefinition, array_keys($visitors));
-    }
-
-    /**
-     * Register addVisitor() method call on $definition with the given $serviceIds.
-     *
-     *
-     * @param \Symfony\Component\DependencyInjection\Definition $definition
-     * @param array $serviceIds
-     *
-     * @throws \Symfony\Component\DependencyInjection\Exception\InvalidArgumentException
-     */
-    protected function addVisitors(Definition $definition, array $serviceIds)
-    {
-        foreach ($serviceIds as $serviceId) {
-            $definition->addMethodCall('addVisitor', array(new Reference($serviceId)));
+        $visitorServices = array();
+        foreach (array_keys($visitors) as $serviceId) {
+            $visitorServices[] = new Reference($serviceId);
         }
+
+        $aggregateVisitorDefinition->replaceArgument(0, $visitorServices);
     }
 }

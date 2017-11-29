@@ -3,6 +3,8 @@ services:
     netgen_block_manager.transfer.serializer.visitor.aggregate:
         class: Netgen\BlockManager\Transfer\Output\Visitor\Aggregate
         public: false
+        arguments:
+            - []
 
     netgen_block_manager.transfer.serializer.visitor.block:
         class: Netgen\BlockManager\Transfer\Output\Visitor\Block

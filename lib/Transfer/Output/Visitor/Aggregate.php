@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
+use Netgen\BlockManager\Exception\InvalidInterfaceException;
 use Netgen\BlockManager\Transfer\Output\Visitor;
 use RuntimeException;
 
@@ -25,18 +26,16 @@ final class Aggregate extends Visitor
     public function __construct(array $visitors = array())
     {
         foreach ($visitors as $visitor) {
-            $this->addVisitor($visitor);
-        }
-    }
+            if (!$visitor instanceof Visitor) {
+                throw new InvalidInterfaceException(
+                    'Serialization visitor',
+                    get_class($visitor),
+                    Visitor::class
+                );
+            }
 
-    /**
-     * Add given $visitor to the internal collection.
-     *
-     * @param \Netgen\BlockManager\Transfer\Output\Visitor $visitor
-     */
-    public function addVisitor(Visitor $visitor)
-    {
-        $this->visitors[] = $visitor;
+            $this->visitors[] = $visitor;
+        }
     }
 
     public function accept($value)
