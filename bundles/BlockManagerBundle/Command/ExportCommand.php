@@ -49,21 +49,9 @@ final class ExportCommand extends Command
         $this
             ->setName('ngbm:export')
             ->setDescription('Exports Netgen Layouts entities')
-            ->addArgument(
-                'type',
-                InputArgument::REQUIRED,
-                'Type of the entity to export'
-            )
-            ->addArgument(
-                'ids',
-                InputArgument::REQUIRED,
-                'Comma-separated list of IDs of the entities to export'
-            )
-            ->setHelp(
-                <<<EOT
-The command <info>%command.name%</info> exports Netgen Layouts entities.
-EOT
-            );
+            ->addArgument('type', InputArgument::REQUIRED, 'Type of the entity to export')
+            ->addArgument('ids', InputArgument::REQUIRED, 'Comma-separated list of IDs of the entities to export')
+            ->setHelp('The command <info>%command.name%</info> exports Netgen Layouts entities.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

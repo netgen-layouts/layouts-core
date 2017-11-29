@@ -8,6 +8,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 use Exception;
 
 /**
@@ -19,6 +20,11 @@ final class ImportCommand extends Command
      * @var \Netgen\BlockManager\Transfer\Input\Importer
      */
     private $importer;
+
+    /**
+     * @var \Symfony\Component\Console\Style\SymfonyStyle
+     */
+    private $io;
 
     public function __construct(Importer $importer) {
         $this->importer = $importer;
@@ -34,15 +40,13 @@ final class ImportCommand extends Command
             ->setDescription('Imports Netgen Layouts entities')
             ->addArgument('type', InputArgument::REQUIRED, 'Type of the entity to import')
             ->addArgument('file', InputArgument::REQUIRED, 'JSON file to import')
-            ->setHelp(
-                <<<EOT
-The command <info>%command.name%</info> imports Netgen Layouts entities.
-EOT
-            );
+            ->setHelp('The command <info>%command.name%</info> imports Netgen Layouts entities.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->io = new SymfonyStyle($input, $output);
+
         $type = $input->getArgument('type');
         $file = $input->getArgument('file');
 
@@ -50,71 +54,72 @@ EOT
 
         switch ($type) {
             case 'layout':
-                $this->importLayouts($data, $output);
+                $errorCount = $this->importLayouts($data);
                 break;
             default:
-                throw new RuntimeException(sprintf("Unhandled type %s", $type));
+                $this->io->error(sprintf("Unknown entity type '%s'", $type));
+                return 1;
         }
 
-        $output->writeln('Finished.');
+        $errorCount > 0 ?
+            $this->io->caution('Import completed with errors.') :
+            $this->io->success('Import completed successfully.');
+
+        return 0;
     }
 
     /**
      * Import new layouts from the given $data string.
      *
      * @param string $data
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
      * @throws \Netgen\BlockManager\Exception\RuntimeException If given $data string is malformed
+     *
+     * @return int The count of errors
      */
-    private function importLayouts($data, OutputInterface $output)
+    private function importLayouts($data)
     {
-        $layouts = $this->decode($data);
+        $errorCount = 0;
 
-        if (!is_array($layouts)) {
-            $type = gettype($layouts);
-            throw new RuntimeException(
-                sprintf("Data is malformed, expected array, got %s", $type)
-            );
-        }
+        $layouts = $this->decode($data);
 
         foreach ($layouts as $index => $layoutData) {
             try {
                 $layout = $this->importer->importLayout($layoutData);
+
+                $this->io->note(sprintf("Imported layout #%d into layout ID %d", $index, $layout->getId()));
             } catch (Exception $e) {
-                $output->writeln(sprintf("Could not import layout #%d", $index));
-                $output->writeln('Exception stack:');
-                $this->renderExceptionStack($e, $output);
-                $output->writeln('');
+                $this->io->error(sprintf("Could not import layout with ID #%d", $index));
+                $this->io->section('Exception stack:');
+                $this->renderExceptionStack($e);
+                $this->io->newLine();
 
-                continue;
+                $errorCount++;
             }
-
-            $output->writeln(sprintf("Imported layout #%d into layout ID %d", $index, $layout->getId()));
-            $output->writeln('');
         }
+
+        return $errorCount;
     }
 
     /**
      * Renders all stacked exception messages for the given $exception.
      *
      * @param \Exception $exception
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @param int $number
      */
-    private function renderExceptionStack(Exception $exception, OutputInterface $output, $number = 0)
+    private function renderExceptionStack(Exception $exception, $number = 0)
     {
-        $output->writeln(sprintf(" #%d:", $number));
+        $this->io->writeln(sprintf(" #%d:", $number));
         $exceptionClass = get_class($exception);
-        $output->writeln(sprintf("  - exception: %s", $exceptionClass));
-        $output->writeln(sprintf("  - file: %s", $exception->getFile()));
-        $output->writeln(sprintf("  - line: %d", $exception->getLine()));
-        $output->writeln(sprintf("  - message: %s", $exception->getMessage()));
+        $this->io->writeln(sprintf("  - exception: %s", $exceptionClass));
+        $this->io->writeln(sprintf("  - file: %s", $exception->getFile()));
+        $this->io->writeln(sprintf("  - line: %d", $exception->getLine()));
+        $this->io->writeln(sprintf("  - message: %s", $exception->getMessage()));
 
         $previous = $exception->getPrevious();
 
         if ($previous instanceof Exception) {
-            $this->renderExceptionStack($exception, $output, $number + 1);
+            $this->renderExceptionStack($exception, $number + 1);
         }
     }
 
@@ -131,9 +136,10 @@ EOT
     {
         $value = json_decode($data, true);
 
-        if ($value === null) {
+        if (!is_array($value)) {
+            $type = gettype($value);
             throw new RuntimeException(
-                'Data is malformed, could not decode given JSON string'
+                sprintf("Data is malformed, expected array, got %s", $type)
             );
         }
 
