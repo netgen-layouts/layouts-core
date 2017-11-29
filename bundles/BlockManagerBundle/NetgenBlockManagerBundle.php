@@ -37,6 +37,7 @@ final class NetgenBlockManagerBundle extends Bundle
         $container->addCompilerPass(new CompilerPass\HttpCache\ConfigureHttpCachePass());
         $container->addCompilerPass(new CompilerPass\HttpCache\Block\CacheableResolverPass());
         $container->addCompilerPass(new CompilerPass\Context\ContextBuilderPass());
+        $container->addCompilerPass(new CompilerPass\Transfer\SerializationVisitorPass());
         $container->addCompilerPass(new CompilerPass\Twig\RuntimeLoaderPass());
         $container->addCompilerPass(new CompilerPass\Design\ThemePass());
     }

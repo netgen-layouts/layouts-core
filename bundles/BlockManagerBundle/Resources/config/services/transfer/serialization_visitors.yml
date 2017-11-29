@@ -1,0 +1,81 @@
+services:
+    # Services tagged with 'netgen_block_manager.transfer.serializer.visitor' register to this one
+    netgen_block_manager.transfer.serializer.visitor.aggregate:
+        class: Netgen\BlockManager\Transfer\Output\Visitor\Aggregate
+        public: false
+
+    netgen_block_manager.transfer.serializer.visitor.block:
+        class: Netgen\BlockManager\Transfer\Output\Visitor\Block
+        arguments:
+            - "@netgen_block_manager.api.service.block"
+        tags:
+            - { name: netgen_block_manager.transfer.serializer.visitor }
+        public: false
+
+    netgen_block_manager.transfer.serializer.visitor.collection:
+        class: Netgen\BlockManager\Transfer\Output\Visitor\Collection
+        tags:
+            - { name: netgen_block_manager.transfer.serializer.visitor }
+        public: false
+
+    netgen_block_manager.transfer.serializer.visitor.condition:
+        class: Netgen\BlockManager\Transfer\Output\Visitor\Condition
+        tags:
+            - { name: netgen_block_manager.transfer.serializer.visitor }
+        public: false
+
+    netgen_block_manager.transfer.serializer.visitor.config:
+        class: Netgen\BlockManager\Transfer\Output\Visitor\Config
+        tags:
+            - { name: netgen_block_manager.transfer.serializer.visitor }
+        public: false
+
+    netgen_block_manager.transfer.serializer.visitor.item:
+        class: Netgen\BlockManager\Transfer\Output\Visitor\Item
+        tags:
+            - { name: netgen_block_manager.transfer.serializer.visitor }
+        public: false
+
+    netgen_block_manager.transfer.serializer.visitor.layout:
+        class: Netgen\BlockManager\Transfer\Output\Visitor\Layout
+        tags:
+            - { name: netgen_block_manager.transfer.serializer.visitor }
+        public: false
+
+    netgen_block_manager.transfer.serializer.visitor.parameter_value:
+        class: Netgen\BlockManager\Transfer\Output\Visitor\ParameterValue
+        tags:
+            - { name: netgen_block_manager.transfer.serializer.visitor }
+        public: false
+
+    netgen_block_manager.transfer.serializer.visitor.placeholder:
+        class: Netgen\BlockManager\Transfer\Output\Visitor\Placeholder
+        tags:
+            - { name: netgen_block_manager.transfer.serializer.visitor }
+        public: false
+
+    netgen_block_manager.transfer.serializer.visitor.query:
+        class: Netgen\BlockManager\Transfer\Output\Visitor\Query
+        tags:
+            - { name: netgen_block_manager.transfer.serializer.visitor }
+        public: false
+
+    netgen_block_manager.transfer.serializer.visitor.rule:
+        class: Netgen\BlockManager\Transfer\Output\Visitor\Rule
+        tags:
+            - { name: netgen_block_manager.transfer.serializer.visitor }
+        public: false
+
+    netgen_block_manager.transfer.serializer.visitor.target:
+        class: Netgen\BlockManager\Transfer\Output\Visitor\Target
+        tags:
+            - { name: netgen_block_manager.transfer.serializer.visitor }
+        public: false
+
+    netgen_block_manager.transfer.serializer.visitor.zone:
+        class: Netgen\BlockManager\Transfer\Output\Visitor\Zone
+        arguments:
+            - "@netgen_block_manager.api.service.block"
+        tags:
+            - { name: netgen_block_manager.transfer.serializer.visitor }
+        public: false
