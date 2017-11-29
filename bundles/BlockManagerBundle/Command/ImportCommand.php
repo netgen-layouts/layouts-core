@@ -13,32 +13,30 @@ use Exception;
 /**
  * Importer command imports Block Manager entities.
  */
-class ImportCommand extends Command
+final class ImportCommand extends Command
 {
     /**
      * @var \Netgen\BlockManager\Transfer\Input\Importer
      */
     private $importer;
 
-    /**
-     * @param \Netgen\BlockManager\Transfer\Input\Importer $importer
-     */
     public function __construct(Importer $importer) {
         $this->importer = $importer;
 
+        // Parent constructor call is mandatory in commands registered as services
         parent::__construct();
     }
 
     protected function configure()
     {
         $this
-            ->setName('netgen_block_manager:import')
+            ->setName('ngbm:import')
             ->setDescription('Imports Block Manager entities')
             ->addArgument('type', InputArgument::REQUIRED, 'Type of the entity to import')
             ->addArgument('file', InputArgument::REQUIRED, 'JSON file to import')
             ->setHelp(
                 <<<EOT
-The command <info>%command.name%</info> exports Block Manager entities.
+The command <info>%command.name%</info> imports Block Manager entities.
 EOT
             );
     }

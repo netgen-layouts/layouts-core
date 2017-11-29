@@ -14,7 +14,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Export Block Manager entities.
  */
-class ExportCommand extends Command
+final class ExportCommand extends Command
 {
     /**
      * @var \Netgen\BlockManager\Transfer\Output\Serializer
@@ -31,13 +31,6 @@ class ExportCommand extends Command
      */
     private $layoutResolverService;
 
-    /**
-     * {@inheritdoc}
-     *
-     * @param \Netgen\BlockManager\Transfer\Output\Serializer $serializer
-     * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
-     * @param \Netgen\BlockManager\API\Service\LayoutResolverService $layoutResolverService
-     */
     public function __construct(
         Serializer $serializer,
         LayoutService $layoutService,
@@ -47,13 +40,14 @@ class ExportCommand extends Command
         $this->layoutService = $layoutService;
         $this->layoutResolverService = $layoutResolverService;
 
+        // Parent constructor call is mandatory in commands registered as services
         parent::__construct();
     }
 
     protected function configure()
     {
         $this
-            ->setName('netgen_block_manager:export')
+            ->setName('ngbm:export')
             ->setDescription('Exports Block Manager entities')
             ->addArgument(
                 'type',
