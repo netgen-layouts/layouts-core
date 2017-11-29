@@ -93,6 +93,7 @@ final class LayoutDataHandler
         return $this->layoutService->transaction(
             function () use ($createStruct, $data) {
                 $layoutDraft = $this->layoutService->createLayout($createStruct);
+                $this->addTranslations($layoutDraft, $data);
                 $this->processZones($layoutDraft, $data);
 
                 return $this->layoutService->publishLayout($layoutDraft);
@@ -111,8 +112,6 @@ final class LayoutDataHandler
      */
     private function processZones(Layout $layout, array $layoutData)
     {
-        $blockDataMapByZone = array();
-
         foreach ($layout->getZones() as $zone) {
             if (!array_key_exists($zone->getIdentifier(), $layoutData['zones'])) {
                 throw new RuntimeException(
@@ -120,12 +119,8 @@ final class LayoutDataHandler
                 );
             }
 
-            $blockDataMapByZone[] = $this->processZone($zone, $layoutData['zones'][$zone->getIdentifier()]);
+            $this->processZone($zone, $layoutData['zones'][$zone->getIdentifier()]);
         }
-
-        $this->addTranslations($layout, $layoutData);
-        $blockDataMap = array_merge(...$blockDataMapByZone);
-        $this->updateTranslations($blockDataMap);
     }
 
     /**
@@ -161,48 +156,19 @@ final class LayoutDataHandler
     }
 
     /**
-     * Update translations from the given $blockData.
+     * Update all translations of the given block with the $translationsData.
      *
-     * @see createBlocks()
-     *
-     * @param array $blockDataMap Block data as returned by createBlocks()
-     *
-     * @throws \Netgen\BlockManager\Exception\RuntimeException If translation data is not consistent
-     * @throws \Exception If thrown by the underlying API
-     */
-    private function updateTranslations(array $blockDataMap)
-    {
-        foreach ($blockDataMap as $data) {
-            $id = $data['id'];
-            $translationsData = $data['data']['parameters'];
-
-            $this->updateBlockTranslations($id, $translationsData);
-
-            foreach ($data['data']['collections'] as $collectionData) {
-                if (empty($collectionData['query'])) {
-                    continue;
-                }
-
-                $this->updateQueryTranslations($collectionData['query']['id'], $collectionData['query']['parameters']);
-            }
-        }
-    }
-
-    /**
-     * Update all translations of the block with the given $id with $parameterData.
-     *
-     * @param int|string $id Block id
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param array $translationsData Block parameters data by translation locale
      *
      * @throws \Netgen\BlockManager\Exception\RuntimeException If translation data is not consistent
      * @throws \Exception If thrown by the underlying API
      */
-    private function updateBlockTranslations($id, array $translationsData)
+    private function updateBlockTranslations(Block $block, array $translationsData)
     {
-        $blockDraft = $this->blockService->loadBlockDraft($id);
-        $mainLocale = $blockDraft->getMainLocale();
+        $mainLocale = $block->getMainLocale();
 
-        foreach ($blockDraft->getAvailableLocales() as $locale) {
+        foreach ($block->getAvailableLocales() as $locale) {
             if ($locale === $mainLocale) {
                 continue;
             }
@@ -213,7 +179,7 @@ final class LayoutDataHandler
                 );
             }
 
-            $this->updateBlockTranslation($blockDraft, $translationsData[$locale], $locale);
+            $this->updateBlockTranslation($block, $translationsData[$locale], $locale);
         }
     }
 
@@ -235,20 +201,19 @@ final class LayoutDataHandler
     }
 
     /**
-     * Update all translations of the query with the given $id with $parameterData.
+     * Update all translations of the given query with $translationsData.
      *
-     * @param int|string $id Query id
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      * @param array $translationsData Query parameters data by translation locale
      *
      * @throws \Netgen\BlockManager\Exception\RuntimeException If translation data is not consistent
      * @throws \Exception If thrown by the underlying API
      */
-    private function updateQueryTranslations($id, array $translationsData)
+    private function updateQueryTranslations(Query $query, array $translationsData)
     {
-        $queryDraft = $this->collectionService->loadQueryDraft($id);
-        $mainLocale = $queryDraft->getMainLocale();
+        $mainLocale = $query->getMainLocale();
 
-        foreach ($queryDraft->getAvailableLocales() as $locale) {
+        foreach ($query->getAvailableLocales() as $locale) {
             if ($locale === $mainLocale) {
                 continue;
             }
@@ -259,7 +224,7 @@ final class LayoutDataHandler
                 );
             }
 
-            $this->updateQueryTranslation($queryDraft, $translationsData[$locale], $locale);
+            $this->updateQueryTranslation($query, $translationsData[$locale], $locale);
         }
     }
 
@@ -289,20 +254,14 @@ final class LayoutDataHandler
      * @param array $zoneData
      *
      * @throws \Exception If thrown by the underlying API
-     *
-     * @return array Block data map as returned by createBlocks()
      */
     private function processZone(Zone $zone, array $zoneData)
     {
-        $blockDataSet = array();
-
         if ($zoneData['linked_zone'] === null) {
-            $blockDataSet = $this->createBlocks($zone, $zoneData['blocks']);
+            $this->createBlocks($zone, $zoneData['blocks']);
         } else {
             $this->linkZone($zone, $zoneData['linked_zone']);
         }
-
-        return $blockDataSet;
     }
 
     /**
@@ -322,43 +281,18 @@ final class LayoutDataHandler
     }
 
     /**
-     * Create blocks in the given $zone from the given $blocksData and return mapped
-     * data for translation.
-     *
-     * Note that we need to return data map for translation here where the block is created,
-     * otherwise we would not have a way to connect the data with the corresponding block.
-     *
-     * Code example:
-     *  <code>
-     *      [
-     *          [
-     *              'id' => 42,
-     *              'data' => [...]
-     *          ],
-     *          ...
-     *      ]
-     *  </code>
+     * Create blocks in the given $zone from the given $blocksData.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
      * @param array $blocksData
      *
      * @throws \Exception If thrown by the underlying API
-     *
-     * @return array An array of block data, as an array with ID and corresponding data
      */
     private function createBlocks(Zone $zone, array $blocksData)
     {
-        $blockDataMap = array();
-
         foreach ($blocksData as $blockData) {
-            $block = $this->createBlock($zone, $blockData);
-            $blockDataMap[] = array(
-                'id' => $block->getId(),
-                'data' => $blockData,
-            );
+            $this->createBlock($zone, $blockData);
         }
-
-        return $blockDataMap;
     }
 
     /**
@@ -376,6 +310,7 @@ final class LayoutDataHandler
         $blockCreateStruct = $this->buildBlockCreateStruct($blockData);
         $block = $this->blockService->createBlockInZone($blockCreateStruct, $zone);
 
+        $this->updateBlockTranslations($block, $blockData['parameters']);
         $this->processPlaceholderBlocks($block, $blockData['placeholders']);
         $this->processCollections($block, $blockData['collections']);
 
@@ -398,6 +333,7 @@ final class LayoutDataHandler
         $blockCreateStruct = $this->buildBlockCreateStruct($blockData);
         $block = $this->blockService->createBlock($blockCreateStruct, $targetBlock, $placeholder);
 
+        $this->updateBlockTranslations($block, $blockData['parameters']);
         $this->processPlaceholderBlocks($block, $blockData['placeholders']);
         $this->processCollections($block, $blockData['collections']);
 
@@ -523,6 +459,10 @@ final class LayoutDataHandler
         foreach ($block->getCollectionReferences() as $collectionReference) {
             $collection = $collectionReference->getCollection();
             $collectionData = $collectionsData[$collectionReference->getIdentifier()];
+
+            if ($collection->hasQuery()) {
+                $this->updateQueryTranslations($collection->getQuery(), $collectionData['query']['parameters']);
+            }
 
             $this->createItems($collection, $collectionData['manual_items']);
             $this->createItems($collection, $collectionData['override_items']);
