@@ -17,7 +17,6 @@ use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Exception\RuntimeException;
-use Exception;
 
 /**
  * LayoutDataHandler handles serialized Layout data.
@@ -90,19 +89,14 @@ final class LayoutDataHandler
         $createStruct->description = $data['description'];
         $createStruct->shared = $data['is_shared'];
 
-        $this->layoutService->beginTransaction();
+        return $this->layoutService->transaction(
+            function () use ($createStruct, $data) {
+                $layoutDraft = $this->layoutService->createLayout($createStruct);
+                $this->processZones($layoutDraft, $data);
 
-        try {
-            $layoutDraft = $this->layoutService->createLayout($createStruct);
-            $this->processZones($layoutDraft, $data);
-            $layout = $this->layoutService->publishLayout($layoutDraft);
-            $this->layoutService->commitTransaction();
-
-            return $layout;
-        } catch (Exception $e) {
-            $this->layoutService->rollbackTransaction();
-            throw $e;
-        }
+                return $this->layoutService->publishLayout($layoutDraft);
+            }
+        );
     }
 
     /**
