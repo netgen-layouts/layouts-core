@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Command;
 use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Transfer\Output\Serializer;
-use RuntimeException;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;

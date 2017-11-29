@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\API\Values\Config\Config as ConfigValue;
 use Netgen\BlockManager\Transfer\Output\Visitor;
-use RuntimeException;
+use Netgen\BlockManager\Exception\RuntimeException;
 
 /**
  * Config value visitor.

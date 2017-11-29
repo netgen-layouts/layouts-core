@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Transfer\Output\Visitor;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Layout\Zone as ZoneValue;
 use Netgen\BlockManager\Transfer\Output\Visitor;
-use RuntimeException;
+use Netgen\BlockManager\Exception\RuntimeException;
 
 /**
  * Zone value visitor.
@@ -81,7 +81,7 @@ final class Zone extends Visitor
      * @param \Netgen\BlockManager\Transfer\Output\Visitor $subVisitor
      * @param array $context
      *
-     * @throws \RuntimeException
+     * @throws \Netgen\BlockManager\Exception\RuntimeException
      *
      * @return mixed
      */

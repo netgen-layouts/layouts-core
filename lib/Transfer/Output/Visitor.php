@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Transfer\Output;
 
 use Netgen\BlockManager\API\Values\Value;
-use RuntimeException;
+use Netgen\BlockManager\Exception\RuntimeException;
 
 /**
  * Visits value objects into hash representation.
@@ -40,7 +40,7 @@ abstract class Visitor
      *
      * @param \Netgen\BlockManager\API\Values\Value $value
      *
-     * @throws \RuntimeException If status is not recognized
+     * @throws \Netgen\BlockManager\Exception\RuntimeException If status is not recognized
      *
      * @return string
      */

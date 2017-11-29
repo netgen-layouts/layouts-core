@@ -3,7 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Command;
 
 use Netgen\BlockManager\Transfer\Input\Importer;
-use RuntimeException;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -65,7 +65,7 @@ EOT
      * @param string $data
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
-     * @throws \RuntimeException If given $data string is malformed
+     * @throws \Netgen\BlockManager\Exception\RuntimeException If given $data string is malformed
      */
     private function importLayouts($data, OutputInterface $output)
     {
@@ -127,7 +127,7 @@ EOT
      *
      * @return mixed
      *
-     * @throws \RuntimeException If given $data string could not be decoded
+     * @throws \Netgen\BlockManager\Exception\RuntimeException If given $data string could not be decoded
      */
     private function decode($data)
     {

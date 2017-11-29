@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\Exception\InvalidInterfaceException;
 use Netgen\BlockManager\Transfer\Output\Visitor;
-use RuntimeException;
+use Netgen\BlockManager\Exception\RuntimeException;
 
 /**
  * Aggregate implementation of the Visitor.

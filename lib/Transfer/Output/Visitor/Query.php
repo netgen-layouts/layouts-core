@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\API\Values\Collection\Query as QueryValue;
 use Netgen\BlockManager\Transfer\Output\Visitor;
-use RuntimeException;
+use Netgen\BlockManager\Exception\RuntimeException;
 
 /**
  * Query value visitor.

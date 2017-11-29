@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\API\Values\Collection\Item as ItemValue;
 use Netgen\BlockManager\Transfer\Output\Visitor;
-use RuntimeException;
+use Netgen\BlockManager\Exception\RuntimeException;
 
 /**
  * Item value visitor.
@@ -37,7 +37,7 @@ final class Item extends Visitor
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Item $item
      *
-     * @throws \RuntimeException If status is not recognized
+     * @throws \Netgen\BlockManager\Exception\RuntimeException If status is not recognized
      *
      * @return string
      */

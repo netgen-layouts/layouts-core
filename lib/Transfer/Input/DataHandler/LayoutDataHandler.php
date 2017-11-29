@@ -16,7 +16,7 @@ use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry;
-use RuntimeException;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Exception;
 
 /**
@@ -119,7 +119,7 @@ final class LayoutDataHandler
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      * @param array $layoutData
      *
-     * @throws \RuntimeException If data is not consistent
+     * @throws \Netgen\BlockManager\Exception\RuntimeException If data is not consistent
      * @throws \Exception If thrown by the underlying API
      *
      * @return void
@@ -182,7 +182,7 @@ final class LayoutDataHandler
      *
      * @param array $blockDataMap Block data as returned by createBlocks()
      *
-     * @throws \RuntimeException If translation data is not consistent
+     * @throws \Netgen\BlockManager\Exception\RuntimeException If translation data is not consistent
      * @throws \Exception If thrown by the underlying API
      *
      * @return void
@@ -203,7 +203,7 @@ final class LayoutDataHandler
      * @param int|string $id Block id
      * @param array $translationsData Block parameters data by translation locale
      *
-     * @throws \RuntimeException If translation data is not consistent
+     * @throws \Netgen\BlockManager\Exception\RuntimeException If translation data is not consistent
      * @throws \Exception If thrown by the underlying API
      *
      * @return void
@@ -453,7 +453,7 @@ final class LayoutDataHandler
      * @param array $itemsData
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException
-     * @throws \RuntimeException
+     * @throws \Netgen\BlockManager\Exception\RuntimeException
      *
      * @return void
      */
@@ -475,7 +475,7 @@ final class LayoutDataHandler
      *
      * @param string $typeString Collection exported type string
      *
-     * @throws \RuntimeException If type string is not recognized
+     * @throws \Netgen\BlockManager\Exception\RuntimeException If type string is not recognized
      *
      * @return mixed
      */
@@ -496,7 +496,7 @@ final class LayoutDataHandler
      *
      * @param string $typeString Item exported type string
      *
-     * @throws \RuntimeException If type string is not recognized
+     * @throws \Netgen\BlockManager\Exception\RuntimeException If type string is not recognized
      *
      * @return mixed
      */

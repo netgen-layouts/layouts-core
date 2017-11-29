@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Transfer\Output\Visitor;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Block\Block as BlockValue;
 use Netgen\BlockManager\Transfer\Output\Visitor;
-use RuntimeException;
+use Netgen\BlockManager\Exception\RuntimeException;
 
 /**
  * Block value visitor.

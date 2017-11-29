@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Transfer\Output\Visitor;
 use Netgen\BlockManager\API\Values\Layout\Layout as LayoutValue;
 use Netgen\BlockManager\Transfer\Descriptor;
 use Netgen\BlockManager\Transfer\Output\Visitor;
-use RuntimeException;
+use Netgen\BlockManager\Exception\RuntimeException;
 
 /**
  * Layout value visitor.
