@@ -41,7 +41,6 @@ final class Block extends Visitor
             'id' => $block->getId(),
             'definition_identifier' => $block->getDefinition()->getIdentifier(),
             'status' => $this->getStatusString($block),
-            'is_published' => $block->isPublished(),
             'is_translatable' => $block->isTranslatable(),
             'is_always_available' => $block->isAlwaysAvailable(),
             'main_locale' => $block->getMainLocale(),

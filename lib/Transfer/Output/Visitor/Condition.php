@@ -25,7 +25,6 @@ final class Condition extends Visitor
             'id' => $condition->getId(),
             'type' => $condition->getConditionType()->getType(),
             'status' => $this->getStatusString($condition),
-            'is_published' => $condition->isPublished(),
             'value' => $condition->getValue(),
         );
     }

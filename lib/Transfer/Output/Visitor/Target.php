@@ -25,7 +25,6 @@ final class Target extends Visitor
             'id' => $target->getId(),
             'status' => $this->getStatusString($target),
             'type' => $target->getTargetType()->getType(),
-            'is_published' => $target->isPublished(),
             'value' => $target->getValue(),
         );
     }

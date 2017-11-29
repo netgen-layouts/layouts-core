@@ -37,7 +37,6 @@ final class Layout extends Visitor
             'name' => $this->getExportedLayoutName($layout),
             'description' => $layout->getDescription(),
             'status' => $this->getStatusString($layout),
-            'is_published' => $layout->isPublished(),
             'main_locale' => $layout->getMainLocale(),
             'available_locales' => $layout->getAvailableLocales(),
             'creation_date' => $layout->getCreated()->getTimestamp(),

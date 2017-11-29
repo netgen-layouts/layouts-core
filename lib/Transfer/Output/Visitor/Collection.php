@@ -30,7 +30,6 @@ final class Collection extends Visitor
             'id' => $collection->getId(),
             'type' => $this->getTypeString($collection),
             'status' => $this->getStatusString($collection),
-            'is_published' => $collection->isPublished(),
             'is_translatable' => $collection->isTranslatable(),
             'is_always_available' => $collection->isAlwaysAvailable(),
             'main_locale' => $collection->getMainLocale(),
