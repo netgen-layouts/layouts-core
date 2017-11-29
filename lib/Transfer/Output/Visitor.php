@@ -20,7 +20,7 @@ abstract class Visitor
      *
      * @param mixed $value
      *
-     * @return mixed
+     * @return bool
      */
     abstract public function accept($value);
 

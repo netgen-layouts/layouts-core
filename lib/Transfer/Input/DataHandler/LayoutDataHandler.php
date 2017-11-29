@@ -54,14 +54,6 @@ final class LayoutDataHandler
      */
     private $queryTypeRegistry;
 
-    /**
-     * @param \Netgen\BlockManager\API\Service\BlockService $blockService
-     * @param \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry $blockDefinitionRegistry
-     * @param \Netgen\BlockManager\API\Service\CollectionService $collectionService
-     * @param \Netgen\BlockManager\API\Service\LayoutService $layoutService
-     * @param \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry $layoutTypeRegistry
-     * @param \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry $queryTypeRegistry
-     */
     public function __construct(
         BlockService $blockService,
         BlockDefinitionRegistry $blockDefinitionRegistry,
@@ -79,7 +71,7 @@ final class LayoutDataHandler
     }
 
     /**
-     * Create and return Layout from the given serialized $data.
+     * Create and return layout from the given serialized $data.
      *
      * @param array $data
      *
@@ -114,15 +106,13 @@ final class LayoutDataHandler
     }
 
     /**
-     * Processes Zones in the given $layout from the $layoutData.
+     * Processes zones in the given $layout from the $layoutData.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      * @param array $layoutData
      *
      * @throws \Netgen\BlockManager\Exception\RuntimeException If data is not consistent
      * @throws \Exception If thrown by the underlying API
-     *
-     * @return void
      */
     private function processZones(Layout $layout, array $layoutData)
     {
@@ -146,8 +136,6 @@ final class LayoutDataHandler
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      * @param array $layoutData
-     *
-     * @return void
      *
      * @throws \Exception If thrown by the underlying API
      */
@@ -184,8 +172,6 @@ final class LayoutDataHandler
      *
      * @throws \Netgen\BlockManager\Exception\RuntimeException If translation data is not consistent
      * @throws \Exception If thrown by the underlying API
-     *
-     * @return void
      */
     private function updateTranslations(array $blockDataMap)
     {
@@ -205,8 +191,6 @@ final class LayoutDataHandler
      *
      * @throws \Netgen\BlockManager\Exception\RuntimeException If translation data is not consistent
      * @throws \Exception If thrown by the underlying API
-     *
-     * @return void
      */
     private function updateBlockTranslations($id, array $translationsData)
     {
@@ -234,8 +218,6 @@ final class LayoutDataHandler
      * @param string $locale
      *
      * @throws \Exception If thrown by the underlying API
-     *
-     * @return void
      */
     private function updateBlockTranslation(Block $block, array $parameterData, $locale)
     {
@@ -277,8 +259,6 @@ final class LayoutDataHandler
      * @param array|null $zoneData
      *
      * @throws \Exception If thrown by the underlying API
-     *
-     * @return void
      */
     private function linkZone(Zone $zone, $zoneData)
     {
@@ -367,8 +347,6 @@ final class LayoutDataHandler
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException
      * @throws \Exception If thrown by the underlying API
-     *
-     * @return void
      */
     private function setConfigStructs(
         BlockCreateStruct $blockCreateStruct,
@@ -390,14 +368,12 @@ final class LayoutDataHandler
     }
 
     /**
-     * Process Collections in the given $block.
+     * Process collections in the given $block.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param array $collectionsData Collections data
      *
      * @throws \Exception If thrown by the underlying API
-     *
-     * @return void
      */
     private function processCollections(Block $block, array $collectionsData)
     {
@@ -415,7 +391,7 @@ final class LayoutDataHandler
     }
 
     /**
-     * Creates a Query in the given $collection from the $collectionData.
+     * Creates a query in the given $collection from the $collectionData.
      *
      * @see \Netgen\BlockManager\API\Values\Collection\Query
      *
@@ -423,8 +399,6 @@ final class LayoutDataHandler
      * @param array $collectionData
      *
      * @throws \Exception If thrown by the underlying API
-     *
-     * @return void
      */
     private function setCollectionQuery(Collection $collection, array $collectionData)
     {
@@ -454,8 +428,6 @@ final class LayoutDataHandler
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException
      * @throws \Netgen\BlockManager\Exception\RuntimeException
-     *
-     * @return void
      */
     private function createManualItems(Collection $collection, array $itemsData)
     {
@@ -466,7 +438,7 @@ final class LayoutDataHandler
                 $itemData['value_type']
             );
 
-            $this->collectionService->addItem($collection, $itemCreateStruct);
+            $this->collectionService->addItem($collection, $itemCreateStruct, $itemData['position']);
         }
     }
 
@@ -477,7 +449,7 @@ final class LayoutDataHandler
      *
      * @throws \Netgen\BlockManager\Exception\RuntimeException If type string is not recognized
      *
-     * @return mixed
+     * @return int
      */
     private function mapCollectionType($typeString)
     {
@@ -488,7 +460,7 @@ final class LayoutDataHandler
                 return Collection::TYPE_DYNAMIC;
         }
 
-        throw new RuntimeException("Unknown item type '{$typeString}'");
+        throw new RuntimeException("Unknown collection type '{$typeString}'");
     }
 
     /**
@@ -498,7 +470,7 @@ final class LayoutDataHandler
      *
      * @throws \Netgen\BlockManager\Exception\RuntimeException If type string is not recognized
      *
-     * @return mixed
+     * @return int
      */
     private function mapItemType($typeString)
     {
@@ -509,6 +481,6 @@ final class LayoutDataHandler
                 return Item::TYPE_OVERRIDE;
         }
 
-        throw new RuntimeException("Unknown collection type '{$typeString}'");
+        throw new RuntimeException("Unknown item type '{$typeString}'");
     }
 }

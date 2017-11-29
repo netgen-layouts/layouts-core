@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Exception;
 
 /**
- * Importer command imports Block Manager entities.
+ * Command to import Netgen Layouts entities.
  */
 final class ImportCommand extends Command
 {
@@ -31,12 +31,12 @@ final class ImportCommand extends Command
     {
         $this
             ->setName('ngbm:import')
-            ->setDescription('Imports Block Manager entities')
+            ->setDescription('Imports Netgen Layouts entities')
             ->addArgument('type', InputArgument::REQUIRED, 'Type of the entity to import')
             ->addArgument('file', InputArgument::REQUIRED, 'JSON file to import')
             ->setHelp(
                 <<<EOT
-The command <info>%command.name%</info> imports Block Manager entities.
+The command <info>%command.name%</info> imports Netgen Layouts entities.
 EOT
             );
     }
@@ -60,7 +60,7 @@ EOT
     }
 
     /**
-     * Import new Layouts from the given $data string.
+     * Import new layouts from the given $data string.
      *
      * @param string $data
      * @param \Symfony\Component\Console\Output\OutputInterface $output
@@ -101,8 +101,6 @@ EOT
      * @param \Exception $exception
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      * @param int $number
-     *
-     * @return void
      */
     private function renderExceptionStack(Exception $exception, OutputInterface $output, $number = 0)
     {

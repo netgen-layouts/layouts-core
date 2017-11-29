@@ -1,12 +1,13 @@
 services:
     netgen_block_manager.transfer.serializer:
         class: Netgen\BlockManager\Transfer\Output\Serializer
+        public: false
         arguments:
             - "@netgen_block_manager.transfer.serializer.visitor.aggregate"
-        public: false
 
     netgen_block_manager.transfer.input.data_handler.layout:
         class: Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler
+        public: false
         arguments:
             - "@netgen_block_manager.api.service.block"
             - "@netgen_block_manager.block.registry.block_definition"
@@ -14,10 +15,9 @@ services:
             - "@netgen_block_manager.api.service.layout"
             - "@netgen_block_manager.layout.registry.layout_type"
             - "@netgen_block_manager.collection.registry.query_type"
-        public: false
 
     netgen_block_manager.transfer.input.importer:
         class: Netgen\BlockManager\Transfer\Input\Importer
+        public: false
         arguments:
             - "@netgen_block_manager.transfer.input.data_handler.layout"
-        public: false

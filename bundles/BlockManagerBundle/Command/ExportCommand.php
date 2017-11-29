@@ -12,7 +12,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Export Block Manager entities.
+ * Command to export Netgen Layouts entities.
  */
 final class ExportCommand extends Command
 {
@@ -48,7 +48,7 @@ final class ExportCommand extends Command
     {
         $this
             ->setName('ngbm:export')
-            ->setDescription('Exports Block Manager entities')
+            ->setDescription('Exports Netgen Layouts entities')
             ->addArgument(
                 'type',
                 InputArgument::REQUIRED,
@@ -61,7 +61,7 @@ final class ExportCommand extends Command
             )
             ->setHelp(
                 <<<EOT
-The command <info>%command.name%</info> exports Block Manager entities.
+The command <info>%command.name%</info> exports Netgen Layouts entities.
 EOT
             );
     }
@@ -86,13 +86,11 @@ EOT
     }
 
     /**
-     * Serialize all Layouts form the given array of Layout $ids.
+     * Serialize all layouts form the given array of layout IDs.
      *
      * @param string[]|int[] $ids
      *
      * @return array
-     *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException
      */
     private function serializeLayouts(array $ids)
     {
@@ -108,13 +106,11 @@ EOT
     }
 
     /**
-     * Serialize all Rules form the given array of Rule $ids.
+     * Serialize all rules form the given array of rule IDs.
      *
      * @param string[]|int[] $ids
      *
      * @return array
-     *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException
      */
     private function serializeRules(array $ids)
     {

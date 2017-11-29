@@ -19,9 +19,6 @@ final class Serializer
      */
     private $visitor;
 
-    /**
-     * @param \Netgen\BlockManager\Transfer\Output\Visitor $visitor
-     */
     public function __construct(Visitor $visitor)
     {
         $this->visitor = $visitor;

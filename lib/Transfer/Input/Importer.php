@@ -7,7 +7,7 @@ use Netgen\BlockManager\Transfer\Descriptor;
 use Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler;
 
 /**
- * Importer creates Block Manager entities from the serialized JSON data.
+ * Importer creates Netgen Layouts entities from the serialized JSON data.
  */
 final class Importer
 {
@@ -16,16 +16,13 @@ final class Importer
      */
     private $layoutDataHandler;
 
-    /**
-     * @param \Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler $layoutDataHandler
-     */
     public function __construct(LayoutDataHandler $layoutDataHandler)
     {
         $this->layoutDataHandler = $layoutDataHandler;
     }
 
     /**
-     * Create a new Layout from the given $data array.
+     * Create a new layout from the given $data array.
      *
      * @param array $data
      *
@@ -47,8 +44,6 @@ final class Importer
      * @param array $data
      *
      * @throws \Netgen\BlockManager\Exception\Transfer\DataNotAcceptedException If $data is not accepted
-     *
-     * @return void
      */
     private function acceptLayout(array $data)
     {
@@ -56,17 +51,15 @@ final class Importer
             throw DataNotAcceptedException::noFormatInformation();
         }
 
-        $actualType = $data['__format']['type'];
-        $expectedType = Descriptor::LAYOUT_FORMAT_TYPE;
-        $actualVersion = $data['__format']['version'];
-        $expectedVersion = Descriptor::LAYOUT_FORMAT_VERSION;
+        $actualType = array_key_exists('type', $data['__format']) ? $data['__format']['type'] : null;
+        $actualVersion = array_key_exists('version', $data['__format']) ? $data['__format']['version'] : null;
 
-        if ($actualType !== $expectedType) {
-            throw DataNotAcceptedException::typeNotAccepted($expectedType, $actualType);
+        if ($actualType !== Descriptor::LAYOUT_FORMAT_TYPE) {
+            throw DataNotAcceptedException::typeNotAccepted(Descriptor::LAYOUT_FORMAT_TYPE, $actualType);
         }
 
-        if ($actualVersion !== $expectedVersion) {
-            throw DataNotAcceptedException::versionNotAccepted($expectedVersion, $actualVersion);
+        if ($actualVersion !== Descriptor::LAYOUT_FORMAT_VERSION) {
+            throw DataNotAcceptedException::versionNotAccepted(Descriptor::LAYOUT_FORMAT_VERSION, $actualVersion);
         }
     }
 }

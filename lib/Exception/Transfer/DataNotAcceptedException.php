@@ -6,8 +6,7 @@ use InvalidArgumentException;
 use Netgen\BlockManager\Exception\Exception;
 
 /**
- * FormatNotAcceptedException is thrown by Importer when the provided data
- * is not accepted for import.
+ * Exception thrown by Importer when the provided data is not accepted for import.
  *
  * @see \Netgen\BlockManager\Transfer\Input\Importer
  */
@@ -16,7 +15,7 @@ final class DataNotAcceptedException extends InvalidArgumentException implements
     /**
      * Thrown when no format information is found.
      *
-     * @return self
+     * @return \Netgen\BlockManager\Exception\Transfer\DataNotAcceptedException
      */
     public static function noFormatInformation()
     {
@@ -31,7 +30,7 @@ final class DataNotAcceptedException extends InvalidArgumentException implements
      * @param string $expected
      * @param string $actual
      *
-     * @return self
+     * @return \Netgen\BlockManager\Exception\Transfer\DataNotAcceptedException
      */
     public static function typeNotAccepted($expected, $actual)
     {
@@ -50,13 +49,13 @@ final class DataNotAcceptedException extends InvalidArgumentException implements
      * @param string $expected
      * @param string $actual
      *
-     * @return self
+     * @return \Netgen\BlockManager\Exception\Transfer\DataNotAcceptedException
      */
     public static function versionNotAccepted($expected, $actual)
     {
         return new self(
             sprintf(
-                'Supported version is "%s", type "%s" was given.',
+                'Supported version is "%s", version "%s" was given.',
                 $expected,
                 $actual
             )
