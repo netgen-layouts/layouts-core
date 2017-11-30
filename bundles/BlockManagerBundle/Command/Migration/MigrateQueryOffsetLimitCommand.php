@@ -31,6 +31,10 @@ final class MigrateQueryOffsetLimitCommand extends Command
             'offset' => null,
             'limit' => 'limit',
         ),
+        'contentful_search' => array(
+            'offset' => 'offset',
+            'limit' => 'limit',
+        ),
     );
 
     /**
