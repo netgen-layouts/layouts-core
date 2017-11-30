@@ -53,7 +53,7 @@ class BlockTypeGroupNodeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\BlockTypeGroupNode::getConfigurationNode
      */
-    public function testBlockTypeGroupsSettingsWithNoBlockTypesMerge()
+    public function testBlockTypeGroupsSettingsWithBlockTypesMerge()
     {
         $config = array(
             array(
@@ -75,7 +75,7 @@ class BlockTypeGroupNodeTest extends TestCase
         $expectedConfig = array(
             'block_type_groups' => array(
                 'block_type_group' => array(
-                    'block_types' => array('image'),
+                    'block_types' => array('title', 'text', 'image'),
                 ),
             ),
         );

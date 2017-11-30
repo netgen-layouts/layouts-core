@@ -28,7 +28,6 @@ final class BlockTypeGroupNode implements ConfigurationNodeInterface
                                 return array_values(array_unique($v));
                             })
                         ->end()
-                        ->performNoDeepMerging()
                         ->requiresAtLeastOneElement()
                         ->prototype('scalar')
                             ->cannotBeEmpty()
