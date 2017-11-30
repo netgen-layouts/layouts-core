@@ -8,7 +8,7 @@ services:
 
     netgen_block_manager.menu.admin.main_menu:
         class: Knp\Menu\MenuItem
-        public: true
+        public: false
         factory: ["@netgen_block_manager.menu.admin.main_menu_builder", "createMenu"]
         tags:
             - { name: knp_menu.menu, alias: ngbm.admin.main_menu }
