@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Design\Twig;
 use Netgen\Bundle\BlockManagerBundle\Configuration\ConfigurationInterface;
 use Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader;
 use PHPUnit\Framework\TestCase;
-use Twig\Loader\LoaderInterface;
+use Twig\Loader\FilesystemLoader as BaseFilesystemLoader;
 use Twig\Source;
 
 class FilesystemLoaderTest extends TestCase
@@ -27,7 +27,9 @@ class FilesystemLoaderTest extends TestCase
 
     public function setUp()
     {
-        $this->innerLoaderMock = $this->createMock(LoaderInterface::class);
+        // We mock \Twig\Loader\FilesystemLoader instead of the loader interface
+        // because it has all needed methods in both versions of Twig (1.x and 2.x)
+        $this->innerLoaderMock = $this->createMock(BaseFilesystemLoader::class);
         $this->configurationMock = $this->createMock(ConfigurationInterface::class);
 
         $this->configurationMock
