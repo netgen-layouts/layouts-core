@@ -223,6 +223,8 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
      *
      * @param string $currentDesign
      * @param array $designList
+     *
+     * @throws \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException If design does not exist
      */
     private function validateCurrentDesign($currentDesign, array $designList)
     {
