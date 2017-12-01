@@ -24,9 +24,9 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         parent::setUp();
 
         $this->setUpClient();
+        $this->mockTranslationHelper();
         $this->mockItemLoader();
         $this->mockQueryType();
-        $this->mockTranslationHelper();
         $this->createDatabase();
 
         $this->expectedResponsesPath = __DIR__ . '/responses/expected';
