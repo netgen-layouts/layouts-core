@@ -14,12 +14,12 @@ use Symfony\Component\HttpKernel\Controller\ControllerReference;
 class BlockViewRendererTest extends TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     private $contextMock;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     private $cacheableResolverMock;
 

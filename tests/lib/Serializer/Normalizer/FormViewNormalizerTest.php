@@ -15,7 +15,7 @@ use Symfony\Component\Form\FormInterface;
 class FormViewNormalizerTest extends TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     private $viewRendererMock;
 

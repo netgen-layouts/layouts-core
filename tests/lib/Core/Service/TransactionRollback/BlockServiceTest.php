@@ -21,7 +21,7 @@ use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
 class BlockServiceTest extends ServiceTestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     private $layoutServiceMock;
 

@@ -10,12 +10,12 @@ use PHPUnit\Framework\TestCase;
 class ConnectionHelperTest extends TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     private $databasePlatformMock;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     private $databaseConnectionMock;
 

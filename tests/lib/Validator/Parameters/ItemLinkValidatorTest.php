@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 class ItemLinkValidatorTest extends ValidatorTestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     private $itemLoaderMock;
 

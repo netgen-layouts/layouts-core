@@ -19,7 +19,7 @@ class ContainerVoterTest extends TestCase
     private $voter;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     private $cacheableResolverMock;
 

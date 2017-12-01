@@ -11,7 +11,7 @@ use Twig\Environment;
 class CollectionViewTest extends TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     private $twigMock;
 

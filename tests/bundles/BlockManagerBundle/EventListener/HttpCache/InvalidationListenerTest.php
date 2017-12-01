@@ -21,7 +21,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 class InvalidationListenerTest extends TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     private $httpCacheClientMock;
 

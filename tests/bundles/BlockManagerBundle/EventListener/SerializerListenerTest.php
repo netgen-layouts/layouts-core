@@ -17,7 +17,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 class SerializerListenerTest extends TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     private $serializerMock;
 

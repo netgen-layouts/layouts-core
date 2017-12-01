@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 class BlockDefinitionFactoryTest extends TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     private $handlerMock;
 

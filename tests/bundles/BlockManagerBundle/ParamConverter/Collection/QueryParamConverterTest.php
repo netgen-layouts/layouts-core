@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 class QueryParamConverterTest extends TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     private $collectionServiceMock;
 

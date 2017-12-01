@@ -16,7 +16,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 class BlockResponseListenerTest extends TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     private $taggerMock;
 

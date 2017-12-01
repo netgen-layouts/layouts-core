@@ -23,7 +23,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class GetCollectionPagerListenerTest extends TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     private $resultBuilderMock;
 

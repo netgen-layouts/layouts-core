@@ -16,12 +16,12 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 class ApiCsrfValidationListenerTest extends TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     private $csrfTokenManagerMock;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     private $sessionMock;
 

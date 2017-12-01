@@ -13,7 +13,7 @@ use Symfony\Component\Serializer\Serializer;
 class CollectionResultSetNormalizerTest extends TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     private $serializerMock;
 
