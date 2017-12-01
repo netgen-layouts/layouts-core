@@ -12,9 +12,7 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
 {
     private $minimalConfig = array(
         'design_list' => array(
-            'standard' => array(
-                'standard',
-            ),
+            'standard' => array(),
         ),
     );
 
@@ -84,7 +82,7 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
         $this->assertContainerBuilderHasParameter('netgen_block_manager.query_types', array());
         $this->assertContainerBuilderHasParameter('netgen_block_manager.view', array());
         $this->assertContainerBuilderHasParameter('netgen_block_manager.http_cache');
-        $this->assertContainerBuilderHasParameter('netgen_block_manager.design_list', array('standard' => array('standard')));
+        $this->assertContainerBuilderHasParameter('netgen_block_manager.design_list', array('standard' => array()));
         $this->assertContainerBuilderHasParameter('netgen_block_manager.design', 'standard');
         $this->assertContainerBuilderHasParameter('netgen_block_manager.pagelayout',
             '@NetgenBlockManager/empty_pagelayout.html.twig'
@@ -168,7 +166,7 @@ class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
 
         $this->assertArrayHasKey('design_list', $config);
         $this->assertArrayHasKey('standard', $config['design_list']);
-        $this->assertEquals(array('standard'), $config['design_list']['standard']);
+        $this->assertNull($config['design_list']['standard']);
 
         $this->assertArrayHasKey('view', $config);
 

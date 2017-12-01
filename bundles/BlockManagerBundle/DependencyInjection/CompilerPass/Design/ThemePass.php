@@ -18,10 +18,13 @@ final class ThemePass implements CompilerPassInterface
 
         $designList = $container->getParameter('netgen_block_manager.design_list');
         $themeList = array_unique(array_merge(...array_values($designList)));
+        $themeList[] = 'standard';
 
         $themeDirs = $this->getThemeDirs($container, $themeList);
 
         foreach ($designList as $designName => $designThemes) {
+            $designThemes[] = 'standard';
+
             foreach ($designThemes as $themeName) {
                 foreach ($themeDirs[$themeName] as $themeDir) {
                     $container->addResource(new FileExistenceResource($themeDir));
