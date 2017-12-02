@@ -31,7 +31,7 @@ final class Rule extends Visitor
 
         return array(
             'id' => $rule->getId(),
-            'status' => $this->getStatusString($layout),
+            'status' => $this->getStatusString($rule),
             'layout_id' => $layout instanceof Layout ? $layout->getId() : null,
             'is_enabled' => $rule->isEnabled(),
             'priority' => $rule->getPriority(),
