@@ -60,7 +60,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
     /**
      * @var \Symfony\Component\Console\Style\SymfonyStyle
      */
-    private $style;
+    private $io;
 
     public function __construct(QueryTypeRegistryInterface $queryTypeRegistry, Connection $connection)
     {
@@ -83,14 +83,14 @@ final class MigrateQueryOffsetLimitCommand extends Command
         $this->input = $input;
         $this->output = $output;
 
-        $this->style = new SymfonyStyle($this->input, $this->output);
+        $this->io = new SymfonyStyle($this->input, $this->output);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->style->title('Netgen Layouts 0.10 migration script');
+        $this->io->title('Netgen Layouts 0.10 migration script');
 
-        $this->style->block(
+        $this->io->block(
             sprintf(
                 "%s\n%s\n%s",
                 'This script will ask you for names of offset and limit parameters for each of your query types.',
@@ -99,7 +99,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
             )
         );
 
-        $this->style->caution(
+        $this->io->caution(
             sprintf(
                 "%s\n%s",
                 'This script will perform changes to data in your database.',
@@ -107,7 +107,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
             )
         );
 
-        if (!$this->style->confirm('Did you backup your database? Answering NO will cancel the script', false)) {
+        if (!$this->io->confirm('Did you backup your database? Answering NO will cancel the script', false)) {
             return 1;
         }
 
@@ -125,7 +125,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
             do {
                 $mapping = $this->askForOffsetAndLimitParameter($queryType);
             } while (
-                !$this->style->confirm(
+                !$this->io->confirm(
                     sprintf(
                         ($mapping['offset'] !== null ?
                             "Your '%1\$s' query type has an offset parameter named '%2\$s'\n" :
@@ -145,13 +145,13 @@ final class MigrateQueryOffsetLimitCommand extends Command
             $queryTypeParameters[$queryTypeIdentifier] = $mapping;
         }
 
-        if (!$this->style->confirm('Do you want to start the migration now?', true)) {
+        if (!$this->io->confirm('Do you want to start the migration now?', true)) {
             return 1;
         }
 
         $this->migrateOffsetAndLimit($queryTypeParameters);
 
-        $this->style->success('Migration done. Now edit all your custom query types to remove the offset and limit parameters.');
+        $this->io->success('Migration done. Now edit all your custom query types to remove the offset and limit parameters.');
 
         return 0;
     }
@@ -182,7 +182,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
         $queryTypeParameters[] = 'NO PARAMETER';
 
         foreach (array('offset', 'limit') as $parameter) {
-            $parameterName = $this->style->choice(
+            $parameterName = $this->io->choice(
                 sprintf(
                     'Select the %1$s parameter from the "%2$s" (%3$s) query type (Use "NO PARAMETER" option if your query type does not have the %1$s parameter)',
                     $parameter,
@@ -230,7 +230,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
     {
         $queryData = $this->getQueryData();
 
-        $this->style->progressStart(count($queryData));
+        $this->io->progressStart(count($queryData));
 
         $this->connection->transactional(function () use ($queryTypeParameters, $queryData) {
             foreach ($queryData as $queryDataItem) {
@@ -250,11 +250,11 @@ final class MigrateQueryOffsetLimitCommand extends Command
 
                 $this->updateCollection($queryDataItem['id'], $queryDataItem['status'], $offset, $limit);
 
-                $this->style->progressAdvance();
+                $this->io->progressAdvance();
             }
         });
 
-        $this->style->progressFinish();
+        $this->io->progressFinish();
     }
 
     /**
