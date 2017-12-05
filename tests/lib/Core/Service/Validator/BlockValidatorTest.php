@@ -16,7 +16,6 @@ use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinition as ContainerDefini
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\TestCase;
-use stdClass;
 use Symfony\Component\Validator\Validation;
 
 class BlockValidatorTest extends TestCase
@@ -504,24 +503,6 @@ class BlockValidatorTest extends TestCase
                     ),
                 ),
                 true,
-            ),
-            array(
-                array(
-                    'definition' => $this->getBlockDefinition(),
-                    'viewType' => 'large',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => false,
-                    'alwaysAvailable' => true,
-                    'parameterValues' => array(
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ),
-                    'collectionCreateStructs' => array(
-                        'default' => new stdClass(),
-                    ),
-                ),
-                false,
             ),
         );
     }
