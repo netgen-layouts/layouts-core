@@ -290,7 +290,7 @@ final class LayoutDataHandler
     private function createBlocks(Zone $zone, array $blocksData)
     {
         foreach ($blocksData as $blockData) {
-            $this->createBlock($zone, $blockData);
+            $this->createBlockInZone($zone, $blockData);
         }
     }
 
@@ -304,7 +304,7 @@ final class LayoutDataHandler
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    private function createBlock(Zone $zone, array $blockData)
+    private function createBlockInZone(Zone $zone, array $blockData)
     {
         $blockCreateStruct = $this->buildBlockCreateStruct($blockData);
         $block = $this->blockService->createBlockInZone($blockCreateStruct, $zone);
@@ -327,7 +327,7 @@ final class LayoutDataHandler
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    private function createBlockInBlock(Block $targetBlock, $placeholder, array $blockData)
+    private function createBlock(Block $targetBlock, $placeholder, array $blockData)
     {
         $blockCreateStruct = $this->buildBlockCreateStruct($blockData);
         $block = $this->blockService->createBlock($blockCreateStruct, $targetBlock, $placeholder);
@@ -353,7 +353,7 @@ final class LayoutDataHandler
 
         foreach ($data as $placeholder => $placeholderData) {
             foreach ($placeholderData['blocks'] as $blockData) {
-                $this->createBlockInBlock($targetBlock, $placeholder, $blockData);
+                $this->createBlock($targetBlock, $placeholder, $blockData);
             }
         }
     }
