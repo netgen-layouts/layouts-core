@@ -84,7 +84,7 @@ final class LayoutDataHandler
         $layoutType = $this->layoutTypeRegistry->getLayoutType($data['type_identifier']);
         $createStruct = $this->layoutService->newLayoutCreateStruct(
             $layoutType,
-            sprintf('%s (%d)', $data['name'], time()),
+            sprintf('%s (Imported at %s)', $data['name'], date('D, d M Y H:i:s')),
             $data['main_locale']
         );
         $createStruct->description = $data['description'];
