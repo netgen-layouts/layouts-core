@@ -15,6 +15,7 @@ services:
             - "@netgen_block_manager.transfer.serializer"
             - "@netgen_block_manager.api.service.layout"
             - "@netgen_block_manager.api.service.layout_resolver"
+            - "@filesystem"
         tags:
             - { name: console.command, command: ngbm:export }
 

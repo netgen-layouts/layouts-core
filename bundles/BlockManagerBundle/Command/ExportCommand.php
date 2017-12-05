@@ -10,6 +10,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * Command to export Netgen Layouts entities.
@@ -31,14 +32,21 @@ final class ExportCommand extends Command
      */
     private $layoutResolverService;
 
+    /**
+     * @var \Symfony\Component\Filesystem\Filesystem
+     */
+    private $fileSystem;
+
     public function __construct(
         Serializer $serializer,
         LayoutService $layoutService,
-        LayoutResolverService $layoutResolverService
+        LayoutResolverService $layoutResolverService,
+        Filesystem $fileSystem
     ) {
         $this->serializer = $serializer;
         $this->layoutService = $layoutService;
         $this->layoutResolverService = $layoutResolverService;
+        $this->fileSystem = $fileSystem;
 
         // Parent constructor call is mandatory in commands registered as services
         parent::__construct();
@@ -51,6 +59,7 @@ final class ExportCommand extends Command
             ->setDescription('Exports Netgen Layouts entities')
             ->addArgument('type', InputArgument::REQUIRED, 'Type of the entity to export')
             ->addArgument('ids', InputArgument::REQUIRED, 'Comma-separated list of IDs of the entities to export')
+            ->addArgument('file', InputArgument::OPTIONAL, 'If specified, exported entities will be written to provided file')
             ->setHelp('The command <info>%command.name%</info> exports Netgen Layouts entities.');
     }
 
@@ -70,7 +79,12 @@ final class ExportCommand extends Command
                 throw new RuntimeException(sprintf('Unhandled type %s', $type));
         }
 
-        $output->writeln(json_encode($hash, JSON_PRETTY_PRINT));
+        $json = json_encode($hash, JSON_PRETTY_PRINT);
+
+        $file = trim($input->getArgument('file'));
+        !empty($file) ?
+            $this->fileSystem->dumpFile($file, $json) :
+            $output->writeln($json);
     }
 
     /**
