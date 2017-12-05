@@ -121,7 +121,7 @@ final class ImportCommand extends Command
         $previous = $exception->getPrevious();
 
         if ($previous instanceof Exception) {
-            $this->renderExceptionStack($exception, $number + 1);
+            $this->renderExceptionStack($previous, $number + 1);
         }
     }
 
