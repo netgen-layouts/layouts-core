@@ -49,11 +49,16 @@ final class QueryCreateStruct extends ValueObject implements ParameterStruct
      * The values in the array need to be in hash format of the value
      * i.e. the format acceptable by the ParameterTypeInterface::fromHash method.
      *
+     * If $doImport is set to true, the values will be considered as coming from an import,
+     * meaning it will be processed using ParameterTypeInterface::import method instead of
+     * ParameterTypeInterface::fromHash method.
+     *
      * @param \Netgen\BlockManager\Collection\QueryTypeInterface $queryType
      * @param array $values
+     * @param bool $doImport
      */
-    public function fillParametersFromHash(QueryTypeInterface $queryType, array $values = array())
+    public function fillParametersFromHash(QueryTypeInterface $queryType, array $values = array(), $doImport = false)
     {
-        $this->fillFromHash($queryType, $values);
+        $this->fillFromHash($queryType, $values, $doImport);
     }
 }

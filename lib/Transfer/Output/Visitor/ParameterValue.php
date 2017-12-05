@@ -23,6 +23,6 @@ final class ParameterValue extends Visitor
 
         $parameter = $parameterValue->getParameter();
 
-        return $parameter->getType()->toHash($parameter, $parameterValue->getValue());
+        return $parameter->getType()->export($parameter, $parameterValue->getValue());
     }
 }

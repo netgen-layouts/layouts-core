@@ -134,20 +134,27 @@ trait ParameterStructTrait
      * The values in the array need to be in hash format of the value
      * i.e. the format acceptable by the ParameterTypeInterface::fromHash method.
      *
+     * If $doImport is set to true, the values will be considered as coming from an import,
+     * meaning it will be processed using ParameterTypeInterface::import method instead of
+     * ParameterTypeInterface::fromHash method.
+     *
      * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
      * @param array $values
+     * @param bool $doImport
      */
-    public function fillFromHash(ParameterCollectionInterface $parameterCollection, array $values = array())
+    public function fillFromHash(ParameterCollectionInterface $parameterCollection, array $values = array(), $doImport = false)
     {
+        $importMethod = $doImport ? 'import' : 'fromHash';
+
         foreach ($parameterCollection->getParameters() as $parameter) {
             $value = array_key_exists($parameter->getName(), $values) ?
-                $parameter->getType()->fromHash($parameter, $values[$parameter->getName()]) :
+                $parameter->getType()->$importMethod($parameter, $values[$parameter->getName()]) :
                 $parameter->getDefaultValue();
 
             $this->setParameterValue($parameter->getName(), $value);
 
             if ($parameter instanceof CompoundParameterInterface) {
-                $this->fillFromHash($parameter, $values);
+                $this->fillFromHash($parameter, $values, $doImport);
             }
         }
     }

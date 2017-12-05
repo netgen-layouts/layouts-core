@@ -195,7 +195,7 @@ final class LayoutDataHandler
     private function updateBlockTranslation(Block $block, array $parameterData, $locale)
     {
         $updateStruct = $this->blockService->newBlockUpdateStruct($locale, $block);
-        $updateStruct->fillParametersFromHash($block->getDefinition(), $parameterData);
+        $updateStruct->fillParametersFromHash($block->getDefinition(), $parameterData, true);
 
         $this->blockService->updateBlock($block, $updateStruct);
     }
@@ -240,7 +240,7 @@ final class LayoutDataHandler
     private function updateQueryTranslation(Query $query, array $parameterData, $locale)
     {
         $updateStruct = $this->collectionService->newQueryUpdateStruct($locale, $query);
-        $updateStruct->fillParametersFromHash($query->getQueryType(), $parameterData);
+        $updateStruct->fillParametersFromHash($query->getQueryType(), $parameterData, true);
 
         $this->collectionService->updateQuery($query, $updateStruct);
     }
@@ -377,7 +377,7 @@ final class LayoutDataHandler
         $blockCreateStruct->itemViewType = $blockData['item_view_type'];
         $blockCreateStruct->isTranslatable = $blockData['is_translatable'];
         $blockCreateStruct->alwaysAvailable = $blockData['is_always_available'];
-        $blockCreateStruct->fillParametersFromHash($blockDefinition, $blockData['parameters'][$blockData['main_locale']]);
+        $blockCreateStruct->fillParametersFromHash($blockDefinition, $blockData['parameters'][$blockData['main_locale']], true);
         $this->setConfigStructs($blockCreateStruct, $blockDefinition, $blockData['configuration']);
         $this->setCollectionStructs($blockCreateStruct, $blockData['collections']);
 
@@ -401,7 +401,7 @@ final class LayoutDataHandler
                 $queryType = $this->queryTypeRegistry->getQueryType($collectionData['query']['query_type']);
                 $queryCreateStruct = $this->collectionService->newQueryCreateStruct($queryType);
 
-                $queryCreateStruct->fillParametersFromHash($queryType, $collectionData['query']['parameters'][$collectionData['main_locale']]);
+                $queryCreateStruct->fillParametersFromHash($queryType, $collectionData['query']['parameters'][$collectionData['main_locale']], true);
             }
 
             $collectionCreateStruct = $this->collectionService->newCollectionCreateStruct($queryCreateStruct);
@@ -436,7 +436,7 @@ final class LayoutDataHandler
 
         foreach ($configurationData as $configKey => $hash) {
             $configStruct = new ConfigStruct();
-            $configStruct->fillParametersFromHash($configDefinitionMap[$configKey], $hash);
+            $configStruct->fillParametersFromHash($configDefinitionMap[$configKey], $hash, true);
             $blockCreateStruct->setConfigStruct($configKey, $configStruct);
         }
     }

@@ -60,6 +60,46 @@ abstract class ParameterType implements ParameterTypeInterface
         return $value;
     }
 
+    /**
+     * Returns the parameter value converted to a format suitable for exporting.
+     *
+     * This is useful if exported value is different from a stored value, for example
+     * when exporting IDs from an external CMS which need to be exported not as IDs
+     * but as remote IDs.
+     *
+     * This is a trivial implementation that returns the value in the same format as
+     * self::toHash(). Overriden implementations should take care to retain this behaviour.
+     *
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
+     * @param mixed $value
+     *
+     * @return mixed
+     */
+    public function export(ParameterInterface $parameter, $value)
+    {
+        return $this->toHash($parameter, $value);
+    }
+
+    /**
+     * Returns the parameter value converted from the exported format.
+     *
+     * This is useful if stored value is different from an exported value, for example
+     * when importing IDs from an external CMS which need to be imported as database IDs
+     * in contrast to some kind of remote ID which would be stored in the export.
+     *
+     * This is a trivial implementation that returns the value in the same format as
+     * self::fromHash(). Overriden implementations should take care to retain this behaviour.
+     *
+     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
+     * @param mixed $value
+     *
+     * @return mixed
+     */
+    public function import(ParameterInterface $parameter, $value)
+    {
+        return $this->fromHash($parameter, $value);
+    }
+
     public function isValueEmpty(ParameterInterface $parameter, $value)
     {
         return empty($value);
