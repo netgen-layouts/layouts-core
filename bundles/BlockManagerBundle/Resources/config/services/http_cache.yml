@@ -4,11 +4,11 @@ services:
         public: true
 
     netgen_block_manager.http_cache.client:
-        alias: netgen_block_manager.http_cache.client.fos
+        alias: netgen_block_manager.http_cache.client.varnish
         public: true
 
-    netgen_block_manager.http_cache.client.fos:
-        class: Netgen\BlockManager\HttpCache\FOSClient
+    netgen_block_manager.http_cache.client.varnish:
+        class: Netgen\BlockManager\HttpCache\VarnishClient
         public: false
         arguments:
             - "@netgen_block_manager.http_cache.fos.cache_manager"

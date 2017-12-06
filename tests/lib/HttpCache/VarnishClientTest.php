@@ -4,11 +4,11 @@ namespace Netgen\BlockManager\Tests\HttpCache;
 
 use FOS\HttpCache\CacheInvalidator;
 use FOS\HttpCache\Exception\ExceptionCollection;
-use Netgen\BlockManager\HttpCache\FOSClient;
 use Netgen\BlockManager\HttpCache\Layout\IdProviderInterface;
+use Netgen\BlockManager\HttpCache\VarnishClient;
 use PHPUnit\Framework\TestCase;
 
-class FOSClientTest extends TestCase
+class VarnishClientTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
@@ -21,7 +21,7 @@ class FOSClientTest extends TestCase
     private $idProviderMock;
 
     /**
-     * @var \Netgen\BlockManager\HttpCache\FOSClient
+     * @var \Netgen\BlockManager\HttpCache\VarnishClient
      */
     private $client;
 
@@ -30,15 +30,15 @@ class FOSClientTest extends TestCase
         $this->fosInvalidatorMock = $this->createMock(CacheInvalidator::class);
         $this->idProviderMock = $this->createMock(IdProviderInterface::class);
 
-        $this->client = new FOSClient(
+        $this->client = new VarnishClient(
             $this->fosInvalidatorMock,
             $this->idProviderMock
         );
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\FOSClient::__construct
-     * @covers \Netgen\BlockManager\HttpCache\FOSClient::invalidateLayouts
+     * @covers \Netgen\BlockManager\HttpCache\VarnishClient::__construct
+     * @covers \Netgen\BlockManager\HttpCache\VarnishClient::invalidateLayouts
      */
     public function testInvalidateLayouts()
     {
@@ -69,7 +69,7 @@ class FOSClientTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\FOSClient::invalidateLayouts
+     * @covers \Netgen\BlockManager\HttpCache\VarnishClient::invalidateLayouts
      */
     public function testInvalidateLayoutsWithEmptyLayoutIds()
     {
@@ -85,7 +85,7 @@ class FOSClientTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\FOSClient::invalidateAllLayouts
+     * @covers \Netgen\BlockManager\HttpCache\VarnishClient::invalidateAllLayouts
      */
     public function testInvalidateAllLayouts()
     {
@@ -108,7 +108,7 @@ class FOSClientTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\FOSClient::invalidateBlocks
+     * @covers \Netgen\BlockManager\HttpCache\VarnishClient::invalidateBlocks
      */
     public function testInvalidateBlocks()
     {
@@ -127,7 +127,7 @@ class FOSClientTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\FOSClient::invalidateBlocks
+     * @covers \Netgen\BlockManager\HttpCache\VarnishClient::invalidateBlocks
      */
     public function testInvalidateBlocksWithEmptyBlockIds()
     {
@@ -139,7 +139,7 @@ class FOSClientTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\FOSClient::invalidateLayoutBlocks
+     * @covers \Netgen\BlockManager\HttpCache\VarnishClient::invalidateLayoutBlocks
      */
     public function testInvalidateLayoutBlocks()
     {
@@ -158,7 +158,7 @@ class FOSClientTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\FOSClient::invalidateLayoutBlocks
+     * @covers \Netgen\BlockManager\HttpCache\VarnishClient::invalidateLayoutBlocks
      */
     public function testInvalidateLayoutBlocksWithEmptyLayoutIds()
     {
@@ -170,7 +170,7 @@ class FOSClientTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\FOSClient::invalidateAllBlocks
+     * @covers \Netgen\BlockManager\HttpCache\VarnishClient::invalidateAllBlocks
      */
     public function testInvalidateAllBlocks()
     {
@@ -189,7 +189,7 @@ class FOSClientTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\FOSClient::commit
+     * @covers \Netgen\BlockManager\HttpCache\VarnishClient::commit
      */
     public function testCommit()
     {
@@ -201,7 +201,7 @@ class FOSClientTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\FOSClient::commit
+     * @covers \Netgen\BlockManager\HttpCache\VarnishClient::commit
      */
     public function testCommitReturnsFalse()
     {
