@@ -113,10 +113,10 @@ final class ImportCommand extends Command
     {
         $this->io->writeln(sprintf(' #%d:', $number));
         $exceptionClass = get_class($exception);
-        $this->io->writeln(sprintf('  - exception: %s', $exceptionClass));
-        $this->io->writeln(sprintf('  - file: %s', $exception->getFile()));
-        $this->io->writeln(sprintf('  - line: %d', $exception->getLine()));
-        $this->io->writeln(sprintf('  - message: %s', $exception->getMessage()));
+        $this->io->writeln(sprintf('  - <comment>exception:</comment> %s', $exceptionClass));
+        $this->io->writeln(sprintf('  - <comment>file:</comment> <info>%s</info>', $exception->getFile()));
+        $this->io->writeln(sprintf('  - <comment>line:</comment> %d', $exception->getLine()));
+        $this->io->writeln(sprintf('  - <comment>message:</comment> %s', $exception->getMessage()));
 
         $previous = $exception->getPrevious();
 
