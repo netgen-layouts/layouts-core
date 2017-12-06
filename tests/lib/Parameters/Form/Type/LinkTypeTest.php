@@ -7,6 +7,7 @@ use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper;
 use Netgen\BlockManager\Parameters\Form\Type\LinkType;
 use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\BlockManager\Parameters\ParameterType\LinkType as LinkParameterType;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
@@ -25,7 +26,10 @@ class LinkTypeTest extends FormTestCase
 
     public function setUp()
     {
-        $this->parameterType = new LinkParameterType(new ValueTypeRegistry(), $this->createMock(ItemLoaderInterface::class));
+        $this->parameterType = new LinkParameterType(
+            new ValueTypeRegistry(),
+            new RemoteIdConverter($this->createMock(ItemLoaderInterface::class))
+        );
 
         parent::setUp();
     }

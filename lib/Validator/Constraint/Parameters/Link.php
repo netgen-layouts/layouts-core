@@ -20,6 +20,14 @@ final class Link extends Constraint
      */
     public $valueTypes = array();
 
+    /**
+     * If set to true, the constraint will accept values for invalid or non existing items
+     * when using internal link type.
+     *
+     * @var bool
+     */
+    public $allowInvalidInternal = false;
+
     public function validatedBy()
     {
         return 'ngbm_link';

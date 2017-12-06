@@ -7,6 +7,7 @@ use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper;
 use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\BlockManager\Parameters\ParameterType\LinkType;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
 
@@ -23,7 +24,10 @@ class LinkDataMapperTest extends DataMapperTest
 
         $parameter = new Parameter(
             array(
-                'type' => new LinkType(new ValueTypeRegistry(), $this->createMock(ItemLoaderInterface::class)),
+                'type' => new LinkType(
+                    new ValueTypeRegistry(),
+                    new RemoteIdConverter($this->createMock(ItemLoaderInterface::class))
+                ),
             )
         );
 

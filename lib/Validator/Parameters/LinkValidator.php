@@ -72,6 +72,7 @@ final class LinkValidator extends ConstraintValidator
                 $linkConstraints[] = new ItemLink(
                     array(
                         'valueTypes' => $constraint->valueTypes,
+                        'allowInvalid' => $constraint->allowInvalidInternal,
                     )
                 );
             }

@@ -9,6 +9,7 @@ use Netgen\BlockManager\Parameters\Form\Mapper\LinkMapper;
 use Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper;
 use Netgen\BlockManager\Parameters\Form\Type\LinkType;
 use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\BlockManager\Parameters\ParameterType\LinkType as LinkParameterType;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -44,7 +45,10 @@ class LinkMapperTest extends TestCase
 
         $this->itemLoaderMock = $this->createMock(ItemLoaderInterface::class);
 
-        $this->type = new LinkParameterType($this->valueTypeRegistry, $this->itemLoaderMock);
+        $this->type = new LinkParameterType(
+            $this->valueTypeRegistry,
+            new RemoteIdConverter($this->itemLoaderMock)
+        );
 
         $this->mapper = new LinkMapper();
     }

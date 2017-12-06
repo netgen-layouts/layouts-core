@@ -103,11 +103,18 @@ services:
         tags:
             - { name: netgen_block_manager.parameters.parameter_type }
 
+    netgen_block_manager.parameters.item_link.remote_id_converter:
+        class: Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter
+        public: false
+        arguments:
+            - "@netgen_block_manager.item.item_loader"
+
     netgen_block_manager.parameters.parameter_type.item_link:
         class: Netgen\BlockManager\Parameters\ParameterType\ItemLinkType
         public: false
         arguments:
             - "@netgen_block_manager.item.registry.value_type"
+            - "@netgen_block_manager.parameters.item_link.remote_id_converter"
         tags:
             - { name: netgen_block_manager.parameters.parameter_type }
 
@@ -116,7 +123,7 @@ services:
         public: false
         arguments:
             - "@netgen_block_manager.item.registry.value_type"
-            - "@netgen_block_manager.item.item_loader"
+            - "@netgen_block_manager.parameters.item_link.remote_id_converter"
         tags:
             - { name: netgen_block_manager.parameters.parameter_type }
 

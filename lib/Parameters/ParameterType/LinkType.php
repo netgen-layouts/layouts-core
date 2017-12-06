@@ -2,11 +2,10 @@
 
 namespace Netgen\BlockManager\Parameters\ParameterType;
 
-use Netgen\BlockManager\Exception\Item\ItemException;
-use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface;
 use Netgen\BlockManager\Parameters\ParameterInterface;
 use Netgen\BlockManager\Parameters\ParameterType;
+use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
 use Netgen\BlockManager\Validator\Constraint\Parameters\Link as LinkConstraint;
 use Symfony\Component\OptionsResolver\Options;
@@ -25,14 +24,14 @@ final class LinkType extends ParameterType
     private $valueTypeRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Item\ItemLoaderInterface
+     * @var \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter
      */
-    private $itemLoader;
+    private $remoteIdConverter;
 
-    public function __construct(ValueTypeRegistryInterface $valueTypeRegistry, ItemLoaderInterface $itemLoader)
+    public function __construct(ValueTypeRegistryInterface $valueTypeRegistry, RemoteIdConverter $remoteIdConverter)
     {
         $this->valueTypeRegistry = $valueTypeRegistry;
-        $this->itemLoader = $itemLoader;
+        $this->remoteIdConverter = $remoteIdConverter;
     }
 
     public function getIdentifier()
@@ -42,9 +41,11 @@ final class LinkType extends ParameterType
 
     public function configureOptions(OptionsResolver $optionsResolver)
     {
-        $optionsResolver->setRequired(array('value_types'));
+        $optionsResolver->setRequired(array('value_types', 'allow_invalid_internal'));
         $optionsResolver->setAllowedTypes('value_types', 'array');
+        $optionsResolver->setAllowedTypes('allow_invalid_internal', 'bool');
         $optionsResolver->setDefault('value_types', array());
+        $optionsResolver->setDefault('allow_invalid_internal', false);
 
         $optionsResolver->setNormalizer(
             'value_types',
@@ -74,38 +75,6 @@ final class LinkType extends ParameterType
         );
     }
 
-    public function export(ParameterInterface $parameter, $value)
-    {
-        if (!$value instanceof LinkValue) {
-            return null;
-        }
-
-        $valueLink = $value->getLink();
-
-        // If the link is internal, we need to convert the format
-        // from value_type://value_id to value_type://remote_id
-        if ($value->getLinkType() === LinkValue::LINK_TYPE_INTERNAL) {
-            $valueLink = 'null://0';
-
-            $link = parse_url($value->getLink());
-            if (is_array($link) && isset($link['host']) && isset($link['scheme'])) {
-                try {
-                    $item = $this->itemLoader->load($link['host'], str_replace('-', '_', $link['scheme']));
-                    $valueLink = str_replace('_', '-', $item->getValueType()) . '://' . $item->getRemoteId();
-                } catch (ItemException $e) {
-                    // Do nothing
-                }
-            }
-        }
-
-        return array(
-            'link_type' => $value->getLinkType(),
-            'link' => $valueLink,
-            'link_suffix' => $value->getLinkSuffix(),
-            'new_window' => $value->getNewWindow(),
-        );
-    }
-
     public function fromHash(ParameterInterface $parameter, $value)
     {
         if (!is_array($value) || empty($value['link_type'])) {
@@ -122,6 +91,28 @@ final class LinkType extends ParameterType
         );
     }
 
+    public function export(ParameterInterface $parameter, $value)
+    {
+        if (!$value instanceof LinkValue) {
+            return null;
+        }
+
+        $valueLink = $value->getLink();
+
+        // If the link is internal, we need to convert the format
+        // from value_type://value_id to value_type://remote_id
+        if ($value->getLinkType() === LinkValue::LINK_TYPE_INTERNAL) {
+            $valueLink = $this->remoteIdConverter->convertToRemoteId($valueLink);
+        }
+
+        return array(
+            'link_type' => $value->getLinkType(),
+            'link' => $valueLink,
+            'link_suffix' => $value->getLinkSuffix(),
+            'new_window' => $value->getNewWindow(),
+        );
+    }
+
     public function import(ParameterInterface $parameter, $value)
     {
         if (!is_array($value) || empty($value['link_type'])) {
@@ -133,17 +124,7 @@ final class LinkType extends ParameterType
         // If the link is internal, we need to convert the format
         // from value_type://remote_id to value_type://value_id
         if ($value['link_type'] === LinkValue::LINK_TYPE_INTERNAL) {
-            $link = parse_url($valueLink !== null ? $valueLink : 'null://0');
-
-            $valueLink = 'null://0';
-            if (is_array($link) && isset($link['host']) && isset($link['scheme'])) {
-                try {
-                    $item = $this->itemLoader->loadByRemoteId($link['host'], str_replace('-', '_', $link['scheme']));
-                    $valueLink = str_replace('_', '-', $item->getValueType()) . '://' . $item->getValueId();
-                } catch (ItemException $e) {
-                    // Do nothing
-                }
-            }
+            $valueLink = $this->remoteIdConverter->convertFromRemoteId($valueLink);
         }
 
         return new LinkValue(
@@ -173,6 +154,7 @@ final class LinkType extends ParameterType
                 array(
                     'required' => $parameter->isRequired(),
                     'valueTypes' => $parameter->getOption('value_types'),
+                    'allowInvalidInternal' => $parameter->getOption('allow_invalid_internal'),
                 )
             ),
         );

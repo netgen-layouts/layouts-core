@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface;
 use Netgen\BlockManager\Parameters\ParameterInterface;
 use Netgen\BlockManager\Parameters\ParameterType;
+use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\BlockManager\Validator\Constraint\Parameters\ItemLink as ItemLinkConstraint;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,9 +21,15 @@ final class ItemLinkType extends ParameterType
      */
     private $valueTypeRegistry;
 
-    public function __construct(ValueTypeRegistryInterface $valueTypeRegistry)
+    /**
+     * @var \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter
+     */
+    private $remoteIdConverter;
+
+    public function __construct(ValueTypeRegistryInterface $valueTypeRegistry, RemoteIdConverter $remoteIdConverter)
     {
         $this->valueTypeRegistry = $valueTypeRegistry;
+        $this->remoteIdConverter = $remoteIdConverter;
     }
 
     public function getIdentifier()
@@ -32,9 +39,11 @@ final class ItemLinkType extends ParameterType
 
     public function configureOptions(OptionsResolver $optionsResolver)
     {
-        $optionsResolver->setRequired(array('value_types'));
+        $optionsResolver->setRequired(array('value_types', 'allow_invalid'));
         $optionsResolver->setAllowedTypes('value_types', 'array');
+        $optionsResolver->setAllowedTypes('allow_invalid', 'bool');
         $optionsResolver->setDefault('value_types', array());
+        $optionsResolver->setDefault('allow_invalid', false);
 
         $optionsResolver->setNormalizer(
             'value_types',
@@ -50,20 +59,33 @@ final class ItemLinkType extends ParameterType
         );
     }
 
+    public function export(ParameterInterface $parameter, $value)
+    {
+        return $this->remoteIdConverter->convertToRemoteId($value);
+    }
+
+    public function import(ParameterInterface $parameter, $value)
+    {
+        return $this->remoteIdConverter->convertFromRemoteId($value);
+    }
+
     public function isValueEmpty(ParameterInterface $parameter, $value)
     {
         $parsedValue = parse_url($value);
 
-        return empty($parsedValue['scheme']) || empty($parsedValue['host']);
+        return empty($parsedValue['scheme']) || (empty($parsedValue['host'] && $parsedValue['host'] !== '0'));
     }
 
     protected function getValueConstraints(ParameterInterface $parameter, $value)
     {
+        $options = $parameter->getOptions();
+
         return array(
             new Constraints\Type(array('type' => 'string')),
             new ItemLinkConstraint(
                 array(
-                    'valueTypes' => $parameter->getOption('value_types'),
+                    'valueTypes' => $options['value_types'],
+                    'allowInvalid' => $options['allow_invalid'],
                 )
             ),
         );

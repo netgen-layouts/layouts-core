@@ -2,8 +2,10 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
 
+use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Item\ValueType\ValueType;
+use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\BlockManager\Parameters\ParameterType\ItemLinkType;
 use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
@@ -17,10 +19,24 @@ class ItemLinkTypeTest extends TestCase
      */
     private $valueTypeRegistry;
 
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject
+     */
+    private $itemLoaderMock;
+
+    /**
+     * @var \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType
+     */
+    private $type;
+
     public function setUp()
     {
         $this->valueTypeRegistry = new ValueTypeRegistry();
         $this->valueTypeRegistry->addValueType('default', new ValueType(array('isEnabled' => true)));
+
+        $this->itemLoaderMock = $this->createMock(ItemLoaderInterface::class);
+
+        $this->type = new ItemLinkType($this->valueTypeRegistry, new RemoteIdConverter($this->itemLoaderMock));
     }
 
     /**
@@ -29,8 +45,7 @@ class ItemLinkTypeTest extends TestCase
      */
     public function testGetIdentifier()
     {
-        $type = new ItemLinkType($this->valueTypeRegistry);
-        $this->assertEquals('item_link', $type->getIdentifier());
+        $this->assertEquals('item_link', $this->type->getIdentifier());
     }
 
     /**
@@ -70,7 +85,7 @@ class ItemLinkTypeTest extends TestCase
         return new Parameter(
             array(
                 'name' => 'name',
-                'type' => new ItemLinkType($this->valueTypeRegistry),
+                'type' => $this->type,
                 'options' => $options,
             )
         );
@@ -86,11 +101,19 @@ class ItemLinkTypeTest extends TestCase
         return array(
             array(
                 array(),
-                array('value_types' => array('default')),
+                array('value_types' => array('default'), 'allow_invalid' => false),
             ),
             array(
                 array('value_types' => array('value')),
-                array('value_types' => array('value')),
+                array('value_types' => array('value'), 'allow_invalid' => false),
+            ),
+            array(
+                array('allow_invalid' => false),
+                array('value_types' => array('default'), 'allow_invalid' => false),
+            ),
+            array(
+                array('allow_invalid' => true),
+                array('value_types' => array('default'), 'allow_invalid' => true),
             ),
         );
     }
@@ -106,6 +129,12 @@ class ItemLinkTypeTest extends TestCase
             array(
                 array(
                     'value_types' => 42,
+                ),
+                array(
+                    'allow_invalid' => 0,
+                ),
+                array(
+                    'allow_invalid' => 1,
                 ),
                 array(
                     'undefined_value' => 'Value',
@@ -124,13 +153,12 @@ class ItemLinkTypeTest extends TestCase
      */
     public function testValidation($value, $isValid)
     {
-        $type = new ItemLinkType($this->valueTypeRegistry);
         $parameter = $this->getParameter();
         $validator = Validation::createValidatorBuilder()
             ->setConstraintValidatorFactory(new ValidatorFactory($this))
             ->getValidator();
 
-        $errors = $validator->validate($value, $type->getConstraints($parameter, $value));
+        $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));
         $this->assertEquals($isValid, $errors->count() === 0);
     }
 
@@ -158,8 +186,7 @@ class ItemLinkTypeTest extends TestCase
      */
     public function testIsValueEmpty($value, $isEmpty)
     {
-        $type = new ItemLinkType($this->valueTypeRegistry);
-        $this->assertEquals($isEmpty, $type->isValueEmpty(new Parameter(), $value));
+        $this->assertEquals($isEmpty, $this->type->isValueEmpty(new Parameter(), $value));
     }
 
     /**

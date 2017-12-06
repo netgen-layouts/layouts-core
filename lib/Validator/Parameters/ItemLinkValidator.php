@@ -44,36 +44,38 @@ final class ItemLinkValidator extends ConstraintValidator
 
         $parsedValue = parse_url($value);
 
-        if (empty($parsedValue['scheme']) || empty($parsedValue['host'])) {
+        if (empty($parsedValue['scheme']) || (empty($parsedValue['host']) && $parsedValue['host'] !== '0')) {
             $this->context->buildViolation($constraint->invalidItemMessage)
                 ->addViolation();
 
             return;
         }
 
-        $valueType = str_replace('-', '_', $parsedValue['scheme']);
-        $valueId = $parsedValue['host'];
+        if (!$constraint->allowInvalid) {
+            $valueType = str_replace('-', '_', $parsedValue['scheme']);
+            $valueId = $parsedValue['host'];
 
-        $validator->validate($valueType, new ValueType());
-        if (count($validator->getViolations()) > 0) {
-            return;
-        }
-
-        if (!empty($constraint->valueTypes) && is_array($constraint->valueTypes)) {
-            if (!in_array($valueType, $constraint->valueTypes, true)) {
-                $this->context->buildViolation($constraint->valueTypeNotAllowedMessage)
-                    ->setParameter('%valueType%', $valueType)
-                    ->addViolation();
-
+            $validator->validate($valueType, new ValueType());
+            if (count($validator->getViolations()) > 0) {
                 return;
             }
-        }
 
-        try {
-            $this->itemLoader->load($valueId, $valueType);
-        } catch (ItemException $e) {
-            $this->context->buildViolation($constraint->message)
-                ->addViolation();
+            if (!empty($constraint->valueTypes) && is_array($constraint->valueTypes)) {
+                if (!in_array($valueType, $constraint->valueTypes, true)) {
+                    $this->context->buildViolation($constraint->valueTypeNotAllowedMessage)
+                        ->setParameter('%valueType%', $valueType)
+                        ->addViolation();
+
+                    return;
+                }
+            }
+
+            try {
+                $this->itemLoader->load($valueId, $valueType);
+            } catch (ItemException $e) {
+                $this->context->buildViolation($constraint->message)
+                    ->addViolation();
+            }
         }
     }
 }

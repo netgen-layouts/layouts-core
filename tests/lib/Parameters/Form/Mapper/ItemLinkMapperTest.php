@@ -2,11 +2,13 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\Form\Mapper;
 
+use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Item\ValueType\ValueType;
 use Netgen\BlockManager\Parameters\Form\Mapper\ItemLinkMapper;
 use Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper;
 use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\BlockManager\Parameters\ParameterType\ItemLinkType as ItemLinkParameterType;
 use Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType;
 use PHPUnit\Framework\TestCase;
@@ -22,6 +24,16 @@ class ItemLinkMapperTest extends TestCase
     private $valueTypeRegistry;
 
     /**
+     * @var \PHPUnit\Framework\MockObject\MockObject
+     */
+    private $itemLoaderMock;
+
+    /**
+     * @var \Netgen\BlockManager\Parameters\ParameterType\LinkType
+     */
+    private $type;
+
+    /**
      * @var \Netgen\BlockManager\Parameters\Form\Mapper\ItemLinkMapper
      */
     private $mapper;
@@ -30,6 +42,13 @@ class ItemLinkMapperTest extends TestCase
     {
         $this->valueTypeRegistry = new ValueTypeRegistry();
         $this->valueTypeRegistry->addValueType('default', new ValueType(array('isEnabled' => true)));
+
+        $this->itemLoaderMock = $this->createMock(ItemLoaderInterface::class);
+
+        $this->type = new ItemLinkParameterType(
+            $this->valueTypeRegistry,
+            new RemoteIdConverter($this->itemLoaderMock)
+        );
 
         $this->mapper = new ItemLinkMapper();
     }
@@ -49,7 +68,7 @@ class ItemLinkMapperTest extends TestCase
     {
         $parameter = new Parameter(
             array(
-                'type' => new ItemLinkParameterType($this->valueTypeRegistry),
+                'type' => $this->type,
                 'options' => array(
                     'value_types' => array('value'),
                 ),
@@ -71,7 +90,7 @@ class ItemLinkMapperTest extends TestCase
     {
         $parameter = new Parameter(
             array(
-                'type' => new ItemLinkParameterType($this->valueTypeRegistry),
+                'type' => $this->type,
                 'options' => array(
                     'value_types' => array('default'),
                 ),
@@ -93,7 +112,7 @@ class ItemLinkMapperTest extends TestCase
     {
         $parameter = new Parameter(
             array(
-                'type' => new ItemLinkParameterType($this->valueTypeRegistry),
+                'type' => $this->type,
             )
         );
 

@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Item\ValueType\ValueType;
+use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\BlockManager\Parameters\ParameterType\LinkType;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
 use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
@@ -36,7 +37,7 @@ class LinkTypeTest extends TestCase
 
         $this->itemLoaderMock = $this->createMock(ItemLoaderInterface::class);
 
-        $this->type = new LinkType($this->valueTypeRegistry, $this->itemLoaderMock);
+        $this->type = new LinkType($this->valueTypeRegistry, new RemoteIdConverter($this->itemLoaderMock));
     }
 
     /**
@@ -101,11 +102,19 @@ class LinkTypeTest extends TestCase
         return array(
             array(
                 array(),
-                array('value_types' => array('default')),
+                array('value_types' => array('default'), 'allow_invalid_internal' => false),
             ),
             array(
                 array('value_types' => array('value')),
-                array('value_types' => array('value')),
+                array('value_types' => array('value'), 'allow_invalid_internal' => false),
+            ),
+            array(
+                array('allow_invalid_internal' => false),
+                array('value_types' => array('default'), 'allow_invalid_internal' => false),
+            ),
+            array(
+                array('allow_invalid_internal' => true),
+                array('value_types' => array('default'), 'allow_invalid_internal' => true),
             ),
         );
     }
@@ -121,6 +130,12 @@ class LinkTypeTest extends TestCase
             array(
                 array(
                     'value_types' => 42,
+                ),
+                array(
+                    'allow_invalid_internal' => 1,
+                ),
+                array(
+                    'allow_invalid_internal' => 0,
                 ),
                 array(
                     'undefined_value' => 'Value',
