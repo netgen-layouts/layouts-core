@@ -102,7 +102,7 @@ CREATE TABLE `ngbm_collection_item` (
   `collection_id` integer NOT NULL,
   `position` integer NOT NULL,
   `type` integer NOT NULL,
-  `value_id` text(255) NOT NULL,
+  `value_id` text(255),
   `value_type` text(255) NOT NULL,
   PRIMARY KEY (`id`, `status`),
   FOREIGN KEY (`collection_id`, `status`)

@@ -108,7 +108,7 @@ CREATE TABLE ngbm_collection_item (
   collection_id int NOT NULL,
   position int NOT NULL,
   type int NOT NULL,
-  value_id nvarchar(255) NOT NULL,
+  value_id nvarchar(255),
   value_type nvarchar(255) NOT NULL,
   PRIMARY KEY (id, status),
   FOREIGN KEY (collection_id, status)

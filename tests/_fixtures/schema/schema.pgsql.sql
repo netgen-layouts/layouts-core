@@ -98,7 +98,7 @@ CREATE TABLE "ngbm_collection_item" (
   "collection_id" integer NOT NULL,
   "position" integer NOT NULL,
   "type" integer NOT NULL,
-  "value_id" character varying(255) NOT NULL,
+  "value_id" character varying(255),
   "value_type" character varying(255) NOT NULL
 );
 
