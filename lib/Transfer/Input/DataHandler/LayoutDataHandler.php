@@ -30,11 +30,6 @@ final class LayoutDataHandler
     private $blockService;
 
     /**
-     * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry
-     */
-    private $blockDefinitionRegistry;
-
-    /**
      * @var \Netgen\BlockManager\API\Service\CollectionService
      */
     private $collectionService;
@@ -43,6 +38,11 @@ final class LayoutDataHandler
      * @var \Netgen\BlockManager\API\Service\LayoutService
      */
     private $layoutService;
+
+    /**
+     * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry
+     */
+    private $blockDefinitionRegistry;
 
     /**
      * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry
@@ -56,16 +56,16 @@ final class LayoutDataHandler
 
     public function __construct(
         BlockService $blockService,
-        BlockDefinitionRegistry $blockDefinitionRegistry,
         CollectionService $collectionService,
         LayoutService $layoutService,
+        BlockDefinitionRegistry $blockDefinitionRegistry,
         LayoutTypeRegistry $layoutTypeRegistry,
         QueryTypeRegistry $queryTypeRegistry
     ) {
         $this->blockService = $blockService;
-        $this->blockDefinitionRegistry = $blockDefinitionRegistry;
         $this->collectionService = $collectionService;
         $this->layoutService = $layoutService;
+        $this->blockDefinitionRegistry = $blockDefinitionRegistry;
         $this->layoutTypeRegistry = $layoutTypeRegistry;
         $this->queryTypeRegistry = $queryTypeRegistry;
     }

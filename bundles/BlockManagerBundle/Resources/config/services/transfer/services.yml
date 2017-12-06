@@ -10,9 +10,9 @@ services:
         public: false
         arguments:
             - "@netgen_block_manager.api.service.block"
-            - "@netgen_block_manager.block.registry.block_definition"
             - "@netgen_block_manager.api.service.collection"
             - "@netgen_block_manager.api.service.layout"
+            - "@netgen_block_manager.block.registry.block_definition"
             - "@netgen_block_manager.layout.registry.layout_type"
             - "@netgen_block_manager.collection.registry.query_type"
 
