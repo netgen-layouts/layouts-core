@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
-use Netgen\BlockManager\API\Values\Layout\Layout;
+use Netgen\BlockManager\API\Values\Layout\Layout as LayoutValue;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule as RuleValue;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Transfer\Output\Visitor;
@@ -32,7 +32,7 @@ final class Rule extends Visitor
         return array(
             'id' => $rule->getId(),
             'status' => $this->getStatusString($rule),
-            'layout_id' => $layout instanceof Layout ? $layout->getId() : null,
+            'layout_id' => $layout instanceof LayoutValue ? $layout->getId() : null,
             'is_enabled' => $rule->isEnabled(),
             'priority' => $rule->getPriority(),
             'comment' => $rule->getComment(),
