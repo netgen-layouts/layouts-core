@@ -31,7 +31,7 @@ final class ItemException extends InvalidArgumentException implements Exception
     {
         return new self(
             sprintf(
-                'Value with ID %s does not exist.',
+                'Value with (remote) ID %s does not exist.',
                 $valueId
             )
         );

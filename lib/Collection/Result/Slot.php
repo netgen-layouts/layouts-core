@@ -16,6 +16,11 @@ final class Slot extends ValueObject implements ItemInterface
         return 0;
     }
 
+    public function getRemoteId()
+    {
+        return '';
+    }
+
     public function getValueType()
     {
         return 'slot';

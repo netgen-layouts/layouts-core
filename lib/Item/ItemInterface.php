@@ -15,6 +15,13 @@ interface ItemInterface
     public function getValueId();
 
     /**
+     * Returns the remote ID of the value from CMS from which this item is generated.
+     *
+     * @return int|string
+     */
+    public function getRemoteId();
+
+    /**
      * Returns the type of the value from CMS from which this item is generated.
      *
      * @return string

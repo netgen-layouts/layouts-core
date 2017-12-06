@@ -16,7 +16,10 @@ use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
+use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Item\ItemInterface;
+use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry;
 
 /**
@@ -54,13 +57,19 @@ final class LayoutDataHandler
      */
     private $queryTypeRegistry;
 
+    /**
+     * @var \Netgen\BlockManager\Item\ItemLoaderInterface
+     */
+    private $itemLoader;
+
     public function __construct(
         BlockService $blockService,
         CollectionService $collectionService,
         LayoutService $layoutService,
         BlockDefinitionRegistry $blockDefinitionRegistry,
         LayoutTypeRegistry $layoutTypeRegistry,
-        QueryTypeRegistry $queryTypeRegistry
+        QueryTypeRegistry $queryTypeRegistry,
+        ItemLoaderInterface $itemLoader
     ) {
         $this->blockService = $blockService;
         $this->collectionService = $collectionService;
@@ -68,6 +77,7 @@ final class LayoutDataHandler
         $this->blockDefinitionRegistry = $blockDefinitionRegistry;
         $this->layoutTypeRegistry = $layoutTypeRegistry;
         $this->queryTypeRegistry = $queryTypeRegistry;
+        $this->itemLoader = $itemLoader;
     }
 
     /**
@@ -469,24 +479,35 @@ final class LayoutDataHandler
     }
 
     /**
-     * Create items in the $collection from the given $itemsData.
+     * Create items in the $collection from the given $collectionItemsData.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param array $itemsData
+     * @param array $collectionItemsData
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException
      * @throws \Netgen\BlockManager\Exception\RuntimeException
      */
-    private function createItems(Collection $collection, array $itemsData)
+    private function createItems(Collection $collection, array $collectionItemsData)
     {
-        foreach ($itemsData as $itemData) {
+        foreach ($collectionItemsData as $collectionItemData) {
+            $item = null;
+
+            try {
+                $item = $this->itemLoader->loadByRemoteId(
+                    $collectionItemData['value_id'],
+                    $collectionItemData['value_type']
+                );
+            } catch (ItemException $e) {
+                // Do nothing
+            }
+
             $itemCreateStruct = $this->collectionService->newItemCreateStruct(
-                $this->mapItemType($itemData['type']),
-                $itemData['value_id'],
-                $itemData['value_type']
+                $this->mapItemType($collectionItemData['type']),
+                $item instanceof ItemInterface ? $item->getValueId() : null,
+                $collectionItemData['value_type']
             );
 
-            $this->collectionService->addItem($collection, $itemCreateStruct, $itemData['position']);
+            $this->collectionService->addItem($collection, $itemCreateStruct, $collectionItemData['position']);
         }
     }
 

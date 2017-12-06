@@ -46,10 +46,11 @@ class ItemLoaderTest extends TestCase
         $item = new Item(
             array(
                 'valueId' => 42,
+                'remoteId' => 'abc',
                 'name' => 'Some value',
                 'valueType' => 'value',
                 'isVisible' => true,
-                'object' => new Value(42),
+                'object' => new Value(42, 'abc'),
             )
         );
 
@@ -81,7 +82,7 @@ class ItemLoaderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Item\ItemLoader::load
      * @expectedException \Netgen\BlockManager\Exception\Item\ItemException
-     * @expectedExceptionMessage Value with ID 42 does not exist.
+     * @expectedExceptionMessage Value with (remote) ID 42 does not exist.
      */
     public function testLoadItemThrowsItemExceptionWithNoItem()
     {
@@ -91,5 +92,61 @@ class ItemLoaderTest extends TestCase
         );
 
         $this->itemLoader->load(42, 'value');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Item\ItemLoader::loadByRemoteId
+     */
+    public function testLoadByRemoteId()
+    {
+        $item = new Item(
+            array(
+                'valueId' => 42,
+                'remoteId' => 'abc',
+                'name' => 'Some value',
+                'valueType' => 'value',
+                'isVisible' => true,
+                'object' => new Value(42, 'abc'),
+            )
+        );
+
+        $this->itemLoader = new ItemLoader(
+            $this->itemBuilderMock,
+            array('value' => new ValueLoader())
+        );
+
+        $this->itemBuilderMock
+            ->expects($this->any())
+            ->method('build')
+            ->will($this->returnValue($item));
+
+        $this->assertEquals($item, $this->itemLoader->loadByRemoteId(42, 'value'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Item\ItemLoader::loadByRemoteId
+     * @expectedException \Netgen\BlockManager\Exception\Item\ItemException
+     * @expectedExceptionMessage Value type "value" does not exist.
+     */
+    public function testLoadByRemoteIdItemThrowsItemException()
+    {
+        $this->itemLoader = new ItemLoader($this->itemBuilderMock);
+
+        $this->itemLoader->loadByRemoteId(42, 'value');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Item\ItemLoader::loadByRemoteId
+     * @expectedException \Netgen\BlockManager\Exception\Item\ItemException
+     * @expectedExceptionMessage Value with (remote) ID 42 does not exist.
+     */
+    public function testLoadByRemoteIdItemThrowsItemExceptionWithNoItem()
+    {
+        $this->itemLoader = new ItemLoader(
+            $this->itemBuilderMock,
+            array('value' => new ValueLoader(true))
+        );
+
+        $this->itemLoader->loadByRemoteId(42, 'value');
     }
 }

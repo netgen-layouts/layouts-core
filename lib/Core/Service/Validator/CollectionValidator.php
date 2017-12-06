@@ -119,14 +119,15 @@ final class CollectionValidator extends Validator
             'type'
         );
 
-        $this->validate(
-            $itemCreateStruct->valueId,
-            array(
-                new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'scalar')),
-            ),
-            'valueId'
-        );
+        if ($itemCreateStruct->valueId !== null) {
+            $this->validate(
+                $itemCreateStruct->valueId,
+                array(
+                    new Constraints\Type(array('type' => 'scalar')),
+                ),
+                'valueId'
+            );
+        }
 
         $this->validate(
             $itemCreateStruct->valueType,

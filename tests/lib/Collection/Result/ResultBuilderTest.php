@@ -206,7 +206,7 @@ class ResultBuilderTest extends TestCase
     {
         return array_map(
             function ($id) {
-                return new Value($id);
+                return new Value($id, '');
             },
             $ids
         );

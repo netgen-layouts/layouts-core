@@ -10,6 +10,7 @@ class ItemTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Item\Item::getValueId
+     * @covers \Netgen\BlockManager\Item\Item::getRemoteId
      * @covers \Netgen\BlockManager\Item\Item::getValueType
      * @covers \Netgen\BlockManager\Item\Item::getName
      * @covers \Netgen\BlockManager\Item\Item::isVisible
@@ -20,6 +21,7 @@ class ItemTest extends TestCase
         $value = new Item(
             array(
                 'valueId' => 42,
+                'remoteId' => 'abc',
                 'valueType' => 'type',
                 'name' => 'Value name',
                 'isVisible' => true,
@@ -28,6 +30,7 @@ class ItemTest extends TestCase
         );
 
         $this->assertEquals(42, $value->getValueId());
+        $this->assertEquals('abc', $value->getRemoteId());
         $this->assertEquals('type', $value->getValueType());
         $this->assertEquals('Value name', $value->getName());
         $this->assertTrue($value->isVisible());

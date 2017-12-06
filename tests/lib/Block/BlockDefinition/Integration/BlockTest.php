@@ -12,6 +12,7 @@ use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Service\Validator\ConfigValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
+use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory;
@@ -216,7 +217,7 @@ abstract class BlockTest extends ServiceTestCase
         $this->parameterTypeRegistry->addParameterType(new ParameterType\UrlType());
         $this->parameterTypeRegistry->addParameterType(new ParameterType\RangeType());
         $this->parameterTypeRegistry->addParameterType(new ParameterType\NumberType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\LinkType(new ValueTypeRegistry()));
+        $this->parameterTypeRegistry->addParameterType(new ParameterType\LinkType(new ValueTypeRegistry(), $this->createMock(ItemLoaderInterface::class)));
         $this->parameterTypeRegistry->addParameterType(new ParameterType\ItemLinkType(new ValueTypeRegistry()));
         $this->parameterTypeRegistry->addParameterType(new ParameterType\IntegerType());
         $this->parameterTypeRegistry->addParameterType(new ParameterType\IdentifierType());

@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Parameters\Form\Type\DataMapper;
 
 use ArrayIterator;
+use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper;
 use Netgen\BlockManager\Parameters\Parameter;
@@ -22,7 +23,7 @@ class LinkDataMapperTest extends DataMapperTest
 
         $parameter = new Parameter(
             array(
-                'type' => new LinkType(new ValueTypeRegistry()),
+                'type' => new LinkType(new ValueTypeRegistry(), $this->createMock(ItemLoaderInterface::class)),
             )
         );
 

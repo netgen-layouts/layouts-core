@@ -20,6 +20,11 @@ final class NullItem extends ValueObject implements ItemInterface
         return $this->valueId;
     }
 
+    public function getRemoteId()
+    {
+        return '';
+    }
+
     public function getValueType()
     {
         return 'null';

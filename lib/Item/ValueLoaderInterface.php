@@ -19,4 +19,15 @@ interface ValueLoaderInterface
      * @return mixed
      */
     public function load($id);
+
+    /**
+     * Loads the value from provided remote ID.
+     *
+     * @param int|string $remoteId
+     *
+     * @throws \Netgen\BlockManager\Exception\Item\ItemException If value cannot be loaded
+     *
+     * @return mixed
+     */
+    public function loadByRemoteId($remoteId);
 }

@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\Form\Mapper;
 
+use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Item\ValueType\ValueType;
 use Netgen\BlockManager\Parameters\Form\Mapper\LinkMapper;
@@ -22,6 +23,16 @@ class LinkMapperTest extends TestCase
     private $valueTypeRegistry;
 
     /**
+     * @var \PHPUnit\Framework\MockObject\MockObject
+     */
+    private $itemLoaderMock;
+
+    /**
+     * @var \Netgen\BlockManager\Parameters\ParameterType\LinkType
+     */
+    private $type;
+
+    /**
      * @var \Netgen\BlockManager\Parameters\Form\Mapper\LinkMapper
      */
     private $mapper;
@@ -30,6 +41,10 @@ class LinkMapperTest extends TestCase
     {
         $this->valueTypeRegistry = new ValueTypeRegistry();
         $this->valueTypeRegistry->addValueType('default', new ValueType(array('isEnabled' => true)));
+
+        $this->itemLoaderMock = $this->createMock(ItemLoaderInterface::class);
+
+        $this->type = new LinkParameterType($this->valueTypeRegistry, $this->itemLoaderMock);
 
         $this->mapper = new LinkMapper();
     }
@@ -49,7 +64,7 @@ class LinkMapperTest extends TestCase
     {
         $parameter = new Parameter(
             array(
-                'type' => new LinkParameterType($this->valueTypeRegistry),
+                'type' => $this->type,
                 'options' => array(
                     'value_types' => array('value'),
                 ),
@@ -72,7 +87,7 @@ class LinkMapperTest extends TestCase
     {
         $parameter = new Parameter(
             array(
-                'type' => new LinkParameterType($this->valueTypeRegistry),
+                'type' => $this->type,
                 'options' => array(
                     'value_types' => array('default'),
                 ),
@@ -95,7 +110,7 @@ class LinkMapperTest extends TestCase
     {
         $parameter = new Parameter(
             array(
-                'type' => new LinkParameterType($this->valueTypeRegistry),
+                'type' => $this->type,
             )
         );
 

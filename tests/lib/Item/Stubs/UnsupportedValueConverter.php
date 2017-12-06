@@ -43,6 +43,18 @@ class UnsupportedValueConverter implements ValueConverterInterface
     }
 
     /**
+     * Returns the object remote ID.
+     *
+     * @param \Netgen\BlockManager\Tests\Item\Stubs\Value $object
+     *
+     * @return int|string
+     */
+    public function getRemoteId($object)
+    {
+        return $object->getRemoteId();
+    }
+
+    /**
      * Returns the object name.
      *
      * @param \Netgen\BlockManager\Tests\Item\Stubs\Value $object

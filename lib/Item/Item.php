@@ -12,6 +12,11 @@ final class Item extends ValueObject implements ItemInterface
     protected $valueId;
 
     /**
+     * @var int|string
+     */
+    protected $remoteId;
+
+    /**
      * @var string
      */
     protected $valueType;
@@ -34,6 +39,11 @@ final class Item extends ValueObject implements ItemInterface
     public function getValueId()
     {
         return $this->valueId;
+    }
+
+    public function getRemoteId()
+    {
+        return $this->remoteId;
     }
 
     public function getValueType()

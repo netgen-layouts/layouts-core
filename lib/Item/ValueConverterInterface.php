@@ -37,6 +37,15 @@ interface ValueConverterInterface
     public function getId($object);
 
     /**
+     * Returns the object remote ID.
+     *
+     * @param mixed $object
+     *
+     * @return int|string
+     */
+    public function getRemoteId($object);
+
+    /**
      * Returns the object name.
      *
      * @param mixed $object

@@ -51,4 +51,15 @@ final class ItemLoader implements ItemLoaderInterface
             $this->valueLoaders[$valueType]->load($valueId)
         );
     }
+
+    public function loadByRemoteId($remoteId, $valueType)
+    {
+        if (!isset($this->valueLoaders[$valueType])) {
+            throw ItemException::noValueType($valueType);
+        }
+
+        return $this->itemBuilder->build(
+            $this->valueLoaders[$valueType]->loadByRemoteId($remoteId)
+        );
+    }
 }

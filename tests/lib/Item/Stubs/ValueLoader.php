@@ -34,6 +34,24 @@ class ValueLoader implements ValueLoaderInterface
             throw ItemException::noValue($id);
         }
 
-        return new Value($id);
+        return new Value($id, '');
+    }
+
+    /**
+     * Loads the value from provided remote ID.
+     *
+     * @param int|string $remoteId
+     *
+     * @throws \Netgen\BlockManager\Exception\Item\ItemException If value cannot be loaded
+     *
+     * @return mixed
+     */
+    public function loadByRemoteId($remoteId)
+    {
+        if ($this->throwException) {
+            throw ItemException::noValue($remoteId);
+        }
+
+        return new Value(0, $remoteId);
     }
 }

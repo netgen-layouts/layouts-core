@@ -327,11 +327,11 @@ class CollectionValidatorTest extends TestCase
             ),
             array(
                 array('valueId' => null, 'valueType' => 'value', 'type' => Item::TYPE_MANUAL),
-                false,
+                true,
             ),
             array(
                 array('valueId' => '', 'valueType' => 'value', 'type' => Item::TYPE_MANUAL),
-                false,
+                true,
             ),
             array(
                 array('valueId' => 42, 'valueType' => 'nonexistent', 'type' => Item::TYPE_MANUAL),

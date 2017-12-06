@@ -28,7 +28,7 @@ class ItemExceptionTest extends TestCase
         $exception = ItemException::noValue(42);
 
         $this->assertEquals(
-            'Value with ID 42 does not exist.',
+            'Value with (remote) ID 42 does not exist.',
             $exception->getMessage()
         );
     }

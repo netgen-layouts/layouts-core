@@ -9,6 +9,7 @@ class SlotTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Collection\Result\Slot::getValueId
+     * @covers \Netgen\BlockManager\Collection\Result\Slot::getRemoteId
      * @covers \Netgen\BlockManager\Collection\Result\Slot::getValueType
      * @covers \Netgen\BlockManager\Collection\Result\Slot::getName
      * @covers \Netgen\BlockManager\Collection\Result\Slot::isVisible
@@ -19,6 +20,7 @@ class SlotTest extends TestCase
         $value = new Slot();
 
         $this->assertEquals(0, $value->getValueId());
+        $this->assertEquals('', $value->getRemoteId());
         $this->assertEquals('slot', $value->getValueType());
         $this->assertEquals('(UNKNOWN ITEM)', $value->getName());
         $this->assertTrue($value->isVisible());

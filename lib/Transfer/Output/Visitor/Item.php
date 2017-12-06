@@ -3,7 +3,9 @@
 namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\API\Values\Collection\Item as ItemValue;
+use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Transfer\Output\Visitor;
 
 /**
@@ -13,21 +15,44 @@ use Netgen\BlockManager\Transfer\Output\Visitor;
  */
 final class Item extends Visitor
 {
+    /**
+     * @var \Netgen\BlockManager\Item\ItemLoaderInterface
+     */
+    private $itemLoader;
+
+    public function __construct(ItemLoaderInterface $itemLoader)
+    {
+        $this->itemLoader = $itemLoader;
+    }
+
     public function accept($value)
     {
         return $value instanceof ItemValue;
     }
 
-    public function visit($item, Visitor $subVisitor = null)
+    public function visit($collectionItem, Visitor $subVisitor = null)
     {
-        /* @var \Netgen\BlockManager\API\Values\Collection\Item $item */
+        /* @var \Netgen\BlockManager\API\Values\Collection\Item $collectionItem */
+
+        $valueId = null;
+
+        try {
+            $item = $this->itemLoader->load(
+                $collectionItem->getValueId(),
+                $collectionItem->getValueType()
+            );
+
+            $valueId = $item->getRemoteId();
+        } catch (ItemException $e) {
+            // Do nothing
+        }
 
         return array(
-            'id' => $item->getId(),
-            'type' => $this->getTypeString($item),
-            'position' => $item->getPosition(),
-            'value_id' => $item->getValueId(),
-            'value_type' => $item->getValueType(),
+            'id' => $collectionItem->getId(),
+            'type' => $this->getTypeString($collectionItem),
+            'position' => $collectionItem->getPosition(),
+            'value_id' => $valueId,
+            'value_type' => $collectionItem->getValueType(),
         );
     }
 

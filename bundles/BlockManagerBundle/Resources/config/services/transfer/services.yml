@@ -15,6 +15,7 @@ services:
             - "@netgen_block_manager.block.registry.block_definition"
             - "@netgen_block_manager.layout.registry.layout_type"
             - "@netgen_block_manager.collection.registry.query_type"
+            - "@netgen_block_manager.item.item_loader"
 
     netgen_block_manager.transfer.input.importer:
         class: Netgen\BlockManager\Transfer\Input\Importer

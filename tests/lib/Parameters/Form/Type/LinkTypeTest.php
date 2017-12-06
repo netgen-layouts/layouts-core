@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\Form\Type;
 
+use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper;
 use Netgen\BlockManager\Parameters\Form\Type\LinkType;
@@ -17,6 +18,18 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class LinkTypeTest extends FormTestCase
 {
+    /**
+     * @var \Netgen\BlockManager\Parameters\ParameterType\LinkType
+     */
+    private $parameterType;
+
+    public function setUp()
+    {
+        $this->parameterType = new LinkParameterType(new ValueTypeRegistry(), $this->createMock(ItemLoaderInterface::class));
+
+        parent::setUp();
+    }
+
     /**
      * @return \Symfony\Component\Form\FormTypeInterface
      */
@@ -64,7 +77,7 @@ class LinkTypeTest extends FormTestCase
 
         $parameter = new Parameter(
             array(
-                'type' => new LinkParameterType(new ValueTypeRegistry()),
+                'type' => $this->parameterType,
             )
         );
 
@@ -103,7 +116,7 @@ class LinkTypeTest extends FormTestCase
 
         $parameter = new Parameter(
             array(
-                'type' => new LinkParameterType(new ValueTypeRegistry()),
+                'type' => $this->parameterType,
             )
         );
 
@@ -133,7 +146,7 @@ class LinkTypeTest extends FormTestCase
     {
         $parameter = new Parameter(
             array(
-                'type' => new LinkParameterType(new ValueTypeRegistry()),
+                'type' => $this->parameterType,
             )
         );
 
@@ -166,7 +179,7 @@ class LinkTypeTest extends FormTestCase
     {
         $parameter = new Parameter(
             array(
-                'type' => new LinkParameterType(new ValueTypeRegistry()),
+                'type' => $this->parameterType,
             )
         );
 

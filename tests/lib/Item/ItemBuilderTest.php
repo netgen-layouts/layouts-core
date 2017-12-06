@@ -28,11 +28,12 @@ class ItemBuilderTest extends TestCase
      */
     public function testBuild()
     {
-        $value = new Value(42);
+        $value = new Value(42, 'abc');
 
         $item = new Item(
             array(
                 'valueId' => 42,
+                'remoteId' => 'abc',
                 'name' => 'Some value',
                 'valueType' => 'value',
                 'isVisible' => true,
@@ -54,6 +55,6 @@ class ItemBuilderTest extends TestCase
     {
         $builder = new ItemBuilder(array(new UnsupportedValueConverter()));
 
-        $builder->build(new Value(42));
+        $builder->build(new Value(42, 'abc'));
     }
 }
