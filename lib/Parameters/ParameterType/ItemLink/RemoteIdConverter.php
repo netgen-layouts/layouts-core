@@ -19,6 +19,17 @@ class RemoteIdConverter
         $this->itemLoader = $itemLoader;
     }
 
+    /**
+     * Converts the value_type://value_id format of the item reference to value_type://remote_id.
+     * This is useful for various export/import operations between different systems.
+     *
+     * If the conversion cannot be done, (for example, because item does not exist), a reference to
+     * the so called null item will be returned.
+     *
+     * @param string $link
+     *
+     * @return string
+     */
     public function convertToRemoteId($link)
     {
         $link = parse_url($link);
@@ -30,7 +41,7 @@ class RemoteIdConverter
         try {
             $item = $this->itemLoader->load($link['host'], str_replace('-', '_', $link['scheme']));
 
-            return str_replace('_', '-', $item->getValueType()) . '://' . $item->getRemoteId();
+            return $link['scheme'] . '://' . $item->getRemoteId();
         } catch (ItemException $e) {
             // Do nothing
         }
@@ -38,6 +49,17 @@ class RemoteIdConverter
         return self::NULL_LINK;
     }
 
+    /**
+     * Converts the value_type://remote_id format of the item reference to value_type://value_id.
+     * This is useful for various export/import operations between different systems.
+     *
+     * If the conversion cannot be done, (for example, because item does not exist), a reference to
+     * the so called null item will be returned.
+     *
+     * @param string $link
+     *
+     * @return string
+     */
     public function convertFromRemoteId($link)
     {
         $link = parse_url($link);
@@ -49,7 +71,7 @@ class RemoteIdConverter
         try {
             $item = $this->itemLoader->loadByRemoteId($link['host'], str_replace('-', '_', $link['scheme']));
 
-            return str_replace('_', '-', $item->getValueType()) . '://' . $item->getValueId();
+            return $link['scheme'] . '://' . $item->getValueId();
         } catch (ItemException $e) {
             // Do nothing
         }
