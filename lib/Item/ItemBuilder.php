@@ -46,7 +46,7 @@ final class ItemBuilder implements ItemBuilderInterface
                     'valueType' => $valueConverter->getValueType($object),
                     'name' => $valueConverter->getName($object),
                     'isVisible' => $valueConverter->getIsVisible($object),
-                    'object' => $object,
+                    'object' => $valueConverter->getObject($object),
                 )
             );
 

@@ -77,4 +77,18 @@ class UnsupportedValueConverter implements ValueConverterInterface
     {
         return $object->isVisible();
     }
+
+    /**
+     * Returns the object itself.
+     *
+     * This method can be used to enrich the object before it being rendered.
+     *
+     * @param mixed $object
+     *
+     * @return mixed
+     */
+    public function getObject($object)
+    {
+        return $object;
+    }
 }
