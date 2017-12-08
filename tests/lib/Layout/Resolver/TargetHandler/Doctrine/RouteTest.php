@@ -32,7 +32,7 @@ class RouteTest extends AbstractTargetHandlerTest
     /**
      * Creates the handler under test.
      *
-     * \Netgen\BlockManager\Layout\Resolver\TargetHandler\Doctrine\TargetHandlerInterface
+     * \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\TargetHandlerInterface
      */
     protected function getTargetHandler()
     {

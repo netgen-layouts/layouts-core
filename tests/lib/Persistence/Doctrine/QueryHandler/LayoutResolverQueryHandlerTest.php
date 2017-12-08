@@ -13,7 +13,7 @@ class LayoutResolverQueryHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::__construct
      * @expectedException \Netgen\BlockManager\Exception\InvalidInterfaceException
-     * @expectedExceptionMessage Target handler "stdClass" needs to implement "Netgen\BlockManager\Layout\Resolver\TargetHandler\Doctrine\TargetHandlerInterface" interface.
+     * @expectedExceptionMessage Target handler "stdClass" needs to implement "Netgen\BlockManager\Persistence\Doctrine\QueryHandler\TargetHandlerInterface" interface.
      */
     public function testConstructorThrowsInvalidInterfaceException()
     {

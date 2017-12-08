@@ -6,7 +6,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Type;
 use Netgen\BlockManager\Exception\InvalidInterfaceException;
 use Netgen\BlockManager\Exception\Persistence\TargetHandlerException;
-use Netgen\BlockManager\Layout\Resolver\TargetHandler\Doctrine\TargetHandlerInterface;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
@@ -16,7 +15,7 @@ use Netgen\BlockManager\Persistence\Values\Value;
 final class LayoutResolverQueryHandler extends QueryHandler
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\TargetHandler\Doctrine\TargetHandlerInterface[]
+     * @var \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\TargetHandlerInterface[]
      */
     private $targetHandlers = array();
 
@@ -25,7 +24,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @param \Doctrine\DBAL\Connection $connection
      * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper $connectionHelper
-     * @param \Netgen\BlockManager\Layout\Resolver\TargetHandler\Doctrine\TargetHandlerInterface[] $targetHandlers
+     * @param \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\TargetHandlerInterface[] $targetHandlers
      */
     public function __construct(Connection $connection, ConnectionHelper $connectionHelper, array $targetHandlers = array())
     {

@@ -53,7 +53,7 @@ abstract class AbstractTargetHandlerTest extends TestCase
     /**
      * Creates the handler under test.
      *
-     * @return \Netgen\BlockManager\Layout\Resolver\TargetHandler\Doctrine\TargetHandlerInterface
+     * @return \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\TargetHandlerInterface
      */
     abstract protected function getTargetHandler();
 }

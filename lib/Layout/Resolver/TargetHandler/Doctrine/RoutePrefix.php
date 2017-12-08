@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Layout\Resolver\TargetHandler\Doctrine;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Type;
+use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\TargetHandlerInterface;
 
 final class RoutePrefix implements TargetHandlerInterface
 {

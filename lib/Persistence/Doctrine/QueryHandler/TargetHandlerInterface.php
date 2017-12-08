@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Layout\Resolver\TargetHandler\Doctrine;
+namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 
