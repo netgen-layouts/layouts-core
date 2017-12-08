@@ -6,7 +6,7 @@ use Doctrine\DBAL\Connection;
 use Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler;
 use Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler;
 use Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler;
-use Netgen\BlockManager\Persistence\Handler\LayoutResolverHandler;
+use Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler;
 use PHPUnit\Framework\TestCase;
 
 class HandlerTest extends TestCase

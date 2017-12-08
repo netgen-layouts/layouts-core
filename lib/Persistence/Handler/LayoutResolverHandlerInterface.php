@@ -14,7 +14,7 @@ use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetUpdateStruct;
 
-interface LayoutResolverHandler
+interface LayoutResolverHandlerInterface
 {
     /**
      * Loads a rule with specified ID.

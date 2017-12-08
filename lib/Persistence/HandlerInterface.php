@@ -2,33 +2,33 @@
 
 namespace Netgen\BlockManager\Persistence;
 
-interface Handler
+interface HandlerInterface
 {
     /**
      * Returns the layout handler.
      *
-     * @return \Netgen\BlockManager\Persistence\Handler\LayoutHandler
+     * @return \Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface
      */
     public function getLayoutHandler();
 
     /**
      * Returns the block handler.
      *
-     * @return \Netgen\BlockManager\Persistence\Handler\BlockHandler
+     * @return \Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface
      */
     public function getBlockHandler();
 
     /**
      * Returns the collection handler.
      *
-     * @return \Netgen\BlockManager\Persistence\Handler\CollectionHandler
+     * @return \Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface
      */
     public function getCollectionHandler();
 
     /**
      * Returns the layout resolver handler.
      *
-     * @return \Netgen\BlockManager\Persistence\Handler\LayoutResolverHandler
+     * @return \Netgen\BlockManager\Persistence\Handler\LayoutResolverHandlerInterface
      */
     public function getLayoutResolverHandler();
 

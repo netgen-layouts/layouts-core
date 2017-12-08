@@ -11,7 +11,7 @@ use Netgen\BlockManager\Persistence\Values\Collection\Query;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryTranslationUpdateStruct;
 
-interface CollectionHandler
+interface CollectionHandlerInterface
 {
     /**
      * Loads a collection with specified ID.

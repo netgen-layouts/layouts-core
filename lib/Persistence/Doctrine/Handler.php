@@ -3,11 +3,11 @@
 namespace Netgen\BlockManager\Persistence\Doctrine;
 
 use Doctrine\DBAL\Connection;
-use Netgen\BlockManager\Persistence\Handler as HandlerInterface;
-use Netgen\BlockManager\Persistence\Handler\BlockHandler;
-use Netgen\BlockManager\Persistence\Handler\CollectionHandler;
-use Netgen\BlockManager\Persistence\Handler\LayoutHandler;
-use Netgen\BlockManager\Persistence\Handler\LayoutResolverHandler;
+use Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface;
+use Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface;
+use Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface;
+use Netgen\BlockManager\Persistence\Handler\LayoutResolverHandlerInterface;
+use Netgen\BlockManager\Persistence\HandlerInterface;
 
 final class Handler implements HandlerInterface
 {
@@ -17,31 +17,31 @@ final class Handler implements HandlerInterface
     private $connection;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandler
+     * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface
      */
     private $layoutHandler;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\BlockHandler
+     * @var \Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface
      */
     private $blockHandler;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandler
+     * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface
      */
     private $collectionHandler;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\LayoutResolverHandler
+     * @var \Netgen\BlockManager\Persistence\Handler\LayoutResolverHandlerInterface
      */
     private $layoutResolverHandler;
 
     public function __construct(
         Connection $connection,
-        LayoutHandler $layoutHandler,
-        BlockHandler $blockHandler,
-        CollectionHandler $collectionHandler,
-        LayoutResolverHandler $layoutResolverHandler
+        LayoutHandlerInterface $layoutHandler,
+        BlockHandlerInterface $blockHandler,
+        CollectionHandlerInterface $collectionHandler,
+        LayoutResolverHandlerInterface $layoutResolverHandler
     ) {
         $this->connection = $connection;
         $this->layoutHandler = $layoutHandler;

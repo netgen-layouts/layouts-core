@@ -10,13 +10,13 @@ use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\CollectionReference;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Persistence\Handler;
+use Netgen\BlockManager\Persistence\HandlerInterface;
 use Netgen\BlockManager\Persistence\Values\Block\Block as PersistenceBlock;
 
 final class BlockMapper
 {
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler
+     * @var \Netgen\BlockManager\Persistence\HandlerInterface
      */
     private $persistenceHandler;
 
@@ -41,17 +41,17 @@ final class BlockMapper
     private $blockDefinitionRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\BlockHandler
+     * @var \Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface
      */
     private $blockHandler;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandler
+     * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface
      */
     private $collectionHandler;
 
     public function __construct(
-        Handler $persistenceHandler,
+        HandlerInterface $persistenceHandler,
         CollectionMapper $collectionMapper,
         ParameterMapper $parameterMapper,
         ConfigMapper $configMapper,

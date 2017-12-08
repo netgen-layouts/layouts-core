@@ -7,8 +7,8 @@ use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler;
-use Netgen\BlockManager\Persistence\Handler\BlockHandler as BlockHandlerInterface;
-use Netgen\BlockManager\Persistence\Handler\CollectionHandler as CollectionHandlerInterface;
+use Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface;
+use Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface;
 use Netgen\BlockManager\Persistence\Values\Block\Block;
 use Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\BlockUpdateStruct;
@@ -27,7 +27,7 @@ final class BlockHandler implements BlockHandlerInterface
     private $queryHandler;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandler
+     * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface
      */
     private $collectionHandler;
 

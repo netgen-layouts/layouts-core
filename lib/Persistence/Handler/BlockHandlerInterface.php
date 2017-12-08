@@ -10,7 +10,7 @@ use Netgen\BlockManager\Persistence\Values\Block\TranslationUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone;
 
-interface BlockHandler
+interface BlockHandlerInterface
 {
     /**
      * Loads a block with specified ID.

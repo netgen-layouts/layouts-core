@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Exception;
 use Netgen\BlockManager\Core\Service\Service;
-use Netgen\BlockManager\Persistence\Handler;
+use Netgen\BlockManager\Persistence\HandlerInterface;
 use PHPUnit\Framework\TestCase;
 
 class ServiceTest extends TestCase
@@ -24,7 +24,7 @@ class ServiceTest extends TestCase
      */
     public function setUp()
     {
-        $this->persistenceHandlerMock = $this->createMock(Handler::class);
+        $this->persistenceHandlerMock = $this->createMock(HandlerInterface::class);
 
         $this->service = $this->getMockForAbstractClass(
             Service::class,

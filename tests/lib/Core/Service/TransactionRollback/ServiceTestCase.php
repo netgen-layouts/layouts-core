@@ -2,11 +2,11 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
-use Netgen\BlockManager\Persistence\Handler;
-use Netgen\BlockManager\Persistence\Handler\BlockHandler;
-use Netgen\BlockManager\Persistence\Handler\CollectionHandler;
-use Netgen\BlockManager\Persistence\Handler\LayoutHandler;
-use Netgen\BlockManager\Persistence\Handler\LayoutResolverHandler;
+use Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface;
+use Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface;
+use Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface;
+use Netgen\BlockManager\Persistence\Handler\LayoutResolverHandlerInterface;
+use Netgen\BlockManager\Persistence\HandlerInterface;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase as BaseServiceTestCase;
 
 abstract class ServiceTestCase extends BaseServiceTestCase
@@ -41,12 +41,12 @@ abstract class ServiceTestCase extends BaseServiceTestCase
      */
     public function preparePersistence()
     {
-        $this->persistenceHandler = $this->createMock(Handler::class);
+        $this->persistenceHandler = $this->createMock(HandlerInterface::class);
 
-        $this->blockHandlerMock = $this->createMock(BlockHandler::class);
-        $this->layoutHandlerMock = $this->createMock(LayoutHandler::class);
-        $this->collectionHandlerMock = $this->createMock(CollectionHandler::class);
-        $this->layoutResolverHandlerMock = $this->createMock(LayoutResolverHandler::class);
+        $this->blockHandlerMock = $this->createMock(BlockHandlerInterface::class);
+        $this->layoutHandlerMock = $this->createMock(LayoutHandlerInterface::class);
+        $this->collectionHandlerMock = $this->createMock(CollectionHandlerInterface::class);
+        $this->layoutResolverHandlerMock = $this->createMock(LayoutResolverHandlerInterface::class);
 
         $this->persistenceHandler
             ->expects($this->any())

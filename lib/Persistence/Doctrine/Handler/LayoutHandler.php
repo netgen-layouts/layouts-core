@@ -6,8 +6,8 @@ use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler;
-use Netgen\BlockManager\Persistence\Handler\BlockHandler as BaseBlockHandler;
-use Netgen\BlockManager\Persistence\Handler\LayoutHandler as LayoutHandlerInterface;
+use Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface;
+use Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface;
 use Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout;
 use Netgen\BlockManager\Persistence\Values\Layout\LayoutCopyStruct;
@@ -25,7 +25,7 @@ final class LayoutHandler implements LayoutHandlerInterface
     private $queryHandler;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\BlockHandler
+     * @var \Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface
      */
     private $blockHandler;
 
@@ -36,7 +36,7 @@ final class LayoutHandler implements LayoutHandlerInterface
 
     public function __construct(
         LayoutQueryHandler $queryHandler,
-        BaseBlockHandler $blockHandler,
+        BlockHandlerInterface $blockHandler,
         LayoutMapper $layoutMapper
     ) {
         $this->queryHandler = $queryHandler;

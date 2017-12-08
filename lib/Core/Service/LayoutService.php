@@ -14,7 +14,7 @@ use Netgen\BlockManager\Core\Service\StructBuilder\LayoutStructBuilder;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Layout\Type\LayoutType;
-use Netgen\BlockManager\Persistence\Handler;
+use Netgen\BlockManager\Persistence\HandlerInterface;
 use Netgen\BlockManager\Persistence\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\LayoutUpdateStruct;
@@ -39,17 +39,17 @@ final class LayoutService extends Service implements LayoutServiceInterface
     private $structBuilder;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandler
+     * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface
      */
     private $layoutHandler;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\BlockHandler
+     * @var \Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface
      */
     private $blockHandler;
 
     public function __construct(
-        Handler $persistenceHandler,
+        HandlerInterface $persistenceHandler,
         LayoutValidator $validator,
         LayoutMapper $mapper,
         LayoutStructBuilder $structBuilder

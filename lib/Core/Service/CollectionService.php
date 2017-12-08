@@ -17,7 +17,7 @@ use Netgen\BlockManager\Core\Service\Mapper\ParameterMapper;
 use Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Persistence\Handler;
+use Netgen\BlockManager\Persistence\HandlerInterface;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Query as PersistenceQuery;
@@ -47,12 +47,12 @@ final class CollectionService extends Service implements APICollectionService
     private $parameterMapper;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandler
+     * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface
      */
     private $handler;
 
     public function __construct(
-        Handler $persistenceHandler,
+        HandlerInterface $persistenceHandler,
         CollectionValidator $validator,
         CollectionMapper $mapper,
         CollectionStructBuilder $structBuilder,

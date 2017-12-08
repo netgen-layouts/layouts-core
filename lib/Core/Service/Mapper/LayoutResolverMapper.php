@@ -9,7 +9,7 @@ use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface;
-use Netgen\BlockManager\Persistence\Handler;
+use Netgen\BlockManager\Persistence\HandlerInterface;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition as PersistenceCondition;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule as PersistenceRule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
@@ -17,7 +17,7 @@ use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target as PersistenceT
 final class LayoutResolverMapper
 {
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler
+     * @var \Netgen\BlockManager\Persistence\HandlerInterface
      */
     private $persistenceHandler;
 
@@ -37,7 +37,7 @@ final class LayoutResolverMapper
     private $conditionTypeRegistry;
 
     public function __construct(
-        Handler $persistenceHandler,
+        HandlerInterface $persistenceHandler,
         LayoutMapper $layoutMapper,
         TargetTypeRegistryInterface $targetTypeRegistry,
         ConditionTypeRegistryInterface $conditionTypeRegistry

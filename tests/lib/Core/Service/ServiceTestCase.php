@@ -77,7 +77,7 @@ abstract class ServiceTestCase extends TestCase
     protected $parameterTypeRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler
+     * @var \Netgen\BlockManager\Persistence\HandlerInterface
      */
     protected $persistenceHandler;
 

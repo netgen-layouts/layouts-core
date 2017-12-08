@@ -8,7 +8,7 @@ use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Core\Values\Layout\Zone;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
-use Netgen\BlockManager\Persistence\Handler\LayoutHandler;
+use Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout as PersistenceLayout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone as PersistenceZone;
 use Netgen\BlockManager\Persistence\Values\Value as PersistenceValue;
@@ -16,7 +16,7 @@ use Netgen\BlockManager\Persistence\Values\Value as PersistenceValue;
 final class LayoutMapper
 {
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandler
+     * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface
      */
     private $layoutHandler;
 
@@ -25,7 +25,7 @@ final class LayoutMapper
      */
     private $layoutTypeRegistry;
 
-    public function __construct(LayoutHandler $layoutHandler, LayoutTypeRegistryInterface $layoutTypeRegistry)
+    public function __construct(LayoutHandlerInterface $layoutHandler, LayoutTypeRegistryInterface $layoutTypeRegistry)
     {
         $this->layoutHandler = $layoutHandler;
         $this->layoutTypeRegistry = $layoutTypeRegistry;

@@ -19,7 +19,7 @@ use Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper;
 use Netgen\BlockManager\Core\Service\StructBuilder\LayoutResolverStructBuilder;
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Persistence\Handler;
+use Netgen\BlockManager\Persistence\HandlerInterface;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleCreateStruct;
@@ -46,17 +46,17 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
     private $structBuilder;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\LayoutResolverHandler
+     * @var \Netgen\BlockManager\Persistence\Handler\LayoutResolverHandlerInterface
      */
     private $handler;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandler
+     * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface
      */
     private $layoutHandler;
 
     public function __construct(
-        Handler $persistenceHandler,
+        HandlerInterface $persistenceHandler,
         LayoutResolverValidator $validator,
         LayoutResolverMapper $mapper,
         LayoutResolverStructBuilder $structBuilder

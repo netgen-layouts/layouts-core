@@ -8,7 +8,7 @@ use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Persistence\Handler\CollectionHandler;
+use Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceCollection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item as PersistenceItem;
 use Netgen\BlockManager\Persistence\Values\Collection\Query as PersistenceQuery;
@@ -16,7 +16,7 @@ use Netgen\BlockManager\Persistence\Values\Collection\Query as PersistenceQuery;
 final class CollectionMapper
 {
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandler
+     * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface
      */
     private $collectionHandler;
 
@@ -31,7 +31,7 @@ final class CollectionMapper
     private $queryTypeRegistry;
 
     public function __construct(
-        CollectionHandler $collectionHandler,
+        CollectionHandlerInterface $collectionHandler,
         ParameterMapper $parameterMapper,
         QueryTypeRegistryInterface $queryTypeRegistry
     ) {

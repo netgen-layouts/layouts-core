@@ -29,7 +29,7 @@ trait TestCaseTrait
      *
      * @param \Doctrine\DBAL\Connection $connection
      *
-     * @return \Netgen\BlockManager\Persistence\Handler
+     * @return \Netgen\BlockManager\Persistence\HandlerInterface
      */
     private function createPersistenceHandler(Connection $connection = null)
     {
@@ -50,7 +50,7 @@ trait TestCaseTrait
     /**
      * Returns the layout handler under test.
      *
-     * @return \Netgen\BlockManager\Persistence\Handler\LayoutHandler
+     * @return \Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface
      */
     private function createLayoutHandler()
     {
@@ -69,7 +69,7 @@ trait TestCaseTrait
     /**
      * Returns the block handler under test.
      *
-     * @return \Netgen\BlockManager\Persistence\Handler\BlockHandler
+     * @return \Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface
      */
     private function createBlockHandler()
     {
@@ -87,7 +87,7 @@ trait TestCaseTrait
     /**
      * Returns the collection handler under test.
      *
-     * @return \Netgen\BlockManager\Persistence\Handler\CollectionHandler
+     * @return \Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface
      */
     private function createCollectionHandler()
     {
@@ -104,7 +104,7 @@ trait TestCaseTrait
     /**
      * Returns the layout resolver handler under test.
      *
-     * @return \Netgen\BlockManager\Persistence\Handler\LayoutResolverHandler
+     * @return \Netgen\BlockManager\Persistence\Handler\LayoutResolverHandlerInterface
      */
     private function createLayoutResolverHandler()
     {

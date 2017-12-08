@@ -10,7 +10,7 @@ use Netgen\BlockManager\Persistence\Values\Layout\Zone;
 use Netgen\BlockManager\Persistence\Values\Layout\ZoneCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\ZoneUpdateStruct;
 
-interface LayoutHandler
+interface LayoutHandlerInterface
 {
     /**
      * Loads a layout with specified ID.

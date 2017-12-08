@@ -5,16 +5,16 @@ namespace Netgen\BlockManager\Core\Service;
 use Exception;
 use Netgen\BlockManager\API\Service\Service as APIService;
 use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Persistence\Handler;
+use Netgen\BlockManager\Persistence\HandlerInterface;
 
 abstract class Service implements APIService
 {
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler
+     * @var \Netgen\BlockManager\Persistence\HandlerInterface
      */
     private $persistenceHandler;
 
-    public function __construct(Handler $persistenceHandler)
+    public function __construct(HandlerInterface $persistenceHandler)
     {
         $this->persistenceHandler = $persistenceHandler;
     }
