@@ -1,12 +1,11 @@
 <?php
 
-namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver\TargetHandler;
+namespace Netgen\BlockManager\Layout\Resolver\TargetHandler\Doctrine;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Type;
-use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver\TargetHandler;
 
-final class Route implements TargetHandler
+final class Route implements TargetHandlerInterface
 {
     public function handleQuery(QueryBuilder $query, $value)
     {

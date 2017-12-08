@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver;
+namespace Netgen\BlockManager\Layout\Resolver\TargetHandler\Doctrine;
 
 use Doctrine\DBAL\Query\QueryBuilder;
 
@@ -11,7 +11,7 @@ use Doctrine\DBAL\Query\QueryBuilder;
  * This is done in layout resolving process to return the targets only matching
  * the specified value (extracted from the request on which the layout resolving is ran).
  */
-interface TargetHandler
+interface TargetHandlerInterface
 {
     /**
      * Handles the query by adding the clause that matches the provided target values.

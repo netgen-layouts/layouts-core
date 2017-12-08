@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler\LayoutResolver\TargetHandler;
+namespace Netgen\BlockManager\Tests\Layout\Resolver\TargetHandler\Doctrine;
 
-use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver\TargetHandler\Route;
+use Netgen\BlockManager\Layout\Resolver\TargetHandler\Doctrine\Route;
 
 class TargetHandlerTest extends AbstractTargetHandlerTest
 {
@@ -44,7 +44,7 @@ class TargetHandlerTest extends AbstractTargetHandlerTest
     /**
      * Creates the handler under test.
      *
-     * @return \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver\TargetHandler
+     * \Netgen\BlockManager\Layout\Resolver\TargetHandler\Doctrine\TargetHandlerInterface
      */
     protected function getTargetHandler()
     {

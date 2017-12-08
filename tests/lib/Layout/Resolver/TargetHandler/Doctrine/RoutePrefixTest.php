@@ -1,15 +1,15 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler\LayoutResolver\TargetHandler;
+namespace Netgen\BlockManager\Tests\Layout\Resolver\TargetHandler\Doctrine;
 
-use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver\TargetHandler\RoutePrefix;
+use Netgen\BlockManager\Layout\Resolver\TargetHandler\Doctrine\RoutePrefix;
 
 class RoutePrefixTest extends AbstractTargetHandlerTest
 {
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::matchRules
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::matchRules
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver\TargetHandler\RoutePrefix::handleQuery
+     * @covers \Netgen\BlockManager\Layout\Resolver\TargetHandler\Doctrine\RoutePrefix::handleQuery
      */
     public function testMatchRules()
     {
@@ -32,7 +32,7 @@ class RoutePrefixTest extends AbstractTargetHandlerTest
     /**
      * Creates the handler under test.
      *
-     * @return \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver\TargetHandler
+     * \Netgen\BlockManager\Layout\Resolver\TargetHandler\Doctrine\TargetHandlerInterface
      */
     protected function getTargetHandler()
     {

@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\Reference;
 final class DoctrineTargetHandlerPass implements CompilerPassInterface
 {
     const SERVICE_NAME = 'netgen_block_manager.persistence.doctrine.layout_resolver.query_handler';
-    const TAG_NAME = 'netgen_block_manager.persistence.doctrine.layout_resolver.query_handler.target_handler';
+    const TAG_NAME = 'netgen_block_manager.layout.resolver.target_handler.doctrine';
 
     public function process(ContainerBuilder $container)
     {

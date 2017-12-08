@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler\LayoutResolver\TargetHandler;
+namespace Netgen\BlockManager\Tests\Layout\Resolver\TargetHandler\Doctrine;
 
 use Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
@@ -53,7 +53,7 @@ abstract class AbstractTargetHandlerTest extends TestCase
     /**
      * Creates the handler under test.
      *
-     * @return \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver\TargetHandler
+     * @return \Netgen\BlockManager\Layout\Resolver\TargetHandler\Doctrine\TargetHandlerInterface
      */
     abstract protected function getTargetHandler();
 }

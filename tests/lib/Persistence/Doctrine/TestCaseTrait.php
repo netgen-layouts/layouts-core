@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine;
 
 use Doctrine\DBAL\Connection;
+use Netgen\BlockManager\Layout\Resolver\TargetHandler;
 use Netgen\BlockManager\Persistence\Doctrine\Handler;
 use Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler;
 use Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler;
@@ -17,7 +18,6 @@ use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler;
-use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolver\TargetHandler;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler;
 
 trait TestCaseTrait
@@ -113,12 +113,12 @@ trait TestCaseTrait
                 $this->databaseConnection,
                 new ConnectionHelper($this->databaseConnection),
                 array(
-                    'route' => new TargetHandler\Route(),
-                    'route_prefix' => new TargetHandler\RoutePrefix(),
-                    'path_info' => new TargetHandler\Route(),
-                    'path_info_prefix' => new TargetHandler\RoutePrefix(),
-                    'request_uri' => new TargetHandler\Route(),
-                    'request_uri_prefix' => new TargetHandler\RoutePrefix(),
+                    'route' => new TargetHandler\Doctrine\Route(),
+                    'route_prefix' => new TargetHandler\Doctrine\RoutePrefix(),
+                    'path_info' => new TargetHandler\Doctrine\Route(),
+                    'path_info_prefix' => new TargetHandler\Doctrine\RoutePrefix(),
+                    'request_uri' => new TargetHandler\Doctrine\Route(),
+                    'request_uri_prefix' => new TargetHandler\Doctrine\RoutePrefix(),
                 )
             ),
             new LayoutResolverMapper()

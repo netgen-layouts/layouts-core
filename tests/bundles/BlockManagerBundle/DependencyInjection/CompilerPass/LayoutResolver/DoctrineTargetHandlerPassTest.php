@@ -25,12 +25,12 @@ class DoctrineTargetHandlerPassTest extends AbstractCompilerPassTestCase
 
         $targetHandler = new Definition();
         $targetHandler->addTag(
-            'netgen_block_manager.persistence.doctrine.layout_resolver.query_handler.target_handler',
+            'netgen_block_manager.layout.resolver.target_handler.doctrine',
             array(
                 'target_type' => 'test',
             )
         );
-        $this->setDefinition('netgen_block_manager.persistence.doctrine.layout_resolver.query_handler.target_handler.test', $targetHandler);
+        $this->setDefinition('netgen_block_manager.layout.resolver.target_handler.doctrine.test', $targetHandler);
 
         $this->compile();
 
@@ -38,7 +38,7 @@ class DoctrineTargetHandlerPassTest extends AbstractCompilerPassTestCase
             'netgen_block_manager.persistence.doctrine.layout_resolver.query_handler',
             2,
             array(
-                'test' => new Reference('netgen_block_manager.persistence.doctrine.layout_resolver.query_handler.target_handler.test'),
+                'test' => new Reference('netgen_block_manager.layout.resolver.target_handler.doctrine.test'),
             )
         );
     }
@@ -53,8 +53,8 @@ class DoctrineTargetHandlerPassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('netgen_block_manager.persistence.doctrine.layout_resolver.query_handler', new Definition());
 
         $targetHandler = new Definition();
-        $targetHandler->addTag('netgen_block_manager.persistence.doctrine.layout_resolver.query_handler.target_handler');
-        $this->setDefinition('netgen_block_manager.persistence.doctrine.layout_resolver.query_handler.target_handler.test', $targetHandler);
+        $targetHandler->addTag('netgen_block_manager.layout.resolver.target_handler.doctrine');
+        $this->setDefinition('netgen_block_manager.layout.resolver.target_handler.doctrine.test', $targetHandler);
 
         $this->compile();
     }
