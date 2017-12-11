@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Transfer\Output\Visitor;
 use Netgen\BlockManager\API\Values\Config\Config as ConfigValue;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Transfer\Output\Visitor;
+use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
 /**
  * Config value visitor.
@@ -18,7 +19,7 @@ final class Config extends Visitor
         return $value instanceof ConfigValue;
     }
 
-    public function visit($config, Visitor $subVisitor = null)
+    public function visit($config, VisitorInterface $subVisitor = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');

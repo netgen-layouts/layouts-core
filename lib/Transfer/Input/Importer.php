@@ -9,7 +9,7 @@ use Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler;
 /**
  * Importer creates Netgen Layouts entities from the serialized JSON data.
  */
-final class Importer
+final class Importer implements ImporterInterface
 {
     /**
      * @var \Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler
@@ -21,16 +21,6 @@ final class Importer
         $this->layoutDataHandler = $layoutDataHandler;
     }
 
-    /**
-     * Create a new layout from the given $data array.
-     *
-     * @param array $data
-     *
-     * @throws \Netgen\BlockManager\Exception\Transfer\DataNotAcceptedException If $data is not accepted for import
-     * @throws \Exception If thrown by the underlying API
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\Layout
-     */
     public function importLayout(array $data)
     {
         $this->acceptLayout($data);

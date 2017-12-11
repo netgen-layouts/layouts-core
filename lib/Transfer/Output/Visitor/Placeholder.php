@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Transfer\Output\Visitor;
 use Netgen\BlockManager\API\Values\Block\Placeholder as PlaceholderValue;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Transfer\Output\Visitor;
+use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
 /**
  * Placeholder value visitor.
@@ -18,7 +19,7 @@ final class Placeholder extends Visitor
         return $value instanceof PlaceholderValue;
     }
 
-    public function visit($placeholder, Visitor $subVisitor = null)
+    public function visit($placeholder, VisitorInterface $subVisitor = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');
@@ -36,11 +37,11 @@ final class Placeholder extends Visitor
      * Visit the given $placeholder blocks into hash representation.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Placeholder $placeholder
-     * @param \Netgen\BlockManager\Transfer\Output\Visitor $subVisitor
+     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
      *
      * @return array
      */
-    private function visitBlocks(PlaceholderValue $placeholder, Visitor $subVisitor)
+    private function visitBlocks(PlaceholderValue $placeholder, VisitorInterface $subVisitor)
     {
         $hash = array();
 

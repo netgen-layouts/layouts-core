@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Transfer\Output\Visitor;
 use Netgen\BlockManager\Exception\InvalidInterfaceException;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Transfer\Output\Visitor;
+use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
 /**
  * Aggregate implementation of the Visitor.
@@ -43,7 +44,7 @@ final class Aggregate extends Visitor
         return true;
     }
 
-    public function visit($value, Visitor $subVisitor = null)
+    public function visit($value, VisitorInterface $subVisitor = null)
     {
         foreach ($this->visitors as $visitor) {
             if ($visitor->accept($value)) {

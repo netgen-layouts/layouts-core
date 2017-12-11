@@ -7,6 +7,7 @@ use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Transfer\Output\Visitor;
+use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
 /**
  * Item value visitor.
@@ -30,7 +31,7 @@ final class Item extends Visitor
         return $value instanceof ItemValue;
     }
 
-    public function visit($collectionItem, Visitor $subVisitor = null)
+    public function visit($collectionItem, VisitorInterface $subVisitor = null)
     {
         /* @var \Netgen\BlockManager\API\Values\Collection\Item $collectionItem */
 

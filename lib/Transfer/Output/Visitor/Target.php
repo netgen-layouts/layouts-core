@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\Target as TargetValue;
 use Netgen\BlockManager\Transfer\Output\Visitor;
+use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
 /**
  * Target value visitor.
@@ -17,7 +18,7 @@ final class Target extends Visitor
         return $value instanceof TargetValue;
     }
 
-    public function visit($target, Visitor $subVisitor = null)
+    public function visit($target, VisitorInterface $subVisitor = null)
     {
         /* @var \Netgen\BlockManager\API\Values\LayoutResolver\Target $target */
 

@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\Condition as ConditionValue;
 use Netgen\BlockManager\Transfer\Output\Visitor;
+use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
 /**
  * Condition value visitor.
@@ -17,7 +18,7 @@ final class Condition extends Visitor
         return $value instanceof ConditionValue;
     }
 
-    public function visit($condition, Visitor $subVisitor = null)
+    public function visit($condition, VisitorInterface $subVisitor = null)
     {
         /* @var \Netgen\BlockManager\API\Values\LayoutResolver\Condition $condition */
 

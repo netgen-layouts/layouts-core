@@ -4,7 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Command;
 
 use Exception;
 use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Transfer\Input\Importer;
+use Netgen\BlockManager\Transfer\Input\ImporterInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -17,7 +17,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 final class ImportCommand extends Command
 {
     /**
-     * @var \Netgen\BlockManager\Transfer\Input\Importer
+     * @var \Netgen\BlockManager\Transfer\Input\ImporterInterface
      */
     private $importer;
 
@@ -26,7 +26,7 @@ final class ImportCommand extends Command
      */
     private $io;
 
-    public function __construct(Importer $importer)
+    public function __construct(ImporterInterface $importer)
     {
         $this->importer = $importer;
 

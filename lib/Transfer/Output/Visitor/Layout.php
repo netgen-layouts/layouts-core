@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Values\Layout\Layout as LayoutValue;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Transfer\Descriptor;
 use Netgen\BlockManager\Transfer\Output\Visitor;
+use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
 /**
  * Layout value visitor.
@@ -19,7 +20,7 @@ final class Layout extends Visitor
         return $value instanceof LayoutValue;
     }
 
-    public function visit($layout, Visitor $subVisitor = null)
+    public function visit($layout, VisitorInterface $subVisitor = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');
@@ -50,11 +51,11 @@ final class Layout extends Visitor
      * Visit the given $layout zones into hash representation.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
-     * @param \Netgen\BlockManager\Transfer\Output\Visitor $subVisitor
+     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
      *
      * @return array
      */
-    private function visitZones(LayoutValue $layout, Visitor $subVisitor)
+    private function visitZones(LayoutValue $layout, VisitorInterface $subVisitor)
     {
         $hash = array();
 

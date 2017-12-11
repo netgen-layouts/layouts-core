@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Command;
 use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Transfer\Output\Serializer;
+use Netgen\BlockManager\Transfer\Output\SerializerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -18,7 +18,7 @@ use Symfony\Component\Filesystem\Filesystem;
 final class ExportCommand extends Command
 {
     /**
-     * @var \Netgen\BlockManager\Transfer\Output\Serializer
+     * @var \Netgen\BlockManager\Transfer\Output\SerializerInterface
      */
     private $serializer;
 
@@ -38,7 +38,7 @@ final class ExportCommand extends Command
     private $fileSystem;
 
     public function __construct(
-        Serializer $serializer,
+        SerializerInterface $serializer,
         LayoutService $layoutService,
         LayoutResolverService $layoutResolverService,
         Filesystem $fileSystem

@@ -5,35 +5,8 @@ namespace Netgen\BlockManager\Transfer\Output;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Exception\RuntimeException;
 
-/**
- * Visits value objects into hash representation.
- *
- * Hash format is either a scalar value, a hash array (associative array),
- * a pure numeric array or a nested combination of these.
- *
- * @see \Netgen\BlockManager\Transfer\Serializer
- */
-abstract class Visitor
+abstract class Visitor implements VisitorInterface
 {
-    /**
-     * Check if the visitor accepts the given $value.
-     *
-     * @param mixed $value
-     *
-     * @return bool
-     */
-    abstract public function accept($value);
-
-    /**
-     * Visit the given $value into hash representation.
-     *
-     * @param mixed $value
-     * @param \Netgen\BlockManager\Transfer\Output\Visitor|null $subVisitor
-     *
-     * @return mixed
-     */
-    abstract public function visit($value, self $subVisitor = null);
-
     /**
      * Return status string representation for the given $layout.
      *

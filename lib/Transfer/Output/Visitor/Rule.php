@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Values\Layout\Layout as LayoutValue;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule as RuleValue;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Transfer\Output\Visitor;
+use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
 /**
  * Rule value visitor.
@@ -19,7 +20,7 @@ final class Rule extends Visitor
         return $value instanceof RuleValue;
     }
 
-    public function visit($rule, Visitor $subVisitor = null)
+    public function visit($rule, VisitorInterface $subVisitor = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');
@@ -45,11 +46,11 @@ final class Rule extends Visitor
      * Visit the given $rule targets into hash representation.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
-     * @param \Netgen\BlockManager\Transfer\Output\Visitor $subVisitor
+     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
      *
      * @return mixed
      */
-    private function visitTargets(RuleValue $rule, Visitor $subVisitor)
+    private function visitTargets(RuleValue $rule, VisitorInterface $subVisitor)
     {
         $hash = array();
         $targets = $rule->getTargets();
@@ -65,11 +66,11 @@ final class Rule extends Visitor
      * Visit the given $rule conditions into hash representation.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
-     * @param \Netgen\BlockManager\Transfer\Output\Visitor $subVisitor
+     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
      *
      * @return mixed
      */
-    private function visitConditions(RuleValue $rule, Visitor $subVisitor)
+    private function visitConditions(RuleValue $rule, VisitorInterface $subVisitor)
     {
         $hash = array();
         $conditions = $rule->getConditions();

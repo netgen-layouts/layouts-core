@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Transfer\Output\Visitor;
 use Netgen\BlockManager\API\Values\Collection\Collection as CollectionValue;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Transfer\Output\Visitor;
+use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
 /**
  * Collection value visitor.
@@ -18,7 +19,7 @@ final class Collection extends Visitor
         return $value instanceof CollectionValue;
     }
 
-    public function visit($collection, Visitor $subVisitor = null)
+    public function visit($collection, VisitorInterface $subVisitor = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');
@@ -68,11 +69,11 @@ final class Collection extends Visitor
      * Visit the given collection $items into hash representation.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Item[] $items
-     * @param \Netgen\BlockManager\Transfer\Output\Visitor $subVisitor
+     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
      *
      * @return array
      */
-    private function visitItems(array $items, Visitor $subVisitor)
+    private function visitItems(array $items, VisitorInterface $subVisitor)
     {
         $hash = array();
 
@@ -89,11 +90,11 @@ final class Collection extends Visitor
      * Visit the given $collection query into hash representation.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\Transfer\Output\Visitor $subVisitor
+     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
      *
      * @return mixed
      */
-    private function visitQuery(CollectionValue $collection, Visitor $subVisitor)
+    private function visitQuery(CollectionValue $collection, VisitorInterface $subVisitor)
     {
         if (!$collection->hasQuery()) {
             return null;

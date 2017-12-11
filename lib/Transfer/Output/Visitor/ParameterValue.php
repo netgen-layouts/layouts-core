@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\Parameters\ParameterValue as ParameterValueValue;
 use Netgen\BlockManager\Transfer\Output\Visitor;
+use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
 /**
  * ParameterValue value visitor.
@@ -17,7 +18,7 @@ final class ParameterValue extends Visitor
         return $value instanceof ParameterValueValue;
     }
 
-    public function visit($parameterValue, Visitor $subVisitor = null)
+    public function visit($parameterValue, VisitorInterface $subVisitor = null)
     {
         /* @var \Netgen\BlockManager\Parameters\ParameterValue $parameterValue */
 

@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Block\Block as BlockValue;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Transfer\Output\Visitor;
+use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
 /**
  * Block value visitor.
@@ -29,7 +30,7 @@ final class Block extends Visitor
         return $value instanceof BlockValue;
     }
 
-    public function visit($block, Visitor $subVisitor = null)
+    public function visit($block, VisitorInterface $subVisitor = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');
@@ -58,11 +59,11 @@ final class Block extends Visitor
      * Visit the given $block placeholders into hash representation.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param \Netgen\BlockManager\Transfer\Output\Visitor $subVisitor
+     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
      *
      * @return array
      */
-    private function visitPlaceholders(BlockValue $block, Visitor $subVisitor)
+    private function visitPlaceholders(BlockValue $block, VisitorInterface $subVisitor)
     {
         $placeholders = $block->getPlaceholders();
         if (empty($placeholders)) {
@@ -82,13 +83,13 @@ final class Block extends Visitor
      * Visit the given $block parameters into hash representation.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param \Netgen\BlockManager\Transfer\Output\Visitor $subVisitor
+     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException
      *
      * @return array
      */
-    private function visitParameterValues(BlockValue $block, Visitor $subVisitor)
+    private function visitParameterValues(BlockValue $block, VisitorInterface $subVisitor)
     {
         $parameterValuesByLanguage = array(
             $block->getLocale() => $this->visitBlockTranslationParameterValues($block, $subVisitor),
@@ -120,11 +121,11 @@ final class Block extends Visitor
      * Return parameters for the given $block.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param \Netgen\BlockManager\Transfer\Output\Visitor $subVisitor
+     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
      *
      * @return mixed|null
      */
-    private function visitBlockTranslationParameterValues(BlockValue $block, Visitor $subVisitor)
+    private function visitBlockTranslationParameterValues(BlockValue $block, VisitorInterface $subVisitor)
     {
         $hash = array();
         $parameterValues = $block->getParameters();
@@ -144,11 +145,11 @@ final class Block extends Visitor
      * Visit the given $block configuration into hash representation.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param \Netgen\BlockManager\Transfer\Output\Visitor $subVisitor
+     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
      *
      * @return array
      */
-    private function visitConfiguration(BlockValue $block, Visitor $subVisitor)
+    private function visitConfiguration(BlockValue $block, VisitorInterface $subVisitor)
     {
         $configs = $block->getConfigs();
         if (empty($configs)) {
@@ -168,11 +169,11 @@ final class Block extends Visitor
      * Visit the given $block collections into hash representation.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
-     * @param \Netgen\BlockManager\Transfer\Output\Visitor $subVisitor
+     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
      *
      * @return array
      */
-    private function visitCollections(BlockValue $block, Visitor $subVisitor)
+    private function visitCollections(BlockValue $block, VisitorInterface $subVisitor)
     {
         $hash = array();
 

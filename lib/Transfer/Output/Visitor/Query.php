@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Collection\Query as QueryValue;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Transfer\Output\Visitor;
+use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
 /**
  * Query value visitor.
@@ -29,7 +30,7 @@ final class Query extends Visitor
         return $value instanceof QueryValue;
     }
 
-    public function visit($query, Visitor $subVisitor = null)
+    public function visit($query, VisitorInterface $subVisitor = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');
@@ -52,13 +53,13 @@ final class Query extends Visitor
      * Visit the given $query parameters into hash representation.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     * @param \Netgen\BlockManager\Transfer\Output\Visitor $subVisitor
+     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
      *
      * @throws \Netgen\BlockManager\Exception\NotFoundException
      *
      * @return array
      */
-    private function visitParameterValues(QueryValue $query, Visitor $subVisitor)
+    private function visitParameterValues(QueryValue $query, VisitorInterface $subVisitor)
     {
         $parameterValuesByLanguage = array(
             $query->getLocale() => $this->visitBlockTranslationParameterValues($query, $subVisitor),
@@ -90,11 +91,11 @@ final class Query extends Visitor
      * Return parameters for the given $query.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     * @param \Netgen\BlockManager\Transfer\Output\Visitor $subVisitor
+     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
      *
      * @return mixed|null
      */
-    private function visitBlockTranslationParameterValues(QueryValue $query, Visitor $subVisitor)
+    private function visitBlockTranslationParameterValues(QueryValue $query, VisitorInterface $subVisitor)
     {
         $hash = array();
         $parameterValues = $query->getParameters();

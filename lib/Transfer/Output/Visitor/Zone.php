@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Layout\Zone as ZoneValue;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Transfer\Output\Visitor;
+use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
 /**
  * Zone value visitor.
@@ -29,7 +30,7 @@ final class Zone extends Visitor
         return $value instanceof ZoneValue;
     }
 
-    public function visit($zone, Visitor $subVisitor = null)
+    public function visit($zone, VisitorInterface $subVisitor = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');
@@ -71,13 +72,13 @@ final class Zone extends Visitor
      * Note: here we rely on API returning blocks already sorted by their position in the zone.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
-     * @param \Netgen\BlockManager\Transfer\Output\Visitor $subVisitor
+     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
      *
      * @throws \Netgen\BlockManager\Exception\RuntimeException
      *
      * @return mixed
      */
-    private function visitBlocks(ZoneValue $zone, Visitor $subVisitor)
+    private function visitBlocks(ZoneValue $zone, VisitorInterface $subVisitor)
     {
         $hash = array();
         $blocks = $this->blockService->loadZoneBlocks($zone);
