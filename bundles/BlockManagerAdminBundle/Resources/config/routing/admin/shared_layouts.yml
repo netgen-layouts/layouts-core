@@ -10,6 +10,12 @@ ngbm_admin_shared_layouts_layout_copy:
     defaults:
         _controller: "netgen_block_manager.controller.admin.layouts:copyLayout"
 
+ngbm_admin_shared_layouts_export:
+    path: /export
+    methods: [POST]
+    defaults:
+        _controller: "netgen_block_manager.controller.admin.layouts:exportLayouts"
+
 ngbm_admin_shared_layouts_layout_delete:
     path: /{layoutId}
     methods: [DELETE]

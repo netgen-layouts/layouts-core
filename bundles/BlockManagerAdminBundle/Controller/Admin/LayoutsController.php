@@ -7,13 +7,16 @@ use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\Block\BlockDefinition\Handler\PagedCollectionsPlugin;
+use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\HttpCache\ClientInterface;
 use Netgen\BlockManager\Layout\Form\CopyType;
+use Netgen\BlockManager\Transfer\Output\SerializerInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearBlocksCacheType;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 final class LayoutsController extends Controller
 {
@@ -32,14 +35,21 @@ final class LayoutsController extends Controller
      */
     private $httpCacheClient;
 
+    /**
+     * @var \Netgen\BlockManager\Transfer\Output\SerializerInterface
+     */
+    private $transferSerializer;
+
     public function __construct(
         LayoutService $layoutService,
         BlockService $blockService,
-        ClientInterface $httpCacheClient
+        ClientInterface $httpCacheClient,
+        SerializerInterface $transferSerializer
     ) {
         $this->layoutService = $layoutService;
         $this->blockService = $blockService;
         $this->httpCacheClient = $httpCacheClient;
+        $this->transferSerializer = $transferSerializer;
     }
 
     /**
@@ -101,6 +111,42 @@ final class LayoutsController extends Controller
             array(),
             new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
         );
+    }
+
+    /**
+     * Exports the provided list of layouts.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function exportLayouts(Request $request)
+    {
+        $layoutIds = array_unique($request->request->get('layout_ids'));
+
+        $serializedLayouts = array();
+        foreach ($layoutIds as $layoutId) {
+            try {
+                $layout = $this->layoutService->loadLayout($layoutId);
+            } catch (NotFoundException $e) {
+                continue;
+            }
+
+            $serializedLayouts[] = $this->transferSerializer->serializeLayout($layout);
+        }
+
+        $json = json_encode($serializedLayouts, JSON_PRETTY_PRINT);
+
+        $response = new Response($json);
+
+        $disposition = $response->headers->makeDisposition(
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            sprintf('layouts_export_%s.json', date('Y-m-d_H-i-s'))
+        );
+
+        $response->headers->set('Content-Disposition', $disposition);
+
+        return $response;
     }
 
     /**
