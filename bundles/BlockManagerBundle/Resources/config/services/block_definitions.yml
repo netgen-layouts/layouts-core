@@ -1,3 +1,10 @@
+parameters:
+    netgen_block_manager.block.block_definition.handler.plugin.common.groups: ['design', 'common']
+
+    netgen_block_manager.block.block_definition.handler.plugin.paged_collections.pager_types:
+        pager: 'Pager'
+        load_more: 'Load more'
+
 services:
     netgen_block_manager.block.block_definition_factory:
         class: Netgen\BlockManager\Block\BlockDefinitionFactory
@@ -21,3 +28,21 @@ services:
     netgen_block_manager.block.registry.block_type_group:
         class: Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistry
         public: true
+
+    # Various block plugins
+
+    netgen_block_manager.block.block_definition.handler.plugin.common:
+        class: Netgen\BlockManager\Block\BlockDefinition\Handler\CommonParametersPlugin
+        public: false
+        arguments:
+            - "%netgen_block_manager.block.block_definition.handler.plugin.common.groups%"
+        tags:
+            - { name: netgen_block_manager.block.block_definition_handler.plugin, priority: 0 }
+
+    netgen_block_manager.block.block_definition.handler.plugin.paged_collections:
+        class: Netgen\BlockManager\Block\BlockDefinition\Handler\PagedCollectionsPlugin
+        public: false
+        arguments:
+            - "%netgen_block_manager.block.block_definition.handler.plugin.paged_collections.pager_types%"
+        tags:
+            - { name: netgen_block_manager.block.block_definition_handler.plugin, priority: 10 }
