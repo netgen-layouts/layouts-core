@@ -15,23 +15,23 @@ final class Aggregate extends Visitor
     /**
      * Internal collection of visitors.
      *
-     * @var \Netgen\BlockManager\Transfer\Output\Visitor[]
+     * @var \Netgen\BlockManager\Transfer\Output\VisitorInterface[]
      */
     private $visitors = array();
 
     /**
      * Construct from the optional array of $visitors.
      *
-     * @param \Netgen\BlockManager\Transfer\Output\Visitor[] $visitors
+     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface[] $visitors
      */
     public function __construct(array $visitors = array())
     {
         foreach ($visitors as $visitor) {
-            if (!$visitor instanceof Visitor) {
+            if (!$visitor instanceof VisitorInterface) {
                 throw new InvalidInterfaceException(
                     'Serialization visitor',
                     get_class($visitor),
-                    Visitor::class
+                    VisitorInterface::class
                 );
             }
 

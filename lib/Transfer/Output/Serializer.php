@@ -15,11 +15,11 @@ use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 final class Serializer implements SerializerInterface
 {
     /**
-     * @var \Netgen\BlockManager\Transfer\Output\Visitor
+     * @var \Netgen\BlockManager\Transfer\Output\VisitorInterface
      */
     private $visitor;
 
-    public function __construct(Visitor $visitor)
+    public function __construct(VisitorInterface $visitor)
     {
         $this->visitor = $visitor;
     }
