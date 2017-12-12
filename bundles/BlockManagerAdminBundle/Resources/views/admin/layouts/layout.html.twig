@@ -57,20 +57,20 @@
                     <li><a href="{{ macros.layout_path(layout.id) }}" class="js-layout-edit js-open-bm">{{ 'layouts.layout.edit_layout'|trans }}</a></li>
                 {% endif %}
 
-                <li><a href="#" class="js-layout-copy">{{ 'layouts.layout.copy_layout'|trans }}</a></li>
-                <li><a href="#" class="js-layout-delete">{{ 'layouts.layout.delete_layout'|trans }}</a></li>
+                <li><button class="js-layout-copy">{{ 'layouts.layout.copy_layout'|trans }}</button></li>
+                <li><button class="js-layout-delete">{{ 'layouts.layout.delete_layout'|trans }}</button></li>
 
                 {% if layout.published %}
                     <li>
-                        <a href="#" class="js-layout-clear-cache" {% if not http_cache_enabled %}disabled="disabled"{% endif %}>
+                        <button class="js-layout-clear-cache" {% if not http_cache_enabled %}disabled="disabled"{% endif %}>
                             {{ 'layouts.layout.clear_cache'|trans }} <span class="note">{{ 'layouts.layout.clear_cache.note'|trans }}</span>
-                        </a>
+                        </button>
                     </li>
 
                     <li>
-                        <a href="#" class="js-layout-clear-block-caches" {% if not http_cache_enabled %}disabled="disabled"{% endif %}>
+                        <button class="js-layout-clear-block-caches" {% if not http_cache_enabled %}disabled="disabled"{% endif %}>
                             {{ 'layouts.layout.clear_block_caches'|trans }} <span class="note">{{ 'layouts.layout.clear_block_caches.note'|trans }}</span>
-                        </a>
+                        </button>
                     </li>
                 {% endif %}
             </ul>

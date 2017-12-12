@@ -19,19 +19,25 @@
             padding:0;
             margin:0;
             > a,
-            > span {
+            > span,
+            > button {
                 display:block;
                 font-size:13px;
                 padding:0.6em 1em;
                 white-space:nowrap;
                 text-decoration:none;
                 transition:background-color 0.2s ease;
+                border: none;
+                background: transparent;
+                width: 100%;
+                text-align: inherit;
                 &[disabled] {
                     opacity:0.2;
                     cursor:default;
                 }
             }
-            > a {
+            > a,
+            > button {
                 color:inherit;
                 &:hover:not([disabled]) {
                     background:hsla(0, 0, 100, .05);
