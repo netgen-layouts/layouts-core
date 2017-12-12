@@ -11,7 +11,7 @@
         <div class="layouts-header">
             <h2 class="layouts-title">{{ 'shared_layouts.title'|trans }}</h2>
             <div class="layouts-controls">
-                <a href="#" class="nl-btn js-export-layouts" title="{{ 'layouts.export_layouts'|trans }}"><i class="material-icons">file_download</i></a>
+                <a href="#" class="nl-btn js-export-layouts" title="{{ 'shared_layouts.export.title'|trans }}"><i class="material-icons">file_download</i></a>
                 <a href="#" class="nl-btn js-change-layouts-view"></a>
                 {% if is_granted('ROLE_NGBM_EDITOR') %}
                     <a href="{{ path('ngbm_app', {shared: true}) }}" id="add-new-button" class="nl-btn nl-btn-primary js-open-bm">
@@ -20,8 +20,8 @@
                 {% endif %}
             </div>
             <div class="export-layouts-controls">
-                <a href="#" class="nl-btn nl-btn-primary js-download-layouts">Download</a>
-                <a href="" class="nl-btn nl-btn-white js-cancel-export">Cancel</a>
+                <a href="#" class="nl-btn nl-btn-primary js-download-layouts">{{ 'shared_layouts.export.download'|trans }}</a>
+                <a href="" class="nl-btn nl-btn-white js-cancel-export">{{ 'shared_layouts.export.cancel'|trans }}</a>
             </div>
         </div>
         <div class="nl-layouts-head">
