@@ -149,7 +149,6 @@ final class LayoutsController extends Controller
         // X-Filename header is needed for AJAX file download support
         $response->headers->set('X-Filename', $fileName);
 
-
         return $response;
     }
 
