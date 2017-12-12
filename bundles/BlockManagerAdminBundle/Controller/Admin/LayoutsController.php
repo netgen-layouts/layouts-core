@@ -139,12 +139,16 @@ final class LayoutsController extends Controller
 
         $response = new Response($json);
 
+        $fileName = sprintf('layouts_export_%s.json', date('Y-m-d_H-i-s'));
         $disposition = $response->headers->makeDisposition(
             ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-            sprintf('layouts_export_%s.json', date('Y-m-d_H-i-s'))
+            $fileName
         );
 
         $response->headers->set('Content-Disposition', $disposition);
+        // X-Filename header is needed for AJAX file download support
+        $response->headers->set('X-Filename', $fileName);
+
 
         return $response;
     }
