@@ -201,6 +201,9 @@
         .nl-layout-name {
             padding-right:$gutter;
             width:30%;
+            .nl-layout-export-checkbox {
+                vertical-align: middle;
+            }
         }
         .nl-layout-description {
             flex:1;
@@ -316,7 +319,8 @@
             padding:0 0 0 $gutter;
             .nl-layout-name {
                 flex:1;
-                width:auto;            }
+                width:auto;
+            }
             .nl-layout-description {
                 display:none;
             }
@@ -329,5 +333,50 @@
         i {
             transform:translate3d(0, 0.1em, 0) rotate(210deg);
         }
+    }
+}
+
+.nl-layout-export-checkbox {
+    display: none;
+    input {
+        position: absolute;
+        pointer-events: all;
+        opacity: 0;
+        left: -9999em;
+        + label {
+            position: relative;
+            margin: 0;
+            padding-left: 1em;
+            cursor: pointer;
+            display: block;
+            min-height: 1em;
+            font-size: 24px;
+            &::before {
+                @extend %material-icons;
+                position: absolute;
+                font-size: 1em;
+                line-height: 1;
+                left: 0;
+                top: 0;
+                content: "check_box_outline_blank";
+            }
+        }
+        &:checked {
+            + label {
+                &::before {
+                    content: "check_box";
+                    color: $linkColor;
+                }
+            }
+        }
+        &:disabled {
+            + label {
+                opacity: .2;
+                cursor: not-allowed;
+            }
+        }
+    }
+    .layout-export & {
+        display: inline-block;
     }
 }

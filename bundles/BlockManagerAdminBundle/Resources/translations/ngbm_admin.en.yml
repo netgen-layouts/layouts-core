@@ -47,6 +47,7 @@ layout_resolver.rule.target_header.route_prefix: 'Applied to route prefix'
 layouts.title: 'Layouts'
 layouts.new_layout: 'New layout'
 layouts.no_layouts: 'There are no layouts defined'
+layouts.export_layouts: 'Export layouts'
 
 layouts.layout.unpublished_draft: 'Unpublished draft'
 layouts.layout.edit_layout: 'Edit layout'

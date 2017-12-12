@@ -5,6 +5,11 @@
 <div class="nl-layout-content" data-id="{{ layout.id }}" {% if layout.published %}data-published="true"{% endif %}>
     <div class="nl-layout-info">
 
+        <div class="nl-layout-export-checkbox">
+            <input type="checkbox" id="exportLayout{{ layout.id }}" {% if not layout.published %}disabled{% endif %}>
+            <label for="exportLayout{{ layout.id }}"></label>
+        </div>
+
         <div class="nl-layout-type">
             <div class="nl-layout-icon">
                 <i class="layout-icon {{ layout.layoutType.identifier }}" title="{{ layout.layoutType.name }}" {% if layout.layoutType.icon is not null %}style="background-image:url({{ asset(layout.layoutType.icon) }})"{% endif %}></i>

@@ -13,6 +13,19 @@ body {
     .sorting-show {
         display:none;
     }
+    .layout-export & {
+        display: none;
+    }
+}
+
+.export-layouts-controls {
+    display: none;
+    float: right;
+    margin:0 0 1em;
+    text-align:right;
+    .layout-export & {
+        display: block;
+    }
 }
 
 .ng-layouts-app {
