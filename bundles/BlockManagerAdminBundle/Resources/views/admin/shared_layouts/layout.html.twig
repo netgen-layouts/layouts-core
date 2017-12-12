@@ -57,13 +57,13 @@
 
                 {% if layout.published %}
                     <li>
-                        <a href="#" class="js-layout-clear-related-layouts-caches">
+                        <a href="#" class="js-layout-clear-related-layouts-caches" {% if not http_cache_enabled %}disabled="disabled"{% endif %}>
                             {{ 'shared_layouts.layout.clear_related_layouts_caches'|trans }}
                         </a>
                     </li>
 
                     <li>
-                        <a href="#" class="js-layout-clear-block-caches">
+                        <a href="#" class="js-layout-clear-block-caches" {% if not http_cache_enabled %}disabled="disabled"{% endif %}>
                             {{ 'layouts.layout.clear_block_caches'|trans }} <span class="note">{{ 'layouts.layout.clear_block_caches.note'|trans }}</span>
                         </a>
                     </li>

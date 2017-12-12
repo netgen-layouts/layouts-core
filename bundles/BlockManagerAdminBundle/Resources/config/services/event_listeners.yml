@@ -7,6 +7,14 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
+    netgen_block_manager.event_listener.layout_view.cache_enabled:
+        class: Netgen\Bundle\BlockManagerAdminBundle\EventListener\LayoutView\CacheEnabledListener
+        # public: false
+        arguments:
+            - "@netgen_block_manager.http_cache.client"
+        tags:
+            - { name: kernel.event_subscriber }
+
     netgen_block_manager.event_listener.layout_view.related_layouts_count:
         class: Netgen\Bundle\BlockManagerAdminBundle\EventListener\LayoutView\RelatedLayoutsCountListener
         # public: false
