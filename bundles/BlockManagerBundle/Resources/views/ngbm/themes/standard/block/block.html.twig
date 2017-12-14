@@ -1,0 +1,19 @@
+{% set css_class = ['bm-block', 'bm-' ~ block.definition.identifier, 'bm-vt-' ~ block.viewType, css_class|default(block.parameter('css_class').value)]|join(' ') %}
+{% set css_id = css_id|default(block.parameter('css_id').value) %}
+{% set set_container = block.parameter('set_container').value %}
+
+{% if show_empty_wrapper is not defined %}
+    {% set show_empty_wrapper = false %}
+{% endif %}
+
+{% set block_content = block('content')|trim %}
+
+{% if block_content is not empty or show_empty_wrapper %}
+    <div class="{{ css_class }}" {% if css_id is not empty %} id="{{ css_id }}" {% endif %}>
+        {% if set_container %}<div class="container">{% endif %}
+
+        {{ block_content|raw }}
+
+        {% if set_container %}</div>{% endif %}
+    </div>
+{% endif %}
