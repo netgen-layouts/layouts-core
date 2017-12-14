@@ -20,7 +20,7 @@
             <%=if (this.pages < 10) {%>
                 <li <%=if (this.page === i) {%>class='current'<%=}%>><a href='<%=this.url(i)%>' class='ajax-nav-link'><%=i%></a></li>
             <%=}else if (i === 1 || i === this.pages || i === this.page || i-1 === this.page || i-2 === this.page || i+1 === this.page || i+2 === this.page) {%>
-                    <li <%=if (this.page === i) {%>class='current'<%=}%>><a href='<%=this.url(i)%>' class='ajax-nav-link'><%=i%></a></li>
+                <li <%=if (this.page === i) {%>class='current'<%=}%>><a href='<%=this.url(i)%>' class='ajax-nav-link'><%=i%></a></li>
             <%=}else if (i === 2 || i === this.pages - 1) {%>
                 <li><span>...</span></li>
             <%=}%>
