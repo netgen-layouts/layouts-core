@@ -23,7 +23,7 @@
                 {% if name != 'target' %} {{ name }}="{{ value }}" {% endif %}
             {% endfor %}
 
-            {% if value.newWindow %} target="_blank" {% endif %}
+            {% if value.newWindow %} target="_blank" rel="noopener noreferrer" {% endif %}
         >
             {{ content }}
         </a>
