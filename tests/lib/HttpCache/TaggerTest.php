@@ -26,12 +26,16 @@ class TaggerTest extends TestCase
     public function testTagLayout()
     {
         $response = new Response();
+        $response->setVary('Cookie');
         $layout = new Layout(array('id' => 42));
 
         $this->tagger->tagLayout($response, $layout);
 
         $this->assertTrue($response->headers->has('X-Layout-Id'));
         $this->assertEquals(42, $response->headers->get('X-Layout-Id'));
+
+        $this->assertTrue($response->hasVary());
+        $this->assertEquals(array('Cookie', 'X-Layout-Id'), $response->getVary());
     }
 
     /**

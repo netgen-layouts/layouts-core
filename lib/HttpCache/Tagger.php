@@ -11,6 +11,7 @@ final class Tagger implements TaggerInterface
     public function tagLayout(Response $response, Layout $layout)
     {
         $response->headers->set('X-Layout-Id', $layout->getId());
+        $response->setVary('X-Layout-Id', false);
     }
 
     public function tagBlock(Response $response, Block $block)
