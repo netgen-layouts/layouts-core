@@ -65,7 +65,7 @@ final class LinkValidator extends ConstraintValidator
             if ($linkType === LinkValue::LINK_TYPE_URL) {
                 $linkConstraints[] = new Constraints\Url();
             } elseif ($linkType === LinkValue::LINK_TYPE_EMAIL) {
-                $linkConstraints[] = new Constraints\Email();
+                $linkConstraints[] = new Constraints\Email(array('strict' => true));
             } elseif ($linkType === LinkValue::LINK_TYPE_PHONE) {
                 $linkConstraints[] = new Constraints\Type(array('type' => 'string'));
             } elseif ($linkType === LinkValue::LINK_TYPE_INTERNAL) {
