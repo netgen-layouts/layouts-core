@@ -146,7 +146,7 @@ final class BlockManagerDataCollector extends DataCollector
     /**
      * @param string $name
      *
-     * @return \Twig_Source
+     * @return \Twig\Source
      */
     private function getTemplateSource($name)
     {
