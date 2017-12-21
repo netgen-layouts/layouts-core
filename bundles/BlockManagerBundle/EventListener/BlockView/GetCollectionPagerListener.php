@@ -2,6 +2,8 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\EventListener\BlockView;
 
+use Netgen\BlockManager\API\Values\Block\Block;
+use Netgen\BlockManager\Block\BlockDefinition\Handler\PagedCollectionsPlugin;
 use Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory;
 use Netgen\BlockManager\Event\BlockManagerEvents;
 use Netgen\BlockManager\Event\CollectViewParametersEvent;
@@ -63,16 +65,40 @@ final class GetCollectionPagerListener implements EventSubscriberInterface
             return;
         }
 
+        $block = $view->getBlock();
+
         $currentPage = (int) $currentRequest->query->get('page', 1);
         $collectionIdentifier = $view->getParameter('collection_identifier');
-        $collectionReference = $view->getBlock()->getCollectionReference($collectionIdentifier);
+        $collectionReference = $block->getCollectionReference($collectionIdentifier);
 
         $resultPager = $this->pagerFactory->getPager(
             $collectionReference->getCollection(),
-            $currentPage > 0 ? $currentPage : 1
+            $currentPage > 0 ? $currentPage : 1,
+            $this->getMaxPages($block)
         );
 
         $event->addParameter('collection', $resultPager->getCurrentPageResults());
         $event->addParameter('pager', $resultPager);
+    }
+
+    /**
+     * Returns the maximum number of the pages for the provided block,
+     * if paging is enabled and maximum number of pages is set for a block.
+     *
+     * @param \Netgen\BlockManager\API\Values\Block\Block $block
+     *
+     * @return int|null
+     */
+    private function getMaxPages(Block $block)
+    {
+        if (!$block->getDefinition()->hasPlugin(PagedCollectionsPlugin::class)) {
+            return;
+        }
+
+        if (!$block->getParameter('paged_collections:enabled')->getValue()) {
+            return;
+        }
+
+        return $block->getParameter('paged_collections:max_pages')->getValue();
     }
 }

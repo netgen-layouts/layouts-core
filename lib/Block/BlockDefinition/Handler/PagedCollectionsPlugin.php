@@ -53,6 +53,18 @@ final class PagedCollectionsPlugin extends Plugin
         );
 
         $builder->get('paged_collections:enabled')->add(
+            'paged_collections:max_pages',
+            ParameterType\IntegerType::class,
+            array(
+                'min' => 1,
+                'label' => 'block.paged_collections.max_pages',
+                'groups' => array(
+                    self::GROUP_DESIGN,
+                ),
+            )
+        );
+
+        $builder->get('paged_collections:enabled')->add(
             'paged_collections:ajax_first',
             ParameterType\BooleanType::class,
             array(

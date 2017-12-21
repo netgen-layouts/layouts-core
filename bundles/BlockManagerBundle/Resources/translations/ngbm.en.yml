@@ -15,6 +15,7 @@ block.common_params.set_container: 'Wrap in container'
 block.paged_collections.enabled: 'Enable paging'
 block.paged_collections.type: 'Paging type'
 block.paged_collections.ajax_first: 'Load first page via AJAX'
+block.paged_collections.max_pages: 'Maximum number of pages'
 
 collection.pager.previous: 'Previous'
 collection.pager.next: 'Next'

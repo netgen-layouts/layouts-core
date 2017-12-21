@@ -45,6 +45,39 @@ class PagerFactoryTest extends TestCase
         $this->assertTrue($pager->getNormalizeOutOfRangePages());
         $this->assertEquals(5, $pager->getMaxPerPage());
         $this->assertEquals(2, $pager->getCurrentPage());
+        $this->assertEquals(200, $pager->getNbPages());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::__construct
+     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getPager
+     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::buildPager
+     */
+    public function testGetPagerWithMaxPages()
+    {
+        $pager = $this->pagerFactory->getPager(new Collection(array('offset' => 0, 'limit' => 5)), 2, 5);
+
+        $this->assertInstanceOf(Pagerfanta::class, $pager);
+        $this->assertTrue($pager->getNormalizeOutOfRangePages());
+        $this->assertEquals(5, $pager->getMaxPerPage());
+        $this->assertEquals(2, $pager->getCurrentPage());
+        $this->assertEquals(5, $pager->getNbPages());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::__construct
+     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getPager
+     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::buildPager
+     */
+    public function testGetPagerWithMaxPagesLargerThanTotalCount()
+    {
+        $pager = $this->pagerFactory->getPager(new Collection(array('offset' => 0, 'limit' => 5)), 2, 250);
+
+        $this->assertInstanceOf(Pagerfanta::class, $pager);
+        $this->assertTrue($pager->getNormalizeOutOfRangePages());
+        $this->assertEquals(5, $pager->getMaxPerPage());
+        $this->assertEquals(2, $pager->getCurrentPage());
+        $this->assertEquals(200, $pager->getNbPages());
     }
 
     /**
@@ -60,5 +93,38 @@ class PagerFactoryTest extends TestCase
         $this->assertTrue($pager->getNormalizeOutOfRangePages());
         $this->assertEquals(200, $pager->getMaxPerPage());
         $this->assertEquals(2, $pager->getCurrentPage());
+        $this->assertEquals(5, $pager->getNbPages());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::__construct
+     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getPager
+     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::buildPager
+     */
+    public function testGetPagerWithLimitLargerThanMaxLimitAndMaxPages()
+    {
+        $pager = $this->pagerFactory->getPager(new Collection(array('offset' => 0, 'limit' => 500)), 2, 3);
+
+        $this->assertInstanceOf(Pagerfanta::class, $pager);
+        $this->assertTrue($pager->getNormalizeOutOfRangePages());
+        $this->assertEquals(200, $pager->getMaxPerPage());
+        $this->assertEquals(2, $pager->getCurrentPage());
+        $this->assertEquals(3, $pager->getNbPages());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::__construct
+     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getPager
+     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::buildPager
+     */
+    public function testGetPagerWithLimitLargerThanMaxLimitAndMaxPagesLargerThanTotalCount()
+    {
+        $pager = $this->pagerFactory->getPager(new Collection(array('offset' => 0, 'limit' => 500)), 2, 10);
+
+        $this->assertInstanceOf(Pagerfanta::class, $pager);
+        $this->assertTrue($pager->getNormalizeOutOfRangePages());
+        $this->assertEquals(200, $pager->getMaxPerPage());
+        $this->assertEquals(2, $pager->getCurrentPage());
+        $this->assertEquals(5, $pager->getNbPages());
     }
 }
