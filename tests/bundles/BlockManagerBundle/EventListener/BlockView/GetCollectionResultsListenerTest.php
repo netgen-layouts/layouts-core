@@ -10,6 +10,7 @@ use Netgen\BlockManager\Core\Values\Block\CollectionReference;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Event\BlockManagerEvents;
 use Netgen\BlockManager\Event\CollectViewParametersEvent;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\View\BlockView;
@@ -79,7 +80,17 @@ class GetCollectionResultsListenerTest extends TestCase
             )
         );
 
-        $view = new BlockView(array('block' => new Block(array('collectionReferences' => array($collectionReference1, $collectionReference2)))));
+        $view = new BlockView(
+            array(
+                'block' => new Block(
+                    array(
+                        'definition' => new BlockDefinition('test'),
+                        'collectionReferences' => array($collectionReference1, $collectionReference2),
+                    )
+                ),
+            )
+        );
+
         $view->setContext(ViewInterface::CONTEXT_DEFAULT);
         $event = new CollectViewParametersEvent($view);
 
@@ -133,7 +144,17 @@ class GetCollectionResultsListenerTest extends TestCase
             )
         );
 
-        $view = new BlockView(array('block' => new Block(array('collectionReferences' => array($collectionReference1)))));
+        $view = new BlockView(
+            array(
+                'block' => new Block(
+                    array(
+                        'definition' => new BlockDefinition('test'),
+                        'collectionReferences' => array($collectionReference1),
+                    )
+                ),
+            )
+        );
+
         $view->setContext(ViewInterface::CONTEXT_API);
         $event = new CollectViewParametersEvent($view);
 

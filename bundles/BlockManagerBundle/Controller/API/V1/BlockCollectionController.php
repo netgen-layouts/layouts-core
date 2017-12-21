@@ -74,6 +74,7 @@ final class BlockCollectionController extends Controller
         $pager = $this->pagerFactory->getPager(
             $collection,
             1,
+            null,
             ResultSet::INCLUDE_INVISIBLE_ITEMS |
             ResultSet::INCLUDE_INVALID_ITEMS |
             ResultSet::INCLUDE_UNKNOWN_ITEMS

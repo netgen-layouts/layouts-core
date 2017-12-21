@@ -10,6 +10,8 @@ use Netgen\BlockManager\Core\Values\Block\CollectionReference;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Event\BlockManagerEvents;
 use Netgen\BlockManager\Event\CollectViewParametersEvent;
+use Netgen\BlockManager\Parameters\ParameterValue;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\View\BlockView;
@@ -87,7 +89,15 @@ class GetCollectionPagerListenerTest extends TestCase
 
         $view = new BlockView(
             array(
-                'block' => new Block(array('collectionReferences' => array('default' => $collectionReference))),
+                'block' => new Block(
+                    array(
+                        'definition' => new BlockDefinition('test'),
+                        'parameters' => array(
+                            'paged_collections:max_pages' => new ParameterValue(),
+                        ),
+                        'collectionReferences' => array('default' => $collectionReference),
+                    )
+                ),
                 'collection_identifier' => 'default',
             )
         );

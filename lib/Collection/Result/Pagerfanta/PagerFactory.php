@@ -32,20 +32,27 @@ final class PagerFactory
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      * @param int $startPage
+     * @param int $maxPages
      * @param int $flags
      *
      * @return \Pagerfanta\Pagerfanta
      */
-    public function getPager(Collection $collection, $startPage, $flags = 0)
+    public function getPager(Collection $collection, $startPage, $maxPages = null, $flags = 0)
     {
+        $maxTotalCount = null;
+        if (is_int($maxPages) && $maxPages > 0) {
+            $maxTotalCount = $maxPages * $this->getMaxPerPage($collection);
+        }
+
         $pagerAdapter = new ResultBuilderAdapter(
             $this->resultBuilder,
             $collection,
             $collection->getOffset(),
+            $maxTotalCount,
             $flags
         );
 
-        $pager = $this->buildPager($pagerAdapter, $collection->getLimit());
+        $pager = $this->buildPager($pagerAdapter, $collection);
         $pager->setCurrentPage((int) $startPage);
 
         return $pager;
@@ -55,17 +62,32 @@ final class PagerFactory
      * Builds the pager from provided adapter.
      *
      * @param \Pagerfanta\Adapter\AdapterInterface $adapter
-     * @param int $limit
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      *
      * @return \Pagerfanta\Pagerfanta
      */
-    private function buildPager(AdapterInterface $adapter, $limit)
+    private function buildPager(AdapterInterface $adapter, Collection $collection)
     {
         $pager = new Pagerfanta($adapter);
 
         $pager->setNormalizeOutOfRangePages(true);
-        $pager->setMaxPerPage($limit > 0 && $limit < $this->maxLimit ? $limit : $this->maxLimit);
+        $pager->setMaxPerPage($this->getMaxPerPage($collection));
 
         return $pager;
+    }
+
+    /**
+     * Returns the maximum number of items per page for the provided collection,
+     * while taking into account the injected maximum number of items.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     *
+     * @return int
+     */
+    private function getMaxPerPage(Collection $collection)
+    {
+        $limit = $collection->getLimit();
+
+        return $limit > 0 && $limit < $this->maxLimit ? $limit : $this->maxLimit;
     }
 }

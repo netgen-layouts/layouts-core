@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Collection\Result\Pagerfanta;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Collection\Result\ResultBuilderInterface;
+use Netgen\BlockManager\Collection\Result\ResultSet;
 use Pagerfanta\Adapter\AdapterInterface;
 
 final class ResultBuilderAdapter implements AdapterInterface
@@ -26,6 +27,11 @@ final class ResultBuilderAdapter implements AdapterInterface
     /**
      * @var int
      */
+    private $maxTotalCount;
+
+    /**
+     * @var int
+     */
     private $flags;
 
     /**
@@ -37,11 +43,13 @@ final class ResultBuilderAdapter implements AdapterInterface
         ResultBuilderInterface $resultBuilder,
         Collection $collection,
         $startingOffset = 0,
+        $maxTotalCount = null,
         $flags = 0
     ) {
         $this->resultBuilder = $resultBuilder;
         $this->collection = $collection;
         $this->startingOffset = $startingOffset;
+        $this->maxTotalCount = $maxTotalCount;
         $this->flags = $flags;
     }
 
@@ -49,8 +57,7 @@ final class ResultBuilderAdapter implements AdapterInterface
     {
         if ($this->totalCount === null) {
             $result = $this->resultBuilder->build($this->collection, 0, 0, $this->flags);
-            $this->totalCount = $result->getTotalCount() - $this->startingOffset;
-            $this->totalCount = $this->totalCount > 0 ? $this->totalCount : 0;
+            $this->setTotalCount($result);
         }
 
         return $this->totalCount;
@@ -66,10 +73,25 @@ final class ResultBuilderAdapter implements AdapterInterface
         );
 
         if ($this->totalCount === null) {
-            $this->totalCount = $result->getTotalCount() - $this->startingOffset;
-            $this->totalCount = $this->totalCount > 0 ? $this->totalCount : 0;
+            $this->setTotalCount($result);
         }
 
         return $result;
+    }
+
+    /**
+     * Sets the total count of the results to the adapter, while taking into account
+     * the injected maximum number of pages to use.
+     *
+     * @param \Netgen\BlockManager\Collection\Result\ResultSet $result
+     */
+    private function setTotalCount(ResultSet $result)
+    {
+        $this->totalCount = $result->getTotalCount() - $this->startingOffset;
+        $this->totalCount = $this->totalCount > 0 ? $this->totalCount : 0;
+
+        if ($this->maxTotalCount !== null && $this->totalCount >= $this->maxTotalCount) {
+            $this->totalCount = $this->maxTotalCount;
+        }
     }
 }
