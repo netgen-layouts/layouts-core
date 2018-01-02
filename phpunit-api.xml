@@ -15,7 +15,8 @@
     beStrictAboutChangesToGlobalState="true"
 >
     <php>
-        <server name="KERNEL_DIR" value="app/" />
+        <server name="KERNEL_CLASS" value="AppKernel" />
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak_vendors" />
     </php>
 
     <testsuites>
