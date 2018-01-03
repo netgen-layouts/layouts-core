@@ -5,6 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\Core\Helper\TranslationHelper;
 use Lakion\ApiTestCase\JsonApiTestCase as BaseJsonApiTestCase;
+use Netgen\BlockManager\Item\ItemBuilderInterface;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\DatabaseTrait;
@@ -26,6 +27,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         $this->setUpClient();
         $this->mockTranslationHelper();
         $this->mockItemLoader();
+        $this->mockItemBuilder();
         $this->mockQueryType();
         $this->createDatabase();
 
@@ -50,7 +52,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
 
     protected function mockItemLoader()
     {
-        /** @var \Mockery\MockInterface $locationMock */
+        /** @var \Mockery\MockInterface $itemLoaderMock */
         $itemLoaderMock = $this->clientContainer->mock(
             'netgen_block_manager.item.item_loader',
             ItemLoaderInterface::class
@@ -63,6 +65,27 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
                 ->shouldReceive('load')
                 ->with($item->getValueId(), $item->getValueType())
                 ->andReturn($item);
+        }
+    }
+
+    protected function mockItemBuilder()
+    {
+        /** @var \Mockery\MockInterface $itemBuilderMock */
+        $itemBuilderMock = $this->clientContainer->mock(
+            'netgen_block_manager.item.item_builder',
+            ItemBuilderInterface::class
+        );
+
+        $dynamicItemFixtures = require __DIR__ . '/fixtures/dynamic_items.php';
+
+        foreach ($dynamicItemFixtures as $dynamicItem) {
+            $itemBuilderMock
+                ->shouldReceive('build')
+                ->andReturnUsing(
+                    function ($argument) use ($dynamicItemFixtures) {
+                        return $dynamicItemFixtures[$argument->id];
+                    }
+                );
         }
     }
 
