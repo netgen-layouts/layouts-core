@@ -66,7 +66,10 @@ class AjaxBlock {
         const pageParam = /&page=\d+/.exec(path);
         const nextPage = pageParam ? parseInt(pageParam[0].replace(/&page=/, ''), 10) : 1;
 
-        fetch(path).then((response) => {
+        fetch(path, {
+            credentials: 'same-origin',
+        }).then((response) => {
+            console.log(response);
             if (response.ok) {
                 return response.text();
             }
