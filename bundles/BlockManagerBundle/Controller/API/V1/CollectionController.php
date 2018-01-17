@@ -104,6 +104,20 @@ final class CollectionController extends Controller
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
 
+    /**
+     * Deletes all items from provided collection.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteItems(Collection $collection)
+    {
+        $this->collectionService->deleteItems($collection);
+
+        return new Response(null, Response::HTTP_NO_CONTENT);
+    }
+
     protected function checkPermissions()
     {
         $this->denyAccessUnlessGranted('ROLE_NGBM_API');

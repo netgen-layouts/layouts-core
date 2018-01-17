@@ -32,3 +32,10 @@ ngbm_api_v1_collections_delete_item:
     defaults:
         _controller: "netgen_block_manager.controller.api.v1.collection:deleteItem"
         _ngbm_status: draft
+
+ngbm_api_v1_collections_delete_items:
+    path: /collections/{collectionId}/items
+    methods: [DELETE]
+    defaults:
+        _controller: "netgen_block_manager.controller.api.v1.collection:deleteItems"
+        _ngbm_status: draft
