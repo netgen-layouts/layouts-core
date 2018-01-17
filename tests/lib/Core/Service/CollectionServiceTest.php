@@ -428,6 +428,60 @@ abstract class CollectionServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteItems
+     */
+    public function testDeleteItems()
+    {
+        $collection = $this->collectionService->loadCollectionDraft(3);
+        $collection = $this->collectionService->deleteItems($collection);
+
+        $this->assertCount(0, $collection->getItems());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteItems
+     */
+    public function testDeleteItemsWithSpecificItemType()
+    {
+        $collection = $this->collectionService->loadCollectionDraft(3);
+
+        $itemCreateStruct = $this->collectionService->newItemCreateStruct(
+            Item::TYPE_OVERRIDE,
+            66,
+            'ezcontent'
+        );
+
+        $this->collectionService->addItem($collection, $itemCreateStruct);
+
+        $collection = $this->collectionService->deleteItems($collection, Item::TYPE_OVERRIDE);
+
+        $this->assertCount(3, $collection->getManualItems());
+        $this->assertCount(0, $collection->getOverrideItems());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteItems
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "collection" has an invalid state. Only items in draft collections can be deleted.
+     */
+    public function testDeleteItemsThrowsBadStateExceptionWithNonDraftCollection()
+    {
+        $collection = $this->collectionService->loadCollection(3);
+        $this->collectionService->deleteItems($collection);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteItems
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "itemType" has an invalid state. Provided item type is not valid.
+     */
+    public function testDeleteItemsThrowsBadStateExceptionWithInvalidItemType()
+    {
+        $collection = $this->collectionService->loadCollectionDraft(3);
+        $this->collectionService->deleteItems($collection, 9999);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateQuery
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateQueryTranslations
      */

@@ -437,6 +437,38 @@ final class CollectionQueryHandler extends QueryHandler
     }
 
     /**
+     * Deletes all manual and override items from provided collection.
+     *
+     * If item type (one of Item::TYPE_* constants) is provided, only items
+     * of that type are removed (manual or override).
+     *
+     * @param int|string $collectionId
+     * @param int $status
+     * @param int $itemType
+     */
+    public function deleteItems($collectionId, $status, $itemType = null)
+    {
+        $query = $this->connection->createQueryBuilder();
+
+        $query->delete('ngbm_collection_item')
+            ->where(
+                $query->expr()->eq('collection_id', ':collection_id')
+            )
+            ->setParameter('collection_id', $collectionId, Type::INTEGER);
+
+        if ($itemType !== null) {
+            $query->andWhere(
+                $query->expr()->eq('type', ':type')
+            )
+            ->setParameter('type', $itemType, Type::INTEGER);
+        }
+
+        $this->applyStatusCondition($query, $status);
+
+        $query->execute();
+    }
+
+    /**
      * Deletes all collection items.
      *
      * @param int|string $collectionId

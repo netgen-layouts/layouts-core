@@ -406,6 +406,13 @@ final class CollectionHandler implements CollectionHandlerInterface
         );
     }
 
+    public function deleteItems(Collection $collection, $itemType = null)
+    {
+        $this->queryHandler->deleteItems($collection->id, $collection->status, $itemType);
+
+        return $this->loadCollection($collection->id, $collection->status);
+    }
+
     public function createQuery(Collection $collection, QueryCreateStruct $queryCreateStruct)
     {
         try {

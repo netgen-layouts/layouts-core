@@ -1321,6 +1321,45 @@ class CollectionHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteItems
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteItems
+     */
+    public function testDeleteItems()
+    {
+        $collection = $this->collectionHandler->deleteItems(
+            $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT)
+        );
+
+        $this->assertCount(0, $this->collectionHandler->loadCollectionItems($collection));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteItems
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteItems
+     */
+    public function testDeleteItemsWithSpecificItemType()
+    {
+        $itemCreateStruct = new ItemCreateStruct();
+        $itemCreateStruct->type = Item::TYPE_OVERRIDE;
+        $itemCreateStruct->position = 2;
+        $itemCreateStruct->valueId = '42';
+        $itemCreateStruct->valueType = 'ezcontent';
+
+        $collection = $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT);
+
+        $this->collectionHandler->addItem($collection, $itemCreateStruct);
+
+        $collection = $this->collectionHandler->deleteItems($collection, Item::TYPE_OVERRIDE);
+
+        $collectionItems = $this->collectionHandler->loadCollectionItems($collection);
+        $this->assertCount(3, $collectionItems);
+
+        foreach ($collectionItems as $item) {
+            $this->assertEquals(Item::TYPE_MANUAL, $item->type);
+        }
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createQuery
      */

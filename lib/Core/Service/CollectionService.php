@@ -295,6 +295,29 @@ final class CollectionService extends Service implements APICollectionService
         );
     }
 
+    public function deleteItems(Collection $collection, $itemType = null)
+    {
+        if ($collection->isPublished()) {
+            throw new BadStateException('collection', 'Only items in draft collections can be deleted.');
+        }
+
+        if ($itemType !== null) {
+            if (!in_array($itemType, array(Item::TYPE_MANUAL, Item::TYPE_OVERRIDE), true)) {
+                throw new BadStateException('itemType', 'Provided item type is not valid.');
+            }
+        }
+
+        $persistenceCollection = $this->handler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
+
+        $updatedCollection = $this->transaction(
+            function () use ($persistenceCollection, $itemType) {
+                return $this->handler->deleteItems($persistenceCollection, $itemType);
+            }
+        );
+
+        return $this->mapper->mapCollection($updatedCollection, array($collection->getLocale()));
+    }
+
     public function updateQuery(Query $query, APIQueryUpdateStruct $queryUpdateStruct)
     {
         if ($query->isPublished()) {

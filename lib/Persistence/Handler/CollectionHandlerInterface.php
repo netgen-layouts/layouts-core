@@ -196,6 +196,19 @@ interface CollectionHandlerInterface
     public function deleteItem(Item $item);
 
     /**
+     * Removes all manual and override items from provided collection.
+     *
+     * If item type (one of Item::TYPE_* constants) is provided, only items
+     * of that type are removed (manual or override).
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
+     * @param int $itemType
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
+     */
+    public function deleteItems(Collection $collection, $itemType = null);
+
+    /**
      * Adds a query to collection.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection

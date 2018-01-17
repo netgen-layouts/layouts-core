@@ -183,6 +183,21 @@ interface CollectionService extends Service
     public function deleteItem(Item $item);
 
     /**
+     * Removes all manual and override items from provided collection.
+     *
+     * If item type (one of Item::TYPE_* constants) is provided, only items
+     * of that type are removed (manual or override).
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     * @param int $itemType
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
+     *
+     * @return \Netgen\BlockManager\API\Values\Collection\Collection
+     */
+    public function deleteItems(Collection $collection, $itemType = null);
+
+    /**
      * Updates a query.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query

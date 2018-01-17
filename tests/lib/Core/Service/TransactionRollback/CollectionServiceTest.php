@@ -136,6 +136,30 @@ class CollectionServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteItem
+     * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
+     */
+    public function testDeleteItems()
+    {
+        $this->collectionHandlerMock
+            ->expects($this->at(0))
+            ->method('loadCollection')
+            ->will($this->returnValue(new PersistenceCollection()));
+
+        $this->collectionHandlerMock
+            ->expects($this->at(1))
+            ->method('deleteItems')
+            ->will($this->throwException(new Exception('Test exception text')));
+
+        $this->persistenceHandler
+            ->expects($this->once())
+            ->method('rollbackTransaction');
+
+        $this->collectionService->deleteItems(new Collection(array('published' => false)));
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateQuery
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
