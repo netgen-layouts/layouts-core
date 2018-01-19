@@ -46,8 +46,8 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         $this->clientContainer = $this->client->getContainer();
 
         $this->client->setServerParameter('CONTENT_TYPE', 'application/json');
-        $this->client->setServerParameter('PHP_AUTH_USER', getenv('EZ_USERNAME'));
-        $this->client->setServerParameter('PHP_AUTH_PW', getenv('EZ_PASSWORD'));
+        $this->client->setServerParameter('PHP_AUTH_USER', getenv('SF_USERNAME'));
+        $this->client->setServerParameter('PHP_AUTH_PW', getenv('SF_PASSWORD'));
     }
 
     protected function mockItemLoader()
