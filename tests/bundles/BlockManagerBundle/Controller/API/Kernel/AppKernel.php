@@ -55,5 +55,15 @@ class AppKernel extends Kernel
 
         // @deprecated For compatibility with Symfony 2.8
         $container->setParameter('kernel.project_dir', __DIR__);
+
+        // @deprecated Symfony 2.8 does not support runtime environment
+        // variables, so we need to set the parameter to the container
+        // manually
+        if (Kernel::VERSION_ID < 30200) {
+            $databaseUrl = getenv('DATABASE');
+            $databaseUrl = $databaseUrl ?: 'sqlite://:memory:';
+
+            $container->setParameter('env(DATABASE)', $databaseUrl);
+        }
     }
 }
