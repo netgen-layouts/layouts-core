@@ -1,0 +1,28 @@
+imports:
+    - { resource: security.yml }
+
+doctrine:
+    dbal:
+        connections:
+            default:
+                url: '%env(DATABASE)%'
+                charset: UTF8
+
+framework:
+    secret: secret
+    router:
+        resource: '%kernel.project_dir%/config/routing.yml'
+        strict_requirements: true
+    profiler:
+        collect: false
+    session:
+        storage_id: session.storage.mock_file
+    csrf_protection: ~
+    validation: ~
+    test: ~
+
+netgen_block_manager:
+    items:
+        value_types:
+            ezlocation:
+                name: 'eZ location'

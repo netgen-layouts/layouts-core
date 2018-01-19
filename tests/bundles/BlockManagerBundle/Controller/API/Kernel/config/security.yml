@@ -1,0 +1,16 @@
+security:
+    providers:
+        in_memory:
+            memory:
+                users:
+                    admin:
+                        password: admin
+                        roles: ROLE_NGBM_API
+
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
+
+    firewalls:
+        main:
+            logout_on_user_change: true
+            http_basic: ~

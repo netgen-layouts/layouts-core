@@ -2,8 +2,6 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API;
 
-use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\Core\Helper\TranslationHelper;
 use Lakion\ApiTestCase\JsonApiTestCase as BaseJsonApiTestCase;
 use Netgen\BlockManager\Item\ItemBuilderInterface;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
@@ -25,7 +23,6 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         parent::setUp();
 
         $this->setUpClient();
-        $this->mockTranslationHelper();
         $this->mockItemLoader();
         $this->mockItemBuilder();
         $this->mockQueryType();
@@ -98,23 +95,6 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
 
         $queryType = new QueryType('ezcontent_search', $searchFixtures, count($searchFixtures));
         $queryTypeRegistry->addQueryType('ezcontent_search', $queryType);
-    }
-
-    protected function mockTranslationHelper()
-    {
-        /** @var \Mockery\MockInterface $translationHelperMock */
-        $translationHelperMock = $this->clientContainer->mock(
-            'ezpublish.translation_helper',
-            TranslationHelper::class
-        );
-
-        $translationHelperMock
-            ->shouldReceive('getTranslatedContentNameByContentInfo')
-            ->andReturnUsing(
-                function (ContentInfo $contentInfo) {
-                    return $contentInfo->name;
-                }
-            );
     }
 
     /**

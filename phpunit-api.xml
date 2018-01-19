@@ -4,6 +4,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.5/phpunit.xsd"
     backupGlobals="false"
+    bootstrap="vendor/autoload.php"
     colors="true"
     convertErrorsToExceptions="true"
     convertNoticesToExceptions="true"
@@ -15,8 +16,10 @@
     beStrictAboutChangesToGlobalState="true"
 >
     <php>
-        <server name="KERNEL_CLASS" value="AppKernel" />
-        <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak_vendors" />
+        <server name="KERNEL_CLASS" value="Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\Kernel\AppKernel" />
+        <env name="SF_USERNAME" value="admin" />
+        <env name="SF_PASSWORD" value="admin" />
+        <env name="SHELL_VERBOSITY" value="1" />
     </php>
 
     <testsuites>

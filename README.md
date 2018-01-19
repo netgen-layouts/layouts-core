@@ -10,14 +10,14 @@ Netgen Block Manager
 Running tests requires that you have complete vendors installed, so run
 `composer install` before running the tests.
 
-You can run unit tests by simply calling `vendor/bin/phpunit` from the repo
-root. This will use an in memory SQLite database.
+You can run unit tests by simply calling `composer test` from the repo root.
+This will use an in memory SQLite database.
 
 You can also run unit tests on a real database. After you create the database,
 run the tests with:
 
 ```
-$ DATABASE=mysql://root@localhost/ngbm vendor/bin/phpunit
+$ DATABASE=mysql://root@localhost/ngbm composer test
 ```
 
 where `mysql://root@localhost/ngbm` is a DSN to your MySQL database.
@@ -25,35 +25,14 @@ where `mysql://root@localhost/ngbm` is a DSN to your MySQL database.
 If you use PostgreSQL, you can use the following command:
 
 ```
-$ DATABASE=pgsql://user:pass@localhost/ngbm vendor/bin/phpunit
+$ DATABASE=pgsql://user:pass@localhost/ngbm composer test
 ```
 
 # Running API tests
 
-API tests are functional tests, meaning they need a fully functional Symfony app
-with Block Manager enabled.
-
-To run the tests, you need to require some Composer packages:
+To run the API tests, you need a database. Create an empty MySQL database and
+run the tests with:
 
 ```
-composer require lakion/api-test-case
+$ DATABASE=mysql://user:pass@localhost/ngbm composer test-api
 ```
-
-Simplest way for tests to authenticate to your app is to enable basic auth in your `security.yml`:
-
-```
-security:
-    firewalls:
-        main:
-            http_basic: ~
-```
-
-Afterwards, running tests is as simple as calling the following command:
-
-```
-SF_USERNAME=user SF_PASSWORD=password DATABASE=mysql://root@localhost/bm_test vendor/bin/phpunit --bootstrap vendor/autoload.php -c vendor/netgen/block-manager/phpunit-api.xml
-```
-
-Notice that you need to specify username and password for your Symfony app and
-the database the tests will use. This database needs to be the same as the
-database used by your Symfony app when in `test` environment.

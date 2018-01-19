@@ -27,17 +27,20 @@
         "white-october/pagerfanta-bundle": "^1.1"
     },
     "require-dev": {
+        "netgen/block-manager-standard": "~0.11.0",
         "phpunit/phpunit": "^5.7|^6.5",
         "symfony/phpunit-bridge": "^4.0",
         "matthiasnoback/symfony-dependency-injection-test": "^1.2|^2.3",
         "matthiasnoback/symfony-config-test": "^2.2|^3.1",
-        "franzl/studio": "*"
+        "franzl/studio": "*",
+        "lakion/api-test-case": "*"
     },
     "config": {
         "process-timeout": 600
     },
     "scripts": {
         "test": "@php vendor/bin/phpunit --colors=always",
+        "test-api": "@php -dmemory_limit=-1 vendor/bin/phpunit -c phpunit-api.xml --colors=always",
         "coverage": "@php -dzend_extension=xdebug.so vendor/bin/phpunit --coverage-html=coverage --colors=always"
     },
     "repositories": [

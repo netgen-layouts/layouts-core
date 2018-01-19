@@ -1,0 +1,3 @@
+netgen_block_manager:
+    resource: '@NetgenBlockManagerBundle/Resources/config/routing/api_v1.yml'
+    prefix: '%netgen_block_manager.route_prefix%/api/v1'
