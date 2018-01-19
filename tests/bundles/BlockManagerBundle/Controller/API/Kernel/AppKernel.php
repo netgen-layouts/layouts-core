@@ -4,6 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\Kernel;
 
 use Netgen\BlockManager\Tests\MockerContainer;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
 
 class AppKernel extends Kernel
@@ -46,5 +47,13 @@ class AppKernel extends Kernel
     protected function getContainerBaseClass()
     {
         return '\\' . MockerContainer::class;
+    }
+
+    protected function prepareContainer(ContainerBuilder $container)
+    {
+        parent::prepareContainer($container);
+
+        // @deprecated For compatibility with Symfony 2.8
+        $container->setParameter('kernel.project_dir', __DIR__);
     }
 }
