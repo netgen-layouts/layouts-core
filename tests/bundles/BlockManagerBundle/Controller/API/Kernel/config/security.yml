@@ -12,5 +12,4 @@ security:
 
     firewalls:
         main:
-            logout_on_user_change: true
             http_basic: ~

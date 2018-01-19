@@ -20,6 +20,7 @@
         <env name="SF_USERNAME" value="admin" />
         <env name="SF_PASSWORD" value="admin" />
         <env name="SHELL_VERBOSITY" value="1" />
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak_vendors" />
     </php>
 
     <testsuites>
