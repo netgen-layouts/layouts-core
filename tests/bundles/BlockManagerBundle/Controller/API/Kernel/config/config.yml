@@ -11,7 +11,7 @@ doctrine:
 framework:
     secret: secret
     router:
-        resource: '%kernel.project_dir%/config/routing.yml'
+        resource: 'config/routing.yml'
         strict_requirements: true
     profiler:
         collect: false

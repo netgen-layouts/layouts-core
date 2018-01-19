@@ -28,11 +28,6 @@ class AppKernel extends Kernel
         );
     }
 
-    public function getProjectDir()
-    {
-        return __DIR__;
-    }
-
     public function getCacheDir()
     {
         return sys_get_temp_dir() . '/ngbm/cache';
@@ -45,7 +40,7 @@ class AppKernel extends Kernel
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load($this->getProjectDir() . '/config/config.yml');
+        $loader->load(__DIR__ . '/config/config.yml');
     }
 
     protected function getContainerBaseClass()
