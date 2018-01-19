@@ -23,6 +23,7 @@ final class RuntimeLoaderPass implements CompilerPassInterface
         }
 
         if ($container->has('twig.runtime_loader')) {
+            // @deprecated
             // If official Twig runtime loader exists,
             // we skip using our custom runtime loaders
             return;
