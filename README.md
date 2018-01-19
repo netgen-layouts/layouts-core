@@ -36,7 +36,7 @@ with Block Manager enabled.
 To run the tests, you need to require some Composer packages:
 
 ```
-composer require lakion/api-test-case:^1.0|^2.0
+composer require lakion/api-test-case
 ```
 
 Afterwards, running tests is as simple as calling the following command:
