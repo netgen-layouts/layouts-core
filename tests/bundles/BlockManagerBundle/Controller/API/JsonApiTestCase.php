@@ -98,33 +98,6 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
     }
 
     /**
-     * Asserts that response has JSON content.
-     * If filename is set, asserts that response content matches the one in given file.
-     * If statusCode is set, asserts that response has given status code.
-     * If excludeElements is set, the items in it will not be checked for value equality but only for existence.
-     *
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     * @param string $filename
-     * @param int $statusCode
-     * @param array $excludedElements
-     */
-    protected function assertResponse(Response $response, $filename, $statusCode = Response::HTTP_OK, $excludedElements = array())
-    {
-        $responseContent = json_decode($response->getContent(), true);
-        if (is_array($responseContent)) {
-            foreach ($excludedElements as $excludedElement) {
-                $this->assertArrayHasKey($excludedElement, $responseContent);
-                $this->assertNotEmpty($responseContent[$excludedElement]);
-                unset($responseContent[$excludedElement]);
-            }
-
-            $response->setContent(json_encode($responseContent));
-        }
-
-        parent::assertResponse($response, $filename, $statusCode);
-    }
-
-    /**
      * Asserts that response is empty and has No Content status code.
      *
      * @param \Symfony\Component\HttpFoundation\Response $response

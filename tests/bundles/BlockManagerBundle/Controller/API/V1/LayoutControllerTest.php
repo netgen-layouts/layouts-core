@@ -522,8 +522,7 @@ class LayoutControllerTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'v1/layouts/create_layout',
-            Response::HTTP_CREATED,
-            array('created_at', 'updated_at')
+            Response::HTTP_CREATED
         );
     }
 
@@ -553,8 +552,7 @@ class LayoutControllerTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'v1/layouts/create_layout_empty_description',
-            Response::HTTP_CREATED,
-            array('created_at', 'updated_at')
+            Response::HTTP_CREATED
         );
     }
 
@@ -585,8 +583,7 @@ class LayoutControllerTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'v1/layouts/create_layout_empty_description',
-            Response::HTTP_CREATED,
-            array('created_at', 'updated_at')
+            Response::HTTP_CREATED
         );
     }
 
@@ -915,8 +912,7 @@ class LayoutControllerTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'v1/layouts/copy_layout',
-            Response::HTTP_CREATED,
-            array('created_at', 'updated_at')
+            Response::HTTP_CREATED
         );
     }
 
@@ -944,8 +940,7 @@ class LayoutControllerTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'v1/layouts/copy_published_layout',
-            Response::HTTP_CREATED,
-            array('created_at', 'updated_at')
+            Response::HTTP_CREATED
         );
     }
 
@@ -972,8 +967,7 @@ class LayoutControllerTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'v1/layouts/copy_layout_without_description',
-            Response::HTTP_CREATED,
-            array('created_at', 'updated_at')
+            Response::HTTP_CREATED
         );
     }
 
@@ -1001,8 +995,7 @@ class LayoutControllerTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'v1/layouts/copy_layout_empty_description',
-            Response::HTTP_CREATED,
-            array('created_at', 'updated_at')
+            Response::HTTP_CREATED
         );
     }
 
@@ -1165,8 +1158,7 @@ class LayoutControllerTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'v1/layouts/change_type',
-            Response::HTTP_OK,
-            array('created_at', 'updated_at')
+            Response::HTTP_OK
         );
     }
 
@@ -1193,8 +1185,7 @@ class LayoutControllerTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'v1/layouts/change_type_without_mappings',
-            Response::HTTP_OK,
-            array('created_at', 'updated_at')
+            Response::HTTP_OK
         );
     }
 
@@ -1217,8 +1208,7 @@ class LayoutControllerTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'v1/layouts/create_layout_draft',
-            Response::HTTP_CREATED,
-            array('created_at', 'updated_at')
+            Response::HTTP_CREATED
         );
     }
 

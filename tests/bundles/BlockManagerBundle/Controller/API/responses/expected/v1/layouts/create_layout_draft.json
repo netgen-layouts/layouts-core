@@ -3,6 +3,8 @@
     "type": "4_zones_a",
     "published": false,
     "has_published_state": true,
+    "created_at": "@string@.isDateTime()",
+    "updated_at": "@string@.isDateTime()",
     "shared": false,
     "name": "My layout",
     "description": "My layout description",
