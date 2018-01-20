@@ -1,6 +1,22 @@
 PRAGMA foreign_keys = ON;
+PRAGMA journal_mode = MEMORY;
 
+DROP TABLE IF EXISTS `ngbm_block_collection`;
+DROP TABLE IF EXISTS `ngbm_collection_item`;
+DROP TABLE IF EXISTS `ngbm_collection_query_translation`;
+DROP TABLE IF EXISTS `ngbm_collection_query`;
+DROP TABLE IF EXISTS `ngbm_collection_translation`;
+DROP TABLE IF EXISTS `ngbm_collection`;
+DROP TABLE IF EXISTS `ngbm_zone`;
+DROP TABLE IF EXISTS `ngbm_block_translation`;
+DROP TABLE IF EXISTS `ngbm_block`;
+DROP TABLE IF EXISTS `ngbm_layout_translation`;
 DROP TABLE IF EXISTS `ngbm_layout`;
+DROP TABLE IF EXISTS `ngbm_rule_target`;
+DROP TABLE IF EXISTS `ngbm_rule_condition`;
+DROP TABLE IF EXISTS `ngbm_rule_data`;
+DROP TABLE IF EXISTS `ngbm_rule`;
+
 CREATE TABLE `ngbm_layout` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
@@ -14,7 +30,6 @@ CREATE TABLE `ngbm_layout` (
   PRIMARY KEY (`id`, `status`)
 );
 
-DROP TABLE IF EXISTS `ngbm_layout_translation`;
 CREATE TABLE `ngbm_layout_translation` (
   `layout_id` integer NOT NULL,
   `status` integer NOT NULL,
@@ -24,7 +39,6 @@ CREATE TABLE `ngbm_layout_translation` (
     REFERENCES `ngbm_layout` (`id`, `status`)
 );
 
-DROP TABLE IF EXISTS `ngbm_block`;
 CREATE TABLE `ngbm_block` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
@@ -47,7 +61,6 @@ CREATE TABLE `ngbm_block` (
     REFERENCES `ngbm_layout` (`id`, `status`)
 );
 
-DROP TABLE IF EXISTS `ngbm_block_translation`;
 CREATE TABLE `ngbm_block_translation` (
   `block_id` integer NOT NULL,
   `status` integer NOT NULL,
@@ -58,7 +71,6 @@ CREATE TABLE `ngbm_block_translation` (
     REFERENCES `ngbm_block` (`id`, `status`)
 );
 
-DROP TABLE IF EXISTS `ngbm_zone`;
 CREATE TABLE `ngbm_zone` (
   `identifier` text(255) NOT NULL,
   `layout_id` integer NOT NULL,
@@ -73,7 +85,6 @@ CREATE TABLE `ngbm_zone` (
     REFERENCES `ngbm_block` (`id`, `status`)
 );
 
-DROP TABLE IF EXISTS `ngbm_collection`;
 CREATE TABLE `ngbm_collection` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
@@ -85,7 +96,6 @@ CREATE TABLE `ngbm_collection` (
   PRIMARY KEY (`id`, `status`)
 );
 
-DROP TABLE IF EXISTS `ngbm_collection_translation`;
 CREATE TABLE `ngbm_collection_translation` (
   `collection_id` integer NOT NULL,
   `status` integer NOT NULL,
@@ -95,7 +105,6 @@ CREATE TABLE `ngbm_collection_translation` (
     REFERENCES `ngbm_collection` (`id`, `status`)
 );
 
-DROP TABLE IF EXISTS `ngbm_collection_item`;
 CREATE TABLE `ngbm_collection_item` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
@@ -109,7 +118,6 @@ CREATE TABLE `ngbm_collection_item` (
     REFERENCES `ngbm_collection` (`id`, `status`)
 );
 
-DROP TABLE IF EXISTS `ngbm_collection_query`;
 CREATE TABLE `ngbm_collection_query` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
@@ -120,7 +128,6 @@ CREATE TABLE `ngbm_collection_query` (
     REFERENCES `ngbm_collection` (`id`, `status`)
 );
 
-DROP TABLE IF EXISTS `ngbm_collection_query_translation`;
 CREATE TABLE `ngbm_collection_query_translation` (
   `query_id` integer NOT NULL,
   `status` integer NOT NULL,
@@ -131,7 +138,6 @@ CREATE TABLE `ngbm_collection_query_translation` (
     REFERENCES `ngbm_collection_query` (`id`, `status`)
 );
 
-DROP TABLE IF EXISTS `ngbm_block_collection`;
 CREATE TABLE `ngbm_block_collection` (
   `block_id` integer NOT NULL,
   `block_status` integer NOT NULL,
@@ -145,7 +151,6 @@ CREATE TABLE `ngbm_block_collection` (
     REFERENCES `ngbm_collection` (`id`, `status`)
 );
 
-DROP TABLE IF EXISTS `ngbm_rule_data`;
 CREATE TABLE `ngbm_rule_data` (
   `rule_id` integer NOT NULL,
   `enabled` integer NOT NULL,
@@ -153,7 +158,6 @@ CREATE TABLE `ngbm_rule_data` (
   PRIMARY KEY (`rule_id`)
 );
 
-DROP TABLE IF EXISTS `ngbm_rule_target`;
 CREATE TABLE `ngbm_rule_target` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
@@ -165,7 +169,6 @@ CREATE TABLE `ngbm_rule_target` (
     REFERENCES `ngbm_rule` (`id`, `status`)
 );
 
-DROP TABLE IF EXISTS `ngbm_rule_condition`;
 CREATE TABLE `ngbm_rule_condition` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
@@ -177,7 +180,6 @@ CREATE TABLE `ngbm_rule_condition` (
     REFERENCES `ngbm_rule` (`id`, `status`)
 );
 
-DROP TABLE IF EXISTS `ngbm_rule`;
 CREATE TABLE `ngbm_rule` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,

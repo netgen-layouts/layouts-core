@@ -22,11 +22,25 @@ class AppKernel extends Kernel
 
             // Netgen Layouts
 
-            new \Netgen\Bundle\BlockManagerBundle\NetgenBlockManagerBundle(),
             new \Netgen\Bundle\ContentBrowserBundle\NetgenContentBrowserBundle(),
+            new \Netgen\Bundle\BlockManagerBundle\NetgenBlockManagerBundle(),
             new \Netgen\Bundle\BlockManagerFixturesBundle\NetgenBlockManagerFixturesBundle(),
             new \Netgen\Bundle\BlockManagerStandardBundle\NetgenBlockManagerStandardBundle(),
         );
+    }
+
+    public function boot()
+    {
+        parent::boot();
+
+        $databaseUrl = getenv('DATABASE');
+        $databaseUrl = $databaseUrl ?: 'sqlite:///' . $this->getCacheDir() . '/ngbm.db';
+        putenv('DATABASE=' . $databaseUrl);
+    }
+
+    public function getProjectDir()
+    {
+        return __DIR__;
     }
 
     public function getCacheDir()
@@ -49,21 +63,16 @@ class AppKernel extends Kernel
         return '\\' . MockerContainer::class;
     }
 
-    protected function prepareContainer(ContainerBuilder $container)
+    protected function build(ContainerBuilder $container)
     {
-        parent::prepareContainer($container);
-
-        // @deprecated For compatibility with Symfony 2.8
-        $container->setParameter('kernel.project_dir', __DIR__);
-
-        // @deprecated Symfony 2.8 does not support runtime environment
-        // variables, so we need to set the parameter to the container
-        // manually
         if (Kernel::VERSION_ID < 30200) {
-            $databaseUrl = getenv('DATABASE');
-            $databaseUrl = $databaseUrl ?: 'sqlite://:memory:';
+            // @deprecated Symfony 2.8 does not have kernel.project_dir parameter,
+            // so we need to set the parameter to the container manually
+            $container->setParameter('kernel.project_dir', __DIR__);
 
-            $container->setParameter('env(DATABASE)', $databaseUrl);
+            // @deprecated Symfony 2.8 does not support runtime environment variables,
+            // so we need to set the database parameter to the container manually
+            $container->setParameter('env(DATABASE)', getenv('DATABASE'));
         }
     }
 }

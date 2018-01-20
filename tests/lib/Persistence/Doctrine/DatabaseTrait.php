@@ -13,7 +13,7 @@ trait DatabaseTrait
     /**
      * @var string
      */
-    protected $inMemoryDsn = 'sqlite://:memory:';
+    protected $inMemoryDsn = 'sqlite:///:memory:';
 
     /**
      * @var string
@@ -46,7 +46,7 @@ trait DatabaseTrait
 
         $schemaPath = rtrim($fixturesPath, '/') . '/schema';
 
-        preg_match('/^(?<db>.+):\/\//', $this->databaseUri, $matches);
+        preg_match('/^(?<db>.+):\/+/', $this->databaseUri, $matches);
         $this->databaseServer = $matches['db'];
 
         $this->databaseConnection = DriverManager::getConnection(

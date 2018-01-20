@@ -37,9 +37,17 @@ $ DATABASE=pgsql://user:pass@localhost/ngbm composer test
 
 ## API tests
 
-To run the API tests, you need a real database. Create an empty MySQL or
-PostgreSQL database and run the tests with:
+Run the API tests by calling `composer test-api` from the repo root:
 
 ```
-$ DATABASE=mysql://user:pass@localhost/ngbm composer test-api
+$ composer test-api
+```
+
+Just as with unit tests, this will use a temporary SQLite database.
+
+You can also use the `DATABASE` environment variable to run the tests
+with a MySQL or PostgreSQL database:
+
+```
+$ DATABASE=mysql://root@localhost/ngbm composer test-api
 ```
