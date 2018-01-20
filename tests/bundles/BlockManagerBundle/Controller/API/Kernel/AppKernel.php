@@ -63,8 +63,10 @@ class AppKernel extends Kernel
         return '\\' . MockerContainer::class;
     }
 
-    protected function build(ContainerBuilder $container)
+    protected function prepareContainer(ContainerBuilder $container)
     {
+        parent::prepareContainer($container);
+
         if (Kernel::VERSION_ID < 30200) {
             // @deprecated Symfony 2.8 does not have kernel.project_dir parameter,
             // so we need to set the parameter to the container manually
