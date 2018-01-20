@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Exception\Collection;
 use Netgen\BlockManager\Exception\Context\ContextException;
 use PHPUnit\Framework\TestCase;
 
-class ContextExceptionTest extends TestCase
+final class ContextExceptionTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Exception\Context\ContextException::noVariable

@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Exception\Validation;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
 use PHPUnit\Framework\TestCase;
 
-class ValidationExceptionTest extends TestCase
+final class ValidationExceptionTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Exception\Validation\ValidationException::validationFailed

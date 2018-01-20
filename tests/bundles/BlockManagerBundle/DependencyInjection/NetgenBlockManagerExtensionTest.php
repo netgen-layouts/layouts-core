@@ -8,7 +8,7 @@ use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExten
 use Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\Stubs\ExtensionPlugin;
 use Netgen\Bundle\ContentBrowserBundle\DependencyInjection\NetgenContentBrowserExtension;
 
-class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
+final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
 {
     private $minimalConfig = array(
         'design_list' => array(

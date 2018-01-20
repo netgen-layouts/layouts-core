@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Exception\Block;
 use Netgen\BlockManager\Exception\Block\BlockDefinitionException;
 use PHPUnit\Framework\TestCase;
 
-class BlockDefinitionExceptionTest extends TestCase
+final class BlockDefinitionExceptionTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Exception\Block\BlockDefinitionException::noForm

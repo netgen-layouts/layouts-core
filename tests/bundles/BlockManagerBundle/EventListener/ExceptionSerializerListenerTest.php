@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class ExceptionSerializerListenerTest extends TestCase
+final class ExceptionSerializerListenerTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

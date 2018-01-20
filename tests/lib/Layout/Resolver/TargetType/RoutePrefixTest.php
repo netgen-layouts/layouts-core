@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validation;
 
-class RoutePrefixTest extends TestCase
+final class RoutePrefixTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\TargetType\RoutePrefix

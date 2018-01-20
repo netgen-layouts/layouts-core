@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Exception\Layout;
 use Netgen\BlockManager\Exception\Layout\LayoutTypeException;
 use PHPUnit\Framework\TestCase;
 
-class LayoutTypeExceptionTest extends TestCase
+final class LayoutTypeExceptionTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Exception\Layout\LayoutTypeException::noLayoutType

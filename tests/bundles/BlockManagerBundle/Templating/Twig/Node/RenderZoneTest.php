@@ -8,7 +8,7 @@ use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderZone;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime;
 use Twig\Node\Expression\NameExpression;
 
-class RenderZoneTest extends NodeTest
+final class RenderZoneTest extends NodeTest
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderZone::__construct

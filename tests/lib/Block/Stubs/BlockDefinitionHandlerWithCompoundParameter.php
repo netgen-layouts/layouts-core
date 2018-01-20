@@ -9,7 +9,7 @@ use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameter;
 use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 
-class BlockDefinitionHandlerWithCompoundParameter extends BaseBlockDefinitionHandler
+final class BlockDefinitionHandlerWithCompoundParameter extends BaseBlockDefinitionHandler
 {
     /**
      * @var array

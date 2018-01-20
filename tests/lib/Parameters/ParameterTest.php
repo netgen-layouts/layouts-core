@@ -7,7 +7,7 @@ use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Parameters\ParameterType\TextType;
 use PHPUnit\Framework\TestCase;
 
-class ParameterTest extends TestCase
+final class ParameterTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Parameters\Parameter::__construct

@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Values\ParameterBasedValue as APIParameterBasedValue
 use Netgen\BlockManager\Core\Values\ParameterBasedValueTrait;
 use Netgen\BlockManager\ValueObject;
 
-class ParameterBasedValue extends ValueObject implements APIParameterBasedValue
+final class ParameterBasedValue extends ValueObject implements APIParameterBasedValue
 {
     use ParameterBasedValueTrait;
 }

@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Block;
 use Netgen\BlockManager\Block\DynamicParameters;
 use PHPUnit\Framework\TestCase;
 
-class DynamicParametersTest extends TestCase
+final class DynamicParametersTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Block\DynamicParameters

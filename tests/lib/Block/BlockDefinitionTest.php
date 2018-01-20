@@ -11,7 +11,7 @@ use Netgen\BlockManager\Tests\Block\Stubs\HandlerPlugin;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
-class BlockDefinitionTest extends TestCase
+final class BlockDefinitionTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface

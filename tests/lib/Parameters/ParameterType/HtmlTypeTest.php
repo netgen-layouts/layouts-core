@@ -7,7 +7,7 @@ use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 
-class HtmlTypeTest extends TestCase
+final class HtmlTypeTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\HtmlType::getIdentifier

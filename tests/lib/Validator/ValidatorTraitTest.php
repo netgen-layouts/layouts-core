@@ -10,7 +10,7 @@ use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class ValidatorTraitTest extends TestCase
+final class ValidatorTraitTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

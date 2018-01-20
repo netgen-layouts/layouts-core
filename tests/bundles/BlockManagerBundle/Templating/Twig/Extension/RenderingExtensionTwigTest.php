@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\RuntimeLoader\FactoryRuntimeLoader;
 use Twig\Test\IntegrationTestCase;
 
-class RenderingExtensionTwigTest extends IntegrationTestCase
+final class RenderingExtensionTwigTest extends IntegrationTestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

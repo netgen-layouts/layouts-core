@@ -8,7 +8,7 @@ use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\ConditionParamConverter;
 use PHPUnit\Framework\TestCase;
 
-class ConditionParamConverterTest extends TestCase
+final class ConditionParamConverterTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

@@ -7,7 +7,7 @@ use Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate;
 use PHPUnit\Framework\TestCase;
 use Twig\Template;
 
-class ContextualizedTwigTemplateTest extends TestCase
+final class ContextualizedTwigTemplateTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate::__construct

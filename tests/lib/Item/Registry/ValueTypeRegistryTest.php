@@ -7,7 +7,7 @@ use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Item\ValueType\ValueType;
 use PHPUnit\Framework\TestCase;
 
-class ValueTypeRegistryTest extends TestCase
+final class ValueTypeRegistryTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Item\ValueType\ValueType

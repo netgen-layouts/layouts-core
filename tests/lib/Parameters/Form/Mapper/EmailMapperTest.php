@@ -6,7 +6,7 @@ use Netgen\BlockManager\Parameters\Form\Mapper\EmailMapper;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
-class EmailMapperTest extends TestCase
+final class EmailMapperTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Parameters\Form\Mapper\EmailMapper

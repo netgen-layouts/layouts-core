@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 use Twig\Environment;
 use Twig\Extensions\IntlExtension;
 
-class TwigExtensionsListenerTest extends TestCase
+final class TwigExtensionsListenerTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

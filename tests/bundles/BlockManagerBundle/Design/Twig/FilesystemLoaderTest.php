@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Twig\Loader\FilesystemLoader as BaseFilesystemLoader;
 use Twig\Source;
 
-class FilesystemLoaderTest extends TestCase
+final class FilesystemLoaderTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

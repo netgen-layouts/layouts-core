@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Exception\Core;
 use Netgen\BlockManager\Exception\Core\BlockException;
 use PHPUnit\Framework\TestCase;
 
-class BlockExceptionTest extends TestCase
+final class BlockExceptionTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Exception\Core\BlockException::noPlaceholder

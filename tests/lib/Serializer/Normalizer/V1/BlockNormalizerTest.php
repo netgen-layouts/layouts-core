@@ -14,7 +14,7 @@ use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Serializer;
 
-class BlockNormalizerTest extends TestCase
+final class BlockNormalizerTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

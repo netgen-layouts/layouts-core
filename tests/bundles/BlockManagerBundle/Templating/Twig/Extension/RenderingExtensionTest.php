@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 use Twig\TokenParser\TokenParserInterface;
 use Twig\TwigFunction;
 
-class RenderingExtensionTest extends TestCase
+final class RenderingExtensionTest extends TestCase
 {
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension

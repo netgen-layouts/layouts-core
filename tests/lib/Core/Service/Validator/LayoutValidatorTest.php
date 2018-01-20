@@ -15,7 +15,7 @@ use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 
-class LayoutValidatorTest extends TestCase
+final class LayoutValidatorTest extends TestCase
 {
     /**
      * @var \Symfony\Component\Validator\Validator\ValidatorInterface

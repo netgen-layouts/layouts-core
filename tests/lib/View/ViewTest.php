@@ -7,7 +7,7 @@ use Netgen\BlockManager\Tests\View\Stubs\View;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-class ViewTest extends TestCase
+final class ViewTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\View\ViewInterface

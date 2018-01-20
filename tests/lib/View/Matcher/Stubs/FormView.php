@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\View\Matcher\Stubs;
 use Netgen\BlockManager\View\View;
 use Netgen\BlockManager\View\View\FormViewInterface;
 
-class FormView extends View implements FormViewInterface
+final class FormView extends View implements FormViewInterface
 {
     /**
      * Returns the form.

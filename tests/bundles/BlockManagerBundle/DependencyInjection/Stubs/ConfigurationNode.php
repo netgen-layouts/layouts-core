@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\Stubs;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNodeInterface;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
-class ConfigurationNode implements ConfigurationNodeInterface
+final class ConfigurationNode implements ConfigurationNodeInterface
 {
     /**
      * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition

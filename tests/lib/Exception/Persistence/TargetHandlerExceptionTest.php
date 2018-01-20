@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Exception\Persistence;
 use Netgen\BlockManager\Exception\Persistence\TargetHandlerException;
 use PHPUnit\Framework\TestCase;
 
-class TargetHandlerExceptionTest extends TestCase
+final class TargetHandlerExceptionTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Exception\Persistence\TargetHandlerException::noTargetHandler

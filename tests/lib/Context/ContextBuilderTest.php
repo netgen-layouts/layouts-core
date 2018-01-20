@@ -7,7 +7,7 @@ use Netgen\BlockManager\Context\ContextBuilder;
 use Netgen\BlockManager\Tests\Context\Stubs\ContextProvider;
 use PHPUnit\Framework\TestCase;
 
-class ContextBuilderTest extends TestCase
+final class ContextBuilderTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Context\ContextInterface

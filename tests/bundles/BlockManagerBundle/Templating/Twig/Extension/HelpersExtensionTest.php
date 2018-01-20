@@ -6,7 +6,7 @@ use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\HelpersExtension;
 use PHPUnit\Framework\TestCase;
 use Twig\TwigFilter;
 
-class HelpersExtensionTest extends TestCase
+final class HelpersExtensionTest extends TestCase
 {
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\HelpersExtension

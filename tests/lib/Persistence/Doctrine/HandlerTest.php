@@ -9,7 +9,7 @@ use Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler;
 use Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler;
 use PHPUnit\Framework\TestCase;
 
-class HandlerTest extends TestCase
+final class HandlerTest extends TestCase
 {
     use TestCaseTrait;
 

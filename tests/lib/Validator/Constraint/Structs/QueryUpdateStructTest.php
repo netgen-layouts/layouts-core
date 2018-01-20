@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Validator\Constraint\Structs;
 use Netgen\BlockManager\Validator\Constraint\Structs\QueryUpdateStruct;
 use PHPUnit\Framework\TestCase;
 
-class QueryUpdateStructTest extends TestCase
+final class QueryUpdateStructTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Validator\Constraint\Structs\QueryUpdateStruct::validatedBy

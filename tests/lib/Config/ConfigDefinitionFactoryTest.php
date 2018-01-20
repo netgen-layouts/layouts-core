@@ -9,7 +9,7 @@ use Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 use PHPUnit\Framework\TestCase;
 
-class ConfigDefinitionFactoryTest extends TestCase
+final class ConfigDefinitionFactoryTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

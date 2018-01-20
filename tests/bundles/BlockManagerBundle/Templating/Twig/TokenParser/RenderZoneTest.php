@@ -12,7 +12,7 @@ use Twig\Node\Expression\NameExpression;
 use Twig\Parser;
 use Twig\Source;
 
-class RenderZoneTest extends TestCase
+final class RenderZoneTest extends TestCase
 {
     /**
      * @var \Twig\Environment

@@ -7,7 +7,7 @@ use Netgen\BlockManager\Layout\Type\LayoutTypeFactory;
 use Netgen\BlockManager\Layout\Type\Zone;
 use PHPUnit\Framework\TestCase;
 
-class LayoutTypeFactoryTest extends TestCase
+final class LayoutTypeFactoryTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Layout\Type\LayoutTypeFactory::buildLayoutType

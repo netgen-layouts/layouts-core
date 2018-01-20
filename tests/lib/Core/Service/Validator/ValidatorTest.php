@@ -8,7 +8,7 @@ use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 
-class ValidatorTest extends TestCase
+final class ValidatorTest extends TestCase
 {
     /**
      * @var \Symfony\Component\Validator\Validator\ValidatorInterface

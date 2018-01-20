@@ -7,7 +7,7 @@ use Netgen\BlockManager\Tests\Core\Stubs\Value as StubValue;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-class ValueTest extends TestCase
+final class ValueTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Serializer\Values\Value

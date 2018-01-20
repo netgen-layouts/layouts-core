@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Item\Stubs;
 
 use Netgen\BlockManager\Item\ValueUrlBuilderInterface;
 
-class ValueUrlBuilder implements ValueUrlBuilderInterface
+final class ValueUrlBuilder implements ValueUrlBuilderInterface
 {
     /**
      * Returns the object URL. Take note that this is not a slug,

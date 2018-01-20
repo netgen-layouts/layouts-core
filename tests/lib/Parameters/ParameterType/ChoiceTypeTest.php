@@ -7,7 +7,7 @@ use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 
-class ChoiceTypeTest extends TestCase
+final class ChoiceTypeTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ChoiceType::getIdentifier

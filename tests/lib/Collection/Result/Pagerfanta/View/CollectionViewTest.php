@@ -8,7 +8,7 @@ use Pagerfanta\Pagerfanta;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
 
-class CollectionViewTest extends TestCase
+final class CollectionViewTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

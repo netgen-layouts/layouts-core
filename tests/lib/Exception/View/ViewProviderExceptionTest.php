@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Exception\View;
 use Netgen\BlockManager\Exception\View\ViewProviderException;
 use PHPUnit\Framework\TestCase;
 
-class ViewProviderExceptionTest extends TestCase
+final class ViewProviderExceptionTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Exception\View\ViewProviderException::__construct

@@ -6,7 +6,7 @@ use Netgen\BlockManager\Persistence\Values\Block\Block;
 use Netgen\BlockManager\Persistence\Values\Value;
 use PHPUnit\Framework\TestCase;
 
-class BlockTest extends TestCase
+final class BlockTest extends TestCase
 {
     public function testSetDefaultProperties()
     {

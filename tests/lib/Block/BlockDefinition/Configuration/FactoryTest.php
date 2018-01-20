@@ -10,7 +10,7 @@ use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use PHPUnit\Framework\TestCase;
 
-class FactoryTest extends TestCase
+final class FactoryTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\Factory

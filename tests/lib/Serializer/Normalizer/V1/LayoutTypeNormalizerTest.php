@@ -10,7 +10,7 @@ use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 
-class LayoutTypeNormalizerTest extends TestCase
+final class LayoutTypeNormalizerTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutTypeNormalizer

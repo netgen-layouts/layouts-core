@@ -9,7 +9,7 @@ use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
  * @covers \Netgen\BlockManager\Block\ConfigDefinition\Handler\HttpCacheConfigHandler::__construct
  * @covers \Netgen\BlockManager\Block\ConfigDefinition\Handler\HttpCacheConfigHandler::buildParameters
  */
-class HttpCacheConfigTest extends BaseHttpCacheConfigTest
+final class HttpCacheConfigTest extends BaseHttpCacheConfigTest
 {
     use TestCaseTrait;
 

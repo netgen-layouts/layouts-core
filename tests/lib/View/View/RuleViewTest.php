@@ -6,7 +6,7 @@ use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\View\View\RuleView;
 use PHPUnit\Framework\TestCase;
 
-class RuleViewTest extends TestCase
+final class RuleViewTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\API\Values\LayoutResolver\Rule

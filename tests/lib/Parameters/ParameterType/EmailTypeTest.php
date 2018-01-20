@@ -7,7 +7,7 @@ use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 
-class EmailTypeTest extends TestCase
+final class EmailTypeTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\EmailType::getIdentifier

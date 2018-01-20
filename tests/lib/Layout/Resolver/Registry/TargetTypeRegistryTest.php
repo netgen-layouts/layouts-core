@@ -7,7 +7,7 @@ use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
 use PHPUnit\Framework\TestCase;
 
-class TargetTypeRegistryTest extends TestCase
+final class TargetTypeRegistryTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\TargetTypeInterface

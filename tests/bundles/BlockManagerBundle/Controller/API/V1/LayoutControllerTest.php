@@ -8,7 +8,7 @@ use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-class LayoutControllerTest extends JsonApiTestCase
+final class LayoutControllerTest extends JsonApiTestCase
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::__construct

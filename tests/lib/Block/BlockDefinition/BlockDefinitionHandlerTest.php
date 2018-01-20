@@ -10,7 +10,7 @@ use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory;
 use PHPUnit\Framework\TestCase;
 
-class BlockDefinitionHandlerTest extends TestCase
+final class BlockDefinitionHandlerTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler

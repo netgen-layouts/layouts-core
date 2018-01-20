@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Layout\Resolver\TargetHandler\Doctrine;
 
 use Netgen\BlockManager\Layout\Resolver\TargetHandler\Doctrine\RoutePrefix;
 
-class RoutePrefixTest extends AbstractTargetHandlerTest
+final class RoutePrefixTest extends AbstractTargetHandlerTest
 {
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::matchRules

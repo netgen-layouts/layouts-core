@@ -15,7 +15,7 @@ use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
 
-class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
+final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
 {
     /**
      * @param string $handlerClass

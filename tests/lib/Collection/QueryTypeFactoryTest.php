@@ -10,7 +10,7 @@ use Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 use PHPUnit\Framework\TestCase;
 
-class QueryTypeFactoryTest extends TestCase
+final class QueryTypeFactoryTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

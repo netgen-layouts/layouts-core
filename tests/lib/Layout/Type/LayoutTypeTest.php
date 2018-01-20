@@ -7,7 +7,7 @@ use Netgen\BlockManager\Layout\Type\Zone;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use PHPUnit\Framework\TestCase;
 
-class LayoutTypeTest extends TestCase
+final class LayoutTypeTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Layout\Type\LayoutType

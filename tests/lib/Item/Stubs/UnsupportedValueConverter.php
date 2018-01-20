@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Item\Stubs;
 
 use Netgen\BlockManager\Item\ValueConverterInterface;
 
-class UnsupportedValueConverter implements ValueConverterInterface
+final class UnsupportedValueConverter implements ValueConverterInterface
 {
     /**
      * Returns if the converter supports the object.

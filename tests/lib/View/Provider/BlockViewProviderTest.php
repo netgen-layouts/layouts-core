@@ -12,7 +12,7 @@ use Netgen\BlockManager\View\Provider\BlockViewProvider;
 use Netgen\BlockManager\View\View\BlockViewInterface;
 use PHPUnit\Framework\TestCase;
 
-class BlockViewProviderTest extends TestCase
+final class BlockViewProviderTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface

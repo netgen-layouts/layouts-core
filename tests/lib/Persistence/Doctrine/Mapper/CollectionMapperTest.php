@@ -9,7 +9,7 @@ use Netgen\BlockManager\Persistence\Values\Collection\Query;
 use Netgen\BlockManager\Persistence\Values\Value;
 use PHPUnit\Framework\TestCase;
 
-class CollectionMapperTest extends TestCase
+final class CollectionMapperTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper

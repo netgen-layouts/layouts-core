@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Exception\Block;
 use Netgen\BlockManager\Exception\Block\BlockTypeException;
 use PHPUnit\Framework\TestCase;
 
-class BlockTypeExceptionTest extends TestCase
+final class BlockTypeExceptionTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Exception\Block\BlockTypeException::noBlockType

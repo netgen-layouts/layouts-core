@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validation;
 
-class PathInfoPrefixTest extends TestCase
+final class PathInfoPrefixTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\TargetType\PathInfoPrefix

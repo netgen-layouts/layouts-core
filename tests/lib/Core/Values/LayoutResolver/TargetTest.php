@@ -7,7 +7,7 @@ use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
 use PHPUnit\Framework\TestCase;
 
-class TargetTest extends TestCase
+final class TargetTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::__construct

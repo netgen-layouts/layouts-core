@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Validator\Constraint\Structs;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
 use PHPUnit\Framework\TestCase;
 
-class ParameterStructTest extends TestCase
+final class ParameterStructTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct::validatedBy

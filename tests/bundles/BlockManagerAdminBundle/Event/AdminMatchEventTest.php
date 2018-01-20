@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
-class AdminMatchEventTest extends TestCase
+final class AdminMatchEventTest extends TestCase
 {
     /**
      * @var \Symfony\Component\HttpFoundation\Request

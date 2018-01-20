@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Service\Doctrine\Mapper;
 use Netgen\BlockManager\Tests\Core\Service\Mapper\CollectionMapperTest as BaseCollectionMapperTest;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 
-class CollectionMapperTest extends BaseCollectionMapperTest
+final class CollectionMapperTest extends BaseCollectionMapperTest
 {
     use TestCaseTrait;
 

@@ -6,7 +6,7 @@ use Netgen\BlockManager\Parameters\Form\Mapper\BooleanMapper;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
-class BooleanMapperTest extends TestCase
+final class BooleanMapperTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Parameters\Form\Mapper\BooleanMapper

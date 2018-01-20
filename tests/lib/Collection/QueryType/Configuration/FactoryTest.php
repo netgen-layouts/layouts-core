@@ -7,7 +7,7 @@ use Netgen\BlockManager\Collection\QueryType\Configuration\Factory;
 use Netgen\BlockManager\Collection\QueryType\Configuration\Form;
 use PHPUnit\Framework\TestCase;
 
-class FactoryTest extends TestCase
+final class FactoryTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Collection\QueryType\Configuration\Factory

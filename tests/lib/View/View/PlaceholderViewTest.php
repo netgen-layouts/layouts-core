@@ -7,7 +7,7 @@ use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\View\View\PlaceholderView;
 use PHPUnit\Framework\TestCase;
 
-class PlaceholderViewTest extends TestCase
+final class PlaceholderViewTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\API\Values\Block\Placeholder

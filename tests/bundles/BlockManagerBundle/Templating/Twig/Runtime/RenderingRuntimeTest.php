@@ -18,7 +18,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Template;
 
-class RenderingRuntimeTest extends TestCase
+final class RenderingRuntimeTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

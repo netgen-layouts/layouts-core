@@ -9,7 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CompoundBooleanTypeTest extends FormTestCase
+final class CompoundBooleanTypeTest extends FormTestCase
 {
     /**
      * @return \Symfony\Component\Form\FormTypeInterface

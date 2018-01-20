@@ -8,7 +8,7 @@ use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\ContentBrowser\Tests\Stubs\Item as StubItem;
 use PHPUnit\Framework\TestCase;
 
-class SharedTest extends TestCase
+final class SharedTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Shared

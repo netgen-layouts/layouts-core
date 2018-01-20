@@ -9,7 +9,7 @@ use Netgen\BlockManager\View\Provider\RuleTargetViewProvider;
 use Netgen\BlockManager\View\View\RuleTargetViewInterface;
 use PHPUnit\Framework\TestCase;
 
-class RuleTargetProviderTest extends TestCase
+final class RuleTargetProviderTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface

@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Item;
 use Netgen\BlockManager\Item\NullItem;
 use PHPUnit\Framework\TestCase;
 
-class NullItemTest extends TestCase
+final class NullItemTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Item\NullItem::getValueId

@@ -10,7 +10,7 @@ use Netgen\BlockManager\View\Matcher\Layout\Type;
 use Netgen\BlockManager\View\View\LayoutView;
 use PHPUnit\Framework\TestCase;
 
-class TypeTest extends TestCase
+final class TypeTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\View\Matcher\MatcherInterface

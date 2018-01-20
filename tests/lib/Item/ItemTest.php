@@ -6,7 +6,7 @@ use Netgen\BlockManager\Item\Item;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
-class ItemTest extends TestCase
+final class ItemTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Item\Item::getValueId

@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Item\Stubs;
 use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Item\ValueLoaderInterface;
 
-class ValueLoader implements ValueLoaderInterface
+final class ValueLoader implements ValueLoaderInterface
 {
     private $throwException = false;
 

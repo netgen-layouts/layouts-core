@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
 
-class ContextBuilderPassTest extends AbstractCompilerPassTestCase
+final class ContextBuilderPassTest extends AbstractCompilerPassTestCase
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Context\ContextBuilderPass::process

@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Tests\Templating\Twig;
 use Netgen\Bundle\BlockManagerAdminBundle\Templating\Twig\GlobalVariable;
 use PHPUnit\Framework\TestCase;
 
-class GlobalVariableTest extends TestCase
+final class GlobalVariableTest extends TestCase
 {
     /**
      * @var \Netgen\Bundle\BlockManagerAdminBundle\Templating\Twig\GlobalVariable

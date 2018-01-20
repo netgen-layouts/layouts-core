@@ -13,7 +13,7 @@ use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerAdminBundle\EventListener\LayoutView\RelatedLayoutsCountListener;
 use PHPUnit\Framework\TestCase;
 
-class RelatedLayoutsCountListenerTest extends TestCase
+final class RelatedLayoutsCountListenerTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

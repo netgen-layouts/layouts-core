@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
-class AdminAuthenticationExceptionListenerTest extends TestCase
+final class AdminAuthenticationExceptionListenerTest extends TestCase
 {
     /**
      * @var \Netgen\Bundle\BlockManagerAdminBundle\EventListener\AdminAuthenticationExceptionListener

@@ -9,7 +9,7 @@ use Netgen\BlockManager\Layout\Resolver\TargetType\RoutePrefix;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class RoutePrefixTest extends FormTestCase
+final class RoutePrefixTest extends FormTestCase
 {
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\TargetTypeInterface

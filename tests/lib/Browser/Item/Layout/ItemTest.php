@@ -6,7 +6,7 @@ use Netgen\BlockManager\Browser\Item\Layout\Item;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use PHPUnit\Framework\TestCase;
 
-class ItemTest extends TestCase
+final class ItemTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\API\Values\Layout\Layout

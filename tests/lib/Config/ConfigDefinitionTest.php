@@ -7,7 +7,7 @@ use Netgen\BlockManager\Config\ConfigDefinition;
 use Netgen\BlockManager\Tests\Config\Stubs\Block\HttpCacheConfigHandler;
 use PHPUnit\Framework\TestCase;
 
-class ConfigDefinitionTest extends TestCase
+final class ConfigDefinitionTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface

@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Values\Config\ConfigAwareValue;
 use Netgen\BlockManager\Config\ConfigDefinitionInterface;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 
-class ConfigDefinition implements ConfigDefinitionInterface
+final class ConfigDefinition implements ConfigDefinitionInterface
 {
     /**
      * @var string

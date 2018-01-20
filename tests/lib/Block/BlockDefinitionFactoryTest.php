@@ -19,7 +19,7 @@ use Netgen\BlockManager\Tests\Config\Stubs\Block\HttpCacheConfigHandler;
 use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinition;
 use PHPUnit\Framework\TestCase;
 
-class BlockDefinitionFactoryTest extends TestCase
+final class BlockDefinitionFactoryTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

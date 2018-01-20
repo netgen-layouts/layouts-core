@@ -6,7 +6,7 @@ use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Persistence\Values\Value;
 use PHPUnit\Framework\TestCase;
 
-class ConditionTest extends TestCase
+final class ConditionTest extends TestCase
 {
     public function testSetDefaultProperties()
     {

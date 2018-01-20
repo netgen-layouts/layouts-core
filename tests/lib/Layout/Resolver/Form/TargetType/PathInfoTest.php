@@ -9,7 +9,7 @@ use Netgen\BlockManager\Layout\Resolver\TargetType\PathInfo;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class PathInfoTest extends FormTestCase
+final class PathInfoTest extends FormTestCase
 {
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\TargetTypeInterface

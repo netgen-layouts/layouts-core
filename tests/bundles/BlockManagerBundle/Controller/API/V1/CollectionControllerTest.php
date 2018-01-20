@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1;
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-class CollectionControllerTest extends JsonApiTestCase
+final class CollectionControllerTest extends JsonApiTestCase
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::__construct

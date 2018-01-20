@@ -6,7 +6,7 @@ use Netgen\BlockManager\Collection\Result\ContextualQueryIterator;
 use Netgen\BlockManager\Collection\Result\Slot;
 use PHPUnit\Framework\TestCase;
 
-class ContextualQueryIteratorTest extends TestCase
+final class ContextualQueryIteratorTest extends TestCase
 {
     use IteratorTestTrait;
 

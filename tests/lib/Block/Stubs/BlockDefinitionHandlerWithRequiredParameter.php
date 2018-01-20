@@ -8,7 +8,7 @@ use Netgen\BlockManager\Block\DynamicParameters;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 
-class BlockDefinitionHandlerWithRequiredParameter extends BaseBlockDefinitionHandler
+final class BlockDefinitionHandlerWithRequiredParameter extends BaseBlockDefinitionHandler
 {
     /**
      * Returns the array specifying block parameters.

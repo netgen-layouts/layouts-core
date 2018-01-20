@@ -9,7 +9,7 @@ use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\ContentBrowser\Tests\Stubs\Item as StubItem;
 use PHPUnit\Framework\TestCase;
 
-class TypeTest extends TestCase
+final class TypeTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Type

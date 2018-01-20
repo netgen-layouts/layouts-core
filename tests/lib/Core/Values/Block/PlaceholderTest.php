@@ -8,7 +8,7 @@ use Netgen\BlockManager\Exception\RuntimeException;
 use PHPUnit\Framework\TestCase;
 use Traversable;
 
-class PlaceholderTest extends TestCase
+final class PlaceholderTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\Block\Placeholder::__construct

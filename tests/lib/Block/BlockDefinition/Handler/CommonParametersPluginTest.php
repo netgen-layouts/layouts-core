@@ -9,7 +9,7 @@ use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory;
 use PHPUnit\Framework\TestCase;
 
-class CommonParametersPluginTest extends TestCase
+final class CommonParametersPluginTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Handler\CommonParametersPlugin

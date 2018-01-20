@@ -6,7 +6,7 @@ use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use PHPUnit\Framework\TestCase;
 
-class ViewTypeTest extends TestCase
+final class ViewTypeTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType

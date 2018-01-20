@@ -9,7 +9,7 @@ use Netgen\BlockManager\Validator\Constraint\ValueType as ValueTypeConstraint;
 use Netgen\BlockManager\Validator\ValueTypeValidator;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class ValueTypeValidatorTest extends ValidatorTestCase
+final class ValueTypeValidatorTest extends ValidatorTestCase
 {
     public function setUp()
     {

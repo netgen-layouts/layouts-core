@@ -6,7 +6,7 @@ use Netgen\BlockManager\Persistence\Values\Collection\Query;
 use Netgen\BlockManager\Persistence\Values\Value;
 use PHPUnit\Framework\TestCase;
 
-class QueryTest extends TestCase
+final class QueryTest extends TestCase
 {
     public function testSetDefaultProperties()
     {

@@ -7,7 +7,7 @@ use Netgen\BlockManager\Collection\Result\CollectionIteratorFactory;
 use Netgen\BlockManager\Tests\Collection\Stubs\Collection;
 use PHPUnit\Framework\TestCase;
 
-class CollectionIteratorTest extends TestCase
+final class CollectionIteratorTest extends TestCase
 {
     use IteratorTestTrait;
 

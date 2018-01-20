@@ -11,7 +11,7 @@ use Netgen\BlockManager\Exception\Core\ParameterException;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use PHPUnit\Framework\TestCase;
 
-class BlockTest extends TestCase
+final class BlockTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::__construct

@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Exception\Parameters;
 use Netgen\BlockManager\Exception\Parameters\ParameterException;
 use PHPUnit\Framework\TestCase;
 
-class ParameterExceptionTest extends TestCase
+final class ParameterExceptionTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Exception\Parameters\ParameterException::noParameter

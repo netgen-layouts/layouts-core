@@ -8,7 +8,7 @@ use Netgen\BlockManager\Layout\Form\EditType;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class EditTypeTest extends FormTestCase
+final class EditTypeTest extends FormTestCase
 {
     /**
      * @var \Netgen\BlockManager\API\Values\Layout\Layout

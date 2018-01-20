@@ -8,7 +8,7 @@ use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandler;
 use PHPUnit\Framework\TestCase;
 
-class QueryTypeTest extends TestCase
+final class QueryTypeTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Collection\QueryType

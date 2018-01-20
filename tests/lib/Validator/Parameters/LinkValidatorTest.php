@@ -8,7 +8,7 @@ use Netgen\BlockManager\Validator\Constraint\Parameters\Link;
 use Netgen\BlockManager\Validator\Parameters\LinkValidator;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class LinkValidatorTest extends ValidatorTestCase
+final class LinkValidatorTest extends ValidatorTestCase
 {
     public function setUp()
     {

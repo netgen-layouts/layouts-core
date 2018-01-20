@@ -7,7 +7,7 @@ use Netgen\BlockManager\Block\BlockType\BlockTypeGroupFactory;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockType;
 use PHPUnit\Framework\TestCase;
 
-class BlockTypeGroupFactoryTest extends TestCase
+final class BlockTypeGroupFactoryTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Block\BlockType\BlockTypeGroupFactory::buildBlockTypeGroup

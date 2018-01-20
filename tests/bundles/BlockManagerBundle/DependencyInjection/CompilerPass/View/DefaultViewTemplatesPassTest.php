@@ -7,7 +7,7 @@ use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\View\Defau
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 
-class DefaultViewTemplatesPassTest extends AbstractCompilerPassTestCase
+final class DefaultViewTemplatesPassTest extends AbstractCompilerPassTestCase
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\View\DefaultViewTemplatesPass::process

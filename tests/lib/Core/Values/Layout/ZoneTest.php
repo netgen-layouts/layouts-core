@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\Layout\Zone;
 use PHPUnit\Framework\TestCase;
 
-class ZoneTest extends TestCase
+final class ZoneTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\Layout\Zone::__construct

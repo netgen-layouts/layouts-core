@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Item\Stubs;
 
-class Value
+final class Value
 {
     /**
      * @var int|string

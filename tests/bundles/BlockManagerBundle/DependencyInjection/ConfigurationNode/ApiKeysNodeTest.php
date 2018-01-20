@@ -7,7 +7,7 @@ use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
 use PHPUnit\Framework\TestCase;
 
-class ApiKeysNodeTest extends TestCase
+final class ApiKeysNodeTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
 

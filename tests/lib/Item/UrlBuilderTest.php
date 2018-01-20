@@ -8,7 +8,7 @@ use Netgen\BlockManager\Tests\Item\Stubs\ValueUrlBuilder;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
-class UrlBuilderTest extends TestCase
+final class UrlBuilderTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Item\UrlBuilderInterface

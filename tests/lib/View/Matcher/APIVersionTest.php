@@ -7,7 +7,7 @@ use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\Matcher\APIVersion;
 use PHPUnit\Framework\TestCase;
 
-class APIVersionTest extends TestCase
+final class APIVersionTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\View\Matcher\MatcherInterface

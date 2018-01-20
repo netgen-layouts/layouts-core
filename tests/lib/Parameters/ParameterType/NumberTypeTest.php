@@ -7,7 +7,7 @@ use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 
-class NumberTypeTest extends TestCase
+final class NumberTypeTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\NumberType::getIdentifier

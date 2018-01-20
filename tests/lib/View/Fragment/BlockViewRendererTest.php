@@ -11,7 +11,7 @@ use Netgen\BlockManager\View\View\LayoutView;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
 
-class BlockViewRendererTest extends TestCase
+final class BlockViewRendererTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

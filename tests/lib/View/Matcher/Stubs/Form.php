@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\View\Matcher\Stubs;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class Form extends AbstractType
+final class Form extends AbstractType
 {
     /**
      * Configures the options for this type.

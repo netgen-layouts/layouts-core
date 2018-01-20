@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Exception\Layout;
 use Netgen\BlockManager\Exception\Layout\TargetTypeException;
 use PHPUnit\Framework\TestCase;
 
-class TargetTypeExceptionTest extends TestCase
+final class TargetTypeExceptionTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Exception\Layout\TargetTypeException::noTargetType

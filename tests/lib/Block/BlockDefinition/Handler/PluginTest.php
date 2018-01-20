@@ -10,7 +10,7 @@ use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
 use PHPUnit\Framework\TestCase;
 
-class PluginTest extends TestCase
+final class PluginTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Handler\Plugin

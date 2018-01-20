@@ -19,7 +19,7 @@ use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition as Persisten
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule as PersistenceRule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
 
-class LayoutResolverServiceTest extends ServiceTestCase
+final class LayoutResolverServiceTest extends ServiceTestCase
 {
     /**
      * Sets up the tests.

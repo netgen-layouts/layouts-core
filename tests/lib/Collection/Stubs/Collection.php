@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Collection\Stubs;
 use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 
-class Collection implements APICollection
+final class Collection implements APICollection
 {
     /**
      * @var array

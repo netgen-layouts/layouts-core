@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use PHPUnit\Framework\TestCase;
 
-class ConfigStructTest extends TestCase
+final class ConfigStructTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait

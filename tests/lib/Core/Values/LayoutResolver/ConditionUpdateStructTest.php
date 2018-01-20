@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Values\LayoutResolver;
 use Netgen\BlockManager\API\Values\LayoutResolver\ConditionUpdateStruct;
 use PHPUnit\Framework\TestCase;
 
-class ConditionUpdateStructTest extends TestCase
+final class ConditionUpdateStructTest extends TestCase
 {
     public function testDefaultProperties()
     {

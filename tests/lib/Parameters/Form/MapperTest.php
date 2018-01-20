@@ -7,7 +7,7 @@ use Netgen\BlockManager\Parameters\ParameterType\TextLineType;
 use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use PHPUnit\Framework\TestCase;
 
-class MapperTest extends TestCase
+final class MapperTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Parameters\Form\MapperInterface

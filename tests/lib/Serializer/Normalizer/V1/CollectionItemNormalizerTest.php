@@ -11,7 +11,7 @@ use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value as APIValue;
 use PHPUnit\Framework\TestCase;
 
-class CollectionItemNormalizerTest extends TestCase
+final class CollectionItemNormalizerTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

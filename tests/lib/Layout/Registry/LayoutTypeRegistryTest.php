@@ -7,7 +7,7 @@ use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use PHPUnit\Framework\TestCase;
 
-class LayoutTypeRegistryTest extends TestCase
+final class LayoutTypeRegistryTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Layout\Type\LayoutType

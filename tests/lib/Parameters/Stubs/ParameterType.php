@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Parameters\Stubs;
 use Netgen\BlockManager\Parameters\ParameterInterface;
 use Netgen\BlockManager\Parameters\ParameterType as BaseParameterType;
 
-class ParameterType extends BaseParameterType
+final class ParameterType extends BaseParameterType
 {
     /**
      * Returns the parameter type identifier.

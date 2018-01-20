@@ -8,7 +8,7 @@ use Netgen\BlockManager\Item\UrlBuilderInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntime;
 use PHPUnit\Framework\TestCase;
 
-class ItemRuntimeTest extends TestCase
+final class ItemRuntimeTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

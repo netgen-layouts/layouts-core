@@ -6,7 +6,7 @@ use Doctrine\DBAL\DriverManager;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\QueryHandler;
 use PHPUnit\Framework\TestCase;
 
-class QueryHandlerTest extends TestCase
+final class QueryHandlerTest extends TestCase
 {
     /**
      * @var \Doctrine\DBAL\Connection

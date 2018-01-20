@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\View;
 use Netgen\BlockManager\Tests\View\Stubs\CacheableView;
 use PHPUnit\Framework\TestCase;
 
-class CacheableViewTraitTest extends TestCase
+final class CacheableViewTraitTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\View\CacheableViewInterface

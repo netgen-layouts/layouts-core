@@ -14,7 +14,7 @@ use Netgen\BlockManager\Validator\Structs\ConfigAwareStructValidator;
 use stdClass;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class ConfigAwareStructValidatorTest extends ValidatorTestCase
+final class ConfigAwareStructValidatorTest extends ValidatorTestCase
 {
     public function setUp()
     {

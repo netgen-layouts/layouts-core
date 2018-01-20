@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\HttpCache\Block;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\HttpCache\Block\CacheableResolver\VoterInterface;
 
-class VoterStub implements VoterInterface
+final class VoterStub implements VoterInterface
 {
     /**
      * @var bool|null

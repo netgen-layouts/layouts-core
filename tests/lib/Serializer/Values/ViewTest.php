@@ -8,7 +8,7 @@ use Netgen\BlockManager\View\ViewInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-class ViewTest extends TestCase
+final class ViewTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Serializer\Values\View

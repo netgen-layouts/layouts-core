@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManager;
 
-class ConfigControllerTest extends JsonApiTestCase
+final class ConfigControllerTest extends JsonApiTestCase
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\ConfigController::__construct

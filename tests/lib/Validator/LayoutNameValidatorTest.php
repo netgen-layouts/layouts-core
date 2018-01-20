@@ -8,7 +8,7 @@ use Netgen\BlockManager\Validator\Constraint\LayoutName;
 use Netgen\BlockManager\Validator\LayoutNameValidator;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class LayoutNameValidatorTest extends ValidatorTestCase
+final class LayoutNameValidatorTest extends ValidatorTestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

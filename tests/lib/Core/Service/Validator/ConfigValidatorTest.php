@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\Validator\Validation;
 
-class ConfigValidatorTest extends TestCase
+final class ConfigValidatorTest extends TestCase
 {
     /**
      * @var \Symfony\Component\Validator\Validator\ValidatorInterface

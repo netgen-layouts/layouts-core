@@ -9,7 +9,7 @@ use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinition;
 use Netgen\BlockManager\Tests\Core\Stubs\ConfigAwareValue;
 use PHPUnit\Framework\TestCase;
 
-class ConfigAwareValueTraitTest extends TestCase
+final class ConfigAwareValueTraitTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\Config\ConfigAwareValueTrait::getConfigs

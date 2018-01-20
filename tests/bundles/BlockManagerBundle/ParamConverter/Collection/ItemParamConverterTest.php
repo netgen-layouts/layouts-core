@@ -8,7 +8,7 @@ use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\ItemParamConverter;
 use PHPUnit\Framework\TestCase;
 
-class ItemParamConverterTest extends TestCase
+final class ItemParamConverterTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

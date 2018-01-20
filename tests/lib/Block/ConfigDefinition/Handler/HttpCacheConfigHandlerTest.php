@@ -8,7 +8,7 @@ use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface;
 use PHPUnit\Framework\TestCase;
 
-class HttpCacheConfigHandlerTest extends TestCase
+final class HttpCacheConfigHandlerTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

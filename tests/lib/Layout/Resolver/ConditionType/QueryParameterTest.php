@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validation;
 
-class QueryParameterTest extends TestCase
+final class QueryParameterTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\ConditionType\QueryParameter

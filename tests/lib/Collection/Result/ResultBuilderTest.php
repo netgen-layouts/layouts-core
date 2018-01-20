@@ -18,7 +18,7 @@ use Netgen\BlockManager\Tests\Item\Stubs\ValueConverter;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueLoader;
 use PHPUnit\Framework\TestCase;
 
-class ResultBuilderTest extends TestCase
+final class ResultBuilderTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Item\ItemBuilderInterface

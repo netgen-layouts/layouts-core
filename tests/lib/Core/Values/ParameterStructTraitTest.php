@@ -11,7 +11,7 @@ use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterCollection;
 use PHPUnit\Framework\TestCase;
 
-class ParameterStructTraitTest extends TestCase
+final class ParameterStructTraitTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\API\Values\ParameterStructTrait

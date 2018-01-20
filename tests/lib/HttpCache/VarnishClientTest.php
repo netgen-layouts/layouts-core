@@ -8,7 +8,7 @@ use Netgen\BlockManager\HttpCache\Layout\IdProviderInterface;
 use Netgen\BlockManager\HttpCache\VarnishClient;
 use PHPUnit\Framework\TestCase;
 
-class VarnishClientTest extends TestCase
+final class VarnishClientTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

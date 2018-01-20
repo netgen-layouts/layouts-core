@@ -13,7 +13,7 @@ use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class FullEditTypeTest extends FormTestCase
+final class FullEditTypeTest extends FormTestCase
 {
     /**
      * @var \Netgen\BlockManager\API\Values\Collection\Query

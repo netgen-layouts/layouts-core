@@ -8,7 +8,7 @@ use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\LayoutParamConverter;
 use PHPUnit\Framework\TestCase;
 
-class LayoutParamConverterTest extends TestCase
+final class LayoutParamConverterTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

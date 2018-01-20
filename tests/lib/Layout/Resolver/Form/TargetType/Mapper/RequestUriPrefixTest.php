@@ -6,7 +6,7 @@ use Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\RequestUriPrefix;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class RequestUriPrefixTest extends TestCase
+final class RequestUriPrefixTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\Form\TargetType\MapperInterface

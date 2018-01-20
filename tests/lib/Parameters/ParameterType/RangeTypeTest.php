@@ -7,7 +7,7 @@ use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 
-class RangeTypeTest extends TestCase
+final class RangeTypeTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\RangeType::getIdentifier

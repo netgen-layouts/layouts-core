@@ -6,7 +6,7 @@ use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\DatabaseTrait;
 use PHPUnit\Framework\TestCase;
 
-class SqliteTest extends TestCase
+final class SqliteTest extends TestCase
 {
     use DatabaseTrait;
 

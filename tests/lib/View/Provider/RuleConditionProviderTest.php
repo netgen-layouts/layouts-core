@@ -9,7 +9,7 @@ use Netgen\BlockManager\View\Provider\RuleConditionViewProvider;
 use Netgen\BlockManager\View\View\RuleConditionViewInterface;
 use PHPUnit\Framework\TestCase;
 
-class RuleConditionProviderTest extends TestCase
+final class RuleConditionProviderTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface

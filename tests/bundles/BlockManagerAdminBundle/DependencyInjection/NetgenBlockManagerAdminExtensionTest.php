@@ -6,7 +6,7 @@ use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection\NetgenBlockManagerAdminExtension;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
 
-class NetgenBlockManagerAdminExtensionTest extends AbstractExtensionTestCase
+final class NetgenBlockManagerAdminExtensionTest extends AbstractExtensionTestCase
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\DependencyInjection\NetgenBlockManagerAdminExtension::load

@@ -8,7 +8,7 @@ use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 
-class CollectionNormalizerTest extends TestCase
+final class CollectionNormalizerTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionNormalizer

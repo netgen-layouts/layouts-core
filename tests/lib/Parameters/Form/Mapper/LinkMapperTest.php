@@ -16,7 +16,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormFactoryInterface;
 
-class LinkMapperTest extends TestCase
+final class LinkMapperTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface

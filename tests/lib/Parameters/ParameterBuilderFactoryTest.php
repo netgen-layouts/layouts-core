@@ -8,7 +8,7 @@ use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
 use PHPUnit\Framework\TestCase;
 
-class ParameterBuilderFactoryTest extends TestCase
+final class ParameterBuilderFactoryTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface

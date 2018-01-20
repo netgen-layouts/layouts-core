@@ -6,7 +6,7 @@ use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionHandler;
 use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 
-class HttpCacheConfigHandler extends ConfigDefinitionHandler
+final class HttpCacheConfigHandler extends ConfigDefinitionHandler
 {
     /**
      * Returns the array specifying block parameters.

@@ -7,7 +7,7 @@ use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
 use PHPUnit\Framework\TestCase;
 
-class HttpCacheNodeTest extends TestCase
+final class HttpCacheNodeTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
 

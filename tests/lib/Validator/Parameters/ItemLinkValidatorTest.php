@@ -10,7 +10,7 @@ use Netgen\BlockManager\Validator\Constraint\Parameters\ItemLink;
 use Netgen\BlockManager\Validator\Parameters\ItemLinkValidator;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class ItemLinkValidatorTest extends ValidatorTestCase
+final class ItemLinkValidatorTest extends ValidatorTestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

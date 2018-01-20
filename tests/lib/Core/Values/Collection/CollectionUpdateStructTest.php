@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Values\Collection;
 use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
 use PHPUnit\Framework\TestCase;
 
-class CollectionUpdateStructTest extends TestCase
+final class CollectionUpdateStructTest extends TestCase
 {
     public function testDefaultProperties()
     {

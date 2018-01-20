@@ -6,7 +6,7 @@ use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints;
 
-class TargetType implements TargetTypeInterface
+final class TargetType implements TargetTypeInterface
 {
     /**
      * @var string

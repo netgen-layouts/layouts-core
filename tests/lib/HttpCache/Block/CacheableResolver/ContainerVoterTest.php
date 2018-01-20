@@ -11,7 +11,7 @@ use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\TwigBlockDefinition;
 use PHPUnit\Framework\TestCase;
 
-class ContainerVoterTest extends TestCase
+final class ContainerVoterTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContainerVoter

@@ -10,7 +10,7 @@ use Netgen\BlockManager\View\View\ParameterViewInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use PHPUnit\Framework\TestCase;
 
-class ParameterViewProviderTest extends TestCase
+final class ParameterViewProviderTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface

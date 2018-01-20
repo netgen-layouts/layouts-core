@@ -8,7 +8,7 @@ use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\HttpCache\Layout\IdProvider;
 use PHPUnit\Framework\TestCase;
 
-class IdProviderTest extends TestCase
+final class IdProviderTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

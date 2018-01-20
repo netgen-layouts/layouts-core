@@ -6,7 +6,7 @@ use Netgen\BlockManager\Form\AbstractType;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AbstractTypeTest extends FormTestCase
+final class AbstractTypeTest extends FormTestCase
 {
     /**
      * @return \Symfony\Component\Form\FormTypeInterface

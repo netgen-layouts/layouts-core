@@ -9,7 +9,7 @@ use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 
-class BlockTypeNormalizerTest extends TestCase
+final class BlockTypeNormalizerTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Serializer\Normalizer\V1\BlockTypeNormalizer

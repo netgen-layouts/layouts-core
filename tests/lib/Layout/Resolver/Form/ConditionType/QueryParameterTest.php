@@ -9,7 +9,7 @@ use Netgen\BlockManager\Layout\Resolver\Form\ConditionType;
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\QueryParameter as QueryParameterMapper;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 
-class QueryParameterTest extends FormTestCase
+final class QueryParameterTest extends FormTestCase
 {
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface

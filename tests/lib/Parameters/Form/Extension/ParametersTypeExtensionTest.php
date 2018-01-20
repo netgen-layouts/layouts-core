@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ParametersTypeExtensionTest extends TestCase
+final class ParametersTypeExtensionTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension

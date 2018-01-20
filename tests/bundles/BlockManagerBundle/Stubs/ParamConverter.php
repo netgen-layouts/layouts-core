@@ -4,7 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Stubs;
 
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter as BaseParamConverter;
 
-class ParamConverter extends BaseParamConverter
+final class ParamConverter extends BaseParamConverter
 {
     /**
      * Returns source attribute name.

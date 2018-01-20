@@ -8,7 +8,7 @@ use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 use Netgen\BlockManager\Parameters\ParameterType\TextLineType;
 use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 
-class QueryTypeHandlerWithRequiredParameter implements QueryTypeHandlerInterface
+final class QueryTypeHandlerWithRequiredParameter implements QueryTypeHandlerInterface
 {
     /**
      * @var array

@@ -10,7 +10,7 @@ use Netgen\BlockManager\Locale\LocaleProviderInterface;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CreateTypeTest extends FormTestCase
+final class CreateTypeTest extends FormTestCase
 {
     /**
      * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface

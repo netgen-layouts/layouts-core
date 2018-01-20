@@ -8,7 +8,7 @@ use Netgen\BlockManager\Persistence\Values\Layout\Zone;
 use Netgen\BlockManager\Persistence\Values\Value;
 use PHPUnit\Framework\TestCase;
 
-class LayoutMapperTest extends TestCase
+final class LayoutMapperTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper

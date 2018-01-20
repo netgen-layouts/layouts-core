@@ -8,7 +8,7 @@ use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHan
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
-class LayoutResolverQueryHandlerTest extends TestCase
+final class LayoutResolverQueryHandlerTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::__construct

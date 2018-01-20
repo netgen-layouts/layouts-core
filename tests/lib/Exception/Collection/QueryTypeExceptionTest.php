@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Exception\Collection;
 use Netgen\BlockManager\Exception\Collection\QueryTypeException;
 use PHPUnit\Framework\TestCase;
 
-class QueryTypeExceptionTest extends TestCase
+final class QueryTypeExceptionTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Exception\Collection\QueryTypeException::noQueryType

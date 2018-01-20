@@ -9,7 +9,7 @@ use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
 use PHPUnit\Framework\TestCase;
 
-class RuleTest extends TestCase
+final class RuleTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::__construct

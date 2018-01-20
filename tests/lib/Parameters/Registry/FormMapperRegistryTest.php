@@ -7,7 +7,7 @@ use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
 use Netgen\BlockManager\Tests\Parameters\Stubs\FormMapper;
 use PHPUnit\Framework\TestCase;
 
-class FormMapperRegistryTest extends TestCase
+final class FormMapperRegistryTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Parameters\Form\MapperInterface

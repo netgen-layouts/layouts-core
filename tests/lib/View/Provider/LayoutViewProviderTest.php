@@ -9,7 +9,7 @@ use Netgen\BlockManager\View\Provider\LayoutViewProvider;
 use Netgen\BlockManager\View\View\LayoutViewInterface;
 use PHPUnit\Framework\TestCase;
 
-class LayoutViewProviderTest extends TestCase
+final class LayoutViewProviderTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface

@@ -9,7 +9,7 @@ use Pagerfanta\Pagerfanta;
 use Pagerfanta\View\ViewInterface;
 use PHPUnit\Framework\TestCase;
 
-class CollectionPagerRuntimeTest extends TestCase
+final class CollectionPagerRuntimeTest extends TestCase
 {
     /**
      * @var callable

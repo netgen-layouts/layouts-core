@@ -8,7 +8,7 @@ use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 use PHPUnit\Framework\TestCase;
 
-class PositionHelperTest extends TestCase
+final class PositionHelperTest extends TestCase
 {
     use TestCaseTrait;
 

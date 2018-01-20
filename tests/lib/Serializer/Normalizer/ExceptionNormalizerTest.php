@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class ExceptionNormalizerTest extends TestCase
+final class ExceptionNormalizerTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer

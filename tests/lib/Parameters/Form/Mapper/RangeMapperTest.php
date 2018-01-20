@@ -8,7 +8,7 @@ use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
 
-class RangeMapperTest extends TestCase
+final class RangeMapperTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Parameters\Form\Mapper\RangeMapper

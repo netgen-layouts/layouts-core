@@ -8,7 +8,7 @@ use Netgen\BlockManager\HttpCache\Tagger;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-class TaggerTest extends TestCase
+final class TaggerTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\HttpCache\Tagger

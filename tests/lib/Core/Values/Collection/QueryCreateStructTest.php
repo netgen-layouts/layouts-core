@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\Collection\QueryType;
 use PHPUnit\Framework\TestCase;
 
-class QueryCreateStructTest extends TestCase
+final class QueryCreateStructTest extends TestCase
 {
     public function testDefaultProperties()
     {

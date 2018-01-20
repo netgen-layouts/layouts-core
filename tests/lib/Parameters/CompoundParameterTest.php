@@ -6,7 +6,7 @@ use Netgen\BlockManager\Exception\Parameters\ParameterException;
 use Netgen\BlockManager\Parameters\CompoundParameter;
 use PHPUnit\Framework\TestCase;
 
-class CompoundParameterTest extends TestCase
+final class CompoundParameterTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Parameters\CompoundParameter::__construct

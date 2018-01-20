@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Collection\Result;
 use Netgen\BlockManager\Collection\Result\Slot;
 use PHPUnit\Framework\TestCase;
 
-class SlotTest extends TestCase
+final class SlotTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Collection\Result\Slot::getValueId

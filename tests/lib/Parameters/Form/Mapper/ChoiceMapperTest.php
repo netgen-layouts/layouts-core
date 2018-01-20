@@ -9,7 +9,7 @@ use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class ChoiceMapperTest extends TestCase
+final class ChoiceMapperTest extends TestCase
 {
     use ChoicesAsValuesTrait;
 

@@ -8,7 +8,7 @@ use Netgen\BlockManager\Core\Values\Layout\Zone;
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\ZoneParamConverter;
 use PHPUnit\Framework\TestCase;
 
-class ZoneParamConverterTest extends TestCase
+final class ZoneParamConverterTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

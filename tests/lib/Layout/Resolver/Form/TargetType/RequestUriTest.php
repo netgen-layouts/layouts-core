@@ -9,7 +9,7 @@ use Netgen\BlockManager\Layout\Resolver\TargetType\RequestUri;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class RequestUriTest extends FormTestCase
+final class RequestUriTest extends FormTestCase
 {
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\TargetTypeInterface

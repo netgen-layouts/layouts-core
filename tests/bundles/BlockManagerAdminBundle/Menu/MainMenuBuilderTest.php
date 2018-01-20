@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
-class MainMenuBuilderTest extends TestCase
+final class MainMenuBuilderTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

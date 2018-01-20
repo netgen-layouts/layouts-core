@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Validator\Constraint\Structs;
 use Netgen\BlockManager\Validator\Constraint\Structs\ConfigAwareStruct;
 use PHPUnit\Framework\TestCase;
 
-class ConfigAwareStructTest extends TestCase
+final class ConfigAwareStructTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Validator\Constraint\Structs\ConfigAwareStruct::validatedBy

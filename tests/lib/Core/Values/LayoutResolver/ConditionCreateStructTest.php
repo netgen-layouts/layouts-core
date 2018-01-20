@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Values\LayoutResolver;
 use Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct;
 use PHPUnit\Framework\TestCase;
 
-class ConditionCreateStructTest extends TestCase
+final class ConditionCreateStructTest extends TestCase
 {
     public function testDefaultProperties()
     {

@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Exception\Layout;
 use Netgen\BlockManager\Exception\Layout\ConditionTypeException;
 use PHPUnit\Framework\TestCase;
 
-class ConditionTypeExceptionTest extends TestCase
+final class ConditionTypeExceptionTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Exception\Layout\ConditionTypeException::noConditionType

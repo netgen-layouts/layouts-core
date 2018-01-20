@@ -10,7 +10,7 @@ use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Item\NullItem;
 use PHPUnit\Framework\TestCase;
 
-class ResultFilterIteratorTest extends TestCase
+final class ResultFilterIteratorTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Collection\Result\ResultFilterIterator::__construct

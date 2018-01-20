@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-class SetIsAdminRequestListenerTest extends TestCase
+final class SetIsAdminRequestListenerTest extends TestCase
 {
     /**
      * @var \Netgen\Bundle\BlockManagerAdminBundle\EventListener\SetIsAdminRequestListener

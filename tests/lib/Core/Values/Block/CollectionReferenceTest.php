@@ -6,7 +6,7 @@ use Netgen\BlockManager\Core\Values\Block\CollectionReference;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use PHPUnit\Framework\TestCase;
 
-class CollectionReferenceTest extends TestCase
+final class CollectionReferenceTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\Block\CollectionReference::__construct

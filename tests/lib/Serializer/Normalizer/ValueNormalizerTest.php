@@ -10,7 +10,7 @@ use Netgen\BlockManager\Tests\Core\Stubs\Value as StubValue;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Serializer;
 
-class ValueNormalizerTest extends TestCase
+final class ValueNormalizerTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

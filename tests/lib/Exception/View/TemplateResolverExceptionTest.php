@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Exception\View;
 use Netgen\BlockManager\Exception\View\TemplateResolverException;
 use PHPUnit\Framework\TestCase;
 
-class TemplateResolverExceptionTest extends TestCase
+final class TemplateResolverExceptionTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Exception\View\TemplateResolverException::__construct

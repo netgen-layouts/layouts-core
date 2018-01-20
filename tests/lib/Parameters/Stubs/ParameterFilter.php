@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Parameters\Stubs;
 
 use Netgen\BlockManager\Parameters\ParameterFilterInterface;
 
-class ParameterFilter implements ParameterFilterInterface
+final class ParameterFilter implements ParameterFilterInterface
 {
     /**
      * Filters the parameter value.

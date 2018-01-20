@@ -6,7 +6,7 @@ use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\View\View\LayoutView;
 use PHPUnit\Framework\TestCase;
 
-class LayoutViewTest extends TestCase
+final class LayoutViewTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\API\Values\Layout\Layout

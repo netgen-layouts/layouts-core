@@ -14,7 +14,7 @@ use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
 use Netgen\BlockManager\Validator\Structs\ParameterStructValidator;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class ParameterStructValidatorTest extends ValidatorTestCase
+final class ParameterStructValidatorTest extends ValidatorTestCase
 {
     public function setUp()
     {

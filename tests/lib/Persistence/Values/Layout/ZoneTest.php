@@ -6,7 +6,7 @@ use Netgen\BlockManager\Persistence\Values\Layout\Zone;
 use Netgen\BlockManager\Persistence\Values\Value;
 use PHPUnit\Framework\TestCase;
 
-class ZoneTest extends TestCase
+final class ZoneTest extends TestCase
 {
     public function testSetDefaultProperties()
     {

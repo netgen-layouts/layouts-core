@@ -6,7 +6,7 @@ use Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\PathInfo;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class PathInfoTest extends TestCase
+final class PathInfoTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\Form\TargetType\MapperInterface

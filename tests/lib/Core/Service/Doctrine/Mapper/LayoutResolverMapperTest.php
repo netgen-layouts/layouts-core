@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Service\Doctrine\Mapper;
 use Netgen\BlockManager\Tests\Core\Service\Mapper\LayoutResolverMapperTest as BaseLayoutResolverMapperTest;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 
-class LayoutResolverMapperTest extends BaseLayoutResolverMapperTest
+final class LayoutResolverMapperTest extends BaseLayoutResolverMapperTest
 {
     use TestCaseTrait;
 

@@ -6,7 +6,7 @@ use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\View\View\ParameterView;
 use PHPUnit\Framework\TestCase;
 
-class ParameterViewTest extends TestCase
+final class ParameterViewTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterValue

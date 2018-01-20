@@ -12,7 +12,7 @@ use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 
-class ItemLinkTypeTest extends TestCase
+final class ItemLinkTypeTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface

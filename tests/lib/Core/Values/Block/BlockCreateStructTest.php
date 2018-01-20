@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\Block\BlockDefinition;
 use PHPUnit\Framework\TestCase;
 
-class BlockCreateStructTest extends TestCase
+final class BlockCreateStructTest extends TestCase
 {
     public function testDefaultProperties()
     {

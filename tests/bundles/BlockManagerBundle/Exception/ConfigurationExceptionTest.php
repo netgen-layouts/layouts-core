@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Exception;
 use Netgen\Bundle\BlockManagerBundle\Exception\ConfigurationException;
 use PHPUnit\Framework\TestCase;
 
-class ConfigurationExceptionTest extends TestCase
+final class ConfigurationExceptionTest extends TestCase
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Exception\ConfigurationException::noParameter

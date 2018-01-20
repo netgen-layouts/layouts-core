@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-class AjaxBlockRequestListenerTest extends TestCase
+final class AjaxBlockRequestListenerTest extends TestCase
 {
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\EventListener\AjaxBlockRequestListener

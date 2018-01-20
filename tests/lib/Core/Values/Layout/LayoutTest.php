@@ -11,7 +11,7 @@ use Netgen\BlockManager\Layout\Type\LayoutType;
 use PHPUnit\Framework\TestCase;
 use Traversable;
 
-class LayoutTest extends TestCase
+final class LayoutTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::__construct

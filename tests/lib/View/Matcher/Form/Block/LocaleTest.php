@@ -11,7 +11,7 @@ use Netgen\BlockManager\View\View\FormView;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Forms;
 
-class LocaleTest extends TestCase
+final class LocaleTest extends TestCase
 {
     /**
      * @var \Symfony\Component\Form\FormFactoryInterface

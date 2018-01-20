@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
 use PHPUnit\Framework\TestCase;
 
-class ItemCreateStructTest extends TestCase
+final class ItemCreateStructTest extends TestCase
 {
     public function testDefaultProperties()
     {

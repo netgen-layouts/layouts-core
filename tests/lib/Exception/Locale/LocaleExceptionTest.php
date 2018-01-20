@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Exception\Locale;
 use Netgen\BlockManager\Exception\Locale\LocaleException;
 use PHPUnit\Framework\TestCase;
 
-class LocaleExceptionTest extends TestCase
+final class LocaleExceptionTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Exception\Locale\LocaleException::noLocale

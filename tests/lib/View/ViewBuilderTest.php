@@ -11,7 +11,7 @@ use Netgen\BlockManager\View\ViewBuilder;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class ViewBuilderTest extends TestCase
+final class ViewBuilderTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

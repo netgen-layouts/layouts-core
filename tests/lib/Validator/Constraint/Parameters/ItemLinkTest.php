@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Validator\Constraint\Parameters;
 use Netgen\BlockManager\Validator\Constraint\Parameters\ItemLink;
 use PHPUnit\Framework\TestCase;
 
-class ItemLinkTest extends TestCase
+final class ItemLinkTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Validator\Constraint\Parameters\ItemLink::validatedBy

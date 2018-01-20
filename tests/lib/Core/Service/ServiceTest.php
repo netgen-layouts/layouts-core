@@ -7,7 +7,7 @@ use Netgen\BlockManager\Core\Service\Service;
 use Netgen\BlockManager\Persistence\HandlerInterface;
 use PHPUnit\Framework\TestCase;
 
-class ServiceTest extends TestCase
+final class ServiceTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

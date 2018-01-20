@@ -7,7 +7,7 @@ use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use PHPUnit\Framework\TestCase;
 
-class CollectViewParametersEventTest extends TestCase
+final class CollectViewParametersEventTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Event\CollectViewParametersEvent

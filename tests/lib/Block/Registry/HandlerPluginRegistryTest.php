@@ -9,7 +9,7 @@ use Netgen\BlockManager\Tests\Block\Stubs\HandlerPlugin;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
-class HandlerPluginRegistryTest extends TestCase
+final class HandlerPluginRegistryTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Block\Registry\HandlerPluginRegistry

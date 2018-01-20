@@ -7,7 +7,7 @@ use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\QueryParameter
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class QueryParameterTest extends TestCase
+final class QueryParameterTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\MapperInterface

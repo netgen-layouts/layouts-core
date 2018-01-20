@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Config\Stubs\Block;
 use Netgen\BlockManager\API\Values\Config\ConfigAwareValue;
 use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionHandler;
 
-class DisabledConfigHandler extends ConfigDefinitionHandler
+final class DisabledConfigHandler extends ConfigDefinitionHandler
 {
     /**
      * Returns the array specifying block parameters.

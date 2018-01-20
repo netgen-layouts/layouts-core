@@ -4,7 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Stubs;
 
 use Netgen\BlockManager\API\Values\Value as APIValue;
 
-class Value implements APIValue
+final class Value implements APIValue
 {
     private $valueParams;
 

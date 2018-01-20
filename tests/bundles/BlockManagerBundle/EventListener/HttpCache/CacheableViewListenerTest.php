@@ -12,7 +12,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-class CacheableViewListenerTest extends TestCase
+final class CacheableViewListenerTest extends TestCase
 {
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewListener

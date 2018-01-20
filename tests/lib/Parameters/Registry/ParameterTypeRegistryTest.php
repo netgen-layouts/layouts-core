@@ -7,7 +7,7 @@ use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterType;
 use PHPUnit\Framework\TestCase;
 
-class ParameterTypeRegistryTest extends TestCase
+final class ParameterTypeRegistryTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterType

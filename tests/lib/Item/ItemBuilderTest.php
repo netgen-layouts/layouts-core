@@ -10,7 +10,7 @@ use Netgen\BlockManager\Tests\Item\Stubs\ValueConverter;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
-class ItemBuilderTest extends TestCase
+final class ItemBuilderTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Item\ItemBuilder::__construct

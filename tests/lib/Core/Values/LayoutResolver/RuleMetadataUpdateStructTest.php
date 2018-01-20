@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Values\LayoutResolver;
 use Netgen\BlockManager\API\Values\LayoutResolver\RuleMetadataUpdateStruct;
 use PHPUnit\Framework\TestCase;
 
-class RuleMetadataUpdateStructTest extends TestCase
+final class RuleMetadataUpdateStructTest extends TestCase
 {
     public function testDefaultProperties()
     {

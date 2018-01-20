@@ -9,7 +9,7 @@ use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameter;
 use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 
-class BlockDefinitionHandlerWithUntranslatableCompoundParameter extends BaseBlockDefinitionHandler
+final class BlockDefinitionHandlerWithUntranslatableCompoundParameter extends BaseBlockDefinitionHandler
 {
     /**
      * @var array

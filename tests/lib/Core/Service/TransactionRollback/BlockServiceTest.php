@@ -18,7 +18,7 @@ use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
 
-class BlockServiceTest extends ServiceTestCase
+final class BlockServiceTest extends ServiceTestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

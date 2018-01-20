@@ -8,7 +8,7 @@ use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterType;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class ParameterTypeTest extends TestCase
+final class ParameterTypeTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterTypeInterface

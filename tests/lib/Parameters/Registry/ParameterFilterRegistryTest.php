@@ -6,7 +6,7 @@ use Netgen\BlockManager\Parameters\ParameterFilterInterface;
 use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry;
 use PHPUnit\Framework\TestCase;
 
-class ParameterFilterRegistryTest extends TestCase
+final class ParameterFilterRegistryTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterFilterInterface

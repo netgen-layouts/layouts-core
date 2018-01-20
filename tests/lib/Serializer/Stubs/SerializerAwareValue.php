@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Serializer\Stubs;
 
 use Netgen\BlockManager\Serializer\SerializerAwareTrait;
 
-class SerializerAwareValue
+final class SerializerAwareValue
 {
     use SerializerAwareTrait;
 

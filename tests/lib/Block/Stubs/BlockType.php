@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Block\Stubs;
 
 use Netgen\BlockManager\Block\BlockType\BlockType as BaseBlockType;
 
-class BlockType extends BaseBlockType
+final class BlockType extends BaseBlockType
 {
     /**
      * Constructor.

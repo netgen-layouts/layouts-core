@@ -7,7 +7,7 @@ use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
 use PHPUnit\Framework\TestCase;
 
-class ViewNodeTest extends TestCase
+final class ViewNodeTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
 

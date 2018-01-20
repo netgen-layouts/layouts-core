@@ -8,7 +8,7 @@ use Netgen\BlockManager\Parameters\ParameterType\Compound\BooleanType;
 use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use PHPUnit\Framework\TestCase;
 
-class BooleanMapperTest extends TestCase
+final class BooleanMapperTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Parameters\Form\Mapper\Compound\BooleanMapper

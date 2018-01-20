@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Layout\Resolver\Form\TargetType;
 use Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper;
 use PHPUnit\Framework\TestCase;
 
-class MapperTest extends TestCase
+final class MapperTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\Form\TargetType\MapperInterface

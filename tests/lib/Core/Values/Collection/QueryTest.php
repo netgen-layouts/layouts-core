@@ -8,7 +8,7 @@ use Netgen\BlockManager\Exception\Core\ParameterException;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 
-class QueryTest extends TestCase
+final class QueryTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::__construct

@@ -7,7 +7,7 @@ use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class RouteParameterTest extends TestCase
+final class RouteParameterTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\MapperInterface

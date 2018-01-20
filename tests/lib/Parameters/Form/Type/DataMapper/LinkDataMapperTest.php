@@ -11,7 +11,7 @@ use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\BlockManager\Parameters\ParameterType\LinkType;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
 
-class LinkDataMapperTest extends DataMapperTest
+final class LinkDataMapperTest extends DataMapperTest
 {
     /**
      * @var \Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper

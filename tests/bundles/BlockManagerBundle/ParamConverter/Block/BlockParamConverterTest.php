@@ -8,7 +8,7 @@ use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\Block\BlockParamConverter;
 use PHPUnit\Framework\TestCase;
 
-class BlockParamConverterTest extends TestCase
+final class BlockParamConverterTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

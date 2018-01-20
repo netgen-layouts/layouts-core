@@ -7,7 +7,7 @@ use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
 use PHPUnit\Framework\TestCase;
 
-class ConditionTest extends TestCase
+final class ConditionTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::__construct

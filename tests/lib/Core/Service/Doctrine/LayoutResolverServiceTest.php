@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Service\Doctrine;
 use Netgen\BlockManager\Tests\Core\Service\LayoutResolverServiceTest as BaseLayoutResolverServiceTest;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 
-class LayoutResolverServiceTest extends BaseLayoutResolverServiceTest
+final class LayoutResolverServiceTest extends BaseLayoutResolverServiceTest
 {
     use TestCaseTrait;
 

@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
-class SetAdminPageLayoutListenerTest extends TestCase
+final class SetAdminPageLayoutListenerTest extends TestCase
 {
     /**
      * @var \Netgen\Bundle\BlockManagerAdminBundle\EventListener\SetAdminPageLayoutListener

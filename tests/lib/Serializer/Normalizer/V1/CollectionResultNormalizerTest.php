@@ -10,7 +10,7 @@ use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value as APIValue;
 use PHPUnit\Framework\TestCase;
 
-class CollectionResultNormalizerTest extends TestCase
+final class CollectionResultNormalizerTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer

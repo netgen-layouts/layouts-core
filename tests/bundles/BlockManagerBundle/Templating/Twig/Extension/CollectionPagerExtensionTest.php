@@ -6,7 +6,7 @@ use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\CollectionPagerEx
 use PHPUnit\Framework\TestCase;
 use Twig\TwigFunction;
 
-class CollectionPagerExtensionTest extends TestCase
+final class CollectionPagerExtensionTest extends TestCase
 {
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\CollectionPagerExtension

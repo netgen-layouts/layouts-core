@@ -8,7 +8,7 @@ use Netgen\BlockManager\Block\DynamicParameters;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 use Netgen\BlockManager\Parameters\ParameterType;
 
-class HandlerPlugin extends Plugin
+final class HandlerPlugin extends Plugin
 {
     /**
      * @var string[]

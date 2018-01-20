@@ -8,7 +8,7 @@ use Netgen\BlockManager\Parameters\ParameterType\NumberType as NumberParameterTy
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
-class NumberMapperTest extends TestCase
+final class NumberMapperTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Parameters\Form\Mapper\NumberMapper

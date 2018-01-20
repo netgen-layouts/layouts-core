@@ -6,7 +6,7 @@ use Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\RoutePrefix;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class RoutePrefixTest extends TestCase
+final class RoutePrefixTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\Form\TargetType\MapperInterface

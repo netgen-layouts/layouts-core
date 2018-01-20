@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Exception\Core;
 use Netgen\BlockManager\Exception\Core\ConfigException;
 use PHPUnit\Framework\TestCase;
 
-class ConfigExceptionTest extends TestCase
+final class ConfigExceptionTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Exception\Core\ConfigException::noConfig

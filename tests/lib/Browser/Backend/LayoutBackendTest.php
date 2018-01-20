@@ -10,7 +10,7 @@ use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\ContentBrowser\Item\ItemInterface;
 use PHPUnit\Framework\TestCase;
 
-class LayoutBackendTest extends TestCase
+final class LayoutBackendTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

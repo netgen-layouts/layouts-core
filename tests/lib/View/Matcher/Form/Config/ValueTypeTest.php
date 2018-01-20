@@ -13,7 +13,7 @@ use Netgen\BlockManager\View\View\FormView;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Forms;
 
-class ValueTypeTest extends TestCase
+final class ValueTypeTest extends TestCase
 {
     /**
      * @var \Symfony\Component\Form\FormFactoryInterface

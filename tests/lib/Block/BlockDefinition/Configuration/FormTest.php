@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Form;
 use PHPUnit\Framework\TestCase;
 
-class FormTest extends TestCase
+final class FormTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\Form

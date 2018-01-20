@@ -8,7 +8,7 @@ use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\QueryParamConverter;
 use PHPUnit\Framework\TestCase;
 
-class QueryParamConverterTest extends TestCase
+final class QueryParamConverterTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

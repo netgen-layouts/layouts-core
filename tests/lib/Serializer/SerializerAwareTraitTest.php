@@ -6,7 +6,7 @@ use Netgen\BlockManager\Tests\Serializer\Stubs\SerializerAwareValue;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class SerializerAwareTraitTest extends TestCase
+final class SerializerAwareTraitTest extends TestCase
 {
     public function testDefaultSerializerValue()
     {

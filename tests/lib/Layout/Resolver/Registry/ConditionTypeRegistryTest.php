@@ -7,7 +7,7 @@ use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
 use PHPUnit\Framework\TestCase;
 
-class ConditionTypeRegistryTest extends TestCase
+final class ConditionTypeRegistryTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface

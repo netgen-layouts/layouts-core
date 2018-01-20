@@ -9,7 +9,7 @@ use Netgen\BlockManager\View\Matcher\Item\ViewType;
 use Netgen\BlockManager\View\View\ItemView;
 use PHPUnit\Framework\TestCase;
 
-class ViewTypeTest extends TestCase
+final class ViewTypeTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\View\Matcher\MatcherInterface

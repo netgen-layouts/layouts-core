@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\DynamicContainerHandler;
 use PHPUnit\Framework\TestCase;
 
-class DynamicContainerHandlerTest extends TestCase
+final class DynamicContainerHandlerTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\DynamicContainerHandler

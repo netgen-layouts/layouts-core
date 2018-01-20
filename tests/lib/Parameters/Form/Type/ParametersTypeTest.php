@@ -18,7 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ParametersTypeTest extends FormTestCase
+final class ParametersTypeTest extends FormTestCase
 {
     /**
      * @return \Symfony\Component\Form\FormTypeInterface

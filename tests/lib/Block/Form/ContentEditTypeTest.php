@@ -18,7 +18,7 @@ use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ContentEditTypeTest extends FormTestCase
+final class ContentEditTypeTest extends FormTestCase
 {
     /**
      * @var \Netgen\BlockManager\API\Values\Block\Block

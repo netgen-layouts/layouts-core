@@ -6,7 +6,7 @@ use ArrayIterator;
 use Netgen\BlockManager\Context\Context;
 use PHPUnit\Framework\TestCase;
 
-class ContextTest extends TestCase
+final class ContextTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Context\Context

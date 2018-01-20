@@ -8,7 +8,7 @@ use Netgen\BlockManager\Layout\Form\CopyType;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CopyTypeTest extends FormTestCase
+final class CopyTypeTest extends FormTestCase
 {
     /**
      * @var \Netgen\BlockManager\API\Values\Layout\Layout

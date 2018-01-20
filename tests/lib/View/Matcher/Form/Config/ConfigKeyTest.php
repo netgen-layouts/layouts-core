@@ -10,7 +10,7 @@ use Netgen\BlockManager\View\View\FormView;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Forms;
 
-class ConfigKeyTest extends TestCase
+final class ConfigKeyTest extends TestCase
 {
     /**
      * @var \Symfony\Component\Form\FormFactoryInterface

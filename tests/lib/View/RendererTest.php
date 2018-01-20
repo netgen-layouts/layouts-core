@@ -10,7 +10,7 @@ use Netgen\BlockManager\View\ViewInterface;
 use Netgen\BlockManager\View\ViewRendererInterface;
 use PHPUnit\Framework\TestCase;
 
-class RendererTest extends TestCase
+final class RendererTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

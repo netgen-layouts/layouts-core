@@ -13,7 +13,7 @@ use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerAdminBundle\EventListener\LayoutView\RuleCountListener;
 use PHPUnit\Framework\TestCase;
 
-class RuleCountListenerTest extends TestCase
+final class RuleCountListenerTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

@@ -6,7 +6,7 @@ use Netgen\BlockManager\Block\BlockType\BlockType;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use PHPUnit\Framework\TestCase;
 
-class BlockTypeTest extends TestCase
+final class BlockTypeTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Block\BlockType\BlockType

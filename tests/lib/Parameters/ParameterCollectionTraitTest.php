@@ -8,7 +8,7 @@ use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterCollection;
 use PHPUnit\Framework\TestCase;
 
-class ParameterCollectionTraitTest extends TestCase
+final class ParameterCollectionTraitTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterCollectionTrait::getParameter

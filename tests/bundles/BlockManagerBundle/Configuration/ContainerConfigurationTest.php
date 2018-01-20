@@ -6,7 +6,7 @@ use Netgen\Bundle\BlockManagerBundle\Configuration\ContainerConfiguration;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class ContainerConfigurationTest extends TestCase
+final class ContainerConfigurationTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

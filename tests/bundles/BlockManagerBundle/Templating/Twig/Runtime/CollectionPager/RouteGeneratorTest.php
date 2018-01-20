@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpKernel\UriSigner;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class RouteGeneratorTest extends TestCase
+final class RouteGeneratorTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

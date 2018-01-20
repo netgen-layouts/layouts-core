@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Context\Stubs;
 use Netgen\BlockManager\Context\ContextInterface;
 use Netgen\BlockManager\Context\ContextProviderInterface;
 
-class ContextProvider implements ContextProviderInterface
+final class ContextProvider implements ContextProviderInterface
 {
     /**
      * @var array

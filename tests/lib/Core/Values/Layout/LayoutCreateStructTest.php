@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use PHPUnit\Framework\TestCase;
 
-class LayoutCreateStructTest extends TestCase
+final class LayoutCreateStructTest extends TestCase
 {
     public function testDefaultProperties()
     {

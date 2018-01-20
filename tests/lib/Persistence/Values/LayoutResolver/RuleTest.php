@@ -6,7 +6,7 @@ use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\Value;
 use PHPUnit\Framework\TestCase;
 
-class RuleTest extends TestCase
+final class RuleTest extends TestCase
 {
     public function testSetDefaultProperties()
     {

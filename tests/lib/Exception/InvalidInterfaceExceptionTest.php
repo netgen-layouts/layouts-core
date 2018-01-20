@@ -6,7 +6,7 @@ use Netgen\BlockManager\Exception\InvalidInterfaceException;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
-class InvalidInterfaceExceptionTest extends TestCase
+final class InvalidInterfaceExceptionTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Exception\InvalidInterfaceException::__construct

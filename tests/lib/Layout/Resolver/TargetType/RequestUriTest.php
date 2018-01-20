@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validation;
 
-class RequestUriTest extends TestCase
+final class RequestUriTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\TargetType\RequestUri

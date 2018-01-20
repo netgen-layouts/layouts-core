@@ -10,7 +10,7 @@ use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 use Traversable;
 
-class ResultSetTest extends TestCase
+final class ResultSetTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Collection\Result\ResultSet::getCollection

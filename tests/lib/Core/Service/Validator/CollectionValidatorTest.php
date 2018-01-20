@@ -20,7 +20,7 @@ use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\Validator\Validation;
 
-class CollectionValidatorTest extends TestCase
+final class CollectionValidatorTest extends TestCase
 {
     /**
      * @var \Symfony\Component\Validator\Validator\ValidatorInterface

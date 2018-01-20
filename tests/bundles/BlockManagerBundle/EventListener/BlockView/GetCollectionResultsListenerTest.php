@@ -19,7 +19,7 @@ use Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResult
 use Pagerfanta\Pagerfanta;
 use PHPUnit\Framework\TestCase;
 
-class GetCollectionResultsListenerTest extends TestCase
+final class GetCollectionResultsListenerTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

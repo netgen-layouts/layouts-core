@@ -9,7 +9,7 @@ use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithCompoundPara
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithUntranslatableCompoundParameter;
 use PHPUnit\Framework\TestCase;
 
-class ParameterMapperTest extends TestCase
+final class ParameterMapperTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Core\Service\Mapper\ParameterMapper

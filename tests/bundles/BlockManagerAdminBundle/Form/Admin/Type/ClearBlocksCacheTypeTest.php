@@ -7,7 +7,7 @@ use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearBlocksCacheType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ClearBlocksCacheTypeTest extends FormTestCase
+final class ClearBlocksCacheTypeTest extends FormTestCase
 {
     /**
      * @var \Netgen\BlockManager\API\Values\Block\Block

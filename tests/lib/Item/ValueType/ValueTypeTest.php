@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Item\ValueType;
 use Netgen\BlockManager\Item\ValueType\ValueType;
 use PHPUnit\Framework\TestCase;
 
-class ValueTypeTest extends TestCase
+final class ValueTypeTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Item\ValueType\ValueType

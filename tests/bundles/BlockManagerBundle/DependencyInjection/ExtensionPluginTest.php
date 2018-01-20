@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 
-class ExtensionPluginTest extends TestCase
+final class ExtensionPluginTest extends TestCase
 {
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ExtensionPlugin

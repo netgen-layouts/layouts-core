@@ -6,7 +6,7 @@ use Netgen\BlockManager\Parameters\Form\Mapper\TextMapper;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-class TextMapperTest extends TestCase
+final class TextMapperTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Parameters\Form\Mapper\TextMapper

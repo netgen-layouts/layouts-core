@@ -11,7 +11,7 @@ use Netgen\BlockManager\Item\ItemBuilderInterface;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 use PHPUnit\Framework\TestCase;
 
-class ResultIteratorFactoryTest extends TestCase
+final class ResultIteratorFactoryTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

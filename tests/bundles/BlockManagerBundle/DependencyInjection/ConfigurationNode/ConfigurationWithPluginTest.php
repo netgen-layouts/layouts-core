@@ -8,7 +8,7 @@ use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExten
 use Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\Stubs\ExtensionPlugin;
 use PHPUnit\Framework\TestCase;
 
-class ConfigurationWithPluginTest extends TestCase
+final class ConfigurationWithPluginTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
 

@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Parameters\Form\Type\DataMapper;
 use ArrayIterator;
 use Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper;
 
-class ItemLinkDataMapperTest extends DataMapperTest
+final class ItemLinkDataMapperTest extends DataMapperTest
 {
     /**
      * @var \Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper

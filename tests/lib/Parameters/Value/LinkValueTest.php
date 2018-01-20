@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Parameters\Value;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
 use PHPUnit\Framework\TestCase;
 
-class LinkValueTest extends TestCase
+final class LinkValueTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Parameters\Value\LinkValue::getLinkType

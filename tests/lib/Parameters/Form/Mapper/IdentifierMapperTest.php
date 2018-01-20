@@ -6,7 +6,7 @@ use Netgen\BlockManager\Parameters\Form\Mapper\IdentifierMapper;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class IdentifierMapperTest extends TestCase
+final class IdentifierMapperTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Parameters\Form\Mapper\IdentifierMapper

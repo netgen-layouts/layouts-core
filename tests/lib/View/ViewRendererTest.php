@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Twig\Environment;
 
-class ViewRendererTest extends TestCase
+final class ViewRendererTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

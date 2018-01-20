@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Parameters\Stubs;
 use Netgen\BlockManager\Parameters\CompoundParameterType as BaseCompoundParameterType;
 use Netgen\BlockManager\Parameters\ParameterInterface;
 
-class CompoundParameterType extends BaseCompoundParameterType
+final class CompoundParameterType extends BaseCompoundParameterType
 {
     /**
      * Returns the parameter type identifier.

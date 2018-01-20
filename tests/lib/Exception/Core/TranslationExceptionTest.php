@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Exception\Core;
 use Netgen\BlockManager\Exception\Core\TranslationException;
 use PHPUnit\Framework\TestCase;
 
-class TranslationExceptionTest extends TestCase
+final class TranslationExceptionTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Exception\Core\TranslationException::noTranslation

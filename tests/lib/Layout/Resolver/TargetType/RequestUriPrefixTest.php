@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validation;
 
-class RequestUriPrefixTest extends TestCase
+final class RequestUriPrefixTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\TargetType\RequestUriPrefix

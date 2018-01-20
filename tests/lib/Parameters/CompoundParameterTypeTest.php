@@ -11,7 +11,7 @@ use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class CompoundParameterTypeTest extends TestCase
+final class CompoundParameterTypeTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Parameters\CompoundParameterTypeInterface

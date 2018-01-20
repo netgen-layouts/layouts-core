@@ -9,7 +9,7 @@ use Netgen\BlockManager\View\Provider\ItemViewProvider;
 use Netgen\BlockManager\View\View\ItemViewInterface;
 use PHPUnit\Framework\TestCase;
 
-class ItemViewProviderTest extends TestCase
+final class ItemViewProviderTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface

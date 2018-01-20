@@ -6,7 +6,7 @@ use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints;
 
-class ConditionType implements ConditionTypeInterface
+final class ConditionType implements ConditionTypeInterface
 {
     /**
      * @var string

@@ -10,7 +10,7 @@ use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 
-class CollectionIteratorFactoryTest extends TestCase
+final class CollectionIteratorFactoryTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Collection\Result\CollectionIteratorFactory

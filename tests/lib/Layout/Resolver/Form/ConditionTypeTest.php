@@ -9,7 +9,7 @@ use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use stdClass;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ConditionTypeTest extends FormTestCase
+final class ConditionTypeTest extends FormTestCase
 {
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface

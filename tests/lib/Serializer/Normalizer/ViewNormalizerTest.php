@@ -12,7 +12,7 @@ use Netgen\BlockManager\View\ViewInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Serializer;
 
-class ViewNormalizerTest extends TestCase
+final class ViewNormalizerTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

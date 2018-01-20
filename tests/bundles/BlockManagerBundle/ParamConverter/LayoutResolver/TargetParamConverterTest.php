@@ -8,7 +8,7 @@ use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
 use Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\TargetParamConverter;
 use PHPUnit\Framework\TestCase;
 
-class TargetParamConverterTest extends TestCase
+final class TargetParamConverterTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

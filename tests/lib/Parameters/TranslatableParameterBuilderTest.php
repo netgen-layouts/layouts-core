@@ -7,7 +7,7 @@ use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory;
 use PHPUnit\Framework\TestCase;
 
-class TranslatableParameterBuilderTest extends TestCase
+final class TranslatableParameterBuilderTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface

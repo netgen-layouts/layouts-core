@@ -7,7 +7,7 @@ use Netgen\BlockManager\Core\Values\Collection\Item as CollectionItem;
 use Netgen\BlockManager\Item\Item;
 use PHPUnit\Framework\TestCase;
 
-class ResultTest extends TestCase
+final class ResultTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Collection\Result\Result::getItem

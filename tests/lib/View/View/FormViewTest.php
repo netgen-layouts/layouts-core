@@ -8,7 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Forms;
 use Symfony\Component\Form\FormView as SymfonyFormView;
 
-class FormViewTest extends TestCase
+final class FormViewTest extends TestCase
 {
     /**
      * @var \Symfony\Component\Form\FormInterface

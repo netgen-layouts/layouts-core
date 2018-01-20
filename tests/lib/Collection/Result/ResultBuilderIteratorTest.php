@@ -14,7 +14,7 @@ use Netgen\BlockManager\Item\NullItem;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
-class ResultBuilderIteratorTest extends TestCase
+final class ResultBuilderIteratorTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

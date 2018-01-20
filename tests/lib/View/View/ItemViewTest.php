@@ -6,7 +6,7 @@ use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\View\View\ItemView;
 use PHPUnit\Framework\TestCase;
 
-class ItemViewTest extends TestCase
+final class ItemViewTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Item\ItemInterface

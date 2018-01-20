@@ -15,7 +15,7 @@ use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 use PHPUnit\Framework\TestCase;
 
-class LayoutHandlerTest extends TestCase
+final class LayoutHandlerTest extends TestCase
 {
     use TestCaseTrait;
 

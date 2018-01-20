@@ -9,7 +9,7 @@ use Netgen\BlockManager\View\Matcher\Block\Locale;
 use Netgen\BlockManager\View\View\BlockView;
 use PHPUnit\Framework\TestCase;
 
-class LocaleTest extends TestCase
+final class LocaleTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\View\Matcher\MatcherInterface

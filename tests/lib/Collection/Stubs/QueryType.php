@@ -7,7 +7,7 @@ use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
 use Netgen\BlockManager\Collection\QueryTypeInterface;
 use Netgen\BlockManager\Exception\Parameters\ParameterException;
 
-class QueryType implements QueryTypeInterface
+final class QueryType implements QueryTypeInterface
 {
     /**
      * @var string

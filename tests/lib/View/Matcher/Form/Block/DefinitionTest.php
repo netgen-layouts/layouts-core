@@ -12,7 +12,7 @@ use Netgen\BlockManager\View\View\FormView;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Forms;
 
-class DefinitionTest extends TestCase
+final class DefinitionTest extends TestCase
 {
     /**
      * @var \Symfony\Component\Form\FormFactoryInterface

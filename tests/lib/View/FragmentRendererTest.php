@@ -15,7 +15,7 @@ use stdClass;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
 use Symfony\Component\HttpKernel\Fragment\FragmentHandler;
 
-class FragmentRendererTest extends TestCase
+final class FragmentRendererTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

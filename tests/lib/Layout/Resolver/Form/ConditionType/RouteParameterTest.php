@@ -9,7 +9,7 @@ use Netgen\BlockManager\Layout\Resolver\Form\ConditionType;
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter as RouteParameterMapper;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 
-class RouteParameterTest extends FormTestCase
+final class RouteParameterTest extends FormTestCase
 {
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface

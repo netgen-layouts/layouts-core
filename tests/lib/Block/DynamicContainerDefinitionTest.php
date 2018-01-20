@@ -7,7 +7,7 @@ use Netgen\BlockManager\Block\ContainerDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\DynamicContainerDefinitionHandler;
 use PHPUnit\Framework\TestCase;
 
-class DynamicContainerDefinitionTest extends TestCase
+final class DynamicContainerDefinitionTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface

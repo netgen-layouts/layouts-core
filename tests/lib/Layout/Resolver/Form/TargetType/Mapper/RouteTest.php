@@ -6,7 +6,7 @@ use Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\Route;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class RouteTest extends TestCase
+final class RouteTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\Form\TargetType\MapperInterface

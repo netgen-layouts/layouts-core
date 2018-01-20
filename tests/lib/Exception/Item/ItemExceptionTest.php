@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Exception\Item;
 use Netgen\BlockManager\Exception\Item\ItemException;
 use PHPUnit\Framework\TestCase;
 
-class ItemExceptionTest extends TestCase
+final class ItemExceptionTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Exception\Item\ItemException::noValueType

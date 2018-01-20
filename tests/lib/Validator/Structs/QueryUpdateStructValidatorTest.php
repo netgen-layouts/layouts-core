@@ -14,7 +14,7 @@ use Netgen\BlockManager\Validator\Structs\QueryUpdateStructValidator;
 use stdClass;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class QueryUpdateStructValidatorTest extends ValidatorTestCase
+final class QueryUpdateStructValidatorTest extends ValidatorTestCase
 {
     public function setUp()
     {

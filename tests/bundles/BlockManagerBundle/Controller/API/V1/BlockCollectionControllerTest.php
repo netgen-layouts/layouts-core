@@ -7,7 +7,7 @@ use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-class BlockCollectionControllerTest extends JsonApiTestCase
+final class BlockCollectionControllerTest extends JsonApiTestCase
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::loadCollectionResult

@@ -27,7 +27,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-class ExceptionConversionListenerTest extends TestCase
+final class ExceptionConversionListenerTest extends TestCase
 {
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\EventListener\ExceptionConversionListener

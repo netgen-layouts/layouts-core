@@ -11,7 +11,7 @@ use Netgen\BlockManager\View\Matcher\Parameter\Type;
 use Netgen\BlockManager\View\View\ParameterView;
 use PHPUnit\Framework\TestCase;
 
-class TypeTest extends TestCase
+final class TypeTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\View\Matcher\MatcherInterface

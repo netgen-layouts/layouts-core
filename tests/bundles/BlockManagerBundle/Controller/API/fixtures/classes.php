@@ -2,7 +2,7 @@
 
 use Netgen\BlockManager\ValueObject;
 
-class Value extends ValueObject
+final class Value extends ValueObject
 {
     public $id;
 }

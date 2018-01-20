@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 use stdClass;
 use Twig\Template;
 
-class GetTwigBlockContentListenerTest extends TestCase
+final class GetTwigBlockContentListenerTest extends TestCase
 {
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetTwigBlockContentListener

@@ -10,7 +10,7 @@ use Netgen\BlockManager\View\Matcher\Block\Definition;
 use Netgen\BlockManager\View\View\BlockView;
 use PHPUnit\Framework\TestCase;
 
-class DefinitionTest extends TestCase
+final class DefinitionTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\View\Matcher\MatcherInterface

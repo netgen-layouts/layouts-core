@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Exception\Item;
 use Netgen\BlockManager\Exception\Item\ValueException;
 use PHPUnit\Framework\TestCase;
 
-class ValueExceptionTest extends TestCase
+final class ValueExceptionTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Exception\Item\ValueException::noValueLoader

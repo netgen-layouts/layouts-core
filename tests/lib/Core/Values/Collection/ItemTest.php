@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use PHPUnit\Framework\TestCase;
 
-class ItemTest extends TestCase
+final class ItemTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::__construct

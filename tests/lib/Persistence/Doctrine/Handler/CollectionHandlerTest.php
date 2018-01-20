@@ -15,7 +15,7 @@ use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 use PHPUnit\Framework\TestCase;
 
-class CollectionHandlerTest extends TestCase
+final class CollectionHandlerTest extends TestCase
 {
     use TestCaseTrait;
 

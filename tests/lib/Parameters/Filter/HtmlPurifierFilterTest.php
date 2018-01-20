@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Parameters\Filter;
 use Netgen\BlockManager\Parameters\Filter\Html\HtmlPurifierFilter;
 use PHPUnit\Framework\TestCase;
 
-class HtmlPurifierFilterTest extends TestCase
+final class HtmlPurifierFilterTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Parameters\Filter\Html\HtmlPurifierFilter

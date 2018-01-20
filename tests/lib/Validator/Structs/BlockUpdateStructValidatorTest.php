@@ -11,7 +11,7 @@ use Netgen\BlockManager\Validator\Structs\BlockUpdateStructValidator;
 use stdClass;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class BlockUpdateStructValidatorTest extends ValidatorTestCase
+final class BlockUpdateStructValidatorTest extends ValidatorTestCase
 {
     public function setUp()
     {

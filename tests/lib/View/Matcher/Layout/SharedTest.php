@@ -9,7 +9,7 @@ use Netgen\BlockManager\View\Matcher\Layout\Shared;
 use Netgen\BlockManager\View\View\LayoutView;
 use PHPUnit\Framework\TestCase;
 
-class SharedTest extends TestCase
+final class SharedTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\View\Matcher\MatcherInterface

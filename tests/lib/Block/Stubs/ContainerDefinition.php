@@ -11,7 +11,7 @@ use Netgen\BlockManager\Block\ContainerDefinitionInterface;
 use Netgen\BlockManager\Block\DynamicParameters;
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 
-class ContainerDefinition implements ContainerDefinitionInterface
+final class ContainerDefinition implements ContainerDefinitionInterface
 {
     /**
      * @var string

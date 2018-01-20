@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Validator\Constraint;
 use Netgen\BlockManager\Validator\Constraint\LayoutName;
 use PHPUnit\Framework\TestCase;
 
-class LayoutNameTest extends TestCase
+final class LayoutNameTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Validator\Constraint\LayoutName::validatedBy

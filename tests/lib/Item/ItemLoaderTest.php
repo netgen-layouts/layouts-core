@@ -10,7 +10,7 @@ use Netgen\BlockManager\Tests\Item\Stubs\ValueLoader;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
-class ItemLoaderTest extends TestCase
+final class ItemLoaderTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

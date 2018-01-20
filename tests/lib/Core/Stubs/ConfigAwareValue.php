@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Values\Config\ConfigAwareValue as APIConfigAwareValu
 use Netgen\BlockManager\Core\Values\Config\ConfigAwareValueTrait;
 use Netgen\BlockManager\ValueObject;
 
-class ConfigAwareValue extends ValueObject implements APIConfigAwareValue
+final class ConfigAwareValue extends ValueObject implements APIConfigAwareValue
 {
     use ConfigAwareValueTrait;
 }

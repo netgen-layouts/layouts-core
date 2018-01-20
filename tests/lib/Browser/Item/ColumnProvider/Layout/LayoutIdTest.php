@@ -8,7 +8,7 @@ use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\ContentBrowser\Tests\Stubs\Item as StubItem;
 use PHPUnit\Framework\TestCase;
 
-class LayoutIdTest extends TestCase
+final class LayoutIdTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\LayoutId

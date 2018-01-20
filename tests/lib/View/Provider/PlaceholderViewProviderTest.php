@@ -9,7 +9,7 @@ use Netgen\BlockManager\View\Provider\PlaceholderViewProvider;
 use Netgen\BlockManager\View\View\PlaceholderViewInterface;
 use PHPUnit\Framework\TestCase;
 
-class PlaceholderViewProviderTest extends TestCase
+final class PlaceholderViewProviderTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface

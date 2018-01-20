@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Validator\Constraint;
 use Netgen\BlockManager\Validator\Constraint\BlockViewType;
 use PHPUnit\Framework\TestCase;
 
-class BlockViewTypeTest extends TestCase
+final class BlockViewTypeTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Validator\Constraint\BlockViewType::validatedBy

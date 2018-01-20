@@ -7,7 +7,7 @@ use Netgen\BlockManager\Block\BlockType\BlockTypeGroup;
 use Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistry;
 use PHPUnit\Framework\TestCase;
 
-class BlockTypeGroupRegistryTest extends TestCase
+final class BlockTypeGroupRegistryTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Block\BlockType\BlockTypeGroup

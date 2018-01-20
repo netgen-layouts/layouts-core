@@ -8,7 +8,7 @@ use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use PHPUnit\Framework\TestCase;
 
-class ResultBuilderAdapterTest extends TestCase
+final class ResultBuilderAdapterTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

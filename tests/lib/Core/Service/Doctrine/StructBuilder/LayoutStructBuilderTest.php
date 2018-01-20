@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Service\Doctrine\StructBuilder;
 use Netgen\BlockManager\Tests\Core\Service\StructBuilder\LayoutStructBuilderTest as BaseLayoutStructBuilderTest;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 
-class LayoutStructBuilderTest extends BaseLayoutStructBuilderTest
+final class LayoutStructBuilderTest extends BaseLayoutStructBuilderTest
 {
     use TestCaseTrait;
 

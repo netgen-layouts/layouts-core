@@ -9,7 +9,7 @@ use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use stdClass;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TargetTypeTest extends FormTestCase
+final class TargetTypeTest extends FormTestCase
 {
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\TargetTypeInterface

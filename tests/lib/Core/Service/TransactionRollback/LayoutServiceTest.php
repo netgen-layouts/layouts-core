@@ -12,7 +12,7 @@ use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout as PersistenceLayout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone as PersistenceZone;
 
-class LayoutServiceTest extends ServiceTestCase
+final class LayoutServiceTest extends ServiceTestCase
 {
     /**
      * Sets up the tests.

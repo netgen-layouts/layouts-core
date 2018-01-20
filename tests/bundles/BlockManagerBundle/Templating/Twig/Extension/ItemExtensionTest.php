@@ -6,7 +6,7 @@ use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\ItemExtension;
 use PHPUnit\Framework\TestCase;
 use Twig\TwigFunction;
 
-class ItemExtensionTest extends TestCase
+final class ItemExtensionTest extends TestCase
 {
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\ItemExtension

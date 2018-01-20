@@ -6,7 +6,7 @@ use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\View\View\RuleConditionView;
 use PHPUnit\Framework\TestCase;
 
-class RuleConditionViewTest extends TestCase
+final class RuleConditionViewTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\API\Values\LayoutResolver\Condition

@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Browser\Item\Layout;
 use Netgen\BlockManager\Browser\Item\Layout\RootLocation;
 use PHPUnit\Framework\TestCase;
 
-class RootLocationTest extends TestCase
+final class RootLocationTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Browser\Item\Layout\RootLocation

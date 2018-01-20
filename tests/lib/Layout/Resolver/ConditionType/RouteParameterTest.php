@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validation;
 
-class RouteParameterTest extends TestCase
+final class RouteParameterTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter

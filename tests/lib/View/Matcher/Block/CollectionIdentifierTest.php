@@ -9,7 +9,7 @@ use Netgen\BlockManager\View\Matcher\Block\CollectionIdentifier;
 use Netgen\BlockManager\View\View\BlockView;
 use PHPUnit\Framework\TestCase;
 
-class CollectionIdentifierTest extends TestCase
+final class CollectionIdentifierTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\View\Matcher\MatcherInterface

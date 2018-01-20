@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Layout\Type;
 use Netgen\BlockManager\Layout\Type\Zone;
 use PHPUnit\Framework\TestCase;
 
-class ZoneTest extends TestCase
+final class ZoneTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Layout\Type\Zone

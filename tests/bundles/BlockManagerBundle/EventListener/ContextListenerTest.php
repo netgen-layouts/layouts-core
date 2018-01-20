@@ -12,7 +12,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\UriSigner;
 
-class ContextListenerTest extends TestCase
+final class ContextListenerTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Context\ContextInterface

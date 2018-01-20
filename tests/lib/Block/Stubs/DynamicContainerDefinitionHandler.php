@@ -8,7 +8,7 @@ use Netgen\BlockManager\Block\DynamicParameters;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
 
-class DynamicContainerDefinitionHandler extends BaseDynamicContainerHandler
+final class DynamicContainerDefinitionHandler extends BaseDynamicContainerHandler
 {
     /**
      * @var array

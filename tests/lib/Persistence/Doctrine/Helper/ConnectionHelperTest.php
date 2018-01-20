@@ -7,7 +7,7 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 use PHPUnit\Framework\TestCase;
 
-class ConnectionHelperTest extends TestCase
+final class ConnectionHelperTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

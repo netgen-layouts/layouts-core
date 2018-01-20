@@ -17,7 +17,7 @@ use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class LinkTypeTest extends FormTestCase
+final class LinkTypeTest extends FormTestCase
 {
     /**
      * @var \Netgen\BlockManager\Parameters\ParameterType\LinkType

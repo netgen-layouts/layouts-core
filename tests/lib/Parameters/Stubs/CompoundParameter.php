@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Parameters\Stubs;
 use Netgen\BlockManager\Parameters\CompoundParameterInterface;
 use Netgen\BlockManager\Parameters\ParameterCollectionTrait;
 
-class CompoundParameter extends Parameter implements CompoundParameterInterface
+final class CompoundParameter extends Parameter implements CompoundParameterInterface
 {
     use ParameterCollectionTrait;
 

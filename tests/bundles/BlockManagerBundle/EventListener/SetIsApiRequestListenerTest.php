@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-class SetIsApiRequestListenerTest extends TestCase
+final class SetIsApiRequestListenerTest extends TestCase
 {
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener

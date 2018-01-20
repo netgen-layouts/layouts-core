@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\Stubs;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\ExtensionPlugin as BaseExtensionPlugin;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 
-class ExtensionPlugin extends BaseExtensionPlugin
+final class ExtensionPlugin extends BaseExtensionPlugin
 {
     /**
      * Processes the configuration for the bundle.

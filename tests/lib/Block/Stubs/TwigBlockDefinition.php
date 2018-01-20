@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\TwigBlockDefinitionInterface;
 
-class TwigBlockDefinition extends BlockDefinition implements TwigBlockDefinitionInterface
+final class TwigBlockDefinition extends BlockDefinition implements TwigBlockDefinitionInterface
 {
     /**
      * Constructor.

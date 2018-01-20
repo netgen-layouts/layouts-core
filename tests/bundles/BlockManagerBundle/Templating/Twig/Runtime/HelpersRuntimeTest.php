@@ -5,7 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig\Runtime;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\HelpersRuntime;
 use PHPUnit\Framework\TestCase;
 
-class HelpersRuntimeTest extends TestCase
+final class HelpersRuntimeTest extends TestCase
 {
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\HelpersRuntime

@@ -8,7 +8,7 @@ use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Tests\Block\Stubs\TwigBlockDefinitionHandler;
 use PHPUnit\Framework\TestCase;
 
-class TwigBlockDefinitionTest extends TestCase
+final class TwigBlockDefinitionTest extends TestCase
 {
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface

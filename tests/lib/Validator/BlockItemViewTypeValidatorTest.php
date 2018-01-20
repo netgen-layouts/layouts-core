@@ -9,7 +9,7 @@ use Netgen\BlockManager\Validator\Constraint\BlockItemViewType;
 use stdClass;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class BlockItemViewTypeValidatorTest extends ValidatorTestCase
+final class BlockItemViewTypeValidatorTest extends ValidatorTestCase
 {
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinitionInterface

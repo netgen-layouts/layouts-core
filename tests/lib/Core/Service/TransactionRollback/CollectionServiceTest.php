@@ -13,7 +13,7 @@ use Netgen\BlockManager\Persistence\Values\Collection\Item as PersistenceItem;
 use Netgen\BlockManager\Persistence\Values\Collection\Query as PersistenceQuery;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 
-class CollectionServiceTest extends ServiceTestCase
+final class CollectionServiceTest extends ServiceTestCase
 {
     /**
      * Sets up the tests.

@@ -9,7 +9,7 @@ use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Pagerfanta\Pagerfanta;
 use PHPUnit\Framework\TestCase;
 
-class PagerFactoryTest extends TestCase
+final class PagerFactoryTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject

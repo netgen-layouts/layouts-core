@@ -6,7 +6,7 @@ use Netgen\BlockManager\Locale\LocaleProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 
-class LocaleProviderTest extends TestCase
+final class LocaleProviderTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Locale\LocaleProvider::__construct

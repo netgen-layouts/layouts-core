@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Core\Service\Doctrine;
 use Netgen\BlockManager\Tests\Core\Service\BlockServiceTest as BaseBlockServiceTest;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 
-class BlockServiceTest extends BaseBlockServiceTest
+final class BlockServiceTest extends BaseBlockServiceTest
 {
     use TestCaseTrait;
 
