@@ -20,7 +20,7 @@ final class EmailType extends ParameterType
     {
         return array(
             new Constraints\Type(array('type' => 'string')),
-            new Constraints\Email(array('strict' => true)),
+            new Constraints\Email(),
         );
     }
 }
