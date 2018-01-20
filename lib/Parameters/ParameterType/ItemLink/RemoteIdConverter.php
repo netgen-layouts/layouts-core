@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Parameters\ParameterType\ItemLink;
 use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 
-class RemoteIdConverter
+final class RemoteIdConverter
 {
     const NULL_LINK = 'null://0';
 
