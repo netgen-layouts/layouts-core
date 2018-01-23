@@ -31,6 +31,7 @@
         "symfony/phpunit-bridge": "^4.0",
         "matthiasnoback/symfony-dependency-injection-test": "^1.2|^2.3",
         "matthiasnoback/symfony-config-test": "^2.2|^3.1",
+        "php-http/mock-client": "^1.1",
         "franzl/studio": "*",
         "lakion/api-test-case": "*"
     },
