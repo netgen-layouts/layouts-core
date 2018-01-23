@@ -87,7 +87,7 @@ final class InvalidationListenerTest extends TestCase
         $event = new GetResponseForExceptionEvent(
             $kernelMock,
             $request,
-            new Response(),
+            HttpKernelInterface::MASTER_REQUEST,
             new Exception()
         );
 
