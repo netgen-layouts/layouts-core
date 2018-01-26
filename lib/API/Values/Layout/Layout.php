@@ -40,14 +40,14 @@ interface Layout extends Value, ArrayAccess, IteratorAggregate, Countable
     /**
      * Returns when was the layout first created.
      *
-     * @return \DateTime
+     * @return \DateTimeInterface
      */
     public function getCreated();
 
     /**
      * Returns when was the layout last updated.
      *
-     * @return \DateTime
+     * @return \DateTimeInterface
      */
     public function getModified();
 

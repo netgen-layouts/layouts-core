@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 
-use DateTime;
+use DateTimeInterface;
 use Netgen\BlockManager\API\Values\Layout\Layout as APILayout;
 use Netgen\BlockManager\API\Values\Layout\Zone as APIZone;
 use Netgen\BlockManager\API\Values\Value;
@@ -108,9 +108,9 @@ abstract class LayoutMapperTest extends ServiceTestCase
         $this->assertEquals(1, $layout->getId());
         $this->assertEquals('My layout', $layout->getName());
         $this->assertEquals('My description', $layout->getDescription());
-        $this->assertInstanceOf(DateTime::class, $layout->getCreated());
+        $this->assertInstanceOf(DateTimeInterface::class, $layout->getCreated());
         $this->assertEquals(1447065813, $layout->getCreated()->getTimestamp());
-        $this->assertInstanceOf(DateTime::class, $layout->getModified());
+        $this->assertInstanceOf(DateTimeInterface::class, $layout->getModified());
         $this->assertEquals(1447065813, $layout->getModified()->getTimestamp());
         $this->assertEquals(Value::STATUS_PUBLISHED, $layout->getStatus());
         $this->assertTrue($layout->isShared());

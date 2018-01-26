@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
-use DateTime;
+use DateTimeImmutable;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Core\Values\Layout\Zone;
@@ -105,17 +105,16 @@ final class LayoutMapper
     }
 
     /**
-     * Builds and returns the \DateTime object from the provided timestamp.
+     * Builds and returns the \DateTimeInterface object from the provided timestamp.
      *
      * @param int $timestamp
      *
-     * @return \DateTime
+     * @return \DateTimeInterface
      */
     private function createDateTime($timestamp)
     {
-        $dateTime = new DateTime();
-        $dateTime->setTimestamp((int) $timestamp);
+        $dateTime = new DateTimeImmutable();
 
-        return $dateTime;
+        return $dateTime->setTimestamp((int) $timestamp);
     }
 }

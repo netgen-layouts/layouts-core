@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 
-use DateTime;
+use DateTimeInterface;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Block\Block;
@@ -49,8 +49,8 @@ final class LayoutNormalizer implements NormalizerInterface
             'type' => $layoutType->getIdentifier(),
             'published' => $layout->isPublished(),
             'has_published_state' => $this->layoutService->hasPublishedState($layout),
-            'created_at' => $layout->getCreated()->format(DateTime::ISO8601),
-            'updated_at' => $layout->getModified()->format(DateTime::ISO8601),
+            'created_at' => $layout->getCreated()->format(DateTimeInterface::ISO8601),
+            'updated_at' => $layout->getModified()->format(DateTimeInterface::ISO8601),
             'shared' => $layout->isShared(),
             'name' => $layout->getName(),
             'description' => $layout->getDescription(),

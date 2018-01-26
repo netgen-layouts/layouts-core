@@ -30,12 +30,12 @@ final class Layout extends ValueObject implements APILayout
     protected $description;
 
     /**
-     * @var \DateTime
+     * @var \DateTimeInterface
      */
     protected $created;
 
     /**
-     * @var \DateTime
+     * @var \DateTimeInterface
      */
     protected $modified;
 
