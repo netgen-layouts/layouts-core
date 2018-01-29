@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache;
 
 use Netgen\BlockManager\View\CacheableViewInterface;
+use Netgen\BlockManager\View\ViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
@@ -31,11 +32,11 @@ final class CacheableViewListener implements EventSubscriberInterface
         }
 
         $controllerResult = $event->getControllerResult();
-        if (!$controllerResult instanceof CacheableViewInterface) {
+        if (!$controllerResult instanceof ViewInterface) {
             return;
         }
 
-        $this->setUpCachingHeaders($controllerResult, $controllerResult->getResponse());
+        $event->getRequest()->attributes->set('ngbmView', $controllerResult);
     }
 
     /**
