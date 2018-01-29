@@ -69,7 +69,6 @@ class AjaxBlock {
         fetch(path, {
             credentials: 'same-origin',
         }).then((response) => {
-            console.log(response);
             if (response.ok) {
                 return response.text();
             }

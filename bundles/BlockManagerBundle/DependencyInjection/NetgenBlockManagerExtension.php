@@ -11,6 +11,7 @@ use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Yaml\Yaml;
 
 final class NetgenBlockManagerExtension extends Extension implements PrependExtensionInterface
@@ -183,6 +184,11 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
         $loader->load('services/collections.yml');
         $loader->load('services/param_converters.yml');
         $loader->load('services/event_listeners.yml');
+
+        if (Kernel::VERSION_ID >= 30400) {
+            $loader->load('services/event_listeners_sf34.yml');
+        }
+
         $loader->load('services/configuration.yml');
         $loader->load('services/controllers.yml');
         $loader->load('services/normalizers.yml');

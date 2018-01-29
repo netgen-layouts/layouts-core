@@ -59,59 +59,8 @@ final class CacheableViewListenerTest extends TestCase
 
         $this->listener->onView($event);
 
-        $this->assertEquals(42, $blockView->getResponse()->getMaxAge());
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewListener::onView
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewListener::setUpCachingHeaders
-     */
-    public function testOnViewWithDisabledCache()
-    {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
-        $request = Request::create('/');
-
-        $blockView = new BlockView();
-        $blockView->setIsCacheable(false);
-        $blockView->setSharedMaxAge(42);
-
-        $event = new GetResponseForControllerResultEvent(
-            $kernelMock,
-            $request,
-            HttpKernelInterface::MASTER_REQUEST,
-            $blockView
-        );
-
-        $this->listener->onView($event);
-
-        $this->assertNull($blockView->getResponse()->getMaxAge());
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewListener::onView
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewListener::setUpCachingHeaders
-     */
-    public function testOnViewWithExistingHeaders()
-    {
-        $kernelMock = $this->createMock(HttpKernelInterface::class);
-        $request = Request::create('/');
-
-        $blockView = new BlockView();
-
-        $blockView->getResponse()->setSharedMaxAge(41);
-
-        $blockView->setSharedMaxAge(42);
-
-        $event = new GetResponseForControllerResultEvent(
-            $kernelMock,
-            $request,
-            HttpKernelInterface::MASTER_REQUEST,
-            $blockView
-        );
-
-        $this->listener->onView($event);
-
-        $this->assertEquals(41, $blockView->getResponse()->getMaxAge());
+        $this->assertTrue($request->attributes->has('ngbmView'));
+        $this->assertEquals($blockView, $request->attributes->get('ngbmView'));
     }
 
     /**
