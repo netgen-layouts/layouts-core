@@ -48,13 +48,14 @@ final class CacheableViewSessionListener implements EventSubscriberInterface
         $request = $event->getRequest();
 
         $view = $request->attributes->get('ngbmView');
-        if (!$view instanceof CacheableViewInterface) {
+        if (!$view instanceof CacheableViewInterface || !$view->isCacheable()) {
             return;
         }
 
-        $session = $this->container->has('initialized_session') ?
-            $this->container->get('initialized_session') :
-            $request->getSession();
+        $session = $this->container->has('initialized_session') ? $this->container->get('initialized_session') : null;
+        if ($session === null) {
+            $session = $request->getSession();
+        }
 
         if (!$session) {
             return;
