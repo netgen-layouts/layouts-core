@@ -4,7 +4,7 @@ services:
         public: false
         arguments:
             -
-                - "@!initialized_session"
+                initialized_session: "@!initialized_session"
         tags:
             - { name: container.service_locator }
 
