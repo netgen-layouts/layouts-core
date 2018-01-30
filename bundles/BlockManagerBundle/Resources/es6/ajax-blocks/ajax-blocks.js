@@ -40,7 +40,10 @@ class AjaxBlock {
         this.totalPages = parseInt(this.pagerData.totalPages, 10);
         this.nav.removeAttribute('data-template');
 
-        this.renderNavigation();
+        if (this.totalPages > 1) {
+            this.renderNavigation();
+        }
+
         this.setupEvents();
     }
 
