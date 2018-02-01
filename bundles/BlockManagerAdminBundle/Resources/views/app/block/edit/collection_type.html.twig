@@ -51,7 +51,7 @@
 
             {% if collection.type == type_dynamic and allowed_query_types|length > 1 %}
                 <label>{{ 'block.edit.query_type'|trans }}</label>
-                <a href="#" class="js-edit"><span class="text">{{ collection.query.queryType.config.name }}</span><span class="icon">{{ 'block.edit.change'|trans }}</span></a>
+                <a href="#" class="js-edit"><span class="text">{{ collection.query.queryType.name }}</span><span class="icon">{{ 'block.edit.change'|trans }}</span></a>
             {% endif %}
         </div>
 
@@ -78,7 +78,7 @@
                             {% set is_selected = collection.hasQuery and collection.query.queryType.type == query_type.type %}
 
                             {% if query_type in allowed_query_types %}
-                                <option {% if is_selected %} selected="selected" {% endif %} value="{{ query_type.type }}">{{ query_type.config.name }}</option>
+                                <option {% if is_selected %} selected="selected" {% endif %} value="{{ query_type.type }}">{{ query_type.name }}</option>
                             {% endif %}
                         {% endfor %}
                     </select>

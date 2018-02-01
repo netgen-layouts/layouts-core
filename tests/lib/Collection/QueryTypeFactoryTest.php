@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\Collection;
 
-use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
 use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
 use Netgen\BlockManager\Collection\QueryTypeFactory;
 use Netgen\BlockManager\Collection\QueryTypeInterface;
@@ -46,11 +45,10 @@ final class QueryTypeFactoryTest extends TestCase
         $queryType = $this->factory->buildQueryType(
             'type',
             $this->createMock(QueryTypeHandlerInterface::class),
-            new Configuration()
+            array()
         );
 
         $this->assertInstanceOf(QueryTypeInterface::class, $queryType);
         $this->assertEquals('type', $queryType->getType());
-        $this->assertEquals(new Configuration(), $queryType->getConfig());
     }
 }

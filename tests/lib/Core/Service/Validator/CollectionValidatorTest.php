@@ -8,7 +8,6 @@ use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
 use Netgen\BlockManager\Collection\QueryType;
-use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
@@ -497,7 +496,6 @@ final class CollectionValidatorTest extends TestCase
             array(
                 'type' => 'query_type',
                 'handler' => new QueryTypeHandlerWithRequiredParameter(),
-                'config' => new Configuration(),
                 'parameters' => $handler->getParameters(),
             )
         );

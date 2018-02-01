@@ -81,12 +81,10 @@ final class CollectionController extends Controller
      */
     public function queryEditForm(Query $query, $locale, $formName, Request $request)
     {
-        $queryTypeConfig = $query->getQueryType()->getConfig();
-
         $updateStruct = $this->collectionService->newQueryUpdateStruct($locale, $query);
 
         $form = $this->createForm(
-            $queryTypeConfig->getForm($formName)->getType(),
+            $query->getQueryType()->getForm($formName)->getType(),
             $updateStruct,
             array(
                 'query' => $query,

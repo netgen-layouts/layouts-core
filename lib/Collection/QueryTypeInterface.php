@@ -19,6 +19,40 @@ interface QueryTypeInterface extends ParameterCollectionInterface
     public function getType();
 
     /**
+     * Returns the query type name.
+     *
+     * @return string
+     */
+    public function getName();
+
+    /**
+     * Returns all forms.
+     *
+     * @return \Netgen\BlockManager\Collection\QueryType\Configuration\Form[]
+     */
+    public function getForms();
+
+    /**
+     * Returns if the query type has a form with provided name.
+     *
+     * @param $formName
+     *
+     * @return bool
+     */
+    public function hasForm($formName);
+
+    /**
+     * Returns the form for provided form name.
+     *
+     * @param $formName
+     *
+     * @throws \Netgen\BlockManager\Exception\Collection\QueryTypeException If query type does not have the form
+     *
+     * @return \Netgen\BlockManager\Collection\QueryType\Configuration\Form
+     */
+    public function getForm($formName);
+
+    /**
      * Returns the values from the query.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
@@ -54,11 +88,4 @@ interface QueryTypeInterface extends ParameterCollectionInterface
      * @return bool
      */
     public function isContextual(Query $query);
-
-    /**
-     * Returns the query type configuration.
-     *
-     * @return \Netgen\BlockManager\Collection\QueryType\Configuration\Configuration
-     */
-    public function getConfig();
 }

@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Tests\Validator\Structs;
 
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
 use Netgen\BlockManager\Collection\QueryType;
-use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType as QueryTypeStub;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandlerWithRequiredParameter;
@@ -177,7 +176,6 @@ final class QueryUpdateStructValidatorTest extends ValidatorTestCase
             array(
                 'type' => 'query_type',
                 'handler' => new QueryTypeHandlerWithRequiredParameter(),
-                'config' => $this->createMock(Configuration::class),
                 'parameters' => $handler->getParameters(),
             )
         );

@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Collection;
 
 use Netgen\BlockManager\API\Values\Collection\Query;
+use Netgen\BlockManager\Exception\Collection\QueryTypeException;
 use Netgen\BlockManager\Parameters\ParameterCollectionTrait;
 use Netgen\BlockManager\ValueObject;
 
@@ -19,18 +20,47 @@ class QueryType extends ValueObject implements QueryTypeInterface
     protected $type;
 
     /**
+     * @var string
+     */
+    protected $name;
+
+    /**
+     * @var \Netgen\BlockManager\Collection\QueryType\Configuration\Form[]
+     */
+    protected $forms = array();
+
+    /**
      * @var \Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface
      */
     protected $handler;
 
-    /**
-     * @var \Netgen\BlockManager\Collection\QueryType\Configuration\Configuration
-     */
-    protected $config;
-
     public function getType()
     {
         return $this->type;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getForms()
+    {
+        return $this->forms;
+    }
+
+    public function hasForm($formName)
+    {
+        return isset($this->forms[$formName]);
+    }
+
+    public function getForm($formName)
+    {
+        if (!$this->hasForm($formName)) {
+            throw QueryTypeException::noForm($this->type, $formName);
+        }
+
+        return $this->forms[$formName];
     }
 
     public function getValues(Query $query, $offset = 0, $limit = null)
@@ -46,10 +76,5 @@ class QueryType extends ValueObject implements QueryTypeInterface
     public function isContextual(Query $query)
     {
         return $this->handler->isContextual($query);
-    }
-
-    public function getConfig()
-    {
-        return $this->config;
     }
 }

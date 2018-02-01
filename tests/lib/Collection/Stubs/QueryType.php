@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Collection\Stubs;
 
 use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\Collection\QueryType\Configuration\Configuration;
 use Netgen\BlockManager\Collection\QueryTypeInterface;
 use Netgen\BlockManager\Exception\Parameters\ParameterException;
 
@@ -129,20 +128,55 @@ final class QueryType implements QueryTypeInterface
     }
 
     /**
+     * Returns the query type name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Returns all forms.
+     *
+     * @return \Netgen\BlockManager\Collection\QueryType\Configuration\Form[]
+     */
+    public function getForms()
+    {
+        return array();
+    }
+
+    /**
+     * Returns if the query type has a form with provided name.
+     *
+     * @param $formName
+     *
+     * @return bool
+     */
+    public function hasForm($formName)
+    {
+        return false;
+    }
+
+    /**
+     * Returns the form for provided form name.
+     *
+     * @param $formName
+     *
+     * @throws \Netgen\BlockManager\Exception\Collection\QueryTypeException If query type does not have the form
+     *
+     * @return \Netgen\BlockManager\Collection\QueryType\Configuration\Form
+     */
+    public function getForm($formName)
+    {
+    }
+
+    /**
      * @return \Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface
      */
     public function getHandler()
     {
         return $this->handler;
-    }
-
-    /**
-     * Returns the query type configuration.
-     *
-     * @return \Netgen\BlockManager\Collection\QueryType\Configuration\Configuration
-     */
-    public function getConfig()
-    {
-        return new Configuration(array('type' => $this->type, 'name' => $this->type));
     }
 }

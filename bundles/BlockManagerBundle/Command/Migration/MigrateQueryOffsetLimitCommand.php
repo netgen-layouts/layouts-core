@@ -187,7 +187,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
                     'Select the %1$s parameter from the "%2$s" (%3$s) query type (Use "NO PARAMETER" option if your query type does not have the %1$s parameter)',
                     $parameter,
                     $queryType->getType(),
-                    $queryType->getConfig()->getName()
+                    $queryType->getName()
                 ),
                 $queryTypeParameters
             );
