@@ -397,7 +397,7 @@ final class LayoutDataHandler
         $blockCreateStruct->isTranslatable = $blockData['is_translatable'];
         $blockCreateStruct->alwaysAvailable = $blockData['is_always_available'];
         $blockCreateStruct->fillParametersFromHash($blockDefinition, $blockData['parameters'][$blockData['main_locale']], true);
-        $this->setConfigStructs($blockCreateStruct, $blockDefinition, $blockData['configuration']);
+        $this->setConfigStructs($blockCreateStruct, $blockDefinition, isset($blockData['configuration']) ? $blockData['configuration'] : array());
         $this->setCollectionStructs($blockCreateStruct, $blockData['collections']);
 
         return $blockCreateStruct;
@@ -495,6 +495,7 @@ final class LayoutDataHandler
     {
         foreach ($collectionItemsData as $collectionItemData) {
             $item = null;
+            $itemDefinition = $this->itemDefinitionRegistry->getItemDefinition($collectionItemData['value_type']);
 
             try {
                 $item = $this->itemLoader->loadByRemoteId(
@@ -505,14 +506,19 @@ final class LayoutDataHandler
                 // Do nothing
             }
 
-            $itemDefinition = $this->itemDefinitionRegistry->getItemDefinition($collectionItemData['value_type']);
             $itemCreateStruct = $this->collectionService->newItemCreateStruct(
                 $itemDefinition,
                 $this->mapItemType($collectionItemData['type']),
                 $item instanceof ItemInterface ? $item->getValue() : null
             );
 
-            $this->setConfigStructs($itemCreateStruct, $itemDefinition, $collectionItemData['configuration']);
+            $this->setConfigStructs(
+                $itemCreateStruct,
+                $itemDefinition,
+                isset($collectionItemData['configuration']) ?
+                    $collectionItemData['configuration'] :
+                    array()
+            );
 
             $this->collectionService->addItem($collection, $itemCreateStruct, $collectionItemData['position']);
         }
