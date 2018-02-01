@@ -2,9 +2,11 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 
+use DateTimeImmutable;
 use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
+use Netgen\BlockManager\API\Values\Config\Config;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
@@ -243,6 +245,13 @@ abstract class CollectionMapperTest extends ServiceTestCase
                 'type' => APIItem::TYPE_OVERRIDE,
                 'value' => '12',
                 'valueType' => 'ezcontent',
+                'config' => array(
+                    'visibility' => array(
+                        'visible' => true,
+                        'visible_from' => null,
+                        'visible_to' => '2018-02-01T17:00:00+01:00',
+                    ),
+                ),
             )
         );
 
@@ -251,12 +260,25 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertInstanceOf(APIItem::class, $item);
         $this->assertEquals(1, $item->getId());
         $this->assertEquals(42, $item->getCollectionId());
+        $this->assertEquals($this->itemDefinitionRegistry->getItemDefinition('ezcontent'), $item->getDefinition());
         $this->assertEquals(1, $item->getPosition());
         $this->assertEquals(APIItem::TYPE_OVERRIDE, $item->getType());
         $this->assertEquals('12', $item->getValue());
         $this->assertEquals('ezcontent', $item->getValueType());
         $this->assertEquals(Value::STATUS_PUBLISHED, $item->getStatus());
         $this->assertTrue($item->isPublished());
+
+        $this->assertTrue($item->hasConfig('visibility'));
+        $this->assertInstanceOf(Config::class, $item->getConfig('visibility'));
+
+        $visibilityConfig = $item->getConfig('visibility');
+
+        $this->assertTrue($visibilityConfig->getParameter('visible')->getValue());
+        $this->assertNull($visibilityConfig->getParameter('visible_from')->getValue());
+        $this->assertEquals(
+            DateTimeImmutable::createFromFormat(DateTimeImmutable::RFC3339, '2018-02-01T17:00:00+01:00'),
+            $visibilityConfig->getParameter('visible_to')->getValue()
+        );
     }
 
     /**

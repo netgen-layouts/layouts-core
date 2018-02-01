@@ -9,9 +9,11 @@ use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
 use Netgen\BlockManager\Collection\QueryType;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
+use Netgen\BlockManager\Core\Service\Validator\ConfigValidator;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
+use Netgen\BlockManager\Tests\Collection\Stubs\ItemDefinition;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType as QueryTypeStub;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandlerWithRequiredParameter;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
@@ -40,7 +42,10 @@ final class CollectionValidatorTest extends TestCase
             ->setConstraintValidatorFactory(new ValidatorFactory($this))
             ->getValidator();
 
-        $this->collectionValidator = new CollectionValidator();
+        $configValidator = new ConfigValidator();
+        $configValidator->setValidator($this->validator);
+
+        $this->collectionValidator = new CollectionValidator($configValidator);
         $this->collectionValidator->setValidator($this->validator);
     }
 
@@ -317,29 +322,26 @@ final class CollectionValidatorTest extends TestCase
     {
         return array(
             array(
-                array('value' => 42, 'valueType' => 'value', 'type' => Item::TYPE_MANUAL),
+                array('definition' => new ItemDefinition('value'), 'value' => 42, 'type' => Item::TYPE_MANUAL),
                 true,
             ),
             array(
-                array('value' => '42', 'valueType' => 'value', 'type' => Item::TYPE_MANUAL),
+                array('definition' => new ItemDefinition('value'), 'value' => '42', 'type' => Item::TYPE_MANUAL),
                 true,
             ),
             array(
-                array('value' => null, 'valueType' => 'value', 'type' => Item::TYPE_MANUAL),
+                array('definition' => new ItemDefinition('value'), 'value' => null, 'type' => Item::TYPE_MANUAL),
                 true,
             ),
             array(
-                array('value' => '', 'valueType' => 'value', 'type' => Item::TYPE_MANUAL),
+                array('definition' => new ItemDefinition('value'), 'value' => '', 'type' => Item::TYPE_MANUAL),
                 true,
             ),
-            array(
-                array('value' => 42, 'valueType' => 'nonexistent', 'type' => Item::TYPE_MANUAL),
-                false,
-            ),
-            array(array('value' => 42, 'valueType' => '', 'type' => Item::TYPE_MANUAL), false),
-            array(array('value' => 42, 'valueType' => 'value', 'type' => 23), false),
-            array(array('value' => 42, 'valueType' => 'value', 'type' => 'type'), false),
-            array(array('value' => 42, 'valueType' => 'value', 'type' => null), false),
+            array(array('definition' => 42, 'value' => 42, 'type' => Item::TYPE_MANUAL), false),
+            array(array('definition' => null, 'value' => 42, 'type' => Item::TYPE_MANUAL), false),
+            array(array('definition' => new ItemDefinition('value'), 'value' => 42, 'type' => 23), false),
+            array(array('definition' => new ItemDefinition('value'), 'value' => 42, 'type' => 'type'), false),
+            array(array('definition' => new ItemDefinition('value'), 'value' => 42, 'type' => null), false),
         );
     }
 

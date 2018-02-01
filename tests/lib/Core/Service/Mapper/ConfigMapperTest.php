@@ -46,7 +46,9 @@ final class ConfigMapperTest extends TestCase
                     'shared_max_age' => 300,
                 ),
             ),
-            array($this->configDefinition)
+            array(
+                'http_cache' => $this->configDefinition,
+            )
         );
 
         $this->assertInternalType('array', $mappedConfig);
@@ -80,7 +82,9 @@ final class ConfigMapperTest extends TestCase
             array(
                 'http_cache' => $configStruct,
             ),
-            array($this->configDefinition),
+            array(
+                'http_cache' => $this->configDefinition,
+            ),
             array(
                 'http_cache' => array(
                     'shared_max_age' => 300,

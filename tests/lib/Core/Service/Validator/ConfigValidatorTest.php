@@ -20,11 +20,6 @@ final class ConfigValidatorTest extends TestCase
     private $validator;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $configValidatorMock;
-
-    /**
      * @var \Netgen\BlockManager\Core\Service\Validator\ConfigValidator
      */
     private $configValidator;
@@ -70,8 +65,8 @@ final class ConfigValidatorTest extends TestCase
         $this->configValidator->validateConfigStructs(
             $configStructs,
             array(
-                $this->getConfigDefinition('test'),
-                $this->getConfigDefinition('test2'),
+                'test' => $this->getConfigDefinition('test'),
+                'test2' => $this->getConfigDefinition('test2'),
             )
         );
     }
@@ -88,8 +83,8 @@ final class ConfigValidatorTest extends TestCase
                 'test' => new stdClass(),
             ),
             array(
-                $this->getConfigDefinition('test'),
-                $this->getConfigDefinition('test2'),
+                'test' => $this->getConfigDefinition('test'),
+                'test2' => $this->getConfigDefinition('test2'),
             )
         );
     }

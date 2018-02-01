@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Core\Values\Collection;
 
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
+use Netgen\BlockManager\Tests\Collection\Stubs\ItemDefinition;
 use PHPUnit\Framework\TestCase;
 
 final class ItemCreateStructTest extends TestCase
@@ -12,8 +13,8 @@ final class ItemCreateStructTest extends TestCase
     {
         $itemCreateStruct = new ItemCreateStruct();
 
+        $this->assertNull($itemCreateStruct->definition);
         $this->assertNull($itemCreateStruct->value);
-        $this->assertNull($itemCreateStruct->valueType);
         $this->assertEquals(Item::TYPE_MANUAL, $itemCreateStruct->type);
     }
 
@@ -22,13 +23,13 @@ final class ItemCreateStructTest extends TestCase
         $itemCreateStruct = new ItemCreateStruct(
             array(
                 'value' => 3,
-                'valueType' => 'value_type',
+                'definition' => new ItemDefinition('type'),
                 'type' => Item::TYPE_OVERRIDE,
             )
         );
 
+        $this->assertEquals(new ItemDefinition('type'), $itemCreateStruct->definition);
         $this->assertEquals(3, $itemCreateStruct->value);
-        $this->assertEquals('value_type', $itemCreateStruct->valueType);
         $this->assertEquals(Item::TYPE_OVERRIDE, $itemCreateStruct->type);
     }
 }

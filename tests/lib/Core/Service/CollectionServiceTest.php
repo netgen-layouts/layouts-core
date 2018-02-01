@@ -11,6 +11,7 @@ use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
 use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Tests\Collection\Stubs\ItemDefinition;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 
 abstract class CollectionServiceTest extends ServiceTestCase
@@ -310,7 +311,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
      */
     public function testAddItem()
     {
-        $itemCreateStruct = $this->collectionService->newItemCreateStruct(Item::TYPE_MANUAL, '66', 'ezcontent');
+        $itemCreateStruct = $this->collectionService->newItemCreateStruct(new ItemDefinition('ezcontent'), Item::TYPE_MANUAL, '66');
         $collection = $this->collectionService->loadCollectionDraft(1);
 
         $createdItem = $this->collectionService->addItem(
@@ -330,7 +331,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
      */
     public function testAddItemThrowsBadStateExceptionWithNonDraftCollection()
     {
-        $itemCreateStruct = $this->collectionService->newItemCreateStruct(Item::TYPE_MANUAL, '66', 'ezcontent');
+        $itemCreateStruct = $this->collectionService->newItemCreateStruct(new ItemDefinition('ezcontent'), Item::TYPE_MANUAL, '66');
         $collection = $this->collectionService->loadCollection(4);
 
         $this->collectionService->addItem(
@@ -347,7 +348,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
      */
     public function testAddItemThrowsBadStateExceptionWhenPositionIsTooLarge()
     {
-        $itemCreateStruct = $this->collectionService->newItemCreateStruct(Item::TYPE_MANUAL, '66', 'ezcontent');
+        $itemCreateStruct = $this->collectionService->newItemCreateStruct(new ItemDefinition('ezcontent'), Item::TYPE_MANUAL, '66');
         $collection = $this->collectionService->loadCollectionDraft(1);
 
         $this->collectionService->addItem($collection, $itemCreateStruct, 9999);
@@ -446,9 +447,9 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $collection = $this->collectionService->loadCollectionDraft(3);
 
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(
+            new ItemDefinition('ezcontent'),
             Item::TYPE_OVERRIDE,
-            66,
-            'ezcontent'
+            66
         );
 
         $this->collectionService->addItem($collection, $itemCreateStruct);
@@ -652,12 +653,12 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $this->assertEquals(
             new ItemCreateStruct(
                 array(
+                    'definition' => new ItemDefinition('ezcontent'),
                     'type' => Item::TYPE_OVERRIDE,
                     'value' => '42',
-                    'valueType' => 'ezcontent',
                 )
             ),
-            $this->collectionService->newItemCreateStruct(Item::TYPE_OVERRIDE, '42', 'ezcontent')
+            $this->collectionService->newItemCreateStruct(new ItemDefinition('ezcontent'), Item::TYPE_OVERRIDE, '42')
         );
     }
 

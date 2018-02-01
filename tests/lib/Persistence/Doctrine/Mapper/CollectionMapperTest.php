@@ -101,6 +101,7 @@ final class CollectionMapperTest extends TestCase
                 'value' => '32',
                 'value_type' => 'ezcontent',
                 'status' => Value::STATUS_PUBLISHED,
+                'config' => '{"config_item":{"id":42}}',
             ),
             array(
                 'id' => 43,
@@ -110,6 +111,7 @@ final class CollectionMapperTest extends TestCase
                 'value' => '42',
                 'value_type' => 'ezcontent',
                 'status' => Value::STATUS_DRAFT,
+                'config' => '',
             ),
         );
 
@@ -123,6 +125,11 @@ final class CollectionMapperTest extends TestCase
                     'value' => '32',
                     'valueType' => 'ezcontent',
                     'status' => Value::STATUS_PUBLISHED,
+                    'config' => array(
+                        'config_item' => array(
+                            'id' => 42,
+                        ),
+                    ),
                 )
             ),
             new Item(
@@ -134,6 +141,7 @@ final class CollectionMapperTest extends TestCase
                     'value' => '42',
                     'valueType' => 'ezcontent',
                     'status' => Value::STATUS_DRAFT,
+                    'config' => array(),
                 )
             ),
         );

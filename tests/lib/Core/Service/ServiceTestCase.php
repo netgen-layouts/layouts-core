@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
+use Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
 use Netgen\BlockManager\Core\Service\BlockService;
 use Netgen\BlockManager\Core\Service\CollectionService;
@@ -35,6 +36,7 @@ use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithTranslatableParameter;
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
+use Netgen\BlockManager\Tests\Collection\Stubs\ItemDefinition;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Config\Stubs\Block\HttpCacheConfigHandler;
 use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinition;
@@ -50,6 +52,11 @@ abstract class ServiceTestCase extends TestCase
      * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface
      */
     protected $layoutTypeRegistry;
+
+    /**
+     * @var \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistryInterface
+     */
+    protected $itemDefinitionRegistry;
 
     /**
      * @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface
@@ -165,6 +172,10 @@ abstract class ServiceTestCase extends TestCase
         $this->layoutTypeRegistry->addLayoutType('4_zones_a', $layoutType1);
         $this->layoutTypeRegistry->addLayoutType('4_zones_b', $layoutType2);
 
+        $this->itemDefinitionRegistry = new ItemDefinitionRegistry();
+        $this->itemDefinitionRegistry->addItemDefinition('ezlocation', new ItemDefinition('ezlocation'));
+        $this->itemDefinitionRegistry->addItemDefinition('ezcontent', new ItemDefinition('ezcontent'));
+
         $this->queryTypeRegistry = new QueryTypeRegistry();
         $this->queryTypeRegistry->addQueryType('ezcontent_search', new QueryType('ezcontent_search'));
 
@@ -176,7 +187,7 @@ abstract class ServiceTestCase extends TestCase
             null,
             false,
             true,
-            array($configDefinition1)
+            array('http_cache' => $configDefinition1)
         );
 
         $blockDefinition2 = new BlockDefinition(
@@ -185,7 +196,7 @@ abstract class ServiceTestCase extends TestCase
             null,
             false,
             false,
-            array($configDefinition1)
+            array('http_cache' => $configDefinition1)
         );
 
         $blockDefinition3 = new BlockDefinition(
@@ -194,7 +205,7 @@ abstract class ServiceTestCase extends TestCase
             new BlockDefinitionHandlerWithTranslatableParameter(),
             true,
             false,
-            array($configDefinition1)
+            array('http_cache' => $configDefinition1)
         );
 
         $blockDefinition4 = new BlockDefinition(
@@ -203,7 +214,7 @@ abstract class ServiceTestCase extends TestCase
             new BlockDefinitionHandlerWithTranslatableParameter(),
             true,
             false,
-            array($configDefinition1)
+            array('http_cache' => $configDefinition1)
         );
 
         $blockDefinition5 = new ContainerDefinition(
@@ -299,7 +310,7 @@ abstract class ServiceTestCase extends TestCase
             $configValidator = new ConfigValidator();
             $configValidator->setValidator($validator);
 
-            $collectionValidator = new CollectionValidator();
+            $collectionValidator = new CollectionValidator($configValidator);
             $collectionValidator->setValidator($validator);
 
             $blockValidator = new BlockValidator($configValidator, $collectionValidator);
@@ -335,7 +346,10 @@ abstract class ServiceTestCase extends TestCase
                 ->method('validate')
                 ->will($this->returnValue(new ConstraintViolationList()));
 
-            $collectionValidator = new CollectionValidator();
+            $configValidator = new ConfigValidator();
+            $configValidator->setValidator($validator);
+
+            $collectionValidator = new CollectionValidator($configValidator);
             $collectionValidator->setValidator($validator);
         }
 
@@ -343,8 +357,11 @@ abstract class ServiceTestCase extends TestCase
             $this->persistenceHandler,
             $collectionValidator,
             $this->createCollectionMapper(),
-            new CollectionStructBuilder(),
-            $this->createParameterMapper()
+            new CollectionStructBuilder(
+                new ConfigStructBuilder()
+            ),
+            $this->createParameterMapper(),
+            $this->createConfigMapper()
         );
     }
 
@@ -419,6 +436,8 @@ abstract class ServiceTestCase extends TestCase
         return new CollectionMapper(
             $this->persistenceHandler->getCollectionHandler(),
             $this->createParameterMapper(),
+            $this->createConfigMapper(),
+            $this->itemDefinitionRegistry,
             $this->queryTypeRegistry
         );
     }

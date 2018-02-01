@@ -96,6 +96,7 @@ final class CollectionHandlerTest extends TestCase
                     'value' => '72',
                     'valueType' => 'ezlocation',
                     'status' => Value::STATUS_DRAFT,
+                    'config' => array(),
                 )
             ),
             $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT)
@@ -657,6 +658,7 @@ final class CollectionHandlerTest extends TestCase
                         'value' => '72',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_PUBLISHED,
+                        'config' => array(),
                     )
                 ),
                 new Item(
@@ -668,6 +670,7 @@ final class CollectionHandlerTest extends TestCase
                         'value' => '73',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_PUBLISHED,
+                        'config' => array(),
                     )
                 ),
                 new Item(
@@ -679,6 +682,7 @@ final class CollectionHandlerTest extends TestCase
                         'value' => '74',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_PUBLISHED,
+                        'config' => array(),
                     )
                 ),
             ),
@@ -756,6 +760,7 @@ final class CollectionHandlerTest extends TestCase
                         'value' => '72',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_DRAFT,
+                        'config' => array(),
                     )
                 ),
                 new Item(
@@ -767,6 +772,7 @@ final class CollectionHandlerTest extends TestCase
                         'value' => '73',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_DRAFT,
+                        'config' => array(),
                     )
                 ),
                 new Item(
@@ -778,6 +784,7 @@ final class CollectionHandlerTest extends TestCase
                         'value' => '74',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_DRAFT,
+                        'config' => array(),
                     )
                 ),
             ),
@@ -828,6 +835,7 @@ final class CollectionHandlerTest extends TestCase
                         'value' => '72',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_ARCHIVED,
+                        'config' => array(),
                     )
                 ),
                 new Item(
@@ -839,6 +847,7 @@ final class CollectionHandlerTest extends TestCase
                         'value' => '73',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_ARCHIVED,
+                        'config' => array(),
                     )
                 ),
                 new Item(
@@ -850,6 +859,7 @@ final class CollectionHandlerTest extends TestCase
                         'value' => '74',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_ARCHIVED,
+                        'config' => array(),
                     )
                 ),
             ),
@@ -928,6 +938,7 @@ final class CollectionHandlerTest extends TestCase
                         'value' => '72',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_ARCHIVED,
+                        'config' => array(),
                     )
                 ),
                 new Item(
@@ -939,6 +950,7 @@ final class CollectionHandlerTest extends TestCase
                         'value' => '73',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_ARCHIVED,
+                        'config' => array(),
                     )
                 ),
                 new Item(
@@ -950,6 +962,7 @@ final class CollectionHandlerTest extends TestCase
                         'value' => '74',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_ARCHIVED,
+                        'config' => array(),
                     )
                 ),
             ),
@@ -1119,6 +1132,7 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->position = 1;
         $itemCreateStruct->value = '42';
         $itemCreateStruct->valueType = 'ezcontent';
+        $itemCreateStruct->config = array('config' => array('value' => 42));
 
         $this->assertEquals(
             new Item(
@@ -1130,6 +1144,7 @@ final class CollectionHandlerTest extends TestCase
                     'value' => '42',
                     'valueType' => 'ezcontent',
                     'status' => Value::STATUS_DRAFT,
+                    'config' => array('config' => array('value' => 42)),
                 )
             ),
             $this->collectionHandler->addItem(
@@ -1152,6 +1167,7 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->type = Item::TYPE_MANUAL;
         $itemCreateStruct->value = '42';
         $itemCreateStruct->valueType = 'ezcontent';
+        $itemCreateStruct->config = array('config' => array('value' => 42));
 
         $this->assertEquals(
             new Item(
@@ -1163,6 +1179,7 @@ final class CollectionHandlerTest extends TestCase
                     'value' => '42',
                     'valueType' => 'ezcontent',
                     'status' => Value::STATUS_DRAFT,
+                    'config' => array('config' => array('value' => 42)),
                 )
             ),
             $this->collectionHandler->addItem(
@@ -1185,6 +1202,7 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->position = -1;
         $itemCreateStruct->value = '42';
         $itemCreateStruct->valueType = 'ezcontent';
+        $itemCreateStruct->config = array();
 
         $this->collectionHandler->addItem(
             $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
@@ -1205,6 +1223,7 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->position = 9999;
         $itemCreateStruct->value = '42';
         $itemCreateStruct->valueType = 'ezcontent';
+        $itemCreateStruct->config = array();
 
         $this->collectionHandler->addItem(
             $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
@@ -1229,6 +1248,7 @@ final class CollectionHandlerTest extends TestCase
                     'value' => '72',
                     'valueType' => 'ezlocation',
                     'status' => Value::STATUS_DRAFT,
+                    'config' => array(),
                 )
             ),
             $this->collectionHandler->moveItem(
@@ -1258,6 +1278,7 @@ final class CollectionHandlerTest extends TestCase
                     'value' => '73',
                     'valueType' => 'ezlocation',
                     'status' => Value::STATUS_DRAFT,
+                    'config' => array(),
                 )
             ),
             $this->collectionHandler->moveItem(
@@ -1344,6 +1365,7 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->position = 2;
         $itemCreateStruct->value = '42';
         $itemCreateStruct->valueType = 'ezcontent';
+        $itemCreateStruct->config = array();
 
         $collection = $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT);
 

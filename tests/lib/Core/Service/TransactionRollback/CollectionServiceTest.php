@@ -11,6 +11,7 @@ use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceCollection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item as PersistenceItem;
 use Netgen\BlockManager\Persistence\Values\Collection\Query as PersistenceQuery;
+use Netgen\BlockManager\Tests\Collection\Stubs\ItemDefinition;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 
 final class CollectionServiceTest extends ServiceTestCase
@@ -83,7 +84,7 @@ final class CollectionServiceTest extends ServiceTestCase
 
         $this->collectionService->addItem(
             new Collection(array('published' => false)),
-            new ItemCreateStruct(array('type' => Item::TYPE_MANUAL))
+            new ItemCreateStruct(array('definition' => new ItemDefinition('ezlocation'), 'type' => Item::TYPE_MANUAL))
         );
     }
 

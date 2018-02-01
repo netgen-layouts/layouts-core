@@ -42,7 +42,7 @@ final class BlockValidatorTest extends TestCase
         $configValidator = new ConfigValidator();
         $configValidator->setValidator($this->validator);
 
-        $collectionValidator = new CollectionValidator();
+        $collectionValidator = new CollectionValidator($configValidator);
         $collectionValidator->setValidator($this->validator);
 
         $this->blockValidator = new BlockValidator($configValidator, $collectionValidator);

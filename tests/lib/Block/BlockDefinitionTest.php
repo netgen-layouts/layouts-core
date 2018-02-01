@@ -10,6 +10,8 @@ use Netgen\BlockManager\Block\DynamicParameters;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Tests\Block\Stubs\HandlerPlugin;
+use Netgen\BlockManager\Tests\Config\Stubs\Block\HttpCacheConfigHandler;
+use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinition;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -49,7 +51,7 @@ final class BlockDefinitionTest extends TestCase
                     'large' => new ViewType(array('identifier' => 'large')),
                     'small' => new ViewType(array('identifier' => 'small')),
                 ),
-                'configDefinitions' => array(42),
+                'configDefinitions' => array('http_cache' => new ConfigDefinition('http_cache', new HttpCacheConfigHandler())),
             )
         );
     }
@@ -264,7 +266,10 @@ final class BlockDefinitionTest extends TestCase
      */
     public function testGetConfigDefinitions()
     {
-        $this->assertEquals(array(42), $this->blockDefinition->getConfigDefinitions());
+        $this->assertEquals(
+            array('http_cache' => new ConfigDefinition('http_cache', new HttpCacheConfigHandler())),
+            $this->blockDefinition->getConfigDefinitions()
+        );
     }
 
     /**

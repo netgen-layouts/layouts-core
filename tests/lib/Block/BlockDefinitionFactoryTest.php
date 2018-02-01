@@ -9,6 +9,8 @@ use Netgen\BlockManager\Block\BlockDefinitionFactory;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Block\Registry\HandlerPluginRegistry;
 use Netgen\BlockManager\Block\TwigBlockDefinitionInterface;
+use Netgen\BlockManager\Config\ConfigDefinitionFactory;
+use Netgen\BlockManager\Config\ConfigDefinitionInterface;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
 use Netgen\BlockManager\Parameters\ParameterType\TextLineType;
@@ -36,6 +38,11 @@ final class BlockDefinitionFactoryTest extends TestCase
     private $handlerPluginRegistry;
 
     /**
+     * @var \Netgen\BlockManager\Config\ConfigDefinitionFactory
+     */
+    private $configDefinitionFactory;
+
+    /**
      * @var \Netgen\BlockManager\Block\BlockDefinitionFactory
      */
     private $factory;
@@ -55,9 +62,14 @@ final class BlockDefinitionFactoryTest extends TestCase
             )
         );
 
+        $this->configDefinitionFactory = new ConfigDefinitionFactory(
+            $this->parameterBuilderFactory
+        );
+
         $this->factory = new BlockDefinitionFactory(
             $this->parameterBuilderFactory,
-            $this->handlerPluginRegistry
+            $this->handlerPluginRegistry,
+            $this->configDefinitionFactory
         );
     }
 
@@ -82,8 +94,8 @@ final class BlockDefinitionFactoryTest extends TestCase
                 ),
             ),
             array(
-                $this->getConfigDefinition('test'),
-                $this->getConfigDefinition('test2'),
+                'test' => new HttpCacheConfigHandler(),
+                'test2' => new HttpCacheConfigHandler(),
             )
         );
 
@@ -93,13 +105,12 @@ final class BlockDefinitionFactoryTest extends TestCase
         $this->assertArrayHasKey('test_param', $blockDefinition->getParameters());
         $this->assertArrayHasKey('dynamic_param', $blockDefinition->getDynamicParameters(new Block()));
 
-        $this->assertEquals(
-            array(
-                $this->getConfigDefinition('test'),
-                $this->getConfigDefinition('test2'),
-            ),
-            $blockDefinition->getConfigDefinitions()
-        );
+        $configDefinitions = $blockDefinition->getConfigDefinitions();
+        $this->assertArrayHasKey('test', $configDefinitions);
+        $this->assertArrayHasKey('test2', $configDefinitions);
+
+        $this->assertInstanceOf(ConfigDefinitionInterface::class, $configDefinitions['test']);
+        $this->assertInstanceOf(ConfigDefinitionInterface::class, $configDefinitions['test2']);
     }
 
     /**
@@ -122,8 +133,8 @@ final class BlockDefinitionFactoryTest extends TestCase
                 ),
             ),
             array(
-                $this->getConfigDefinition('test'),
-                $this->getConfigDefinition('test2'),
+                'test' => new HttpCacheConfigHandler(),
+                'test2' => new HttpCacheConfigHandler(),
             )
         );
 
@@ -133,13 +144,12 @@ final class BlockDefinitionFactoryTest extends TestCase
         $this->assertArrayHasKey('test_param', $blockDefinition->getParameters());
         $this->assertArrayHasKey('dynamic_param', $blockDefinition->getDynamicParameters(new Block()));
 
-        $this->assertEquals(
-            array(
-                $this->getConfigDefinition('test'),
-                $this->getConfigDefinition('test2'),
-            ),
-            $blockDefinition->getConfigDefinitions()
-        );
+        $configDefinitions = $blockDefinition->getConfigDefinitions();
+        $this->assertArrayHasKey('test', $configDefinitions);
+        $this->assertArrayHasKey('test2', $configDefinitions);
+
+        $this->assertInstanceOf(ConfigDefinitionInterface::class, $configDefinitions['test']);
+        $this->assertInstanceOf(ConfigDefinitionInterface::class, $configDefinitions['test2']);
     }
 
     /**
@@ -167,8 +177,8 @@ final class BlockDefinitionFactoryTest extends TestCase
                 ),
             ),
             array(
-                $this->getConfigDefinition('test'),
-                $this->getConfigDefinition('test2'),
+                'test' => new HttpCacheConfigHandler(),
+                'test2' => new HttpCacheConfigHandler(),
             )
         );
 
@@ -178,13 +188,12 @@ final class BlockDefinitionFactoryTest extends TestCase
         $this->assertArrayHasKey('test_param', $blockDefinition->getParameters());
         $this->assertArrayHasKey('dynamic_param', $blockDefinition->getDynamicParameters(new Block()));
 
-        $this->assertEquals(
-            array(
-                $this->getConfigDefinition('test'),
-                $this->getConfigDefinition('test2'),
-            ),
-            $blockDefinition->getConfigDefinitions()
-        );
+        $configDefinitions = $blockDefinition->getConfigDefinitions();
+        $this->assertArrayHasKey('test', $configDefinitions);
+        $this->assertArrayHasKey('test2', $configDefinitions);
+
+        $this->assertInstanceOf(ConfigDefinitionInterface::class, $configDefinitions['test']);
+        $this->assertInstanceOf(ConfigDefinitionInterface::class, $configDefinitions['test2']);
 
         $this->assertEquals(array('left', 'right'), $blockDefinition->getPlaceholders());
     }
