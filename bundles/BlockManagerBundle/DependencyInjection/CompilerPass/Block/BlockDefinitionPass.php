@@ -83,7 +83,7 @@ final class BlockDefinitionPass implements CompilerPassInterface
             $blockDefinitionService->addArgument($blockDefinition);
             $blockDefinitionService->addArgument(
                 array(
-                    new Reference('netgen_block_manager.block.config_definition.http_cache'),
+                    'http_cache' => new Reference('netgen_block_manager.block.config_definition.handler.http_cache'),
                 )
             );
 

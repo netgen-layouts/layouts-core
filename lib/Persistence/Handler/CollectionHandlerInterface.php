@@ -7,6 +7,7 @@ use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\ItemUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryTranslationUpdateStruct;
@@ -175,6 +176,16 @@ interface CollectionHandlerInterface
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Item
      */
     public function addItem(Collection $collection, ItemCreateStruct $itemCreateStruct);
+
+    /**
+     * Updates an item with specified ID.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Item $item
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\ItemUpdateStruct $itemUpdateStruct
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Collection\Item
+     */
+    public function updateItem(Item $item, ItemUpdateStruct $itemUpdateStruct);
 
     /**
      * Moves an item to specified position in the collection.

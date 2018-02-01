@@ -7,12 +7,15 @@ use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct as APICollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct as APIItemCreateStruct;
+use Netgen\BlockManager\API\Values\Collection\ItemUpdateStruct as APIItemUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct as APIQueryCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct as APIQueryUpdateStruct;
 use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\Collection\Item\ItemDefinitionInterface;
 use Netgen\BlockManager\Collection\QueryTypeInterface;
 use Netgen\BlockManager\Core\Service\Mapper\CollectionMapper;
+use Netgen\BlockManager\Core\Service\Mapper\ConfigMapper;
 use Netgen\BlockManager\Core\Service\Mapper\ParameterMapper;
 use Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
@@ -20,6 +23,7 @@ use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Persistence\HandlerInterface;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\ItemUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Query as PersistenceQuery;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryTranslationUpdateStruct;
@@ -47,6 +51,11 @@ final class CollectionService extends Service implements APICollectionService
     private $parameterMapper;
 
     /**
+     * @var \Netgen\BlockManager\Core\Service\Mapper\ConfigMapper
+     */
+    private $configMapper;
+
+    /**
      * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface
      */
     private $handler;
@@ -56,7 +65,8 @@ final class CollectionService extends Service implements APICollectionService
         CollectionValidator $validator,
         CollectionMapper $mapper,
         CollectionStructBuilder $structBuilder,
-        ParameterMapper $parameterMapper
+        ParameterMapper $parameterMapper,
+        ConfigMapper $configMapper
     ) {
         parent::__construct($persistenceHandler);
 
@@ -64,6 +74,7 @@ final class CollectionService extends Service implements APICollectionService
         $this->mapper = $mapper;
         $this->structBuilder = $structBuilder;
         $this->parameterMapper = $parameterMapper;
+        $this->configMapper = $configMapper;
 
         $this->handler = $persistenceHandler->getCollectionHandler();
     }
@@ -246,9 +257,13 @@ final class CollectionService extends Service implements APICollectionService
                     new ItemCreateStruct(
                         array(
                             'position' => $position,
-                            'valueId' => $itemCreateStruct->valueId,
-                            'valueType' => $itemCreateStruct->valueType,
+                            'valueId' => $itemCreateStruct->value,
+                            'valueType' => $itemCreateStruct->definition->getValueType(),
                             'type' => $itemCreateStruct->type,
+                            'config' => $this->configMapper->serializeValues(
+                                $itemCreateStruct->getConfigStructs(),
+                                $itemCreateStruct->definition->getConfigDefinitions()
+                            ),
                         )
                     )
                 );
@@ -256,6 +271,36 @@ final class CollectionService extends Service implements APICollectionService
         );
 
         return $this->mapper->mapItem($createdItem);
+    }
+
+    public function updateItem(Item $item, APIItemUpdateStruct $itemUpdateStruct)
+    {
+        if ($item->isPublished()) {
+            throw new BadStateException('item', 'Only draft items can be updated.');
+        }
+
+        $persistenceItem = $this->handler->loadItem($item->getId(), Value::STATUS_DRAFT);
+
+        $this->validator->validateItemUpdateStruct($item, $itemUpdateStruct);
+
+        $updatedItem = $this->transaction(
+            function () use ($item, $persistenceItem, $itemUpdateStruct) {
+                return $this->handler->updateItem(
+                    $persistenceItem,
+                    new ItemUpdateStruct(
+                        array(
+                            'config' => $this->configMapper->serializeValues(
+                                $itemUpdateStruct->getConfigStructs(),
+                                $item->getDefinition()->getConfigDefinitions(),
+                                $persistenceItem->config
+                            ),
+                        )
+                    )
+                );
+            }
+        );
+
+        return $this->mapper->mapItem($updatedItem);
     }
 
     public function moveItem(Item $item, $position)
@@ -355,9 +400,14 @@ final class CollectionService extends Service implements APICollectionService
         return $this->structBuilder->newCollectionUpdateStruct($collection);
     }
 
-    public function newItemCreateStruct($type, $valueId, $valueType)
+    public function newItemCreateStruct(ItemDefinitionInterface $itemDefinition, $type, $value)
     {
-        return $this->structBuilder->newItemCreateStruct($type, $valueId, $valueType);
+        return $this->structBuilder->newItemCreateStruct($itemDefinition, $type, $value);
+    }
+
+    public function newItemUpdateStruct(Item $item = null)
+    {
+        return $this->structBuilder->newItemUpdateStruct($item);
     }
 
     public function newQueryCreateStruct(QueryTypeInterface $queryType)

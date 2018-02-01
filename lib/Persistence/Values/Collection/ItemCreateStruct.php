@@ -33,4 +33,11 @@ final class ItemCreateStruct extends ValueObject
      * @var int
      */
     public $type;
+
+    /**
+     * The item configuration.
+     *
+     * @var array
+     */
+    public $config;
 }

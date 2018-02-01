@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
 use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistryInterface;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
@@ -26,6 +27,16 @@ final class CollectionMapper
     private $parameterMapper;
 
     /**
+     * @var \Netgen\BlockManager\Core\Service\Mapper\ConfigMapper
+     */
+    private $configMapper;
+
+    /**
+     * @var \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistryInterface
+     */
+    private $itemDefinitionRegistry;
+
+    /**
      * @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface
      */
     private $queryTypeRegistry;
@@ -33,10 +44,14 @@ final class CollectionMapper
     public function __construct(
         CollectionHandlerInterface $collectionHandler,
         ParameterMapper $parameterMapper,
+        ConfigMapper $configMapper,
+        ItemDefinitionRegistryInterface $itemDefinitionRegistry,
         QueryTypeRegistryInterface $queryTypeRegistry
     ) {
         $this->collectionHandler = $collectionHandler;
         $this->parameterMapper = $parameterMapper;
+        $this->configMapper = $configMapper;
+        $this->itemDefinitionRegistry = $itemDefinitionRegistry;
         $this->queryTypeRegistry = $queryTypeRegistry;
     }
 
@@ -121,6 +136,8 @@ final class CollectionMapper
      */
     public function mapItem(PersistenceItem $item)
     {
+        $itemDefinition = $this->itemDefinitionRegistry->getItemDefinition($item->valueType);
+
         $itemData = array(
             'id' => $item->id,
             'status' => $item->status,
@@ -130,6 +147,8 @@ final class CollectionMapper
             'valueId' => $item->valueId,
             'valueType' => $item->valueType,
             'published' => $item->status === Value::STATUS_PUBLISHED,
+            'definition' => $itemDefinition,
+            'configs' => $this->configMapper->mapConfig($item->config, $itemDefinition->getConfigDefinitions()),
         );
 
         return new Item($itemData);

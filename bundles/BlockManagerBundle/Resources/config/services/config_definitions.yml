@@ -10,5 +10,7 @@ services:
         public: false
         arguments:
             - "@netgen_block_manager.http_cache.block.cacheable_resolver"
-        tags:
-            - { name: netgen_block_manager.block.config_definition_handler, config_key: http_cache }
+
+    netgen_block_manager.collection.item.config_definition.handler.visibility:
+        class: Netgen\BlockManager\Collection\Item\ConfigDefinition\Handler\VisibilityConfigHandler
+        public: false

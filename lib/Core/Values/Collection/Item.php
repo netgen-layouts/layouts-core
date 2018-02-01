@@ -3,10 +3,13 @@
 namespace Netgen\BlockManager\Core\Values\Collection;
 
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
+use Netgen\BlockManager\Core\Values\Config\ConfigAwareValueTrait;
 use Netgen\BlockManager\ValueObject;
 
 final class Item extends ValueObject implements APIItem
 {
+    use ConfigAwareValueTrait;
+
     /**
      * @var int|string
      */
@@ -21,6 +24,11 @@ final class Item extends ValueObject implements APIItem
      * @var int|string
      */
     protected $collectionId;
+
+    /**
+     * @var \Netgen\BlockManager\Collection\Item\ItemDefinitionInterface
+     */
+    protected $definition;
 
     /**
      * @var bool
@@ -60,6 +68,11 @@ final class Item extends ValueObject implements APIItem
     public function getCollectionId()
     {
         return $this->collectionId;
+    }
+
+    public function getDefinition()
+    {
+        return $this->definition;
     }
 
     public function isPublished()

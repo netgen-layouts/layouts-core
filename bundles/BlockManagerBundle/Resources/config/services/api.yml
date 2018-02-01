@@ -180,6 +180,8 @@ services:
     netgen_block_manager.core.service.collection.validator:
         class: Netgen\BlockManager\Core\Service\Validator\CollectionValidator
         public: false
+        arguments:
+            - "@netgen_block_manager.core.validator.config"
         calls:
             - [setValidator, ["@validator"]]
 
@@ -189,11 +191,15 @@ services:
         arguments:
             - "@netgen_block_manager.persistence.collection.handler"
             - "@netgen_block_manager.core.service.parameter_mapper"
+            - "@netgen_block_manager.core.service.config_mapper"
+            - "@netgen_block_manager.collection.registry.item_definition"
             - "@netgen_block_manager.collection.registry.query_type"
 
     netgen_block_manager.core.service.collection.struct_builder:
         class: Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder
         public: false
+        arguments:
+            - "@netgen_block_manager.core.struct_builder.config"
 
     netgen_block_manager.core.service.collection:
         class: Netgen\BlockManager\Core\Service\CollectionService
@@ -204,6 +210,7 @@ services:
             - "@netgen_block_manager.core.service.collection.mapper"
             - "@netgen_block_manager.core.service.collection.struct_builder"
             - "@netgen_block_manager.core.service.parameter_mapper"
+            - "@netgen_block_manager.core.service.config_mapper"
 
     # Layout resolver related APIs
 

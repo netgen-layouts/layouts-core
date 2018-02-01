@@ -97,6 +97,12 @@ services:
         tags:
             - { name: netgen_block_manager.parameters.parameter_type }
 
+    netgen_block_manager.parameters.parameter_type.datetime:
+        class: Netgen\BlockManager\Parameters\ParameterType\DateTimeType
+        public: false
+        tags:
+            - { name: netgen_block_manager.parameters.parameter_type }
+
     netgen_block_manager.parameters.parameter_type.email:
         class: Netgen\BlockManager\Parameters\ParameterType\EmailType
         public: false
@@ -194,6 +200,12 @@ services:
         public: false
         tags:
             - { name: netgen_block_manager.parameters.form.mapper, type: url }
+
+    netgen_block_manager.parameters.form.mapper.datetime:
+        class: Netgen\BlockManager\Parameters\Form\Mapper\DateTimeMapper
+        public: false
+        tags:
+            - { name: netgen_block_manager.parameters.form.mapper, type: datetime }
 
     netgen_block_manager.parameters.form.mapper.email:
         class: Netgen\BlockManager\Parameters\Form\Mapper\EmailMapper

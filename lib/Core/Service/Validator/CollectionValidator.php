@@ -6,17 +6,28 @@ use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
+use Netgen\BlockManager\API\Values\Collection\ItemUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
+use Netgen\BlockManager\Collection\Item\ItemDefinitionInterface;
 use Netgen\BlockManager\Collection\QueryTypeInterface;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
 use Netgen\BlockManager\Validator\Constraint\Structs\QueryUpdateStruct as QueryUpdateStructConstraint;
-use Netgen\BlockManager\Validator\Constraint\ValueType;
 use Symfony\Component\Validator\Constraints;
 
 final class CollectionValidator extends Validator
 {
+    /**
+     * @var \Netgen\BlockManager\Core\Service\Validator\ConfigValidator
+     */
+    private $configValidator;
+
+    public function __construct(ConfigValidator $configValidator)
+    {
+        $this->configValidator = $configValidator;
+    }
+
     /**
      * Validates the provided collection create struct.
      *
@@ -104,6 +115,15 @@ final class CollectionValidator extends Validator
     public function validateItemCreateStruct(ItemCreateStruct $itemCreateStruct)
     {
         $this->validate(
+            $itemCreateStruct->definition,
+            array(
+                new Constraints\NotNull(),
+                new Constraints\Type(array('type' => ItemDefinitionInterface::class)),
+            ),
+            'definition'
+        );
+
+        $this->validate(
             $itemCreateStruct->type,
             array(
                 new Constraints\NotBlank(),
@@ -119,24 +139,35 @@ final class CollectionValidator extends Validator
             'type'
         );
 
-        if ($itemCreateStruct->valueId !== null) {
+        if ($itemCreateStruct->value !== null) {
             $this->validate(
-                $itemCreateStruct->valueId,
+                $itemCreateStruct->value,
                 array(
                     new Constraints\Type(array('type' => 'scalar')),
                 ),
-                'valueId'
+                'value'
             );
         }
 
-        $this->validate(
-            $itemCreateStruct->valueType,
-            array(
-                new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'string')),
-                new ValueType(),
-            ),
-            'valueType'
+        $this->configValidator->validateConfigStructs(
+            $itemCreateStruct->getConfigStructs(),
+            $itemCreateStruct->definition->getConfigDefinitions()
+        );
+    }
+
+    /**
+     * Validates the provided item update struct.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Item $item
+     * @param \Netgen\BlockManager\API\Values\Collection\ItemUpdateStruct $itemUpdateStruct
+     *
+     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
+     */
+    public function validateItemUpdateStruct(Item $item, ItemUpdateStruct $itemUpdateStruct)
+    {
+        $this->configValidator->validateConfigStructs(
+            $itemUpdateStruct->getConfigStructs(),
+            $item->getDefinition()->getConfigDefinitions()
         );
     }
 

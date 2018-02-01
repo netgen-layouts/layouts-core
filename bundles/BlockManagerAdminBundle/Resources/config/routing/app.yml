@@ -78,6 +78,14 @@ ngbm_app_collection_collection_form_edit:
         _controller: "netgen_block_manager.controller.app.collection:collectionEditForm"
         _ngbm_status: draft
 
+ngbm_app_collection_form_edit_item_config:
+    path: /app/collections/item/{itemId}/config/edit/{configKey}
+    methods: [GET, POST]
+    defaults:
+        _controller: "netgen_block_manager.controller.app.collection:editItemConfigForm"
+        _ngbm_status: draft
+        configKey: null
+
 ngbm_app_collection_query_form_edit:
     path: /app/{locale}/collections/query/{queryId}/form/edit/{formName}
     methods: [GET, POST]

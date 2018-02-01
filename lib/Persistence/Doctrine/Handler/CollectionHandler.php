@@ -13,6 +13,7 @@ use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\ItemUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryTranslationUpdateStruct;
@@ -359,10 +360,24 @@ final class CollectionHandler implements CollectionHandlerInterface
                 'valueId' => $itemCreateStruct->valueId,
                 'valueType' => $itemCreateStruct->valueType,
                 'status' => $collection->status,
+                'config' => $itemCreateStruct->config,
             )
         );
 
         return $this->queryHandler->addItem($newItem);
+    }
+
+    public function updateItem(Item $item, ItemUpdateStruct $itemUpdateStruct)
+    {
+        $updatedItem = clone $item;
+
+        if (is_array($itemUpdateStruct->config)) {
+            $updatedItem->config = $itemUpdateStruct->config;
+        }
+
+        $this->queryHandler->updateItem($updatedItem);
+
+        return $updatedItem;
     }
 
     public function moveItem(Item $item, $position)

@@ -2,9 +2,10 @@
 
 namespace Netgen\BlockManager\API\Values\Collection;
 
+use Netgen\BlockManager\API\Values\Config\ConfigAwareValue;
 use Netgen\BlockManager\API\Values\Value;
 
-interface Item extends Value
+interface Item extends Value, ConfigAwareValue
 {
     /**
      * Item of this type is inserted between items coming from the collection query.
@@ -35,6 +36,13 @@ interface Item extends Value
     public function getCollectionId();
 
     /**
+     * Returns the item definition.
+     *
+     * @return \Netgen\BlockManager\Collection\Item\ItemDefinitionInterface
+     */
+    public function getDefinition();
+
+    /**
      * Returns if the item is published.
      *
      * @return bool
@@ -59,14 +67,14 @@ interface Item extends Value
     public function getType();
 
     /**
-     * Returns the value ID.
+     * Returns the value stored inside the collection item.
      *
      * @return int|string
      */
     public function getValueId();
 
     /**
-     * Returns the value type.
+     * Returns the type of value stored inside the item.
      *
      * @return string
      */

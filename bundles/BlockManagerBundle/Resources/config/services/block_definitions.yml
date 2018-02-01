@@ -12,6 +12,7 @@ services:
         arguments:
             - "@netgen_block_manager.parameters.translatable_parameter_builder_factory"
             - "@netgen_block_manager.block.registry.handler_plugin"
+            - "@netgen_block_manager.config.config_definition_factory"
 
     netgen_block_manager.block.registry.block_definition:
         class: Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry

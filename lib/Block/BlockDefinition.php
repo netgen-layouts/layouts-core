@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Block;
 
 use Netgen\BlockManager\API\Values\Block\Block;
+use Netgen\BlockManager\Config\ConfigDefinitionAwareTrait;
 use Netgen\BlockManager\Exception\Block\BlockDefinitionException;
 use Netgen\BlockManager\Parameters\ParameterCollectionTrait;
 use Netgen\BlockManager\ValueObject;
@@ -10,6 +11,7 @@ use Netgen\BlockManager\ValueObject;
 class BlockDefinition extends ValueObject implements BlockDefinitionInterface
 {
     use ParameterCollectionTrait;
+    use ConfigDefinitionAwareTrait;
 
     /**
      * @var string
@@ -55,11 +57,6 @@ class BlockDefinition extends ValueObject implements BlockDefinitionInterface
      * @var \Netgen\BlockManager\Block\BlockDefinition\Handler\PluginInterface[]
      */
     protected $handlerPlugins = array();
-
-    /**
-     * @var \Netgen\BlockManager\Config\ConfigDefinitionInterface[]
-     */
-    protected $configDefinitions = array();
 
     public function getIdentifier()
     {
@@ -159,11 +156,6 @@ class BlockDefinition extends ValueObject implements BlockDefinitionInterface
     public function isContextual(Block $block)
     {
         return $this->handler->isContextual($block);
-    }
-
-    public function getConfigDefinitions()
-    {
-        return $this->configDefinitions;
     }
 
     public function hasPlugin($className)

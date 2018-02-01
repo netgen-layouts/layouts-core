@@ -99,7 +99,8 @@ CREATE TABLE "ngbm_collection_item" (
   "position" integer NOT NULL,
   "type" integer NOT NULL,
   "value_id" character varying(255),
-  "value_type" character varying(255) NOT NULL
+  "value_type" character varying(255) NOT NULL,
+  "config" text NOT NULL
 );
 
 CREATE TABLE "ngbm_collection_query" (

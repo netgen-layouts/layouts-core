@@ -10,17 +10,19 @@ use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\Query;
+use Netgen\BlockManager\API\Values\Config\ConfigAwareStruct;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\Block\BlockDefinitionInterface;
-use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
-use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
+use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
+use Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistryInterface;
+use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
+use Netgen\BlockManager\Config\ConfigDefinitionAwareInterface;
 use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
-use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry;
+use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
 
 /**
  * LayoutDataHandler handles serialized Layout data.
@@ -43,17 +45,22 @@ final class LayoutDataHandler
     private $layoutService;
 
     /**
-     * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry
+     * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface
      */
     private $blockDefinitionRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry
+     * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface
      */
     private $layoutTypeRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry
+     * @var \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistryInterface
+     */
+    private $itemDefinitionRegistry;
+
+    /**
+     * @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface
      */
     private $queryTypeRegistry;
 
@@ -66,9 +73,10 @@ final class LayoutDataHandler
         BlockService $blockService,
         CollectionService $collectionService,
         LayoutService $layoutService,
-        BlockDefinitionRegistry $blockDefinitionRegistry,
-        LayoutTypeRegistry $layoutTypeRegistry,
-        QueryTypeRegistry $queryTypeRegistry,
+        BlockDefinitionRegistryInterface $blockDefinitionRegistry,
+        LayoutTypeRegistryInterface $layoutTypeRegistry,
+        ItemDefinitionRegistryInterface $itemDefinitionRegistry,
+        QueryTypeRegistryInterface $queryTypeRegistry,
         ItemLoaderInterface $itemLoader
     ) {
         $this->blockService = $blockService;
@@ -76,6 +84,7 @@ final class LayoutDataHandler
         $this->layoutService = $layoutService;
         $this->blockDefinitionRegistry = $blockDefinitionRegistry;
         $this->layoutTypeRegistry = $layoutTypeRegistry;
+        $this->itemDefinitionRegistry = $itemDefinitionRegistry;
         $this->queryTypeRegistry = $queryTypeRegistry;
         $this->itemLoader = $itemLoader;
     }
@@ -425,29 +434,24 @@ final class LayoutDataHandler
     /**
      * Set configuration structs to the given $blockCreateStruct.
      *
-     * @param \Netgen\BlockManager\API\Values\Block\BlockCreateStruct $blockCreateStruct
-     * @param \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition
+     * @param \Netgen\BlockManager\API\Values\Config\ConfigAwareStruct $configAwareStruct
+     * @param \Netgen\BlockManager\Config\ConfigDefinitionAwareInterface $configDefinitionAware
      * @param array $configurationData
      *
      * @throws \Netgen\BlockManager\Exception\InvalidArgumentException
      * @throws \Exception If thrown by the underlying API
      */
     private function setConfigStructs(
-        BlockCreateStruct $blockCreateStruct,
-        BlockDefinitionInterface $blockDefinition,
+        ConfigAwareStruct $configAwareStruct,
+        ConfigDefinitionAwareInterface $configDefinitionAware,
         array $configurationData
     ) {
-        $configDefinitions = $blockDefinition->getConfigDefinitions();
-        $configDefinitionMap = array();
-
-        foreach ($configDefinitions as $configDefinition) {
-            $configDefinitionMap[$configDefinition->getConfigKey()] = $configDefinition;
-        }
+        $configDefinitions = $configDefinitionAware->getConfigDefinitions();
 
         foreach ($configurationData as $configKey => $hash) {
             $configStruct = new ConfigStruct();
-            $configStruct->fillParametersFromHash($configDefinitionMap[$configKey], $hash, true);
-            $blockCreateStruct->setConfigStruct($configKey, $configStruct);
+            $configStruct->fillParametersFromHash($configDefinitions[$configKey], $hash, true);
+            $configAwareStruct->setConfigStruct($configKey, $configStruct);
         }
     }
 
@@ -501,11 +505,14 @@ final class LayoutDataHandler
                 // Do nothing
             }
 
+            $itemDefinition = $this->itemDefinitionRegistry->getItemDefinition($collectionItemData['value_type']);
             $itemCreateStruct = $this->collectionService->newItemCreateStruct(
+                $itemDefinition,
                 $this->mapItemType($collectionItemData['type']),
-                $item instanceof ItemInterface ? $item->getValueId() : null,
-                $collectionItemData['value_type']
+                $item instanceof ItemInterface ? $item->getValueId() : null
             );
+
+            $this->setConfigStructs($itemCreateStruct, $itemDefinition, $collectionItemData['configuration']);
 
             $this->collectionService->addItem($collection, $itemCreateStruct, $collectionItemData['position']);
         }

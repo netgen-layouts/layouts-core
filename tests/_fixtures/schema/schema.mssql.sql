@@ -110,6 +110,7 @@ CREATE TABLE ngbm_collection_item (
   type int NOT NULL,
   value_id nvarchar(255),
   value_type nvarchar(255) NOT NULL,
+  config nvarchar(max) NOT NULL,
   PRIMARY KEY (id, status),
   FOREIGN KEY (collection_id, status)
     REFERENCES ngbm_collection (id, status)

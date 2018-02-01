@@ -360,6 +360,7 @@ final class CollectionQueryHandler extends QueryHandler
                     'type' => ':type',
                     'value_id' => ':value_id',
                     'value_type' => ':value_type',
+                    'config' => ':config',
                 )
             )
             ->setValue(
@@ -373,7 +374,8 @@ final class CollectionQueryHandler extends QueryHandler
             ->setParameter('position', $item->position, Type::INTEGER)
             ->setParameter('type', $item->type, Type::INTEGER)
             ->setParameter('value_id', $item->valueId, Type::STRING)
-            ->setParameter('value_type', $item->valueType, Type::STRING);
+            ->setParameter('value_type', $item->valueType, Type::STRING)
+            ->setParameter('config', $item->config, Type::JSON_ARRAY);
 
         $query->execute();
 
@@ -400,6 +402,7 @@ final class CollectionQueryHandler extends QueryHandler
             ->set('type', ':type')
             ->set('value_id', ':value_id')
             ->set('value_type', ':value_type')
+            ->set('config', ':config')
             ->where(
                 $query->expr()->eq('id', ':id')
             )
@@ -408,7 +411,8 @@ final class CollectionQueryHandler extends QueryHandler
             ->setParameter('position', $item->position, Type::INTEGER)
             ->setParameter('type', $item->type, Type::INTEGER)
             ->setParameter('value_id', $item->valueId, Type::STRING)
-            ->setParameter('value_type', $item->valueType, Type::STRING);
+            ->setParameter('value_type', $item->valueType, Type::STRING)
+            ->setParameter('config', $item->config, Type::JSON_ARRAY);
 
         $this->applyStatusCondition($query, $item->status);
 

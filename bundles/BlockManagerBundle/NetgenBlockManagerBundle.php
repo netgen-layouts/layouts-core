@@ -10,7 +10,6 @@ final class NetgenBlockManagerBundle extends Bundle
 {
     public function build(ContainerBuilder $container)
     {
-        $container->addCompilerPass(new CompilerPass\Config\ConfigDefinitionPass());
         $container->addCompilerPass(new CompilerPass\Block\HandlerPluginPass());
         $container->addCompilerPass(new CompilerPass\Block\BlockDefinitionPass());
         $container->addCompilerPass(new CompilerPass\LayoutResolver\TargetTypePass());
@@ -25,11 +24,12 @@ final class NetgenBlockManagerBundle extends Bundle
         $container->addCompilerPass(new CompilerPass\Parameters\FormMapperPass());
         $container->addCompilerPass(new CompilerPass\Parameters\ParameterFilterPass());
         $container->addCompilerPass(new CompilerPass\Parameters\ParameterTypePass());
-        $container->addCompilerPass(new CompilerPass\Collection\QueryTypePass());
         $container->addCompilerPass(new CompilerPass\Item\ValueTypePass());
         $container->addCompilerPass(new CompilerPass\Item\ItemLoaderPass());
         $container->addCompilerPass(new CompilerPass\Item\ItemBuilderPass());
         $container->addCompilerPass(new CompilerPass\Item\UrlBuilderPass());
+        $container->addCompilerPass(new CompilerPass\Collection\ItemDefinitionPass());
+        $container->addCompilerPass(new CompilerPass\Collection\QueryTypePass());
         $container->addCompilerPass(new CompilerPass\Layout\LayoutTypePass());
         $container->addCompilerPass(new CompilerPass\Block\BlockTypePass());
         $container->addCompilerPass(new CompilerPass\Block\BlockTypeGroupPass());

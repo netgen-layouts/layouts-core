@@ -55,6 +55,20 @@ abstract class Controller extends BaseController
     }
 
     /**
+     * Returns the specified item definition from the registry.
+     *
+     * @param string $valueType
+     *
+     * @return \Netgen\BlockManager\Collection\Item\ItemDefinitionInterface
+     */
+    protected function getItemDefinition($valueType)
+    {
+        $itemDefinitionRegistry = $this->get('netgen_block_manager.collection.registry.item_definition');
+
+        return $itemDefinitionRegistry->getItemDefinition($valueType);
+    }
+
+    /**
      * Returns the specified query type from the registry.
      *
      * @param string $identifier

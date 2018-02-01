@@ -10,6 +10,7 @@ use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Block\BlockDefinition\ContainerDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\Registry\HandlerPluginRegistryInterface;
+use Netgen\BlockManager\Config\ConfigDefinitionFactory;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface;
 
@@ -25,12 +26,19 @@ final class BlockDefinitionFactory
      */
     private $handlerPluginRegistry;
 
+    /**
+     * @var \Netgen\BlockManager\Config\ConfigDefinitionFactory
+     */
+    private $configDefinitionFactory;
+
     public function __construct(
         ParameterBuilderFactoryInterface $parameterBuilderFactory,
-        HandlerPluginRegistryInterface $handlerPluginRegistry
+        HandlerPluginRegistryInterface $handlerPluginRegistry,
+        ConfigDefinitionFactory $configDefinitionFactory
     ) {
         $this->parameterBuilderFactory = $parameterBuilderFactory;
         $this->handlerPluginRegistry = $handlerPluginRegistry;
+        $this->configDefinitionFactory = $configDefinitionFactory;
     }
 
     /**
@@ -39,7 +47,7 @@ final class BlockDefinitionFactory
      * @param string $identifier
      * @param \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface $handler
      * @param array $config
-     * @param \Netgen\BlockManager\Config\ConfigDefinitionInterface[] $configDefinitions
+     * @param \Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface[] $configDefinitionHandlers
      *
      * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
@@ -47,13 +55,13 @@ final class BlockDefinitionFactory
         $identifier,
         BlockDefinitionHandlerInterface $handler,
         array $config,
-        array $configDefinitions
+        array $configDefinitionHandlers
     ) {
         $commonData = $this->getCommonBlockDefinitionData(
             $identifier,
             $handler,
             $config,
-            $configDefinitions
+            $configDefinitionHandlers
         );
 
         return new BlockDefinition($commonData);
@@ -65,7 +73,7 @@ final class BlockDefinitionFactory
      * @param string $identifier
      * @param \Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface $handler
      * @param array $config
-     * @param \Netgen\BlockManager\Config\ConfigDefinitionInterface[] $configDefinitions
+     * @param \Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface[] $configDefinitionHandlers
      *
      * @return \Netgen\BlockManager\Block\TwigBlockDefinitionInterface
      */
@@ -73,13 +81,13 @@ final class BlockDefinitionFactory
         $identifier,
         TwigBlockDefinitionHandlerInterface $handler,
         array $config,
-        array $configDefinitions
+        array $configDefinitionHandlers
     ) {
         $commonData = $this->getCommonBlockDefinitionData(
             $identifier,
             $handler,
             $config,
-            $configDefinitions
+            $configDefinitionHandlers
         );
 
         return new TwigBlockDefinition($commonData);
@@ -91,7 +99,7 @@ final class BlockDefinitionFactory
      * @param string $identifier
      * @param \Netgen\BlockManager\Block\BlockDefinition\ContainerDefinitionHandlerInterface $handler
      * @param array $config
-     * @param \Netgen\BlockManager\Config\ConfigDefinitionInterface[] $configDefinitions
+     * @param \Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface[] $configDefinitionHandlers
      *
      * @return \Netgen\BlockManager\Block\ContainerDefinitionInterface
      */
@@ -99,13 +107,13 @@ final class BlockDefinitionFactory
         $identifier,
         ContainerDefinitionHandlerInterface $handler,
         array $config,
-        array $configDefinitions
+        array $configDefinitionHandlers
     ) {
         $commonData = $this->getCommonBlockDefinitionData(
             $identifier,
             $handler,
             $config,
-            $configDefinitions
+            $configDefinitionHandlers
         );
 
         return new ContainerDefinition($commonData);
@@ -117,7 +125,7 @@ final class BlockDefinitionFactory
      * @param string $identifier
      * @param \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface $handler
      * @param array $config
-     * @param \Netgen\BlockManager\Config\ConfigDefinitionInterface[] $configDefinitions
+     * @param \Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface[] $configDefinitionHandlers
      *
      * @return array
      */
@@ -125,7 +133,7 @@ final class BlockDefinitionFactory
         $identifier,
         BlockDefinitionHandlerInterface $handler,
         array $config,
-        array $configDefinitions
+        array $configDefinitionHandlers
     ) {
         $parameterBuilder = $this->parameterBuilderFactory->createParameterBuilder();
         $handler->buildParameters($parameterBuilder);
@@ -136,6 +144,14 @@ final class BlockDefinitionFactory
         }
 
         $parameters = $parameterBuilder->buildParameters();
+
+        $configDefinitions = array();
+        foreach ($configDefinitionHandlers as $configKey => $configDefinitionHandler) {
+            $configDefinitions[$configKey] = $this->configDefinitionFactory->buildConfigDefinition(
+                $configKey,
+                $configDefinitionHandler
+            );
+        }
 
         return array(
             'identifier' => $identifier,

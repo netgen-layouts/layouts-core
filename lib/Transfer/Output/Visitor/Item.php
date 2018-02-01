@@ -33,6 +33,10 @@ final class Item extends Visitor
 
     public function visit($collectionItem, VisitorInterface $subVisitor = null)
     {
+        if ($subVisitor === null) {
+            throw new RuntimeException('Implementation requires sub-visitor');
+        }
+
         /* @var \Netgen\BlockManager\API\Values\Collection\Item $collectionItem */
 
         $valueId = null;
@@ -54,7 +58,32 @@ final class Item extends Visitor
             'position' => $collectionItem->getPosition(),
             'value_id' => $valueId,
             'value_type' => $collectionItem->getValueType(),
+            'configuration' => $this->visitConfiguration($collectionItem, $subVisitor),
         );
+    }
+
+    /**
+     * Visit the given $item configuration into hash representation.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Item $item
+     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
+     *
+     * @return array
+     */
+    private function visitConfiguration(ItemValue $item, VisitorInterface $subVisitor)
+    {
+        $configs = $item->getConfigs();
+        if (empty($configs)) {
+            return null;
+        }
+
+        $hash = array();
+
+        foreach ($configs as $config) {
+            $hash[$config->getConfigKey()] = $subVisitor->visit($config);
+        }
+
+        return $hash;
     }
 
     /**

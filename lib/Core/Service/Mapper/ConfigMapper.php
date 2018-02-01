@@ -29,8 +29,7 @@ final class ConfigMapper
     {
         $configs = array();
 
-        foreach ($configDefinitions as $configDefinition) {
-            $configKey = $configDefinition->getConfigKey();
+        foreach ($configDefinitions as $configKey => $configDefinition) {
             $parameters = $this->parameterMapper->mapParameters(
                 $configDefinition,
                 isset($config[$configKey]) ?
@@ -63,9 +62,8 @@ final class ConfigMapper
     {
         $configs = array();
 
-        foreach ($configDefinitions as $configDefinition) {
+        foreach ($configDefinitions as $configKey => $configDefinition) {
             $configValues = array();
-            $configKey = $configDefinition->getConfigKey();
 
             if (
                 isset($configStructs[$configKey]) &&

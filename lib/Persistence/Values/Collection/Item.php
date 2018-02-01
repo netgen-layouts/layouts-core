@@ -64,4 +64,11 @@ final class Item extends Value
      * @var int
      */
     public $status;
+
+    /**
+     * Item configuration.
+     *
+     * @var array
+     */
+    public $config;
 }

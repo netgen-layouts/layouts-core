@@ -101,10 +101,12 @@ final class BlockCollectionController extends Controller
         $this->collectionService->transaction(
             function () use ($block, $collectionIdentifier, $items) {
                 foreach ($items as $item) {
+                    $itemDefinition = $this->getItemDefinition($item['value_type']);
+
                     $itemCreateStruct = $this->collectionService->newItemCreateStruct(
+                        $itemDefinition,
                         $item['type'],
-                        $item['value_id'],
-                        $item['value_type']
+                        $item['value_id']
                     );
 
                     $this->collectionService->addItem(

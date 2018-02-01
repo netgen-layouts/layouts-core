@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Block;
 
 use Netgen\BlockManager\API\Values\Block\Block;
+use Netgen\BlockManager\Config\ConfigDefinitionAwareInterface;
 use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
 
 /**
@@ -10,7 +11,7 @@ use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
  * This model specifies which parameters, view types and item view types
  * the block can have.
  */
-interface BlockDefinitionInterface extends ParameterCollectionInterface
+interface BlockDefinitionInterface extends ParameterCollectionInterface, ConfigDefinitionAwareInterface
 {
     /**
      * Returns the block definition identifier.
@@ -145,13 +146,6 @@ interface BlockDefinitionInterface extends ParameterCollectionInterface
      * @return bool
      */
     public function isContextual(Block $block);
-
-    /**
-     * Returns the available config definitions.
-     *
-     * @return \Netgen\BlockManager\Config\ConfigDefinitionInterface[]
-     */
-    public function getConfigDefinitions();
 
     /**
      * Returns if the block definition has a plugin with provided FQCN.
