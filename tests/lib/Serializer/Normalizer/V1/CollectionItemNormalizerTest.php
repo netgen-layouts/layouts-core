@@ -44,7 +44,7 @@ final class CollectionItemNormalizerTest extends TestCase
                 'collectionId' => 24,
                 'position' => 3,
                 'type' => CollectionItem::TYPE_OVERRIDE,
-                'valueId' => 12,
+                'value' => 12,
                 'valueType' => 'ezcontent',
             )
         );
@@ -68,7 +68,7 @@ final class CollectionItemNormalizerTest extends TestCase
                 'collection_id' => $item->getCollectionId(),
                 'position' => $item->getPosition(),
                 'type' => $item->getType(),
-                'value_id' => $item->getValueId(),
+                'value' => $item->getValue(),
                 'value_type' => $item->getValueType(),
                 'name' => 'Value name',
                 'visible' => true,
@@ -89,7 +89,7 @@ final class CollectionItemNormalizerTest extends TestCase
                 'collectionId' => 24,
                 'position' => 3,
                 'type' => CollectionItem::TYPE_OVERRIDE,
-                'valueId' => 12,
+                'value' => 12,
                 'valueType' => 'ezcontent',
             )
         );
@@ -106,7 +106,7 @@ final class CollectionItemNormalizerTest extends TestCase
                 'collection_id' => $item->getCollectionId(),
                 'position' => $item->getPosition(),
                 'type' => $item->getType(),
-                'value_id' => $item->getValueId(),
+                'value' => $item->getValue(),
                 'value_type' => $item->getValueType(),
                 'name' => null,
                 'visible' => null,

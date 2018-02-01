@@ -48,7 +48,7 @@ final class ResultBuilderIteratorTest extends TestCase
                 $this->returnValue(
                     new Item(
                         array(
-                            'valueId' => 100,
+                            'value' => 100,
                             'valueType' => 'dynamicValue',
                         )
                     )
@@ -63,7 +63,7 @@ final class ResultBuilderIteratorTest extends TestCase
                 $this->returnValue(
                     new Item(
                         array(
-                            'valueId' => 42,
+                            'value' => 42,
                             'valueType' => 'value',
                         )
                     )
@@ -88,7 +88,7 @@ final class ResultBuilderIteratorTest extends TestCase
                     array(
                         'item' => new Item(
                             array(
-                                'valueId' => 100,
+                                'value' => 100,
                                 'valueType' => 'dynamicValue',
                             )
                         ),
@@ -101,13 +101,13 @@ final class ResultBuilderIteratorTest extends TestCase
                     array(
                         'item' => new Item(
                             array(
-                                'valueId' => 42,
+                                'value' => 42,
                                 'valueType' => 'value',
                             )
                         ),
                         'collectionItem' => new CollectionItem(
                             array(
-                                'valueId' => 42,
+                                'value' => 42,
                                 'valueType' => 'value',
                             )
                         ),
@@ -119,12 +119,12 @@ final class ResultBuilderIteratorTest extends TestCase
                     array(
                         'item' => new NullItem(
                             array(
-                                'valueId' => 999,
+                                'value' => 999,
                             )
                         ),
                         'collectionItem' => new CollectionItem(
                             array(
-                                'valueId' => 999,
+                                'value' => 999,
                                 'valueType' => 'value',
                             )
                         ),
@@ -146,13 +146,13 @@ final class ResultBuilderIteratorTest extends TestCase
             new stdClass(),
             new CollectionItem(
                 array(
-                    'valueId' => 42,
+                    'value' => 42,
                     'valueType' => 'value',
                 )
             ),
             new CollectionItem(
                 array(
-                    'valueId' => 999,
+                    'value' => 999,
                     'valueType' => 'value',
                 )
             ),

@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Parameters\Form\Type\DataMapper;
 use Symfony\Component\Form\DataMapperInterface;
 
 /**
- * Mapper used to convert to and from the "link" to an item in "value_type://value_id"
+ * Mapper used to convert to and from the "link" to an item in "value_type://value"
  * format to the Symfony form structure.
  */
 final class ItemLinkDataMapper implements DataMapperInterface

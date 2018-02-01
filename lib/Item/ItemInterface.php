@@ -12,7 +12,7 @@ interface ItemInterface
      *
      * @return int|string
      */
-    public function getValueId();
+    public function getValue();
 
     /**
      * Returns the remote ID of the value from CMS from which this item is generated.

@@ -20,7 +20,7 @@ final class RemoteIdConverter
     }
 
     /**
-     * Converts the value_type://value_id format of the item reference to value_type://remote_id.
+     * Converts the value_type://value format of the item reference to value_type://remote_id.
      * This is useful for various export/import operations between different systems.
      *
      * If the conversion cannot be done, (for example, because item does not exist), a reference to
@@ -50,7 +50,7 @@ final class RemoteIdConverter
     }
 
     /**
-     * Converts the value_type://remote_id format of the item reference to value_type://value_id.
+     * Converts the value_type://remote_id format of the item reference to value_type://value.
      * This is useful for various export/import operations between different systems.
      *
      * If the conversion cannot be done, (for example, because item does not exist), a reference to
@@ -71,7 +71,7 @@ final class RemoteIdConverter
         try {
             $item = $this->itemLoader->loadByRemoteId($link['host'], str_replace('-', '_', $link['scheme']));
 
-            return $link['scheme'] . '://' . $item->getValueId();
+            return $link['scheme'] . '://' . $item->getValue();
         } catch (ItemException $e) {
             // Do nothing
         }

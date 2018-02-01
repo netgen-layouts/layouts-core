@@ -12,7 +12,7 @@ final class ItemCreateStructTest extends TestCase
     {
         $itemCreateStruct = new ItemCreateStruct();
 
-        $this->assertNull($itemCreateStruct->valueId);
+        $this->assertNull($itemCreateStruct->value);
         $this->assertNull($itemCreateStruct->valueType);
         $this->assertEquals(Item::TYPE_MANUAL, $itemCreateStruct->type);
     }
@@ -21,13 +21,13 @@ final class ItemCreateStructTest extends TestCase
     {
         $itemCreateStruct = new ItemCreateStruct(
             array(
-                'valueId' => 3,
+                'value' => 3,
                 'valueType' => 'value_type',
                 'type' => Item::TYPE_OVERRIDE,
             )
         );
 
-        $this->assertEquals(3, $itemCreateStruct->valueId);
+        $this->assertEquals(3, $itemCreateStruct->value);
         $this->assertEquals('value_type', $itemCreateStruct->valueType);
         $this->assertEquals(Item::TYPE_OVERRIDE, $itemCreateStruct->type);
     }

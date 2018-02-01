@@ -32,7 +32,7 @@ final class ItemBuilderTest extends TestCase
 
         $item = new Item(
             array(
-                'valueId' => 42,
+                'value' => 42,
                 'remoteId' => 'abc',
                 'name' => 'Some value',
                 'valueType' => 'value',

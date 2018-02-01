@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 final class SlotTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\Slot::getValueId
+     * @covers \Netgen\BlockManager\Collection\Result\Slot::getValue
      * @covers \Netgen\BlockManager\Collection\Result\Slot::getRemoteId
      * @covers \Netgen\BlockManager\Collection\Result\Slot::getValueType
      * @covers \Netgen\BlockManager\Collection\Result\Slot::getName
@@ -19,7 +19,7 @@ final class SlotTest extends TestCase
     {
         $value = new Slot();
 
-        $this->assertEquals(0, $value->getValueId());
+        $this->assertEquals(0, $value->getValue());
         $this->assertEquals(0, $value->getRemoteId());
         $this->assertEquals('slot', $value->getValueType());
         $this->assertEquals('(UNKNOWN ITEM)', $value->getName());

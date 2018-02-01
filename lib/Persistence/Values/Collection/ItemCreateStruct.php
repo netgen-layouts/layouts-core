@@ -14,11 +14,11 @@ final class ItemCreateStruct extends ValueObject
     public $position;
 
     /**
-     * ID of value from CMS for the new item.
+     * Value from CMS for the new item. This is usually the ID of the CMS entity.
      *
      * @var int|string
      */
-    public $valueId;
+    public $value;
 
     /**
      * Type of value from CMS for the new item.

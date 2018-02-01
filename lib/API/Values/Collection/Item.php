@@ -71,7 +71,7 @@ interface Item extends Value, ConfigAwareValue
      *
      * @return int|string
      */
-    public function getValueId();
+    public function getValue();
 
     /**
      * Returns the type of value stored inside the item.

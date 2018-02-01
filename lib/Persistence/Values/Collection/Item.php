@@ -45,11 +45,11 @@ final class Item extends Value
     public $type;
 
     /**
-     * ID of value from CMS this item wraps.
+     * Value from CMS this item wraps. This is usually the ID of the CMS entity.
      *
      * @var int|string
      */
-    public $valueId;
+    public $value;
 
     /**
      * Type of value from CMS this item wraps.

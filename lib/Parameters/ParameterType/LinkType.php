@@ -100,7 +100,7 @@ final class LinkType extends ParameterType
         $valueLink = $value->getLink();
 
         // If the link is internal, we need to convert the format
-        // from value_type://value_id to value_type://remote_id
+        // from value_type://value to value_type://remote_id
         if ($value->getLinkType() === LinkValue::LINK_TYPE_INTERNAL) {
             $valueLink = $this->remoteIdConverter->convertToRemoteId($valueLink);
         }
@@ -122,7 +122,7 @@ final class LinkType extends ParameterType
         $valueLink = isset($value['link']) ? $value['link'] : null;
 
         // If the link is internal, we need to convert the format
-        // from value_type://remote_id to value_type://value_id
+        // from value_type://remote_id to value_type://value
         if ($value['link_type'] === LinkValue::LINK_TYPE_INTERNAL) {
             $valueLink = $this->remoteIdConverter->convertFromRemoteId($valueLink);
         }

@@ -65,13 +65,13 @@ final class ResultBuilderIterator extends IteratorIterator
 
         try {
             $item = $this->itemLoader->load(
-                $object->getValueId(),
+                $object->getValue(),
                 $object->getValueType()
             );
         } catch (ItemException $e) {
             $item = new NullItem(
                 array(
-                    'valueId' => $object->getValueId(),
+                    'value' => $object->getValue(),
                 )
             );
         }

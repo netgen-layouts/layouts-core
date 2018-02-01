@@ -13,16 +13,16 @@ final class NullItem extends ValueObject implements ItemInterface
     /**
      * @var int|string
      */
-    protected $valueId;
+    protected $value;
 
-    public function getValueId()
+    public function getValue()
     {
-        return $this->valueId;
+        return $this->value;
     }
 
     public function getRemoteId()
     {
-        return $this->valueId;
+        return $this->value;
     }
 
     public function getValueType()

@@ -12,8 +12,10 @@ final class Version001100 extends AbstractMigration
      */
     public function up(Schema $schema)
     {
-        $itemTable = $schema->getTable('ngbm_collection_item');
-        $itemTable->addColumn('config', 'text', array('length' => 65535));
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on MySQL.');
+
+        $this->addSql('ALTER TABLE ngbm_collection_item ADD COLUMN config text NOT NULL');
+        $this->addSql('ALTER TABLE ngbm_collection_item CHANGE value_id value varchar(255)');
     }
 
     /**
@@ -21,7 +23,9 @@ final class Version001100 extends AbstractMigration
      */
     public function down(Schema $schema)
     {
-        $itemTable = $schema->getTable('ngbm_collection_item');
-        $itemTable->dropColumn('config');
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on MySQL.');
+
+        $this->addSql('ALTER TABLE ngbm_collection_item DROP COLUMN config');
+        $this->addSql('ALTER TABLE ngbm_collection_item CHANGE value value_id varchar(255)');
     }
 }

@@ -16,7 +16,7 @@ final class ItemTest extends TestCase
         $this->assertNull($item->collectionId);
         $this->assertNull($item->position);
         $this->assertNull($item->type);
-        $this->assertNull($item->valueId);
+        $this->assertNull($item->value);
         $this->assertNull($item->valueType);
         $this->assertNull($item->status);
     }
@@ -29,7 +29,7 @@ final class ItemTest extends TestCase
                 'collectionId' => 30,
                 'position' => 3,
                 'type' => Item::TYPE_OVERRIDE,
-                'valueId' => 32,
+                'value' => 32,
                 'valueType' => 'ezcontent',
                 'status' => Value::STATUS_PUBLISHED,
             )
@@ -39,7 +39,7 @@ final class ItemTest extends TestCase
         $this->assertEquals(30, $item->collectionId);
         $this->assertEquals(3, $item->position);
         $this->assertEquals(Item::TYPE_OVERRIDE, $item->type);
-        $this->assertEquals(32, $item->valueId);
+        $this->assertEquals(32, $item->value);
         $this->assertEquals('ezcontent', $item->valueType);
         $this->assertEquals(Value::STATUS_PUBLISHED, $item->status);
     }

@@ -9,7 +9,7 @@ use stdClass;
 final class ItemTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Item\Item::getValueId
+     * @covers \Netgen\BlockManager\Item\Item::getValue
      * @covers \Netgen\BlockManager\Item\Item::getRemoteId
      * @covers \Netgen\BlockManager\Item\Item::getValueType
      * @covers \Netgen\BlockManager\Item\Item::getName
@@ -20,7 +20,7 @@ final class ItemTest extends TestCase
     {
         $value = new Item(
             array(
-                'valueId' => 42,
+                'value' => 42,
                 'remoteId' => 'abc',
                 'valueType' => 'type',
                 'name' => 'Value name',
@@ -29,7 +29,7 @@ final class ItemTest extends TestCase
             )
         );
 
-        $this->assertEquals(42, $value->getValueId());
+        $this->assertEquals(42, $value->getValue());
         $this->assertEquals('abc', $value->getRemoteId());
         $this->assertEquals('type', $value->getValueType());
         $this->assertEquals('Value name', $value->getName());

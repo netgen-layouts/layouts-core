@@ -23,31 +23,31 @@ final class ItemException extends InvalidArgumentException implements Exception
     }
 
     /**
-     * @param string $valueId
+     * @param string $value
      *
      * @return \Netgen\BlockManager\Exception\Item\ItemException
      */
-    public static function noValue($valueId)
+    public static function noValue($value)
     {
         return new self(
             sprintf(
                 'Value with (remote) ID %s does not exist.',
-                $valueId
+                $value
             )
         );
     }
 
     /**
-     * @param string $valueId
+     * @param string $value
      *
      * @return \Netgen\BlockManager\Exception\Item\ItemException
      */
-    public static function invalidValue($valueId)
+    public static function invalidValue($value)
     {
         return new self(
             sprintf(
                 'Item "%s" is not valid.',
-                $valueId
+                $value
             )
         );
     }

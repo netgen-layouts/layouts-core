@@ -106,7 +106,7 @@ final class BlockCollectionController extends Controller
                     $itemCreateStruct = $this->collectionService->newItemCreateStruct(
                         $itemDefinition,
                         $item['type'],
-                        $item['value_id']
+                        $item['value']
                     );
 
                     $this->collectionService->addItem(

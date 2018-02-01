@@ -31,14 +31,14 @@ final class CollectionItemNormalizer implements NormalizerInterface
             'collection_id' => $item->getCollectionId(),
             'position' => $item->getPosition(),
             'type' => $item->getType(),
-            'value_id' => $item->getValueId(),
+            'value' => $item->getValue(),
             'value_type' => $item->getValueType(),
             'name' => null,
             'visible' => null,
         );
 
         try {
-            $value = $this->itemLoader->load($item->getValueId(), $item->getValueType());
+            $value = $this->itemLoader->load($item->getValue(), $item->getValueType());
             $data['name'] = $value->getName();
             $data['visible'] = $value->isVisible();
         } catch (ItemException $e) {

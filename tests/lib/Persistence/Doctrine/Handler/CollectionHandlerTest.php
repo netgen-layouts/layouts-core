@@ -93,7 +93,7 @@ final class CollectionHandlerTest extends TestCase
                     'collectionId' => 1,
                     'position' => 0,
                     'type' => Item::TYPE_MANUAL,
-                    'valueId' => '72',
+                    'value' => '72',
                     'valueType' => 'ezlocation',
                     'status' => Value::STATUS_DRAFT,
                 )
@@ -654,7 +654,7 @@ final class CollectionHandlerTest extends TestCase
                         'collectionId' => $copiedCollection->id,
                         'position' => 2,
                         'type' => Item::TYPE_MANUAL,
-                        'valueId' => '72',
+                        'value' => '72',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_PUBLISHED,
                     )
@@ -665,7 +665,7 @@ final class CollectionHandlerTest extends TestCase
                         'collectionId' => $copiedCollection->id,
                         'position' => 3,
                         'type' => Item::TYPE_MANUAL,
-                        'valueId' => '73',
+                        'value' => '73',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_PUBLISHED,
                     )
@@ -676,7 +676,7 @@ final class CollectionHandlerTest extends TestCase
                         'collectionId' => $copiedCollection->id,
                         'position' => 5,
                         'type' => Item::TYPE_MANUAL,
-                        'valueId' => '74',
+                        'value' => '74',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_PUBLISHED,
                     )
@@ -753,7 +753,7 @@ final class CollectionHandlerTest extends TestCase
                         'collectionId' => $copiedCollection->id,
                         'position' => 0,
                         'type' => Item::TYPE_MANUAL,
-                        'valueId' => '72',
+                        'value' => '72',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_DRAFT,
                     )
@@ -764,7 +764,7 @@ final class CollectionHandlerTest extends TestCase
                         'collectionId' => $copiedCollection->id,
                         'position' => 1,
                         'type' => Item::TYPE_MANUAL,
-                        'valueId' => '73',
+                        'value' => '73',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_DRAFT,
                     )
@@ -775,7 +775,7 @@ final class CollectionHandlerTest extends TestCase
                         'collectionId' => $copiedCollection->id,
                         'position' => 2,
                         'type' => Item::TYPE_MANUAL,
-                        'valueId' => '74',
+                        'value' => '74',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_DRAFT,
                     )
@@ -825,7 +825,7 @@ final class CollectionHandlerTest extends TestCase
                         'collectionId' => 3,
                         'position' => 2,
                         'type' => Item::TYPE_MANUAL,
-                        'valueId' => '72',
+                        'value' => '72',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_ARCHIVED,
                     )
@@ -836,7 +836,7 @@ final class CollectionHandlerTest extends TestCase
                         'collectionId' => 3,
                         'position' => 3,
                         'type' => Item::TYPE_MANUAL,
-                        'valueId' => '73',
+                        'value' => '73',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_ARCHIVED,
                     )
@@ -847,7 +847,7 @@ final class CollectionHandlerTest extends TestCase
                         'collectionId' => 3,
                         'position' => 5,
                         'type' => Item::TYPE_MANUAL,
-                        'valueId' => '74',
+                        'value' => '74',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_ARCHIVED,
                     )
@@ -925,7 +925,7 @@ final class CollectionHandlerTest extends TestCase
                         'collectionId' => 1,
                         'position' => 0,
                         'type' => Item::TYPE_MANUAL,
-                        'valueId' => '72',
+                        'value' => '72',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_ARCHIVED,
                     )
@@ -936,7 +936,7 @@ final class CollectionHandlerTest extends TestCase
                         'collectionId' => 1,
                         'position' => 1,
                         'type' => Item::TYPE_MANUAL,
-                        'valueId' => '73',
+                        'value' => '73',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_ARCHIVED,
                     )
@@ -947,7 +947,7 @@ final class CollectionHandlerTest extends TestCase
                         'collectionId' => 1,
                         'position' => 2,
                         'type' => Item::TYPE_MANUAL,
-                        'valueId' => '74',
+                        'value' => '74',
                         'valueType' => 'ezlocation',
                         'status' => Value::STATUS_ARCHIVED,
                     )
@@ -1117,7 +1117,7 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct = new ItemCreateStruct();
         $itemCreateStruct->type = Item::TYPE_MANUAL;
         $itemCreateStruct->position = 1;
-        $itemCreateStruct->valueId = '42';
+        $itemCreateStruct->value = '42';
         $itemCreateStruct->valueType = 'ezcontent';
 
         $this->assertEquals(
@@ -1127,7 +1127,7 @@ final class CollectionHandlerTest extends TestCase
                     'collectionId' => 1,
                     'position' => 1,
                     'type' => Item::TYPE_MANUAL,
-                    'valueId' => '42',
+                    'value' => '42',
                     'valueType' => 'ezcontent',
                     'status' => Value::STATUS_DRAFT,
                 )
@@ -1150,7 +1150,7 @@ final class CollectionHandlerTest extends TestCase
     {
         $itemCreateStruct = new ItemCreateStruct();
         $itemCreateStruct->type = Item::TYPE_MANUAL;
-        $itemCreateStruct->valueId = '42';
+        $itemCreateStruct->value = '42';
         $itemCreateStruct->valueType = 'ezcontent';
 
         $this->assertEquals(
@@ -1160,7 +1160,7 @@ final class CollectionHandlerTest extends TestCase
                     'collectionId' => 1,
                     'position' => 3,
                     'type' => Item::TYPE_MANUAL,
-                    'valueId' => '42',
+                    'value' => '42',
                     'valueType' => 'ezcontent',
                     'status' => Value::STATUS_DRAFT,
                 )
@@ -1183,7 +1183,7 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct = new ItemCreateStruct();
         $itemCreateStruct->type = Item::TYPE_MANUAL;
         $itemCreateStruct->position = -1;
-        $itemCreateStruct->valueId = '42';
+        $itemCreateStruct->value = '42';
         $itemCreateStruct->valueType = 'ezcontent';
 
         $this->collectionHandler->addItem(
@@ -1203,7 +1203,7 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct = new ItemCreateStruct();
         $itemCreateStruct->type = Item::TYPE_MANUAL;
         $itemCreateStruct->position = 9999;
-        $itemCreateStruct->valueId = '42';
+        $itemCreateStruct->value = '42';
         $itemCreateStruct->valueType = 'ezcontent';
 
         $this->collectionHandler->addItem(
@@ -1226,7 +1226,7 @@ final class CollectionHandlerTest extends TestCase
                     'collectionId' => 1,
                     'position' => 1,
                     'type' => Item::TYPE_MANUAL,
-                    'valueId' => '72',
+                    'value' => '72',
                     'valueType' => 'ezlocation',
                     'status' => Value::STATUS_DRAFT,
                 )
@@ -1255,7 +1255,7 @@ final class CollectionHandlerTest extends TestCase
                     'collectionId' => 1,
                     'position' => 0,
                     'type' => Item::TYPE_MANUAL,
-                    'valueId' => '73',
+                    'value' => '73',
                     'valueType' => 'ezlocation',
                     'status' => Value::STATUS_DRAFT,
                 )
@@ -1342,7 +1342,7 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct = new ItemCreateStruct();
         $itemCreateStruct->type = Item::TYPE_OVERRIDE;
         $itemCreateStruct->position = 2;
-        $itemCreateStruct->valueId = '42';
+        $itemCreateStruct->value = '42';
         $itemCreateStruct->valueType = 'ezcontent';
 
         $collection = $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT);

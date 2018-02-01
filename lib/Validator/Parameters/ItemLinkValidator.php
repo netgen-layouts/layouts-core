@@ -53,7 +53,7 @@ final class ItemLinkValidator extends ConstraintValidator
 
         if (!$constraint->allowInvalid) {
             $valueType = str_replace('-', '_', $parsedValue['scheme']);
-            $valueId = $parsedValue['host'];
+            $itemValue = $parsedValue['host'];
 
             $validator->validate($valueType, new ValueType());
             if (count($validator->getViolations()) > 0) {
@@ -71,7 +71,7 @@ final class ItemLinkValidator extends ConstraintValidator
             }
 
             try {
-                $this->itemLoader->load($valueId, $valueType);
+                $this->itemLoader->load($itemValue, $valueType);
             } catch (ItemException $e) {
                 $this->context->buildViolation($constraint->message)
                     ->addViolation();

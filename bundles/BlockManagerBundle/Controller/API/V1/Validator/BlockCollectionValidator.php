@@ -33,7 +33,7 @@ final class BlockCollectionValidator extends Validator
                                         new Constraints\NotNull(),
                                         new Constraints\Type(array('type' => 'int')),
                                     ),
-                                    'value_id' => array(
+                                    'value' => array(
                                         new Constraints\NotNull(),
                                         new Constraints\Type(array('type' => 'scalar')),
                                     ),

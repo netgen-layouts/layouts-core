@@ -45,7 +45,7 @@ final class ItemLoaderTest extends TestCase
     {
         $item = new Item(
             array(
-                'valueId' => 42,
+                'value' => 42,
                 'remoteId' => 'abc',
                 'name' => 'Some value',
                 'valueType' => 'value',
@@ -101,7 +101,7 @@ final class ItemLoaderTest extends TestCase
     {
         $item = new Item(
             array(
-                'valueId' => 42,
+                'value' => 42,
                 'remoteId' => 'abc',
                 'name' => 'Some value',
                 'valueType' => 'value',

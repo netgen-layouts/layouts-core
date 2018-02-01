@@ -357,7 +357,7 @@ final class CollectionHandler implements CollectionHandlerInterface
                 'collectionId' => $collection->id,
                 'position' => $position,
                 'type' => $itemCreateStruct->type,
-                'valueId' => $itemCreateStruct->valueId,
+                'value' => $itemCreateStruct->value,
                 'valueType' => $itemCreateStruct->valueType,
                 'status' => $collection->status,
                 'config' => $itemCreateStruct->config,

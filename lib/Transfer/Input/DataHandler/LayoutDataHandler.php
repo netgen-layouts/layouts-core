@@ -498,7 +498,7 @@ final class LayoutDataHandler
 
             try {
                 $item = $this->itemLoader->loadByRemoteId(
-                    $collectionItemData['value_id'],
+                    $collectionItemData['value'],
                     $collectionItemData['value_type']
                 );
             } catch (ItemException $e) {
@@ -509,7 +509,7 @@ final class LayoutDataHandler
             $itemCreateStruct = $this->collectionService->newItemCreateStruct(
                 $itemDefinition,
                 $this->mapItemType($collectionItemData['type']),
-                $item instanceof ItemInterface ? $item->getValueId() : null
+                $item instanceof ItemInterface ? $item->getValue() : null
             );
 
             $this->setConfigStructs($itemCreateStruct, $itemDefinition, $collectionItemData['configuration']);

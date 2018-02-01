@@ -144,7 +144,7 @@ final class CollectionMapper
             'collectionId' => $item->collectionId,
             'position' => $item->position,
             'type' => $item->type,
-            'valueId' => $item->valueId,
+            'value' => $item->value,
             'valueType' => $item->valueType,
             'published' => $item->status === Value::STATUS_PUBLISHED,
             'definition' => $itemDefinition,

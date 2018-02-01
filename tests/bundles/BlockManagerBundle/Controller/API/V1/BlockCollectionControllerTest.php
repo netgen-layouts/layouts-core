@@ -63,13 +63,13 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
                 'items' => array(
                     array(
                         'type' => Item::TYPE_MANUAL,
-                        'value_id' => 73,
+                        'value' => 73,
                         'value_type' => 'ezlocation',
                         'position' => 3,
                     ),
                     array(
                         'type' => Item::TYPE_MANUAL,
-                        'value_id' => 74,
+                        'value' => 74,
                         'value_type' => 'ezlocation',
                     ),
                 ),
@@ -99,13 +99,13 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
                 'items' => array(
                     array(
                         'type' => Item::TYPE_MANUAL,
-                        'value_id' => 73,
+                        'value' => 73,
                         'value_type' => 'ezlocation',
                         'position' => 3,
                     ),
                     array(
                         'type' => Item::TYPE_MANUAL,
-                        'value_id' => 74,
+                        'value' => 74,
                         'value_type' => 'ezlocation',
                     ),
                 ),
@@ -139,13 +139,13 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
                 'items' => array(
                     array(
                         'type' => Item::TYPE_MANUAL,
-                        'value_id' => 73,
+                        'value' => 73,
                         'value_type' => 'ezlocation',
                         'position' => 3,
                     ),
                     array(
                         'type' => Item::TYPE_MANUAL,
-                        'value_id' => 74,
+                        'value' => 74,
                         'value_type' => 'ezlocation',
                     ),
                 ),
@@ -259,7 +259,7 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
                 'items' => array(
                     array(
                         'type' => 'type',
-                        'value_id' => 73,
+                        'value' => 73,
                         'value_type' => 'ezlocation',
                         'position' => 3,
                     ),
@@ -293,7 +293,7 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
             array(
                 'items' => array(
                     array(
-                        'value_id' => 73,
+                        'value' => 73,
                         'value_type' => 'ezlocation',
                         'position' => 3,
                     ),
@@ -321,14 +321,14 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::addItems
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::validateAddItems
      */
-    public function testAddItemsWithInvalidValueId()
+    public function testAddItemsWithInvalidValue()
     {
         $data = $this->jsonEncode(
             array(
                 'items' => array(
                     array(
                         'type' => Item::TYPE_MANUAL,
-                        'value_id' => array(42),
+                        'value' => array(42),
                         'value_type' => 'ezlocation',
                         'position' => 3,
                     ),
@@ -348,7 +348,7 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "[0][value_id]": This value should be of type scalar.'
+            'There was an error validating "[0][value]": This value should be of type scalar.'
         );
     }
 
@@ -356,7 +356,7 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::addItems
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator::validateAddItems
      */
-    public function testAddItemsWithMissingValueId()
+    public function testAddItemsWithMissingValue()
     {
         $data = $this->jsonEncode(
             array(
@@ -382,7 +382,7 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "[0][value_id]": This field is missing.'
+            'There was an error validating "[0][value]": This field is missing.'
         );
     }
 
@@ -397,7 +397,7 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
                 'items' => array(
                     array(
                         'type' => Item::TYPE_MANUAL,
-                        'value_id' => 73,
+                        'value' => 73,
                         'value_type' => 42,
                         'position' => 3,
                     ),
@@ -432,7 +432,7 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
                 'items' => array(
                     array(
                         'type' => Item::TYPE_MANUAL,
-                        'value_id' => 73,
+                        'value' => 73,
                         'position' => 3,
                     ),
                 ),
@@ -466,7 +466,7 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
                 'items' => array(
                     array(
                         'type' => Item::TYPE_MANUAL,
-                        'value_id' => 73,
+                        'value' => 73,
                         'value_type' => 'ezlocation',
                         'position' => '3',
                     ),
@@ -501,7 +501,7 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
                 'items' => array(
                     array(
                         'type' => Item::TYPE_MANUAL,
-                        'value_id' => 73,
+                        'value' => 73,
                         'value_type' => 'ezlocation',
                     ),
                 ),
@@ -535,7 +535,7 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
                 'items' => array(
                     array(
                         'type' => Item::TYPE_MANUAL,
-                        'value_id' => 73,
+                        'value' => 73,
                         'value_type' => 'ezlocation',
                         'position' => 9999,
                     ),

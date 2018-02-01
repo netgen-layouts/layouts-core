@@ -41,7 +41,7 @@ final class ItemBuilder implements ItemBuilderInterface
 
             $value = new Item(
                 array(
-                    'valueId' => $valueConverter->getId($object),
+                    'value' => $valueConverter->getId($object),
                     'remoteId' => $valueConverter->getRemoteId($object),
                     'valueType' => $valueConverter->getValueType($object),
                     'name' => $valueConverter->getName($object),

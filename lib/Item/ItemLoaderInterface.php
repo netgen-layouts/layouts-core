@@ -8,16 +8,16 @@ namespace Netgen\BlockManager\Item;
 interface ItemLoaderInterface
 {
     /**
-     * Loads the item from provided value ID and value type.
+     * Loads the item from provided value and value type.
      *
-     * @param int|string $valueId
+     * @param int|string $value
      * @param string $valueType
      *
      * @throws \Netgen\BlockManager\Exception\Item\ItemException If item could not be loaded
      *
      * @return \Netgen\BlockManager\Item\ItemInterface
      */
-    public function load($valueId, $valueType);
+    public function load($value, $valueType);
 
     /**
      * Loads the item from provided value remote ID and value type.

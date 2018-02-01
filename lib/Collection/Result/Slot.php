@@ -11,7 +11,7 @@ use Netgen\BlockManager\ValueObject;
  */
 final class Slot extends ValueObject implements ItemInterface
 {
-    public function getValueId()
+    public function getValue()
     {
         return 0;
     }

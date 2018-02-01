@@ -257,7 +257,7 @@ final class CollectionService extends Service implements APICollectionService
                     new ItemCreateStruct(
                         array(
                             'position' => $position,
-                            'valueId' => $itemCreateStruct->value,
+                            'value' => $itemCreateStruct->value,
                             'valueType' => $itemCreateStruct->definition->getValueType(),
                             'type' => $itemCreateStruct->type,
                             'config' => $this->configMapper->serializeValues(

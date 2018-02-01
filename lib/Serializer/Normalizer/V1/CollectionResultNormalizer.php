@@ -21,7 +21,7 @@ final class CollectionResultNormalizer implements NormalizerInterface
             'collection_id' => $collectionItem !== null ? $collectionItem->getCollectionId() : null,
             'position' => $result->getPosition(),
             'type' => $result->getType(),
-            'value_id' => $item->getValueId(),
+            'value' => $item->getValue(),
             'value_type' => $item->getValueType(),
             'name' => $item->getName(),
             'visible' => $item->isVisible(),

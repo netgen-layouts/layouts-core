@@ -57,10 +57,10 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
 
         $itemFixtures = require __DIR__ . '/fixtures/items.php';
 
-        foreach ($itemFixtures as $valueId => $item) {
+        foreach ($itemFixtures as $value => $item) {
             $itemLoaderMock
                 ->shouldReceive('load')
-                ->with($item->getValueId(), $item->getValueType())
+                ->with($item->getValue(), $item->getValueType())
                 ->andReturn($item);
         }
     }

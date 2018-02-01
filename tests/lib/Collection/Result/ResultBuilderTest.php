@@ -138,7 +138,7 @@ final class ResultBuilderTest extends TestCase
     }
 
     /**
-     * Builds the dynamic collection for provided type and list of value IDs.
+     * Builds the dynamic collection for provided type and list of values.
      *
      * @param array $manualIds
      * @param array $overrideIds
@@ -160,7 +160,7 @@ final class ResultBuilderTest extends TestCase
                 array(
                     'position' => $position,
                     'type' => Item::TYPE_MANUAL,
-                    'valueId' => $id,
+                    'value' => $id,
                     'valueType' => 'value',
                 )
             );
@@ -171,7 +171,7 @@ final class ResultBuilderTest extends TestCase
                 array(
                     'position' => $position,
                     'type' => Item::TYPE_OVERRIDE,
-                    'valueId' => $id,
+                    'value' => $id,
                     'valueType' => 'value',
                 )
             );

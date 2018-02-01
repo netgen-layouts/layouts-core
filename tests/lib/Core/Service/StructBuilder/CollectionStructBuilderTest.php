@@ -109,7 +109,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
             new ItemCreateStruct(
                 array(
                     'type' => Item::TYPE_OVERRIDE,
-                    'valueId' => '42',
+                    'value' => '42',
                     'valueType' => 'ezcontent',
                 )
             ),

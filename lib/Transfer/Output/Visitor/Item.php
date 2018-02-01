@@ -39,15 +39,15 @@ final class Item extends Visitor
 
         /* @var \Netgen\BlockManager\API\Values\Collection\Item $collectionItem */
 
-        $valueId = null;
+        $value = null;
 
         try {
             $item = $this->itemLoader->load(
-                $collectionItem->getValueId(),
+                $collectionItem->getValue(),
                 $collectionItem->getValueType()
             );
 
-            $valueId = $item->getRemoteId();
+            $value = $item->getRemoteId();
         } catch (ItemException $e) {
             // Do nothing
         }
@@ -56,7 +56,7 @@ final class Item extends Visitor
             'id' => $collectionItem->getId(),
             'type' => $this->getTypeString($collectionItem),
             'position' => $collectionItem->getPosition(),
-            'value_id' => $valueId,
+            'value' => $value,
             'value_type' => $collectionItem->getValueType(),
             'configuration' => $this->visitConfiguration($collectionItem, $subVisitor),
         );

@@ -57,36 +57,36 @@ final class ItemRuntime
      *
      * It accepts three kinds of references to the item:
      *
-     * 1) URI with value_type://value_id format, e.g. type://42
+     * 1) URI with value_type://value format, e.g. type://42
      * 2) ID and value type as separate arguments
      * 3) \Netgen\BlockManager\Item\ItemInterface object
      *
-     * @param int|string|\Netgen\BlockManager\Item\ItemInterface $valueId
+     * @param int|string|\Netgen\BlockManager\Item\ItemInterface $value
      * @param string|null $valueType
      *
      * @throws \Netgen\BlockManager\Exception\Item\ItemException If provided item or item reference is not valid
      *
      * @return string
      */
-    public function getItemPath($valueId, $valueType = null)
+    public function getItemPath($value, $valueType = null)
     {
         try {
             $item = null;
 
-            if (is_string($valueId) && $valueType === null) {
-                $itemUri = parse_url($valueId);
+            if (is_string($value) && $valueType === null) {
+                $itemUri = parse_url($value);
                 if (!is_array($itemUri) || empty($itemUri['scheme']) || (empty($itemUri['host']) && $itemUri['host'] !== '0')) {
-                    throw ItemException::invalidValue($valueId);
+                    throw ItemException::invalidValue($value);
                 }
 
                 $item = $this->itemLoader->load(
                     $itemUri['host'],
                     str_replace('-', '_', $itemUri['scheme'])
                 );
-            } elseif (is_scalar($valueId) && is_string($valueType)) {
-                $item = $this->itemLoader->load($valueId, $valueType);
-            } elseif ($valueId instanceof ItemInterface) {
-                $item = $valueId;
+            } elseif (is_scalar($value) && is_string($valueType)) {
+                $item = $this->itemLoader->load($value, $valueType);
+            } elseif ($value instanceof ItemInterface) {
+                $item = $value;
             }
 
             if (!$item instanceof ItemInterface) {

@@ -41,14 +41,14 @@ final class ItemLoader implements ItemLoaderInterface
         $this->valueLoaders = $valueLoaders;
     }
 
-    public function load($valueId, $valueType)
+    public function load($value, $valueType)
     {
         if (!isset($this->valueLoaders[$valueType])) {
             throw ItemException::noValueType($valueType);
         }
 
         return $this->itemBuilder->build(
-            $this->valueLoaders[$valueType]->load($valueId)
+            $this->valueLoaders[$valueType]->load($value)
         );
     }
 
