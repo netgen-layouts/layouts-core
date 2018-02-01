@@ -60,3 +60,7 @@ config.block.http_cache.view_type: 'View type'
 config.block.http_cache.shared_max_age.placeholder: 'Enter TTL in seconds'
 config.block.http_cache.cancel: 'Cancel'
 config.block.http_cache.submit: 'Set cache'
+
+config.collection_item.visibility.header: 'Configure visibility'
+config.collection_item.visibility.cancel: 'Cancel'
+config.collection_item.visibility.submit: 'Set visibility'

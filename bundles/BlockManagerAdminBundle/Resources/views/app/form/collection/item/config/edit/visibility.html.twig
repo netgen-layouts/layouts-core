@@ -6,14 +6,14 @@
 {% set visibility_form = form.children.visibility %}
 
 {% block header %}
-    HEADER
+    {{ 'config.collection_item.visibility.header'|trans }}
 {% endblock %}
 
 {% block children %}
-    CHILDREN
+    {{ form_row(visibility_form.children.visible, {required: false}) }}
 {% endblock %}
 
 {% block buttons %}
-    <button type="button" class="btn btn-link action_cancel">{{ 'config.collection.item.visibility.cancel'|trans }}</button>
-    <button type="submit" class="btn btn-primary action_apply">{{ 'config.collection.item.visibility.submit'|trans }}</button>
+    <button type="button" class="btn btn-link action_cancel">{{ 'config.collection_item.visibility.cancel'|trans }}</button>
+    <button type="submit" class="btn btn-primary action_apply">{{ 'config.collection_item.visibility.submit'|trans }}</button>
 {% endblock %}
