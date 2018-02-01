@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Integration;
 
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
@@ -150,7 +149,6 @@ abstract class BlockTest extends ServiceTestCase
     private function createBlockDefinition(array $parameterNames = array())
     {
         $handler = $this->createBlockDefinitionHandler();
-        $configuration = $this->createBlockConfiguration();
 
         $builderFactory = new TranslatableParameterBuilderFactory($this->parameterTypeRegistry);
         $parameterBuilder = $builderFactory->createParameterBuilder();
@@ -166,26 +164,6 @@ abstract class BlockTest extends ServiceTestCase
             }
         }
 
-        $blockDefinition = new BlockDefinition(
-            array(
-                'identifier' => 'definition',
-                'handler' => $handler,
-                'config' => $configuration,
-                'parameters' => $filteredParameters,
-                'configDefinitions' => array(),
-            )
-        );
-
-        $this->blockDefinitionRegistry->addBlockDefinition('definition', $blockDefinition);
-
-        return $blockDefinition;
-    }
-
-    /**
-     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration
-     */
-    private function createBlockConfiguration()
-    {
         $collections = array();
         if ($this->hasCollection()) {
             $collections['default'] = new Collection(
@@ -195,8 +173,10 @@ abstract class BlockTest extends ServiceTestCase
             );
         }
 
-        return new Configuration(
+        $blockDefinition = new BlockDefinition(
             array(
+                'identifier' => 'definition',
+                'handler' => $handler,
                 'viewTypes' => array(
                     'default' => new ViewType(
                         array(
@@ -207,8 +187,14 @@ abstract class BlockTest extends ServiceTestCase
                     ),
                 ),
                 'collections' => $collections,
+                'parameters' => $filteredParameters,
+                'configDefinitions' => array(),
             )
         );
+
+        $this->blockDefinitionRegistry->addBlockDefinition('definition', $blockDefinition);
+
+        return $blockDefinition;
     }
 
     private function prepareParameterTypeRegistry()

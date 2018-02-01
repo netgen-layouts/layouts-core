@@ -20,6 +20,115 @@ interface BlockDefinitionInterface extends ParameterCollectionInterface
     public function getIdentifier();
 
     /**
+     * Returns the block definition human readable name.
+     *
+     * @return string
+     */
+    public function getName();
+
+    /**
+     * Returns the block definition icon.
+     *
+     * @return string
+     */
+    public function getIcon();
+
+    /**
+     * Returns if the block will be translatable when created.
+     *
+     * @return bool
+     */
+    public function isTranslatable();
+
+    /**
+     * Returns all collections.
+     *
+     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection[]
+     */
+    public function getCollections();
+
+    /**
+     * Returns if the block definition has a collection with provided identifier.
+     *
+     * @param string $identifier
+     *
+     * @return bool
+     */
+    public function hasCollection($identifier);
+
+    /**
+     * Returns the collection for provided collection identifier.
+     *
+     * @param string $identifier
+     *
+     * @throws \Netgen\BlockManager\Exception\Block\BlockDefinitionException If collection does not exist
+     *
+     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection
+     */
+    public function getCollection($identifier);
+
+    /**
+     * Returns all forms.
+     *
+     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Form[]
+     */
+    public function getForms();
+
+    /**
+     * Returns if the block definition has a form with provided name.
+     *
+     * @param string $formName
+     *
+     * @return bool
+     */
+    public function hasForm($formName);
+
+    /**
+     * Returns the form for provided form name.
+     *
+     * @param string $formName
+     *
+     * @throws \Netgen\BlockManager\Exception\Block\BlockDefinitionException If form does not exist
+     *
+     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Form
+     */
+    public function getForm($formName);
+
+    /**
+     * Returns the block definition view types.
+     *
+     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType[]
+     */
+    public function getViewTypes();
+
+    /**
+     * Returns the block definition view type identifiers.
+     *
+     * @return string[]
+     */
+    public function getViewTypeIdentifiers();
+
+    /**
+     * Returns if the block definition has a view type with provided identifier.
+     *
+     * @param string $viewType
+     *
+     * @return bool
+     */
+    public function hasViewType($viewType);
+
+    /**
+     * Returns the view type with provided identifier.
+     *
+     * @param string $viewType
+     *
+     * @throws \Netgen\BlockManager\Exception\Block\BlockDefinitionException If view type does not exist
+     *
+     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType
+     */
+    public function getViewType($viewType);
+
+    /**
      * Returns the array of dynamic parameters provided by this block definition.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
@@ -36,13 +145,6 @@ interface BlockDefinitionInterface extends ParameterCollectionInterface
      * @return bool
      */
     public function isContextual(Block $block);
-
-    /**
-     * Returns the block definition configuration.
-     *
-     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration
-     */
-    public function getConfig();
 
     /**
      * Returns the available config definitions.

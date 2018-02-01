@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\Tests\Block\Stubs;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
@@ -27,7 +26,12 @@ class BlockDefinition implements BlockDefinitionInterface
     /**
      * @var array
      */
-    protected $viewTypes;
+    protected $viewTypes = array();
+
+    /**
+     * @var array
+     */
+    protected $collections = array();
 
     /**
      * @var bool
@@ -63,12 +67,39 @@ class BlockDefinition implements BlockDefinitionInterface
         array $configDefinitions = array()
     ) {
         $this->identifier = $identifier;
-        $this->viewTypes = $viewTypes;
         $this->hasCollection = $hasCollection;
         $this->isTranslatable = $isTranslatable;
 
         $this->handler = $handler ?: new BlockDefinitionHandler();
         $this->configDefinitions = $configDefinitions;
+
+        foreach ($viewTypes as $viewType => $itemTypes) {
+            $itemViewTypes = array();
+            foreach ($itemTypes as $itemType) {
+                $itemViewTypes[$itemType] = new ItemViewType(
+                    array(
+                        'identifier' => $itemType,
+                        'name' => $itemType,
+                    )
+                );
+            }
+
+            $this->viewTypes[$viewType] = new ViewType(
+                array(
+                    'identifier' => $viewType,
+                    'name' => $viewType,
+                    'itemViewTypes' => $itemViewTypes,
+                )
+            );
+        }
+
+        if ($this->hasCollection) {
+            $this->collections['default'] = new Collection(
+                array(
+                    'identifier' => 'default',
+                )
+            );
+        }
     }
 
     /**
@@ -79,6 +110,153 @@ class BlockDefinition implements BlockDefinitionInterface
     public function getIdentifier()
     {
         return $this->identifier;
+    }
+
+    /**
+     * Returns the block definition human readable name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return '';
+    }
+
+    /**
+     * Returns the block definition icon.
+     *
+     * @return string
+     */
+    public function getIcon()
+    {
+        return '';
+    }
+
+    /**
+     * Returns if the block will be translatable when created.
+     *
+     * @return bool
+     */
+    public function isTranslatable()
+    {
+        return $this->isTranslatable;
+    }
+
+    /**
+     * Returns all collections.
+     *
+     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection[]
+     */
+    public function getCollections()
+    {
+        return $this->collections;
+    }
+
+    /**
+     * Returns if the block definition has a collection with provided identifier.
+     *
+     * @param string $identifier
+     *
+     * @return bool
+     */
+    public function hasCollection($identifier)
+    {
+        return array_key_exists($identifier, $this->collections);
+    }
+
+    /**
+     * Returns the collection for provided collection identifier.
+     *
+     * @param string $identifier
+     *
+     * @throws \Netgen\BlockManager\Exception\Block\BlockDefinitionException If collection does not exist
+     *
+     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection
+     */
+    public function getCollection($identifier)
+    {
+        return $this->collections[$identifier];
+    }
+
+    /**
+     * Returns all forms.
+     *
+     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Form[]
+     */
+    public function getForms()
+    {
+        return array();
+    }
+
+    /**
+     * Returns if the block definition has a form with provided name.
+     *
+     * @param string $formName
+     *
+     * @return bool
+     */
+    public function hasForm($formName)
+    {
+        return false;
+    }
+
+    /**
+     * Returns the form for provided form name.
+     *
+     * @param string $formName
+     *
+     * @throws \Netgen\BlockManager\Exception\Block\BlockDefinitionException If form does not exist
+     *
+     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Form
+     */
+    public function getForm($formName)
+    {
+    }
+
+    /**
+     * Returns the block definition view types.
+     *
+     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType[]
+     */
+    public function getViewTypes()
+    {
+        return $this->viewTypes;
+    }
+
+    /**
+     * Returns the block definition view type identifiers.
+     *
+     * @return string[]
+     */
+    public function getViewTypeIdentifiers()
+    {
+        return array_keys($this->viewTypes);
+    }
+
+    /**
+     * Returns if the block definition has a view type with provided identifier.
+     *
+     * @param string $viewType
+     *
+     * @return bool
+     */
+    public function hasViewType($viewType)
+    {
+        return array_key_exists($viewType, $this->viewTypes);
+    }
+
+    /**
+     * Returns the view type with provided identifier.
+     *
+     * @param string $viewType
+     *
+     * @throws \Netgen\BlockManager\Exception\Block\BlockDefinitionException If view type does not exist
+     *
+     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType
+     */
+    public function getViewType($viewType)
+    {
+        return $this->viewTypes[$viewType];
     }
 
     /**
@@ -147,53 +325,6 @@ class BlockDefinition implements BlockDefinitionInterface
     public function isContextual(Block $block)
     {
         return $this->handler->isContextual($block);
-    }
-
-    /**
-     * Returns the block definition configuration.
-     *
-     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration
-     */
-    public function getConfig()
-    {
-        $viewTypes = array();
-        foreach ($this->viewTypes as $viewType => $itemTypes) {
-            $itemViewTypes = array();
-            foreach ($itemTypes as $itemType) {
-                $itemViewTypes[$itemType] = new ItemViewType(
-                    array(
-                        'identifier' => $itemType,
-                        'name' => $itemType,
-                    )
-                );
-            }
-
-            $viewTypes[$viewType] = new ViewType(
-                array(
-                    'identifier' => $viewType,
-                    'name' => $viewType,
-                    'itemViewTypes' => $itemViewTypes,
-                )
-            );
-        }
-
-        $collections = array();
-        if ($this->hasCollection) {
-            $collections['default'] = new Collection(
-                array(
-                    'identifier' => 'default',
-                )
-            );
-        }
-
-        return new Configuration(
-            array(
-                'identifier' => $this->identifier,
-                'isTranslatable' => $this->isTranslatable,
-                'collections' => $collections,
-                'viewTypes' => $viewTypes,
-            )
-        );
     }
 
     /**

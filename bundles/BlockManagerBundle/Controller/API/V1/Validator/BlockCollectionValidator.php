@@ -140,10 +140,10 @@ final class BlockCollectionValidator extends Validator
     {
         $blockDefinition = $block->getDefinition();
 
-        if (!$blockDefinition->getConfig()->hasCollection($collectionIdentifier)) {
+        if (!$blockDefinition->hasCollection($collectionIdentifier)) {
             return null;
         }
 
-        return $blockDefinition->getConfig()->getCollection($collectionIdentifier);
+        return $blockDefinition->getCollection($collectionIdentifier);
     }
 }

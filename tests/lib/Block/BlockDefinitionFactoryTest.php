@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Block;
 
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\ContainerDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinitionFactory;
@@ -74,7 +73,14 @@ final class BlockDefinitionFactoryTest extends TestCase
         $blockDefinition = $this->factory->buildBlockDefinition(
             'definition',
             $this->handlerMock,
-            new Configuration(),
+            array(
+                'view_types' => array(
+                    'view_type' => array(
+                        'enabled' => true,
+                        'item_view_types' => array(),
+                    ),
+                ),
+            ),
             array(
                 $this->getConfigDefinition('test'),
                 $this->getConfigDefinition('test2'),
@@ -83,7 +89,6 @@ final class BlockDefinitionFactoryTest extends TestCase
 
         $this->assertInstanceOf(BlockDefinitionInterface::class, $blockDefinition);
         $this->assertEquals('definition', $blockDefinition->getIdentifier());
-        $this->assertEquals(new Configuration(), $blockDefinition->getConfig());
 
         $this->assertArrayHasKey('test_param', $blockDefinition->getParameters());
         $this->assertArrayHasKey('dynamic_param', $blockDefinition->getDynamicParameters(new Block()));
@@ -108,7 +113,14 @@ final class BlockDefinitionFactoryTest extends TestCase
         $blockDefinition = $this->factory->buildTwigBlockDefinition(
             'definition',
             $this->handlerMock,
-            new Configuration(),
+            array(
+                'view_types' => array(
+                    'view_type' => array(
+                        'enabled' => true,
+                        'item_view_types' => array(),
+                    ),
+                ),
+            ),
             array(
                 $this->getConfigDefinition('test'),
                 $this->getConfigDefinition('test2'),
@@ -117,7 +129,6 @@ final class BlockDefinitionFactoryTest extends TestCase
 
         $this->assertInstanceOf(TwigBlockDefinitionInterface::class, $blockDefinition);
         $this->assertEquals('definition', $blockDefinition->getIdentifier());
-        $this->assertEquals(new Configuration(), $blockDefinition->getConfig());
 
         $this->assertArrayHasKey('test_param', $blockDefinition->getParameters());
         $this->assertArrayHasKey('dynamic_param', $blockDefinition->getDynamicParameters(new Block()));
@@ -147,7 +158,14 @@ final class BlockDefinitionFactoryTest extends TestCase
         $blockDefinition = $this->factory->buildContainerDefinition(
             'definition',
             $this->handlerMock,
-            new Configuration(),
+            array(
+                'view_types' => array(
+                    'view_type' => array(
+                        'enabled' => true,
+                        'item_view_types' => array(),
+                    ),
+                ),
+            ),
             array(
                 $this->getConfigDefinition('test'),
                 $this->getConfigDefinition('test2'),
@@ -156,7 +174,6 @@ final class BlockDefinitionFactoryTest extends TestCase
 
         $this->assertInstanceOf(BlockDefinitionInterface::class, $blockDefinition);
         $this->assertEquals('definition', $blockDefinition->getIdentifier());
-        $this->assertEquals(new Configuration(), $blockDefinition->getConfig());
 
         $this->assertArrayHasKey('test_param', $blockDefinition->getParameters());
         $this->assertArrayHasKey('dynamic_param', $blockDefinition->getDynamicParameters(new Block()));
@@ -170,6 +187,60 @@ final class BlockDefinitionFactoryTest extends TestCase
         );
 
         $this->assertEquals(array('left', 'right'), $blockDefinition->getPlaceholders());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::buildBlockDefinition
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage You need to specify at least one enabled view type for "definition" block definition.
+     */
+    public function testBuildConfigWithNoViewTypes()
+    {
+        $this->handlerMock = $this->createMock(BlockDefinitionHandlerInterface::class);
+
+        $this->factory->buildBlockDefinition(
+            'definition',
+            $this->handlerMock,
+            array(
+                'view_types' => array(
+                    'large' => array(
+                        'enabled' => false,
+                        'valid_parameters' => null,
+                    ),
+                ),
+            ),
+            array()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::buildBlockDefinition
+     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
+     * @expectedExceptionMessage You need to specify at least one enabled item view type for "large" view type and "definition" block definition.
+     */
+    public function testBuildConfigWithNoItemViewTypes()
+    {
+        $this->handlerMock = $this->createMock(BlockDefinitionHandlerInterface::class);
+
+        $this->factory->buildBlockDefinition(
+            'definition',
+            $this->handlerMock,
+            array(
+                'view_types' => array(
+                    'large' => array(
+                        'name' => 'Large',
+                        'enabled' => true,
+                        'item_view_types' => array(
+                            'standard' => array(
+                                'enabled' => false,
+                            ),
+                        ),
+                        'valid_parameters' => null,
+                    ),
+                ),
+            ),
+            array()
+        );
     }
 
     /**

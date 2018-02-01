@@ -28,10 +28,8 @@ final class BlockStructBuilder
      */
     public function newBlockCreateStruct(BlockDefinitionInterface $blockDefinition)
     {
-        $config = $blockDefinition->getConfig();
-
-        $viewTypeIdentifier = $config->getViewTypeIdentifiers()[0];
-        $viewType = $config->getViewType($viewTypeIdentifier);
+        $viewTypeIdentifier = $blockDefinition->getViewTypeIdentifiers()[0];
+        $viewType = $blockDefinition->getViewType($viewTypeIdentifier);
         $itemViewTypeIdentifier = $viewType->getItemViewTypeIdentifiers()[0];
 
         $blockCreateStruct = new BlockCreateStruct(
@@ -39,7 +37,7 @@ final class BlockStructBuilder
                 'definition' => $blockDefinition,
                 'viewType' => $viewTypeIdentifier,
                 'itemViewType' => $itemViewTypeIdentifier,
-                'isTranslatable' => $config->isTranslatable(),
+                'isTranslatable' => $blockDefinition->isTranslatable(),
                 'alwaysAvailable' => true,
             )
         );

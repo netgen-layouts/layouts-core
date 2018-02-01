@@ -3,10 +3,14 @@
 namespace Netgen\BlockManager\Block;
 
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\Form;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Block\BlockDefinition\ContainerDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\Registry\HandlerPluginRegistryInterface;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface;
 
 final class BlockDefinitionFactory
@@ -34,7 +38,7 @@ final class BlockDefinitionFactory
      *
      * @param string $identifier
      * @param \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface $handler
-     * @param \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration $config
+     * @param array $config
      * @param \Netgen\BlockManager\Config\ConfigDefinitionInterface[] $configDefinitions
      *
      * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
@@ -42,7 +46,7 @@ final class BlockDefinitionFactory
     public function buildBlockDefinition(
         $identifier,
         BlockDefinitionHandlerInterface $handler,
-        Configuration $config,
+        array $config,
         array $configDefinitions
     ) {
         $commonData = $this->getCommonBlockDefinitionData(
@@ -60,7 +64,7 @@ final class BlockDefinitionFactory
      *
      * @param string $identifier
      * @param \Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface $handler
-     * @param \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration $config
+     * @param array $config
      * @param \Netgen\BlockManager\Config\ConfigDefinitionInterface[] $configDefinitions
      *
      * @return \Netgen\BlockManager\Block\TwigBlockDefinitionInterface
@@ -68,7 +72,7 @@ final class BlockDefinitionFactory
     public function buildTwigBlockDefinition(
         $identifier,
         TwigBlockDefinitionHandlerInterface $handler,
-        Configuration $config,
+        array $config,
         array $configDefinitions
     ) {
         $commonData = $this->getCommonBlockDefinitionData(
@@ -86,7 +90,7 @@ final class BlockDefinitionFactory
      *
      * @param string $identifier
      * @param \Netgen\BlockManager\Block\BlockDefinition\ContainerDefinitionHandlerInterface $handler
-     * @param \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration $config
+     * @param array $config
      * @param \Netgen\BlockManager\Config\ConfigDefinitionInterface[] $configDefinitions
      *
      * @return \Netgen\BlockManager\Block\ContainerDefinitionInterface
@@ -94,7 +98,7 @@ final class BlockDefinitionFactory
     public function buildContainerDefinition(
         $identifier,
         ContainerDefinitionHandlerInterface $handler,
-        Configuration $config,
+        array $config,
         array $configDefinitions
     ) {
         $commonData = $this->getCommonBlockDefinitionData(
@@ -112,7 +116,7 @@ final class BlockDefinitionFactory
      *
      * @param string $identifier
      * @param \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface $handler
-     * @param \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration $config
+     * @param array $config
      * @param \Netgen\BlockManager\Config\ConfigDefinitionInterface[] $configDefinitions
      *
      * @return array
@@ -120,7 +124,7 @@ final class BlockDefinitionFactory
     private function getCommonBlockDefinitionData(
         $identifier,
         BlockDefinitionHandlerInterface $handler,
-        Configuration $config,
+        array $config,
         array $configDefinitions
     ) {
         $parameterBuilder = $this->parameterBuilderFactory->createParameterBuilder();
@@ -137,9 +141,119 @@ final class BlockDefinitionFactory
             'identifier' => $identifier,
             'handler' => $handler,
             'handlerPlugins' => $handlerPlugins,
-            'config' => $config,
             'parameters' => $parameters,
             'configDefinitions' => $configDefinitions,
+        ) + $this->processConfig($identifier, $config);
+    }
+
+    /**
+     * Processes and returns the block definition configuration.
+     *
+     * @param string $identifier
+     * @param array $config
+     *
+     * @return array
+     */
+    private function processConfig($identifier, array $config)
+    {
+        $collections = array();
+        $forms = array();
+        $viewTypes = array();
+
+        if (isset($config['collections'])) {
+            foreach ($config['collections'] as $collectionIdentifier => $collectionConfig) {
+                $collections[$collectionIdentifier] = new Collection(
+                    array(
+                        'identifier' => $collectionIdentifier,
+                        'validItemTypes' => $collectionConfig['valid_item_types'],
+                        'validQueryTypes' => $collectionConfig['valid_query_types'],
+                    )
+                );
+            }
+        }
+
+        if (isset($config['forms'])) {
+            foreach ($config['forms'] as $formIdentifier => $formConfig) {
+                if (!$formConfig['enabled']) {
+                    continue;
+                }
+
+                $forms[$formIdentifier] = new Form(
+                    array(
+                        'identifier' => $formIdentifier,
+                        'type' => $formConfig['type'],
+                    )
+                );
+            }
+        }
+
+        if (isset($config['view_types'])) {
+            foreach ($config['view_types'] as $viewTypeIdentifier => $viewTypeConfig) {
+                if (!$viewTypeConfig['enabled']) {
+                    continue;
+                }
+
+                $itemViewTypes = array();
+
+                if (!isset($viewTypeConfig['item_view_types']['standard'])) {
+                    $viewTypeConfig['item_view_types'] = array(
+                        'standard' => array(
+                            'name' => 'Standard',
+                            'enabled' => true,
+                        ),
+                    ) + $viewTypeConfig['item_view_types'];
+                }
+
+                foreach ($viewTypeConfig['item_view_types'] as $itemViewTypeIdentifier => $itemViewTypeConfig) {
+                    if (!$itemViewTypeConfig['enabled']) {
+                        continue;
+                    }
+
+                    $itemViewTypes[$itemViewTypeIdentifier] = new ItemViewType(
+                        array(
+                            'identifier' => $itemViewTypeIdentifier,
+                            'name' => $itemViewTypeConfig['name'],
+                        )
+                    );
+                }
+
+                if (empty($itemViewTypes)) {
+                    throw new RuntimeException(
+                        sprintf(
+                            'You need to specify at least one enabled item view type for "%s" view type and "%s" block definition.',
+                            $viewTypeIdentifier,
+                            $identifier
+                        )
+                    );
+                }
+
+                $viewTypes[$viewTypeIdentifier] = new ViewType(
+                    array(
+                        'identifier' => $viewTypeIdentifier,
+                        'name' => isset($viewTypeConfig['name']) ? $viewTypeConfig['name'] : '',
+                        'itemViewTypes' => $itemViewTypes,
+                        'validParameters' => isset($viewTypeConfig['valid_parameters']) ? $viewTypeConfig['valid_parameters'] : array(),
+                    )
+                );
+            }
+        }
+
+        if (empty($viewTypes)) {
+            throw new RuntimeException(
+                sprintf(
+                    'You need to specify at least one enabled view type for "%s" block definition.',
+                    $identifier
+                )
+            );
+        }
+
+        return array(
+            'name' => isset($config['name']) ? $config['name'] : '',
+            'icon' => isset($config['icon']) ? $config['icon'] : '',
+            'isTranslatable' => isset($config['translatable']) ? $config['translatable'] : false,
+            'collections' => $collections,
+            'forms' => $forms,
+            'viewTypes' => $viewTypes,
         );
     }
 }

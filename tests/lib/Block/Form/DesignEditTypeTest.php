@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Tests\Block\Form;
 
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\Form;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
@@ -32,9 +31,11 @@ final class DesignEditTypeTest extends FormTestCase
     {
         parent::setUp();
 
-        $config = new Configuration(
+        $handler = new BlockDefinitionHandler(array('design'));
+        $blockDefinition = new BlockDefinition(
             array(
                 'identifier' => 'block_definition',
+                'handler' => $handler,
                 'forms' => array(
                     'design' => new Form(
                         array(
@@ -79,15 +80,6 @@ final class DesignEditTypeTest extends FormTestCase
                         )
                     ),
                 ),
-            )
-        );
-
-        $handler = new BlockDefinitionHandler(array('design'));
-        $blockDefinition = new BlockDefinition(
-            array(
-                'identifier' => 'block_definition',
-                'handler' => $handler,
-                'config' => $config,
                 'parameters' => $handler->getParameters(),
             )
         );

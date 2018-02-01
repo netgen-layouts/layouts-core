@@ -256,14 +256,13 @@ final class BlockController extends Controller
     private function createBlockCreateStruct(BlockType $blockType)
     {
         $blockDefinition = $blockType->getDefinition();
-        $blockDefinitionConfig = $blockDefinition->getConfig();
 
         $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
         $blockCreateStruct->name = $blockType->getDefaultName();
         $blockCreateStruct->fillParametersFromHash($blockDefinition, $blockType->getDefaultParameters());
 
-        if ($blockDefinitionConfig->hasViewType($blockType->getDefaultViewType())) {
-            $viewType = $blockDefinitionConfig->getViewType($blockType->getDefaultViewType());
+        if ($blockDefinition->hasViewType($blockType->getDefaultViewType())) {
+            $viewType = $blockDefinition->getViewType($blockType->getDefaultViewType());
 
             $blockCreateStruct->viewType = $blockType->getDefaultViewType();
             $blockCreateStruct->itemViewType = $viewType->hasItemViewType($blockType->getDefaultItemViewType()) ?
@@ -271,8 +270,7 @@ final class BlockController extends Controller
                 $viewType->getItemViewTypeIdentifiers()[0];
         }
 
-        $blockConfig = $blockDefinition->getConfig();
-        foreach ($blockConfig->getCollections() as $collectionConfig) {
+        foreach ($blockDefinition->getCollections() as $collectionConfig) {
             $blockCreateStruct->addCollectionCreateStruct(
                 $collectionConfig->getIdentifier(),
                 new CollectionCreateStruct()

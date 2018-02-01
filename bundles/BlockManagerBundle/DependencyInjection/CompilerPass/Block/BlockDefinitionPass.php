@@ -3,8 +3,6 @@
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block;
 
 use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\Factory;
 use Netgen\BlockManager\Block\BlockDefinition\ContainerDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\ContainerDefinition;
@@ -35,15 +33,6 @@ final class BlockDefinitionPass implements CompilerPassInterface
             if (!empty($blockDefinition['handler'])) {
                 $handlerIdentifier = $blockDefinition['handler'];
             }
-
-            $configServiceName = sprintf('netgen_block_manager.block.block_definition.configuration.%s', $identifier);
-            $configService = new Definition(Configuration::class);
-
-            $configService->setArguments(array($identifier, $blockDefinition));
-            $configService->setPublic(false);
-            $configService->setFactory(array(Factory::class, 'buildConfig'));
-
-            $container->setDefinition($configServiceName, $configService);
 
             $foundHandler = null;
             foreach ($blockDefinitionHandlers as $blockDefinitionHandler => $tags) {
@@ -91,7 +80,7 @@ final class BlockDefinitionPass implements CompilerPassInterface
             $blockDefinitionService->setPublic(true);
             $blockDefinitionService->addArgument($identifier);
             $blockDefinitionService->addArgument(new Reference($foundHandler));
-            $blockDefinitionService->addArgument(new Reference($configServiceName));
+            $blockDefinitionService->addArgument($blockDefinition);
             $blockDefinitionService->addArgument(
                 array(
                     new Reference('netgen_block_manager.block.config_definition.http_cache'),

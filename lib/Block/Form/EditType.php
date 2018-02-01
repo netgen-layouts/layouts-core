@@ -169,7 +169,7 @@ abstract class EditType extends TranslatableType
     {
         $blockDefinitionParameters = array_keys($blockDefinition->getParameters());
 
-        foreach ($blockDefinition->getConfig()->getViewTypes() as $viewType) {
+        foreach ($blockDefinition->getViewTypes() as $viewType) {
             $this->viewTypes[$viewType->getIdentifier()] = $viewType->getName();
 
             foreach ($viewType->getItemViewTypes() as $itemViewType) {

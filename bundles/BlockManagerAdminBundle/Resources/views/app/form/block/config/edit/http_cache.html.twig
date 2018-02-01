@@ -10,8 +10,8 @@
 {% endblock %}
 
 {% block children %}
-    <p>{{ 'config.block.http_cache.definition'|trans }}: {{ block.definition.config.name }}</p>
-    <p>{{ 'config.block.http_cache.view_type'|trans }}: {{ block.definition.config.viewType(block.viewType).name }}</p>
+    <p>{{ 'config.block.http_cache.definition'|trans }}: {{ block.definition.name }}</p>
+    <p>{{ 'config.block.http_cache.view_type'|trans }}: {{ block.definition.viewType(block.viewType).name }}</p>
 
     {{ form_row(http_cache_form.children.use_http_cache, {required: false}) }}
     {{ form_row(http_cache_form.children.shared_max_age, {

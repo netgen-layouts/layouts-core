@@ -118,8 +118,8 @@ final class BlockManagerDataCollector extends DataCollector
         $this->data['blocks'][] = array(
             'id' => $block->getId(),
             'layout_id' => $block->getLayoutId(),
-            'definition' => $blockDefinition->getConfig()->getName(),
-            'view_type' => $blockDefinition->getConfig()->getViewType(
+            'definition' => $blockDefinition->getName(),
+            'view_type' => $blockDefinition->getViewType(
                 $block->getViewType()
             )->getName(),
             'locale' => $block->getLocale(),

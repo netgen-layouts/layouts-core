@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\Block;
 
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\ContainerDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\DynamicContainerDefinitionHandler;
 use PHPUnit\Framework\TestCase;
@@ -27,7 +26,6 @@ final class DynamicContainerDefinitionTest extends TestCase
             array(
                 'identifier' => 'block_definition',
                 'handler' => $this->handler,
-                'config' => new Configuration(),
             )
         );
     }

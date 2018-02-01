@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\Tests\Block\ConfigDefinition\Integration;
 use Netgen\BlockManager\API\Values\Config\Config;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Config\ConfigDefinition;
@@ -161,13 +160,20 @@ abstract class BlockTest extends ServiceTestCase
     private function createBlockDefinition(ConfigDefinitionInterface $configDefinition)
     {
         $handler = new BlockDefinitionHandler();
-        $configuration = $this->createBlockConfiguration();
 
         $blockDefinition = new BlockDefinition(
             array(
                 'identifier' => 'definition',
                 'handler' => $handler,
-                'config' => $configuration,
+                'viewTypes' => array(
+                    'default' => new ViewType(
+                        array(
+                            'itemViewTypes' => array(
+                                'standard' => new ItemViewType(),
+                            ),
+                        )
+                    ),
+                ),
                 'parameters' => array(),
                 'configDefinitions' => array($configDefinition),
             )
@@ -206,26 +212,6 @@ abstract class BlockTest extends ServiceTestCase
                 'configKey' => 'definition',
                 'handler' => $handler,
                 'parameters' => $filteredParameters,
-            )
-        );
-    }
-
-    /**
-     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration
-     */
-    private function createBlockConfiguration()
-    {
-        return new Configuration(
-            array(
-                'viewTypes' => array(
-                    'default' => new ViewType(
-                        array(
-                            'itemViewTypes' => array(
-                                'standard' => new ItemViewType(),
-                            ),
-                        )
-                    ),
-                ),
             )
         );
     }

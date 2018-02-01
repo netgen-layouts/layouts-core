@@ -55,13 +55,10 @@ final class BlockController extends Controller
      */
     public function editForm(Block $block, $locale, $formName, Request $request)
     {
-        $blockDefinition = $block->getDefinition();
-        $blockDefinitionConfig = $blockDefinition->getConfig();
-
         $updateStruct = $this->blockService->newBlockUpdateStruct($locale, $block);
 
         $form = $this->createForm(
-            $blockDefinitionConfig->getForm($formName)->getType(),
+            $block->getDefinition()->getForm($formName)->getType(),
             $updateStruct,
             array(
                 'block' => $block,

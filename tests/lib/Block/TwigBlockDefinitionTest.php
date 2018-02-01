@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\Block;
 
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\Configuration;
 use Netgen\BlockManager\Block\TwigBlockDefinition;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Tests\Block\Stubs\TwigBlockDefinitionHandler;
@@ -28,7 +27,6 @@ final class TwigBlockDefinitionTest extends TestCase
             array(
                 'identifier' => 'block_definition',
                 'handler' => $this->handler,
-                'config' => new Configuration(),
             )
         );
     }

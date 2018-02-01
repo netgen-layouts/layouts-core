@@ -5,8 +5,8 @@
 {% if block.hasCollectionReference(collection_identifier) %}
     {% set collection_config = null %}
 
-    {% if block.definition.config.hasCollection(collection_identifier) %}
-        {% set collection_config = block.definition.config.collection(collection_identifier) %}
+    {% if block.definition.hasCollection(collection_identifier) %}
+        {% set collection_config = block.definition.collection(collection_identifier) %}
     {% endif %}
 
     <div class="sidebar-panel">
