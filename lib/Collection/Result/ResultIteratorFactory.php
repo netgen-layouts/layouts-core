@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Collection\Result;
 
 use Iterator;
+use Netgen\BlockManager\Collection\Item\VisibilityResolverInterface;
 use Netgen\BlockManager\Item\ItemBuilderInterface;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 
@@ -18,12 +19,19 @@ final class ResultIteratorFactory
      */
     private $itemBuilder;
 
+    /**
+     * @var \Netgen\BlockManager\Collection\Item\VisibilityResolverInterface
+     */
+    private $visibilityResolver;
+
     public function __construct(
         ItemLoaderInterface $itemLoader,
-        ItemBuilderInterface $itemBuilder
+        ItemBuilderInterface $itemBuilder,
+        VisibilityResolverInterface $visibilityResolver
     ) {
         $this->itemLoader = $itemLoader;
         $this->itemBuilder = $itemBuilder;
+        $this->visibilityResolver = $visibilityResolver;
     }
 
     /**
@@ -40,7 +48,8 @@ final class ResultIteratorFactory
             new ResultBuilderIterator(
                 $iterator,
                 $this->itemLoader,
-                $this->itemBuilder
+                $this->itemBuilder,
+                $this->visibilityResolver
             ),
             $flags
         );

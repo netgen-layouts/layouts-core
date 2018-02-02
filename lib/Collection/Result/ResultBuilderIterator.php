@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Collection\Result;
 use Iterator;
 use IteratorIterator;
 use Netgen\BlockManager\API\Values\Collection\Item;
+use Netgen\BlockManager\Collection\Item\VisibilityResolverInterface;
 use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Item\ItemBuilderInterface;
 use Netgen\BlockManager\Item\ItemInterface;
@@ -26,15 +27,22 @@ final class ResultBuilderIterator extends IteratorIterator
      */
     private $itemBuilder;
 
+    /**
+     * @var \Netgen\BlockManager\Collection\Item\VisibilityResolverInterface
+     */
+    private $visibilityResolver;
+
     public function __construct(
         Iterator $iterator,
         ItemLoaderInterface $itemLoader,
-        ItemBuilderInterface $itemBuilder
+        ItemBuilderInterface $itemBuilder,
+        VisibilityResolverInterface $visibilityResolver
     ) {
         parent::__construct($iterator);
 
         $this->itemLoader = $itemLoader;
         $this->itemBuilder = $itemBuilder;
+        $this->visibilityResolver = $visibilityResolver;
     }
 
     /**
@@ -59,6 +67,7 @@ final class ResultBuilderIterator extends IteratorIterator
                     'collectionItem' => null,
                     'type' => Result::TYPE_DYNAMIC,
                     'position' => $position,
+                    'isVisible' => true,
                 )
             );
         }
@@ -82,6 +91,7 @@ final class ResultBuilderIterator extends IteratorIterator
                 'collectionItem' => $object,
                 'type' => Result::TYPE_MANUAL,
                 'position' => $position,
+                'isVisible' => $item->isVisible() && $this->visibilityResolver->isVisible($object),
             )
         );
     }

@@ -45,7 +45,7 @@ final class ResultFilterIterator extends FilterIterator
                 return true;
             }
 
-            return $result->getItem()->isVisible();
+            return $result->isVisible();
         }
 
         return (bool) ($this->flags & ResultSet::INCLUDE_INVALID_ITEMS);

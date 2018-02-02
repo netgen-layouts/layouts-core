@@ -46,6 +46,11 @@ final class Result extends ValueObject
     protected $position;
 
     /**
+     * @var bool
+     */
+    protected $isVisible = true;
+
+    /**
      * Returns the final generated item.
      *
      * @return \Netgen\BlockManager\Item\ItemInterface
@@ -56,7 +61,7 @@ final class Result extends ValueObject
     }
 
     /**
-     * Returns the collection item which was used to generate the final item.
+     * Returns the collection item which was used to generate the final result.
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Item
      */
@@ -66,7 +71,7 @@ final class Result extends ValueObject
     }
 
     /**
-     * Returns the type of the result item.
+     * Returns the type of the result. It can be one of self::TYPE_* constants.
      *
      * @return int
      */
@@ -76,12 +81,22 @@ final class Result extends ValueObject
     }
 
     /**
-     * Returns the position of the result item within the set.
+     * Returns the position of the result within the set.
      *
      * @return int
      */
     public function getPosition()
     {
         return $this->position;
+    }
+
+    /**
+     * Returns if the result is visible.
+     *
+     * @return bool
+     */
+    public function isVisible()
+    {
+        return $this->isVisible;
     }
 }

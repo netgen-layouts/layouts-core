@@ -24,7 +24,7 @@ final class CollectionResultNormalizer implements NormalizerInterface
             'value' => $item->getValue(),
             'value_type' => $item->getValueType(),
             'name' => $item->getName(),
-            'visible' => $item->isVisible(),
+            'visible' => $result->isVisible(),
         );
     }
 

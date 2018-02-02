@@ -1,4 +1,14 @@
 services:
+    netgen_block_manager.collection.item.visibility_resolver:
+        class: Netgen\BlockManager\Collection\Item\VisibilityResolver
+        public: false
+
+    netgen_block_manager.collection.item.visibility_resolver.voter.configured:
+        class: Netgen\BlockManager\Collection\Item\VisibilityResolver\ConfiguredVoter
+        public: false
+        tags:
+            - { name: netgen_block_manager.collection.item.visibility_resolver.voter, priority: 0 }
+
     netgen_block_manager.collection.item_definition_factory:
         class: Netgen\BlockManager\Collection\Item\ItemDefinitionFactory
         public: false
@@ -11,6 +21,7 @@ services:
         arguments:
             - "@netgen_block_manager.item.item_loader"
             - "@netgen_block_manager.item.item_builder"
+            - "@netgen_block_manager.collection.item.visibility_resolver"
 
     netgen_block_manager.collection.collection_iterator_factory:
         class: Netgen\BlockManager\Collection\Result\CollectionIteratorFactory
