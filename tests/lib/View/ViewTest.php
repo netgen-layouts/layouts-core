@@ -50,6 +50,16 @@ final class ViewTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\View\View::setFallbackContext
+     */
+    public function testSetFallbackContext()
+    {
+        $this->view->setFallbackContext('fallback');
+
+        $this->assertEquals('fallback', $this->view->getFallbackContext());
+    }
+
+    /**
      * @covers \Netgen\BlockManager\View\View::getResponse
      */
     public function testGetDefaultResponse()

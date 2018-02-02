@@ -6,8 +6,10 @@ use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
+use Netgen\BlockManager\API\Values\Collection\ItemUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
+use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder;
 use Netgen\BlockManager\Core\Service\StructBuilder\ConfigStructBuilder;
 use Netgen\BlockManager\Tests\Collection\Stubs\ItemDefinition;
@@ -34,6 +36,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder::__construct
      * @covers \Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder::newCollectionCreateStruct
      */
     public function testNewCollectionCreateStruct()
@@ -46,7 +49,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
                     'queryCreateStruct' => new QueryCreateStruct(),
                 )
             ),
-            $this->collectionService->newCollectionCreateStruct(new QueryCreateStruct())
+            $this->structBuilder->newCollectionCreateStruct(new QueryCreateStruct())
         );
     }
 
@@ -62,7 +65,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
                     'limit' => null,
                 )
             ),
-            $this->collectionService->newCollectionUpdateStruct()
+            $this->structBuilder->newCollectionUpdateStruct()
         );
     }
 
@@ -78,7 +81,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
                     'limit' => 2,
                 )
             ),
-            $this->collectionService->newCollectionUpdateStruct(
+            $this->structBuilder->newCollectionUpdateStruct(
                 $this->collectionService->loadCollectionDraft(3)
             )
         );
@@ -96,7 +99,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
                     'limit' => 0,
                 )
             ),
-            $this->collectionService->newCollectionUpdateStruct(
+            $this->structBuilder->newCollectionUpdateStruct(
                 $this->collectionService->loadCollectionDraft(1)
             )
         );
@@ -116,6 +119,46 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
                 )
             ),
             $this->structBuilder->newItemCreateStruct(new ItemDefinition('ezcontent'), Item::TYPE_OVERRIDE, '42')
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder::newItemUpdateStruct
+     */
+    public function testNewItemUpdateStruct()
+    {
+        $itemUpdateStruct = new ItemUpdateStruct();
+
+        $this->assertEquals(
+            $itemUpdateStruct,
+            $this->structBuilder->newItemUpdateStruct()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder::newItemUpdateStruct
+     */
+    public function testNewItemUpdateStructFromItem()
+    {
+        $item = $this->collectionService->loadItemDraft(1);
+
+        $this->assertEquals(
+            new ItemUpdateStruct(
+                array(
+                    'configStructs' => array(
+                        'visibility' => new ConfigStruct(
+                            array(
+                                'parameterValues' => array(
+                                    'visible' => true,
+                                    'visible_from' => null,
+                                    'visible_to' => null,
+                                ),
+                            )
+                        ),
+                    ),
+                )
+            ),
+            $this->structBuilder->newItemUpdateStruct($item)
         );
     }
 

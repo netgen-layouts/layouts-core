@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
 
 use Exception;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
+use Netgen\BlockManager\API\Values\Collection\ItemUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
@@ -85,6 +86,37 @@ final class CollectionServiceTest extends ServiceTestCase
         $this->collectionService->addItem(
             new Collection(array('published' => false)),
             new ItemCreateStruct(array('definition' => new ItemDefinition('ezlocation'), 'type' => Item::TYPE_MANUAL))
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::addItem
+     * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
+     */
+    public function testUpdateItem()
+    {
+        $this->collectionHandlerMock
+            ->expects($this->at(0))
+            ->method('loadItem')
+            ->will(
+                $this->returnValue(
+                    new PersistenceItem(array('config' => array()))
+                )
+            );
+
+        $this->collectionHandlerMock
+            ->expects($this->at(1))
+            ->method('updateItem')
+            ->will($this->throwException(new Exception('Test exception text')));
+
+        $this->persistenceHandler
+            ->expects($this->once())
+            ->method('rollbackTransaction');
+
+        $this->collectionService->updateItem(
+            new Item(array('published' => false, 'definition' => new ItemDefinition('ezlocation'))),
+            new ItemUpdateStruct()
         );
     }
 

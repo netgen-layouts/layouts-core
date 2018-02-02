@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Collection;
 
+use Netgen\BlockManager\Collection\QueryType\Configuration\Form;
 use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
 use Netgen\BlockManager\Collection\QueryTypeFactory;
 use Netgen\BlockManager\Collection\QueryTypeInterface;
@@ -45,10 +46,31 @@ final class QueryTypeFactoryTest extends TestCase
         $queryType = $this->factory->buildQueryType(
             'type',
             $this->createMock(QueryTypeHandlerInterface::class),
-            array()
+            array(
+                'forms' => array(
+                    'full' => array(
+                        'enabled' => true,
+                        'identifier' => 'full',
+                        'type' => 'form_type',
+                    ),
+                    'disabled' => array(
+                        'enabled' => false,
+                        'identifier' => 'disabled',
+                        'type' => 'form_type',
+                    ),
+                ),
+            )
         );
 
         $this->assertInstanceOf(QueryTypeInterface::class, $queryType);
         $this->assertEquals('type', $queryType->getType());
+
+        $this->assertTrue($queryType->hasForm('full'));
+        $this->assertInstanceOf(Form::class, $queryType->getForm('full'));
+
+        $this->assertEquals('full', $queryType->getForm('full')->getIdentifier());
+        $this->assertEquals('form_type', $queryType->getForm('full')->getType());
+
+        $this->assertFalse($queryType->hasForm('disabled'));
     }
 }

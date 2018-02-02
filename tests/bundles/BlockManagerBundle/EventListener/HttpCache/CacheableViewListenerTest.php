@@ -145,7 +145,7 @@ final class CacheableViewListenerTest extends TestCase
         $blockView->setIsCacheable(false);
         $blockView->setSharedMaxAge(42);
 
-        $request->attributes->set('blockView', $blockView);
+        $request->attributes->set('ngbmView', $blockView);
 
         $event = new FilterResponseEvent(
             $kernelMock,
@@ -171,7 +171,7 @@ final class CacheableViewListenerTest extends TestCase
         $blockView = new BlockView();
         $blockView->setSharedMaxAge(42);
 
-        $request->attributes->set('blockView', $blockView);
+        $request->attributes->set('ngbmView', $blockView);
 
         $response = new Response();
         $response->setSharedMaxAge(41);
@@ -199,7 +199,7 @@ final class CacheableViewListenerTest extends TestCase
         $blockView = new BlockView();
         $blockView->setSharedMaxAge(42);
 
-        $request->attributes->set('blockView', $blockView);
+        $request->attributes->set('ngbmView', $blockView);
 
         $event = new FilterResponseEvent(
             $kernelMock,

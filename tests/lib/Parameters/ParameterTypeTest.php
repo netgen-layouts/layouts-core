@@ -91,6 +91,22 @@ final class ParameterTypeTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterType::export
+     */
+    public function testExport()
+    {
+        $this->assertEquals(42, $this->parameterType->export(new Parameter(), 42));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterType::import
+     */
+    public function testImport()
+    {
+        $this->assertEquals(42, $this->parameterType->import(new Parameter(), 42));
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType::isValueEmpty
      */
     public function testIsValueEmpty()

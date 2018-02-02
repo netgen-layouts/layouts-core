@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
 
+use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Item\ValueType\ValueType;
@@ -35,6 +36,35 @@ final class ItemLinkTypeTest extends TestCase
         $this->valueTypeRegistry->addValueType('default', new ValueType(array('isEnabled' => true)));
 
         $this->itemLoaderMock = $this->createMock(ItemLoaderInterface::class);
+        $this->itemLoaderMock
+            ->expects($this->any())
+            ->method('load')
+            ->with($this->equalTo('42'), $this->equalTo('ezlocation'))
+            ->will(
+                $this->returnValue(
+                    new Item(
+                        array(
+                            'value' => 42,
+                            'remoteId' => 'abc',
+                        )
+                    )
+                )
+            );
+
+        $this->itemLoaderMock
+            ->expects($this->any())
+            ->method('loadByRemoteId')
+            ->with($this->equalTo('abc'), $this->equalTo('ezlocation'))
+            ->will(
+                $this->returnValue(
+                    new Item(
+                        array(
+                            'value' => 42,
+                            'remoteId' => 'abc',
+                        )
+                    )
+                )
+            );
 
         $this->type = new ItemLinkType($this->valueTypeRegistry, new RemoteIdConverter($this->itemLoaderMock));
     }
@@ -175,6 +205,26 @@ final class ItemLinkTypeTest extends TestCase
             array('value://42', false),
             array('default://42', true),
         );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::export
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::__construct
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertToRemoteId
+     */
+    public function testExport()
+    {
+        $this->assertEquals('ezlocation://abc', $this->type->export(new Parameter(), 'ezlocation://42'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::import
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::__construct
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertFromRemoteId
+     */
+    public function testImport()
+    {
+        $this->assertEquals('ezlocation://42', $this->type->import(new Parameter(), 'ezlocation://abc'));
     }
 
     /**

@@ -23,6 +23,7 @@ final class ResultBuilderAdapterTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::__construct
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::getNbResults
+     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::setTotalCount
      */
     public function testGetNbResults()
     {
@@ -44,6 +45,7 @@ final class ResultBuilderAdapterTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::__construct
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::getNbResults
+     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::setTotalCount
      */
     public function testGetNbResultsWithMaxTotalCount()
     {
@@ -64,6 +66,7 @@ final class ResultBuilderAdapterTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::getNbResults
+     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::setTotalCount
      */
     public function testGetNbResultsWithStartingOffset()
     {
@@ -84,6 +87,7 @@ final class ResultBuilderAdapterTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::getNbResults
+     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::setTotalCount
      */
     public function testGetNbResultsWithStartingOffsetAndMaxTotalCount()
     {
@@ -104,6 +108,7 @@ final class ResultBuilderAdapterTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::getSlice
+     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::setTotalCount
      */
     public function testGetSlice()
     {
@@ -126,6 +131,7 @@ final class ResultBuilderAdapterTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::getSlice
+     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::setTotalCount
      */
     public function testGetSliceWithStartingOffset()
     {

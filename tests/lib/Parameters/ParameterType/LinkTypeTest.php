@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
 
+use Netgen\BlockManager\Exception\Item\ItemException;
+use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Item\ValueType\ValueType;
@@ -310,6 +312,277 @@ final class LinkTypeTest extends TestCase
                     array(
                         'linkType' => 'url',
                         'link' => 'http://www.google.com',
+                    )
+                ),
+            ),
+        );
+    }
+
+    /**
+     * @param mixed $value
+     * @param bool $convertedValue
+     *
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::export
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::__construct
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertToRemoteId
+     * @dataProvider exportProvider
+     */
+    public function testExport($value, $convertedValue)
+    {
+        $this->itemLoaderMock
+            ->expects($this->any())
+            ->method('load')
+            ->with($this->equalTo('42'), $this->equalTo('ezlocation'))
+            ->will(
+                $this->returnValue(
+                    new Item(
+                        array(
+                            'value' => 42,
+                            'remoteId' => 'abc',
+                        )
+                    )
+                )
+            );
+
+        $this->assertEquals($convertedValue, $this->type->export(new Parameter(), $value));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::export
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertToRemoteId
+     */
+    public function testExportWithConverterException()
+    {
+        $this->itemLoaderMock
+            ->expects($this->any())
+            ->method('load')
+            ->with($this->equalTo('24'), $this->equalTo('ezlocation'))
+            ->will($this->throwException(new ItemException()));
+
+        $this->assertEquals(
+            array(
+                'link_type' => 'internal',
+                'link' => 'null://0',
+                'link_suffix' => '?suffix',
+                'new_window' => true,
+            ),
+            $this->type->export(
+                new Parameter(),
+                new LinkValue(
+                    array(
+                        'linkType' => 'internal',
+                        'link' => 'ezlocation://24',
+                        'linkSuffix' => '?suffix',
+                        'newWindow' => true,
+                    )
+                )
+            )
+        );
+    }
+
+    public function exportProvider()
+    {
+        return array(
+            array(
+                42,
+                null,
+            ),
+            array(
+                new LinkValue(
+                    array(
+                        'linkType' => 'url',
+                        'link' => 'http://www.google.com',
+                        'linkSuffix' => '?suffix',
+                        'newWindow' => true,
+                    )
+                ),
+                array(
+                    'link_type' => 'url',
+                    'link' => 'http://www.google.com',
+                    'link_suffix' => '?suffix',
+                    'new_window' => true,
+                ),
+            ),
+            array(
+                new LinkValue(
+                    array(
+                        'linkType' => 'internal',
+                        'link' => 'ezlocation://42',
+                        'linkSuffix' => '?suffix',
+                        'newWindow' => true,
+                    )
+                ),
+                array(
+                    'link_type' => 'internal',
+                    'link' => 'ezlocation://abc',
+                    'link_suffix' => '?suffix',
+                    'new_window' => true,
+                ),
+            ),
+            array(
+                new LinkValue(
+                    array(
+                        'linkType' => 'internal',
+                        'link' => 'invalid',
+                        'linkSuffix' => '?suffix',
+                        'newWindow' => true,
+                    )
+                ),
+                array(
+                    'link_type' => 'internal',
+                    'link' => 'null://0',
+                    'link_suffix' => '?suffix',
+                    'new_window' => true,
+                ),
+            ),
+        );
+    }
+
+    /**
+     * @param mixed $value
+     * @param bool $convertedValue
+     *
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::import
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::__construct
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertFromRemoteId
+     * @dataProvider importProvider
+     */
+    public function testImport($value, $convertedValue)
+    {
+        $this->itemLoaderMock
+            ->expects($this->any())
+            ->method('loadByRemoteId')
+            ->with($this->equalTo('abc'), $this->equalTo('ezlocation'))
+            ->will(
+                $this->returnValue(
+                    new Item(
+                        array(
+                            'value' => 42,
+                            'remoteId' => 'abc',
+                        )
+                    )
+                )
+            );
+
+        $this->assertEquals($convertedValue, $this->type->import(new Parameter(), $value));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::import
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertFromRemoteId
+     */
+    public function testImportWithConverterException()
+    {
+        $this->itemLoaderMock
+            ->expects($this->any())
+            ->method('loadByRemoteId')
+            ->with($this->equalTo('def'), $this->equalTo('ezlocation'))
+            ->will($this->throwException(new ItemException()));
+
+        $this->assertEquals(
+            new LinkValue(
+                array(
+                    'linkType' => 'internal',
+                    'link' => 'null://0',
+                    'linkSuffix' => '?suffix',
+                    'newWindow' => true,
+                )
+            ),
+            $this->type->import(
+                new Parameter(),
+                array(
+                    'link_type' => 'internal',
+                    'link' => 'ezlocation://def',
+                    'link_suffix' => '?suffix',
+                    'new_window' => true,
+                )
+            )
+        );
+    }
+
+    public function importProvider()
+    {
+        return array(
+            array(
+                42,
+                new LinkValue(),
+            ),
+            array(
+                array(),
+                new LinkValue(),
+            ),
+            array(
+                array(
+                    'link_type' => 'url',
+                    'link' => 'http://www.google.com',
+                    'link_suffix' => '?suffix',
+                    'new_window' => true,
+                ),
+                new LinkValue(
+                    array(
+                        'linkType' => 'url',
+                        'link' => 'http://www.google.com',
+                        'linkSuffix' => '?suffix',
+                        'newWindow' => true,
+                    )
+                ),
+            ),
+            array(
+                array(
+                    'link_type' => 'url',
+                    'link' => 'http://www.google.com',
+                ),
+                new LinkValue(
+                    array(
+                        'linkType' => 'url',
+                        'link' => 'http://www.google.com',
+                        'linkSuffix' => null,
+                        'newWindow' => false,
+                    )
+                ),
+            ),
+            array(
+                array(
+                    'link_type' => 'internal',
+                    'link' => 'ezlocation://abc',
+                    'link_suffix' => '?suffix',
+                    'new_window' => true,
+                ),
+                new LinkValue(
+                    array(
+                        'linkType' => 'internal',
+                        'link' => 'ezlocation://42',
+                        'linkSuffix' => '?suffix',
+                        'newWindow' => true,
+                    )
+                ),
+            ),
+            array(
+                array(
+                    'link_type' => 'internal',
+                    'link' => 'invalid',
+                    'link_suffix' => '?suffix',
+                    'new_window' => true,
+                ),
+                new LinkValue(
+                    array(
+                        'linkType' => 'internal',
+                        'link' => 'null://0',
+                        'linkSuffix' => '?suffix',
+                        'newWindow' => true,
+                    )
+                ),
+            ),
+            array(
+                array(
+                    'link_type' => 'internal',
+                ),
+                new LinkValue(
+                    array(
+                        'linkType' => 'internal',
+                        'link' => 'null://0',
+                        'linkSuffix' => null,
+                        'newWindow' => false,
                     )
                 ),
             ),

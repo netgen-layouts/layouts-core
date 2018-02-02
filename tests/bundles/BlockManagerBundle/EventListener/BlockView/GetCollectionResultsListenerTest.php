@@ -61,6 +61,7 @@ final class GetCollectionResultsListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::onRenderView
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::getMaxPages
      */
     public function testOnRenderView()
     {
@@ -133,6 +134,7 @@ final class GetCollectionResultsListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::onRenderView
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::getMaxPages
      */
     public function testOnRenderViewWithAPIContext()
     {

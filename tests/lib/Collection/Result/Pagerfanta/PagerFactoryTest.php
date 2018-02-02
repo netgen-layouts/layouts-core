@@ -36,6 +36,7 @@ final class PagerFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::__construct
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getPager
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::buildPager
+     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getMaxPerPage
      */
     public function testGetPager()
     {
@@ -52,6 +53,7 @@ final class PagerFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::__construct
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getPager
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::buildPager
+     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getMaxPerPage
      */
     public function testGetPagerWithMaxPages()
     {
@@ -68,6 +70,7 @@ final class PagerFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::__construct
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getPager
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::buildPager
+     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getMaxPerPage
      */
     public function testGetPagerWithMaxPagesLargerThanTotalCount()
     {
@@ -84,6 +87,7 @@ final class PagerFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::__construct
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getPager
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::buildPager
+     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getMaxPerPage
      */
     public function testGetPagerWithLimitLargerThanMaxLimit()
     {
@@ -100,6 +104,7 @@ final class PagerFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::__construct
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getPager
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::buildPager
+     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getMaxPerPage
      */
     public function testGetPagerWithLimitLargerThanMaxLimitAndMaxPages()
     {
@@ -116,6 +121,7 @@ final class PagerFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::__construct
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getPager
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::buildPager
+     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory::getMaxPerPage
      */
     public function testGetPagerWithLimitLargerThanMaxLimitAndMaxPagesLargerThanTotalCount()
     {

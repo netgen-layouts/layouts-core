@@ -3,6 +3,10 @@
 namespace Netgen\BlockManager\Tests\Block;
 
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\Form;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Block\BlockDefinition\ContainerDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\BlockDefinitionFactory;
@@ -17,7 +21,6 @@ use Netgen\BlockManager\Parameters\ParameterType\TextLineType;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\BlockManager\Tests\Block\Stubs\HandlerPlugin;
 use Netgen\BlockManager\Tests\Config\Stubs\Block\HttpCacheConfigHandler;
-use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinition;
 use PHPUnit\Framework\TestCase;
 
 final class BlockDefinitionFactoryTest extends TestCase
@@ -77,6 +80,7 @@ final class BlockDefinitionFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::__construct
      * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::buildBlockDefinition
      * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::getCommonBlockDefinitionData
+     * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::processConfig
      */
     public function testBuildBlockDefinition()
     {
@@ -89,7 +93,44 @@ final class BlockDefinitionFactoryTest extends TestCase
                 'view_types' => array(
                     'view_type' => array(
                         'enabled' => true,
+                        'name' => 'View type',
+                        'item_view_types' => array(
+                            'item_view_type' => array(
+                                'enabled' => true,
+                                'name' => 'Item view type',
+                            ),
+                            'disabled' => array(
+                                'enabled' => false,
+                                'name' => 'Item view type',
+                            ),
+                        ),
+                        'valid_parameters' => array(
+                            'param1', 'param2',
+                        ),
+                    ),
+                    'disabled' => array(
+                        'enabled' => false,
                         'item_view_types' => array(),
+                    ),
+                ),
+                'forms' => array(
+                    'form' => array(
+                        'enabled' => true,
+                        'type' => 'form_type',
+                    ),
+                    'disabled' => array(
+                        'enabled' => false,
+                        'type' => 'form_type',
+                    ),
+                ),
+                'collections' => array(
+                    'default' => array(
+                        'valid_item_types' => null,
+                        'valid_query_types' => null,
+                    ),
+                    'featured' => array(
+                        'valid_item_types' => array('item'),
+                        'valid_query_types' => array(),
                     ),
                 ),
             ),
@@ -105,6 +146,65 @@ final class BlockDefinitionFactoryTest extends TestCase
         $this->assertArrayHasKey('test_param', $blockDefinition->getParameters());
         $this->assertArrayHasKey('dynamic_param', $blockDefinition->getDynamicParameters(new Block()));
 
+        $this->assertEquals(
+            array(
+                'view_type' => new ViewType(
+                    array(
+                        'identifier' => 'view_type',
+                        'name' => 'View type',
+                        'itemViewTypes' => array(
+                            'standard' => new ItemViewType(
+                                array(
+                                    'identifier' => 'standard',
+                                    'name' => 'Standard',
+                                )
+                            ),
+                            'item_view_type' => new ItemViewType(
+                                array(
+                                    'identifier' => 'item_view_type',
+                                    'name' => 'Item view type',
+                                )
+                            ),
+                        ),
+                        'validParameters' => array('param1', 'param2'),
+                    )
+                ),
+            ),
+            $blockDefinition->getViewTypes()
+        );
+
+        $this->assertEquals(
+            array(
+                'form' => new Form(
+                    array(
+                        'identifier' => 'form',
+                        'type' => 'form_type',
+                    )
+                ),
+            ),
+            $blockDefinition->getForms()
+        );
+
+        $this->assertEquals(
+            array(
+                'default' => new Collection(
+                    array(
+                        'identifier' => 'default',
+                        'validItemTypes' => null,
+                        'validQueryTypes' => null,
+                    )
+                ),
+                'featured' => new Collection(
+                    array(
+                        'identifier' => 'featured',
+                        'validItemTypes' => array('item'),
+                        'validQueryTypes' => array(),
+                    )
+                ),
+            ),
+            $blockDefinition->getCollections()
+        );
+
         $configDefinitions = $blockDefinition->getConfigDefinitions();
         $this->assertArrayHasKey('test', $configDefinitions);
         $this->assertArrayHasKey('test2', $configDefinitions);
@@ -116,6 +216,7 @@ final class BlockDefinitionFactoryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::buildTwigBlockDefinition
      * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::getCommonBlockDefinitionData
+     * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::processConfig
      */
     public function testBuildTwigBlockDefinition()
     {
@@ -155,6 +256,7 @@ final class BlockDefinitionFactoryTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::buildContainerDefinition
      * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::getCommonBlockDefinitionData
+     * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::processConfig
      */
     public function testBuildContainerDefinition()
     {
@@ -200,6 +302,8 @@ final class BlockDefinitionFactoryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::buildBlockDefinition
+     * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::getCommonBlockDefinitionData
+     * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::processConfig
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage You need to specify at least one enabled view type for "definition" block definition.
      */
@@ -224,6 +328,8 @@ final class BlockDefinitionFactoryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::buildBlockDefinition
+     * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::getCommonBlockDefinitionData
+     * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::processConfig
      * @expectedException \Netgen\BlockManager\Exception\RuntimeException
      * @expectedExceptionMessage You need to specify at least one enabled item view type for "large" view type and "definition" block definition.
      */
@@ -250,17 +356,5 @@ final class BlockDefinitionFactoryTest extends TestCase
             ),
             array()
         );
-    }
-
-    /**
-     * @param string $identifier
-     *
-     * @return \Netgen\BlockManager\Config\ConfigDefinitionInterface
-     */
-    private function getConfigDefinition($identifier)
-    {
-        $handler = new HttpCacheConfigHandler();
-
-        return new ConfigDefinition($identifier, $handler);
     }
 }

@@ -16,6 +16,7 @@ final class VisibilityConfigHandler extends ConfigDefinitionHandler
                 array(
                     'name' => 'visible',
                     'type' => new ParameterType\Compound\BooleanType(),
+                    'defaultValue' => true,
                     'parameters' => array(
                         'visible_from' => new Parameter(
                             array(

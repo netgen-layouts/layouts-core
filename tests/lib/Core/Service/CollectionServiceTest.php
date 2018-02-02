@@ -2,14 +2,18 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service;
 
+use DateTimeImmutable;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
+use Netgen\BlockManager\API\Values\Collection\ItemUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
+use Netgen\BlockManager\API\Values\Config\Config;
+use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Tests\Collection\Stubs\ItemDefinition;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
@@ -355,6 +359,50 @@ abstract class CollectionServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateItem
+     */
+    public function testUpdateItem()
+    {
+        $itemUpdateStruct = $this->collectionService->newItemUpdateStruct();
+
+        $dateTime = DateTimeImmutable::createFromFormat(DateTimeImmutable::RFC3339, '2018-02-01T15:00:00+0100');
+
+        $visibilityConfigStruct = new ConfigStruct();
+        $visibilityConfigStruct->setParameterValue('visible', true);
+        $visibilityConfigStruct->setParameterValue('visible_to', $dateTime);
+
+        $itemUpdateStruct->setConfigStruct('visibility', $visibilityConfigStruct);
+
+        $item = $this->collectionService->loadItemDraft(1);
+
+        $updatedItem = $this->collectionService->updateItem($item, $itemUpdateStruct);
+
+        $this->assertFalse($updatedItem->isPublished());
+        $this->assertInstanceOf(Item::class, $updatedItem);
+
+        $this->assertTrue($updatedItem->hasConfig('visibility'));
+        $visibilityConfig = $updatedItem->getConfig('visibility');
+
+        $this->assertInstanceOf(Config::class, $visibilityConfig);
+        $this->assertTrue($visibilityConfig->getParameter('visible')->getValue());
+        $this->assertNull($visibilityConfig->getParameter('visible_from')->getValue());
+        $this->assertEquals($dateTime, $visibilityConfig->getParameter('visible_to')->getValue());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateItem
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "item" has an invalid state. Only draft items can be updated.
+     */
+    public function testUpdateItemThrowsBadStateExceptionWithNonDraftItem()
+    {
+        $itemUpdateStruct = $this->collectionService->newItemUpdateStruct();
+        $item = $this->collectionService->loadItem(4);
+
+        $this->collectionService->updateItem($item, $itemUpdateStruct);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::moveItem
      */
     public function testMoveItem()
@@ -659,6 +707,19 @@ abstract class CollectionServiceTest extends ServiceTestCase
                 )
             ),
             $this->collectionService->newItemCreateStruct(new ItemDefinition('ezcontent'), Item::TYPE_OVERRIDE, '42')
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\CollectionService::newItemUpdateStruct
+     */
+    public function testNewItemUpdateStruct()
+    {
+        $itemUpdateStruct = new ItemUpdateStruct();
+
+        $this->assertEquals(
+            $itemUpdateStruct,
+            $this->collectionService->newItemUpdateStruct()
         );
     }
 

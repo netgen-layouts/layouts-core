@@ -5,8 +5,10 @@ namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
+use Netgen\BlockManager\API\Values\Collection\ItemUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
+use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Collection\QueryType;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Service\Validator\ConfigValidator;
@@ -53,6 +55,7 @@ final class CollectionValidatorTest extends TestCase
      * @param array $params
      * @param array $isValid
      *
+     * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::__construct
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateCollectionCreateStruct
      * @dataProvider validateCollectionCreateStructProvider
      */
@@ -108,6 +111,64 @@ final class CollectionValidatorTest extends TestCase
         $this->assertTrue(true);
 
         $this->collectionValidator->validateItemCreateStruct(new ItemCreateStruct($params));
+    }
+
+    /**
+     * @param array $params
+     * @param bool $isValid
+     *
+     * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateItemUpdateStruct
+     * @dataProvider validateItemUpdateStructDataProvider
+     */
+    public function testValidateItemUpdateStruct(array $params, $isValid)
+    {
+        if (!$isValid) {
+            $this->expectException(ValidationException::class);
+        }
+
+        // Fake assertion to fix coverage on tests which do not perform assertions
+        $this->assertTrue(true);
+
+        $this->collectionValidator->validateItemUpdateStruct(
+            new Item(
+                array(
+                    'definition' => new ItemDefinition('ezlocation'),
+                )
+            ),
+            new ItemUpdateStruct($params)
+        );
+    }
+
+    public function validateItemUpdateStructDataProvider()
+    {
+        return array(
+            array(
+                array(),
+                true,
+            ),
+            array(
+                array(
+                    'configStructs' => array(),
+                ),
+                true,
+            ),
+            array(
+                array(
+                    'configStructs' => array(
+                        'visibility' => new ConfigStruct(),
+                    ),
+                ),
+                true,
+            ),
+            array(
+                array(
+                    'configStructs' => array(
+                        'unknown' => new ConfigStruct(),
+                    ),
+                ),
+                false,
+            ),
+        );
     }
 
     /**

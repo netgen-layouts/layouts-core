@@ -8,6 +8,7 @@ use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
+use Netgen\BlockManager\Persistence\Values\Collection\ItemUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\QueryTranslationUpdateStruct;
@@ -1228,6 +1229,39 @@ final class CollectionHandlerTest extends TestCase
         $this->collectionHandler->addItem(
             $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
             $itemCreateStruct
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::updateItem
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
+     */
+    public function testUpdateItem()
+    {
+        $itemUpdateStruct = new ItemUpdateStruct();
+        $itemUpdateStruct->config = array(
+            'new_config' => array(
+                'val' => 24,
+            ),
+        );
+
+        $this->assertEquals(
+            new Item(
+                array(
+                    'id' => 1,
+                    'collectionId' => 1,
+                    'position' => 0,
+                    'type' => Item::TYPE_MANUAL,
+                    'value' => '72',
+                    'valueType' => 'ezlocation',
+                    'status' => Value::STATUS_DRAFT,
+                    'config' => array('new_config' => array('val' => 24)),
+                )
+            ),
+            $this->collectionHandler->updateItem(
+                $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT),
+                $itemUpdateStruct
+            )
         );
     }
 

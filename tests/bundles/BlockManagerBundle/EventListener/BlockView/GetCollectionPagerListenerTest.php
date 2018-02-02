@@ -71,6 +71,7 @@ final class GetCollectionPagerListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionPagerListener::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionPagerListener::onRenderView
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionPagerListener::getMaxPages
      */
     public function testOnRenderView()
     {
