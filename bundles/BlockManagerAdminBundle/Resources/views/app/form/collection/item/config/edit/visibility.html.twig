@@ -2,7 +2,7 @@
 
 {% trans_default_domain 'ngbm_forms' %}
 
-{% set item = form.vars.configurable %}
+{% set collection_item = form.vars.configurable %}
 {% set visibility_form = form.children.visibility %}
 
 {% block header %}
@@ -10,6 +10,10 @@
 {% endblock %}
 
 {% block children %}
+    {% if not cms_item.visible %}
+        <p>{{ 'config.collection_item.visibility.warning'|trans }}</p>
+    {% endif %}
+
     {{ form_row(visibility_form.children.visible, {required: false}) }}
 {% endblock %}
 

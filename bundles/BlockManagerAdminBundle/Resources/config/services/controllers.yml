@@ -59,3 +59,4 @@ services:
         parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.collection"
+            - "@netgen_block_manager.item.item_loader"

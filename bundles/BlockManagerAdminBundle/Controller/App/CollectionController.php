@@ -9,6 +9,7 @@ use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Collection\Form\EditType;
 use Netgen\BlockManager\Config\Form\EditType as ConfigEditType;
 use Netgen\BlockManager\Exception\Core\ConfigException;
+use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,9 +22,15 @@ final class CollectionController extends Controller
      */
     private $collectionService;
 
-    public function __construct(CollectionService $collectionService)
+    /**
+     * @var \Netgen\BlockManager\Item\ItemLoaderInterface
+     */
+    private $itemLoader;
+
+    public function __construct(CollectionService $collectionService, ItemLoaderInterface $itemLoader)
     {
         $this->collectionService = $collectionService;
+        $this->itemLoader = $itemLoader;
     }
 
     /**
@@ -91,6 +98,8 @@ final class CollectionController extends Controller
             }
         }
 
+        $cmsItem = $this->itemLoader->load($item->getValue(), $item->getValueType());
+
         $updateStruct = $this->collectionService->newItemUpdateStruct($item);
 
         $form = $this->createForm(
@@ -113,7 +122,7 @@ final class CollectionController extends Controller
         $form->handleRequest($request);
 
         if (!$form->isSubmitted()) {
-            return $this->buildView($form, ViewInterface::CONTEXT_API);
+            return $this->buildView($form, ViewInterface::CONTEXT_API, array('cms_item' => $cmsItem));
         }
 
         if ($form->isValid()) {

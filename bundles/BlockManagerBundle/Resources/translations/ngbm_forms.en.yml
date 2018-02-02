@@ -62,5 +62,6 @@ config.block.http_cache.cancel: 'Cancel'
 config.block.http_cache.submit: 'Set cache'
 
 config.collection_item.visibility.header: 'Configure visibility'
+config.collection_item.visibility.warning: 'CMS entity wrapped by this item is not visible. These settings will not apply until the object is visible again.'
 config.collection_item.visibility.cancel: 'Cancel'
 config.collection_item.visibility.submit: 'Set visibility'
