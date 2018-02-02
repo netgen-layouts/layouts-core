@@ -38,7 +38,12 @@ final class DateTimeType extends ParameterType
             return null;
         }
 
-        return DateTimeImmutable::createFromFormat(DateTimeImmutable::RFC3339, $value);
+        $dateTime = DateTimeImmutable::createFromFormat(DateTimeImmutable::RFC3339, $value);
+        if (!$dateTime instanceof DateTimeInterface || $dateTime->format(DateTimeImmutable::RFC3339) !== $value) {
+            return null;
+        }
+
+        return $dateTime;
     }
 
     protected function getValueConstraints(ParameterInterface $parameter, $value)
@@ -47,11 +52,6 @@ final class DateTimeType extends ParameterType
             new Constraints\Type(
                 array(
                     'type' => DateTimeInterface::class,
-                )
-            ),
-            new Constraints\DateTime(
-                array(
-                    'format' => DateTimeImmutable::RFC3339,
                 )
             ),
         );
