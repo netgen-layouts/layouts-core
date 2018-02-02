@@ -33,7 +33,7 @@ abstract class BlockTest extends ServiceTestCase
         $configValidator = new ConfigValidator();
         $configValidator->setValidator($validator);
 
-        $collectionValidator = new CollectionValidator();
+        $collectionValidator = new CollectionValidator($configValidator);
         $collectionValidator->setValidator($validator);
 
         $blockValidator = new BlockValidator($configValidator, $collectionValidator);
