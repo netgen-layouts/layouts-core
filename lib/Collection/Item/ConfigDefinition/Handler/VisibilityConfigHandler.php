@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Collection\Item\ConfigDefinition\Handler;
 
+use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\API\Values\Config\ConfigAwareValue;
 use Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
@@ -36,6 +37,10 @@ final class VisibilityConfigHandler implements ConfigDefinitionHandlerInterface
 
     public function isEnabled(ConfigAwareValue $configAwareValue)
     {
+        if (!$configAwareValue instanceof Item) {
+            return false;
+        }
+
         return true;
     }
 }

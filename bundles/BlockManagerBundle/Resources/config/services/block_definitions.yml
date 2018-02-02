@@ -1,6 +1,7 @@
 parameters:
     netgen_block_manager.block.block_definition.handler.plugin.common.groups: ['design', 'common']
 
+    netgen_block_manager.block.block_definition.handler.plugin.paged_collections.groups: ['design']
     netgen_block_manager.block.block_definition.handler.plugin.paged_collections.pager_types:
         pager: 'Pager'
         load_more: 'Load more'
@@ -45,5 +46,6 @@ services:
         public: false
         arguments:
             - "%netgen_block_manager.block.block_definition.handler.plugin.paged_collections.pager_types%"
+            - "%netgen_block_manager.block.block_definition.handler.plugin.paged_collections.groups%"
         tags:
             - { name: netgen_block_manager.block.block_definition_handler.plugin, priority: 10 }
