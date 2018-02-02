@@ -92,7 +92,7 @@ final class DateTimeTypeTest extends TestCase
         return array(
             array(42, null),
             array(null, null),
-            array(DateTimeImmutable::createFromFormat(DateTimeImmutable::RFC3339, '2018-02-01T15:00:00+01:00'), '2018-02-01T15:00:00+01:00'),
+            array(DateTimeImmutable::createFromFormat(DateTime::RFC3339, '2018-02-01T15:00:00+01:00'), '2018-02-01T15:00:00+01:00'),
         );
     }
 
@@ -114,7 +114,7 @@ final class DateTimeTypeTest extends TestCase
             array(42, null),
             array(null, null),
             array('01.02.2018 15:00:00', null),
-            array('2018-02-01T15:00:00+01:00', DateTimeImmutable::createFromFormat(DateTimeImmutable::RFC3339, '2018-02-01T15:00:00+01:00')),
+            array('2018-02-01T15:00:00+01:00', DateTimeImmutable::createFromFormat(DateTime::RFC3339, '2018-02-01T15:00:00+01:00')),
         );
     }
 

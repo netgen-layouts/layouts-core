@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 
+use DateTime;
 use DateTimeImmutable;
 use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
@@ -276,7 +277,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertTrue($visibilityConfig->getParameter('visible')->getValue());
         $this->assertNull($visibilityConfig->getParameter('visible_from')->getValue());
         $this->assertEquals(
-            DateTimeImmutable::createFromFormat(DateTimeImmutable::RFC3339, '2018-02-01T17:00:00+01:00'),
+            DateTimeImmutable::createFromFormat(DateTime::RFC3339, '2018-02-01T17:00:00+01:00'),
             $visibilityConfig->getParameter('visible_to')->getValue()
         );
     }

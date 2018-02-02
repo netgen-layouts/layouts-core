@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Parameters\ParameterType;
 
+use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Netgen\BlockManager\Parameters\ParameterInterface;
@@ -29,7 +30,7 @@ final class DateTimeType extends ParameterType
             return null;
         }
 
-        return $value->format(DateTimeImmutable::RFC3339);
+        return $value->format(DateTime::RFC3339);
     }
 
     public function fromHash(ParameterInterface $parameter, $value)
@@ -38,8 +39,8 @@ final class DateTimeType extends ParameterType
             return null;
         }
 
-        $dateTime = DateTimeImmutable::createFromFormat(DateTimeImmutable::RFC3339, $value);
-        if (!$dateTime instanceof DateTimeInterface || $dateTime->format(DateTimeImmutable::RFC3339) !== $value) {
+        $dateTime = DateTimeImmutable::createFromFormat(DateTime::RFC3339, $value);
+        if (!$dateTime instanceof DateTimeInterface || $dateTime->format(DateTime::RFC3339) !== $value) {
             return null;
         }
 
