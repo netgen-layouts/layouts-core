@@ -11,7 +11,6 @@ final class BlockCollectionControllerTest extends JsonApiTestCase
 {
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollectionController::loadCollectionResult
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\Validator::validateOffsetAndLimit
      */
     public function testLoadCollectionResult()
     {
