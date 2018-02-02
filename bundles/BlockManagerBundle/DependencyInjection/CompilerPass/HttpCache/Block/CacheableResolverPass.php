@@ -18,12 +18,16 @@ final class CacheableResolverPass implements CompilerPassInterface
         }
 
         $cacheableResolver = $container->findDefinition(self::SERVICE_NAME);
-        $voterServices = array_keys($container->findTaggedServiceIds(self::TAG_NAME));
+        $voterServices = $container->findTaggedServiceIds(self::TAG_NAME);
 
         $voters = array();
-        foreach ($voterServices as $serviceName) {
-            $voters[] = new Reference($serviceName);
+        foreach ($voterServices as $serviceName => $tag) {
+            $priority = isset($tag[0]['priority']) ? (int) $tag[0]['priority'] : 0;
+            $voters[$priority][] = new Reference($serviceName);
         }
+
+        krsort($voters);
+        $voters = array_merge(...$voters);
 
         $cacheableResolver->addMethodCall('setVoters', array($voters));
     }

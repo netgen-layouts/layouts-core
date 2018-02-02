@@ -34,7 +34,7 @@ services:
         arguments:
             - "@netgen_block_manager.http_cache.block.cacheable_resolver"
         tags:
-            - { name: netgen_block_manager.http_cache.block.cacheable_resolver.voter }
+            - { name: netgen_block_manager.http_cache.block.cacheable_resolver.voter, priority: 0 }
 
     # LAYOUT
 
