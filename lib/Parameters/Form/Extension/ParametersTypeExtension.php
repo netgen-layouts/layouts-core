@@ -22,14 +22,14 @@ final class ParametersTypeExtension extends AbstractTypeExtension
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefined('ngbm_parameter');
-        $resolver->setAllowedTypes('ngbm_parameter', ParameterDefinitionInterface::class);
+        $resolver->setDefined('ngbm_parameter_definition');
+        $resolver->setAllowedTypes('ngbm_parameter_definition', ParameterDefinitionInterface::class);
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        if (isset($options['ngbm_parameter'])) {
-            $view->vars['ngbm_parameter'] = $options['ngbm_parameter'];
+        if (isset($options['ngbm_parameter_definition'])) {
+            $view->vars['ngbm_parameter_definition'] = $options['ngbm_parameter_definition'];
         }
     }
 }

@@ -6,7 +6,7 @@
     {% set has_advanced_params = false %}
 
     {% for child in form.parameters %}
-        {% if 'advanced' not in child.vars.ngbm_parameter.groups %}
+        {% if 'advanced' not in child.vars.ngbm_parameter_definition.groups %}
             {{ form_row(child) }}
         {% elseif not has_advanced_params %}
             {% set has_advanced_params = true %}

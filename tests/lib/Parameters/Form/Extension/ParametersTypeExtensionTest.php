@@ -40,11 +40,11 @@ final class ParametersTypeExtensionTest extends TestCase
         $this->formTypeExtension->buildView(
             $view,
             $this->createMock(FormInterface::class),
-            array('ngbm_parameter' => new ParameterDefinition())
+            array('ngbm_parameter_definition' => new ParameterDefinition())
         );
 
-        $this->assertArrayHasKey('ngbm_parameter', $view->vars);
-        $this->assertEquals(new ParameterDefinition(), $view->vars['ngbm_parameter']);
+        $this->assertArrayHasKey('ngbm_parameter_definition', $view->vars);
+        $this->assertEquals(new ParameterDefinition(), $view->vars['ngbm_parameter_definition']);
     }
 
     /**
@@ -60,7 +60,7 @@ final class ParametersTypeExtensionTest extends TestCase
             array()
         );
 
-        $this->assertArrayNotHasKey('ngbm_parameter', $view->vars);
+        $this->assertArrayNotHasKey('ngbm_parameter_definition', $view->vars);
     }
 
     /**
@@ -72,14 +72,14 @@ final class ParametersTypeExtensionTest extends TestCase
         $this->formTypeExtension->configureOptions($optionsResolver);
 
         $options = array(
-            'ngbm_parameter' => new ParameterDefinition(),
+            'ngbm_parameter_definition' => new ParameterDefinition(),
         );
 
         $resolvedOptions = $optionsResolver->resolve($options);
 
         $this->assertEquals(
             array(
-                'ngbm_parameter' => new ParameterDefinition(),
+                'ngbm_parameter_definition' => new ParameterDefinition(),
             ),
             $resolvedOptions
         );
@@ -108,7 +108,7 @@ final class ParametersTypeExtensionTest extends TestCase
 
         $optionsResolver->resolve(
             array(
-                'ngbm_parameter' => 'parameter',
+                'ngbm_parameter_definition' => 'parameter_definition',
             )
         );
     }
