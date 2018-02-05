@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Collection\Result;
 
+use Netgen\BlockManager\Collection\Item\VisibilityResolver;
 use Netgen\BlockManager\Collection\Result\CollectionIteratorFactory;
 use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Collection\Result\ResultBuilder;
@@ -35,6 +36,11 @@ final class ResultBuilderTest extends TestCase
      */
     private $resultBuilder;
 
+    /**
+     * @var \Netgen\BlockManager\Collection\Item\VisibilityResolverInterface
+     */
+    private $visibilityResolver;
+
     public function setUp()
     {
         $this->itemBuilder = new ItemBuilder(
@@ -45,6 +51,8 @@ final class ResultBuilderTest extends TestCase
             $this->itemBuilder,
             array('value' => new ValueLoader())
         );
+
+        $this->visibilityResolver = new VisibilityResolver();
 
         $this->resultBuilder = $this->buildResultBuilder(200);
     }
@@ -130,7 +138,8 @@ final class ResultBuilderTest extends TestCase
         return new ResultBuilder(
             new ResultIteratorFactory(
                 $this->itemLoader,
-                $this->itemBuilder
+                $this->itemBuilder,
+                $this->visibilityResolver
             ),
             new CollectionIteratorFactory(12),
             $maxLimit

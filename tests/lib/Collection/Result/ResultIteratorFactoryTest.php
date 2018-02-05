@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Collection\Result;
 
 use ArrayIterator;
 use Iterator;
+use Netgen\BlockManager\Collection\Item\VisibilityResolverInterface;
 use Netgen\BlockManager\Collection\Result\CollectionIterator;
 use Netgen\BlockManager\Collection\Result\ResultIteratorFactory;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
@@ -23,10 +24,16 @@ final class ResultIteratorFactoryTest extends TestCase
      */
     private $itemBuilderMock;
 
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject
+     */
+    private $visibilityResolverMock;
+
     public function setUp()
     {
         $this->itemLoaderMock = $this->createMock(ItemLoaderInterface::class);
         $this->itemBuilderMock = $this->createMock(ItemBuilderInterface::class);
+        $this->visibilityResolverMock = $this->createMock(VisibilityResolverInterface::class);
     }
 
     /**
@@ -38,7 +45,8 @@ final class ResultIteratorFactoryTest extends TestCase
         $collectionIterator = new CollectionIterator(new Collection(), new ArrayIterator(), 0, 200);
         $factory = new ResultIteratorFactory(
             $this->itemLoaderMock,
-            $this->itemBuilderMock
+            $this->itemBuilderMock,
+            $this->visibilityResolverMock
         );
 
         $this->assertInstanceOf(

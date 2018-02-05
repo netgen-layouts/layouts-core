@@ -6,7 +6,6 @@ use ArrayIterator;
 use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Collection\Result\ResultFilterIterator;
 use Netgen\BlockManager\Collection\Result\ResultSet;
-use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Item\NullItem;
 use PHPUnit\Framework\TestCase;
 
@@ -26,11 +25,7 @@ final class ResultFilterIteratorTest extends TestCase
             array(
                 new Result(
                     array(
-                        'item' => new Item(
-                            array(
-                                'isVisible' => true,
-                            )
-                        ),
+                        'isVisible' => true,
                     )
                 ),
             ),
@@ -54,20 +49,12 @@ final class ResultFilterIteratorTest extends TestCase
             array(
                 new Result(
                     array(
-                        'item' => new Item(
-                            array(
-                                'isVisible' => true,
-                            )
-                        ),
+                        'isVisible' => true,
                     )
                 ),
                 new Result(
                     array(
-                        'item' => new Item(
-                            array(
-                                'isVisible' => false,
-                            )
-                        ),
+                        'isVisible' => false,
                     )
                 ),
             ),
@@ -91,11 +78,7 @@ final class ResultFilterIteratorTest extends TestCase
             array(
                 new Result(
                     array(
-                        'item' => new Item(
-                            array(
-                                'isVisible' => true,
-                            )
-                        ),
+                        'isVisible' => true,
                     )
                 ),
                 new Result(
@@ -131,20 +114,12 @@ final class ResultFilterIteratorTest extends TestCase
         return array(
             new Result(
                 array(
-                    'item' => new Item(
-                        array(
-                            'isVisible' => true,
-                        )
-                    ),
+                    'isVisible' => true,
                 )
             ),
             new Result(
                 array(
-                    'item' => new Item(
-                        array(
-                            'isVisible' => false,
-                        )
-                    ),
+                    'isVisible' => false,
                 )
             ),
             new Result(

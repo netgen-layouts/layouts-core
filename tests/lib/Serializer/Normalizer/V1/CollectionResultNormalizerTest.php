@@ -37,7 +37,6 @@ final class CollectionResultNormalizerTest extends TestCase
         $item = new Item(
             array(
                 'name' => 'Value name',
-                'isVisible' => true,
             )
         );
 
@@ -47,6 +46,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'collectionItem' => $collectionItem,
                 'type' => Result::TYPE_MANUAL,
                 'position' => 3,
+                'isVisible' => true,
             )
         );
 
@@ -59,7 +59,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'value' => $item->getValue(),
                 'value_type' => $item->getValueType(),
                 'name' => $item->getName(),
-                'visible' => $item->isVisible(),
+                'visible' => $result->isVisible(),
             ),
             $this->normalizer->normalize(new VersionedValue($result, 1))
         );
@@ -73,7 +73,6 @@ final class CollectionResultNormalizerTest extends TestCase
         $item = new Item(
             array(
                 'name' => 'Value name',
-                'isVisible' => true,
             )
         );
 
@@ -83,6 +82,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'collectionItem' => null,
                 'type' => Result::TYPE_DYNAMIC,
                 'position' => 3,
+                'isVisible' => true,
             )
         );
 
@@ -95,7 +95,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'value' => $item->getValue(),
                 'value_type' => $item->getValueType(),
                 'name' => $item->getName(),
-                'visible' => $item->isVisible(),
+                'visible' => $result->isVisible(),
             ),
             $this->normalizer->normalize(new VersionedValue($result, 1))
         );

@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Collection\Result;
 
 use ArrayIterator;
+use Netgen\BlockManager\Collection\Item\VisibilityResolverInterface;
 use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Collection\Result\ResultBuilderIterator;
 use Netgen\BlockManager\Core\Values\Collection\Item as CollectionItem;
@@ -26,10 +27,16 @@ final class ResultBuilderIteratorTest extends TestCase
      */
     private $itemBuilderMock;
 
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject
+     */
+    private $visibilityResolverMock;
+
     public function setUp()
     {
         $this->itemLoaderMock = $this->createMock(ItemLoaderInterface::class);
         $this->itemBuilderMock = $this->createMock(ItemBuilderInterface::class);
+        $this->visibilityResolverMock = $this->createMock(VisibilityResolverInterface::class);
     }
 
     /**
@@ -50,6 +57,7 @@ final class ResultBuilderIteratorTest extends TestCase
                         array(
                             'value' => 100,
                             'valueType' => 'dynamicValue',
+                            'isVisible' => true,
                         )
                     )
                 )
@@ -65,6 +73,7 @@ final class ResultBuilderIteratorTest extends TestCase
                         array(
                             'value' => 42,
                             'valueType' => 'value',
+                            'isVisible' => true,
                         )
                     )
                 )
@@ -73,13 +82,74 @@ final class ResultBuilderIteratorTest extends TestCase
         $this->itemLoaderMock
             ->expects($this->at(1))
             ->method('load')
+            ->with($this->equalTo(43), $this->equalTo('value'))
+            ->will(
+                $this->returnValue(
+                    new Item(
+                        array(
+                            'value' => 43,
+                            'valueType' => 'value',
+                            'isVisible' => true,
+                        )
+                    )
+                )
+            );
+
+        $this->itemLoaderMock
+            ->expects($this->at(2))
+            ->method('load')
+            ->with($this->equalTo(44), $this->equalTo('value'))
+            ->will(
+                $this->returnValue(
+                    new Item(
+                        array(
+                            'value' => 44,
+                            'valueType' => 'value',
+                            'isVisible' => false,
+                        )
+                    )
+                )
+            );
+
+        $this->itemLoaderMock
+            ->expects($this->at(3))
+            ->method('load')
+            ->with($this->equalTo(45), $this->equalTo('value'))
+            ->will(
+                $this->returnValue(
+                    new Item(
+                        array(
+                            'value' => 45,
+                            'valueType' => 'value',
+                            'isVisible' => false,
+                        )
+                    )
+                )
+            );
+
+        $this->itemLoaderMock
+            ->expects($this->at(4))
+            ->method('load')
             ->with($this->equalTo(999), $this->equalTo('value'))
             ->will($this->throwException(new ItemException()));
+
+        $this->visibilityResolverMock
+            ->expects($this->at(0))
+            ->method('isVisible')
+            ->with($this->equalTo($items[1]))
+            ->will($this->returnValue(true));
+
+        $this->visibilityResolverMock
+            ->expects($this->at(1))
+            ->method('isVisible')
+            ->with($this->equalTo($items[2]))
+            ->will($this->returnValue(false));
 
         $iterator = new ResultBuilderIterator(
             new ArrayIterator($items),
             $this->itemLoaderMock,
-            $this->itemBuilderMock
+            $this->itemBuilderMock,
+            $this->visibilityResolverMock
         );
 
         $this->assertEquals(
@@ -90,6 +160,7 @@ final class ResultBuilderIteratorTest extends TestCase
                             array(
                                 'value' => 100,
                                 'valueType' => 'dynamicValue',
+                                'isVisible' => true,
                             )
                         ),
                         'collectionItem' => null,
@@ -103,6 +174,7 @@ final class ResultBuilderIteratorTest extends TestCase
                             array(
                                 'value' => 42,
                                 'valueType' => 'value',
+                                'isVisible' => true,
                             )
                         ),
                         'collectionItem' => new CollectionItem(
@@ -113,6 +185,67 @@ final class ResultBuilderIteratorTest extends TestCase
                         ),
                         'type' => Result::TYPE_MANUAL,
                         'position' => 1,
+                        'isVisible' => true,
+                    )
+                ),
+                new Result(
+                    array(
+                        'item' => new Item(
+                            array(
+                                'value' => 43,
+                                'valueType' => 'value',
+                                'isVisible' => true,
+                            )
+                        ),
+                        'collectionItem' => new CollectionItem(
+                            array(
+                                'value' => 43,
+                                'valueType' => 'value',
+                            )
+                        ),
+                        'type' => Result::TYPE_MANUAL,
+                        'position' => 2,
+                        'isVisible' => false,
+                    )
+                ),
+                new Result(
+                    array(
+                        'item' => new Item(
+                            array(
+                                'value' => 44,
+                                'valueType' => 'value',
+                                'isVisible' => false,
+                            )
+                        ),
+                        'collectionItem' => new CollectionItem(
+                            array(
+                                'value' => 44,
+                                'valueType' => 'value',
+                            )
+                        ),
+                        'type' => Result::TYPE_MANUAL,
+                        'position' => 3,
+                        'isVisible' => false,
+                    )
+                ),
+                new Result(
+                    array(
+                        'item' => new Item(
+                            array(
+                                'value' => 45,
+                                'valueType' => 'value',
+                                'isVisible' => false,
+                            )
+                        ),
+                        'collectionItem' => new CollectionItem(
+                            array(
+                                'value' => 45,
+                                'valueType' => 'value',
+                            )
+                        ),
+                        'type' => Result::TYPE_MANUAL,
+                        'position' => 4,
+                        'isVisible' => false,
                     )
                 ),
                 new Result(
@@ -129,7 +262,8 @@ final class ResultBuilderIteratorTest extends TestCase
                             )
                         ),
                         'type' => Result::TYPE_MANUAL,
-                        'position' => 2,
+                        'position' => 5,
+                        'isVisible' => true,
                     )
                 ),
             ),
@@ -147,6 +281,24 @@ final class ResultBuilderIteratorTest extends TestCase
             new CollectionItem(
                 array(
                     'value' => 42,
+                    'valueType' => 'value',
+                )
+            ),
+            new CollectionItem(
+                array(
+                    'value' => 43,
+                    'valueType' => 'value',
+                )
+            ),
+            new CollectionItem(
+                array(
+                    'value' => 44,
+                    'valueType' => 'value',
+                )
+            ),
+            new CollectionItem(
+                array(
+                    'value' => 45,
                     'valueType' => 'value',
                 )
             ),
