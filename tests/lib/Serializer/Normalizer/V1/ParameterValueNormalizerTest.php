@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
-use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType\TextType;
 use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Serializer\Normalizer\V1\ParameterValueNormalizer;
@@ -29,7 +29,7 @@ final class ParameterValueNormalizerTest extends TestCase
     {
         $parameterValue = new ParameterValue(
             array(
-                'parameter' => new Parameter(
+                'parameterDefinition' => new ParameterDefinition(
                     array(
                         'type' => new TextType(),
                     )

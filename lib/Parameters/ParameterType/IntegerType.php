@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Parameters\ParameterType;
 
-use Netgen\BlockManager\Parameters\ParameterInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -55,14 +55,14 @@ final class IntegerType extends ParameterType
         );
     }
 
-    public function isValueEmpty(ParameterInterface $parameter, $value)
+    public function isValueEmpty(ParameterDefinitionInterface $parameterDefinition, $value)
     {
         return $value === null;
     }
 
-    protected function getValueConstraints(ParameterInterface $parameter, $value)
+    protected function getValueConstraints(ParameterDefinitionInterface $parameterDefinition, $value)
     {
-        $options = $parameter->getOptions();
+        $options = $parameterDefinition->getOptions();
 
         $constraints = array(
             new Constraints\Type(

@@ -559,7 +559,7 @@ final class CollectionValidatorTest extends TestCase
             array(
                 'type' => 'query_type',
                 'handler' => new QueryTypeHandlerWithRequiredParameter(),
-                'parameters' => $handler->getParameters(),
+                'parameterDefinitions' => $handler->getParameterDefinitions(),
             )
         );
     }

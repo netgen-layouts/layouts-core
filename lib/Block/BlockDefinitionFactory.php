@@ -143,7 +143,7 @@ final class BlockDefinitionFactory
             $handlerPlugin->buildParameters($parameterBuilder);
         }
 
-        $parameters = $parameterBuilder->buildParameters();
+        $parameterDefinitions = $parameterBuilder->buildParameterDefinitions();
 
         $configDefinitions = array();
         foreach ($configDefinitionHandlers as $configKey => $configDefinitionHandler) {
@@ -157,7 +157,7 @@ final class BlockDefinitionFactory
             'identifier' => $identifier,
             'handler' => $handler,
             'handlerPlugins' => $handlerPlugins,
-            'parameters' => $parameters,
+            'parameterDefinitions' => $parameterDefinitions,
             'configDefinitions' => $configDefinitions,
         ) + $this->processConfig($identifier, $config);
     }

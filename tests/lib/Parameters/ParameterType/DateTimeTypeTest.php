@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
 use DateTime;
 use DateTimeImmutable;
 use Netgen\BlockManager\Parameters\ParameterType\DateTimeType;
-use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
+use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 
@@ -34,11 +34,11 @@ final class DateTimeTypeTest extends TestCase
      *
      * @param array $options
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface
+     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface
      */
     public function getParameter($options = array())
     {
-        return new Parameter(
+        return new ParameterDefinition(
             array(
                 'name' => 'name',
                 'type' => $this->type,
@@ -56,7 +56,7 @@ final class DateTimeTypeTest extends TestCase
      */
     public function testIsValueEmpty($value, $isEmpty)
     {
-        $this->assertEquals($isEmpty, $this->type->isValueEmpty(new Parameter(), $value));
+        $this->assertEquals($isEmpty, $this->type->isValueEmpty(new ParameterDefinition(), $value));
     }
 
     /**
@@ -84,7 +84,7 @@ final class DateTimeTypeTest extends TestCase
      */
     public function testToHash($value, $convertedValue)
     {
-        $this->assertEquals($convertedValue, $this->type->toHash(new Parameter(), $value));
+        $this->assertEquals($convertedValue, $this->type->toHash(new ParameterDefinition(), $value));
     }
 
     public function toHashProvider()
@@ -105,7 +105,7 @@ final class DateTimeTypeTest extends TestCase
      */
     public function testFromHash($value, $convertedValue)
     {
-        $this->assertEquals($convertedValue, $this->type->fromHash(new Parameter(), $value));
+        $this->assertEquals($convertedValue, $this->type->fromHash(new ParameterDefinition(), $value));
     }
 
     public function fromHashProvider()

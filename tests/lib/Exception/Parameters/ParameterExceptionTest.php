@@ -8,14 +8,14 @@ use PHPUnit\Framework\TestCase;
 final class ParameterExceptionTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Exception\Parameters\ParameterException::noParameter
+     * @covers \Netgen\BlockManager\Exception\Parameters\ParameterException::noParameterDefinition
      */
-    public function testNoParameter()
+    public function testNoParameterDefinition()
     {
-        $exception = ParameterException::noParameter('param');
+        $exception = ParameterException::noParameterDefinition('param');
 
         $this->assertEquals(
-            'Parameter with "param" name does not exist in the object.',
+            'Parameter definition with "param" name does not exist in the object.',
             $exception->getMessage()
         );
     }
@@ -28,7 +28,7 @@ final class ParameterExceptionTest extends TestCase
         $exception = ParameterException::noOption('opt');
 
         $this->assertEquals(
-            'Option "opt" does not exist in the parameter.',
+            'Option "opt" does not exist in the parameter definition.',
             $exception->getMessage()
         );
     }

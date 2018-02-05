@@ -6,10 +6,10 @@ use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper;
 use Netgen\BlockManager\Parameters\Form\Type\LinkType;
-use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\BlockManager\Parameters\ParameterType\LinkType as LinkParameterType;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
+use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType;
@@ -79,14 +79,14 @@ final class LinkTypeTest extends FormTestCase
             )
         );
 
-        $parameter = new Parameter(
+        $parameterDefinition = new ParameterDefinition(
             array(
                 'type' => $this->parameterType,
             )
         );
 
         $formBuilder = $this->factory->createBuilder(LinkType::class);
-        $formBuilder->setDataMapper(new LinkDataMapper($parameter));
+        $formBuilder->setDataMapper(new LinkDataMapper($parameterDefinition));
         $form = $formBuilder->getForm();
 
         $form->submit($submittedData);
@@ -118,14 +118,14 @@ final class LinkTypeTest extends FormTestCase
 
         $formData = new LinkValue();
 
-        $parameter = new Parameter(
+        $parameterDefinition = new ParameterDefinition(
             array(
                 'type' => $this->parameterType,
             )
         );
 
         $formBuilder = $this->factory->createBuilder(LinkType::class);
-        $formBuilder->setDataMapper(new LinkDataMapper($parameter));
+        $formBuilder->setDataMapper(new LinkDataMapper($parameterDefinition));
         $form = $formBuilder->getForm();
 
         $form->submit($submittedData);
@@ -148,14 +148,14 @@ final class LinkTypeTest extends FormTestCase
      */
     public function testBuildView()
     {
-        $parameter = new Parameter(
+        $parameterDefinition = new ParameterDefinition(
             array(
                 'type' => $this->parameterType,
             )
         );
 
         $formBuilder = $this->factory->createBuilder(LinkType::class);
-        $formBuilder->setDataMapper(new LinkDataMapper($parameter));
+        $formBuilder->setDataMapper(new LinkDataMapper($parameterDefinition));
         $form = $formBuilder->getForm();
 
         $form->submit(
@@ -181,14 +181,14 @@ final class LinkTypeTest extends FormTestCase
      */
     public function testBuildViewWithInvalidData()
     {
-        $parameter = new Parameter(
+        $parameterDefinition = new ParameterDefinition(
             array(
                 'type' => $this->parameterType,
             )
         );
 
         $formBuilder = $this->factory->createBuilder(LinkType::class);
-        $formBuilder->setDataMapper(new LinkDataMapper($parameter));
+        $formBuilder->setDataMapper(new LinkDataMapper($parameterDefinition));
         $form = $formBuilder->getForm();
 
         $form->submit(

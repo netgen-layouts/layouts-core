@@ -5,9 +5,9 @@ namespace Netgen\BlockManager\Tests\Validator\Structs;
 use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry;
-use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameter;
-use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
+use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameterDefinition;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterCollection;
+use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterFilter;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
@@ -18,16 +18,16 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
 {
     public function setUp()
     {
-        $compoundParameter = new CompoundParameter(
+        $compoundParameter = new CompoundParameterDefinition(
             array(
                 'name' => 'checkbox',
                 'type' => new ParameterType\Compound\BooleanType(),
             )
         );
 
-        $compoundParameter->setParameters(
+        $compoundParameter->setParameterDefinitions(
             array(
-                'param' => new Parameter(
+                'param' => new ParameterDefinition(
                     array(
                         'name' => 'param',
                         'type' => new ParameterType\IdentifierType(),
@@ -41,7 +41,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
             array(
                 'parameterCollection' => new ParameterCollection(
                     array(
-                        'css_id' => new Parameter(
+                        'css_id' => new ParameterDefinition(
                             array(
                                 'name' => 'css_id',
                                 'type' => new ParameterType\TextLineType(),

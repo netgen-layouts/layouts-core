@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Tests\Parameters\Form\Mapper;
 
 use Netgen\BlockManager\Parameters\Form\Mapper\NumberMapper;
-use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Parameters\ParameterType\NumberType as NumberParameterType;
+use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
@@ -33,7 +33,7 @@ final class NumberMapperTest extends TestCase
      */
     public function testMapOptions()
     {
-        $parameter = new Parameter(
+        $parameterDefinition = new ParameterDefinition(
             array(
                 'type' => new NumberParameterType(),
                 'options' => array(
@@ -46,7 +46,7 @@ final class NumberMapperTest extends TestCase
             array(
                 'scale' => 6,
             ),
-            $this->mapper->mapOptions($parameter)
+            $this->mapper->mapOptions($parameterDefinition)
         );
     }
 }

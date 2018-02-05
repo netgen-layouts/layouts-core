@@ -10,7 +10,7 @@ use Netgen\BlockManager\Item\ValueType\ValueType;
 use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\BlockManager\Parameters\ParameterType\LinkType;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
-use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
+use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
@@ -81,11 +81,11 @@ final class LinkTypeTest extends TestCase
      *
      * @param array $options
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface
+     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface
      */
     public function getParameter($options = array())
     {
-        return new Parameter(
+        return new ParameterDefinition(
             array(
                 'name' => 'name',
                 'type' => $this->type,
@@ -235,7 +235,7 @@ final class LinkTypeTest extends TestCase
      */
     public function testToHash($value, $convertedValue)
     {
-        $this->assertEquals($convertedValue, $this->type->toHash(new Parameter(), $value));
+        $this->assertEquals($convertedValue, $this->type->toHash(new ParameterDefinition(), $value));
     }
 
     public function toHashProvider()
@@ -273,7 +273,7 @@ final class LinkTypeTest extends TestCase
      */
     public function testFromHash($value, $convertedValue)
     {
-        $this->assertEquals($convertedValue, $this->type->fromHash(new Parameter(), $value));
+        $this->assertEquals($convertedValue, $this->type->fromHash(new ParameterDefinition(), $value));
     }
 
     public function fromHashProvider()
@@ -344,7 +344,7 @@ final class LinkTypeTest extends TestCase
                 )
             );
 
-        $this->assertEquals($convertedValue, $this->type->export(new Parameter(), $value));
+        $this->assertEquals($convertedValue, $this->type->export(new ParameterDefinition(), $value));
     }
 
     /**
@@ -367,7 +367,7 @@ final class LinkTypeTest extends TestCase
                 'new_window' => true,
             ),
             $this->type->export(
-                new Parameter(),
+                new ParameterDefinition(),
                 new LinkValue(
                     array(
                         'linkType' => 'internal',
@@ -464,7 +464,7 @@ final class LinkTypeTest extends TestCase
                 )
             );
 
-        $this->assertEquals($convertedValue, $this->type->import(new Parameter(), $value));
+        $this->assertEquals($convertedValue, $this->type->import(new ParameterDefinition(), $value));
     }
 
     /**
@@ -489,7 +489,7 @@ final class LinkTypeTest extends TestCase
                 )
             ),
             $this->type->import(
-                new Parameter(),
+                new ParameterDefinition(),
                 array(
                     'link_type' => 'internal',
                     'link' => 'ezlocation://def',
@@ -598,7 +598,7 @@ final class LinkTypeTest extends TestCase
      */
     public function testIsValueEmpty($value, $isEmpty)
     {
-        $this->assertEquals($isEmpty, $this->type->isValueEmpty(new Parameter(), $value));
+        $this->assertEquals($isEmpty, $this->type->isValueEmpty(new ParameterDefinition(), $value));
     }
 
     /**

@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Parameters\Form\Mapper;
 
 use Netgen\BlockManager\Parameters\Form\Mapper;
-use Netgen\BlockManager\Parameters\ParameterInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 final class NumberMapper extends Mapper
@@ -13,10 +13,10 @@ final class NumberMapper extends Mapper
         return NumberType::class;
     }
 
-    public function mapOptions(ParameterInterface $parameter)
+    public function mapOptions(ParameterDefinitionInterface $parameterDefinition)
     {
         return array(
-            'scale' => $parameter->getOption('scale'),
+            'scale' => $parameterDefinition->getOption('scale'),
         );
     }
 }

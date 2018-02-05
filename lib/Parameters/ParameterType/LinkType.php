@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Parameters\ParameterType;
 
 use Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface;
-use Netgen\BlockManager\Parameters\ParameterInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
@@ -61,7 +61,7 @@ final class LinkType extends ParameterType
         );
     }
 
-    public function toHash(ParameterInterface $parameter, $value)
+    public function toHash(ParameterDefinitionInterface $parameterDefinition, $value)
     {
         if (!$value instanceof LinkValue) {
             return null;
@@ -75,7 +75,7 @@ final class LinkType extends ParameterType
         );
     }
 
-    public function fromHash(ParameterInterface $parameter, $value)
+    public function fromHash(ParameterDefinitionInterface $parameterDefinition, $value)
     {
         if (!is_array($value) || empty($value['link_type'])) {
             return new LinkValue();
@@ -91,7 +91,7 @@ final class LinkType extends ParameterType
         );
     }
 
-    public function export(ParameterInterface $parameter, $value)
+    public function export(ParameterDefinitionInterface $parameterDefinition, $value)
     {
         if (!$value instanceof LinkValue) {
             return null;
@@ -113,7 +113,7 @@ final class LinkType extends ParameterType
         );
     }
 
-    public function import(ParameterInterface $parameter, $value)
+    public function import(ParameterDefinitionInterface $parameterDefinition, $value)
     {
         if (!is_array($value) || empty($value['link_type'])) {
             return new LinkValue();
@@ -137,7 +137,7 @@ final class LinkType extends ParameterType
         );
     }
 
-    public function isValueEmpty(ParameterInterface $parameter, $value)
+    public function isValueEmpty(ParameterDefinitionInterface $parameterDefinition, $value)
     {
         if (!$value instanceof LinkValue) {
             return true;
@@ -146,15 +146,15 @@ final class LinkType extends ParameterType
         return empty($value->getLinkType()) || empty($value->getLink());
     }
 
-    protected function getValueConstraints(ParameterInterface $parameter, $value)
+    protected function getValueConstraints(ParameterDefinitionInterface $parameterDefinition, $value)
     {
         return array(
             new Constraints\Type(array('type' => LinkValue::class)),
             new LinkConstraint(
                 array(
-                    'required' => $parameter->isRequired(),
-                    'valueTypes' => $parameter->getOption('value_types'),
-                    'allowInvalidInternal' => $parameter->getOption('allow_invalid_internal'),
+                    'required' => $parameterDefinition->isRequired(),
+                    'valueTypes' => $parameterDefinition->getOption('value_types'),
+                    'allowInvalidInternal' => $parameterDefinition->getOption('allow_invalid_internal'),
                 )
             ),
         );

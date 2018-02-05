@@ -51,22 +51,22 @@ final class ParameterMapperTest extends TestCase
         $this->assertArrayHasKey('inner', $mappedParameters);
 
         $this->assertInstanceOf(ParameterValue::class, $mappedParameters['css_class']);
-        $this->assertEquals($blockDefinition->getParameter('css_class'), $mappedParameters['css_class']->getParameter());
+        $this->assertEquals($blockDefinition->getParameterDefinition('css_class'), $mappedParameters['css_class']->getParameterDefinition());
         $this->assertEquals('some-class', $mappedParameters['css_class']->getValue());
         $this->assertFalse($mappedParameters['css_class']->isEmpty());
 
         $this->assertInstanceOf(ParameterValue::class, $mappedParameters['css_id']);
-        $this->assertEquals($blockDefinition->getParameter('css_id'), $mappedParameters['css_id']->getParameter());
+        $this->assertEquals($blockDefinition->getParameterDefinition('css_id'), $mappedParameters['css_id']->getParameterDefinition());
         $this->assertEquals('some-id', $mappedParameters['css_id']->getValue());
         $this->assertFalse($mappedParameters['css_id']->isEmpty());
 
         $this->assertInstanceOf(ParameterValue::class, $mappedParameters['compound']);
-        $this->assertEquals($blockDefinition->getParameter('compound'), $mappedParameters['compound']->getParameter());
+        $this->assertEquals($blockDefinition->getParameterDefinition('compound'), $mappedParameters['compound']->getParameterDefinition());
         $this->assertTrue($mappedParameters['compound']->getValue());
         $this->assertFalse($mappedParameters['compound']->isEmpty());
 
         $this->assertInstanceOf(ParameterValue::class, $mappedParameters['inner']);
-        $this->assertEquals($blockDefinition->getParameter('compound')->getParameter('inner'), $mappedParameters['inner']->getParameter());
+        $this->assertEquals($blockDefinition->getParameterDefinition('compound')->getParameterDefinition('inner'), $mappedParameters['inner']->getParameterDefinition());
         $this->assertEquals('inner-value', $mappedParameters['inner']->getValue());
         $this->assertFalse($mappedParameters['inner']->isEmpty());
     }

@@ -60,7 +60,7 @@ class ParameterBuilder implements ParameterBuilderInterface
     protected $unresolvedChildren = array();
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterInterface[]
+     * @var \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]
      */
     protected $resolvedChildren = array();
 
@@ -288,7 +288,7 @@ class ParameterBuilder implements ParameterBuilderInterface
         return count($this->unresolvedChildren);
     }
 
-    public function buildParameters()
+    public function buildParameterDefinitions()
     {
         if ($this->locked) {
             return $this->resolvedChildren;
@@ -299,7 +299,7 @@ class ParameterBuilder implements ParameterBuilderInterface
         }
 
         foreach ($this->unresolvedChildren as $name => $builder) {
-            $this->resolvedChildren[$name] = $this->buildParameter($builder);
+            $this->resolvedChildren[$name] = $this->buildParameterDefinition($builder);
         }
 
         $this->locked = true;
@@ -308,13 +308,13 @@ class ParameterBuilder implements ParameterBuilderInterface
     }
 
     /**
-     * Builds the parameter.
+     * Builds the parameter definition.
      *
      * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $builder
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface
+     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface
      */
-    protected function buildParameter(ParameterBuilderInterface $builder)
+    protected function buildParameterDefinition(ParameterBuilderInterface $builder)
     {
         $data = array(
             'name' => $builder->getName(),
@@ -327,15 +327,15 @@ class ParameterBuilder implements ParameterBuilderInterface
         );
 
         // We build the sub parameters in order to lock the child builders
-        $subParameters = $builder->buildParameters();
+        $subParameters = $builder->buildParameterDefinitions();
 
         if (!$builder->getType() instanceof CompoundParameterTypeInterface) {
-            return new Parameter($data);
+            return new ParameterDefinition($data);
         }
 
-        $data['parameters'] = $subParameters;
+        $data['parameterDefinitions'] = $subParameters;
 
-        return new CompoundParameter($data);
+        return new CompoundParameterDefinition($data);
     }
 
     /**

@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Parameters\Form\Mapper;
 
 use Netgen\BlockManager\Parameters\Form\Mapper;
-use Netgen\BlockManager\Parameters\ParameterInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
 
 final class RangeMapper extends Mapper
@@ -13,9 +13,9 @@ final class RangeMapper extends Mapper
         return RangeType::class;
     }
 
-    public function mapOptions(ParameterInterface $parameter)
+    public function mapOptions(ParameterDefinitionInterface $parameterDefinition)
     {
-        $options = $parameter->getOptions();
+        $options = $parameterDefinition->getOptions();
 
         return array(
             'attr' => array(

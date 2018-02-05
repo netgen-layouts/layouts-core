@@ -6,8 +6,8 @@ use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler as BaseBlockDefinitionHandler;
 use Netgen\BlockManager\Block\DynamicParameters;
 use Netgen\BlockManager\Parameters\ParameterType;
-use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameter;
-use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
+use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameterDefinition;
+use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
 
 final class BlockDefinitionHandlerWithTranslatableCompoundParameter extends BaseBlockDefinitionHandler
 {
@@ -27,15 +27,15 @@ final class BlockDefinitionHandlerWithTranslatableCompoundParameter extends Base
     }
 
     /**
-     * Returns the array specifying block parameters.
+     * Returns the array specifying block parameter definitions.
      *
      * The keys are parameter identifiers.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
+     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]
      */
-    public function getParameters()
+    public function getParameterDefinitions()
     {
-        $compoundParam = new CompoundParameter(
+        $compoundParam = new CompoundParameterDefinition(
             array(
                 'name' => 'compound',
                 'type' => new ParameterType\Compound\BooleanType(),
@@ -49,7 +49,7 @@ final class BlockDefinitionHandlerWithTranslatableCompoundParameter extends Base
 
         $compoundParam->setParameters(
             array(
-                'inner' => new Parameter(
+                'inner' => new ParameterDefinition(
                     array(
                         'name' => 'inner',
                         'type' => new ParameterType\TextLineType(),
@@ -64,7 +64,7 @@ final class BlockDefinitionHandlerWithTranslatableCompoundParameter extends Base
         );
 
         return array(
-            'css_class' => new Parameter(
+            'css_class' => new ParameterDefinition(
                 array(
                     'name' => 'css_class',
                     'type' => new ParameterType\TextLineType(),
@@ -76,7 +76,7 @@ final class BlockDefinitionHandlerWithTranslatableCompoundParameter extends Base
                 ),
                 true
             ),
-            'css_id' => new Parameter(
+            'css_id' => new ParameterDefinition(
                 array(
                     'name' => 'css_id',
                     'type' => new ParameterType\TextLineType(),

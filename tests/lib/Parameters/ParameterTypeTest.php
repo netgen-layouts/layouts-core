@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Parameters;
 
-use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType\TextType;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterType;
 use PHPUnit\Framework\TestCase;
@@ -30,7 +30,7 @@ final class ParameterTypeTest extends TestCase
         $this->assertEquals(
             array(),
             $this->parameterType->getConstraints(
-                new Parameter(
+                new ParameterDefinition(
                     array(
                         'type' => new ParameterType(),
                     )
@@ -50,7 +50,7 @@ final class ParameterTypeTest extends TestCase
         $this->assertEquals(
             array(new NotBlank()),
             $this->parameterType->getConstraints(
-                new Parameter(
+                new ParameterDefinition(
                     array(
                         'type' => new ParameterType(),
                         'isRequired' => true,
@@ -69,7 +69,7 @@ final class ParameterTypeTest extends TestCase
     public function testGetConstraintsThrowsParameterTypeException()
     {
         $this->parameterType->getConstraints(
-            new Parameter(array('type' => new TextType())),
+            new ParameterDefinition(array('type' => new TextType())),
             42
         );
     }
@@ -79,7 +79,7 @@ final class ParameterTypeTest extends TestCase
      */
     public function testToHash()
     {
-        $this->assertEquals(42, $this->parameterType->toHash(new Parameter(), 42));
+        $this->assertEquals(42, $this->parameterType->toHash(new ParameterDefinition(), 42));
     }
 
     /**
@@ -87,7 +87,7 @@ final class ParameterTypeTest extends TestCase
      */
     public function testFromHash()
     {
-        $this->assertEquals(42, $this->parameterType->fromHash(new Parameter(), 42));
+        $this->assertEquals(42, $this->parameterType->fromHash(new ParameterDefinition(), 42));
     }
 
     /**
@@ -95,7 +95,7 @@ final class ParameterTypeTest extends TestCase
      */
     public function testExport()
     {
-        $this->assertEquals(42, $this->parameterType->export(new Parameter(), 42));
+        $this->assertEquals(42, $this->parameterType->export(new ParameterDefinition(), 42));
     }
 
     /**
@@ -103,7 +103,7 @@ final class ParameterTypeTest extends TestCase
      */
     public function testImport()
     {
-        $this->assertEquals(42, $this->parameterType->import(new Parameter(), 42));
+        $this->assertEquals(42, $this->parameterType->import(new ParameterDefinition(), 42));
     }
 
     /**
@@ -111,7 +111,7 @@ final class ParameterTypeTest extends TestCase
      */
     public function testIsValueEmpty()
     {
-        $this->assertTrue($this->parameterType->isValueEmpty(new Parameter(), null));
+        $this->assertTrue($this->parameterType->isValueEmpty(new ParameterDefinition(), null));
     }
 
     /**
@@ -119,6 +119,6 @@ final class ParameterTypeTest extends TestCase
      */
     public function testIsValueEmptyReturnsFalse()
     {
-        $this->assertFalse($this->parameterType->isValueEmpty(new Parameter(), 42));
+        $this->assertFalse($this->parameterType->isValueEmpty(new ParameterDefinition(), 42));
     }
 }

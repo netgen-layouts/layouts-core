@@ -7,7 +7,7 @@ use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 use Netgen\BlockManager\Parameters\ParameterType\IntegerType;
 use Netgen\BlockManager\Parameters\ParameterType\TextLineType;
-use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
+use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
 
 final class QueryTypeHandler implements QueryTypeHandlerInterface
 {
@@ -51,16 +51,16 @@ final class QueryTypeHandler implements QueryTypeHandlerInterface
     }
 
     /**
-     * Returns the array specifying query parameters.
+     * Returns the array specifying query parameter definitions.
      *
      * The keys are parameter identifiers.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
+     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]
      */
-    public function getParameters()
+    public function getParameterDefinitions()
     {
         return array(
-            'param' => new Parameter(
+            'param' => new ParameterDefinition(
                 array(
                     'name' => 'param',
                     'type' => new TextLineType(),
@@ -70,7 +70,7 @@ final class QueryTypeHandler implements QueryTypeHandlerInterface
                 ),
                 true
             ),
-            'param2' => new Parameter(
+            'param2' => new ParameterDefinition(
                 array(
                     'name' => 'param2',
                     'type' => new IntegerType(),

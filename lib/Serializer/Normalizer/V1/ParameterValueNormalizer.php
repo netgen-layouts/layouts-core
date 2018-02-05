@@ -13,9 +13,9 @@ final class ParameterValueNormalizer implements NormalizerInterface
     {
         /** @var \Netgen\BlockManager\Parameters\ParameterValue $parameterValue */
         $parameterValue = $object->getValue();
-        $parameter = $parameterValue->getParameter();
+        $parameterDefinition = $parameterValue->getParameterDefinition();
 
-        return $parameter->getType()->toHash($parameter, $parameterValue->getValue());
+        return $parameterDefinition->getType()->toHash($parameterDefinition, $parameterValue->getValue());
     }
 
     public function supportsNormalization($data, $format = null)

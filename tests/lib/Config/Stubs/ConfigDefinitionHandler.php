@@ -9,13 +9,13 @@ use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 abstract class ConfigDefinitionHandler implements ConfigDefinitionHandlerInterface
 {
     /**
-     * Returns the array specifying block parameters.
+     * Returns the array specifying block parameter definitions.
      *
      * The keys are parameter identifiers.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
+     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]
      */
-    abstract public function getParameters();
+    abstract public function getParameterDefinitions();
 
     /**
      * Builds the parameters by using provided parameter builder.

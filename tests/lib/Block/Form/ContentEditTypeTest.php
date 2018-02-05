@@ -74,7 +74,7 @@ final class ContentEditTypeTest extends FormTestCase
                         )
                     ),
                 ),
-                'parameters' => $handler->getParameters(),
+                'parameterDefinitions' => $handler->getParameterDefinitions(),
             )
         );
 

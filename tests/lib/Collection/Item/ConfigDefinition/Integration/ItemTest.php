@@ -165,13 +165,13 @@ abstract class ItemTest extends ServiceTestCase
         $builderFactory = new ParameterBuilderFactory($this->parameterTypeRegistry);
         $parameterBuilder = $builderFactory->createParameterBuilder();
         $handler->buildParameters($parameterBuilder);
-        $config = $parameterBuilder->buildParameters();
+        $config = $parameterBuilder->buildParameterDefinitions();
 
-        $filteredParameters = array();
+        $filteredParameterDefinitions = array();
         if (!empty($parameterNames)) {
-            foreach ($config as $parameterName => $parameter) {
+            foreach ($config as $parameterName => $parameterDefinition) {
                 if (in_array($parameterName, $parameterNames, true)) {
-                    $filteredParameters[$parameterName] = $parameter;
+                    $filteredParameterDefinitions[$parameterName] = $parameterDefinition;
                 }
             }
         }
@@ -180,7 +180,7 @@ abstract class ItemTest extends ServiceTestCase
             array(
                 'configKey' => 'visibility',
                 'handler' => $handler,
-                'parameters' => $filteredParameters,
+                'parameterDefinitions' => $filteredParameterDefinitions,
             )
         );
     }

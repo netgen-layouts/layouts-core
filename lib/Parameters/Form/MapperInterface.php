@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Parameters\Form;
 
-use Netgen\BlockManager\Parameters\ParameterInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
@@ -20,17 +20,17 @@ interface MapperInterface
     /**
      * Maps parameter options to Symfony form options.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameterDefinition
      *
      * @return array
      */
-    public function mapOptions(ParameterInterface $parameter);
+    public function mapOptions(ParameterDefinitionInterface $parameterDefinition);
 
     /**
      * Allows the mapper to do any kind of processing to created form.
      *
      * @param \Symfony\Component\Form\FormBuilderInterface $form
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameterDefinition
      */
-    public function handleForm(FormBuilderInterface $form, ParameterInterface $parameter);
+    public function handleForm(FormBuilderInterface $form, ParameterDefinitionInterface $parameterDefinition);
 }

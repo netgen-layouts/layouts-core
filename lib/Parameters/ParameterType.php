@@ -14,17 +14,17 @@ abstract class ParameterType implements ParameterTypeInterface
     {
     }
 
-    public function getConstraints(ParameterInterface $parameter, $value)
+    public function getConstraints(ParameterDefinitionInterface $parameterDefinition, $value)
     {
-        if ($parameter->getType()->getIdentifier() !== $this->getIdentifier()) {
+        if ($parameterDefinition->getType()->getIdentifier() !== $this->getIdentifier()) {
             throw ParameterTypeException::unsupportedParameterType(
-                $parameter->getType()->getIdentifier()
+                $parameterDefinition->getType()->getIdentifier()
             );
         }
 
         return array_merge(
-            $this->getRequiredConstraints($parameter, $value),
-            $this->getValueConstraints($parameter, $value)
+            $this->getRequiredConstraints($parameterDefinition, $value),
+            $this->getValueConstraints($parameterDefinition, $value)
         );
     }
 
@@ -34,12 +34,12 @@ abstract class ParameterType implements ParameterTypeInterface
      * This is a trivial implementation, just returning the provided value, usable by parameters
      * which have the scalar/hash format equal to domain format.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameterDefinition
      * @param mixed $value
      *
      * @return mixed
      */
-    public function toHash(ParameterInterface $parameter, $value)
+    public function toHash(ParameterDefinitionInterface $parameterDefinition, $value)
     {
         return $value;
     }
@@ -50,12 +50,12 @@ abstract class ParameterType implements ParameterTypeInterface
      * This is a trivial implementation, just returning the provided value, usable by parameters
      * which have the scalar/hash format equal to domain format.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameterDefinition
      * @param mixed $value
      *
      * @return mixed
      */
-    public function fromHash(ParameterInterface $parameter, $value)
+    public function fromHash(ParameterDefinitionInterface $parameterDefinition, $value)
     {
         return $value;
     }
@@ -70,14 +70,14 @@ abstract class ParameterType implements ParameterTypeInterface
      * This is a trivial implementation that returns the value in the same format as
      * self::toHash(). Overriden implementations should take care to retain this behaviour.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameterDefinition
      * @param mixed $value
      *
      * @return mixed
      */
-    public function export(ParameterInterface $parameter, $value)
+    public function export(ParameterDefinitionInterface $parameterDefinition, $value)
     {
-        return $this->toHash($parameter, $value);
+        return $this->toHash($parameterDefinition, $value);
     }
 
     /**
@@ -90,17 +90,17 @@ abstract class ParameterType implements ParameterTypeInterface
      * This is a trivial implementation that returns the value in the same format as
      * self::fromHash(). Overriden implementations should take care to retain this behaviour.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameterDefinition
      * @param mixed $value
      *
      * @return mixed
      */
-    public function import(ParameterInterface $parameter, $value)
+    public function import(ParameterDefinitionInterface $parameterDefinition, $value)
     {
-        return $this->fromHash($parameter, $value);
+        return $this->fromHash($parameterDefinition, $value);
     }
 
-    public function isValueEmpty(ParameterInterface $parameter, $value)
+    public function isValueEmpty(ParameterDefinitionInterface $parameterDefinition, $value)
     {
         return empty($value);
     }
@@ -108,14 +108,14 @@ abstract class ParameterType implements ParameterTypeInterface
     /**
      * Returns constraints that will be used when parameter is required.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameterDefinition
      * @param mixed $value
      *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    protected function getRequiredConstraints(ParameterInterface $parameter, $value)
+    protected function getRequiredConstraints(ParameterDefinitionInterface $parameterDefinition, $value)
     {
-        if ($parameter->isRequired()) {
+        if ($parameterDefinition->isRequired()) {
             return array(
                 new Constraints\NotBlank(),
             );
@@ -127,10 +127,10 @@ abstract class ParameterType implements ParameterTypeInterface
     /**
      * Returns constraints that will be used to validate the parameter value.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface $parameter
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface $parameterDefinition
      * @param mixed $value
      *
      * @return \Symfony\Component\Validator\Constraint[]
      */
-    abstract protected function getValueConstraints(ParameterInterface $parameter, $value);
+    abstract protected function getValueConstraints(ParameterDefinitionInterface $parameterDefinition, $value);
 }

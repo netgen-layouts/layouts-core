@@ -80,7 +80,7 @@ final class DesignEditTypeTest extends FormTestCase
                         )
                     ),
                 ),
-                'parameters' => $handler->getParameters(),
+                'parameterDefinitions' => $handler->getParameterDefinitions(),
             )
         );
 

@@ -22,8 +22,8 @@ final class ParameterValue extends Visitor
     {
         /* @var \Netgen\BlockManager\Parameters\ParameterValue $parameterValue */
 
-        $parameter = $parameterValue->getParameter();
+        $parameterDefinition = $parameterValue->getParameterDefinition();
 
-        return $parameter->getType()->export($parameter, $parameterValue->getValue());
+        return $parameterDefinition->getType()->export($parameterDefinition, $parameterValue->getValue());
     }
 }

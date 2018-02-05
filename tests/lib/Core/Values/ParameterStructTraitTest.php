@@ -6,9 +6,9 @@ use Netgen\BlockManager\API\Values\ParameterStructTrait;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Tests\Core\Stubs\ParameterBasedValue;
-use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameter;
-use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
+use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameterDefinition;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterCollection;
+use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
 use PHPUnit\Framework\TestCase;
 
 final class ParameterStructTraitTest extends TestCase
@@ -188,13 +188,13 @@ final class ParameterStructTraitTest extends TestCase
                     'css_class' => new ParameterValue(
                         array(
                             'value' => 'css',
-                            'parameter' => $parameterCollection->getParameter('css_class'),
+                            'parameterDefinition' => $parameterCollection->getParameterDefinition('css_class'),
                         )
                     ),
                     'inner' => new ParameterValue(
                         array(
                             'value' => 'inner',
-                            'parameter' => $parameterCollection->getParameter('compound')->getParameter('inner'),
+                            'parameterDefinition' => $parameterCollection->getParameterDefinition('compound')->getParameterDefinition('inner'),
                         )
                     ),
                 ),
@@ -271,7 +271,7 @@ final class ParameterStructTraitTest extends TestCase
      */
     private function buildParameterCollection()
     {
-        $compoundParameter = new CompoundParameter(
+        $compoundParameter = new CompoundParameterDefinition(
             array(
                 'name' => 'compound',
                 'type' => new ParameterType\Compound\BooleanType(),
@@ -279,9 +279,9 @@ final class ParameterStructTraitTest extends TestCase
             )
         );
 
-        $compoundParameter->setParameters(
+        $compoundParameter->setParameterDefinitions(
             array(
-                'inner' => new Parameter(
+                'inner' => new ParameterDefinition(
                     array(
                         'name' => 'inner',
                         'type' => new ParameterType\TextLineType(),
@@ -291,15 +291,15 @@ final class ParameterStructTraitTest extends TestCase
             )
         );
 
-        $parameters = array(
-            'css_class' => new Parameter(
+        $parameterDefinitions = array(
+            'css_class' => new ParameterDefinition(
                 array(
                     'name' => 'css_class',
                     'type' => new ParameterType\TextLineType(),
                     'defaultValue' => 'css_default',
                 )
             ),
-            'css_id' => new Parameter(
+            'css_id' => new ParameterDefinition(
                 array(
                     'name' => 'css_id',
                     'type' => new ParameterType\TextLineType(),
@@ -309,6 +309,6 @@ final class ParameterStructTraitTest extends TestCase
             'compound' => $compoundParameter,
         );
 
-        return new ParameterCollection($parameters);
+        return new ParameterCollection($parameterDefinitions);
     }
 }

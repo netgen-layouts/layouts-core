@@ -8,13 +8,13 @@ use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionHandler;
 final class DisabledConfigHandler extends ConfigDefinitionHandler
 {
     /**
-     * Returns the array specifying block parameters.
+     * Returns the array specifying block parameter definitions.
      *
      * The keys are parameter identifiers.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
+     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]
      */
-    public function getParameters()
+    public function getParameterDefinitions()
     {
         return array();
     }

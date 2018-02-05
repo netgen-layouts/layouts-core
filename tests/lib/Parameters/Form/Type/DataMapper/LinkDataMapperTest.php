@@ -6,10 +6,10 @@ use ArrayIterator;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper;
-use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\BlockManager\Parameters\ParameterType\LinkType;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
+use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
 
 final class LinkDataMapperTest extends DataMapperTest
 {
@@ -22,7 +22,7 @@ final class LinkDataMapperTest extends DataMapperTest
     {
         parent::setUp();
 
-        $parameter = new Parameter(
+        $parameterDefinition = new ParameterDefinition(
             array(
                 'type' => new LinkType(
                     new ValueTypeRegistry(),
@@ -31,7 +31,7 @@ final class LinkDataMapperTest extends DataMapperTest
             )
         );
 
-        $this->mapper = new LinkDataMapper($parameter);
+        $this->mapper = new LinkDataMapper($parameterDefinition);
     }
 
     /**

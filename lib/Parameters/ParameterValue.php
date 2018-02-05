@@ -12,9 +12,9 @@ final class ParameterValue extends ValueObject
     protected $name;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterInterface
+     * @var \Netgen\BlockManager\Parameters\ParameterDefinitionInterface
      */
-    protected $parameter;
+    protected $parameterDefinition;
 
     /**
      * @var mixed
@@ -49,11 +49,11 @@ final class ParameterValue extends ValueObject
     /**
      * Returns the parameter.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface
+     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface
      */
-    public function getParameter()
+    public function getParameterDefinition()
     {
-        return $this->parameter;
+        return $this->parameterDefinition;
     }
 
     /**

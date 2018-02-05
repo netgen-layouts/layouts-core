@@ -7,9 +7,9 @@ use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Item\ValueType\ValueType;
 use Netgen\BlockManager\Parameters\Form\Mapper\ItemLinkMapper;
 use Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper;
-use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\BlockManager\Parameters\ParameterType\ItemLinkType as ItemLinkParameterType;
+use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
 use Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -66,7 +66,7 @@ final class ItemLinkMapperTest extends TestCase
      */
     public function testMapOptions()
     {
-        $parameter = new Parameter(
+        $parameterDefinition = new ParameterDefinition(
             array(
                 'type' => $this->type,
                 'options' => array(
@@ -79,7 +79,7 @@ final class ItemLinkMapperTest extends TestCase
             array(
                 'item_types' => array('value'),
             ),
-            $this->mapper->mapOptions($parameter)
+            $this->mapper->mapOptions($parameterDefinition)
         );
     }
 
@@ -88,7 +88,7 @@ final class ItemLinkMapperTest extends TestCase
      */
     public function testMapOptionsWithEmptyValueTypes()
     {
-        $parameter = new Parameter(
+        $parameterDefinition = new ParameterDefinition(
             array(
                 'type' => $this->type,
                 'options' => array(
@@ -101,7 +101,7 @@ final class ItemLinkMapperTest extends TestCase
             array(
                 'item_types' => array('default'),
             ),
-            $this->mapper->mapOptions($parameter)
+            $this->mapper->mapOptions($parameterDefinition)
         );
     }
 
@@ -110,7 +110,7 @@ final class ItemLinkMapperTest extends TestCase
      */
     public function testHandleForm()
     {
-        $parameter = new Parameter(
+        $parameterDefinition = new ParameterDefinition(
             array(
                 'type' => $this->type,
             )
@@ -120,7 +120,7 @@ final class ItemLinkMapperTest extends TestCase
         $factory = $this->createMock(FormFactoryInterface::class);
         $formBuilder = new FormBuilder('name', null, $dispatcher, $factory);
 
-        $this->mapper->handleForm($formBuilder, $parameter);
+        $this->mapper->handleForm($formBuilder, $parameterDefinition);
 
         $this->assertInstanceOf(ItemLinkDataMapper::class, $formBuilder->getDataMapper());
     }

@@ -2,12 +2,12 @@
 
 namespace Netgen\BlockManager\Tests\Parameters;
 
-use Netgen\BlockManager\Parameters\CompoundParameter;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
 use Netgen\BlockManager\Parameters\ParameterType\Compound\BooleanType;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
+use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameterDefinition;
 use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameterType;
-use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
+use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -46,7 +46,7 @@ final class CompoundParameterTypeTest extends TestCase
         $this->assertEquals(
             array(),
             $this->parameterType->getConstraints(
-                new CompoundParameter(
+                new CompoundParameterDefinition(
                     array(
                         'type' => new CompoundParameterType(),
                     )
@@ -66,7 +66,7 @@ final class CompoundParameterTypeTest extends TestCase
         $this->assertEquals(
             array(new NotBlank()),
             $this->parameterType->getConstraints(
-                new CompoundParameter(
+                new CompoundParameterDefinition(
                     array(
                         'type' => new CompoundParameterType(),
                         'isRequired' => true,
@@ -85,7 +85,7 @@ final class CompoundParameterTypeTest extends TestCase
     public function testGetConstraintsThrowsParameterTypeException()
     {
         $this->parameterType->getConstraints(
-            new CompoundParameter(array('type' => new BooleanType())),
+            new CompoundParameterDefinition(array('type' => new BooleanType())),
             42
         );
     }
@@ -95,7 +95,7 @@ final class CompoundParameterTypeTest extends TestCase
      */
     public function testToHash()
     {
-        $this->assertEquals(42, $this->parameterType->toHash(new Parameter(), 42));
+        $this->assertEquals(42, $this->parameterType->toHash(new ParameterDefinition(), 42));
     }
 
     /**
@@ -103,7 +103,7 @@ final class CompoundParameterTypeTest extends TestCase
      */
     public function testFromHash()
     {
-        $this->assertEquals(42, $this->parameterType->fromHash(new Parameter(), 42));
+        $this->assertEquals(42, $this->parameterType->fromHash(new ParameterDefinition(), 42));
     }
 
     /**
@@ -111,7 +111,7 @@ final class CompoundParameterTypeTest extends TestCase
      */
     public function testIsValueEmpty()
     {
-        $this->assertTrue($this->parameterType->isValueEmpty(new Parameter(), null));
+        $this->assertTrue($this->parameterType->isValueEmpty(new ParameterDefinition(), null));
     }
 
     /**
@@ -119,6 +119,6 @@ final class CompoundParameterTypeTest extends TestCase
      */
     public function testIsValueEmptyReturnsFalse()
     {
-        $this->assertFalse($this->parameterType->isValueEmpty(new Parameter(), 42));
+        $this->assertFalse($this->parameterType->isValueEmpty(new ParameterDefinition(), 42));
     }
 }

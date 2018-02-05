@@ -167,7 +167,7 @@ abstract class EditType extends TranslatableType
      */
     private function processViewTypeConfig(BlockDefinitionInterface $blockDefinition)
     {
-        $blockDefinitionParameters = array_keys($blockDefinition->getParameters());
+        $blockDefinitionParameters = array_keys($blockDefinition->getParameterDefinitions());
 
         foreach ($blockDefinition->getViewTypes() as $viewType) {
             $this->viewTypes[$viewType->getIdentifier()] = $viewType->getName();

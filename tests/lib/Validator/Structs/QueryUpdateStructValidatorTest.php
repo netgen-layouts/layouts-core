@@ -176,7 +176,7 @@ final class QueryUpdateStructValidatorTest extends ValidatorTestCase
             array(
                 'type' => 'query_type',
                 'handler' => new QueryTypeHandlerWithRequiredParameter(),
-                'parameters' => $handler->getParameters(),
+                'parameterDefinitions' => $handler->getParameterDefinitions(),
             )
         );
     }

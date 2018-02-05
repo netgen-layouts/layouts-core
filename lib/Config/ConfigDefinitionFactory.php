@@ -30,13 +30,13 @@ final class ConfigDefinitionFactory
     ) {
         $parameterBuilder = $this->parameterBuilderFactory->createParameterBuilder();
         $handler->buildParameters($parameterBuilder);
-        $parameters = $parameterBuilder->buildParameters();
+        $parameterDefinitions = $parameterBuilder->buildParameterDefinitions();
 
         return new ConfigDefinition(
             array(
                 'configKey' => $configKey,
                 'handler' => $handler,
-                'parameters' => $parameters,
+                'parameterDefinitions' => $parameterDefinitions,
             )
         );
     }

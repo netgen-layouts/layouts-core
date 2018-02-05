@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Tests\Parameters;
 
-use Netgen\BlockManager\Parameters\CompoundParameter;
-use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
 use PHPUnit\Framework\TestCase;
@@ -260,7 +260,7 @@ final class ParameterBuilderTest extends TestCase
      */
     public function testSetOptionAfterBuildingParameters()
     {
-        $this->builder->buildParameters();
+        $this->builder->buildParameterDefinitions();
         $this->builder->setOption('required', true);
     }
 
@@ -287,7 +287,7 @@ final class ParameterBuilderTest extends TestCase
      */
     public function testSetRequiredAfterBuildingParameters()
     {
-        $this->builder->buildParameters();
+        $this->builder->buildParameterDefinitions();
         $this->builder->setRequired(true);
     }
 
@@ -314,7 +314,7 @@ final class ParameterBuilderTest extends TestCase
      */
     public function testSetDefaultValueAfterBuildingParameters()
     {
-        $this->builder->buildParameters();
+        $this->builder->buildParameterDefinitions();
         $this->builder->setDefaultValue('test');
     }
 
@@ -341,7 +341,7 @@ final class ParameterBuilderTest extends TestCase
      */
     public function testSetLabelAfterBuildingParameters()
     {
-        $this->builder->buildParameters();
+        $this->builder->buildParameterDefinitions();
         $this->builder->setLabel('test');
     }
 
@@ -403,7 +403,7 @@ final class ParameterBuilderTest extends TestCase
      */
     public function testSetGroupsAfterBuildingParameters()
     {
-        $this->builder->buildParameters();
+        $this->builder->buildParameterDefinitions();
         $this->builder->setGroups(array());
     }
 
@@ -453,7 +453,7 @@ final class ParameterBuilderTest extends TestCase
             )
         );
 
-        $this->builder->buildParameters();
+        $this->builder->buildParameterDefinitions();
 
         $this->builder->add(
             'test2',
@@ -603,7 +603,7 @@ final class ParameterBuilderTest extends TestCase
             )
         );
 
-        $this->builder->buildParameters();
+        $this->builder->buildParameterDefinitions();
 
         $this->builder->get('test');
     }
@@ -679,7 +679,7 @@ final class ParameterBuilderTest extends TestCase
     {
         $this->builder->add('test', ParameterType\TextType::class);
 
-        $this->builder->buildParameters();
+        $this->builder->buildParameterDefinitions();
 
         $this->builder->all();
     }
@@ -724,18 +724,18 @@ final class ParameterBuilderTest extends TestCase
             )
         );
 
-        $this->builder->buildParameters();
+        $this->builder->buildParameterDefinitions();
 
         $this->builder->remove('test');
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameters
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameter
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinitions
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinition
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
      */
-    public function testBuildParameters()
+    public function testBuildParameterDefinitions()
     {
         $this->builder->add(
             'test',
@@ -770,12 +770,12 @@ final class ParameterBuilderTest extends TestCase
             )
         );
 
-        $parameters = $this->builder->buildParameters();
+        $parameterDefinitions = $this->builder->buildParameterDefinitions();
 
         $this->assertEquals(
-            $parameters,
+            $parameterDefinitions,
             array(
-                'test' => new Parameter(
+                'test' => new ParameterDefinition(
                     array(
                         'name' => 'test',
                         'type' => $this->registry->getParameterType('text'),
@@ -786,7 +786,7 @@ final class ParameterBuilderTest extends TestCase
                         'groups' => array('group'),
                     )
                 ),
-                'compound' => new CompoundParameter(
+                'compound' => new CompoundParameterDefinition(
                     array(
                         'name' => 'compound',
                         'type' => $this->registry->getParameterType('compound_boolean'),
@@ -795,8 +795,8 @@ final class ParameterBuilderTest extends TestCase
                         'defaultValue' => true,
                         'label' => false,
                         'groups' => array('group 2'),
-                        'parameters' => array(
-                            'test2' => new Parameter(
+                        'parameterDefinitions' => array(
+                            'test2' => new ParameterDefinition(
                                 array(
                                     'name' => 'test2',
                                     'type' => $this->registry->getParameterType('text'),
@@ -815,12 +815,12 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameters
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameter
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinitions
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinition
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
      */
-    public function testBuildParametersAfterBuildingParameters()
+    public function testBuildParameterDefinitionsAfterBuildingParameters()
     {
         $this->builder->add(
             'test',
@@ -833,14 +833,14 @@ final class ParameterBuilderTest extends TestCase
             )
         );
 
-        $this->builder->buildParameters();
+        $this->builder->buildParameterDefinitions();
 
-        $parameters = $this->builder->buildParameters();
+        $parameterDefinitions = $this->builder->buildParameterDefinitions();
 
         $this->assertEquals(
-            $parameters,
+            $parameterDefinitions,
             array(
-                'test' => new Parameter(
+                'test' => new ParameterDefinition(
                     array(
                         'name' => 'test',
                         'type' => $this->registry->getParameterType('text'),
@@ -856,21 +856,21 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameters
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameter
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinitions
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinition
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
      */
-    public function testBuildParametersWithDefaultOptions()
+    public function testBuildParameterDefinitionsWithDefaultOptions()
     {
         $this->builder->add('test', ParameterType\TextType::class);
 
-        $parameters = $this->builder->buildParameters();
+        $parameterDefinitions = $this->builder->buildParameterDefinitions();
 
         $this->assertEquals(
-            $parameters,
+            $parameterDefinitions,
             array(
-                'test' => new Parameter(
+                'test' => new ParameterDefinition(
                     array(
                         'name' => 'test',
                         'type' => $this->registry->getParameterType('text'),
@@ -886,13 +886,13 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameters
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameter
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinitions
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinition
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
-    public function testBuildParametersWithInvalidRequiredOption()
+    public function testBuildParameterDefinitionsWithInvalidRequiredOption()
     {
         $this->builder->add(
             'test',
@@ -902,17 +902,17 @@ final class ParameterBuilderTest extends TestCase
             )
         );
 
-        $this->builder->buildParameters();
+        $this->builder->buildParameterDefinitions();
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameters
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameter
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinitions
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinition
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
-    public function testBuildParametersWithInvalidGroupsOption()
+    public function testBuildParameterDefinitionsWithInvalidGroupsOption()
     {
         $this->builder->add(
             'test',
@@ -922,17 +922,17 @@ final class ParameterBuilderTest extends TestCase
             )
         );
 
-        $this->builder->buildParameters();
+        $this->builder->buildParameterDefinitions();
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameters
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameter
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinitions
+     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinition
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
-    public function testBuildParametersWithInvalidLabel()
+    public function testBuildParameterDefinitionsWithInvalidLabel()
     {
         $this->builder->add(
             'test',
@@ -942,6 +942,6 @@ final class ParameterBuilderTest extends TestCase
             )
         );
 
-        $this->builder->buildParameters();
+        $this->builder->buildParameterDefinitions();
     }
 }

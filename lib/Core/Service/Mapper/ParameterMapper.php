@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
-use Netgen\BlockManager\Parameters\CompoundParameterInterface;
+use Netgen\BlockManager\Parameters\CompoundParameterDefinitionInterface;
 use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
 use Netgen\BlockManager\Parameters\ParameterValue;
 
@@ -20,27 +20,27 @@ final class ParameterMapper
     {
         $mappedValues = array();
 
-        foreach ($parameterCollection->getParameters() as $parameter) {
-            $parameterName = $parameter->getName();
-            $parameterType = $parameter->getType();
+        foreach ($parameterCollection->getParameterDefinitions() as $parameterDefinition) {
+            $parameterName = $parameterDefinition->getName();
+            $parameterType = $parameterDefinition->getType();
 
             $value = array_key_exists($parameterName, $parameterValues) ?
-                $parameterType->fromHash($parameter, $parameterValues[$parameterName]) :
-                $parameter->getDefaultValue();
+                $parameterType->fromHash($parameterDefinition, $parameterValues[$parameterName]) :
+                $parameterDefinition->getDefaultValue();
 
             $mappedValues[$parameterName] = new ParameterValue(
                 array(
                     'name' => $parameterName,
-                    'parameter' => $parameter,
+                    'parameterDefinition' => $parameterDefinition,
                     'value' => $value,
-                    'isEmpty' => $parameterType->isValueEmpty($parameter, $value),
+                    'isEmpty' => $parameterType->isValueEmpty($parameterDefinition, $value),
                 )
             );
 
-            if ($parameter instanceof CompoundParameterInterface) {
+            if ($parameterDefinition instanceof CompoundParameterDefinitionInterface) {
                 $mappedValues = array_merge(
                     $mappedValues,
-                    $this->mapParameters($parameter, $parameterValues)
+                    $this->mapParameters($parameterDefinition, $parameterValues)
                 );
             }
         }
@@ -61,21 +61,21 @@ final class ParameterMapper
     {
         $serializedValues = array();
 
-        foreach ($parameterCollection->getParameters() as $parameter) {
-            $parameterName = $parameter->getName();
+        foreach ($parameterCollection->getParameterDefinitions() as $parameterDefinition) {
+            $parameterName = $parameterDefinition->getName();
             if (!array_key_exists($parameterName, $parameterValues)) {
                 continue;
             }
 
-            $serializedValues[$parameterName] = $parameter->getType()->toHash(
-                $parameter,
+            $serializedValues[$parameterName] = $parameterDefinition->getType()->toHash(
+                $parameterDefinition,
                 $parameterValues[$parameterName]
             );
 
-            if ($parameter instanceof CompoundParameterInterface) {
+            if ($parameterDefinition instanceof CompoundParameterDefinitionInterface) {
                 $serializedValues = array_merge(
                     $serializedValues,
-                    $this->serializeValues($parameter, $parameterValues)
+                    $this->serializeValues($parameterDefinition, $parameterValues)
                 );
             }
         }
@@ -93,8 +93,8 @@ final class ParameterMapper
     {
         $untranslatableParams = array();
 
-        foreach ($parameterCollection->getParameters() as $paramName => $parameter) {
-            if ($parameter->getOption('translatable')) {
+        foreach ($parameterCollection->getParameterDefinitions() as $paramName => $parameterDefinition) {
+            if ($parameterDefinition->getOption('translatable')) {
                 continue;
             }
 
@@ -102,8 +102,8 @@ final class ParameterMapper
                 $parameterValues[$paramName] :
                 null;
 
-            if ($parameter instanceof CompoundParameterInterface) {
-                foreach ($parameter->getParameters() as $subParamName => $subParameter) {
+            if ($parameterDefinition instanceof CompoundParameterDefinitionInterface) {
+                foreach ($parameterDefinition->getParameterDefinitions() as $subParamName => $subParameterDefinition) {
                     $untranslatableParams[$subParamName] = isset($parameterValues[$subParamName]) ?
                         $parameterValues[$subParamName] :
                         null;

@@ -8,7 +8,7 @@ use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Item\ValueType\ValueType;
 use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\BlockManager\Parameters\ParameterType\ItemLinkType;
-use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
+use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
@@ -108,11 +108,11 @@ final class ItemLinkTypeTest extends TestCase
      *
      * @param array $options
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface
+     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface
      */
     public function getParameter($options = array())
     {
-        return new Parameter(
+        return new ParameterDefinition(
             array(
                 'name' => 'name',
                 'type' => $this->type,
@@ -214,7 +214,7 @@ final class ItemLinkTypeTest extends TestCase
      */
     public function testExport()
     {
-        $this->assertEquals('ezlocation://abc', $this->type->export(new Parameter(), 'ezlocation://42'));
+        $this->assertEquals('ezlocation://abc', $this->type->export(new ParameterDefinition(), 'ezlocation://42'));
     }
 
     /**
@@ -224,7 +224,7 @@ final class ItemLinkTypeTest extends TestCase
      */
     public function testImport()
     {
-        $this->assertEquals('ezlocation://42', $this->type->import(new Parameter(), 'ezlocation://abc'));
+        $this->assertEquals('ezlocation://42', $this->type->import(new ParameterDefinition(), 'ezlocation://abc'));
     }
 
     /**
@@ -236,7 +236,7 @@ final class ItemLinkTypeTest extends TestCase
      */
     public function testIsValueEmpty($value, $isEmpty)
     {
-        $this->assertEquals($isEmpty, $this->type->isValueEmpty(new Parameter(), $value));
+        $this->assertEquals($isEmpty, $this->type->isValueEmpty(new ParameterDefinition(), $value));
     }
 
     /**

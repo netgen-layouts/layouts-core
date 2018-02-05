@@ -182,9 +182,9 @@ interface ParameterBuilderInterface extends Countable
     public function count();
 
     /**
-     * Builds the parameters.
+     * Builds the parameter definitions.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterInterface[]
+     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]
      */
-    public function buildParameters();
+    public function buildParameterDefinitions();
 }

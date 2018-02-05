@@ -6,7 +6,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Type;
 use Netgen\BlockManager\Collection\QueryTypeInterface;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
-use Netgen\BlockManager\Parameters\CompoundParameterInterface;
+use Netgen\BlockManager\Parameters\CompoundParameterDefinitionInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -211,16 +211,16 @@ final class MigrateQueryOffsetLimitCommand extends Command
     {
         $parameters = array();
 
-        foreach ($queryType->getParameters() as $parameter) {
-            if ($parameter instanceof CompoundParameterInterface) {
-                foreach ($parameter->getParameters() as $innerParameter) {
-                    $parameters[] = $innerParameter->getName();
+        foreach ($queryType->getParameterDefinitions() as $parameterDefinition) {
+            if ($parameterDefinition instanceof CompoundParameterDefinitionInterface) {
+                foreach ($parameterDefinition->getParameterDefinitions() as $innerParameterDefinition) {
+                    $parameters[] = $innerParameterDefinition->getName();
                 }
 
                 continue;
             }
 
-            $parameters[] = $parameter->getName();
+            $parameters[] = $parameterDefinition->getName();
         }
 
         return $parameters;

@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Parameters\ParameterType;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
-use Netgen\BlockManager\Parameters\ParameterInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Symfony\Component\Validator\Constraints;
 
@@ -19,12 +19,12 @@ final class DateTimeType extends ParameterType
         return 'datetime';
     }
 
-    public function isValueEmpty(ParameterInterface $parameter, $value)
+    public function isValueEmpty(ParameterDefinitionInterface $parameterDefinition, $value)
     {
         return $value === null;
     }
 
-    public function toHash(ParameterInterface $parameter, $value)
+    public function toHash(ParameterDefinitionInterface $parameterDefinition, $value)
     {
         if (!$value instanceof DateTimeInterface) {
             return null;
@@ -33,7 +33,7 @@ final class DateTimeType extends ParameterType
         return $value->format(DateTime::RFC3339);
     }
 
-    public function fromHash(ParameterInterface $parameter, $value)
+    public function fromHash(ParameterDefinitionInterface $parameterDefinition, $value)
     {
         if (!is_string($value)) {
             return null;
@@ -47,7 +47,7 @@ final class DateTimeType extends ParameterType
         return $dateTime;
     }
 
-    protected function getValueConstraints(ParameterInterface $parameter, $value)
+    protected function getValueConstraints(ParameterDefinitionInterface $parameterDefinition, $value)
     {
         return array(
             new Constraints\Type(

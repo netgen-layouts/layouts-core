@@ -12,10 +12,10 @@ final class ParameterCollection implements ParameterCollectionInterface
     /**
      * Constructor.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterInterface[]|\Closure $parameters
+     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]|\Closure $parameterDefinitions
      */
-    public function __construct($parameters = null)
+    public function __construct($parameterDefinitions = null)
     {
-        $this->parameters = $parameters;
+        $this->parameterDefinitions = $parameterDefinitions;
     }
 }

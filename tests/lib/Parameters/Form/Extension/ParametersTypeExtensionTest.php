@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\Parameters\Form\Extension;
 
 use Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension;
-use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Parameters\ParameterDefinition;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormInterface;
@@ -40,11 +40,11 @@ final class ParametersTypeExtensionTest extends TestCase
         $this->formTypeExtension->buildView(
             $view,
             $this->createMock(FormInterface::class),
-            array('ngbm_parameter' => new Parameter())
+            array('ngbm_parameter' => new ParameterDefinition())
         );
 
         $this->assertArrayHasKey('ngbm_parameter', $view->vars);
-        $this->assertEquals(new Parameter(), $view->vars['ngbm_parameter']);
+        $this->assertEquals(new ParameterDefinition(), $view->vars['ngbm_parameter']);
     }
 
     /**
@@ -72,14 +72,14 @@ final class ParametersTypeExtensionTest extends TestCase
         $this->formTypeExtension->configureOptions($optionsResolver);
 
         $options = array(
-            'ngbm_parameter' => new Parameter(),
+            'ngbm_parameter' => new ParameterDefinition(),
         );
 
         $resolvedOptions = $optionsResolver->resolve($options);
 
         $this->assertEquals(
             array(
-                'ngbm_parameter' => new Parameter(),
+                'ngbm_parameter' => new ParameterDefinition(),
             ),
             $resolvedOptions
         );

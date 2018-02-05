@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Parameters\Form\Mapper;
 
 use Netgen\BlockManager\Form\ChoicesAsValuesTrait;
 use Netgen\BlockManager\Parameters\Form\Mapper;
-use Netgen\BlockManager\Parameters\ParameterInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 final class ChoiceMapper extends Mapper
@@ -16,9 +16,9 @@ final class ChoiceMapper extends Mapper
         return ChoiceType::class;
     }
 
-    public function mapOptions(ParameterInterface $parameter)
+    public function mapOptions(ParameterDefinitionInterface $parameterDefinition)
     {
-        $options = $parameter->getOptions();
+        $options = $parameterDefinition->getOptions();
 
         return array(
             'multiple' => $options['multiple'],

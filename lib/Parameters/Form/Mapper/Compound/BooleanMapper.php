@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Parameters\Form\Mapper\Compound;
 
 use Netgen\BlockManager\Parameters\Form\Mapper;
 use Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType;
-use Netgen\BlockManager\Parameters\ParameterInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
 
 final class BooleanMapper extends Mapper
 {
@@ -13,11 +13,11 @@ final class BooleanMapper extends Mapper
         return CompoundBooleanType::class;
     }
 
-    public function mapOptions(ParameterInterface $parameter)
+    public function mapOptions(ParameterDefinitionInterface $parameterDefinition)
     {
         return array(
             'mapped' => false,
-            'reverse' => $parameter->getOption('reverse'),
+            'reverse' => $parameterDefinition->getOption('reverse'),
         );
     }
 }

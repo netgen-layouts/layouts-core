@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Parameters\Form\Mapper;
 use Netgen\BlockManager\Form\ChoicesAsValuesTrait;
 use Netgen\BlockManager\Parameters\Form\Mapper\ChoiceMapper;
 use Netgen\BlockManager\Parameters\ParameterType\ChoiceType as ChoiceParameterType;
-use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
+use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
@@ -36,7 +36,7 @@ final class ChoiceMapperTest extends TestCase
      */
     public function testMapOptions()
     {
-        $parameter = new Parameter(
+        $parameterDefinition = new ParameterDefinition(
             array(
                 'name' => 'name',
                 'type' => new ChoiceParameterType(),
@@ -58,7 +58,7 @@ final class ChoiceMapperTest extends TestCase
                     'Option 2' => 'option2',
                 ),
             ) + $this->getChoicesAsValuesOption(),
-            $this->mapper->mapOptions($parameter)
+            $this->mapper->mapOptions($parameterDefinition)
         );
     }
 
@@ -67,7 +67,7 @@ final class ChoiceMapperTest extends TestCase
      */
     public function testMapOptionsWithClosure()
     {
-        $parameter = new Parameter(
+        $parameterDefinition = new ParameterDefinition(
             array(
                 'name' => 'name',
                 'type' => new ChoiceParameterType(),
@@ -91,7 +91,7 @@ final class ChoiceMapperTest extends TestCase
                     'Option 2' => 'option2',
                 ),
             ) + $this->getChoicesAsValuesOption(),
-            $this->mapper->mapOptions($parameter)
+            $this->mapper->mapOptions($parameterDefinition)
         );
     }
 }

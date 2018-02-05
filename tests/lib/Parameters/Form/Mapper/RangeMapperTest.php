@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Parameters\Form\Mapper;
 
 use Netgen\BlockManager\Parameters\Form\Mapper\RangeMapper;
 use Netgen\BlockManager\Parameters\ParameterType\RangeType as RangeParameterType;
-use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
+use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
 
@@ -33,7 +33,7 @@ final class RangeMapperTest extends TestCase
      */
     public function testMapOptions()
     {
-        $parameter = new Parameter(
+        $parameterDefinition = new ParameterDefinition(
             array(
                 'name' => 'name',
                 'type' => new RangeParameterType(),
@@ -48,7 +48,7 @@ final class RangeMapperTest extends TestCase
                     'max' => 5,
                 ),
             ),
-            $this->mapper->mapOptions($parameter)
+            $this->mapper->mapOptions($parameterDefinition)
         );
     }
 }

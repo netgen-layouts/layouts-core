@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Parameters\Form\Extension;
 
-use Netgen\BlockManager\Parameters\ParameterInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormInterface;
@@ -23,7 +23,7 @@ final class ParametersTypeExtension extends AbstractTypeExtension
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefined('ngbm_parameter');
-        $resolver->setAllowedTypes('ngbm_parameter', ParameterInterface::class);
+        $resolver->setAllowedTypes('ngbm_parameter', ParameterDefinitionInterface::class);
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options)

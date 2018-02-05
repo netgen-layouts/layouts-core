@@ -34,7 +34,7 @@ final class QueryTypeFactory
     ) {
         $parameterBuilder = $this->parameterBuilderFactory->createParameterBuilder();
         $handler->buildParameters($parameterBuilder);
-        $parameters = $parameterBuilder->buildParameters();
+        $parameterDefinitions = $parameterBuilder->buildParameterDefinitions();
 
         $forms = array();
 
@@ -59,7 +59,7 @@ final class QueryTypeFactory
                 'name' => isset($config['name']) ? $config['name'] : '',
                 'forms' => $forms,
                 'handler' => $handler,
-                'parameters' => $parameters,
+                'parameterDefinitions' => $parameterDefinitions,
             )
         );
     }

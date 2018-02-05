@@ -174,7 +174,7 @@ abstract class BlockTest extends ServiceTestCase
                         )
                     ),
                 ),
-                'parameters' => array(),
+                'parameterDefinitions' => array(),
                 'configDefinitions' => array('definition' => $configDefinition),
             )
         );
@@ -196,13 +196,13 @@ abstract class BlockTest extends ServiceTestCase
         $builderFactory = new ParameterBuilderFactory($this->parameterTypeRegistry);
         $parameterBuilder = $builderFactory->createParameterBuilder();
         $handler->buildParameters($parameterBuilder);
-        $config = $parameterBuilder->buildParameters();
+        $config = $parameterBuilder->buildParameterDefinitions();
 
-        $filteredParameters = array();
+        $filteredParameterDefinitions = array();
         if (!empty($parameterNames)) {
-            foreach ($config as $parameterName => $parameter) {
+            foreach ($config as $parameterName => $parameterDefinition) {
                 if (in_array($parameterName, $parameterNames, true)) {
-                    $filteredParameters[$parameterName] = $parameter;
+                    $filteredParameterDefinitions[$parameterName] = $parameterDefinition;
                 }
             }
         }
@@ -211,7 +211,7 @@ abstract class BlockTest extends ServiceTestCase
             array(
                 'configKey' => 'definition',
                 'handler' => $handler,
-                'parameters' => $filteredParameters,
+                'parameterDefinitions' => $filteredParameterDefinitions,
             )
         );
     }

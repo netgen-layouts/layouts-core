@@ -12,11 +12,11 @@ final class ParameterException extends InvalidArgumentException implements Excep
      *
      * @return \Netgen\BlockManager\Exception\Parameters\ParameterException
      */
-    public static function noParameter($parameter)
+    public static function noParameterDefinition($parameter)
     {
         return new self(
             sprintf(
-                'Parameter with "%s" name does not exist in the object.',
+                'Parameter definition with "%s" name does not exist in the object.',
                 $parameter
             )
         );
@@ -31,7 +31,7 @@ final class ParameterException extends InvalidArgumentException implements Excep
     {
         return new self(
             sprintf(
-                'Option "%s" does not exist in the parameter.',
+                'Option "%s" does not exist in the parameter definition.',
                 $option
             )
         );

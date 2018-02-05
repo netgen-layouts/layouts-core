@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Parameters;
 use Netgen\BlockManager\Exception\Parameters\ParameterException;
 use Netgen\BlockManager\ValueObject;
 
-class Parameter extends ValueObject implements ParameterInterface
+class ParameterDefinition extends ValueObject implements ParameterDefinitionInterface
 {
     /**
      * @var string

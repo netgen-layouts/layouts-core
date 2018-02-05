@@ -9,9 +9,9 @@ use Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType;
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
-use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameter;
-use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
+use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameterDefinition;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterCollection;
+use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterStruct;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -70,16 +70,16 @@ final class ParametersTypeTest extends FormTestCase
             new ParameterStruct()
         );
 
-        $compoundParameter = new CompoundParameter(
+        $compoundParameter = new CompoundParameterDefinition(
             array(
                 'name' => 'compound',
                 'type' => new ParameterType\Compound\BooleanType(),
             )
         );
 
-        $compoundParameter->setParameters(
+        $compoundParameter->setParameterDefinitions(
             array(
-                'inner' => new Parameter(
+                'inner' => new ParameterDefinition(
                     array(
                         'name' => 'inner',
                         'type' => new ParameterType\TextLineType(),
@@ -90,14 +90,14 @@ final class ParametersTypeTest extends FormTestCase
 
         $parameterCollection = new ParameterCollection(
             array(
-                'css_class' => new Parameter(
+                'css_class' => new ParameterDefinition(
                     array(
                         'name' => 'css_class',
                         'type' => new ParameterType\TextLineType(),
                         'label' => false,
                     )
                 ),
-                'css_id' => new Parameter(
+                'css_id' => new ParameterDefinition(
                     array(
                         'name' => 'css_id',
                         'type' => new ParameterType\TextLineType(),
@@ -136,9 +136,9 @@ final class ParametersTypeTest extends FormTestCase
             );
 
             $this->assertEquals(
-                $parameterCollection->getParameter($key)->getLabel() === null ?
+                $parameterCollection->getParameterDefinition($key)->getLabel() === null ?
                     'label.' . $key :
-                    $parameterCollection->getParameter($key)->getLabel(),
+                    $parameterCollection->getParameterDefinition($key)->getLabel(),
                 $paramForm->getConfig()->getOption('label')
             );
         }
@@ -177,14 +177,14 @@ final class ParametersTypeTest extends FormTestCase
 
         $parameterCollection = new ParameterCollection(
             array(
-                'excluded' => new Parameter(
+                'excluded' => new ParameterDefinition(
                     array(
                         'name' => 'excluded',
                         'type' => new ParameterType\TextLineType(),
                         'groups' => array('excluded'),
                     )
                 ),
-                'css_id' => new Parameter(
+                'css_id' => new ParameterDefinition(
                     array(
                         'name' => 'css_id',
                         'type' => new ParameterType\TextLineType(),

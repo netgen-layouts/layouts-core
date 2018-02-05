@@ -143,7 +143,7 @@ final class BlockDefinitionFactoryTest extends TestCase
         $this->assertInstanceOf(BlockDefinitionInterface::class, $blockDefinition);
         $this->assertEquals('definition', $blockDefinition->getIdentifier());
 
-        $this->assertArrayHasKey('test_param', $blockDefinition->getParameters());
+        $this->assertArrayHasKey('test_param', $blockDefinition->getParameterDefinitions());
         $this->assertArrayHasKey('dynamic_param', $blockDefinition->getDynamicParameters(new Block()));
 
         $this->assertEquals(
@@ -242,7 +242,7 @@ final class BlockDefinitionFactoryTest extends TestCase
         $this->assertInstanceOf(TwigBlockDefinitionInterface::class, $blockDefinition);
         $this->assertEquals('definition', $blockDefinition->getIdentifier());
 
-        $this->assertArrayHasKey('test_param', $blockDefinition->getParameters());
+        $this->assertArrayHasKey('test_param', $blockDefinition->getParameterDefinitions());
         $this->assertArrayHasKey('dynamic_param', $blockDefinition->getDynamicParameters(new Block()));
 
         $configDefinitions = $blockDefinition->getConfigDefinitions();
@@ -287,7 +287,7 @@ final class BlockDefinitionFactoryTest extends TestCase
         $this->assertInstanceOf(BlockDefinitionInterface::class, $blockDefinition);
         $this->assertEquals('definition', $blockDefinition->getIdentifier());
 
-        $this->assertArrayHasKey('test_param', $blockDefinition->getParameters());
+        $this->assertArrayHasKey('test_param', $blockDefinition->getParameterDefinitions());
         $this->assertArrayHasKey('dynamic_param', $blockDefinition->getDynamicParameters(new Block()));
 
         $configDefinitions = $blockDefinition->getConfigDefinitions();

@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Parameters\ParameterType;
 
 use Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface;
-use Netgen\BlockManager\Parameters\ParameterInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\BlockManager\Validator\Constraint\Parameters\ItemLink as ItemLinkConstraint;
@@ -59,26 +59,26 @@ final class ItemLinkType extends ParameterType
         );
     }
 
-    public function export(ParameterInterface $parameter, $value)
+    public function export(ParameterDefinitionInterface $parameterDefinition, $value)
     {
         return $this->remoteIdConverter->convertToRemoteId($value);
     }
 
-    public function import(ParameterInterface $parameter, $value)
+    public function import(ParameterDefinitionInterface $parameterDefinition, $value)
     {
         return $this->remoteIdConverter->convertFromRemoteId($value);
     }
 
-    public function isValueEmpty(ParameterInterface $parameter, $value)
+    public function isValueEmpty(ParameterDefinitionInterface $parameterDefinition, $value)
     {
         $parsedValue = parse_url($value);
 
         return empty($parsedValue['scheme']) || (empty($parsedValue['host'] && $parsedValue['host'] !== '0'));
     }
 
-    protected function getValueConstraints(ParameterInterface $parameter, $value)
+    protected function getValueConstraints(ParameterDefinitionInterface $parameterDefinition, $value)
     {
-        $options = $parameter->getOptions();
+        $options = $parameterDefinition->getOptions();
 
         return array(
             new Constraints\Type(array('type' => 'string')),

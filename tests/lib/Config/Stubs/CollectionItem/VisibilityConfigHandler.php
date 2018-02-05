@@ -4,27 +4,27 @@ namespace Netgen\BlockManager\Tests\Config\Stubs\CollectionItem;
 
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionHandler;
-use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameter;
-use Netgen\BlockManager\Tests\Parameters\Stubs\Parameter;
+use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameterDefinition;
+use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
 
 final class VisibilityConfigHandler extends ConfigDefinitionHandler
 {
-    public function getParameters()
+    public function getParameterDefinitions()
     {
         return array(
-            'visible' => new CompoundParameter(
+            'visible' => new CompoundParameterDefinition(
                 array(
                     'name' => 'visible',
                     'type' => new ParameterType\Compound\BooleanType(),
                     'defaultValue' => true,
-                    'parameters' => array(
-                        'visible_from' => new Parameter(
+                    'parameterDefinitions' => array(
+                        'visible_from' => new ParameterDefinition(
                             array(
                                 'name' => 'visible_from',
                                 'type' => new ParameterType\DateTimeType(),
                             )
                         ),
-                        'visible_to' => new Parameter(
+                        'visible_to' => new ParameterDefinition(
                             array(
                                 'name' => 'visible_to',
                                 'type' => new ParameterType\DateTimeType(),

@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Validator\Structs;
 
 use Netgen\BlockManager\API\Values\ParameterStruct;
-use Netgen\BlockManager\Parameters\CompoundParameterInterface;
+use Netgen\BlockManager\Parameters\CompoundParameterDefinitionInterface;
 use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
 use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistryInterface;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct as ParameterStructConstraint;
@@ -63,12 +63,12 @@ final class ParameterStructValidator extends ConstraintValidator
     private function filterParameters(ParameterStruct $parameterStruct, ParameterCollectionInterface $parameterCollection)
     {
         foreach ($parameterStruct->getParameterValues() as $parameterName => $parameterValue) {
-            if (!$parameterCollection->hasParameter($parameterName)) {
+            if (!$parameterCollection->hasParameterDefinition($parameterName)) {
                 continue;
             }
 
             $filters = $this->parameterFilterRegistry->getParameterFilters(
-                $parameterCollection->getParameter($parameterName)->getType()->getIdentifier()
+                $parameterCollection->getParameterDefinition($parameterName)->getType()->getIdentifier()
             );
 
             foreach ($filters as $filter) {
@@ -90,22 +90,22 @@ final class ParameterStructValidator extends ConstraintValidator
     private function buildConstraintFields(ParameterStruct $parameterStruct, ParameterStructConstraint $constraint)
     {
         $fields = array();
-        foreach ($constraint->parameterCollection->getParameters() as $parameter) {
-            $parameterName = $parameter->getName();
+        foreach ($constraint->parameterCollection->getParameterDefinitions() as $parameterDefinition) {
+            $parameterName = $parameterDefinition->getName();
             $parameterValue = $parameterStruct->hasParameterValue($parameterName) ?
                 $parameterStruct->getParameterValue($parameterName) :
                 null;
 
-            $constraints = $parameter->getType()->getConstraints($parameter, $parameterValue);
-            if (!$parameter->isRequired()) {
+            $constraints = $parameterDefinition->getType()->getConstraints($parameterDefinition, $parameterValue);
+            if (!$parameterDefinition->isRequired()) {
                 $constraints = new Constraints\Optional($constraints);
             }
 
             $fields[$parameterName] = $constraints;
 
-            if ($parameter instanceof CompoundParameterInterface) {
-                foreach ($parameter->getParameters() as $subParameter) {
-                    $subParameterName = $subParameter->getName();
+            if ($parameterDefinition instanceof CompoundParameterDefinitionInterface) {
+                foreach ($parameterDefinition->getParameterDefinitions() as $subParameterDefinition) {
+                    $subParameterName = $subParameterDefinition->getName();
                     $subParameterValue = $parameterStruct->hasParameterValue($subParameterName) ?
                         $parameterStruct->getParameterValue($subParameterName) :
                         null;
@@ -114,8 +114,8 @@ final class ParameterStructValidator extends ConstraintValidator
 
                     $constraints = array();
                     if ($subParameterValue !== null) {
-                        $constraints = $subParameter->getType()->getConstraints(
-                            $subParameter,
+                        $constraints = $subParameterDefinition->getType()->getConstraints(
+                            $subParameterDefinition,
                             $subParameterValue
                         );
                     }

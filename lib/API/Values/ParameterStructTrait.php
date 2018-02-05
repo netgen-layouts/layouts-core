@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\API\Values;
 
 use Netgen\BlockManager\Exception\Core\ParameterException;
-use Netgen\BlockManager\Parameters\CompoundParameterInterface;
+use Netgen\BlockManager\Parameters\CompoundParameterDefinitionInterface;
 use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
 
 trait ParameterStructTrait
@@ -88,15 +88,15 @@ trait ParameterStructTrait
      */
     public function fill(ParameterCollectionInterface $parameterCollection, array $values = array())
     {
-        foreach ($parameterCollection->getParameters() as $parameter) {
-            $value = array_key_exists($parameter->getName(), $values) ?
-                $values[$parameter->getName()] :
-                $parameter->getDefaultValue();
+        foreach ($parameterCollection->getParameterDefinitions() as $parameterDefinition) {
+            $value = array_key_exists($parameterDefinition->getName(), $values) ?
+                $values[$parameterDefinition->getName()] :
+                $parameterDefinition->getDefaultValue();
 
-            $this->setParameterValue($parameter->getName(), $value);
+            $this->setParameterValue($parameterDefinition->getName(), $value);
 
-            if ($parameter instanceof CompoundParameterInterface) {
-                $this->fill($parameter, $values);
+            if ($parameterDefinition instanceof CompoundParameterDefinitionInterface) {
+                $this->fill($parameterDefinition, $values);
             }
         }
     }
@@ -109,21 +109,21 @@ trait ParameterStructTrait
      */
     public function fillFromValue(ParameterCollectionInterface $parameterCollection, ParameterBasedValue $parameterBasedValue)
     {
-        foreach ($parameterCollection->getParameters() as $parameter) {
+        foreach ($parameterCollection->getParameterDefinitions() as $parameterDefinition) {
             $value = null;
 
-            if ($parameterBasedValue->hasParameter($parameter->getName())) {
-                $valueParameter = $parameterBasedValue->getParameter($parameter->getName());
-                if ($valueParameter->getParameter()->getType()->getIdentifier() === $parameter->getType()->getIdentifier()) {
+            if ($parameterBasedValue->hasParameter($parameterDefinition->getName())) {
+                $valueParameter = $parameterBasedValue->getParameter($parameterDefinition->getName());
+                if ($valueParameter->getParameterDefinition()->getType()->getIdentifier() === $parameterDefinition->getType()->getIdentifier()) {
                     $value = $valueParameter->getValue();
                     $value = is_object($value) ? clone $value : $value;
                 }
             }
 
-            $this->setParameterValue($parameter->getName(), $value);
+            $this->setParameterValue($parameterDefinition->getName(), $value);
 
-            if ($parameter instanceof CompoundParameterInterface) {
-                $this->fillFromValue($parameter, $parameterBasedValue);
+            if ($parameterDefinition instanceof CompoundParameterDefinitionInterface) {
+                $this->fillFromValue($parameterDefinition, $parameterBasedValue);
             }
         }
     }
@@ -146,15 +146,15 @@ trait ParameterStructTrait
     {
         $importMethod = $doImport ? 'import' : 'fromHash';
 
-        foreach ($parameterCollection->getParameters() as $parameter) {
-            $value = array_key_exists($parameter->getName(), $values) ?
-                $parameter->getType()->$importMethod($parameter, $values[$parameter->getName()]) :
-                $parameter->getDefaultValue();
+        foreach ($parameterCollection->getParameterDefinitions() as $parameterDefinition) {
+            $value = array_key_exists($parameterDefinition->getName(), $values) ?
+                $parameterDefinition->getType()->$importMethod($parameterDefinition, $values[$parameterDefinition->getName()]) :
+                $parameterDefinition->getDefaultValue();
 
-            $this->setParameterValue($parameter->getName(), $value);
+            $this->setParameterValue($parameterDefinition->getName(), $value);
 
-            if ($parameter instanceof CompoundParameterInterface) {
-                $this->fillFromHash($parameter, $values, $doImport);
+            if ($parameterDefinition instanceof CompoundParameterDefinitionInterface) {
+                $this->fillFromHash($parameterDefinition, $values, $doImport);
             }
         }
     }

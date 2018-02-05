@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Parameters;
 
-interface ParameterInterface
+interface ParameterDefinitionInterface
 {
     /**
      * Returns the parameter name.

@@ -2,10 +2,10 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\Stubs;
 
-use Netgen\BlockManager\Parameters\Parameter as BaseParameter;
+use Netgen\BlockManager\Parameters\ParameterDefinition as BaseParameterDefinition;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class Parameter extends BaseParameter
+class ParameterDefinition extends BaseParameterDefinition
 {
     /**
      * Constructor.
