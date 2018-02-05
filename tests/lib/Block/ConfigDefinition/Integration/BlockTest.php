@@ -78,8 +78,8 @@ abstract class BlockTest extends ServiceTestCase
         $this->assertInstanceOf(Config::class, $createdConfig);
 
         $createdParameters = array();
-        foreach ($createdConfig->getParameters() as $parameterName => $parameterValue) {
-            $createdParameters[$parameterName] = $parameterValue->getValue();
+        foreach ($createdConfig->getParameters() as $parameterName => $parameter) {
+            $createdParameters[$parameterName] = $parameter->getValue();
         }
 
         $this->assertEquals($expectedConfig, $createdParameters);

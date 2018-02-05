@@ -49,7 +49,7 @@ final class Block extends Visitor
             'item_view_type' => $block->getItemViewType(),
             'name' => $block->getName(),
             'placeholders' => $this->visitPlaceholders($block, $subVisitor),
-            'parameters' => $this->visitParameterValues($block, $subVisitor),
+            'parameters' => $this->visitParameters($block, $subVisitor),
             'configuration' => $this->visitConfiguration($block, $subVisitor),
             'collections' => $this->visitCollections($block, $subVisitor),
         );
@@ -89,10 +89,10 @@ final class Block extends Visitor
      *
      * @return array
      */
-    private function visitParameterValues(BlockValue $block, VisitorInterface $subVisitor)
+    private function visitParameters(BlockValue $block, VisitorInterface $subVisitor)
     {
-        $parameterValuesByLanguage = array(
-            $block->getLocale() => $this->visitBlockTranslationParameterValues($block, $subVisitor),
+        $parametersByLanguage = array(
+            $block->getLocale() => $this->visitTranslationParameters($block, $subVisitor),
         );
 
         foreach ($block->getAvailableLocales() as $availableLocale) {
@@ -106,15 +106,15 @@ final class Block extends Visitor
                 false
             );
 
-            $parameterValuesByLanguage[$availableLocale] = $this->visitBlockTranslationParameterValues(
+            $parametersByLanguage[$availableLocale] = $this->visitTranslationParameters(
                 $translatedBlock,
                 $subVisitor
             );
         }
 
-        ksort($parameterValuesByLanguage);
+        ksort($parametersByLanguage);
 
-        return $parameterValuesByLanguage;
+        return $parametersByLanguage;
     }
 
     /**
@@ -125,17 +125,17 @@ final class Block extends Visitor
      *
      * @return mixed|null
      */
-    private function visitBlockTranslationParameterValues(BlockValue $block, VisitorInterface $subVisitor)
+    private function visitTranslationParameters(BlockValue $block, VisitorInterface $subVisitor)
     {
         $hash = array();
-        $parameterValues = $block->getParameters();
+        $parameters = $block->getParameters();
 
-        if (empty($parameterValues)) {
+        if (empty($parameters)) {
             return null;
         }
 
-        foreach ($parameterValues as $parameterValue) {
-            $hash[$parameterValue->getName()] = $subVisitor->visit($parameterValue);
+        foreach ($parameters as $parameter) {
+            $hash[$parameter->getName()] = $subVisitor->visit($parameter);
         }
 
         return $hash;

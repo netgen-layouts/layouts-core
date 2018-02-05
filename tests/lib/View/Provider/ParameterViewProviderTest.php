@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\View\Provider;
 
 use Netgen\BlockManager\Core\Values\Block\Block;
-use Netgen\BlockManager\Parameters\ParameterValue;
+use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\Provider\ParameterViewProvider;
 use Netgen\BlockManager\View\View\ParameterViewInterface;
@@ -27,19 +27,19 @@ final class ParameterViewProviderTest extends TestCase
      */
     public function testProvideView()
     {
-        $parameterValue = new ParameterValue(array('value' => 42));
+        $parameter = new Parameter(array('value' => 42));
 
         /** @var \Netgen\BlockManager\View\View\ParameterViewInterface $view */
-        $view = $this->parameterViewProvider->provideView($parameterValue);
+        $view = $this->parameterViewProvider->provideView($parameter);
 
         $this->assertInstanceOf(ParameterViewInterface::class, $view);
 
-        $this->assertEquals($parameterValue, $view->getParameterValue());
+        $this->assertEquals($parameter, $view->getParameterValue());
         $this->assertEquals(ViewInterface::CONTEXT_DEFAULT, $view->getFallbackContext());
         $this->assertNull($view->getTemplate());
         $this->assertEquals(
             array(
-                'parameter' => $parameterValue,
+                'parameter' => $parameter,
             ),
             $view->getParameters()
         );
@@ -67,7 +67,7 @@ final class ParameterViewProviderTest extends TestCase
         return array(
             array(new Value(), false),
             array(new Block(), false),
-            array(new ParameterValue(), true),
+            array(new Parameter(), true),
         );
     }
 }

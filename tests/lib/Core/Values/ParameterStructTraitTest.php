@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Tests\Core\Values;
 
 use Netgen\BlockManager\API\Values\ParameterStructTrait;
+use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Parameters\ParameterType;
-use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Tests\Core\Stubs\ParameterBasedValue;
 use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameterDefinition;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterCollection;
@@ -185,13 +185,13 @@ final class ParameterStructTraitTest extends TestCase
         $value = new ParameterBasedValue(
             array(
                 'parameters' => array(
-                    'css_class' => new ParameterValue(
+                    'css_class' => new Parameter(
                         array(
                             'value' => 'css',
                             'parameterDefinition' => $parameterCollection->getParameterDefinition('css_class'),
                         )
                     ),
-                    'inner' => new ParameterValue(
+                    'inner' => new Parameter(
                         array(
                             'value' => 'inner',
                             'parameterDefinition' => $parameterCollection->getParameterDefinition('compound')->getParameterDefinition('inner'),

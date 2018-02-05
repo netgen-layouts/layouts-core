@@ -7,14 +7,14 @@ use Netgen\BlockManager\Exception\Core\ParameterException;
 trait ParameterBasedValueTrait
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterValue[]
+     * @var \Netgen\BlockManager\Parameters\Parameter[]
      */
     protected $parameters = array();
 
     /**
-     * Returns all parameter values.
+     * Returns all parameters.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterValue[]
+     * @return \Netgen\BlockManager\Parameters\Parameter[]
      */
     public function getParameters()
     {
@@ -22,13 +22,13 @@ trait ParameterBasedValueTrait
     }
 
     /**
-     * Returns the specified parameter value.
+     * Returns the specified parameter.
      *
      * @param string $parameterName
      *
      * @throws \Netgen\BlockManager\Exception\Core\ParameterException If the requested parameter does not exist
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterValue
+     * @return \Netgen\BlockManager\Parameters\Parameter
      */
     public function getParameter($parameterName)
     {
@@ -40,7 +40,7 @@ trait ParameterBasedValueTrait
     }
 
     /**
-     * Returns if the object has a specified parameter value.
+     * Returns if the object has a specified parameter.
      *
      * @param string $parameterName
      *

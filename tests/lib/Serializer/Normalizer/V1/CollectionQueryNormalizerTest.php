@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
 use Netgen\BlockManager\Core\Values\Collection\Query;
-use Netgen\BlockManager\Parameters\ParameterValue;
+use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Serializer\Normalizer\V1\CollectionQueryNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
@@ -46,13 +46,13 @@ final class CollectionQueryNormalizerTest extends TestCase
                 'mainLocale' => 'en',
                 'locale' => 'en',
                 'parameters' => array(
-                    'param' => new ParameterValue(
+                    'param' => new Parameter(
                         array(
                             'name' => 'param',
                             'value' => 'value',
                         )
                     ),
-                    'param2' => new ParameterValue(
+                    'param2' => new Parameter(
                         array(
                             'name' => 'param2',
                             'value' => array(

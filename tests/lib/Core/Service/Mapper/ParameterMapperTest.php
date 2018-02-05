@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 
 use Netgen\BlockManager\Core\Service\Mapper\ParameterMapper;
-use Netgen\BlockManager\Parameters\ParameterValue;
+use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithCompoundParameter;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithUntranslatableCompoundParameter;
@@ -50,22 +50,22 @@ final class ParameterMapperTest extends TestCase
         $this->assertArrayHasKey('compound', $mappedParameters);
         $this->assertArrayHasKey('inner', $mappedParameters);
 
-        $this->assertInstanceOf(ParameterValue::class, $mappedParameters['css_class']);
+        $this->assertInstanceOf(Parameter::class, $mappedParameters['css_class']);
         $this->assertEquals($blockDefinition->getParameterDefinition('css_class'), $mappedParameters['css_class']->getParameterDefinition());
         $this->assertEquals('some-class', $mappedParameters['css_class']->getValue());
         $this->assertFalse($mappedParameters['css_class']->isEmpty());
 
-        $this->assertInstanceOf(ParameterValue::class, $mappedParameters['css_id']);
+        $this->assertInstanceOf(Parameter::class, $mappedParameters['css_id']);
         $this->assertEquals($blockDefinition->getParameterDefinition('css_id'), $mappedParameters['css_id']->getParameterDefinition());
         $this->assertEquals('some-id', $mappedParameters['css_id']->getValue());
         $this->assertFalse($mappedParameters['css_id']->isEmpty());
 
-        $this->assertInstanceOf(ParameterValue::class, $mappedParameters['compound']);
+        $this->assertInstanceOf(Parameter::class, $mappedParameters['compound']);
         $this->assertEquals($blockDefinition->getParameterDefinition('compound'), $mappedParameters['compound']->getParameterDefinition());
         $this->assertTrue($mappedParameters['compound']->getValue());
         $this->assertFalse($mappedParameters['compound']->isEmpty());
 
-        $this->assertInstanceOf(ParameterValue::class, $mappedParameters['inner']);
+        $this->assertInstanceOf(Parameter::class, $mappedParameters['inner']);
         $this->assertEquals($blockDefinition->getParameterDefinition('compound')->getParameterDefinition('inner'), $mappedParameters['inner']->getParameterDefinition());
         $this->assertEquals('inner-value', $mappedParameters['inner']->getValue());
         $this->assertFalse($mappedParameters['inner']->isEmpty());

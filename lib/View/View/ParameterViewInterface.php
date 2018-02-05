@@ -9,7 +9,7 @@ interface ParameterViewInterface extends ViewInterface
     /**
      * Returns the parameter.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterValue
+     * @return \Netgen\BlockManager\Parameters\Parameter
      */
     public function getParameterValue();
 }

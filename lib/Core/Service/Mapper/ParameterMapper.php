@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
 use Netgen\BlockManager\Parameters\CompoundParameterDefinitionInterface;
+use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
-use Netgen\BlockManager\Parameters\ParameterValue;
 
 final class ParameterMapper
 {
@@ -28,7 +28,7 @@ final class ParameterMapper
                 $parameterType->fromHash($parameterDefinition, $parameterValues[$parameterName]) :
                 $parameterDefinition->getDefaultValue();
 
-            $mappedValues[$parameterName] = new ParameterValue(
+            $mappedValues[$parameterName] = new Parameter(
                 array(
                     'name' => $parameterName,
                     'parameterDefinition' => $parameterDefinition,

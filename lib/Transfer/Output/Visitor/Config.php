@@ -28,9 +28,9 @@ final class Config extends Visitor
         /** @var \Netgen\BlockManager\API\Values\Config\Config $config */
         $hash = array();
 
-        $parameterValues = $config->getParameters();
-        foreach ($parameterValues as $parameterValue) {
-            $hash[$parameterValue->getName()] = $subVisitor->visit($parameterValue);
+        $parameters = $config->getParameters();
+        foreach ($parameters as $parameter) {
+            $hash[$parameter->getName()] = $subVisitor->visit($parameter);
         }
 
         return $hash;

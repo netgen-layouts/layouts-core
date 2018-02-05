@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Values\Config\Config;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Core\Service\Mapper\ConfigMapper;
 use Netgen\BlockManager\Core\Service\Mapper\ParameterMapper;
-use Netgen\BlockManager\Parameters\ParameterValue;
+use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Tests\Config\Stubs\Block\HttpCacheConfigHandler;
 use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinition;
 use PHPUnit\Framework\TestCase;
@@ -63,8 +63,8 @@ final class ConfigMapperTest extends TestCase
         $this->assertTrue($config->hasParameter('use_http_cache'));
         $this->assertTrue($config->hasParameter('shared_max_age'));
 
-        $this->assertInstanceOf(ParameterValue::class, $config->getParameter('use_http_cache'));
-        $this->assertInstanceOf(ParameterValue::class, $config->getParameter('shared_max_age'));
+        $this->assertInstanceOf(Parameter::class, $config->getParameter('use_http_cache'));
+        $this->assertInstanceOf(Parameter::class, $config->getParameter('shared_max_age'));
 
         $this->assertTrue($config->getParameter('use_http_cache')->getValue());
         $this->assertEquals(300, $config->getParameter('shared_max_age')->getValue());

@@ -2,16 +2,16 @@
 
 namespace Netgen\BlockManager\Tests\View\View;
 
-use Netgen\BlockManager\Parameters\ParameterValue;
+use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\View\View\ParameterView;
 use PHPUnit\Framework\TestCase;
 
 final class ParameterViewTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterValue
+     * @var \Netgen\BlockManager\Parameters\Parameter
      */
-    private $parameterValue;
+    private $parameter;
 
     /**
      * @var \Netgen\BlockManager\View\View\ParameterViewInterface
@@ -20,11 +20,11 @@ final class ParameterViewTest extends TestCase
 
     public function setUp()
     {
-        $this->parameterValue = new ParameterValue();
+        $this->parameter = new Parameter();
 
         $this->view = new ParameterView(
             array(
-                'parameter' => $this->parameterValue,
+                'parameter' => $this->parameter,
             )
         );
 
@@ -38,7 +38,7 @@ final class ParameterViewTest extends TestCase
      */
     public function testGetParameter()
     {
-        $this->assertEquals($this->parameterValue, $this->view->getParameterValue());
+        $this->assertEquals($this->parameter, $this->view->getParameterValue());
     }
 
     /**
@@ -49,7 +49,7 @@ final class ParameterViewTest extends TestCase
         $this->assertEquals(
             array(
                 'param' => 'value',
-                'parameter' => $this->parameterValue,
+                'parameter' => $this->parameter,
             ),
             $this->view->getParameters()
         );

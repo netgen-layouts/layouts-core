@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\CollectionReference;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
-use Netgen\BlockManager\Parameters\ParameterValue;
+use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
@@ -67,13 +67,13 @@ final class BlockNormalizerTest extends TestCase
                 'mainLocale' => 'en',
                 'locale' => 'en',
                 'parameters' => array(
-                    'some_param' => new ParameterValue(
+                    'some_param' => new Parameter(
                         array(
                             'name' => 'some_param',
                             'value' => 'some_value',
                         )
                     ),
-                    'some_other_param' => new ParameterValue(
+                    'some_other_param' => new Parameter(
                         array(
                             'name' => 'some_other_param',
                             'value' => 'some_other_value',

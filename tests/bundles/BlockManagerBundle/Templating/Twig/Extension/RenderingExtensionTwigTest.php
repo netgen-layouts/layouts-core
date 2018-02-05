@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Locale\LocaleProviderInterface;
-use Netgen\BlockManager\Parameters\ParameterValue;
+use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\BlockManager\View\ViewInterface;
@@ -172,7 +172,7 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
                                 'availableLocales' => array('en'),
                                 'locale' => 'en',
                                 'parameters' => array(
-                                    'block_name' => new ParameterValue(
+                                    'block_name' => new Parameter(
                                         array(
                                             'name' => 'block_name',
                                             'value' => 'my_block',

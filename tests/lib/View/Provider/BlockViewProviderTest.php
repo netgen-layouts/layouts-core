@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\View\Provider;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Config\Config;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
-use Netgen\BlockManager\Parameters\ParameterValue;
+use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\Provider\BlockViewProvider;
@@ -36,8 +36,8 @@ final class BlockViewProviderTest extends TestCase
                     'http_cache' => new Config(
                         array(
                             'parameters' => array(
-                                'use_http_cache' => new ParameterValue(array('value' => true)),
-                                'shared_max_age' => new ParameterValue(array('value' => 400)),
+                                'use_http_cache' => new Parameter(array('value' => true)),
+                                'shared_max_age' => new Parameter(array('value' => 400)),
                             ),
                         )
                     ),

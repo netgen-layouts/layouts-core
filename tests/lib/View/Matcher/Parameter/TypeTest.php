@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Tests\View\Matcher\Parameter;
 
+use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType\TextType;
-use Netgen\BlockManager\Parameters\ParameterValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\Matcher\Parameter\Type;
@@ -32,7 +32,7 @@ final class TypeTest extends TestCase
      */
     public function testMatch(array $config, $expected)
     {
-        $parameterValue = new ParameterValue(
+        $parameter = new Parameter(
             array(
                 'parameterDefinition' => new ParameterDefinition(
                     array(
@@ -42,7 +42,7 @@ final class TypeTest extends TestCase
             )
         );
 
-        $view = new ParameterView(array('parameter' => $parameterValue));
+        $view = new ParameterView(array('parameter' => $parameter));
 
         $this->assertEquals($expected, $this->matcher->match($view, $config));
     }

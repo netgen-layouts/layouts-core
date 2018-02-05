@@ -63,8 +63,8 @@ abstract class BlockTest extends ServiceTestCase
         $createdBlock = $this->blockService->createBlockInZone($blockCreateStruct, $zone);
 
         $createdParameters = array();
-        foreach ($createdBlock->getParameters() as $parameterName => $parameterValue) {
-            $createdParameters[$parameterName] = $parameterValue->getValue();
+        foreach ($createdBlock->getParameters() as $parameterName => $parameter) {
+            $createdParameters[$parameterName] = $parameter->getValue();
         }
 
         $this->assertEquals($expectedParameters, $createdParameters);

@@ -44,7 +44,7 @@ final class Query extends Visitor
             'is_always_available' => $query->isAlwaysAvailable(),
             'main_locale' => $query->getMainLocale(),
             'available_locales' => $query->getAvailableLocales(),
-            'parameters' => $this->visitParameterValues($query, $subVisitor),
+            'parameters' => $this->visitParameters($query, $subVisitor),
             'query_type' => $query->getQueryType()->getType(),
         );
     }
@@ -59,10 +59,10 @@ final class Query extends Visitor
      *
      * @return array
      */
-    private function visitParameterValues(QueryValue $query, VisitorInterface $subVisitor)
+    private function visitParameters(QueryValue $query, VisitorInterface $subVisitor)
     {
-        $parameterValuesByLanguage = array(
-            $query->getLocale() => $this->visitBlockTranslationParameterValues($query, $subVisitor),
+        $parametersByLanguage = array(
+            $query->getLocale() => $this->visitTranslationParameters($query, $subVisitor),
         );
 
         foreach ($query->getAvailableLocales() as $availableLocale) {
@@ -70,21 +70,21 @@ final class Query extends Visitor
                 continue;
             }
 
-            $translatedBlock = $this->collectionService->loadQuery(
+            $translatedQuery = $this->collectionService->loadQuery(
                 $query->getId(),
                 array($availableLocale),
                 false
             );
 
-            $parameterValuesByLanguage[$availableLocale] = $this->visitBlockTranslationParameterValues(
-                $translatedBlock,
+            $parametersByLanguage[$availableLocale] = $this->visitTranslationParameters(
+                $translatedQuery,
                 $subVisitor
             );
         }
 
-        ksort($parameterValuesByLanguage);
+        ksort($parametersByLanguage);
 
-        return $parameterValuesByLanguage;
+        return $parametersByLanguage;
     }
 
     /**
@@ -95,17 +95,17 @@ final class Query extends Visitor
      *
      * @return mixed|null
      */
-    private function visitBlockTranslationParameterValues(QueryValue $query, VisitorInterface $subVisitor)
+    private function visitTranslationParameters(QueryValue $query, VisitorInterface $subVisitor)
     {
         $hash = array();
-        $parameterValues = $query->getParameters();
+        $parameters = $query->getParameters();
 
-        if (empty($parameterValues)) {
+        if (empty($parameters)) {
             return null;
         }
 
-        foreach ($parameterValues as $parameterValue) {
-            $hash[$parameterValue->getName()] = $subVisitor->visit($parameterValue);
+        foreach ($parameters as $parameter) {
+            $hash[$parameter->getName()] = $subVisitor->visit($parameter);
         }
 
         return $hash;

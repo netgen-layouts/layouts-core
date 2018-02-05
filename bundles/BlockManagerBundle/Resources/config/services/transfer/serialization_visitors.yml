@@ -46,8 +46,8 @@ services:
         tags:
             - { name: netgen_block_manager.transfer.serializer.visitor }
 
-    netgen_block_manager.transfer.serializer.visitor.parameter_value:
-        class: Netgen\BlockManager\Transfer\Output\Visitor\ParameterValue
+    netgen_block_manager.transfer.serializer.visitor.parameter:
+        class: Netgen\BlockManager\Transfer\Output\Visitor\Parameter
         public: false
         tags:
             - { name: netgen_block_manager.transfer.serializer.visitor }

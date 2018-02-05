@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Parameters;
 
 use Netgen\BlockManager\ValueObject;
 
-final class ParameterValue extends ValueObject
+final class Parameter extends ValueObject
 {
     /**
      * @var string

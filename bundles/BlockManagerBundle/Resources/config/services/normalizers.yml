@@ -29,8 +29,8 @@ services:
         tags:
             - { name: serializer.normalizer }
 
-    netgen_block_manager.normalizer.v1.parameter_value:
-        class: Netgen\BlockManager\Serializer\Normalizer\V1\ParameterValueNormalizer
+    netgen_block_manager.normalizer.v1.parameter:
+        class: Netgen\BlockManager\Serializer\Normalizer\V1\ParameterNormalizer
         public: false
         tags:
             - { name: serializer.normalizer }
