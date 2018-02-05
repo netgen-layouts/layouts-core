@@ -113,9 +113,9 @@ trait ParameterStructTrait
             $value = null;
 
             if ($parameterBasedValue->hasParameter($parameterDefinition->getName())) {
-                $valueParameter = $parameterBasedValue->getParameter($parameterDefinition->getName());
-                if ($valueParameter->getParameterDefinition()->getType()->getIdentifier() === $parameterDefinition->getType()->getIdentifier()) {
-                    $value = $valueParameter->getValue();
+                $parameter = $parameterBasedValue->getParameter($parameterDefinition->getName());
+                if ($parameter->getParameterDefinition()->getType()->getIdentifier() === $parameterDefinition->getType()->getIdentifier()) {
+                    $value = $parameter->getValue();
                     $value = is_object($value) ? clone $value : $value;
                 }
             }
