@@ -85,13 +85,18 @@ final class ResultBuilderIterator extends IteratorIterator
             );
         }
 
+        $resultVisible = true;
+        if (!$item instanceof NullItem) {
+            $resultVisible = $item->isVisible() && $this->visibilityResolver->isVisible($object);
+        }
+
         return new Result(
             array(
                 'item' => $item,
                 'collectionItem' => $object,
                 'type' => Result::TYPE_MANUAL,
                 'position' => $position,
-                'isVisible' => $item->isVisible() && $this->visibilityResolver->isVisible($object),
+                'isVisible' => $resultVisible,
             )
         );
     }
