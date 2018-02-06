@@ -41,6 +41,11 @@ final class CollectionResultSetNormalizerTest extends TestCase
                     new Result(),
                     new Result(),
                 ),
+                'overflowResults' => array(
+                    new Result(),
+                    new Result(),
+                    new Result(),
+                ),
             )
         );
 
@@ -57,9 +62,24 @@ final class CollectionResultSetNormalizerTest extends TestCase
             )
             ->will($this->returnValue(array('items')));
 
+        $this->serializerMock
+            ->expects($this->at(1))
+            ->method('normalize')
+            ->with(
+                $this->equalTo(
+                    array(
+                        new VersionedValue(new Result(), 1),
+                        new VersionedValue(new Result(), 1),
+                        new VersionedValue(new Result(), 1),
+                    )
+                )
+            )
+            ->will($this->returnValue(array('overflow_items')));
+
         $this->assertEquals(
             array(
                 'items' => array('items'),
+                'overflow_items' => array('overflow_items'),
             ),
             $this->normalizer->normalize(new VersionedValue($result, 1))
         );

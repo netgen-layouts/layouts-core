@@ -6,7 +6,7 @@ use Netgen\BlockManager\Collection\Item\VisibilityResolver;
 use Netgen\BlockManager\Collection\Result\CollectionIteratorFactory;
 use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Collection\Result\ResultBuilder;
-use Netgen\BlockManager\Collection\Result\ResultIteratorFactory;
+use Netgen\BlockManager\Collection\Result\ResultItemBuilder;
 use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
@@ -136,12 +136,12 @@ final class ResultBuilderTest extends TestCase
     private function buildResultBuilder($maxLimit)
     {
         return new ResultBuilder(
-            new ResultIteratorFactory(
+            new CollectionIteratorFactory(12),
+            new ResultItemBuilder(
                 $this->itemLoader,
                 $this->itemBuilder,
                 $this->visibilityResolver
             ),
-            new CollectionIteratorFactory(12),
             $maxLimit
         );
     }

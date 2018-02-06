@@ -71,14 +71,7 @@ final class BlockCollectionController extends Controller
 
         // In non AJAX scenarios, we're always rendering the first page of the collection
         // as specified by offset and limit in the collection itself
-        $pager = $this->pagerFactory->getPager(
-            $collection,
-            1,
-            null,
-            ResultSet::INCLUDE_INVISIBLE_ITEMS |
-            ResultSet::INCLUDE_INVALID_ITEMS |
-            ResultSet::INCLUDE_UNKNOWN_ITEMS
-        );
+        $pager = $this->pagerFactory->getPager($collection, 1, null, ResultSet::INCLUDE_ALL_ITEMS);
 
         return new VersionedValue($pager->getCurrentPageResults(), Version::API_V1);
     }

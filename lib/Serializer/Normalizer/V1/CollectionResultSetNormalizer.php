@@ -23,8 +23,14 @@ final class CollectionResultSetNormalizer implements NormalizerInterface, Serial
             $results[] = new VersionedValue($result, $object->getVersion());
         }
 
+        $overflowResults = array();
+        foreach ($resultSet->getOverflowResults() as $overflowResult) {
+            $overflowResults[] = new VersionedValue($overflowResult, $object->getVersion());
+        }
+
         return array(
             'items' => $this->serializer->normalize($results, $format, $context),
+            'overflow_items' => $this->serializer->normalize($overflowResults, $format, $context),
         );
     }
 

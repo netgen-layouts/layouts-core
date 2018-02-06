@@ -15,8 +15,8 @@ services:
         arguments:
             - "@netgen_block_manager.config.config_definition_factory"
 
-    netgen_block_manager.collection.result_iterator_factory:
-        class: Netgen\BlockManager\Collection\Result\ResultIteratorFactory
+    netgen_block_manager.collection.result_item_builder:
+        class: Netgen\BlockManager\Collection\Result\ResultItemBuilder
         public: false
         arguments:
             - "@netgen_block_manager.item.item_loader"
@@ -33,8 +33,8 @@ services:
         class: Netgen\BlockManager\Collection\Result\ResultBuilder
         public: true
         arguments:
-            - "@netgen_block_manager.collection.result_iterator_factory"
             - "@netgen_block_manager.collection.collection_iterator_factory"
+            - "@netgen_block_manager.collection.result_item_builder"
             - "%netgen_block_manager.collection.max_limit%"
 
     netgen_block_manager.collection.result.pagerfanta.factory:
