@@ -98,7 +98,7 @@ final class ResultBuilder implements ResultBuilderInterface
      *
      * @return bool
      */
-    private function includeResult(Result $result, $flags)
+    private function includeResult(Result $result, $flags = 0)
     {
         if (!((bool) ($flags & ResultSet::INCLUDE_INVALID_ITEMS)) && $result->getItem() instanceof NullItem) {
             return false;
