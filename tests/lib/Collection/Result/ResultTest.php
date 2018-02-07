@@ -25,6 +25,7 @@ final class ResultTest extends TestCase
                 'type' => Result::TYPE_MANUAL,
                 'position' => 3,
                 'isVisible' => false,
+                'invisibilityReason' => Result::HIDDEN_BY_CMS,
             )
         );
 
@@ -33,5 +34,6 @@ final class ResultTest extends TestCase
         $this->assertEquals(Result::TYPE_MANUAL, $resultItem->getType());
         $this->assertEquals(3, $resultItem->getPosition());
         $this->assertFalse($resultItem->isVisible());
+        $this->assertEquals(Result::HIDDEN_BY_CMS, $resultItem->getInvisibilityReason());
     }
 }

@@ -3,12 +3,6 @@ services:
         class: Netgen\BlockManager\Collection\Item\VisibilityResolver
         public: false
 
-    netgen_block_manager.collection.item.visibility_resolver.voter.configured:
-        class: Netgen\BlockManager\Collection\Item\VisibilityResolver\ConfiguredVoter
-        public: false
-        tags:
-            - { name: netgen_block_manager.collection.item.visibility_resolver.voter, priority: 0 }
-
     netgen_block_manager.collection.item_definition_factory:
         class: Netgen\BlockManager\Collection\Item\ItemDefinitionFactory
         public: false

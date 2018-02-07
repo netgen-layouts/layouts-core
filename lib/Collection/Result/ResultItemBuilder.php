@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\Collection\Result;
 
+use DateTimeImmutable;
+use DateTimeInterface;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\Collection\Item\VisibilityResolverInterface;
 use Netgen\BlockManager\Exception\Item\ItemException;
@@ -63,6 +65,7 @@ final class ResultItemBuilder
                     'type' => Result::TYPE_DYNAMIC,
                     'position' => $position,
                     'isVisible' => true,
+                    'invisibilityReason' => null,
                 )
             );
         }
@@ -78,8 +81,9 @@ final class ResultItemBuilder
         }
 
         $resultVisible = true;
+        $invisibilityReason = null;
         if (!$item instanceof NullItem) {
-            $resultVisible = $item->isVisible() && $this->visibilityResolver->isVisible($object);
+            list($resultVisible, $invisibilityReason) = $this->isResultVisible($item, $object);
         }
 
         return new Result(
@@ -89,7 +93,69 @@ final class ResultItemBuilder
                 'type' => Result::TYPE_MANUAL,
                 'position' => $position,
                 'isVisible' => $resultVisible,
+                'invisibilityReason' => $invisibilityReason,
             )
         );
+    }
+
+    /**
+     * Returns if the result built from CMS item and collection item will be
+     * visible or not.
+     *
+     * Returned result is an array specifying the visibility as the first entry,
+     * and the reason for *invisibility* as the second entry, reasons being one
+     * of: hidden by CMS (if the CMS entity itself is hidden), hidden by
+     * configuration (if hidden by the options available in the interface), or
+     * hidden by code (if the item is hidden programmatically by using visibility
+     * voters).
+     *
+     * @param \Netgen\BlockManager\Item\ItemInterface $cmsItem
+     * @param \Netgen\BlockManager\API\Values\Collection\Item $collectionItem
+     *
+     * @return array
+     */
+    private function isResultVisible(ItemInterface $cmsItem, Item $collectionItem)
+    {
+        if (!$cmsItem->isVisible()) {
+            return array(false, Result::HIDDEN_BY_CMS);
+        }
+
+        if (!$this->isItemVisible($collectionItem)) {
+            return array(false, Result::HIDDEN_BY_CONFIG);
+        }
+
+        $visible = $this->visibilityResolver->isVisible($collectionItem);
+
+        return array($visible, $visible ? null : Result::HIDDEN_BY_CODE);
+    }
+
+    /**
+     * Returns if the collection item is hidden as specified by its configuration.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Item $collectionItem
+     *
+     * @return bool
+     */
+    private function isItemVisible(Item $collectionItem)
+    {
+        $visibilityConfig = $collectionItem->getConfig('visibility');
+        if ($visibilityConfig->getParameter('visible')->getValue() === false) {
+            return false;
+        }
+
+        $currentDate = new DateTimeImmutable();
+
+        $visibleFrom = $visibilityConfig->getParameter('visible_from')->getValue();
+        $visibleTo = $visibilityConfig->getParameter('visible_to')->getValue();
+
+        if ($visibleFrom instanceof DateTimeInterface && $currentDate < $visibleFrom) {
+            return false;
+        }
+
+        if ($visibleTo instanceof DateTimeInterface && $currentDate > $visibleTo) {
+            return false;
+        }
+
+        return true;
     }
 }

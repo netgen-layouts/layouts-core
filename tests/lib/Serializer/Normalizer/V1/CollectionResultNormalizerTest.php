@@ -46,7 +46,8 @@ final class CollectionResultNormalizerTest extends TestCase
                 'collectionItem' => $collectionItem,
                 'type' => Result::TYPE_MANUAL,
                 'position' => 3,
-                'isVisible' => true,
+                'isVisible' => false,
+                'invisibilityReason' => Result::HIDDEN_BY_CMS,
             )
         );
 
@@ -60,6 +61,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'value_type' => $item->getValueType(),
                 'name' => $item->getName(),
                 'visible' => $result->isVisible(),
+                'invisibility_reason' => $result->getInvisibilityReason(),
             ),
             $this->normalizer->normalize(new VersionedValue($result, 1))
         );
@@ -83,6 +85,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'type' => Result::TYPE_DYNAMIC,
                 'position' => 3,
                 'isVisible' => true,
+                'invisibilityReason' => null,
             )
         );
 
@@ -96,6 +99,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'value_type' => $item->getValueType(),
                 'name' => $item->getName(),
                 'visible' => $result->isVisible(),
+                'invisibility_reason' => $result->getInvisibilityReason(),
             ),
             $this->normalizer->normalize(new VersionedValue($result, 1))
         );

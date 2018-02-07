@@ -11,8 +11,10 @@ use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
+use Netgen\BlockManager\Core\Values\Config\Config;
 use Netgen\BlockManager\Item\ItemBuilder;
 use Netgen\BlockManager\Item\ItemLoader;
+use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Item\Stubs\Value;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueConverter;
@@ -171,6 +173,29 @@ final class ResultBuilderTest extends TestCase
                     'type' => Item::TYPE_MANUAL,
                     'value' => $id,
                     'valueType' => 'value',
+                    'configs' => array(
+                        'visibility' => new Config(
+                            array(
+                                'parameters' => array(
+                                    'visible' => new Parameter(
+                                        array(
+                                            'value' => true,
+                                        )
+                                    ),
+                                    'visible_from' => new Parameter(
+                                        array(
+                                            'value' => null,
+                                        )
+                                    ),
+                                    'visible_to' => new Parameter(
+                                        array(
+                                            'value' => null,
+                                        )
+                                    ),
+                                ),
+                            )
+                        ),
+                    ),
                 )
             );
         }
@@ -182,6 +207,29 @@ final class ResultBuilderTest extends TestCase
                     'type' => Item::TYPE_OVERRIDE,
                     'value' => $id,
                     'valueType' => 'value',
+                    'configs' => array(
+                        'visibility' => new Config(
+                            array(
+                                'parameters' => array(
+                                    'visible' => new Parameter(
+                                        array(
+                                            'value' => true,
+                                        )
+                                    ),
+                                    'visible_from' => new Parameter(
+                                        array(
+                                            'value' => null,
+                                        )
+                                    ),
+                                    'visible_to' => new Parameter(
+                                        array(
+                                            'value' => null,
+                                        )
+                                    ),
+                                ),
+                            )
+                        ),
+                    ),
                 )
             );
         }
