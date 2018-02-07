@@ -11,7 +11,7 @@ final class ConfiguredVoter implements VoterInterface
     public function vote(Item $item)
     {
         $visibilityConfig = $item->getConfig('visibility');
-        if (!$visibilityConfig->getParameter('visible')->getValue()) {
+        if ($visibilityConfig->getParameter('visible')->getValue() === false) {
             return self::NO;
         }
 
