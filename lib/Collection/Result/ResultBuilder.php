@@ -60,7 +60,7 @@ final class ResultBuilder implements ResultBuilderInterface
 
         $collectionCount = $collectionIterator->count();
         if ($limit > 0 && $offset < $collectionCount) {
-            $results = $this->getResults($collectionIterator);
+            $results = $this->getResults($collectionIterator, $flags);
         }
 
         $overflowResults = array();
