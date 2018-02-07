@@ -130,7 +130,7 @@ final class ResultBuilder implements ResultBuilderInterface
                 continue;
             }
 
-            $overflowResults[] = $item;
+            $overflowResults[] = $this->resultItemBuilder->build($item, $item->getPosition());
         }
 
         return $overflowResults;
