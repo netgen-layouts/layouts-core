@@ -32,7 +32,7 @@ trait ConfigAwareValueTrait
      */
     public function getConfig($configKey)
     {
-        if (isset($this->configs[$configKey])) {
+        if ($this->hasConfig($configKey)) {
             return $this->configs[$configKey];
         }
 
@@ -48,7 +48,7 @@ trait ConfigAwareValueTrait
      */
     public function hasConfig($configKey)
     {
-        return isset($this->configs[$configKey]);
+        return array_key_exists($configKey, $this->configs);
     }
 
     /**
