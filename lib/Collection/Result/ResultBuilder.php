@@ -57,21 +57,14 @@ final class ResultBuilder implements ResultBuilderInterface
         );
 
         $results = array();
+
         $collectionCount = $collectionIterator->count();
-
         if ($limit > 0 && $offset < $collectionCount) {
-            foreach ($collectionIterator as $position => $item) {
-                $result = $this->resultItemBuilder->build($item, $position);
-
-                if (!$this->includeResult($result, $flags)) {
-                    continue;
-                }
-
-                $results[$position] = $result;
-            }
+            $results = $this->getResults($collectionIterator);
         }
 
         $overflowResults = array();
+
         if ((bool) ($flags & ResultSet::INCLUDE_OVERFLOW_ITEMS)) {
             $overflowResults = $this->getOverflowResults($collection, $results);
         }
@@ -86,6 +79,33 @@ final class ResultBuilder implements ResultBuilderInterface
                 'limit' => $limit,
             )
         );
+    }
+
+    /**
+     * Returns all items from the collection which are included in the result.
+     * Those are the items that fit inside the offset and limit, as defined by
+     * the collection.
+     *
+     * @param \Netgen\BlockManager\Collection\Result\CollectionIterator $collectionIterator
+     * @param int $flags
+     *
+     * @return \Netgen\BlockManager\Collection\Result\Result[]
+     */
+    private function getResults(CollectionIterator $collectionIterator, $flags = 0)
+    {
+        $results = array();
+
+        foreach ($collectionIterator as $position => $item) {
+            $result = $this->resultItemBuilder->build($item, $position);
+
+            if (!$this->includeResult($result, $flags)) {
+                continue;
+            }
+
+            $results[$position] = $result;
+        }
+
+        return $results;
     }
 
     /**
