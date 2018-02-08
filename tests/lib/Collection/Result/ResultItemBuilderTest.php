@@ -59,6 +59,7 @@ final class ResultItemBuilderTest extends TestCase
      *
      * @covers \Netgen\BlockManager\Collection\Result\ResultItemBuilder::__construct
      * @covers \Netgen\BlockManager\Collection\Result\ResultItemBuilder::build
+     * @covers \Netgen\BlockManager\Collection\Result\ResultItemBuilder::isResultVisible
      *
      * @dataProvider buildProvider
      */
@@ -160,6 +161,7 @@ final class ResultItemBuilderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Collection\Result\ResultItemBuilder::build
+     * @covers \Netgen\BlockManager\Collection\Result\ResultItemBuilder::isResultVisible
      */
     public function testBuildWithCmsItem()
     {
@@ -194,6 +196,7 @@ final class ResultItemBuilderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Collection\Result\ResultItemBuilder::build
+     * @covers \Netgen\BlockManager\Collection\Result\ResultItemBuilder::isResultVisible
      */
     public function testBuildWithCmsValueObject()
     {
@@ -230,6 +233,7 @@ final class ResultItemBuilderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Collection\Result\ResultItemBuilder::build
+     * @covers \Netgen\BlockManager\Collection\Result\ResultItemBuilder::isResultVisible
      */
     public function testBuildWithInvalidCollectionItem()
     {

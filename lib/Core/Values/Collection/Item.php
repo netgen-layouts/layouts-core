@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\Core\Values\Collection;
 
+use DateTimeImmutable;
+use DateTimeInterface;
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\Core\Values\Config\ConfigAwareValueTrait;
 use Netgen\BlockManager\ValueObject;
@@ -98,5 +100,28 @@ final class Item extends ValueObject implements APIItem
     public function getValueType()
     {
         return $this->valueType;
+    }
+
+    public function isVisible(DateTimeInterface $reference = null)
+    {
+        $reference = $reference ?: new DateTimeImmutable();
+
+        $visibilityConfig = $this->getConfig('visibility');
+        if ($visibilityConfig->getParameter('visible')->getValue() === false) {
+            return false;
+        }
+
+        $visibleFrom = $visibilityConfig->getParameter('visible_from')->getValue();
+        $visibleTo = $visibilityConfig->getParameter('visible_to')->getValue();
+
+        if ($visibleFrom instanceof DateTimeInterface && $reference < $visibleFrom) {
+            return false;
+        }
+
+        if ($visibleTo instanceof DateTimeInterface && $reference > $visibleTo) {
+            return false;
+        }
+
+        return true;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\API\Values\Collection;
 
+use DateTimeInterface;
 use Netgen\BlockManager\API\Values\Config\ConfigAwareValue;
 use Netgen\BlockManager\API\Values\Value;
 
@@ -79,4 +80,17 @@ interface Item extends Value, ConfigAwareValue
      * @return string
      */
     public function getValueType();
+
+    /**
+     * Returns if the item is visible in provided point in time, as specified by item
+     * configuration. This does not take into account the visibility of the CMS entity
+     * referenced by this item.
+     *
+     * If reference time is not provided, current time is used.
+     *
+     * @param \DateTimeInterface $reference
+     *
+     * @return string
+     */
+    public function isVisible(DateTimeInterface $reference = null);
 }

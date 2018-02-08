@@ -15,6 +15,7 @@ final class ResultTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\Result::getType
      * @covers \Netgen\BlockManager\Collection\Result\Result::getPosition
      * @covers \Netgen\BlockManager\Collection\Result\Result::isVisible
+     * @covers \Netgen\BlockManager\Collection\Result\Result::getInvisibilityReason
      */
     public function testObject()
     {

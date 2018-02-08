@@ -2,8 +2,6 @@
 
 namespace Netgen\BlockManager\Collection\Result;
 
-use DateTimeImmutable;
-use DateTimeInterface;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\Collection\Item\VisibilityResolverInterface;
 use Netgen\BlockManager\Exception\Item\ItemException;
@@ -120,42 +118,12 @@ final class ResultItemBuilder
             return array(false, Result::HIDDEN_BY_CMS);
         }
 
-        if (!$this->isItemVisible($collectionItem)) {
+        if (!$collectionItem->isVisible()) {
             return array(false, Result::HIDDEN_BY_CONFIG);
         }
 
         $visible = $this->visibilityResolver->isVisible($collectionItem);
 
         return array($visible, $visible ? null : Result::HIDDEN_BY_CODE);
-    }
-
-    /**
-     * Returns if the collection item is hidden as specified by its configuration.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Item $collectionItem
-     *
-     * @return bool
-     */
-    private function isItemVisible(Item $collectionItem)
-    {
-        $visibilityConfig = $collectionItem->getConfig('visibility');
-        if ($visibilityConfig->getParameter('visible')->getValue() === false) {
-            return false;
-        }
-
-        $currentDate = new DateTimeImmutable();
-
-        $visibleFrom = $visibilityConfig->getParameter('visible_from')->getValue();
-        $visibleTo = $visibilityConfig->getParameter('visible_to')->getValue();
-
-        if ($visibleFrom instanceof DateTimeInterface && $currentDate < $visibleFrom) {
-            return false;
-        }
-
-        if ($visibleTo instanceof DateTimeInterface && $currentDate > $visibleTo) {
-            return false;
-        }
-
-        return true;
     }
 }

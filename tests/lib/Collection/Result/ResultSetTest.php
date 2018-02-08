@@ -15,6 +15,7 @@ final class ResultSetTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Result\ResultSet::getCollection
      * @covers \Netgen\BlockManager\Collection\Result\ResultSet::getResults
+     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::getOverflowResults
      * @covers \Netgen\BlockManager\Collection\Result\ResultSet::getTotalCount
      * @covers \Netgen\BlockManager\Collection\Result\ResultSet::getOffset
      * @covers \Netgen\BlockManager\Collection\Result\ResultSet::getLimit
@@ -31,6 +32,7 @@ final class ResultSetTest extends TestCase
             array(
                 'collection' => new Collection(array('type' => Collection::TYPE_MANUAL)),
                 'results' => array('items'),
+                'overflowResults' => array('overflow_items'),
                 'totalCount' => 15,
                 'offset' => 3,
                 'limit' => 5,
@@ -39,6 +41,7 @@ final class ResultSetTest extends TestCase
 
         $this->assertEquals(new Collection(array('type' => Collection::TYPE_MANUAL)), $result->getCollection());
         $this->assertEquals(array('items'), $result->getResults());
+        $this->assertEquals(array('overflow_items'), $result->getOverflowResults());
         $this->assertFalse($result->isContextual());
         $this->assertEquals(15, $result->getTotalCount());
         $this->assertEquals(3, $result->getOffset());

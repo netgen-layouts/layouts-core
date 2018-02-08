@@ -27,6 +27,11 @@ final class Item implements ItemInterface, LayoutInterface
         return $this->layout->getName();
     }
 
+    public function getLongName()
+    {
+        return $this->layout->getName();
+    }
+
     public function isVisible()
     {
         return true;
