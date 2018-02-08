@@ -134,7 +134,7 @@ final class CollectionController extends Controller
         return $this->buildView(
             $form,
             ViewInterface::CONTEXT_API,
-            array(),
+            array('cms_item' => $cmsItem),
             new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
         );
     }
