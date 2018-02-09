@@ -11,7 +11,7 @@
 
 {% block children %}
     {% if not cms_item.visible %}
-        <p>{{ 'config.collection_item.visibility.warning'|trans }}</p>
+        <p class="warning">{{ 'config.collection_item.visibility.warning'|trans }}</p>
     {% endif %}
 
     {{ form_row(visibility_form.children.visible, {required: false}) }}
