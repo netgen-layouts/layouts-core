@@ -15,6 +15,8 @@
     {% endif %}
 
     {{ form_row(visibility_form.children.visible, {required: false}) }}
+
+    <p class="note">{{ 'config.collection_item.visibility.note'|trans({'%timeZone%': 'now'|date('e')}) }}</p>
 {% endblock %}
 
 {% block buttons %}

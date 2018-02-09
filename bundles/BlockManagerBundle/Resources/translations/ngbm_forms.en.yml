@@ -66,6 +66,7 @@ config.block.http_cache.submit: 'Set cache'
 
 config.collection_item.visibility.header: 'Configure item visibility'
 config.collection_item.visibility.warning: 'WARNING: CMS entity wrapped by this item is not visible. These settings will not apply until the entity is visible again.'
+config.collection_item.visibility.note: 'NOTE: Values set here will be compared against the server time which is in %timeZone% timezone.'
 config.collection_item.visibility.visible_from: 'Visible from'
 config.collection_item.visibility.visible_to: 'Visible to'
 config.collection_item.visibility.cancel: 'Cancel'
