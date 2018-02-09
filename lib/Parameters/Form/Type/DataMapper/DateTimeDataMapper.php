@@ -2,25 +2,14 @@
 
 namespace Netgen\BlockManager\Parameters\Form\Type\DataMapper;
 
-use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
-use Netgen\BlockManager\Parameters\Value\DateTimeValue;
+use DateTimeInterface;
 use Symfony\Component\Form\DataMapperInterface;
 
 /**
- * Mapper used to convert to and from the DateTimeValue object to the Symfony form structure.
+ * Mapper used to convert to and from the DateTimeInterface object to the Symfony form structure.
  */
 final class DateTimeDataMapper implements DataMapperInterface
 {
-    /**
-     * @var \Netgen\BlockManager\Parameters\ParameterDefinitionInterface
-     */
-    private $parameterDefinition;
-
-    public function __construct(ParameterDefinitionInterface $parameterDefinition)
-    {
-        $this->parameterDefinition = $parameterDefinition;
-    }
-
     public function mapDataToForms($data, $forms)
     {
         $forms = iterator_to_array($forms);
@@ -28,9 +17,9 @@ final class DateTimeDataMapper implements DataMapperInterface
         $dateTime = null;
         $timeZone = date_default_timezone_get();
 
-        if ($data instanceof DateTimeValue && !empty($data->getDateTime())) {
-            $dateTime = $data->getDateTime();
-            $timeZone = $data->getTimeZone();
+        if ($data instanceof DateTimeInterface) {
+            $dateTime = $data->format('Y-m-d H:i:s');
+            $timeZone = $data->getTimezone()->getName();
         }
 
         $forms['datetime']->setData($dateTime);
@@ -41,15 +30,17 @@ final class DateTimeDataMapper implements DataMapperInterface
     {
         $forms = iterator_to_array($forms);
         $dateTime = $forms['datetime']->getData();
+        $timeZone = $forms['timezone']->getData();
 
-        $data = null;
-        if (!empty($dateTime)) {
-            $data = array(
-                'datetime' => $dateTime,
-                'timezone' => $forms['timezone']->getData(),
-            );
+        if ($dateTime === '') {
+            $data = null;
+
+            return;
         }
 
-        $data = $this->parameterDefinition->getType()->fromHash($this->parameterDefinition, $data);
+        $data = array(
+            'datetime' => $dateTime,
+            'timezone' => $timeZone,
+        );
     }
 }

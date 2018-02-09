@@ -17,6 +17,6 @@ final class DateTimeMapper extends Mapper
 
     public function handleForm(FormBuilderInterface $form, ParameterDefinitionInterface $parameterDefinition)
     {
-        $form->setDataMapper(new DateTimeDataMapper($parameterDefinition));
+        $form->setDataMapper(new DateTimeDataMapper());
     }
 }

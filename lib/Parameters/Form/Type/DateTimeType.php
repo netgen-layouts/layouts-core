@@ -7,13 +7,15 @@ use DateTimeZone;
 use Netgen\BlockManager\Form\AbstractType;
 use Netgen\BlockManager\Form\ChoicesAsValuesTrait;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType as BaseDateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class DateTimeType extends AbstractType
 {
     use ChoicesAsValuesTrait;
+
+    const HTML5_FORMAT = "yyyy-MM-dd'T'HH:mm";
 
     /**
      * @var array
@@ -31,9 +33,14 @@ final class DateTimeType extends AbstractType
     {
         $builder->add(
             'datetime',
-            TextType::class,
+            BaseDateTimeType::class,
             array(
                 'label' => 'datetime.datetime',
+                'format' => static::HTML5_FORMAT,
+                'widget' => 'single_text',
+                'html5' => false,
+                'input' => 'string',
+                'empty_data' => '',
                 'property_path' => 'dateTime',
             )
         );

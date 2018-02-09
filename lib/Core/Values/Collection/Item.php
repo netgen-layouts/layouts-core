@@ -6,7 +6,6 @@ use DateTimeImmutable;
 use DateTimeInterface;
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\Core\Values\Config\ConfigAwareValueTrait;
-use Netgen\BlockManager\Parameters\Value\DateTimeValue;
 use Netgen\BlockManager\ValueObject;
 
 final class Item extends ValueObject implements APIItem
@@ -113,10 +112,7 @@ final class Item extends ValueObject implements APIItem
         }
 
         $visibleFrom = $visibilityConfig->getParameter('visible_from')->getValue();
-        $visibleFrom = $visibleFrom instanceof DateTimeValue ? $visibleFrom->getDateTimeInstance() : null;
-
         $visibleTo = $visibilityConfig->getParameter('visible_to')->getValue();
-        $visibleTo = $visibleTo instanceof DateTimeValue ? $visibleTo->getDateTimeInstance() : null;
 
         if ($visibleFrom instanceof DateTimeInterface && $reference < $visibleFrom) {
             return false;
