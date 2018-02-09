@@ -41,7 +41,7 @@ final class DateTimeType extends AbstractType
                 'html5' => false,
                 'input' => 'string',
                 'empty_data' => '',
-                'property_path' => 'dateTime',
+                'property_path' => 'datetime',
             )
         );
 
@@ -52,7 +52,7 @@ final class DateTimeType extends AbstractType
                 'label' => 'datetime.timezone',
                 'choices' => $this->getTimeZoneList(),
                 'choice_translation_domain' => false,
-                'property_path' => 'timeZone',
+                'property_path' => 'timezone',
             )
         );
     }
