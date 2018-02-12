@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service;
 
-use DateTime;
 use DateTimeImmutable;
+use DateTimeZone;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
@@ -366,7 +366,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
     {
         $itemUpdateStruct = $this->collectionService->newItemUpdateStruct();
 
-        $dateTime = DateTimeImmutable::createFromFormat(DateTime::RFC3339, '2018-02-01T15:00:00+0100');
+        $dateTime = new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey'));
 
         $visibilityConfigStruct = new ConfigStruct();
         $visibilityConfigStruct->setParameterValue('visible', true);

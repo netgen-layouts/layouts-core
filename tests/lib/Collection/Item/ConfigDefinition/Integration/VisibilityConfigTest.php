@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Collection\Item\ConfigDefinition\Integration;
 
-use DateTime;
 use DateTimeImmutable;
+use DateTimeZone;
 use Netgen\BlockManager\Collection\Item\ConfigDefinition\Handler\VisibilityConfigHandler;
 
 abstract class VisibilityConfigTest extends ItemTest
@@ -21,8 +21,8 @@ abstract class VisibilityConfigTest extends ItemTest
      */
     public function configDataProvider()
     {
-        $dateFrom = DateTimeImmutable::createFromFormat(DateTime::RFC3339, '2018-01-02T15:00:00+01:00');
-        $dateTo = DateTimeImmutable::createFromFormat(DateTime::RFC3339, '2018-01-02T16:00:00+01:00');
+        $dateFrom = new DateTimeImmutable('2018-01-02 15:00:00', new DateTimeZone('Antarctica/Casey'));
+        $dateTo = new DateTimeImmutable('2018-01-02 16:00:00', new DateTimeZone('Antarctica/Casey'));
 
         return array(
             array(

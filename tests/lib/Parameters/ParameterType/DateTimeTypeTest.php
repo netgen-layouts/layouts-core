@@ -4,8 +4,10 @@ namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
 
 use DateTime;
 use DateTimeImmutable;
+use DateTimeZone;
 use Netgen\BlockManager\Parameters\ParameterType\DateTimeType;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
+use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 
@@ -70,8 +72,8 @@ final class DateTimeTypeTest extends TestCase
             array(null, true),
             array(new DateTime(), false),
             array(new DateTimeImmutable(), false),
-            array(DateTime::createFromFormat(DateTime::RFC3339, '2018-02-01T15:00:00+01:00'), false),
-            array(DateTimeImmutable::createFromFormat(DateTime::RFC3339, '2018-02-01T15:00:00+01:00'), false),
+            array(new DateTime('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey')), false),
+            array(new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey')), false),
         );
     }
 
@@ -92,7 +94,15 @@ final class DateTimeTypeTest extends TestCase
         return array(
             array(42, null),
             array(null, null),
-            array(DateTimeImmutable::createFromFormat(DateTime::RFC3339, '2018-02-01T15:00:00+01:00'), '2018-02-01T15:00:00+01:00'),
+            array(array(), null),
+            array(array('datetime' => '2018-02-01 00:00:00'), null),
+            array(array('timezone' => 'Antarctica/Casey'), null),
+            array(array('datetime' => '2018-02-01 00:00:00', 'timezone' => ''), null),
+            array(array('datetime' => '', 'timezone' => 'Antarctica/Casey'), null),
+            array(array('datetime' => '', 'timezone' => ''), null),
+            array(array('datetime' => '2018-02-01 15:00:00', 'timezone' => 'Antarctica/Casey'), array('datetime' => '2018-02-01 15:00:00.000000', 'timezone' => 'Antarctica/Casey')),
+            array(new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey')), array('datetime' => '2018-02-01 15:00:00.000000', 'timezone' => 'Antarctica/Casey')),
+            array(new DateTime('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey')), array('datetime' => '2018-02-01 15:00:00.000000', 'timezone' => 'Antarctica/Casey')),
         );
     }
 
@@ -113,8 +123,13 @@ final class DateTimeTypeTest extends TestCase
         return array(
             array(42, null),
             array(null, null),
-            array('01.02.2018 15:00:00', null),
-            array('2018-02-01T15:00:00+01:00', DateTimeImmutable::createFromFormat(DateTime::RFC3339, '2018-02-01T15:00:00+01:00')),
+            array(array(), null),
+            array(array('datetime' => '2018-02-01 00:00:00'), null),
+            array(array('timezone' => 'Antarctica/Casey'), null),
+            array(array('datetime' => '2018-02-01 00:00:00', 'timezone' => ''), null),
+            array(array('datetime' => '', 'timezone' => 'Antarctica/Casey'), null),
+            array(array('datetime' => '', 'timezone' => ''), null),
+            array(array('datetime' => '2018-02-01 15:00:00.000000', 'timezone' => 'Antarctica/Casey'), new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey'))),
         );
     }
 
@@ -129,7 +144,9 @@ final class DateTimeTypeTest extends TestCase
     public function testValidation($value, $isValid)
     {
         $parameter = $this->getParameter();
-        $validator = Validation::createValidator();
+        $validator = Validation::createValidatorBuilder()
+            ->setConstraintValidatorFactory(new ValidatorFactory($this))
+            ->getValidator();
 
         $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));
         $this->assertEquals($isValid, $errors->count() === 0);
@@ -146,8 +163,12 @@ final class DateTimeTypeTest extends TestCase
             array(null, true),
             array(new DateTime(), true),
             array(new DateTimeImmutable(), true),
-            array(DateTime::createFromFormat(DateTime::RFC3339, '2018-02-01T15:00:00+01:00'), true),
-            array(DateTimeImmutable::createFromFormat(DateTime::RFC3339, '2018-02-01T15:00:00+01:00'), true),
+            array(new DateTime('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey')), true),
+            array(new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey')), true),
+            array(new DateTime('2018-02-01 15:00:00', new DateTimeZone('+01:00')), false),
+            array(new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('+01:00')), false),
+            array(new DateTime('2018-02-01 15:00:00', new DateTimeZone('CAST')), false),
+            array(new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('CAST')), false),
         );
     }
 }

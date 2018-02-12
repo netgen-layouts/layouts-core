@@ -52,6 +52,8 @@ final class ValidatorFactory implements ConstraintValidatorFactoryInterface
             $valueTypeRegistry->addValueType('default', new ValueType(array('isEnabled' => true)));
 
             return new Validator\ValueTypeValidator($valueTypeRegistry);
+        } elseif ($name === 'ngbm_datetime') {
+            return new Validator\Parameters\DateTimeValidator();
         } elseif ($name === 'ngbm_link') {
             return new Validator\Parameters\LinkValidator();
         } elseif ($name === 'ngbm_item_link') {
