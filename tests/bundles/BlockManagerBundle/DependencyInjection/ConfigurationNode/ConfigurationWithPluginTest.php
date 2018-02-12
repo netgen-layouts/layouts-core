@@ -40,7 +40,7 @@ final class ConfigurationWithPluginTest extends TestCase
      *
      * @return \Symfony\Component\Config\Definition\ConfigurationInterface
      */
-    private function getConfiguration()
+    protected function getConfiguration()
     {
         $extension = new NetgenBlockManagerExtension();
         $extension->addPlugin(new ExtensionPlugin());

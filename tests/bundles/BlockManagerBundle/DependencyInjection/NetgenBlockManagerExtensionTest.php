@@ -230,6 +230,44 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
     }
 
     /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::load
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::validateCurrentDesign
+     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
+     * @expectedExceptionMessage Design "non_existing" does not exist. Available designs are: standard
+     */
+    public function testNonExistingCurrentDesign()
+    {
+        $this->load($this->minimalConfig + array('design' => 'non_existing'));
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::load
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::validateCurrentDesign
+     */
+    public function testStandardAsCurrentDesign()
+    {
+        $this->load($this->minimalConfig + array('design' => 'standard'));
+
+        // Avoids a warning in test runner about tests which do not assert anything
+        $this->assertTrue(true);
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::load
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::validateCurrentDesign
+     */
+    public function testCustomDesignAsCurrentDesign()
+    {
+        $designList = $this->minimalConfig;
+        $designList['design_list']['custom'] = array();
+
+        $this->load($designList + array('design' => 'custom'));
+
+        // Avoids a warning in test runner about tests which do not assert anything
+        $this->assertTrue(true);
+    }
+
+    /**
      * Return an array of container extensions that need to be registered for
      * each test (usually just the container extension you are testing).
      *

@@ -45,7 +45,49 @@ final class FilesystemLoaderTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getSource
+     * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getRealName
+     */
+    public function testGetSource()
+    {
+        $this->innerLoaderMock = $this->createMock(LegacyFilesystemLoader::class);
+        $this->loader = new FilesystemLoader($this->innerLoaderMock, $this->configurationMock);
+
+        $this->innerLoaderMock
+            ->expects($this->once())
+            ->method('getSource')
+            ->with($this->equalTo('@ngbm_test/template.html.twig'))
+            ->will($this->returnValue('@ngbm_test/template.html.twig'));
+
+        $source = $this->loader->getSource('@ngbm/template.html.twig');
+
+        $this->assertEquals('@ngbm_test/template.html.twig', $source);
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getSource
+     * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getRealName
+     */
+    public function testGetSourceWithNonLayoutsTwigFile()
+    {
+        $this->innerLoaderMock = $this->createMock(LegacyFilesystemLoader::class);
+        $this->loader = new FilesystemLoader($this->innerLoaderMock, $this->configurationMock);
+
+        $this->innerLoaderMock
+            ->expects($this->once())
+            ->method('getSource')
+            ->with($this->equalTo('@other/template.html.twig'))
+            ->will($this->returnValue('@other/template.html.twig'));
+
+        $source = $this->loader->getSource('@other/template.html.twig');
+
+        $this->assertEquals('@other/template.html.twig', $source);
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getSourceContext
+     * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getRealName
      */
     public function testGetSourceContext()
     {
@@ -61,7 +103,25 @@ final class FilesystemLoaderTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getSourceContext
+     * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getRealName
+     */
+    public function testGetSourceContextWithNonLayoutsTwigFile()
+    {
+        $this->innerLoaderMock
+            ->expects($this->once())
+            ->method('getSourceContext')
+            ->with($this->equalTo('@other/template.html.twig'))
+            ->will($this->returnValue(new Source('', '@other/template.html.twig')));
+
+        $sourceContext = $this->loader->getSourceContext('@other/template.html.twig');
+
+        $this->assertEquals(new Source('', '@other/template.html.twig'), $sourceContext);
+    }
+
+    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getCacheKey
+     * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getRealName
      */
     public function testGetCacheKey()
     {
@@ -77,7 +137,25 @@ final class FilesystemLoaderTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getCacheKey
+     * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getRealName
+     */
+    public function testGetCacheKeyWithNonLayoutsTwigFile()
+    {
+        $this->innerLoaderMock
+            ->expects($this->once())
+            ->method('getCacheKey')
+            ->with($this->equalTo('@other/template.html.twig'))
+            ->will($this->returnValue('cache_key'));
+
+        $cacheKey = $this->loader->getCacheKey('@other/template.html.twig');
+
+        $this->assertEquals('cache_key', $cacheKey);
+    }
+
+    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::isFresh
+     * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getRealName
      */
     public function testIsFresh()
     {
@@ -91,7 +169,23 @@ final class FilesystemLoaderTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::isFresh
+     * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getRealName
+     */
+    public function testIsFreshWithNonLayoutsTwigFile()
+    {
+        $this->innerLoaderMock
+            ->expects($this->once())
+            ->method('isFresh')
+            ->with($this->equalTo('@other/template.html.twig'), $this->equalTo(42))
+            ->will($this->returnValue(true));
+
+        $this->assertTrue($this->loader->isFresh('@other/template.html.twig', 42));
+    }
+
+    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::exists
+     * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getRealName
      */
     public function testExists()
     {
@@ -102,5 +196,20 @@ final class FilesystemLoaderTest extends TestCase
             ->will($this->returnValue(true));
 
         $this->assertTrue($this->loader->exists('@ngbm/template.html.twig'));
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::exists
+     * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getRealName
+     */
+    public function testExistsWithNonLayoutsTwigFile()
+    {
+        $this->innerLoaderMock
+            ->expects($this->once())
+            ->method('exists')
+            ->with($this->equalTo('@other/template.html.twig'))
+            ->will($this->returnValue(true));
+
+        $this->assertTrue($this->loader->exists('@other/template.html.twig'));
     }
 }

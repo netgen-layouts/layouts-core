@@ -69,7 +69,7 @@ final class ApiKeysNodeTest extends TestCase
      *
      * @return \Symfony\Component\Config\Definition\ConfigurationInterface
      */
-    private function getConfiguration()
+    protected function getConfiguration()
     {
         return new Configuration(new NetgenBlockManagerExtension());
     }

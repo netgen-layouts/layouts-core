@@ -7,33 +7,59 @@ use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
 use PHPUnit\Framework\TestCase;
 
-final class PageLayoutNodeTest extends TestCase
+final class DesignNodeTest extends TestCase
 {
     use ConfigurationTestCaseTrait;
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getConfigTreeBuilder
-     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\PageLayoutNode::getConfigurationNode
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\DesignNode::getConfigurationNode
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration::getNodes
      */
-    public function testPagelayoutSettings()
+    public function testDesignSettings()
     {
         $config = array(
-            array(
-                'pagelayout' => 'pagelayout.html.twig',
-            ),
+            array(),
         );
 
         $expectedConfig = array(
-            'pagelayout' => 'pagelayout.html.twig',
+            'design' => 'standard',
         );
 
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'pagelayout'
+            'design'
         );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\DesignNode::getConfigurationNode
+     */
+    public function testDesignSettingsWithEmptyDesignName()
+    {
+        $config = array(
+            array(
+                'design' => '',
+            ),
+        );
+
+        $this->assertConfigurationIsInvalid($config, 'The path "netgen_block_manager.design" cannot contain an empty value, but got "".');
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNode\DesignNode::getConfigurationNode
+     */
+    public function testDesignSettingsWithInvalidDesignName()
+    {
+        $config = array(
+            array(
+                'design' => array(),
+            ),
+        );
+
+        $this->assertConfigurationIsInvalid($config, 'Invalid type for path "netgen_block_manager.design". Expected scalar, but got array.');
     }
 
     /**
