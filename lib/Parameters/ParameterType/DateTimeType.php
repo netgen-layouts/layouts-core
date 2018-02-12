@@ -18,6 +18,7 @@ use Netgen\BlockManager\Validator\Constraint\Parameters\DateTime as DateTimeCons
 final class DateTimeType extends ParameterType
 {
     const DATE_FORMAT = 'Y-m-d H:i:s';
+    const STORAGE_DATE_FORMAT = 'Y-m-d H:i:s.u';
 
     public function getIdentifier()
     {
@@ -39,16 +40,13 @@ final class DateTimeType extends ParameterType
             return null;
         }
 
-        if ($value instanceof DateTimeInterface) {
-            return array(
-                'datetime' => $value->format(static::DATE_FORMAT),
-                'timezone' => $value->getTimezone()->getName(),
-            );
+        if (!$value instanceof DateTimeInterface) {
+            $value = $this->fromHash($parameterDefinition, $value);
         }
 
         return array(
-            'datetime' => $value['datetime'],
-            'timezone' => $value['timezone'],
+            'datetime' => $value->format(static::STORAGE_DATE_FORMAT),
+            'timezone' => $value->getTimezone()->getName(),
         );
     }
 
