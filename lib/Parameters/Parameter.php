@@ -47,7 +47,7 @@ final class Parameter extends ValueObject
     }
 
     /**
-     * Returns the parameter.
+     * Returns the parameter definition.
      *
      * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface
      */

@@ -7,9 +7,6 @@ use Doctrine\DBAL\Schema\Schema;
 
 final class Version001000 extends AbstractMigration
 {
-    /**
-     * @param \Doctrine\DBAL\Schema\Schema $schema
-     */
     public function up(Schema $schema)
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on MySQL.');
@@ -32,9 +29,6 @@ EOT
         $this->addSql('ALTER TABLE ngbm_collection_item MODIFY COLUMN value_id varchar(255)');
     }
 
-    /**
-     * @param \Doctrine\DBAL\Schema\Schema $schema
-     */
     public function down(Schema $schema)
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on MySQL.');

@@ -7,9 +7,6 @@ use Doctrine\DBAL\Schema\Schema;
 
 final class Version000800 extends AbstractMigration
 {
-    /**
-     * @param \Doctrine\DBAL\Schema\Schema $schema
-     */
     public function up(Schema $schema)
     {
         $blockTable = $schema->getTable('ngbm_block');
@@ -28,9 +25,6 @@ final class Version000800 extends AbstractMigration
         $this->addSql('ALTER TABLE ngbm_layout ADD COLUMN description text NOT NULL AFTER name');
     }
 
-    /**
-     * @param \Doctrine\DBAL\Schema\Schema $schema
-     */
     public function down(Schema $schema)
     {
         $blockTable = $schema->getTable('ngbm_block');
