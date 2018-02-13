@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\Reference;
 final class VisibilityResolverPass implements CompilerPassInterface
 {
     const SERVICE_NAME = 'netgen_block_manager.collection.item.visibility_resolver';
-    const TAG_NAME = 'netgen_block_manager.collection.item.visibility_resolver.voter';
+    const TAG_NAME = 'netgen_block_manager.collection.item.visibility_voter';
 
     public function process(ContainerBuilder $container)
     {

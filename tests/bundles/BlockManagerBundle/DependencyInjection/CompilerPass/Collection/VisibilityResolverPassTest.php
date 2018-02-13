@@ -21,12 +21,12 @@ final class VisibilityResolverPassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('netgen_block_manager.collection.item.visibility_resolver', $visibilityResolver);
 
         $voter = new Definition();
-        $voter->addTag('netgen_block_manager.collection.item.visibility_resolver.voter');
-        $this->setDefinition('netgen_block_manager.collection.item.visibility_resolver.voter.test', $voter);
+        $voter->addTag('netgen_block_manager.collection.item.visibility_voter');
+        $this->setDefinition('netgen_block_manager.collection.item.visibility_voter.test', $voter);
 
         $voter2 = new Definition();
-        $voter2->addTag('netgen_block_manager.collection.item.visibility_resolver.voter');
-        $this->setDefinition('netgen_block_manager.collection.item.visibility_resolver.voter.test2', $voter2);
+        $voter2->addTag('netgen_block_manager.collection.item.visibility_voter');
+        $this->setDefinition('netgen_block_manager.collection.item.visibility_voter.test2', $voter2);
 
         $this->compile();
 
@@ -35,8 +35,8 @@ final class VisibilityResolverPassTest extends AbstractCompilerPassTestCase
             'setVoters',
             array(
                 array(
-                    new Reference('netgen_block_manager.collection.item.visibility_resolver.voter.test'),
-                    new Reference('netgen_block_manager.collection.item.visibility_resolver.voter.test2'),
+                    new Reference('netgen_block_manager.collection.item.visibility_voter.test'),
+                    new Reference('netgen_block_manager.collection.item.visibility_voter.test2'),
                 ),
             )
         );
