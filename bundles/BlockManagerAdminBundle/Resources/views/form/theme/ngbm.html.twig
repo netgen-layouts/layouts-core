@@ -48,6 +48,8 @@
         {{- form_label(values_form) -}}
         {{- form_errors(values_form) -}}
 
+        <div class="no-items-msg">Any item</div>
+
         <div class="multientry-items">
             {% for value_form in values_form %}
                 {{- form_errors(value_form) -}}
