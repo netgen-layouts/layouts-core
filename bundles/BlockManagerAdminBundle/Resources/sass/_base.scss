@@ -138,7 +138,17 @@ body {
             }
             &:first-child:nth-last-child(1) {
                 .icon-close {
-                    // display:none;
+                    display: none;
+                }
+            }
+        }
+    }
+    .multientry[data-last_item_can_be_removed="true"] {
+        .multientry-items {
+            .multientry-item {
+                .icon-close {
+                    display: block;
+
                 }
             }
         }

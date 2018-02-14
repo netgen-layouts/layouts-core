@@ -28,7 +28,6 @@ final class QueryParameter implements ConditionTypeInterface
                         ),
                         'parameter_values' => new Constraints\Required(
                             array(
-                                new Constraints\NotBlank(),
                                 new Constraints\Type(array('type' => 'array')),
                                 new Constraints\All(
                                     array(
@@ -51,7 +50,7 @@ final class QueryParameter implements ConditionTypeInterface
             return false;
         }
 
-        if (empty($value['parameter_name']) || empty($value['parameter_values'])) {
+        if (empty($value['parameter_name'])) {
             return false;
         }
 
@@ -62,7 +61,7 @@ final class QueryParameter implements ConditionTypeInterface
 
         $parameterValues = array_map('trim', $value['parameter_values']);
 
-        return in_array(
+        return empty($value['parameter_values']) || in_array(
             $queryParameters->get($value['parameter_name']),
             $parameterValues,
             true

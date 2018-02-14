@@ -1,3 +1,3 @@
 {% if condition.value.parameter_name is defined and condition.value.parameter_values is defined %}
-    {{ condition.value.parameter_name }}: {{ condition.value.parameter_values|join(', ') }}
+    {{ condition.value.parameter_name }}: {{ condition.value.parameter_values is not empty ? condition.value.parameter_values|join(', ') : 'Any value is possible' }}
 {% endif %}
