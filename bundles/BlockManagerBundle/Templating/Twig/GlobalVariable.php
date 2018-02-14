@@ -130,13 +130,14 @@ final class GlobalVariable
      * Returns the currently valid layout template, or base pagelayout if
      * no layout was resolved.
      *
+     * @param bool $forceResolving
      * @param string $context
      *
      * @return string
      */
-    public function getLayoutTemplate($context = ViewInterface::CONTEXT_DEFAULT)
+    public function getLayoutTemplate($forceResolving = false, $context = ViewInterface::CONTEXT_DEFAULT)
     {
-        $this->buildLayoutView($context);
+        $this->buildLayoutView($forceResolving, $context);
 
         if (!$this->layoutView instanceof LayoutViewInterface) {
             return $this->getPageLayoutTemplate();
@@ -148,9 +149,10 @@ final class GlobalVariable
     /**
      * Resolves the used layout, based on current conditions.
      *
+     * @param bool $forceResolving
      * @param string $context
      */
-    private function buildLayoutView($context = ViewInterface::CONTEXT_DEFAULT)
+    private function buildLayoutView($forceResolving = false, $context = ViewInterface::CONTEXT_DEFAULT)
     {
         $resolvedRules = $this->layoutResolver->resolveRules();
         if (empty($resolvedRules)) {
@@ -159,7 +161,7 @@ final class GlobalVariable
             return;
         }
 
-        if (!$this->layoutView instanceof LayoutViewInterface) {
+        if (!$this->layoutView instanceof LayoutViewInterface || $forceResolving) {
             $this->rule = $resolvedRules[0];
             $this->layout = $resolvedRules[0]->getLayout();
 
