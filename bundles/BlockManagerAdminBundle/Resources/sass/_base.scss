@@ -143,6 +143,16 @@ body {
             }
         }
     }
+    .multientry {
+        .no-items-msg {
+            display: none;
+        }
+        &.show-message {
+            .no-items-msg {
+                display: block;
+            }
+        }
+    }
 }
 
 .layouts-header {
