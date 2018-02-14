@@ -1,1 +1,1 @@
-{{ condition.value }}
+{{ condition.value is iterable ? condition.value|join(', ') : condition.value }}

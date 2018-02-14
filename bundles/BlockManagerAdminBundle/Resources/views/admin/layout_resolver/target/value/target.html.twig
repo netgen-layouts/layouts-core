@@ -1,1 +1,1 @@
-{{ target.value }}
+{{ target.value is iterable ? target.value|join(', ') : target.value }}
