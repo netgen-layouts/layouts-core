@@ -44,3 +44,6 @@ layout_resolver.condition.route_parameter.parameter_values: 'Parameter values'
 layout_resolver.condition.query_parameter: 'Query parameter'
 layout_resolver.condition.query_parameter.parameter_name: 'Parameter name'
 layout_resolver.condition.query_parameter.parameter_values: 'Parameter values'
+
+layout_resolver.condition.exception: 'HTTP error code'
+layout_resolver.condition.exception.all: 'All error codes'

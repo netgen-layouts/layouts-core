@@ -66,3 +66,9 @@ services:
         public: false
         tags:
             - { name: netgen_block_manager.layout.resolver.form.condition_type.mapper, condition_type: query_parameter }
+
+    netgen_block_manager.layout.resolver.form.condition_type.mapper.exception:
+        class: Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\Exception
+        public: false
+        tags:
+            - { name: netgen_block_manager.layout.resolver.form.condition_type.mapper, condition_type: exception }

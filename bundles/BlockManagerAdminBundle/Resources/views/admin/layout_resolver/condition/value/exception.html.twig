@@ -1,0 +1,3 @@
+{% trans_default_domain 'ngbm' %}
+
+{{ condition.value is not empty ? condition.value|join(', ') : 'layout_resolver.condition.exception.all'|trans }}
