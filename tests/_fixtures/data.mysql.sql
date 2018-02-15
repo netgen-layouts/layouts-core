@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.19, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.21, for Linux (x86_64)
 --
 -- Host: localhost    Database: ngbm
 -- ------------------------------------------------------
--- Server version	5.7.19-0ubuntu0.17.04.1
+-- Server version	5.7.21-0ubuntu0.17.10.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -90,8 +90,8 @@ UNLOCK TABLES;
 LOCK TABLES `ngbm_block_collection` WRITE;
 /*!40000 ALTER TABLE `ngbm_block_collection` DISABLE KEYS */;
 INSERT INTO `ngbm_block_collection` VALUES (31,0,1,0,'default');
-INSERT INTO `ngbm_block_collection` VALUES (31,0,3,0,'featured');
 INSERT INTO `ngbm_block_collection` VALUES (31,1,2,1,'default');
+INSERT INTO `ngbm_block_collection` VALUES (31,0,3,0,'featured');
 INSERT INTO `ngbm_block_collection` VALUES (31,1,3,1,'featured');
 INSERT INTO `ngbm_block_collection` VALUES (35,0,4,0,'default');
 INSERT INTO `ngbm_block_collection` VALUES (35,1,4,1,'default');
@@ -502,4 +502,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-07-27 17:30:00
+-- Dump completed on 2018-02-15 12:00:00
