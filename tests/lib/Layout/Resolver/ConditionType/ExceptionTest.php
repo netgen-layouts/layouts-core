@@ -25,7 +25,6 @@ final class ExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\Exception::__construct
      * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\Exception::getType
      */
     public function testGetType()
