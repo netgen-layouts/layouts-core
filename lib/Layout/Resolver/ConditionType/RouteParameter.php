@@ -28,12 +28,10 @@ final class RouteParameter implements ConditionTypeInterface
                         ),
                         'parameter_values' => new Constraints\Required(
                             array(
-                                new Constraints\NotBlank(),
                                 new Constraints\Type(array('type' => 'array')),
                                 new Constraints\All(
                                     array(
                                         'constraints' => array(
-                                            new Constraints\NotBlank(),
                                             new Constraints\Type(array('type' => 'scalar')),
                                         ),
                                     )
@@ -52,7 +50,7 @@ final class RouteParameter implements ConditionTypeInterface
             return false;
         }
 
-        if (empty($value['parameter_name']) || empty($value['parameter_values'])) {
+        if (empty($value['parameter_name'])) {
             return false;
         }
 
@@ -61,7 +59,7 @@ final class RouteParameter implements ConditionTypeInterface
             return false;
         }
 
-        return in_array(
+        return empty($value['parameter_values']) || in_array(
             $routeParameters[$value['parameter_name']],
             $value['parameter_values'],
             true
