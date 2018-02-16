@@ -9,6 +9,7 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 
 final class BlockController extends Controller
 {
@@ -52,10 +53,14 @@ final class BlockController extends Controller
     {
         try {
             return $this->buildView($block, $viewContext);
+        } catch (Throwable $e) {
+            $errorMessage = sprintf('Error rendering a block with ID %d', $block->getId());
+
+            return new Response($this->handleError($e, $errorMessage));
         } catch (Exception $e) {
             $errorMessage = sprintf('Error rendering a block with ID %d', $block->getId());
 
-            return new Response($this->handleException($e, $errorMessage));
+            return new Response($this->handleError($e, $errorMessage));
         }
     }
 
@@ -86,6 +91,14 @@ final class BlockController extends Controller
                     'collection_identifier' => $collectionIdentifier,
                 )
             );
+        } catch (Throwable $e) {
+            $errorMessage = sprintf(
+                'Error rendering an AJAX block with ID %d and collection %s',
+                $block->getId(),
+                $collectionIdentifier
+            );
+
+            return new JsonResponse($this->handleError($e, $errorMessage));
         } catch (Exception $e) {
             $errorMessage = sprintf(
                 'Error rendering an AJAX block with ID %d and collection %s',
@@ -93,31 +106,36 @@ final class BlockController extends Controller
                 $collectionIdentifier
             );
 
-            return new JsonResponse($this->handleException($e, $errorMessage));
+            return new JsonResponse($this->handleError($e, $errorMessage));
         }
     }
 
     protected function checkPermissions()
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_ANONYMOUSLY');
     }
 
     /**
      * Handles the exception based on provided debug flag.
      *
-     * @param \Exception $exception
+     * @param \Throwable $throwable
      * @param string $errorMessage
      *
      * @todo Refactor out to separate service
      *
-     * @throws \Exception
+     * @deprecated Remove handling of exceptions in PHP 5.6 way
+     *
+     * @throws \Throwable
+     *
+     * @return string returns an empty string in non-debug mode
      */
-    private function handleException(Exception $exception, $errorMessage)
+    private function handleError(/* Throwable */ $throwable, $errorMessage)
     {
-        $this->logger->error($errorMessage . ': ' . $exception->getMessage());
+        $this->logger->critical($errorMessage, array('exception' => $throwable));
 
         if ($this->debug) {
-            throw $exception;
+            throw $throwable;
         }
+
+        return '';
     }
 }

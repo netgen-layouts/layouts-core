@@ -38,7 +38,10 @@ final class LayoutResponseListenerTest extends TestCase
     public function testGetSubscribedEvents()
     {
         $this->assertEquals(
-            array(KernelEvents::RESPONSE => 'onKernelResponse'),
+            array(
+                KernelEvents::RESPONSE => 'onKernelResponse',
+                KernelEvents::EXCEPTION => 'onKernelException',
+            ),
             $this->listener->getSubscribedEvents()
         );
     }
@@ -52,7 +55,7 @@ final class LayoutResponseListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $request->attributes->set('ngbmView', new LayoutView(array('layout' => new Layout())));
+        $request->attributes->set('ngbmLayoutView', new LayoutView(array('layout' => new Layout())));
 
         $event = new FilterResponseEvent(
             $kernelMock,
@@ -77,7 +80,7 @@ final class LayoutResponseListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $request->attributes->set('ngbmView', new LayoutView(array('layout' => new Layout())));
+        $request->attributes->set('ngbmLayoutView', new LayoutView(array('layout' => new Layout())));
 
         $event = new FilterResponseEvent(
             $kernelMock,
@@ -101,7 +104,7 @@ final class LayoutResponseListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $request->attributes->set('ngbmView', 42);
+        $request->attributes->set('ngbmLayoutView', 42);
 
         $event = new FilterResponseEvent(
             $kernelMock,

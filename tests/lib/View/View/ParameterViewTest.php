@@ -3,6 +3,8 @@
 namespace Netgen\BlockManager\Tests\View\View;
 
 use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Parameters\ParameterDefinition;
+use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterType;
 use Netgen\BlockManager\View\View\ParameterView;
 use PHPUnit\Framework\TestCase;
 
@@ -20,7 +22,16 @@ final class ParameterViewTest extends TestCase
 
     public function setUp()
     {
-        $this->parameter = new Parameter();
+        $this->parameter = new Parameter(
+            array(
+                'name' => 'paramName',
+                'parameterDefinition' => new ParameterDefinition(
+                    array(
+                        'type' => new ParameterType(),
+                    )
+                ),
+            )
+        );
 
         $this->view = new ParameterView(
             array(
@@ -61,5 +72,19 @@ final class ParameterViewTest extends TestCase
     public function testGetIdentifier()
     {
         $this->assertEquals('parameter_view', $this->view->getIdentifier());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\View\ParameterView::jsonSerialize
+     */
+    public function testJsonSerialize()
+    {
+        $this->assertEquals(
+            array(
+                'name' => 'paramName',
+                'type' => 'type',
+            ),
+            $this->view->jsonSerialize()
+        );
     }
 }

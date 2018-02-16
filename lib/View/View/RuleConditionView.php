@@ -15,4 +15,11 @@ final class RuleConditionView extends View implements RuleConditionViewInterface
     {
         return 'rule_condition_view';
     }
+
+    public function jsonSerialize()
+    {
+        return array(
+            'conditionId' => $this->getCondition()->getId(),
+        );
+    }
 }

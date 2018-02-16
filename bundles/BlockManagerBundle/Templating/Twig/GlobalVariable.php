@@ -8,9 +8,31 @@ use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Configuration\ConfigurationInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolverInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
+/**
+ * This global variable injected into all templates serves two purposes.
+ *
+ * 1) It provides a convenient way to access the configuration object
+ * 2) It provides the frontend templates with means to resolve layout
+ *    and render its template.
+ *
+ * Resolving layouts with this global by calling `getLayoutTemplate()`
+ * is only possible once per request for regular page, and once if
+ * an exception happens. Subsequent calls will simply return the fallback
+ * pagelayout.
+ *
+ * Reason for this is mainly exceptions that might happen in sub-requests,
+ * while rendering blocks or block items. When an exception happens in
+ * a sub-request, Symfony's ExceptionListener renders the exception,
+ * but discards the rendered response and simply returns an empty response.
+ * Since, usually, error templates will be Netgen Layouts enabled (meaning
+ * they will extend `ngbm.layoutTemplate`), it might happen that sub-requests
+ * call the layout resolving process again, which might overwrite the
+ * already resolved layout due to different conditions, thus breaking
+ * the main page, which still should be displayed in production environments
+ * even if some of the sub-requests break.
+ */
 final class GlobalVariable
 {
     /**
@@ -39,21 +61,6 @@ final class GlobalVariable
     private $requestStack;
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Layout\Layout
-     */
-    private $layout;
-
-    /**
-     * @var \Netgen\BlockManager\API\Values\LayoutResolver\Rule
-     */
-    private $rule;
-
-    /**
-     * @var \Netgen\BlockManager\View\View\LayoutViewInterface|bool
-     */
-    private $layoutView;
-
-    /**
      * @var string
      */
     private $pageLayoutTemplate;
@@ -73,23 +80,46 @@ final class GlobalVariable
     }
 
     /**
+     * Returns the currently resolved layout view.
+     *
+     * Since the regular Symfony exceptions are rendered only in sub-requests,
+     * we can return the non-error layout for master requests even if the
+     * exception layout is resolved (that might happen if an error or exception
+     * happened inside a user implemented sub-request, like rendering a block
+     * item).
+     *
+     * In other words, we return the exception layout only in case of a
+     * sub-request and if the layout was in-fact resolved.
+     *
+     * @return \Netgen\BlockManager\View\View\LayoutViewInterface|bool
+     */
+    public function getLayoutView()
+    {
+        $currentRequest = $this->requestStack->getCurrentRequest();
+        $masterRequest = $this->requestStack->getMasterRequest();
+
+        if ($masterRequest->attributes->has('ngbmExceptionLayoutView')) {
+            return $currentRequest !== $masterRequest ?
+                $masterRequest->attributes->get('ngbmExceptionLayoutView') :
+                $masterRequest->attributes->get('ngbmLayoutView');
+        }
+
+        return $masterRequest->attributes->get('ngbmLayoutView');
+    }
+
+    /**
      * Returns the currently resolved layout.
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
     public function getLayout()
     {
-        return $this->layout;
-    }
+        $layoutView = $this->getLayoutView();
+        if (!$layoutView instanceof LayoutViewInterface) {
+            return null;
+        }
 
-    /**
-     * Returns the currently resolved layout view.
-     *
-     * @return \Netgen\BlockManager\View\View\LayoutViewInterface|bool
-     */
-    public function getLayoutView()
-    {
-        return $this->layoutView;
+        return $layoutView->getLayout();
     }
 
     /**
@@ -99,7 +129,12 @@ final class GlobalVariable
      */
     public function getRule()
     {
-        return $this->rule;
+        $layoutView = $this->getLayoutView();
+        if (!$layoutView instanceof LayoutViewInterface) {
+            return null;
+        }
+
+        return $layoutView->getParameter('rule');
     }
 
     /**
@@ -130,47 +165,63 @@ final class GlobalVariable
      * Returns the currently valid layout template, or base pagelayout if
      * no layout was resolved.
      *
-     * @param bool $forceResolving
      * @param string $context
      *
      * @return string
      */
-    public function getLayoutTemplate($forceResolving = false, $context = ViewInterface::CONTEXT_DEFAULT)
+    public function getLayoutTemplate($context = ViewInterface::CONTEXT_DEFAULT)
     {
-        $this->buildLayoutView($forceResolving, $context);
-
-        if (!$this->layoutView instanceof LayoutViewInterface) {
+        $layoutView = $this->buildLayoutView($context);
+        if (!$layoutView instanceof LayoutViewInterface) {
             return $this->getPageLayoutTemplate();
         }
 
-        return $this->layoutView->getTemplate();
+        return $layoutView->getTemplate();
     }
 
     /**
      * Resolves the used layout, based on current conditions.
      *
-     * @param bool $forceResolving
      * @param string $context
+     *
+     * @return \Netgen\BlockManager\View\ViewInterface
      */
-    private function buildLayoutView($forceResolving = false, $context = ViewInterface::CONTEXT_DEFAULT)
+    private function buildLayoutView($context = ViewInterface::CONTEXT_DEFAULT)
     {
+        $currentRequest = $this->requestStack->getCurrentRequest();
+        $masterRequest = $this->requestStack->getMasterRequest();
+
+        if ($masterRequest->attributes->has('ngbmExceptionLayoutView')) {
+            return null;
+        }
+
+        if (
+            !$currentRequest->attributes->has('exception') &&
+            $masterRequest->attributes->has('ngbmLayoutView')
+        ) {
+            return null;
+        }
+
+        $layoutView = false;
+
         $resolvedRules = $this->layoutResolver->resolveRules();
-        if (empty($resolvedRules)) {
-            $this->layoutView = false;
-
-            return;
+        if (!empty($resolvedRules)) {
+            $layoutView = $this->viewBuilder->buildView(
+                $resolvedRules[0]->getLayout(),
+                $context,
+                array(
+                    'rule' => $resolvedRules[0],
+                )
+            );
         }
 
-        if (!$this->layoutView instanceof LayoutViewInterface || $forceResolving) {
-            $this->rule = $resolvedRules[0];
-            $this->layout = $resolvedRules[0]->getLayout();
+        $masterRequest->attributes->set(
+            $currentRequest->attributes->has('exception') ?
+                'ngbmExceptionLayoutView' :
+                'ngbmLayoutView',
+            $layoutView
+        );
 
-            $this->layoutView = $this->viewBuilder->buildView($this->layout, $context);
-
-            $currentRequest = $this->requestStack->getCurrentRequest();
-            if ($currentRequest instanceof Request) {
-                $currentRequest->attributes->set('ngbmView', $this->layoutView);
-            }
-        }
+        return $layoutView;
     }
 }

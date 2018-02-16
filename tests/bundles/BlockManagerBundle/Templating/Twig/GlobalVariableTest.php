@@ -95,6 +95,15 @@ final class GlobalVariableTest extends TestCase
                 )
             );
 
+        $this->viewBuilderMock
+            ->expects($this->once())
+            ->method('buildView')
+            ->will(
+                $this->returnValue(
+                    new LayoutView(array('layout' => new Layout()))
+                )
+            );
+
         // This will trigger layout resolver
         $this->globalVariable->getLayoutTemplate();
 
@@ -196,6 +205,15 @@ final class GlobalVariableTest extends TestCase
                 )
             );
 
+        $this->viewBuilderMock
+            ->expects($this->once())
+            ->method('buildView')
+            ->will(
+                $this->returnValue(
+                    new LayoutView(array('layout' => new Layout(), 'rule' => new Rule(array('layout' => new Layout()))))
+                )
+            );
+
         // This will trigger layout resolver
         $this->globalVariable->getLayoutTemplate();
 
@@ -258,7 +276,7 @@ final class GlobalVariableTest extends TestCase
 
         $this->assertEquals(
             $layoutView,
-            $this->requestStack->getCurrentRequest()->attributes->get('ngbmView')
+            $this->requestStack->getCurrentRequest()->attributes->get('ngbmLayoutView')
         );
     }
 
@@ -284,7 +302,7 @@ final class GlobalVariableTest extends TestCase
         );
 
         $this->assertFalse(
-            $this->requestStack->getCurrentRequest()->attributes->has('ngbmView')
+            $this->requestStack->getCurrentRequest()->attributes->get('ngbmLayoutView')
         );
     }
 

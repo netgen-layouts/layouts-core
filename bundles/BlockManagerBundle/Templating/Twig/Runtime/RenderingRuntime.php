@@ -15,6 +15,7 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Throwable;
 
 final class RenderingRuntime
 {
@@ -85,12 +86,29 @@ final class RenderingRuntime
      */
     public function renderItem(array $context, ItemInterface $item, $viewType, array $parameters = array(), $viewContext = null)
     {
-        return $this->renderValueObject(
-            $context,
-            $item,
-            array('view_type' => $viewType) + $parameters,
-            $viewContext
-        );
+        try {
+            return $this->renderer->renderValueObject(
+                $item,
+                $this->getViewContext($context, $viewContext),
+                array('view_type' => $viewType) + $parameters
+            );
+        } catch (Throwable $e) {
+            $errorMessage = sprintf(
+                'Error rendering an item with value "%s" and value type "%s"',
+                $item->getValue(),
+                $item->getValueType()
+            );
+
+            return $this->handleError($e, $errorMessage);
+        } catch (Exception $e) {
+            $errorMessage = sprintf(
+                'Error rendering an item with value "%s" and value type "%s"',
+                $item->getValue(),
+                $item->getValueType()
+            );
+
+            return $this->handleError($e, $errorMessage);
+        }
     }
 
     /**
@@ -111,13 +129,20 @@ final class RenderingRuntime
                 $this->getViewContext($context, $viewContext),
                 $parameters
             );
+        } catch (Throwable $e) {
+            $errorMessage = sprintf(
+                'Error rendering a value object of type "%s"',
+                is_object($valueObject) ? get_class($valueObject) : gettype($valueObject)
+            );
+
+            return $this->handleError($e, $errorMessage, array('object' => $valueObject));
         } catch (Exception $e) {
             $errorMessage = sprintf(
                 'Error rendering a value object of type "%s"',
                 is_object($valueObject) ? get_class($valueObject) : gettype($valueObject)
             );
 
-            return $this->handleException($e, $errorMessage);
+            return $this->handleError($e, $errorMessage, array('object' => $valueObject));
         }
     }
 
@@ -170,10 +195,14 @@ final class RenderingRuntime
                     'twig_template' => $this->getTwigTemplate($context),
                 ) + $parameters
             );
+        } catch (Throwable $e) {
+            $errorMessage = sprintf('Error rendering a block with ID "%s"', $block->getId());
+
+            return $this->handleError($e, $errorMessage);
         } catch (Exception $e) {
             $errorMessage = sprintf('Error rendering a block with ID "%s"', $block->getId());
 
-            return $this->handleException($e, $errorMessage);
+            return $this->handleError($e, $errorMessage);
         }
     }
 
@@ -199,6 +228,14 @@ final class RenderingRuntime
                     'twig_template' => $this->getTwigTemplate($context),
                 ) + $parameters
             );
+        } catch (Throwable $e) {
+            $errorMessage = sprintf(
+                'Error rendering a placeholder "%s" in block with ID "%s"',
+                $placeholder,
+                $block->getId()
+            );
+
+            return $this->handleError($e, $errorMessage);
         } catch (Exception $e) {
             $errorMessage = sprintf(
                 'Error rendering a placeholder "%s" in block with ID "%s"',
@@ -206,28 +243,31 @@ final class RenderingRuntime
                 $block->getId()
             );
 
-            return $this->handleException($e, $errorMessage);
+            return $this->handleError($e, $errorMessage);
         }
     }
 
     /**
      * Handles the exception based on provided debug flag.
      *
-     * @param \Exception $exception
+     * @param \Throwable $throwable
      * @param string $errorMessage
+     * @param array $context
      *
      * @todo Refactor out to separate service
      *
-     * @throws \Exception
+     * @deprecated Remove handling of exceptions in PHP 5.6 way
      *
-     * @return string
+     * @throws \Throwable
+     *
+     * @return string returns an empty string in non-debug mode
      */
-    private function handleException(Exception $exception, $errorMessage)
+    private function handleError(/*Throwable */ $throwable, $errorMessage, array $context = array())
     {
-        $this->logger->error($errorMessage . ': ' . $exception->getMessage());
+        $this->logger->critical($errorMessage, array('exception' => $throwable) + $context);
 
         if ($this->debug) {
-            throw $exception;
+            throw $throwable;
         }
 
         return '';

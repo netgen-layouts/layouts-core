@@ -55,4 +55,17 @@ final class RuleConditionViewTest extends TestCase
     {
         $this->assertEquals('rule_condition_view', $this->view->getIdentifier());
     }
+
+    /**
+     * @covers \Netgen\BlockManager\View\View\RuleConditionView::jsonSerialize
+     */
+    public function testJsonSerialize()
+    {
+        $this->assertEquals(
+            array(
+                'conditionId' => 42,
+            ),
+            $this->view->jsonSerialize()
+        );
+    }
 }

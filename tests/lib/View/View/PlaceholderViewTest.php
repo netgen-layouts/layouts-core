@@ -26,7 +26,7 @@ final class PlaceholderViewTest extends TestCase
         $this->view = new PlaceholderView(
             array(
                 'placeholder' => $this->placeholder,
-                'block' => new Block(),
+                'block' => new Block(array('id' => 42)),
             )
         );
 
@@ -49,7 +49,7 @@ final class PlaceholderViewTest extends TestCase
      */
     public function testGetBlock()
     {
-        $this->assertEquals(new Block(), $this->view->getBlock());
+        $this->assertEquals(new Block(array('id' => 42)), $this->view->getBlock());
     }
 
     /**
@@ -61,7 +61,7 @@ final class PlaceholderViewTest extends TestCase
             array(
                 'param' => 'value',
                 'placeholder' => $this->placeholder,
-                'block' => new Block(),
+                'block' => new Block(array('id' => 42)),
             ),
             $this->view->getParameters()
         );
@@ -73,5 +73,19 @@ final class PlaceholderViewTest extends TestCase
     public function testGetIdentifier()
     {
         $this->assertEquals('placeholder_view', $this->view->getIdentifier());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\View\PlaceholderView::jsonSerialize
+     */
+    public function testJsonSerialize()
+    {
+        $this->assertEquals(
+            array(
+                'blockId' => 42,
+                'placeholder' => 'main',
+            ),
+            $this->view->jsonSerialize()
+        );
     }
 }

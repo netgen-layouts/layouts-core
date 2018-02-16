@@ -20,7 +20,12 @@ final class ItemViewTest extends TestCase
 
     public function setUp()
     {
-        $this->item = new Item();
+        $this->item = new Item(
+            array(
+                'value' => 42,
+                'valueType' => 'type',
+            )
+        );
 
         $this->view = new ItemView(
             array(
@@ -64,5 +69,20 @@ final class ItemViewTest extends TestCase
     public function testGetIdentifier()
     {
         $this->assertEquals('item_view', $this->view->getIdentifier());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\View\ItemView::jsonSerialize
+     */
+    public function testJsonSerialize()
+    {
+        $this->assertEquals(
+            array(
+                'value' => 42,
+                'valueType' => 'type',
+                'viewType' => 'view_type',
+            ),
+            $this->view->jsonSerialize()
+        );
     }
 }
