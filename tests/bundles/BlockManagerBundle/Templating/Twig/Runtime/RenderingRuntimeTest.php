@@ -10,6 +10,7 @@ use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Locale\LocaleProviderInterface;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
+use Netgen\BlockManager\Tests\Stubs\ErrorHandler;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate;
 use Netgen\BlockManager\View\ViewInterface;
@@ -36,6 +37,11 @@ final class RenderingRuntimeTest extends TestCase
     private $localeProviderMock;
 
     /**
+     * @var \Netgen\BlockManager\Tests\Stubs\ErrorHandler
+     */
+    private $errorHandler;
+
+    /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime
      */
     private $runtime;
@@ -45,12 +51,14 @@ final class RenderingRuntimeTest extends TestCase
         $this->blockServiceMock = $this->createMock(BlockService::class);
         $this->rendererMock = $this->createMock(RendererInterface::class);
         $this->localeProviderMock = $this->createMock(LocaleProviderInterface::class);
+        $this->errorHandler = new ErrorHandler();
 
         $this->runtime = new RenderingRuntime(
             $this->blockServiceMock,
             $this->rendererMock,
             $this->localeProviderMock,
-            new RequestStack()
+            new RequestStack(),
+            $this->errorHandler
         );
     }
 
@@ -207,7 +215,6 @@ final class RenderingRuntimeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::renderBlock
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::getViewContext
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::getTwigTemplate
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::handleException
      */
     public function testRenderBlockReturnsEmptyStringOnException()
     {
@@ -234,14 +241,12 @@ final class RenderingRuntimeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::renderBlock
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::getViewContext
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::getTwigTemplate
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::setDebug
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::handleException
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
     public function testRenderBlockThrowsExceptionInDebug()
     {
-        $this->runtime->setDebug(true);
+        $this->errorHandler->setThrow(true);
         $block = new Block(array('definition' => new BlockDefinition('block')));
 
         $this->rendererMock
@@ -463,7 +468,6 @@ final class RenderingRuntimeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::renderPlaceholder
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::getViewContext
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::getTwigTemplate
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::handleException
      */
     public function testRenderPlaceholderReturnsEmptyStringOnException()
     {
@@ -491,14 +495,12 @@ final class RenderingRuntimeTest extends TestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::renderPlaceholder
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::getViewContext
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::getTwigTemplate
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::setDebug
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::handleException
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
     public function testRenderPlaceholderThrowsExceptionInDebug()
     {
-        $this->runtime->setDebug(true);
+        $this->errorHandler->setThrow(true);
         $block = new Block(array('placeholders' => array('main' => new Placeholder())));
 
         $this->rendererMock
@@ -600,7 +602,6 @@ final class RenderingRuntimeTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::renderItem
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::handleException
      */
     public function testRenderItemReturnsEmptyStringOnException()
     {
@@ -627,14 +628,12 @@ final class RenderingRuntimeTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::renderItem
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::setDebug
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::handleException
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
     public function testRenderItemThrowsExceptionInDebug()
     {
-        $this->runtime->setDebug(true);
+        $this->errorHandler->setThrow(true);
 
         $this->rendererMock
             ->expects($this->once())
@@ -738,7 +737,6 @@ final class RenderingRuntimeTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::renderValueObject
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::getViewContext
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::handleException
      */
     public function testRenderValueObjectReturnsEmptyStringOnException()
     {
@@ -765,14 +763,12 @@ final class RenderingRuntimeTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::renderValueObject
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::getViewContext
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::setDebug
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::handleException
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
     public function testRenderValueObjectThrowsExceptionInDebug()
     {
-        $this->runtime->setDebug(true);
+        $this->errorHandler->setThrow(true);
 
         $this->rendererMock
             ->expects($this->once())

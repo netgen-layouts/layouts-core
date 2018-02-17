@@ -1,0 +1,13 @@
+services:
+    netgen_block_manager.error.handler:
+        alias: netgen_block_manager.error.handler.debug
+        public: true
+
+    netgen_block_manager.error.handler.debug:
+        class: Netgen\BlockManager\Error\DebugErrorHandler
+        public: false
+        arguments:
+            - "@?logger"
+            - "%kernel.debug%"
+        tags:
+            - { name: monolog.logger, channel: ngbm }

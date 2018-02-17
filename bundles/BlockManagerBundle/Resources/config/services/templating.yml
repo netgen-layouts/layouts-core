@@ -32,13 +32,10 @@ services:
             - "@netgen_block_manager.view.renderer.fragment"
             - "@netgen_block_manager.locale.provider"
             - "@request_stack"
-            - "@?logger"
-        calls:
-            - [setDebug, ["%kernel.debug%"]]
+            - "@netgen_block_manager.error.handler"
         tags:
             - { name: twig.runtime }
             - { name: netgen_block_manager.twig.runtime }
-            - { name: monolog.logger, channel: ngbm }
 
     netgen_block_manager.templating.twig.extension.collection_pager:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\CollectionPagerExtension

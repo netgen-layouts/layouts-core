@@ -8,6 +8,7 @@ use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Locale\LocaleProviderInterface;
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
+use Netgen\BlockManager\Tests\Stubs\ErrorHandler;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension;
@@ -61,7 +62,8 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
             $this->blockServiceMock,
             $this->rendererMock,
             $this->localeProviderMock,
-            $this->requestStack
+            $this->requestStack,
+            new ErrorHandler()
         );
     }
 

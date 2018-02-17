@@ -3,6 +3,7 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
 
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
+use Netgen\BlockManager\Tests\Stubs\ErrorHandler;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\ViewRendererInterface;
 use Netgen\Bundle\BlockManagerBundle\EventListener\ViewRendererListener;
@@ -28,7 +29,7 @@ final class ViewRendererListenerTest extends TestCase
     public function setUp()
     {
         $this->viewRendererMock = $this->createMock(ViewRendererInterface::class);
-        $this->listener = new ViewRendererListener($this->viewRendererMock);
+        $this->listener = new ViewRendererListener($this->viewRendererMock, new ErrorHandler());
     }
 
     /**

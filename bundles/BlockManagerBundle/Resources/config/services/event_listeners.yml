@@ -36,12 +36,9 @@ services:
         # public: false
         arguments:
             - "@netgen_block_manager.view.view_renderer"
-            - "@?logger"
-        calls:
-            - [setDebug, ["%kernel.debug%"]]
+            - "@netgen_block_manager.error.handler"
         tags:
             - { name: kernel.event_subscriber }
-            - { name: monolog.logger, channel: ngbm }
 
     netgen_block_manager.event_listener.set_is_api_request:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\SetIsApiRequestListener
