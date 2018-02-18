@@ -89,7 +89,8 @@ final class GlobalVariable
      * item).
      *
      * In other words, we return the resolved exception layout only in case of a
-     * sub-request.
+     * sub-request or in case of a master request if non-error layout is NOT resolved.
+     * All other cases receive the non-error layout.
      *
      * @return \Netgen\BlockManager\View\View\LayoutViewInterface|bool
      */
@@ -99,9 +100,9 @@ final class GlobalVariable
         $masterRequest = $this->requestStack->getMasterRequest();
 
         if ($masterRequest->attributes->has('ngbmExceptionLayoutView')) {
-            return $currentRequest !== $masterRequest ?
-                $masterRequest->attributes->get('ngbmExceptionLayoutView') :
-                $masterRequest->attributes->get('ngbmLayoutView');
+            if ($currentRequest !== $masterRequest || !$masterRequest->attributes->has('ngbmLayoutView')) {
+                return $masterRequest->attributes->get('ngbmExceptionLayoutView');
+            }
         }
 
         return $masterRequest->attributes->get('ngbmLayoutView');
