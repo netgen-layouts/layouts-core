@@ -83,13 +83,13 @@ final class GlobalVariable
      * Returns the currently resolved layout view.
      *
      * Since the regular Symfony exceptions are rendered only in sub-requests,
-     * we can return the non-error layout for master requests even if the
-     * exception layout is resolved (that might happen if an error or exception
+     * we can return the resolved non-error layout for master requests even if the
+     * exception layout is resolved too (that might happen if an error or exception
      * happened inside a user implemented sub-request, like rendering a block
      * item).
      *
-     * In other words, we return the exception layout only in case of a
-     * sub-request and if the layout was in-fact resolved.
+     * In other words, we return the resolved exception layout only in case of a
+     * sub-request.
      *
      * @return \Netgen\BlockManager\View\View\LayoutViewInterface|bool
      */
