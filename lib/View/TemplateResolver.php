@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\View;
 use Netgen\BlockManager\Exception\InvalidInterfaceException;
 use Netgen\BlockManager\Exception\View\TemplateResolverException;
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
+use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 
 /**
  * @final
@@ -65,7 +66,7 @@ class TemplateResolver implements TemplateResolverInterface
                 }
 
                 $view->setTemplate($config['template']);
-                $view->addParameters($config['parameters']);
+                $view->addParameters($this->evaluateParameters($view, $config['parameters']));
 
                 return;
             }
@@ -96,5 +97,35 @@ class TemplateResolver implements TemplateResolverInterface
         }
 
         return true;
+    }
+
+    /**
+     * Iterates over all provided parameters and evalutes the values with expression
+     * engine if the parameter value specifies so.
+     *
+     * @param \Netgen\BlockManager\View\ViewInterface $view
+     * @param array $parameters
+     *
+     * @return array
+     */
+    private function evaluateParameters(ViewInterface $view, array $parameters = array())
+    {
+        $evaluatedParameters = array();
+
+        foreach ($parameters as $key => $value) {
+            if (is_string($value) && mb_strpos($value, '@=') === 0) {
+                $expressionLanguage = new ExpressionLanguage();
+                $value = $expressionLanguage->evaluate(
+                    mb_substr($value, 2),
+                    array(
+                        'view' => $view,
+                    ) + $view->getParameters()
+                );
+            }
+
+            $evaluatedParameters[$key] = $value;
+        }
+
+        return $evaluatedParameters;
     }
 }

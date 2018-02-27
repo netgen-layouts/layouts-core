@@ -40,6 +40,7 @@ final class TemplateResolverTest extends TestCase
      * @covers \Netgen\BlockManager\View\TemplateResolver::__construct
      * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      * @covers \Netgen\BlockManager\View\TemplateResolver::matches
+     * @covers \Netgen\BlockManager\View\TemplateResolver::evaluateParameters
      */
     public function testResolveTemplate()
     {
@@ -60,6 +61,7 @@ final class TemplateResolverTest extends TestCase
                         ),
                         'parameters' => array(
                             'param' => 'value',
+                            'param2' => '@=value',
                         ),
                     ),
                 ),
@@ -76,13 +78,18 @@ final class TemplateResolverTest extends TestCase
         $templateResolver->resolveTemplate($this->view);
 
         $this->assertEquals('some_template.html.twig', $this->view->getTemplate());
+
         $this->assertTrue($this->view->hasParameter('param'));
         $this->assertEquals('value', $this->view->getParameter('param'));
+
+        $this->assertTrue($this->view->hasParameter('param2'));
+        $this->assertEquals(new Value(), $this->view->getParameter('param2'));
     }
 
     /**
      * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      * @covers \Netgen\BlockManager\View\TemplateResolver::matches
+     * @covers \Netgen\BlockManager\View\TemplateResolver::evaluateParameters
      */
     public function testResolveTemplateWithEmptyMatchConfig()
     {
@@ -115,6 +122,7 @@ final class TemplateResolverTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      * @covers \Netgen\BlockManager\View\TemplateResolver::matches
+     * @covers \Netgen\BlockManager\View\TemplateResolver::evaluateParameters
      */
     public function testResolveTemplateWithMultipleMatches()
     {
@@ -148,6 +156,7 @@ final class TemplateResolverTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
      * @covers \Netgen\BlockManager\View\TemplateResolver::matches
+     * @covers \Netgen\BlockManager\View\TemplateResolver::evaluateParameters
      */
     public function testResolveTemplateWithFallbackContext()
     {
