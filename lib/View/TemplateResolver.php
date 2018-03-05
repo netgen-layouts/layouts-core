@@ -108,7 +108,7 @@ class TemplateResolver implements TemplateResolverInterface
      *
      * @return array
      */
-    private function evaluateParameters(ViewInterface $view, array $parameters = array())
+    private function evaluateParameters(ViewInterface $view, array $parameters)
     {
         $evaluatedParameters = array();
 
