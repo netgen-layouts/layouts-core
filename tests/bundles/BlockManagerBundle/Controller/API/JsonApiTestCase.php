@@ -159,6 +159,6 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
      */
     protected function jsonEncode(array $content)
     {
-        return json_encode($content, JSON_PRETTY_PRINT);
+        return json_encode($content, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
 }
