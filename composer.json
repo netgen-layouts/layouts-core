@@ -33,7 +33,8 @@
         "matthiasnoback/symfony-config-test": "^2.2|^4.0",
         "php-http/mock-client": "^1.1",
         "franzl/studio": "*",
-        "lakion/api-test-case": "^1.1|^3.0"
+        "lakion/api-test-case": "^1.1|^3.0",
+        "coduo/php-matcher": "^2.4"
     },
     "config": {
         "process-timeout": 600
