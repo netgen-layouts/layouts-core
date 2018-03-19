@@ -7,6 +7,7 @@ use Netgen\BlockManager\Block\Registry\BlockTypeRegistryInterface;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
+use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Version;
 use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
@@ -111,7 +112,7 @@ final class ConfigController extends Controller
     {
         $layoutTypes = array();
         foreach ($this->layoutTypeRegistry->getLayoutTypes(true) as $layoutType) {
-            $layoutTypes[] = new VersionedValue($layoutType, Version::API_V1);
+            $layoutTypes[] = new View($layoutType, Version::API_V1);
         }
 
         return new Value($layoutTypes);

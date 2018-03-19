@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\View\Matcher\Layout;
 
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
+use Netgen\BlockManager\View\View\LayoutTypeViewInterface;
 use Netgen\BlockManager\View\View\LayoutViewInterface;
 use Netgen\BlockManager\View\ViewInterface;
 
@@ -14,10 +15,14 @@ final class Type implements MatcherInterface
 {
     public function match(ViewInterface $view, array $config)
     {
-        if (!$view instanceof LayoutViewInterface) {
+        if (!$view instanceof LayoutViewInterface && !$view instanceof LayoutTypeViewInterface) {
             return false;
         }
 
-        return in_array($view->getLayout()->getLayoutType()->getIdentifier(), $config, true);
+        $layoutType = $view instanceof LayoutViewInterface ?
+            $view->getLayout()->getLayoutType() :
+            $view->getLayoutType();
+
+        return in_array($layoutType->getIdentifier(), $config, true);
     }
 }
