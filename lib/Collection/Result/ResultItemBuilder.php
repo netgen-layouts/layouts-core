@@ -2,13 +2,14 @@
 
 namespace Netgen\BlockManager\Collection\Result;
 
-use Netgen\BlockManager\API\Values\Collection\Item;
+use Netgen\BlockManager\API\Values\Collection\Item as CollectionItem;
 use Netgen\BlockManager\Collection\Item\VisibilityResolverInterface;
 use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Item\ItemBuilderInterface;
-use Netgen\BlockManager\Item\ItemInterface;
+use Netgen\BlockManager\Item\ItemInterface as CmsItem;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Item\NullItem;
+use Netgen\BlockManager\Item\UrlBuilderInterface;
 
 /**
  * This class builds a result object from the collection item.
@@ -26,6 +27,11 @@ final class ResultItemBuilder
     private $itemBuilder;
 
     /**
+     * @var \Netgen\BlockManager\Item\UrlBuilderInterface
+     */
+    private $urlBuilder;
+
+    /**
      * @var \Netgen\BlockManager\Collection\Item\VisibilityResolverInterface
      */
     private $visibilityResolver;
@@ -33,10 +39,12 @@ final class ResultItemBuilder
     public function __construct(
         ItemLoaderInterface $itemLoader,
         ItemBuilderInterface $itemBuilder,
+        UrlBuilderInterface $urlBuilder,
         VisibilityResolverInterface $visibilityResolver
     ) {
         $this->itemLoader = $itemLoader;
         $this->itemBuilder = $itemBuilder;
+        $this->urlBuilder = $urlBuilder;
         $this->visibilityResolver = $visibilityResolver;
     }
 
@@ -53,14 +61,17 @@ final class ResultItemBuilder
      */
     public function build($object, $position)
     {
-        if (!$object instanceof Item) {
+        if (!$object instanceof CollectionItem) {
+            $cmsItem = !$object instanceof CmsItem ?
+                $this->itemBuilder->build($object) :
+                $object;
+
             return new Result(
                 array(
-                    'item' => !$object instanceof ItemInterface ?
-                        $this->itemBuilder->build($object) :
-                        $object,
+                    'item' => $cmsItem,
                     'collectionItem' => null,
                     'type' => Result::TYPE_DYNAMIC,
+                    'url' => $this->urlBuilder->getUrl($cmsItem),
                     'position' => $position,
                     'isVisible' => true,
                     'invisibilityReason' => null,
@@ -69,9 +80,9 @@ final class ResultItemBuilder
         }
 
         try {
-            $item = $this->itemLoader->load($object->getValue(), $object->getValueType());
+            $cmsItem = $this->itemLoader->load($object->getValue(), $object->getValueType());
         } catch (ItemException $e) {
-            $item = new NullItem(
+            $cmsItem = new NullItem(
                 array(
                     'value' => $object->getValue(),
                 )
@@ -80,15 +91,18 @@ final class ResultItemBuilder
 
         $resultVisible = true;
         $invisibilityReason = null;
-        if (!$item instanceof NullItem) {
-            list($resultVisible, $invisibilityReason) = $this->isResultVisible($item, $object);
+        if (!$cmsItem instanceof NullItem) {
+            list($resultVisible, $invisibilityReason) = $this->isResultVisible($cmsItem, $object);
         }
 
         return new Result(
             array(
-                'item' => $item,
+                'item' => $cmsItem,
                 'collectionItem' => $object,
                 'type' => Result::TYPE_MANUAL,
+                'url' => !$cmsItem instanceof NullItem ?
+                    $this->urlBuilder->getUrl($cmsItem) :
+                    null,
                 'position' => $position,
                 'isVisible' => $resultVisible,
                 'invisibilityReason' => $invisibilityReason,
@@ -112,7 +126,7 @@ final class ResultItemBuilder
      *
      * @return array
      */
-    private function isResultVisible(ItemInterface $cmsItem, Item $collectionItem)
+    private function isResultVisible(CmsItem $cmsItem, CollectionItem $collectionItem)
     {
         if (!$cmsItem->isVisible()) {
             return array(false, Result::HIDDEN_BY_CMS);

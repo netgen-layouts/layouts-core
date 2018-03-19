@@ -14,11 +14,13 @@ use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Core\Values\Config\Config;
 use Netgen\BlockManager\Item\ItemBuilder;
 use Netgen\BlockManager\Item\ItemLoader;
+use Netgen\BlockManager\Item\UrlBuilder;
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Item\Stubs\Value;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueConverter;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueLoader;
+use Netgen\BlockManager\Tests\Item\Stubs\ValueUrlBuilder;
 use PHPUnit\Framework\TestCase;
 
 final class ResultBuilderTest extends TestCase
@@ -32,6 +34,11 @@ final class ResultBuilderTest extends TestCase
      * @var \Netgen\BlockManager\Item\ItemLoaderInterface
      */
     private $itemLoader;
+
+    /**
+     * @var \Netgen\BlockManager\Item\UrlBuilderInterface
+     */
+    private $urlBuilder;
 
     /**
      * @var \Netgen\BlockManager\Collection\Result\ResultBuilderInterface
@@ -53,6 +60,8 @@ final class ResultBuilderTest extends TestCase
             $this->itemBuilder,
             array('value' => new ValueLoader())
         );
+
+        $this->urlBuilder = new UrlBuilder(array('value' => new ValueUrlBuilder()));
 
         $this->visibilityResolver = new VisibilityResolver();
 
@@ -148,6 +157,7 @@ final class ResultBuilderTest extends TestCase
             new ResultItemBuilder(
                 $this->itemLoader,
                 $this->itemBuilder,
+                $this->urlBuilder,
                 $this->visibilityResolver
             ),
             $maxLimit

@@ -5,6 +5,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API;
 use Lakion\ApiTestCase\JsonApiTestCase as BaseJsonApiTestCase;
 use Netgen\BlockManager\Item\ItemBuilderInterface;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
+use Netgen\BlockManager\Item\UrlBuilderInterface;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\DatabaseTrait;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,6 +26,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         $this->setUpClient();
         $this->mockItemLoader();
         $this->mockItemBuilder();
+        $this->mockItemUrlBuilder();
         $this->mockQueryType();
         $this->createDatabase();
 
@@ -84,6 +86,19 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
                     }
                 );
         }
+    }
+
+    protected function mockItemUrlBuilder()
+    {
+        /** @var \Mockery\MockInterface $urlBuilderMock */
+        $urlBuilderMock = $this->clientContainer->mock(
+            'netgen_block_manager.item.url_builder',
+            UrlBuilderInterface::class
+        );
+
+        $urlBuilderMock
+            ->shouldReceive('getUrl')
+            ->andReturn('/some/url');
     }
 
     protected function mockQueryType()

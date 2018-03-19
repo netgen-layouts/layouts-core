@@ -13,7 +13,7 @@ final class CollectionResultNormalizer implements NormalizerInterface
     {
         /** @var \Netgen\BlockManager\Collection\Result\Result $result */
         $result = $object->getValue();
-        $item = $result->getItem();
+        $cmsItem = $result->getItem();
         $collectionItem = $result->getCollectionItem();
 
         return array(
@@ -21,9 +21,10 @@ final class CollectionResultNormalizer implements NormalizerInterface
             'collection_id' => $collectionItem !== null ? $collectionItem->getCollectionId() : null,
             'position' => $result->getPosition(),
             'type' => $result->getType(),
-            'value' => $item->getValue(),
-            'value_type' => $item->getValueType(),
-            'name' => $item->getName(),
+            'url' => $result->getUrl(),
+            'value' => $cmsItem->getValue(),
+            'value_type' => $cmsItem->getValueType(),
+            'name' => $cmsItem->getName(),
             'visible' => $result->isVisible(),
             'invisibility_reason' => $result->getInvisibilityReason(),
         );

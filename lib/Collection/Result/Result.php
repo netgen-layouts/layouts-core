@@ -57,6 +57,11 @@ final class Result extends ValueObject
     protected $type;
 
     /**
+     * @var string
+     */
+    protected $url;
+
+    /**
      * @var int
      */
     protected $position;
@@ -99,6 +104,16 @@ final class Result extends ValueObject
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Returns the URL of the item in the result.
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
     }
 
     /**
