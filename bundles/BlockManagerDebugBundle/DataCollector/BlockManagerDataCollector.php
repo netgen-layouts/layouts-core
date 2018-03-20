@@ -31,6 +31,10 @@ final class BlockManagerDataCollector extends DataCollector
         $this->twig = $twig;
 
         $this->data['version'] = Version::VERSION;
+        $this->data['docs_version'] = sprintf('%d.%d', Version::MAJOR_VERSION, Version::MINOR_VERSION);
+        if (Version::EXTRA_VERSION === 'DEV' && Version::RELEASE_VERSION === 0) {
+            $this->data['docs_version'] = 'latest';
+        }
 
         $this->reset();
     }

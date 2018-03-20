@@ -54,6 +54,16 @@
 
             <span>{{ collector.data.version }}</span>
         </div>
+
+        <div class="sf-toolbar-info-piece">
+            <b>Resources</b>
+
+            <span>
+                <a href="{{ 'http://docs.netgen.io/projects/layouts/en/' ~ collector.data.docs_version ~ '/' }}" target="_blank" rel="noopener noreferrer">
+                    Read Netgen Layouts docs
+                </a>
+            </span>
+        </div>
     {% endset %}
 
     {{ include('@WebProfiler/Profiler/toolbar_item.html.twig', { link: profiler_url }) }}
