@@ -4,7 +4,9 @@ namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
 use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Core\Values\Collection\Item as CollectionItem;
+use Netgen\BlockManager\Core\Values\Config\Config;
 use Netgen\BlockManager\Item\Item;
+use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value as APIValue;
@@ -31,6 +33,19 @@ final class CollectionResultNormalizerTest extends TestCase
             array(
                 'id' => 42,
                 'collectionId' => 24,
+                'configs' => array(
+                    'visibility' => new Config(
+                        array(
+                            'parameters' => array(
+                                'visibility_status' => new Parameter(
+                                    array(
+                                        'value' => CollectionItem::VISIBILITY_SCHEDULED,
+                                    )
+                                ),
+                            ),
+                        )
+                    ),
+                ),
             )
         );
 
@@ -48,7 +63,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'url' => '/some/url',
                 'position' => 3,
                 'isVisible' => false,
-                'invisibilityReason' => Result::HIDDEN_BY_CMS,
+                'hiddenStatus' => Result::HIDDEN_BY_CMS,
             )
         );
 
@@ -63,7 +78,8 @@ final class CollectionResultNormalizerTest extends TestCase
                 'value_type' => $item->getValueType(),
                 'name' => $item->getName(),
                 'visible' => $result->isVisible(),
-                'invisibility_reason' => $result->getInvisibilityReason(),
+                'scheduled' => $collectionItem->isScheduled(),
+                'hidden_status' => $result->getHiddenStatus(),
             ),
             $this->normalizer->normalize(new VersionedValue($result, 1))
         );
@@ -88,7 +104,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'url' => '/some/url',
                 'position' => 3,
                 'isVisible' => true,
-                'invisibilityReason' => null,
+                'hiddenStatus' => null,
             )
         );
 
@@ -103,7 +119,8 @@ final class CollectionResultNormalizerTest extends TestCase
                 'value_type' => $item->getValueType(),
                 'name' => $item->getName(),
                 'visible' => $result->isVisible(),
-                'invisibility_reason' => $result->getInvisibilityReason(),
+                'scheduled' => false,
+                'hidden_status' => $result->getHiddenStatus(),
             ),
             $this->normalizer->normalize(new VersionedValue($result, 1))
         );

@@ -74,7 +74,7 @@ final class ResultItemBuilder
                     'url' => $this->urlBuilder->getUrl($cmsItem),
                     'position' => $position,
                     'isVisible' => true,
-                    'invisibilityReason' => null,
+                    'hiddenStatus' => null,
                 )
             );
         }
@@ -90,9 +90,9 @@ final class ResultItemBuilder
         }
 
         $resultVisible = true;
-        $invisibilityReason = null;
+        $hiddenStatus = null;
         if (!$cmsItem instanceof NullItem) {
-            list($resultVisible, $invisibilityReason) = $this->isResultVisible($cmsItem, $object);
+            list($resultVisible, $hiddenStatus) = $this->isResultVisible($cmsItem, $object);
         }
 
         return new Result(
@@ -105,7 +105,7 @@ final class ResultItemBuilder
                     null,
                 'position' => $position,
                 'isVisible' => $resultVisible,
-                'invisibilityReason' => $invisibilityReason,
+                'hiddenStatus' => $hiddenStatus,
             )
         );
     }

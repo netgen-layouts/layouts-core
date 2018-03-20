@@ -248,7 +248,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
                 'valueType' => 'ezcontent',
                 'config' => array(
                     'visibility' => array(
-                        'visible' => true,
+                        'visibility_status' => APIItem::VISIBILITY_SCHEDULED,
                         'visible_from' => null,
                         'visible_to' => array(
                             'datetime' => '2018-02-01 15:00:00.000000',
@@ -277,7 +277,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
 
         $visibilityConfig = $item->getConfig('visibility');
 
-        $this->assertTrue($visibilityConfig->getParameter('visible')->getValue());
+        $this->assertEquals(APIItem::VISIBILITY_SCHEDULED, $visibilityConfig->getParameter('visibility_status')->getValue());
         $this->assertNull($visibilityConfig->getParameter('visible_from')->getValue());
         $this->assertEquals(
             new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey')),

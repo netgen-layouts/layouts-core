@@ -17,19 +17,25 @@ final class VisibilityConfigHandler implements ConfigDefinitionHandlerInterface
     public function buildParameters(ParameterBuilderInterface $builder)
     {
         $builder->add(
-            'visible',
-            ParameterType\Compound\BooleanType::class,
+            'visibility_status',
+            ParameterType\ChoiceType::class,
             array(
-                'default_value' => true,
+                'expanded' => true,
+                'options' => array(
+                    'config.collection_item.visibility.visibility_status.visible' => Item::VISIBILITY_VISIBLE,
+                    'config.collection_item.visibility.visibility_status.hidden' => Item::VISIBILITY_HIDDEN,
+                    'config.collection_item.visibility.visibility_status.scheduled' => Item::VISIBILITY_SCHEDULED,
+                ),
+                'default_value' => Item::VISIBILITY_VISIBLE,
             )
         );
 
-        $builder->get('visible')->add(
+        $builder->add(
             'visible_from',
             ParameterType\DateTimeType::class
         );
 
-        $builder->get('visible')->add(
+        $builder->add(
             'visible_to',
             ParameterType\DateTimeType::class
         );

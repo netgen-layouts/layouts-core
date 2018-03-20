@@ -42,6 +42,7 @@ final class ChoiceMapperTest extends TestCase
                 'type' => new ChoiceParameterType(),
                 'options' => array(
                     'multiple' => true,
+                    'expanded' => true,
                     'options' => array(
                         'Option 1' => 'option1',
                         'Option 2' => 'option2',
@@ -53,6 +54,7 @@ final class ChoiceMapperTest extends TestCase
         $this->assertEquals(
             array(
                 'multiple' => true,
+                'expanded' => true,
                 'choices' => array(
                     'Option 1' => 'option1',
                     'Option 2' => 'option2',
@@ -73,6 +75,7 @@ final class ChoiceMapperTest extends TestCase
                 'type' => new ChoiceParameterType(),
                 'options' => array(
                     'multiple' => true,
+                    'expanded' => true,
                     'options' => function () {
                         return array(
                             'Option 1' => 'option1',
@@ -86,6 +89,7 @@ final class ChoiceMapperTest extends TestCase
         $this->assertEquals(
             array(
                 'multiple' => true,
+                'expanded' => true,
                 'choices' => array(
                     'Option 1' => 'option1',
                     'Option 2' => 'option2',

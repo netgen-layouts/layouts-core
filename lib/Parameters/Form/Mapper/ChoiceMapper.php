@@ -22,6 +22,7 @@ final class ChoiceMapper extends Mapper
 
         return array(
             'multiple' => $options['multiple'],
+            'expanded' => $options['expanded'],
             'choices' => is_callable($options['options']) ?
                 $options['options']() :
                 $options['options'],

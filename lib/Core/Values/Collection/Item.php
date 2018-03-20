@@ -102,13 +102,22 @@ final class Item extends ValueObject implements APIItem
         return $this->valueType;
     }
 
+    public function isScheduled()
+    {
+        $visibilityConfig = $this->getConfig('visibility');
+
+        return $visibilityConfig->getParameter('visibility_status')->getValue() === self::VISIBILITY_SCHEDULED;
+    }
+
     public function isVisible(DateTimeInterface $reference = null)
     {
         $reference = $reference ?: new DateTimeImmutable();
 
         $visibilityConfig = $this->getConfig('visibility');
-        if ($visibilityConfig->getParameter('visible')->getValue() === false) {
-            return false;
+        $visibilityStatus = $visibilityConfig->getParameter('visibility_status')->getValue();
+
+        if ($visibilityStatus !== self::VISIBILITY_SCHEDULED) {
+            return $visibilityStatus !== self::VISIBILITY_HIDDEN;
         }
 
         $visibleFrom = $visibilityConfig->getParameter('visible_from')->getValue();

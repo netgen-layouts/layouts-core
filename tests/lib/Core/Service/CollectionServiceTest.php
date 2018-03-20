@@ -369,7 +369,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $dateTime = new DateTimeImmutable('2018-02-01 15:00:00', new DateTimeZone('Antarctica/Casey'));
 
         $visibilityConfigStruct = new ConfigStruct();
-        $visibilityConfigStruct->setParameterValue('visible', true);
+        $visibilityConfigStruct->setParameterValue('visibility_status', Item::VISIBILITY_SCHEDULED);
         $visibilityConfigStruct->setParameterValue('visible_to', $dateTime);
 
         $itemUpdateStruct->setConfigStruct('visibility', $visibilityConfigStruct);
@@ -385,7 +385,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
         $visibilityConfig = $updatedItem->getConfig('visibility');
 
         $this->assertInstanceOf(Config::class, $visibilityConfig);
-        $this->assertTrue($visibilityConfig->getParameter('visible')->getValue());
+        $this->assertEquals(Item::VISIBILITY_SCHEDULED, $visibilityConfig->getParameter('visibility_status')->getValue());
         $this->assertNull($visibilityConfig->getParameter('visible_from')->getValue());
         $this->assertEquals($dateTime, $visibilityConfig->getParameter('visible_to')->getValue());
     }

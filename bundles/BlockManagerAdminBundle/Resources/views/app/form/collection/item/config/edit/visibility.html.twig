@@ -6,17 +6,17 @@
 {% set visibility_form = form.children.visibility %}
 
 {% block header %}
-    {{ 'config.collection_item.visibility.header'|trans }}
+    {{ 'config.collection_item.visibility.header'|trans }}: {{ cms_item.name }}
 {% endblock %}
 
 {% block children %}
     {% if not cms_item.visible %}
-        <p class="warning">{{ 'config.collection_item.visibility.warning'|trans }}</p>
+        <p class="warning">{{ 'config.collection_item.visibility.warning'|trans|raw }}</p>
     {% endif %}
 
-    {{ form_row(visibility_form.children.visible, {required: false}) }}
-
-    <p class="note">{{ 'config.collection_item.visibility.note'|trans({'%timeZone%': 'now'|date('e')}) }}</p>
+    {{ form_row(visibility_form.children.visibility_status, {label: false}) }}
+    {{ form_row(visibility_form.children.visible_from) }}
+    {{ form_row(visibility_form.children.visible_to) }}
 {% endblock %}
 
 {% block buttons %}

@@ -74,7 +74,7 @@ final class Result extends ValueObject
     /**
      * @var int
      */
-    protected $invisibilityReason;
+    protected $hiddenStatus;
 
     /**
      * Returns the final generated item.
@@ -137,15 +137,15 @@ final class Result extends ValueObject
     }
 
     /**
-     * If the result is invisible (as returned by self::isVisible), returns the reason for
-     * invisibility (one of self::HIDDEN_BY_* constants).
+     * If the result is not visible (as returned by self::isVisible), returns why the result
+     * is not visible (one of self::HIDDEN_BY_* constants).
      *
      * Otherwise (if the result is visible), this just returns null.
      *
      * @return bool
      */
-    public function getInvisibilityReason()
+    public function getHiddenStatus()
     {
-        return $this->invisibilityReason;
+        return $this->hiddenStatus;
     }
 }

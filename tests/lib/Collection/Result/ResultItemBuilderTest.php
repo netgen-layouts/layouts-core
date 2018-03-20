@@ -8,7 +8,7 @@ use Netgen\BlockManager\Collection\Result\ResultItemBuilder;
 use Netgen\BlockManager\Core\Values\Collection\Item as CollectionItem;
 use Netgen\BlockManager\Core\Values\Config\Config;
 use Netgen\BlockManager\Exception\Item\ItemException;
-use Netgen\BlockManager\Item\Item;
+use Netgen\BlockManager\Item\Item as CmsItem;
 use Netgen\BlockManager\Item\ItemBuilderInterface;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Item\NullItem;
@@ -81,9 +81,9 @@ final class ResultItemBuilderTest extends TestCase
                     'visibility' => new Config(
                         array(
                             'parameters' => array(
-                                'visible' => new Parameter(
+                                'visibility_status' => new Parameter(
                                     array(
-                                        'value' => $configVisible,
+                                        'value' => $configVisible ? CollectionItem::VISIBILITY_VISIBLE : CollectionItem::VISIBILITY_HIDDEN,
                                     )
                                 ),
                                 'visible_from' => new Parameter(
@@ -103,7 +103,7 @@ final class ResultItemBuilderTest extends TestCase
             )
         );
 
-        $item = new Item(
+        $item = new CmsItem(
             array(
                 'value' => 42,
                 'valueType' => 'ezlocation',
@@ -135,13 +135,13 @@ final class ResultItemBuilderTest extends TestCase
 
         $resultItem = $this->resultItemBuilder->build($collectionItem, 42);
 
-        $invisibilityReason = null;
+        $hiddenStatus = null;
         if ($itemVisible === false) {
-            $invisibilityReason = Result::HIDDEN_BY_CMS;
+            $hiddenStatus = Result::HIDDEN_BY_CMS;
         } elseif ($configVisible === false) {
-            $invisibilityReason = Result::HIDDEN_BY_CONFIG;
+            $hiddenStatus = Result::HIDDEN_BY_CONFIG;
         } elseif ($resolverVisible === false) {
-            $invisibilityReason = Result::HIDDEN_BY_CODE;
+            $hiddenStatus = Result::HIDDEN_BY_CODE;
         }
 
         $this->assertEquals(
@@ -153,7 +153,7 @@ final class ResultItemBuilderTest extends TestCase
                     'url' => '/some/url',
                     'position' => 42,
                     'isVisible' => $resultVisible,
-                    'invisibilityReason' => $invisibilityReason,
+                    'hiddenStatus' => $hiddenStatus,
                 )
             ),
             $resultItem
@@ -180,7 +180,7 @@ final class ResultItemBuilderTest extends TestCase
      */
     public function testBuildWithCmsItem()
     {
-        $item = new Item(
+        $item = new CmsItem(
             array(
                 'value' => 100,
                 'valueType' => 'dynamicValue',
@@ -209,7 +209,7 @@ final class ResultItemBuilderTest extends TestCase
                     'url' => '/some/url',
                     'position' => 42,
                     'isVisible' => true,
-                    'invisibilityReason' => null,
+                    'hiddenStatus' => null,
                 )
             ),
             $resultItem
@@ -222,7 +222,7 @@ final class ResultItemBuilderTest extends TestCase
      */
     public function testBuildWithCmsValueObject()
     {
-        $item = new Item(
+        $item = new CmsItem(
             array(
                 'value' => 100,
                 'valueType' => 'dynamicValue',
@@ -253,7 +253,7 @@ final class ResultItemBuilderTest extends TestCase
                     'url' => '/some/url',
                     'position' => 42,
                     'isVisible' => true,
-                    'invisibilityReason' => null,
+                    'hiddenStatus' => null,
                 )
             ),
             $resultItem
@@ -297,7 +297,7 @@ final class ResultItemBuilderTest extends TestCase
                     'type' => Result::TYPE_MANUAL,
                     'position' => 999,
                     'isVisible' => true,
-                    'invisibilityReason' => null,
+                    'hiddenStatus' => null,
                 )
             ),
             $resultItem

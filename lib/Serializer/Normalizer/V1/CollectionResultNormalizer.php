@@ -26,7 +26,8 @@ final class CollectionResultNormalizer implements NormalizerInterface
             'value_type' => $cmsItem->getValueType(),
             'name' => $cmsItem->getName(),
             'visible' => $result->isVisible(),
-            'invisibility_reason' => $result->getInvisibilityReason(),
+            'scheduled' => $collectionItem !== null ? $collectionItem->isScheduled() : false,
+            'hidden_status' => $result->getHiddenStatus(),
         );
     }
 

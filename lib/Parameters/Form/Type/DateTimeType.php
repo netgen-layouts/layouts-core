@@ -9,7 +9,6 @@ use Netgen\BlockManager\Form\ChoicesAsValuesTrait;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType as BaseDateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class DateTimeType extends AbstractType
 {
@@ -22,20 +21,13 @@ final class DateTimeType extends AbstractType
      */
     private $timeZoneList = array();
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        parent::configureOptions($resolver);
-
-        $resolver->setDefault('translation_domain', 'ngbm_forms');
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add(
             'datetime',
             BaseDateTimeType::class,
             array(
-                'label' => 'datetime.datetime',
+                'label' => false,
                 'format' => static::HTML5_FORMAT,
                 'widget' => 'single_text',
                 'html5' => false,
@@ -49,7 +41,7 @@ final class DateTimeType extends AbstractType
             'timezone',
             ChoiceType::class,
             array(
-                'label' => 'datetime.timezone',
+                'label' => false,
                 'choices' => $this->getTimeZoneList(),
                 'choice_translation_domain' => false,
                 'property_path' => 'timezone',

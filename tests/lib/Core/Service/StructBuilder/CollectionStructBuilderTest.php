@@ -149,7 +149,7 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
                         'visibility' => new ConfigStruct(
                             array(
                                 'parameterValues' => array(
-                                    'visible' => true,
+                                    'visibility_status' => null,
                                     'visible_from' => null,
                                     'visible_to' => null,
                                 ),

@@ -16,7 +16,7 @@ final class ResultTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\Result::getUrl
      * @covers \Netgen\BlockManager\Collection\Result\Result::getPosition
      * @covers \Netgen\BlockManager\Collection\Result\Result::isVisible
-     * @covers \Netgen\BlockManager\Collection\Result\Result::getInvisibilityReason
+     * @covers \Netgen\BlockManager\Collection\Result\Result::getHiddenStatus
      */
     public function testObject()
     {
@@ -28,7 +28,7 @@ final class ResultTest extends TestCase
                 'url' => '/some/url',
                 'position' => 3,
                 'isVisible' => false,
-                'invisibilityReason' => Result::HIDDEN_BY_CMS,
+                'hiddenStatus' => Result::HIDDEN_BY_CMS,
             )
         );
 
@@ -38,6 +38,6 @@ final class ResultTest extends TestCase
         $this->assertEquals('/some/url', $resultItem->getUrl());
         $this->assertEquals(3, $resultItem->getPosition());
         $this->assertFalse($resultItem->isVisible());
-        $this->assertEquals(Result::HIDDEN_BY_CMS, $resultItem->getInvisibilityReason());
+        $this->assertEquals(Result::HIDDEN_BY_CMS, $resultItem->getHiddenStatus());
     }
 }

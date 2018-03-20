@@ -187,8 +187,8 @@ abstract class ItemTest extends ServiceTestCase
 
     private function prepareParameterTypeRegistry()
     {
+        $this->parameterTypeRegistry->addParameterType(new ParameterType\ChoiceType());
         $this->parameterTypeRegistry->addParameterType(new ParameterType\DateTimeType());
-        $this->parameterTypeRegistry->addParameterType(new ParameterType\Compound\BooleanType());
 
         foreach ($this->getParameterTypes() as $parameterType) {
             $this->parameterTypeRegistry->addParameterType($parameterType);

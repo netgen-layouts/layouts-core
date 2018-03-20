@@ -23,6 +23,23 @@ interface Item extends Value, ConfigAwareValue
     const TYPE_OVERRIDE = 1;
 
     /**
+     * Denotes that the item is visible. Does not take into account the possibility that
+     * the CMS entity wrapped by the item might be hidden in CMS.
+     */
+    const VISIBILITY_VISIBLE = 'visible';
+
+    /**
+     * Denotes that the item is hidden.
+     */
+    const VISIBILITY_HIDDEN = 'hidden';
+
+    /**
+     * Denotes that the item is visible at certain time only, as configured by the scheduling
+     * configuration.
+     */
+    const VISIBILITY_SCHEDULED = 'scheduled';
+
+    /**
      * Returns the item ID.
      *
      * @return int|string
@@ -82,9 +99,16 @@ interface Item extends Value, ConfigAwareValue
     public function getValueType();
 
     /**
+     * Returns if the item visibility is scheduled, as specified by item visibility/scheduling
+     * configuration.
+     *
+     * @return bool
+     */
+    public function isScheduled();
+
+    /**
      * Returns if the item is visible in provided point in time, as specified by item
-     * configuration. This does not take into account the visibility of the CMS entity
-     * referenced by this item.
+     * visibility/scheduling configuration.
      *
      * If reference time is not provided, current time is used.
      *

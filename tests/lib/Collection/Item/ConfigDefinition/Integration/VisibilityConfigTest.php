@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Collection\Item\ConfigDefinition\Integration
 
 use DateTimeImmutable;
 use DateTimeZone;
+use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\Collection\Item\ConfigDefinition\Handler\VisibilityConfigHandler;
 
 abstract class VisibilityConfigTest extends ItemTest
@@ -28,75 +29,79 @@ abstract class VisibilityConfigTest extends ItemTest
             array(
                 array(),
                 array(
-                    'visible' => true,
+                    'visibility_status' => Item::VISIBILITY_VISIBLE,
                     'visible_from' => null,
                     'visible_to' => null,
                 ),
             ),
             array(
                 array(
-                    'visible' => false,
-                ),
-                array(
-                    'visible' => false,
-                    'visible_from' => null,
-                    'visible_to' => null,
-                ),
-            ),
-            array(
-                array(
-                    'visible' => false,
+                    'visibility_status' => Item::VISIBILITY_HIDDEN,
                     'visible_from' => null,
                     'visible_to' => $dateTo,
                 ),
                 array(
-                    'visible' => false,
+                    'visibility_status' => Item::VISIBILITY_HIDDEN,
                     'visible_from' => null,
                     'visible_to' => $dateTo,
                 ),
             ),
             array(
                 array(
-                    'visible' => false,
+                    'visibility_status' => Item::VISIBILITY_HIDDEN,
                     'visible_from' => $dateFrom,
                     'visible_to' => $dateTo,
                 ),
                 array(
-                    'visible' => false,
+                    'visibility_status' => Item::VISIBILITY_HIDDEN,
                     'visible_from' => $dateFrom,
                     'visible_to' => $dateTo,
                 ),
             ),
             array(
                 array(
-                    'visible' => true,
-                ),
-                array(
-                    'visible' => true,
+                    'visibility_status' => Item::VISIBILITY_SCHEDULED,
                     'visible_from' => null,
-                    'visible_to' => null,
+                    'visible_to' => $dateTo,
+                ),
+                array(
+                    'visibility_status' => Item::VISIBILITY_SCHEDULED,
+                    'visible_from' => null,
+                    'visible_to' => $dateTo,
                 ),
             ),
             array(
                 array(
-                    'visible' => true,
-                    'visible_from' => $dateFrom,
-                    'visible_to' => null,
-                ),
-                array(
-                    'visible' => true,
-                    'visible_from' => $dateFrom,
-                    'visible_to' => null,
-                ),
-            ),
-            array(
-                array(
-                    'visible' => true,
+                    'visibility_status' => Item::VISIBILITY_SCHEDULED,
                     'visible_from' => $dateFrom,
                     'visible_to' => $dateTo,
                 ),
                 array(
-                    'visible' => true,
+                    'visibility_status' => Item::VISIBILITY_SCHEDULED,
+                    'visible_from' => $dateFrom,
+                    'visible_to' => $dateTo,
+                ),
+            ),
+            array(
+                array(
+                    'visibility_status' => Item::VISIBILITY_VISIBLE,
+                    'visible_from' => $dateFrom,
+                    'visible_to' => null,
+                ),
+                array(
+                    'visibility_status' => Item::VISIBILITY_VISIBLE,
+                    'visible_from' => $dateFrom,
+                    'visible_to' => null,
+                ),
+            ),
+            array(
+                array(
+                    'visibility_status' => Item::VISIBILITY_VISIBLE,
+                    'visible_from' => $dateFrom,
+                    'visible_to' => $dateTo,
+                ),
+                array(
+                    'visibility_status' => Item::VISIBILITY_VISIBLE,
                     'visible_from' => $dateFrom,
                     'visible_to' => $dateTo,
                 ),
@@ -112,20 +117,18 @@ abstract class VisibilityConfigTest extends ItemTest
         return array(
             array(
                 array(
-                    'visible' => 42,
+                    'visibility_status' => 42,
                 ),
             ),
             array(
                 array(
                     'visible_from' => 42,
                 ),
-                array('visible', 'visible_to'),
             ),
             array(
                 array(
                     'visible_to' => 42,
                 ),
-                array('visible', 'visible_from'),
             ),
         );
     }

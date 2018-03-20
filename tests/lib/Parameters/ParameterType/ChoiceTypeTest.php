@@ -121,6 +121,7 @@ final class ChoiceTypeTest extends TestCase
                 ),
                 array(
                     'multiple' => false,
+                    'expanded' => false,
                     'options' => array(
                         'Option 1' => 'o1',
                         'Option 2' => 'o2',
@@ -137,6 +138,7 @@ final class ChoiceTypeTest extends TestCase
                 ),
                 array(
                     'multiple' => false,
+                    'expanded' => false,
                     'options' => array(
                         'Option 1' => 'o1',
                         'Option 2' => 'o2',
@@ -153,6 +155,7 @@ final class ChoiceTypeTest extends TestCase
                 ),
                 array(
                     'multiple' => true,
+                    'expanded' => false,
                     'options' => array(
                         'Option 1' => 'o1',
                         'Option 2' => 'o2',
@@ -161,12 +164,46 @@ final class ChoiceTypeTest extends TestCase
             ),
             array(
                 array(
-                    'multiple' => true,
+                    'expanded' => false,
+                    'options' => array(
+                        'Option 1' => 'o1',
+                        'Option 2' => 'o2',
+                    ),
+                ),
+                array(
+                    'multiple' => false,
+                    'expanded' => false,
+                    'options' => array(
+                        'Option 1' => 'o1',
+                        'Option 2' => 'o2',
+                    ),
+                ),
+            ),
+            array(
+                array(
+                    'expanded' => true,
+                    'options' => array(
+                        'Option 1' => 'o1',
+                        'Option 2' => 'o2',
+                    ),
+                ),
+                array(
+                    'multiple' => false,
+                    'expanded' => true,
+                    'options' => array(
+                        'Option 1' => 'o1',
+                        'Option 2' => 'o2',
+                    ),
+                ),
+            ),
+            array(
+                array(
                     'options' => function () {
                     },
                 ),
                 array(
-                    'multiple' => true,
+                    'multiple' => false,
+                    'expanded' => false,
                     'options' => function () {
                     },
                 ),
@@ -185,6 +222,15 @@ final class ChoiceTypeTest extends TestCase
             array(
                 array(
                     'multiple' => 'true',
+                    'options' => array(
+                        'Option 1' => 'o1',
+                        'Option 2' => 'o2',
+                    ),
+                ),
+            ),
+            array(
+                array(
+                    'expanded' => 'true',
                     'options' => array(
                         'Option 1' => 'o1',
                         'Option 2' => 'o2',

@@ -193,9 +193,9 @@ final class ResultBuilderTest extends TestCase
                         'visibility' => new Config(
                             array(
                                 'parameters' => array(
-                                    'visible' => new Parameter(
+                                    'visibility_status' => new Parameter(
                                         array(
-                                            'value' => true,
+                                            'value' => Item::VISIBILITY_VISIBLE,
                                         )
                                     ),
                                     'visible_from' => new Parameter(
@@ -227,9 +227,9 @@ final class ResultBuilderTest extends TestCase
                         'visibility' => new Config(
                             array(
                                 'parameters' => array(
-                                    'visible' => new Parameter(
+                                    'visibility_status' => new Parameter(
                                         array(
-                                            'value' => true,
+                                            'value' => Item::VISIBILITY_VISIBLE,
                                         )
                                     ),
                                     'visible_from' => new Parameter(

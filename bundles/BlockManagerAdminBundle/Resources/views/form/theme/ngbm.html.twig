@@ -93,6 +93,18 @@
     </div>
 {%- endblock ngbm_link_widget -%}
 
+{%- block ngbm_datetime_widget -%}
+    <div {{ block('widget_container_attributes') }}>
+        <div class="datetime">
+            {{ form_row(form.children.datetime) }}
+        </div>
+
+        <div class="timezone">
+            {{ form_row(form.children.timezone) }}
+        </div>
+    </div>
+{%- endblock ngbm_datetime_widget -%}
+
 {%- block ngbm_compound_boolean_row -%}
 <div>
     <div

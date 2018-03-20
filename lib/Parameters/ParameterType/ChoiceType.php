@@ -23,8 +23,10 @@ final class ChoiceType extends ParameterType
     public function configureOptions(OptionsResolver $optionsResolver)
     {
         $optionsResolver->setDefault('multiple', false);
-        $optionsResolver->setRequired(array('multiple', 'options'));
+        $optionsResolver->setDefault('expanded', false);
+        $optionsResolver->setRequired(array('multiple', 'expanded', 'options'));
         $optionsResolver->setAllowedTypes('multiple', 'bool');
+        $optionsResolver->setAllowedTypes('expanded', 'bool');
         $optionsResolver->setAllowedTypes('options', array('array', 'callable'));
 
         $optionsResolver->setAllowedValues(
