@@ -15,8 +15,8 @@
     {% endif %}
 
     {{ form_row(visibility_form.children.visibility_status, {label: false}) }}
-    {{ form_row(visibility_form.children.visible_from) }}
-    {{ form_row(visibility_form.children.visible_to) }}
+    {{ form_row(visibility_form.children.visible_from, {attr: {placeholder: 'config.collection_item.visibility.visible_from.placeholder'|trans}}) }}
+    {{ form_row(visibility_form.children.visible_to, {attr: {placeholder: 'config.collection_item.visibility.visible_to.placeholder'|trans}}) }}
 {% endblock %}
 
 {% block buttons %}
