@@ -256,16 +256,22 @@ interface LayoutService extends Service
      *     'top' => array('top'),
      * )
      *
+     * If $preserveSharedZones is set to true, all zones which are linked to a shared zone
+     * will still be preserved as shared after mapping. Due to how shared zones work, if one
+     * of the zones from the new layout type is mapped to a shared zone from the old layout,
+     * the mapping needs to be 1:1, instead of 1:n.
+     *
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      * @param \Netgen\BlockManager\Layout\Type\LayoutType $targetLayoutType
      * @param array $zoneMappings
+     * @param bool $preserveSharedZones
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
      *                                                          If layout is already of provided target type
      *
      * @return \Netgen\BlockManager\API\Values\Layout\Layout
      */
-    public function changeLayoutType(Layout $layout, LayoutType $targetLayoutType, array $zoneMappings = array());
+    public function changeLayoutType(Layout $layout, LayoutType $targetLayoutType, array $zoneMappings = array(), $preserveSharedZones = true);
 
     /**
      * Creates a layout draft.

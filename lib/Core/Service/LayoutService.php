@@ -423,7 +423,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         return $this->mapper->mapLayout($copiedLayout);
     }
 
-    public function changeLayoutType(Layout $layout, LayoutType $targetLayoutType, array $zoneMappings = array())
+    public function changeLayoutType(Layout $layout, LayoutType $targetLayoutType, array $zoneMappings = array(), $preserveSharedZones = true)
     {
         if ($layout->isPublished()) {
             throw new BadStateException('layout', 'Layout type can only be changed for draft layouts.');
@@ -435,7 +435,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
             throw new BadStateException('layout', 'Layout is already of provided target type.');
         }
 
-        $this->validator->validateChangeLayoutType($layout, $targetLayoutType, $zoneMappings);
+        $this->validator->validateChangeLayoutType($layout, $targetLayoutType, $zoneMappings, $preserveSharedZones);
 
         $zoneMappings = array_merge(
             array_fill_keys($targetLayoutType->getZoneIdentifiers(), array()),
@@ -443,12 +443,25 @@ final class LayoutService extends Service implements LayoutServiceInterface
         );
 
         $newLayout = $this->transaction(
-            function () use ($persistenceLayout, $targetLayoutType, $zoneMappings) {
-                return $this->layoutHandler->changeLayoutType(
+            function () use ($layout, $persistenceLayout, $targetLayoutType, $zoneMappings, $preserveSharedZones) {
+                $updatedLayout = $this->layoutHandler->changeLayoutType(
                     $persistenceLayout,
                     $targetLayoutType->getIdentifier(),
                     $zoneMappings
                 );
+
+                if ($preserveSharedZones) {
+                    foreach ($zoneMappings as $newZone => $oldZones) {
+                        if (count($oldZones) === 1 && $layout->getZone($oldZones[0], true)->hasLinkedZone()) {
+                            $this->linkZone(
+                                $this->loadZoneDraft($updatedLayout->id, $newZone),
+                                $layout->getZone($oldZones[0], true)->getLinkedZone()
+                            );
+                        }
+                    }
+                }
+
+                return $updatedLayout;
             }
         );
 

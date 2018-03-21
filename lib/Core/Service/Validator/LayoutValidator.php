@@ -160,10 +160,11 @@ final class LayoutValidator extends Validator
      * @param \Netgen\BlockManager\API\Values\Layout\Layout $layout
      * @param \Netgen\BlockManager\Layout\Type\LayoutType $targetLayoutType
      * @param array $zoneMappings
+     * @param bool $preserveSharedZones
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateChangeLayoutType(Layout $layout, LayoutType $targetLayoutType, array $zoneMappings = array())
+    public function validateChangeLayoutType(Layout $layout, LayoutType $targetLayoutType, array $zoneMappings = array(), $preserveSharedZones = true)
     {
         $seenZones = array();
         foreach ($zoneMappings as $newZone => $oldZones) {
@@ -209,6 +210,20 @@ final class LayoutValidator extends Validator
                             $oldZone
                         )
                     );
+                }
+            }
+
+            if ($preserveSharedZones && count($oldZones) > 1) {
+                foreach ($oldZones as $oldZone) {
+                    if ($layout->getZone($oldZone, true)->hasLinkedZone()) {
+                        throw ValidationException::validationFailed(
+                            'zoneMappings',
+                            sprintf(
+                                'When preserving shared layout zones, mapping for zone "%s" needs to be 1:1.',
+                                $newZone
+                            )
+                        );
+                    }
                 }
             }
         }
