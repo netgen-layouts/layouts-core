@@ -65,7 +65,7 @@ config.block.http_cache.cancel: 'Cancel'
 config.block.http_cache.submit: 'Set cache'
 
 config.collection_item.visibility.header: 'Configure visibility'
-config.collection_item.visibility.warning: 'WARNING: This item is <strong>hidden</strong> within the CMS. Following settings <strong>will not apply</strong> if the item is not visible in the CMS.'
+config.collection_item.visibility.warning: '<strong>WARNING</strong>: This item is <strong>hidden</strong> within the CMS. Following settings <strong>will not apply</strong> if the item is not visible in the CMS.'
 config.collection_item.visibility.visible_from.placeholder: 'Beginning of time'
 config.collection_item.visibility.visible_to.placeholder: 'End of time'
 config.collection_item.visibility.cancel: 'Cancel'
