@@ -75,6 +75,7 @@ services:
         public: false
         arguments:
             - "@netgen_block_manager.item.item_loader"
+            - "@netgen_block_manager.item.url_builder"
         tags:
             - { name: serializer.normalizer }
 
@@ -93,6 +94,8 @@ services:
     netgen_block_manager.normalizer.v1.collection_result:
         class: Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer
         public: false
+        arguments:
+            - "@netgen_block_manager.item.url_builder"
         tags:
             - { name: serializer.normalizer }
 

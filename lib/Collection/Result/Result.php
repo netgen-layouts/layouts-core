@@ -26,22 +26,6 @@ final class Result extends ValueObject
     const TYPE_DYNAMIC = 2;
 
     /**
-     * Defines that the result is hidden because the CMS entity itself is hidden.
-     */
-    const HIDDEN_BY_CMS = 0;
-
-    /**
-     * Defines that the result is hidden because the visibility configuration for the
-     * collection item marked the item as hidden.
-     */
-    const HIDDEN_BY_CONFIG = 1;
-
-    /**
-     * Defines that the result is hidden because of the voters ran by the visibility resolver.
-     */
-    const HIDDEN_BY_CODE = 2;
-
-    /**
      * @var \Netgen\BlockManager\Item\ItemInterface
      */
     protected $item;
@@ -57,24 +41,9 @@ final class Result extends ValueObject
     protected $type;
 
     /**
-     * @var string
-     */
-    protected $url;
-
-    /**
      * @var int
      */
     protected $position;
-
-    /**
-     * @var bool
-     */
-    protected $isVisible = true;
-
-    /**
-     * @var int
-     */
-    protected $hiddenStatus;
 
     /**
      * Returns the final generated item.
@@ -107,16 +76,6 @@ final class Result extends ValueObject
     }
 
     /**
-     * Returns the URL of the item in the result.
-     *
-     * @return string
-     */
-    public function getUrl()
-    {
-        return $this->url;
-    }
-
-    /**
      * Returns the position of the result within the set.
      *
      * @return int
@@ -124,28 +83,5 @@ final class Result extends ValueObject
     public function getPosition()
     {
         return $this->position;
-    }
-
-    /**
-     * Returns if the result is visible.
-     *
-     * @return bool
-     */
-    public function isVisible()
-    {
-        return $this->isVisible;
-    }
-
-    /**
-     * If the result is not visible (as returned by self::isVisible), returns why the result
-     * is not visible (one of self::HIDDEN_BY_* constants).
-     *
-     * Otherwise (if the result is visible), this just returns null.
-     *
-     * @return bool
-     */
-    public function getHiddenStatus()
-    {
-        return $this->hiddenStatus;
     }
 }

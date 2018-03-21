@@ -3,12 +3,24 @@
 namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 
 use Netgen\BlockManager\Collection\Result\Result;
+use Netgen\BlockManager\Item\NullItem;
+use Netgen\BlockManager\Item\UrlBuilderInterface;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class CollectionResultNormalizer implements NormalizerInterface
 {
+    /**
+     * @var \Netgen\BlockManager\Item\UrlBuilderInterface
+     */
+    private $urlBuilder;
+
+    public function __construct(UrlBuilderInterface $urlBuilder)
+    {
+        $this->urlBuilder = $urlBuilder;
+    }
+
     public function normalize($object, $format = null, array $context = array())
     {
         /** @var \Netgen\BlockManager\Collection\Result\Result $result */
@@ -21,13 +33,13 @@ final class CollectionResultNormalizer implements NormalizerInterface
             'collection_id' => $collectionItem !== null ? $collectionItem->getCollectionId() : null,
             'position' => $result->getPosition(),
             'type' => $result->getType(),
-            'cms_url' => $result->getUrl(),
+            'cms_url' => !$cmsItem instanceof NullItem ? $this->urlBuilder->getUrl($cmsItem) : null,
+            'cms_visible' => $cmsItem->isVisible(),
             'value' => $cmsItem->getValue(),
             'value_type' => $cmsItem->getValueType(),
             'name' => $cmsItem->getName(),
-            'visible' => $result->isVisible(),
+            'visible' => $collectionItem !== null ? $collectionItem->isVisible() : true,
             'scheduled' => $collectionItem !== null ? $collectionItem->isScheduled() : false,
-            'hidden_status' => $result->getHiddenStatus(),
         );
     }
 

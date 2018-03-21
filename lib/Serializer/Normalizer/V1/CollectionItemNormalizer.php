@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
+use Netgen\BlockManager\Item\UrlBuilderInterface;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -16,9 +17,15 @@ final class CollectionItemNormalizer implements NormalizerInterface
      */
     private $itemLoader;
 
-    public function __construct(ItemLoaderInterface $itemLoader)
+    /**
+     * @var \Netgen\BlockManager\Item\UrlBuilderInterface
+     */
+    private $urlBuilder;
+
+    public function __construct(ItemLoaderInterface $itemLoader, UrlBuilderInterface $urlBuilder)
     {
         $this->itemLoader = $itemLoader;
+        $this->urlBuilder = $urlBuilder;
     }
 
     public function normalize($object, $format = null, array $context = array())
@@ -33,17 +40,22 @@ final class CollectionItemNormalizer implements NormalizerInterface
             'type' => $item->getType(),
             'value' => $item->getValue(),
             'value_type' => $item->getValueType(),
+            'visible' => $item->isVisible(),
+            'scheduled' => $item->isScheduled(),
             'name' => null,
-            'visible' => null,
+            'cms_url' => null,
+            'cms_visible' => true,
         );
 
         try {
             $value = $this->itemLoader->load($item->getValue(), $item->getValueType());
-            $data['name'] = $value->getName();
-            $data['visible'] = $value->isVisible();
         } catch (ItemException $e) {
-            // Do nothing
+            return $data;
         }
+
+        $data['name'] = $value->getName();
+        $data['cms_url'] = $this->urlBuilder->getUrl($value);
+        $data['cms_visible'] = $value->isVisible();
 
         return $data;
     }

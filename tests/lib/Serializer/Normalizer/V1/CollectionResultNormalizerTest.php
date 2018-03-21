@@ -6,6 +6,7 @@ use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Core\Values\Collection\Item as CollectionItem;
 use Netgen\BlockManager\Core\Values\Config\Config;
 use Netgen\BlockManager\Item\Item;
+use Netgen\BlockManager\Item\UrlBuilderInterface;
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
@@ -15,13 +16,20 @@ use PHPUnit\Framework\TestCase;
 final class CollectionResultNormalizerTest extends TestCase
 {
     /**
+     * @var \PHPUnit\Framework\MockObject\MockObject
+     */
+    private $urlBuilderMock;
+
+    /**
      * @var \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer
      */
     private $normalizer;
 
     public function setUp()
     {
-        $this->normalizer = new CollectionResultNormalizer();
+        $this->urlBuilderMock = $this->createMock(UrlBuilderInterface::class);
+
+        $this->normalizer = new CollectionResultNormalizer($this->urlBuilderMock);
     }
 
     /**
@@ -39,7 +47,7 @@ final class CollectionResultNormalizerTest extends TestCase
                             'parameters' => array(
                                 'visibility_status' => new Parameter(
                                     array(
-                                        'value' => CollectionItem::VISIBILITY_SCHEDULED,
+                                        'value' => CollectionItem::VISIBILITY_VISIBLE,
                                     )
                                 ),
                             ),
@@ -52,6 +60,7 @@ final class CollectionResultNormalizerTest extends TestCase
         $item = new Item(
             array(
                 'name' => 'Value name',
+                'isVisible' => true,
             )
         );
 
@@ -60,12 +69,15 @@ final class CollectionResultNormalizerTest extends TestCase
                 'item' => $item,
                 'collectionItem' => $collectionItem,
                 'type' => Result::TYPE_MANUAL,
-                'url' => '/some/url',
                 'position' => 3,
-                'isVisible' => false,
-                'hiddenStatus' => Result::HIDDEN_BY_CMS,
             )
         );
+
+        $this->urlBuilderMock
+            ->expects($this->any())
+            ->method('getUrl')
+            ->with($this->equalTo($item))
+            ->will($this->returnValue('/some/url'));
 
         $this->assertEquals(
             array(
@@ -73,13 +85,13 @@ final class CollectionResultNormalizerTest extends TestCase
                 'collection_id' => $collectionItem->getCollectionId(),
                 'position' => $result->getPosition(),
                 'type' => $result->getType(),
-                'cms_url' => $result->getUrl(),
+                'cms_url' => '/some/url',
+                'cms_visible' => $item->isVisible(),
                 'value' => $item->getValue(),
                 'value_type' => $item->getValueType(),
                 'name' => $item->getName(),
-                'visible' => $result->isVisible(),
+                'visible' => $collectionItem->isVisible(),
                 'scheduled' => $collectionItem->isScheduled(),
-                'hidden_status' => $result->getHiddenStatus(),
             ),
             $this->normalizer->normalize(new VersionedValue($result, 1))
         );
@@ -93,6 +105,7 @@ final class CollectionResultNormalizerTest extends TestCase
         $item = new Item(
             array(
                 'name' => 'Value name',
+                'isVisible' => true,
             )
         );
 
@@ -101,12 +114,15 @@ final class CollectionResultNormalizerTest extends TestCase
                 'item' => $item,
                 'collectionItem' => null,
                 'type' => Result::TYPE_DYNAMIC,
-                'url' => '/some/url',
                 'position' => 3,
-                'isVisible' => true,
-                'hiddenStatus' => null,
             )
         );
+
+        $this->urlBuilderMock
+            ->expects($this->any())
+            ->method('getUrl')
+            ->with($this->equalTo($item))
+            ->will($this->returnValue('/some/url'));
 
         $this->assertEquals(
             array(
@@ -114,13 +130,13 @@ final class CollectionResultNormalizerTest extends TestCase
                 'collection_id' => null,
                 'position' => $result->getPosition(),
                 'type' => $result->getType(),
-                'cms_url' => $result->getUrl(),
+                'cms_url' => '/some/url',
+                'cms_visible' => $item->isVisible(),
                 'value' => $item->getValue(),
                 'value_type' => $item->getValueType(),
                 'name' => $item->getName(),
-                'visible' => $result->isVisible(),
+                'visible' => true,
                 'scheduled' => false,
-                'hidden_status' => $result->getHiddenStatus(),
             ),
             $this->normalizer->normalize(new VersionedValue($result, 1))
         );

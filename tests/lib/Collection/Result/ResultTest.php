@@ -13,10 +13,7 @@ final class ResultTest extends TestCase
      * @covers \Netgen\BlockManager\Collection\Result\Result::getItem
      * @covers \Netgen\BlockManager\Collection\Result\Result::getCollectionItem
      * @covers \Netgen\BlockManager\Collection\Result\Result::getType
-     * @covers \Netgen\BlockManager\Collection\Result\Result::getUrl
      * @covers \Netgen\BlockManager\Collection\Result\Result::getPosition
-     * @covers \Netgen\BlockManager\Collection\Result\Result::isVisible
-     * @covers \Netgen\BlockManager\Collection\Result\Result::getHiddenStatus
      */
     public function testObject()
     {
@@ -25,19 +22,13 @@ final class ResultTest extends TestCase
                 'item' => new Item(),
                 'collectionItem' => new CollectionItem(),
                 'type' => Result::TYPE_MANUAL,
-                'url' => '/some/url',
                 'position' => 3,
-                'isVisible' => false,
-                'hiddenStatus' => Result::HIDDEN_BY_CMS,
             )
         );
 
         $this->assertEquals(new Item(), $resultItem->getItem());
         $this->assertEquals(new CollectionItem(), $resultItem->getCollectionItem());
         $this->assertEquals(Result::TYPE_MANUAL, $resultItem->getType());
-        $this->assertEquals('/some/url', $resultItem->getUrl());
         $this->assertEquals(3, $resultItem->getPosition());
-        $this->assertFalse($resultItem->isVisible());
-        $this->assertEquals(Result::HIDDEN_BY_CMS, $resultItem->getHiddenStatus());
     }
 }

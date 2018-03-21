@@ -3,6 +3,8 @@
 namespace Netgen\BlockManager\Collection\Result;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Collection\Item;
+use Netgen\BlockManager\Collection\Item\VisibilityResolverInterface;
 use Netgen\BlockManager\Item\NullItem;
 
 /**
@@ -23,6 +25,11 @@ final class ResultBuilder implements ResultBuilderInterface
     private $resultItemBuilder;
 
     /**
+     * @var \Netgen\BlockManager\Collection\Item\VisibilityResolverInterface
+     */
+    private $visibilityResolver;
+
+    /**
      * @var int
      */
     private $maxLimit;
@@ -30,15 +37,18 @@ final class ResultBuilder implements ResultBuilderInterface
     /**
      * @param \Netgen\BlockManager\Collection\Result\CollectionIteratorFactory $collectionIteratorFactory
      * @param \Netgen\BlockManager\Collection\Result\ResultItemBuilder $resultItemBuilder
+     * @param \Netgen\BlockManager\Collection\Item\VisibilityResolverInterface $visibilityResolver
      * @param int $maxLimit
      */
     public function __construct(
         CollectionIteratorFactory $collectionIteratorFactory,
         ResultItemBuilder $resultItemBuilder,
+        VisibilityResolverInterface $visibilityResolver,
         $maxLimit
     ) {
         $this->collectionIteratorFactory = $collectionIteratorFactory;
         $this->resultItemBuilder = $resultItemBuilder;
+        $this->visibilityResolver = $visibilityResolver;
         $this->maxLimit = $maxLimit;
     }
 
@@ -124,11 +134,42 @@ final class ResultBuilder implements ResultBuilderInterface
             return false;
         }
 
-        if (!((bool) ($flags & ResultSet::INCLUDE_INVISIBLE_ITEMS)) && !$result->isVisible()) {
+        if (!((bool) ($flags & ResultSet::INCLUDE_INVISIBLE_ITEMS)) && !$this->isResultVisible($result)) {
             return false;
         }
 
         return true;
+    }
+
+    /**
+     * Returns if the result built from CMS item and collection item will be
+     * visible or not.
+     *
+     * First, we check if the item from CMS is visible or not. After that, we
+     * check if the collection item is specified as visible by its configuration,
+     * and finally, we use the visibility resolver to give the change to code
+     * to specify if an item is visible or not.
+     *
+     * @param \Netgen\BlockManager\Collection\Result\Result $result
+     *
+     * @return bool
+     */
+    private function isResultVisible(Result $result)
+    {
+        if (!$result->getItem()->isVisible()) {
+            return false;
+        }
+
+        $collectionItem = $result->getCollectionItem();
+        if (!$collectionItem instanceof Item) {
+            return true;
+        }
+
+        if (!$collectionItem->isVisible()) {
+            return false;
+        }
+
+        return $this->visibilityResolver->isVisible($collectionItem);
     }
 
     /**
