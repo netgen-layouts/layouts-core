@@ -1138,6 +1138,242 @@ final class BlockHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      */
+    public function testCopyBlockWithPosition()
+    {
+        $copiedBlock = $this->blockHandler->copyBlock(
+            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
+            'root',
+            1
+        );
+
+        $this->assertEquals(
+            new Block(
+                array(
+                    'id' => 39,
+                    'layoutId' => 1,
+                    'depth' => 1,
+                    'path' => '/3/39/',
+                    'parentId' => 3,
+                    'placeholder' => 'root',
+                    'position' => 1,
+                    'definitionIdentifier' => 'list',
+                    'viewType' => 'list',
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
+                    'isTranslatable' => true,
+                    'alwaysAvailable' => true,
+                    'availableLocales' => array('en', 'hr'),
+                    'mainLocale' => 'en',
+                    'status' => Value::STATUS_DRAFT,
+                    'parameters' => array(
+                        'en' => array(
+                            'number_of_columns' => 2,
+                            'css_class' => 'css-class',
+                            'css_id' => 'css-id',
+                        ),
+                        'hr' => array(
+                            'css_class' => 'css-class-hr',
+                            'css_id' => 'css-id',
+                        ),
+                    ),
+                    'config' => array(),
+                )
+            ),
+            $copiedBlock
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlockCollections
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
+     */
+    public function testCopyBlockWithSamePosition()
+    {
+        $copiedBlock = $this->blockHandler->copyBlock(
+            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
+            'root',
+            0
+        );
+
+        $this->assertEquals(
+            new Block(
+                array(
+                    'id' => 39,
+                    'layoutId' => 1,
+                    'depth' => 1,
+                    'path' => '/3/39/',
+                    'parentId' => 3,
+                    'placeholder' => 'root',
+                    'position' => 0,
+                    'definitionIdentifier' => 'list',
+                    'viewType' => 'list',
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
+                    'isTranslatable' => true,
+                    'alwaysAvailable' => true,
+                    'availableLocales' => array('en', 'hr'),
+                    'mainLocale' => 'en',
+                    'status' => Value::STATUS_DRAFT,
+                    'parameters' => array(
+                        'en' => array(
+                            'number_of_columns' => 2,
+                            'css_class' => 'css-class',
+                            'css_id' => 'css-id',
+                        ),
+                        'hr' => array(
+                            'css_class' => 'css-class-hr',
+                            'css_id' => 'css-id',
+                        ),
+                    ),
+                    'config' => array(),
+                )
+            ),
+            $copiedBlock
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlockCollections
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
+     */
+    public function testCopyBlockWithLastPosition()
+    {
+        $copiedBlock = $this->blockHandler->copyBlock(
+            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
+            'root',
+            2
+        );
+
+        $this->assertEquals(
+            new Block(
+                array(
+                    'id' => 39,
+                    'layoutId' => 1,
+                    'depth' => 1,
+                    'path' => '/3/39/',
+                    'parentId' => 3,
+                    'placeholder' => 'root',
+                    'position' => 2,
+                    'definitionIdentifier' => 'list',
+                    'viewType' => 'list',
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
+                    'isTranslatable' => true,
+                    'alwaysAvailable' => true,
+                    'availableLocales' => array('en', 'hr'),
+                    'mainLocale' => 'en',
+                    'status' => Value::STATUS_DRAFT,
+                    'parameters' => array(
+                        'en' => array(
+                            'number_of_columns' => 2,
+                            'css_class' => 'css-class',
+                            'css_id' => 'css-id',
+                        ),
+                        'hr' => array(
+                            'css_class' => 'css-class-hr',
+                            'css_id' => 'css-id',
+                        ),
+                    ),
+                    'config' => array(),
+                )
+            ),
+            $copiedBlock
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlockCollections
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
+     */
+    public function testCopyBlockWithLowerPosition()
+    {
+        $copiedBlock = $this->blockHandler->copyBlock(
+            $this->blockHandler->loadBlock(35, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
+            'root',
+            0
+        );
+
+        $this->assertEquals(
+            new Block(
+                array(
+                    'id' => 39,
+                    'layoutId' => 1,
+                    'depth' => 1,
+                    'path' => '/3/39/',
+                    'parentId' => 3,
+                    'placeholder' => 'root',
+                    'position' => 0,
+                    'definitionIdentifier' => 'list',
+                    'viewType' => 'grid',
+                    'itemViewType' => 'standard',
+                    'name' => 'My fourth block',
+                    'isTranslatable' => false,
+                    'alwaysAvailable' => true,
+                    'availableLocales' => array('en'),
+                    'mainLocale' => 'en',
+                    'status' => Value::STATUS_DRAFT,
+                    'parameters' => array(
+                        'en' => array(
+                            'number_of_columns' => 3,
+                        ),
+                    ),
+                    'config' => array(),
+                )
+            ),
+            $copiedBlock
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlock
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "position" has an invalid state. Position cannot be negative.
+     */
+    public function testCopyBlockThrowsBadStateExceptionOnNegativePosition()
+    {
+        $this->blockHandler->copyBlock(
+            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
+            'root',
+            -1
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlock
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
+     */
+    public function testCopyBlockThrowsBadStateExceptionOnTooLargePosition()
+    {
+        $this->blockHandler->copyBlock(
+            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
+            'root',
+            9999
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlockCollections
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
+     */
     public function testCopyBlockWithChildBlocks()
     {
         $copiedBlock = $this->blockHandler->copyBlock(

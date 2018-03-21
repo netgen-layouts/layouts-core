@@ -300,7 +300,7 @@ final class BlockHandler implements BlockHandlerInterface
         return $updatedBlock;
     }
 
-    public function copyBlock(Block $block, Block $targetBlock, $placeholder)
+    public function copyBlock(Block $block, Block $targetBlock, $placeholder, $position = null)
     {
         if (strpos($targetBlock->path, $block->path) === 0) {
             throw new BadStateException('targetBlock', 'Block cannot be copied below itself or its children.');
@@ -318,12 +318,13 @@ final class BlockHandler implements BlockHandlerInterface
         $newBlock->parentId = $targetBlock->id;
         $newBlock->placeholder = $placeholder;
 
-        $newBlock->position = $this->positionHelper->getNextPosition(
+        $newBlock->position = $this->positionHelper->createPosition(
             $this->getPositionHelperConditions(
                 $targetBlock->id,
                 $targetBlock->status,
                 $placeholder
-            )
+            ),
+            $position
         );
 
         $newBlock = $this->queryHandler->createBlock($newBlock);

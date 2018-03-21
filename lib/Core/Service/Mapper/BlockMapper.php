@@ -113,6 +113,7 @@ final class BlockMapper
             'viewType' => $block->viewType,
             'itemViewType' => $block->itemViewType,
             'name' => $block->name,
+            'parentPosition' => $block->position !== null ? $block->position : null,
             'status' => $block->status,
             'published' => $block->status === Value::STATUS_PUBLISHED,
             'placeholders' => $this->mapPlaceholders($block, $blockDefinition, $locales),

@@ -846,13 +846,70 @@ abstract class BlockServiceTest extends ServiceTestCase
             'left'
         );
 
+        $originalBlock = $this->blockService->loadBlockDraft(34);
+        $this->assertEquals(0, $originalBlock->getParentPosition());
+
         $this->assertFalse($copiedBlock->isPublished());
         $this->assertInstanceOf(Block::class, $copiedBlock);
         $this->assertEquals(39, $copiedBlock->getId());
+        $this->assertEquals(1, $copiedBlock->getParentPosition());
+    }
 
-        $copiedCollection = $this->collectionService->loadCollectionDraft(4);
-        $this->assertFalse($copiedCollection->isPublished());
-        $this->assertInstanceOf(Collection::class, $copiedCollection);
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
+     */
+    public function testCopyBlockWithPosition()
+    {
+        $copiedBlock = $this->blockService->copyBlock(
+            $this->blockService->loadBlockDraft(34),
+            $this->blockService->loadBlockDraft(33),
+            'left',
+            1
+        );
+
+        $originalBlock = $this->blockService->loadBlockDraft(34);
+        $this->assertEquals(0, $originalBlock->getParentPosition());
+
+        $this->assertFalse($copiedBlock->isPublished());
+        $this->assertInstanceOf(Block::class, $copiedBlock);
+        $this->assertEquals(39, $copiedBlock->getId());
+        $this->assertEquals(1, $copiedBlock->getParentPosition());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
+     */
+    public function testCopyBlockWithSamePosition()
+    {
+        $copiedBlock = $this->blockService->copyBlock(
+            $this->blockService->loadBlockDraft(34),
+            $this->blockService->loadBlockDraft(33),
+            'left',
+            0
+        );
+
+        $firstBlockInTargetBlock = $this->blockService->loadBlockDraft(37);
+        $this->assertEquals(1, $firstBlockInTargetBlock->getParentPosition());
+
+        $this->assertFalse($copiedBlock->isPublished());
+        $this->assertInstanceOf(Block::class, $copiedBlock);
+        $this->assertEquals(39, $copiedBlock->getId());
+        $this->assertEquals(0, $copiedBlock->getParentPosition());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
+     */
+    public function testCopyBlockThrowsBadStateExceptionWhenPositionIsTooLarge()
+    {
+        $this->blockService->copyBlock(
+            $this->blockService->loadBlockDraft(34),
+            $this->blockService->loadBlockDraft(33),
+            'left',
+            9999
+        );
     }
 
     /**
@@ -946,16 +1003,133 @@ abstract class BlockServiceTest extends ServiceTestCase
     {
         $copiedBlock = $this->blockService->copyBlockToZone(
             $this->blockService->loadBlockDraft(31),
-            $this->layoutService->loadZoneDraft(1, 'left')
+            $this->layoutService->loadZoneDraft(1, 'right')
         );
+
+        $originalBlock = $this->blockService->loadBlockDraft(31);
+        $this->assertEquals(0, $originalBlock->getParentPosition());
+
+        $secondBlock = $this->blockService->loadBlockDraft(35);
+        $this->assertEquals(1, $secondBlock->getParentPosition());
 
         $this->assertFalse($copiedBlock->isPublished());
         $this->assertInstanceOf(Block::class, $copiedBlock);
         $this->assertEquals(39, $copiedBlock->getId());
+        $this->assertEquals(2, $copiedBlock->getParentPosition());
 
-        $copiedCollection = $this->collectionService->loadCollectionDraft(4);
+        $copiedCollection = $this->collectionService->loadCollectionDraft(7);
         $this->assertFalse($copiedCollection->isPublished());
         $this->assertInstanceOf(Collection::class, $copiedCollection);
+
+        $copiedCollection2 = $this->collectionService->loadCollectionDraft(8);
+        $this->assertFalse($copiedCollection2->isPublished());
+        $this->assertInstanceOf(Collection::class, $copiedCollection2);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
+     */
+    public function testCopyBlockToZoneWithPosition()
+    {
+        $copiedBlock = $this->blockService->copyBlockToZone(
+            $this->blockService->loadBlockDraft(31),
+            $this->layoutService->loadZoneDraft(1, 'right'),
+            1
+        );
+
+        $originalBlock = $this->blockService->loadBlockDraft(31);
+        $this->assertEquals(0, $originalBlock->getParentPosition());
+
+        $secondBlock = $this->blockService->loadBlockDraft(35);
+        $this->assertEquals(2, $secondBlock->getParentPosition());
+
+        $this->assertFalse($copiedBlock->isPublished());
+        $this->assertInstanceOf(Block::class, $copiedBlock);
+        $this->assertEquals(39, $copiedBlock->getId());
+        $this->assertEquals(1, $copiedBlock->getParentPosition());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
+     */
+    public function testCopyBlockToZoneWithSamePosition()
+    {
+        $copiedBlock = $this->blockService->copyBlockToZone(
+            $this->blockService->loadBlockDraft(31),
+            $this->layoutService->loadZoneDraft(1, 'right'),
+            0
+        );
+
+        $originalBlock = $this->blockService->loadBlockDraft(31);
+        $this->assertEquals(1, $originalBlock->getParentPosition());
+
+        $secondBlock = $this->blockService->loadBlockDraft(35);
+        $this->assertEquals(2, $secondBlock->getParentPosition());
+
+        $this->assertFalse($copiedBlock->isPublished());
+        $this->assertInstanceOf(Block::class, $copiedBlock);
+        $this->assertEquals(39, $copiedBlock->getId());
+        $this->assertEquals(0, $copiedBlock->getParentPosition());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
+     */
+    public function testCopyBlockToZoneWithLastPosition()
+    {
+        $copiedBlock = $this->blockService->copyBlockToZone(
+            $this->blockService->loadBlockDraft(31),
+            $this->layoutService->loadZoneDraft(1, 'right'),
+            2
+        );
+
+        $originalBlock = $this->blockService->loadBlockDraft(31);
+        $this->assertEquals(0, $originalBlock->getParentPosition());
+
+        $secondBlock = $this->blockService->loadBlockDraft(35);
+        $this->assertEquals(1, $secondBlock->getParentPosition());
+
+        $this->assertFalse($copiedBlock->isPublished());
+        $this->assertInstanceOf(Block::class, $copiedBlock);
+        $this->assertEquals(39, $copiedBlock->getId());
+        $this->assertEquals(2, $copiedBlock->getParentPosition());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
+     */
+    public function testCopyBlockToZoneWithLowerPosition()
+    {
+        $copiedBlock = $this->blockService->copyBlockToZone(
+            $this->blockService->loadBlockDraft(35),
+            $this->layoutService->loadZoneDraft(1, 'right'),
+            0
+        );
+
+        $originalBlock = $this->blockService->loadBlockDraft(31);
+        $this->assertEquals(1, $originalBlock->getParentPosition());
+
+        $secondBlock = $this->blockService->loadBlockDraft(35);
+        $this->assertEquals(2, $secondBlock->getParentPosition());
+
+        $this->assertFalse($copiedBlock->isPublished());
+        $this->assertInstanceOf(Block::class, $copiedBlock);
+        $this->assertEquals(39, $copiedBlock->getId());
+        $this->assertEquals(0, $copiedBlock->getParentPosition());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
+     */
+    public function testCopyBlockToZoneThrowsBadStateExceptionWhenPositionIsTooLarge()
+    {
+        $this->blockService->copyBlockToZone(
+            $this->blockService->loadBlockDraft(31),
+            $this->layoutService->loadZoneDraft(1, 'right'),
+            9999
+        );
     }
 
     /**

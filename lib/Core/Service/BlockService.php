@@ -289,7 +289,7 @@ final class BlockService extends Service implements BlockServiceInterface
         return $this->mapper->mapBlock($updatedBlock, array($block->getLocale()));
     }
 
-    public function copyBlock(Block $block, Block $targetBlock, $placeholder)
+    public function copyBlock(Block $block, Block $targetBlock, $placeholder, $position = null)
     {
         if ($block->isPublished()) {
             throw new BadStateException('block', 'Only draft blocks can be copied.');
@@ -307,6 +307,7 @@ final class BlockService extends Service implements BlockServiceInterface
         }
 
         $this->validator->validateIdentifier($placeholder, 'placeholder', true);
+        $this->validator->validatePosition($position, 'position');
 
         $targetBlockDefinition = $targetBlock->getDefinition();
 
@@ -323,15 +324,15 @@ final class BlockService extends Service implements BlockServiceInterface
         }
 
         $copiedBlock = $this->transaction(
-            function () use ($persistenceBlock, $persistenceTargetBlock, $placeholder) {
-                return $this->blockHandler->copyBlock($persistenceBlock, $persistenceTargetBlock, $placeholder);
+            function () use ($persistenceBlock, $persistenceTargetBlock, $placeholder, $position) {
+                return $this->blockHandler->copyBlock($persistenceBlock, $persistenceTargetBlock, $placeholder, $position);
             }
         );
 
         return $this->mapper->mapBlock($copiedBlock, array($block->getLocale()));
     }
 
-    public function copyBlockToZone(Block $block, Zone $zone)
+    public function copyBlockToZone(Block $block, Zone $zone, $position = null)
     {
         if ($block->isPublished()) {
             throw new BadStateException('block', 'Only draft blocks can be copied.');
@@ -354,11 +355,13 @@ final class BlockService extends Service implements BlockServiceInterface
             throw new BadStateException('zone', 'Block is not allowed in specified zone.');
         }
 
+        $this->validator->validatePosition($position, 'position');
+
         $rootBlock = $this->blockHandler->loadBlock($persistenceZone->rootBlockId, $persistenceZone->status);
 
         $copiedBlock = $this->transaction(
-            function () use ($persistenceBlock, $rootBlock) {
-                return $this->blockHandler->copyBlock($persistenceBlock, $rootBlock, 'root');
+            function () use ($persistenceBlock, $rootBlock, $position) {
+                return $this->blockHandler->copyBlock($persistenceBlock, $rootBlock, 'root', $position);
             }
         );
 

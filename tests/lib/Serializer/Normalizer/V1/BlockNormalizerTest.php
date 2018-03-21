@@ -54,6 +54,7 @@ final class BlockNormalizerTest extends TestCase
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
                 'name' => 'My block',
+                'parentPosition' => 3,
                 'status' => Value::STATUS_PUBLISHED,
                 'published' => true,
                 'placeholders' => array(
@@ -117,6 +118,7 @@ final class BlockNormalizerTest extends TestCase
                 'layout_id' => $block->getLayoutId(),
                 'definition_identifier' => $block->getDefinition()->getIdentifier(),
                 'name' => $block->getName(),
+                'parent_position' => $block->getParentPosition(),
                 'parameters' => $serializedParams,
                 'view_type' => $block->getViewType(),
                 'item_view_type' => $block->getItemViewType(),

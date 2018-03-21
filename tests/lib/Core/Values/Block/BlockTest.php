@@ -28,6 +28,7 @@ final class BlockTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getViewType
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getItemViewType
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getName
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getParentPosition
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::isPublished
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::isTranslatable
@@ -51,6 +52,7 @@ final class BlockTest extends TestCase
         $this->assertNull($block->getViewType());
         $this->assertNull($block->getItemViewType());
         $this->assertNull($block->getName());
+        $this->assertNull($block->getParentPosition());
         $this->assertNull($block->getStatus());
         $this->assertNull($block->isPublished());
         $this->assertNull($block->isTranslatable());
@@ -77,6 +79,7 @@ final class BlockTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getViewType
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getItemViewType
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getName
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getParentPosition
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getStatus
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::isPublished
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::isTranslatable
@@ -95,6 +98,7 @@ final class BlockTest extends TestCase
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
                 'name' => 'My block',
+                'parentPosition' => 3,
                 'status' => Value::STATUS_PUBLISHED,
                 'published' => true,
                 'placeholders' => array(
@@ -130,6 +134,7 @@ final class BlockTest extends TestCase
         $this->assertEquals('default', $block->getViewType());
         $this->assertEquals('standard', $block->getItemViewType());
         $this->assertEquals('My block', $block->getName());
+        $this->assertEquals(3, $block->getParentPosition());
         $this->assertEquals(Value::STATUS_PUBLISHED, $block->getStatus());
         $this->assertTrue($block->isPublished());
         $this->assertTrue($block->isTranslatable());

@@ -149,11 +149,13 @@ interface BlockService extends Service
     /**
      * Copies a block to a specified target block and placeholder.
      *
-     * The block is placed at the end of placeholder.
+     * If position is specified, block is copied there, otherwise,
+     * the block is placed at the end of placeholder.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param \Netgen\BlockManager\API\Values\Block\Block $targetBlock
      * @param string $placeholder
+     * @param int $position
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If source or target block is not a draft
      *                                                          If target block is not a container
@@ -164,24 +166,27 @@ interface BlockService extends Service
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function copyBlock(Block $block, Block $targetBlock, $placeholder);
+    public function copyBlock(Block $block, Block $targetBlock, $placeholder, $position = null);
 
     /**
      * Copies a block to a specified zone.
      *
-     * Block is placed at the end of the zone.
+     * If position is specified, block is copied there, otherwise,
+     * block is placed at the end of the zone.
      *
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
+     * @param int $position
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If block or zone are not drafts
      *                                                          If zone is in a different layout
      *                                                          If block cannot be placed in specified zone
      *                                                              as specified by the list of blocks allowed within the zone
+     *                                                          If provided position is out of range
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */
-    public function copyBlockToZone(Block $block, Zone $zone);
+    public function copyBlockToZone(Block $block, Zone $zone, $position = null);
 
     /**
      * Moves a block to specified target block.

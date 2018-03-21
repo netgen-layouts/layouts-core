@@ -49,6 +49,11 @@ final class Block extends ValueObject implements APIBlock
     protected $name;
 
     /**
+     * @var int
+     */
+    protected $parentPosition;
+
+    /**
      * @var \Netgen\BlockManager\API\Values\Block\Placeholder[]
      */
     protected $placeholders = array();
@@ -126,6 +131,11 @@ final class Block extends ValueObject implements APIBlock
     public function getName()
     {
         return $this->name;
+    }
+
+    public function getParentPosition()
+    {
+        return $this->parentPosition;
     }
 
     public function getPlaceholders()

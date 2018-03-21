@@ -163,12 +163,14 @@ interface BlockHandlerInterface
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $targetBlock
      * @param string $placeholder
+     * @param int $position
      *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
      * @throws \Netgen\BlockManager\Exception\BadStateException If target block is within the provided block
      *
      * @return \Netgen\BlockManager\Persistence\Values\Block\Block
      */
-    public function copyBlock(Block $block, Block $targetBlock, $placeholder);
+    public function copyBlock(Block $block, Block $targetBlock, $placeholder, $position = null);
 
     /**
      * Moves a block to specified position in a specified target block and placeholder.

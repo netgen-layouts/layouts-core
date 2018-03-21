@@ -38,6 +38,7 @@ abstract class BlockMapperTest extends ServiceTestCase
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
                 'name' => 'My block',
+                'position' => 3,
                 'alwaysAvailable' => false,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
@@ -71,6 +72,7 @@ abstract class BlockMapperTest extends ServiceTestCase
         $this->assertEquals('default', $block->getViewType());
         $this->assertEquals('standard', $block->getItemViewType());
         $this->assertEquals('My block', $block->getName());
+        $this->assertEquals(3, $block->getParentPosition());
         $this->assertEquals(Value::STATUS_PUBLISHED, $block->getStatus());
         $this->assertTrue($block->isPublished());
 

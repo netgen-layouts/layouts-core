@@ -58,6 +58,13 @@ interface Block extends Value, ParameterBasedValue, ConfigAwareValue
     public function getName();
 
     /**
+     * Returns the position of the block in the parent block or zone.
+     *
+     * @return int
+     */
+    public function getParentPosition();
+
+    /**
      * Returns all placeholders from this block.
      *
      * @return \Netgen\BlockManager\API\Values\Block\Placeholder[]
