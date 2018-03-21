@@ -95,12 +95,22 @@
 
 {%- block ngbm_datetime_widget -%}
     <div {{ block('widget_container_attributes') }}>
-        <div class="datetime">
-            {{ form_row(form.children.datetime, {attr: {placeholder: attr.placeholder ?? ''}}) }}
-        </div>
-
-        <div class="timezone">
-            {{ form_row(form.children.timezone) }}
+        <div class="row">
+            <div class="col-md-8">
+                <div class="datetimepicker">
+                    <div class="datetime">
+                        <input type="text" class="datetime-input-locale" placeholder="{{ attr.placeholder ?? '' }}">
+                        <i class="material-icons input-icon">today</i>
+                    </div>
+                    {{ form_row(form.children.datetime, {attr: {placeholder: attr.placeholder ?? '', class: 'datetime-formated'}}) }}
+                    <button class="js-clear-input"><i class="material-icons">close</i></button>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="timezone">
+                    {{ form_row(form.children.timezone) }}
+                </div>
+            </div>
         </div>
     </div>
 {%- endblock ngbm_datetime_widget -%}
