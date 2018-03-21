@@ -2,6 +2,10 @@ services:
     netgen_block_manager.collection.item.visibility_resolver:
         class: Netgen\BlockManager\Collection\Item\VisibilityResolver
         public: false
+        arguments:
+            - "@?logger"
+        tags:
+            - { name: monolog.logger, channel: ngbm }
 
     netgen_block_manager.collection.item_definition_factory:
         class: Netgen\BlockManager\Collection\Item\ItemDefinitionFactory
