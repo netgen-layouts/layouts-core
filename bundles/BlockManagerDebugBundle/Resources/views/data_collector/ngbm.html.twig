@@ -162,7 +162,7 @@
                         {% for target in rule.targets %}
                             <tr>
                                 <th>{{ target.type }}</th>
-                                <td>{{ profiler_dump(target.value) }}</td>
+                                <td>{{ profiler_dump(target.value, maxDepth=0) }}</td>
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -182,15 +182,15 @@
                             {% for condition in rule.conditions %}
                                 <tr>
                                     <th>{{ condition.type }}</th>
-                                    <td>{{ profiler_dump(condition.value) }}</td>
+                                    <td>{{ profiler_dump(condition.value, maxDepth=0) }}</td>
                                 </tr>
                             {% endfor %}
                             </tbody>
                         </table>
                     {% else %}
-                        <p class="empty">
-                            Rule does not have any conditions.
-                        </p>
+                        <div class="empty">
+                            <p>Rule does not have any conditions.</p>
+                        </div>
                     {% endif %}
                 {% else %}
                     <div class="metrics">
