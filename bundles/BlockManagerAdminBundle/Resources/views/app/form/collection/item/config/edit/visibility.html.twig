@@ -5,6 +5,8 @@
 {% set collection_item = form.vars.configurable %}
 {% set visibility_form = form.children.visibility %}
 
+{% form_theme visibility_form _self %}
+
 {% block header %}
     {{ 'config.collection_item.visibility.header'|trans }}: {{ cms_item.name }}
 {% endblock %}
@@ -23,3 +25,19 @@
     <button type="button" class="btn btn-link action_cancel">{{ 'config.collection_item.visibility.cancel'|trans }}</button>
     <button type="submit" class="btn btn-primary action_apply">{{ 'config.collection_item.visibility.submit'|trans }}</button>
 {% endblock %}
+
+{%- block _edit_visibility_visibility_status_widget -%}
+    <div {{ block('widget_container_attributes') }}>
+        {% set scheduled_value = constant('Netgen\\BlockManager\\API\\Values\\Collection\\Item::VISIBILITY_SCHEDULED') %}
+
+        {%- for child in form %}
+            {% if child.vars.value == scheduled_value %}
+                {{- form_widget(child, {attr: {'data-scheduling': 'true'}}) -}}
+            {% else %}
+                {{- form_widget(child) -}}
+            {% endif %}
+
+            {{- form_label(child, null, {translation_domain: choice_translation_domain}) -}}
+        {% endfor -%}
+    </div>
+{%- endblock _edit_visibility_visibility_status_widget -%}
