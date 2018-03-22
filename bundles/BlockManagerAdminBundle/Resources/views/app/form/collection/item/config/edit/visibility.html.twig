@@ -28,16 +28,9 @@
 
 {%- block _edit_visibility_visibility_status_widget -%}
     <div {{ block('widget_container_attributes') }}>
-        {% set scheduled_value = constant('Netgen\\BlockManager\\API\\Values\\Collection\\Item::VISIBILITY_SCHEDULED') %}
-
         {%- for child in form %}
             <div class="radio">
-                {% if child.vars.value == scheduled_value %}
-                    {{- form_widget(child, {attr: {'data-scheduling': 'true'}}) -}}
-                {% else %}
-                    {{- form_widget(child) -}}
-                {% endif %}
-
+                {{- form_widget(child) -}}
                 {{- form_label(child, null, {translation_domain: choice_translation_domain}) -}}
             </div>
         {% endfor -%}
