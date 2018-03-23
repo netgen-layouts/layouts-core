@@ -1,16 +1,16 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Parameters\Form\Type\DataMapper;
+namespace Netgen\BlockManager\Tests\Form\DataMapper;
 
 use ArrayIterator;
 use DateTimeImmutable;
 use DateTimeZone;
-use Netgen\BlockManager\Parameters\Form\Type\DataMapper\DateTimeDataMapper;
+use Netgen\BlockManager\Form\DataMapper\DateTimeDataMapper;
 
 final class DateTimeDataMapperTest extends DataMapperTest
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\Form\Type\DataMapper\DateTimeDataMapper
+     * @var \Netgen\BlockManager\Form\DataMapper\DateTimeDataMapper
      */
     private $mapper;
 
@@ -22,7 +22,7 @@ final class DateTimeDataMapperTest extends DataMapperTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Type\DataMapper\DateTimeDataMapper::mapDataToForms
+     * @covers \Netgen\BlockManager\Form\DataMapper\DateTimeDataMapper::mapDataToForms
      */
     public function testMapDataToForms()
     {
@@ -42,7 +42,7 @@ final class DateTimeDataMapperTest extends DataMapperTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Type\DataMapper\DateTimeDataMapper::mapDataToForms
+     * @covers \Netgen\BlockManager\Form\DataMapper\DateTimeDataMapper::mapDataToForms
      */
     public function testMapDataToFormsWithNoDateTime()
     {
@@ -60,7 +60,7 @@ final class DateTimeDataMapperTest extends DataMapperTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Type\DataMapper\DateTimeDataMapper::mapFormsToData
+     * @covers \Netgen\BlockManager\Form\DataMapper\DateTimeDataMapper::mapFormsToData
      */
     public function testMapFormsToData()
     {
@@ -83,7 +83,7 @@ final class DateTimeDataMapperTest extends DataMapperTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Type\DataMapper\DateTimeDataMapper::mapFormsToData
+     * @covers \Netgen\BlockManager\Form\DataMapper\DateTimeDataMapper::mapFormsToData
      */
     public function testMapFormsToDataWithEmptyFormData()
     {

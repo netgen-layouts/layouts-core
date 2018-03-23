@@ -53,7 +53,7 @@ final class ValidatorFactory implements ConstraintValidatorFactoryInterface
 
             return new Validator\ValueTypeValidator($valueTypeRegistry);
         } elseif ($name === 'ngbm_datetime') {
-            return new Validator\Parameters\DateTimeValidator();
+            return new Validator\DateTimeValidator();
         } elseif ($name === 'ngbm_link') {
             return new Validator\Parameters\LinkValidator();
         } elseif ($name === 'ngbm_item_link') {

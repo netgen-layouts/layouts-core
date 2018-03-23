@@ -1,11 +1,11 @@
 <?php
 
-namespace Netgen\BlockManager\Validator\Parameters;
+namespace Netgen\BlockManager\Validator;
 
 use DateTimeInterface;
 use DateTimeZone;
 use Netgen\BlockManager\Parameters\ParameterType\DateTimeType;
-use Netgen\BlockManager\Validator\Constraint\Parameters\DateTime;
+use Netgen\BlockManager\Validator\Constraint\DateTime;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\ConstraintValidator;

@@ -42,7 +42,7 @@ services:
             - { name: validator.constraint_validator, alias: ngbm_link }
 
     netgen_block_manager.validator.datetime:
-        class: Netgen\BlockManager\Validator\Parameters\DateTimeValidator
+        class: Netgen\BlockManager\Validator\DateTimeValidator
         # public: false
         tags:
             - { name: validator.constraint_validator, alias: ngbm_datetime }

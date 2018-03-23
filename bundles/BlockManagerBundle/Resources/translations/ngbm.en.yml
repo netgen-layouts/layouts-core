@@ -50,3 +50,7 @@ layout_resolver.condition.query_parameter.parameter_values: 'Parameter values'
 
 layout_resolver.condition.exception: 'HTTP error code'
 layout_resolver.condition.exception.all: 'All error codes'
+
+layout_resolver.condition.time: 'Time'
+layout_resolver.condition.time.from: 'From'
+layout_resolver.condition.time.to: 'Until'

@@ -1,13 +1,13 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Validator\Parameters;
+namespace Netgen\BlockManager\Tests\Validator;
 
 use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
-use Netgen\BlockManager\Validator\Constraint\Parameters\DateTime as DateTimeConstraint;
-use Netgen\BlockManager\Validator\Parameters\DateTimeValidator;
+use Netgen\BlockManager\Validator\Constraint\DateTime as DateTimeConstraint;
+use Netgen\BlockManager\Validator\DateTimeValidator;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 final class DateTimeValidatorTest extends ValidatorTestCase
@@ -31,7 +31,7 @@ final class DateTimeValidatorTest extends ValidatorTestCase
      * @param string $value
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Validator\Parameters\DateTimeValidator::validate
+     * @covers \Netgen\BlockManager\Validator\DateTimeValidator::validate
      * @dataProvider validateDataProvider
      */
     public function testValidate($value, $isValid)
@@ -40,9 +40,9 @@ final class DateTimeValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\Parameters\DateTimeValidator::validate
+     * @covers \Netgen\BlockManager\Validator\DateTimeValidator::validate
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
-     * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\Validator\Constraint\Parameters\DateTime", "Symfony\Component\Validator\Constraints\NotBlank" given
+     * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\Validator\Constraint\DateTime", "Symfony\Component\Validator\Constraints\NotBlank" given
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint()
     {
@@ -51,7 +51,7 @@ final class DateTimeValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\Parameters\DateTimeValidator::validate
+     * @covers \Netgen\BlockManager\Validator\DateTimeValidator::validate
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
      * @expectedExceptionMessage Expected argument of type "DateTimeInterface or array", "integer" given
      */

@@ -2,13 +2,13 @@
 
 namespace Netgen\BlockManager\Tests\Validator\Constraint\Parameters;
 
-use Netgen\BlockManager\Validator\Constraint\Parameters\DateTime;
+use Netgen\BlockManager\Validator\Constraint\DateTime;
 use PHPUnit\Framework\TestCase;
 
 final class DateTimeTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Validator\Constraint\Parameters\DateTime::validatedBy
+     * @covers \Netgen\BlockManager\Validator\Constraint\DateTime::validatedBy
      */
     public function testValidatedBy()
     {

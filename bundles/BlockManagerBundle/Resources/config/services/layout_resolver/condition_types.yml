@@ -16,3 +16,9 @@ services:
         public: false
         tags:
             - { name: netgen_block_manager.layout.resolver.condition_type }
+
+    netgen_block_manager.layout.resolver.condition_type.time:
+        class: Netgen\BlockManager\Layout\Resolver\ConditionType\Time
+        public: false
+        tags:
+            - { name: netgen_block_manager.layout.resolver.condition_type }

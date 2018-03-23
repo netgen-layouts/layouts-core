@@ -7,7 +7,7 @@ use DateTimeInterface;
 use DateTimeZone;
 use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
 use Netgen\BlockManager\Parameters\ParameterType;
-use Netgen\BlockManager\Validator\Constraint\Parameters\DateTime as DateTimeConstraint;
+use Netgen\BlockManager\Validator\Constraint\DateTime as DateTimeConstraint;
 
 /**
  * Parameter type used to store and validate a date and time value. The value of the parameter

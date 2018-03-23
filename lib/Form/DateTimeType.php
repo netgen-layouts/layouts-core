@@ -1,11 +1,10 @@
 <?php
 
-namespace Netgen\BlockManager\Parameters\Form\Type;
+namespace Netgen\BlockManager\Form;
 
 use DateTimeImmutable;
 use DateTimeZone;
-use Netgen\BlockManager\Form\AbstractType;
-use Netgen\BlockManager\Form\ChoicesAsValuesTrait;
+use Netgen\BlockManager\Form\DataMapper\DateTimeDataMapper;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType as BaseDateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,6 +22,8 @@ final class DateTimeType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $builder->setDataMapper(new DateTimeDataMapper());
+
         $builder->add(
             'datetime',
             BaseDateTimeType::class,

@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Validator\Constraint\Parameters;
+namespace Netgen\BlockManager\Validator\Constraint;
 
 use Symfony\Component\Validator\Constraint;
 

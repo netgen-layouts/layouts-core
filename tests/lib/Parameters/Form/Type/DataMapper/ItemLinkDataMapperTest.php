@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Parameters\Form\Type\DataMapper;
 
 use ArrayIterator;
 use Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper;
+use Netgen\BlockManager\Tests\Form\DataMapper\DataMapperTest;
 
 final class ItemLinkDataMapperTest extends DataMapperTest
 {

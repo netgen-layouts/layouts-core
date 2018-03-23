@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Parameters\Form\Type\DataMapper;
+namespace Netgen\BlockManager\Tests\Form\DataMapper;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;

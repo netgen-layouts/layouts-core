@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Parameters\Form\Type\DataMapper;
+namespace Netgen\BlockManager\Form\DataMapper;
 
 use DateTimeInterface;
 use Symfony\Component\Form\DataMapperInterface;
@@ -20,6 +20,9 @@ final class DateTimeDataMapper implements DataMapperInterface
         if ($data instanceof DateTimeInterface) {
             $dateTime = $data->format('Y-m-d H:i:s');
             $timeZone = $data->getTimezone()->getName();
+        } elseif (is_array($data)) {
+            $dateTime = isset($data['datetime']) ? $data['datetime'] : $dateTime;
+            $timeZone = isset($data['timezone']) ? $data['timezone'] : $timeZone;
         }
 
         $forms['datetime']->setData($dateTime);
