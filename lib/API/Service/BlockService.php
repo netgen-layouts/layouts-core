@@ -100,6 +100,8 @@ interface BlockService extends Service
      * Creates a block in specified block and placeholder and at specified position.
      *
      * If position is not provided, bock is placed at the end of the placeholder.
+     * If the target block is not translatable, created block will not be translatable,
+     * ignoring the translatable flag from the create struct.
      *
      * @param \Netgen\BlockManager\API\Values\Block\BlockCreateStruct $blockCreateStruct
      * @param \Netgen\BlockManager\API\Values\Block\Block $targetBlock
@@ -244,6 +246,7 @@ interface BlockService extends Service
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If block is not a draft
+     * @throws \Netgen\BlockManager\Exception\BadStateException If parent block is not translatable
      *
      * @return \Netgen\BlockManager\API\Values\Block\Block
      */

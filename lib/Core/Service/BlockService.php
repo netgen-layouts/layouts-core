@@ -210,6 +210,10 @@ final class BlockService extends Service implements BlockServiceInterface
             throw new BadStateException('blockCreateStruct', 'Containers cannot be placed inside containers.');
         }
 
+        if ($blockCreateStruct->isTranslatable && !$targetBlock->isTranslatable()) {
+            $blockCreateStruct->isTranslatable = false;
+        }
+
         $persistenceBlock = $this->blockHandler->loadBlock($targetBlock->getId(), Value::STATUS_DRAFT);
 
         return $this->internalCreateBlock($blockCreateStruct, $persistenceBlock, $placeholder, $position);
@@ -489,6 +493,11 @@ final class BlockService extends Service implements BlockServiceInterface
             throw new BadStateException('block', 'Block is already translatable.');
         }
 
+        $parentBlock = $this->blockHandler->loadBlock($persistenceBlock->parentId, Value::STATUS_DRAFT);
+        if ($parentBlock->depth > 0 && !$parentBlock->isTranslatable) {
+            throw new BadStateException('block', 'You can only enable translations if parent block is also translatable.');
+        }
+
         $persistenceLayout = $this->layoutHandler->loadLayout($persistenceBlock->layoutId, Value::STATUS_DRAFT);
 
         $updatedBlock = $this->transaction(
@@ -533,25 +542,7 @@ final class BlockService extends Service implements BlockServiceInterface
 
         $updatedBlock = $this->transaction(
             function () use ($persistenceBlock) {
-                $persistenceBlock = $this->blockHandler->updateBlock(
-                    $persistenceBlock,
-                    new BlockUpdateStruct(
-                        array(
-                            'isTranslatable' => false,
-                        )
-                    )
-                );
-
-                foreach ($persistenceBlock->availableLocales as $locale) {
-                    if ($locale !== $persistenceBlock->mainLocale) {
-                        $persistenceBlock = $this->blockHandler->deleteBlockTranslation(
-                            $persistenceBlock,
-                            $locale
-                        );
-                    }
-                }
-
-                return $persistenceBlock;
+                return $this->internalDisableTranslations($persistenceBlock);
             }
         );
 
@@ -724,6 +715,41 @@ final class BlockService extends Service implements BlockServiceInterface
                 );
             }
         );
+    }
+
+    /**
+     * Disables the translations on provided block and removes all translations
+     * keeping only the main one.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Block\Block
+     */
+    private function internalDisableTranslations(PersistenceBlock $block)
+    {
+        $block = $this->blockHandler->updateBlock(
+            $block,
+            new BlockUpdateStruct(
+                array(
+                    'isTranslatable' => false,
+                )
+            )
+        );
+
+        foreach ($block->availableLocales as $locale) {
+            if ($locale !== $block->mainLocale) {
+                $block = $this->blockHandler->deleteBlockTranslation(
+                    $block,
+                    $locale
+                );
+            }
+        }
+
+        foreach ($this->blockHandler->loadChildBlocks($block) as $childBlock) {
+            $this->internalDisableTranslations($childBlock);
+        }
+
+        return $block;
     }
 
     /**

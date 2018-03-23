@@ -285,6 +285,39 @@ abstract class BlockServiceTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     */
+    public function testCreateTranslatableBlockWithNonTranslatableTargetBlock()
+    {
+        $blockCreateStruct = $this->blockService->newBlockCreateStruct(
+            $this->blockDefinitionRegistry->getBlockDefinition('title')
+        );
+
+        $targetBlock = $this->blockService->disableTranslations(
+            $this->blockService->loadBlockDraft(33)
+        );
+
+        $block = $this->blockService->createBlock(
+            $blockCreateStruct,
+            $targetBlock,
+            'left',
+            0
+        );
+
+        $this->assertFalse($block->isPublished());
+        $this->assertInstanceOf(Block::class, $block);
+
+        $this->assertFalse($block->isTranslatable());
+        $this->assertEquals('en', $block->getMainLocale());
+
+        $this->assertCount(1, $block->getAvailableLocales());
+        $this->assertContains('en', $block->getAvailableLocales());
+        $this->assertNotContains('hr', $block->getAvailableLocales());
+
+        $this->assertEquals('en', $block->getLocale());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
      */
     public function testCreateBlockWithConfig()
@@ -1562,7 +1595,7 @@ abstract class BlockServiceTest extends ServiceTestCase
      */
     public function testEnableTranslations()
     {
-        $block = $this->blockService->loadBlockDraft(35);
+        $block = $this->blockService->loadBlockDraft(37);
 
         $updatedBlock = $this->blockService->enableTranslations($block);
 
@@ -1599,7 +1632,23 @@ abstract class BlockServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::enableTranslations
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage You can only enable translations if parent block is also translatable.
+     */
+    public function testEnableTranslationsThrowsBadStateExceptionWithNonTranslatableParentBlock()
+    {
+        $parentBlock = $this->blockService->loadBlockDraft(33);
+        $this->blockService->disableTranslations($parentBlock);
+
+        $block = $this->blockService->loadBlockDraft(37);
+
+        $this->blockService->enableTranslations($block);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::disableTranslations
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalDisableTranslations
      */
     public function testDisableTranslations()
     {

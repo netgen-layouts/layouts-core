@@ -70,8 +70,8 @@ INSERT INTO `ngbm_block` VALUES (31,0,1,1,'/3/31/',3,'root',0,'list','list','sta
 INSERT INTO `ngbm_block` VALUES (31,1,1,1,'/3/31/',3,'root',0,'list','grid','standard_with_intro','My published block','',1,'en',1);
 INSERT INTO `ngbm_block` VALUES (32,0,1,1,'/2/32/',2,'root',0,'list','grid','standard','My other block','{\"http_cache\": {\"use_http_cache\": false}}',1,'en',1);
 INSERT INTO `ngbm_block` VALUES (32,1,1,1,'/2/32/',2,'root',0,'list','grid','standard','My other block','{\"http_cache\": {\"use_http_cache\": false}}',1,'en',1);
-INSERT INTO `ngbm_block` VALUES (33,0,2,1,'/7/33/',7,'root',0,'two_columns','two_columns_50_50','standard','My third block','',0,'en',1);
-INSERT INTO `ngbm_block` VALUES (33,1,2,1,'/7/33/',7,'root',0,'two_columns','two_columns_50_50','standard','My third block','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (33,0,2,1,'/7/33/',7,'root',0,'two_columns','two_columns_50_50','standard','My third block','',1,'en',1);
+INSERT INTO `ngbm_block` VALUES (33,1,2,1,'/7/33/',7,'root',0,'two_columns','two_columns_50_50','standard','My third block','',1,'en',1);
 INSERT INTO `ngbm_block` VALUES (34,0,2,1,'/6/34/',6,'root',0,'title','title','standard','My fourth block','',0,'en',1);
 INSERT INTO `ngbm_block` VALUES (34,1,2,1,'/6/34/',6,'root',0,'title','title','standard','My fourth block','',0,'en',1);
 INSERT INTO `ngbm_block` VALUES (35,0,1,1,'/3/35/',3,'root',1,'list','grid','standard','My fourth block','',0,'en',1);
@@ -79,7 +79,7 @@ INSERT INTO `ngbm_block` VALUES (35,1,1,1,'/3/35/',3,'root',1,'list','grid','sta
 INSERT INTO `ngbm_block` VALUES (36,0,2,1,'/7/36/',7,'root',1,'title','title','standard','My sixth block','',0,'en',1);
 INSERT INTO `ngbm_block` VALUES (37,0,2,2,'/7/33/37/',33,'left',0,'text','text','standard','My seventh block','',0,'en',1);
 INSERT INTO `ngbm_block` VALUES (37,1,2,2,'/7/33/37/',33,'left',0,'text','text','standard','My seventh block','',0,'en',1);
-INSERT INTO `ngbm_block` VALUES (38,0,2,1,'/7/38/',7,'root',2,'column','column','standard','My eight block','',0,'en',1);
+INSERT INTO `ngbm_block` VALUES (38,0,2,1,'/7/38/',7,'root',2,'column','column','standard','My eight block','',1,'en',1);
 /*!40000 ALTER TABLE `ngbm_block` ENABLE KEYS */;
 UNLOCK TABLES;
 

@@ -390,6 +390,11 @@ final class BlockServiceTest extends ServiceTestCase
 
         $this->blockHandlerMock
             ->expects($this->at(1))
+            ->method('loadBlock')
+            ->will($this->returnValue(new PersistenceBlock(array('isTranslatable' => true, 'depth' => 1))));
+
+        $this->blockHandlerMock
+            ->expects($this->at(2))
             ->method('updateBlock')
             ->will($this->throwException(new Exception('Test exception text')));
 
