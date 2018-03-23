@@ -6,8 +6,11 @@
         "type": 0,
         "value": "72",
         "value_type": "ezlocation",
+        "visible": true,
+        "scheduled": false,
         "name": "NHL Upsets This Week's Social TV Rankings",
-        "visible": true
+        "cms_url": "/some/url",
+        "cms_visible": true
     },
     {
         "id": 8,
@@ -16,8 +19,11 @@
         "type": 0,
         "value": "73",
         "value_type": "ezlocation",
+        "visible": true,
+        "scheduled": false,
         "name": "How \"The Simpsons\" Fixed Apple's iPhone Keyboard",
-        "visible": true
+        "cms_url": "/some/url",
+        "cms_visible": true
     },
     {
         "id": 9,
@@ -26,7 +32,10 @@
         "type": 0,
         "value": "74",
         "value_type": "ezlocation",
+        "visible": true,
+        "scheduled": false,
         "name": "The Ultimate Beer Infographic Just Got Even More Ultimate",
-        "visible": true
+        "cms_url": "/some/url",
+        "cms_visible": true
     }
 ]

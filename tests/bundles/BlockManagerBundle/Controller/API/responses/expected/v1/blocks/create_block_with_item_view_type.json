@@ -3,6 +3,7 @@
     "layout_id": 2,
     "definition_identifier": "list",
     "name": "",
+    "parent_position": 0,
     "parameters": {
         "number_of_columns": 2,
         "paged_collections:enabled": null,

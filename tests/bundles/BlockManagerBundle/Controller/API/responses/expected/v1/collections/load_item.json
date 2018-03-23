@@ -5,6 +5,9 @@
     "type": 0,
     "value": "72",
     "value_type": "ezlocation",
+    "visible": true,
+    "scheduled": false,
     "name": "NHL Upsets This Week's Social TV Rankings",
-    "visible": true
+    "cms_url": "/some/url",
+    "cms_visible": true
 }

@@ -4,6 +4,7 @@
         "layout_id": 1,
         "definition_identifier": "list",
         "name": "My block",
+        "parent_position": 0,
         "parameters": {
             "number_of_columns": 2,
             "paged_collections:enabled": null,
@@ -46,6 +47,7 @@
         "layout_id": 1,
         "definition_identifier": "list",
         "name": "My fourth block",
+        "parent_position": 1,
         "parameters": {
             "number_of_columns": 3,
             "paged_collections:enabled": null,

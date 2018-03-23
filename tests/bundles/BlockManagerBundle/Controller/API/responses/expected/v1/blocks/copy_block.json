@@ -3,6 +3,7 @@
     "layout_id": 2,
     "definition_identifier": "title",
     "name": "My fourth block",
+    "parent_position": 1,
     "parameters": {
         "tag": "h3",
         "title": "Title",
