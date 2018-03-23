@@ -2,11 +2,10 @@
 
 namespace Netgen\BlockManager\Parameters\ParameterType;
 
-use DateTimeImmutable;
 use DateTimeInterface;
-use DateTimeZone;
 use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
 use Netgen\BlockManager\Parameters\ParameterType;
+use Netgen\BlockManager\Utils\DateTimeUtils;
 use Netgen\BlockManager\Validator\Constraint\DateTime as DateTimeConstraint;
 
 /**
@@ -52,11 +51,7 @@ final class DateTimeType extends ParameterType
 
     public function fromHash(ParameterDefinitionInterface $parameterDefinition, $value)
     {
-        if (!is_array($value) || empty($value['datetime']) || empty($value['timezone'])) {
-            return null;
-        }
-
-        return new DateTimeImmutable($value['datetime'], new DateTimeZone($value['timezone']));
+        return is_array($value) ? DateTimeUtils::createFromArray($value) : null;
     }
 
     protected function getValueConstraints(ParameterDefinitionInterface $parameterDefinition, $value)

@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Layout\Resolver\ConditionType;
 
 use Netgen\BlockManager\Layout\Resolver\ConditionType\Time;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
+use Netgen\BlockManager\Utils\DateTimeUtils;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\PhpUnit\ClockMock;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,7 +19,7 @@ final class TimeTest extends TestCase
 
     public static function setUpBeforeClass()
     {
-        ClockMock::register(Time::class);
+        ClockMock::register(DateTimeUtils::class);
     }
 
     /**
@@ -118,9 +119,6 @@ final class TimeTest extends TestCase
             array(array('from' => null), true),
             array(array('to' => array()), true),
             array(array('to' => null), true),
-            array(array('from' => 'invalid', 'to' => array()), true),
-            array(array('from' => array(), 'to' => 'invalid'), true),
-            array(array('from' => 'invalid', 'to' => 'invalid'), true),
             array(array('from' => array('datetime' => '2018-03-20 00:00:00', 'timezone' => 'Antarctica/Casey'), 'to' => array()), true),
             array(array('from' => array('datetime' => '2018-03-20 00:00:00', 'timezone' => 'Antarctica/Casey'), 'to' => null), true),
             array(array('from' => array('datetime' => '2018-03-20 00:00:00', 'timezone' => 'Antarctica/Casey')), true),

@@ -121,7 +121,6 @@ final class DateTimeTypeTest extends TestCase
     public function fromHashProvider()
     {
         return array(
-            array(42, null),
             array(null, null),
             array(array(), null),
             array(array('datetime' => '2018-02-01 00:00:00'), null),

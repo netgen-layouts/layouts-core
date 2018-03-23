@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
-use DateTimeImmutable;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Core\Values\Layout\Zone;
@@ -12,6 +11,7 @@ use Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout as PersistenceLayout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone as PersistenceZone;
 use Netgen\BlockManager\Persistence\Values\Value as PersistenceValue;
+use Netgen\BlockManager\Utils\DateTimeUtils;
 
 final class LayoutMapper
 {
@@ -91,8 +91,8 @@ final class LayoutMapper
             ),
             'name' => $layout->name,
             'description' => $layout->description,
-            'created' => $this->createDateTime($layout->created),
-            'modified' => $this->createDateTime($layout->modified),
+            'created' => DateTimeUtils::createFromTimestamp($layout->created),
+            'modified' => DateTimeUtils::createFromTimestamp($layout->created),
             'status' => $layout->status,
             'shared' => $layout->shared,
             'mainLocale' => $layout->mainLocale,
@@ -102,19 +102,5 @@ final class LayoutMapper
         );
 
         return new Layout($layoutData);
-    }
-
-    /**
-     * Builds and returns the \DateTimeInterface object from the provided timestamp.
-     *
-     * @param int $timestamp
-     *
-     * @return \DateTimeInterface
-     */
-    private function createDateTime($timestamp)
-    {
-        $dateTime = new DateTimeImmutable();
-
-        return $dateTime->setTimestamp((int) $timestamp);
     }
 }

@@ -80,7 +80,6 @@ abstract class LayoutMapperTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper::mapLayout
-     * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper::createDateTime
      */
     public function testMapLayout()
     {
