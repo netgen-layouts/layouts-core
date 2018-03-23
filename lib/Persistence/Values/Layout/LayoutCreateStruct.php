@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Persistence\Values\Layout;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
-final class LayoutCreateStruct extends ValueObject
+final class LayoutCreateStruct extends Value
 {
     /**
      * Identifier of the layout type for the new layout.

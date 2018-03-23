@@ -53,9 +53,9 @@ final class CollectionParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\CollectionParamConverter::loadValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\CollectionParamConverter::loadValue
      */
-    public function testLoadValueObject()
+    public function testLoadValue()
     {
         $collection = new Collection();
 
@@ -67,7 +67,7 @@ final class CollectionParamConverterTest extends TestCase
 
         $this->assertEquals(
             $collection,
-            $this->paramConverter->loadValueObject(
+            $this->paramConverter->loadValue(
                 array(
                     'collectionId' => 42,
                     'published' => true,
@@ -77,9 +77,9 @@ final class CollectionParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\CollectionParamConverter::loadValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\CollectionParamConverter::loadValue
      */
-    public function testLoadValueObjectDraft()
+    public function testLoadValueDraft()
     {
         $collection = new Collection();
 
@@ -91,7 +91,7 @@ final class CollectionParamConverterTest extends TestCase
 
         $this->assertEquals(
             $collection,
-            $this->paramConverter->loadValueObject(
+            $this->paramConverter->loadValue(
                 array(
                     'collectionId' => 42,
                     'published' => false,

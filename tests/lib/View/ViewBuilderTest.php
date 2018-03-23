@@ -104,7 +104,7 @@ final class ViewBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\View\ViewBuilder::buildView
      * @covers \Netgen\BlockManager\View\ViewBuilder::getViewProvider
      * @expectedException \Netgen\BlockManager\Exception\View\ViewProviderException
-     * @expectedExceptionMessage No view providers found for "Netgen\BlockManager\Tests\Core\Stubs\Value" value object.
+     * @expectedExceptionMessage No view providers found for "Netgen\BlockManager\Tests\Core\Stubs\Value" value.
      */
     public function testBuildViewWithNoViewProviders()
     {
@@ -126,7 +126,7 @@ final class ViewBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\View\ViewBuilder::buildView
      * @covers \Netgen\BlockManager\View\ViewBuilder::getViewProvider
      * @expectedException \Netgen\BlockManager\Exception\View\ViewProviderException
-     * @expectedExceptionMessage No view providers found for "Netgen\BlockManager\Tests\Core\Stubs\Value" value object.
+     * @expectedExceptionMessage No view providers found for "Netgen\BlockManager\Tests\Core\Stubs\Value" value.
      */
     public function testBuildViewWithNoViewProvidersThatSupportValue()
     {

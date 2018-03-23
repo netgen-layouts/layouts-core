@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\API\Values\Layout;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
-final class LayoutCopyStruct extends ValueObject
+final class LayoutCopyStruct extends Value
 {
     /**
      * Human readable name of the copied layout.

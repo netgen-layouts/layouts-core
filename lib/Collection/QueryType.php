@@ -5,12 +5,12 @@ namespace Netgen\BlockManager\Collection;
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Exception\Collection\QueryTypeException;
 use Netgen\BlockManager\Parameters\ParameterCollectionTrait;
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
 /**
  * @final
  */
-class QueryType extends ValueObject implements QueryTypeInterface
+class QueryType extends Value implements QueryTypeInterface
 {
     use ParameterCollectionTrait;
 

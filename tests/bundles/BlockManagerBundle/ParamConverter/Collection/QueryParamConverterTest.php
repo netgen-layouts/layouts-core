@@ -53,9 +53,9 @@ final class QueryParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\QueryParamConverter::loadValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\QueryParamConverter::loadValue
      */
-    public function testLoadValueObject()
+    public function testLoadValue()
     {
         $query = new Query();
 
@@ -67,7 +67,7 @@ final class QueryParamConverterTest extends TestCase
 
         $this->assertEquals(
             $query,
-            $this->paramConverter->loadValueObject(
+            $this->paramConverter->loadValue(
                 array(
                     'queryId' => 42,
                     'published' => true,
@@ -77,9 +77,9 @@ final class QueryParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\QueryParamConverter::loadValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\QueryParamConverter::loadValue
      */
-    public function testLoadValueObjectDraft()
+    public function testLoadValueDraft()
     {
         $query = new Query();
 
@@ -91,7 +91,7 @@ final class QueryParamConverterTest extends TestCase
 
         $this->assertEquals(
             $query,
-            $this->paramConverter->loadValueObject(
+            $this->paramConverter->loadValue(
                 array(
                     'queryId' => 42,
                     'published' => false,

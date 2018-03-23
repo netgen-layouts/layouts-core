@@ -5,9 +5,9 @@ namespace Netgen\BlockManager\API\Values\Collection;
 use Netgen\BlockManager\API\Values\ParameterStruct;
 use Netgen\BlockManager\API\Values\ParameterStructTrait;
 use Netgen\BlockManager\Collection\QueryTypeInterface;
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
-final class QueryUpdateStruct extends ValueObject implements ParameterStruct
+final class QueryUpdateStruct extends Value implements ParameterStruct
 {
     use ParameterStructTrait;
 

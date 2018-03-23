@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\API\Values\Collection;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
-final class CollectionCreateStruct extends ValueObject
+final class CollectionCreateStruct extends Value
 {
     /**
      * The offset for the collection.

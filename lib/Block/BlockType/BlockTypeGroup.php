@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Block\BlockType;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
 /**
  * Block type group is used to group together a list of block types for
@@ -10,7 +10,7 @@ use Netgen\BlockManager\ValueObject;
  *
  * @final
  */
-class BlockTypeGroup extends ValueObject
+class BlockTypeGroup extends Value
 {
     /**
      * @var string

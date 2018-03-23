@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Core\Values\Block;
 use ArrayIterator;
 use Netgen\BlockManager\API\Values\Block\Placeholder as APIPlaceholder;
 use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
 /**
  * Placeholder represents a set of blocks inside a container block.
@@ -13,7 +13,7 @@ use Netgen\BlockManager\ValueObject;
  * Each container block can have multiple placeholders, allowing to render
  * each block set separately.
  */
-final class Placeholder extends ValueObject implements APIPlaceholder
+final class Placeholder extends Value implements APIPlaceholder
 {
     /**
      * @var string

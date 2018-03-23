@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Persistence\Values\LayoutResolver;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
-final class ConditionUpdateStruct extends ValueObject
+final class ConditionUpdateStruct extends Value
 {
     /**
      * Condition value. Can be a scalar or a multidimensional array of scalars.

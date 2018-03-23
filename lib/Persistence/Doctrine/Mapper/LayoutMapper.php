@@ -8,7 +8,7 @@ use Netgen\BlockManager\Persistence\Values\Layout\Zone;
 final class LayoutMapper
 {
     /**
-     * Maps data from database to layout value objects.
+     * Maps data from database to layout values.
      *
      * @param array $data
      *
@@ -50,7 +50,7 @@ final class LayoutMapper
     }
 
     /**
-     * Maps data from database to zone value objects.
+     * Maps data from database to zone values.
      *
      * @param array $data
      *

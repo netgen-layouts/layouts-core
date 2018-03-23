@@ -196,7 +196,7 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
 
         $this->rendererMock
             ->expects($this->any())
-            ->method('renderValueObject')
+            ->method('renderValue')
             ->will(
                 $this->returnCallback(
                     function (Block $block, $context) {

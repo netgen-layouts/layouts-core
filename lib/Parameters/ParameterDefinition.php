@@ -3,9 +3,9 @@
 namespace Netgen\BlockManager\Parameters;
 
 use Netgen\BlockManager\Exception\Parameters\ParameterException;
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
-class ParameterDefinition extends ValueObject implements ParameterDefinitionInterface
+class ParameterDefinition extends Value implements ParameterDefinitionInterface
 {
     /**
      * @var string

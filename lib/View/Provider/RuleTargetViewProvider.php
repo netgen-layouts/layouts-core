@@ -7,17 +7,17 @@ use Netgen\BlockManager\View\View\RuleTargetView;
 
 final class RuleTargetViewProvider implements ViewProviderInterface
 {
-    public function provideView($valueObject, array $parameters = array())
+    public function provideView($value, array $parameters = array())
     {
         return new RuleTargetView(
             array(
-                'target' => $valueObject,
+                'target' => $value,
             )
         );
     }
 
-    public function supports($valueObject)
+    public function supports($value)
     {
-        return $valueObject instanceof Target;
+        return $value instanceof Target;
     }
 }

@@ -53,9 +53,9 @@ final class TargetParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\TargetParamConverter::loadValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\TargetParamConverter::loadValue
      */
-    public function testLoadValueObject()
+    public function testLoadValue()
     {
         $target = new Target();
 
@@ -67,7 +67,7 @@ final class TargetParamConverterTest extends TestCase
 
         $this->assertEquals(
             $target,
-            $this->paramConverter->loadValueObject(
+            $this->paramConverter->loadValue(
                 array(
                     'targetId' => 42,
                     'published' => true,
@@ -77,9 +77,9 @@ final class TargetParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\TargetParamConverter::loadValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\TargetParamConverter::loadValue
      */
-    public function testLoadValueObjectDraft()
+    public function testLoadValueDraft()
     {
         $target = new Target();
 
@@ -91,7 +91,7 @@ final class TargetParamConverterTest extends TestCase
 
         $this->assertEquals(
             $target,
-            $this->paramConverter->loadValueObject(
+            $this->paramConverter->loadValue(
                 array(
                     'targetId' => 42,
                     'published' => false,

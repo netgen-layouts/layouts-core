@@ -33,7 +33,7 @@ final class ZoneParamConverter extends ParamConverter
         return Zone::class;
     }
 
-    public function loadValueObject(array $values)
+    public function loadValue(array $values)
     {
         if ($values['published']) {
             return $this->layoutService->loadZone($values['layoutId'], $values['zoneIdentifier']);

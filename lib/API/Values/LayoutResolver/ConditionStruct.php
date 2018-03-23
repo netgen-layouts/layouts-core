@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\API\Values\LayoutResolver;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
-abstract class ConditionStruct extends ValueObject
+abstract class ConditionStruct extends Value
 {
     /**
      * The value of the condition.

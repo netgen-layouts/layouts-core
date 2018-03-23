@@ -72,7 +72,7 @@ final class RenderingRuntimeTest extends TestCase
     {
         $this->rendererMock
             ->expects($this->once())
-            ->method('renderValueObject')
+            ->method('renderValue')
             ->with(
                 $this->equalTo(new Block()),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
@@ -110,7 +110,7 @@ final class RenderingRuntimeTest extends TestCase
     {
         $this->rendererMock
             ->expects($this->once())
-            ->method('renderValueObject')
+            ->method('renderValue')
             ->with(
                 $this->equalTo(new Block()),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
@@ -142,7 +142,7 @@ final class RenderingRuntimeTest extends TestCase
     {
         $this->rendererMock
             ->expects($this->once())
-            ->method('renderValueObject')
+            ->method('renderValue')
             ->with(
                 $this->equalTo(new Block()),
                 $this->equalTo(ViewInterface::CONTEXT_API),
@@ -181,7 +181,7 @@ final class RenderingRuntimeTest extends TestCase
     {
         $this->rendererMock
             ->expects($this->once())
-            ->method('renderValueObject')
+            ->method('renderValue')
             ->with(
                 $this->equalTo(new Block()),
                 $this->equalTo(ViewInterface::CONTEXT_API),
@@ -222,7 +222,7 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererMock
             ->expects($this->once())
-            ->method('renderValueObject')
+            ->method('renderValue')
             ->will($this->throwException(new Exception()));
 
         $renderedBlock = $this->runtime->renderBlock(
@@ -251,7 +251,7 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererMock
             ->expects($this->once())
-            ->method('renderValueObject')
+            ->method('renderValue')
             ->will($this->throwException(new Exception('Test exception text')));
 
         $this->runtime->renderBlock(
@@ -281,7 +281,7 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererMock
             ->expects($this->once())
-            ->method('renderValueObject')
+            ->method('renderValue')
             ->with(
                 $this->equalTo(new Placeholder()),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
@@ -332,7 +332,7 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererMock
             ->expects($this->once())
-            ->method('renderValueObject')
+            ->method('renderValue')
             ->with(
                 $this->equalTo(new Placeholder()),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
@@ -377,7 +377,7 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererMock
             ->expects($this->once())
-            ->method('renderValueObject')
+            ->method('renderValue')
             ->with(
                 $this->equalTo(new Placeholder()),
                 $this->equalTo(ViewInterface::CONTEXT_API),
@@ -429,7 +429,7 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererMock
             ->expects($this->once())
-            ->method('renderValueObject')
+            ->method('renderValue')
             ->with(
                 $this->equalTo(new Placeholder()),
                 $this->equalTo(ViewInterface::CONTEXT_API),
@@ -475,7 +475,7 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererMock
             ->expects($this->once())
-            ->method('renderValueObject')
+            ->method('renderValue')
             ->will($this->throwException(new Exception()));
 
         $renderedBlock = $this->runtime->renderPlaceholder(
@@ -505,7 +505,7 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererMock
             ->expects($this->once())
-            ->method('renderValueObject')
+            ->method('renderValue')
             ->will($this->throwException(new Exception('Test exception text')));
 
         $this->runtime->renderPlaceholder(
@@ -526,7 +526,7 @@ final class RenderingRuntimeTest extends TestCase
     {
         $this->rendererMock
             ->expects($this->once())
-            ->method('renderValueObject')
+            ->method('renderValue')
             ->with(
                 $this->equalTo(new Item()),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
@@ -552,7 +552,7 @@ final class RenderingRuntimeTest extends TestCase
     {
         $this->rendererMock
             ->expects($this->once())
-            ->method('renderValueObject')
+            ->method('renderValue')
             ->with(
                 $this->equalTo(new Item()),
                 $this->equalTo(ViewInterface::CONTEXT_API),
@@ -579,7 +579,7 @@ final class RenderingRuntimeTest extends TestCase
     {
         $this->rendererMock
             ->expects($this->once())
-            ->method('renderValueObject')
+            ->method('renderValue')
             ->with(
                 $this->equalTo(new Item()),
                 $this->equalTo(ViewInterface::CONTEXT_API),
@@ -607,7 +607,7 @@ final class RenderingRuntimeTest extends TestCase
     {
         $this->rendererMock
             ->expects($this->once())
-            ->method('renderValueObject')
+            ->method('renderValue')
             ->with(
                 $this->equalTo(new Item()),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
@@ -637,7 +637,7 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->rendererMock
             ->expects($this->once())
-            ->method('renderValueObject')
+            ->method('renderValue')
             ->with(
                 $this->equalTo(new Item()),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
@@ -654,14 +654,14 @@ final class RenderingRuntimeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::renderValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::renderValue
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::getViewContext
      */
-    public function testRenderValueObject()
+    public function testRenderValue()
     {
         $this->rendererMock
             ->expects($this->once())
-            ->method('renderValueObject')
+            ->method('renderValue')
             ->with(
                 $this->equalTo(new Condition()),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
@@ -671,7 +671,7 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->assertEquals(
             'rendered value',
-            $this->runtime->renderValueObject(
+            $this->runtime->renderValue(
                 array(),
                 new Condition(),
                 array('param' => 'value')
@@ -680,14 +680,14 @@ final class RenderingRuntimeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::renderValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::renderValue
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::getViewContext
      */
-    public function testRenderValueObjectWithViewContext()
+    public function testRenderValueWithViewContext()
     {
         $this->rendererMock
             ->expects($this->once())
-            ->method('renderValueObject')
+            ->method('renderValue')
             ->with(
                 $this->equalTo(new Condition()),
                 $this->equalTo(ViewInterface::CONTEXT_API),
@@ -697,7 +697,7 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->assertEquals(
             'rendered value',
-            $this->runtime->renderValueObject(
+            $this->runtime->renderValue(
                 array(),
                 new Condition(),
                 array('param' => 'value'),
@@ -707,14 +707,14 @@ final class RenderingRuntimeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::renderValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::renderValue
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::getViewContext
      */
-    public function testRenderValueObjectWithContextFromTwigContext()
+    public function testRenderValueWithContextFromTwigContext()
     {
         $this->rendererMock
             ->expects($this->once())
-            ->method('renderValueObject')
+            ->method('renderValue')
             ->with(
                 $this->equalTo(new Condition()),
                 $this->equalTo(ViewInterface::CONTEXT_API),
@@ -724,7 +724,7 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->assertEquals(
             'rendered value',
-            $this->runtime->renderValueObject(
+            $this->runtime->renderValue(
                 array(
                     'view_context' => ViewInterface::CONTEXT_API,
                 ),
@@ -735,14 +735,14 @@ final class RenderingRuntimeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::renderValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::renderValue
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::getViewContext
      */
-    public function testRenderValueObjectReturnsEmptyStringOnException()
+    public function testRenderValueReturnsEmptyStringOnException()
     {
         $this->rendererMock
             ->expects($this->once())
-            ->method('renderValueObject')
+            ->method('renderValue')
             ->with(
                 $this->equalTo(new Condition()),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
@@ -752,7 +752,7 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->assertEquals(
             '',
-            $this->runtime->renderValueObject(
+            $this->runtime->renderValue(
                 array(),
                 new Condition(),
                 array('param' => 'value')
@@ -761,18 +761,18 @@ final class RenderingRuntimeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::renderValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::renderValue
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::getViewContext
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text
      */
-    public function testRenderValueObjectThrowsExceptionInDebug()
+    public function testRenderValueThrowsExceptionInDebug()
     {
         $this->errorHandler->setThrow(true);
 
         $this->rendererMock
             ->expects($this->once())
-            ->method('renderValueObject')
+            ->method('renderValue')
             ->with(
                 $this->equalTo(new Condition()),
                 $this->equalTo(ViewInterface::CONTEXT_DEFAULT),
@@ -780,7 +780,7 @@ final class RenderingRuntimeTest extends TestCase
             )
             ->will($this->throwException(new Exception('Test exception text')));
 
-        $this->runtime->renderValueObject(
+        $this->runtime->renderValue(
             array(),
             new Condition(),
             array('param' => 'value')

@@ -53,9 +53,9 @@ final class ItemParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\ItemParamConverter::loadValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\ItemParamConverter::loadValue
      */
-    public function testLoadValueObject()
+    public function testLoadValue()
     {
         $item = new Item();
 
@@ -67,7 +67,7 @@ final class ItemParamConverterTest extends TestCase
 
         $this->assertEquals(
             $item,
-            $this->paramConverter->loadValueObject(
+            $this->paramConverter->loadValue(
                 array(
                     'itemId' => 42,
                     'published' => true,
@@ -77,9 +77,9 @@ final class ItemParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\ItemParamConverter::loadValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Collection\ItemParamConverter::loadValue
      */
-    public function testLoadValueObjectDraft()
+    public function testLoadValueDraft()
     {
         $item = new Item();
 
@@ -91,7 +91,7 @@ final class ItemParamConverterTest extends TestCase
 
         $this->assertEquals(
             $item,
-            $this->paramConverter->loadValueObject(
+            $this->paramConverter->loadValue(
                 array(
                     'itemId' => 42,
                     'published' => false,

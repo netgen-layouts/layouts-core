@@ -53,9 +53,9 @@ final class LayoutParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\LayoutParamConverter::loadValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\LayoutParamConverter::loadValue
      */
-    public function testLoadValueObject()
+    public function testLoadValue()
     {
         $layout = new Layout();
 
@@ -67,14 +67,14 @@ final class LayoutParamConverterTest extends TestCase
 
         $this->assertEquals(
             $layout,
-            $this->paramConverter->loadValueObject(array('layoutId' => 42, 'published' => true))
+            $this->paramConverter->loadValue(array('layoutId' => 42, 'published' => true))
         );
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\LayoutParamConverter::loadValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\LayoutParamConverter::loadValue
      */
-    public function testLoadValueObjectDraft()
+    public function testLoadValueDraft()
     {
         $layout = new Layout();
 
@@ -86,7 +86,7 @@ final class LayoutParamConverterTest extends TestCase
 
         $this->assertEquals(
             $layout,
-            $this->paramConverter->loadValueObject(
+            $this->paramConverter->loadValue(
                 array(
                     'layoutId' => 42,
                     'published' => false,

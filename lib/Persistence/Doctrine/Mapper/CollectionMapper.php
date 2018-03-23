@@ -9,7 +9,7 @@ use Netgen\BlockManager\Persistence\Values\Collection\Query;
 final class CollectionMapper
 {
     /**
-     * Maps data from database to collection value objects.
+     * Maps data from database to collection values.
      *
      * @param array $data
      *
@@ -49,7 +49,7 @@ final class CollectionMapper
     }
 
     /**
-     * Maps data from database to item value objects.
+     * Maps data from database to item values.
      *
      * @param array $data
      *
@@ -78,7 +78,7 @@ final class CollectionMapper
     }
 
     /**
-     * Maps data from database to query value objects.
+     * Maps data from database to query values.
      *
      * @param array $data
      *

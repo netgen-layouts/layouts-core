@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Persistence\Values\Block;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
-final class BlockCreateStruct extends ValueObject
+final class BlockCreateStruct extends Value
 {
     /**
      * Status of the new block.

@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Persistence\Values\Block;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
-final class CollectionReferenceCreateStruct extends ValueObject
+final class CollectionReferenceCreateStruct extends Value
 {
     /**
      * Identifier of the reference.

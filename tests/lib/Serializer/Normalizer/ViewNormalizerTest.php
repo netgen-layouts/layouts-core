@@ -52,7 +52,7 @@ final class ViewNormalizerTest extends TestCase
 
         $this->viewRendererMock
             ->expects($this->once())
-            ->method('renderValueObject')
+            ->method('renderValue')
             ->with(
                 $this->equalTo(new Value()),
                 $this->equalTo(ViewInterface::CONTEXT_API),

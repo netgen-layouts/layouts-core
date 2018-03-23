@@ -6,9 +6,9 @@ use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Config\ConfigDefinitionAwareTrait;
 use Netgen\BlockManager\Exception\Block\BlockDefinitionException;
 use Netgen\BlockManager\Parameters\ParameterCollectionTrait;
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
-class BlockDefinition extends ValueObject implements BlockDefinitionInterface
+class BlockDefinition extends Value implements BlockDefinitionInterface
 {
     use ParameterCollectionTrait;
     use ConfigDefinitionAwareTrait;

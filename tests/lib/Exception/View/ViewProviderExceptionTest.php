@@ -28,7 +28,7 @@ final class ViewProviderExceptionTest extends TestCase
         $exception = ViewProviderException::noViewProvider('some_class');
 
         $this->assertEquals(
-            'No view providers found for "some_class" value object.',
+            'No view providers found for "some_class" value.',
             $exception->getMessage()
         );
     }

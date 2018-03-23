@@ -3,12 +3,12 @@
 namespace Netgen\BlockManager\Collection\Item;
 
 use Netgen\BlockManager\Config\ConfigDefinitionAwareTrait;
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
 /**
  * @final
  */
-class ItemDefinition extends ValueObject implements ItemDefinitionInterface
+class ItemDefinition extends Value implements ItemDefinitionInterface
 {
     use ConfigDefinitionAwareTrait;
 

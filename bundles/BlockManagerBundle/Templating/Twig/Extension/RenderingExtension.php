@@ -22,7 +22,7 @@ final class RenderingExtension extends AbstractExtension
             ),
             new TwigFunction(
                 'ngbm_render_layout',
-                array(RenderingRuntime::class, 'renderValueObject'),
+                array(RenderingRuntime::class, 'renderValue'),
                 array(
                     'needs_context' => true,
                     'is_safe' => array('html'),
@@ -30,7 +30,7 @@ final class RenderingExtension extends AbstractExtension
             ),
             new TwigFunction(
                 'ngbm_render_parameter',
-                array(RenderingRuntime::class, 'renderValueObject'),
+                array(RenderingRuntime::class, 'renderValue'),
                 array(
                     'needs_context' => true,
                     'is_safe' => array('html'),
@@ -54,7 +54,7 @@ final class RenderingExtension extends AbstractExtension
             ),
             new TwigFunction(
                 'ngbm_render_rule',
-                array(RenderingRuntime::class, 'renderValueObject'),
+                array(RenderingRuntime::class, 'renderValue'),
                 array(
                     'needs_context' => true,
                     'is_safe' => array('html'),
@@ -62,7 +62,7 @@ final class RenderingExtension extends AbstractExtension
             ),
             new TwigFunction(
                 'ngbm_render_rule_target',
-                array(RenderingRuntime::class, 'renderValueObject'),
+                array(RenderingRuntime::class, 'renderValue'),
                 array(
                     'needs_context' => true,
                     'is_safe' => array('html'),
@@ -70,15 +70,15 @@ final class RenderingExtension extends AbstractExtension
             ),
             new TwigFunction(
                 'ngbm_render_rule_condition',
-                array(RenderingRuntime::class, 'renderValueObject'),
+                array(RenderingRuntime::class, 'renderValue'),
                 array(
                     'needs_context' => true,
                     'is_safe' => array('html'),
                 )
             ),
             new TwigFunction(
-                'ngbm_render_value_object',
-                array(RenderingRuntime::class, 'renderValueObject'),
+                'ngbm_render_value',
+                array(RenderingRuntime::class, 'renderValue'),
                 array(
                     'needs_context' => true,
                     'is_safe' => array('html'),

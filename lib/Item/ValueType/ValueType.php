@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Item\ValueType;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
 /**
  * Value type represents a model of a type of CMS value available in Netgen Layouts.
@@ -13,7 +13,7 @@ use Netgen\BlockManager\ValueObject;
  *
  * @final
  */
-class ValueType extends ValueObject
+class ValueType extends Value
 {
     /**
      * @var string

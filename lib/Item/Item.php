@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Item;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
-final class Item extends ValueObject implements ItemInterface
+final class Item extends Value implements ItemInterface
 {
     /**
      * @var int|string

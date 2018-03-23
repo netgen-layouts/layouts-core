@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Item;
 
 /**
- * Value loader is used to load the CMS value object by its ID.
+ * Value loader is used to load the CMS value by its ID.
  * It is used and injected into ItemLoaderInterface which is a central
  * point for loading CMS objects for use by blocks.
  */

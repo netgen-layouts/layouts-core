@@ -4,7 +4,7 @@ namespace Netgen\BlockManager;
 
 use Netgen\BlockManager\Exception\InvalidArgumentException;
 
-abstract class ValueObject
+abstract class Value
 {
     /**
      * Construct object optionally with a set of properties.
@@ -14,7 +14,7 @@ abstract class ValueObject
      *
      * @param array $properties
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If one of the properties does not exist in value object
+     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If one of the properties does not exist in the value
      */
     public function __construct(array $properties = array())
     {

@@ -4,9 +4,9 @@ namespace Netgen\BlockManager\Core\Values\Config;
 
 use Netgen\BlockManager\API\Values\Config\Config as APIConfig;
 use Netgen\BlockManager\Core\Values\ParameterBasedValueTrait;
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
-final class Config extends ValueObject implements APIConfig
+final class Config extends Value implements APIConfig
 {
     use ParameterBasedValueTrait;
 

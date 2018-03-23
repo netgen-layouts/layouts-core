@@ -50,11 +50,11 @@ final class ViewBuilder implements ViewBuilderInterface
         $this->viewProviders = $viewProviders;
     }
 
-    public function buildView($valueObject, $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = array())
+    public function buildView($value, $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = array())
     {
-        $viewProvider = $this->getViewProvider($valueObject);
+        $viewProvider = $this->getViewProvider($value);
 
-        $view = $viewProvider->provideView($valueObject, $parameters);
+        $view = $viewProvider->provideView($value, $parameters);
         $view->setContext($context);
         $view->addParameters($parameters);
         $view->addParameter('view_context', $context);
@@ -69,20 +69,20 @@ final class ViewBuilder implements ViewBuilderInterface
     }
 
     /**
-     * Returns the view provider that supports the given value object.
+     * Returns the view provider that supports the given value.
      *
-     * @param mixed $valueObject
+     * @param mixed $value
      *
      * @return \Netgen\BlockManager\View\Provider\ViewProviderInterface
      */
-    private function getViewProvider($valueObject)
+    private function getViewProvider($value)
     {
         foreach ($this->viewProviders as $viewProvider) {
-            if ($viewProvider->supports($valueObject)) {
+            if ($viewProvider->supports($value)) {
                 return $viewProvider;
             }
         }
 
-        throw ViewProviderException::noViewProvider(get_class($valueObject));
+        throw ViewProviderException::noViewProvider(get_class($value));
     }
 }

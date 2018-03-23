@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Transfer\Output;
 
 /**
- * Visits value objects into hash representation.
+ * Visits values into hash representation.
  *
  * Hash format is either a scalar value, a hash array (associative array),
  * a pure numeric array or a nested combination of these.

@@ -29,7 +29,7 @@ abstract class Controller extends BaseController
     }
 
     /**
-     * Builds the view from provided value object.
+     * Builds the view from provided value.
      *
      * @param mixed $value
      * @param string $context

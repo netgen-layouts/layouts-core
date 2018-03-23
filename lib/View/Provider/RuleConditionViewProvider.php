@@ -7,17 +7,17 @@ use Netgen\BlockManager\View\View\RuleConditionView;
 
 final class RuleConditionViewProvider implements ViewProviderInterface
 {
-    public function provideView($valueObject, array $parameters = array())
+    public function provideView($value, array $parameters = array())
     {
         return new RuleConditionView(
             array(
-                'condition' => $valueObject,
+                'condition' => $value,
             )
         );
     }
 
-    public function supports($valueObject)
+    public function supports($value)
     {
-        return $valueObject instanceof Condition;
+        return $value instanceof Condition;
     }
 }

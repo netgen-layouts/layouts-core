@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Persistence\Values\Collection;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
-final class ItemUpdateStruct extends ValueObject
+final class ItemUpdateStruct extends Value
 {
     /**
      * New item configuration.

@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Persistence\Values\Collection;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
-final class QueryTranslationUpdateStruct extends ValueObject
+final class QueryTranslationUpdateStruct extends Value
 {
     /**
      * New parameter values for the query.

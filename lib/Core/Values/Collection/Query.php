@@ -4,9 +4,9 @@ namespace Netgen\BlockManager\Core\Values\Collection;
 
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
 use Netgen\BlockManager\Core\Values\ParameterBasedValueTrait;
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
-final class Query extends ValueObject implements APIQuery
+final class Query extends Value implements APIQuery
 {
     use ParameterBasedValueTrait;
 

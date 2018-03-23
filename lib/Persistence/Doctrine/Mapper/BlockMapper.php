@@ -8,7 +8,7 @@ use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
 final class BlockMapper
 {
     /**
-     * Maps data from database to block value objects.
+     * Maps data from database to block values.
      *
      * @param array $data
      *
@@ -58,7 +58,7 @@ final class BlockMapper
     }
 
     /**
-     * Maps data from database to collection reference value objects.
+     * Maps data from database to collection reference values.
      *
      * @param array $data
      *

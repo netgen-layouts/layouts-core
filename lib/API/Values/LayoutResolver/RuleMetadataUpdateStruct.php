@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\API\Values\LayoutResolver;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
-final class RuleMetadataUpdateStruct extends ValueObject
+final class RuleMetadataUpdateStruct extends Value
 {
     /**
      * New priority of the layout.

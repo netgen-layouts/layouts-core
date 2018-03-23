@@ -62,9 +62,9 @@ final class FragmentRenderer implements RendererInterface
         $this->fragmentViewRenderers = $fragmentViewRenderers;
     }
 
-    public function renderValueObject($valueObject, $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = array())
+    public function renderValue($value, $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = array())
     {
-        $view = $this->viewBuilder->buildView($valueObject, $context, $parameters);
+        $view = $this->viewBuilder->buildView($value, $context, $parameters);
         if (!$view instanceof CacheableViewInterface || !$view->isCacheable()) {
             return $this->viewRenderer->renderView($view);
         }

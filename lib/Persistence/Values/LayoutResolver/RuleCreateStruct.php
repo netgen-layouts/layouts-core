@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Persistence\Values\LayoutResolver;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
-final class RuleCreateStruct extends ValueObject
+final class RuleCreateStruct extends Value
 {
     /**
      * ID of the layout mapped to new rule.

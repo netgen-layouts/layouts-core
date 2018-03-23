@@ -53,9 +53,9 @@ final class ConditionParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\ConditionParamConverter::loadValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\ConditionParamConverter::loadValue
      */
-    public function testLoadValueObject()
+    public function testLoadValue()
     {
         $condition = new Condition();
 
@@ -67,7 +67,7 @@ final class ConditionParamConverterTest extends TestCase
 
         $this->assertEquals(
             $condition,
-            $this->paramConverter->loadValueObject(
+            $this->paramConverter->loadValue(
                 array(
                     'conditionId' => 42,
                     'published' => true,
@@ -77,9 +77,9 @@ final class ConditionParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\ConditionParamConverter::loadValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\ConditionParamConverter::loadValue
      */
-    public function testLoadValueObjectDraft()
+    public function testLoadValueDraft()
     {
         $condition = new Condition();
 
@@ -91,7 +91,7 @@ final class ConditionParamConverterTest extends TestCase
 
         $this->assertEquals(
             $condition,
-            $this->paramConverter->loadValueObject(
+            $this->paramConverter->loadValue(
                 array(
                     'conditionId' => 42,
                     'published' => false,

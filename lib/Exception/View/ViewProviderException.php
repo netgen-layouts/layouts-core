@@ -26,7 +26,7 @@ final class ViewProviderException extends RuntimeException implements Exception
     {
         return new self(
             sprintf(
-                'No view providers found for "%s" value object.',
+                'No view providers found for "%s" value.',
                 $class
             )
         );

@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Persistence\Values\Collection;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
-final class CollectionCreateStruct extends ValueObject
+final class CollectionCreateStruct extends Value
 {
     /**
      * Status of the new collection.

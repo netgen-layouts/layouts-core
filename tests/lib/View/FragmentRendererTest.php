@@ -83,10 +83,10 @@ final class FragmentRendererTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\View\FragmentRenderer::__construct
-     * @covers \Netgen\BlockManager\View\FragmentRenderer::renderValueObject
+     * @covers \Netgen\BlockManager\View\FragmentRenderer::renderValue
      * @covers \Netgen\BlockManager\View\FragmentRenderer::getFragmentViewRenderer
      */
-    public function testRenderValueObject()
+    public function testRenderValue()
     {
         $view = new BlockView();
 
@@ -112,15 +112,15 @@ final class FragmentRendererTest extends TestCase
             ->with($this->equalTo(new ControllerReference('controller')))
             ->will($this->returnValue('rendered template'));
 
-        $renderedTemplate = $this->renderer->renderValueObject(new Block());
+        $renderedTemplate = $this->renderer->renderValue(new Block());
 
         $this->assertEquals('rendered template', $renderedTemplate);
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\FragmentRenderer::renderValueObject
+     * @covers \Netgen\BlockManager\View\FragmentRenderer::renderValue
      */
-    public function testRenderValueObjectWithNonCacheableView()
+    public function testRenderValueWithNonCacheableView()
     {
         $view = new LayoutView();
 
@@ -136,15 +136,15 @@ final class FragmentRendererTest extends TestCase
             ->with($this->equalTo($view))
             ->will($this->returnValue('rendered template'));
 
-        $renderedTemplate = $this->renderer->renderValueObject(new Layout());
+        $renderedTemplate = $this->renderer->renderValue(new Layout());
 
         $this->assertEquals('rendered template', $renderedTemplate);
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\FragmentRenderer::renderValueObject
+     * @covers \Netgen\BlockManager\View\FragmentRenderer::renderValue
      */
-    public function testRenderValueObjectWithCacheableViewAndDisabledCache()
+    public function testRenderValueWithCacheableViewAndDisabledCache()
     {
         $view = new BlockView();
         $view->setIsCacheable(false);
@@ -161,16 +161,16 @@ final class FragmentRendererTest extends TestCase
             ->with($this->equalTo($view))
             ->will($this->returnValue('rendered template'));
 
-        $renderedTemplate = $this->renderer->renderValueObject(new Block());
+        $renderedTemplate = $this->renderer->renderValue(new Block());
 
         $this->assertEquals('rendered template', $renderedTemplate);
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\FragmentRenderer::renderValueObject
+     * @covers \Netgen\BlockManager\View\FragmentRenderer::renderValue
      * @covers \Netgen\BlockManager\View\FragmentRenderer::getFragmentViewRenderer
      */
-    public function testRenderValueObjectWithNoSupportedFragmentRenderer()
+    public function testRenderValueWithNoSupportedFragmentRenderer()
     {
         $view = new BlockView();
 
@@ -191,16 +191,16 @@ final class FragmentRendererTest extends TestCase
             ->with($this->equalTo($view))
             ->will($this->returnValue('rendered template'));
 
-        $renderedTemplate = $this->renderer->renderValueObject(new Block());
+        $renderedTemplate = $this->renderer->renderValue(new Block());
 
         $this->assertEquals('rendered template', $renderedTemplate);
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\FragmentRenderer::renderValueObject
+     * @covers \Netgen\BlockManager\View\FragmentRenderer::renderValue
      * @covers \Netgen\BlockManager\View\FragmentRenderer::getFragmentViewRenderer
      */
-    public function testRenderValueObjectWithNoFragmentRenderers()
+    public function testRenderValueWithNoFragmentRenderers()
     {
         $view = new BlockView();
 
@@ -216,7 +216,7 @@ final class FragmentRendererTest extends TestCase
             ->with($this->equalTo($view))
             ->will($this->returnValue('rendered template'));
 
-        $renderedTemplate = $this->renderer->renderValueObject(new Block());
+        $renderedTemplate = $this->renderer->renderValue(new Block());
 
         $this->assertEquals('rendered template', $renderedTemplate);
     }

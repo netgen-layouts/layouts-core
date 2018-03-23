@@ -25,10 +25,10 @@ class Renderer implements RendererInterface
         $this->viewRenderer = $viewRenderer;
     }
 
-    public function renderValueObject($valueObject, $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = array())
+    public function renderValue($value, $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = array())
     {
         return $this->viewRenderer->renderView(
-            $this->viewBuilder->buildView($valueObject, $context, $parameters)
+            $this->viewBuilder->buildView($value, $context, $parameters)
         );
     }
 }

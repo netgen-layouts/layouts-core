@@ -3,9 +3,9 @@
 namespace Netgen\BlockManager\Block\BlockDefinition\Configuration;
 
 use Netgen\BlockManager\Exception\Block\BlockDefinitionException;
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
-final class ViewType extends ValueObject
+final class ViewType extends Value
 {
     /**
      * @var string

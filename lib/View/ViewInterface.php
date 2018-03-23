@@ -7,22 +7,22 @@ use Symfony\Component\HttpFoundation\Response;
 interface ViewInterface
 {
     /**
-     * Context used to render the value objects in the frontend.
+     * Context used to render the values in the frontend.
      */
     const CONTEXT_DEFAULT = 'default';
 
     /**
-     * Context used to render the value objects (mostly blocks) via AJAX based controller.
+     * Context used to render the values (mostly blocks) via AJAX based controller.
      */
     const CONTEXT_AJAX = 'ajax';
 
     /**
-     * Context used to render the value objects in administration interface.
+     * Context used to render the values in administration interface.
      */
     const CONTEXT_ADMIN = 'admin';
 
     /**
-     * Context used to render the value objects in the REST API.
+     * Context used to render the values in the REST API.
      */
     const CONTEXT_API = 'api';
 

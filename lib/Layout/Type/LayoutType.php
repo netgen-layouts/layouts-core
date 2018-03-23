@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Layout\Type;
 
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Exception\Layout\LayoutTypeException;
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
 /**
  * This class and corresponding namespace represent an model of layout type
@@ -13,7 +13,7 @@ use Netgen\BlockManager\ValueObject;
  *
  * @final
  */
-class LayoutType extends ValueObject
+class LayoutType extends Value
 {
     /**
      * @var string

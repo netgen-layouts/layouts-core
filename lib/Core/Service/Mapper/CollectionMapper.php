@@ -56,7 +56,7 @@ final class CollectionMapper
     }
 
     /**
-     * Builds the API collection value object from persistence one.
+     * Builds the API collection value from persistence one.
      *
      * If not empty, the first available locale in $locales array will be returned.
      *
@@ -128,7 +128,7 @@ final class CollectionMapper
     }
 
     /**
-     * Builds the API item value object from persistence one.
+     * Builds the API item value from persistence one.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Item $item
      *
@@ -155,7 +155,7 @@ final class CollectionMapper
     }
 
     /**
-     * Builds the API query value object from persistence one.
+     * Builds the API query value from persistence one.
      *
      * If not empty, the first available locale in $locales array will be returned.
      *

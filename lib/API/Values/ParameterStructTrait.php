@@ -102,7 +102,7 @@ trait ParameterStructTrait
     }
 
     /**
-     * Fills the struct values based on provided value object.
+     * Fills the struct values based on provided value.
      *
      * @param \Netgen\BlockManager\Parameters\ParameterCollectionInterface $parameterCollection
      * @param \Netgen\BlockManager\API\Values\ParameterBasedValue $parameterBasedValue

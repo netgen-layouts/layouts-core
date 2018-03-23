@@ -43,9 +43,9 @@ final class RendererTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\View\Renderer::__construct
-     * @covers \Netgen\BlockManager\View\Renderer::renderValueObject
+     * @covers \Netgen\BlockManager\View\Renderer::renderValue
      */
-    public function testRenderValueObject()
+    public function testRenderValue()
     {
         $view = new View(array('value' => new Value()));
         $view->setContext(ViewInterface::CONTEXT_API);
@@ -64,7 +64,7 @@ final class RendererTest extends TestCase
             ->with($this->equalTo($view))
             ->will($this->returnValue('rendered template'));
 
-        $renderedTemplate = $this->renderer->renderValueObject(
+        $renderedTemplate = $this->renderer->renderValue(
             new Value(),
             ViewInterface::CONTEXT_API,
             array('some_param' => 'some_value')

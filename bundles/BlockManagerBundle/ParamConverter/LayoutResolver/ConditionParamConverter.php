@@ -33,7 +33,7 @@ final class ConditionParamConverter extends ParamConverter
         return Condition::class;
     }
 
-    public function loadValueObject(array $values)
+    public function loadValue(array $values)
     {
         if ($values['published']) {
             return $this->layoutResolverService->loadCondition($values['conditionId']);

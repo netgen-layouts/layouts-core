@@ -7,18 +7,18 @@ use Symfony\Component\Form\FormInterface;
 
 final class FormViewProvider implements ViewProviderInterface
 {
-    public function provideView($valueObject, array $parameters = array())
+    public function provideView($value, array $parameters = array())
     {
         return new FormView(
             array(
-                'form_object' => $valueObject,
-                'form' => $valueObject->createView(),
+                'form_object' => $value,
+                'form' => $value->createView(),
             )
         );
     }
 
-    public function supports($valueObject)
+    public function supports($value)
     {
-        return $valueObject instanceof FormInterface;
+        return $value instanceof FormInterface;
     }
 }

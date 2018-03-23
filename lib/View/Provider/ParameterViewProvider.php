@@ -7,11 +7,11 @@ use Netgen\BlockManager\View\View\ParameterView;
 
 final class ParameterViewProvider implements ViewProviderInterface
 {
-    public function provideView($valueObject, array $parameters = array())
+    public function provideView($value, array $parameters = array())
     {
         $view = new ParameterView(
             array(
-                'parameter' => $valueObject,
+                'parameter' => $value,
             )
         );
 
@@ -20,8 +20,8 @@ final class ParameterViewProvider implements ViewProviderInterface
         return $view;
     }
 
-    public function supports($valueObject)
+    public function supports($value)
     {
-        return $valueObject instanceof Parameter;
+        return $value instanceof Parameter;
     }
 }

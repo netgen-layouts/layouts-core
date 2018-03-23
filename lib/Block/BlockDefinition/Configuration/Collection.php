@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Block\BlockDefinition\Configuration;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
-final class Collection extends ValueObject
+final class Collection extends Value
 {
     /**
      * @var string

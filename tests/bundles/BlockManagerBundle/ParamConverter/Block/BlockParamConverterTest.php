@@ -53,9 +53,9 @@ final class BlockParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Block\BlockParamConverter::loadValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Block\BlockParamConverter::loadValue
      */
-    public function testLoadValueObject()
+    public function testLoadValue()
     {
         $block = new Block();
 
@@ -67,7 +67,7 @@ final class BlockParamConverterTest extends TestCase
 
         $this->assertEquals(
             $block,
-            $this->paramConverter->loadValueObject(
+            $this->paramConverter->loadValue(
                 array(
                     'blockId' => 42,
                     'published' => true,
@@ -77,9 +77,9 @@ final class BlockParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Block\BlockParamConverter::loadValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Block\BlockParamConverter::loadValue
      */
-    public function testLoadValueObjectDraft()
+    public function testLoadValueDraft()
     {
         $block = new Block();
 
@@ -91,7 +91,7 @@ final class BlockParamConverterTest extends TestCase
 
         $this->assertEquals(
             $block,
-            $this->paramConverter->loadValueObject(
+            $this->paramConverter->loadValue(
                 array(
                     'blockId' => 42,
                     'published' => false,

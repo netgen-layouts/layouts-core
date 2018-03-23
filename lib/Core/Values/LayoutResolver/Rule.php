@@ -4,9 +4,9 @@ namespace Netgen\BlockManager\Core\Values\LayoutResolver;
 
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule as APIRule;
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
-final class Rule extends ValueObject implements APIRule
+final class Rule extends Value implements APIRule
 {
     /**
      * @var int|string

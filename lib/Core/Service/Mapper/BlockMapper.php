@@ -68,7 +68,7 @@ final class BlockMapper
     }
 
     /**
-     * Builds the API block value object from persistence one.
+     * Builds the API block value from persistence one.
      *
      * If not empty, the first available locale in $locales array will be returned.
      *
@@ -134,7 +134,7 @@ final class BlockMapper
     }
 
     /**
-     * Builds the API collection reference value objects for the provided block.
+     * Builds the API collection reference values for the provided block.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Block\Block $block
      * @param array $locales

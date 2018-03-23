@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Persistence\Values\Collection;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
-final class QueryCreateStruct extends ValueObject
+final class QueryCreateStruct extends Value
 {
     /**
      * Identifier of the type of new query.

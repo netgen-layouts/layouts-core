@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Serializer\Values;
 
 /**
- * Represents a serialized value object together with a version.
+ * Represents a serialized value together with a version.
  */
 interface VersionedValueInterface extends ValueInterface
 {

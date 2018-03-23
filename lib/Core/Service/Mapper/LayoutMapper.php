@@ -32,7 +32,7 @@ final class LayoutMapper
     }
 
     /**
-     * Builds the API zone value object from persistence one.
+     * Builds the API zone value from persistence one.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Layout\Zone $zone
      *
@@ -69,7 +69,7 @@ final class LayoutMapper
     }
 
     /**
-     * Builds the API layout value object from persistence one.
+     * Builds the API layout value from persistence one.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Layout\Layout $layout
      *

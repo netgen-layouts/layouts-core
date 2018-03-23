@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Block\BlockType;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
 /**
  * Block type represents the starting configuration of the block. E.g. while
@@ -12,7 +12,7 @@ use Netgen\BlockManager\ValueObject;
  *
  * @final
  */
-class BlockType extends ValueObject
+class BlockType extends Value
 {
     /**
      * @var string

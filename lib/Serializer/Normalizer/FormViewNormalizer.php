@@ -21,7 +21,7 @@ final class FormViewNormalizer implements NormalizerInterface
     public function normalize($object, $format = null, array $context = array())
     {
         return array(
-            'form' => $this->viewRenderer->renderValueObject(
+            'form' => $this->viewRenderer->renderValue(
                 $object->getValue(),
                 $object->getContext(),
                 array(

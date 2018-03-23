@@ -13,7 +13,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
- * Validates the parameters stored inside the value object
+ * Validates the parameters stored inside the value
  * implementing ParameterStruct interface.
  */
 final class ParameterStructValidator extends ConstraintValidator

@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Persistence\Values\LayoutResolver;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
-final class TargetUpdateStruct extends ValueObject
+final class TargetUpdateStruct extends Value
 {
     /**
      * New value of the target.

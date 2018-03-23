@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\API\Values\LayoutResolver;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
-abstract class TargetStruct extends ValueObject
+abstract class TargetStruct extends Value
 {
     /**
      * The value of the target.

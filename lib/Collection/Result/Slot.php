@@ -3,13 +3,13 @@
 namespace Netgen\BlockManager\Collection\Result;
 
 use Netgen\BlockManager\Item\ItemInterface;
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
 /**
  * The slot represents a placeholder for an item when executing
  * a context dependant query when there's no context.
  */
-final class Slot extends ValueObject implements ItemInterface
+final class Slot extends Value implements ItemInterface
 {
     public function getValue()
     {

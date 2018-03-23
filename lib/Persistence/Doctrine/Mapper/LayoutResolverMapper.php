@@ -9,7 +9,7 @@ use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
 final class LayoutResolverMapper
 {
     /**
-     * Maps data from database to rule value objects.
+     * Maps data from database to rule values.
      *
      * @param array $data
      *
@@ -36,7 +36,7 @@ final class LayoutResolverMapper
     }
 
     /**
-     * Maps data from database to target value objects.
+     * Maps data from database to target values.
      *
      * @param array $data
      *
@@ -62,7 +62,7 @@ final class LayoutResolverMapper
     }
 
     /**
-     * Maps data from database to condition value objects.
+     * Maps data from database to condition values.
      *
      * @param array $data
      *

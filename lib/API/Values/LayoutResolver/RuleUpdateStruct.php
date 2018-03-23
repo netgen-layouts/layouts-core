@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\API\Values\LayoutResolver;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
-final class RuleUpdateStruct extends ValueObject
+final class RuleUpdateStruct extends Value
 {
     /**
      * The ID of the layout to which the rule will be linked.

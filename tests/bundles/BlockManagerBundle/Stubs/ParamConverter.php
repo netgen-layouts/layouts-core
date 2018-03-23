@@ -37,13 +37,13 @@ final class ParamConverter extends BaseParamConverter
     }
 
     /**
-     * Returns the value object.
+     * Returns the value.
      *
      * @param array $values
      *
      * @return \Netgen\BlockManager\API\Values\Value
      */
-    public function loadValueObject(array $values)
+    public function loadValue(array $values)
     {
         return new Value($values);
     }

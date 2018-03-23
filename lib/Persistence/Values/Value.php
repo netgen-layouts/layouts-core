@@ -2,12 +2,12 @@
 
 namespace Netgen\BlockManager\Persistence\Values;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value as BaseValue;
 
 /**
  * Classes extending this class represent a versionable entity.
  */
-abstract class Value extends ValueObject
+abstract class Value extends BaseValue
 {
     /**
      * @const int

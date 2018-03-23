@@ -5,13 +5,13 @@ namespace Netgen\BlockManager\View;
 interface RendererInterface
 {
     /**
-     * Renders the value object in the provided view context.
+     * Renders the value in the provided view context.
      *
-     * @param mixed $valueObject
+     * @param mixed $value
      * @param string $context
      * @param array $parameters
      *
      * @return string
      */
-    public function renderValueObject($valueObject, $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = array());
+    public function renderValue($value, $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = array());
 }

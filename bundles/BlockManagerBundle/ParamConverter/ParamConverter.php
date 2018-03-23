@@ -52,7 +52,7 @@ abstract class ParamConverter implements ParamConverterInterface
 
         $request->attributes->set(
             $this->getDestinationAttributeName(),
-            $this->loadValueObject($values)
+            $this->loadValue($values)
         );
 
         return true;
@@ -85,11 +85,11 @@ abstract class ParamConverter implements ParamConverterInterface
     abstract public function getSupportedClass();
 
     /**
-     * Returns the value object.
+     * Returns the value.
      *
      * @param array $values
      *
      * @return \Netgen\BlockManager\API\Values\Value
      */
-    abstract public function loadValueObject(array $values);
+    abstract public function loadValue(array $values);
 }

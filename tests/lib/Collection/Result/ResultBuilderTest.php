@@ -239,7 +239,7 @@ final class ResultBuilderTest extends TestCase
     }
 
     /**
-     * Builds the list of value objects as returned by queries from provided IDs.
+     * Builds the list of values as returned by queries from provided IDs.
      *
      * @param array $ids
      *

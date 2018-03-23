@@ -2,13 +2,13 @@
 
 namespace Netgen\BlockManager\Item;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
 /**
  * NullItem represents a value from CMS which could not be
  * loaded (for example, if the value does not exist any more).
  */
-final class NullItem extends ValueObject implements ItemInterface
+final class NullItem extends Value implements ItemInterface
 {
     /**
      * @var int|string

@@ -7,15 +7,15 @@ use Netgen\BlockManager\View\View\BlockView;
 
 final class BlockViewProvider implements ViewProviderInterface
 {
-    public function provideView($valueObject, array $parameters = array())
+    public function provideView($value, array $parameters = array())
     {
         $blockView = new BlockView(
             array(
-                'block' => $valueObject,
+                'block' => $value,
             )
         );
 
-        $httpCacheConfig = $valueObject->getConfig('http_cache');
+        $httpCacheConfig = $value->getConfig('http_cache');
 
         $blockView->setIsCacheable(
             $httpCacheConfig->getParameter('use_http_cache')->getValue()
@@ -28,8 +28,8 @@ final class BlockViewProvider implements ViewProviderInterface
         return $blockView;
     }
 
-    public function supports($valueObject)
+    public function supports($value)
     {
-        return $valueObject instanceof APIBlock;
+        return $value instanceof APIBlock;
     }
 }

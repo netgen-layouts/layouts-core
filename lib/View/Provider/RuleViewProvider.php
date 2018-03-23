@@ -7,17 +7,17 @@ use Netgen\BlockManager\View\View\RuleView;
 
 final class RuleViewProvider implements ViewProviderInterface
 {
-    public function provideView($valueObject, array $parameters = array())
+    public function provideView($value, array $parameters = array())
     {
         return new RuleView(
             array(
-                'rule' => $valueObject,
+                'rule' => $value,
             )
         );
     }
 
-    public function supports($valueObject)
+    public function supports($value)
     {
-        return $valueObject instanceof Rule;
+        return $value instanceof Rule;
     }
 }

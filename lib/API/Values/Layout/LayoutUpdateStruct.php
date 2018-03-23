@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\API\Values\Layout;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
-final class LayoutUpdateStruct extends ValueObject
+final class LayoutUpdateStruct extends Value
 {
     /**
      * New human readable name of the layout.

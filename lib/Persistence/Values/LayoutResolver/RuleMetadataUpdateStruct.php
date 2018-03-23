@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Persistence\Values\LayoutResolver;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
-final class RuleMetadataUpdateStruct extends ValueObject
+final class RuleMetadataUpdateStruct extends Value
 {
     /**
      * Flag indicating if the rule will be enabled or not.

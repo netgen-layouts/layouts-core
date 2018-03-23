@@ -116,7 +116,7 @@ final class ResultItemBuilderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Result\ResultItemBuilder::build
      */
-    public function testBuildWithCmsValueObject()
+    public function testBuildWithCmsValue()
     {
         $item = new CmsItem(
             array(

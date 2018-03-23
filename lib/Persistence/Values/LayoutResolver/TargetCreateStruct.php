@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Persistence\Values\LayoutResolver;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
-final class TargetCreateStruct extends ValueObject
+final class TargetCreateStruct extends Value
 {
     /**
      * Identifier of the type of the new target.

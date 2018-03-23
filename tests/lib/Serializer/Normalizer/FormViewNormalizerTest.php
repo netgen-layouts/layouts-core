@@ -41,7 +41,7 @@ final class FormViewNormalizerTest extends TestCase
 
         $this->viewRendererMock
             ->expects($this->once())
-            ->method('renderValueObject')
+            ->method('renderValue')
             ->with(
                 $this->equalTo($form),
                 $this->equalTo(ViewInterface::CONTEXT_API),

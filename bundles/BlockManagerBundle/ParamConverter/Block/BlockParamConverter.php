@@ -33,7 +33,7 @@ final class BlockParamConverter extends ParamConverter
         return Block::class;
     }
 
-    public function loadValueObject(array $values)
+    public function loadValue(array $values)
     {
         $locales = isset($values['locale']) ? array($values['locale']) : null;
 

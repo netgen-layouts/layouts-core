@@ -3,9 +3,9 @@
 namespace Netgen\BlockManager\Core\Values\LayoutResolver;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\Target as APITarget;
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
-final class Target extends ValueObject implements APITarget
+final class Target extends Value implements APITarget
 {
     /**
      * @var int|string

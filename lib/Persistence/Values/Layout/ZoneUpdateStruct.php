@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Persistence\Values\Layout;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
-final class ZoneUpdateStruct extends ValueObject
+final class ZoneUpdateStruct extends Value
 {
     /**
      * New linked zone.

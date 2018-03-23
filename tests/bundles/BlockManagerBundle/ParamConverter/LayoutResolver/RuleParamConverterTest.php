@@ -53,9 +53,9 @@ final class RuleParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\RuleParamConverter::loadValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\RuleParamConverter::loadValue
      */
-    public function testLoadValueObject()
+    public function testLoadValue()
     {
         $rule = new Rule();
 
@@ -67,7 +67,7 @@ final class RuleParamConverterTest extends TestCase
 
         $this->assertEquals(
             $rule,
-            $this->paramConverter->loadValueObject(
+            $this->paramConverter->loadValue(
                 array(
                     'ruleId' => 42,
                     'published' => true,
@@ -77,9 +77,9 @@ final class RuleParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\RuleParamConverter::loadValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\LayoutResolver\RuleParamConverter::loadValue
      */
-    public function testLoadValueObjectDraft()
+    public function testLoadValueDraft()
     {
         $rule = new Rule();
 
@@ -91,7 +91,7 @@ final class RuleParamConverterTest extends TestCase
 
         $this->assertEquals(
             $rule,
-            $this->paramConverter->loadValueObject(
+            $this->paramConverter->loadValue(
                 array(
                     'ruleId' => 42,
                     'published' => false,

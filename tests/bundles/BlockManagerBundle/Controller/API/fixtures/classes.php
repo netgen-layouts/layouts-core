@@ -1,8 +1,8 @@
 <?php
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value as BaseValue;
 
-final class Value extends ValueObject
+final class Value extends BaseValue
 {
     public $id;
 }

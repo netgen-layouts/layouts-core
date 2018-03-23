@@ -5,9 +5,9 @@ namespace Netgen\BlockManager\Core\Values\Layout;
 use ArrayIterator;
 use Netgen\BlockManager\API\Values\Layout\Layout as APILayout;
 use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
-final class Layout extends ValueObject implements APILayout
+final class Layout extends Value implements APILayout
 {
     /**
      * @var int|string

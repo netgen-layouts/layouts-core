@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Parameters;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
-final class Parameter extends ValueObject
+final class Parameter extends Value
 {
     /**
      * @var string

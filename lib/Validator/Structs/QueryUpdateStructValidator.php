@@ -12,7 +12,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
- * Validates the complete QueryUpdateStruct value object.
+ * Validates the complete QueryUpdateStruct value.
  */
 final class QueryUpdateStructValidator extends ConstraintValidator
 {

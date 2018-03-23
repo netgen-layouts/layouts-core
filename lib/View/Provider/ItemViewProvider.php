@@ -8,7 +8,7 @@ use Netgen\BlockManager\View\View\ItemView;
 
 final class ItemViewProvider implements ViewProviderInterface
 {
-    public function provideView($valueObject, array $parameters = array())
+    public function provideView($value, array $parameters = array())
     {
         if (!isset($parameters['view_type'])) {
             throw ViewProviderException::noParameter('item', 'view_type');
@@ -20,14 +20,14 @@ final class ItemViewProvider implements ViewProviderInterface
 
         return new ItemView(
             array(
-                'item' => $valueObject,
+                'item' => $value,
                 'view_type' => $parameters['view_type'],
             )
         );
     }
 
-    public function supports($valueObject)
+    public function supports($value)
     {
-        return $valueObject instanceof ItemInterface;
+        return $value instanceof ItemInterface;
     }
 }

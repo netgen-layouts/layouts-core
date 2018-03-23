@@ -53,9 +53,9 @@ final class ZoneParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\ZoneParamConverter::loadValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\ZoneParamConverter::loadValue
      */
-    public function testLoadValueObject()
+    public function testLoadValue()
     {
         $zone = new Zone();
 
@@ -67,7 +67,7 @@ final class ZoneParamConverterTest extends TestCase
 
         $this->assertEquals(
             $zone,
-            $this->paramConverter->loadValueObject(
+            $this->paramConverter->loadValue(
                 array(
                     'layoutId' => 42,
                     'zoneIdentifier' => 'left',
@@ -78,9 +78,9 @@ final class ZoneParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\ZoneParamConverter::loadValueObject
+     * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\Layout\ZoneParamConverter::loadValue
      */
-    public function testLoadValueObjectDraft()
+    public function testLoadValueDraft()
     {
         $zone = new Zone();
 
@@ -92,7 +92,7 @@ final class ZoneParamConverterTest extends TestCase
 
         $this->assertEquals(
             $zone,
-            $this->paramConverter->loadValueObject(
+            $this->paramConverter->loadValue(
                 array(
                     'layoutId' => 42,
                     'zoneIdentifier' => 'left',

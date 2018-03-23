@@ -71,7 +71,7 @@ final class RenderingRuntime
     public function renderItem(array $context, ItemInterface $item, $viewType, array $parameters = array(), $viewContext = null)
     {
         try {
-            return $this->renderer->renderValueObject(
+            return $this->renderer->renderValue(
                 $item,
                 $this->getViewContext($context, $viewContext),
                 array('view_type' => $viewType) + $parameters
@@ -98,37 +98,37 @@ final class RenderingRuntime
     }
 
     /**
-     * Renders the provided value object.
+     * Renders the provided value.
      *
      * @param array $context
-     * @param mixed $valueObject
+     * @param mixed $value
      * @param array $parameters
      * @param string $viewContext
      *
      * @return string
      */
-    public function renderValueObject(array $context, $valueObject, array $parameters = array(), $viewContext = null)
+    public function renderValue(array $context, $value, array $parameters = array(), $viewContext = null)
     {
         try {
-            return $this->renderer->renderValueObject(
-                $valueObject,
+            return $this->renderer->renderValue(
+                $value,
                 $this->getViewContext($context, $viewContext),
                 $parameters
             );
         } catch (Throwable $t) {
             $message = sprintf(
-                'Error rendering a value object of type "%s"',
-                is_object($valueObject) ? get_class($valueObject) : gettype($valueObject)
+                'Error rendering a value of type "%s"',
+                is_object($value) ? get_class($value) : gettype($value)
             );
 
-            $this->errorHandler->handleError($t, $message, array('object' => $valueObject));
+            $this->errorHandler->handleError($t, $message, array('object' => $value));
         } catch (Exception $e) {
             $message = sprintf(
-                'Error rendering a value object of type "%s"',
-                is_object($valueObject) ? get_class($valueObject) : gettype($valueObject)
+                'Error rendering a value of type "%s"',
+                is_object($value) ? get_class($value) : gettype($value)
             );
 
-            $this->errorHandler->handleError($e, $message, array('object' => $valueObject));
+            $this->errorHandler->handleError($e, $message, array('object' => $value));
         }
 
         return '';
@@ -176,7 +176,7 @@ final class RenderingRuntime
     public function renderBlock(array $context, Block $block, array $parameters = array(), $viewContext = null)
     {
         try {
-            return $this->renderer->renderValueObject(
+            return $this->renderer->renderValue(
                 $block,
                 $this->getViewContext($context, $viewContext),
                 array(
@@ -210,7 +210,7 @@ final class RenderingRuntime
     public function renderPlaceholder(array $context, Block $block, $placeholder, array $parameters = array(), $viewContext = null)
     {
         try {
-            return $this->renderer->renderValueObject(
+            return $this->renderer->renderValue(
                 $block->getPlaceholder($placeholder),
                 $this->getViewContext($context, $viewContext),
                 array(

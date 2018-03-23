@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Layout\Type;
 
-use Netgen\BlockManager\ValueObject;
+use Netgen\BlockManager\Value;
 
-final class Zone extends ValueObject
+final class Zone extends Value
 {
     /**
      * @var string

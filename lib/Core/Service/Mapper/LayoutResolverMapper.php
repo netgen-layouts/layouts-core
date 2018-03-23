@@ -49,7 +49,7 @@ final class LayoutResolverMapper
     }
 
     /**
-     * Builds the API rule value object from persistence one.
+     * Builds the API rule value from persistence one.
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule $rule
      *
@@ -102,7 +102,7 @@ final class LayoutResolverMapper
     }
 
     /**
-     * Builds the API target value object from persistence one.
+     * Builds the API target value from persistence one.
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target $target
      *
@@ -125,7 +125,7 @@ final class LayoutResolverMapper
     }
 
     /**
-     * Builds the API condition value object from persistence one.
+     * Builds the API condition value from persistence one.
      *
      * @param \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition $condition
      *
