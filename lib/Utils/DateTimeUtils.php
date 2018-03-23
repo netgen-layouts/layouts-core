@@ -43,11 +43,11 @@ final class DateTimeUtils
      */
     public static function createFromArray(array $datetime)
     {
-        if (empty($datetime['datetime']) || empty($datetime['timezone'])) {
+        if (empty($datetime['datetime']) || !is_string($datetime['datetime'])) {
             return null;
         }
 
-        if (!is_string($datetime['datetime']) || !is_string($datetime['timezone'])) {
+        if (empty($datetime['timezone']) || !is_string($datetime['timezone'])) {
             return null;
         }
 
