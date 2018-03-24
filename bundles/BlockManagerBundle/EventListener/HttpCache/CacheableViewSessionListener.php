@@ -15,6 +15,9 @@ use Symfony\Component\HttpKernel\EventListener\SessionListener;
  * cacheable.
  *
  * https://github.com/symfony/symfony/issues/25736
+ *
+ * @todo Investigate solutions for Symfony 4.1+, where inner session listener
+ * has some other logic.
  */
 final class CacheableViewSessionListener implements EventSubscriberInterface
 {
