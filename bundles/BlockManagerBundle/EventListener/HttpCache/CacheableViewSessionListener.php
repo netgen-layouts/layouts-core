@@ -3,37 +3,39 @@
 namespace Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache;
 
 use Netgen\BlockManager\View\CacheableViewInterface;
-use Psr\Container\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
-use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\EventListener\SessionListener;
 
 /**
  * On Symfony 3.4+, some Cache-Control headers are forced when session is present
  * which make the AJAX and ESI block caching useless for logged in users,
- * so we remove them here.
+ * so we disable the default behaviour if the view is coming from Netgen Layouts and is
+ * cacheable.
  *
  * https://github.com/symfony/symfony/issues/25736
  */
 final class CacheableViewSessionListener implements EventSubscriberInterface
 {
     /**
-     * @var \Psr\Container\ContainerInterface
+     * @var \Symfony\Component\HttpKernel\EventListener\SessionListener
      */
-    private $container;
+    private $innerListener;
 
-    public function __construct(ContainerInterface $container)
+    public function __construct(SessionListener $innerListener)
     {
-        $this->container = $container;
+        $this->innerListener = $innerListener;
     }
 
     public static function getSubscribedEvents()
     {
-        return array(
-            // Needs to run after SessionListener from Symfony 3.4+
-            KernelEvents::RESPONSE => array('onKernelResponse', -1010),
-        );
+        return SessionListener::getSubscribedEvents();
+    }
+
+    public function onKernelRequest(GetResponseEvent $event)
+    {
+        return $this->innerListener->onKernelRequest($event);
     }
 
     /**
@@ -45,28 +47,11 @@ final class CacheableViewSessionListener implements EventSubscriberInterface
             return;
         }
 
-        $request = $event->getRequest();
-
-        $view = $request->attributes->get('ngbmView');
+        $view = $event->getRequest()->attributes->get('ngbmView');
         if (!$view instanceof CacheableViewInterface || !$view->isCacheable()) {
-            return;
+            $this->innerListener->onKernelResponse($event);
         }
 
-        $session = $this->container->has('initialized_session') ? $this->container->get('initialized_session') : null;
-        if ($session === null) {
-            $session = $request->getSession();
-        }
-
-        if (!$session) {
-            return;
-        }
-
-        if ($session->isStarted() || ($session instanceof Session && $session->hasBeenStarted())) {
-            $response = $event->getResponse();
-
-            $response->setPublic();
-            $response->headers->removeCacheControlDirective('must-revalidate');
-            $response->headers->removeCacheControlDirective('max-age');
-        }
+        // Do nothing, see class description
     }
 }
