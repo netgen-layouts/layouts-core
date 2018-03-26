@@ -336,14 +336,7 @@ final class CollectionHandler implements CollectionHandlerInterface
 
     public function addItem(Collection $collection, ItemCreateStruct $itemCreateStruct)
     {
-        $position = $this->positionHelper->createPosition(
-            $this->getPositionHelperItemConditions(
-                $collection->id,
-                $collection->status
-            ),
-            $itemCreateStruct->position,
-            $this->isCollectionDynamic($collection)
-        );
+        $position = $this->createItemPosition($collection, $itemCreateStruct->position);
 
         $newItem = new Item(
             array(
@@ -379,15 +372,7 @@ final class CollectionHandler implements CollectionHandlerInterface
 
         $movedItem = clone $item;
 
-        $movedItem->position = $this->positionHelper->moveToPosition(
-            $this->getPositionHelperItemConditions(
-                $collection->id,
-                $item->status
-            ),
-            $item->position,
-            $position,
-            $this->isCollectionDynamic($collection)
-        );
+        $movedItem->position = $this->moveItemToPosition($collection, $item, $position);
 
         $this->queryHandler->updateItem($movedItem);
 
@@ -396,15 +381,19 @@ final class CollectionHandler implements CollectionHandlerInterface
 
     public function deleteItem(Item $item)
     {
+        $collection = $this->loadCollection($item->collectionId, $item->status);
+
         $this->queryHandler->deleteItem($item->id, $item->status);
 
-        $this->positionHelper->removePosition(
-            $this->getPositionHelperItemConditions(
-                $item->collectionId,
-                $item->status
-            ),
-            $item->position
-        );
+        if (!$this->isCollectionDynamic($collection)) {
+            $this->positionHelper->removePosition(
+                $this->getPositionHelperItemConditions(
+                    $item->collectionId,
+                    $item->status
+                ),
+                $item->position
+            );
+        }
     }
 
     public function deleteItems(Collection $collection, $itemType = null)
@@ -491,6 +480,108 @@ final class CollectionHandler implements CollectionHandlerInterface
         }
 
         return true;
+    }
+
+    /**
+     * Creates space for a new manual item by shifting positions of other items
+     * below the new position.
+     *
+     * In case of a manual collection, the case is simple, all items below the position
+     * are incremented.
+     *
+     * In case of a dynamic collection, the items below are incremented, but only up
+     * until the first break in positions.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
+     * @param int $newPosition
+     *
+     * @return int
+     */
+    private function createItemPosition(Collection $collection, $newPosition)
+    {
+        if (!$this->isCollectionDynamic($collection)) {
+            return $this->positionHelper->createPosition(
+                $this->getPositionHelperItemConditions(
+                    $collection->id,
+                    $collection->status
+                ),
+                $newPosition
+            );
+        }
+
+        return $this->incrementItemPositions($collection, $newPosition);
+    }
+
+    /**
+     * Moves the item to provided position.
+     *
+     * In case of a manual collection, the case is simple, only positions between the old
+     * and new position are ever updated.
+     *
+     * In case of a dynamic collection, the items below the new position are incremented,
+     * but only up until the first break in positions. The positions are never decremented.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Item $item
+     * @param int $newPosition
+     *
+     * @return int
+     */
+    private function moveItemToPosition(Collection $collection, Item $item, $newPosition)
+    {
+        if (!$this->isCollectionDynamic($collection)) {
+            return $this->positionHelper->moveToPosition(
+                $this->getPositionHelperItemConditions(
+                    $collection->id,
+                    $collection->status
+                ),
+                $item->position,
+                $newPosition
+            );
+        }
+
+        return $this->incrementItemPositions($collection, $newPosition);
+    }
+
+    /**
+     * Creates space for a new manual item by shifting positions of other items
+     * below the new position, but only up until the first break in positions.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
+     * @param int $startPosition
+     *
+     * @return int
+     */
+    private function incrementItemPositions(Collection $collection, $startPosition)
+    {
+        $items = $this->loadCollectionItems($collection);
+        $endPosition = $startPosition - 1;
+
+        foreach ($items as $item) {
+            if ($item->type !== Item::TYPE_MANUAL || $item->position < $startPosition) {
+                continue;
+            }
+
+            if ($item->position - $endPosition > 1) {
+                break;
+            }
+
+            $endPosition = $item->position;
+        }
+
+        if ($endPosition < $startPosition) {
+            return $startPosition;
+        }
+
+        return $this->positionHelper->createPosition(
+            $this->getPositionHelperItemConditions(
+                $collection->id,
+                $collection->status
+            ),
+            $startPosition,
+            $endPosition,
+            true
+        );
     }
 
     /**

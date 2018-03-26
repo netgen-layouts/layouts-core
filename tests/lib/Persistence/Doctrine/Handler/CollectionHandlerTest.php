@@ -1162,6 +1162,84 @@ final class CollectionHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addItem
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
      */
+    public function testAddItemToDynamicCollection()
+    {
+        $itemCreateStruct = new ItemCreateStruct();
+        $itemCreateStruct->type = Item::TYPE_MANUAL;
+        $itemCreateStruct->position = 2;
+        $itemCreateStruct->value = '42';
+        $itemCreateStruct->valueType = 'ezcontent';
+        $itemCreateStruct->config = array('config' => array('value' => 42));
+
+        $this->assertEquals(
+            new Item(
+                array(
+                    'id' => 13,
+                    'collectionId' => 3,
+                    'position' => 2,
+                    'type' => Item::TYPE_MANUAL,
+                    'value' => '42',
+                    'valueType' => 'ezcontent',
+                    'status' => Value::STATUS_DRAFT,
+                    'config' => array('config' => array('value' => 42)),
+                )
+            ),
+            $this->collectionHandler->addItem(
+                $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT),
+                $itemCreateStruct
+            )
+        );
+
+        $secondItem = $this->collectionHandler->loadItem(7, Value::STATUS_DRAFT);
+        $this->assertEquals(3, $secondItem->position);
+
+        $thirdItem = $this->collectionHandler->loadItem(8, Value::STATUS_DRAFT);
+        $this->assertEquals(4, $thirdItem->position);
+
+        $fourthItem = $this->collectionHandler->loadItem(9, Value::STATUS_DRAFT);
+        $this->assertEquals(5, $fourthItem->position);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addItem
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
+     */
+    public function testAddItemToDynamicCollectionInEmptySlot()
+    {
+        $itemCreateStruct = new ItemCreateStruct();
+        $itemCreateStruct->type = Item::TYPE_MANUAL;
+        $itemCreateStruct->position = 4;
+        $itemCreateStruct->value = '42';
+        $itemCreateStruct->valueType = 'ezcontent';
+        $itemCreateStruct->config = array('config' => array('value' => 42));
+
+        $this->assertEquals(
+            new Item(
+                array(
+                    'id' => 13,
+                    'collectionId' => 3,
+                    'position' => 4,
+                    'type' => Item::TYPE_MANUAL,
+                    'value' => '42',
+                    'valueType' => 'ezcontent',
+                    'status' => Value::STATUS_DRAFT,
+                    'config' => array('config' => array('value' => 42)),
+                )
+            ),
+            $this->collectionHandler->addItem(
+                $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT),
+                $itemCreateStruct
+            )
+        );
+
+        $secondItem = $this->collectionHandler->loadItem(9, Value::STATUS_DRAFT);
+        $this->assertEquals(5, $secondItem->position);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addItem
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
+     */
     public function testAddItemWithNoPosition()
     {
         $itemCreateStruct = new ItemCreateStruct();
@@ -1328,6 +1406,69 @@ final class CollectionHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItem
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
+     */
+    public function testMoveItemInDynamicCollection()
+    {
+        $this->assertEquals(
+            new Item(
+                array(
+                    'id' => 7,
+                    'collectionId' => 3,
+                    'position' => 4,
+                    'type' => Item::TYPE_MANUAL,
+                    'value' => '72',
+                    'valueType' => 'ezlocation',
+                    'status' => Value::STATUS_DRAFT,
+                    'config' => array(),
+                )
+            ),
+            $this->collectionHandler->moveItem(
+                $this->collectionHandler->loadItem(7, Value::STATUS_DRAFT),
+                4
+            )
+        );
+
+        $secondItem = $this->collectionHandler->loadItem(8, Value::STATUS_DRAFT);
+        $this->assertEquals(3, $secondItem->position);
+
+        $thirdItem = $this->collectionHandler->loadItem(9, Value::STATUS_DRAFT);
+        $this->assertEquals(5, $thirdItem->position);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItem
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
+     */
+    public function testMoveItemToLowerPositionInDynamicCollection()
+    {
+        $this->assertEquals(
+            new Item(
+                array(
+                    'id' => 8,
+                    'collectionId' => 3,
+                    'position' => 2,
+                    'type' => Item::TYPE_MANUAL,
+                    'value' => '73',
+                    'valueType' => 'ezlocation',
+                    'status' => Value::STATUS_DRAFT,
+                    'config' => array(),
+                )
+            ),
+            $this->collectionHandler->moveItem(
+                $this->collectionHandler->loadItem(8, Value::STATUS_DRAFT),
+                2
+            )
+        );
+
+        $firstItem = $this->collectionHandler->loadItem(7, Value::STATUS_DRAFT);
+        $this->assertEquals(3, $firstItem->position);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItem
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      * @expectedExceptionMessage Argument "position" has an invalid state. Position cannot be negative.
      */
@@ -1369,6 +1510,28 @@ final class CollectionHandlerTest extends TestCase
 
         try {
             $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
+            self::fail('Item still exists after deleting');
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteItem
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteItem
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
+     */
+    public function testDeleteItemFromDynamicCollection()
+    {
+        $this->collectionHandler->deleteItem(
+            $this->collectionHandler->loadItem(7, Value::STATUS_DRAFT)
+        );
+
+        $secondItem = $this->collectionHandler->loadItem(8, Value::STATUS_DRAFT);
+        $this->assertEquals(3, $secondItem->position);
+
+        try {
+            $this->collectionHandler->loadItem(7, Value::STATUS_DRAFT);
             self::fail('Item still exists after deleting');
         } catch (NotFoundException $e) {
             // Do nothing

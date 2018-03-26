@@ -25,13 +25,14 @@ final class PositionHelper
      *
      * @param array $conditions
      * @param int $position
+     * @param int $endPosition
      * @param bool $allowOutOfRange
      *
      * @throws \Netgen\BlockManager\Exception\BadStateException If position is out of range
      *
      * @return int
      */
-    public function createPosition(array $conditions, $position = null, $allowOutOfRange = false)
+    public function createPosition(array $conditions, $position = null, $endPosition = null, $allowOutOfRange = false)
     {
         $nextPosition = $this->getNextPosition($conditions);
 
@@ -47,9 +48,14 @@ final class PositionHelper
             throw new BadStateException('position', 'Position is out of range.');
         }
 
+        if ($endPosition !== null && $endPosition < $position) {
+            throw new BadStateException('position', 'When creating a position, end position needs to be greater or equal than start position.');
+        }
+
         $this->incrementPositions(
             $conditions,
-            $position
+            $position,
+            $endPosition
         );
 
         return $position;
