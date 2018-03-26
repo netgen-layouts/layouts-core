@@ -559,10 +559,14 @@ final class CollectionHandler implements CollectionHandlerInterface
 
         foreach ($items as $item) {
             if ($item->position < $startPosition) {
+                // Skip all items located before the start position,
+                // we don't need to touch those.
                 continue;
             }
 
             if ($item->position - $endPosition > 1) {
+                // Once we reach a break in positions, we've come to the end
+                // of items we need to shift.
                 break;
             }
 
