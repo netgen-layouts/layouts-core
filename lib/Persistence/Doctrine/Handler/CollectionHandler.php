@@ -558,7 +558,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         $endPosition = $startPosition - 1;
 
         foreach ($items as $item) {
-            if ($item->type !== Item::TYPE_MANUAL || $item->position < $startPosition) {
+            if ($item->position < $startPosition) {
                 continue;
             }
 
