@@ -336,20 +336,13 @@ final class CollectionHandler implements CollectionHandlerInterface
 
     public function addItem(Collection $collection, ItemCreateStruct $itemCreateStruct)
     {
-        $isDynamic = true;
-        try {
-            $this->loadCollectionQuery($collection);
-        } catch (NotFoundException $e) {
-            $isDynamic = false;
-        }
-
         $position = $this->positionHelper->createPosition(
             $this->getPositionHelperItemConditions(
                 $collection->id,
                 $collection->status
             ),
             $itemCreateStruct->position,
-            $isDynamic
+            $this->isCollectionDynamic($collection)
         );
 
         $newItem = new Item(
@@ -384,13 +377,6 @@ final class CollectionHandler implements CollectionHandlerInterface
     {
         $collection = $this->loadCollection($item->collectionId, $item->status);
 
-        $isDynamic = true;
-        try {
-            $this->loadCollectionQuery($collection);
-        } catch (NotFoundException $e) {
-            $isDynamic = false;
-        }
-
         $movedItem = clone $item;
 
         $movedItem->position = $this->positionHelper->moveToPosition(
@@ -400,7 +386,7 @@ final class CollectionHandler implements CollectionHandlerInterface
             ),
             $item->position,
             $position,
-            $isDynamic
+            $this->isCollectionDynamic($collection)
         );
 
         $this->queryHandler->updateItem($movedItem);
@@ -487,6 +473,24 @@ final class CollectionHandler implements CollectionHandlerInterface
         $queryIds = $this->queryHandler->loadCollectionQueryIds($collection->id, $collection->status);
         $this->queryHandler->deleteQueryTranslations($queryIds, $collection->status);
         $this->queryHandler->deleteQuery($queryIds, $collection->status);
+    }
+
+    /**
+     * Returns if the provided collection is a dynamic collection (i.e. if it has a query).
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
+     *
+     * @return bool
+     */
+    private function isCollectionDynamic(Collection $collection)
+    {
+        try {
+            $this->loadCollectionQuery($collection);
+        } catch (NotFoundException $e) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
