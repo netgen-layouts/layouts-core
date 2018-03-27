@@ -3,10 +3,12 @@
 namespace Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache;
 
 use Netgen\BlockManager\View\CacheableViewInterface;
+use Psr\Container\ContainerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\EventListener\SessionListener;
+use Symfony\Component\HttpKernel\Kernel;
 
 /**
  * On Symfony 3.4+, some Cache-Control headers are forced when session is present
@@ -15,9 +17,6 @@ use Symfony\Component\HttpKernel\EventListener\SessionListener;
  * cacheable.
  *
  * https://github.com/symfony/symfony/issues/25736
- *
- * @todo Investigate solutions for Symfony 4.1+, where inner session listener
- * has some other logic.
  */
 final class CacheableViewSessionListener implements EventSubscriberInterface
 {
@@ -26,9 +25,15 @@ final class CacheableViewSessionListener implements EventSubscriberInterface
      */
     private $innerListener;
 
-    public function __construct(SessionListener $innerListener)
+    /**
+     * @var \Psr\Container\ContainerInterface
+     */
+    private $container;
+
+    public function __construct(SessionListener $innerListener, ContainerInterface $container = null)
     {
         $this->innerListener = $innerListener;
+        $this->container = $container;
     }
 
     public static function getSubscribedEvents()
@@ -41,20 +46,35 @@ final class CacheableViewSessionListener implements EventSubscriberInterface
         return $this->innerListener->onKernelRequest($event);
     }
 
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\FilterResponseEvent $event
-     */
     public function onKernelResponse(FilterResponseEvent $event)
     {
         if (!$event->isMasterRequest()) {
             return;
         }
 
-        $view = $event->getRequest()->attributes->get('ngbmView');
-        if (!$view instanceof CacheableViewInterface || !$view->isCacheable()) {
-            $this->innerListener->onKernelResponse($event);
+        $session = $this->getSession($event);
+        if (!$session) {
+            return;
         }
 
-        // Do nothing, see class description
+        $view = $event->getRequest()->attributes->get('ngbmView');
+        if ($view instanceof CacheableViewInterface && $view->isCacheable()) {
+            if (Kernel::VERSION_ID >= 40100 && $session->isStarted()) {
+                $session->save();
+            }
+
+            return;
+        }
+
+        $this->innerListener->onKernelResponse($event);
+    }
+
+    private function getSession(FilterResponseEvent $event)
+    {
+        if ($this->container && $this->container->has('initialized_session')) {
+            return $this->container->get('initialized_session');
+        }
+
+        return $event->getRequest()->getSession();
     }
 }
