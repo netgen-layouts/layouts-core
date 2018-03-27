@@ -6,7 +6,7 @@
     {% set show_empty_wrapper = false %}
 {% endif %}
 
-{% set block_content = block('content')|trim %}
+{% set block_content = (block('content') ?? '')|trim %}
 
 {% if block_content is not empty or show_empty_wrapper %}
     <div class="{{ css_class }}" {% if css_id is not empty %} id="{{ css_id }}" {% endif %}>
