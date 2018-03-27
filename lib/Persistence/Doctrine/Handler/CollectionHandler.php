@@ -372,9 +372,11 @@ final class CollectionHandler implements CollectionHandlerInterface
 
         $movedItem = clone $item;
 
-        $movedItem->position = $this->moveItemToPosition($collection, $item, $position);
+        if ($item->position !== $position) {
+            $movedItem->position = $this->moveItemToPosition($collection, $item, $position);
 
-        $this->queryHandler->updateItem($movedItem);
+            $this->queryHandler->updateItem($movedItem);
+        }
 
         return $movedItem;
     }

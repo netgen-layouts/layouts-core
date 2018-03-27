@@ -1378,6 +1378,39 @@ final class CollectionHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
      */
+    public function testMoveItemToSamePosition()
+    {
+        $this->assertEquals(
+            new Item(
+                array(
+                    'id' => 1,
+                    'collectionId' => 1,
+                    'position' => 0,
+                    'type' => Item::TYPE_MANUAL,
+                    'value' => '72',
+                    'valueType' => 'ezlocation',
+                    'status' => Value::STATUS_DRAFT,
+                    'config' => array(),
+                )
+            ),
+            $this->collectionHandler->moveItem(
+                $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT),
+                0
+            )
+        );
+
+        $firstItem = $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
+        $this->assertEquals(1, $firstItem->position);
+
+        $firstItem = $this->collectionHandler->loadItem(3, Value::STATUS_DRAFT);
+        $this->assertEquals(2, $firstItem->position);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItem
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
+     */
     public function testMoveItemToLowerPosition()
     {
         $this->assertEquals(
