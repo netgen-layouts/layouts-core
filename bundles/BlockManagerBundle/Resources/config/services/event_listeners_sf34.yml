@@ -1,17 +1,7 @@
 services:
-    netgen_block_manager.event_listener.http_cache.cacheable_view_session.locator:
-        class: Symfony\Component\DependencyInjection\ServiceLocator
-        public: false
-        arguments:
-            -
-                initialized_session: "@!initialized_session"
-        tags:
-            - { name: container.service_locator }
-
     netgen_block_manager.event_listener.http_cache.cacheable_view_session:
         class: Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\CacheableViewSessionListener
         public: false
         decorates: session_listener
         arguments:
             - "@netgen_block_manager.event_listener.http_cache.cacheable_view_session.inner"
-            - "@netgen_block_manager.event_listener.http_cache.cacheable_view_session.locator"
