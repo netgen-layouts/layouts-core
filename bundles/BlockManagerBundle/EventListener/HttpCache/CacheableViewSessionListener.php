@@ -9,15 +9,12 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\EventListener\SessionListener;
 
 /**
- * On Symfony 3.4+, some Cache-Control headers are forced when session is present
+ * On Symfony 3.4 and 4.0, some Cache-Control headers are forced when session is present
  * which make the AJAX and ESI block caching useless for logged in users,
  * so we disable the default behaviour if the view is coming from Netgen Layouts and is
  * cacheable.
  *
  * https://github.com/symfony/symfony/issues/25736
- *
- * @todo Investigate solutions for Symfony 4.1+, where inner session listener
- * has some other logic.
  */
 final class CacheableViewSessionListener implements EventSubscriberInterface
 {
@@ -41,9 +38,6 @@ final class CacheableViewSessionListener implements EventSubscriberInterface
         return $this->innerListener->onKernelRequest($event);
     }
 
-    /**
-     * @param \Symfony\Component\HttpKernel\Event\FilterResponseEvent $event
-     */
     public function onKernelResponse(FilterResponseEvent $event)
     {
         if (!$event->isMasterRequest()) {
@@ -51,10 +45,10 @@ final class CacheableViewSessionListener implements EventSubscriberInterface
         }
 
         $view = $event->getRequest()->attributes->get('ngbmView');
-        if (!$view instanceof CacheableViewInterface || !$view->isCacheable()) {
-            $this->innerListener->onKernelResponse($event);
+        if ($view instanceof CacheableViewInterface && $view->isCacheable()) {
+            return;
         }
 
-        // Do nothing, see class description
+        $this->innerListener->onKernelResponse($event);
     }
 }
