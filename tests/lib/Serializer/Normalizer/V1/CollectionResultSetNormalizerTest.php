@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
 use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Collection\Result\ResultSet;
+use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultSetNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
@@ -37,12 +38,8 @@ final class CollectionResultSetNormalizerTest extends TestCase
     {
         $result = new ResultSet(
             array(
+                'collection' => new Collection(),
                 'results' => array(
-                    new Result(),
-                    new Result(),
-                ),
-                'overflowResults' => array(
-                    new Result(),
                     new Result(),
                     new Result(),
                 ),
@@ -65,15 +62,6 @@ final class CollectionResultSetNormalizerTest extends TestCase
         $this->serializerMock
             ->expects($this->at(1))
             ->method('normalize')
-            ->with(
-                $this->equalTo(
-                    array(
-                        new VersionedValue(new Result(), 1),
-                        new VersionedValue(new Result(), 1),
-                        new VersionedValue(new Result(), 1),
-                    )
-                )
-            )
             ->will($this->returnValue(array('overflow_items')));
 
         $this->assertEquals(

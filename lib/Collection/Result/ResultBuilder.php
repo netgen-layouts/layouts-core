@@ -73,17 +73,10 @@ final class ResultBuilder implements ResultBuilderInterface
             $results = $this->getResults($collectionIterator, $flags);
         }
 
-        $overflowResults = array();
-
-        if ((bool) ($flags & ResultSet::INCLUDE_OVERFLOW_ITEMS)) {
-            $overflowResults = $this->getOverflowResults($collection, $results);
-        }
-
         return new ResultSet(
             array(
                 'collection' => $collection,
-                'results' => array_values($results),
-                'overflowResults' => $overflowResults,
+                'results' => $results,
                 'totalCount' => $collectionCount,
                 'offset' => $offset,
                 'limit' => $limit,
@@ -112,7 +105,7 @@ final class ResultBuilder implements ResultBuilderInterface
                 continue;
             }
 
-            $results[$position] = $result;
+            $results[] = $result;
         }
 
         return $results;
@@ -170,30 +163,5 @@ final class ResultBuilder implements ResultBuilderInterface
         }
 
         return $this->visibilityResolver->isVisible($collectionItem);
-    }
-
-    /**
-     * Returns all items from the collection which are overflown. Overflown items
-     * are those NOT included in the provided results, as defined by collection
-     * offset and limit.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     * @param \Netgen\BlockManager\Collection\Result\Result[] $results
-     *
-     * @return \Netgen\BlockManager\Collection\Result\Result[]
-     */
-    private function getOverflowResults(Collection $collection, array $results)
-    {
-        $overflowResults = array();
-
-        foreach ($collection->getItems() as $item) {
-            if (array_key_exists($item->getPosition(), $results)) {
-                continue;
-            }
-
-            $overflowResults[] = $this->resultItemBuilder->build($item, $item->getPosition());
-        }
-
-        return $overflowResults;
     }
 }

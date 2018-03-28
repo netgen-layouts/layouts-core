@@ -2,6 +2,8 @@
 
 namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 
+use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Serializer\SerializerAwareTrait;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
@@ -23,14 +25,14 @@ final class CollectionResultSetNormalizer implements NormalizerInterface, Serial
             $results[] = new VersionedValue($result, $object->getVersion());
         }
 
-        $overflowResults = array();
-        foreach ($resultSet->getOverflowResults() as $overflowResult) {
-            $overflowResults[] = new VersionedValue($overflowResult, $object->getVersion());
+        $overflowItems = array();
+        foreach ($this->getoverflowItems($resultSet) as $overflowItem) {
+            $overflowItems[] = new VersionedValue($overflowItem, $object->getVersion());
         }
 
         return array(
             'items' => $this->serializer->normalize($results, $format, $context),
-            'overflow_items' => $this->serializer->normalize($overflowResults, $format, $context),
+            'overflow_items' => $this->serializer->normalize($overflowItems, $format, $context),
         );
     }
 
@@ -41,5 +43,36 @@ final class CollectionResultSetNormalizer implements NormalizerInterface, Serial
         }
 
         return $data->getValue() instanceof ResultSet && $data->getVersion() === Version::API_V1;
+    }
+
+    /**
+     * Returns all items from the collection which are overflown. Overflown items
+     * are those NOT included in the provided result set, as defined by collection
+     * offset and limit.
+     *
+     * @param \Netgen\BlockManager\Collection\Result\ResultSet $resultSet
+     *
+     * @return \Netgen\BlockManager\Collection\Result\Result[]
+     */
+    private function getOverflowItems(ResultSet $resultSet)
+    {
+        $overflowItems = array();
+
+        $resultSetPositions = array_map(
+            function (Result $result) {
+                return $result->getPosition();
+            },
+            $resultSet->getResults()
+        );
+
+        foreach ($resultSet->getCollection()->getItems() as $item) {
+            if (in_array($item->getPosition(), $resultSetPositions, true)) {
+                continue;
+            }
+
+            $overflowItems[] = $item;
+        }
+
+        return $overflowItems;
     }
 }

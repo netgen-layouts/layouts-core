@@ -33,13 +33,13 @@ final class CollectionResultNormalizer implements NormalizerInterface
             'collection_id' => $collectionItem !== null ? $collectionItem->getCollectionId() : null,
             'position' => $result->getPosition(),
             'type' => $result->getType(),
-            'cms_url' => !$cmsItem instanceof NullItem ? $this->urlBuilder->getUrl($cmsItem) : null,
-            'cms_visible' => $cmsItem->isVisible(),
             'value' => $cmsItem->getValue(),
             'value_type' => $cmsItem->getValueType(),
-            'name' => $cmsItem->getName(),
             'visible' => $collectionItem !== null ? $collectionItem->isVisible() : true,
             'scheduled' => $collectionItem !== null ? $collectionItem->isScheduled() : false,
+            'name' => $cmsItem->getName(),
+            'cms_url' => !$cmsItem instanceof NullItem ? $this->urlBuilder->getUrl($cmsItem) : null,
+            'cms_visible' => $cmsItem->isVisible(),
         );
     }
 

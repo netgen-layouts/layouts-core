@@ -38,12 +38,6 @@ final class ResultSet extends Value implements ArrayAccess, IteratorAggregate, C
     const INCLUDE_UNKNOWN_ITEMS = 4;
 
     /**
-     * If provided, any items which are overflown (that is, don't fit to collection
-     * offset and limit), will be included in a separate property in the result set.
-     */
-    const INCLUDE_OVERFLOW_ITEMS = 8;
-
-    /**
      * If provided, will include all items, without any filters.
      */
     const INCLUDE_ALL_ITEMS = PHP_INT_MAX;
@@ -57,11 +51,6 @@ final class ResultSet extends Value implements ArrayAccess, IteratorAggregate, C
      * @var \Netgen\BlockManager\Collection\Result\Result[]
      */
     protected $results;
-
-    /**
-     * @var \Netgen\BlockManager\Collection\Result\Result[]
-     */
-    protected $overflowResults;
 
     /**
      * @var int
@@ -96,19 +85,6 @@ final class ResultSet extends Value implements ArrayAccess, IteratorAggregate, C
     public function getResults()
     {
         return $this->results;
-    }
-
-    /**
-     * Returns the overflown results.
-     *
-     * This list is compiled from all manual/override collection items which are not part
-     * of the items which fit inside the offset and limit configured for the collection.
-     *
-     * @return \Netgen\BlockManager\Collection\Result\Result[]
-     */
-    public function getOverflowResults()
-    {
-        return $this->overflowResults;
     }
 
     /**
