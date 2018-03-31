@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Collection\Result;
 use Netgen\BlockManager\API\Values\Collection\Item as CollectionItem;
 use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\Item\ItemInterface as CmsItem;
+use Netgen\BlockManager\Item\NullItem;
 
 final class ManualItem implements ItemInterface
 {
@@ -21,6 +22,16 @@ final class ManualItem implements ItemInterface
     public function getCollectionItem()
     {
         return $this->collectionItem;
+    }
+
+    public function getInnerItem()
+    {
+        return $this->cmsItem;
+    }
+
+    public function isValid()
+    {
+        return !$this->cmsItem instanceof NullItem && $this->cmsItem->isVisible();
     }
 
     public function getValue()

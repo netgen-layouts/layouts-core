@@ -69,7 +69,7 @@ final class CollectionResultNormalizerTest extends TestCase
         $this->urlBuilderMock
             ->expects($this->any())
             ->method('getUrl')
-            ->with($this->equalTo($result->getItem()))
+            ->with($this->equalTo($item))
             ->will($this->returnValue('/some/url'));
 
         $this->assertEquals(

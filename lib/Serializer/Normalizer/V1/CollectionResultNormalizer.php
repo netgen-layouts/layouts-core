@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 use Netgen\BlockManager\Collection\Result\ManualItem;
 use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Collection\Result\Slot;
+use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\Item\NullItem;
 use Netgen\BlockManager\Item\UrlBuilderInterface;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
@@ -28,26 +29,15 @@ final class CollectionResultNormalizer implements NormalizerInterface
         /** @var \Netgen\BlockManager\Collection\Result\Result $result */
         $result = $object->getValue();
         $cmsItem = $result->getItem();
-        $collectionItem = $cmsItem instanceof ManualItem ? $cmsItem->getCollectionItem() : null;
 
-        $itemUrl = null;
-        if (!$cmsItem instanceof NullItem && !$cmsItem instanceof Slot) {
-            $itemUrl = $this->urlBuilder->getUrl($cmsItem);
+        $data = $this->normalizeCmsItem($cmsItem);
+        $data['position'] = $result->getPosition();
+
+        if ($result->getSubItem() instanceof ItemInterface) {
+            $data['sub_item'] = $this->normalizeCmsItem($result->getSubItem());
         }
 
-        return array(
-            'id' => $collectionItem !== null ? $collectionItem->getId() : null,
-            'collection_id' => $collectionItem !== null ? $collectionItem->getCollectionId() : null,
-            'position' => $result->getPosition(),
-            'type' => $result->getItem() instanceof ManualItem ? Result::TYPE_MANUAL : Result::TYPE_DYNAMIC,
-            'value' => $cmsItem->getValue(),
-            'value_type' => $cmsItem->getValueType(),
-            'visible' => $collectionItem !== null ? $collectionItem->isVisible() : true,
-            'scheduled' => $collectionItem !== null ? $collectionItem->isScheduled() : false,
-            'name' => $cmsItem->getName(),
-            'cms_url' => $itemUrl,
-            'cms_visible' => $cmsItem->isVisible(),
-        );
+        return $data;
     }
 
     public function supportsNormalization($data, $format = null)
@@ -57,5 +47,40 @@ final class CollectionResultNormalizer implements NormalizerInterface
         }
 
         return $data->getValue() instanceof Result && $data->getVersion() === Version::API_V1;
+    }
+
+    /**
+     * Normalizes the provided CMS item into an array.
+     *
+     * @param \Netgen\BlockManager\Item\ItemInterface $cmsItem
+     *
+     * @return array
+     */
+    private function normalizeCmsItem(ItemInterface $cmsItem)
+    {
+        $itemUrl = null;
+        $collectionItem = null;
+
+        if ($cmsItem instanceof ManualItem) {
+            $collectionItem = $cmsItem->getCollectionItem();
+            if (!$cmsItem->getInnerItem() instanceof NullItem) {
+                $itemUrl = $this->urlBuilder->getUrl($cmsItem->getInnerItem());
+            }
+        } elseif (!$cmsItem instanceof Slot) {
+            $itemUrl = $this->urlBuilder->getUrl($cmsItem);
+        }
+
+        return array(
+            'id' => $collectionItem !== null ? $collectionItem->getId() : null,
+            'collection_id' => $collectionItem !== null ? $collectionItem->getCollectionId() : null,
+            'type' => $cmsItem instanceof ManualItem ? Result::TYPE_MANUAL : Result::TYPE_DYNAMIC,
+            'value' => $cmsItem->getValue(),
+            'value_type' => $cmsItem->getValueType(),
+            'visible' => $collectionItem !== null ? $collectionItem->isVisible() : true,
+            'scheduled' => $collectionItem !== null ? $collectionItem->isScheduled() : false,
+            'name' => $cmsItem->getName(),
+            'cms_url' => $itemUrl,
+            'cms_visible' => $cmsItem->isVisible(),
+        );
     }
 }

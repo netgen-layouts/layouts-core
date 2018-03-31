@@ -7,7 +7,6 @@ use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\Item as CollectionItem;
 use Netgen\BlockManager\Item\ItemInterface as CmsItem;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
-use Netgen\BlockManager\Item\NullItem;
 
 final class DynamicCollectionRunner implements CollectionRunnerInterface
 {
@@ -63,7 +62,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
 
             $manualItem = $this->getManualItem($item);
             if ($item->getType() === CollectionItem::TYPE_MANUAL || $item->getPosition() === $totalCount) {
-                if ($item->isVisible() && $manualItem->isVisible() && !$manualItem instanceof NullItem) {
+                if ($item->isVisible() && $manualItem->isValid()) {
                     ++$totalCount;
                 }
             }
@@ -78,7 +77,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
         $manualItem = $this->getManualItem($collectionItem);
         $queryValue = $this->getQueryValue($queryIterator);
 
-        if (!$collectionItem->isVisible() || !$manualItem->isVisible() || $manualItem instanceof NullItem) {
+        if (!$collectionItem->isVisible() || !$manualItem->isValid()) {
             if (!$queryValue instanceof CmsItem) {
                 return null;
             }
@@ -93,7 +92,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
     {
         $manualItem = $this->getManualItem($collectionItem);
 
-        if (!$collectionItem->isVisible() || !$manualItem->isVisible() || $manualItem instanceof NullItem) {
+        if (!$collectionItem->isVisible() || !$manualItem->isValid()) {
             // Manual items are replaced by dynamic ones only when invisible or invalid
             $queryValue = $this->getQueryValue($queryIterator);
             if (!$queryValue instanceof CmsItem) {
@@ -112,10 +111,6 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
             $collectionItem->getValue(),
             $collectionItem->getValueType()
         );
-
-        if ($cmsItem instanceof NullItem) {
-            return $cmsItem;
-        }
 
         return new ManualItem($cmsItem, $collectionItem);
     }
@@ -156,7 +151,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
                 $collection->getManualItems(),
                 function (CollectionItem $item) use ($startOffset, $endOffset) {
                     $manualItem = $this->getManualItem($item);
-                    if (!$item->isVisible() || !$manualItem->isVisible() || $manualItem instanceof NullItem) {
+                    if (!$item->isVisible() || !$manualItem->isValid()) {
                         return false;
                     }
 

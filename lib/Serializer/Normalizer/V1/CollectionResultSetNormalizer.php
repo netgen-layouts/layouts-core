@@ -57,17 +57,16 @@ final class CollectionResultSetNormalizer implements NormalizerInterface, Serial
      */
     private function getOverflowItems(ResultSet $resultSet)
     {
-        $includedPositions = array_map(
-            function (Result $result) {
-                $manualItem = $result->getItem();
-                if (!$manualItem instanceof ManualItem) {
-                    return null;
-                }
+        $includedPositions = array();
+        foreach ($resultSet->getResults() as $result) {
+            if ($result->getItem() instanceof ManualItem) {
+                $includedPositions[] = $result->getItem()->getCollectionItem()->getPosition();
+            }
 
-                return $manualItem->getCollectionItem()->getPosition();
-            },
-            $resultSet->getResults()
-        );
+            if ($result->getSubItem() instanceof ManualItem) {
+                $includedPositions[] = $result->getSubItem()->getCollectionItem()->getPosition();
+            }
+        }
 
         return array_filter(
             $resultSet->getCollection()->getItems(),
