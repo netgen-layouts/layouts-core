@@ -56,8 +56,8 @@ final class ResultBuilder implements ResultBuilderInterface
         $collectionRunner = $this->runnerFactory->getCollectionRunner($collection, $flags);
 
         $results = array();
-        $collectionCount = $collectionRunner->count($collection);
-        if ($limit > 0 && $offset < $collectionCount) {
+        $totalCount = $collectionRunner->count($collection);
+        if ($limit > 0 && $offset < $totalCount) {
             $results = call_user_func($collectionRunner, $collection, $offset, $limit);
             $results = iterator_to_array($results);
         }
@@ -66,7 +66,7 @@ final class ResultBuilder implements ResultBuilderInterface
             array(
                 'collection' => $collection,
                 'results' => $results,
-                'totalCount' => $collectionCount,
+                'totalCount' => $totalCount,
                 'offset' => $offset,
                 'limit' => $limit,
             )
