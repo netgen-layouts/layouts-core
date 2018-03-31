@@ -19,19 +19,39 @@ final class ManualItem implements ItemInterface
         $this->collectionItem = $collectionItem;
     }
 
+    /**
+     * Returns the collection item that was used to generate this manual item.
+     *
+     * @return \Netgen\BlockManager\API\Values\Collection\Item
+     */
     public function getCollectionItem()
     {
         return $this->collectionItem;
     }
 
+    /**
+     * Returns the CMS item that was used to generate this manual item.
+     *
+     * @return \Netgen\BlockManager\Item\ItemInterface
+     */
     public function getInnerItem()
     {
         return $this->cmsItem;
     }
 
+    /**
+     * Returns if the item is valid. A manual item is valid if it is visible
+     * (both the collection item and CMS item) and if CMS item actually exists in the CMS.
+     *
+     * @return bool
+     */
     public function isValid()
     {
-        return !$this->cmsItem instanceof NullItem && $this->cmsItem->isVisible();
+        if ($this->cmsItem instanceof NullItem) {
+            return false;
+        }
+
+        return $this->collectionItem->isVisible() && $this->cmsItem->isVisible();
     }
 
     public function getValue()

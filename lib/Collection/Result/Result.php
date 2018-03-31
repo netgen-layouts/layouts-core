@@ -42,16 +42,34 @@ final class Result
         $this->subItem = $subItem;
     }
 
+    /**
+     * Returns the position of the result in the result set.
+     *
+     * @return int
+     */
     public function getPosition()
     {
         return $this->position;
     }
 
+    /**
+     * Returns the item that will be displayed.
+     *
+     * @return \Netgen\BlockManager\Item\ItemInterface
+     */
     public function getItem()
     {
         return $this->item;
     }
 
+    /**
+     * Returns the item that was overriden by item returned by self::getItem.
+     *
+     * E.g. This can be the manual item that is not visible or is invalid and thus
+     * replaced by a dynamic item for display purposes.
+     *
+     * @return \Netgen\BlockManager\Item\ItemInterface
+     */
     public function getSubItem()
     {
         return $this->subItem;

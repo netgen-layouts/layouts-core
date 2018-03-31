@@ -60,9 +60,8 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
                 break;
             }
 
-            $manualItem = $this->getManualItem($item);
             if ($item->getType() === CollectionItem::TYPE_MANUAL || $item->getPosition() === $totalCount) {
-                if ($item->isVisible() && $manualItem->isValid()) {
+                if ($this->getManualItem($item)->isValid()) {
                     ++$totalCount;
                 }
             }
@@ -77,7 +76,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
         $manualItem = $this->getManualItem($collectionItem);
         $queryValue = $this->getQueryValue($queryIterator);
 
-        if (!$collectionItem->isVisible() || !$manualItem->isValid()) {
+        if (!$manualItem->isValid()) {
             if (!$queryValue instanceof CmsItem) {
                 return null;
             }
@@ -92,7 +91,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
     {
         $manualItem = $this->getManualItem($collectionItem);
 
-        if (!$collectionItem->isVisible() || !$manualItem->isValid()) {
+        if (!$manualItem->isValid()) {
             // Manual items are replaced by dynamic ones only when invisible or invalid
             $queryValue = $this->getQueryValue($queryIterator);
             if (!$queryValue instanceof CmsItem) {
@@ -105,6 +104,14 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
         return new Result($collectionItem->getPosition(), $manualItem);
     }
 
+    /**
+     * Builds and returns an object representing the manual CMS item, i.e. item
+     * whose type and value are stored in a collection.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Item $collectionItem
+     *
+     * @return \Netgen\BlockManager\Collection\Result\ManualItem
+     */
     private function getManualItem(CollectionItem $collectionItem)
     {
         $cmsItem = $this->itemLoader->load(
@@ -115,6 +122,13 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
         return new ManualItem($cmsItem, $collectionItem);
     }
 
+    /**
+     * Returns the current value from the query and advances the iterator.
+     *
+     * @param \Iterator $queryIterator
+     *
+     * @return mixed
+     */
     private function getQueryValue(Iterator $queryIterator)
     {
         if (!$queryIterator->valid()) {
@@ -127,6 +141,15 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
         return $queryValue;
     }
 
+    /**
+     * Returns the iterator that can be used to iterate over provided collection query.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     * @param int $offset
+     * @param int $limit
+     *
+     * @return \Iterator
+     */
     private function getQueryIterator(Collection $collection, $offset, $limit)
     {
         $queryOffset = $offset - $this->getManualItemsCount($collection, 0, $offset);
@@ -151,7 +174,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
                 $collection->getManualItems(),
                 function (CollectionItem $item) use ($startOffset, $endOffset) {
                     $manualItem = $this->getManualItem($item);
-                    if (!$item->isVisible() || !$manualItem->isValid()) {
+                    if (!$manualItem->isValid()) {
                         return false;
                     }
 
