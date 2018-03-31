@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
 use Netgen\BlockManager\API\Values\Collection\Item as ItemValue;
-use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Transfer\Output\Visitor;
@@ -39,24 +38,16 @@ final class Item extends Visitor
 
         /* @var \Netgen\BlockManager\API\Values\Collection\Item $collectionItem */
 
-        $value = null;
-
-        try {
-            $item = $this->itemLoader->load(
-                $collectionItem->getValue(),
-                $collectionItem->getValueType()
-            );
-
-            $value = $item->getRemoteId();
-        } catch (ItemException $e) {
-            // Do nothing
-        }
+        $item = $this->itemLoader->load(
+            $collectionItem->getValue(),
+            $collectionItem->getValueType()
+        );
 
         return array(
             'id' => $collectionItem->getId(),
             'type' => $this->getTypeString($collectionItem),
             'position' => $collectionItem->getPosition(),
-            'value' => $value,
+            'value' => $item->getRemoteId(),
             'value_type' => $collectionItem->getValueType(),
             'configuration' => $this->visitConfiguration($collectionItem, $subVisitor),
         );

@@ -55,6 +55,28 @@ interface Collection extends Value
     public function getLimit();
 
     /**
+     * Returns if the item with specified type (manual or override)
+     * exists at specified position.
+     *
+     * @param int $position
+     * @param int $type
+     *
+     * @return bool
+     */
+    public function hasItem($position, $type = null);
+
+    /**
+     * Returns the item of specified type (manual or override)
+     * at specified position.
+     *
+     * @param int $position
+     * @param int $type
+     *
+     * @return \Netgen\BlockManager\API\Values\Collection\Item
+     */
+    public function getItem($position, $type = null);
+
+    /**
      * Returns all collection items.
      *
      * @return \Netgen\BlockManager\API\Values\Collection\Item[]

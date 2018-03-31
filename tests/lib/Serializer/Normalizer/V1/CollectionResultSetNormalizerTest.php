@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
+use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultSetNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
@@ -40,8 +41,8 @@ final class CollectionResultSetNormalizerTest extends TestCase
             array(
                 'collection' => new Collection(),
                 'results' => array(
-                    new Result(),
-                    new Result(),
+                    new Result(0, new Item()),
+                    new Result(1, new Item()),
                 ),
             )
         );
@@ -52,8 +53,8 @@ final class CollectionResultSetNormalizerTest extends TestCase
             ->with(
                 $this->equalTo(
                     array(
-                        new VersionedValue(new Result(), 1),
-                        new VersionedValue(new Result(), 1),
+                        new VersionedValue(new Result(0, new Item()), 1),
+                        new VersionedValue(new Result(1, new Item()), 1),
                     )
                 )
             )

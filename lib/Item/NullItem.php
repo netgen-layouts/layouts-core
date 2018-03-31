@@ -2,18 +2,18 @@
 
 namespace Netgen\BlockManager\Item;
 
-use Netgen\BlockManager\Value;
-
 /**
  * NullItem represents a value from CMS which could not be
  * loaded (for example, if the value does not exist any more).
  */
-final class NullItem extends Value implements ItemInterface
+final class NullItem implements ItemInterface
 {
-    /**
-     * @var int|string
-     */
-    protected $value;
+    private $value;
+
+    public function __construct($value)
+    {
+        $this->value = $value;
+    }
 
     public function getValue()
     {

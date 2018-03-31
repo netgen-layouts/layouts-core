@@ -31,7 +31,6 @@ final class QueryTypeHandler implements QueryTypeHandlerInterface
      *
      * @param array $values
      * @param int $count
-     * @param int $internalLimit
      * @param bool $contextual
      */
     public function __construct(array $values = array(), $count = null, $contextual = false)

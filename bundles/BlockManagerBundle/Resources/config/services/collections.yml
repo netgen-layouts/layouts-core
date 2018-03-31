@@ -1,39 +1,24 @@
 services:
-    netgen_block_manager.collection.item.visibility_resolver:
-        class: Netgen\BlockManager\Collection\Item\VisibilityResolver
-        public: false
-        arguments:
-            - "@?logger"
-        tags:
-            - { name: monolog.logger, channel: ngbm }
-
     netgen_block_manager.collection.item_definition_factory:
         class: Netgen\BlockManager\Collection\Item\ItemDefinitionFactory
         public: false
         arguments:
             - "@netgen_block_manager.config.config_definition_factory"
 
-    netgen_block_manager.collection.result_item_builder:
-        class: Netgen\BlockManager\Collection\Result\ResultItemBuilder
+    netgen_block_manager.collection.collection_runner_factory:
+        class: Netgen\BlockManager\Collection\Result\CollectionRunnerFactory
         public: false
         arguments:
             - "@netgen_block_manager.item.item_loader"
             - "@netgen_block_manager.item.item_builder"
-            - "@netgen_block_manager.item.url_builder"
-
-    netgen_block_manager.collection.collection_iterator_factory:
-        class: Netgen\BlockManager\Collection\Result\CollectionIteratorFactory
-        public: false
-        arguments:
-            - "%netgen_block_manager.collection.contextual_query_limit%"
+            - "%netgen_block_manager.collection.contextual_limit%"
 
     netgen_block_manager.collection.result_builder:
         class: Netgen\BlockManager\Collection\Result\ResultBuilder
         public: true
         arguments:
-            - "@netgen_block_manager.collection.collection_iterator_factory"
-            - "@netgen_block_manager.collection.result_item_builder"
-            - "@netgen_block_manager.collection.item.visibility_resolver"
+            - "@netgen_block_manager.collection.collection_runner_factory"
+            - "%netgen_block_manager.collection.contextual_limit%"
             - "%netgen_block_manager.collection.max_limit%"
 
     netgen_block_manager.collection.result.pagerfanta.factory:

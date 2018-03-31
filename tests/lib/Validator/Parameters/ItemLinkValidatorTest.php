@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Tests\Validator\Parameters;
 
-use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
+use Netgen\BlockManager\Item\NullItem;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\Constraint\Parameters\ItemLink;
 use Netgen\BlockManager\Validator\Parameters\ItemLinkValidator;
@@ -65,7 +65,7 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
         $this->itemLoaderMock
             ->expects($this->once())
             ->method('load')
-            ->will($this->throwException(new ItemException()));
+            ->will($this->returnValue(new NullItem(42)));
 
         $this->assertValid(false, 'value://42');
     }

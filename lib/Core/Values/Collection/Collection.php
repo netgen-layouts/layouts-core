@@ -103,6 +103,30 @@ final class Collection extends Value implements APICollection
         return $this->limit;
     }
 
+    public function hasItem($position, $type = null)
+    {
+        foreach ($this->items as $item) {
+            if ($item->getPosition() === $position) {
+                return $type === null || $item->getType() === $type;
+            }
+        }
+
+        return false;
+    }
+
+    public function getItem($position, $type = null)
+    {
+        foreach ($this->items as $item) {
+            if ($item->getPosition() === $position) {
+                if ($type === null || $item->getType() === $type) {
+                    return $item;
+                }
+
+                return null;
+            }
+        }
+    }
+
     public function getItems()
     {
         return $this->items;
@@ -110,12 +134,12 @@ final class Collection extends Value implements APICollection
 
     public function hasManualItem($position)
     {
-        return $this->hasItem(Item::TYPE_MANUAL, $position);
+        return $this->hasItem($position, Item::TYPE_MANUAL);
     }
 
     public function getManualItem($position)
     {
-        return $this->getItem(Item::TYPE_MANUAL, $position);
+        return $this->getItem($position, Item::TYPE_MANUAL);
     }
 
     public function getManualItems()
@@ -125,12 +149,12 @@ final class Collection extends Value implements APICollection
 
     public function hasOverrideItem($position)
     {
-        return $this->hasItem(Item::TYPE_OVERRIDE, $position);
+        return $this->hasItem($position, Item::TYPE_OVERRIDE);
     }
 
     public function getOverrideItem($position)
     {
-        return $this->getItem(Item::TYPE_OVERRIDE, $position);
+        return $this->getItem($position, Item::TYPE_OVERRIDE);
     }
 
     public function getOverrideItems()
@@ -171,44 +195,6 @@ final class Collection extends Value implements APICollection
     public function getLocale()
     {
         return $this->locale;
-    }
-
-    /**
-     * Returns if the item with specified type (manual or override)
-     * exists at specified position.
-     *
-     * @param int $type
-     * @param int $position
-     *
-     * @return bool
-     */
-    private function hasItem($type, $position)
-    {
-        foreach ($this->items as $item) {
-            if ($item->getType() === $type && $item->getPosition() === $position) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Returns the item of specified type (manual or override)
-     * at specified position.
-     *
-     * @param int $type
-     * @param int $position
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item
-     */
-    private function getItem($type, $position)
-    {
-        foreach ($this->items as $item) {
-            if ($item->getType() === $type && $item->getPosition() === $position) {
-                return $item;
-            }
-        }
     }
 
     /**

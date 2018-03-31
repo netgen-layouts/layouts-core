@@ -4,9 +4,9 @@ namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
 use Netgen\BlockManager\Core\Values\Collection\Item as CollectionItem;
 use Netgen\BlockManager\Core\Values\Config\Config;
-use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
+use Netgen\BlockManager\Item\NullItem;
 use Netgen\BlockManager\Item\UrlBuilderInterface;
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Serializer\Normalizer\V1\CollectionItemNormalizer;
@@ -143,7 +143,7 @@ final class CollectionItemNormalizerTest extends TestCase
             ->expects($this->any())
             ->method('load')
             ->with($this->equalTo(12), $this->equalTo('ezcontent'))
-            ->will($this->throwException(new ItemException()));
+            ->will($this->returnValue(new NullItem(12)));
 
         $this->urlBuilderMock
             ->expects($this->never())

@@ -125,6 +125,13 @@ final class CollectionTest extends TestCase
         $this->assertEquals(new Query(), $collection->getQuery());
         $this->assertTrue($collection->hasQuery());
 
+        $this->assertFalse($collection->hasItem(2));
+        $this->assertTrue($collection->hasItem(3));
+        $this->assertTrue($collection->hasItem(5));
+
+        $this->assertEquals($items[0], $collection->getItem(3));
+        $this->assertEquals($items[1], $collection->getItem(5));
+
         $this->assertFalse($collection->hasManualItem(2));
         $this->assertTrue($collection->hasManualItem(3));
 

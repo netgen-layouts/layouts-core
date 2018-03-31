@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
 
-use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
+use Netgen\BlockManager\Item\NullItem;
 use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Item\ValueType\ValueType;
 use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
@@ -351,13 +351,13 @@ final class LinkTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::export
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertToRemoteId
      */
-    public function testExportWithConverterException()
+    public function testExportWithNullItem()
     {
         $this->itemLoaderMock
             ->expects($this->any())
             ->method('load')
             ->with($this->equalTo('24'), $this->equalTo('ezlocation'))
-            ->will($this->throwException(new ItemException()));
+            ->will($this->returnValue(new NullItem('24')));
 
         $this->assertEquals(
             array(
@@ -471,13 +471,13 @@ final class LinkTypeTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::import
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertFromRemoteId
      */
-    public function testImportWithConverterException()
+    public function testImportWithNullItem()
     {
         $this->itemLoaderMock
             ->expects($this->any())
             ->method('loadByRemoteId')
             ->with($this->equalTo('def'), $this->equalTo('ezlocation'))
-            ->will($this->throwException(new ItemException()));
+            ->will($this->returnValue(new NullItem('def')));
 
         $this->assertEquals(
             new LinkValue(

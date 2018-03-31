@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Validator\Parameters;
 
-use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
+use Netgen\BlockManager\Item\NullItem;
 use Netgen\BlockManager\Validator\Constraint\Parameters\ItemLink;
 use Netgen\BlockManager\Validator\Constraint\ValueType;
 use Symfony\Component\Validator\Constraint;
@@ -70,9 +70,8 @@ final class ItemLinkValidator extends ConstraintValidator
                 }
             }
 
-            try {
-                $this->itemLoader->load($itemValue, $valueType);
-            } catch (ItemException $e) {
+            $item = $this->itemLoader->load($itemValue, $valueType);
+            if ($item instanceof NullItem) {
                 $this->context->buildViolation($constraint->message)
                     ->addViolation();
             }

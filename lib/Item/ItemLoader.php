@@ -47,9 +47,13 @@ final class ItemLoader implements ItemLoaderInterface
             throw ItemException::noValueType($valueType);
         }
 
-        return $this->itemBuilder->build(
-            $this->valueLoaders[$valueType]->load($value)
-        );
+        try {
+            $loadedValue = $this->valueLoaders[$valueType]->load($value);
+        } catch (ItemException $e) {
+            return new NullItem($value);
+        }
+
+        return $this->itemBuilder->build($loadedValue);
     }
 
     public function loadByRemoteId($remoteId, $valueType)
@@ -58,8 +62,12 @@ final class ItemLoader implements ItemLoaderInterface
             throw ItemException::noValueType($valueType);
         }
 
-        return $this->itemBuilder->build(
-            $this->valueLoaders[$valueType]->loadByRemoteId($remoteId)
-        );
+        try {
+            $loadedValue = $this->valueLoaders[$valueType]->loadByRemoteId($remoteId);
+        } catch (ItemException $e) {
+            return new NullItem($remoteId);
+        }
+
+        return $this->itemBuilder->build($loadedValue);
     }
 }

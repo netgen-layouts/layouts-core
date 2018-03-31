@@ -2,11 +2,10 @@
 
 namespace Netgen\BlockManager\Tests\Collection\Result;
 
-use Netgen\BlockManager\Collection\Item\VisibilityResolver;
-use Netgen\BlockManager\Collection\Result\CollectionIteratorFactory;
+use Netgen\BlockManager\Collection\Result\CollectionRunnerFactory;
+use Netgen\BlockManager\Collection\Result\ManualItem;
 use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Collection\Result\ResultBuilder;
-use Netgen\BlockManager\Collection\Result\ResultItemBuilder;
 use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
@@ -38,11 +37,6 @@ final class ResultBuilderTest extends TestCase
      */
     private $resultBuilder;
 
-    /**
-     * @var \Netgen\BlockManager\Collection\Item\VisibilityResolverInterface
-     */
-    private $visibilityResolver;
-
     public function setUp()
     {
         $this->itemBuilder = new ItemBuilder(
@@ -53,8 +47,6 @@ final class ResultBuilderTest extends TestCase
             $this->itemBuilder,
             array('value' => new ValueLoader())
         );
-
-        $this->visibilityResolver = new VisibilityResolver();
 
         $this->resultBuilder = $this->buildResultBuilder(200);
     }
@@ -80,7 +72,7 @@ final class ResultBuilderTest extends TestCase
 
         foreach ($resultSet as $index => $result) {
             $this->assertInstanceOf(Result::class, $result);
-            $this->assertEquals(Result::TYPE_MANUAL, $result->getType());
+            $this->assertInstanceOf(ManualItem::class, $result->getItem());
             $this->assertEquals($index, $result->getPosition());
         }
     }
@@ -108,7 +100,7 @@ final class ResultBuilderTest extends TestCase
 
         foreach ($resultSet as $index => $result) {
             $this->assertInstanceOf(Result::class, $result);
-            $this->assertEquals(Result::TYPE_MANUAL, $result->getType());
+            $this->assertInstanceOf(ManualItem::class, $result->getItem());
             $this->assertEquals($index, $result->getPosition());
         }
     }
@@ -144,12 +136,11 @@ final class ResultBuilderTest extends TestCase
     private function buildResultBuilder($maxLimit)
     {
         return new ResultBuilder(
-            new CollectionIteratorFactory(12),
-            new ResultItemBuilder(
+            new CollectionRunnerFactory(
                 $this->itemLoader,
                 $this->itemBuilder
             ),
-            $this->visibilityResolver,
+            24,
             $maxLimit
         );
     }

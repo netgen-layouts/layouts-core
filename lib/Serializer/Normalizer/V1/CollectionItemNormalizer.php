@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 
 use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
+use Netgen\BlockManager\Item\NullItem;
 use Netgen\BlockManager\Item\UrlBuilderInterface;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
@@ -31,31 +31,34 @@ final class CollectionItemNormalizer implements NormalizerInterface
     public function normalize($object, $format = null, array $context = array())
     {
         /** @var \Netgen\BlockManager\API\Values\Collection\Item $item */
-        $item = $object->getValue();
+        $collectionItem = $object->getValue();
 
         $data = array(
-            'id' => $item->getId(),
-            'collection_id' => $item->getCollectionId(),
-            'position' => $item->getPosition(),
-            'type' => $item->getType(),
-            'value' => $item->getValue(),
-            'value_type' => $item->getValueType(),
-            'visible' => $item->isVisible(),
-            'scheduled' => $item->isScheduled(),
+            'id' => $collectionItem->getId(),
+            'collection_id' => $collectionItem->getCollectionId(),
+            'position' => $collectionItem->getPosition(),
+            'type' => $collectionItem->getType(),
+            'value' => $collectionItem->getValue(),
+            'value_type' => $collectionItem->getValueType(),
+            'visible' => $collectionItem->isVisible(),
+            'scheduled' => $collectionItem->isScheduled(),
             'name' => null,
             'cms_url' => null,
             'cms_visible' => true,
         );
 
-        try {
-            $value = $this->itemLoader->load($item->getValue(), $item->getValueType());
-        } catch (ItemException $e) {
+        $cmsItem = $this->itemLoader->load(
+            $collectionItem->getValue(),
+            $collectionItem->getValueType()
+        );
+
+        if ($cmsItem instanceof NullItem) {
             return $data;
         }
 
-        $data['name'] = $value->getName();
-        $data['cms_url'] = $this->urlBuilder->getUrl($value);
-        $data['cms_visible'] = $value->isVisible();
+        $data['name'] = $cmsItem->getName();
+        $data['cms_url'] = $this->urlBuilder->getUrl($cmsItem);
+        $data['cms_visible'] = $cmsItem->isVisible();
 
         return $data;
     }

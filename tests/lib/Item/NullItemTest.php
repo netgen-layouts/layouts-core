@@ -17,11 +17,7 @@ final class NullItemTest extends TestCase
      */
     public function testObject()
     {
-        $value = new NullItem(
-            array(
-                'value' => 42,
-            )
-        );
+        $value = new NullItem(42);
 
         $this->assertEquals(42, $value->getValue());
         $this->assertEquals(42, $value->getRemoteId());

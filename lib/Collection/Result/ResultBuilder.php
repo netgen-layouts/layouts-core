@@ -3,31 +3,23 @@
 namespace Netgen\BlockManager\Collection\Result;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\Collection\Item\VisibilityResolverInterface;
-use Netgen\BlockManager\Item\NullItem;
 
 /**
- * A builder that uses iterators to generate the collection results. Note that in order to disable
- * fetching unlimited number of results (for performance reasons), the number of results is hardcoded
- * to a max limit provided in the constructor.
+ * A builder generates the collection results. Note that in order to disable fetching unlimited
+ * number of results (for performance reasons), the number of results is hardcoded to a max limit
+ * provided in the constructor.
  */
 final class ResultBuilder implements ResultBuilderInterface
 {
     /**
-     * @var \Netgen\BlockManager\Collection\Result\CollectionIteratorFactory
+     * @var \Netgen\BlockManager\Collection\Result\CollectionRunnerFactory
      */
-    private $collectionIteratorFactory;
+    private $runnerFactory;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Result\ResultItemBuilder
+     * @var int
      */
-    private $resultItemBuilder;
-
-    /**
-     * @var \Netgen\BlockManager\Collection\Item\VisibilityResolverInterface
-     */
-    private $visibilityResolver;
+    private $contextualLimit;
 
     /**
      * @var int
@@ -35,20 +27,17 @@ final class ResultBuilder implements ResultBuilderInterface
     private $maxLimit;
 
     /**
-     * @param \Netgen\BlockManager\Collection\Result\CollectionIteratorFactory $collectionIteratorFactory
-     * @param \Netgen\BlockManager\Collection\Result\ResultItemBuilder $resultItemBuilder
-     * @param \Netgen\BlockManager\Collection\Item\VisibilityResolverInterface $visibilityResolver
+     * @param \Netgen\BlockManager\Collection\Result\CollectionRunnerFactory $runnerFactory
+     * @param int $contextualLimit
      * @param int $maxLimit
      */
     public function __construct(
-        CollectionIteratorFactory $collectionIteratorFactory,
-        ResultItemBuilder $resultItemBuilder,
-        VisibilityResolverInterface $visibilityResolver,
+        CollectionRunnerFactory $runnerFactory,
+        $contextualLimit,
         $maxLimit
     ) {
-        $this->collectionIteratorFactory = $collectionIteratorFactory;
-        $this->resultItemBuilder = $resultItemBuilder;
-        $this->visibilityResolver = $visibilityResolver;
+        $this->runnerFactory = $runnerFactory;
+        $this->contextualLimit = $contextualLimit;
         $this->maxLimit = $maxLimit;
     }
 
@@ -59,18 +48,18 @@ final class ResultBuilder implements ResultBuilderInterface
             $limit = $this->maxLimit;
         }
 
-        $collectionIterator = $this->collectionIteratorFactory->getCollectionIterator(
-            $collection,
-            $offset,
-            $limit,
-            $flags
-        );
+        $showContextualSlots = (bool) ($flags & ResultSet::INCLUDE_UNKNOWN_ITEMS);
+        if ($collection->hasQuery() && $collection->getQuery()->isContextual() && $showContextualSlots) {
+            $limit = $limit > 0 && $limit < $this->contextualLimit ? $limit : $this->contextualLimit;
+        }
+
+        $collectionRunner = $this->runnerFactory->getCollectionRunner($collection, $flags);
 
         $results = array();
-
-        $collectionCount = $collectionIterator->count();
+        $collectionCount = $collectionRunner->count($collection);
         if ($limit > 0 && $offset < $collectionCount) {
-            $results = $this->getResults($collectionIterator, $flags);
+            $results = call_user_func($collectionRunner, $collection, $offset, $limit);
+            $results = iterator_to_array($results);
         }
 
         return new ResultSet(
@@ -82,86 +71,5 @@ final class ResultBuilder implements ResultBuilderInterface
                 'limit' => $limit,
             )
         );
-    }
-
-    /**
-     * Returns all items from the collection which are included in the result.
-     * Those are the items that fit inside the offset and limit, as defined by
-     * the collection.
-     *
-     * @param \Netgen\BlockManager\Collection\Result\CollectionIterator $collectionIterator
-     * @param int $flags
-     *
-     * @return \Netgen\BlockManager\Collection\Result\Result[]
-     */
-    private function getResults(CollectionIterator $collectionIterator, $flags = 0)
-    {
-        $results = array();
-
-        foreach ($collectionIterator as $position => $item) {
-            $result = $this->resultItemBuilder->build($item, $position);
-
-            if (!$this->includeResult($result, $flags)) {
-                continue;
-            }
-
-            $results[] = $result;
-        }
-
-        return $results;
-    }
-
-    /**
-     * Returns if the provided result should be included in the result set. Result is included
-     * in the set if it is valid and visible, or if its inclusion is overriden by the provided
-     * flags (specifying if invalid or invisible items should be included or not.).
-     *
-     * @param \Netgen\BlockManager\Collection\Result\Result $result
-     * @param int $flags
-     *
-     * @return bool
-     */
-    private function includeResult(Result $result, $flags = 0)
-    {
-        if (!((bool) ($flags & ResultSet::INCLUDE_INVALID_ITEMS)) && $result->getItem() instanceof NullItem) {
-            return false;
-        }
-
-        if (!((bool) ($flags & ResultSet::INCLUDE_INVISIBLE_ITEMS)) && !$this->isResultVisible($result)) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Returns if the result built from CMS item and collection item will be
-     * visible or not.
-     *
-     * First, we check if the item from CMS is visible or not. After that, we
-     * check if the collection item is specified as visible by its configuration,
-     * and finally, we use the visibility resolver to give the change to code
-     * to specify if an item is visible or not.
-     *
-     * @param \Netgen\BlockManager\Collection\Result\Result $result
-     *
-     * @return bool
-     */
-    private function isResultVisible(Result $result)
-    {
-        if (!$result->getItem()->isVisible()) {
-            return false;
-        }
-
-        $collectionItem = $result->getCollectionItem();
-        if (!$collectionItem instanceof Item) {
-            return true;
-        }
-
-        if (!$collectionItem->isVisible()) {
-            return false;
-        }
-
-        return $this->visibilityResolver->isVisible($collectionItem);
     }
 }

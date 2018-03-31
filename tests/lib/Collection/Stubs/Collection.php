@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Collection\Stubs;
 
 use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
+use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 
 final class Collection implements APICollection
@@ -10,22 +11,17 @@ final class Collection implements APICollection
     /**
      * @var array
      */
-    private $manualItems;
+    private $manualItems = array();
 
     /**
      * @var array
      */
-    private $overrideItems;
+    private $overrideItems = array();
 
     /**
-     * @var array
+     * @var \Netgen\BlockManager\API\Values\Collection\Query
      */
-    private $queryValues;
-
-    /**
-     * @var int
-     */
-    private $queryCount;
+    private $query;
 
     /**
      * Constructor.
@@ -38,97 +34,83 @@ final class Collection implements APICollection
     public function __construct(
         array $manualItems = array(),
         array $overrideItems = array(),
-        array $queryValues = array(),
+        array $queryValues = null,
         $queryCount = 0
     ) {
-        $this->manualItems = $manualItems;
-        $this->overrideItems = $overrideItems;
-        $this->queryValues = $queryValues;
-        $this->queryCount = $queryCount;
+        foreach ($manualItems as $position => $value) {
+            $this->manualItems[$position] = new Item(array('type' => Item::TYPE_MANUAL, 'value' => $value, 'position' => $position));
+        }
+
+        foreach ($overrideItems as $position => $value) {
+            $this->overrideItems[$position] = new Item(array('type' => Item::TYPE_OVERRIDE, 'value' => $value, 'position' => $position));
+        }
+
+        if ($queryValues !== null) {
+            $this->query = new Query(
+                array(
+                    'queryType' => new QueryType(
+                        'ezcontent_search',
+                        $queryValues,
+                        $queryCount
+                    ),
+                )
+            );
+        }
     }
 
-    /**
-     * Returns the collection ID.
-     *
-     * @return int|string
-     */
     public function getId()
     {
     }
 
-    /**
-     * Returns the collection status.
-     *
-     * @return int
-     */
     public function getStatus()
     {
     }
 
-    /**
-     * Returns the collection type.
-     *
-     * @return int
-     */
     public function getType()
     {
     }
 
-    /**
-     * Returns if the collection is published.
-     *
-     * @return bool
-     */
     public function isPublished()
     {
     }
 
-    /**
-     * Returns the starting collection offset.
-     *
-     * @return int
-     */
     public function getOffset()
     {
     }
 
-    /**
-     * Returns the starting collection limit.
-     *
-     * @return int
-     */
     public function getLimit()
     {
     }
 
-    /**
-     * Returns all collection items.
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item[]
-     */
-    public function getItems()
+    public function hasItem($position, $type = null)
     {
+        return $this->hasManualItem($position) || $this->hasOverrideItem($position);
     }
 
-    /**
-     * Returns if the collection has a manual item at specified position.
-     *
-     * @param int $position
-     *
-     * @return bool
-     */
+    public function getItem($position, $type = null)
+    {
+        $item = $this->getManualItem($position);
+        if ($item !== null) {
+            return $item;
+        }
+
+        return $this->getOverrideItem($position);
+    }
+
+    public function getItems()
+    {
+        $items = $this->manualItems + $this->overrideItems;
+
+        ksort($items);
+
+        return $items;
+    }
+
     public function hasManualItem($position)
     {
         return isset($this->manualItems[$position]);
     }
 
-    /**
-     * Returns the manual item at specified position.
-     *
-     * @param int $position
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item
-     */
     public function getManualItem($position)
     {
         return isset($this->manualItems[$position]) ?
@@ -136,35 +118,16 @@ final class Collection implements APICollection
             null;
     }
 
-    /**
-     * Returns the manual items.
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item[]
-     */
     public function getManualItems()
     {
         return $this->manualItems;
     }
 
-    /**
-     * Returns if the collection has an override item at specified position.
-     *
-     * @param int $position
-     *
-     * @return bool
-     */
     public function hasOverrideItem($position)
     {
         return isset($this->overrideItems[$position]);
     }
 
-    /**
-     * Returns the override item at specified position.
-     *
-     * @param int $position
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item
-     */
     public function getOverrideItem($position)
     {
         return isset($this->overrideItems[$position]) ?
@@ -172,86 +135,37 @@ final class Collection implements APICollection
             null;
     }
 
-    /**
-     * Returns the override items.
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item[]
-     */
     public function getOverrideItems()
     {
         return $this->overrideItems;
     }
 
-    /**
-     * Returns the query from the collection.
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\Query
-     */
     public function getQuery()
     {
-        return new Query(
-            array(
-                'queryType' => new QueryType(
-                    'ezcontent_search',
-                    $this->queryValues,
-                    $this->queryCount
-                ),
-            )
-        );
+        return $this->query;
     }
 
-    /**
-     * Returns if the query exists in the collection.
-     *
-     * @return bool
-     */
     public function hasQuery()
     {
-        return true;
+        return $this->query instanceof APIQuery;
     }
 
-    /**
-     * Returns the list of all available locales in the collection.
-     *
-     * @return string[]
-     */
     public function getAvailableLocales()
     {
     }
 
-    /**
-     * Returns the main locale for the collection.
-     *
-     * @return string
-     */
     public function getMainLocale()
     {
     }
 
-    /**
-     * Returns if the collection is translatable.
-     *
-     * @return bool
-     */
     public function isTranslatable()
     {
     }
 
-    /**
-     * Returns if the main translation of the collection is used
-     * in case there are no prioritized translations.
-     *
-     * @return bool
-     */
     public function isAlwaysAvailable()
     {
     }
 
-    /**
-     * Returns the locale of the currently loaded translation.
-     *
-     * @return string
-     */
     public function getLocale()
     {
     }

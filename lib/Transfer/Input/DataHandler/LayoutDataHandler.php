@@ -18,10 +18,9 @@ use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistryInterface;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
 use Netgen\BlockManager\Config\ConfigDefinitionAwareInterface;
-use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
+use Netgen\BlockManager\Item\NullItem;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
 
 /**
@@ -494,22 +493,17 @@ final class LayoutDataHandler
     private function createItems(Collection $collection, array $collectionItemsData)
     {
         foreach ($collectionItemsData as $collectionItemData) {
-            $item = null;
             $itemDefinition = $this->itemDefinitionRegistry->getItemDefinition($collectionItemData['value_type']);
 
-            try {
-                $item = $this->itemLoader->loadByRemoteId(
-                    $collectionItemData['value'],
-                    $collectionItemData['value_type']
-                );
-            } catch (ItemException $e) {
-                // Do nothing
-            }
+            $item = $this->itemLoader->loadByRemoteId(
+                $collectionItemData['value'],
+                $collectionItemData['value_type']
+            );
 
             $itemCreateStruct = $this->collectionService->newItemCreateStruct(
                 $itemDefinition,
                 $this->mapItemType($collectionItemData['type']),
-                $item instanceof ItemInterface ? $item->getValue() : null
+                $item instanceof NullItem ? null : $item->getValue()
             );
 
             $this->setConfigStructs(

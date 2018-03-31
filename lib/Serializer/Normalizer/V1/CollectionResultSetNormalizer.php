@@ -3,6 +3,8 @@
 namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 
 use Netgen\BlockManager\API\Values\Collection\Item;
+use Netgen\BlockManager\Collection\Result\ManualItem;
+use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Serializer\SerializerAwareTrait;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
@@ -55,23 +57,23 @@ final class CollectionResultSetNormalizer implements NormalizerInterface, Serial
      */
     private function getOverflowItems(ResultSet $resultSet)
     {
-        $overflowItems = array();
-        $includedPositions = array();
+        $includedPositions = array_map(
+            function (Result $result) {
+                $manualItem = $result->getItem();
+                if (!$manualItem instanceof ManualItem) {
+                    return null;
+                }
 
-        foreach ($resultSet as $result) {
-            if ($result->getCollectionItem() instanceof Item) {
-                $includedPositions[] = $result->getCollectionItem()->getPosition();
+                return $manualItem->getCollectionItem()->getPosition();
+            },
+            $resultSet->getResults()
+        );
+
+        return array_filter(
+            $resultSet->getCollection()->getItems(),
+            function (Item $item) use ($includedPositions) {
+                return !in_array($item->getPosition(), $includedPositions, true);
             }
-        }
-
-        foreach ($resultSet->getCollection()->getItems() as $item) {
-            if (in_array($item->getPosition(), $includedPositions, true)) {
-                continue;
-            }
-
-            $overflowItems[] = $item;
-        }
-
-        return $overflowItems;
+        );
     }
 }

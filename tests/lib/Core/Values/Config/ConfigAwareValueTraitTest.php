@@ -18,7 +18,7 @@ final class ConfigAwareValueTraitTest extends TestCase
     {
         $value = new ConfigAwareValue();
 
-        $this->assertNull($value->getConfigs());
+        $this->assertEquals(array(), $value->getConfigs());
     }
 
     /**

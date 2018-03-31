@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Parameters\ParameterType\ItemLink;
 
-use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
+use Netgen\BlockManager\Item\NullItem;
 
 final class RemoteIdConverter
 {
@@ -38,15 +38,12 @@ final class RemoteIdConverter
             return self::NULL_LINK;
         }
 
-        try {
-            $item = $this->itemLoader->load($link['host'], str_replace('-', '_', $link['scheme']));
-
-            return $link['scheme'] . '://' . $item->getRemoteId();
-        } catch (ItemException $e) {
-            // Do nothing
+        $item = $this->itemLoader->load($link['host'], str_replace('-', '_', $link['scheme']));
+        if ($item instanceof NullItem) {
+            return self::NULL_LINK;
         }
 
-        return self::NULL_LINK;
+        return $link['scheme'] . '://' . $item->getRemoteId();
     }
 
     /**
@@ -68,14 +65,11 @@ final class RemoteIdConverter
             return self::NULL_LINK;
         }
 
-        try {
-            $item = $this->itemLoader->loadByRemoteId($link['host'], str_replace('-', '_', $link['scheme']));
-
-            return $link['scheme'] . '://' . $item->getValue();
-        } catch (ItemException $e) {
-            // Do nothing
+        $item = $this->itemLoader->loadByRemoteId($link['host'], str_replace('-', '_', $link['scheme']));
+        if ($item instanceof NullItem) {
+            return self::NULL_LINK;
         }
 
-        return self::NULL_LINK;
+        return $link['scheme'] . '://' . $item->getValue();
     }
 }

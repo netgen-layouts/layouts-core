@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
+use Netgen\BlockManager\Collection\Result\ManualItem;
 use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Core\Values\Collection\Item as CollectionItem;
 use Netgen\BlockManager\Core\Values\Config\Config;
@@ -64,19 +65,11 @@ final class CollectionResultNormalizerTest extends TestCase
             )
         );
 
-        $result = new Result(
-            array(
-                'item' => $item,
-                'collectionItem' => $collectionItem,
-                'type' => Result::TYPE_MANUAL,
-                'position' => 3,
-            )
-        );
-
+        $result = new Result(3, new ManualItem($item, $collectionItem));
         $this->urlBuilderMock
             ->expects($this->any())
             ->method('getUrl')
-            ->with($this->equalTo($item))
+            ->with($this->equalTo($result->getItem()))
             ->will($this->returnValue('/some/url'));
 
         $this->assertEquals(
@@ -84,7 +77,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'id' => $collectionItem->getId(),
                 'collection_id' => $collectionItem->getCollectionId(),
                 'position' => $result->getPosition(),
-                'type' => $result->getType(),
+                'type' => Result::TYPE_MANUAL,
                 'cms_url' => '/some/url',
                 'cms_visible' => $item->isVisible(),
                 'value' => $item->getValue(),
@@ -109,14 +102,7 @@ final class CollectionResultNormalizerTest extends TestCase
             )
         );
 
-        $result = new Result(
-            array(
-                'item' => $item,
-                'collectionItem' => null,
-                'type' => Result::TYPE_DYNAMIC,
-                'position' => 3,
-            )
-        );
+        $result = new Result(3, $item);
 
         $this->urlBuilderMock
             ->expects($this->any())
@@ -129,7 +115,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'id' => null,
                 'collection_id' => null,
                 'position' => $result->getPosition(),
-                'type' => $result->getType(),
+                'type' => Result::TYPE_DYNAMIC,
                 'cms_url' => '/some/url',
                 'cms_visible' => $item->isVisible(),
                 'value' => $item->getValue(),
@@ -170,10 +156,10 @@ final class CollectionResultNormalizerTest extends TestCase
             array(42, false),
             array(42.12, false),
             array(new APIValue(), false),
-            array(new Result(), false),
+            array(new Result(0, new Item()), false),
             array(new VersionedValue(new APIValue(), 1), false),
-            array(new VersionedValue(new Result(), 2), false),
-            array(new VersionedValue(new Result(), 1), true),
+            array(new VersionedValue(new Result(0, new Item()), 2), false),
+            array(new VersionedValue(new Result(0, new Item()), 1), true),
         );
     }
 }
