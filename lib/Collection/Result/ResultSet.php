@@ -17,16 +17,10 @@ use Netgen\BlockManager\Value;
 final class ResultSet extends Value implements ArrayAccess, IteratorAggregate, Countable
 {
     /**
-     * If specified, the result will include any invisible items
-     * as provided by the backend.
-     */
-    const INCLUDE_INVISIBLE_ITEMS = 1;
-
-    /**
      * If specified, the result will include any invalid items,
-     * i.e. those that don't exist in backend.
+     * i.e. those that don't exist in backend or are invisible.
      */
-    const INCLUDE_INVALID_ITEMS = 2;
+    const INCLUDE_INVALID_ITEMS = 1;
 
     /**
      * If provided, any items not currently known will be shown as placeholder slots.
@@ -35,7 +29,7 @@ final class ResultSet extends Value implements ArrayAccess, IteratorAggregate, C
      * meaning that it cannot run when there's no real frontend request,
      * e.g. in Block Manager app.
      */
-    const INCLUDE_UNKNOWN_ITEMS = 4;
+    const INCLUDE_UNKNOWN_ITEMS = 2;
 
     /**
      * If provided, will include all items, without any filters.
