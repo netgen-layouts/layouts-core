@@ -11,16 +11,6 @@ use Netgen\BlockManager\Item\ItemInterface;
 final class Result
 {
     /**
-     * Defines a result generated from the collection item.
-     */
-    const TYPE_MANUAL = 0;
-
-    /**
-     * Defines a result generated from the item coming from the collection query.
-     */
-    const TYPE_DYNAMIC = 2;
-
-    /**
      * @var int
      */
     private $position;

@@ -33,32 +33,30 @@ final class CollectionItemNormalizer implements NormalizerInterface
         /** @var \Netgen\BlockManager\API\Values\Collection\Item $item */
         $collectionItem = $object->getValue();
 
+        $cmsItem = $this->itemLoader->load(
+            $collectionItem->getValue(),
+            $collectionItem->getValueType()
+        );
+
         $data = array(
             'id' => $collectionItem->getId(),
             'collection_id' => $collectionItem->getCollectionId(),
             'position' => $collectionItem->getPosition(),
             'type' => $collectionItem->getType(),
-            'value' => $collectionItem->getValue(),
-            'value_type' => $collectionItem->getValueType(),
             'visible' => $collectionItem->isVisible(),
             'scheduled' => $collectionItem->isScheduled(),
-            'name' => null,
+            'value' => $cmsItem->getValue(),
+            'value_type' => $cmsItem->getValueType(),
+            'name' => $cmsItem->getName(),
+            'cms_visible' => $cmsItem->isVisible(),
             'cms_url' => null,
-            'cms_visible' => true,
-        );
-
-        $cmsItem = $this->itemLoader->load(
-            $collectionItem->getValue(),
-            $collectionItem->getValueType()
         );
 
         if ($cmsItem instanceof NullItem) {
             return $data;
         }
 
-        $data['name'] = $cmsItem->getName();
         $data['cms_url'] = $this->urlBuilder->getUrl($cmsItem);
-        $data['cms_visible'] = $cmsItem->isVisible();
 
         return $data;
     }

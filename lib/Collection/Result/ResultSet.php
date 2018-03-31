@@ -6,7 +6,6 @@ use ArrayAccess;
 use ArrayIterator;
 use Countable;
 use IteratorAggregate;
-use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Value;
 
@@ -88,7 +87,7 @@ final class ResultSet extends Value implements ArrayAccess, IteratorAggregate, C
      */
     public function isDynamic()
     {
-        return $this->collection->getType() === Collection::TYPE_DYNAMIC;
+        return $this->collection->hasQuery();
     }
 
     /**

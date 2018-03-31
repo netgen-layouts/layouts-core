@@ -76,15 +76,15 @@ final class CollectionResultNormalizerTest extends TestCase
             array(
                 'id' => $collectionItem->getId(),
                 'collection_id' => $collectionItem->getCollectionId(),
-                'position' => $result->getPosition(),
-                'type' => Result::TYPE_MANUAL,
-                'cms_url' => '/some/url',
-                'cms_visible' => $item->isVisible(),
+                'visible' => $collectionItem->isVisible(),
+                'scheduled' => $collectionItem->isScheduled(),
+                'is_dynamic' => false,
                 'value' => $item->getValue(),
                 'value_type' => $item->getValueType(),
                 'name' => $item->getName(),
-                'visible' => $collectionItem->isVisible(),
-                'scheduled' => $collectionItem->isScheduled(),
+                'cms_visible' => $item->isVisible(),
+                'cms_url' => '/some/url',
+                'position' => $result->getPosition(),
             ),
             $this->normalizer->normalize(new VersionedValue($result, 1))
         );
@@ -114,15 +114,15 @@ final class CollectionResultNormalizerTest extends TestCase
             array(
                 'id' => null,
                 'collection_id' => null,
-                'position' => $result->getPosition(),
-                'type' => Result::TYPE_DYNAMIC,
-                'cms_url' => '/some/url',
-                'cms_visible' => $item->isVisible(),
+                'visible' => true,
+                'scheduled' => false,
+                'is_dynamic' => true,
                 'value' => $item->getValue(),
                 'value_type' => $item->getValueType(),
                 'name' => $item->getName(),
-                'visible' => true,
-                'scheduled' => false,
+                'cms_visible' => $item->isVisible(),
+                'cms_url' => '/some/url',
+                'position' => $result->getPosition(),
             ),
             $this->normalizer->normalize(new VersionedValue($result, 1))
         );

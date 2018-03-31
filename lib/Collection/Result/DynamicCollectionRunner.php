@@ -60,7 +60,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
                 break;
             }
 
-            if ($item->getType() === CollectionItem::TYPE_MANUAL || $item->getPosition() === $totalCount) {
+            if ($item->getType() !== CollectionItem::TYPE_OVERRIDE || $item->getPosition() === $totalCount) {
                 if ($this->getManualItem($item)->isValid()) {
                     ++$totalCount;
                 }

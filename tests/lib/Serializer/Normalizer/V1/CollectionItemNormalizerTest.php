@@ -76,6 +76,8 @@ final class CollectionItemNormalizerTest extends TestCase
             array(
                 'name' => 'Value name',
                 'isVisible' => true,
+                'value' => 12,
+                'valueType' => 'ezcontent',
             )
         );
 
@@ -156,10 +158,10 @@ final class CollectionItemNormalizerTest extends TestCase
                 'position' => $item->getPosition(),
                 'type' => $item->getType(),
                 'value' => $item->getValue(),
-                'value_type' => $item->getValueType(),
+                'value_type' => 'null',
                 'visible' => $item->isVisible(),
                 'scheduled' => $item->isScheduled(),
-                'name' => null,
+                'name' => '(INVALID ITEM)',
                 'cms_url' => null,
                 'cms_visible' => true,
             ),

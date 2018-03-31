@@ -73,14 +73,14 @@ final class CollectionResultNormalizer implements NormalizerInterface
         return array(
             'id' => $collectionItem !== null ? $collectionItem->getId() : null,
             'collection_id' => $collectionItem !== null ? $collectionItem->getCollectionId() : null,
-            'type' => $cmsItem instanceof ManualItem ? Result::TYPE_MANUAL : Result::TYPE_DYNAMIC,
-            'value' => $cmsItem->getValue(),
-            'value_type' => $cmsItem->getValueType(),
             'visible' => $collectionItem !== null ? $collectionItem->isVisible() : true,
             'scheduled' => $collectionItem !== null ? $collectionItem->isScheduled() : false,
+            'is_dynamic' => $cmsItem instanceof ManualItem ? false : true,
+            'value' => $cmsItem->getValue(),
+            'value_type' => $cmsItem->getValueType(),
             'name' => $cmsItem->getName(),
-            'cms_url' => $itemUrl,
             'cms_visible' => $cmsItem->isVisible(),
+            'cms_url' => $itemUrl,
         );
     }
 }

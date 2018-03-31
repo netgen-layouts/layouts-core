@@ -29,7 +29,7 @@ final class ResultSetTest extends TestCase
     {
         $result = new ResultSet(
             array(
-                'collection' => new Collection(array('type' => Collection::TYPE_MANUAL)),
+                'collection' => new Collection(),
                 'results' => array('items'),
                 'totalCount' => 15,
                 'offset' => 3,
@@ -37,7 +37,7 @@ final class ResultSetTest extends TestCase
             )
         );
 
-        $this->assertEquals(new Collection(array('type' => Collection::TYPE_MANUAL)), $result->getCollection());
+        $this->assertEquals(new Collection(), $result->getCollection());
         $this->assertEquals(array('items'), $result->getResults());
         $this->assertFalse($result->isContextual());
         $this->assertEquals(15, $result->getTotalCount());
@@ -76,7 +76,7 @@ final class ResultSetTest extends TestCase
             array(
                 'collection' => new Collection(
                     array(
-                        'type' => Collection::TYPE_DYNAMIC,
+                        'query' => new Query(),
                     )
                 ),
             )
@@ -92,11 +92,7 @@ final class ResultSetTest extends TestCase
     {
         $result = new ResultSet(
             array(
-                'collection' => new Collection(
-                    array(
-                        'type' => Collection::TYPE_MANUAL,
-                    )
-                ),
+                'collection' => new Collection(),
             )
         );
 
@@ -112,7 +108,6 @@ final class ResultSetTest extends TestCase
             array(
                 'collection' => new Collection(
                     array(
-                        'type' => Collection::TYPE_DYNAMIC,
                         'query' => new Query(
                             array(
                                 'queryType' => new QueryType('type', array(), null, false),
@@ -133,11 +128,7 @@ final class ResultSetTest extends TestCase
     {
         $result = new ResultSet(
             array(
-                'collection' => new Collection(
-                    array(
-                        'type' => Collection::TYPE_MANUAL,
-                    )
-                ),
+                'collection' => new Collection(),
             )
         );
 
@@ -153,7 +144,6 @@ final class ResultSetTest extends TestCase
             array(
                 'collection' => new Collection(
                     array(
-                        'type' => Collection::TYPE_DYNAMIC,
                         'query' => new Query(
                             array(
                                 'queryType' => new QueryType('type', array(), null, true),
