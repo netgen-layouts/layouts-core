@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Collection\Result;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
+use Netgen\BlockManager\API\Values\Collection\Item as CollectionItem;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
-use Netgen\BlockManager\Item\NullItem;
 
 final class ManualCollectionRunner implements CollectionRunnerInterface
 {
@@ -20,10 +20,10 @@ final class ManualCollectionRunner implements CollectionRunnerInterface
 
     public function __invoke(Collection $collection, $offset, $limit)
     {
-        $yieldCount = 0;
+        $itemCount = 0;
 
         foreach ($collection->getItems() as $collectionItem) {
-            if ($yieldCount >= $limit) {
+            if ($itemCount >= $limit) {
                 return;
             }
 
@@ -31,21 +31,14 @@ final class ManualCollectionRunner implements CollectionRunnerInterface
                 continue;
             }
 
-            $cmsItem = $this->itemLoader->load(
-                $collectionItem->getValue(),
-                $collectionItem->getValueType()
-            );
-
-            if (!$collectionItem->isVisible() || !$cmsItem->isVisible() || $cmsItem instanceof NullItem) {
+            $manualItem = $this->getManualItem($collectionItem);
+            if (!$manualItem->isValid()) {
                 continue;
             }
 
-            yield new Result(
-                $collectionItem->getPosition(),
-                new ManualItem($cmsItem, $collectionItem)
-            );
+            yield new Result($collectionItem->getPosition(), $manualItem);
 
-            ++$yieldCount;
+            ++$itemCount;
         }
     }
 
@@ -54,12 +47,8 @@ final class ManualCollectionRunner implements CollectionRunnerInterface
         $totalCount = 0;
 
         foreach ($collection->getItems() as $collectionItem) {
-            $cmsItem = $this->itemLoader->load(
-                $collectionItem->getValue(),
-                $collectionItem->getValueType()
-            );
-
-            if (!$collectionItem->isVisible() || !$cmsItem->isVisible() || $cmsItem instanceof NullItem) {
+            $manualItem = $this->getManualItem($collectionItem);
+            if (!$manualItem->isValid()) {
                 continue;
             }
 
@@ -67,5 +56,23 @@ final class ManualCollectionRunner implements CollectionRunnerInterface
         }
 
         return $totalCount;
+    }
+
+    /**
+     * Builds and returns an object representing the manual CMS item, i.e. item
+     * whose type and value are stored in a collection.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Item $collectionItem
+     *
+     * @return \Netgen\BlockManager\Collection\Result\ManualItem
+     */
+    private function getManualItem(CollectionItem $collectionItem)
+    {
+        $cmsItem = $this->itemLoader->load(
+            $collectionItem->getValue(),
+            $collectionItem->getValueType()
+        );
+
+        return new ManualItem($cmsItem, $collectionItem);
     }
 }
