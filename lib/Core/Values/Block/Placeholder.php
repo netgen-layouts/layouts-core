@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Core\Values\Block;
 
-use ArrayIterator;
 use Netgen\BlockManager\API\Values\Block\Placeholder as APIPlaceholder;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Value;
@@ -21,9 +20,9 @@ final class Placeholder extends Value implements APIPlaceholder
     protected $identifier;
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Block\Block[]
+     * @var \Doctrine\Common\Collections\Collection
      */
-    protected $blocks = array();
+    protected $blocks;
 
     public function getIdentifier()
     {
@@ -37,22 +36,22 @@ final class Placeholder extends Value implements APIPlaceholder
 
     public function getIterator()
     {
-        return new ArrayIterator($this->blocks);
+        return $this->getBlocks()->getIterator();
     }
 
     public function count()
     {
-        return count($this->blocks);
+        return $this->blocks->count();
     }
 
     public function offsetExists($offset)
     {
-        return isset($this->blocks[$offset]);
+        return $this->blocks->offsetExists($offset);
     }
 
     public function offsetGet($offset)
     {
-        return $this->blocks[$offset];
+        return $this->blocks->offsetGet($offset);
     }
 
     public function offsetSet($offset, $value)

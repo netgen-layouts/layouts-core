@@ -23,7 +23,8 @@
         "knplabs/knp-menu-bundle": "^2.2",
         "michelf/php-markdown": "^1.7",
         "friendsofsymfony/http-cache-bundle": "^1.3.12|^2.2",
-        "white-october/pagerfanta-bundle": "^1.1"
+        "white-october/pagerfanta-bundle": "^1.1",
+        "doctrine/collections": "^1.4"
     },
     "require-dev": {
         "netgen/block-manager-standard": "~0.11.0",

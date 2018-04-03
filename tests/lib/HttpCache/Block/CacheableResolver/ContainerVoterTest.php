@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\HttpCache\Block\CacheableResolver;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContainerVoter;
@@ -48,7 +49,7 @@ final class ContainerVoterTest extends TestCase
                 'placeholders' => array(
                     'left' => new Placeholder(
                         array(
-                            'blocks' => array($twigBlock),
+                            'blocks' => new ArrayCollection(array($twigBlock)),
                         )
                     ),
                 ),
@@ -67,7 +68,7 @@ final class ContainerVoterTest extends TestCase
                 'placeholders' => array(
                     'left' => new Placeholder(
                         array(
-                            'blocks' => array($containerBlock),
+                            'blocks' => new ArrayCollection(array($containerBlock)),
                         )
                     ),
                 ),
@@ -100,7 +101,7 @@ final class ContainerVoterTest extends TestCase
                 'placeholders' => array(
                     'left' => new Placeholder(
                         array(
-                            'blocks' => array($regularBlock),
+                            'blocks' => new ArrayCollection(array($regularBlock)),
                         )
                     ),
                 ),

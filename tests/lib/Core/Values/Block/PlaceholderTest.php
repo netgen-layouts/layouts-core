@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Values\Block;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\Exception\RuntimeException;
@@ -20,7 +21,7 @@ final class PlaceholderTest extends TestCase
         $placeholder = new Placeholder();
 
         $this->assertNull($placeholder->getIdentifier());
-        $this->assertEquals(array(), $placeholder->getBlocks());
+        $this->assertNull($placeholder->getBlocks());
     }
 
     /**
@@ -39,12 +40,12 @@ final class PlaceholderTest extends TestCase
         $placeholder = new Placeholder(
             array(
                 'identifier' => 42,
-                'blocks' => array(new Block()),
+                'blocks' => new ArrayCollection(array(new Block())),
             )
         );
 
         $this->assertEquals(42, $placeholder->getIdentifier());
-        $this->assertEquals(array(new Block()), $placeholder->getBlocks());
+        $this->assertEquals(new ArrayCollection(array(new Block())), $placeholder->getBlocks());
 
         $this->assertInstanceOf(Traversable::class, $placeholder->getIterator());
         $this->assertEquals(array(new Block()), iterator_to_array($placeholder->getIterator()));

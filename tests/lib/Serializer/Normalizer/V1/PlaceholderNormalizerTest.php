@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\Serializer\Normalizer\V1\PlaceholderNormalizer;
@@ -39,9 +40,7 @@ final class PlaceholderNormalizerTest extends TestCase
         $placeholder = new Placeholder(
             array(
                 'identifier' => 'main',
-                'blocks' => array(
-                    new Block(),
-                ),
+                'blocks' => new ArrayCollection(array(new Block())),
             )
         );
 

@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Block\ContainerDefinitionInterface;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
+use Netgen\BlockManager\Core\Service\Mapper\Proxy\LazyLoadedCollection;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\CollectionReference;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
@@ -178,21 +179,21 @@ final class BlockMapper
             return array();
         }
 
-        $childBlocks = $this->blockHandler->loadChildBlocks($block);
-
         $placeholders = array();
         foreach ($blockDefinition->getPlaceholders() as $placeholderIdentifier) {
-            $placeholderBlocks = array();
-            foreach ($childBlocks as $childBlock) {
-                if ($childBlock->placeholder === $placeholderIdentifier) {
-                    $placeholderBlocks[] = $this->mapBlock($childBlock, $locales, false);
-                }
-            }
-
             $placeholders[$placeholderIdentifier] = new Placeholder(
                 array(
                     'identifier' => $placeholderIdentifier,
-                    'blocks' => $placeholderBlocks,
+                    'blocks' => new LazyLoadedCollection(
+                        function () use ($block, $placeholderIdentifier, $locales) {
+                            return array_map(
+                                function (PersistenceBlock $childBlock) use ($locales) {
+                                    return $this->mapBlock($childBlock, $locales, false);
+                                },
+                                $this->blockHandler->loadChildBlocks($block, $placeholderIdentifier)
+                            );
+                        }
+                    ),
                 )
             );
         }

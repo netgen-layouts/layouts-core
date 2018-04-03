@@ -45,7 +45,7 @@ final class Placeholder extends Visitor
     {
         $hash = array();
 
-        foreach ($placeholder->getBlocks() as $block) {
+        foreach ($placeholder as $block) {
             $hash[] = $subVisitor->visit($block);
         }
 
