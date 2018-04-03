@@ -40,28 +40,28 @@ final class LayoutMapper
      */
     public function mapZone(PersistenceZone $zone)
     {
-        $linkedZone = null;
-
-        if ($zone->linkedLayoutId !== null && $zone->linkedZoneIdentifier !== null) {
-            try {
-                // We're always using published versions of linked zones
-                $linkedZone = $this->layoutHandler->loadZone(
-                    $zone->linkedLayoutId,
-                    PersistenceValue::STATUS_PUBLISHED,
-                    $zone->linkedZoneIdentifier
-                );
-
-                $linkedZone = $this->mapZone($linkedZone);
-            } catch (NotFoundException $e) {
-                // Do nothing
-            }
-        }
-
         $zoneData = array(
             'identifier' => $zone->identifier,
             'layoutId' => $zone->layoutId,
             'status' => $zone->status,
-            'linkedZone' => $linkedZone,
+            'linkedZone' => function () use ($zone) {
+                if ($zone->linkedLayoutId !== null && $zone->linkedZoneIdentifier !== null) {
+                    try {
+                        // We're always using published versions of linked zones
+                        $linkedZone = $this->layoutHandler->loadZone(
+                            $zone->linkedLayoutId,
+                            PersistenceValue::STATUS_PUBLISHED,
+                            $zone->linkedZoneIdentifier
+                        );
+
+                        return $this->mapZone($linkedZone);
+                    } catch (NotFoundException $e) {
+                        // Do nothing
+                    }
+                }
+
+                return null;
+            },
             'published' => $zone->status === Value::STATUS_PUBLISHED,
         );
 

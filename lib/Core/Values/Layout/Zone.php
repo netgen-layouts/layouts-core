@@ -3,10 +3,13 @@
 namespace Netgen\BlockManager\Core\Values\Layout;
 
 use Netgen\BlockManager\API\Values\Layout\Zone as APIZone;
+use Netgen\BlockManager\Core\Service\Mapper\Proxy\LazyLoadingProxyTrait;
 use Netgen\BlockManager\Value;
 
 final class Zone extends Value implements APIZone
 {
+    use LazyLoadingProxyTrait;
+
     /**
      * @var string
      */
@@ -54,11 +57,11 @@ final class Zone extends Value implements APIZone
 
     public function hasLinkedZone()
     {
-        return $this->linkedZone instanceof APIZone;
+        return $this->getLazyLoadedProperty($this->linkedZone) instanceof APIZone;
     }
 
     public function getLinkedZone()
     {
-        return $this->linkedZone;
+        return $this->getLazyLoadedProperty($this->linkedZone);
     }
 }
