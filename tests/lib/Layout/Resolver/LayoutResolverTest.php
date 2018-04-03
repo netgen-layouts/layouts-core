@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Layout\Resolver;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
@@ -67,6 +68,8 @@ final class LayoutResolverTest extends TestCase
                 'layout' => new Layout(array('id' => 12)),
                 'priority' => 2,
                 'enabled' => true,
+                'targets' => new ArrayCollection(),
+                'conditions' => new ArrayCollection(),
             )
         );
 
@@ -75,6 +78,8 @@ final class LayoutResolverTest extends TestCase
                 'layout' => new Layout(array('id' => 13)),
                 'priority' => 4,
                 'enabled' => true,
+                'targets' => new ArrayCollection(),
+                'conditions' => new ArrayCollection(),
             )
         );
 
@@ -83,6 +88,8 @@ final class LayoutResolverTest extends TestCase
                 'layout' => new Layout(array('id' => 14)),
                 'priority' => 5,
                 'enabled' => true,
+                'targets' => new ArrayCollection(),
+                'conditions' => new ArrayCollection(),
             )
         );
 
@@ -91,6 +98,8 @@ final class LayoutResolverTest extends TestCase
                 'layout' => new Layout(array('id' => 15)),
                 'priority' => 4,
                 'enabled' => true,
+                'targets' => new ArrayCollection(),
+                'conditions' => new ArrayCollection(),
             )
         );
 
@@ -129,6 +138,8 @@ final class LayoutResolverTest extends TestCase
                 'layout' => new Layout(array('id' => 12)),
                 'priority' => 2,
                 'enabled' => true,
+                'targets' => new ArrayCollection(),
+                'conditions' => new ArrayCollection(),
             )
         );
 
@@ -137,6 +148,8 @@ final class LayoutResolverTest extends TestCase
                 'layout' => null,
                 'priority' => 4,
                 'enabled' => true,
+                'targets' => new ArrayCollection(),
+                'conditions' => new ArrayCollection(),
             )
         );
 
@@ -196,6 +209,8 @@ final class LayoutResolverTest extends TestCase
                 'layout' => new Layout(array('id' => 13)),
                 'priority' => 5,
                 'enabled' => true,
+                'targets' => new ArrayCollection(),
+                'conditions' => new ArrayCollection(),
             )
         );
 
@@ -204,6 +219,8 @@ final class LayoutResolverTest extends TestCase
                 'layout' => new Layout(array('id' => 13)),
                 'priority' => 7,
                 'enabled' => true,
+                'targets' => new ArrayCollection(),
+                'conditions' => new ArrayCollection(),
             )
         );
 

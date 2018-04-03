@@ -53,9 +53,8 @@ final class Rule extends Visitor
     private function visitTargets(RuleValue $rule, VisitorInterface $subVisitor)
     {
         $hash = array();
-        $targets = $rule->getTargets();
 
-        foreach ($targets as $target) {
+        foreach ($rule->getTargets() as $target) {
             $hash[$target->getId()] = $subVisitor->visit($target);
         }
 
@@ -73,9 +72,8 @@ final class Rule extends Visitor
     private function visitConditions(RuleValue $rule, VisitorInterface $subVisitor)
     {
         $hash = array();
-        $conditions = $rule->getConditions();
 
-        foreach ($conditions as $condition) {
+        foreach ($rule->getConditions() as $condition) {
             $hash[$condition->getId()] = $subVisitor->visit($condition);
         }
 

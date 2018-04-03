@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
 use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\Core\Service\Mapper\Proxy\LazyLoadedCollection;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
@@ -59,20 +60,6 @@ final class LayoutResolverMapper
     {
         $handler = $this->persistenceHandler->getLayoutResolverHandler();
 
-        $persistenceTargets = $handler->loadRuleTargets($rule);
-
-        $targets = array();
-        foreach ($persistenceTargets as $persistenceTarget) {
-            $targets[] = $this->mapTarget($persistenceTarget);
-        }
-
-        $persistenceConditions = $handler->loadRuleConditions($rule);
-
-        $conditions = array();
-        foreach ($persistenceConditions as $persistenceCondition) {
-            $conditions[] = $this->mapCondition($persistenceCondition);
-        }
-
         $ruleData = array(
             'id' => $rule->id,
             'status' => $rule->status,
@@ -92,8 +79,26 @@ final class LayoutResolverMapper
             'enabled' => $rule->enabled,
             'priority' => $rule->priority,
             'comment' => $rule->comment,
-            'targets' => $targets,
-            'conditions' => $conditions,
+            'targets' => new LazyLoadedCollection(
+                function () use ($handler, $rule) {
+                    return array_map(
+                        function (PersistenceTarget $target) {
+                            return $this->mapTarget($target);
+                        },
+                        $handler->loadRuleTargets($rule)
+                    );
+                }
+            ),
+            'conditions' => new LazyLoadedCollection(
+                function () use ($handler, $rule) {
+                    return array_map(
+                        function (PersistenceCondition $condition) {
+                            return $this->mapCondition($condition);
+                        },
+                        $handler->loadRuleConditions($rule)
+                    );
+                }
+            ),
             'published' => $rule->status === Value::STATUS_PUBLISHED,
         );
 

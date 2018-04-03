@@ -34,8 +34,8 @@ final class RuleTest extends TestCase
         $this->assertNull($rule->isEnabled());
         $this->assertNull($rule->getComment());
         $this->assertNull($rule->isPublished());
-        $this->assertEquals(array(), $rule->getTargets());
-        $this->assertEquals(array(), $rule->getConditions());
+        $this->assertNull($rule->getTargets());
+        $this->assertNull($rule->getConditions());
     }
 
     /**

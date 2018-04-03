@@ -47,14 +47,14 @@ final class Rule extends Value implements APIRule
     protected $comment;
 
     /**
-     * @var \Netgen\BlockManager\API\Values\LayoutResolver\Target[]
+     * @var \Doctrine\Common\Collections\Collection
      */
-    protected $targets = array();
+    protected $targets;
 
     /**
-     * @var \Netgen\BlockManager\API\Values\LayoutResolver\Condition[]
+     * @var \Doctrine\Common\Collections\Collection
      */
-    protected $conditions = array();
+    protected $conditions;
 
     public function getId()
     {
