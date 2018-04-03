@@ -41,11 +41,6 @@ final class BlockNormalizer implements NormalizerInterface, SerializerAwareInter
             $placeholders[] = new VersionedValue($placeholder, $object->getVersion());
         }
 
-        $collectionReferences = array();
-        foreach ($block->getCollectionReferences() as $collectionReference) {
-            $collectionReferences[] = new VersionedValue($collectionReference, $object->getVersion());
-        }
-
         $isContainer = $blockDefinition instanceof ContainerDefinitionInterface;
 
         return array(
@@ -65,7 +60,7 @@ final class BlockNormalizer implements NormalizerInterface, SerializerAwareInter
             'is_container' => $isContainer,
             'is_dynamic_container' => $isContainer && $blockDefinition->isDynamicContainer(),
             'placeholders' => $this->serializer->normalize($placeholders, $format, $context),
-            'collections' => $this->serializer->normalize($collectionReferences, $format, $context),
+            'collections' => $this->normalizeBlockCollections($block),
         );
     }
 
@@ -76,5 +71,22 @@ final class BlockNormalizer implements NormalizerInterface, SerializerAwareInter
         }
 
         return $data->getValue() instanceof Block && $data->getVersion() === Version::API_V1;
+    }
+
+    private function normalizeBlockCollections(Block $block)
+    {
+        $data = array();
+
+        foreach ($block->getCollections() as $identifier => $collection) {
+            $data[] = array(
+                'identifier' => $identifier,
+                'collection_id' => $collection->getId(),
+                'collection_type' => $collection->getType(),
+                'offset' => $collection->getOffset(),
+                'limit' => $collection->getLimit(),
+            );
+        }
+
+        return $data;
     }
 }

@@ -1,7 +1,7 @@
 {% set collection_identifier = collection_identifier|default('default') %}
 
-{% if block.hasCollectionReference(collection_identifier) %}
-    {% set collection = block.collectionReference(collection_identifier).collection %}
+{% if block.hasCollection(collection_identifier) %}
+    {% set collection = block.collection(collection_identifier) %}
 
     <div
         data-query-form="true"

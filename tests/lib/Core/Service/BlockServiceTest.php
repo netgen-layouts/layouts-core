@@ -190,13 +190,12 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertFalse($block->isPublished());
         $this->assertInstanceOf(Block::class, $block);
 
-        $collectionReferences = $block->getCollectionReferences();
-        $this->assertCount(1, $collectionReferences);
-        $this->assertArrayHasKey('default', $collectionReferences);
+        $collections = $block->getCollections();
+        $this->assertCount(1, $collections);
+        $this->assertArrayHasKey('default', $collections);
 
-        $this->assertEquals('default', $collectionReferences['default']->getIdentifier());
-        $this->assertEquals(0, $collectionReferences['default']->getCollection()->getOffset());
-        $this->assertNull($collectionReferences['default']->getCollection()->getLimit());
+        $this->assertEquals(0, $collections['default']->getOffset());
+        $this->assertNull($collections['default']->getLimit());
 
         $collection = $this->collectionService->loadCollectionDraft(7);
         $this->assertEquals(Collection::TYPE_MANUAL, $collection->getType());
@@ -234,13 +233,12 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertFalse($block->isPublished());
         $this->assertInstanceOf(Block::class, $block);
 
-        $collectionReferences = $block->getCollectionReferences();
-        $this->assertCount(1, $collectionReferences);
-        $this->assertArrayHasKey('default', $collectionReferences);
+        $collections = $block->getCollections();
+        $this->assertCount(1, $collections);
+        $this->assertArrayHasKey('default', $collections);
 
-        $this->assertEquals('default', $collectionReferences['default']->getIdentifier());
-        $this->assertEquals(0, $collectionReferences['default']->getCollection()->getOffset());
-        $this->assertNull($collectionReferences['default']->getCollection()->getLimit());
+        $this->assertEquals(0, $collections['default']->getOffset());
+        $this->assertNull($collections['default']->getLimit());
 
         $collection = $this->collectionService->loadCollectionDraft(7);
         $this->assertEquals(Collection::TYPE_DYNAMIC, $collection->getType());
@@ -543,8 +541,8 @@ abstract class BlockServiceTest extends ServiceTestCase
 
         $this->assertEquals(31, $blocks[1]->getId());
 
-        $collectionReferences = $block->getCollectionReferences();
-        $this->assertCount(0, $collectionReferences);
+        $collections = $block->getCollections();
+        $this->assertCount(0, $collections);
     }
 
     /**
@@ -1536,13 +1534,13 @@ abstract class BlockServiceTest extends ServiceTestCase
         $this->assertEquals('some-class', $restoredBlock->getParameter('css_class')->getValue());
         $this->assertNull($restoredBlock->getParameter('css_id')->getValue());
 
-        $collectionReferences = $restoredBlock->getCollectionReferences();
-        $this->assertCount(2, $collectionReferences);
-        $this->assertArrayHasKey('default', $collectionReferences);
-        $this->assertArrayHasKey('featured', $collectionReferences);
+        $collections = $restoredBlock->getCollections();
+        $this->assertCount(2, $collections);
+        $this->assertArrayHasKey('default', $collections);
+        $this->assertArrayHasKey('featured', $collections);
 
-        $this->assertEquals(2, $collectionReferences['default']->getCollection()->getId());
-        $this->assertEquals(3, $collectionReferences['featured']->getCollection()->getId());
+        $this->assertEquals(2, $collections['default']->getId());
+        $this->assertEquals(3, $collections['featured']->getId());
 
         $restoredPersistenceBlock = $blockHandler->loadBlock($restoredBlock->getId(), $restoredBlock->getStatus());
 

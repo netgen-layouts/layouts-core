@@ -2,7 +2,7 @@
 
 {% set collection_identifier = collection_identifier|default('default') %}
 
-{% if block.hasCollectionReference(collection_identifier) %}
+{% if block.hasCollection(collection_identifier) %}
     {% set collection_config = null %}
 
     {% if block.definition.hasCollection(collection_identifier) %}

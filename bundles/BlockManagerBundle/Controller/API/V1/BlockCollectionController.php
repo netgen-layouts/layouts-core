@@ -67,7 +67,7 @@ final class BlockCollectionController extends Controller
      */
     public function loadCollectionResult(Block $block, $collectionIdentifier)
     {
-        $collection = $block->getCollectionReference($collectionIdentifier)->getCollection();
+        $collection = $block->getCollection($collectionIdentifier);
 
         // In non AJAX scenarios, we're always rendering the first page of the collection
         // as specified by offset and limit in the collection itself
@@ -103,7 +103,7 @@ final class BlockCollectionController extends Controller
                     );
 
                     $this->collectionService->addItem(
-                        $block->getCollectionReference($collectionIdentifier)->getCollection(),
+                        $block->getCollection($collectionIdentifier),
                         $itemCreateStruct,
                         isset($item['position']) ? $item['position'] : null
                     );
@@ -133,7 +133,7 @@ final class BlockCollectionController extends Controller
 
         $this->validator->validateChangeCollectionType($block, $collectionIdentifier, $newType, $queryType);
 
-        $collection = $block->getCollectionReference($collectionIdentifier)->getCollection();
+        $collection = $block->getCollection($collectionIdentifier);
         $queryCreateStruct = null;
 
         if ($newType === Collection::TYPE_MANUAL) {

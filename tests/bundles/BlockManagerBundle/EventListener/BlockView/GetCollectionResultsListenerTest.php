@@ -86,7 +86,10 @@ final class GetCollectionResultsListenerTest extends TestCase
                 'block' => new Block(
                     array(
                         'definition' => new BlockDefinition('test'),
-                        'collectionReferences' => array($collectionReference1, $collectionReference2),
+                        'collectionReferences' => array(
+                            'collection1' => $collectionReference1,
+                            'collection2' => $collectionReference2,
+                        ),
                     )
                 ),
             )
@@ -151,7 +154,7 @@ final class GetCollectionResultsListenerTest extends TestCase
                 'block' => new Block(
                     array(
                         'definition' => new BlockDefinition('test'),
-                        'collectionReferences' => array($collectionReference1),
+                        'collectionReferences' => array('collection1' => $collectionReference1),
                     )
                 ),
             )

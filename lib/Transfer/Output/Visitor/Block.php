@@ -162,8 +162,8 @@ final class Block extends Visitor
     {
         $hash = array();
 
-        foreach ($block->getCollectionReferences() as $collectionReference) {
-            $hash[$collectionReference->getIdentifier()] = $subVisitor->visit($collectionReference->getCollection());
+        foreach ($block->getCollections() as $identifier => $collection) {
+            $hash[$identifier] = $subVisitor->visit($collection);
         }
 
         return $hash;

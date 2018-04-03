@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Core\Values\Block;
 
 use Netgen\BlockManager\API\Values\Block\Block as APIBlock;
+use Netgen\BlockManager\API\Values\Block\CollectionReference as APICollectionReference;
 use Netgen\BlockManager\Core\Values\Config\ConfigAwareValueTrait;
 use Netgen\BlockManager\Core\Values\ParameterBasedValueTrait;
 use Netgen\BlockManager\Core\Values\Value;
@@ -142,21 +143,26 @@ final class Block extends Value implements APIBlock
         return isset($this->placeholders[$identifier]);
     }
 
-    public function getCollectionReferences()
+    public function getCollections()
     {
-        return $this->collectionReferences;
+        return array_map(
+            function (APICollectionReference $collectionReference) {
+                return $collectionReference->getCollection();
+            },
+            $this->collectionReferences
+        );
     }
 
-    public function getCollectionReference($identifier)
+    public function getCollection($identifier)
     {
-        if ($this->hasCollectionReference($identifier)) {
-            return $this->collectionReferences[$identifier];
+        if ($this->hasCollection($identifier)) {
+            return $this->collectionReferences[$identifier]->getCollection();
         }
 
         throw BlockException::noCollection($identifier);
     }
 
-    public function hasCollectionReference($identifier)
+    public function hasCollection($identifier)
     {
         return isset($this->collectionReferences[$identifier]);
     }

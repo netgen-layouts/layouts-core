@@ -49,12 +49,6 @@ services:
         tags:
             - { name: serializer.normalizer }
 
-    netgen_block_manager.normalizer.v1.collection_reference:
-        class: Netgen\BlockManager\Serializer\Normalizer\V1\CollectionReferenceNormalizer
-        public: false
-        tags:
-            - { name: serializer.normalizer }
-
     netgen_block_manager.normalizer.v1.layout:
         class: Netgen\BlockManager\Serializer\Normalizer\V1\LayoutNormalizer
         public: false

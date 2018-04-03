@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\CollectionReference;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
+use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Exception\Core\BlockException;
 use Netgen\BlockManager\Exception\Core\ParameterException;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
@@ -46,8 +47,8 @@ final class BlockTest extends TestCase
         $this->assertEquals(array(), $block->getParameters());
         $this->assertEquals(array(), $block->getPlaceholders());
         $this->assertFalse($block->hasPlaceholder('test'));
-        $this->assertEquals(array(), $block->getCollectionReferences());
-        $this->assertFalse($block->hasCollectionReference('test'));
+        $this->assertEquals(array(), $block->getCollections());
+        $this->assertFalse($block->hasCollection('test'));
         $this->assertNull($block->getViewType());
         $this->assertNull($block->getItemViewType());
         $this->assertNull($block->getName());
@@ -102,7 +103,7 @@ final class BlockTest extends TestCase
                     'main' => new Placeholder(array('identifier' => 'main')),
                 ),
                 'collectionReferences' => array(
-                    'default' => new CollectionReference(array('identifier' => 'default')),
+                    'default' => new CollectionReference(array('identifier' => 'default', 'collection' => new Collection(array('id' => 42)))),
                 ),
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
@@ -125,9 +126,9 @@ final class BlockTest extends TestCase
         $this->assertEquals(new Placeholder(array('identifier' => 'main')), $block->getPlaceholder('main'));
         $this->assertFalse($block->hasPlaceholder('test'));
         $this->assertTrue($block->hasPlaceholder('main'));
-        $this->assertEquals(new CollectionReference(array('identifier' => 'default')), $block->getCollectionReference('default'));
-        $this->assertFalse($block->hasCollectionReference('test'));
-        $this->assertTrue($block->hasCollectionReference('default'));
+        $this->assertEquals(new Collection(array('id' => 42)), $block->getCollection('default'));
+        $this->assertFalse($block->hasCollection('test'));
+        $this->assertTrue($block->hasCollection('default'));
         $this->assertEquals('default', $block->getViewType());
         $this->assertEquals('standard', $block->getItemViewType());
         $this->assertEquals('My block', $block->getName());
@@ -169,13 +170,13 @@ final class BlockTest extends TestCase
 
         $this->assertEquals(
             array(
-                'default' => new CollectionReference(array('identifier' => 'default')),
+                'default' => new Collection(array('id' => 42)),
             ),
-            $block->getCollectionReferences()
+            $block->getCollections()
         );
 
         try {
-            $block->getCollectionReference('test');
+            $block->getCollection('test');
         } catch (BlockException $e) {
             // Do nothing
         }

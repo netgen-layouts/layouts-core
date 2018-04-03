@@ -464,9 +464,8 @@ final class LayoutDataHandler
             return;
         }
 
-        foreach ($block->getCollectionReferences() as $collectionReference) {
-            $collection = $collectionReference->getCollection();
-            $collectionData = $collectionsData[$collectionReference->getIdentifier()];
+        foreach ($block->getCollections() as $identifier => $collection) {
+            $collectionData = $collectionsData[$identifier];
 
             if ($collection->hasQuery()) {
                 $this->updateQueryTranslations($collection->getQuery(), $collectionData['query']['parameters']);

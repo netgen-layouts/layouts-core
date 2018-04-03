@@ -6,6 +6,7 @@ use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\CollectionReference;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
+use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
@@ -46,6 +47,22 @@ final class BlockNormalizerTest extends TestCase
      */
     public function testNormalize()
     {
+        $collection = new Collection(
+            array(
+                'id' => 24,
+                'status' => Value::STATUS_PUBLISHED,
+                'offset' => 10,
+                'limit' => 5,
+            )
+        );
+
+        $collectionReference = new CollectionReference(
+            array(
+                'collection' => $collection,
+                'identifier' => 'default',
+            )
+        );
+
         $block = new Block(
             array(
                 'id' => 42,
@@ -60,7 +77,7 @@ final class BlockNormalizerTest extends TestCase
                     'main' => new Placeholder(array('identifier' => 'main')),
                 ),
                 'collectionReferences' => array(
-                    'default' => new CollectionReference(array('identifier' => 'default')),
+                    'default' => $collectionReference,
                 ),
                 'isTranslatable' => true,
                 'availableLocales' => array('en'),
@@ -99,12 +116,6 @@ final class BlockNormalizerTest extends TestCase
             ->with($this->equalTo(array(new VersionedValue(new Placeholder(array('identifier' => 'main')), 1))))
             ->will($this->returnValue(array('normalized placeholders')));
 
-        $this->serializerMock
-            ->expects($this->at(2))
-            ->method('normalize')
-            ->with($this->equalTo(array(new VersionedValue(new CollectionReference(array('identifier' => 'default')), 1))))
-            ->will($this->returnValue(array('normalized collections')));
-
         $this->blockServiceMock
             ->expects($this->once())
             ->method('hasPublishedState')
@@ -129,7 +140,15 @@ final class BlockNormalizerTest extends TestCase
                 'is_container' => false,
                 'is_dynamic_container' => false,
                 'placeholders' => array('normalized placeholders'),
-                'collections' => array('normalized collections'),
+                'collections' => array(
+                    array(
+                        'identifier' => 'default',
+                        'collection_id' => $collection->getId(),
+                        'collection_type' => $collection->getType(),
+                        'offset' => $collection->getOffset(),
+                        'limit' => $collection->getLimit(),
+                    ),
+                ),
             ),
             $this->normalizer->normalize(new VersionedValue($block, 1))
         );

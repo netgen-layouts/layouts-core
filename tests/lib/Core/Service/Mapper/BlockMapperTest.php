@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 
 use Netgen\BlockManager\API\Values\Block\Block as APIBlock;
-use Netgen\BlockManager\API\Values\Block\CollectionReference;
 use Netgen\BlockManager\API\Values\Block\Placeholder;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Config\Config;
@@ -309,18 +308,10 @@ abstract class BlockMapperTest extends ServiceTestCase
             $block->getDefinition()
         );
 
-        $this->assertTrue($block->hasCollectionReference('default'));
-        $this->assertInstanceOf(CollectionReference::class, $block->getCollectionReference('default'));
+        $this->assertTrue($block->hasCollection('default'));
+        $this->assertInstanceOf(Collection::class, $block->getCollection('default'));
 
-        $collectionReference = $block->getCollectionReference('default');
-        $this->assertEquals('default', $collectionReference->getIdentifier());
-        $this->assertInstanceOf(Collection::class, $collectionReference->getCollection());
-
-        $this->assertTrue($block->hasCollectionReference('featured'));
-        $this->assertInstanceOf(CollectionReference::class, $block->getCollectionReference('featured'));
-
-        $collectionReference = $block->getCollectionReference('featured');
-        $this->assertEquals('featured', $collectionReference->getIdentifier());
-        $this->assertInstanceOf(Collection::class, $collectionReference->getCollection());
+        $this->assertTrue($block->hasCollection('featured'));
+        $this->assertInstanceOf(Collection::class, $block->getCollection('featured'));
     }
 }
