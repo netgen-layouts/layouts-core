@@ -47,14 +47,9 @@ final class Item extends Visitor
      */
     private function visitConfiguration(ItemValue $item, VisitorInterface $subVisitor)
     {
-        $configs = $item->getConfigs();
-        if (empty($configs)) {
-            return null;
-        }
-
         $hash = array();
 
-        foreach ($configs as $config) {
+        foreach ($item->getConfigs() as $config) {
             $hash[$config->getConfigKey()] = $subVisitor->visit($config);
         }
 

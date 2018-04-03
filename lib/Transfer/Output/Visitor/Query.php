@@ -93,18 +93,13 @@ final class Query extends Visitor
      * @param \Netgen\BlockManager\API\Values\Collection\Query $query
      * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
      *
-     * @return mixed|null
+     * @return array
      */
     private function visitTranslationParameters(QueryValue $query, VisitorInterface $subVisitor)
     {
         $hash = array();
-        $parameters = $query->getParameters();
 
-        if (empty($parameters)) {
-            return null;
-        }
-
-        foreach ($parameters as $parameter) {
+        foreach ($query->getParameters() as $parameter) {
             $hash[$parameter->getName()] = $subVisitor->visit($parameter);
         }
 

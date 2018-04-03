@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
+use Doctrine\Common\Collections\Collection as CollectionInterface;
 use Netgen\BlockManager\API\Values\Collection\Collection as CollectionValue;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Transfer\Output\Visitor;
@@ -29,51 +30,26 @@ final class Collection extends Visitor
 
         return array(
             'id' => $collection->getId(),
-            'type' => $this->getTypeString($collection),
             'offset' => $collection->getOffset(),
             'limit' => $collection->getLimit(),
             'is_translatable' => $collection->isTranslatable(),
             'is_always_available' => $collection->isAlwaysAvailable(),
             'main_locale' => $collection->getMainLocale(),
             'available_locales' => $collection->getAvailableLocales(),
-            'manual_items' => $this->visitItems($collection->getManualItems(), $subVisitor),
-            'override_items' => $this->visitItems($collection->getOverrideItems(), $subVisitor),
+            'items' => $this->visitItems($collection->getItems(), $subVisitor),
             'query' => $this->visitQuery($collection, $subVisitor),
         );
     }
 
     /**
-     * Return type string representation for the given $collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
-     *
-     * @throws \Netgen\BlockManager\Exception\RuntimeException If status is not recognized
-     *
-     * @return string
-     */
-    private function getTypeString(CollectionValue $collection)
-    {
-        switch ($collection->getType()) {
-            case CollectionValue::TYPE_MANUAL:
-                return 'MANUAL';
-            case CollectionValue::TYPE_DYNAMIC:
-                return 'DYNAMIC';
-        }
-
-        $typeString = var_export($collection->getType(), true);
-
-        throw new RuntimeException(sprintf("Unknown type '%s'", $typeString));
-    }
-
-    /**
      * Visit the given collection $items into hash representation.
      *
-     * @param \Netgen\BlockManager\API\Values\Collection\Item[] $items
+     * @param \Doctrine\Common\Collections\Collection $items
      * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
      *
      * @return array
      */
-    private function visitItems(array $items, VisitorInterface $subVisitor)
+    private function visitItems(CollectionInterface $items, VisitorInterface $subVisitor)
     {
         $hash = array();
 

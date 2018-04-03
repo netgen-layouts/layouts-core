@@ -65,14 +65,9 @@ final class Block extends Visitor
      */
     private function visitPlaceholders(BlockValue $block, VisitorInterface $subVisitor)
     {
-        $placeholders = $block->getPlaceholders();
-        if (empty($placeholders)) {
-            return null;
-        }
-
         $hash = array();
 
-        foreach ($placeholders as $placeholder) {
+        foreach ($block->getPlaceholders() as $placeholder) {
             $hash[$placeholder->getIdentifier()] = $subVisitor->visit($placeholder);
         }
 
@@ -123,18 +118,13 @@ final class Block extends Visitor
      * @param \Netgen\BlockManager\API\Values\Block\Block $block
      * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
      *
-     * @return mixed|null
+     * @return array
      */
     private function visitTranslationParameters(BlockValue $block, VisitorInterface $subVisitor)
     {
         $hash = array();
-        $parameters = $block->getParameters();
 
-        if (empty($parameters)) {
-            return null;
-        }
-
-        foreach ($parameters as $parameter) {
+        foreach ($block->getParameters() as $parameter) {
             $hash[$parameter->getName()] = $subVisitor->visit($parameter);
         }
 
@@ -151,14 +141,9 @@ final class Block extends Visitor
      */
     private function visitConfiguration(BlockValue $block, VisitorInterface $subVisitor)
     {
-        $configs = $block->getConfigs();
-        if (empty($configs)) {
-            return null;
-        }
-
         $hash = array();
 
-        foreach ($configs as $config) {
+        foreach ($block->getConfigs() as $config) {
             $hash[$config->getConfigKey()] = $subVisitor->visit($config);
         }
 

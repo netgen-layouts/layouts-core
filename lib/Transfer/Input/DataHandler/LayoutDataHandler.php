@@ -285,11 +285,11 @@ final class LayoutDataHandler
      * Link given $zone with the zone given in $zoneData.
      *
      * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
-     * @param array|null $zoneData
+     * @param array $zoneData
      *
      * @throws \Exception If thrown by the underlying API
      */
-    private function linkZone(Zone $zone, $zoneData)
+    private function linkZone(Zone $zone, array $zoneData)
     {
         $linkedZoneLayout = $this->layoutService->loadLayout($zoneData['layout_id']);
         $linkedZone = $linkedZoneLayout->getZone($zoneData['identifier']);
@@ -363,12 +363,8 @@ final class LayoutDataHandler
      * @param \Netgen\BlockManager\API\Values\Block\Block $targetBlock
      * @param array $data
      */
-    private function processPlaceholderBlocks(Block $targetBlock, array $data = null)
+    private function processPlaceholderBlocks(Block $targetBlock, array $data)
     {
-        if (empty($data)) {
-            return;
-        }
-
         foreach ($data as $placeholder => $placeholderData) {
             foreach ($placeholderData['blocks'] as $blockData) {
                 $this->createBlock($targetBlock, $placeholder, $blockData);
@@ -476,8 +472,7 @@ final class LayoutDataHandler
                 $this->updateQueryTranslations($collection->getQuery(), $collectionData['query']['parameters']);
             }
 
-            $this->createItems($collection, $collectionData['manual_items']);
-            $this->createItems($collection, $collectionData['override_items']);
+            $this->createItems($collection, $collectionData['items']);
         }
     }
 
