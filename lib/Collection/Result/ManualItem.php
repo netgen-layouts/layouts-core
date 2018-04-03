@@ -4,19 +4,24 @@ namespace Netgen\BlockManager\Collection\Result;
 
 use Netgen\BlockManager\API\Values\Collection\Item as CollectionItem;
 use Netgen\BlockManager\Item\ItemInterface;
-use Netgen\BlockManager\Item\ItemInterface as CmsItem;
 use Netgen\BlockManager\Item\NullItem;
 
 final class ManualItem implements ItemInterface
 {
+    /**
+     * @var \Netgen\BlockManager\Item\ItemInterface
+     */
     private $cmsItem;
 
+    /**
+     * @var \Netgen\BlockManager\API\Values\Collection\Item
+     */
     private $collectionItem;
 
-    public function __construct(CmsItem $cmsItem, CollectionItem $collectionItem)
+    public function __construct(CollectionItem $collectionItem)
     {
-        $this->cmsItem = $cmsItem;
         $this->collectionItem = $collectionItem;
+        $this->cmsItem = $this->collectionItem->getCmsItem();
     }
 
     /**
@@ -40,7 +45,7 @@ final class ManualItem implements ItemInterface
     }
 
     /**
-     * Returns if the item is valid. A manual item is valid if it is visible
+     * Returns if the manual item is valid. A manual item is valid if it is visible
      * (both the collection item and CMS item) and if CMS item actually exists in the CMS.
      *
      * @return bool

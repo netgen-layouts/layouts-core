@@ -35,8 +35,6 @@ services:
     netgen_block_manager.transfer.serializer.visitor.item:
         class: Netgen\BlockManager\Transfer\Output\Visitor\Item
         public: false
-        arguments:
-            - "@netgen_block_manager.item.item_loader"
         tags:
             - { name: netgen_block_manager.transfer.serializer.visitor }
 

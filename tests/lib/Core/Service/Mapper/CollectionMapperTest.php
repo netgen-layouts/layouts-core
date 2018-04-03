@@ -9,6 +9,7 @@ use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
 use Netgen\BlockManager\API\Values\Config\Config;
 use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\Item\Item as CmsItem;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
@@ -269,6 +270,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertEquals(APIItem::TYPE_OVERRIDE, $item->getType());
         $this->assertEquals('12', $item->getValue());
         $this->assertEquals('ezcontent', $item->getValueType());
+        $this->assertEquals(new CmsItem(), $item->getCmsItem());
         $this->assertEquals(Value::STATUS_PUBLISHED, $item->getStatus());
         $this->assertTrue($item->isPublished());
 

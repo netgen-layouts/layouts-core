@@ -56,6 +56,11 @@ final class Item extends Value implements APIItem
      */
     protected $valueType;
 
+    /**
+     * @var \Netgen\BlockManager\Item\ItemInterface
+     */
+    protected $cmsItem;
+
     public function getId()
     {
         return $this->id;
@@ -99,6 +104,11 @@ final class Item extends Value implements APIItem
     public function getValueType()
     {
         return $this->valueType;
+    }
+
+    public function getCmsItem()
+    {
+        return $this->cmsItem;
     }
 
     public function isScheduled()

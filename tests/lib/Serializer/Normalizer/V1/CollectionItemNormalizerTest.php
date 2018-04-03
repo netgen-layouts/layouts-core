@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 use Netgen\BlockManager\Core\Values\Collection\Item as CollectionItem;
 use Netgen\BlockManager\Core\Values\Config\Config;
 use Netgen\BlockManager\Item\Item;
-use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Item\NullItem;
 use Netgen\BlockManager\Item\UrlBuilderInterface;
 use Netgen\BlockManager\Parameters\Parameter;
@@ -19,11 +18,6 @@ final class CollectionItemNormalizerTest extends TestCase
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
-    private $itemLoaderMock;
-
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
     private $urlBuilderMock;
 
     /**
@@ -33,11 +27,9 @@ final class CollectionItemNormalizerTest extends TestCase
 
     public function setUp()
     {
-        $this->itemLoaderMock = $this->createMock(ItemLoaderInterface::class);
         $this->urlBuilderMock = $this->createMock(UrlBuilderInterface::class);
 
         $this->normalizer = new CollectionItemNormalizer(
-            $this->itemLoaderMock,
             $this->urlBuilderMock
         );
     }
@@ -56,6 +48,14 @@ final class CollectionItemNormalizerTest extends TestCase
                 'type' => CollectionItem::TYPE_OVERRIDE,
                 'value' => 12,
                 'valueType' => 'ezcontent',
+                'cmsItem' => new Item(
+                    array(
+                        'name' => 'Value name',
+                        'isVisible' => true,
+                        'value' => 12,
+                        'valueType' => 'ezcontent',
+                    )
+                ),
                 'configs' => array(
                     'visibility' => new Config(
                         array(
@@ -72,25 +72,10 @@ final class CollectionItemNormalizerTest extends TestCase
             )
         );
 
-        $value = new Item(
-            array(
-                'name' => 'Value name',
-                'isVisible' => true,
-                'value' => 12,
-                'valueType' => 'ezcontent',
-            )
-        );
-
-        $this->itemLoaderMock
-            ->expects($this->any())
-            ->method('load')
-            ->with($this->equalTo(12), $this->equalTo('ezcontent'))
-            ->will($this->returnValue($value));
-
         $this->urlBuilderMock
             ->expects($this->any())
             ->method('getUrl')
-            ->with($this->equalTo($value))
+            ->with($this->equalTo($item->getCmsItem()))
             ->will($this->returnValue('/some/url'));
 
         $this->assertEquals(
@@ -125,6 +110,7 @@ final class CollectionItemNormalizerTest extends TestCase
                 'type' => CollectionItem::TYPE_OVERRIDE,
                 'value' => 12,
                 'valueType' => 'ezcontent',
+                'cmsItem' => new NullItem(12),
                 'configs' => array(
                     'visibility' => new Config(
                         array(
@@ -140,12 +126,6 @@ final class CollectionItemNormalizerTest extends TestCase
                 ),
             )
         );
-
-        $this->itemLoaderMock
-            ->expects($this->any())
-            ->method('load')
-            ->with($this->equalTo(12), $this->equalTo('ezcontent'))
-            ->will($this->returnValue(new NullItem(12)));
 
         $this->urlBuilderMock
             ->expects($this->never())

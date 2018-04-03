@@ -25,6 +25,8 @@ use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Service\Validator\ConfigValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
+use Netgen\BlockManager\Item\Item as CmsItem;
+use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry;
@@ -433,12 +435,19 @@ abstract class ServiceTestCase extends TestCase
      */
     protected function createCollectionMapper()
     {
+        $itemLoaderMock = $this->createMock(ItemLoaderInterface::class);
+        $itemLoaderMock
+            ->expects($this->any())
+            ->method('load')
+            ->will($this->returnValue(new CmsItem()));
+
         return new CollectionMapper(
             $this->persistenceHandler->getCollectionHandler(),
             $this->createParameterMapper(),
             $this->createConfigMapper(),
             $this->itemDefinitionRegistry,
-            $this->queryTypeRegistry
+            $this->queryTypeRegistry,
+            $itemLoaderMock
         );
     }
 

@@ -8,17 +8,11 @@ use Netgen\BlockManager\Collection\Result\ManualCollectionRunner;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Item\ItemBuilderInterface;
-use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 
 final class CollectionRunnerFactoryTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $itemLoaderMock;
-
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
@@ -31,13 +25,9 @@ final class CollectionRunnerFactoryTest extends TestCase
 
     public function setUp()
     {
-        $this->itemLoaderMock = $this->createMock(ItemLoaderInterface::class);
         $this->itemBuilderMock = $this->createMock(ItemBuilderInterface::class);
 
-        $this->factory = new CollectionRunnerFactory(
-            $this->itemLoaderMock,
-            $this->itemBuilderMock
-        );
+        $this->factory = new CollectionRunnerFactory($this->itemBuilderMock);
     }
 
     /**

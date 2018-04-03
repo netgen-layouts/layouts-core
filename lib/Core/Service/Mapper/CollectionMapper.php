@@ -9,6 +9,7 @@ use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceCollection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item as PersistenceItem;
@@ -41,18 +42,25 @@ final class CollectionMapper
      */
     private $queryTypeRegistry;
 
+    /**
+     * @var \Netgen\BlockManager\Item\ItemLoaderInterface
+     */
+    private $itemLoader;
+
     public function __construct(
         CollectionHandlerInterface $collectionHandler,
         ParameterMapper $parameterMapper,
         ConfigMapper $configMapper,
         ItemDefinitionRegistryInterface $itemDefinitionRegistry,
-        QueryTypeRegistryInterface $queryTypeRegistry
+        QueryTypeRegistryInterface $queryTypeRegistry,
+        ItemLoaderInterface $itemLoader
     ) {
         $this->collectionHandler = $collectionHandler;
         $this->parameterMapper = $parameterMapper;
         $this->configMapper = $configMapper;
         $this->itemDefinitionRegistry = $itemDefinitionRegistry;
         $this->queryTypeRegistry = $queryTypeRegistry;
+        $this->itemLoader = $itemLoader;
     }
 
     /**
@@ -146,6 +154,9 @@ final class CollectionMapper
             'type' => $item->type,
             'value' => $item->value,
             'valueType' => $item->valueType,
+            'cmsItem' => function () use ($item) {
+                return $this->itemLoader->load($item->value, $item->valueType);
+            },
             'published' => $item->status === Value::STATUS_PUBLISHED,
             'definition' => $itemDefinition,
             'configs' => $this->configMapper->mapConfig($item->config, $itemDefinition->getConfigDefinitions()),

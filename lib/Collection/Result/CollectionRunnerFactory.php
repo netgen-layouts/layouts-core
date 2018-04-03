@@ -5,25 +5,16 @@ namespace Netgen\BlockManager\Collection\Result;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Item\ItemBuilderInterface;
-use Netgen\BlockManager\Item\ItemLoaderInterface;
 
 final class CollectionRunnerFactory
 {
-    /**
-     * @var \Netgen\BlockManager\Item\ItemLoaderInterface
-     */
-    private $itemLoader;
-
     /**
      * @var \Netgen\BlockManager\Item\ItemBuilderInterface
      */
     private $itemBuilder;
 
-    public function __construct(
-        ItemLoaderInterface $itemLoader,
-        ItemBuilderInterface $itemBuilder
-    ) {
-        $this->itemLoader = $itemLoader;
+    public function __construct(ItemBuilderInterface $itemBuilder)
+    {
         $this->itemBuilder = $itemBuilder;
     }
 
@@ -40,10 +31,10 @@ final class CollectionRunnerFactory
         if ($collection->hasQuery()) {
             $queryRunner = $this->getQueryRunner($collection->getQuery(), $flags);
 
-            return new DynamicCollectionRunner($this->itemLoader, $queryRunner);
+            return new DynamicCollectionRunner($queryRunner);
         }
 
-        return new ManualCollectionRunner($this->itemLoader);
+        return new ManualCollectionRunner();
     }
 
     /**

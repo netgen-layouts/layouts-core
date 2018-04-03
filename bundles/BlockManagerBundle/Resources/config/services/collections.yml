@@ -9,7 +9,6 @@ services:
         class: Netgen\BlockManager\Collection\Result\CollectionRunnerFactory
         public: false
         arguments:
-            - "@netgen_block_manager.item.item_loader"
             - "@netgen_block_manager.item.item_builder"
             - "%netgen_block_manager.collection.contextual_limit%"
 

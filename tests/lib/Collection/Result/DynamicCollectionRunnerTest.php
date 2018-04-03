@@ -6,7 +6,6 @@ use Netgen\BlockManager\Collection\Result\CollectionRunnerFactory;
 use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Item\ItemBuilderInterface;
-use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Tests\Collection\Stubs\Collection;
 use PHPUnit\Framework\TestCase;
 
@@ -17,28 +16,11 @@ final class DynamicCollectionRunnerTest extends TestCase
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
-    private $itemLoaderMock;
-
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
     private $itemBuilderMock;
 
     public function setUp()
     {
-        $this->itemLoaderMock = $this->createMock(ItemLoaderInterface::class);
         $this->itemBuilderMock = $this->createMock(ItemBuilderInterface::class);
-
-        $this->itemLoaderMock
-            ->expects($this->any())
-            ->method('load')
-            ->will(
-                $this->returnCallback(
-                    function ($value, $valueType) {
-                        return new Item(array('value' => $value, 'isVisible' => true));
-                    }
-                )
-            );
 
         $this->itemBuilderMock
             ->expects($this->any())
@@ -79,7 +61,7 @@ final class DynamicCollectionRunnerTest extends TestCase
         $limit = 200
     ) {
         $collection = new Collection($manualItems, $overrideItems, $queryItems, $queryCount);
-        $factory = new CollectionRunnerFactory($this->itemLoaderMock, $this->itemBuilderMock);
+        $factory = new CollectionRunnerFactory($this->itemBuilderMock);
         $collectionRunner = $factory->getCollectionRunner($collection);
         $expectedValues = $this->buildExpectedValues($values);
 

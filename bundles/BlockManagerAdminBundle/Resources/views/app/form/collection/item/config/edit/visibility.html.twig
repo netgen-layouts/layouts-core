@@ -8,11 +8,11 @@
 {% form_theme visibility_form _self %}
 
 {% block header %}
-    {{ 'config.collection_item.visibility.header'|trans }}: {{ cms_item.name }}
+    {{ 'config.collection_item.visibility.header'|trans }}: {{ collection_item.cmsItem.name }}
 {% endblock %}
 
 {% block children %}
-    {% if not cms_item.visible %}
+    {% if not collection_item.cmsItem.visible %}
         <p class="info">{{ 'config.collection_item.visibility.info'|trans|raw }}</p>
     {% endif %}
 

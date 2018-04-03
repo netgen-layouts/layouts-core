@@ -194,6 +194,7 @@ services:
             - "@netgen_block_manager.core.service.config_mapper"
             - "@netgen_block_manager.collection.registry.item_definition"
             - "@netgen_block_manager.collection.registry.query_type"
+            - "@netgen_block_manager.item.item_loader"
 
     netgen_block_manager.core.service.collection.struct_builder:
         class: Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder

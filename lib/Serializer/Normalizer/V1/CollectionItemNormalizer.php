@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 
 use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Item\NullItem;
 use Netgen\BlockManager\Item\UrlBuilderInterface;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
@@ -13,30 +12,20 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 final class CollectionItemNormalizer implements NormalizerInterface
 {
     /**
-     * @var \Netgen\BlockManager\Item\ItemLoaderInterface
-     */
-    private $itemLoader;
-
-    /**
      * @var \Netgen\BlockManager\Item\UrlBuilderInterface
      */
     private $urlBuilder;
 
-    public function __construct(ItemLoaderInterface $itemLoader, UrlBuilderInterface $urlBuilder)
+    public function __construct(UrlBuilderInterface $urlBuilder)
     {
-        $this->itemLoader = $itemLoader;
         $this->urlBuilder = $urlBuilder;
     }
 
     public function normalize($object, $format = null, array $context = array())
     {
-        /** @var \Netgen\BlockManager\API\Values\Collection\Item $item */
+        /** @var \Netgen\BlockManager\API\Values\Collection\Item $collectionItem */
         $collectionItem = $object->getValue();
-
-        $cmsItem = $this->itemLoader->load(
-            $collectionItem->getValue(),
-            $collectionItem->getValueType()
-        );
+        $cmsItem = $collectionItem->getCmsItem();
 
         $data = array(
             'id' => $collectionItem->getId(),

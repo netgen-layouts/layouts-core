@@ -42,6 +42,12 @@ final class CollectionResultNormalizerTest extends TestCase
             array(
                 'id' => 42,
                 'collectionId' => 24,
+                'cmsItem' => new Item(
+                    array(
+                        'name' => 'Value name',
+                        'isVisible' => true,
+                    )
+                ),
                 'configs' => array(
                     'visibility' => new Config(
                         array(
@@ -58,18 +64,11 @@ final class CollectionResultNormalizerTest extends TestCase
             )
         );
 
-        $item = new Item(
-            array(
-                'name' => 'Value name',
-                'isVisible' => true,
-            )
-        );
-
-        $result = new Result(3, new ManualItem($item, $collectionItem));
+        $result = new Result(3, new ManualItem($collectionItem));
         $this->urlBuilderMock
             ->expects($this->any())
             ->method('getUrl')
-            ->with($this->equalTo($item))
+            ->with($this->equalTo($collectionItem->getCmsItem()))
             ->will($this->returnValue('/some/url'));
 
         $this->assertEquals(
@@ -79,10 +78,10 @@ final class CollectionResultNormalizerTest extends TestCase
                 'visible' => $collectionItem->isVisible(),
                 'scheduled' => $collectionItem->isScheduled(),
                 'is_dynamic' => false,
-                'value' => $item->getValue(),
-                'value_type' => $item->getValueType(),
-                'name' => $item->getName(),
-                'cms_visible' => $item->isVisible(),
+                'value' => $collectionItem->getCmsItem()->getValue(),
+                'value_type' => $collectionItem->getCmsItem()->getValueType(),
+                'name' => $collectionItem->getCmsItem()->getName(),
+                'cms_visible' => $collectionItem->getCmsItem()->isVisible(),
                 'cms_url' => '/some/url',
                 'position' => $result->getPosition(),
             ),

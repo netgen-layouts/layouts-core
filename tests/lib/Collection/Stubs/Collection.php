@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Collection\Stubs;
 use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
 use Netgen\BlockManager\Core\Values\Collection\Query;
+use Netgen\BlockManager\Item\Item as CmsItem;
 
 final class Collection implements APICollection
 {
@@ -38,11 +39,25 @@ final class Collection implements APICollection
         $queryCount = 0
     ) {
         foreach ($manualItems as $position => $value) {
-            $this->manualItems[$position] = new Item(array('type' => Item::TYPE_MANUAL, 'value' => $value, 'position' => $position));
+            $this->manualItems[$position] = new Item(
+                array(
+                    'type' => Item::TYPE_MANUAL,
+                    'value' => $value,
+                    'cmsItem' => new CmsItem(array('value' => $value, 'isVisible' => true)),
+                    'position' => $position,
+                )
+            );
         }
 
         foreach ($overrideItems as $position => $value) {
-            $this->overrideItems[$position] = new Item(array('type' => Item::TYPE_OVERRIDE, 'value' => $value, 'position' => $position));
+            $this->overrideItems[$position] = new Item(
+                array(
+                    'type' => Item::TYPE_OVERRIDE,
+                    'value' => $value,
+                    'cmsItem' => new CmsItem(array('value' => $value, 'isVisible' => true)),
+                    'position' => $position,
+                )
+            );
         }
 
         if ($queryValues !== null) {

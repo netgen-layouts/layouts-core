@@ -7,6 +7,7 @@ use DateTimeInterface;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Config\Config;
+use Netgen\BlockManager\Item\Item as CmsItem;
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Tests\Collection\Stubs\ItemDefinition;
 use PHPUnit\Framework\TestCase;
@@ -23,6 +24,7 @@ final class ItemTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getType
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getValue
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getValueType
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getCmsItem
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::isPublished
      */
     public function testSetDefaultProperties()
@@ -37,6 +39,7 @@ final class ItemTest extends TestCase
         $this->assertNull($item->getType());
         $this->assertNull($item->getValue());
         $this->assertNull($item->getValueType());
+        $this->assertNull($item->getCmsItem());
         $this->assertNull($item->isPublished());
     }
 
@@ -50,7 +53,9 @@ final class ItemTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getType
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getValue
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getValueType
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getCmsItem
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::isPublished
+     * @group a
      */
     public function testSetProperties()
     {
@@ -64,6 +69,9 @@ final class ItemTest extends TestCase
                 'type' => Item::TYPE_OVERRIDE,
                 'value' => 32,
                 'valueType' => 'ezcontent',
+                'cmsItem' => function () {
+                    return new CmsItem();
+                },
                 'published' => true,
             )
         );
@@ -76,6 +84,7 @@ final class ItemTest extends TestCase
         $this->assertEquals(Item::TYPE_OVERRIDE, $item->getType());
         $this->assertEquals(32, $item->getValue());
         $this->assertEquals('ezcontent', $item->getValueType());
+        $this->assertEquals(new CmsItem(), $item->getCmsItem());
         $this->assertTrue($item->isPublished());
     }
 

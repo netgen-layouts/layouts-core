@@ -4,6 +4,7 @@ namespace Netgen\BlockManager\Core\Values\Collection;
 
 use DateTimeInterface;
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
+use Netgen\BlockManager\Core\Service\Mapper\Proxy\LazyLoadingProxyTrait;
 use Netgen\BlockManager\Core\Values\Config\ConfigAwareValueTrait;
 use Netgen\BlockManager\Utils\DateTimeUtils;
 use Netgen\BlockManager\Value;
@@ -11,6 +12,7 @@ use Netgen\BlockManager\Value;
 final class Item extends Value implements APIItem
 {
     use ConfigAwareValueTrait;
+    use LazyLoadingProxyTrait;
 
     /**
      * @var int|string
@@ -57,6 +59,11 @@ final class Item extends Value implements APIItem
      */
     protected $valueType;
 
+    /**
+     * @var \Netgen\BlockManager\Item\ItemInterface
+     */
+    protected $cmsItem;
+
     public function getId()
     {
         return $this->id;
@@ -100,6 +107,11 @@ final class Item extends Value implements APIItem
     public function getValueType()
     {
         return $this->valueType;
+    }
+
+    public function getCmsItem()
+    {
+        return $this->getLazyLoadedProperty($this->cmsItem);
     }
 
     public function isScheduled()

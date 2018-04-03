@@ -3,21 +3,9 @@
 namespace Netgen\BlockManager\Collection\Result;
 
 use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\Item as CollectionItem;
-use Netgen\BlockManager\Item\ItemLoaderInterface;
 
 final class ManualCollectionRunner implements CollectionRunnerInterface
 {
-    /**
-     * @var \Netgen\BlockManager\Item\ItemLoaderInterface
-     */
-    private $itemLoader;
-
-    public function __construct(ItemLoaderInterface $itemLoader)
-    {
-        $this->itemLoader = $itemLoader;
-    }
-
     public function __invoke(Collection $collection, $offset, $limit)
     {
         $itemCount = 0;
@@ -31,7 +19,7 @@ final class ManualCollectionRunner implements CollectionRunnerInterface
                 continue;
             }
 
-            $manualItem = $this->getManualItem($collectionItem);
+            $manualItem = new ManualItem($collectionItem);
             if (!$manualItem->isValid()) {
                 continue;
             }
@@ -47,7 +35,7 @@ final class ManualCollectionRunner implements CollectionRunnerInterface
         $totalCount = 0;
 
         foreach ($collection->getItems() as $collectionItem) {
-            $manualItem = $this->getManualItem($collectionItem);
+            $manualItem = new ManualItem($collectionItem);
             if (!$manualItem->isValid()) {
                 continue;
             }
@@ -56,23 +44,5 @@ final class ManualCollectionRunner implements CollectionRunnerInterface
         }
 
         return $totalCount;
-    }
-
-    /**
-     * Builds and returns an object representing the manual CMS item, i.e. item
-     * whose type and value are stored in a collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Item $collectionItem
-     *
-     * @return \Netgen\BlockManager\Collection\Result\ManualItem
-     */
-    private function getManualItem(CollectionItem $collectionItem)
-    {
-        $cmsItem = $this->itemLoader->load(
-            $collectionItem->getValue(),
-            $collectionItem->getValueType()
-        );
-
-        return new ManualItem($cmsItem, $collectionItem);
     }
 }

@@ -6,25 +6,16 @@ use Iterator;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\Item as CollectionItem;
 use Netgen\BlockManager\Item\ItemInterface as CmsItem;
-use Netgen\BlockManager\Item\ItemLoaderInterface;
 
 final class DynamicCollectionRunner implements CollectionRunnerInterface
 {
-    /**
-     * @var \Netgen\BlockManager\Item\ItemLoaderInterface
-     */
-    private $itemLoader;
-
     /**
      * @var \Netgen\BlockManager\Collection\Result\QueryRunnerInterface
      */
     private $queryRunner;
 
-    public function __construct(
-        ItemLoaderInterface $itemLoader,
-        QueryRunnerInterface $queryRunner
-    ) {
-        $this->itemLoader = $itemLoader;
+    public function __construct(QueryRunnerInterface $queryRunner)
+    {
         $this->queryRunner = $queryRunner;
     }
 
@@ -61,7 +52,8 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
             }
 
             if ($item->getType() !== CollectionItem::TYPE_OVERRIDE || $item->getPosition() === $totalCount) {
-                if ($this->getManualItem($item)->isValid()) {
+                $manualItem = new ManualItem($item);
+                if ($manualItem->isValid()) {
                     ++$totalCount;
                 }
             }
@@ -73,7 +65,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
     private function buildOverrideResult(CollectionItem $collectionItem, Iterator $queryIterator)
     {
         // Override items always cover the dynamic item, even when invisible or invalid
-        $manualItem = $this->getManualItem($collectionItem);
+        $manualItem = new ManualItem($collectionItem);
         $queryValue = $this->getQueryValue($queryIterator);
 
         if (!$manualItem->isValid()) {
@@ -89,7 +81,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
 
     private function buildManualResult(CollectionItem $collectionItem, Iterator $queryIterator)
     {
-        $manualItem = $this->getManualItem($collectionItem);
+        $manualItem = new ManualItem($collectionItem);
 
         if (!$manualItem->isValid()) {
             // Manual items are replaced by dynamic ones only when invisible or invalid
@@ -102,24 +94,6 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
         }
 
         return new Result($collectionItem->getPosition(), $manualItem);
-    }
-
-    /**
-     * Builds and returns an object representing the manual CMS item, i.e. item
-     * whose type and value are stored in a collection.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Item $collectionItem
-     *
-     * @return \Netgen\BlockManager\Collection\Result\ManualItem
-     */
-    private function getManualItem(CollectionItem $collectionItem)
-    {
-        $cmsItem = $this->itemLoader->load(
-            $collectionItem->getValue(),
-            $collectionItem->getValueType()
-        );
-
-        return new ManualItem($cmsItem, $collectionItem);
     }
 
     /**
@@ -173,7 +147,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
             array_filter(
                 $collection->getManualItems(),
                 function (CollectionItem $item) use ($startOffset, $endOffset) {
-                    $manualItem = $this->getManualItem($item);
+                    $manualItem = new ManualItem($item);
                     if (!$manualItem->isValid()) {
                         return false;
                     }

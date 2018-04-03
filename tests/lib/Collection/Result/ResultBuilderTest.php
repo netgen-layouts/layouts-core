@@ -11,13 +11,12 @@ use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Core\Values\Config\Config;
+use Netgen\BlockManager\Item\Item as CmsItem;
 use Netgen\BlockManager\Item\ItemBuilder;
-use Netgen\BlockManager\Item\ItemLoader;
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Item\Stubs\Value;
 use Netgen\BlockManager\Tests\Item\Stubs\ValueConverter;
-use Netgen\BlockManager\Tests\Item\Stubs\ValueLoader;
 use PHPUnit\Framework\TestCase;
 
 final class ResultBuilderTest extends TestCase
@@ -28,11 +27,6 @@ final class ResultBuilderTest extends TestCase
     private $itemBuilder;
 
     /**
-     * @var \Netgen\BlockManager\Item\ItemLoaderInterface
-     */
-    private $itemLoader;
-
-    /**
      * @var \Netgen\BlockManager\Collection\Result\ResultBuilderInterface
      */
     private $resultBuilder;
@@ -41,11 +35,6 @@ final class ResultBuilderTest extends TestCase
     {
         $this->itemBuilder = new ItemBuilder(
             array(new ValueConverter())
-        );
-
-        $this->itemLoader = new ItemLoader(
-            $this->itemBuilder,
-            array('value' => new ValueLoader())
         );
 
         $this->resultBuilder = $this->buildResultBuilder(200);
@@ -136,10 +125,7 @@ final class ResultBuilderTest extends TestCase
     private function buildResultBuilder($maxLimit)
     {
         return new ResultBuilder(
-            new CollectionRunnerFactory(
-                $this->itemLoader,
-                $this->itemBuilder
-            ),
+            new CollectionRunnerFactory($this->itemBuilder),
             24,
             $maxLimit
         );
@@ -170,6 +156,7 @@ final class ResultBuilderTest extends TestCase
                     'type' => Item::TYPE_MANUAL,
                     'value' => $id,
                     'valueType' => 'value',
+                    'cmsItem' => new CmsItem(array('value' => $id, 'valueType' => 'value')),
                     'configs' => array(
                         'visibility' => new Config(
                             array(
@@ -194,6 +181,7 @@ final class ResultBuilderTest extends TestCase
                     'type' => Item::TYPE_OVERRIDE,
                     'value' => $id,
                     'valueType' => 'value',
+                    'cmsItem' => new CmsItem(array('value' => $id, 'valueType' => 'value')),
                     'configs' => array(
                         'visibility' => new Config(
                             array(
