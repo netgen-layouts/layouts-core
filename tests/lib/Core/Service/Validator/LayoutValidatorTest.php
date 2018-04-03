@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
@@ -480,9 +481,11 @@ final class LayoutValidatorTest extends TestCase
     {
         return new Layout(
             array(
-                'zones' => array(
-                    'top' => new Zone(),
-                    'bottom' => new Zone(),
+                'zones' => new ArrayCollection(
+                    array(
+                        'top' => new Zone(),
+                        'bottom' => new Zone(),
+                    )
                 ),
             )
         );

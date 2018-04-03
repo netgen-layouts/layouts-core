@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Core\Values\Layout;
 
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Core\Values\Layout\Zone;
@@ -97,7 +98,7 @@ final class LayoutTest extends TestCase
                 'modified' => $modifiedDate,
                 'status' => Value::STATUS_PUBLISHED,
                 'shared' => true,
-                'zones' => $zones,
+                'zones' => new ArrayCollection($zones),
                 'mainLocale' => 'en',
                 'availableLocales' => array('en'),
             )

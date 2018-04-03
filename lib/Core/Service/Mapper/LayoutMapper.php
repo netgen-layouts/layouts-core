@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
-use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Core\Values\Layout\Zone;
+use Netgen\BlockManager\Core\Values\LazyLoadedCollection;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface;
@@ -45,22 +45,22 @@ final class LayoutMapper
             'layoutId' => $zone->layoutId,
             'status' => $zone->status,
             'linkedZone' => function () use ($zone) {
-                if ($zone->linkedLayoutId !== null && $zone->linkedZoneIdentifier !== null) {
-                    try {
-                        // We're always using published versions of linked zones
-                        $linkedZone = $this->layoutHandler->loadZone(
-                            $zone->linkedLayoutId,
-                            PersistenceValue::STATUS_PUBLISHED,
-                            $zone->linkedZoneIdentifier
-                        );
-
-                        return $this->mapZone($linkedZone);
-                    } catch (NotFoundException $e) {
-                        // Do nothing
-                    }
+                if ($zone->linkedLayoutId === null || $zone->linkedZoneIdentifier === null) {
+                    return null;
                 }
 
-                return null;
+                try {
+                    // We're always using published versions of linked zones
+                    $linkedZone = $this->layoutHandler->loadZone(
+                        $zone->linkedLayoutId,
+                        PersistenceValue::STATUS_PUBLISHED,
+                        $zone->linkedZoneIdentifier
+                    );
+
+                    return $this->mapZone($linkedZone);
+                } catch (NotFoundException $e) {
+                    return null;
+                }
             },
         );
 
@@ -76,18 +76,9 @@ final class LayoutMapper
      */
     public function mapLayout(PersistenceLayout $layout)
     {
-        $persistenceZones = $this->layoutHandler->loadLayoutZones($layout);
-
-        $zones = array();
-        foreach ($persistenceZones as $persistenceZone) {
-            $zones[$persistenceZone->identifier] = $this->mapZone($persistenceZone);
-        }
-
         $layoutData = array(
             'id' => $layout->id,
-            'layoutType' => $this->layoutTypeRegistry->getLayoutType(
-                $layout->type
-            ),
+            'layoutType' => $this->layoutTypeRegistry->getLayoutType($layout->type),
             'name' => $layout->name,
             'description' => $layout->description,
             'created' => DateTimeUtils::createFromTimestamp($layout->created),
@@ -96,7 +87,16 @@ final class LayoutMapper
             'shared' => $layout->shared,
             'mainLocale' => $layout->mainLocale,
             'availableLocales' => $layout->availableLocales,
-            'zones' => $zones,
+            'zones' => new LazyLoadedCollection(
+                function () use ($layout) {
+                    return array_map(
+                        function (PersistenceZone $zone) {
+                            return $this->mapZone($zone);
+                        },
+                        $this->layoutHandler->loadLayoutZones($layout)
+                    );
+                }
+            ),
         );
 
         return new Layout($layoutData);

@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Core\Values\Layout;
 
-use ArrayIterator;
+use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\API\Values\Layout\Layout as APILayout;
 use Netgen\BlockManager\Core\Values\Value;
 use Netgen\BlockManager\Exception\RuntimeException;
@@ -55,9 +55,18 @@ final class Layout extends Value implements APILayout
     protected $availableLocales = array();
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Layout\Zone[]
+     * @var \Doctrine\Common\Collections\Collection
      */
-    protected $zones = array();
+    protected $zones;
+
+    public function __construct(array $properties = array())
+    {
+        parent::__construct($properties);
+
+        if ($this->zones === null) {
+            $this->zones = new ArrayCollection();
+        }
+    }
 
     public function getId()
     {
@@ -111,44 +120,43 @@ final class Layout extends Value implements APILayout
 
     public function getZones()
     {
-        return $this->zones;
+        return $this->zones->toArray();
     }
 
     public function getZone($zoneIdentifier, $ignoreLinkedZone = false)
     {
-        if (isset($this->zones[$zoneIdentifier])) {
-            $linkedZone = $this->zones[$zoneIdentifier]->getLinkedZone();
-            if ($linkedZone instanceof Zone && !$ignoreLinkedZone) {
-                return $linkedZone;
+        if ($this->hasZone($zoneIdentifier)) {
+            if (!$ignoreLinkedZone && $this->zones->get($zoneIdentifier)->hasLinkedZone()) {
+                return $this->zones->get($zoneIdentifier)->getLinkedZone();
             }
 
-            return $this->zones[$zoneIdentifier];
+            return $this->zones->get($zoneIdentifier);
         }
     }
 
     public function hasZone($zoneIdentifier)
     {
-        return isset($this->zones[$zoneIdentifier]);
+        return $this->zones->containsKey($zoneIdentifier);
     }
 
     public function getIterator()
     {
-        return new ArrayIterator($this->zones);
+        return $this->zones->getIterator();
     }
 
     public function count()
     {
-        return count($this->zones);
+        return $this->zones->count();
     }
 
     public function offsetExists($offset)
     {
-        return isset($this->zones[$offset]);
+        return $this->zones->offsetExists($offset);
     }
 
     public function offsetGet($offset)
     {
-        return $this->zones[$offset];
+        return $this->zones->offsetGet($offset);
     }
 
     public function offsetSet($offset, $value)

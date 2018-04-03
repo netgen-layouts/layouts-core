@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Core\Values\Block\Block;
@@ -89,29 +90,31 @@ final class LayoutNormalizerTest extends TestCase
                 'shared' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => array('en', 'hr'),
-                'zones' => array(
-                    'left' => new Zone(
-                        array(
-                            'identifier' => 'left',
-                            'linkedZone' => null,
-                        )
-                    ),
-                    'right' => new Zone(
-                        array(
-                            'identifier' => 'right',
-                            'linkedZone' => new Zone(
-                                array(
-                                    'layoutId' => 24,
-                                    'identifier' => 'top',
-                                )
-                            ),
-                        )
-                    ),
-                    'missing' => new Zone(
-                        array(
-                            'identifier' => 'missing',
-                        )
-                    ),
+                'zones' => new ArrayCollection(
+                    array(
+                        'left' => new Zone(
+                            array(
+                                'identifier' => 'left',
+                                'linkedZone' => null,
+                            )
+                        ),
+                        'right' => new Zone(
+                            array(
+                                'identifier' => 'right',
+                                'linkedZone' => new Zone(
+                                    array(
+                                        'layoutId' => 24,
+                                        'identifier' => 'top',
+                                    )
+                                ),
+                            )
+                        ),
+                        'missing' => new Zone(
+                            array(
+                                'identifier' => 'missing',
+                            )
+                        ),
+                    )
                 ),
             )
         );
