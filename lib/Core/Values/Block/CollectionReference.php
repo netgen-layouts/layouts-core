@@ -3,12 +3,12 @@
 namespace Netgen\BlockManager\Core\Values\Block;
 
 use Netgen\BlockManager\API\Values\Block\CollectionReference as APICollectionReference;
-use Netgen\BlockManager\Core\Values\LazyLoadedPropertyTrait;
+use Netgen\BlockManager\Core\Values\LazyPropertyTrait;
 use Netgen\BlockManager\Value;
 
 final class CollectionReference extends Value implements APICollectionReference
 {
-    use LazyLoadedPropertyTrait;
+    use LazyPropertyTrait;
 
     /**
      * @var \Netgen\BlockManager\API\Values\Collection\Collection
@@ -22,7 +22,7 @@ final class CollectionReference extends Value implements APICollectionReference
 
     public function getCollection()
     {
-        return $this->getLazyLoadedProperty($this->collection);
+        return $this->getLazyProperty($this->collection);
     }
 
     public function getIdentifier()

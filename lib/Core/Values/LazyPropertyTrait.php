@@ -2,7 +2,7 @@
 
 namespace Netgen\BlockManager\Core\Values;
 
-trait LazyLoadedPropertyTrait
+trait LazyPropertyTrait
 {
     /**
      * Lazily loads the provided variable, meaning, if it is callable,
@@ -13,7 +13,7 @@ trait LazyLoadedPropertyTrait
      *
      * @return mixed
      */
-    private function getLazyLoadedProperty(&$property)
+    private function getLazyProperty(&$property)
     {
         if (is_callable($property)) {
             $property = $property();

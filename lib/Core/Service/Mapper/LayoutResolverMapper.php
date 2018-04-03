@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Target;
-use Netgen\BlockManager\Core\Values\LazyLoadedCollection;
+use Netgen\BlockManager\Core\Values\LazyCollection;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface;
@@ -79,7 +79,7 @@ final class LayoutResolverMapper
             'enabled' => $rule->enabled,
             'priority' => $rule->priority,
             'comment' => $rule->comment,
-            'targets' => new LazyLoadedCollection(
+            'targets' => new LazyCollection(
                 function () use ($handler, $rule) {
                     return array_map(
                         function (PersistenceTarget $target) {
@@ -89,7 +89,7 @@ final class LayoutResolverMapper
                     );
                 }
             ),
-            'conditions' => new LazyLoadedCollection(
+            'conditions' => new LazyCollection(
                 function () use ($handler, $rule) {
                     return array_map(
                         function (PersistenceCondition $condition) {

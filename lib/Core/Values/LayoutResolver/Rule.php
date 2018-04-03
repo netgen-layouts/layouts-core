@@ -5,12 +5,12 @@ namespace Netgen\BlockManager\Core\Values\LayoutResolver;
 use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule as APIRule;
-use Netgen\BlockManager\Core\Values\LazyLoadedPropertyTrait;
+use Netgen\BlockManager\Core\Values\LazyPropertyTrait;
 use Netgen\BlockManager\Core\Values\Value;
 
 final class Rule extends Value implements APIRule
 {
-    use LazyLoadedPropertyTrait;
+    use LazyPropertyTrait;
 
     /**
      * @var int|string
@@ -67,7 +67,7 @@ final class Rule extends Value implements APIRule
 
     public function getLayout()
     {
-        return $this->getLazyLoadedProperty($this->layout);
+        return $this->getLazyProperty($this->layout);
     }
 
     public function isEnabled()

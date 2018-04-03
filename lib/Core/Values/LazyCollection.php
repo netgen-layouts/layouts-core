@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Core\Values;
 use Doctrine\Common\Collections\AbstractLazyCollection;
 use Doctrine\Common\Collections\ArrayCollection;
 
-final class LazyLoadedCollection extends AbstractLazyCollection
+final class LazyCollection extends AbstractLazyCollection
 {
     /**
      * @var callable

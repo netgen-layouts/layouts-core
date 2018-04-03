@@ -3,12 +3,12 @@
 namespace Netgen\BlockManager\Core\Values\Layout;
 
 use Netgen\BlockManager\API\Values\Layout\Zone as APIZone;
-use Netgen\BlockManager\Core\Values\LazyLoadedPropertyTrait;
+use Netgen\BlockManager\Core\Values\LazyPropertyTrait;
 use Netgen\BlockManager\Core\Values\Value;
 
 final class Zone extends Value implements APIZone
 {
-    use LazyLoadedPropertyTrait;
+    use LazyPropertyTrait;
 
     /**
      * @var string
@@ -42,6 +42,6 @@ final class Zone extends Value implements APIZone
 
     public function getLinkedZone()
     {
-        return $this->getLazyLoadedProperty($this->linkedZone);
+        return $this->getLazyProperty($this->linkedZone);
     }
 }

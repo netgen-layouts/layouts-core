@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Core\Service\Mapper;
 
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Core\Values\Layout\Zone;
-use Netgen\BlockManager\Core\Values\LazyLoadedCollection;
+use Netgen\BlockManager\Core\Values\LazyCollection;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface;
@@ -87,7 +87,7 @@ final class LayoutMapper
             'shared' => $layout->shared,
             'mainLocale' => $layout->mainLocale,
             'availableLocales' => $layout->availableLocales,
-            'zones' => new LazyLoadedCollection(
+            'zones' => new LazyCollection(
                 function () use ($layout) {
                     return array_map(
                         function (PersistenceZone $zone) {

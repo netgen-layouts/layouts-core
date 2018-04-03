@@ -7,7 +7,7 @@ use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
-use Netgen\BlockManager\Core\Values\LazyLoadedCollection;
+use Netgen\BlockManager\Core\Values\LazyCollection;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface;
@@ -99,7 +99,7 @@ final class CollectionMapper
             'status' => $collection->status,
             'offset' => $collection->offset,
             'limit' => $collection->limit,
-            'items' => new LazyLoadedCollection(
+            'items' => new LazyCollection(
                 function () use ($collection) {
                     return array_map(
                         function (PersistenceItem $item) {

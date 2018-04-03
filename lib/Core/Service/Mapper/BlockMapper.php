@@ -8,7 +8,7 @@ use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\CollectionReference;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
-use Netgen\BlockManager\Core\Values\LazyLoadedCollection;
+use Netgen\BlockManager\Core\Values\LazyCollection;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\HandlerInterface;
 use Netgen\BlockManager\Persistence\Values\Block\Block as PersistenceBlock;
@@ -184,7 +184,7 @@ final class BlockMapper
             $placeholders[$placeholderIdentifier] = new Placeholder(
                 array(
                     'identifier' => $placeholderIdentifier,
-                    'blocks' => new LazyLoadedCollection(
+                    'blocks' => new LazyCollection(
                         function () use ($block, $placeholderIdentifier, $locales) {
                             return array_map(
                                 function (PersistenceBlock $childBlock) use ($locales) {

@@ -6,12 +6,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
-use Netgen\BlockManager\Core\Values\LazyLoadedPropertyTrait;
+use Netgen\BlockManager\Core\Values\LazyPropertyTrait;
 use Netgen\BlockManager\Core\Values\Value;
 
 final class Collection extends Value implements APICollection
 {
-    use LazyLoadedPropertyTrait;
+    use LazyPropertyTrait;
 
     /**
      * @var int|string
@@ -155,7 +155,7 @@ final class Collection extends Value implements APICollection
 
     public function getQuery()
     {
-        return $this->getLazyLoadedProperty($this->query);
+        return $this->getLazyProperty($this->query);
     }
 
     public function hasQuery()
