@@ -59,19 +59,6 @@ final class LayoutResolverMapper
     {
         $handler = $this->persistenceHandler->getLayoutResolverHandler();
 
-        $layout = null;
-        try {
-            // Layouts used by rule are always in published status
-            $layout = $this->persistenceHandler->getLayoutHandler()->loadLayout(
-                $rule->layoutId,
-                Value::STATUS_PUBLISHED
-            );
-
-            $layout = $this->layoutMapper->mapLayout($layout);
-        } catch (NotFoundException $e) {
-            // Do nothing
-        }
-
         $persistenceTargets = $handler->loadRuleTargets($rule);
 
         $targets = array();
@@ -89,7 +76,19 @@ final class LayoutResolverMapper
         $ruleData = array(
             'id' => $rule->id,
             'status' => $rule->status,
-            'layout' => $layout,
+            'layout' => function () use ($rule) {
+                try {
+                    // Layouts used by rule are always in published status
+                    $layout = $this->persistenceHandler->getLayoutHandler()->loadLayout(
+                        $rule->layoutId,
+                        Value::STATUS_PUBLISHED
+                    );
+
+                    return $this->layoutMapper->mapLayout($layout);
+                } catch (NotFoundException $e) {
+                    return null;
+                }
+            },
             'enabled' => $rule->enabled,
             'priority' => $rule->priority,
             'comment' => $rule->comment,

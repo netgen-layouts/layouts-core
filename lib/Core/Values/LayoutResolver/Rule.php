@@ -4,10 +4,13 @@ namespace Netgen\BlockManager\Core\Values\LayoutResolver;
 
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule as APIRule;
+use Netgen\BlockManager\Core\Service\Mapper\Proxy\LazyLoadingProxyTrait;
 use Netgen\BlockManager\Value;
 
 final class Rule extends Value implements APIRule
 {
+    use LazyLoadingProxyTrait;
+
     /**
      * @var int|string
      */
@@ -65,7 +68,7 @@ final class Rule extends Value implements APIRule
 
     public function getLayout()
     {
-        return $this->layout;
+        return $this->getLazyLoadedProperty($this->layout);
     }
 
     public function isPublished()
