@@ -148,14 +148,16 @@ final class BlockMapper
 
         $mappedReferences = array();
         foreach ($collectionReferences as $collectionReference) {
-            $collection = $this->collectionHandler->loadCollection(
-                $collectionReference->collectionId,
-                $collectionReference->collectionStatus
-            );
-
             $mappedReferences[$collectionReference->identifier] = new CollectionReference(
                 array(
-                    'collection' => $this->collectionMapper->mapCollection($collection, $locales, false),
+                    'collection' => function () use ($collectionReference, $locales) {
+                        $collection = $this->collectionHandler->loadCollection(
+                            $collectionReference->collectionId,
+                            $collectionReference->collectionStatus
+                        );
+
+                        return $this->collectionMapper->mapCollection($collection, $locales, false);
+                    },
                     'identifier' => $collectionReference->identifier,
                 )
             );
