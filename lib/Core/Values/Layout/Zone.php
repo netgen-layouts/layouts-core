@@ -3,12 +3,12 @@
 namespace Netgen\BlockManager\Core\Values\Layout;
 
 use Netgen\BlockManager\API\Values\Layout\Zone as APIZone;
-use Netgen\BlockManager\Core\Service\Mapper\Proxy\LazyLoadingProxyTrait;
+use Netgen\BlockManager\Core\Values\LazyLoadedPropertyTrait;
 use Netgen\BlockManager\Core\Values\Value;
 
 final class Zone extends Value implements APIZone
 {
-    use LazyLoadingProxyTrait;
+    use LazyLoadedPropertyTrait;
 
     /**
      * @var string

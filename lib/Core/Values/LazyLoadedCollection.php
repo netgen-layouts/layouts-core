@@ -1,6 +1,6 @@
 <?php
 
-namespace Netgen\BlockManager\Core\Service\Mapper\Proxy;
+namespace Netgen\BlockManager\Core\Values;
 
 use Doctrine\Common\Collections\AbstractLazyCollection;
 use Doctrine\Common\Collections\ArrayCollection;

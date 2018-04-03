@@ -4,12 +4,12 @@ namespace Netgen\BlockManager\Core\Values\LayoutResolver;
 
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule as APIRule;
-use Netgen\BlockManager\Core\Service\Mapper\Proxy\LazyLoadingProxyTrait;
+use Netgen\BlockManager\Core\Values\LazyLoadedPropertyTrait;
 use Netgen\BlockManager\Core\Values\Value;
 
 final class Rule extends Value implements APIRule
 {
-    use LazyLoadingProxyTrait;
+    use LazyLoadedPropertyTrait;
 
     /**
      * @var int|string

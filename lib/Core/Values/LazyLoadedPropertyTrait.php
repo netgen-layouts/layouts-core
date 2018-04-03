@@ -1,8 +1,8 @@
 <?php
 
-namespace Netgen\BlockManager\Core\Service\Mapper\Proxy;
+namespace Netgen\BlockManager\Core\Values;
 
-trait LazyLoadingProxyTrait
+trait LazyLoadedPropertyTrait
 {
     /**
      * Lazily loads the provided variable, meaning, if it is callable,

@@ -5,12 +5,12 @@ namespace Netgen\BlockManager\Core\Values\Collection;
 use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
-use Netgen\BlockManager\Core\Service\Mapper\Proxy\LazyLoadingProxyTrait;
+use Netgen\BlockManager\Core\Values\LazyLoadedPropertyTrait;
 use Netgen\BlockManager\Core\Values\Value;
 
 final class Collection extends Value implements APICollection
 {
-    use LazyLoadingProxyTrait;
+    use LazyLoadedPropertyTrait;
 
     /**
      * @var int|string

@@ -2,13 +2,12 @@
 
 namespace Netgen\BlockManager\Core\Service\Mapper;
 
-use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistryInterface;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
-use Netgen\BlockManager\Core\Service\Mapper\Proxy\LazyLoadedCollection;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
+use Netgen\BlockManager\Core\Values\LazyLoadedCollection;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface;

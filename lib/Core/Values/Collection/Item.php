@@ -4,8 +4,8 @@ namespace Netgen\BlockManager\Core\Values\Collection;
 
 use DateTimeInterface;
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
-use Netgen\BlockManager\Core\Service\Mapper\Proxy\LazyLoadingProxyTrait;
 use Netgen\BlockManager\Core\Values\Config\ConfigAwareValueTrait;
+use Netgen\BlockManager\Core\Values\LazyLoadedPropertyTrait;
 use Netgen\BlockManager\Core\Values\Value;
 use Netgen\BlockManager\Item\NullItem;
 use Netgen\BlockManager\Utils\DateTimeUtils;
@@ -13,7 +13,7 @@ use Netgen\BlockManager\Utils\DateTimeUtils;
 final class Item extends Value implements APIItem
 {
     use ConfigAwareValueTrait;
-    use LazyLoadingProxyTrait;
+    use LazyLoadedPropertyTrait;
 
     /**
      * @var int|string
