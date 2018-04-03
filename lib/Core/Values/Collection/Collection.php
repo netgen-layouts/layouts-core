@@ -150,7 +150,7 @@ final class Collection extends Value implements APICollection
 
     public function hasQuery()
     {
-        return $this->getLazyLoadedProperty($this->query) instanceof APIQuery;
+        return $this->getQuery() instanceof APIQuery;
     }
 
     public function getAvailableLocales()

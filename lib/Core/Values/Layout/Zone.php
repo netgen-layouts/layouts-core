@@ -37,7 +37,7 @@ final class Zone extends Value implements APIZone
 
     public function hasLinkedZone()
     {
-        return $this->getLazyLoadedProperty($this->linkedZone) instanceof APIZone;
+        return $this->getLinkedZone() instanceof APIZone;
     }
 
     public function getLinkedZone()
