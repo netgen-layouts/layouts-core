@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Core\Values\Block;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\API\Values\Block\Placeholder as APIPlaceholder;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Value;
@@ -24,6 +25,15 @@ final class Placeholder extends Value implements APIPlaceholder
      */
     protected $blocks;
 
+    public function __construct(array $properties = array())
+    {
+        parent::__construct($properties);
+
+        if ($this->blocks === null) {
+            $this->blocks = new ArrayCollection();
+        }
+    }
+
     public function getIdentifier()
     {
         return $this->identifier;
@@ -31,12 +41,12 @@ final class Placeholder extends Value implements APIPlaceholder
 
     public function getBlocks()
     {
-        return $this->blocks;
+        return $this->blocks->toArray();
     }
 
     public function getIterator()
     {
-        return $this->getBlocks()->getIterator();
+        return $this->blocks->getIterator();
     }
 
     public function count()

@@ -271,7 +271,8 @@ final class LayoutResolverTest extends TestCase
             array(
                 'layout' => new Layout(array('id' => $layoutId)),
                 'enabled' => true,
-                'conditions' => $conditions,
+                'targets' => new ArrayCollection(),
+                'conditions' => new ArrayCollection($conditions),
             )
         );
 
@@ -309,7 +310,8 @@ final class LayoutResolverTest extends TestCase
             array(
                 'layout' => new Layout(array('id' => $layoutId)),
                 'enabled' => true,
-                'conditions' => $conditions,
+                'targets' => new ArrayCollection(),
+                'conditions' => new ArrayCollection($conditions),
             )
         );
 
@@ -534,7 +536,8 @@ final class LayoutResolverTest extends TestCase
             array(
                 'layout' => new Layout(array('id' => $layoutId)),
                 'enabled' => true,
-                'conditions' => $conditions,
+                'targets' => new ArrayCollection(),
+                'conditions' => new ArrayCollection($conditions),
             )
         );
 
@@ -569,7 +572,8 @@ final class LayoutResolverTest extends TestCase
             array(
                 'layout' => new Layout(array('id' => $layoutId)),
                 'enabled' => true,
-                'conditions' => $conditions,
+                'targets' => new ArrayCollection(),
+                'conditions' => new ArrayCollection($conditions),
             )
         );
 
@@ -601,7 +605,8 @@ final class LayoutResolverTest extends TestCase
             array(
                 'layout' => new Layout(array('id' => 42)),
                 'enabled' => true,
-                'conditions' => $conditions,
+                'targets' => new ArrayCollection(),
+                'conditions' => new ArrayCollection($conditions),
             )
         );
 

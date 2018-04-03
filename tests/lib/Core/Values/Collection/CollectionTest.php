@@ -39,7 +39,7 @@ final class CollectionTest extends TestCase
         $this->assertNull($collection->isTranslatable());
         $this->assertNull($collection->isAlwaysAvailable());
         $this->assertNull($collection->getLocale());
-        $this->assertNull($collection->getItems());
+        $this->assertEquals(array(), $collection->getItems());
         $this->assertNull($collection->getQuery());
         $this->assertFalse($collection->hasQuery());
     }

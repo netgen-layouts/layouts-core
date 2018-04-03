@@ -21,7 +21,7 @@ final class PlaceholderTest extends TestCase
         $placeholder = new Placeholder();
 
         $this->assertNull($placeholder->getIdentifier());
-        $this->assertNull($placeholder->getBlocks());
+        $this->assertEquals(array(), $placeholder->getBlocks());
     }
 
     /**
@@ -45,7 +45,7 @@ final class PlaceholderTest extends TestCase
         );
 
         $this->assertEquals(42, $placeholder->getIdentifier());
-        $this->assertEquals(new ArrayCollection(array(new Block())), $placeholder->getBlocks());
+        $this->assertEquals(array(new Block()), $placeholder->getBlocks());
 
         $this->assertInstanceOf(Traversable::class, $placeholder->getIterator());
         $this->assertEquals(array(new Block()), iterator_to_array($placeholder->getIterator()));

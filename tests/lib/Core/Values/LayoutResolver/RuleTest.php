@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Values\LayoutResolver;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
@@ -32,8 +33,8 @@ final class RuleTest extends TestCase
         $this->assertNull($rule->getPriority());
         $this->assertNull($rule->isEnabled());
         $this->assertNull($rule->getComment());
-        $this->assertNull($rule->getTargets());
-        $this->assertNull($rule->getConditions());
+        $this->assertEquals(array(), $rule->getTargets());
+        $this->assertEquals(array(), $rule->getConditions());
     }
 
     /**
@@ -58,8 +59,8 @@ final class RuleTest extends TestCase
                 'priority' => 13,
                 'enabled' => true,
                 'comment' => 'Comment',
-                'targets' => array(new Target(), new Target()),
-                'conditions' => array(new Condition()),
+                'targets' => new ArrayCollection(array(new Target(), new Target())),
+                'conditions' => new ArrayCollection(array(new Condition())),
             )
         );
 
@@ -82,7 +83,7 @@ final class RuleTest extends TestCase
         $rule = new Rule(
             array(
                 'layout' => new Layout(array('id' => 24)),
-                'targets' => array(new Target(), new Target()),
+                'targets' => new ArrayCollection(array(new Target(), new Target())),
                 'status' => Rule::STATUS_PUBLISHED,
             )
         );
@@ -98,7 +99,7 @@ final class RuleTest extends TestCase
         $rule = new Rule(
             array(
                 'layout' => new Layout(array('id' => 24)),
-                'targets' => array(new Target(), new Target()),
+                'targets' => new ArrayCollection(array(new Target(), new Target())),
                 'status' => Rule::STATUS_DRAFT,
             )
         );
@@ -114,7 +115,7 @@ final class RuleTest extends TestCase
         $rule = new Rule(
             array(
                 'layout' => null,
-                'targets' => array(new Target(), new Target()),
+                'targets' => new ArrayCollection(array(new Target(), new Target())),
                 'status' => Rule::STATUS_PUBLISHED,
             )
         );
@@ -130,7 +131,7 @@ final class RuleTest extends TestCase
         $rule = new Rule(
             array(
                 'layout' => new Layout(array('id' => 24)),
-                'targets' => array(),
+                'targets' => new ArrayCollection(),
                 'status' => Rule::STATUS_PUBLISHED,
             )
         );

@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Core\Values\LayoutResolver;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule as APIRule;
 use Netgen\BlockManager\Core\Values\LazyLoadedPropertyTrait;
@@ -46,6 +47,19 @@ final class Rule extends Value implements APIRule
      */
     protected $conditions;
 
+    public function __construct(array $properties = array())
+    {
+        parent::__construct($properties);
+
+        if ($this->targets === null) {
+            $this->targets = new ArrayCollection();
+        }
+
+        if ($this->conditions === null) {
+            $this->conditions = new ArrayCollection();
+        }
+    }
+
     public function getId()
     {
         return $this->id;
@@ -73,12 +87,12 @@ final class Rule extends Value implements APIRule
 
     public function getTargets()
     {
-        return $this->targets;
+        return $this->targets->toArray();
     }
 
     public function getConditions()
     {
-        return $this->conditions;
+        return $this->conditions->toArray();
     }
 
     public function canBeEnabled()
@@ -91,6 +105,6 @@ final class Rule extends Value implements APIRule
             return false;
         }
 
-        return !empty($this->targets);
+        return $this->targets->count() > 0;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Core\Values\Collection;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
@@ -62,6 +63,15 @@ final class Collection extends Value implements APICollection
      */
     protected $locale;
 
+    public function __construct(array $properties = array())
+    {
+        parent::__construct($properties);
+
+        if ($this->items === null) {
+            $this->items = new ArrayCollection();
+        }
+    }
+
     public function getId()
     {
         return $this->id;
@@ -110,7 +120,7 @@ final class Collection extends Value implements APICollection
 
     public function getItems()
     {
-        return $this->items;
+        return $this->items->toArray();
     }
 
     public function hasManualItem($position)
@@ -183,7 +193,7 @@ final class Collection extends Value implements APICollection
      *
      * @param int $type
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Netgen\BlockManager\API\Values\Collection\Item[]
      */
     private function filterItems($type)
     {
@@ -191,6 +201,6 @@ final class Collection extends Value implements APICollection
             function (APIItem $item) use ($type) {
                 return $item->getType() === $type;
             }
-        );
+        )->toArray();
     }
 }
