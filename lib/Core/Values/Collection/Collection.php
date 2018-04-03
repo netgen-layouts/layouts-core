@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Core\Values\Collection;
 
 use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
+use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
 use Netgen\BlockManager\Value;
 
@@ -39,9 +40,9 @@ final class Collection extends Value implements APICollection
     protected $limit;
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Collection\Item[]
+     * @var \Doctrine\Common\Collections\Collection
      */
-    protected $items = array();
+    protected $items;
 
     /**
      * @var \Netgen\BlockManager\API\Values\Collection\Query
@@ -105,13 +106,15 @@ final class Collection extends Value implements APICollection
 
     public function hasItem($position, $type = null)
     {
-        foreach ($this->items as $item) {
-            if ($item->getPosition() === $position) {
-                return $type === null || $item->getType() === $type;
-            }
-        }
+        return $this->items->exists(
+            function ($key, APIItem $item) use ($position, $type) {
+                if ($item->getPosition() === $position) {
+                    return $type === null || $item->getType() === $type;
+                }
 
-        return false;
+                return false;
+            }
+        );
     }
 
     public function getItem($position, $type = null)
@@ -202,18 +205,14 @@ final class Collection extends Value implements APICollection
      *
      * @param int $type
      *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item[]
+     * @return \Doctrine\Common\Collections\Collection
      */
     private function filterItems($type)
     {
-        $items = array();
-
-        foreach ($this->items as $item) {
-            if ($item->getType() === $type) {
-                $items[$item->getPosition()] = $item;
+        return $this->items->filter(
+            function (APIItem $item) use ($type) {
+                return $item->getType() === $type;
             }
-        }
-
-        return $items;
+        );
     }
 }

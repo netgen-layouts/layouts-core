@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Collection\Result;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\Collection\Result\CollectionRunnerFactory;
 use Netgen\BlockManager\Collection\Result\ManualItem;
 use Netgen\BlockManager\Collection\Result\Result;
@@ -201,7 +202,7 @@ final class ResultBuilderTest extends TestCase
 
         $collection = new Collection(
             array(
-                'items' => $items,
+                'items' => new ArrayCollection($items),
                 'query' => new Query(
                     array(
                         'queryType' => new QueryType(

@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 
-use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\Collection\Result\ManualItem;
 use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Collection\Result\ResultSet;
@@ -68,11 +67,13 @@ final class CollectionResultSetNormalizer implements NormalizerInterface, Serial
             }
         }
 
-        return array_filter(
-            $resultSet->getCollection()->getItems(),
-            function (Item $item) use ($includedPositions) {
-                return !in_array($item->getPosition(), $includedPositions, true);
+        $overflowItems = array();
+        foreach ($resultSet->getCollection()->getItems() as $item) {
+            if (!in_array($item->getPosition(), $includedPositions, true)) {
+                $overflowItems[] = $item;
             }
-        );
+        }
+
+        return $overflowItems;
     }
 }

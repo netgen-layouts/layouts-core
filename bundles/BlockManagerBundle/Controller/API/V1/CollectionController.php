@@ -50,12 +50,10 @@ final class CollectionController extends Controller
      */
     public function loadCollectionItems(Collection $collection)
     {
-        $items = array_map(
-            function (Item $item) {
-                return new VersionedValue($item, Version::API_V1);
-            },
-            $collection->getItems()
-        );
+        $items = array();
+        foreach ($collection->getItems() as $item) {
+            $items[] = new VersionedValue($item, Version::API_V1);
+        }
 
         return new Value($items);
     }

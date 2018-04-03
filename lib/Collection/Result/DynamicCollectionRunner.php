@@ -143,18 +143,19 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
      */
     private function getManualItemsCount(Collection $collection, $startOffset, $endOffset)
     {
-        return count(
-            array_filter(
-                $collection->getManualItems(),
-                function (CollectionItem $item) use ($startOffset, $endOffset) {
-                    $manualItem = new ManualItem($item);
-                    if (!$manualItem->isValid()) {
-                        return false;
-                    }
+        $manualItemsCount = 0;
 
-                    return $item->getPosition() >= $startOffset && $item->getPosition() < $endOffset;
-                }
-            )
-        );
+        foreach ($collection->getManualItems() as $item) {
+            if ($item->getPosition() < $startOffset || $item->getPosition() >= $endOffset) {
+                continue;
+            }
+
+            $manualItem = new ManualItem($item);
+            if ($manualItem->isValid()) {
+                ++$manualItemsCount;
+            }
+        }
+
+        return $manualItemsCount;
     }
 }

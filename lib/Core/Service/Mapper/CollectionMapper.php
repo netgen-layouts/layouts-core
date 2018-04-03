@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Core\Service\Mapper;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistryInterface;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
+use Netgen\BlockManager\Core\Service\Mapper\Proxy\LazyLoadedCollection;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
@@ -94,13 +95,6 @@ final class CollectionMapper
 
         $collectionLocale = reset($validLocales);
 
-        $persistenceItems = $this->collectionHandler->loadCollectionItems($collection);
-
-        $items = array();
-        foreach ($persistenceItems as $persistenceItem) {
-            $items[] = $this->mapItem($persistenceItem);
-        }
-
         $query = null;
         $persistenceQuery = null;
         $type = Collection::TYPE_MANUAL;
@@ -122,7 +116,16 @@ final class CollectionMapper
             'offset' => $collection->offset,
             'limit' => $collection->limit,
             'type' => $type,
-            'items' => $items,
+            'items' => new LazyLoadedCollection(
+                function () use ($collection) {
+                    return array_map(
+                        function (PersistenceItem $item) {
+                            return $this->mapItem($item);
+                        },
+                        $this->collectionHandler->loadCollectionItems($collection)
+                    );
+                }
+            ),
             'query' => $query,
             'published' => $collection->status === Value::STATUS_PUBLISHED,
             'isTranslatable' => $collection->isTranslatable,

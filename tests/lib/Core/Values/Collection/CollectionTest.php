@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Tests\Core\Values\Collection;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
@@ -18,8 +19,6 @@ final class CollectionTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getOffset
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getLimit
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getItems
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getManualItems
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getOverrideItems
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getQuery
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::hasQuery
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isPublished
@@ -44,9 +43,7 @@ final class CollectionTest extends TestCase
         $this->assertNull($collection->isTranslatable());
         $this->assertNull($collection->isAlwaysAvailable());
         $this->assertNull($collection->getLocale());
-        $this->assertEquals(array(), $collection->getItems());
-        $this->assertEquals(array(), $collection->getManualItems());
-        $this->assertEquals(array(), $collection->getOverrideItems());
+        $this->assertNull($collection->getItems());
         $this->assertNull($collection->getQuery());
         $this->assertFalse($collection->hasQuery());
     }
@@ -97,7 +94,7 @@ final class CollectionTest extends TestCase
                 'isTranslatable' => true,
                 'alwaysAvailable' => false,
                 'locale' => 'en',
-                'items' => $items,
+                'items' => new ArrayCollection($items),
                 'query' => new Query(),
             )
         );
@@ -117,10 +114,10 @@ final class CollectionTest extends TestCase
         $this->assertCount(1, $collection->getManualItems());
         $this->assertCount(1, $collection->getOverrideItems());
 
-        $this->assertEquals(Item::TYPE_MANUAL, $collection->getItems()[0]->getType());
-        $this->assertEquals(Item::TYPE_OVERRIDE, $collection->getItems()[1]->getType());
-        $this->assertEquals(Item::TYPE_MANUAL, $collection->getManualItems()[3]->getType());
-        $this->assertEquals(Item::TYPE_OVERRIDE, $collection->getOverrideItems()[5]->getType());
+        $this->assertEquals(Item::TYPE_MANUAL, $collection->getItem(3)->getType());
+        $this->assertEquals(Item::TYPE_OVERRIDE, $collection->getItem(5)->getType());
+        $this->assertEquals(Item::TYPE_MANUAL, $collection->getManualItem(3)->getType());
+        $this->assertEquals(Item::TYPE_OVERRIDE, $collection->getOverrideItem(5)->getType());
 
         $this->assertEquals(new Query(), $collection->getQuery());
         $this->assertTrue($collection->hasQuery());

@@ -2,10 +2,12 @@
 
 namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Netgen\BlockManager\Collection\Result\ManualItem;
 use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
-use Netgen\BlockManager\Item\Item;
+use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultSetNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
@@ -39,10 +41,21 @@ final class CollectionResultSetNormalizerTest extends TestCase
     {
         $result = new ResultSet(
             array(
-                'collection' => new Collection(),
+                'collection' => new Collection(
+                    array(
+                        'items' => new ArrayCollection(
+                            array(
+                                new Item(array('position' => 0)),
+                                new Item(array('position' => 1)),
+                                new Item(array('position' => 2)),
+                                new Item(array('position' => 3)),
+                            )
+                        ),
+                    )
+                ),
                 'results' => array(
-                    new Result(0, new Item()),
-                    new Result(1, new Item()),
+                    new Result(1, new ManualItem(new Item(array('position' => 1)))),
+                    new Result(2, new ManualItem(new Item(array('position' => 2)))),
                 ),
             )
         );
@@ -53,8 +66,8 @@ final class CollectionResultSetNormalizerTest extends TestCase
             ->with(
                 $this->equalTo(
                     array(
-                        new VersionedValue(new Result(0, new Item()), 1),
-                        new VersionedValue(new Result(1, new Item()), 1),
+                        new VersionedValue(new Result(1, new ManualItem(new Item(array('position' => 1)))), 1),
+                        new VersionedValue(new Result(2, new ManualItem(new Item(array('position' => 2)))), 1),
                     )
                 )
             )
@@ -63,6 +76,14 @@ final class CollectionResultSetNormalizerTest extends TestCase
         $this->serializerMock
             ->expects($this->at(1))
             ->method('normalize')
+            ->with(
+                $this->equalTo(
+                    array(
+                        new VersionedValue(new Item(array('position' => 0)), 1),
+                        new VersionedValue(new Item(array('position' => 3)), 1),
+                    )
+                )
+            )
             ->will($this->returnValue(array('overflow_items')));
 
         $this->assertEquals(
