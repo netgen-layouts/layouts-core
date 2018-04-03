@@ -5,8 +5,8 @@ namespace Netgen\BlockManager\Core\Values\Block;
 use Netgen\BlockManager\API\Values\Block\Block as APIBlock;
 use Netgen\BlockManager\Core\Values\Config\ConfigAwareValueTrait;
 use Netgen\BlockManager\Core\Values\ParameterBasedValueTrait;
+use Netgen\BlockManager\Core\Values\Value;
 use Netgen\BlockManager\Exception\Core\BlockException;
-use Netgen\BlockManager\Value;
 
 final class Block extends Value implements APIBlock
 {
@@ -27,11 +27,6 @@ final class Block extends Value implements APIBlock
      * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
      */
     protected $definition;
-
-    /**
-     * @var bool
-     */
-    protected $published;
 
     /**
      * @var string
@@ -62,11 +57,6 @@ final class Block extends Value implements APIBlock
      * @var \Netgen\BlockManager\API\Values\Block\CollectionReference[]
      */
     protected $collectionReferences = array();
-
-    /**
-     * @var int
-     */
-    protected $status;
 
     /**
      * @var \Netgen\BlockManager\Block\DynamicParameters
@@ -111,11 +101,6 @@ final class Block extends Value implements APIBlock
     public function getDefinition()
     {
         return $this->definition;
-    }
-
-    public function isPublished()
-    {
-        return $this->published;
     }
 
     public function getViewType()
@@ -174,11 +159,6 @@ final class Block extends Value implements APIBlock
     public function hasCollectionReference($identifier)
     {
         return isset($this->collectionReferences[$identifier]);
-    }
-
-    public function getStatus()
-    {
-        return $this->status;
     }
 
     public function getDynamicParameter($parameter)

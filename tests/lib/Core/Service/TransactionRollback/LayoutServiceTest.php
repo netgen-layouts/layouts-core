@@ -6,6 +6,7 @@ use Exception;
 use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Core\Values\Layout\Zone;
 use Netgen\BlockManager\Layout\Type\LayoutType;
@@ -61,8 +62,8 @@ final class LayoutServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->layoutService->linkZone(
-            new Zone(array('published' => false)),
-            new Zone(array('published' => true))
+            new Zone(array('status' => Value::STATUS_DRAFT)),
+            new Zone(array('status' => Value::STATUS_PUBLISHED))
         );
     }
 
@@ -87,7 +88,7 @@ final class LayoutServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->unlinkZone(new Zone(array('published' => false)));
+        $this->layoutService->unlinkZone(new Zone(array('status' => Value::STATUS_DRAFT)));
     }
 
     /**
@@ -148,7 +149,7 @@ final class LayoutServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->addTranslation(new Layout(array('published' => false)), 'hr', 'en');
+        $this->layoutService->addTranslation(new Layout(array('status' => Value::STATUS_DRAFT)), 'hr', 'en');
     }
 
     /**
@@ -181,7 +182,7 @@ final class LayoutServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->removeTranslation(new Layout(array('published' => false)), 'hr');
+        $this->layoutService->removeTranslation(new Layout(array('status' => Value::STATUS_DRAFT)), 'hr');
     }
 
     /**
@@ -211,7 +212,7 @@ final class LayoutServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->layoutService->updateLayout(
-            new Layout(array('published' => false)),
+            new Layout(array('status' => Value::STATUS_DRAFT)),
             new LayoutUpdateStruct(array('name' => 'New name'))
         );
     }
@@ -295,7 +296,7 @@ final class LayoutServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->createDraft(new Layout(array('published' => true)));
+        $this->layoutService->createDraft(new Layout(array('status' => Value::STATUS_PUBLISHED)));
     }
 
     /**
@@ -319,7 +320,7 @@ final class LayoutServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->discardDraft(new Layout(array('published' => false)));
+        $this->layoutService->discardDraft(new Layout(array('status' => Value::STATUS_DRAFT)));
     }
 
     /**
@@ -343,7 +344,7 @@ final class LayoutServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->publishLayout(new Layout(array('published' => false)));
+        $this->layoutService->publishLayout(new Layout(array('status' => Value::STATUS_DRAFT)));
     }
 
     /**

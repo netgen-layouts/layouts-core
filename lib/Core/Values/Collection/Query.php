@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Core\Values\Collection;
 
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
 use Netgen\BlockManager\Core\Values\ParameterBasedValueTrait;
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Core\Values\Value;
 
 final class Query extends Value implements APIQuery
 {
@@ -16,19 +16,9 @@ final class Query extends Value implements APIQuery
     protected $id;
 
     /**
-     * @var int
-     */
-    protected $status;
-
-    /**
      * @var int|string
      */
     protected $collectionId;
-
-    /**
-     * @var bool
-     */
-    protected $published;
 
     /**
      * @var \Netgen\BlockManager\Collection\QueryTypeInterface
@@ -65,19 +55,9 @@ final class Query extends Value implements APIQuery
         return $this->id;
     }
 
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
     public function getCollectionId()
     {
         return $this->collectionId;
-    }
-
-    public function isPublished()
-    {
-        return $this->published;
     }
 
     public function isContextual()

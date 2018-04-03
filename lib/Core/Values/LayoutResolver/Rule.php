@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Core\Values\LayoutResolver;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule as APIRule;
 use Netgen\BlockManager\Core\Service\Mapper\Proxy\LazyLoadingProxyTrait;
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Core\Values\Value;
 
 final class Rule extends Value implements APIRule
 {
@@ -17,19 +17,9 @@ final class Rule extends Value implements APIRule
     protected $id;
 
     /**
-     * @var int
-     */
-    protected $status;
-
-    /**
      * @var \Netgen\BlockManager\API\Values\Layout\Layout
      */
     protected $layout;
-
-    /**
-     * @var bool
-     */
-    protected $published;
 
     /**
      * @var bool
@@ -61,19 +51,9 @@ final class Rule extends Value implements APIRule
         return $this->id;
     }
 
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
     public function getLayout()
     {
         return $this->getLazyLoadedProperty($this->layout);
-    }
-
-    public function isPublished()
-    {
-        return $this->published;
     }
 
     public function isEnabled()
@@ -103,7 +83,7 @@ final class Rule extends Value implements APIRule
 
     public function canBeEnabled()
     {
-        if (!$this->published) {
+        if (!$this->isPublished()) {
             return false;
         }
 

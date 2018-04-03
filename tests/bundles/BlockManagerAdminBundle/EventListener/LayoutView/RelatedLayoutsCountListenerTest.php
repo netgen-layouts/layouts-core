@@ -52,14 +52,14 @@ final class RelatedLayoutsCountListenerTest extends TestCase
      */
     public function testOnBuildView()
     {
-        $view = new LayoutView(array('layout' => new Layout(array('shared' => true, 'published' => true))));
+        $view = new LayoutView(array('layout' => new Layout(array('shared' => true, 'status' => Layout::STATUS_PUBLISHED))));
         $view->setContext(ViewInterface::CONTEXT_ADMIN);
         $event = new CollectViewParametersEvent($view);
 
         $this->layoutServiceMock
             ->expects($this->once())
             ->method('getRelatedLayoutsCount')
-            ->with($this->equalTo(new Layout(array('shared' => true, 'published' => true))))
+            ->with($this->equalTo(new Layout(array('shared' => true, 'status' => Layout::STATUS_PUBLISHED))))
             ->will($this->returnValue(3));
 
         $this->listener->onBuildView($event);
@@ -77,7 +77,7 @@ final class RelatedLayoutsCountListenerTest extends TestCase
      */
     public function testOnBuildViewWithDraftLayout()
     {
-        $view = new LayoutView(array('layout' => new Layout(array('shared' => true, 'published' => false))));
+        $view = new LayoutView(array('layout' => new Layout(array('shared' => true, 'status' => Layout::STATUS_DRAFT))));
         $view->setContext(ViewInterface::CONTEXT_ADMIN);
         $event = new CollectViewParametersEvent($view);
 
@@ -100,7 +100,7 @@ final class RelatedLayoutsCountListenerTest extends TestCase
      */
     public function testOnBuildViewWithNonSharedLayout()
     {
-        $view = new LayoutView(array('layout' => new Layout(array('shared' => false, 'published' => true))));
+        $view = new LayoutView(array('layout' => new Layout(array('shared' => false, 'status' => Layout::STATUS_PUBLISHED))));
         $view->setContext(ViewInterface::CONTEXT_ADMIN);
         $event = new CollectViewParametersEvent($view);
 

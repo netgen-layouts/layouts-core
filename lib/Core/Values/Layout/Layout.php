@@ -4,8 +4,8 @@ namespace Netgen\BlockManager\Core\Values\Layout;
 
 use ArrayIterator;
 use Netgen\BlockManager\API\Values\Layout\Layout as APILayout;
+use Netgen\BlockManager\Core\Values\Value;
 use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Value;
 
 final class Layout extends Value implements APILayout
 {
@@ -38,16 +38,6 @@ final class Layout extends Value implements APILayout
      * @var \DateTimeInterface
      */
     protected $modified;
-
-    /**
-     * @var int
-     */
-    protected $status;
-
-    /**
-     * @var bool
-     */
-    protected $published;
 
     /**
      * @var bool
@@ -97,16 +87,6 @@ final class Layout extends Value implements APILayout
     public function getModified()
     {
         return $this->modified;
-    }
-
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    public function isPublished()
-    {
-        return $this->published;
     }
 
     public function isShared()

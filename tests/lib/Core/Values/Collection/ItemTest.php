@@ -25,7 +25,6 @@ final class ItemTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getValue
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getValueType
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getCmsItem
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::isPublished
      */
     public function testSetDefaultProperties()
     {
@@ -40,7 +39,6 @@ final class ItemTest extends TestCase
         $this->assertNull($item->getValue());
         $this->assertNull($item->getValueType());
         $this->assertNull($item->getCmsItem());
-        $this->assertNull($item->isPublished());
     }
 
     /**
@@ -72,7 +70,6 @@ final class ItemTest extends TestCase
                 'cmsItem' => function () {
                     return new CmsItem();
                 },
-                'published' => true,
             )
         );
 

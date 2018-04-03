@@ -6,6 +6,7 @@ use Exception;
 use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\ItemUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
@@ -53,7 +54,7 @@ final class CollectionServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->collectionService->changeCollectionType(
-            new Collection(array('published' => false, 'query' => new Query())),
+            new Collection(array('status' => Value::STATUS_DRAFT, 'query' => new Query())),
             Collection::TYPE_MANUAL
         );
     }
@@ -84,7 +85,7 @@ final class CollectionServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->collectionService->addItem(
-            new Collection(array('published' => false)),
+            new Collection(array('status' => Value::STATUS_DRAFT)),
             new ItemCreateStruct(array('definition' => new ItemDefinition('ezlocation'), 'type' => Item::TYPE_MANUAL))
         );
     }
@@ -115,7 +116,7 @@ final class CollectionServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->collectionService->updateItem(
-            new Item(array('published' => false, 'definition' => new ItemDefinition('ezlocation'))),
+            new Item(array('status' => Value::STATUS_DRAFT, 'definition' => new ItemDefinition('ezlocation'))),
             new ItemUpdateStruct()
         );
     }
@@ -141,7 +142,7 @@ final class CollectionServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->moveItem(new Item(array('published' => false)), 0);
+        $this->collectionService->moveItem(new Item(array('status' => Value::STATUS_DRAFT)), 0);
     }
 
     /**
@@ -165,7 +166,7 @@ final class CollectionServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->deleteItem(new Item(array('published' => false)));
+        $this->collectionService->deleteItem(new Item(array('status' => Value::STATUS_DRAFT)));
     }
 
     /**
@@ -189,7 +190,7 @@ final class CollectionServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->deleteItems(new Collection(array('published' => false)));
+        $this->collectionService->deleteItems(new Collection(array('status' => Value::STATUS_DRAFT)));
     }
 
     /**
@@ -224,7 +225,7 @@ final class CollectionServiceTest extends ServiceTestCase
         $this->collectionService->updateQuery(
             new Query(
                 array(
-                    'published' => false,
+                    'status' => Value::STATUS_DRAFT,
                     'queryType' => new QueryType('type'),
                 )
             ),

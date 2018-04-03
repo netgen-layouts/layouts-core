@@ -119,7 +119,6 @@ final class CollectionMapper
 
                 return $this->mapQuery($persistenceQuery, $locales, false);
             },
-            'published' => $collection->status === Value::STATUS_PUBLISHED,
             'isTranslatable' => $collection->isTranslatable,
             'mainLocale' => $collection->mainLocale,
             'alwaysAvailable' => $collection->alwaysAvailable,
@@ -152,7 +151,6 @@ final class CollectionMapper
             'cmsItem' => function () use ($item) {
                 return $this->itemLoader->load($item->value, $item->valueType);
             },
-            'published' => $item->status === Value::STATUS_PUBLISHED,
             'definition' => $itemDefinition,
             'configs' => $this->configMapper->mapConfig($item->config, $itemDefinition->getConfigDefinitions()),
         );
@@ -202,7 +200,6 @@ final class CollectionMapper
             'status' => $query->status,
             'collectionId' => $query->collectionId,
             'queryType' => $queryType,
-            'published' => $query->status === Value::STATUS_PUBLISHED,
             'isTranslatable' => $query->isTranslatable,
             'mainLocale' => $query->mainLocale,
             'alwaysAvailable' => $query->alwaysAvailable,

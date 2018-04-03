@@ -5,26 +5,26 @@
             "collection_id": 4,
             "position": 2,
             "type": 0,
-            "value": 72,
-            "value_type": "ezlocation",
             "visible": true,
             "scheduled": false,
+            "value": 72,
+            "value_type": "ezlocation",
             "name": "NHL Upsets This Week's Social TV Rankings",
-            "cms_url": "/some/url",
-            "cms_visible": true
+            "cms_visible": true,
+            "cms_url": "/some/url"
         },
         {
             "id": 11,
             "collection_id": 4,
             "position": 3,
             "type": 0,
-            "value": 73,
-            "value_type": "ezlocation",
             "visible": true,
             "scheduled": false,
+            "value": 73,
+            "value_type": "ezlocation",
             "name": "How \"The Simpsons\" Fixed Apple's iPhone Keyboard",
-            "cms_url": "/some/url",
-            "cms_visible": true
+            "cms_visible": true,
+            "cms_url": "/some/url"
         }
     ],
     "overflow_items": []

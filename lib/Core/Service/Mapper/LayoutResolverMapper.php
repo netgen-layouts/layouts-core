@@ -99,7 +99,6 @@ final class LayoutResolverMapper
                     );
                 }
             ),
-            'published' => $rule->status === Value::STATUS_PUBLISHED,
         );
 
         return new Rule($ruleData);
@@ -121,7 +120,6 @@ final class LayoutResolverMapper
             'targetType' => $this->targetTypeRegistry->getTargetType(
                 $target->type
             ),
-            'published' => $target->status === Value::STATUS_PUBLISHED,
             'value' => $target->value,
         );
 
@@ -144,7 +142,6 @@ final class LayoutResolverMapper
             'conditionType' => $this->conditionTypeRegistry->getConditionType(
                 $condition->type
             ),
-            'published' => $condition->status === Value::STATUS_PUBLISHED,
             'value' => $condition->value,
         );
 

@@ -30,7 +30,6 @@ final class BlockTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getName
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getParentPosition
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getStatus
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::isPublished
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::isTranslatable
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getMainLocale
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::isAlwaysAvailable
@@ -54,7 +53,6 @@ final class BlockTest extends TestCase
         $this->assertNull($block->getName());
         $this->assertNull($block->getParentPosition());
         $this->assertNull($block->getStatus());
-        $this->assertNull($block->isPublished());
         $this->assertNull($block->isTranslatable());
         $this->assertNull($block->getMainLocale());
         $this->assertNull($block->isAlwaysAvailable());
@@ -100,7 +98,6 @@ final class BlockTest extends TestCase
                 'name' => 'My block',
                 'parentPosition' => 3,
                 'status' => Value::STATUS_PUBLISHED,
-                'published' => true,
                 'placeholders' => array(
                     'main' => new Placeholder(array('identifier' => 'main')),
                 ),

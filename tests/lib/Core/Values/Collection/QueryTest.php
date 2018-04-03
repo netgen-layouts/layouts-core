@@ -17,7 +17,6 @@ final class QueryTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getCollectionId
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getQueryType
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getParameters
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Query::isPublished
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::isTranslatable
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::getMainLocale
      * @covers \Netgen\BlockManager\Core\Values\Collection\Query::isAlwaysAvailable
@@ -33,7 +32,6 @@ final class QueryTest extends TestCase
         $this->assertNull($query->getCollectionId());
         $this->assertNull($query->getQueryType());
         $this->assertEquals(array(), $query->getParameters());
-        $this->assertNull($query->isPublished());
         $this->assertNull($query->isTranslatable());
         $this->assertNull($query->getMainLocale());
         $this->assertNull($query->isAlwaysAvailable());
@@ -65,7 +63,6 @@ final class QueryTest extends TestCase
                 'status' => Value::STATUS_PUBLISHED,
                 'collectionId' => 30,
                 'queryType' => new QueryType('query_type'),
-                'published' => true,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'alwaysAvailable' => true,

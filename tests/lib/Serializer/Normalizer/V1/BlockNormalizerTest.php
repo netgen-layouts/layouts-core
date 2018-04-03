@@ -56,7 +56,6 @@ final class BlockNormalizerTest extends TestCase
                 'name' => 'My block',
                 'parentPosition' => 3,
                 'status' => Value::STATUS_PUBLISHED,
-                'published' => true,
                 'placeholders' => array(
                     'main' => new Placeholder(array('identifier' => 'main')),
                 ),

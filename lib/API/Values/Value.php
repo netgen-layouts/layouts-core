@@ -27,4 +27,11 @@ interface Value
      * @return int
      */
     public function getStatus();
+
+    /**
+     * Returns if the value is published.
+     *
+     * @return bool
+     */
+    public function isPublished();
 }

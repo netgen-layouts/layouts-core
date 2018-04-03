@@ -16,7 +16,6 @@ final class ConditionTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getRuleId
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getConditionType
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::getValue
-     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Condition::isPublished
      */
     public function testSetDefaultProperties()
     {
@@ -27,8 +26,6 @@ final class ConditionTest extends TestCase
         $this->assertNull($condition->getRuleId());
         $this->assertNull($condition->getConditionType());
         $this->assertNull($condition->getValue());
-        $this->assertNull($condition->isPublished());
-        $this->assertNull($condition->isPublished());
     }
 
     /**
@@ -49,7 +46,6 @@ final class ConditionTest extends TestCase
                 'ruleId' => 30,
                 'conditionType' => new ConditionType('condition'),
                 'value' => 32,
-                'published' => true,
             )
         );
 

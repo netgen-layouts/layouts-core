@@ -87,7 +87,6 @@ final class LayoutNormalizerTest extends TestCase
                 'created' => $currentDate,
                 'modified' => $currentDate,
                 'shared' => true,
-                'published' => false,
                 'mainLocale' => 'en',
                 'availableLocales' => array('en', 'hr'),
                 'zones' => array(

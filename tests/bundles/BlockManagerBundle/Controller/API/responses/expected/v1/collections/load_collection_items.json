@@ -4,38 +4,38 @@
         "collection_id": 3,
         "position": 2,
         "type": 0,
-        "value": "72",
-        "value_type": "ezlocation",
         "visible": true,
         "scheduled": false,
+        "value": 72,
+        "value_type": "ezlocation",
         "name": "NHL Upsets This Week's Social TV Rankings",
-        "cms_url": "/some/url",
-        "cms_visible": true
+        "cms_visible": true,
+        "cms_url": "/some/url"
     },
     {
         "id": 8,
         "collection_id": 3,
         "position": 3,
         "type": 0,
-        "value": "73",
-        "value_type": "ezlocation",
         "visible": true,
         "scheduled": false,
+        "value": 73,
+        "value_type": "ezlocation",
         "name": "How \"The Simpsons\" Fixed Apple's iPhone Keyboard",
-        "cms_url": "/some/url",
-        "cms_visible": true
+        "cms_visible": true,
+        "cms_url": "/some/url"
     },
     {
         "id": 9,
         "collection_id": 3,
         "position": 5,
         "type": 0,
-        "value": "74",
-        "value_type": "ezlocation",
         "visible": true,
         "scheduled": false,
+        "value": 74,
+        "value_type": "ezlocation",
         "name": "The Ultimate Beer Infographic Just Got Even More Ultimate",
-        "cms_url": "/some/url",
-        "cms_visible": true
+        "cms_visible": true,
+        "cms_url": "/some/url"
     }
 ]

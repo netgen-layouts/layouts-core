@@ -26,7 +26,6 @@ final class LayoutTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getZones
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getZone
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::hasZone
-     * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::isPublished
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getMainLocale
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::getAvailableLocales
      * @covers \Netgen\BlockManager\Core\Values\Layout\Layout::hasLocale
@@ -46,7 +45,6 @@ final class LayoutTest extends TestCase
         $this->assertEquals(array(), $layout->getZones());
         $this->assertNull($layout->getZone('test'));
         $this->assertFalse($layout->hasZone('test'));
-        $this->assertNull($layout->isPublished());
         $this->assertNull($layout->getMainLocale());
         $this->assertEquals(array(), $layout->getAvailableLocales());
         $this->assertFalse($layout->hasLocale('en'));
@@ -100,7 +98,6 @@ final class LayoutTest extends TestCase
                 'status' => Value::STATUS_PUBLISHED,
                 'shared' => true,
                 'zones' => $zones,
-                'published' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => array('en'),
             )

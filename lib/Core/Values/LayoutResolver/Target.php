@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Core\Values\LayoutResolver;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\Target as APITarget;
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Core\Values\Value;
 
 final class Target extends Value implements APITarget
 {
@@ -11,11 +11,6 @@ final class Target extends Value implements APITarget
      * @var int|string
      */
     protected $id;
-
-    /**
-     * @var int
-     */
-    protected $status;
 
     /**
      * @var int|string
@@ -28,11 +23,6 @@ final class Target extends Value implements APITarget
     protected $targetType;
 
     /**
-     * @var bool
-     */
-    protected $published;
-
-    /**
      * @var int|string|float
      */
     protected $value;
@@ -40,11 +30,6 @@ final class Target extends Value implements APITarget
     public function getId()
     {
         return $this->id;
-    }
-
-    public function getStatus()
-    {
-        return $this->status;
     }
 
     public function getRuleId()
@@ -55,11 +40,6 @@ final class Target extends Value implements APITarget
     public function getTargetType()
     {
         return $this->targetType;
-    }
-
-    public function isPublished()
-    {
-        return $this->published;
     }
 
     public function getValue()

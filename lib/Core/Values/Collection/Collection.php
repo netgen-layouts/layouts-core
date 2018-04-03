@@ -6,7 +6,7 @@ use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
 use Netgen\BlockManager\Core\Service\Mapper\Proxy\LazyLoadingProxyTrait;
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Core\Values\Value;
 
 final class Collection extends Value implements APICollection
 {
@@ -16,16 +16,6 @@ final class Collection extends Value implements APICollection
      * @var int|string
      */
     protected $id;
-
-    /**
-     * @var int
-     */
-    protected $status;
-
-    /**
-     * @var bool
-     */
-    protected $published;
 
     /**
      * @var int
@@ -77,19 +67,9 @@ final class Collection extends Value implements APICollection
         return $this->id;
     }
 
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
     public function getType()
     {
         return $this->hasQuery() ? self::TYPE_DYNAMIC : self::TYPE_MANUAL;
-    }
-
-    public function isPublished()
-    {
-        return $this->published;
     }
 
     public function getOffset()

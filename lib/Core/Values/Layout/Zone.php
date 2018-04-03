@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Core\Values\Layout;
 
 use Netgen\BlockManager\API\Values\Layout\Zone as APIZone;
 use Netgen\BlockManager\Core\Service\Mapper\Proxy\LazyLoadingProxyTrait;
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Core\Values\Value;
 
 final class Zone extends Value implements APIZone
 {
@@ -21,16 +21,6 @@ final class Zone extends Value implements APIZone
     protected $layoutId;
 
     /**
-     * @var int
-     */
-    protected $status;
-
-    /**
-     * @var bool
-     */
-    protected $published;
-
-    /**
      * @var \Netgen\BlockManager\API\Values\Layout\Zone
      */
     protected $linkedZone;
@@ -43,16 +33,6 @@ final class Zone extends Value implements APIZone
     public function getLayoutId()
     {
         return $this->layoutId;
-    }
-
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    public function isPublished()
-    {
-        return $this->published;
     }
 
     public function hasLinkedZone()

@@ -6,6 +6,7 @@ use Exception;
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
+use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
@@ -70,7 +71,7 @@ final class BlockServiceTest extends ServiceTestCase
             ),
             new Block(
                 array(
-                    'published' => false,
+                    'status' => Value::STATUS_DRAFT,
                     'definition' => new ContainerDefinition(
                         'blockDef',
                         array(),
@@ -134,7 +135,7 @@ final class BlockServiceTest extends ServiceTestCase
                     'definition' => new BlockDefinition('blockDef'),
                 )
             ),
-            new Zone(array('published' => false, 'identifier' => 'right'))
+            new Zone(array('status' => Value::STATUS_DRAFT, 'identifier' => 'right'))
         );
     }
 
@@ -171,7 +172,7 @@ final class BlockServiceTest extends ServiceTestCase
         $this->blockService->updateBlock(
             new Block(
                 array(
-                    'published' => false,
+                    'status' => Value::STATUS_DRAFT,
                     'definition' => new BlockDefinition('block_definition'),
                     'configs' => array(),
                 )
@@ -207,10 +208,10 @@ final class BlockServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->blockService->copyBlock(
-            new Block(array('published' => false, 'definition' => new BlockDefinition('blockDef'))),
+            new Block(array('status' => Value::STATUS_DRAFT, 'definition' => new BlockDefinition('blockDef'))),
             new Block(
                 array(
-                    'published' => false,
+                    'status' => Value::STATUS_DRAFT,
                     'definition' => new ContainerDefinition(
                         'blockDef',
                         array(),
@@ -259,8 +260,8 @@ final class BlockServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->blockService->copyBlockToZone(
-            new Block(array('published' => false, 'definition' => new BlockDefinition('blockDef'))),
-            new Zone(array('published' => false, 'identifier' => 'right'))
+            new Block(array('status' => Value::STATUS_DRAFT, 'definition' => new BlockDefinition('blockDef'))),
+            new Zone(array('status' => Value::STATUS_DRAFT, 'identifier' => 'right'))
         );
     }
 
@@ -292,10 +293,10 @@ final class BlockServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->blockService->moveBlock(
-            new Block(array('published' => false, 'definition' => new BlockDefinition('blockDef'))),
+            new Block(array('status' => Value::STATUS_DRAFT, 'definition' => new BlockDefinition('blockDef'))),
             new Block(
                 array(
-                    'published' => false,
+                    'status' => Value::STATUS_DRAFT,
                     'definition' => new ContainerDefinition(
                         'blockDef',
                         array(),
@@ -346,8 +347,8 @@ final class BlockServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->blockService->moveBlockToZone(
-            new Block(array('published' => false, 'definition' => new BlockDefinition('blockDef'))),
-            new Zone(array('published' => false, 'identifier' => 'right')),
+            new Block(array('status' => Value::STATUS_DRAFT, 'definition' => new BlockDefinition('blockDef'))),
+            new Zone(array('status' => Value::STATUS_DRAFT, 'identifier' => 'right')),
             0
         );
     }
@@ -373,7 +374,7 @@ final class BlockServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->blockService->restoreBlock(new Block(array('published' => false)));
+        $this->blockService->restoreBlock(new Block(array('status' => Value::STATUS_DRAFT)));
     }
 
     /**
@@ -402,7 +403,7 @@ final class BlockServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->blockService->enableTranslations(new Block(array('published' => false)));
+        $this->blockService->enableTranslations(new Block(array('status' => Value::STATUS_DRAFT)));
     }
 
     /**
@@ -426,7 +427,7 @@ final class BlockServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->blockService->disableTranslations(new Block(array('published' => false)));
+        $this->blockService->disableTranslations(new Block(array('status' => Value::STATUS_DRAFT)));
     }
 
     /**
@@ -450,7 +451,7 @@ final class BlockServiceTest extends ServiceTestCase
             ->expects($this->once())
             ->method('rollbackTransaction');
 
-        $this->blockService->deleteBlock(new Block(array('published' => false)));
+        $this->blockService->deleteBlock(new Block(array('status' => Value::STATUS_DRAFT)));
     }
 
     /**

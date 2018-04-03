@@ -3,22 +3,17 @@
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Stubs;
 
 use Netgen\BlockManager\API\Values\Value as APIValue;
+use Netgen\BlockManager\Core\Values\Value as BaseValue;
 
-final class Value implements APIValue
+final class Value extends BaseValue implements APIValue
 {
-    private $valueParams;
-
-    public function __construct($valueParams)
-    {
-        $this->valueParams = $valueParams;
-    }
+    /**
+     * @var int
+     */
+    protected $id;
 
     /**
-     * Returns the status of the value.
-     *
-     * @return int
+     * @var string
      */
-    public function getStatus()
-    {
-    }
+    protected $locale;
 }

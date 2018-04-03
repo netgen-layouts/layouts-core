@@ -62,7 +62,6 @@ final class LayoutMapper
 
                 return null;
             },
-            'published' => $zone->status === Value::STATUS_PUBLISHED,
         );
 
         return new Zone($zoneData);
@@ -98,7 +97,6 @@ final class LayoutMapper
             'mainLocale' => $layout->mainLocale,
             'availableLocales' => $layout->availableLocales,
             'zones' => $zones,
-            'published' => $layout->status === Value::STATUS_PUBLISHED,
         );
 
         return new Layout($layoutData);

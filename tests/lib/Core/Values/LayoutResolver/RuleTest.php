@@ -21,7 +21,6 @@ final class RuleTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getComment
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getTargets
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::getConditions
-     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Rule::isPublished
      */
     public function testSetDefaultProperties()
     {
@@ -33,7 +32,6 @@ final class RuleTest extends TestCase
         $this->assertNull($rule->getPriority());
         $this->assertNull($rule->isEnabled());
         $this->assertNull($rule->getComment());
-        $this->assertNull($rule->isPublished());
         $this->assertNull($rule->getTargets());
         $this->assertNull($rule->getConditions());
     }
@@ -62,7 +60,6 @@ final class RuleTest extends TestCase
                 'comment' => 'Comment',
                 'targets' => array(new Target(), new Target()),
                 'conditions' => array(new Condition()),
-                'published' => true,
             )
         );
 
@@ -86,7 +83,7 @@ final class RuleTest extends TestCase
             array(
                 'layout' => new Layout(array('id' => 24)),
                 'targets' => array(new Target(), new Target()),
-                'published' => true,
+                'status' => Rule::STATUS_PUBLISHED,
             )
         );
 
@@ -102,7 +99,7 @@ final class RuleTest extends TestCase
             array(
                 'layout' => new Layout(array('id' => 24)),
                 'targets' => array(new Target(), new Target()),
-                'published' => false,
+                'status' => Rule::STATUS_DRAFT,
             )
         );
 
@@ -118,7 +115,7 @@ final class RuleTest extends TestCase
             array(
                 'layout' => null,
                 'targets' => array(new Target(), new Target()),
-                'published' => true,
+                'status' => Rule::STATUS_PUBLISHED,
             )
         );
 
@@ -134,7 +131,7 @@ final class RuleTest extends TestCase
             array(
                 'layout' => new Layout(array('id' => 24)),
                 'targets' => array(),
-                'published' => true,
+                'status' => Rule::STATUS_PUBLISHED,
             )
         );
 

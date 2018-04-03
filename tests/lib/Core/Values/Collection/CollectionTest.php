@@ -20,7 +20,6 @@ final class CollectionTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getItems
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getQuery
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::hasQuery
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isPublished
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getMainLocale
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getAvailableLocales
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::isTranslatable
@@ -35,7 +34,6 @@ final class CollectionTest extends TestCase
         $this->assertNull($collection->getStatus());
         $this->assertNull($collection->getOffset());
         $this->assertNull($collection->getLimit());
-        $this->assertNull($collection->isPublished());
         $this->assertNull($collection->getMainLocale());
         $this->assertEquals(array(), $collection->getAvailableLocales());
         $this->assertNull($collection->isTranslatable());
@@ -85,7 +83,6 @@ final class CollectionTest extends TestCase
                 'status' => Value::STATUS_PUBLISHED,
                 'offset' => 5,
                 'limit' => 10,
-                'published' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => array('en', 'hr'),
                 'isTranslatable' => true,

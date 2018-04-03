@@ -5,7 +5,7 @@ namespace Netgen\BlockManager\Tests\Collection\Stubs;
 use DateTimeInterface;
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\Core\Values\Config\ConfigAwareValueTrait;
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Core\Values\Value;
 
 final class Item extends Value implements APIItem
 {
@@ -17,11 +17,6 @@ final class Item extends Value implements APIItem
     protected $id;
 
     /**
-     * @var int
-     */
-    protected $status;
-
-    /**
      * @var int|string
      */
     protected $collectionId;
@@ -30,11 +25,6 @@ final class Item extends Value implements APIItem
      * @var \Netgen\BlockManager\Collection\Item\ItemDefinitionInterface
      */
     protected $definition;
-
-    /**
-     * @var bool
-     */
-    protected $published;
 
     /**
      * @var int
@@ -66,11 +56,6 @@ final class Item extends Value implements APIItem
         return $this->id;
     }
 
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
     public function getCollectionId()
     {
         return $this->collectionId;
@@ -79,11 +64,6 @@ final class Item extends Value implements APIItem
     public function getDefinition()
     {
         return $this->definition;
-    }
-
-    public function isPublished()
-    {
-        return $this->published;
     }
 
     public function getPosition()

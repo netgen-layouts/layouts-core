@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Core\Values\LayoutResolver;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\Condition as APICondition;
-use Netgen\BlockManager\Value;
+use Netgen\BlockManager\Core\Values\Value;
 
 final class Condition extends Value implements APICondition
 {
@@ -11,11 +11,6 @@ final class Condition extends Value implements APICondition
      * @var int|string
      */
     protected $id;
-
-    /**
-     * @var int
-     */
-    protected $status;
 
     /**
      * @var int|string
@@ -28,11 +23,6 @@ final class Condition extends Value implements APICondition
     protected $conditionType;
 
     /**
-     * @var bool
-     */
-    protected $published;
-
-    /**
      * @var mixed
      */
     protected $value;
@@ -40,11 +30,6 @@ final class Condition extends Value implements APICondition
     public function getId()
     {
         return $this->id;
-    }
-
-    public function getStatus()
-    {
-        return $this->status;
     }
 
     public function getRuleId()
@@ -55,11 +40,6 @@ final class Condition extends Value implements APICondition
     public function getConditionType()
     {
         return $this->conditionType;
-    }
-
-    public function isPublished()
-    {
-        return $this->published;
     }
 
     public function getValue()

@@ -16,7 +16,6 @@ final class TargetTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getRuleId
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getTargetType
      * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::getValue
-     * @covers \Netgen\BlockManager\Core\Values\LayoutResolver\Target::isPublished
      */
     public function testSetDefaultProperties()
     {
@@ -27,7 +26,6 @@ final class TargetTest extends TestCase
         $this->assertNull($target->getRuleId());
         $this->assertNull($target->getTargetType());
         $this->assertNull($target->getValue());
-        $this->assertNull($target->isPublished());
     }
 
     /**
@@ -48,7 +46,6 @@ final class TargetTest extends TestCase
                 'ruleId' => 30,
                 'targetType' => new TargetType('target'),
                 'value' => 32,
-                'published' => true,
             )
         );
 

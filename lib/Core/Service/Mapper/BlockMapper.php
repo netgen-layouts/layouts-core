@@ -116,7 +116,6 @@ final class BlockMapper
             'name' => $block->name,
             'parentPosition' => $block->position !== null ? $block->position : null,
             'status' => $block->status,
-            'published' => $block->status === Value::STATUS_PUBLISHED,
             'placeholders' => $this->mapPlaceholders($block, $blockDefinition, $locales),
             'collectionReferences' => $this->mapCollectionReferences($block, $locales),
             'configs' => $this->configMapper->mapConfig($block->config, $blockDefinition->getConfigDefinitions()),

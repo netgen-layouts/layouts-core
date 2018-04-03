@@ -24,7 +24,7 @@ final class ParamConverterTest extends TestCase
         $this->assertTrue($paramConverter->apply($request, $configuration));
         $this->assertTrue($request->attributes->has('value'));
         $this->assertEquals(
-            new Value(array('id' => 42, 'published' => false)),
+            new Value(array('id' => 42, 'status' => Value::STATUS_DRAFT)),
             $request->attributes->get('value')
         );
     }
@@ -44,7 +44,7 @@ final class ParamConverterTest extends TestCase
         $this->assertTrue($paramConverter->apply($request, $configuration));
         $this->assertTrue($request->attributes->has('value'));
         $this->assertEquals(
-            new Value(array('id' => 42, 'locale' => 'en', 'published' => false)),
+            new Value(array('id' => 42, 'locale' => 'en', 'status' => Value::STATUS_DRAFT)),
             $request->attributes->get('value')
         );
     }
@@ -64,7 +64,7 @@ final class ParamConverterTest extends TestCase
         $this->assertTrue($paramConverter->apply($request, $configuration));
         $this->assertTrue($request->attributes->has('value'));
         $this->assertEquals(
-            new Value(array('id' => 42, 'published' => true)),
+            new Value(array('id' => 42, 'status' => Value::STATUS_PUBLISHED)),
             $request->attributes->get('value')
         );
     }
@@ -84,7 +84,7 @@ final class ParamConverterTest extends TestCase
         $this->assertTrue($paramConverter->apply($request, $configuration));
         $this->assertTrue($request->attributes->has('value'));
         $this->assertEquals(
-            new Value(array('id' => 42, 'published' => false)),
+            new Value(array('id' => 42, 'status' => Value::STATUS_DRAFT)),
             $request->attributes->get('value')
         );
     }
@@ -104,7 +104,7 @@ final class ParamConverterTest extends TestCase
         $this->assertTrue($paramConverter->apply($request, $configuration));
         $this->assertTrue($request->attributes->has('value'));
         $this->assertEquals(
-            new Value(array('id' => 42, 'published' => true)),
+            new Value(array('id' => 42, 'status' => Value::STATUS_PUBLISHED)),
             $request->attributes->get('value')
         );
     }
@@ -124,7 +124,7 @@ final class ParamConverterTest extends TestCase
         $this->assertTrue($paramConverter->apply($request, $configuration));
         $this->assertTrue($request->attributes->has('value'));
         $this->assertEquals(
-            new Value(array('id' => 42, 'published' => false)),
+            new Value(array('id' => 42, 'status' => Value::STATUS_DRAFT)),
             $request->attributes->get('value')
         );
     }
