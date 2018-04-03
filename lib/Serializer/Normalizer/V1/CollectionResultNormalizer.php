@@ -28,13 +28,13 @@ final class CollectionResultNormalizer implements NormalizerInterface
     {
         /** @var \Netgen\BlockManager\Collection\Result\Result $result */
         $result = $object->getValue();
-        $cmsItem = $result->getItem();
+        $resultItem = $result->getItem();
 
-        $data = $this->normalizeCmsItem($cmsItem);
+        $data = $this->normalizeResultItem($resultItem);
         $data['position'] = $result->getPosition();
 
         if ($result->getSubItem() instanceof ItemInterface) {
-            $data['sub_item'] = $this->normalizeCmsItem($result->getSubItem());
+            $data['sub_item'] = $this->normalizeResultItem($result->getSubItem());
         }
 
         return $data;
@@ -50,24 +50,24 @@ final class CollectionResultNormalizer implements NormalizerInterface
     }
 
     /**
-     * Normalizes the provided CMS item into an array.
+     * Normalizes the provided result item into an array.
      *
-     * @param \Netgen\BlockManager\Item\ItemInterface $cmsItem
+     * @param \Netgen\BlockManager\Item\ItemInterface $resultItem
      *
      * @return array
      */
-    private function normalizeCmsItem(ItemInterface $cmsItem)
+    private function normalizeResultItem(ItemInterface $resultItem)
     {
         $itemUrl = null;
         $collectionItem = null;
 
-        if ($cmsItem instanceof ManualItem) {
-            $collectionItem = $cmsItem->getCollectionItem();
-            if (!$cmsItem->getInnerItem() instanceof NullItem) {
-                $itemUrl = $this->urlBuilder->getUrl($cmsItem->getInnerItem());
+        if ($resultItem instanceof ManualItem) {
+            $collectionItem = $resultItem->getCollectionItem();
+            if (!$resultItem->getCollectionItem()->getCmsItem() instanceof NullItem) {
+                $itemUrl = $this->urlBuilder->getUrl($resultItem->getCollectionItem()->getCmsItem());
             }
-        } elseif (!$cmsItem instanceof Slot) {
-            $itemUrl = $this->urlBuilder->getUrl($cmsItem);
+        } elseif (!$resultItem instanceof Slot) {
+            $itemUrl = $this->urlBuilder->getUrl($resultItem);
         }
 
         return array(
@@ -75,11 +75,11 @@ final class CollectionResultNormalizer implements NormalizerInterface
             'collection_id' => $collectionItem !== null ? $collectionItem->getCollectionId() : null,
             'visible' => $collectionItem !== null ? $collectionItem->isVisible() : true,
             'scheduled' => $collectionItem !== null ? $collectionItem->isScheduled() : false,
-            'is_dynamic' => $cmsItem instanceof ManualItem ? false : true,
-            'value' => $cmsItem->getValue(),
-            'value_type' => $cmsItem->getValueType(),
-            'name' => $cmsItem->getName(),
-            'cms_visible' => $cmsItem->isVisible(),
+            'is_dynamic' => $resultItem instanceof ManualItem ? false : true,
+            'value' => $resultItem->getValue(),
+            'value_type' => $resultItem->getValueType(),
+            'name' => $resultItem->getName(),
+            'cms_visible' => $resultItem->isVisible(),
             'cms_url' => $itemUrl,
         );
     }

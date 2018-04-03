@@ -7,6 +7,7 @@ use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\Core\Service\Mapper\Proxy\LazyLoadingProxyTrait;
 use Netgen\BlockManager\Core\Values\Config\ConfigAwareValueTrait;
 use Netgen\BlockManager\Core\Values\Value;
+use Netgen\BlockManager\Item\NullItem;
 use Netgen\BlockManager\Utils\DateTimeUtils;
 
 final class Item extends Value implements APIItem
@@ -114,5 +115,14 @@ final class Item extends Value implements APIItem
         $visibleTo = $visibilityConfig->getParameter('visible_to')->getValue();
 
         return DateTimeUtils::isBetweenDates($reference, $visibleFrom, $visibleTo);
+    }
+
+    public function isValid()
+    {
+        if ($this->getCmsItem() instanceof NullItem) {
+            return false;
+        }
+
+        return $this->isVisible() && $this->getCmsItem()->isVisible();
     }
 }

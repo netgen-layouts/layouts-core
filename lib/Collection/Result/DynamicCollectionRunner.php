@@ -52,8 +52,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
             }
 
             if ($item->getType() !== CollectionItem::TYPE_OVERRIDE || $item->getPosition() === $totalCount) {
-                $manualItem = new ManualItem($item);
-                if ($manualItem->isValid()) {
+                if ($item->isValid()) {
                     ++$totalCount;
                 }
             }
@@ -62,38 +61,53 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
         return $totalCount;
     }
 
+    /**
+     * Builds the result from an override item.
+     *
+     * Override items always cover the dynamic item, even when invisible or invalid.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Item $collectionItem
+     * @param \Iterator $queryIterator
+     *
+     * @return \Netgen\BlockManager\Collection\Result\Result
+     */
     private function buildOverrideResult(CollectionItem $collectionItem, Iterator $queryIterator)
     {
-        // Override items always cover the dynamic item, even when invisible or invalid
-        $manualItem = new ManualItem($collectionItem);
         $queryValue = $this->getQueryValue($queryIterator);
 
-        if (!$manualItem->isValid()) {
+        if (!$collectionItem->isValid()) {
             if (!$queryValue instanceof CmsItem) {
                 return null;
             }
 
-            return new Result($collectionItem->getPosition(), $queryValue, $manualItem);
+            return new Result($collectionItem->getPosition(), $queryValue, new ManualItem($collectionItem));
         }
 
-        return new Result($collectionItem->getPosition(), $manualItem, $queryValue);
+        return new Result($collectionItem->getPosition(), new ManualItem($collectionItem), $queryValue);
     }
 
+    /**
+     * Builds the result from a manual item.
+     *
+     * Manual items are replaced by dynamic ones when invisible or invalid.
+     *
+     * @param \Netgen\BlockManager\API\Values\Collection\Item $collectionItem
+     * @param \Iterator $queryIterator
+     *
+     * @return \Netgen\BlockManager\Collection\Result\Result
+     */
     private function buildManualResult(CollectionItem $collectionItem, Iterator $queryIterator)
     {
-        $manualItem = new ManualItem($collectionItem);
-
-        if (!$manualItem->isValid()) {
-            // Manual items are replaced by dynamic ones only when invisible or invalid
+        if (!$collectionItem->isValid()) {
             $queryValue = $this->getQueryValue($queryIterator);
             if (!$queryValue instanceof CmsItem) {
                 return null;
             }
 
-            return new Result($collectionItem->getPosition(), $queryValue, $manualItem);
+            return new Result($collectionItem->getPosition(), $queryValue, new ManualItem($collectionItem));
         }
 
-        return new Result($collectionItem->getPosition(), $manualItem);
+        return new Result($collectionItem->getPosition(), new ManualItem($collectionItem));
     }
 
     /**
@@ -150,8 +164,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
                 continue;
             }
 
-            $manualItem = new ManualItem($item);
-            if ($manualItem->isValid()) {
+            if ($item->isValid()) {
                 ++$manualItemsCount;
             }
         }

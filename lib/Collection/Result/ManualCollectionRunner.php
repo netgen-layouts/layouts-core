@@ -19,12 +19,11 @@ final class ManualCollectionRunner implements CollectionRunnerInterface
                 continue;
             }
 
-            $manualItem = new ManualItem($collectionItem);
-            if (!$manualItem->isValid()) {
+            if (!$collectionItem->isValid()) {
                 continue;
             }
 
-            yield new Result($collectionItem->getPosition(), $manualItem);
+            yield new Result($collectionItem->getPosition(), new ManualItem($collectionItem));
 
             ++$itemCount;
         }
@@ -35,8 +34,7 @@ final class ManualCollectionRunner implements CollectionRunnerInterface
         $totalCount = 0;
 
         foreach ($collection->getItems() as $collectionItem) {
-            $manualItem = new ManualItem($collectionItem);
-            if (!$manualItem->isValid()) {
+            if (!$collectionItem->isValid()) {
                 continue;
             }
 

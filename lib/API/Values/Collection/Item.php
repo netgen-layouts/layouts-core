@@ -124,4 +124,12 @@ interface Item extends Value, ConfigAwareValue
      * @return string
      */
     public function isVisible(DateTimeInterface $reference = null);
+
+    /**
+     * Returns if the item is valid. An item is valid if it is visible (both the collection item
+     * and CMS item) and if CMS item actually exists in the CMS.
+     *
+     * @return bool
+     */
+    public function isValid();
 }

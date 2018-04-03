@@ -100,4 +100,9 @@ final class Item extends Value implements APIItem
     {
         return true;
     }
+
+    public function isValid()
+    {
+        return true;
+    }
 }
