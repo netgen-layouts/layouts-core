@@ -36,58 +36,44 @@ final class LayoutResolver implements LayoutResolverInterface
         $this->requestStack = $requestStack;
     }
 
-    public function resolveRules(Request $request = null, array $enabledConditions = null)
+    /**
+     * Resolves the rules based on the provided request and returns the first resolved rule
+     * or null if no rules were resolved.
+     *
+     * If no request is provided, current request is used.
+     *
+     * If $enabledConditions is not null, only the conditions listed in the array will be enabled.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param array $enabledConditions
+     *
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule|null
+     */
+    public function resolveRule(Request $request = null, array $enabledConditions = null)
     {
-        $request = $request ?: $this->requestStack->getCurrentRequest();
+        $resolvedRules = $this->innerResolveRules($request, $enabledConditions);
 
-        $resolvedRules = array();
-
-        foreach ($this->targetTypeRegistry->getTargetTypes() as $targetType) {
-            $targetValue = $targetType->provideValue($request);
-            if ($targetValue === null) {
-                continue;
-            }
-
-            $matchedRules = $this->matchRules($targetType->getType(), $targetValue);
-
-            foreach ($matchedRules as $matchedRule) {
-                if (!$this->matches($matchedRule, $request, $enabledConditions)) {
-                    continue;
-                }
-
-                $resolvedRules[] = $matchedRule;
+        foreach ($resolvedRules as $resolvedRule) {
+            if ($resolvedRule->getLayout() instanceof Layout) {
+                return $resolvedRule;
             }
         }
 
-        usort(
-            $resolvedRules,
-            function (Rule $a, Rule $b) {
-                return $b->getPriority() - $a->getPriority();
-            }
-        );
-
-        return $resolvedRules;
+        return null;
     }
 
-    public function matchRules($targetType, $targetValue)
+    public function resolveRules(Request $request = null, array $enabledConditions = null)
     {
-        $rules = $this->layoutResolverService->matchRules($targetType, $targetValue);
+        $resolvedRules = $this->innerResolveRules($request, $enabledConditions);
 
-        if (empty($rules)) {
-            return array();
-        }
-
-        $matchedRules = array();
-
-        foreach ($rules as $rule) {
-            if (!$rule->isEnabled() || !$rule->getLayout() instanceof Layout) {
-                continue;
-            }
-
-            $matchedRules[] = $rule;
-        }
-
-        return $matchedRules;
+        return array_values(
+            array_filter(
+                $resolvedRules,
+                function (Rule $rule) {
+                    return $rule->getLayout() instanceof Layout;
+                }
+            )
+        );
     }
 
     public function matches(Rule $rule, Request $request, array $enabledConditions = null)
@@ -105,5 +91,38 @@ final class LayoutResolver implements LayoutResolverInterface
         }
 
         return true;
+    }
+
+    private function innerResolveRules(Request $request = null, array $enabledConditions = null)
+    {
+        $request = $request ?: $this->requestStack->getCurrentRequest();
+
+        $resolvedRules = array();
+
+        foreach ($this->targetTypeRegistry->getTargetTypes() as $targetType) {
+            $targetValue = $targetType->provideValue($request);
+            if ($targetValue === null) {
+                continue;
+            }
+
+            $matchedRules = $this->layoutResolverService->matchRules($targetType->getType(), $targetValue);
+
+            foreach ($matchedRules as $matchedRule) {
+                if (!$matchedRule->isEnabled() || !$this->matches($matchedRule, $request, $enabledConditions)) {
+                    continue;
+                }
+
+                $resolvedRules[] = $matchedRule;
+            }
+        }
+
+        usort(
+            $resolvedRules,
+            function (Rule $a, Rule $b) {
+                return $b->getPriority() - $a->getPriority();
+            }
+        );
+
+        return $resolvedRules;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig;
 
+use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface;
 use Netgen\BlockManager\View\View\LayoutViewInterface;
 use Netgen\BlockManager\View\ViewBuilderInterface;
@@ -205,13 +206,13 @@ final class GlobalVariable
 
         $layoutView = false;
 
-        $resolvedRules = $this->layoutResolver->resolveRules();
-        if (!empty($resolvedRules)) {
+        $resolvedRule = $this->layoutResolver->resolveRule();
+        if ($resolvedRule instanceof Rule) {
             $layoutView = $this->viewBuilder->buildView(
-                $resolvedRules[0]->getLayout(),
+                $resolvedRule->getLayout(),
                 $context,
                 array(
-                    'rule' => $resolvedRules[0],
+                    'rule' => $resolvedRule,
                 )
             );
         }

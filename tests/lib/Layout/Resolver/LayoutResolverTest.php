@@ -56,7 +56,6 @@ final class LayoutResolverTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::__construct
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRules
-     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::matchRules
      */
     public function testResolveRules()
     {
@@ -127,7 +126,7 @@ final class LayoutResolverTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRules
-     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::matchRules
+     * @group a
      */
     public function testResolveRulesWithInvalidRule()
     {
@@ -164,7 +163,6 @@ final class LayoutResolverTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRules
-     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::matchRules
      */
     public function testResolveRulesWithNoValidRules()
     {
@@ -175,6 +173,8 @@ final class LayoutResolverTest extends TestCase
                 'layout' => null,
                 'priority' => 2,
                 'enabled' => true,
+                'targets' => new ArrayCollection(),
+                'conditions' => new ArrayCollection(),
             )
         );
 
@@ -183,6 +183,8 @@ final class LayoutResolverTest extends TestCase
                 'layout' => null,
                 'priority' => 4,
                 'enabled' => true,
+                'targets' => new ArrayCollection(),
+                'conditions' => new ArrayCollection(),
             )
         );
 
@@ -197,7 +199,6 @@ final class LayoutResolverTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRules
-     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::matchRules
      */
     public function testResolveRulesWithNoTargetValue()
     {
@@ -250,7 +251,6 @@ final class LayoutResolverTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRules
-     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::matchRules
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::matches
      *
      * @param array $matches
@@ -289,7 +289,6 @@ final class LayoutResolverTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRules
-     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::matchRules
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::matches
      *
      * @param array $matches
@@ -327,73 +326,260 @@ final class LayoutResolverTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::matchRules
+     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRule
      */
-    public function testMatchRules()
+    public function testResolveRule()
     {
+        $this->targetTypeRegistry->addTargetType(new TargetType('target1', 42));
+        $this->targetTypeRegistry->addTargetType(new TargetType('target2', 84));
+
         $rule1 = new Rule(
             array(
                 'layout' => new Layout(array('id' => 12)),
+                'priority' => 2,
                 'enabled' => true,
+                'targets' => new ArrayCollection(),
+                'conditions' => new ArrayCollection(),
             )
         );
 
         $rule2 = new Rule(
             array(
                 'layout' => new Layout(array('id' => 13)),
+                'priority' => 4,
                 'enabled' => true,
+                'targets' => new ArrayCollection(),
+                'conditions' => new ArrayCollection(),
+            )
+        );
+
+        $rule3 = new Rule(
+            array(
+                'layout' => new Layout(array('id' => 14)),
+                'priority' => 5,
+                'enabled' => true,
+                'targets' => new ArrayCollection(),
+                'conditions' => new ArrayCollection(),
+            )
+        );
+
+        $rule4 = new Rule(
+            array(
+                'layout' => new Layout(array('id' => 15)),
+                'priority' => 4,
+                'enabled' => true,
+                'targets' => new ArrayCollection(),
+                'conditions' => new ArrayCollection(),
             )
         );
 
         $this->layoutResolverServiceMock
-            ->expects($this->once())
+            ->expects($this->at(0))
             ->method('matchRules')
-            ->with($this->equalTo('target'), $this->equalTo(42))
+            ->with($this->equalTo('target1'), $this->equalTo(42))
             ->will($this->returnValue(array($rule1, $rule2)));
 
-        $this->assertEquals(array($rule1, $rule2), $this->layoutResolver->matchRules('target', 42));
+        $this->layoutResolverServiceMock
+            ->expects($this->at(1))
+            ->method('matchRules')
+            ->with($this->equalTo('target2'), $this->equalTo(84))
+            ->will($this->returnValue(array($rule3, $rule4)));
+
+        $this->assertEquals($rule3, $this->layoutResolver->resolveRule());
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::matchRules
+     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRule
      */
-    public function testMatchRulesWithInvalidRules()
+    public function testResolveRuleWithInvalidRule()
     {
+        $this->targetTypeRegistry->addTargetType(new TargetType('target1', 42));
+
+        $rule1 = new Rule(
+            array(
+                'layout' => new Layout(array('id' => 12)),
+                'priority' => 2,
+                'enabled' => true,
+                'targets' => new ArrayCollection(),
+                'conditions' => new ArrayCollection(),
+            )
+        );
+
+        $rule2 = new Rule(
+            array(
+                'layout' => null,
+                'priority' => 4,
+                'enabled' => true,
+                'targets' => new ArrayCollection(),
+                'conditions' => new ArrayCollection(),
+            )
+        );
+
+        $this->layoutResolverServiceMock
+            ->expects($this->at(0))
+            ->method('matchRules')
+            ->with($this->equalTo('target1'), $this->equalTo(42))
+            ->will($this->returnValue(array($rule1, $rule2)));
+
+        $this->assertEquals($rule1, $this->layoutResolver->resolveRule());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRule
+     */
+    public function testResolveRuleWithNoValidRules()
+    {
+        $this->targetTypeRegistry->addTargetType(new TargetType('target1', 42));
+
         $rule1 = new Rule(
             array(
                 'layout' => null,
+                'priority' => 2,
                 'enabled' => true,
+                'targets' => new ArrayCollection(),
+                'conditions' => new ArrayCollection(),
+            )
+        );
+
+        $rule2 = new Rule(
+            array(
+                'layout' => null,
+                'priority' => 4,
+                'enabled' => true,
+                'targets' => new ArrayCollection(),
+                'conditions' => new ArrayCollection(),
+            )
+        );
+
+        $this->layoutResolverServiceMock
+            ->expects($this->at(0))
+            ->method('matchRules')
+            ->with($this->equalTo('target1'), $this->equalTo(42))
+            ->will($this->returnValue(array($rule1, $rule2)));
+
+        $this->assertNull($this->layoutResolver->resolveRule());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRule
+     */
+    public function testResolveRuleWithNoTargetValue()
+    {
+        $this->targetTypeRegistry->addTargetType(new TargetType('target1', null));
+        $this->targetTypeRegistry->addTargetType(new TargetType('target2', 84));
+
+        $rule1 = new Rule(
+            array(
+                'layout' => new Layout(array('id' => 13)),
+                'priority' => 5,
+                'enabled' => true,
+                'targets' => new ArrayCollection(),
+                'conditions' => new ArrayCollection(),
             )
         );
 
         $rule2 = new Rule(
             array(
                 'layout' => new Layout(array('id' => 13)),
-                'enabled' => false,
+                'priority' => 7,
+                'enabled' => true,
+                'targets' => new ArrayCollection(),
+                'conditions' => new ArrayCollection(),
+            )
+        );
+
+        $this->layoutResolverServiceMock
+            ->expects($this->at(0))
+            ->method('matchRules')
+            ->with($this->equalTo('target2'), $this->equalTo(84))
+            ->will($this->returnValue(array($rule1, $rule2)));
+
+        $this->assertEquals($rule2, $this->layoutResolver->resolveRule());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRule
+     */
+    public function testResolveRuleWithNoTargetValues()
+    {
+        $this->targetTypeRegistry->addTargetType(new TargetType('target1', null));
+        $this->targetTypeRegistry->addTargetType(new TargetType('target2', null));
+
+        $this->layoutResolverServiceMock
+            ->expects($this->never())
+            ->method('matchRules');
+
+        $this->assertNull($this->layoutResolver->resolveRule());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRule
+     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::matches
+     *
+     * @param array $matches
+     * @param int $layoutId
+     *
+     * @dataProvider resolveRulesWithPartialRuleConditionsProvider
+     */
+    public function testResolveRuleWithConditionsAndPartialConditionMatching(array $matches, $layoutId)
+    {
+        $this->targetTypeRegistry->addTargetType(new TargetType('target', 42));
+
+        $conditions = array();
+        foreach ($matches as $conditionType => $match) {
+            $conditions[] = new Condition(array('conditionType' => new ConditionType($conditionType, $match)));
+        }
+
+        $rule = new Rule(
+            array(
+                'layout' => new Layout(array('id' => $layoutId)),
+                'enabled' => true,
+                'conditions' => $conditions,
             )
         );
 
         $this->layoutResolverServiceMock
             ->expects($this->once())
             ->method('matchRules')
-            ->with($this->equalTo('target'), $this->equalTo(42))
-            ->will($this->returnValue(array($rule1, $rule2)));
+            ->with($this->equalTo('target', 42))
+            ->will($this->returnValue(array($rule)));
 
-        $this->assertEquals(array(), $this->layoutResolver->matchRules('target', 42));
+        $this->assertEquals($layoutId !== null ? $rule : null, $this->layoutResolver->resolveRule(null, array('condition2')));
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::matchRules
+     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRule
+     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::matches
+     *
+     * @param array $matches
+     * @param int $layoutId
+     *
+     * @dataProvider resolveRulesWithRuleConditionsProvider
      */
-    public function testMatchRulesWithNoRules()
+    public function testResolveRuleWithConditions(array $matches, $layoutId)
     {
+        $this->targetTypeRegistry->addTargetType(new TargetType('target', 42));
+
+        $conditions = array();
+        foreach ($matches as $conditionType => $match) {
+            $conditions[] = new Condition(array('conditionType' => new ConditionType($conditionType, $match)));
+        }
+
+        $rule = new Rule(
+            array(
+                'layout' => new Layout(array('id' => $layoutId)),
+                'enabled' => true,
+                'conditions' => $conditions,
+            )
+        );
+
         $this->layoutResolverServiceMock
             ->expects($this->once())
             ->method('matchRules')
-            ->with($this->equalTo('target'), $this->equalTo(42))
-            ->will($this->returnValue(array()));
+            ->with($this->equalTo('target', 42))
+            ->will($this->returnValue(array($rule)));
 
-        $this->assertEquals(array(), $this->layoutResolver->matchRules('target', 42));
+        $this->assertEquals($layoutId !== null ? $rule : null, $this->layoutResolver->resolveRule());
     }
 
     /**

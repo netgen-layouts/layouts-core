@@ -8,6 +8,21 @@ use Symfony\Component\HttpFoundation\Request;
 interface LayoutResolverInterface
 {
     /**
+     * Resolves the rules based on the provided request and returns the first resolved rule
+     * or null if no rules were resolved.
+     *
+     * If no request is provided, current request is used.
+     *
+     * If $enabledConditions is not null, only the conditions listed in the array will be enabled.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param array $enabledConditions
+     *
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
+     */
+    public function resolveRule(Request $request = null, array $enabledConditions = null);
+
+    /**
      * Resolves the rules based on the provided request.
      *
      * If no request is provided, current request is used.
@@ -25,16 +40,6 @@ interface LayoutResolverInterface
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule[]
      */
     public function resolveRules(Request $request = null, array $enabledConditions = null);
-
-    /**
-     * Matches the rules based on provided target type and value.
-     *
-     * @param string $targetType
-     * @param mixed $targetValue
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule[]
-     */
-    public function matchRules($targetType, $targetValue);
 
     /**
      * Returns true if the rule matches the provided request.
