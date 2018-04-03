@@ -10,7 +10,6 @@ use PHPUnit\Framework\TestCase;
 final class ContextualQueryRunnerTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\ContextualQueryRunner::__construct
      * @covers \Netgen\BlockManager\Collection\Result\ContextualQueryRunner::__invoke
      * @covers \Netgen\BlockManager\Collection\Result\ContextualQueryRunner::count
      */

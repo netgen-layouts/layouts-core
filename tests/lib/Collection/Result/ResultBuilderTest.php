@@ -44,8 +44,6 @@ final class ResultBuilderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::__construct
      * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::build
-     * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::getResults
-     * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::includeResult
      */
     public function testBuildForManualCollection()
     {
@@ -70,8 +68,6 @@ final class ResultBuilderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::__construct
      * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::build
-     * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::getResults
-     * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::includeResult
      */
     public function testBuildWithLimitLargerThanMaxLimit()
     {
@@ -97,8 +93,6 @@ final class ResultBuilderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::build
-     * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::getResults
-     * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::includeResult
      */
     public function testBuildForDynamicCollection()
     {

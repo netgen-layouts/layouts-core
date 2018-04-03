@@ -30,9 +30,8 @@ final class ManualCollectionRunnerTest extends TestCase
      * @param int $offset
      * @param int $limit
      *
-     * @covers \Netgen\BlockManager\Collection\Result\CollectionRunner::__construct
-     * @covers \Netgen\BlockManager\Collection\Result\CollectionRunner::count
-     * @covers \Netgen\BlockManager\Collection\Result\CollectionRunner::__invoke
+     * @covers \Netgen\BlockManager\Collection\Result\ManualCollectionRunner::count
+     * @covers \Netgen\BlockManager\Collection\Result\ManualCollectionRunner::__invoke
      *
      * @dataProvider manualCollectionProvider
      */

@@ -23,9 +23,9 @@ final class BlockTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getPlaceholders
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getPlaceholder
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasPlaceholder
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getCollectionReferences
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getCollectionReference
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasCollectionReference
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getCollections
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getCollection
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasCollection
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getViewType
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getItemViewType
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getName
@@ -72,9 +72,9 @@ final class BlockTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getPlaceholders
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getPlaceholder
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasPlaceholder
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getCollectionReferences
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getCollectionReference
-     * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasCollectionReference
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getCollections
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::getCollection
+     * @covers \Netgen\BlockManager\Core\Values\Block\Block::hasCollection
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getViewType
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getItemViewType
      * @covers \Netgen\BlockManager\Core\Values\Block\Block::getName

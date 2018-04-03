@@ -44,9 +44,9 @@ final class DynamicCollectionRunnerTest extends TestCase
      * @param int $offset
      * @param int $limit
      *
-     * @covers \Netgen\BlockManager\Collection\Result\CollectionRunner::__construct
-     * @covers \Netgen\BlockManager\Collection\Result\CollectionRunner::count
-     * @covers \Netgen\BlockManager\Collection\Result\CollectionRunner::__invoke
+     * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::__construct
+     * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::count
+     * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::__invoke
      *
      * @dataProvider dynamicCollectionProvider
      */
