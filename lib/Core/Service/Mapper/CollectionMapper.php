@@ -95,27 +95,11 @@ final class CollectionMapper
 
         $collectionLocale = reset($validLocales);
 
-        $query = null;
-        $persistenceQuery = null;
-        $type = Collection::TYPE_MANUAL;
-
-        try {
-            $persistenceQuery = $this->collectionHandler->loadCollectionQuery($collection);
-        } catch (NotFoundException $e) {
-            // Do nothing
-        }
-
-        if ($persistenceQuery instanceof PersistenceQuery) {
-            $query = $this->mapQuery($persistenceQuery, $locales, false);
-            $type = Collection::TYPE_DYNAMIC;
-        }
-
         $collectionData = array(
             'id' => $collection->id,
             'status' => $collection->status,
             'offset' => $collection->offset,
             'limit' => $collection->limit,
-            'type' => $type,
             'items' => new LazyLoadedCollection(
                 function () use ($collection) {
                     return array_map(
@@ -126,7 +110,15 @@ final class CollectionMapper
                     );
                 }
             ),
-            'query' => $query,
+            'query' => function () use ($collection, $locales) {
+                try {
+                    $persistenceQuery = $this->collectionHandler->loadCollectionQuery($collection);
+                } catch (NotFoundException $e) {
+                    return null;
+                }
+
+                return $this->mapQuery($persistenceQuery, $locales, false);
+            },
             'published' => $collection->status === Value::STATUS_PUBLISHED,
             'isTranslatable' => $collection->isTranslatable,
             'mainLocale' => $collection->mainLocale,

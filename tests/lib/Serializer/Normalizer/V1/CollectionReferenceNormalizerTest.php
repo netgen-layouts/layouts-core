@@ -29,7 +29,6 @@ final class CollectionReferenceNormalizerTest extends TestCase
         $collection = new Collection(
             array(
                 'id' => 24,
-                'type' => Collection::TYPE_MANUAL,
                 'status' => Value::STATUS_PUBLISHED,
                 'offset' => 10,
                 'limit' => 5,
@@ -63,7 +62,6 @@ final class CollectionReferenceNormalizerTest extends TestCase
         $collection = new Collection(
             array(
                 'id' => 24,
-                'type' => Collection::TYPE_MANUAL,
                 'status' => Value::STATUS_DRAFT,
                 'offset' => 10,
                 'limit' => 5,

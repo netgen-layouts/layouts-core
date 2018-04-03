@@ -137,7 +137,7 @@ final class BlockCollectionController extends Controller
         $queryCreateStruct = null;
 
         if ($newType === Collection::TYPE_MANUAL) {
-            if ($collection->getType() === Collection::TYPE_MANUAL) {
+            if (!$collection->hasQuery()) {
                 // Noop
                 return new Response(null, Response::HTTP_NO_CONTENT);
             }

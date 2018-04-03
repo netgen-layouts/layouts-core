@@ -204,7 +204,7 @@ final class CollectionService extends Service implements APICollectionService
 
         $this->transaction(
             function () use ($collection, $persistenceCollection, $newType, $queryCreateStruct) {
-                if ($collection->getType() === Collection::TYPE_DYNAMIC) {
+                if ($collection->hasQuery()) {
                     $this->handler->deleteCollectionQuery($persistenceCollection);
                 }
 
@@ -245,7 +245,7 @@ final class CollectionService extends Service implements APICollectionService
         $this->validator->validatePosition(
             $position,
             'position',
-            $collection->getType() !== Collection::TYPE_MANUAL
+            $collection->hasQuery()
         );
 
         $this->validator->validateItemCreateStruct($itemCreateStruct);

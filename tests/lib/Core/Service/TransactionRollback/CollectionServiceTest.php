@@ -53,7 +53,7 @@ final class CollectionServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->collectionService->changeCollectionType(
-            new Collection(array('published' => false, 'type' => Collection::TYPE_DYNAMIC)),
+            new Collection(array('published' => false, 'query' => new Query())),
             Collection::TYPE_MANUAL
         );
     }

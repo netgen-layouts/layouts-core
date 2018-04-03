@@ -15,7 +15,6 @@ final class CollectionTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::__construct
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getId
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getStatus
-     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getType
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getOffset
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getLimit
      * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getItems
@@ -34,7 +33,6 @@ final class CollectionTest extends TestCase
 
         $this->assertNull($collection->getId());
         $this->assertNull($collection->getStatus());
-        $this->assertNull($collection->getType());
         $this->assertNull($collection->getOffset());
         $this->assertNull($collection->getLimit());
         $this->assertNull($collection->isPublished());
@@ -85,7 +83,6 @@ final class CollectionTest extends TestCase
             array(
                 'id' => 42,
                 'status' => Value::STATUS_PUBLISHED,
-                'type' => Collection::TYPE_DYNAMIC,
                 'offset' => 5,
                 'limit' => 10,
                 'published' => true,

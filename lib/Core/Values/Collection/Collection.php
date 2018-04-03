@@ -5,10 +5,13 @@ namespace Netgen\BlockManager\Core\Values\Collection;
 use Netgen\BlockManager\API\Values\Collection\Collection as APICollection;
 use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
 use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
+use Netgen\BlockManager\Core\Service\Mapper\Proxy\LazyLoadingProxyTrait;
 use Netgen\BlockManager\Value;
 
 final class Collection extends Value implements APICollection
 {
+    use LazyLoadingProxyTrait;
+
     /**
      * @var int|string
      */
@@ -18,11 +21,6 @@ final class Collection extends Value implements APICollection
      * @var int
      */
     protected $status;
-
-    /**
-     * @var int
-     */
-    protected $type;
 
     /**
      * @var bool
@@ -86,7 +84,7 @@ final class Collection extends Value implements APICollection
 
     public function getType()
     {
-        return $this->type;
+        return $this->hasQuery() ? self::TYPE_DYNAMIC : self::TYPE_MANUAL;
     }
 
     public function isPublished()
@@ -167,12 +165,12 @@ final class Collection extends Value implements APICollection
 
     public function getQuery()
     {
-        return $this->query;
+        return $this->getLazyLoadedProperty($this->query);
     }
 
     public function hasQuery()
     {
-        return $this->query instanceof APIQuery;
+        return $this->getLazyLoadedProperty($this->query) instanceof APIQuery;
     }
 
     public function getAvailableLocales()

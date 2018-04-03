@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
 use Netgen\BlockManager\Core\Values\Collection\Collection;
+use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Serializer\Normalizer\V1\CollectionNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
@@ -28,7 +29,7 @@ final class CollectionNormalizerTest extends TestCase
         $collection = new Collection(
             array(
                 'id' => 42,
-                'type' => Collection::TYPE_DYNAMIC,
+                'query' => new Query(),
                 'isTranslatable' => true,
                 'availableLocales' => array('en'),
                 'mainLocale' => 'en',
