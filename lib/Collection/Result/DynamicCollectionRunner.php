@@ -64,7 +64,13 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
     /**
      * Builds the result from an override item.
      *
-     * Override items always cover the dynamic item, even when invisible or invalid.
+     * This kind of result always has the main item and subitem. However, two cases are possible:
+     *
+     * 1) When override item is valid, than the subitem is a next value from the query, since
+     *    the nature of override item is that it covers the value coming from the query.
+     *
+     * 2) When override item is not valid, that the item itself is a subitem, and the main
+     *    item is a query value, just as it is the case with manual items.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Item $collectionItem
      * @param \Iterator $queryIterator
@@ -89,7 +95,8 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
     /**
      * Builds the result from a manual item.
      *
-     * Manual items are replaced by dynamic ones when invisible or invalid.
+     * When manual items are invisible or invalid, they are pushed to the subitem role,
+     * and the item which is displayed is the next query value.
      *
      * @param \Netgen\BlockManager\API\Values\Collection\Item $collectionItem
      * @param \Iterator $queryIterator
