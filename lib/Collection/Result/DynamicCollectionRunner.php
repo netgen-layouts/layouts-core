@@ -19,7 +19,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
         $this->queryRunner = $queryRunner;
     }
 
-    public function __invoke(Collection $collection, $offset, $limit)
+    public function __invoke(Collection $collection, $offset, $limit, $flags = 0)
     {
         $queryIterator = $this->getQueryIterator($collection, $offset, $limit);
 

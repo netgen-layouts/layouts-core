@@ -13,10 +13,11 @@ interface CollectionRunnerInterface
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      * @param int $offset
      * @param int $limit
+     * @param int $flags
      *
      * @return \Iterator
      */
-    public function __invoke(Collection $collection, $offset, $limit);
+    public function __invoke(Collection $collection, $offset, $limit, $flags = 0);
 
     /**
      * Returns the count of items in the provided collection.
