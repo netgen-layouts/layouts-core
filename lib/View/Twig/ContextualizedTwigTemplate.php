@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\View\Twig;
 
 use Exception;
+use Throwable;
 use Twig\Template;
 
 /**
@@ -45,7 +46,7 @@ final class ContextualizedTwigTemplate
      *
      * @param string $blockName
      *
-     * @throws \Exception
+     * @throws \Throwable
      *
      * @return string
      */
@@ -60,6 +61,12 @@ final class ContextualizedTwigTemplate
 
         try {
             $this->template->displayBlock($blockName, $this->context, $this->blocks);
+        } catch (Throwable $t) {
+            while (ob_get_level() > $level) {
+                ob_end_clean();
+            }
+
+            throw $t;
         } catch (Exception $e) {
             while (ob_get_level() > $level) {
                 ob_end_clean();
