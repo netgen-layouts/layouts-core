@@ -21,6 +21,13 @@ framework:
     validation: ~
     test: ~
 
+sensio_framework_extra:
+    router:
+        annotations: false
+
+twig:
+    strict_variables: '%kernel.debug%'
+
 netgen_block_manager:
     items:
         value_types:
