@@ -1240,7 +1240,9 @@ final class LayoutControllerTest extends JsonApiTestCase
      */
     public function testCreateDraftWithTransactionRollback()
     {
-        $clientContainer = $this->client->getContainer();
+        // We're using the container from kernel to bypass injection of
+        // Symfony\Bundle\FrameworkBundle\Test\TestContainer on Symfony 4.1
+        $clientContainer = static::$kernel->getContainer();
 
         /** @var \Mockery\MockInterface $locationMock */
         $layoutServiceMock = $clientContainer->mock(

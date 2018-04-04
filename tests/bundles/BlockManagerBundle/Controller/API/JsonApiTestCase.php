@@ -42,7 +42,9 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
     {
         parent::setUpClient();
 
-        $this->clientContainer = $this->client->getContainer();
+        // We're using the container from kernel to bypass injection of
+        // Symfony\Bundle\FrameworkBundle\Test\TestContainer on Symfony 4.1
+        $this->clientContainer = static::$kernel->getContainer();
 
         $this->client->setServerParameter('CONTENT_TYPE', 'application/json');
         $this->client->setServerParameter('PHP_AUTH_USER', getenv('SF_USERNAME'));
