@@ -45,7 +45,7 @@ final class DateTimeType extends AbstractType
                 'choices' => $this->getTimeZoneList(),
                 'choice_translation_domain' => false,
                 'property_path' => 'timezone',
-            )
+            ) + $this->getChoicesAsValuesOption()
         );
     }
 
