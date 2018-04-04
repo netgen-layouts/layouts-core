@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Tests\Layout\Resolver\Form\ConditionType\Mapper;
 
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\Exception;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 final class ExceptionTest extends TestCase
