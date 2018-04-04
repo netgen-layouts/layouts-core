@@ -22,7 +22,7 @@ final class NullItem implements ItemInterface
 
     public function getRemoteId()
     {
-        return $this->value;
+        return null;
     }
 
     public function getValueType()
