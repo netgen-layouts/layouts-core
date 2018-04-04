@@ -6,6 +6,7 @@ use DateTimeInterface;
 use DateTimeZone;
 use Netgen\BlockManager\Parameters\ParameterType\DateTimeType;
 use Netgen\BlockManager\Validator\Constraint\DateTime;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -42,7 +43,7 @@ final class DateTimeValidator extends ConstraintValidator
                 array(
                     new Constraints\NotBlank(),
                     new Constraints\Type(array('type' => 'string')),
-                    new Constraints\DateTime(array('format' => DateTimeType::DATE_FORMAT)),
+                    new Constraints\DateTime(Kernel::VERSION_ID >= 30100 ? array('format' => DateTimeType::DATE_FORMAT) : array()),
                 )
             );
         }
