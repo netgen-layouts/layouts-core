@@ -6,6 +6,7 @@ use Doctrine\DBAL\Types\Type;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone;
 use Netgen\BlockManager\Persistence\Values\Value;
+use PDO;
 
 final class LayoutQueryHandler extends QueryHandler
 {
@@ -27,7 +28,7 @@ final class LayoutQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $status, 'l.status');
 
-        return $query->execute()->fetchAll();
+        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -77,7 +78,7 @@ final class LayoutQueryHandler extends QueryHandler
         $this->applyOffsetAndLimit($query, $offset, $limit);
         $query->orderBy('l.name', 'ASC');
 
-        return $query->execute()->fetchAll();
+        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -116,7 +117,7 @@ final class LayoutQueryHandler extends QueryHandler
         $this->applyOffsetAndLimit($query, $offset, $limit);
         $query->orderBy('l.name', 'ASC');
 
-        return $query->execute()->fetchAll();
+        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -151,7 +152,7 @@ final class LayoutQueryHandler extends QueryHandler
             ->setParameter('status', Value::STATUS_PUBLISHED, Type::INTEGER)
             ->setParameter('linked_layout_id', $sharedLayout->id, Type::INTEGER);
 
-        $data = $query->execute()->fetchAll();
+        $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
         return isset($data[0]['count']) ? (int) $data[0]['count'] : 0;
     }
@@ -179,7 +180,7 @@ final class LayoutQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $status);
 
-        return $query->execute()->fetchAll();
+        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -200,7 +201,7 @@ final class LayoutQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $layout->status);
 
-        return $query->execute()->fetchAll();
+        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -223,7 +224,7 @@ final class LayoutQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $status);
 
-        $data = $query->execute()->fetchAll();
+        $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
         return isset($data[0]['count']) && $data[0]['count'] > 0;
     }
@@ -253,7 +254,7 @@ final class LayoutQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $status);
 
-        $data = $query->execute()->fetchAll();
+        $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
         return isset($data[0]['count']) && $data[0]['count'] > 0;
     }
@@ -283,7 +284,7 @@ final class LayoutQueryHandler extends QueryHandler
                 ->setParameter('layout_id', $excludedLayoutId, Type::INTEGER);
         }
 
-        $data = $query->execute()->fetchAll();
+        $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
         return isset($data[0]['count']) && $data[0]['count'] > 0;
     }

@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
 
 use Doctrine\DBAL\Connection;
+use PDO;
 
 final class Sqlite
 {
@@ -34,7 +35,7 @@ final class Sqlite
         $query->select($this->connection->getDatabasePlatform()->getMaxExpression($column) . ' AS id')
             ->from($table);
 
-        $data = $query->execute()->fetchAll();
+        $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
         return isset($data[0]['id']) ? (int) $data[0]['id'] + 1 : 1;
     }
@@ -53,7 +54,7 @@ final class Sqlite
         $query->select($this->connection->getDatabasePlatform()->getMaxExpression($column) . ' AS id')
             ->from($table);
 
-        $data = $query->execute()->fetchAll();
+        $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
         return isset($data[0]['id']) ? (int) $data[0]['id'] : 0;
     }

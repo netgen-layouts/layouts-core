@@ -6,6 +6,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Type;
 use Netgen\BlockManager\Exception\BadStateException;
+use PDO;
 
 final class PositionHelper
 {
@@ -134,7 +135,7 @@ final class PositionHelper
 
         $this->applyConditions($query, $conditions['conditions']);
 
-        $data = $query->execute()->fetchAll();
+        $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
         return isset($data[0][$columnName]) ? (int) $data[0][$columnName] + 1 : 0;
     }

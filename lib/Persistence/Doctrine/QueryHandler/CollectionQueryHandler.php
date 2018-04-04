@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Type;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item;
 use Netgen\BlockManager\Persistence\Values\Collection\Query;
+use PDO;
 
 final class CollectionQueryHandler extends QueryHandler
 {
@@ -28,7 +29,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $status, 'c.status');
 
-        return $query->execute()->fetchAll();
+        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -49,7 +50,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $status);
 
-        return $query->execute()->fetchAll();
+        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -70,7 +71,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $status, 'q.status');
 
-        return $query->execute()->fetchAll();
+        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -92,7 +93,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $query->addOrderBy('position', 'ASC');
 
-        return $query->execute()->fetchAll();
+        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -117,7 +118,7 @@ final class CollectionQueryHandler extends QueryHandler
             $this->applyStatusCondition($query, $status);
         }
 
-        $result = $query->execute()->fetchAll();
+        $result = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
         return array_map(
             function (array $row) {
@@ -144,7 +145,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $collection->status, 'q.status');
 
-        return $query->execute()->fetchAll();
+        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -167,7 +168,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $status);
 
-        $data = $query->execute()->fetchAll();
+        $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
         return isset($data[0]['count']) && $data[0]['count'] > 0;
     }

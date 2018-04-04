@@ -11,6 +11,7 @@ use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Persistence\Values\Value;
+use PDO;
 
 final class LayoutResolverQueryHandler extends QueryHandler
 {
@@ -61,7 +62,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $status, 'r.status');
 
-        return $query->execute()->fetchAll();
+        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -81,7 +82,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $this->applyStatusCondition($query, $status, 'r.status');
         $this->applyOffsetAndLimit($query, $offset, $limit);
 
-        return $query->execute()->fetchAll();
+        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -104,7 +105,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $ruleStatus);
 
-        $data = $query->execute()->fetchAll();
+        $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
         return isset($data[0]['count']) ? (int) $data[0]['count'] : 0;
     }
@@ -144,7 +145,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->targetHandlers[$targetType]->handleQuery($query, $targetValue);
 
-        return $query->execute()->fetchAll();
+        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -165,7 +166,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $status);
 
-        return $query->execute()->fetchAll();
+        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -186,7 +187,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $rule->status);
 
-        return $query->execute()->fetchAll();
+        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -208,7 +209,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $rule->status);
 
-        $data = $query->execute()->fetchAll();
+        $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
         return isset($data[0]['count']) ? (int) $data[0]['count'] : 0;
     }
@@ -231,7 +232,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $status);
 
-        return $query->execute()->fetchAll();
+        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -252,7 +253,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $rule->status);
 
-        return $query->execute()->fetchAll();
+        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -277,7 +278,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             $this->applyStatusCondition($query, $status);
         }
 
-        $data = $query->execute()->fetchAll();
+        $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
         return isset($data[0]['count']) && $data[0]['count'] > 0;
     }

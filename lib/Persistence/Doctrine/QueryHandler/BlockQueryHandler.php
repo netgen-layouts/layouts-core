@@ -8,6 +8,7 @@ use Netgen\BlockManager\Persistence\Values\Block\Block;
 use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone;
+use PDO;
 
 final class BlockQueryHandler extends QueryHandler
 {
@@ -29,7 +30,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $status, 'b.status');
 
-        return $query->execute()->fetchAll();
+        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -58,7 +59,7 @@ final class BlockQueryHandler extends QueryHandler
                 ->setParameter('identifier', $identifier, Type::STRING);
         }
 
-        return $query->execute()->fetchAll();
+        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -78,7 +79,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $layout->status, 'b.status');
 
-        return $query->execute()->fetchAll();
+        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -98,7 +99,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $zone->status, 'b.status');
 
-        return $query->execute()->fetchAll();
+        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -128,7 +129,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $block->status, 'b.status');
 
-        return $query->execute()->fetchAll();
+        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -151,7 +152,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $status);
 
-        $data = $query->execute()->fetchAll();
+        $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
         return isset($data[0]['count']) && $data[0]['count'] > 0;
     }
@@ -522,7 +523,7 @@ final class BlockQueryHandler extends QueryHandler
             $this->applyStatusCondition($query, $status);
         }
 
-        $result = $query->execute()->fetchAll();
+        $result = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
         return array_map(
             function (array $row) {
@@ -554,7 +555,7 @@ final class BlockQueryHandler extends QueryHandler
             $this->applyStatusCondition($query, $status);
         }
 
-        $result = $query->execute()->fetchAll();
+        $result = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
         return array_map(
             function (array $row) {
@@ -586,7 +587,7 @@ final class BlockQueryHandler extends QueryHandler
             $this->applyStatusCondition($query, $status, 'bc.block_status', 'block_status');
         }
 
-        $result = $query->execute()->fetchAll();
+        $result = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
         return array_map(
             function (array $row) {
