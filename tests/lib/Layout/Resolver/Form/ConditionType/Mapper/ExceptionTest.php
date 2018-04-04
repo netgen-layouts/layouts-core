@@ -36,10 +36,10 @@ final class ExceptionTest extends TestCase
 
         $this->assertArrayHasKey('multiple', $options);
         $this->assertArrayHasKey('required', $options);
-        $this->assertArrayHasKey('choice_loader', $options);
+        $this->assertArrayHasKey('choices', $options);
 
         $this->assertTrue($options['multiple']);
         $this->assertFalse($options['required']);
-        $this->assertInstanceOf(CallbackChoiceLoader::class, $options['choice_loader']);
+        $this->assertInternalType('array', $options['choices']);
     }
 }

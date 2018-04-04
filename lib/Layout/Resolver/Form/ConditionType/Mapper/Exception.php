@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper;
 
 use Netgen\BlockManager\Form\ChoicesAsValuesTrait;
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper;
-use Symfony\Component\Form\ChoiceList\Loader\CallbackChoiceLoader;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -27,11 +26,7 @@ final class Exception extends Mapper
         return array(
             'multiple' => true,
             'required' => false,
-            'choice_loader' => new CallbackChoiceLoader(
-                function () {
-                    return $this->buildErrorCodes();
-                }
-            ),
+            'choices' => $this->buildErrorCodes(),
         ) + $this->getChoicesAsValuesOption();
     }
 
