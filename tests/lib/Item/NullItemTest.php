@@ -20,7 +20,7 @@ final class NullItemTest extends TestCase
         $value = new NullItem(42);
 
         $this->assertEquals(42, $value->getValue());
-        $this->assertEquals(42, $value->getRemoteId());
+        $this->assertNull($value->getRemoteId());
         $this->assertEquals('null', $value->getValueType());
         $this->assertEquals('(INVALID ITEM)', $value->getName());
         $this->assertTrue($value->isVisible());
