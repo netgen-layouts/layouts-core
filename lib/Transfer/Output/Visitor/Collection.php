@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Transfer\Output\Visitor;
 
-use Doctrine\Common\Collections\Collection as CollectionInterface;
 use Netgen\BlockManager\API\Values\Collection\Collection as CollectionValue;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Transfer\Output\Visitor;
@@ -44,12 +43,12 @@ final class Collection extends Visitor
     /**
      * Visit the given collection $items into hash representation.
      *
-     * @param \Doctrine\Common\Collections\Collection $items
+     * @param array $items
      * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface $subVisitor
      *
      * @return array
      */
-    private function visitItems(CollectionInterface $items, VisitorInterface $subVisitor)
+    private function visitItems(array $items, VisitorInterface $subVisitor)
     {
         $hash = array();
 
