@@ -121,4 +121,25 @@ abstract class Validator
             );
         }
     }
+
+    /**
+     * Validates the provided locale.
+     *
+     * @param string $locale
+     * @param string $propertyPath
+     *
+     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
+     */
+    public function validateLocale($locale, $propertyPath = null)
+    {
+        $this->validate(
+            $locale,
+            array(
+                new Constraints\NotBlank(),
+                new Constraints\Type(array('type' => 'string')),
+                new Constraints\Locale(),
+            ),
+            $propertyPath
+        );
+    }
 }

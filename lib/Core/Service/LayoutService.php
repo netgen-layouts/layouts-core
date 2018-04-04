@@ -318,6 +318,9 @@ final class LayoutService extends Service implements LayoutServiceInterface
             throw new BadStateException('layout', 'You can only add translation to draft layouts.');
         }
 
+        $this->validator->validateLocale($locale, 'locale');
+        $this->validator->validateLocale($sourceLocale, 'sourceLocale');
+
         $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Value::STATUS_DRAFT);
 
         $updatedLayout = $this->transaction(
@@ -335,6 +338,8 @@ final class LayoutService extends Service implements LayoutServiceInterface
             throw new BadStateException('layout', 'You can only set main translation in draft layouts.');
         }
 
+        $this->validator->validateLocale($mainLocale, 'mainLocale');
+
         $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Value::STATUS_DRAFT);
 
         $updatedLayout = $this->transaction(
@@ -351,6 +356,8 @@ final class LayoutService extends Service implements LayoutServiceInterface
         if ($layout->isPublished()) {
             throw new BadStateException('layout', 'You can only remove translations from draft layouts.');
         }
+
+        $this->validator->validateLocale($locale, 'locale');
 
         $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Value::STATUS_DRAFT);
 

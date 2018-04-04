@@ -112,6 +112,25 @@ final class ValidatorTest extends TestCase
         $this->validator->validateOffsetAndLimit($offset, $limit);
     }
 
+    /**
+     * @param string $locale
+     * @param bool $isValid
+     *
+     * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::validatePosition
+     * @dataProvider validateLocaleDataProvider
+     */
+    public function testValidateLocale($locale, $isValid)
+    {
+        if (!$isValid) {
+            $this->expectException(ValidationException::class);
+        }
+
+        // Fake assertion to fix coverage on tests which do not perform assertions
+        $this->assertTrue(true);
+
+        $this->validator->validateLocale($locale);
+    }
+
     public function validateIdDataProvider()
     {
         return array(
@@ -171,6 +190,25 @@ final class ValidatorTest extends TestCase
             array('5', 1, false),
             array(null, 1, false),
             array(5, '5', false),
+        );
+    }
+
+    public function validateLocaleDataProvider()
+    {
+        return array(
+            array('en', true),
+            array('en_US', true),
+            array('pt', true),
+            array('pt_PT', true),
+            array('zh_Hans', true),
+            array('fil_PH', true),
+            // We do not allow non-canonicalized locales
+            array('en-US', false),
+            array('es-AR', false),
+            array('fr_FR.utf8', false),
+            array('EN', false),
+            // Invalid locales
+            array('foobar', false),
         );
     }
 }
