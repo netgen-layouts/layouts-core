@@ -90,8 +90,12 @@ final class GlobalVariable
      * item).
      *
      * In other words, we return the resolved exception layout only in case of a
-     * sub-request or in case of a master request if non-error layout is NOT resolved.
-     * All other cases receive the non-error layout.
+     * sub-request (this case happens if an error/exception happens during the
+     * rendering of the page) or in case of a master request if non-error layout
+     * is NOT resolved (this case happens if an error/exception happens before
+     * the rendering of the page).
+     *
+     * All other cases receive the non-error layout if it exists.
      *
      * @return \Netgen\BlockManager\View\View\LayoutViewInterface|bool
      */
@@ -184,6 +188,11 @@ final class GlobalVariable
     /**
      * Resolves the used layout, based on current conditions.
      *
+     * Only resolves and returns the layout view once per request for regular page,
+     * and once if an exception happens. Subsequent calls will simply return null.
+     *
+     * See class docs for more details.
+     *
      * @param string $context
      *
      * @return \Netgen\BlockManager\View\ViewInterface
@@ -194,6 +203,11 @@ final class GlobalVariable
         $masterRequest = $this->requestStack->getMasterRequest();
 
         if ($masterRequest->attributes->has('ngbmExceptionLayoutView')) {
+            // After an exception layout is resolved, this case either means that
+            // the main layout does not exist at all (because the error
+            // happened before the rendering) or that it is already resolved
+            // (if the error happened in subrequest), so this is a subsequent
+            // call where we can safely return null in all cases.
             return null;
         }
 
@@ -201,8 +215,14 @@ final class GlobalVariable
             !$currentRequest->attributes->has('exception') &&
             $masterRequest->attributes->has('ngbmLayoutView')
         ) {
+            // This is the case where we request the main layout more than once
+            // within the regular page display, without the exception, so again
+            // we return null.
             return null;
         }
+
+        // Once we're here, we either request the main layout when there's no
+        // exception, or the exception layout (both of those for the first time).
 
         $layoutView = false;
 
