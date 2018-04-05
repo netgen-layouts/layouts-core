@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig;
 
+use Exception;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface;
@@ -166,6 +167,39 @@ final class GlobalVariableTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getLayoutView
      */
+    public function testGetLayoutViewWithException()
+    {
+        $subRequest = Request::create('/');
+        $subRequest->attributes->set('exception', new Exception());
+        $this->requestStack->push($subRequest);
+
+        $this->layoutResolverMock
+            ->expects($this->once())
+            ->method('resolveRule')
+            ->will(
+                $this->returnValue(
+                    new Rule(array('layout' => new Layout()))
+                )
+            );
+
+        $this->viewBuilderMock
+            ->expects($this->once())
+            ->method('buildView')
+            ->will(
+                $this->returnValue(
+                    new LayoutView(array('layout' => new Layout()))
+                )
+            );
+
+        // This will trigger layout resolver
+        $this->globalVariable->getLayoutTemplate();
+
+        $this->assertEquals(new LayoutView(array('layout' => new Layout())), $this->globalVariable->getLayoutView());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getLayoutView
+     */
     public function testGetLayoutViewWithNoResolvedRules()
     {
         $this->layoutResolverMock
@@ -278,6 +312,106 @@ final class GlobalVariableTest extends TestCase
             $layoutView,
             $this->requestStack->getCurrentRequest()->attributes->get('ngbmLayoutView')
         );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getLayoutTemplate
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::buildLayoutView
+     */
+    public function testGetLayoutTemplateWithAlreadyExistingResolvedLayout()
+    {
+        $layoutView = new LayoutView(array('layout' => new Layout()));
+        $layoutView->setTemplate('layout.html.twig');
+
+        $this->requestStack->getCurrentRequest()->attributes->set('ngbmLayoutView', $layoutView);
+
+        $this->layoutResolverMock
+            ->expects($this->never())
+            ->method('resolveRule');
+
+        $this->viewBuilderMock
+            ->expects($this->never())
+            ->method('buildView');
+
+        $this->pageLayoutResolverMock
+            ->expects($this->at(0))
+            ->method('resolvePageLayout')
+            ->will($this->returnValue('pagelayout.html.twig'));
+
+        $this->assertEquals('pagelayout.html.twig', $this->globalVariable->getLayoutTemplate());
+
+        $this->assertEquals(
+            $layoutView,
+            $this->requestStack->getCurrentRequest()->attributes->get('ngbmLayoutView')
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getLayoutTemplate
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::buildLayoutView
+     */
+    public function testGetLayoutTemplateWithException()
+    {
+        $this->layoutResolverMock
+            ->expects($this->once())
+            ->method('resolveRule')
+            ->will(
+                $this->returnValue(
+                    new Rule(array('layout' => new Layout()))
+                )
+            );
+
+        $layoutView = new LayoutView(array('layout' => new Layout()));
+        $layoutView->setTemplate('layout.html.twig');
+
+        $this->viewBuilderMock
+            ->expects($this->once())
+            ->method('buildView')
+            ->with($this->equalTo(new Layout()))
+            ->will($this->returnValue($layoutView));
+
+        $this->pageLayoutResolverMock
+            ->expects($this->never())
+            ->method('resolvePageLayout');
+
+        $currentRequest = $this->requestStack->getCurrentRequest();
+        $currentRequest->attributes->set('exception', new Exception());
+
+        $this->assertEquals('layout.html.twig', $this->globalVariable->getLayoutTemplate());
+
+        $this->assertEquals($layoutView, $currentRequest->attributes->get('ngbmExceptionLayoutView'));
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::getLayoutTemplate
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable::buildLayoutView
+     */
+    public function testGetLayoutTemplateWithExceptionWithAlreadyExistingResolvedLayout()
+    {
+        $layoutView = new LayoutView(array('layout' => new Layout()));
+        $layoutView->setTemplate('layout.html.twig');
+
+        $this->requestStack->getCurrentRequest()->attributes->set('ngbmExceptionLayoutView', $layoutView);
+
+        $this->layoutResolverMock
+            ->expects($this->never())
+            ->method('resolveRule');
+
+        $this->viewBuilderMock
+            ->expects($this->never())
+            ->method('buildView');
+
+        $this->pageLayoutResolverMock
+            ->expects($this->at(0))
+            ->method('resolvePageLayout')
+            ->will($this->returnValue('pagelayout.html.twig'));
+
+        $currentRequest = $this->requestStack->getCurrentRequest();
+        $currentRequest->attributes->set('exception', new Exception());
+
+        $this->assertEquals('pagelayout.html.twig', $this->globalVariable->getLayoutTemplate());
+
+        $this->assertEquals($layoutView, $currentRequest->attributes->get('ngbmExceptionLayoutView'));
     }
 
     /**

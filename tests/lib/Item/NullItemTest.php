@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 final class NullItemTest extends TestCase
 {
     /**
+     * @covers \Netgen\BlockManager\Item\NullItem::__construct
      * @covers \Netgen\BlockManager\Item\NullItem::getValue
      * @covers \Netgen\BlockManager\Item\NullItem::getRemoteId
      * @covers \Netgen\BlockManager\Item\NullItem::getValueType

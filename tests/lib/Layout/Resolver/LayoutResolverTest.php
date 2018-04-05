@@ -56,6 +56,7 @@ final class LayoutResolverTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::__construct
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRules
+     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::innerResolveRules
      */
     public function testResolveRules()
     {
@@ -126,7 +127,7 @@ final class LayoutResolverTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRules
-     * @group a
+     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::innerResolveRules
      */
     public function testResolveRulesWithInvalidRule()
     {
@@ -163,6 +164,7 @@ final class LayoutResolverTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRules
+     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::innerResolveRules
      */
     public function testResolveRulesWithNoValidRules()
     {
@@ -199,6 +201,7 @@ final class LayoutResolverTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRules
+     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::innerResolveRules
      */
     public function testResolveRulesWithNoTargetValue()
     {
@@ -236,6 +239,7 @@ final class LayoutResolverTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRules
+     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::innerResolveRules
      */
     public function testResolveRulesWithNoTargetValues()
     {
@@ -251,6 +255,7 @@ final class LayoutResolverTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRules
+     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::innerResolveRules
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::matches
      *
      * @param array $matches
@@ -290,6 +295,7 @@ final class LayoutResolverTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRules
+     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::innerResolveRules
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::matches
      *
      * @param array $matches
@@ -329,6 +335,7 @@ final class LayoutResolverTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRule
+     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::innerResolveRules
      */
     public function testResolveRule()
     {
@@ -392,6 +399,7 @@ final class LayoutResolverTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRule
+     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::innerResolveRules
      */
     public function testResolveRuleWithInvalidRule()
     {
@@ -428,6 +436,7 @@ final class LayoutResolverTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRule
+     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::innerResolveRules
      */
     public function testResolveRuleWithNoValidRules()
     {
@@ -464,6 +473,7 @@ final class LayoutResolverTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRule
+     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::innerResolveRules
      */
     public function testResolveRuleWithNoTargetValue()
     {
@@ -501,6 +511,7 @@ final class LayoutResolverTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRule
+     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::innerResolveRules
      */
     public function testResolveRuleWithNoTargetValues()
     {
@@ -516,6 +527,7 @@ final class LayoutResolverTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRule
+     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::innerResolveRules
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::matches
      *
      * @param array $matches
@@ -552,6 +564,7 @@ final class LayoutResolverTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::resolveRule
+     * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::innerResolveRules
      * @covers \Netgen\BlockManager\Layout\Resolver\LayoutResolver::matches
      *
      * @param array $matches

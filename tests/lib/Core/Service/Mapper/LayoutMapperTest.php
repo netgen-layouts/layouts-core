@@ -55,6 +55,32 @@ abstract class LayoutMapperTest extends ServiceTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper::mapZone
      */
+    public function testMapZoneWithNoLinkedZone()
+    {
+        $persistenceZone = new Zone(
+            array(
+                'identifier' => 'right',
+                'layoutId' => 1,
+                'status' => Value::STATUS_PUBLISHED,
+                'rootBlockId' => 3,
+                'linkedLayoutId' => null,
+                'linkedZoneIdentifier' => null,
+            )
+        );
+
+        $zone = $this->layoutMapper->mapZone($persistenceZone);
+
+        $this->assertInstanceOf(APIZone::class, $zone);
+        $this->assertEquals('right', $zone->getIdentifier());
+        $this->assertEquals(1, $zone->getLayoutId());
+        $this->assertEquals(Value::STATUS_PUBLISHED, $zone->getStatus());
+        $this->assertNull($zone->getLinkedZone());
+        $this->assertTrue($zone->isPublished());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\Mapper\LayoutMapper::mapZone
+     */
     public function testMapZoneWithNonExistingLinkedZone()
     {
         $persistenceZone = new Zone(

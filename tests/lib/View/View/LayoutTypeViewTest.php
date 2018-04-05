@@ -55,4 +55,17 @@ class LayoutTypeViewTest extends TestCase
     {
         $this->assertEquals('layout_view', $this->view->getIdentifier());
     }
+
+    /**
+     * @covers \Netgen\BlockManager\View\View\LayoutTypeView::jsonSerialize
+     */
+    public function testJsonSerialize()
+    {
+        $this->assertEquals(
+            array(
+                'layoutType' => 'layout',
+            ),
+            $this->view->jsonSerialize()
+        );
+    }
 }

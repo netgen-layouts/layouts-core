@@ -27,6 +27,7 @@ final class DebugErrorHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Error\DebugErrorHandler::__construct
      * @covers \Netgen\BlockManager\Error\DebugErrorHandler::handleError
      * @covers \Netgen\BlockManager\Error\DebugErrorHandler::logError
      */

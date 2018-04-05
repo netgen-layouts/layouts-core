@@ -63,4 +63,27 @@ final class CollectionRunnerFactoryTest extends TestCase
 
         $this->assertInstanceOf(DynamicCollectionRunner::class, $runner);
     }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionRunnerFactory::__construct
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionRunnerFactory::getCollectionRunner
+     * @covers \Netgen\BlockManager\Collection\Result\CollectionRunnerFactory::getQueryRunner
+     */
+    public function testGetCollectionRunnerWithDynamicContextualCollection()
+    {
+        $runner = $this->factory->getCollectionRunner(
+            new Collection(
+                array(
+                    'query' => new Query(
+                        array(
+                            'queryType' => new QueryType('type', array(), null, true),
+                        )
+                    ),
+                )
+            ),
+            PHP_INT_MAX
+        );
+
+        $this->assertInstanceOf(DynamicCollectionRunner::class, $runner);
+    }
 }

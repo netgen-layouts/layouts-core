@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener\HttpCache;
 
+use Exception;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\HttpCache\TaggerInterface;
 use Netgen\BlockManager\View\View\LayoutView;
@@ -10,6 +11,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
@@ -116,6 +118,109 @@ final class LayoutResponseListenerTest extends TestCase
         $this->taggerMock
             ->expects($this->never())
             ->method('tagLayout');
+
+        $this->listener->onKernelResponse($event);
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\LayoutResponseListener::onKernelResponse
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\LayoutResponseListener::onKernelException
+     */
+    public function testOnKernelResponseWithException()
+    {
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $request = Request::create('/');
+
+        $request->attributes->set('ngbmExceptionLayoutView', new LayoutView(array('layout' => new Layout())));
+
+        $event = new FilterResponseEvent(
+            $kernelMock,
+            $request,
+            HttpKernelInterface::MASTER_REQUEST,
+            new Response()
+        );
+
+        $this->taggerMock
+            ->expects($this->once())
+            ->method('tagLayout')
+            ->with($this->equalTo(new Response()), $this->equalTo(new Layout()));
+
+        $this->listener->onKernelException(
+            new GetResponseForExceptionEvent(
+                $kernelMock,
+                $request,
+                HttpKernelInterface::MASTER_REQUEST,
+                new Exception()
+            )
+        );
+
+        $this->listener->onKernelResponse($event);
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\LayoutResponseListener::onKernelResponse
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\LayoutResponseListener::onKernelException
+     */
+    public function testOnKernelResponseWithExceptionAndSubRequest()
+    {
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $request = Request::create('/');
+
+        $request->attributes->set('ngbmExceptionLayoutView', new LayoutView(array('layout' => new Layout())));
+
+        $event = new FilterResponseEvent(
+            $kernelMock,
+            $request,
+            HttpKernelInterface::SUB_REQUEST,
+            new Response()
+        );
+
+        $this->taggerMock
+            ->expects($this->never())
+            ->method('tagLayout');
+
+        $this->listener->onKernelException(
+            new GetResponseForExceptionEvent(
+                $kernelMock,
+                $request,
+                HttpKernelInterface::SUB_REQUEST,
+                new Exception()
+            )
+        );
+
+        $this->listener->onKernelResponse($event);
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\LayoutResponseListener::onKernelResponse
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\HttpCache\LayoutResponseListener::onKernelException
+     */
+    public function testOnKernelResponseWithExceptionAndWithoutSupportedValue()
+    {
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $request = Request::create('/');
+
+        $request->attributes->set('ngbmExceptionLayoutView', 42);
+
+        $event = new FilterResponseEvent(
+            $kernelMock,
+            $request,
+            HttpKernelInterface::MASTER_REQUEST,
+            new Response()
+        );
+
+        $this->taggerMock
+            ->expects($this->never())
+            ->method('tagLayout');
+
+        $this->listener->onKernelException(
+            new GetResponseForExceptionEvent(
+                $kernelMock,
+                $request,
+                HttpKernelInterface::MASTER_REQUEST,
+                new Exception()
+            )
+        );
 
         $this->listener->onKernelResponse($event);
     }

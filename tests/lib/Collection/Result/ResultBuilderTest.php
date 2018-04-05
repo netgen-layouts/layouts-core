@@ -117,11 +117,65 @@ final class ResultBuilderTest extends TestCase
         }
     }
 
+    /**
+     * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::build
+     */
+    public function testBuildForDynamicAndContextualCollection()
+    {
+        $collection = $this->buildCollection(
+            array(2 => 10, 7 => 14, 8 => 16, 11 => 20),
+            array(3 => 25, 9 => 26),
+            array(42, 43, 44, 45, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+            13,
+            true
+        );
+
+        $result = $this->resultBuilder->build($collection, 0, 20, PHP_INT_MAX);
+
+        $this->assertInstanceOf(ResultSet::class, $result);
+        $this->assertEquals($collection, $result->getCollection());
+        $this->assertEquals(0, $result->getOffset());
+        $this->assertEquals(12, $result->getLimit());
+
+        foreach ($result->getResults() as $index => $resultItem) {
+            $this->assertInstanceOf(Result::class, $resultItem);
+            $this->assertEquals($index, $resultItem->getPosition());
+            // @todo Test item types
+        }
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::build
+     */
+    public function testBuildForDynamicAndContextualCollectionAndLimitLowerThanContextualLimit()
+    {
+        $collection = $this->buildCollection(
+            array(2 => 10, 7 => 14, 8 => 16, 11 => 20),
+            array(3 => 25, 9 => 26),
+            array(42, 43, 44, 45, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+            13,
+            true
+        );
+
+        $result = $this->resultBuilder->build($collection, 0, 5, PHP_INT_MAX);
+
+        $this->assertInstanceOf(ResultSet::class, $result);
+        $this->assertEquals($collection, $result->getCollection());
+        $this->assertEquals(0, $result->getOffset());
+        $this->assertEquals(5, $result->getLimit());
+
+        foreach ($result->getResults() as $index => $resultItem) {
+            $this->assertInstanceOf(Result::class, $resultItem);
+            $this->assertEquals($index, $resultItem->getPosition());
+            // @todo Test item types
+        }
+    }
+
     private function buildResultBuilder($maxLimit)
     {
         return new ResultBuilder(
             new CollectionRunnerFactory($this->itemBuilder),
-            24,
+            12,
             $maxLimit
         );
     }
@@ -133,6 +187,7 @@ final class ResultBuilderTest extends TestCase
      * @param array $overrideIds
      * @param array $queryValues
      * @param int $queryCount
+     * @param bool $contextual
      *
      * @return \Netgen\BlockManager\Core\Values\Collection\Collection
      */
@@ -140,7 +195,8 @@ final class ResultBuilderTest extends TestCase
         array $manualIds = array(),
         array $overrideIds = array(),
         array $queryValues = array(),
-        $queryCount = 0
+        $queryCount = 0,
+        $contextual = false
     ) {
         $items = array();
 
@@ -202,7 +258,8 @@ final class ResultBuilderTest extends TestCase
                         'queryType' => new QueryType(
                             'ezcontent_search',
                             $this->buildQueryValues($queryValues),
-                            $queryCount
+                            $queryCount,
+                            $contextual
                         ),
                     )
                 ),

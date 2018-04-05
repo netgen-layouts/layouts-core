@@ -96,6 +96,16 @@ final class PositionHelperTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::createPosition
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage When creating a position, end position needs to be greater or equal than start position.
+     */
+    public function testCreatePositionThrowsBadStateExceptionOnInvalidEndPosition()
+    {
+        $this->positionHelper->createPosition($this->getPositionHelperConditions(), 1, 0);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::moveToPosition
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::decrementPositions
      */

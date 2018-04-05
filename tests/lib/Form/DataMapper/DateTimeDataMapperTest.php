@@ -42,6 +42,40 @@ final class DateTimeDataMapperTest extends DataMapperTest
     }
 
     /**
+     * @param array $input
+     * @param string $dateTime
+     * @param string $timeZone
+     *
+     * @covers \Netgen\BlockManager\Form\DataMapper\DateTimeDataMapper::mapDataToForms
+     * @dataProvider mapDataToFormsWithArrayProvider
+     */
+    public function testMapDataToFormsWithArray(array $input, $dateTime, $timeZone)
+    {
+        $forms = new ArrayIterator(
+            array(
+                'datetime' => $this->getForm('datetime'),
+                'timezone' => $this->getForm('timezone'),
+            )
+        );
+
+        $this->mapper->mapDataToForms($input, $forms);
+
+        $this->assertEquals($dateTime, $forms['datetime']->getData());
+        $this->assertEquals($timeZone, $forms['timezone']->getData());
+    }
+
+    public function mapDataToFormsWithArrayProvider()
+    {
+        return array(
+            array(array('datetime' => '2018-02-01 15:00:00', 'timezone' => 'Antarctica/Casey'), '2018-02-01 15:00:00', 'Antarctica/Casey'),
+            array(array('datetime' => '2018-02-01 15:00:00', 'timezone' => null), '2018-02-01 15:00:00', date_default_timezone_get()),
+            array(array('datetime' => '2018-02-01 15:00:00'), '2018-02-01 15:00:00', date_default_timezone_get()),
+            array(array('datetime' => null, 'timezone' => 'Antarctica/Casey'), null, 'Antarctica/Casey'),
+            array(array('timezone' => 'Antarctica/Casey'), null, 'Antarctica/Casey'),
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Form\DataMapper\DateTimeDataMapper::mapDataToForms
      */
     public function testMapDataToFormsWithNoDateTime()

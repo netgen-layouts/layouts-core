@@ -2,6 +2,7 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener;
 
+use Exception;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\Stubs\ErrorHandler;
 use Netgen\BlockManager\Tests\View\Stubs\View;
@@ -73,21 +74,49 @@ final class ViewRendererListenerTest extends TestCase
 
         $this->listener->onView($event);
 
-        $this->assertInstanceOf(
-            Response::class,
-            $event->getResponse()
-        );
+        $this->assertInstanceOf(Response::class, $event->getResponse());
 
         // Verify that we use the response available in view object
-        $this->assertEquals(
-            $event->getResponse()->headers->get('X-NGBM-Test'),
-            'test'
+        $this->assertEquals($event->getResponse()->headers->get('X-NGBM-Test'), 'test');
+
+        $this->assertEquals('rendered content', $event->getResponse()->getContent());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ViewRendererListener::onView
+     */
+    public function testOnViewWithException()
+    {
+        $view = new View(array('value' => new Value()));
+
+        $response = new Response();
+        $response->headers->set('X-NGBM-Test', 'test');
+        $view->setResponse($response);
+
+        $this->viewRendererMock
+            ->expects($this->once())
+            ->method('renderView')
+            ->with($this->equalTo($view))
+            ->will($this->throwException(new Exception()));
+
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $request = Request::create('/');
+
+        $event = new GetResponseForControllerResultEvent(
+            $kernelMock,
+            $request,
+            HttpKernelInterface::MASTER_REQUEST,
+            $view
         );
 
-        $this->assertEquals(
-            'rendered content',
-            $event->getResponse()->getContent()
-        );
+        $this->listener->onView($event);
+
+        $this->assertInstanceOf(Response::class, $event->getResponse());
+
+        // Verify that we use the response available in view object
+        $this->assertEquals($event->getResponse()->headers->get('X-NGBM-Test'), 'test');
+
+        $this->assertEquals('', $event->getResponse()->getContent());
     }
 
     /**

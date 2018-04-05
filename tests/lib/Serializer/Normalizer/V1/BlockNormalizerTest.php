@@ -44,6 +44,7 @@ final class BlockNormalizerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer::__construct
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer::normalize
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer::normalizeBlockCollections
      */
     public function testNormalize()
     {

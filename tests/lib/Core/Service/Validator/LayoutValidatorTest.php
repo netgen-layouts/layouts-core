@@ -122,6 +122,22 @@ final class LayoutValidatorTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutValidator::validateChangeLayoutType
+     */
+    public function testValidateChangeLayoutTypeWhenNotPreservingSharedZones()
+    {
+        // Fake assertion to fix coverage on tests which do not perform assertions
+        $this->assertTrue(true);
+
+        $this->layoutValidator->validateChangeLayoutType(
+            $this->getLayout(),
+            $this->getLayoutType(),
+            array('left' => array('top', 'shared')),
+            false
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutValidator::validateChangeLayoutType
      * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
      * @expectedExceptionMessage Zone "unknown" does not exist in "type" layout type.
      */
@@ -173,6 +189,20 @@ final class LayoutValidatorTest extends TestCase
             $this->getLayout(),
             $this->getLayoutType(),
             array('left' => array('unknown'))
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\Validator\LayoutValidator::validateChangeLayoutType
+     * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
+     * @expectedExceptionMessage When preserving shared layout zones, mapping for zone "left" needs to be 1:1.
+     */
+    public function testValidateChangeLayoutTypeWithNonOneOnOneSharedZoneMapping()
+    {
+        $this->layoutValidator->validateChangeLayoutType(
+            $this->getLayout(),
+            $this->getLayoutType(),
+            array('left' => array('top', 'shared'))
         );
     }
 
@@ -451,6 +481,11 @@ final class LayoutValidatorTest extends TestCase
             ),
             array(
                 array(
+                    'left' => array('shared'),
+                ),
+            ),
+            array(
+                array(
                     'left' => array('top', 'bottom'),
                 ),
             ),
@@ -485,6 +520,7 @@ final class LayoutValidatorTest extends TestCase
                     array(
                         'top' => new Zone(),
                         'bottom' => new Zone(),
+                        'shared' => new Zone(array('linkedZone' => new Zone())),
                     )
                 ),
             )

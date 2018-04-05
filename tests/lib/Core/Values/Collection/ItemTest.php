@@ -8,6 +8,7 @@ use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Config\Config;
 use Netgen\BlockManager\Item\Item as CmsItem;
+use Netgen\BlockManager\Item\NullItem;
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Tests\Collection\Stubs\ItemDefinition;
 use PHPUnit\Framework\TestCase;
@@ -163,6 +164,78 @@ final class ItemTest extends TestCase
         );
 
         $this->assertEquals($itemScheduled, $item->isScheduled());
+    }
+
+    /**
+     * @param bool $itemVisible
+     * @param bool $cmsItemVisible
+     * @param bool $isValid
+     *
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::isValid
+     * @dataProvider isValidProvider
+     */
+    public function testIsValid($itemVisible, $cmsItemVisible, $isValid)
+    {
+        $item = new Item(
+            array(
+                'cmsItem' => new CmsItem(array('isVisible' => $cmsItemVisible)),
+                'configs' => array(
+                    'visibility' => new Config(
+                        array(
+                            'parameters' => array(
+                                'visibility_status' => new Parameter(
+                                    array(
+                                        'value' => $itemVisible ? Item::VISIBILITY_VISIBLE : Item::VISIBILITY_HIDDEN,
+                                    )
+                                ),
+                            ),
+                        )
+                    ),
+                ),
+            )
+        );
+
+        $this->assertEquals($isValid, $item->isValid());
+    }
+
+    /**
+     * @param bool $itemVisible
+     *
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Item::isValid
+     * @dataProvider isValidProvider
+     */
+    public function testIsValidWithNullItem($itemVisible)
+    {
+        $item = new Item(
+            array(
+                'cmsItem' => new NullItem(42),
+                'configs' => array(
+                    'visibility' => new Config(
+                        array(
+                            'parameters' => array(
+                                'visibility_status' => new Parameter(
+                                    array(
+                                        'value' => $itemVisible ? Item::VISIBILITY_VISIBLE : Item::VISIBILITY_HIDDEN,
+                                    )
+                                ),
+                            ),
+                        )
+                    ),
+                ),
+            )
+        );
+
+        $this->assertFalse($item->isValid());
+    }
+
+    public function isValidProvider()
+    {
+        return array(
+            array(true, true, true),
+            array(false, true, false),
+            array(true, false, false),
+            array(false, false, false),
+        );
     }
 
     public function visibilityProvider()

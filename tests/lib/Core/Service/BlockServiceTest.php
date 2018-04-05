@@ -1662,6 +1662,31 @@ abstract class BlockServiceTest extends ServiceTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::disableTranslations
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalDisableTranslations
+     */
+    public function testDisableTranslationsOnContainer()
+    {
+        $block = $this->blockService->loadBlockDraft(33);
+        $childBlock = $this->blockService->loadBlockDraft(37);
+
+        $this->blockService->enableTranslations($childBlock);
+        $block = $this->blockService->disableTranslations($block);
+
+        $this->assertFalse($block->isTranslatable());
+
+        $this->assertNotContains('hr', $block->getAvailableLocales());
+        $this->assertContains('en', $block->getAvailableLocales());
+
+        $childBlock = $this->blockService->loadBlockDraft(37);
+
+        $this->assertFalse($childBlock->isTranslatable());
+
+        $this->assertNotContains('hr', $childBlock->getAvailableLocales());
+        $this->assertContains('en', $childBlock->getAvailableLocales());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::disableTranslations
      * @expectedException \Netgen\BlockManager\Exception\BadStateException
      * @expectedExceptionMessage Argument "block" has an invalid state. You can only disable translations for draft blocks.
      */

@@ -116,7 +116,7 @@ final class ValidatorTest extends TestCase
      * @param string $locale
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::validatePosition
+     * @covers \Netgen\BlockManager\Core\Service\Validator\Validator::validateLocale
      * @dataProvider validateLocaleDataProvider
      */
     public function testValidateLocale($locale, $isValid)

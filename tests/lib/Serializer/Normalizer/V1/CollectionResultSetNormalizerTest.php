@@ -36,6 +36,7 @@ final class CollectionResultSetNormalizerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultSetNormalizer::normalize
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultSetNormalizer::getOverflowItems
      */
     public function testNormalize()
     {
