@@ -28,13 +28,15 @@ final class CollectionResultNormalizer implements NormalizerInterface
     {
         /** @var \Netgen\BlockManager\Collection\Result\Result $result */
         $result = $object->getValue();
-        $resultItem = $result->getItem();
 
-        $data = $this->normalizeResultItem($resultItem);
+        $mainItem = $result->getSubItem() instanceof ItemInterface ? $result->getSubItem() : $result->getItem();
+        $overrideItem = $result->getSubItem() instanceof ItemInterface ? $result->getItem() : null;
+
+        $data = $this->normalizeResultItem($mainItem);
         $data['position'] = $result->getPosition();
 
-        if ($result->getSubItem() instanceof ItemInterface) {
-            $data['sub_item'] = $this->normalizeResultItem($result->getSubItem());
+        if ($overrideItem instanceof ItemInterface) {
+            $data['override_item'] = $this->normalizeResultItem($overrideItem);
         }
 
         return $data;
