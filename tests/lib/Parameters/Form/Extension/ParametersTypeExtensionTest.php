@@ -100,6 +100,7 @@ final class ParametersTypeExtensionTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @expectedExceptionMessage The option "ngbm_parameter_definition" with value "parameter_definition" is expected to be of type "Netgen\BlockManager\Parameters\ParameterDefinitionInterface", but is of type "string".
      */
     public function testConfigureOptionsWithInvalidParameters()
     {

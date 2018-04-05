@@ -169,6 +169,7 @@ final class EditTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Config\Form\EditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
+     * @expectedExceptionMessage The required option "configurable" is missing.
      */
     public function testConfigureOptionsWithMissingValue()
     {
@@ -187,6 +188,7 @@ final class EditTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Config\Form\EditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @expectedExceptionMessage The option "configurable" with value "" is expected to be of type "Netgen\BlockManager\API\Values\Config\ConfigAwareValue", but is of type "string".
      */
     public function testConfigureOptionsWithInvalidValue()
     {
@@ -206,6 +208,7 @@ final class EditTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Config\Form\EditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
+     * @expectedExceptionMessage The required option "label_prefix" is missing.
      */
     public function testConfigureOptionsWithMissingLabelPrefix()
     {
@@ -224,6 +227,7 @@ final class EditTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Config\Form\EditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @expectedExceptionMessage The option "label_prefix" with value 42 is expected to be of type "string", but is of type "integer".
      */
     public function testConfigureOptionsWithInvalidLabelPrefix()
     {
@@ -243,6 +247,7 @@ final class EditTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Config\Form\EditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @expectedExceptionMessage The option "data" with value "" is expected to be of type "Netgen\BlockManager\API\Values\Config\ConfigAwareStruct", but is of type "string".
      */
     public function testConfigureOptionsWithInvalidData()
     {

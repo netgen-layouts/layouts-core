@@ -1,25 +1,28 @@
 <?php
 
-namespace Netgen\BlockManager\Tests\Layout\Form;
+namespace Netgen\BlockManager\Tests\Collection\Form;
 
-use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
-use Netgen\BlockManager\Core\Values\Layout\Layout;
-use Netgen\BlockManager\Layout\Form\EditType;
+use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
+use Netgen\BlockManager\Collection\Form\EditType;
+use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class EditTypeTest extends FormTestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Layout\Layout
+     * @var \Netgen\BlockManager\API\Values\Collection\Collection
      */
-    private $layout;
+    private $collection;
 
+    /**
+     * Sets up the test.
+     */
     public function setUp()
     {
         parent::setUp();
 
-        $this->layout = new Layout();
+        $this->collection = new Collection();
     }
 
     /**
@@ -31,25 +34,24 @@ final class EditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Form\EditType::buildForm
+     * @covers \Netgen\BlockManager\Collection\Form\EditType::buildForm
+     * @covers \Netgen\BlockManager\Collection\Form\EditType::buildView
      */
     public function testSubmitValidData()
     {
         $submittedData = array(
-            'name' => 'New name',
-            'description' => 'New description',
+            'offset' => 10,
+            'limit' => 5,
         );
 
-        $updatedStruct = new LayoutUpdateStruct();
-        $updatedStruct->name = 'New name';
-        $updatedStruct->description = 'New description';
+        $updatedStruct = new CollectionUpdateStruct();
+        $updatedStruct->offset = 10;
+        $updatedStruct->limit = 5;
 
         $form = $this->factory->create(
             EditType::class,
-            new LayoutUpdateStruct(),
-            array(
-                'layout' => $this->layout,
-            )
+            new CollectionUpdateStruct(),
+            array('collection' => $this->collection)
         );
 
         $form->submit($submittedData);
@@ -63,10 +65,13 @@ final class EditTypeTest extends FormTestCase
         foreach (array_keys($submittedData) as $key) {
             $this->assertArrayHasKey($key, $children);
         }
+
+        $this->assertArrayHasKey('collection', $view->vars);
+        $this->assertEquals($this->collection, $view->vars['collection']);
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Form\EditType::configureOptions
+     * @covers \Netgen\BlockManager\Collection\Form\EditType::configureOptions
      */
     public function testConfigureOptions()
     {
@@ -77,21 +82,22 @@ final class EditTypeTest extends FormTestCase
 
         $options = $optionsResolver->resolve(
             array(
-                'layout' => $this->layout,
-                'data' => new LayoutUpdateStruct(),
+                'collection' => $this->collection,
+                'data' => new CollectionUpdateStruct(),
             )
         );
 
-        $this->assertEquals($this->layout, $options['layout']);
-        $this->assertEquals(new LayoutUpdateStruct(), $options['data']);
+        $this->assertEquals($this->collection, $options['collection']);
+        $this->assertEquals(new CollectionUpdateStruct(), $options['data']);
+        $this->assertEquals('ngbm_forms', $options['translation_domain']);
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Form\EditType::configureOptions
+     * @covers \Netgen\BlockManager\Collection\Form\EditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
-     * @expectedExceptionMessage The required option "layout" is missing.
+     * @expectedExceptionMessage The required option "collection" is missing.
      */
-    public function testConfigureOptionsWithMissingLayout()
+    public function testConfigureOptionsWithMissingQuery()
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -102,11 +108,11 @@ final class EditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Form\EditType::configureOptions
+     * @covers \Netgen\BlockManager\Collection\Form\EditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @expectedExceptionMessage The option "layout" with value "" is expected to be of type "Netgen\BlockManager\API\Values\Layout\Layout", but is of type "string".
+     * @expectedExceptionMessage The option "collection" with value "" is expected to be of type "Netgen\BlockManager\API\Values\Collection\Collection", but is of type "string".
      */
-    public function testConfigureOptionsWithInvalidLayout()
+    public function testConfigureOptionsWithInvalidQueryType()
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -115,15 +121,15 @@ final class EditTypeTest extends FormTestCase
 
         $optionsResolver->resolve(
             array(
-                'layout' => '',
+                'collection' => '',
             )
         );
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Form\EditType::configureOptions
+     * @covers \Netgen\BlockManager\Collection\Form\EditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @expectedExceptionMessage The option "data" with value "" is expected to be of type "Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct", but is of type "string".
+     * @expectedExceptionMessage The option "data" with value "" is expected to be of type "Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct", but is of type "string".
      */
     public function testConfigureOptionsWithInvalidData()
     {
@@ -134,7 +140,7 @@ final class EditTypeTest extends FormTestCase
 
         $optionsResolver->resolve(
             array(
-                'layout' => $this->layout,
+                'collection' => $this->collection,
                 'data' => '',
             )
         );

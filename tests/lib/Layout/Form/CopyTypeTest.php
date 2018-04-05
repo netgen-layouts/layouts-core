@@ -89,8 +89,9 @@ final class CopyTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Form\CopyType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
+     * @expectedExceptionMessage The required option "layout" is missing.
      */
-    public function testConfigureOptionsWithMissingLayoutDefinition()
+    public function testConfigureOptionsWithMissingLayout()
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -103,8 +104,9 @@ final class CopyTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Form\CopyType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @expectedExceptionMessage The option "layout" with value "" is expected to be of type "Netgen\BlockManager\API\Values\Layout\Layout", but is of type "string".
      */
-    public function testConfigureOptionsWithInvalidLayoutDefinition()
+    public function testConfigureOptionsWithInvalidLayout()
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -121,6 +123,7 @@ final class CopyTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Form\CopyType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @expectedExceptionMessage The option "data" with value "" is expected to be of type "Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct", but is of type "string".
      */
     public function testConfigureOptionsWithInvalidData()
     {

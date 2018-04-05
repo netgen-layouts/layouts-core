@@ -247,6 +247,7 @@ final class ParametersTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
+     * @expectedExceptionMessage The required options "label_prefix", "parameter_collection" are missing.
      */
     public function testConfigureOptionsWithMissingParameters()
     {
@@ -261,6 +262,7 @@ final class ParametersTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @expectedExceptionMessage The option "parameter_collection" with value null is expected to be of type "Netgen\BlockManager\Parameters\ParameterCollectionInterface", but is of type "NULL".
      */
     public function testConfigureOptionsWithInvalidParameters()
     {

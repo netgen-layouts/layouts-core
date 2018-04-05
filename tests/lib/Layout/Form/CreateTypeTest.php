@@ -143,6 +143,7 @@ final class CreateTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Form\CreateType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @expectedExceptionMessage The option "data" with value "" is expected to be of type "Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct", but is of type "string".
      */
     public function testConfigureOptionsWithInvalidData()
     {

@@ -253,6 +253,7 @@ final class LinkTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\LinkType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @expectedExceptionMessage The option "value_types" with value 42 is expected to be of type "array", but is of type "integer".
      */
     public function testConfigureOptionsWithInvalidParameters()
     {

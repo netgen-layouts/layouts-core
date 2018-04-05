@@ -95,6 +95,7 @@ final class ClearBlocksCacheTypeTest extends FormTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearBlocksCacheType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @expectedExceptionMessage The option "blocks" with value 42 is expected to be of type "array", but is of type "integer".
      */
     public function testConfigureOptionsWithInvalidBlocks()
     {

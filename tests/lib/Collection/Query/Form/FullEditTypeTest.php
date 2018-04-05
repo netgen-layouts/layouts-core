@@ -125,8 +125,9 @@ final class FullEditTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
+     * @expectedExceptionMessage The required option "query" is missing.
      */
-    public function testConfigureOptionsWithMissingQueryType()
+    public function testConfigureOptionsWithMissingQuery()
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -139,6 +140,7 @@ final class FullEditTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @expectedExceptionMessage The option "query" with value "" is expected to be of type "Netgen\BlockManager\API\Values\Collection\Query", but is of type "string".
      */
     public function testConfigureOptionsWithInvalidQueryType()
     {
@@ -157,6 +159,7 @@ final class FullEditTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @expectedExceptionMessage The option "data" with value "" is expected to be of type "Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct", but is of type "string".
      */
     public function testConfigureOptionsWithInvalidData()
     {

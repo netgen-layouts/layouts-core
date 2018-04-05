@@ -183,8 +183,9 @@ final class DesignEditTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Block\Form\DesignEditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
+     * @expectedExceptionMessage The required option "block" is missing.
      */
-    public function testConfigureOptionsWithMissingBlockDefinition()
+    public function testConfigureOptionsWithMissingBlock()
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -197,8 +198,9 @@ final class DesignEditTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Block\Form\DesignEditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @expectedExceptionMessage The option "block" with value "" is expected to be of type "Netgen\BlockManager\API\Values\Block\Block", but is of type "string".
      */
-    public function testConfigureOptionsWithInvalidBlockDefinition()
+    public function testConfigureOptionsWithInvalidBlock()
     {
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -215,6 +217,7 @@ final class DesignEditTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Block\Form\DesignEditType::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @expectedExceptionMessage The option "data" with value "" is expected to be of type "Netgen\BlockManager\API\Values\Block\BlockUpdateStruct", but is of type "string".
      */
     public function testConfigureOptionsWithInvalidData()
     {

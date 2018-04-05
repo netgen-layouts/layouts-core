@@ -891,6 +891,7 @@ final class ParameterBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @expectedExceptionMessage The option "required" with value "true" is expected to be of type "bool", but is of type "string".
      */
     public function testBuildParameterDefinitionsWithInvalidRequiredOption()
     {
@@ -911,6 +912,7 @@ final class ParameterBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @expectedExceptionMessage The option "groups" with value "group" is expected to be of type "array", but is of type "string".
      */
     public function testBuildParameterDefinitionsWithInvalidGroupsOption()
     {
@@ -931,6 +933,7 @@ final class ParameterBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
      * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     * @expectedExceptionMessage The option "label" with value true is invalid.
      */
     public function testBuildParameterDefinitionsWithInvalidLabel()
     {
