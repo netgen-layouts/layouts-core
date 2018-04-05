@@ -52,10 +52,7 @@ final class PagerFactory
             $flags
         );
 
-        $pager = $this->buildPager($pagerAdapter, $collection);
-        $pager->setCurrentPage((int) $startPage);
-
-        return $pager;
+        return $this->buildPager($pagerAdapter, $collection, (int) $startPage);
     }
 
     /**
@@ -63,15 +60,17 @@ final class PagerFactory
      *
      * @param \Pagerfanta\Adapter\AdapterInterface $adapter
      * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
+     * @param int $startPage
      *
      * @return \Pagerfanta\Pagerfanta
      */
-    private function buildPager(AdapterInterface $adapter, Collection $collection)
+    private function buildPager(AdapterInterface $adapter, Collection $collection, $startPage)
     {
         $pager = new Pagerfanta($adapter);
 
         $pager->setNormalizeOutOfRangePages(true);
         $pager->setMaxPerPage($this->getMaxPerPage($collection));
+        $pager->setCurrentPage($startPage);
 
         return $pager;
     }
