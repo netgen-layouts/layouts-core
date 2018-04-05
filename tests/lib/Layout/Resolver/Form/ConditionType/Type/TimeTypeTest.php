@@ -2,7 +2,6 @@
 
 namespace Netgen\BlockManager\Tests\Layout\Resolver\Form\ConditionType\Type;
 
-use DateTime;
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Type\TimeType;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 
