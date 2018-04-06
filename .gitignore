@@ -1,6 +1,7 @@
 .idea/
 .tmp/
 coverage/
+coverage_api/
 node_modules/
 /vendor/
 /**/Resources/public/dev/
