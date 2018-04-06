@@ -7,6 +7,7 @@ node_modules/
 composer.phar
 composer.lock
 grunt.lock
+package-lock.json
 phpunit.phar
 studio.json
 .php_cs.cache
