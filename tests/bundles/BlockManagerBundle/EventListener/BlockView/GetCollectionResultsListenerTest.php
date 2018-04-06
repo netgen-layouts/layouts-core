@@ -10,6 +10,7 @@ use Netgen\BlockManager\Core\Values\Block\CollectionReference;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Event\BlockManagerEvents;
 use Netgen\BlockManager\Event\CollectViewParametersEvent;
+use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
@@ -135,7 +136,179 @@ final class GetCollectionResultsListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::__construct
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::onRenderView
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::getMaxPages
+     */
+    public function testOnRenderViewWithPagedCollection()
+    {
+        $collection = new Collection(array('offset' => 3, 'limit' => 5));
+        $collectionReference = new CollectionReference(
+            array(
+                'collection' => $collection,
+                'identifier' => 'collection',
+            )
+        );
+
+        $view = new BlockView(
+            array(
+                'block' => new Block(
+                    array(
+                        'definition' => new BlockDefinition('test', array(), null, false, false, array(), true),
+                        'parameters' => array(
+                            'paged_collections:enabled' => new Parameter(array('value' => true)),
+                            'paged_collections:max_pages' => new Parameter(array('value' => 2)),
+                        ),
+                        'collectionReferences' => array(
+                            'collection' => $collectionReference,
+                        ),
+                    )
+                ),
+            )
+        );
+
+        $view->setContext(ViewInterface::CONTEXT_DEFAULT);
+        $event = new CollectViewParametersEvent($view);
+
+        $this->resultBuilderMock
+            ->expects($this->at(0))
+            ->method('build')
+            ->with(
+                $this->equalTo($collection),
+                $this->equalTo(3),
+                $this->equalTo(5),
+                $this->equalTo(0)
+            )
+            ->will($this->returnValue(new ResultSet(array('totalCount' => 1000, 'collection' => $collection))));
+
+        $this->listener->onRenderView($event);
+
+        $this->assertEquals(
+            array(
+                'collection' => new ResultSet(array('totalCount' => 1000, 'collection' => $collection)),
+            ),
+            $event->getParameters()['collections']
+        );
+
+        $this->assertInstanceOf(Pagerfanta::class, $event->getParameters()['pagers']['collection']);
+        $this->assertEquals(10, $event->getParameters()['pagers']['collection']->getNbResults());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::onRenderView
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::getMaxPages
+     */
+    public function testOnRenderViewWithPagedCollectionAndEmptyMaxPages()
+    {
+        $collection = new Collection(array('offset' => 3, 'limit' => 5));
+        $collectionReference = new CollectionReference(
+            array(
+                'collection' => $collection,
+                'identifier' => 'collection',
+            )
+        );
+
+        $view = new BlockView(
+            array(
+                'block' => new Block(
+                    array(
+                        'definition' => new BlockDefinition('test', array(), null, false, false, array(), true),
+                        'parameters' => array(
+                            'paged_collections:enabled' => new Parameter(array('value' => true)),
+                            'paged_collections:max_pages' => new Parameter(array('value' => null)),
+                        ),
+                        'collectionReferences' => array(
+                            'collection' => $collectionReference,
+                        ),
+                    )
+                ),
+            )
+        );
+
+        $view->setContext(ViewInterface::CONTEXT_DEFAULT);
+        $event = new CollectViewParametersEvent($view);
+
+        $this->resultBuilderMock
+            ->expects($this->at(0))
+            ->method('build')
+            ->with(
+                $this->equalTo($collection),
+                $this->equalTo(3),
+                $this->equalTo(5),
+                $this->equalTo(0)
+            )
+            ->will($this->returnValue(new ResultSet(array('totalCount' => 1000, 'collection' => $collection))));
+
+        $this->listener->onRenderView($event);
+
+        $this->assertEquals(
+            array(
+                'collection' => new ResultSet(array('totalCount' => 1000, 'collection' => $collection)),
+            ),
+            $event->getParameters()['collections']
+        );
+
+        $this->assertInstanceOf(Pagerfanta::class, $event->getParameters()['pagers']['collection']);
+        $this->assertEquals(997, $event->getParameters()['pagers']['collection']->getNbResults());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::onRenderView
+     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::getMaxPages
+     */
+    public function testOnRenderViewWithPagedCollectionAndDisabledPaging()
+    {
+        $collection = new Collection(array('offset' => 3, 'limit' => 5));
+        $collectionReference = new CollectionReference(
+            array(
+                'collection' => $collection,
+                'identifier' => 'collection',
+            )
+        );
+
+        $view = new BlockView(
+            array(
+                'block' => new Block(
+                    array(
+                        'definition' => new BlockDefinition('test', array(), null, false, false, array(), true),
+                        'parameters' => array(
+                            'paged_collections:enabled' => new Parameter(array('value' => false)),
+                        ),
+                        'collectionReferences' => array(
+                            'collection' => $collectionReference,
+                        ),
+                    )
+                ),
+            )
+        );
+
+        $view->setContext(ViewInterface::CONTEXT_DEFAULT);
+        $event = new CollectViewParametersEvent($view);
+
+        $this->resultBuilderMock
+            ->expects($this->at(0))
+            ->method('build')
+            ->with(
+                $this->equalTo($collection),
+                $this->equalTo(3),
+                $this->equalTo(5),
+                $this->equalTo(0)
+            )
+            ->will($this->returnValue(new ResultSet(array('totalCount' => 1000, 'collection' => $collection))));
+
+        $this->listener->onRenderView($event);
+
+        $this->assertEquals(
+            array(
+                'collection' => new ResultSet(array('totalCount' => 1000, 'collection' => $collection)),
+            ),
+            $event->getParameters()['collections']
+        );
+
+        $this->assertInstanceOf(Pagerfanta::class, $event->getParameters()['pagers']['collection']);
+        $this->assertEquals(997, $event->getParameters()['pagers']['collection']->getNbResults());
+    }
+
+    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::onRenderView
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::getMaxPages
      */
@@ -187,7 +360,6 @@ final class GetCollectionResultsListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::onRenderView
      */
     public function testOnRenderViewWithNoBlockView()
@@ -200,7 +372,6 @@ final class GetCollectionResultsListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::onRenderView
      */
     public function testOnRenderViewWithWrongContext()

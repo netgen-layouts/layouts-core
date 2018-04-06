@@ -49,6 +49,11 @@ class BlockDefinition implements BlockDefinitionInterface
     protected $configDefinitions;
 
     /**
+     * @var bool
+     */
+    protected $hasPlugin;
+
+    /**
      * Constructor.
      *
      * @param string $identifier
@@ -57,6 +62,7 @@ class BlockDefinition implements BlockDefinitionInterface
      * @param bool $hasCollection
      * @param bool $isTranslatable
      * @param \Netgen\BlockManager\Config\ConfigDefinitionInterface[] $configDefinitions
+     * @param bool $hasPlugin
      */
     public function __construct(
         $identifier,
@@ -64,7 +70,8 @@ class BlockDefinition implements BlockDefinitionInterface
         BlockDefinitionHandlerInterface $handler = null,
         $hasCollection = false,
         $isTranslatable = false,
-        array $configDefinitions = array()
+        array $configDefinitions = array(),
+        $hasPlugin = false
     ) {
         $this->identifier = $identifier;
         $this->hasCollection = $hasCollection;
@@ -72,6 +79,7 @@ class BlockDefinition implements BlockDefinitionInterface
 
         $this->handler = $handler ?: new BlockDefinitionHandler();
         $this->configDefinitions = $configDefinitions;
+        $this->hasPlugin = $hasPlugin;
 
         foreach ($viewTypes as $viewType => $itemTypes) {
             $itemViewTypes = array();
@@ -346,6 +354,6 @@ class BlockDefinition implements BlockDefinitionInterface
      */
     public function hasPlugin($className)
     {
-        return false;
+        return $this->hasPlugin;
     }
 }
