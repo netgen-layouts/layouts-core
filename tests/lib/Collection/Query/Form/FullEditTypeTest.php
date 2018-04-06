@@ -16,6 +16,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class FullEditTypeTest extends FormTestCase
 {
     /**
+     * @var \Netgen\BlockManager\Collection\QueryTypeInterface
+     */
+    private $queryType;
+
+    /**
      * @var \Netgen\BlockManager\API\Values\Collection\Query
      */
     private $query;
@@ -27,9 +32,9 @@ final class FullEditTypeTest extends FormTestCase
     {
         parent::setUp();
 
-        $queryType = new QueryType('query_type');
+        $this->queryType = new QueryType('query_type');
 
-        $this->query = new Query(array('queryType' => $queryType));
+        $this->query = new Query(array('queryType' => $this->queryType));
     }
 
     /**
@@ -99,6 +104,54 @@ final class FullEditTypeTest extends FormTestCase
 
         $this->assertArrayHasKey('query', $view->vars);
         $this->assertEquals($this->query, $view->vars['query']);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::buildForm
+     * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::buildView
+     */
+    public function testDisableUntranslatableFormsOnNonMainLocale()
+    {
+        $form = $this->factory->create(
+            FullEditType::class,
+            new QueryUpdateStruct(array('locale' => 'hr')),
+            array(
+                'query' => new Query(
+                    array(
+                        'queryType' => $this->queryType,
+                        'mainLocale' => 'en',
+                    )
+                ),
+            )
+        );
+
+        $this->assertFalse($form->get('parameters')->isDisabled());
+        $this->assertTrue($form->get('parameters')->get('param')->isDisabled());
+        $this->assertFalse($form->get('parameters')->get('param2')->isDisabled());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::buildForm
+     * @covers \Netgen\BlockManager\Collection\Query\Form\FullEditType::buildView
+     */
+    public function testDisableUntranslatableFormsOnMainLocale()
+    {
+        $form = $this->factory->create(
+            FullEditType::class,
+            new QueryUpdateStruct(array('locale' => 'en')),
+            array(
+                'query' => new Query(
+                    array(
+                        'queryType' => $this->queryType,
+                        'mainLocale' => 'en',
+                    )
+                ),
+            )
+        );
+
+        $this->assertFalse($form->get('parameters')->isDisabled());
+        $this->assertFalse($form->get('parameters')->get('param')->isDisabled());
+        $this->assertFalse($form->get('parameters')->get('param2')->isDisabled());
     }
 
     /**

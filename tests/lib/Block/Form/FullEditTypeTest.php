@@ -16,6 +16,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class FullEditTypeTest extends FormTestCase
 {
     /**
+     * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
+     */
+    private $definition;
+
+    /**
      * @var \Netgen\BlockManager\API\Values\Block\Block
      */
     private $block;
@@ -27,12 +32,12 @@ final class FullEditTypeTest extends FormTestCase
     {
         parent::setUp();
 
-        $blockDefinition = new BlockDefinition(
+        $this->definition = new BlockDefinition(
             'block_definition',
             array('large' => array('standard'), 'small' => array('standard'))
         );
 
-        $this->block = new Block(array('definition' => $blockDefinition));
+        $this->block = new Block(array('definition' => $this->definition));
     }
 
     /**
@@ -115,6 +120,70 @@ final class FullEditTypeTest extends FormTestCase
         $this->assertEquals($this->block, $view->vars['block']);
 
         $this->assertArrayHasKey('parameter_view_types', $view->vars);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\Form\FullEditType::buildForm
+     * @covers \Netgen\BlockManager\Block\Form\FullEditType::buildView
+     * @covers \Netgen\BlockManager\Block\Form\EditType::addViewTypeForm
+     * @covers \Netgen\BlockManager\Block\Form\EditType::processViewTypeConfig
+     * @covers \Netgen\BlockManager\Block\Form\EditType::addBlockNameForm
+     * @covers \Netgen\BlockManager\Block\Form\EditType::addParametersForm
+     */
+    public function testDisableUntranslatableFormsOnNonMainLocale()
+    {
+        $form = $this->factory->create(
+            FullEditType::class,
+            new BlockUpdateStruct(array('locale' => 'hr')),
+            array(
+                'block' => new Block(
+                    array(
+                        'definition' => $this->definition,
+                        'mainLocale' => 'en',
+                    )
+                ),
+            )
+        );
+
+        $this->assertTrue($form->get('name')->isDisabled());
+        $this->assertTrue($form->get('view_type')->isDisabled());
+        $this->assertTrue($form->get('item_view_type')->isDisabled());
+
+        $this->assertFalse($form->get('parameters')->isDisabled());
+        $this->assertTrue($form->get('parameters')->get('css_class')->isDisabled());
+        $this->assertTrue($form->get('parameters')->get('css_id')->isDisabled());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Block\Form\FullEditType::buildForm
+     * @covers \Netgen\BlockManager\Block\Form\FullEditType::buildView
+     * @covers \Netgen\BlockManager\Block\Form\EditType::addViewTypeForm
+     * @covers \Netgen\BlockManager\Block\Form\EditType::processViewTypeConfig
+     * @covers \Netgen\BlockManager\Block\Form\EditType::addBlockNameForm
+     * @covers \Netgen\BlockManager\Block\Form\EditType::addParametersForm
+     */
+    public function testDisableUntranslatableFormsOnMainLocale()
+    {
+        $form = $this->factory->create(
+            FullEditType::class,
+            new BlockUpdateStruct(array('locale' => 'en')),
+            array(
+                'block' => new Block(
+                    array(
+                        'definition' => $this->definition,
+                        'mainLocale' => 'en',
+                    )
+                ),
+            )
+        );
+
+        $this->assertFalse($form->get('name')->isDisabled());
+        $this->assertFalse($form->get('view_type')->isDisabled());
+        $this->assertFalse($form->get('item_view_type')->isDisabled());
+
+        $this->assertFalse($form->get('parameters')->isDisabled());
+        $this->assertFalse($form->get('parameters')->get('css_class')->isDisabled());
+        $this->assertFalse($form->get('parameters')->get('css_id')->isDisabled());
     }
 
     /**

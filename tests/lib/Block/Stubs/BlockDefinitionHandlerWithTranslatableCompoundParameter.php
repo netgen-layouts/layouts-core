@@ -47,7 +47,7 @@ final class BlockDefinitionHandlerWithTranslatableCompoundParameter extends Base
             true
         );
 
-        $compoundParam->setParameters(
+        $compoundParam->setParameterDefinitions(
             array(
                 'inner' => new ParameterDefinition(
                     array(
