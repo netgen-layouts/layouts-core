@@ -29,7 +29,7 @@
     },
     "require-dev": {
         "netgen/block-manager-standard": "~0.11.0",
-        "phpunit/phpunit": "^5.7 || ^7.0",
+        "phpunit/phpunit": "^5.7 || ^7.1",
         "symfony/phpunit-bridge": "^4.0",
         "matthiasnoback/symfony-dependency-injection-test": "^1.2 || ^3.0",
         "matthiasnoback/symfony-config-test": "^2.2 || ^4.0",
