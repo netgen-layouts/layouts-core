@@ -43,8 +43,9 @@ final class Collection implements APICollection
                 array(
                     'type' => Item::TYPE_MANUAL,
                     'value' => $value,
-                    'cmsItem' => new CmsItem(array('value' => $value, 'isVisible' => true)),
+                    'cmsItem' => new CmsItem(array('value' => $value)),
                     'position' => $position,
+                    'isValid' => $value !== null,
                 )
             );
         }
@@ -54,8 +55,9 @@ final class Collection implements APICollection
                 array(
                     'type' => Item::TYPE_OVERRIDE,
                     'value' => $value,
-                    'cmsItem' => new CmsItem(array('value' => $value, 'isVisible' => true)),
+                    'cmsItem' => new CmsItem(array('value' => $value)),
                     'position' => $position,
+                    'isValid' => $value !== null,
                 )
             );
         }

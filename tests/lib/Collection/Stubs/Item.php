@@ -51,6 +51,11 @@ final class Item extends Value implements APIItem
      */
     protected $cmsItem;
 
+    /**
+     * @var bool
+     */
+    protected $isValid;
+
     public function getId()
     {
         return $this->id;
@@ -103,6 +108,6 @@ final class Item extends Value implements APIItem
 
     public function isValid()
     {
-        return true;
+        return $this->isValid;
     }
 }

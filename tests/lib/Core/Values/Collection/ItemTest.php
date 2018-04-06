@@ -54,7 +54,6 @@ final class ItemTest extends TestCase
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getValueType
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::getCmsItem
      * @covers \Netgen\BlockManager\Core\Values\Collection\Item::isPublished
-     * @group a
      */
     public function testSetProperties()
     {
