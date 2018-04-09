@@ -143,7 +143,15 @@ final class LinkType extends ParameterType
             return true;
         }
 
-        return empty($value->getLinkType()) || empty($value->getLink());
+        if (empty($value->getLinkType())) {
+            return true;
+        }
+
+        if ($value->getLinkType() === LinkValue::LINK_TYPE_URL) {
+            return empty($value->getLink()) && empty($value->getLinkSuffix());
+        }
+
+        return empty($value->getLink());
     }
 
     protected function getValueConstraints(ParameterDefinitionInterface $parameterDefinition, $value)

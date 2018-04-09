@@ -613,6 +613,16 @@ final class LinkTypeTest extends TestCase
             array(new LinkValue(), true),
             array(new LinkValue(array('linkType' => 'url')), true),
             array(new LinkValue(array('linkType' => 'url', 'link' => 'http://www.google.com')), false),
+            array(new LinkValue(array('linkType' => 'url', 'linkSuffix' => '?suffix')), false),
+            array(new LinkValue(array('linkType' => 'email')), true),
+            array(new LinkValue(array('linkType' => 'email', 'link' => 'test@example.com')), false),
+            array(new LinkValue(array('linkType' => 'email', 'linkSuffix' => '?suffix')), true),
+            array(new LinkValue(array('linkType' => 'tel')), true),
+            array(new LinkValue(array('linkType' => 'tel', 'link' => '123456')), false),
+            array(new LinkValue(array('linkType' => 'tel', 'linkSuffix' => '?suffix')), true),
+            array(new LinkValue(array('linkType' => 'internal')), true),
+            array(new LinkValue(array('linkType' => 'internal', 'link' => 'ezlocation://42')), false),
+            array(new LinkValue(array('linkType' => 'internal', 'linkSuffix' => '?suffix')), true),
         );
     }
 }

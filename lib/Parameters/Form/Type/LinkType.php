@@ -56,6 +56,7 @@ final class LinkType extends AbstractType
             UrlType::class,
             array(
                 'label' => 'link.link_type.url',
+                'required' => false,
             )
         );
 

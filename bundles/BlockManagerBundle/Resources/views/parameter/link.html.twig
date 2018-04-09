@@ -6,11 +6,11 @@
     {% set content = content|default('') %}
 
     {% if value.linkType == constant('LINK_TYPE_URL', value) %}
-        {% set link = value.link %}
+        {% set link = value.link ~ value.linkSuffix %}
     {% elseif value.linkType == constant('LINK_TYPE_EMAIL', value) %}
         {% set link = 'mailto:' ~ value.link ~ value.linkSuffix %}
     {% elseif value.linkType == constant('LINK_TYPE_PHONE', value) %}
-        {% set link = 'tel:' ~ value.link %}
+        {% set link = 'tel:' ~ value.link ~ value.linkSuffix %}
     {% elseif value.linkType == constant('LINK_TYPE_INTERNAL', value) %}
         {% set link = ngbm_item_path(value.link) ~ value.linkSuffix %}
     {% endif %}
