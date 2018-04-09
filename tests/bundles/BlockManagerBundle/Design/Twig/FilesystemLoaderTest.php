@@ -55,13 +55,13 @@ final class FilesystemLoaderTest extends TestCase
 
         $this->innerLoaderMock
             ->expects($this->once())
-            ->method('getSource')
+            ->method('getSourceContext')
             ->with($this->equalTo('@ngbm_test/template.html.twig'))
-            ->will($this->returnValue('@ngbm_test/template.html.twig'));
+            ->will($this->returnValue(new Source('source code', '@ngbm_test/template.html.twig')));
 
         $source = $this->loader->getSource('@ngbm/template.html.twig');
 
-        $this->assertEquals('@ngbm_test/template.html.twig', $source);
+        $this->assertEquals('source code', $source);
     }
 
     /**
@@ -75,13 +75,13 @@ final class FilesystemLoaderTest extends TestCase
 
         $this->innerLoaderMock
             ->expects($this->once())
-            ->method('getSource')
+            ->method('getSourceContext')
             ->with($this->equalTo('@other/template.html.twig'))
-            ->will($this->returnValue('@other/template.html.twig'));
+            ->will($this->returnValue(new Source('source code', '@other/template.html.twig')));
 
         $source = $this->loader->getSource('@other/template.html.twig');
 
-        $this->assertEquals('@other/template.html.twig', $source);
+        $this->assertEquals('source code', $source);
     }
 
     /**

@@ -40,7 +40,7 @@ final class FilesystemLoader implements LoaderInterface
      */
     public function getSource($name)
     {
-        return $this->innerLoader->getSource($this->getRealName($name));
+        return $this->innerLoader->getSourceContext($this->getRealName($name))->getCode();
     }
 
     public function getCacheKey($name)
