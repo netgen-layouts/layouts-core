@@ -111,6 +111,20 @@ final class LayoutControllerTest extends JsonApiTestCase
     }
 
     /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::viewLayoutBlocks
+     */
+    public function testViewLayoutBlocksWithNonExistentLayoutLocale()
+    {
+        $this->client->request('GET', '/bm/api/v1/unknown/layouts/1/blocks');
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_NOT_FOUND,
+            'Could not find layout with identifier "1"'
+        );
+    }
+
+    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::viewZoneBlocks
      */
     public function testViewZoneBlocks()
@@ -163,6 +177,20 @@ final class LayoutControllerTest extends JsonApiTestCase
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
             'Could not find zone with identifier "right"'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\LayoutController::viewZoneBlocks
+     */
+    public function testViewZoneBlocksWithNonExistentLayoutLocale()
+    {
+        $this->client->request('GET', '/bm/api/v1/unknown/layouts/1/zones/right/blocks');
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_NOT_FOUND,
+            'Could not find layout with identifier "1"'
         );
     }
 

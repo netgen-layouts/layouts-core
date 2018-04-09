@@ -257,4 +257,46 @@ final class CollectionControllerTest extends JsonApiTestCase
             'Could not find item with identifier "9999"'
         );
     }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::deleteItems
+     */
+    public function testDeleteItems()
+    {
+        $data = $this->jsonEncode(array());
+
+        $this->client->request(
+            'DELETE',
+            '/bm/api/v1/collections/1/items',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertEmptyResponse($this->client->getResponse());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\CollectionController::deleteItems
+     */
+    public function testDeleteItemsWithNonExistentCollection()
+    {
+        $data = $this->jsonEncode(array());
+
+        $this->client->request(
+            'DELETE',
+            '/bm/api/v1/collections/9999/items',
+            array(),
+            array(),
+            array(),
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_NOT_FOUND,
+            'Could not find collection with identifier "9999"'
+        );
+    }
 }
