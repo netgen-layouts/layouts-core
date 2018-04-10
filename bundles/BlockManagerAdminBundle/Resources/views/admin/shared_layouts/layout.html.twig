@@ -2,7 +2,15 @@
 
 {% trans_default_domain 'ngbm_admin' %}
 
-<div class="nl-layout-content" data-id="{{ layout.id }}" {% if layout.published %}data-published="true"{% endif %}>
+<div class="nl-layout-content"
+    data-id="{{ layout.id }}"
+    {% if layout.published %}data-published="true"{% endif %}
+    data-name="{{ layout.name }}"
+    data-description="{{ layout.description }}"
+    data-modified="{{ layout.modified.date }}"
+    data-type="{{ layout.layoutType.name }}"
+    data-references="{{ related_layouts_count }}"
+    >
     <div class="nl-layout-info">
 
         <div class="nl-layout-export-checkbox">

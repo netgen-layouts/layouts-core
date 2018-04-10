@@ -176,7 +176,27 @@
     .nl-layouts-head {
         display:none !important;
     }
-    @media screen and (max-width:1400px) {
+    .layout-sorting-controls {
+        float: left;
+        padding: 0 1em 0 0;
+        .nl-select {
+            background-color: #fff;
+        }
+        label {
+            margin: 0;
+            vertical-align: middle;
+            i {
+                vertical-align: middle;
+            }
+        }
+    }
+    @media screen and (max-width: 1100px) {
+        .layout-sorting-controls {
+            float: none;
+            padding: 1em 0 0;
+        }
+    }
+    @media screen and (max-width: 1400px) {
         .nl-layout {
             width:33.333333333333%;
         }
@@ -287,10 +307,53 @@
     .nl-layouts-head {
         display:flex;
         font-size:12px;
-        margin:0 0 0.5em;
         > * {
             display:flex;
         }
+        .js-reorder-layouts {
+            color: $textColor;
+            text-decoration: none;
+            display: inline-block;
+            user-select: none;
+            padding: .5em 1em;
+            margin: 0 -1em;
+            white-space: nowrap;
+            .sort-icon {
+                display: none;
+                position: relative;
+                width: 6px;
+                height: 13px;
+                vertical-align: middle;
+                margin: 0 0 0 .5em;
+                pointer-events: none;
+                &::before {
+                    content: '';
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate3d(-50%, -50%, 0);
+                    border-left: 4px solid transparent;
+                    border-right: 4px solid transparent;
+                    border-bottom: 8px solid currentColor;
+                }
+            }
+            &.active {
+                font-weight: 500;
+                background: hsl(210, 37, 90);
+                .sort-icon {
+                    display: inline-block;
+                }
+                &.sorting-asc {
+                    .sort-icon::before {
+                        border-top: 8px solid currentColor;
+                        border-bottom: 0;
+                    }
+                }
+            }
+        }
+    }
+    .layout-sorting-controls {
+        display: none !important;
     }
     @media screen and (max-width:$break-lg) {
         .nl-layout-type {
@@ -311,6 +374,12 @@
             .nl-layout-modified {
                 padding-right:20px;
                 width:100px;
+            }
+        }
+        .nl-layouts-head {
+            .js-reorder-layouts {
+                padding: .5em .75em;
+                margin: 0 -.75em;
             }
         }
     }
