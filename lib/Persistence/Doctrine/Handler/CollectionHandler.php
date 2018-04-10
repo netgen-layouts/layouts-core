@@ -400,7 +400,8 @@ final class CollectionHandler implements CollectionHandlerInterface
 
         if ($switchWithItem instanceof Item) {
             // If we're moving an item to an adjacent position where an item is already
-            // preset, we simply switch their positions
+            // present, we simply switch their positions in order to minimize impact on
+            // other items
             $this->switchItemPositions($item, $switchWithItem);
 
             return $this->loadItem($item->id, $item->status);
