@@ -599,19 +599,21 @@ final class CollectionHandler implements CollectionHandlerInterface
             );
         }
 
-        return $this->incrementItemPositions($collection, $newPosition);
+        return $this->incrementItemPositions($collection, $newPosition, $item->position);
     }
 
     /**
      * Creates space for a new manual item by shifting positions of other items
-     * below the new position, but only up until the first break in positions.
+     * below the new position, but only up until the first break in positions,
+     * or up to $maxPosition if provided.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
      * @param int $startPosition
+     * @param int $maxPosition
      *
      * @return int
      */
-    private function incrementItemPositions(Collection $collection, $startPosition)
+    private function incrementItemPositions(Collection $collection, $startPosition, $maxPosition = null)
     {
         $items = $this->loadCollectionItems($collection);
         $endPosition = $startPosition - 1;
@@ -623,9 +625,9 @@ final class CollectionHandler implements CollectionHandlerInterface
                 continue;
             }
 
-            if ($item->position - $endPosition > 1) {
-                // Once we reach a break in positions, we've come to the end
-                // of items we need to shift.
+            if ($item->position - $endPosition > 1 || $item->position === $maxPosition) {
+                // Once we reach a break in positions, or if we we've come to the maximum
+                // allowed position, we simply stop.
                 break;
             }
 
