@@ -116,6 +116,47 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadItemWithPosition
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadItemWithPositionData
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::getItemSelectQuery
+     */
+    public function testLoadItemWithPosition()
+    {
+        $this->assertEquals(
+            new Item(
+                array(
+                    'id' => 1,
+                    'collectionId' => 1,
+                    'position' => 0,
+                    'type' => Item::TYPE_MANUAL,
+                    'value' => '72',
+                    'valueType' => 'ezlocation',
+                    'status' => Value::STATUS_DRAFT,
+                    'config' => array(),
+                )
+            ),
+            $this->collectionHandler->loadItemWithPosition(
+                $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+                0
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadItemWithPosition
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadItemWithPositionData
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find item in collection with ID "1" at position 9999
+     */
+    public function testLoadItemWithPositionThrowsNotFoundException()
+    {
+        $this->collectionHandler->loadItemWithPosition(
+            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+            9999
+        );
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionItems
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionItemsData
      */
@@ -1374,6 +1415,42 @@ final class CollectionHandlerTest extends TestCase
         $this->assertEquals(
             new Item(
                 array(
+                    'id' => 12,
+                    'collectionId' => 4,
+                    'position' => 2,
+                    'type' => Item::TYPE_MANUAL,
+                    'value' => '74',
+                    'valueType' => 'ezlocation',
+                    'status' => Value::STATUS_DRAFT,
+                    'config' => array(),
+                )
+            ),
+            $this->collectionHandler->moveItem(
+                $this->collectionHandler->loadItem(12, Value::STATUS_DRAFT),
+                2
+            )
+        );
+
+        $firstItem = $this->collectionHandler->loadItem(10, Value::STATUS_DRAFT);
+        $this->assertEquals(3, $firstItem->position);
+
+        $secondItem = $this->collectionHandler->loadItem(11, Value::STATUS_DRAFT);
+        $this->assertEquals(4, $secondItem->position);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItem
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItemToPosition
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
+     */
+    public function testMoveItemWithSwitchingPositions()
+    {
+        $this->assertEquals(
+            new Item(
+                array(
                     'id' => 1,
                     'collectionId' => 1,
                     'position' => 1,
@@ -1392,6 +1469,9 @@ final class CollectionHandlerTest extends TestCase
 
         $firstItem = $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
         $this->assertEquals(0, $firstItem->position);
+
+        $secondItem = $this->collectionHandler->loadItem(3, Value::STATUS_DRAFT);
+        $this->assertEquals(2, $secondItem->position);
     }
 
     /**
@@ -1461,6 +1541,42 @@ final class CollectionHandlerTest extends TestCase
 
         $firstItem = $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT);
         $this->assertEquals(1, $firstItem->position);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItem
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItemToPosition
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
+     */
+    public function testMoveItemToLowerPositionWithSwitchingPositions()
+    {
+        $this->assertEquals(
+            new Item(
+                array(
+                    'id' => 3,
+                    'collectionId' => 1,
+                    'position' => 1,
+                    'type' => Item::TYPE_MANUAL,
+                    'value' => '74',
+                    'valueType' => 'ezlocation',
+                    'status' => Value::STATUS_DRAFT,
+                    'config' => array(),
+                )
+            ),
+            $this->collectionHandler->moveItem(
+                $this->collectionHandler->loadItem(3, Value::STATUS_DRAFT),
+                1
+            )
+        );
+
+        $firstItem = $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT);
+        $this->assertEquals(0, $firstItem->position);
+
+        $secondItem = $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
+        $this->assertEquals(2, $secondItem->position);
     }
 
     /**
@@ -1564,6 +1680,51 @@ final class CollectionHandlerTest extends TestCase
             $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT),
             9999
         );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::switchItemPositions
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
+     */
+    public function testSwitchItemPositions()
+    {
+        $item1 = $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
+        $item2 = $this->collectionHandler->loadItem(3, Value::STATUS_DRAFT);
+
+        $this->collectionHandler->switchItemPositions($item1, $item2);
+
+        $updatedItem1 = $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
+        $updatedItem2 = $this->collectionHandler->loadItem(3, Value::STATUS_DRAFT);
+
+        $this->assertEquals($item2->position, $updatedItem1->position);
+        $this->assertEquals($item1->position, $updatedItem2->position);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::switchItemPositions
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage First and second items are the same.
+     */
+    public function testSwitchItemPositionsThrowsBadStateExceptionWithSameItem()
+    {
+        $item1 = $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
+        $item2 = $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
+
+        $this->collectionHandler->switchItemPositions($item1, $item2);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::switchItemPositions
+     * @expectedException \Netgen\BlockManager\Exception\BadStateException
+     * @expectedExceptionMessage Positions can be switched only for items within the same collection.
+     */
+    public function testSwitchItemPositionsThrowsBadStateExceptionWithItemsFromDifferentCollections()
+    {
+        $item1 = $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
+        $item2 = $this->collectionHandler->loadItem(7, Value::STATUS_DRAFT);
+
+        $this->collectionHandler->switchItemPositions($item1, $item2);
     }
 
     /**

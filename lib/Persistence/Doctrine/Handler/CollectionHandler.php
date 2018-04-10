@@ -71,6 +71,25 @@ final class CollectionHandler implements CollectionHandlerInterface
         return reset($data);
     }
 
+    public function loadItemWithPosition(Collection $collection, $position)
+    {
+        $data = $this->queryHandler->loadItemWithPositionData($collection, $position);
+
+        if (empty($data)) {
+            throw new NotFoundException(
+                sprintf(
+                    'item in collection with ID "%d" at position %d',
+                    $collection->id,
+                    $position
+                )
+            );
+        }
+
+        $data = $this->collectionMapper->mapItems($data);
+
+        return reset($data);
+    }
+
     public function loadCollectionItems(Collection $collection)
     {
         return $this->collectionMapper->mapItems(
@@ -370,6 +389,23 @@ final class CollectionHandler implements CollectionHandlerInterface
     {
         $collection = $this->loadCollection($item->collectionId, $item->status);
 
+        $switchWithItem = null;
+        if ($item->position + 1 === $position || $item->position - 1 === $position) {
+            try {
+                $switchWithItem = $this->loadItemWithPosition($collection, $position);
+            } catch (NotFoundException $e) {
+                // Do nothing
+            }
+        }
+
+        if ($switchWithItem instanceof Item) {
+            // If we're moving an item to an adjacent position where an item is already
+            // preset, we simply switch their positions
+            $this->switchItemPositions($item, $switchWithItem);
+
+            return $this->loadItem($item->id, $item->status);
+        }
+
         $movedItem = clone $item;
 
         if ($item->position !== $position) {
@@ -379,6 +415,26 @@ final class CollectionHandler implements CollectionHandlerInterface
         }
 
         return $movedItem;
+    }
+
+    public function switchItemPositions(Item $item1, Item $item2)
+    {
+        if ($item1->id === $item2->id) {
+            throw new BadStateException('item1', 'First and second items are the same.');
+        }
+
+        if ($item1->collectionId !== $item2->collectionId) {
+            throw new BadStateException('item1', 'Positions can be switched only for items within the same collection.');
+        }
+
+        $updatedItem1 = clone $item1;
+        $updatedItem2 = clone $item2;
+
+        $updatedItem1->position = $item2->position;
+        $updatedItem2->position = $item1->position;
+
+        $this->queryHandler->updateItem($updatedItem1);
+        $this->queryHandler->updateItem($updatedItem2);
     }
 
     public function deleteItem(Item $item)

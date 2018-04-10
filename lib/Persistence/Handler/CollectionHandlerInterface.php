@@ -39,6 +39,18 @@ interface CollectionHandlerInterface
     public function loadItem($itemId, $status);
 
     /**
+     * Loads an item with specified position in specified collection.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
+     * @param int $position
+     *
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If item does not exist
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Collection\Item
+     */
+    public function loadItemWithPosition(Collection $collection, $position);
+
+    /**
      * Loads all items that belong to collection with specified ID.
      *
      * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
@@ -198,6 +210,17 @@ interface CollectionHandlerInterface
      * @return \Netgen\BlockManager\Persistence\Values\Collection\Item
      */
     public function moveItem(Item $item, $position);
+
+    /**
+     * Switch item positions within the same collection.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Item $item1
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Item $item2
+     *
+     * @throws \Netgen\BlockManager\Exception\BadStateException If items are the same
+     *                                                          If items are not within the same collection
+     */
+    public function switchItemPositions(Item $item1, Item $item2);
 
     /**
      * Removes an item.

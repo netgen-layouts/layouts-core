@@ -54,6 +54,31 @@ final class CollectionQueryHandler extends QueryHandler
     }
 
     /**
+     * Loads an item with specified position in specified collection.
+     *
+     * @param \Netgen\BlockManager\Persistence\Values\Collection\Collection $collection
+     * @param int $position
+     *
+     * @return array
+     */
+    public function loadItemWithPositionData(Collection $collection, $position)
+    {
+        $query = $this->getItemSelectQuery();
+        $query->where(
+            $query->expr()->andX(
+                $query->expr()->eq('collection_id', ':collection_id'),
+                $query->expr()->eq('position', ':position')
+            )
+        )
+        ->setParameter('collection_id', $collection->id, Type::INTEGER)
+        ->setParameter('position', $position, Type::INTEGER);
+
+        $this->applyStatusCondition($query, $collection->status);
+
+        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
      * Loads all data for a query.
      *
      * @param int|string $queryId
