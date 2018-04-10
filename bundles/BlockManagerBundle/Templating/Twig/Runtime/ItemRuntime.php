@@ -6,7 +6,7 @@ use Exception;
 use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
-use Netgen\BlockManager\Item\UrlBuilderInterface;
+use Netgen\BlockManager\Item\UrlGeneratorInterface;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
@@ -18,9 +18,9 @@ final class ItemRuntime
     private $itemLoader;
 
     /**
-     * @var \Netgen\BlockManager\Item\UrlBuilderInterface
+     * @var \Netgen\BlockManager\Item\UrlGeneratorInterface
      */
-    private $urlBuilder;
+    private $urlGenerator;
 
     /**
      * @var \Psr\Log\LoggerInterface
@@ -34,11 +34,11 @@ final class ItemRuntime
 
     public function __construct(
         ItemLoaderInterface $itemLoader,
-        UrlBuilderInterface $urlBuilder,
+        UrlGeneratorInterface $urlGenerator,
         LoggerInterface $logger = null
     ) {
         $this->itemLoader = $itemLoader;
-        $this->urlBuilder = $urlBuilder;
+        $this->urlGenerator = $urlGenerator;
         $this->logger = $logger ?: new NullLogger();
     }
 
@@ -93,7 +93,7 @@ final class ItemRuntime
                 throw ItemException::canNotLoadItem();
             }
 
-            return $this->urlBuilder->getUrl($item);
+            return $this->urlGenerator->generate($item);
         } catch (Exception $e) {
             $this->logger->error($e->getMessage());
 

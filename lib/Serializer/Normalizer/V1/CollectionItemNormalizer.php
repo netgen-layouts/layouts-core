@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\Item\NullItem;
-use Netgen\BlockManager\Item\UrlBuilderInterface;
+use Netgen\BlockManager\Item\UrlGeneratorInterface;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -12,13 +12,13 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 final class CollectionItemNormalizer implements NormalizerInterface
 {
     /**
-     * @var \Netgen\BlockManager\Item\UrlBuilderInterface
+     * @var \Netgen\BlockManager\Item\UrlGeneratorInterface
      */
-    private $urlBuilder;
+    private $urlGenerator;
 
-    public function __construct(UrlBuilderInterface $urlBuilder)
+    public function __construct(UrlGeneratorInterface $urlGenerator)
     {
-        $this->urlBuilder = $urlBuilder;
+        $this->urlGenerator = $urlGenerator;
     }
 
     public function normalize($object, $format = null, array $context = array())
@@ -45,7 +45,7 @@ final class CollectionItemNormalizer implements NormalizerInterface
             return $data;
         }
 
-        $data['cms_url'] = $this->urlBuilder->getUrl($cmsItem);
+        $data['cms_url'] = $this->urlGenerator->generate($cmsItem);
 
         return $data;
     }

@@ -4,7 +4,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig\Runtime;
 
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Item\ItemLoaderInterface;
-use Netgen\BlockManager\Item\UrlBuilderInterface;
+use Netgen\BlockManager\Item\UrlGeneratorInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntime;
 use PHPUnit\Framework\TestCase;
 
@@ -18,7 +18,7 @@ final class ItemRuntimeTest extends TestCase
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
-    private $urlBuilderMock;
+    private $urlGeneratorMock;
 
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntime
@@ -28,11 +28,11 @@ final class ItemRuntimeTest extends TestCase
     public function setUp()
     {
         $this->itemLoaderMock = $this->createMock(ItemLoaderInterface::class);
-        $this->urlBuilderMock = $this->createMock(UrlBuilderInterface::class);
+        $this->urlGeneratorMock = $this->createMock(UrlGeneratorInterface::class);
 
         $this->runtime = new ItemRuntime(
             $this->itemLoaderMock,
-            $this->urlBuilderMock
+            $this->urlGeneratorMock
         );
     }
 
@@ -48,9 +48,9 @@ final class ItemRuntimeTest extends TestCase
             ->with($this->equalTo(42), $this->equalTo('value'))
             ->will($this->returnValue(new Item()));
 
-        $this->urlBuilderMock
+        $this->urlGeneratorMock
             ->expects($this->once())
-            ->method('getUrl')
+            ->method('generate')
             ->with($this->equalTo(new Item()))
             ->will($this->returnValue('/item/path'));
 
@@ -70,9 +70,9 @@ final class ItemRuntimeTest extends TestCase
             ->with($this->equalTo(42), $this->equalTo('value'))
             ->will($this->returnValue(new Item()));
 
-        $this->urlBuilderMock
+        $this->urlGeneratorMock
             ->expects($this->once())
-            ->method('getUrl')
+            ->method('generate')
             ->with($this->equalTo(new Item()))
             ->will($this->returnValue('/item/path'));
 
@@ -90,9 +90,9 @@ final class ItemRuntimeTest extends TestCase
             ->expects($this->never())
             ->method('load');
 
-        $this->urlBuilderMock
+        $this->urlGeneratorMock
             ->expects($this->once())
-            ->method('getUrl')
+            ->method('generate')
             ->with($this->equalTo(new Item()))
             ->will($this->returnValue('/item/path'));
 
@@ -110,9 +110,9 @@ final class ItemRuntimeTest extends TestCase
             ->expects($this->never())
             ->method('load');
 
-        $this->urlBuilderMock
+        $this->urlGeneratorMock
             ->expects($this->never())
-            ->method('getUrl');
+            ->method('generate');
 
         $this->assertEquals('', $this->runtime->getItemPath('value'));
     }
@@ -131,9 +131,9 @@ final class ItemRuntimeTest extends TestCase
             ->expects($this->never())
             ->method('load');
 
-        $this->urlBuilderMock
+        $this->urlGeneratorMock
             ->expects($this->never())
-            ->method('getUrl');
+            ->method('generate');
 
         $this->runtime->getItemPath('value');
     }
@@ -147,9 +147,9 @@ final class ItemRuntimeTest extends TestCase
             ->expects($this->never())
             ->method('load');
 
-        $this->urlBuilderMock
+        $this->urlGeneratorMock
             ->expects($this->never())
-            ->method('getUrl');
+            ->method('generate');
 
         $this->assertEquals('', $this->runtime->getItemPath(42));
     }
@@ -168,9 +168,9 @@ final class ItemRuntimeTest extends TestCase
             ->expects($this->never())
             ->method('load');
 
-        $this->urlBuilderMock
+        $this->urlGeneratorMock
             ->expects($this->never())
-            ->method('getUrl');
+            ->method('generate');
 
         $this->runtime->getItemPath(42);
     }

@@ -9,7 +9,7 @@ use Netgen\BlockManager\Core\Values\Collection\Item as CollectionItem;
 use Netgen\BlockManager\Core\Values\Config\Config;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Item\NullItem;
-use Netgen\BlockManager\Item\UrlBuilderInterface;
+use Netgen\BlockManager\Item\UrlGeneratorInterface;
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
@@ -21,7 +21,7 @@ final class CollectionResultNormalizerTest extends TestCase
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
-    private $urlBuilderMock;
+    private $urlGeneratorMock;
 
     /**
      * @var \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer
@@ -30,9 +30,9 @@ final class CollectionResultNormalizerTest extends TestCase
 
     public function setUp()
     {
-        $this->urlBuilderMock = $this->createMock(UrlBuilderInterface::class);
+        $this->urlGeneratorMock = $this->createMock(UrlGeneratorInterface::class);
 
-        $this->normalizer = new CollectionResultNormalizer($this->urlBuilderMock);
+        $this->normalizer = new CollectionResultNormalizer($this->urlGeneratorMock);
     }
 
     /**
@@ -69,9 +69,9 @@ final class CollectionResultNormalizerTest extends TestCase
         );
 
         $result = new Result(3, new ManualItem($collectionItem));
-        $this->urlBuilderMock
+        $this->urlGeneratorMock
             ->expects($this->any())
-            ->method('getUrl')
+            ->method('generate')
             ->with($this->equalTo($collectionItem->getCmsItem()))
             ->will($this->returnValue('/some/url'));
 
@@ -122,9 +122,9 @@ final class CollectionResultNormalizerTest extends TestCase
         );
 
         $result = new Result(3, new ManualItem($collectionItem));
-        $this->urlBuilderMock
+        $this->urlGeneratorMock
             ->expects($this->never())
-            ->method('getUrl');
+            ->method('generate');
 
         $this->assertEquals(
             array(
@@ -159,9 +159,9 @@ final class CollectionResultNormalizerTest extends TestCase
 
         $result = new Result(3, $item);
 
-        $this->urlBuilderMock
+        $this->urlGeneratorMock
             ->expects($this->any())
-            ->method('getUrl')
+            ->method('generate')
             ->with($this->equalTo($item))
             ->will($this->returnValue('/some/url'));
 
@@ -193,9 +193,9 @@ final class CollectionResultNormalizerTest extends TestCase
 
         $result = new Result(3, $item);
 
-        $this->urlBuilderMock
+        $this->urlGeneratorMock
             ->expects($this->never())
-            ->method('getUrl');
+            ->method('generate');
 
         $this->assertEquals(
             array(
@@ -255,9 +255,9 @@ final class CollectionResultNormalizerTest extends TestCase
         );
 
         $result = new Result(3, new ManualItem($collectionItem), $item);
-        $this->urlBuilderMock
+        $this->urlGeneratorMock
             ->expects($this->any())
-            ->method('getUrl')
+            ->method('generate')
             ->with($this->equalTo($collectionItem->getCmsItem()))
             ->will($this->returnValue('/some/url'));
 

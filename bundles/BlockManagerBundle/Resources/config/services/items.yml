@@ -12,8 +12,8 @@ services:
             - "@netgen_block_manager.item.item_builder"
             - []
 
-    netgen_block_manager.item.url_builder:
-        class: Netgen\BlockManager\Item\UrlBuilder
+    netgen_block_manager.item.url_generator:
+        class: Netgen\BlockManager\Item\UrlGenerator
         public: true
         arguments:
             - []

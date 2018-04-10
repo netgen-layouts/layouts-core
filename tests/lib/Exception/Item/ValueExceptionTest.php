@@ -34,14 +34,14 @@ final class ValueExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Exception\Item\ValueException::noValueUrlBuilder
+     * @covers \Netgen\BlockManager\Exception\Item\ValueException::noValueUrlGenerator
      */
-    public function testNoValueUrlBuilder()
+    public function testNoValueUrlGenerator()
     {
-        $exception = ValueException::noValueUrlBuilder('type');
+        $exception = ValueException::noValueUrlGenerator('type');
 
         $this->assertEquals(
-            'Value URL builder for "type" value type does not exist.',
+            'Value URL generator for "type" value type does not exist.',
             $exception->getMessage()
         );
     }

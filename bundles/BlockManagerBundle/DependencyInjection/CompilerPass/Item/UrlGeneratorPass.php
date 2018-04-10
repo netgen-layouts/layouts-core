@@ -7,10 +7,10 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
-final class UrlBuilderPass implements CompilerPassInterface
+final class UrlGeneratorPass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_block_manager.item.url_builder';
-    const TAG_NAME = 'netgen_block_manager.item.value_url_builder';
+    const SERVICE_NAME = 'netgen_block_manager.item.url_generator';
+    const TAG_NAME = 'netgen_block_manager.item.value_url_generator';
 
     public function process(ContainerBuilder $container)
     {
@@ -18,14 +18,14 @@ final class UrlBuilderPass implements CompilerPassInterface
             return;
         }
 
-        $urlBuilder = $container->findDefinition(self::SERVICE_NAME);
+        $urlGenerator = $container->findDefinition(self::SERVICE_NAME);
 
-        $valueUrlBuilders = array();
-        foreach ($container->findTaggedServiceIds(self::TAG_NAME) as $valueUrlBuilder => $tags) {
+        $valueUrlGenerators = array();
+        foreach ($container->findTaggedServiceIds(self::TAG_NAME) as $valueUrlGenerator => $tags) {
             foreach ($tags as $tag) {
                 if (!isset($tag['value_type'])) {
                     throw new RuntimeException(
-                        "Value URL builder service definition must have a 'value_type' attribute in its' tag."
+                        "Value URL generator service definition must have a 'value_type' attribute in its' tag."
                     );
                 }
 
@@ -35,10 +35,10 @@ final class UrlBuilderPass implements CompilerPassInterface
                     );
                 }
 
-                $valueUrlBuilders[$tag['value_type']] = new Reference($valueUrlBuilder);
+                $valueUrlGenerators[$tag['value_type']] = new Reference($valueUrlGenerator);
             }
         }
 
-        $urlBuilder->replaceArgument(0, $valueUrlBuilders);
+        $urlGenerator->replaceArgument(0, $valueUrlGenerators);
     }
 }

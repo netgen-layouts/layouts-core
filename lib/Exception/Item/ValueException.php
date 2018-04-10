@@ -42,11 +42,11 @@ final class ValueException extends InvalidArgumentException implements Exception
      *
      * @return \Netgen\BlockManager\Exception\Item\ValueException
      */
-    public static function noValueUrlBuilder($valueType)
+    public static function noValueUrlGenerator($valueType)
     {
         return new self(
             sprintf(
-                'Value URL builder for "%s" value type does not exist.',
+                'Value URL generator for "%s" value type does not exist.',
                 $valueType
             )
         );

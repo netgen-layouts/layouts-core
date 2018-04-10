@@ -68,7 +68,7 @@ services:
         class: Netgen\BlockManager\Serializer\Normalizer\V1\CollectionItemNormalizer
         public: false
         arguments:
-            - "@netgen_block_manager.item.url_builder"
+            - "@netgen_block_manager.item.url_generator"
         tags:
             - { name: serializer.normalizer }
 
@@ -88,7 +88,7 @@ services:
         class: Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer
         public: false
         arguments:
-            - "@netgen_block_manager.item.url_builder"
+            - "@netgen_block_manager.item.url_generator"
         tags:
             - { name: serializer.normalizer }
 

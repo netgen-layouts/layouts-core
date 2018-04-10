@@ -72,7 +72,7 @@ services:
         # public: false
         arguments:
             - "@netgen_block_manager.item.item_loader"
-            - "@netgen_block_manager.item.url_builder"
+            - "@netgen_block_manager.item.url_generator"
             - "@?logger"
         calls:
             - [setDebug, ["%kernel.debug%"]]

@@ -7,7 +7,7 @@ use Netgen\BlockManager\Collection\Result\Result;
 use Netgen\BlockManager\Collection\Result\Slot;
 use Netgen\BlockManager\Item\ItemInterface;
 use Netgen\BlockManager\Item\NullItem;
-use Netgen\BlockManager\Item\UrlBuilderInterface;
+use Netgen\BlockManager\Item\UrlGeneratorInterface;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -15,13 +15,13 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 final class CollectionResultNormalizer implements NormalizerInterface
 {
     /**
-     * @var \Netgen\BlockManager\Item\UrlBuilderInterface
+     * @var \Netgen\BlockManager\Item\UrlGeneratorInterface
      */
-    private $urlBuilder;
+    private $urlGenerator;
 
-    public function __construct(UrlBuilderInterface $urlBuilder)
+    public function __construct(UrlGeneratorInterface $urlGenerator)
     {
-        $this->urlBuilder = $urlBuilder;
+        $this->urlGenerator = $urlGenerator;
     }
 
     public function normalize($object, $format = null, array $context = array())
@@ -66,10 +66,10 @@ final class CollectionResultNormalizer implements NormalizerInterface
         if ($resultItem instanceof ManualItem) {
             $collectionItem = $resultItem->getCollectionItem();
             if (!$resultItem->getCollectionItem()->getCmsItem() instanceof NullItem) {
-                $itemUrl = $this->urlBuilder->getUrl($resultItem->getCollectionItem()->getCmsItem());
+                $itemUrl = $this->urlGenerator->generate($resultItem->getCollectionItem()->getCmsItem());
             }
         } elseif (!$resultItem instanceof Slot) {
-            $itemUrl = $this->urlBuilder->getUrl($resultItem);
+            $itemUrl = $this->urlGenerator->generate($resultItem);
         }
 
         return array(
