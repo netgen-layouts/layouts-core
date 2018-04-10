@@ -7,7 +7,7 @@
     {% if layout.published %}data-published="true"{% endif %}
     data-name="{{ layout.name }}"
     data-description="{{ layout.description }}"
-    data-modified="{{ layout.modified.date }}"
+    data-modified="{{ layout.modified|date(constant('DateTime::ISO8601')) }}"
     data-type="{{ layout.layoutType.name }}"
     data-references="{{ related_layouts_count }}"
     >

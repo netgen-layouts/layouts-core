@@ -65,6 +65,8 @@ layouts.layout.description: 'Description'
 layouts.layout.modified: 'Last modified'
 layouts.layout.layout_type: 'Layout type'
 layouts.layout.mappings: 'Mappings'
+layouts.layout.sort.ascending: 'Ascending'
+layouts.layout.sort.descending: 'Descending'
 
 layouts.cache.layout.title: 'Clear layout cache for'
 layouts.cache.layout.error: 'An error occurred while clearing the layout cache. Please check the log for details.'
