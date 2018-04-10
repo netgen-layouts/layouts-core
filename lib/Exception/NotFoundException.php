@@ -13,16 +13,12 @@ final class NotFoundException extends BaseException implements Exception
      * @param int|string $identifier
      * @param \Exception $previousException
      */
-    public function __construct($what, $identifier, BaseException $previousException = null)
+    public function __construct($what, $identifier = '', BaseException $previousException = null)
     {
-        parent::__construct(
-            sprintf(
-                'Could not find %s with identifier "%s"',
-                $what,
-                $identifier
-            ),
-            0,
-            $previousException
-        );
+        $message = !empty($identifier) ?
+            sprintf('Could not find %s with identifier "%s"', $what, $identifier) :
+            sprintf('Could not find %s', $what);
+
+        parent::__construct($message, 0, $previousException);
     }
 }

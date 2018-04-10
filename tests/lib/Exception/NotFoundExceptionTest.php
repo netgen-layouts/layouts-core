@@ -12,6 +12,16 @@ final class NotFoundExceptionTest extends TestCase
      */
     public function testExceptionMessage()
     {
+        $exception = new NotFoundException('test');
+
+        $this->assertEquals('Could not find test', $exception->getMessage());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Exception\NotFoundException::__construct
+     */
+    public function testExceptionMessageWithIdentifier()
+    {
         $exception = new NotFoundException('test', 1);
 
         $this->assertEquals(
