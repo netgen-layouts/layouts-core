@@ -31,13 +31,16 @@ final class ManualCollectionRunner implements CollectionRunnerInterface
                 $includeResult = true;
             }
 
-            if (!$itemValid && $collectionItem->getPosition() >= $offset) {
+            if (!$itemValid && $collectionItem->getPosition() >= $offset && $itemCount > 0) {
                 // We're including all invalid items located after the offset.
                 // These are included only if provided flags allow them to be included
                 // and these are the ones that could've been displayed if no invalid
                 // items exist. These are usually displayed in the backend interface
                 // where it is important to know if hidden/invalid items were excluded
                 // from displaying at frontend due to their invisibility/invalidity.
+                // As a special case, we only include invalid items if a valid item already exists
+                // in the output. This is due to the fact that offset represents the offset of
+                // visible items in the list.
                 $includeResult = (bool) ($flags & ResultSet::INCLUDE_INVALID_ITEMS);
             }
 
