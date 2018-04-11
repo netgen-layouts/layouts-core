@@ -22,7 +22,7 @@ final class PagedCollectionsPlugin extends Plugin
      */
     private $defaultGroups = array();
 
-    public function __construct(array $pagerTypes, array $defaultGroups = array())
+    public function __construct(array $pagerTypes = array(), array $defaultGroups = array())
     {
         $this->pagerTypes = array_flip($pagerTypes);
         $this->defaultGroups = $defaultGroups;
