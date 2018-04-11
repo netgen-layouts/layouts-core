@@ -12,7 +12,7 @@ final class DateTimeType extends AbstractType
 {
     use ChoicesAsValuesTrait;
 
-    const HTML5_FORMAT = "yyyy-MM-dd'T'HH:mm";
+    private static $html5Format = "yyyy-MM-dd'T'HH:mm";
 
     /**
      * @var array
@@ -28,7 +28,7 @@ final class DateTimeType extends AbstractType
             BaseDateTimeType::class,
             array(
                 'label' => false,
-                'format' => static::HTML5_FORMAT,
+                'format' => self::$html5Format,
                 'widget' => 'single_text',
                 'html5' => false,
                 'input' => 'string',

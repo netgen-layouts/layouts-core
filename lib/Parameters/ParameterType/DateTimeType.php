@@ -17,7 +17,7 @@ use Netgen\BlockManager\Validator\Constraint\DateTime as DateTimeConstraint;
 final class DateTimeType extends ParameterType
 {
     const DATE_FORMAT = 'Y-m-d H:i:s';
-    const STORAGE_DATE_FORMAT = 'Y-m-d H:i:s.u';
+    private static $storageDateFormat = 'Y-m-d H:i:s.u';
 
     public function getIdentifier()
     {
@@ -44,7 +44,7 @@ final class DateTimeType extends ParameterType
         }
 
         return array(
-            'datetime' => $value->format(static::STORAGE_DATE_FORMAT),
+            'datetime' => $value->format(self::$storageDateFormat),
             'timezone' => $value->getTimezone()->getName(),
         );
     }

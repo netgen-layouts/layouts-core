@@ -84,7 +84,7 @@ final class ApiCsrfValidationListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->setMethod(Request::METHOD_POST);
-        $request->headers->set(ApiCsrfValidationListener::CSRF_TOKEN_HEADER, 'token');
+        $request->headers->set('X-CSRF-Token', 'token');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $request->setSession($this->sessionMock);
 
@@ -115,7 +115,7 @@ final class ApiCsrfValidationListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->setMethod(Request::METHOD_POST);
-        $request->headers->set(ApiCsrfValidationListener::CSRF_TOKEN_HEADER, 'token');
+        $request->headers->set('X-CSRF-Token', 'token');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $request->setSession($this->sessionMock);
 

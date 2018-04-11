@@ -7,7 +7,7 @@ use Netgen\BlockManager\Item\NullItem;
 
 final class RemoteIdConverter
 {
-    const NULL_LINK = 'null://0';
+    private static $nullLink = 'null://0';
 
     /**
      * @var \Netgen\BlockManager\Item\ItemLoaderInterface
@@ -35,12 +35,12 @@ final class RemoteIdConverter
         $link = parse_url($link);
 
         if (!is_array($link) || !isset($link['host']) || !isset($link['scheme'])) {
-            return self::NULL_LINK;
+            return self::$nullLink;
         }
 
         $item = $this->itemLoader->load($link['host'], str_replace('-', '_', $link['scheme']));
         if ($item instanceof NullItem) {
-            return self::NULL_LINK;
+            return self::$nullLink;
         }
 
         return $link['scheme'] . '://' . $item->getRemoteId();
@@ -62,12 +62,12 @@ final class RemoteIdConverter
         $link = parse_url($link);
 
         if (!is_array($link) || !isset($link['host']) || !isset($link['scheme'])) {
-            return self::NULL_LINK;
+            return self::$nullLink;
         }
 
         $item = $this->itemLoader->loadByRemoteId($link['host'], str_replace('-', '_', $link['scheme']));
         if ($item instanceof NullItem) {
-            return self::NULL_LINK;
+            return self::$nullLink;
         }
 
         return $link['scheme'] . '://' . $item->getValue();

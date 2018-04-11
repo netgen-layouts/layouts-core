@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 final class SetIsApiRequestListener implements EventSubscriberInterface
 {
     const API_FLAG_NAME = 'ngbm_is_api_request';
-    const API_ROUTE_PREFIX = 'ngbm_api_';
+    private static $apiRoutePrefix = 'ngbm_api_';
 
     public static function getSubscribedEvents()
     {
@@ -29,7 +29,7 @@ final class SetIsApiRequestListener implements EventSubscriberInterface
 
         $request = $event->getRequest();
         $currentRoute = $request->attributes->get('_route');
-        if (mb_stripos($currentRoute, self::API_ROUTE_PREFIX) !== 0) {
+        if (mb_stripos($currentRoute, self::$apiRoutePrefix) !== 0) {
             return;
         }
 

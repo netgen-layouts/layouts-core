@@ -12,7 +12,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 class CsrfValidationListener implements EventSubscriberInterface
 {
-    const CSRF_TOKEN_HEADER = 'X-CSRF-Token';
+    private static $csrfTokenHeader = 'X-CSRF-Token';
 
     /**
      * @var \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface
@@ -77,14 +77,14 @@ class CsrfValidationListener implements EventSubscriberInterface
      */
     private function validateCsrfToken(Request $request)
     {
-        if (!$request->headers->has(self::CSRF_TOKEN_HEADER)) {
+        if (!$request->headers->has(self::$csrfTokenHeader)) {
             return false;
         }
 
         return $this->csrfTokenManager->isTokenValid(
             new CsrfToken(
                 $this->csrfTokenId,
-                $request->headers->get(self::CSRF_TOKEN_HEADER)
+                $request->headers->get(self::$csrfTokenHeader)
             )
         );
     }

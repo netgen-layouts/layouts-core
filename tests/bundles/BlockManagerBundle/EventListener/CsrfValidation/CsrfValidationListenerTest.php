@@ -82,7 +82,7 @@ final class CsrfValidationListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->setMethod(Request::METHOD_POST);
-        $request->headers->set(CsrfValidationListener::CSRF_TOKEN_HEADER, 'token');
+        $request->headers->set('X-CSRF-Token', 'token');
         $request->setSession($this->sessionMock);
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
@@ -111,7 +111,7 @@ final class CsrfValidationListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
         $request->setMethod(Request::METHOD_POST);
-        $request->headers->set(CsrfValidationListener::CSRF_TOKEN_HEADER, 'token');
+        $request->headers->set('X-CSRF-Token', 'token');
         $request->setSession($this->sessionMock);
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);

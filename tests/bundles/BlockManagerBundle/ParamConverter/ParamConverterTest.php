@@ -64,7 +64,7 @@ final class ParamConverterTest extends TestCase
     {
         $request = Request::create('/');
         $request->attributes->set('id', 42);
-        $request->attributes->set(ParamConverter::ROUTE_STATUS_PARAM, 'published');
+        $request->attributes->set('_ngbm_status', 'published');
         $configuration = new ParamConverterConfiguration(array());
         $configuration->setClass(Value::class);
 
@@ -83,7 +83,7 @@ final class ParamConverterTest extends TestCase
     {
         $request = Request::create('/');
         $request->attributes->set('id', 42);
-        $request->attributes->set(ParamConverter::ROUTE_STATUS_PARAM, 'draft');
+        $request->attributes->set('_ngbm_status', 'draft');
         $configuration = new ParamConverterConfiguration(array());
         $configuration->setClass(Value::class);
 

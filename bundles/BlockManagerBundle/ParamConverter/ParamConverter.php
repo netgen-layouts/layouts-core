@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 abstract class ParamConverter implements ParamConverterInterface
 {
-    const ROUTE_STATUS_PARAM = '_ngbm_status';
+    private static $routeStatusParam = '_ngbm_status';
 
     public function apply(Request $request, ParamConverterConfiguration $configuration)
     {
@@ -36,7 +36,7 @@ abstract class ParamConverter implements ParamConverterInterface
             }
         }
 
-        $routeStatusParam = $request->attributes->get(self::ROUTE_STATUS_PARAM);
+        $routeStatusParam = $request->attributes->get(self::$routeStatusParam);
         $queryPublishedParam = $request->query->get('published');
 
         $values['published'] = false;
