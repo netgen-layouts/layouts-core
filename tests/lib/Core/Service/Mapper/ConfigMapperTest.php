@@ -22,9 +22,6 @@ final class ConfigMapperTest extends TestCase
      */
     private $mapper;
 
-    /**
-     * Sets up the tests.
-     */
     public function setUp()
     {
         $this->configDefinition = new ConfigDefinition('config_key');

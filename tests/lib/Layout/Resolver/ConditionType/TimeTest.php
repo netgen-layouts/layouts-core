@@ -22,9 +22,6 @@ final class TimeTest extends TestCase
         ClockMock::register(DateTimeUtils::class);
     }
 
-    /**
-     * Sets up the route target tests.
-     */
     public function setUp()
     {
         $this->conditionType = new Time();

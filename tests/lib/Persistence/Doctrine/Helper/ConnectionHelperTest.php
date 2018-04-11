@@ -24,9 +24,6 @@ final class ConnectionHelperTest extends TestCase
      */
     private $connectionHelper;
 
-    /**
-     * Sets up the tests.
-     */
     public function setUp()
     {
         $this->databasePlatformMock = $this->createMock(AbstractPlatform::class);

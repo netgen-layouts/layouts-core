@@ -34,9 +34,6 @@ final class GetCollectionResultsListenerTest extends TestCase
      */
     private $listener;
 
-    /**
-     * Sets up the test.
-     */
     public function setUp()
     {
         $this->resultBuilderMock = $this->createMock(ResultBuilderInterface::class);

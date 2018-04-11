@@ -23,9 +23,6 @@ final class EditTypeTest extends FormTestCase
      */
     private $configurable;
 
-    /**
-     * Sets up the test.
-     */
     public function setUp()
     {
         parent::setUp();

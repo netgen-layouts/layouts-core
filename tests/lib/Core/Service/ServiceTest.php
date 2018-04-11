@@ -19,9 +19,6 @@ final class ServiceTest extends TestCase
      */
     private $service;
 
-    /**
-     * Sets up the tests.
-     */
     public function setUp()
     {
         $this->persistenceHandlerMock = $this->createMock(HandlerInterface::class);

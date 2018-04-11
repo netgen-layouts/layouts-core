@@ -22,9 +22,6 @@ final class PositionHelperTest extends TestCase
      */
     private $collectionHandler;
 
-    /**
-     * Sets up the tests.
-     */
     public function setUp()
     {
         $this->createDatabase();

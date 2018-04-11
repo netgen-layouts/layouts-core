@@ -25,9 +25,6 @@ final class FullEditTypeTest extends FormTestCase
      */
     private $query;
 
-    /**
-     * Sets up the test.
-     */
     public function setUp()
     {
         parent::setUp();

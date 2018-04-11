@@ -22,9 +22,6 @@ use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target as PersistenceT
 
 final class LayoutResolverServiceTest extends ServiceTestCase
 {
-    /**
-     * Sets up the tests.
-     */
     public function setUp()
     {
         parent::setUp();

@@ -22,9 +22,6 @@ final class ValidatorTraitTest extends TestCase
      */
     private $validator;
 
-    /**
-     * Sets up the test.
-     */
     public function setUp()
     {
         $this->validatorMock = $this->createMock(ValidatorInterface::class);

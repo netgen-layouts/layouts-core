@@ -25,9 +25,6 @@ final class RelatedLayoutsCountListenerTest extends TestCase
      */
     private $listener;
 
-    /**
-     * Sets up the test.
-     */
     public function setUp()
     {
         $this->layoutServiceMock = $this->createMock(LayoutService::class);

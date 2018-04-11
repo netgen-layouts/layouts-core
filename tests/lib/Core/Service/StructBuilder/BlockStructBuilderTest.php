@@ -16,9 +16,6 @@ abstract class BlockStructBuilderTest extends ServiceTestCase
      */
     private $structBuilder;
 
-    /**
-     * Sets up the tests.
-     */
     public function setUp()
     {
         parent::setUp();

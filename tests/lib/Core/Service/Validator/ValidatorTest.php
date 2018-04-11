@@ -20,9 +20,6 @@ final class ValidatorTest extends TestCase
      */
     private $validator;
 
-    /**
-     * Sets up the test.
-     */
     public function setUp()
     {
         $this->baseValidator = Validation::createValidatorBuilder()

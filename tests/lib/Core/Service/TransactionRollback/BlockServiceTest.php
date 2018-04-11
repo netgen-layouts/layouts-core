@@ -26,9 +26,6 @@ final class BlockServiceTest extends ServiceTestCase
      */
     private $layoutServiceMock;
 
-    /**
-     * Sets up the tests.
-     */
     public function setUp()
     {
         parent::setUp();

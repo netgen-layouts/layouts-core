@@ -16,9 +16,6 @@ final class ParameterMapperTest extends TestCase
      */
     private $mapper;
 
-    /**
-     * Sets up the tests.
-     */
     public function setUp()
     {
         $this->mapper = new ParameterMapper();

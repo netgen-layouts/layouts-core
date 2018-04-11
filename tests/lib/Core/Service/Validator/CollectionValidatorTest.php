@@ -35,9 +35,6 @@ final class CollectionValidatorTest extends TestCase
      */
     private $collectionValidator;
 
-    /**
-     * Sets up the test.
-     */
     public function setUp()
     {
         $this->validator = Validation::createValidatorBuilder()

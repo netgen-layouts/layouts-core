@@ -33,9 +33,6 @@ final class BlockHandlerTest extends TestCase
      */
     private $collectionHandler;
 
-    /**
-     * Sets up the tests.
-     */
     public function setUp()
     {
         $this->createDatabase();

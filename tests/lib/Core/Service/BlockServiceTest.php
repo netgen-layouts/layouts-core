@@ -15,9 +15,6 @@ use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 
 abstract class BlockServiceTest extends ServiceTestCase
 {
-    /**
-     * Sets up the tests.
-     */
     public function setUp()
     {
         parent::setUp();

@@ -17,9 +17,6 @@ use Netgen\BlockManager\Exception\NotFoundException;
 
 abstract class LayoutResolverServiceTest extends ServiceTestCase
 {
-    /**
-     * Sets up the tests.
-     */
     public function setUp()
     {
         parent::setUp();

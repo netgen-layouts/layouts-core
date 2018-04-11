@@ -12,9 +12,6 @@ use Netgen\BlockManager\Layout\Type\LayoutType;
 
 abstract class LayoutServiceTest extends ServiceTestCase
 {
-    /**
-     * Sets up the tests.
-     */
     public function setUp()
     {
         parent::setUp();

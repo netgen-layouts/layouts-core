@@ -26,9 +26,6 @@ final class RuleCountListenerTest extends TestCase
      */
     private $listener;
 
-    /**
-     * Sets up the test.
-     */
     public function setUp()
     {
         $this->layoutResolverServiceMock = $this->createMock(LayoutResolverService::class);

@@ -15,9 +15,6 @@ use Netgen\BlockManager\Persistence\Values\Layout\Zone as PersistenceZone;
 
 final class LayoutServiceTest extends ServiceTestCase
 {
-    /**
-     * Sets up the tests.
-     */
     public function setUp()
     {
         parent::setUp();

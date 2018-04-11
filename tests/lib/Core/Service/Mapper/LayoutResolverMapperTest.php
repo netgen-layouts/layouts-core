@@ -14,9 +14,6 @@ use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
 
 abstract class LayoutResolverMapperTest extends ServiceTestCase
 {
-    /**
-     * Sets up the tests.
-     */
     public function setUp()
     {
         parent::setUp();

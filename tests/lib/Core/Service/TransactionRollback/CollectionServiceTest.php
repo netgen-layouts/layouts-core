@@ -18,9 +18,6 @@ use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 
 final class CollectionServiceTest extends ServiceTestCase
 {
-    /**
-     * Sets up the tests.
-     */
     public function setUp()
     {
         parent::setUp();

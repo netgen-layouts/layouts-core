@@ -24,9 +24,6 @@ abstract class ValidatorTestCase extends TestCase
      */
     protected $constraint;
 
-    /**
-     * Sets up the test.
-     */
     public function setUp()
     {
         $validator = Validation::createValidatorBuilder()

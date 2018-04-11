@@ -18,9 +18,6 @@ final class HandlerTest extends TestCase
      */
     private $handler;
 
-    /**
-     * Sets up the database connection.
-     */
     public function setUp()
     {
         $this->databaseConnection = $this->createMock(Connection::class);

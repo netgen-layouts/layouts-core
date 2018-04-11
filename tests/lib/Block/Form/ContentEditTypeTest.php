@@ -29,9 +29,6 @@ final class ContentEditTypeTest extends FormTestCase
      */
     private $block;
 
-    /**
-     * Sets up the test.
-     */
     public function setUp()
     {
         parent::setUp();

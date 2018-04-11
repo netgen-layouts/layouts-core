@@ -23,9 +23,6 @@ final class ConfigValidatorTest extends TestCase
      */
     private $configValidator;
 
-    /**
-     * Sets up the test.
-     */
     public function setUp()
     {
         $this->validator = Validation::createValidatorBuilder()

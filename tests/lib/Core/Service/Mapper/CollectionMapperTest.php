@@ -17,9 +17,6 @@ use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
 
 abstract class CollectionMapperTest extends ServiceTestCase
 {
-    /**
-     * Sets up the tests.
-     */
     public function setUp()
     {
         parent::setUp();

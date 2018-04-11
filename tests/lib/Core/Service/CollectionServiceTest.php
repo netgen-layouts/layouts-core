@@ -21,9 +21,6 @@ use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 
 abstract class CollectionServiceTest extends ServiceTestCase
 {
-    /**
-     * Sets up the tests.
-     */
     public function setUp()
     {
         parent::setUp();

@@ -34,9 +34,6 @@ final class BlockValidatorTest extends TestCase
      */
     private $blockValidator;
 
-    /**
-     * Sets up the test.
-     */
     public function setUp()
     {
         $this->validator = Validation::createValidatorBuilder()

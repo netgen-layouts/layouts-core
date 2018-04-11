@@ -43,9 +43,6 @@ final class LayoutResolverValidatorTest extends TestCase
      */
     private $layoutResolverValidator;
 
-    /**
-     * Sets up the test.
-     */
     public function setUp()
     {
         $this->validator = Validation::createValidatorBuilder()

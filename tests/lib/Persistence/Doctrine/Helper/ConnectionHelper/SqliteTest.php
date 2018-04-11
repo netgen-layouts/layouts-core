@@ -15,9 +15,6 @@ final class SqliteTest extends TestCase
      */
     private $helper;
 
-    /**
-     * Sets up the tests.
-     */
     public function setUp()
     {
         $this->createDatabase(__DIR__ . '/../../../../../_fixtures');

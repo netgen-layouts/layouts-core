@@ -18,9 +18,6 @@ abstract class AbstractTargetHandlerTest extends TestCase
      */
     protected $handler;
 
-    /**
-     * Sets up the tests.
-     */
     public function setUp()
     {
         $this->createDatabase();

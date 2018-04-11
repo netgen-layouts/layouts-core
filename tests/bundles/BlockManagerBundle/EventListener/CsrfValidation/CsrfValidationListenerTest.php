@@ -34,9 +34,6 @@ final class CsrfValidationListenerTest extends TestCase
      */
     private $listener;
 
-    /**
-     * Sets up the test.
-     */
     public function setUp()
     {
         $this->csrfTokenManagerMock = $this->createMock(

@@ -14,9 +14,6 @@ final class ClearBlocksCacheTypeTest extends FormTestCase
      */
     private $blocks;
 
-    /**
-     * Sets up the test.
-     */
     public function setUp()
     {
         parent::setUp();

@@ -14,9 +14,6 @@ final class QueryParameterTest extends TestCase
      */
     private $conditionType;
 
-    /**
-     * Sets up the query target tests.
-     */
     public function setUp()
     {
         $this->conditionType = new QueryParameter();

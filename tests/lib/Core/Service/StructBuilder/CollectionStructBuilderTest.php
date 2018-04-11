@@ -23,9 +23,6 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
      */
     private $structBuilder;
 
-    /**
-     * Sets up the tests.
-     */
     public function setUp()
     {
         parent::setUp();

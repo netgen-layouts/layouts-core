@@ -34,9 +34,6 @@ final class LayoutHandlerTest extends TestCase
      */
     private $collectionHandler;
 
-    /**
-     * Sets up the tests.
-     */
     public function setUp()
     {
         $this->createDatabase();
