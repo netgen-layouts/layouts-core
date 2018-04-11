@@ -9,18 +9,18 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class FormMapperPass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_block_manager.parameters.registry.form_mapper';
-    const TAG_NAME = 'netgen_block_manager.parameters.form.mapper';
+    private static $serviceName = 'netgen_block_manager.parameters.registry.form_mapper';
+    private static $tagName = 'netgen_block_manager.parameters.form.mapper';
 
     public function process(ContainerBuilder $container)
     {
-        if (!$container->has(self::SERVICE_NAME)) {
+        if (!$container->has(self::$serviceName)) {
             return;
         }
 
-        $registry = $container->findDefinition(self::SERVICE_NAME);
+        $registry = $container->findDefinition(self::$serviceName);
 
-        foreach ($container->findTaggedServiceIds(self::TAG_NAME) as $formMapper => $tags) {
+        foreach ($container->findTaggedServiceIds(self::$tagName) as $formMapper => $tags) {
             foreach ($tags as $tag) {
                 if (!isset($tag['type'])) {
                     throw new RuntimeException(

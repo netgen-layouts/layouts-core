@@ -9,19 +9,19 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class UrlGeneratorPass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_block_manager.item.url_generator';
-    const TAG_NAME = 'netgen_block_manager.item.value_url_generator';
+    private static $serviceName = 'netgen_block_manager.item.url_generator';
+    private static $tagName = 'netgen_block_manager.item.value_url_generator';
 
     public function process(ContainerBuilder $container)
     {
-        if (!$container->has(self::SERVICE_NAME)) {
+        if (!$container->has(self::$serviceName)) {
             return;
         }
 
-        $urlGenerator = $container->findDefinition(self::SERVICE_NAME);
+        $urlGenerator = $container->findDefinition(self::$serviceName);
 
         $valueUrlGenerators = array();
-        foreach ($container->findTaggedServiceIds(self::TAG_NAME) as $valueUrlGenerator => $tags) {
+        foreach ($container->findTaggedServiceIds(self::$tagName) as $valueUrlGenerator => $tags) {
             foreach ($tags as $tag) {
                 if (!isset($tag['value_type'])) {
                     throw new RuntimeException(

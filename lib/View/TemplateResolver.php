@@ -23,8 +23,6 @@ class TemplateResolver implements TemplateResolverInterface
     private $viewConfig = array();
 
     /**
-     * Constructor.
-     *
      * @param \Netgen\BlockManager\View\Matcher\MatcherInterface[] $matchers
      * @param array $viewConfig
      */

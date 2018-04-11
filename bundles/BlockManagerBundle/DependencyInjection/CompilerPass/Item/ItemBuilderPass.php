@@ -8,17 +8,17 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class ItemBuilderPass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_block_manager.item.item_builder';
-    const TAG_NAME = 'netgen_block_manager.item.value_converter';
+    private static $serviceName = 'netgen_block_manager.item.item_builder';
+    private static $tagName = 'netgen_block_manager.item.value_converter';
 
     public function process(ContainerBuilder $container)
     {
-        if (!$container->has(self::SERVICE_NAME)) {
+        if (!$container->has(self::$serviceName)) {
             return;
         }
 
-        $itemBuilder = $container->findDefinition(self::SERVICE_NAME);
-        $valueConverterServices = array_keys($container->findTaggedServiceIds(self::TAG_NAME));
+        $itemBuilder = $container->findDefinition(self::$serviceName);
+        $valueConverterServices = array_keys($container->findTaggedServiceIds(self::$tagName));
 
         $valueConverters = array();
         foreach ($valueConverterServices as $serviceName) {

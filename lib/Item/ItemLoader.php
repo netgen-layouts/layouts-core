@@ -18,8 +18,6 @@ final class ItemLoader implements ItemLoaderInterface
     private $valueLoaders;
 
     /**
-     * Constructor.
-     *
      * @param \Netgen\BlockManager\Item\ItemBuilderInterface $itemBuilder
      * @param \Netgen\BlockManager\Item\ValueLoaderInterface[] $valueLoaders
      */

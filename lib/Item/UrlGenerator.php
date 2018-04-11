@@ -13,8 +13,6 @@ final class UrlGenerator implements UrlGeneratorInterface
     private $valueUrlGenerators;
 
     /**
-     * Constructor.
-     *
      * @param \Netgen\BlockManager\Item\ValueUrlGeneratorInterface[] $valueUrlGenerators
      */
     public function __construct(array $valueUrlGenerators = array())

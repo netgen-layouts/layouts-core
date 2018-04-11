@@ -27,8 +27,6 @@ final class CollectViewParametersEvent extends Event
     private $parameters = array();
 
     /**
-     * Constructor.
-     *
      * @param \Netgen\BlockManager\View\ViewInterface $view
      */
     public function __construct(ViewInterface $view)

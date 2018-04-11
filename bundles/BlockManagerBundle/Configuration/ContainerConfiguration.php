@@ -25,8 +25,6 @@ class ContainerConfiguration implements ConfigurationInterface
     private $parameters;
 
     /**
-     * Constructor.
-     *
      * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
      * @param array $parameters
      */

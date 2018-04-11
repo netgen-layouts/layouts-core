@@ -33,8 +33,6 @@ final class FragmentRenderer implements RendererInterface
     private $fragmentViewRenderers;
 
     /**
-     * Constructor.
-     *
      * @param \Netgen\BlockManager\View\ViewBuilderInterface $viewBuilder
      * @param \Netgen\BlockManager\View\ViewRendererInterface $viewRenderer
      * @param \Symfony\Component\HttpKernel\Fragment\FragmentHandler $fragmentHandler

@@ -25,8 +25,6 @@ class CsrfValidationListener implements EventSubscriberInterface
     private $csrfTokenId;
 
     /**
-     * Constructor.
-     *
      * @param \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface $csrfTokenManager
      * @param string $csrfTokenId
      */

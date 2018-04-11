@@ -8,17 +8,17 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class ContextBuilderPass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_block_manager.context.builder';
-    const TAG_NAME = 'netgen_block_manager.context.provider';
+    private static $serviceName = 'netgen_block_manager.context.builder';
+    private static $tagName = 'netgen_block_manager.context.provider';
 
     public function process(ContainerBuilder $container)
     {
-        if (!$container->has(self::SERVICE_NAME)) {
+        if (!$container->has(self::$serviceName)) {
             return;
         }
 
-        $contextBuilder = $container->findDefinition(self::SERVICE_NAME);
-        $contextProviders = array_keys($container->findTaggedServiceIds(self::TAG_NAME));
+        $contextBuilder = $container->findDefinition(self::$serviceName);
+        $contextProviders = array_keys($container->findTaggedServiceIds(self::$tagName));
 
         foreach ($contextProviders as $contextProvider) {
             $contextBuilder->addMethodCall(

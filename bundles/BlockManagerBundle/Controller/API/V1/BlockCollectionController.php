@@ -37,14 +37,6 @@ final class BlockCollectionController extends Controller
      */
     private $pagerFactory;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\API\Service\BlockService $blockService
-     * @param \Netgen\BlockManager\API\Service\CollectionService $collectionService
-     * @param \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Validator\BlockCollectionValidator $validator
-     * @param \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory $pagerFactory
-     */
     public function __construct(
         BlockService $blockService,
         CollectionService $collectionService,

@@ -8,19 +8,19 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class TargetTypePass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_block_manager.layout.resolver.registry.target_type';
-    const TAG_NAME = 'netgen_block_manager.layout.resolver.target_type';
+    private static $serviceName = 'netgen_block_manager.layout.resolver.registry.target_type';
+    private static $tagName = 'netgen_block_manager.layout.resolver.target_type';
 
     public function process(ContainerBuilder $container)
     {
-        if (!$container->has(self::SERVICE_NAME)) {
+        if (!$container->has(self::$serviceName)) {
             return;
         }
 
-        $targetTypeRegistry = $container->findDefinition(self::SERVICE_NAME);
+        $targetTypeRegistry = $container->findDefinition(self::$serviceName);
 
         $targetTypes = array();
-        foreach ($container->findTaggedServiceIds(self::TAG_NAME) as $targetType => $tag) {
+        foreach ($container->findTaggedServiceIds(self::$tagName) as $targetType => $tag) {
             $priority = isset($tag[0]['priority']) ? (int) $tag[0]['priority'] : 0;
             $targetTypes[$priority][] = new Reference($targetType);
         }

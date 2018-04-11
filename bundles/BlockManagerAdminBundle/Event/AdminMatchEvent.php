@@ -30,8 +30,6 @@ final class AdminMatchEvent extends Event
     private $pageLayoutTemplate;
 
     /**
-     * Constructor.
-     *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param int $requestType
      */

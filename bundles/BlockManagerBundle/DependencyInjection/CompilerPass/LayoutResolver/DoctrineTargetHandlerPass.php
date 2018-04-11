@@ -9,19 +9,19 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class DoctrineTargetHandlerPass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_block_manager.persistence.doctrine.layout_resolver.query_handler';
-    const TAG_NAME = 'netgen_block_manager.layout.resolver.target_handler.doctrine';
+    private static $serviceName = 'netgen_block_manager.persistence.doctrine.layout_resolver.query_handler';
+    private static $tagName = 'netgen_block_manager.layout.resolver.target_handler.doctrine';
 
     public function process(ContainerBuilder $container)
     {
-        if (!$container->has(self::SERVICE_NAME)) {
+        if (!$container->has(self::$serviceName)) {
             return;
         }
 
-        $layoutResolverQueryHandler = $container->findDefinition(self::SERVICE_NAME);
+        $layoutResolverQueryHandler = $container->findDefinition(self::$serviceName);
         $targetHandlers = array();
 
-        foreach ($container->findTaggedServiceIds(self::TAG_NAME) as $targetHandler => $tags) {
+        foreach ($container->findTaggedServiceIds(self::$tagName) as $targetHandler => $tags) {
             foreach ($tags as $tag) {
                 if (!isset($tag['target_type'])) {
                     throw new RuntimeException('Doctrine target handler service tags should have an "target_type" attribute.');

@@ -14,8 +14,6 @@ final class Created implements ColumnValueProviderInterface
     private $dateFormat;
 
     /**
-     * Constructor.
-     *
      * @param string $dateFormat
      */
     public function __construct($dateFormat)

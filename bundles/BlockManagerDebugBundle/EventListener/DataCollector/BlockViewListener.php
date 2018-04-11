@@ -21,8 +21,6 @@ final class BlockViewListener implements EventSubscriberInterface
     private $enabledContexts;
 
     /**
-     * Constructor.
-     *
      * @param \Netgen\Bundle\BlockManagerDebugBundle\DataCollector\BlockManagerDataCollector $dataCollector
      * @param string[] $enabledContexts
      */

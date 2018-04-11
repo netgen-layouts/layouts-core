@@ -13,8 +13,6 @@ final class LocaleProvider implements LocaleProviderInterface
     private $enabledLocales;
 
     /**
-     * Constructor.
-     *
      * @param string[] $enabledLocales
      */
     public function __construct(array $enabledLocales = array())

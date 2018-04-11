@@ -11,17 +11,17 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class QueryTypePass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_block_manager.collection.registry.query_type';
-    const TAG_NAME = 'netgen_block_manager.collection.query_type_handler';
+    private static $serviceName = 'netgen_block_manager.collection.registry.query_type';
+    private static $tagName = 'netgen_block_manager.collection.query_type_handler';
 
     public function process(ContainerBuilder $container)
     {
-        if (!$container->has(self::SERVICE_NAME)) {
+        if (!$container->has(self::$serviceName)) {
             return;
         }
 
-        $queryTypeRegistry = $container->findDefinition(self::SERVICE_NAME);
-        $queryTypeHandlers = $container->findTaggedServiceIds(self::TAG_NAME);
+        $queryTypeRegistry = $container->findDefinition(self::$serviceName);
+        $queryTypeHandlers = $container->findTaggedServiceIds(self::$tagName);
 
         $queryTypes = $container->getParameter('netgen_block_manager.query_types');
         foreach ($queryTypes as $type => $queryType) {

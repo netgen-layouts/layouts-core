@@ -13,8 +13,6 @@ final class VoterStub implements VoterInterface
     private $vote;
 
     /**
-     * Constructor.
-     *
      * @param bool|null $vote
      */
     public function __construct($vote)

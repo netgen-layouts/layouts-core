@@ -8,17 +8,17 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class ViewBuilderPass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_block_manager.view.view_builder';
-    const TAG_NAME = 'netgen_block_manager.view.provider';
+    private static $serviceName = 'netgen_block_manager.view.view_builder';
+    private static $tagName = 'netgen_block_manager.view.provider';
 
     public function process(ContainerBuilder $container)
     {
-        if (!$container->has(self::SERVICE_NAME)) {
+        if (!$container->has(self::$serviceName)) {
             return;
         }
 
-        $viewBuilder = $container->findDefinition(self::SERVICE_NAME);
-        $viewProviderServices = $container->findTaggedServiceIds(self::TAG_NAME);
+        $viewBuilder = $container->findDefinition(self::$serviceName);
+        $viewProviderServices = $container->findTaggedServiceIds(self::$tagName);
 
         $viewProviders = array();
         foreach ($viewProviderServices as $serviceName => $tag) {

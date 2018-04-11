@@ -11,17 +11,17 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 final class SerializationVisitorPass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_block_manager.transfer.serializer.visitor.aggregate';
-    const TAG_NAME = 'netgen_block_manager.transfer.serializer.visitor';
+    private static $serviceName = 'netgen_block_manager.transfer.serializer.visitor.aggregate';
+    private static $tagName = 'netgen_block_manager.transfer.serializer.visitor';
 
     public function process(ContainerBuilder $container)
     {
-        if (!$container->has(self::SERVICE_NAME)) {
+        if (!$container->has(self::$serviceName)) {
             return;
         }
 
-        $aggregateVisitorDefinition = $container->findDefinition(self::SERVICE_NAME);
-        $visitors = array_keys($container->findTaggedServiceIds(self::TAG_NAME));
+        $aggregateVisitorDefinition = $container->findDefinition(self::$serviceName);
+        $visitors = array_keys($container->findTaggedServiceIds(self::$tagName));
 
         $visitorServices = array();
         foreach ($visitors as $visitor) {

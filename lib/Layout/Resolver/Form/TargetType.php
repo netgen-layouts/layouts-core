@@ -19,8 +19,6 @@ final class TargetType extends AbstractType
     private $mappers;
 
     /**
-     * Constructor.
-     *
      * @param \Netgen\BlockManager\Layout\Resolver\Form\TargetType\MapperInterface[] $mappers
      */
     public function __construct(array $mappers = array())

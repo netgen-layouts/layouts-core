@@ -8,17 +8,17 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class CacheableResolverPass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_block_manager.http_cache.block.cacheable_resolver';
-    const TAG_NAME = 'netgen_block_manager.http_cache.block.cacheable_resolver.voter';
+    private static $serviceName = 'netgen_block_manager.http_cache.block.cacheable_resolver';
+    private static $tagName = 'netgen_block_manager.http_cache.block.cacheable_resolver.voter';
 
     public function process(ContainerBuilder $container)
     {
-        if (!$container->has(self::SERVICE_NAME)) {
+        if (!$container->has(self::$serviceName)) {
             return;
         }
 
-        $cacheableResolver = $container->findDefinition(self::SERVICE_NAME);
-        $voterServices = $container->findTaggedServiceIds(self::TAG_NAME);
+        $cacheableResolver = $container->findDefinition(self::$serviceName);
+        $voterServices = $container->findTaggedServiceIds(self::$tagName);
 
         $voters = array();
         foreach ($voterServices as $serviceName => $tag) {

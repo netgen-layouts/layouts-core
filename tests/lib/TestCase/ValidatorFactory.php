@@ -25,8 +25,6 @@ final class ValidatorFactory implements ConstraintValidatorFactoryInterface
     private $baseValidatorFactory;
 
     /**
-     * Constructor.
-     *
      * @param \PHPUnit\Framework\TestCase $testCase
      */
     public function __construct(TestCase $testCase)

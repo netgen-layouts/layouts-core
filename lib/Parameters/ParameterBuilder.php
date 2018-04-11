@@ -70,8 +70,6 @@ class ParameterBuilder implements ParameterBuilderInterface
     protected $locked = false;
 
     /**
-     * Constructor.
-     *
      * @param \Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface $builderFactory
      * @param string $name
      * @param \Netgen\BlockManager\Parameters\ParameterTypeInterface $type

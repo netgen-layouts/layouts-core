@@ -39,8 +39,6 @@ abstract class View implements ViewInterface, JsonSerializable
     protected $customParameters = array();
 
     /**
-     * Constructor.
-     *
      * @param array $parameters
      */
     public function __construct(array $parameters = array())

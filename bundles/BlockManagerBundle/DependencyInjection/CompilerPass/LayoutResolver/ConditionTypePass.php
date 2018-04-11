@@ -8,18 +8,18 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class ConditionTypePass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_block_manager.layout.resolver.registry.condition_type';
-    const TAG_NAME = 'netgen_block_manager.layout.resolver.condition_type';
+    private static $serviceName = 'netgen_block_manager.layout.resolver.registry.condition_type';
+    private static $tagName = 'netgen_block_manager.layout.resolver.condition_type';
 
     public function process(ContainerBuilder $container)
     {
-        if (!$container->has(self::SERVICE_NAME)) {
+        if (!$container->has(self::$serviceName)) {
             return;
         }
 
-        $conditionTypeRegistry = $container->findDefinition(self::SERVICE_NAME);
+        $conditionTypeRegistry = $container->findDefinition(self::$serviceName);
 
-        $conditionTypeServices = array_keys($container->findTaggedServiceIds(self::TAG_NAME));
+        $conditionTypeServices = array_keys($container->findTaggedServiceIds(self::$tagName));
         foreach ($conditionTypeServices as $conditionTypeService) {
             $conditionTypeRegistry->addMethodCall(
                 'addConditionType',

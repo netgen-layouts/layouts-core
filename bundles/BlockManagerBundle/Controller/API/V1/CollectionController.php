@@ -19,11 +19,6 @@ final class CollectionController extends Controller
      */
     private $collectionService;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\API\Service\CollectionService $collectionService
-     */
     public function __construct(CollectionService $collectionService)
     {
         $this->collectionService = $collectionService;

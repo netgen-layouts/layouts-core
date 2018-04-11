@@ -40,8 +40,6 @@ final class ConfigController extends Controller
     private $csrfTokenId;
 
     /**
-     * Constructor.
-     *
      * @param \Netgen\BlockManager\Block\Registry\BlockTypeRegistryInterface $blockTypeRegistry
      * @param \Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistryInterface $blockTypeGroupRegistry
      * @param \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface $layoutTypeRegistry

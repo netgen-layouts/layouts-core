@@ -28,8 +28,6 @@ final class ContextualizedTwigTemplate
     private $blocks;
 
     /**
-     * Constructor.
-     *
      * @param \Twig\Template $template
      * @param array $context
      * @param array $blocks

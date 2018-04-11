@@ -12,8 +12,6 @@ abstract class AbstractVersionedValue extends AbstractValue
     private $version;
 
     /**
-     * Constructor.
-     *
      * @param mixed $value
      * @param int $version
      * @param int $statusCode

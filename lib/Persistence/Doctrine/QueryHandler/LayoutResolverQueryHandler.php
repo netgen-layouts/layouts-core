@@ -21,8 +21,6 @@ final class LayoutResolverQueryHandler extends QueryHandler
     private $targetHandlers = array();
 
     /**
-     * Constructor.
-     *
      * @param \Doctrine\DBAL\Connection $connection
      * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper $connectionHelper
      * @param \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\TargetHandlerInterface[] $targetHandlers

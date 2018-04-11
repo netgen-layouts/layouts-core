@@ -9,17 +9,17 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class ConditionTypePass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_block_manager.layout.resolver.form.condition_type';
-    const TAG_NAME = 'netgen_block_manager.layout.resolver.form.condition_type.mapper';
+    private static $serviceName = 'netgen_block_manager.layout.resolver.form.condition_type';
+    private static $tagName = 'netgen_block_manager.layout.resolver.form.condition_type.mapper';
 
     public function process(ContainerBuilder $container)
     {
-        if (!$container->has(self::SERVICE_NAME)) {
+        if (!$container->has(self::$serviceName)) {
             return;
         }
 
-        $formType = $container->findDefinition(self::SERVICE_NAME);
-        $mapperServices = $container->findTaggedServiceIds(self::TAG_NAME);
+        $formType = $container->findDefinition(self::$serviceName);
+        $mapperServices = $container->findTaggedServiceIds(self::$tagName);
 
         $mappers = array();
         foreach ($mapperServices as $mapperService => $tags) {

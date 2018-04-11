@@ -17,8 +17,6 @@ abstract class AbstractValue
     private $statusCode;
 
     /**
-     * Constructor.
-     *
      * @param mixed $value
      * @param int $statusCode
      */

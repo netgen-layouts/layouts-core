@@ -8,19 +8,19 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class HandlerPluginPass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_block_manager.block.registry.handler_plugin';
-    const TAG_NAME = 'netgen_block_manager.block.block_definition_handler.plugin';
+    private static $serviceName = 'netgen_block_manager.block.registry.handler_plugin';
+    private static $tagName = 'netgen_block_manager.block.block_definition_handler.plugin';
 
     public function process(ContainerBuilder $container)
     {
-        if (!$container->has(self::SERVICE_NAME)) {
+        if (!$container->has(self::$serviceName)) {
             return;
         }
 
-        $handlerPluginRegistry = $container->findDefinition(self::SERVICE_NAME);
+        $handlerPluginRegistry = $container->findDefinition(self::$serviceName);
 
         $handlerPlugins = array();
-        foreach ($container->findTaggedServiceIds(self::TAG_NAME) as $handlerPlugin => $tag) {
+        foreach ($container->findTaggedServiceIds(self::$tagName) as $handlerPlugin => $tag) {
             $priority = isset($tag[0]['priority']) ? (int) $tag[0]['priority'] : 0;
             $handlerPlugins[$priority][] = new Reference($handlerPlugin);
         }

@@ -10,12 +10,12 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class ValueTypePass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_block_manager.item.registry.value_type';
-    const TAG_NAME = 'netgen_block_manager.item.value_type';
+    private static $serviceName = 'netgen_block_manager.item.registry.value_type';
+    private static $tagName = 'netgen_block_manager.item.value_type';
 
     public function process(ContainerBuilder $container)
     {
-        if (!$container->has(self::SERVICE_NAME)) {
+        if (!$container->has(self::$serviceName)) {
             return;
         }
 
@@ -27,7 +27,7 @@ final class ValueTypePass implements CompilerPassInterface
         $itemConfig = $container->getParameter('netgen_block_manager.items');
         $valueTypeServices = $this->buildValueTypes($container, $itemConfig['value_types']);
 
-        $registry = $container->findDefinition(self::SERVICE_NAME);
+        $registry = $container->findDefinition(self::$serviceName);
 
         foreach ($valueTypeServices as $identifier => $valueTypeService) {
             $registry->addMethodCall(

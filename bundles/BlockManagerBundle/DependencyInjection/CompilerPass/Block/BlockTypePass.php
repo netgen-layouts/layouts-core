@@ -11,12 +11,12 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class BlockTypePass implements CompilerPassInterface
 {
-    const SERVICE_NAME = 'netgen_block_manager.block.registry.block_type';
-    const TAG_NAME = 'netgen_block_manager.block.block_type';
+    private static $serviceName = 'netgen_block_manager.block.registry.block_type';
+    private static $tagName = 'netgen_block_manager.block.block_type';
 
     public function process(ContainerBuilder $container)
     {
-        if (!$container->has(self::SERVICE_NAME)) {
+        if (!$container->has(self::$serviceName)) {
             return;
         }
 
@@ -29,7 +29,7 @@ final class BlockTypePass implements CompilerPassInterface
         $this->validateBlockTypes($blockTypes, $blockDefinitions);
         $blockTypeServices = $this->buildBlockTypes($container, $blockTypes);
 
-        $registry = $container->findDefinition(self::SERVICE_NAME);
+        $registry = $container->findDefinition(self::$serviceName);
 
         foreach ($blockTypeServices as $identifier => $blockTypeService) {
             $registry->addMethodCall(

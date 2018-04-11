@@ -19,8 +19,6 @@ final class ConditionType extends AbstractType
     private $mappers;
 
     /**
-     * Constructor.
-     *
      * @param \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\MapperInterface[] $mappers
      */
     public function __construct(array $mappers = array())

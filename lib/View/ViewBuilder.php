@@ -27,8 +27,6 @@ final class ViewBuilder implements ViewBuilderInterface
     private $viewProviders = array();
 
     /**
-     * Constructor.
-     *
      * @param \Netgen\BlockManager\View\TemplateResolverInterface $templateResolver
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
      * @param \Netgen\BlockManager\View\Provider\ViewProviderInterface[] $viewProviders

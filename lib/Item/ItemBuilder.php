@@ -13,8 +13,6 @@ final class ItemBuilder implements ItemBuilderInterface
     private $valueConverters = array();
 
     /**
-     * Constructor.
-     *
      * @param \Netgen\BlockManager\Item\ValueConverterInterface[] $valueConverters
      */
     public function __construct(array $valueConverters = array())

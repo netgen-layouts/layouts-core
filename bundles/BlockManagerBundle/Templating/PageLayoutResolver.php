@@ -14,8 +14,6 @@ final class PageLayoutResolver implements PageLayoutResolverInterface
     private $pageLayout;
 
     /**
-     * Constructor.
-     *
      * @param string $pageLayout
      */
     public function __construct($pageLayout)

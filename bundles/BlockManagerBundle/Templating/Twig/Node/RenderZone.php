@@ -13,8 +13,6 @@ use Twig\Node\Node;
 final class RenderZone extends Node
 {
     /**
-     * Constructor.
-     *
      * @param \Twig\Node\Expression\AbstractExpression $zone
      * @param \Twig\Node\Expression\AbstractExpression $context
      * @param int $line
