@@ -4,12 +4,12 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig\Runtime;
 
 use Exception;
 use Netgen\BlockManager\API\Service\BlockService;
+use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\Core\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Item\Item;
 use Netgen\BlockManager\Locale\LocaleProviderInterface;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Stubs\ErrorHandler;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate;
@@ -218,7 +218,7 @@ final class RenderingRuntimeTest extends TestCase
      */
     public function testRenderBlockReturnsEmptyStringOnException()
     {
-        $block = new Block(array('definition' => new BlockDefinition('block')));
+        $block = new Block(array('definition' => new BlockDefinition()));
 
         $this->rendererMock
             ->expects($this->once())
@@ -247,7 +247,7 @@ final class RenderingRuntimeTest extends TestCase
     public function testRenderBlockThrowsExceptionInDebug()
     {
         $this->errorHandler->setThrow(true);
-        $block = new Block(array('definition' => new BlockDefinition('block')));
+        $block = new Block(array('definition' => new BlockDefinition()));
 
         $this->rendererMock
             ->expects($this->once())

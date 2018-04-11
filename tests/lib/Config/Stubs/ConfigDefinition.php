@@ -5,10 +5,12 @@ namespace Netgen\BlockManager\Tests\Config\Stubs;
 use Netgen\BlockManager\API\Values\Config\ConfigAwareValue;
 use Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface;
 use Netgen\BlockManager\Config\ConfigDefinitionInterface;
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\BlockManager\Parameters\ParameterCollectionTrait;
 
 final class ConfigDefinition implements ConfigDefinitionInterface
 {
+    use ParameterCollectionTrait;
+
     /**
      * @var string
      */
@@ -23,6 +25,7 @@ final class ConfigDefinition implements ConfigDefinitionInterface
     {
         $this->configKey = $configKey;
         $this->handler = $handler ?: new ConfigDefinitionHandler();
+        $this->parameterDefinitions = $this->handler->getParameterDefinitions();
     }
 
     public function getConfigKey()
@@ -33,24 +36,5 @@ final class ConfigDefinition implements ConfigDefinitionInterface
     public function isEnabled(ConfigAwareValue $configAwareValue)
     {
         return $this->handler->isEnabled($configAwareValue);
-    }
-
-    public function getParameterDefinitions()
-    {
-        return $this->handler->getParameterDefinitions();
-    }
-
-    public function getParameterDefinition($parameterName)
-    {
-        if ($this->hasParameterDefinition($parameterName)) {
-            return $this->handler->getParameterDefinitions()[$parameterName];
-        }
-
-        throw new InvalidArgumentException('parameterName', 'Parameter is missing.');
-    }
-
-    public function hasParameterDefinition($parameterName)
-    {
-        return isset($this->handler->getParameterDefinitions()[$parameterName]);
     }
 }

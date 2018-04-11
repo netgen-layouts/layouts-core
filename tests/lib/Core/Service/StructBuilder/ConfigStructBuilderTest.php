@@ -54,6 +54,7 @@ abstract class ConfigStructBuilderTest extends ServiceTestCase
                     array(
                         'parameterValues' => array(
                             'param' => null,
+                            'param2' => null,
                         ),
                     )
                 ),

@@ -7,6 +7,8 @@ use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\Block\BlockDefinition;
+use Netgen\BlockManager\Block\ContainerDefinition;
 use Netgen\BlockManager\Core\Service\Validator\LayoutValidator;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
@@ -15,8 +17,6 @@ use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Persistence\Values\Block\Block as PersistenceBlock;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout as PersistenceLayout;
 use Netgen\BlockManager\Persistence\Values\Layout\Zone as PersistenceZone;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
-use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
 
 final class BlockServiceTest extends ServiceTestCase
@@ -66,16 +66,16 @@ final class BlockServiceTest extends ServiceTestCase
         $this->blockService->createBlock(
             new BlockCreateStruct(
                 array(
-                    'definition' => new BlockDefinition('blockDef'),
+                    'definition' => new BlockDefinition(),
                 )
             ),
             new Block(
                 array(
                     'status' => Value::STATUS_DRAFT,
                     'definition' => new ContainerDefinition(
-                        'blockDef',
-                        array(),
-                        new ContainerDefinitionHandler(array(), array('main'))
+                        array(
+                            'handler' => new ContainerDefinitionHandler(array(), array('main')),
+                        )
                     ),
                 )
             ),
@@ -132,7 +132,7 @@ final class BlockServiceTest extends ServiceTestCase
         $this->blockService->createBlockInZone(
             new BlockCreateStruct(
                 array(
-                    'definition' => new BlockDefinition('blockDef'),
+                    'definition' => new BlockDefinition(),
                 )
             ),
             new Zone(array('status' => Value::STATUS_DRAFT, 'identifier' => 'right'))
@@ -173,7 +173,7 @@ final class BlockServiceTest extends ServiceTestCase
             new Block(
                 array(
                     'status' => Value::STATUS_DRAFT,
-                    'definition' => new BlockDefinition('block_definition'),
+                    'definition' => new BlockDefinition(),
                     'configs' => array(),
                 )
             ),
@@ -208,14 +208,14 @@ final class BlockServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->blockService->copyBlock(
-            new Block(array('status' => Value::STATUS_DRAFT, 'definition' => new BlockDefinition('blockDef'))),
+            new Block(array('status' => Value::STATUS_DRAFT, 'definition' => new BlockDefinition())),
             new Block(
                 array(
                     'status' => Value::STATUS_DRAFT,
                     'definition' => new ContainerDefinition(
-                        'blockDef',
-                        array(),
-                        new ContainerDefinitionHandler(array(), array('main'))
+                        array(
+                            'handler' => new ContainerDefinitionHandler(array(), array('main')),
+                        )
                     ),
                 )
             ),
@@ -260,7 +260,7 @@ final class BlockServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->blockService->copyBlockToZone(
-            new Block(array('status' => Value::STATUS_DRAFT, 'definition' => new BlockDefinition('blockDef'))),
+            new Block(array('status' => Value::STATUS_DRAFT, 'definition' => new BlockDefinition())),
             new Zone(array('status' => Value::STATUS_DRAFT, 'identifier' => 'right'))
         );
     }
@@ -293,14 +293,14 @@ final class BlockServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->blockService->moveBlock(
-            new Block(array('status' => Value::STATUS_DRAFT, 'definition' => new BlockDefinition('blockDef'))),
+            new Block(array('status' => Value::STATUS_DRAFT, 'definition' => new BlockDefinition())),
             new Block(
                 array(
                     'status' => Value::STATUS_DRAFT,
                     'definition' => new ContainerDefinition(
-                        'blockDef',
-                        array(),
-                        new ContainerDefinitionHandler(array(), array('main'))
+                        array(
+                            'handler' => new ContainerDefinitionHandler(array(), array('main')),
+                        )
                     ),
                 )
             ),
@@ -347,7 +347,7 @@ final class BlockServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->blockService->moveBlockToZone(
-            new Block(array('status' => Value::STATUS_DRAFT, 'definition' => new BlockDefinition('blockDef'))),
+            new Block(array('status' => Value::STATUS_DRAFT, 'definition' => new BlockDefinition())),
             new Zone(array('status' => Value::STATUS_DRAFT, 'identifier' => 'right')),
             0
         );

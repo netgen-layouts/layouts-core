@@ -4,10 +4,10 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig\Extension;
 
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Layout\Zone;
+use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Locale\LocaleProviderInterface;
 use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Stubs\ErrorHandler;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\BlockManager\View\ViewInterface;
@@ -162,14 +162,18 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
                         new Block(
                             array(
                                 'definition' => new BlockDefinition(
-                                    'block_definition'
+                                    array(
+                                        'identifier' => 'block_definition',
+                                    )
                                 ),
                             )
                         ),
                         new Block(
                             array(
                                 'definition' => new BlockDefinition(
-                                    'twig_block'
+                                    array(
+                                        'identifier' => 'twig_block',
+                                    )
                                 ),
                                 'availableLocales' => array('en'),
                                 'locale' => 'en',
@@ -186,7 +190,9 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
                         new Block(
                             array(
                                 'definition' => new BlockDefinition(
-                                    'block_definition'
+                                    array(
+                                        'identifier' => 'block_definition',
+                                    )
                                 ),
                             )
                         ),

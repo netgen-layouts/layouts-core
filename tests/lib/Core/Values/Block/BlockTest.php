@@ -3,13 +3,14 @@
 namespace Netgen\BlockManager\Tests\Core\Values\Block;
 
 use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\CollectionReference;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Exception\Core\BlockException;
 use Netgen\BlockManager\Exception\Core\ParameterException;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use PHPUnit\Framework\TestCase;
 
 final class BlockTest extends TestCase
@@ -93,7 +94,7 @@ final class BlockTest extends TestCase
             array(
                 'id' => 42,
                 'layoutId' => 24,
-                'definition' => new BlockDefinition('text'),
+                'definition' => new BlockDefinition(),
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
                 'name' => 'My block',
@@ -119,7 +120,7 @@ final class BlockTest extends TestCase
 
         $this->assertEquals(42, $block->getId());
         $this->assertEquals(24, $block->getLayoutId());
-        $this->assertEquals(new BlockDefinition('text'), $block->getDefinition());
+        $this->assertEquals(new BlockDefinition(), $block->getDefinition());
         $this->assertEquals('some_value', $block->getParameter('some_param'));
         $this->assertFalse($block->hasParameter('test'));
         $this->assertTrue($block->hasParameter('some_param'));
@@ -191,7 +192,11 @@ final class BlockTest extends TestCase
     {
         $block = new Block(
             array(
-                'definition' => new BlockDefinition('text'),
+                'definition' => new BlockDefinition(
+                    array(
+                        'handler' => new BlockDefinitionHandler(),
+                    )
+                ),
             )
         );
 
@@ -212,7 +217,11 @@ final class BlockTest extends TestCase
     {
         $query = new Block(
             array(
-                'definition' => new BlockDefinition('def'),
+                'definition' => new BlockDefinition(
+                    array(
+                        'handler' => new BlockDefinitionHandler(),
+                    )
+                ),
             )
         );
 

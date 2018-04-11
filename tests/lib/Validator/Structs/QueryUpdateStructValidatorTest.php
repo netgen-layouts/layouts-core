@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Validator\Structs;
 
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
 use Netgen\BlockManager\Core\Values\Collection\Query;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryType as QueryTypeStub;
+use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\Constraint\Structs\QueryUpdateStruct as QueryUpdateStructConstraint;
 use Netgen\BlockManager\Validator\Structs\QueryUpdateStructValidator;
@@ -19,7 +19,7 @@ final class QueryUpdateStructValidatorTest extends ValidatorTestCase
 
         $this->constraint->payload = new Query(
             array(
-                'queryType' => new QueryTypeStub('query_type'),
+                'queryType' => new QueryType('query_type'),
             )
         );
 

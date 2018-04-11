@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Block\BlockType;
 
+use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockType\BlockType;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use PHPUnit\Framework\TestCase;
 
 final class BlockTypeTest extends TestCase
@@ -20,7 +20,7 @@ final class BlockTypeTest extends TestCase
 
     public function setUp()
     {
-        $this->blockDefinition = new BlockDefinition('title');
+        $this->blockDefinition = new BlockDefinition(array('identifier' => 'title'));
 
         $this->blockType = new BlockType(
             array(

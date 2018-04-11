@@ -3,12 +3,12 @@
 namespace Netgen\BlockManager\Tests\API\Values\Collection;
 
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
+use Netgen\BlockManager\Collection\QueryType;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeWithParameterDefinitions;
 use PHPUnit\Framework\TestCase;
 
 final class QueryUpdateStructTest extends TestCase
@@ -207,6 +207,6 @@ final class QueryUpdateStructTest extends TestCase
             'compound' => $compoundParameter,
         );
 
-        return new QueryTypeWithParameterDefinitions($parameterDefinitions);
+        return new QueryType(array('parameterDefinitions' => $parameterDefinitions));
     }
 }

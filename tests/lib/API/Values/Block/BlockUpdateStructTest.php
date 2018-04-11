@@ -3,12 +3,12 @@
 namespace Netgen\BlockManager\Tests\API\Values\Block;
 
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
+use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionWithParameterDefinitions;
 use PHPUnit\Framework\TestCase;
 
 final class BlockUpdateStructTest extends TestCase
@@ -207,6 +207,6 @@ final class BlockUpdateStructTest extends TestCase
             'compound' => $compoundParameter,
         );
 
-        return new BlockDefinitionWithParameterDefinitions($parameterDefinitions);
+        return new BlockDefinition(array('parameterDefinitions' => $parameterDefinitions));
     }
 }

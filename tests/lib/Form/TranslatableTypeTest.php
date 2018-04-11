@@ -3,11 +3,11 @@
 namespace Netgen\BlockManager\Tests\Form;
 
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
+use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension;
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
 use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithTranslatableCompoundParameter;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithUntranslatableCompoundParameter;
 use Netgen\BlockManager\Tests\Form\Stubs\TranslatableTypeStub;
@@ -40,12 +40,13 @@ final class TranslatableTypeTest extends FormTestCase
      */
     public function testDisableUntranslatableFormsWithTranslatableCompoundParameter()
     {
+        $handler = new BlockDefinitionHandlerWithTranslatableCompoundParameter();
         $block = new Block(
             array(
                 'definition' => new BlockDefinition(
-                    'def',
-                    array(),
-                    new BlockDefinitionHandlerWithTranslatableCompoundParameter()
+                    array(
+                        'parameterDefinitions' => $handler->getParameterDefinitions(),
+                    )
                 ),
             )
         );
@@ -73,12 +74,13 @@ final class TranslatableTypeTest extends FormTestCase
      */
     public function testDisableUntranslatableFormsWithUntranslatableCompoundParameter()
     {
+        $handler = new BlockDefinitionHandlerWithUntranslatableCompoundParameter();
         $block = new Block(
             array(
                 'definition' => new BlockDefinition(
-                    'def',
-                    array(),
-                    new BlockDefinitionHandlerWithUntranslatableCompoundParameter()
+                    array(
+                        'parameterDefinitions' => $handler->getParameterDefinitions(),
+                    )
                 ),
             )
         );

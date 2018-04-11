@@ -5,6 +5,7 @@ namespace Netgen\BlockManager\Tests\Collection\Form;
 use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\Collection\Form\EditType;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
+use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -39,6 +40,45 @@ final class EditTypeTest extends FormTestCase
      */
     public function testSubmitValidData()
     {
+        $submittedData = array(
+            'offset' => 10,
+            'limit' => 5,
+        );
+
+        $updatedStruct = new CollectionUpdateStruct();
+        $updatedStruct->offset = null;
+        $updatedStruct->limit = 5;
+
+        $form = $this->factory->create(
+            EditType::class,
+            new CollectionUpdateStruct(),
+            array('collection' => $this->collection)
+        );
+
+        $form->submit($submittedData);
+
+        $this->assertTrue($form->isSynchronized());
+        $this->assertEquals($updatedStruct, $form->getData());
+
+        $view = $form->createView();
+        $children = $view->children;
+
+        foreach (array_keys($submittedData) as $key) {
+            $this->assertArrayHasKey($key, $children);
+        }
+
+        $this->assertArrayHasKey('collection', $view->vars);
+        $this->assertEquals($this->collection, $view->vars['collection']);
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Collection\Form\EditType::buildForm
+     * @covers \Netgen\BlockManager\Collection\Form\EditType::buildView
+     */
+    public function testSubmitValidDataWithDynamicCollection()
+    {
+        $this->collection = new Collection(array('query' => new Query()));
+
         $submittedData = array(
             'offset' => 10,
             'limit' => 5,

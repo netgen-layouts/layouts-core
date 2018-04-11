@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Tests\Core\Service\Mapper;
 
+use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Core\Service\Mapper\ParameterMapper;
 use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithCompoundParameter;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithUntranslatableCompoundParameter;
 use PHPUnit\Framework\TestCase;
@@ -29,10 +29,11 @@ final class ParameterMapperTest extends TestCase
      */
     public function testMapParameters()
     {
+        $handler = new BlockDefinitionHandlerWithCompoundParameter();
         $blockDefinition = new BlockDefinition(
-            'block_definition',
-            array(),
-            new BlockDefinitionHandlerWithCompoundParameter()
+            array(
+                'parameterDefinitions' => $handler->getParameterDefinitions(),
+            )
         );
 
         $mappedParameters = $this->mapper->mapParameters(
@@ -76,10 +77,11 @@ final class ParameterMapperTest extends TestCase
      */
     public function testSerializeValues()
     {
+        $handler = new BlockDefinitionHandlerWithCompoundParameter();
         $blockDefinition = new BlockDefinition(
-            'block_definition',
-            array(),
-            new BlockDefinitionHandlerWithCompoundParameter()
+            array(
+                'parameterDefinitions' => $handler->getParameterDefinitions(),
+            )
         );
 
         $serializedParameters = $this->mapper->serializeValues(
@@ -106,10 +108,11 @@ final class ParameterMapperTest extends TestCase
      */
     public function testExtractUntranslatableParameters()
     {
+        $handler = new BlockDefinitionHandlerWithUntranslatableCompoundParameter();
         $blockDefinition = new BlockDefinition(
-            'block_definition',
-            array(),
-            new BlockDefinitionHandlerWithUntranslatableCompoundParameter()
+            array(
+                'parameterDefinitions' => $handler->getParameterDefinitions(),
+            )
         );
 
         $untranslatableParams = $this->mapper->extractUntranslatableParameters(

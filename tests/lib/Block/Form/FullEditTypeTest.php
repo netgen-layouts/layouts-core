@@ -3,13 +3,16 @@
 namespace Netgen\BlockManager\Tests\Block\Form;
 
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
+use Netgen\BlockManager\Block\BlockDefinition;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Block\Form\FullEditType;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension;
 use Netgen\BlockManager\Parameters\Form\Mapper\TextLineMapper;
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
 use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -32,9 +35,41 @@ final class FullEditTypeTest extends FormTestCase
     {
         parent::setUp();
 
+        $handler = new BlockDefinitionHandler();
         $this->definition = new BlockDefinition(
-            'block_definition',
-            array('large' => array('standard'), 'small' => array('standard'))
+            array(
+                'parameterDefinitions' => $handler->getParameterDefinitions(),
+                'viewTypes' => array(
+                    'large' => new ViewType(
+                        array(
+                            'name' => 'large',
+                            'identifier' => 'large',
+                            'itemViewTypes' => array(
+                                'standard' => new ItemViewType(
+                                    array(
+                                        'name' => 'standard',
+                                        'identifier' => 'standard',
+                                    )
+                                ),
+                            ),
+                        )
+                    ),
+                    'small' => new ViewType(
+                        array(
+                            'name' => 'small',
+                            'identifier' => 'small',
+                            'itemViewTypes' => array(
+                                'standard' => new ItemViewType(
+                                    array(
+                                        'name' => 'standard',
+                                        'identifier' => 'standard',
+                                    )
+                                ),
+                            ),
+                        )
+                    ),
+                ),
+            )
         );
 
         $this->block = new Block(array('definition' => $this->definition));

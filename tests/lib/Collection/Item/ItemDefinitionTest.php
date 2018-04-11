@@ -3,7 +3,7 @@
 namespace Netgen\BlockManager\Tests\Collection\Item;
 
 use Netgen\BlockManager\Collection\Item\ItemDefinition;
-use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinition;
+use Netgen\BlockManager\Config\ConfigDefinition;
 use PHPUnit\Framework\TestCase;
 
 final class ItemDefinitionTest extends TestCase
@@ -18,7 +18,7 @@ final class ItemDefinitionTest extends TestCase
         $this->itemDefinition = new ItemDefinition(
             array(
                 'valueType' => 'value_type',
-                'configDefinitions' => array('config' => new ConfigDefinition('config')),
+                'configDefinitions' => array('config' => new ConfigDefinition()),
             )
         );
     }
@@ -37,7 +37,7 @@ final class ItemDefinitionTest extends TestCase
     public function testGetConfigDefinitions()
     {
         $this->assertEquals(
-            array('config' => new ConfigDefinition('config')),
+            array('config' => new ConfigDefinition()),
             $this->itemDefinition->getConfigDefinitions()
         );
     }

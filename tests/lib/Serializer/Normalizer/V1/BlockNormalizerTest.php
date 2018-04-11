@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
 
 use Netgen\BlockManager\API\Service\BlockService;
+use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\CollectionReference;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
@@ -10,7 +11,6 @@ use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Serializer;
@@ -68,7 +68,7 @@ final class BlockNormalizerTest extends TestCase
             array(
                 'id' => 42,
                 'layoutId' => 24,
-                'definition' => new BlockDefinition('text'),
+                'definition' => new BlockDefinition(),
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
                 'name' => 'My block',

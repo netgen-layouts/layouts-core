@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Tests\Layout\Type;
 
+use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Layout\Type\Zone;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use PHPUnit\Framework\TestCase;
 
 final class LayoutTypeTest extends TestCase
@@ -157,7 +157,7 @@ final class LayoutTypeTest extends TestCase
      */
     public function testIsBlockAllowedInZone()
     {
-        $this->assertTrue($this->layoutType->isBlockAllowedInZone(new BlockDefinition('title'), 'left'));
+        $this->assertTrue($this->layoutType->isBlockAllowedInZone(new BlockDefinition(array('identifier' => 'title')), 'left'));
     }
 
     /**
@@ -165,7 +165,7 @@ final class LayoutTypeTest extends TestCase
      */
     public function testIsBlockAllowedInZoneReturnsFalse()
     {
-        $this->assertFalse($this->layoutType->isBlockAllowedInZone(new BlockDefinition('other'), 'left'));
+        $this->assertFalse($this->layoutType->isBlockAllowedInZone(new BlockDefinition(array('identifier' => 'other')), 'left'));
     }
 
     /**
@@ -173,7 +173,7 @@ final class LayoutTypeTest extends TestCase
      */
     public function testIsBlockAllowedInZoneWithNonExistentZone()
     {
-        $this->assertTrue($this->layoutType->isBlockAllowedInZone(new BlockDefinition('title'), 'unknown'));
+        $this->assertTrue($this->layoutType->isBlockAllowedInZone(new BlockDefinition(array('identifier' => 'title')), 'unknown'));
     }
 
     /**
@@ -181,6 +181,6 @@ final class LayoutTypeTest extends TestCase
      */
     public function testIsBlockAllowedInZoneWithAllBlocksAllowed()
     {
-        $this->assertTrue($this->layoutType->isBlockAllowedInZone(new BlockDefinition('title'), 'right'));
+        $this->assertTrue($this->layoutType->isBlockAllowedInZone(new BlockDefinition(array('identifier' => 'title')), 'right'));
     }
 }

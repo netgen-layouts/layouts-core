@@ -2,7 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Validator;
 
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
+use Netgen\BlockManager\Block\BlockDefinition;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\BlockViewTypeValidator;
 use Netgen\BlockManager\Validator\Constraint\BlockViewType;
@@ -19,8 +20,11 @@ final class BlockViewTypeValidatorTest extends ValidatorTestCase
     public function setUp()
     {
         $this->blockDefinition = new BlockDefinition(
-            'block',
-            array('large' => array())
+            array(
+                'viewTypes' => array(
+                    'large' => new ViewType(),
+                ),
+            )
         );
 
         $this->constraint = new BlockViewType(array('definition' => $this->blockDefinition));

@@ -19,6 +19,12 @@ class ConfigDefinitionHandler implements ConfigDefinitionHandlerInterface
                     'type' => new ParameterType\TextLineType(),
                 )
             ),
+            'param2' => new ParameterDefinition(
+                array(
+                    'name' => 'param2',
+                    'type' => new ParameterType\TextLineType(),
+                )
+            ),
         );
     }
 

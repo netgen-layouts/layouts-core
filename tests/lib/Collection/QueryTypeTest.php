@@ -19,6 +19,7 @@ final class QueryTypeTest extends TestCase
     {
         $this->queryType = new QueryType(
             array(
+                'handler' => new QueryTypeHandler(array('val1', 'val2')),
                 'type' => 'query_type',
                 'name' => 'Query type',
                 'forms' => array(
@@ -29,7 +30,6 @@ final class QueryTypeTest extends TestCase
                         )
                     ),
                 ),
-                'handler' => new QueryTypeHandler(array('val1', 'val2')),
             )
         );
     }

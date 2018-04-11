@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Tests\Block\BlockType;
 
+use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\BlockType\BlockType;
 use Netgen\BlockManager\Block\BlockType\BlockTypeFactory;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use PHPUnit\Framework\TestCase;
 
 final class BlockTypeFactoryTest extends TestCase
@@ -14,7 +14,7 @@ final class BlockTypeFactoryTest extends TestCase
      */
     public function testBuildBlockType()
     {
-        $blockDefinition = new BlockDefinition('title');
+        $blockDefinition = new BlockDefinition();
 
         $blockType = BlockTypeFactory::buildBlockType(
             'title',

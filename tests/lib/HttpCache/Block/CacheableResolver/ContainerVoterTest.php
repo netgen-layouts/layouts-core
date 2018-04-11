@@ -3,13 +3,13 @@
 namespace Netgen\BlockManager\Tests\HttpCache\Block\CacheableResolver;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Netgen\BlockManager\Block\BlockDefinition;
+use Netgen\BlockManager\Block\ContainerDefinition;
 use Netgen\BlockManager\Block\TwigBlockDefinition;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContainerVoter;
 use Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
-use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinition;
 use PHPUnit\Framework\TestCase;
 
 final class ContainerVoterTest extends TestCase
@@ -45,7 +45,7 @@ final class ContainerVoterTest extends TestCase
 
         $containerBlock = new Block(
             array(
-                'definition' => new ContainerDefinition('container'),
+                'definition' => new ContainerDefinition(),
                 'placeholders' => array(
                     'left' => new Placeholder(
                         array(
@@ -64,7 +64,7 @@ final class ContainerVoterTest extends TestCase
 
         $block = new Block(
             array(
-                'definition' => new ContainerDefinition('container'),
+                'definition' => new ContainerDefinition(),
                 'placeholders' => array(
                     'left' => new Placeholder(
                         array(
@@ -85,7 +85,7 @@ final class ContainerVoterTest extends TestCase
     {
         $regularBlock = new Block(
             array(
-                'definition' => new BlockDefinition('block'),
+                'definition' => new BlockDefinition(),
             )
         );
 
@@ -97,7 +97,7 @@ final class ContainerVoterTest extends TestCase
 
         $block = new Block(
             array(
-                'definition' => new ContainerDefinition('container'),
+                'definition' => new ContainerDefinition(),
                 'placeholders' => array(
                     'left' => new Placeholder(
                         array(
@@ -118,7 +118,7 @@ final class ContainerVoterTest extends TestCase
     {
         $block = new Block(
             array(
-                'definition' => new BlockDefinition('block'),
+                'definition' => new BlockDefinition(),
             )
         );
 

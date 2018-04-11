@@ -2,6 +2,8 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener\BlockView;
 
+use Netgen\BlockManager\Block\BlockDefinition;
+use Netgen\BlockManager\Block\BlockDefinition\Handler\PagedCollectionsPlugin;
 use Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory;
 use Netgen\BlockManager\Collection\Result\ResultBuilderInterface;
 use Netgen\BlockManager\Collection\Result\ResultSet;
@@ -12,7 +14,6 @@ use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Event\BlockManagerEvents;
 use Netgen\BlockManager\Event\CollectViewParametersEvent;
 use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\View\BlockView;
@@ -93,7 +94,7 @@ final class GetCollectionPagerListenerTest extends TestCase
             array(
                 'block' => new Block(
                     array(
-                        'definition' => new BlockDefinition('test'),
+                        'definition' => new BlockDefinition(),
                         'collectionReferences' => array('default' => $collectionReference),
                     )
                 ),
@@ -161,7 +162,13 @@ final class GetCollectionPagerListenerTest extends TestCase
             array(
                 'block' => new Block(
                     array(
-                        'definition' => new BlockDefinition('test', array(), null, false, false, array(), true),
+                        'definition' => new BlockDefinition(
+                            array(
+                                'handlerPlugins' => array(
+                                    new PagedCollectionsPlugin(),
+                                ),
+                            )
+                        ),
                         'parameters' => array(
                             'paged_collections:enabled' => new Parameter(array('value' => true)),
                             'paged_collections:max_pages' => new Parameter(array('value' => 2)),
@@ -233,7 +240,13 @@ final class GetCollectionPagerListenerTest extends TestCase
             array(
                 'block' => new Block(
                     array(
-                        'definition' => new BlockDefinition('test', array(), null, false, false, array(), true),
+                        'definition' => new BlockDefinition(
+                            array(
+                                'handlerPlugins' => array(
+                                    new PagedCollectionsPlugin(),
+                                ),
+                            )
+                        ),
                         'parameters' => array(
                             'paged_collections:enabled' => new Parameter(array('value' => true)),
                             'paged_collections:max_pages' => new Parameter(array('value' => null)),
@@ -305,7 +318,13 @@ final class GetCollectionPagerListenerTest extends TestCase
             array(
                 'block' => new Block(
                     array(
-                        'definition' => new BlockDefinition('test', array(), null, false, false, array(), true),
+                        'definition' => new BlockDefinition(
+                            array(
+                                'handlerPlugins' => array(
+                                    new PagedCollectionsPlugin(),
+                                ),
+                            )
+                        ),
                         'parameters' => array(
                             'paged_collections:enabled' => new Parameter(array('value' => false)),
                         ),

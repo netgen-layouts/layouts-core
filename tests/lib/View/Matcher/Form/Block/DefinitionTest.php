@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\View\Matcher\Form\Block;
 
+use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Core\Values\Block\Block;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Matcher\Stubs\Form;
 use Netgen\BlockManager\Tests\View\Stubs\View;
@@ -47,7 +47,7 @@ final class DefinitionTest extends TestCase
             array(
                 'block' => new Block(
                     array(
-                        'definition' => new BlockDefinition('block'),
+                        'definition' => new BlockDefinition(array('identifier' => 'block')),
                     )
                 ),
             )

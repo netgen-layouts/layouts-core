@@ -79,6 +79,11 @@ final class ConfigMapperTest extends TestCase
             ),
             array(
                 'config_key' => $this->configDefinition,
+            ),
+            array(
+                'config_key' => array(
+                    'param2' => 'value2',
+                ),
             )
         );
 
@@ -86,6 +91,7 @@ final class ConfigMapperTest extends TestCase
             array(
                 'config_key' => array(
                     'param' => 'new_value',
+                    'param2' => 'value2',
                 ),
             ),
             $serializedConfig

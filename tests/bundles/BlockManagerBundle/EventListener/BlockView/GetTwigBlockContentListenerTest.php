@@ -2,11 +2,11 @@
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\EventListener\BlockView;
 
+use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\TwigBlockDefinition;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Event\BlockManagerEvents;
 use Netgen\BlockManager\Event\CollectViewParametersEvent;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\TwigBlockDefinitionHandler;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
@@ -91,7 +91,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
         $block = new Block(
             array(
                 'id' => 42,
-                'definition' => new BlockDefinition('block_definition'),
+                'definition' => new BlockDefinition(),
             )
         );
 

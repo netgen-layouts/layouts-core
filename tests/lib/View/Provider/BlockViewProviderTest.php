@@ -2,11 +2,11 @@
 
 namespace Netgen\BlockManager\Tests\View\Provider;
 
+use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Config\Config;
 use Netgen\BlockManager\Core\Values\Layout\Layout;
 use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Core\Stubs\Value;
 use Netgen\BlockManager\View\Provider\BlockViewProvider;
 use Netgen\BlockManager\View\View\BlockViewInterface;
@@ -32,6 +32,7 @@ final class BlockViewProviderTest extends TestCase
         $block = new Block(
             array(
                 'id' => 42,
+                'definition' => new BlockDefinition(),
                 'configs' => array(
                     'http_cache' => new Config(
                         array(
@@ -42,7 +43,6 @@ final class BlockViewProviderTest extends TestCase
                         )
                     ),
                 ),
-                'definition' => new BlockDefinition('block_definition'),
             )
         );
 

@@ -2,8 +2,8 @@
 
 namespace Netgen\BlockManager\Tests\Core\Values\Config;
 
+use Netgen\BlockManager\Config\ConfigDefinition;
 use Netgen\BlockManager\Core\Values\Config\Config;
-use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinition;
 use PHPUnit\Framework\TestCase;
 
 final class ConfigTest extends TestCase
@@ -26,7 +26,7 @@ final class ConfigTest extends TestCase
      */
     public function testSetProperties()
     {
-        $definition = new ConfigDefinition('config');
+        $definition = new ConfigDefinition();
 
         $config = new Config(
             array(

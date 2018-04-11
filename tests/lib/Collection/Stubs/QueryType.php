@@ -4,10 +4,12 @@ namespace Netgen\BlockManager\Tests\Collection\Stubs;
 
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Collection\QueryTypeInterface;
-use Netgen\BlockManager\Exception\Parameters\ParameterException;
+use Netgen\BlockManager\Parameters\ParameterCollectionTrait;
 
 final class QueryType implements QueryTypeInterface
 {
+    use ParameterCollectionTrait;
+
     /**
      * @var string
      */
@@ -23,25 +25,7 @@ final class QueryType implements QueryTypeInterface
         $this->type = $type;
 
         $this->handler = new QueryTypeHandler($values, $count, $isContextual);
-    }
-
-    public function getParameterDefinitions()
-    {
-        return $this->handler->getParameterDefinitions();
-    }
-
-    public function getParameterDefinition($parameterName)
-    {
-        if ($this->hasParameterDefinition($parameterName)) {
-            return $this->handler->getParameterDefinitions()[$parameterName];
-        }
-
-        throw new ParameterException('parameterName', 'Parameter is missing.');
-    }
-
-    public function hasParameterDefinition($parameterName)
-    {
-        return isset($this->handler->getParameterDefinitions()[$parameterName]);
+        $this->parameterDefinitions = $this->handler->getParameterDefinitions();
     }
 
     public function getValues(Query $query, $offset = 0, $limit = null)

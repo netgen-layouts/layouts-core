@@ -5,14 +5,18 @@ namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
+use Netgen\BlockManager\Block\BlockDefinition;
+use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
+use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
+use Netgen\BlockManager\Block\ContainerDefinition;
 use Netgen\BlockManager\Core\Service\Validator\BlockValidator;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Service\Validator\ConfigValidator;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition as BlockDefinitionStub;
+use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithRequiredParameter;
-use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinition as ContainerDefinitionStub;
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\TestCase;
@@ -90,10 +94,7 @@ final class BlockValidatorTest extends TestCase
                 array(
                     'viewType' => 'large',
                     'mainLocale' => 'en',
-                    'definition' => new BlockDefinitionStub(
-                        'block_definition',
-                        array('large' => array('standard'))
-                    ),
+                    'definition' => $this->getBlockDefinition(new BlockDefinitionHandler()),
                 )
             ),
             new BlockUpdateStruct($params)
@@ -849,17 +850,23 @@ final class BlockValidatorTest extends TestCase
         );
     }
 
-    /**
-     * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
-     */
-    private function getBlockDefinition()
+    private function getBlockDefinition(BlockDefinitionHandlerInterface $handler = null)
     {
-        $handler = new BlockDefinitionHandlerWithRequiredParameter();
+        $handler = $handler ?: new BlockDefinitionHandlerWithRequiredParameter();
 
-        return new BlockDefinitionStub(
-            'block',
-            array('large' => array('standard')),
-            $handler
+        return new BlockDefinition(
+            array(
+                'parameterDefinitions' => $handler->getParameterDefinitions(),
+                'viewTypes' => array(
+                    'large' => new ViewType(
+                        array(
+                            'itemViewTypes' => array(
+                                'standard' => new ItemViewType(),
+                            ),
+                        )
+                    ),
+                ),
+            )
         );
     }
 
@@ -868,12 +875,19 @@ final class BlockValidatorTest extends TestCase
      */
     private function getContainerDefinition()
     {
-        $handler = new ContainerDefinitionHandler(array(), array('main'));
-
-        return new ContainerDefinitionStub(
-            'block',
-            array('large' => array('standard')),
-            $handler
+        return new ContainerDefinition(
+            array(
+                'handler' => new ContainerDefinitionHandler(array(), array('main')),
+                'viewTypes' => array(
+                    'large' => new ViewType(
+                        array(
+                            'itemViewTypes' => array(
+                                'standard' => new ItemViewType(),
+                            ),
+                        )
+                    ),
+                ),
+            )
         );
     }
 }

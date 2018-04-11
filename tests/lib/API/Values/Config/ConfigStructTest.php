@@ -3,12 +3,12 @@
 namespace Netgen\BlockManager\Tests\API\Values\Block;
 
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
+use Netgen\BlockManager\Config\ConfigDefinition;
 use Netgen\BlockManager\Core\Values\Config\Config;
 use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
 use Netgen\BlockManager\Parameters\Parameter;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType;
-use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionWithParameterDefinitions;
 use PHPUnit\Framework\TestCase;
 
 final class ConfigStructTest extends TestCase
@@ -207,6 +207,6 @@ final class ConfigStructTest extends TestCase
             'compound' => $compoundParameter,
         );
 
-        return new ConfigDefinitionWithParameterDefinitions($parameterDefinitions);
+        return new ConfigDefinition(array('parameterDefinitions' => $parameterDefinitions));
     }
 }

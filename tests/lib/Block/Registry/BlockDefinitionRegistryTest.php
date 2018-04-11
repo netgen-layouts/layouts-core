@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Tests\Block\Registry;
 
 use ArrayIterator;
+use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use PHPUnit\Framework\TestCase;
 
 final class BlockDefinitionRegistryTest extends TestCase
@@ -23,7 +23,7 @@ final class BlockDefinitionRegistryTest extends TestCase
     {
         $this->registry = new BlockDefinitionRegistry();
 
-        $this->blockDefinition = new BlockDefinition('block_definition');
+        $this->blockDefinition = new BlockDefinition();
 
         $this->registry->addBlockDefinition('block_definition', $this->blockDefinition);
     }
