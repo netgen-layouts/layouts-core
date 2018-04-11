@@ -8,7 +8,7 @@ use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType;
 
-class ConfigDefinitionHandler implements ConfigDefinitionHandlerInterface
+final class ConfigDefinitionHandler implements ConfigDefinitionHandlerInterface
 {
     public function getParameterDefinitions()
     {

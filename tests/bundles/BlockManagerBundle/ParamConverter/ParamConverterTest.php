@@ -11,6 +11,16 @@ use Symfony\Component\HttpFoundation\Request;
 final class ParamConverterTest extends TestCase
 {
     /**
+     * @var \Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface
+     */
+    private $paramConverter;
+
+    public function setUp()
+    {
+        $this->paramConverter = new ParamConverter();
+    }
+
+    /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter::apply
      */
     public function testApply()
@@ -20,8 +30,7 @@ final class ParamConverterTest extends TestCase
         $configuration = new ParamConverterConfiguration(array());
         $configuration->setClass(Value::class);
 
-        $paramConverter = new ParamConverter();
-        $this->assertTrue($paramConverter->apply($request, $configuration));
+        $this->assertTrue($this->paramConverter->apply($request, $configuration));
         $this->assertTrue($request->attributes->has('value'));
         $this->assertEquals(
             new Value(array('id' => 42, 'status' => Value::STATUS_DRAFT)),
@@ -40,8 +49,7 @@ final class ParamConverterTest extends TestCase
         $configuration = new ParamConverterConfiguration(array());
         $configuration->setClass(Value::class);
 
-        $paramConverter = new ParamConverter();
-        $this->assertTrue($paramConverter->apply($request, $configuration));
+        $this->assertTrue($this->paramConverter->apply($request, $configuration));
         $this->assertTrue($request->attributes->has('value'));
         $this->assertEquals(
             new Value(array('id' => 42, 'locale' => 'en', 'status' => Value::STATUS_DRAFT)),
@@ -60,8 +68,7 @@ final class ParamConverterTest extends TestCase
         $configuration = new ParamConverterConfiguration(array());
         $configuration->setClass(Value::class);
 
-        $paramConverter = new ParamConverter();
-        $this->assertTrue($paramConverter->apply($request, $configuration));
+        $this->assertTrue($this->paramConverter->apply($request, $configuration));
         $this->assertTrue($request->attributes->has('value'));
         $this->assertEquals(
             new Value(array('id' => 42, 'status' => Value::STATUS_PUBLISHED)),
@@ -80,8 +87,7 @@ final class ParamConverterTest extends TestCase
         $configuration = new ParamConverterConfiguration(array());
         $configuration->setClass(Value::class);
 
-        $paramConverter = new ParamConverter();
-        $this->assertTrue($paramConverter->apply($request, $configuration));
+        $this->assertTrue($this->paramConverter->apply($request, $configuration));
         $this->assertTrue($request->attributes->has('value'));
         $this->assertEquals(
             new Value(array('id' => 42, 'status' => Value::STATUS_DRAFT)),
@@ -100,8 +106,7 @@ final class ParamConverterTest extends TestCase
         $configuration = new ParamConverterConfiguration(array());
         $configuration->setClass(Value::class);
 
-        $paramConverter = new ParamConverter();
-        $this->assertTrue($paramConverter->apply($request, $configuration));
+        $this->assertTrue($this->paramConverter->apply($request, $configuration));
         $this->assertTrue($request->attributes->has('value'));
         $this->assertEquals(
             new Value(array('id' => 42, 'status' => Value::STATUS_PUBLISHED)),
@@ -120,8 +125,7 @@ final class ParamConverterTest extends TestCase
         $configuration = new ParamConverterConfiguration(array());
         $configuration->setClass(Value::class);
 
-        $paramConverter = new ParamConverter();
-        $this->assertTrue($paramConverter->apply($request, $configuration));
+        $this->assertTrue($this->paramConverter->apply($request, $configuration));
         $this->assertTrue($request->attributes->has('value'));
         $this->assertEquals(
             new Value(array('id' => 42, 'status' => Value::STATUS_DRAFT)),
@@ -138,8 +142,7 @@ final class ParamConverterTest extends TestCase
         $configuration = new ParamConverterConfiguration(array());
         $configuration->setClass(Value::class);
 
-        $paramConverter = new ParamConverter();
-        $this->assertFalse($paramConverter->apply($request, $configuration));
+        $this->assertFalse($this->paramConverter->apply($request, $configuration));
         $this->assertFalse($request->attributes->has('value'));
     }
 
@@ -154,8 +157,7 @@ final class ParamConverterTest extends TestCase
         $configuration->setClass(Value::class);
         $configuration->setIsOptional(true);
 
-        $paramConverter = new ParamConverter();
-        $this->assertFalse($paramConverter->apply($request, $configuration));
+        $this->assertFalse($this->paramConverter->apply($request, $configuration));
         $this->assertFalse($request->attributes->has('value'));
     }
 
@@ -171,8 +173,7 @@ final class ParamConverterTest extends TestCase
         $configuration = new ParamConverterConfiguration(array());
         $configuration->setClass(Value::class);
 
-        $paramConverter = new ParamConverter();
-        $paramConverter->apply($request, $configuration);
+        $this->paramConverter->apply($request, $configuration);
     }
 
     /**
@@ -183,8 +184,7 @@ final class ParamConverterTest extends TestCase
         $configuration = new ParamConverterConfiguration(array());
         $configuration->setClass(Value::class);
 
-        $paramConverter = new ParamConverter();
-        $this->assertTrue($paramConverter->supports($configuration));
+        $this->assertTrue($this->paramConverter->supports($configuration));
     }
 
     /**
@@ -195,7 +195,6 @@ final class ParamConverterTest extends TestCase
         $configuration = new ParamConverterConfiguration(array());
         $configuration->setClass('Some\Class');
 
-        $paramConverter = new ParamConverter();
-        $this->assertFalse($paramConverter->supports($configuration));
+        $this->assertFalse($this->paramConverter->supports($configuration));
     }
 }
