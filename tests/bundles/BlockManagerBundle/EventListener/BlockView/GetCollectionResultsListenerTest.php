@@ -157,9 +157,7 @@ final class GetCollectionResultsListenerTest extends TestCase
                     array(
                         'definition' => new BlockDefinition(
                             array(
-                                'handlerPlugins' => array(
-                                    new PagedCollectionsPlugin(),
-                                ),
+                                'handlerPlugins' => array(new PagedCollectionsPlugin()),
                             )
                         ),
                         'parameters' => array(
@@ -204,6 +202,7 @@ final class GetCollectionResultsListenerTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::onRenderView
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\BlockView\GetCollectionResultsListener::getMaxPages
+     * @group a
      */
     public function testOnRenderViewWithPagedCollectionAndEmptyMaxPages()
     {
@@ -221,7 +220,7 @@ final class GetCollectionResultsListenerTest extends TestCase
                     array(
                         'definition' => new BlockDefinition(
                             array(
-                                'handlerPlugins' => new PagedCollectionsPlugin(),
+                                'handlerPlugins' => array(new PagedCollectionsPlugin()),
                             )
                         ),
                         'parameters' => array(
@@ -283,7 +282,7 @@ final class GetCollectionResultsListenerTest extends TestCase
                     array(
                         'definition' => new BlockDefinition(
                             array(
-                                'handlerPlugins' => new PagedCollectionsPlugin(),
+                                'handlerPlugins' => array(new PagedCollectionsPlugin()),
                             )
                         ),
                         'parameters' => array(

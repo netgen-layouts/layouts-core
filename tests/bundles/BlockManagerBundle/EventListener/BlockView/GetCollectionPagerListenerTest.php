@@ -164,9 +164,7 @@ final class GetCollectionPagerListenerTest extends TestCase
                     array(
                         'definition' => new BlockDefinition(
                             array(
-                                'handlerPlugins' => array(
-                                    new PagedCollectionsPlugin(),
-                                ),
+                                'handlerPlugins' => array(new PagedCollectionsPlugin()),
                             )
                         ),
                         'parameters' => array(
@@ -242,9 +240,7 @@ final class GetCollectionPagerListenerTest extends TestCase
                     array(
                         'definition' => new BlockDefinition(
                             array(
-                                'handlerPlugins' => array(
-                                    new PagedCollectionsPlugin(),
-                                ),
+                                'handlerPlugins' => array(new PagedCollectionsPlugin()),
                             )
                         ),
                         'parameters' => array(
@@ -320,9 +316,7 @@ final class GetCollectionPagerListenerTest extends TestCase
                     array(
                         'definition' => new BlockDefinition(
                             array(
-                                'handlerPlugins' => array(
-                                    new PagedCollectionsPlugin(),
-                                ),
+                                'handlerPlugins' => array(new PagedCollectionsPlugin()),
                             )
                         ),
                         'parameters' => array(
