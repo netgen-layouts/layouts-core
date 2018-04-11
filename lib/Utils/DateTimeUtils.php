@@ -65,7 +65,7 @@ final class DateTimeUtils
      */
     public static function isBetweenDates(DateTimeInterface $date = null, DateTimeInterface $from = null, DateTimeInterface $to = null)
     {
-        $date = $date ?: static::createFromTimestamp();
+        $date = $date ?: self::createFromTimestamp();
 
         if ($from instanceof DateTimeInterface && $date < $from) {
             return false;
@@ -87,9 +87,9 @@ final class DateTimeUtils
     {
         $timeZoneList = array();
         foreach (DateTimeZone::listIdentifiers() as $timeZone) {
-            list($region, $name) = static::parseTimeZone($timeZone);
+            list($region, $name) = self::parseTimeZone($timeZone);
 
-            $offset = static::buildOffsetString($timeZone);
+            $offset = self::buildOffsetString($timeZone);
             $name = sprintf('%s (%s)', str_replace('_', ' ', $name), $offset);
 
             $timeZoneList[$region][$name] = $timeZone;
@@ -129,7 +129,7 @@ final class DateTimeUtils
      */
     private static function buildOffsetString($timeZone)
     {
-        $offset = static::createFromTimestamp(null, $timeZone)->getOffset();
+        $offset = self::createFromTimestamp(null, $timeZone)->getOffset();
 
         $hours = intdiv($offset, 3600);
         $minutes = (int) (($offset % 3600) / 60);
