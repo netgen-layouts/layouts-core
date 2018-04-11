@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Tests\Parameters\Form\Mapper;
 
 use Netgen\BlockManager\Parameters\Form\Mapper\NumberMapper;
+use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType\NumberType as NumberParameterType;
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 

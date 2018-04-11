@@ -9,12 +9,7 @@ final class ParameterCollection implements ParameterCollectionInterface
 {
     use ParameterCollectionTrait;
 
-    /**
-     * Constructor.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]|\Closure $parameterDefinitions
-     */
-    public function __construct($parameterDefinitions = null)
+    public function __construct(array $parameterDefinitions = array())
     {
         $this->parameterDefinitions = $parameterDefinitions;
     }

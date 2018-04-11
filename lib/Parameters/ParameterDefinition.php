@@ -20,12 +20,12 @@ class ParameterDefinition extends Value implements ParameterDefinitionInterface
     /**
      * @var array
      */
-    protected $options;
+    protected $options = array();
 
     /**
      * @var bool
      */
-    protected $isRequired;
+    protected $isRequired = false;
 
     /**
      * @var mixed
@@ -40,7 +40,7 @@ class ParameterDefinition extends Value implements ParameterDefinitionInterface
     /**
      * @var array
      */
-    protected $groups;
+    protected $groups = array();
 
     public function getName()
     {

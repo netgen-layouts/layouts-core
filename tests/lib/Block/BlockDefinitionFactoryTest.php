@@ -20,7 +20,7 @@ use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
 use Netgen\BlockManager\Parameters\ParameterType\TextLineType;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\BlockManager\Tests\Block\Stubs\HandlerPlugin;
-use Netgen\BlockManager\Tests\Config\Stubs\Block\HttpCacheConfigHandler;
+use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionHandler;
 use PHPUnit\Framework\TestCase;
 
 final class BlockDefinitionFactoryTest extends TestCase
@@ -135,8 +135,8 @@ final class BlockDefinitionFactoryTest extends TestCase
                 ),
             ),
             array(
-                'test' => new HttpCacheConfigHandler(),
-                'test2' => new HttpCacheConfigHandler(),
+                'test' => new ConfigDefinitionHandler(),
+                'test2' => new ConfigDefinitionHandler(),
             )
         );
 
@@ -234,8 +234,8 @@ final class BlockDefinitionFactoryTest extends TestCase
                 ),
             ),
             array(
-                'test' => new HttpCacheConfigHandler(),
-                'test2' => new HttpCacheConfigHandler(),
+                'test' => new ConfigDefinitionHandler(),
+                'test2' => new ConfigDefinitionHandler(),
             )
         );
 
@@ -279,8 +279,8 @@ final class BlockDefinitionFactoryTest extends TestCase
                 ),
             ),
             array(
-                'test' => new HttpCacheConfigHandler(),
-                'test2' => new HttpCacheConfigHandler(),
+                'test' => new ConfigDefinitionHandler(),
+                'test2' => new ConfigDefinitionHandler(),
             )
         );
 

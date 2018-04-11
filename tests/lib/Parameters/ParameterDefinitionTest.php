@@ -25,11 +25,11 @@ final class ParameterDefinitionTest extends TestCase
 
         $this->assertNull($parameterDefinition->getName());
         $this->assertNull($parameterDefinition->getType());
-        $this->assertNull($parameterDefinition->getOptions());
-        $this->assertNull($parameterDefinition->isRequired());
+        $this->assertEquals(array(), $parameterDefinition->getOptions());
+        $this->assertFalse($parameterDefinition->isRequired());
         $this->assertNull($parameterDefinition->getDefaultValue());
         $this->assertNull($parameterDefinition->getLabel());
-        $this->assertNull($parameterDefinition->getGroups());
+        $this->assertEquals(array(), $parameterDefinition->getGroups());
     }
 
     /**

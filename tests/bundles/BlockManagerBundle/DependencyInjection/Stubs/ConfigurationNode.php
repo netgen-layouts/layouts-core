@@ -7,9 +7,6 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 final class ConfigurationNode implements ConfigurationNodeInterface
 {
-    /**
-     * @return \Symfony\Component\Config\Definition\Builder\NodeDefinition
-     */
     public function getConfigurationNode()
     {
         $treeBuilder = new TreeBuilder();

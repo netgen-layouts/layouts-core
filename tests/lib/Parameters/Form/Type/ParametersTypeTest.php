@@ -2,16 +2,16 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\Form\Type;
 
+use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
 use Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension;
 use Netgen\BlockManager\Parameters\Form\Mapper\Compound\BooleanMapper;
 use Netgen\BlockManager\Parameters\Form\Mapper\TextLineMapper;
 use Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType;
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
+use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
-use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameterDefinition;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterCollection;
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterStruct;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -74,16 +74,16 @@ final class ParametersTypeTest extends FormTestCase
             array(
                 'name' => 'compound',
                 'type' => new ParameterType\Compound\BooleanType(),
-            )
-        );
-
-        $compoundParameter->setParameterDefinitions(
-            array(
-                'inner' => new ParameterDefinition(
-                    array(
-                        'name' => 'inner',
-                        'type' => new ParameterType\TextLineType(),
-                    )
+                'options' => array(
+                    'reverse' => false,
+                ),
+                'parameterDefinitions' => array(
+                    'inner' => new ParameterDefinition(
+                        array(
+                            'name' => 'inner',
+                            'type' => new ParameterType\TextLineType(),
+                        )
+                    ),
                 ),
             )
         );

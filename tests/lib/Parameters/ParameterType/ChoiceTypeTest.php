@@ -2,20 +2,26 @@
 
 namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
 
+use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType\ChoiceType;
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 
 final class ChoiceTypeTest extends TestCase
 {
+    use ParameterTypeTestTrait;
+
+    public function setUp()
+    {
+        $this->type = new ChoiceType();
+    }
+
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ChoiceType::getIdentifier
      */
     public function testGetIdentifier()
     {
-        $type = new ChoiceType();
-        $this->assertEquals('choice', $type->getIdentifier());
+        $this->assertEquals('choice', $this->type->getIdentifier());
     }
 
     /**
@@ -30,7 +36,7 @@ final class ChoiceTypeTest extends TestCase
      */
     public function testGetDefaultValue(array $options, $required, $defaultValue, $expected)
     {
-        $parameter = $this->getParameter($options, $required, $defaultValue);
+        $parameter = $this->getParameterDefinition($options, $required, $defaultValue);
         $this->assertEquals($expected, $parameter->getDefaultValue());
     }
 
@@ -43,7 +49,7 @@ final class ChoiceTypeTest extends TestCase
      */
     public function testValidOptions($options, $resolvedOptions)
     {
-        $parameter = $this->getParameter($options);
+        $parameter = $this->getParameterDefinition($options);
         $this->assertEquals($resolvedOptions, $parameter->getOptions());
     }
 
@@ -56,29 +62,7 @@ final class ChoiceTypeTest extends TestCase
      */
     public function testInvalidOptions($options)
     {
-        $this->getParameter($options);
-    }
-
-    /**
-     * Returns the parameter under test.
-     *
-     * @param array $options
-     * @param bool $required
-     * @param mixed $defaultValue
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface
-     */
-    public function getParameter(array $options = array(), $required = false, $defaultValue = null)
-    {
-        return new ParameterDefinition(
-            array(
-                'name' => 'name',
-                'type' => new ChoiceType(),
-                'options' => $options,
-                'isRequired' => $required,
-                'defaultValue' => $defaultValue,
-            )
-        );
+        $this->getParameterDefinition($options);
     }
 
     /**
@@ -267,11 +251,10 @@ final class ChoiceTypeTest extends TestCase
      */
     public function testValidation($value, $isValid)
     {
-        $type = new ChoiceType();
-        $parameter = $this->getParameter(array('options' => array('One' => 1, 'Two' => 2)));
+        $parameter = $this->getParameterDefinition(array('options' => array('One' => 1, 'Two' => 2)));
         $validator = Validation::createValidator();
 
-        $errors = $validator->validate($value, $type->getConstraints($parameter, $value));
+        $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));
         $this->assertEquals($isValid, $errors->count() === 0);
     }
 
@@ -288,11 +271,10 @@ final class ChoiceTypeTest extends TestCase
             return array('One' => 1, 'Two' => 2);
         };
 
-        $type = new ChoiceType();
-        $parameter = $this->getParameter(array('options' => $closure));
+        $parameter = $this->getParameterDefinition(array('options' => $closure));
         $validator = Validation::createValidator();
 
-        $errors = $validator->validate($value, $type->getConstraints($parameter, $value));
+        $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));
         $this->assertEquals($isValid, $errors->count() === 0);
     }
 
@@ -323,18 +305,13 @@ final class ChoiceTypeTest extends TestCase
      */
     public function testFromHash($value, $convertedValue, $multiple)
     {
-        $type = new ChoiceType();
-
         $this->assertEquals(
             $convertedValue,
-            $type->fromHash(
-                new ParameterDefinition(
+            $this->type->fromHash(
+                $this->getParameterDefinition(
                     array(
-                        'type' => $type,
-                        'options' => array(
-                            'multiple' => $multiple,
-                            'options' => array(42 => 42),
-                        ),
+                        'multiple' => $multiple,
+                        'options' => array(42 => 42),
                     )
                 ),
                 $value
@@ -397,8 +374,7 @@ final class ChoiceTypeTest extends TestCase
      */
     public function testIsValueEmpty($value, $isEmpty)
     {
-        $type = new ChoiceType();
-        $this->assertEquals($isEmpty, $type->isValueEmpty(new ParameterDefinition(), $value));
+        $this->assertEquals($isEmpty, $this->type->isValueEmpty(new ParameterDefinition(), $value));
     }
 
     /**

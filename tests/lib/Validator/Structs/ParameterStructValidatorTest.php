@@ -3,11 +3,11 @@
 namespace Netgen\BlockManager\Tests\Validator\Structs;
 
 use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
+use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
+use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\ParameterFilterRegistry;
-use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameterDefinition;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterCollection;
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterFilter;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
@@ -22,17 +22,14 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
             array(
                 'name' => 'checkbox',
                 'type' => new ParameterType\Compound\BooleanType(),
-            )
-        );
-
-        $compoundParameter->setParameterDefinitions(
-            array(
-                'param' => new ParameterDefinition(
-                    array(
-                        'name' => 'param',
-                        'type' => new ParameterType\IdentifierType(),
-                        'isRequired' => true,
-                    )
+                'parameterDefinitions' => array(
+                    'param' => new ParameterDefinition(
+                        array(
+                            'name' => 'param',
+                            'type' => new ParameterType\IdentifierType(),
+                            'isRequired' => true,
+                        )
+                    ),
                 ),
             )
         );

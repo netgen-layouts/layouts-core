@@ -18,46 +18,22 @@ final class ConditionType implements ConditionTypeInterface
      */
     private $matches = true;
 
-    /**
-     * Constructor.
-     *
-     * @param string $type
-     * @param bool $matches
-     */
     public function __construct($type, $matches = true)
     {
         $this->type = $type;
         $this->matches = $matches;
     }
 
-    /**
-     * Returns the condition type.
-     *
-     * @return string
-     */
     public function getType()
     {
         return $this->type;
     }
 
-    /**
-     * Returns the constraints that will be used to validate the condition value.
-     *
-     * @return \Symfony\Component\Validator\Constraint[]
-     */
     public function getConstraints()
     {
         return array(new Constraints\NotBlank());
     }
 
-    /**
-     * Returns if this request matches the provided value.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param mixed $value
-     *
-     * @return bool
-     */
     public function matches(Request $request, $value)
     {
         return $this->matches;

@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Tests\Block\Registry;
 
 use ArrayIterator;
+use Netgen\BlockManager\Block\BlockType\BlockType;
 use Netgen\BlockManager\Block\Registry\BlockTypeRegistry;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockType;
 use PHPUnit\Framework\TestCase;
 
 final class BlockTypeRegistryTest extends TestCase

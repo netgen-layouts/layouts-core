@@ -5,9 +5,8 @@ namespace Netgen\BlockManager\Tests\Collection\Stubs;
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
-use Netgen\BlockManager\Parameters\ParameterType\IntegerType;
+use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType\TextLineType;
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
 
 final class QueryTypeHandler implements QueryTypeHandlerInterface
 {
@@ -24,38 +23,19 @@ final class QueryTypeHandler implements QueryTypeHandlerInterface
     /**
      * @var bool
      */
-    private $contextual;
+    private $isContextual;
 
-    /**
-     * Constructor.
-     *
-     * @param array $values
-     * @param int $count
-     * @param bool $contextual
-     */
-    public function __construct(array $values = array(), $count = null, $contextual = false)
+    public function __construct(array $values = array(), $count = null, $isContextual = false)
     {
         $this->values = $values;
         $this->count = $count;
-        $this->contextual = $contextual;
+        $this->isContextual = $isContextual;
     }
 
-    /**
-     * Builds the parameters by using provided parameter builder.
-     *
-     * @param \Netgen\BlockManager\Parameters\ParameterBuilderInterface $builder
-     */
     public function buildParameters(ParameterBuilderInterface $builder)
     {
     }
 
-    /**
-     * Returns the array specifying query parameter definitions.
-     *
-     * The keys are parameter identifiers.
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]
-     */
     public function getParameterDefinitions()
     {
         return array(
@@ -63,46 +43,29 @@ final class QueryTypeHandler implements QueryTypeHandlerInterface
                 array(
                     'name' => 'param',
                     'type' => new TextLineType(),
+                    'isRequired' => true,
                     'options' => array(
                         'translatable' => false,
                     ),
-                ),
-                true
+                )
             ),
             'param2' => new ParameterDefinition(
                 array(
                     'name' => 'param2',
-                    'type' => new IntegerType(),
+                    'type' => new TextLineType(),
                     'options' => array(
                         'translatable' => true,
                     ),
-                ),
-                true
+                )
             ),
         );
     }
 
-    /**
-     * Returns the values from the query.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     * @param int $offset
-     * @param int $limit
-     *
-     * @return mixed[]
-     */
     public function getValues(Query $query, $offset = 0, $limit = null)
     {
         return array_slice($this->values, $offset, $limit);
     }
 
-    /**
-     * Returns the value count from the query.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     *
-     * @return int
-     */
     public function getCount(Query $query)
     {
         if ($this->count !== null) {
@@ -112,15 +75,8 @@ final class QueryTypeHandler implements QueryTypeHandlerInterface
         return count($this->values);
     }
 
-    /**
-     * Returns if the provided query is dependent on a context, i.e. current request.
-     *
-     * @param \Netgen\BlockManager\API\Values\Collection\Query $query
-     *
-     * @return bool
-     */
     public function isContextual(Query $query)
     {
-        return $this->contextual;
+        return $this->isContextual;
     }
 }

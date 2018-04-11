@@ -148,7 +148,7 @@ abstract class ItemTest extends ServiceTestCase
             )
         );
 
-        $this->itemDefinitionRegistry->addItemDefinition('visibility', $itemDefinition);
+        $this->itemDefinitionRegistry->addItemDefinition('ezlocation', $itemDefinition);
 
         return $itemDefinition;
     }

@@ -10,7 +10,6 @@ use Netgen\BlockManager\Block\DynamicParameters;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Tests\Block\Stubs\HandlerPlugin;
-use Netgen\BlockManager\Tests\Config\Stubs\Block\HttpCacheConfigHandler;
 use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinition;
 use PHPUnit\Framework\TestCase;
 use stdClass;
@@ -35,9 +34,7 @@ final class BlockDefinitionTest extends TestCase
             array(
                 'identifier' => 'block_definition',
                 'handler' => $this->handler,
-                'handlerPlugins' => array(
-                    new HandlerPlugin(),
-                ),
+                'handlerPlugins' => array(HandlerPlugin::instance()),
                 'name' => 'Block definition',
                 'icon' => '/icon.svg',
                 'isTranslatable' => true,
@@ -51,7 +48,7 @@ final class BlockDefinitionTest extends TestCase
                     'large' => new ViewType(array('identifier' => 'large')),
                     'small' => new ViewType(array('identifier' => 'small')),
                 ),
-                'configDefinitions' => array('http_cache' => new ConfigDefinition('http_cache', new HttpCacheConfigHandler())),
+                'configDefinitions' => array('http_cache' => new ConfigDefinition('http_cache')),
             )
         );
     }
@@ -267,7 +264,7 @@ final class BlockDefinitionTest extends TestCase
     public function testGetConfigDefinitions()
     {
         $this->assertEquals(
-            array('http_cache' => new ConfigDefinition('http_cache', new HttpCacheConfigHandler())),
+            array('http_cache' => new ConfigDefinition('http_cache')),
             $this->blockDefinition->getConfigDefinitions()
         );
     }

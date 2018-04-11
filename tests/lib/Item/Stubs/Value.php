@@ -5,46 +5,31 @@ namespace Netgen\BlockManager\Tests\Item\Stubs;
 final class Value
 {
     /**
-     * @var int|string
+     * @var int
      */
     private $id;
 
     /**
-     * @var int|string
+     * @var string
      */
     private $remoteId;
 
-    /**
-     * Constructor.
-     *
-     * @param int|string $id
-     * @param int|string $remoteId
-     */
     public function __construct($id, $remoteId)
     {
         $this->id = $id;
         $this->remoteId = $remoteId;
     }
 
-    /**
-     * @return int|string
-     */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * @return int|string
-     */
     public function getRemoteId()
     {
         return $this->remoteId;
     }
 
-    /**
-     * @return bool
-     */
     public function isVisible()
     {
         return $this->id < 100;

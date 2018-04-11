@@ -4,11 +4,11 @@ namespace Netgen\BlockManager\Tests\API\Values\Block;
 
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\Block\Block;
+use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
 use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionWithParameterDefinitions;
-use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameterDefinition;
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
 use PHPUnit\Framework\TestCase;
 
 final class BlockUpdateStructTest extends TestCase
@@ -177,17 +177,14 @@ final class BlockUpdateStructTest extends TestCase
                 'name' => 'compound',
                 'type' => new ParameterType\Compound\BooleanType(),
                 'defaultValue' => true,
-            )
-        );
-
-        $compoundParameter->setParameterDefinitions(
-            array(
-                'inner' => new ParameterDefinition(
-                    array(
-                        'name' => 'inner',
-                        'type' => new ParameterType\TextLineType(),
-                        'defaultValue' => 'inner_default',
-                    )
+                'parameterDefinitions' => array(
+                    'inner' => new ParameterDefinition(
+                        array(
+                            'name' => 'inner',
+                            'type' => new ParameterType\TextLineType(),
+                            'defaultValue' => 'inner_default',
+                        )
+                    ),
                 ),
             )
         );

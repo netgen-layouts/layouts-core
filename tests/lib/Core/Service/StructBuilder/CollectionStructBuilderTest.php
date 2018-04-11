@@ -10,9 +10,9 @@ use Netgen\BlockManager\API\Values\Collection\ItemUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
+use Netgen\BlockManager\Collection\Item\ItemDefinition;
 use Netgen\BlockManager\Core\Service\StructBuilder\CollectionStructBuilder;
 use Netgen\BlockManager\Core\Service\StructBuilder\ConfigStructBuilder;
-use Netgen\BlockManager\Tests\Collection\Stubs\ItemDefinition;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
 
@@ -113,12 +113,12 @@ abstract class CollectionStructBuilderTest extends ServiceTestCase
         $this->assertEquals(
             new ItemCreateStruct(
                 array(
-                    'definition' => new ItemDefinition('ezcontent'),
+                    'definition' => new ItemDefinition(),
                     'type' => Item::TYPE_OVERRIDE,
                     'value' => '42',
                 )
             ),
-            $this->structBuilder->newItemCreateStruct(new ItemDefinition('ezcontent'), Item::TYPE_OVERRIDE, '42')
+            $this->structBuilder->newItemCreateStruct(new ItemDefinition(), Item::TYPE_OVERRIDE, '42')
         );
     }
 

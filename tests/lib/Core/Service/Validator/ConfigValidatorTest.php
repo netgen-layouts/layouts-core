@@ -5,7 +5,6 @@ namespace Netgen\BlockManager\Tests\Core\Service\Validator;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Core\Service\Validator\ConfigValidator;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
-use Netgen\BlockManager\Tests\Config\Stubs\Block\HttpCacheConfigHandler;
 use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinition;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\TestCase;
@@ -65,8 +64,8 @@ final class ConfigValidatorTest extends TestCase
         $this->configValidator->validateConfigStructs(
             $configStructs,
             array(
-                'test' => $this->getConfigDefinition('test'),
-                'test2' => $this->getConfigDefinition('test2'),
+                'test' => new ConfigDefinition('test'),
+                'test2' => new ConfigDefinition('test2'),
             )
         );
     }
@@ -83,8 +82,8 @@ final class ConfigValidatorTest extends TestCase
                 'test' => new stdClass(),
             ),
             array(
-                'test' => $this->getConfigDefinition('test'),
-                'test2' => $this->getConfigDefinition('test2'),
+                'test' => new ConfigDefinition('test'),
+                'test2' => new ConfigDefinition('test2'),
             )
         );
     }
@@ -99,10 +98,10 @@ final class ConfigValidatorTest extends TestCase
             array(
                 array(
                     'test' => array(
-                        'use_http_cache' => true,
+                        'param' => 'value',
                     ),
                     'test2' => array(
-                        'use_http_cache' => true,
+                        'param' => 'value',
                     ),
                 ),
                 true,
@@ -110,7 +109,7 @@ final class ConfigValidatorTest extends TestCase
             array(
                 array(
                     'test' => array(
-                        'use_http_cache' => true,
+                        'param' => 'value',
                     ),
                 ),
                 true,
@@ -118,7 +117,7 @@ final class ConfigValidatorTest extends TestCase
             array(
                 array(
                     'test2' => array(
-                        'use_http_cache' => true,
+                        'param' => 'value',
                     ),
                 ),
                 true,
@@ -126,10 +125,10 @@ final class ConfigValidatorTest extends TestCase
             array(
                 array(
                     'test' => array(
-                        'use_http_cache' => true,
+                        'param' => 'value',
                     ),
                     'test2' => array(
-                        'use_http_cache' => 42,
+                        'param' => 42,
                     ),
                 ),
                 false,
@@ -137,24 +136,12 @@ final class ConfigValidatorTest extends TestCase
             array(
                 array(
                     'test' => array(
-                        'use_http_cache' => true,
+                        'param' => 'value',
                     ),
                     'unknown' => array(),
                 ),
                 false,
             ),
         );
-    }
-
-    /**
-     * @param string $configKey
-     *
-     * @return \Netgen\BlockManager\Config\ConfigDefinitionInterface
-     */
-    private function getConfigDefinition($configKey)
-    {
-        $handler = new HttpCacheConfigHandler();
-
-        return new ConfigDefinition($configKey, $handler);
     }
 }

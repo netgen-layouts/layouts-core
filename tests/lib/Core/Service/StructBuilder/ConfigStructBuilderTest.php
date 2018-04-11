@@ -5,11 +5,10 @@ namespace Netgen\BlockManager\Tests\Core\Service\StructBuilder;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Core\Service\StructBuilder\ConfigStructBuilder;
-use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Config\Config;
-use Netgen\BlockManager\Tests\Config\Stubs\Block\HttpCacheConfigHandler;
 use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinition;
 use Netgen\BlockManager\Tests\Core\Service\ServiceTestCase;
+use Netgen\BlockManager\Tests\Core\Stubs\ConfigAwareValue;
 
 abstract class ConfigStructBuilderTest extends ServiceTestCase
 {
@@ -33,12 +32,12 @@ abstract class ConfigStructBuilderTest extends ServiceTestCase
      */
     public function testBuildConfigUpdateStructs()
     {
-        $block = new Block(
+        $block = new ConfigAwareValue(
             array(
                 'configs' => array(
                     'config' => new Config(
                         array(
-                            'definition' => new ConfigDefinition('config', new HttpCacheConfigHandler()),
+                            'definition' => new ConfigDefinition('config'),
                         )
                     ),
                 ),
@@ -54,8 +53,7 @@ abstract class ConfigStructBuilderTest extends ServiceTestCase
                 'config' => new ConfigStruct(
                     array(
                         'parameterValues' => array(
-                            'use_http_cache' => null,
-                            'shared_max_age' => null,
+                            'param' => null,
                         ),
                     )
                 ),

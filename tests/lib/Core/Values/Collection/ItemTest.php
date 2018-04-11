@@ -5,12 +5,12 @@ namespace Netgen\BlockManager\Tests\Core\Values\Collection;
 use DateTime;
 use DateTimeInterface;
 use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\Collection\Item\ItemDefinition;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Config\Config;
 use Netgen\BlockManager\Item\Item as CmsItem;
 use Netgen\BlockManager\Item\NullItem;
 use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\Tests\Collection\Stubs\ItemDefinition;
 use PHPUnit\Framework\TestCase;
 
 final class ItemTest extends TestCase
@@ -62,7 +62,7 @@ final class ItemTest extends TestCase
                 'id' => 42,
                 'status' => Value::STATUS_PUBLISHED,
                 'collectionId' => 30,
-                'definition' => new ItemDefinition('ezlocation'),
+                'definition' => new ItemDefinition(),
                 'position' => 3,
                 'type' => Item::TYPE_OVERRIDE,
                 'value' => 32,
@@ -76,7 +76,7 @@ final class ItemTest extends TestCase
         $this->assertEquals(42, $item->getId());
         $this->assertTrue($item->isPublished());
         $this->assertEquals(30, $item->getCollectionId());
-        $this->assertEquals(new ItemDefinition('ezlocation'), $item->getDefinition());
+        $this->assertEquals(new ItemDefinition(), $item->getDefinition());
         $this->assertEquals(3, $item->getPosition());
         $this->assertEquals(Item::TYPE_OVERRIDE, $item->getType());
         $this->assertEquals(32, $item->getValue());

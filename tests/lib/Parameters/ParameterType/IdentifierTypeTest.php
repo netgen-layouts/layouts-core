@@ -3,19 +3,24 @@
 namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
 
 use Netgen\BlockManager\Parameters\ParameterType\IdentifierType;
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 
 final class IdentifierTypeTest extends TestCase
 {
+    use ParameterTypeTestTrait;
+
+    public function setUp()
+    {
+        $this->type = new IdentifierType();
+    }
+
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\IdentifierType::getIdentifier
      */
     public function testGetIdentifier()
     {
-        $type = new IdentifierType();
-        $this->assertEquals('identifier', $type->getIdentifier());
+        $this->assertEquals('identifier', $this->type->getIdentifier());
     }
 
     /**
@@ -27,7 +32,7 @@ final class IdentifierTypeTest extends TestCase
      */
     public function testValidOptions($options, $resolvedOptions)
     {
-        $parameter = $this->getParameter($options);
+        $parameter = $this->getParameterDefinition($options);
         $this->assertEquals($resolvedOptions, $parameter->getOptions());
     }
 
@@ -40,27 +45,7 @@ final class IdentifierTypeTest extends TestCase
      */
     public function testInvalidOptions($options)
     {
-        $this->getParameter($options);
-    }
-
-    /**
-     * Returns the parameter under test.
-     *
-     * @param array $options
-     * @param bool $required
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface
-     */
-    public function getParameter(array $options = array(), $required = false)
-    {
-        return new ParameterDefinition(
-            array(
-                'name' => 'name',
-                'type' => new IdentifierType(),
-                'options' => $options,
-                'isRequired' => $required,
-            )
-        );
+        $this->getParameterDefinition($options);
     }
 
     /**
@@ -104,11 +89,10 @@ final class IdentifierTypeTest extends TestCase
      */
     public function testValidation($value, $required, $isValid)
     {
-        $type = new IdentifierType();
-        $parameter = $this->getParameter(array(), $required);
+        $parameter = $this->getParameterDefinition(array(), $required);
         $validator = Validation::createValidator();
 
-        $errors = $validator->validate($value, $type->getConstraints($parameter, $value));
+        $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));
         $this->assertEquals($isValid, $errors->count() === 0);
     }
 

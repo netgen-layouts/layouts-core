@@ -3,6 +3,7 @@
 namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
+use Netgen\BlockManager\Collection\Item\ItemDefinition;
 use Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
 use Netgen\BlockManager\Core\Service\BlockService;
@@ -38,9 +39,9 @@ use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithTranslatableParameter;
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
-use Netgen\BlockManager\Tests\Collection\Stubs\ItemDefinition;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Config\Stubs\Block\HttpCacheConfigHandler;
+use Netgen\BlockManager\Tests\Config\Stubs\CollectionItem\VisibilityConfigHandler;
 use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinition;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType;
@@ -174,9 +175,29 @@ abstract class ServiceTestCase extends TestCase
         $this->layoutTypeRegistry->addLayoutType('4_zones_a', $layoutType1);
         $this->layoutTypeRegistry->addLayoutType('4_zones_b', $layoutType2);
 
+        $itemVisibilityConfigDefinition = new ConfigDefinition('visibility', new VisibilityConfigHandler());
+
+        $itemDefinition1 = new ItemDefinition(
+            array(
+                'valueType' => 'ezlocation',
+                'configDefinitions' => array(
+                    'visibility' => $itemVisibilityConfigDefinition,
+                ),
+            )
+        );
+
+        $itemDefinition2 = new ItemDefinition(
+            array(
+                'valueType' => 'ezcontent',
+                'configDefinitions' => array(
+                    'visibility' => $itemVisibilityConfigDefinition,
+                ),
+            )
+        );
+
         $this->itemDefinitionRegistry = new ItemDefinitionRegistry();
-        $this->itemDefinitionRegistry->addItemDefinition('ezlocation', new ItemDefinition('ezlocation'));
-        $this->itemDefinitionRegistry->addItemDefinition('ezcontent', new ItemDefinition('ezcontent'));
+        $this->itemDefinitionRegistry->addItemDefinition('ezlocation', $itemDefinition1);
+        $this->itemDefinitionRegistry->addItemDefinition('ezcontent', $itemDefinition2);
 
         $this->queryTypeRegistry = new QueryTypeRegistry();
         $this->queryTypeRegistry->addQueryType('ezcontent_search', new QueryType('ezcontent_search'));

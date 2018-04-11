@@ -3,19 +3,24 @@
 namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
 
 use Netgen\BlockManager\Parameters\ParameterType\HtmlType;
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 
 final class HtmlTypeTest extends TestCase
 {
+    use ParameterTypeTestTrait;
+
+    public function setUp()
+    {
+        $this->type = new HtmlType();
+    }
+
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\HtmlType::getIdentifier
      */
     public function testGetIdentifier()
     {
-        $type = new HtmlType();
-        $this->assertEquals('html', $type->getIdentifier());
+        $this->assertEquals('html', $this->type->getIdentifier());
     }
 
     /**
@@ -27,7 +32,7 @@ final class HtmlTypeTest extends TestCase
      */
     public function testValidOptions($options, $resolvedOptions)
     {
-        $parameter = $this->getParameter($options);
+        $parameter = $this->getParameterDefinition($options);
         $this->assertEquals($resolvedOptions, $parameter->getOptions());
     }
 
@@ -40,25 +45,7 @@ final class HtmlTypeTest extends TestCase
      */
     public function testInvalidOptions($options)
     {
-        $this->getParameter($options);
-    }
-
-    /**
-     * Returns the parameter under test.
-     *
-     * @param array $options
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface
-     */
-    public function getParameter($options = array())
-    {
-        return new ParameterDefinition(
-            array(
-                'name' => 'name',
-                'type' => new HtmlType(),
-                'options' => $options,
-            )
-        );
+        $this->getParameterDefinition($options);
     }
 
     /**
@@ -102,11 +89,10 @@ final class HtmlTypeTest extends TestCase
      */
     public function testValidation($value, $isValid)
     {
-        $type = new HtmlType();
-        $parameter = $this->getParameter();
+        $parameter = $this->getParameterDefinition();
         $validator = Validation::createValidator();
 
-        $errors = $validator->validate($value, $type->getConstraints($parameter, $value));
+        $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));
         $this->assertEquals($isValid, $errors->count() === 0);
     }
 

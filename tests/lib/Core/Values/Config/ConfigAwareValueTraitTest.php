@@ -4,7 +4,6 @@ namespace Netgen\BlockManager\Tests\Core\Values\Config;
 
 use Netgen\BlockManager\Core\Values\Config\Config;
 use Netgen\BlockManager\Exception\Core\ConfigException;
-use Netgen\BlockManager\Tests\Config\Stubs\Block\HttpCacheConfigHandler;
 use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinition;
 use Netgen\BlockManager\Tests\Core\Stubs\ConfigAwareValue;
 use PHPUnit\Framework\TestCase;
@@ -58,10 +57,7 @@ final class ConfigAwareValueTraitTest extends TestCase
                 'configs' => array(
                     'config' => new Config(
                         array(
-                            'definition' => new ConfigDefinition(
-                                'config',
-                                new HttpCacheConfigHandler()
-                            ),
+                            'definition' => new ConfigDefinition('config'),
                         )
                     ),
                 ),

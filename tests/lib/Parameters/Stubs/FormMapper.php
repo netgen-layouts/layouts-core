@@ -3,17 +3,30 @@
 namespace Netgen\BlockManager\Tests\Parameters\Stubs;
 
 use Netgen\BlockManager\Parameters\Form\Mapper as BaseMapper;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Netgen\BlockManager\Parameters\ParameterDefinitionInterface;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 
 final class FormMapper extends BaseMapper
 {
     /**
-     * Returns the form type for the parameter.
-     *
-     * @return string
+     * @var bool
      */
+    private $compound;
+
+    public function __construct($compound = false)
+    {
+        $this->compound = $compound;
+    }
+
     public function getFormType()
     {
-        return TextType::class;
+        return FormType::class;
+    }
+
+    public function mapOptions(ParameterDefinitionInterface $parameterDefinition)
+    {
+        return array(
+            'compound' => $this->compound,
+        );
     }
 }

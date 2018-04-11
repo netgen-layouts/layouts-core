@@ -7,7 +7,6 @@ use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Core\Service\Mapper\ConfigMapper;
 use Netgen\BlockManager\Core\Service\Mapper\ParameterMapper;
 use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\Tests\Config\Stubs\Block\HttpCacheConfigHandler;
 use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinition;
 use PHPUnit\Framework\TestCase;
 
@@ -28,7 +27,7 @@ final class ConfigMapperTest extends TestCase
      */
     public function setUp()
     {
-        $this->configDefinition = new ConfigDefinition('http_cache', new HttpCacheConfigHandler());
+        $this->configDefinition = new ConfigDefinition('config_key');
 
         $this->mapper = new ConfigMapper(new ParameterMapper());
     }
@@ -41,33 +40,29 @@ final class ConfigMapperTest extends TestCase
     {
         $mappedConfig = $this->mapper->mapConfig(
             array(
-                'http_cache' => array(
-                    'use_http_cache' => true,
-                    'shared_max_age' => 300,
+                'config_key' => array(
+                    'param' => 'value',
                 ),
             ),
             array(
-                'http_cache' => $this->configDefinition,
+                'config_key' => $this->configDefinition,
             )
         );
 
         $this->assertInternalType('array', $mappedConfig);
-        $this->assertArrayHasKey('http_cache', $mappedConfig);
+        $this->assertArrayHasKey('config_key', $mappedConfig);
 
-        $config = $mappedConfig['http_cache'];
+        $config = $mappedConfig['config_key'];
 
         $this->assertInstanceOf(Config::class, $config);
-        $this->assertEquals('http_cache', $config->getConfigKey());
+        $this->assertEquals('config_key', $config->getConfigKey());
         $this->assertEquals($this->configDefinition, $config->getDefinition());
 
-        $this->assertTrue($config->hasParameter('use_http_cache'));
-        $this->assertTrue($config->hasParameter('shared_max_age'));
+        $this->assertTrue($config->hasParameter('param'));
 
-        $this->assertInstanceOf(Parameter::class, $config->getParameter('use_http_cache'));
-        $this->assertInstanceOf(Parameter::class, $config->getParameter('shared_max_age'));
+        $this->assertInstanceOf(Parameter::class, $config->getParameter('param'));
 
-        $this->assertTrue($config->getParameter('use_http_cache')->getValue());
-        $this->assertEquals(300, $config->getParameter('shared_max_age')->getValue());
+        $this->assertEquals('value', $config->getParameter('param')->getValue());
     }
 
     /**
@@ -76,27 +71,21 @@ final class ConfigMapperTest extends TestCase
     public function testSerializeValues()
     {
         $configStruct = new ConfigStruct();
-        $configStruct->setParameterValue('use_http_cache', true);
+        $configStruct->setParameterValue('param', 'new_value');
 
         $serializedConfig = $this->mapper->serializeValues(
             array(
-                'http_cache' => $configStruct,
+                'config_key' => $configStruct,
             ),
             array(
-                'http_cache' => $this->configDefinition,
-            ),
-            array(
-                'http_cache' => array(
-                    'shared_max_age' => 300,
-                ),
+                'config_key' => $this->configDefinition,
             )
         );
 
         $this->assertEquals(
             array(
-                'http_cache' => array(
-                    'use_http_cache' => true,
-                    'shared_max_age' => 300,
+                'config_key' => array(
+                    'param' => 'new_value',
                 ),
             ),
             $serializedConfig

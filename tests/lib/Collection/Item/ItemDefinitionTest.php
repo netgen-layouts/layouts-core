@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Collection\Item;
 
 use Netgen\BlockManager\Collection\Item\ItemDefinition;
-use Netgen\BlockManager\Tests\Config\Stubs\CollectionItem\VisibilityConfigHandler;
 use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinition;
 use PHPUnit\Framework\TestCase;
 
@@ -19,7 +18,7 @@ final class ItemDefinitionTest extends TestCase
         $this->itemDefinition = new ItemDefinition(
             array(
                 'valueType' => 'value_type',
-                'configDefinitions' => array('visibility' => new ConfigDefinition('visibility', new VisibilityConfigHandler())),
+                'configDefinitions' => array('config' => new ConfigDefinition('config')),
             )
         );
     }
@@ -38,7 +37,7 @@ final class ItemDefinitionTest extends TestCase
     public function testGetConfigDefinitions()
     {
         $this->assertEquals(
-            array('visibility' => new ConfigDefinition('visibility', new VisibilityConfigHandler())),
+            array('config' => new ConfigDefinition('config')),
             $this->itemDefinition->getConfigDefinitions()
         );
     }

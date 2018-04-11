@@ -7,11 +7,6 @@ use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 
 final class ExtensionPlugin extends BaseExtensionPlugin
 {
-    /**
-     * Processes the configuration for the bundle.
-     *
-     * @param \Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition
-     */
     public function addConfiguration(ArrayNodeDefinition $rootNode)
     {
         $rootNode
@@ -23,11 +18,6 @@ final class ExtensionPlugin extends BaseExtensionPlugin
             ->end();
     }
 
-    /**
-     * Returns the array of files to be appended to main bundle configuration.
-     *
-     * @return array
-     */
     public function appendConfigurationFiles()
     {
         return array(

@@ -6,7 +6,7 @@ use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType\TextType;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterType;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints;
 
 final class ParameterTypeTest extends TestCase
 {
@@ -28,7 +28,7 @@ final class ParameterTypeTest extends TestCase
     public function testGetConstraints()
     {
         $this->assertEquals(
-            array(),
+            array(new Constraints\NotNull()),
             $this->parameterType->getConstraints(
                 new ParameterDefinition(
                     array(
@@ -48,7 +48,7 @@ final class ParameterTypeTest extends TestCase
     public function testGetConstraintsWithRequiredParameter()
     {
         $this->assertEquals(
-            array(new NotBlank()),
+            array(new Constraints\NotBlank(), new Constraints\NotNull()),
             $this->parameterType->getConstraints(
                 new ParameterDefinition(
                     array(

@@ -2,19 +2,14 @@
 
 namespace Netgen\BlockManager\Tests\Config\Stubs\Block;
 
+use Netgen\BlockManager\API\Values\Config\ConfigAwareValue;
+use Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface;
+use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType;
-use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionHandler;
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
 
-final class HttpCacheConfigHandler extends ConfigDefinitionHandler
+final class HttpCacheConfigHandler implements ConfigDefinitionHandlerInterface
 {
-    /**
-     * Returns the array specifying block parameter definitions.
-     *
-     * The keys are parameter identifiers.
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface[]
-     */
     public function getParameterDefinitions()
     {
         return array(
@@ -31,5 +26,14 @@ final class HttpCacheConfigHandler extends ConfigDefinitionHandler
                 )
             ),
         );
+    }
+
+    public function buildParameters(ParameterBuilderInterface $builder)
+    {
+    }
+
+    public function isEnabled(ConfigAwareValue $configAwareValue)
+    {
+        return true;
     }
 }

@@ -6,17 +6,13 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
 use Netgen\BlockManager\Parameters\ParameterType\DateTimeType;
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 
 final class DateTimeTypeTest extends TestCase
 {
-    /**
-     * @var \Netgen\BlockManager\Parameters\ParameterType\DateTimeType
-     */
-    private $type;
+    use ParameterTypeTestTrait;
 
     public function setUp()
     {
@@ -32,24 +28,6 @@ final class DateTimeTypeTest extends TestCase
     }
 
     /**
-     * Returns the parameter under test.
-     *
-     * @param array $options
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface
-     */
-    public function getParameter($options = array())
-    {
-        return new ParameterDefinition(
-            array(
-                'name' => 'name',
-                'type' => $this->type,
-                'options' => $options,
-            )
-        );
-    }
-
-    /**
      * @param mixed $value
      * @param bool $isEmpty
      *
@@ -58,7 +36,7 @@ final class DateTimeTypeTest extends TestCase
      */
     public function testIsValueEmpty($value, $isEmpty)
     {
-        $this->assertEquals($isEmpty, $this->type->isValueEmpty(new ParameterDefinition(), $value));
+        $this->assertEquals($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
     }
 
     /**
@@ -86,7 +64,7 @@ final class DateTimeTypeTest extends TestCase
      */
     public function testToHash($value, $convertedValue)
     {
-        $this->assertEquals($convertedValue, $this->type->toHash(new ParameterDefinition(), $value));
+        $this->assertEquals($convertedValue, $this->type->toHash($this->getParameterDefinition(), $value));
     }
 
     public function toHashProvider()
@@ -115,7 +93,7 @@ final class DateTimeTypeTest extends TestCase
      */
     public function testFromHash($value, $convertedValue)
     {
-        $this->assertEquals($convertedValue, $this->type->fromHash(new ParameterDefinition(), $value));
+        $this->assertEquals($convertedValue, $this->type->fromHash($this->getParameterDefinition(), $value));
     }
 
     public function fromHashProvider()
@@ -142,7 +120,7 @@ final class DateTimeTypeTest extends TestCase
      */
     public function testValidation($value, $isValid)
     {
-        $parameter = $this->getParameter();
+        $parameter = $this->getParameterDefinition();
         $validator = Validation::createValidatorBuilder()
             ->setConstraintValidatorFactory(new ValidatorFactory($this))
             ->getValidator();

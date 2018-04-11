@@ -8,7 +8,7 @@ use Netgen\BlockManager\Config\ConfigDefinitionFactory;
 use Netgen\BlockManager\Config\ConfigDefinitionInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
-use Netgen\BlockManager\Tests\Config\Stubs\CollectionItem\VisibilityConfigHandler;
+use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionHandler;
 use PHPUnit\Framework\TestCase;
 
 final class ItemDefinitionFactoryTest extends TestCase
@@ -45,8 +45,8 @@ final class ItemDefinitionFactoryTest extends TestCase
         $itemDefinition = $this->factory->buildItemDefinition(
             'value_type',
             array(
-                'test' => new VisibilityConfigHandler(),
-                'test2' => new VisibilityConfigHandler(),
+                'test' => new ConfigDefinitionHandler(),
+                'test2' => new ConfigDefinitionHandler(),
             )
         );
 

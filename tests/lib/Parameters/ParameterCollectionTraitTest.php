@@ -2,56 +2,59 @@
 
 namespace Netgen\BlockManager\Tests\Parameters;
 
-use Netgen\BlockManager\Exception\Parameters\ParameterException;
-use Netgen\BlockManager\Parameters\ParameterType\TextType;
+use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterCollection;
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
 use PHPUnit\Framework\TestCase;
 
 final class ParameterCollectionTraitTest extends TestCase
 {
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterCollectionTrait::getParameterDefinition
-     * @covers \Netgen\BlockManager\Parameters\ParameterCollectionTrait::getParameterDefinitions
-     * @covers \Netgen\BlockManager\Parameters\ParameterCollectionTrait::hasParameterDefinition
      */
-    public function testDefaultProperties()
+    public function testGetParameterDefinition()
     {
-        $parameterCollection = new ParameterCollection();
+        $parameterDefinitions = array('name' => new ParameterDefinition());
+        $parameterCollection = new ParameterCollection($parameterDefinitions);
 
-        $this->assertNull($parameterCollection->getParameterDefinitions());
+        $this->assertEquals(
+            $parameterDefinitions['name'],
+            $parameterCollection->getParameterDefinition('name')
+        );
     }
 
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterCollectionTrait::getParameterDefinition
-     * @covers \Netgen\BlockManager\Parameters\ParameterCollectionTrait::getParameterDefinitions
-     * @covers \Netgen\BlockManager\Parameters\ParameterCollectionTrait::hasParameterDefinition
+     * @expectedException \Netgen\BlockManager\Exception\Parameters\ParameterException
+     * @expectedExceptionMessage Parameter definition with "test" name does not exist in the object.
      */
-    public function testSetProperties()
+    public function testGetParameterDefinitionWithNonExistingDefinition()
     {
-        $parameterDefinitions = array(
-            'name' => new ParameterDefinition(
-                array(
-                    'name' => 'name',
-                    'type' => new TextType(),
-                )
-            ),
-        );
+        $parameterDefinitions = array('name' => new ParameterDefinition());
+        $parameterCollection = new ParameterCollection($parameterDefinitions);
 
+        $parameterCollection->getParameterDefinition('test');
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterCollectionTrait::getParameterDefinitions
+     */
+    public function testGetParameterDefinitions()
+    {
+        $parameterDefinitions = array('name' => new ParameterDefinition());
         $parameterCollection = new ParameterCollection($parameterDefinitions);
 
         $this->assertEquals($parameterDefinitions, $parameterCollection->getParameterDefinitions());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Parameters\ParameterCollectionTrait::hasParameterDefinition
+     */
+    public function testHasParameterDefinition()
+    {
+        $parameterDefinitions = array('name' => new ParameterDefinition());
+        $parameterCollection = new ParameterCollection($parameterDefinitions);
 
         $this->assertFalse($parameterCollection->hasParameterDefinition('test'));
         $this->assertTrue($parameterCollection->hasParameterDefinition('name'));
-
-        try {
-            $this->assertEquals(array(), $parameterCollection->getParameterDefinition('test'));
-            $this->fail('Fetched a parameter in empty collection.');
-        } catch (ParameterException $e) {
-            // Do nothing
-        }
-
-        $this->assertEquals($parameterDefinitions['name'], $parameterCollection->getParameterDefinition('name'));
     }
 }

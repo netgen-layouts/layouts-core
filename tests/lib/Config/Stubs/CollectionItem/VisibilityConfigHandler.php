@@ -3,11 +3,13 @@
 namespace Netgen\BlockManager\Tests\Config\Stubs\CollectionItem;
 
 use Netgen\BlockManager\API\Values\Collection\Item;
+use Netgen\BlockManager\API\Values\Config\ConfigAwareValue;
+use Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface;
+use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
+use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType;
-use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionHandler;
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
 
-final class VisibilityConfigHandler extends ConfigDefinitionHandler
+final class VisibilityConfigHandler implements ConfigDefinitionHandlerInterface
 {
     public function getParameterDefinitions()
     {
@@ -17,6 +19,7 @@ final class VisibilityConfigHandler extends ConfigDefinitionHandler
                     'name' => 'visibility_status',
                     'type' => new ParameterType\ChoiceType(),
                     'options' => array(
+                        'multiple' => false,
                         'options' => array(
                             Item::VISIBILITY_VISIBLE => Item::VISIBILITY_VISIBLE,
                             Item::VISIBILITY_HIDDEN => Item::VISIBILITY_HIDDEN,
@@ -38,5 +41,14 @@ final class VisibilityConfigHandler extends ConfigDefinitionHandler
                 )
             ),
         );
+    }
+
+    public function buildParameters(ParameterBuilderInterface $builder)
+    {
+    }
+
+    public function isEnabled(ConfigAwareValue $configAwareValue)
+    {
+        return true;
     }
 }

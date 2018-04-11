@@ -4,11 +4,11 @@ namespace Netgen\BlockManager\Tests\API\Values\Collection;
 
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
 use Netgen\BlockManager\Core\Values\Collection\Query;
+use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
 use Netgen\BlockManager\Parameters\Parameter;
+use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeWithParameterDefinitions;
-use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameterDefinition;
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
 use PHPUnit\Framework\TestCase;
 
 final class QueryUpdateStructTest extends TestCase
@@ -177,17 +177,14 @@ final class QueryUpdateStructTest extends TestCase
                 'name' => 'compound',
                 'type' => new ParameterType\Compound\BooleanType(),
                 'defaultValue' => true,
-            )
-        );
-
-        $compoundParameter->setParameterDefinitions(
-            array(
-                'inner' => new ParameterDefinition(
-                    array(
-                        'name' => 'inner',
-                        'type' => new ParameterType\TextLineType(),
-                        'defaultValue' => 'inner_default',
-                    )
+                'parameterDefinitions' => array(
+                    'inner' => new ParameterDefinition(
+                        array(
+                            'name' => 'inner',
+                            'type' => new ParameterType\TextLineType(),
+                            'defaultValue' => 'inner_default',
+                        )
+                    ),
                 ),
             )
         );

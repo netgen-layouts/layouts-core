@@ -8,13 +8,14 @@ use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Item\ValueType\ValueType;
 use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\BlockManager\Parameters\ParameterType\ItemLinkType;
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 
 final class ItemLinkTypeTest extends TestCase
 {
+    use ParameterTypeTestTrait;
+
     /**
      * @var \Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface
      */
@@ -24,11 +25,6 @@ final class ItemLinkTypeTest extends TestCase
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
     private $itemLoaderMock;
-
-    /**
-     * @var \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType
-     */
-    private $type;
 
     public function setUp()
     {
@@ -87,7 +83,7 @@ final class ItemLinkTypeTest extends TestCase
      */
     public function testValidOptions($options, $resolvedOptions)
     {
-        $parameter = $this->getParameter($options);
+        $parameter = $this->getParameterDefinition($options);
         $this->assertEquals($resolvedOptions, $parameter->getOptions());
     }
 
@@ -100,25 +96,7 @@ final class ItemLinkTypeTest extends TestCase
      */
     public function testInvalidOptions($options)
     {
-        $this->getParameter($options);
-    }
-
-    /**
-     * Returns the parameter under test.
-     *
-     * @param array $options
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface
-     */
-    public function getParameter($options = array())
-    {
-        return new ParameterDefinition(
-            array(
-                'name' => 'name',
-                'type' => $this->type,
-                'options' => $options,
-            )
-        );
+        $this->getParameterDefinition($options);
     }
 
     /**
@@ -183,7 +161,7 @@ final class ItemLinkTypeTest extends TestCase
      */
     public function testValidation($value, $isValid)
     {
-        $parameter = $this->getParameter();
+        $parameter = $this->getParameterDefinition();
         $validator = Validation::createValidatorBuilder()
             ->setConstraintValidatorFactory(new ValidatorFactory($this))
             ->getValidator();
@@ -214,7 +192,7 @@ final class ItemLinkTypeTest extends TestCase
      */
     public function testExport()
     {
-        $this->assertEquals('ezlocation://abc', $this->type->export(new ParameterDefinition(), 'ezlocation://42'));
+        $this->assertEquals('ezlocation://abc', $this->type->export($this->getParameterDefinition(), 'ezlocation://42'));
     }
 
     /**
@@ -224,7 +202,7 @@ final class ItemLinkTypeTest extends TestCase
      */
     public function testImport()
     {
-        $this->assertEquals('ezlocation://42', $this->type->import(new ParameterDefinition(), 'ezlocation://abc'));
+        $this->assertEquals('ezlocation://42', $this->type->import($this->getParameterDefinition(), 'ezlocation://abc'));
     }
 
     /**
@@ -236,7 +214,7 @@ final class ItemLinkTypeTest extends TestCase
      */
     public function testIsValueEmpty($value, $isEmpty)
     {
-        $this->assertEquals($isEmpty, $this->type->isValueEmpty(new ParameterDefinition(), $value));
+        $this->assertEquals($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
     }
 
     /**

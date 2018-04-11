@@ -10,13 +10,14 @@ use Netgen\BlockManager\Item\ValueType\ValueType;
 use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\BlockManager\Parameters\ParameterType\LinkType;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 
 final class LinkTypeTest extends TestCase
 {
+    use ParameterTypeTestTrait;
+
     /**
      * @var \Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface
      */
@@ -26,11 +27,6 @@ final class LinkTypeTest extends TestCase
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
     private $itemLoaderMock;
-
-    /**
-     * @var \Netgen\BlockManager\Parameters\ParameterType\LinkType
-     */
-    private $type;
 
     public function setUp()
     {
@@ -60,7 +56,7 @@ final class LinkTypeTest extends TestCase
      */
     public function testValidOptions($options, $resolvedOptions)
     {
-        $parameter = $this->getParameter($options);
+        $parameter = $this->getParameterDefinition($options);
         $this->assertEquals($resolvedOptions, $parameter->getOptions());
     }
 
@@ -73,25 +69,7 @@ final class LinkTypeTest extends TestCase
      */
     public function testInvalidOptions($options)
     {
-        $this->getParameter($options);
-    }
-
-    /**
-     * Returns the parameter under test.
-     *
-     * @param array $options
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface
-     */
-    public function getParameter($options = array())
-    {
-        return new ParameterDefinition(
-            array(
-                'name' => 'name',
-                'type' => $this->type,
-                'options' => $options,
-            )
-        );
+        $this->getParameterDefinition($options);
     }
 
     /**
@@ -158,7 +136,7 @@ final class LinkTypeTest extends TestCase
      */
     public function testValidation($value, $isRequired, $valueTypes, $isValid)
     {
-        $parameter = $this->getParameter(array('required' => $isRequired, 'value_types' => $valueTypes));
+        $parameter = $this->getParameterDefinition(array('required' => $isRequired, 'value_types' => $valueTypes));
         $validator = Validation::createValidatorBuilder()
             ->setConstraintValidatorFactory(new ValidatorFactory($this))
             ->getValidator();
@@ -235,7 +213,7 @@ final class LinkTypeTest extends TestCase
      */
     public function testToHash($value, $convertedValue)
     {
-        $this->assertEquals($convertedValue, $this->type->toHash(new ParameterDefinition(), $value));
+        $this->assertEquals($convertedValue, $this->type->toHash($this->getParameterDefinition(), $value));
     }
 
     public function toHashProvider()
@@ -273,7 +251,7 @@ final class LinkTypeTest extends TestCase
      */
     public function testFromHash($value, $convertedValue)
     {
-        $this->assertEquals($convertedValue, $this->type->fromHash(new ParameterDefinition(), $value));
+        $this->assertEquals($convertedValue, $this->type->fromHash($this->getParameterDefinition(), $value));
     }
 
     public function fromHashProvider()
@@ -344,7 +322,7 @@ final class LinkTypeTest extends TestCase
                 )
             );
 
-        $this->assertEquals($convertedValue, $this->type->export(new ParameterDefinition(), $value));
+        $this->assertEquals($convertedValue, $this->type->export($this->getParameterDefinition(), $value));
     }
 
     /**
@@ -367,7 +345,7 @@ final class LinkTypeTest extends TestCase
                 'new_window' => true,
             ),
             $this->type->export(
-                new ParameterDefinition(),
+                $this->getParameterDefinition(),
                 new LinkValue(
                     array(
                         'linkType' => 'internal',
@@ -464,7 +442,7 @@ final class LinkTypeTest extends TestCase
                 )
             );
 
-        $this->assertEquals($convertedValue, $this->type->import(new ParameterDefinition(), $value));
+        $this->assertEquals($convertedValue, $this->type->import($this->getParameterDefinition(), $value));
     }
 
     /**
@@ -489,7 +467,7 @@ final class LinkTypeTest extends TestCase
                 )
             ),
             $this->type->import(
-                new ParameterDefinition(),
+                $this->getParameterDefinition(),
                 array(
                     'link_type' => 'internal',
                     'link' => 'ezlocation://def',
@@ -598,7 +576,7 @@ final class LinkTypeTest extends TestCase
      */
     public function testIsValueEmpty($value, $isEmpty)
     {
-        $this->assertEquals($isEmpty, $this->type->isValueEmpty(new ParameterDefinition(), $value));
+        $this->assertEquals($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
     }
 
     /**

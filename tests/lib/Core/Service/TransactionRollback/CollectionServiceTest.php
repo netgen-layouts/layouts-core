@@ -7,13 +7,13 @@ use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\ItemUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
 use Netgen\BlockManager\API\Values\Value;
+use Netgen\BlockManager\Collection\Item\ItemDefinition;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceCollection;
 use Netgen\BlockManager\Persistence\Values\Collection\Item as PersistenceItem;
 use Netgen\BlockManager\Persistence\Values\Collection\Query as PersistenceQuery;
-use Netgen\BlockManager\Tests\Collection\Stubs\ItemDefinition;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 
 final class CollectionServiceTest extends ServiceTestCase
@@ -86,7 +86,7 @@ final class CollectionServiceTest extends ServiceTestCase
 
         $this->collectionService->addItem(
             new Collection(array('status' => Value::STATUS_DRAFT)),
-            new ItemCreateStruct(array('definition' => new ItemDefinition('ezlocation'), 'type' => Item::TYPE_MANUAL))
+            new ItemCreateStruct(array('definition' => new ItemDefinition(), 'type' => Item::TYPE_MANUAL))
         );
     }
 
@@ -116,7 +116,7 @@ final class CollectionServiceTest extends ServiceTestCase
             ->method('rollbackTransaction');
 
         $this->collectionService->updateItem(
-            new Item(array('status' => Value::STATUS_DRAFT, 'definition' => new ItemDefinition('ezlocation'))),
+            new Item(array('status' => Value::STATUS_DRAFT, 'definition' => new ItemDefinition())),
             new ItemUpdateStruct()
         );
     }

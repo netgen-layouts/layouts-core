@@ -3,7 +3,6 @@
 namespace Netgen\BlockManager\Tests\Core\Values\Config;
 
 use Netgen\BlockManager\Core\Values\Config\Config;
-use Netgen\BlockManager\Tests\Config\Stubs\Block\HttpCacheConfigHandler;
 use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinition;
 use PHPUnit\Framework\TestCase;
 
@@ -27,10 +26,7 @@ final class ConfigTest extends TestCase
      */
     public function testSetProperties()
     {
-        $definition = new ConfigDefinition(
-            'config',
-            new HttpCacheConfigHandler()
-        );
+        $definition = new ConfigDefinition('config');
 
         $config = new Config(
             array(

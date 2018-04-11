@@ -6,8 +6,8 @@ use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Config\Config;
-use Netgen\BlockManager\Tests\Config\Stubs\Block\HttpCacheConfigHandler;
 use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinition;
+use Netgen\BlockManager\Tests\Core\Stubs\ConfigAwareValue;
 use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
 use Netgen\BlockManager\Validator\Constraint\Structs\ConfigAwareStruct as ConfigAwareStructConstraint;
 use Netgen\BlockManager\Validator\Structs\ConfigAwareStructValidator;
@@ -20,16 +20,13 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
     {
         $this->constraint = new ConfigAwareStructConstraint();
 
-        $this->constraint->payload = new Block(
+        $this->constraint->payload = new ConfigAwareValue(
             array(
                 'configs' => array(
-                    'http_cache' => new Config(
+                    'config' => new Config(
                         array(
-                            'configKey' => 'http_cache',
-                            'definition' => new ConfigDefinition(
-                                'http_cache',
-                                new HttpCacheConfigHandler()
-                            ),
+                            'configKey' => 'config',
+                            'definition' => new ConfigDefinition('config'),
                         )
                     ),
                 ),
@@ -98,19 +95,17 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
             array(
                 array(
                     'configStructs' => array(
-                        'http_cache' => new ConfigStruct(
+                        'config' => new ConfigStruct(
                             array(
                                 'parameterValues' => array(
-                                    'use_http_cache' => true,
-                                    'shared_max_age' => 300,
+                                    'param' => 'value',
                                 ),
                             )
                         ),
                         'other' => new ConfigStruct(
                             array(
                                 'parameterValues' => array(
-                                    'use_http_cache' => false,
-                                    'shared_max_age' => null,
+                                    'param' => null,
                                 ),
                             )
                         ),
@@ -121,11 +116,10 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
             array(
                 array(
                     'configStructs' => array(
-                        'http_cache' => new ConfigStruct(
+                        'config' => new ConfigStruct(
                             array(
                                 'parameterValues' => array(
-                                    'use_http_cache' => null,
-                                    'shared_max_age' => 300,
+                                    'param' => 'value',
                                 ),
                             )
                         ),
@@ -136,11 +130,24 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
             array(
                 array(
                     'configStructs' => array(
-                        'http_cache' => new ConfigStruct(
+                        'config' => new ConfigStruct(
                             array(
                                 'parameterValues' => array(
-                                    'use_http_cache' => 42,
-                                    'shared_max_age' => 300,
+                                    'param' => null,
+                                ),
+                            )
+                        ),
+                    ),
+                ),
+                true,
+            ),
+            array(
+                array(
+                    'configStructs' => array(
+                        'config' => new ConfigStruct(
+                            array(
+                                'parameterValues' => array(
+                                    'param' => 42,
                                 ),
                             )
                         ),
@@ -151,55 +158,9 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
             array(
                 array(
                     'configStructs' => array(
-                        'http_cache' => new ConfigStruct(
+                        'config' => new ConfigStruct(
                             array(
-                                'parameterValues' => array(
-                                    'shared_max_age' => 300,
-                                ),
-                            )
-                        ),
-                    ),
-                ),
-                true,
-            ),
-            array(
-                array(
-                    'configStructs' => array(
-                        'http_cache' => new ConfigStruct(
-                            array(
-                                'parameterValues' => array(
-                                    'use_http_cache' => true,
-                                    'shared_max_age' => null,
-                                ),
-                            )
-                        ),
-                    ),
-                ),
-                true,
-            ),
-            array(
-                array(
-                    'configStructs' => array(
-                        'http_cache' => new ConfigStruct(
-                            array(
-                                'parameterValues' => array(
-                                    'use_http_cache' => true,
-                                    'shared_max_age' => '42',
-                                ),
-                            )
-                        ),
-                    ),
-                ),
-                false,
-            ),
-            array(
-                array(
-                    'configStructs' => array(
-                        'http_cache' => new ConfigStruct(
-                            array(
-                                'parameterValues' => array(
-                                    'use_http_cache' => true,
-                                ),
+                                'parameterValues' => array(),
                             )
                         ),
                     ),

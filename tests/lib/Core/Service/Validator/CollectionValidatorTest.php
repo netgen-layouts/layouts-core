@@ -9,15 +9,14 @@ use Netgen\BlockManager\API\Values\Collection\ItemUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
-use Netgen\BlockManager\Collection\QueryType;
+use Netgen\BlockManager\Collection\Item\ItemDefinition;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Service\Validator\ConfigValidator;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
-use Netgen\BlockManager\Tests\Collection\Stubs\ItemDefinition;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType as QueryTypeStub;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandlerWithRequiredParameter;
+use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinition;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\TestCase;
 use stdClass;
@@ -132,7 +131,13 @@ final class CollectionValidatorTest extends TestCase
         $this->collectionValidator->validateItemUpdateStruct(
             new Item(
                 array(
-                    'definition' => new ItemDefinition('ezlocation'),
+                    'definition' => new ItemDefinition(
+                        array(
+                            'configDefinitions' => array(
+                                'visibility' => new ConfigDefinition('visibility'),
+                            ),
+                        )
+                    ),
                 )
             ),
             new ItemUpdateStruct($params)
@@ -297,6 +302,9 @@ final class CollectionValidatorTest extends TestCase
                     'queryCreateStruct' => new QueryCreateStruct(
                         array(
                             'queryType' => new QueryTypeStub('test'),
+                            'parameterValues' => array(
+                                'param' => 'value',
+                            ),
                         )
                     ),
                 ),
@@ -383,26 +391,26 @@ final class CollectionValidatorTest extends TestCase
     {
         return array(
             array(
-                array('definition' => new ItemDefinition('value'), 'value' => 42, 'type' => Item::TYPE_MANUAL),
+                array('definition' => new ItemDefinition(), 'value' => 42, 'type' => Item::TYPE_MANUAL),
                 true,
             ),
             array(
-                array('definition' => new ItemDefinition('value'), 'value' => '42', 'type' => Item::TYPE_MANUAL),
+                array('definition' => new ItemDefinition(), 'value' => '42', 'type' => Item::TYPE_MANUAL),
                 true,
             ),
             array(
-                array('definition' => new ItemDefinition('value'), 'value' => null, 'type' => Item::TYPE_MANUAL),
+                array('definition' => new ItemDefinition(), 'value' => null, 'type' => Item::TYPE_MANUAL),
                 true,
             ),
             array(
-                array('definition' => new ItemDefinition('value'), 'value' => '', 'type' => Item::TYPE_MANUAL),
+                array('definition' => new ItemDefinition(), 'value' => '', 'type' => Item::TYPE_MANUAL),
                 true,
             ),
             array(array('definition' => 42, 'value' => 42, 'type' => Item::TYPE_MANUAL), false),
             array(array('definition' => null, 'value' => 42, 'type' => Item::TYPE_MANUAL), false),
-            array(array('definition' => new ItemDefinition('value'), 'value' => 42, 'type' => 23), false),
-            array(array('definition' => new ItemDefinition('value'), 'value' => 42, 'type' => 'type'), false),
-            array(array('definition' => new ItemDefinition('value'), 'value' => 42, 'type' => null), false),
+            array(array('definition' => new ItemDefinition(), 'value' => 42, 'type' => 23), false),
+            array(array('definition' => new ItemDefinition(), 'value' => 42, 'type' => 'type'), false),
+            array(array('definition' => new ItemDefinition(), 'value' => 42, 'type' => null), false),
         );
     }
 
@@ -411,7 +419,7 @@ final class CollectionValidatorTest extends TestCase
         return array(
             array(
                 array(
-                    'queryType' => $this->getQueryType(),
+                    'queryType' => new QueryTypeStub('test'),
                     'parameterValues' => array(
                         'param' => 'value',
                     ),
@@ -438,7 +446,7 @@ final class CollectionValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'queryType' => $this->getQueryType(),
+                    'queryType' => new QueryTypeStub('test'),
                     'parameterValues' => array(
                         'param' => '',
                     ),
@@ -447,7 +455,7 @@ final class CollectionValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'queryType' => $this->getQueryType(),
+                    'queryType' => new QueryTypeStub('test'),
                     'parameterValues' => array(
                         'param' => null,
                     ),
@@ -456,7 +464,7 @@ final class CollectionValidatorTest extends TestCase
             ),
             array(
                 array(
-                    'queryType' => $this->getQueryType(),
+                    'queryType' => new QueryTypeStub('test'),
                     'parameterValues' => array(),
                 ),
                 false,
@@ -527,7 +535,7 @@ final class CollectionValidatorTest extends TestCase
                         'param' => '',
                     ),
                 ),
-                true,
+                false,
             ),
             array(
                 array(
@@ -536,7 +544,7 @@ final class CollectionValidatorTest extends TestCase
                         'param' => null,
                     ),
                 ),
-                true,
+                false,
             ),
             array(
                 array(
@@ -545,22 +553,6 @@ final class CollectionValidatorTest extends TestCase
                 ),
                 true,
             ),
-        );
-    }
-
-    /**
-     * @return \Netgen\BlockManager\Collection\QueryType
-     */
-    private function getQueryType()
-    {
-        $handler = new QueryTypeHandlerWithRequiredParameter();
-
-        return new QueryType(
-            array(
-                'type' => 'query_type',
-                'handler' => new QueryTypeHandlerWithRequiredParameter(),
-                'parameterDefinitions' => $handler->getParameterDefinitions(),
-            )
         );
     }
 }

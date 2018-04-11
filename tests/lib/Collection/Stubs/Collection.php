@@ -24,14 +24,6 @@ final class Collection implements APICollection
      */
     private $query;
 
-    /**
-     * Constructor.
-     *
-     * @param array $manualItems
-     * @param array $overrideItems
-     * @param array $queryValues
-     * @param int $queryCount
-     */
     public function __construct(
         array $manualItems = array(),
         array $overrideItems = array(),

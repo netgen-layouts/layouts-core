@@ -5,14 +5,13 @@ namespace Netgen\BlockManager\Tests\Form;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension;
-use Netgen\BlockManager\Parameters\Form\Mapper\Compound\BooleanMapper;
-use Netgen\BlockManager\Parameters\Form\Mapper\TextLineMapper;
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
 use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithTranslatableCompoundParameter;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithUntranslatableCompoundParameter;
 use Netgen\BlockManager\Tests\Form\Stubs\TranslatableTypeStub;
+use Netgen\BlockManager\Tests\Parameters\Stubs\FormMapper;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 
 final class TranslatableTypeTest extends FormTestCase
@@ -30,8 +29,8 @@ final class TranslatableTypeTest extends FormTestCase
     public function getTypes()
     {
         $formMapperRegistry = new FormMapperRegistry();
-        $formMapperRegistry->addFormMapper('text_line', new TextLineMapper());
-        $formMapperRegistry->addFormMapper('compound_boolean', new BooleanMapper());
+        $formMapperRegistry->addFormMapper('text_line', new FormMapper());
+        $formMapperRegistry->addFormMapper('compound_boolean', new FormMapper(true));
 
         return array(new ParametersType($formMapperRegistry));
     }

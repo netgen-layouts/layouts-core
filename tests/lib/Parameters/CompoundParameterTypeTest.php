@@ -2,14 +2,14 @@
 
 namespace Netgen\BlockManager\Tests\Parameters;
 
+use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
+use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType\Compound\BooleanType;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
-use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameterDefinition;
 use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameterType;
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints;
 
 final class CompoundParameterTypeTest extends TestCase
 {
@@ -44,7 +44,7 @@ final class CompoundParameterTypeTest extends TestCase
     public function testGetConstraints()
     {
         $this->assertEquals(
-            array(),
+            array(new Constraints\NotNull()),
             $this->parameterType->getConstraints(
                 new CompoundParameterDefinition(
                     array(
@@ -64,7 +64,7 @@ final class CompoundParameterTypeTest extends TestCase
     public function testGetConstraintsWithRequiredParameter()
     {
         $this->assertEquals(
-            array(new NotBlank()),
+            array(new Constraints\NotBlank(), new Constraints\NotNull()),
             $this->parameterType->getConstraints(
                 new CompoundParameterDefinition(
                     array(

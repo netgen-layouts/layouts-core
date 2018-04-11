@@ -3,19 +3,24 @@
 namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
 
 use Netgen\BlockManager\Parameters\ParameterType\BooleanType;
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinition;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 
 final class BooleanTypeTest extends TestCase
 {
+    use ParameterTypeTestTrait;
+
+    public function setUp()
+    {
+        $this->type = new BooleanType();
+    }
+
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\BooleanType::getIdentifier
      */
     public function testGetIdentifier()
     {
-        $type = new BooleanType();
-        $this->assertEquals('boolean', $type->getIdentifier());
+        $this->assertEquals('boolean', $this->type->getIdentifier());
     }
 
     /**
@@ -30,7 +35,7 @@ final class BooleanTypeTest extends TestCase
      */
     public function testGetDefaultValue(array $options, $required, $defaultValue, $expected)
     {
-        $parameter = $this->getParameter($options, $required, $defaultValue);
+        $parameter = $this->getParameterDefinition($options, $required, $defaultValue);
         $this->assertEquals($expected, $parameter->getDefaultValue());
     }
 
@@ -43,7 +48,7 @@ final class BooleanTypeTest extends TestCase
      */
     public function testValidOptions($options, $resolvedOptions)
     {
-        $parameter = $this->getParameter($options);
+        $parameter = $this->getParameterDefinition($options);
         $this->assertEquals($resolvedOptions, $parameter->getOptions());
     }
 
@@ -56,29 +61,7 @@ final class BooleanTypeTest extends TestCase
      */
     public function testInvalidOptions($options)
     {
-        $this->getParameter($options);
-    }
-
-    /**
-     * Returns the parameter under test.
-     *
-     * @param array $options
-     * @param bool $required
-     * @param mixed $defaultValue
-     *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinitionInterface
-     */
-    public function getParameter(array $options = array(), $required = false, $defaultValue = null)
-    {
-        return new ParameterDefinition(
-            array(
-                'name' => 'name',
-                'type' => new BooleanType(),
-                'options' => $options,
-                'isRequired' => $required,
-                'defaultValue' => $defaultValue,
-            )
-        );
+        $this->getParameterDefinition($options);
     }
 
     /**
@@ -140,11 +123,10 @@ final class BooleanTypeTest extends TestCase
      */
     public function testValidation($value, $required, $isValid)
     {
-        $type = new BooleanType();
-        $parameter = $this->getParameter(array(), $required);
+        $parameter = $this->getParameterDefinition(array(), $required);
         $validator = Validation::createValidator();
 
-        $errors = $validator->validate($value, $type->getConstraints($parameter, $value));
+        $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));
         $this->assertEquals($isValid, $errors->count() === 0);
     }
 
@@ -178,8 +160,7 @@ final class BooleanTypeTest extends TestCase
      */
     public function testIsValueEmpty($value, $isEmpty)
     {
-        $type = new BooleanType();
-        $this->assertEquals($isEmpty, $type->isValueEmpty(new ParameterDefinition(), $value));
+        $this->assertEquals($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
     }
 
     /**

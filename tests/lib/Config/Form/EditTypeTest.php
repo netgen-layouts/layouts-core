@@ -2,28 +2,26 @@
 
 namespace Netgen\BlockManager\Tests\Config\Form;
 
-use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Config\Form\EditType;
-use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Config\Config;
 use Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension;
-use Netgen\BlockManager\Parameters\Form\Mapper;
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
 use Netgen\BlockManager\Parameters\Registry\FormMapperRegistry;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
-use Netgen\BlockManager\Tests\Config\Stubs\Block\DisabledConfigHandler;
-use Netgen\BlockManager\Tests\Config\Stubs\Block\HttpCacheConfigHandler;
 use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinition;
+use Netgen\BlockManager\Tests\Config\Stubs\DisabledConfigDefinitionHandler;
+use Netgen\BlockManager\Tests\Core\Stubs\ConfigAwareStruct;
+use Netgen\BlockManager\Tests\Core\Stubs\ConfigAwareValue;
+use Netgen\BlockManager\Tests\Parameters\Stubs\FormMapper;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class EditTypeTest extends FormTestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Block\Block
+     * @var \Netgen\BlockManager\API\Values\Config\ConfigAwareValue
      */
-    private $block;
+    private $configurable;
 
     /**
      * Sets up the test.
@@ -32,29 +30,20 @@ final class EditTypeTest extends FormTestCase
     {
         parent::setUp();
 
-        $blockDefinition = new BlockDefinition(
-            'block_definition',
-            array('large' => array('standard'), 'small' => array('standard'))
-        );
-
-        $this->block = new Block(
+        $this->configurable = new ConfigAwareValue(
             array(
-                'definition' => $blockDefinition,
                 'configs' => array(
                     'disabled' => new Config(
                         array(
                             'definition' => new ConfigDefinition(
                                 'disabled',
-                                new DisabledConfigHandler()
+                                new DisabledConfigDefinitionHandler()
                             ),
                         )
                     ),
-                    'http_cache' => new Config(
+                    'test' => new Config(
                         array(
-                            'definition' => new ConfigDefinition(
-                                'http_cache',
-                                new HttpCacheConfigHandler()
-                            ),
+                            'definition' => new ConfigDefinition('test'),
                         )
                     ),
                 ),
@@ -84,9 +73,7 @@ final class EditTypeTest extends FormTestCase
     public function getTypes()
     {
         $formMapperRegistry = new FormMapperRegistry();
-        $formMapperRegistry->addFormMapper('boolean', new Mapper\BooleanMapper());
-        $formMapperRegistry->addFormMapper('integer', new Mapper\IntegerMapper());
-        $formMapperRegistry->addFormMapper('text_line', new Mapper\TextLineMapper());
+        $formMapperRegistry->addFormMapper('text_line', new FormMapper());
 
         return array(new ParametersType($formMapperRegistry));
     }
@@ -98,31 +85,29 @@ final class EditTypeTest extends FormTestCase
     public function testSubmitValidData()
     {
         $submittedData = array(
-            'http_cache' => array(
-                'use_http_cache' => true,
-                'shared_max_age' => 300,
+            'test' => array(
+                'param' => 'new_value',
             ),
         );
 
-        $updatedStruct = new BlockUpdateStruct();
+        $updatedStruct = new ConfigAwareStruct();
 
         $configStruct = new ConfigStruct();
-        $configStruct->setParameterValue('use_http_cache', true);
-        $configStruct->setParameterValue('shared_max_age', 300);
+        $configStruct->setParameterValue('param', 'new_value');
 
         $updatedStruct->setConfigStruct('disabled', new ConfigStruct());
-        $updatedStruct->setConfigStruct('http_cache', $configStruct);
+        $updatedStruct->setConfigStruct('test', $configStruct);
 
-        $struct = new BlockUpdateStruct();
+        $struct = new ConfigAwareStruct();
         $struct->setConfigStruct('disabled', new ConfigStruct());
-        $struct->setConfigStruct('http_cache', new ConfigStruct());
+        $struct->setConfigStruct('test', new ConfigStruct());
 
         $form = $this->factory->create(
             EditType::class,
             $struct,
             array(
-                'configurable' => $this->block,
-                'label_prefix' => 'config.block',
+                'configurable' => $this->configurable,
+                'label_prefix' => 'config.configurable',
             )
         );
 
@@ -136,12 +121,11 @@ final class EditTypeTest extends FormTestCase
 
         $this->assertArrayNotHasKey('disabled', $children);
 
-        $this->assertArrayHasKey('http_cache', $children);
-        $this->assertArrayHasKey('use_http_cache', $children['http_cache']);
-        $this->assertArrayHasKey('shared_max_age', $children['http_cache']);
+        $this->assertArrayHasKey('test', $children);
+        $this->assertArrayHasKey('param', $children['test']);
 
         $this->assertArrayHasKey('configurable', $view->vars);
-        $this->assertEquals($this->block, $view->vars['configurable']);
+        $this->assertEquals($this->configurable, $view->vars['configurable']);
     }
 
     /**
@@ -156,14 +140,14 @@ final class EditTypeTest extends FormTestCase
 
         $options = $optionsResolver->resolve(
             array(
-                'configurable' => $this->block,
-                'label_prefix' => 'config.block',
-                'data' => new BlockUpdateStruct(),
+                'configurable' => $this->configurable,
+                'label_prefix' => 'config.configurable',
+                'data' => new ConfigAwareStruct(),
             )
         );
 
-        $this->assertEquals($this->block, $options['configurable']);
-        $this->assertEquals(new BlockUpdateStruct(), $options['data']);
+        $this->assertEquals($this->configurable, $options['configurable']);
+        $this->assertEquals(new ConfigAwareStruct(), $options['data']);
     }
 
     /**
@@ -180,7 +164,7 @@ final class EditTypeTest extends FormTestCase
 
         $optionsResolver->resolve(
             array(
-                'label_prefix' => 'config.block',
+                'label_prefix' => 'config.configurable',
             )
         );
     }
@@ -200,7 +184,7 @@ final class EditTypeTest extends FormTestCase
         $optionsResolver->resolve(
             array(
                 'configurable' => '',
-                'label_prefix' => 'config.block',
+                'label_prefix' => 'config.configurable',
             )
         );
     }
@@ -219,7 +203,7 @@ final class EditTypeTest extends FormTestCase
 
         $optionsResolver->resolve(
             array(
-                'configurable' => $this->block,
+                'configurable' => $this->configurable,
             )
         );
     }
@@ -238,7 +222,7 @@ final class EditTypeTest extends FormTestCase
 
         $optionsResolver->resolve(
             array(
-                'configurable' => $this->block,
+                'configurable' => $this->configurable,
                 'label_prefix' => 42,
             )
         );
@@ -258,8 +242,8 @@ final class EditTypeTest extends FormTestCase
 
         $optionsResolver->resolve(
             array(
-                'configurable' => $this->block,
-                'label_prefix' => 'config.block',
+                'configurable' => $this->configurable,
+                'label_prefix' => 'config.configurable',
                 'data' => '',
             )
         );

@@ -2,9 +2,9 @@
 
 namespace Netgen\BlockManager\Tests\Block\BlockType;
 
+use Netgen\BlockManager\Block\BlockType\BlockType;
 use Netgen\BlockManager\Block\BlockType\BlockTypeGroup;
 use Netgen\BlockManager\Block\BlockType\BlockTypeGroupFactory;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockType;
 use PHPUnit\Framework\TestCase;
 
 final class BlockTypeGroupFactoryTest extends TestCase

@@ -4,7 +4,7 @@ namespace Netgen\BlockManager\Tests\Config;
 
 use Netgen\BlockManager\API\Values\Config\ConfigAwareValue;
 use Netgen\BlockManager\Config\ConfigDefinition;
-use Netgen\BlockManager\Tests\Config\Stubs\Block\HttpCacheConfigHandler;
+use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionHandler;
 use PHPUnit\Framework\TestCase;
 
 final class ConfigDefinitionTest extends TestCase
@@ -21,7 +21,7 @@ final class ConfigDefinitionTest extends TestCase
 
     public function setUp()
     {
-        $this->handler = new HttpCacheConfigHandler();
+        $this->handler = new ConfigDefinitionHandler();
 
         $this->configDefinition = new ConfigDefinition(
             array(

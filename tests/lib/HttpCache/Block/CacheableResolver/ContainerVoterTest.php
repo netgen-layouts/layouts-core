@@ -3,13 +3,13 @@
 namespace Netgen\BlockManager\Tests\HttpCache\Block\CacheableResolver;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Netgen\BlockManager\Block\TwigBlockDefinition;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\Placeholder;
 use Netgen\BlockManager\HttpCache\Block\CacheableResolver\ContainerVoter;
 use Netgen\BlockManager\HttpCache\Block\CacheableResolverInterface;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinition;
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinition;
-use Netgen\BlockManager\Tests\Block\Stubs\TwigBlockDefinition;
 use PHPUnit\Framework\TestCase;
 
 final class ContainerVoterTest extends TestCase
@@ -39,7 +39,7 @@ final class ContainerVoterTest extends TestCase
     {
         $twigBlock = new Block(
             array(
-                'definition' => new TwigBlockDefinition('twig_block'),
+                'definition' => new TwigBlockDefinition(),
             )
         );
 

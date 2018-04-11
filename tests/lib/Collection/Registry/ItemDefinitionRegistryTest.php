@@ -3,8 +3,8 @@
 namespace Netgen\BlockManager\Tests\Collection\Registry;
 
 use ArrayIterator;
+use Netgen\BlockManager\Collection\Item\ItemDefinition;
 use Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry;
-use Netgen\BlockManager\Tests\Collection\Stubs\ItemDefinition;
 use PHPUnit\Framework\TestCase;
 
 final class ItemDefinitionRegistryTest extends TestCase
@@ -23,7 +23,7 @@ final class ItemDefinitionRegistryTest extends TestCase
     {
         $this->registry = new ItemDefinitionRegistry();
 
-        $this->itemDefinition = new ItemDefinition('item_definition');
+        $this->itemDefinition = new ItemDefinition(array('valueType' => 'item_definition'));
 
         $this->registry->addItemDefinition('item_definition', $this->itemDefinition);
     }
