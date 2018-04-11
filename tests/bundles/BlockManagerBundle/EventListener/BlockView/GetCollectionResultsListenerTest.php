@@ -8,6 +8,7 @@ use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Core\Values\Block\Block;
 use Netgen\BlockManager\Core\Values\Block\CollectionReference;
 use Netgen\BlockManager\Core\Values\Collection\Collection;
+use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Event\BlockManagerEvents;
 use Netgen\BlockManager\Event\CollectViewParametersEvent;
 use Netgen\BlockManager\Parameters\Parameter;
@@ -66,7 +67,7 @@ final class GetCollectionResultsListenerTest extends TestCase
      */
     public function testOnRenderView()
     {
-        $collection1 = new Collection(array('offset' => 3, 'limit' => 5));
+        $collection1 = new Collection(array('offset' => 3, 'limit' => 5, 'query' => new Query()));
         $collectionReference1 = new CollectionReference(
             array(
                 'collection' => $collection1,
@@ -74,7 +75,7 @@ final class GetCollectionResultsListenerTest extends TestCase
             )
         );
 
-        $collection2 = new Collection(array('offset' => 5, 'limit' => 10));
+        $collection2 = new Collection(array('offset' => 5, 'limit' => 10, 'query' => new Query()));
         $collectionReference2 = new CollectionReference(
             array(
                 'collection' => $collection2,
@@ -141,7 +142,7 @@ final class GetCollectionResultsListenerTest extends TestCase
      */
     public function testOnRenderViewWithPagedCollection()
     {
-        $collection = new Collection(array('offset' => 3, 'limit' => 5));
+        $collection = new Collection(array('offset' => 3, 'limit' => 5, 'query' => new Query()));
         $collectionReference = new CollectionReference(
             array(
                 'collection' => $collection,
@@ -199,7 +200,7 @@ final class GetCollectionResultsListenerTest extends TestCase
      */
     public function testOnRenderViewWithPagedCollectionAndEmptyMaxPages()
     {
-        $collection = new Collection(array('offset' => 3, 'limit' => 5));
+        $collection = new Collection(array('offset' => 3, 'limit' => 5, 'query' => new Query()));
         $collectionReference = new CollectionReference(
             array(
                 'collection' => $collection,
@@ -257,7 +258,7 @@ final class GetCollectionResultsListenerTest extends TestCase
      */
     public function testOnRenderViewWithPagedCollectionAndDisabledPaging()
     {
-        $collection = new Collection(array('offset' => 3, 'limit' => 5));
+        $collection = new Collection(array('offset' => 3, 'limit' => 5, 'query' => new Query()));
         $collectionReference = new CollectionReference(
             array(
                 'collection' => $collection,
@@ -314,7 +315,7 @@ final class GetCollectionResultsListenerTest extends TestCase
      */
     public function testOnRenderViewWithAPIContext()
     {
-        $collection1 = new Collection(array('offset' => 3, 'limit' => 5));
+        $collection1 = new Collection(array('offset' => 3, 'limit' => 5, 'query' => new Query()));
         $collectionReference1 = new CollectionReference(
             array(
                 'collection' => $collection1,

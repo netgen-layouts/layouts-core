@@ -135,4 +135,18 @@ final class CollectionTest extends TestCase
         $this->assertEquals($items[1], $collection->getOverrideItem(5));
         $this->assertNull($collection->getOverrideItem(4));
     }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Values\Collection\Collection::getOffset
+     */
+    public function testGetOffsetForManualCollection()
+    {
+        $collection = new Collection(
+            array(
+                'offset' => 5,
+            )
+        );
+
+        $this->assertEquals(0, $collection->getOffset());
+    }
 }

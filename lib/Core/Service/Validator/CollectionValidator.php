@@ -2,6 +2,7 @@
 
 namespace Netgen\BlockManager\Core\Service\Validator;
 
+use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\BlockManager\API\Values\Collection\Item;
@@ -37,13 +38,30 @@ final class CollectionValidator extends Validator
      */
     public function validateCollectionCreateStruct(CollectionCreateStruct $collectionCreateStruct)
     {
+        if ($collectionCreateStruct->queryCreateStruct !== null) {
+            $this->validate(
+                $collectionCreateStruct->queryCreateStruct,
+                array(
+                    new Constraints\Type(array('type' => QueryCreateStruct::class)),
+                ),
+                'queryCreateStruct'
+            );
+
+            $this->validateQueryCreateStruct($collectionCreateStruct->queryCreateStruct);
+        }
+
+        $offsetConstraints = array(
+            new Constraints\NotBlank(),
+            new Constraints\Type(array('type' => 'int')),
+        );
+
+        $offsetConstraints[] = $collectionCreateStruct->queryCreateStruct !== null ?
+            new Constraints\GreaterThanOrEqual(array('value' => 0)) :
+            new Constraints\EqualTo(array('value' => 0));
+
         $this->validate(
             $collectionCreateStruct->offset,
-            array(
-                new Constraints\NotBlank(),
-                new Constraints\Type(array('type' => 'int')),
-                new Constraints\GreaterThanOrEqual(array('value' => 0)),
-            ),
+            $offsetConstraints,
             'offset'
         );
 
@@ -57,37 +75,31 @@ final class CollectionValidator extends Validator
                 'limit'
             );
         }
-
-        if ($collectionCreateStruct->queryCreateStruct !== null) {
-            $this->validate(
-                $collectionCreateStruct->queryCreateStruct,
-                array(
-                    new Constraints\Type(array('type' => QueryCreateStruct::class)),
-                ),
-                'queryCreateStruct'
-            );
-
-            $this->validateQueryCreateStruct($collectionCreateStruct->queryCreateStruct);
-        }
     }
 
     /**
      * Validates the provided collection update struct.
      *
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $collection
      * @param \Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct $collectionUpdateStruct
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
-    public function validateCollectionUpdateStruct(CollectionUpdateStruct $collectionUpdateStruct)
+    public function validateCollectionUpdateStruct(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct)
     {
         if ($collectionUpdateStruct->offset !== null) {
+            $offsetConstraints = array(
+                new Constraints\NotBlank(),
+                new Constraints\Type(array('type' => 'int')),
+            );
+
+            $offsetConstraints[] = $collection->hasQuery() ?
+                new Constraints\GreaterThanOrEqual(array('value' => 0)) :
+                new Constraints\EqualTo(array('value' => 0));
+
             $this->validate(
                 $collectionUpdateStruct->offset,
-                array(
-                    new Constraints\NotBlank(),
-                    new Constraints\Type(array('type' => 'int')),
-                    new Constraints\GreaterThanOrEqual(array('value' => 0)),
-                ),
+                $offsetConstraints,
                 'offset'
             );
         }

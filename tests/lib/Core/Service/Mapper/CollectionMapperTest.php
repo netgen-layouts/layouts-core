@@ -205,7 +205,7 @@ abstract class CollectionMapperTest extends ServiceTestCase
         $this->assertEquals(1, $collection->getId());
         $this->assertEquals(APICollection::TYPE_MANUAL, $collection->getType());
         $this->assertEquals(Value::STATUS_PUBLISHED, $collection->getStatus());
-        $this->assertEquals(10, $collection->getOffset());
+        $this->assertEquals(0, $collection->getOffset());
         $this->assertEquals(20, $collection->getLimit());
         $this->assertTrue($collection->isPublished());
         $this->assertTrue($collection->isTranslatable());

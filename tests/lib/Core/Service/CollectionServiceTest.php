@@ -245,7 +245,7 @@ abstract class CollectionServiceTest extends ServiceTestCase
      */
     public function testChangeCollectionTypeFromDynamicToManual()
     {
-        $collection = $this->collectionService->loadCollectionDraft(4);
+        $collection = $this->collectionService->loadCollectionDraft(3);
 
         $updatedCollection = $this->collectionService->changeCollectionType(
             $collection,
@@ -261,6 +261,8 @@ abstract class CollectionServiceTest extends ServiceTestCase
         foreach ($updatedCollection->getItems() as $index => $item) {
             $this->assertEquals($index, $item->getPosition());
         }
+
+        $this->assertEquals(0, $updatedCollection->getOffset());
     }
 
     /**

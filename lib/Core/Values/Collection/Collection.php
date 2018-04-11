@@ -84,6 +84,11 @@ final class Collection extends Value implements APICollection
 
     public function getOffset()
     {
+        if ($this->offset !== null && !$this->hasQuery()) {
+            // Manual collections always use offset of 0
+            return 0;
+        }
+
         return $this->offset;
     }
 

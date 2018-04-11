@@ -12,6 +12,7 @@ use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Collection\Item\ItemDefinition;
 use Netgen\BlockManager\Core\Service\Validator\CollectionValidator;
 use Netgen\BlockManager\Core\Service\Validator\ConfigValidator;
+use Netgen\BlockManager\Core\Values\Collection\Collection;
 use Netgen\BlockManager\Core\Values\Collection\Item;
 use Netgen\BlockManager\Core\Values\Collection\Query;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
@@ -74,12 +75,13 @@ final class CollectionValidatorTest extends TestCase
 
     /**
      * @param array $params
+     * @param bool $isDynamic
      * @param array $isValid
      *
      * @covers \Netgen\BlockManager\Core\Service\Validator\CollectionValidator::validateCollectionUpdateStruct
      * @dataProvider validateCollectionUpdateStructProvider
      */
-    public function testValidateCollectionUpdateStruct(array $params, $isValid)
+    public function testValidateCollectionUpdateStruct(array $params, $isDynamic, $isValid)
     {
         if (!$isValid) {
             $this->expectException(ValidationException::class);
@@ -89,6 +91,7 @@ final class CollectionValidatorTest extends TestCase
         $this->assertTrue(true);
 
         $this->collectionValidator->validateCollectionUpdateStruct(
+            new Collection(array('query' => $isDynamic ? new Query() : null)),
             new CollectionUpdateStruct($params)
         );
     }
@@ -232,7 +235,7 @@ final class CollectionValidatorTest extends TestCase
                     'offset' => 3,
                     'limit' => null,
                 ),
-                true,
+                false,
             ),
             array(
                 array(
@@ -329,11 +332,13 @@ final class CollectionValidatorTest extends TestCase
                     'offset' => 6,
                 ),
                 true,
+                true,
             ),
             array(
                 array(
                     'offset' => 0,
                 ),
+                true,
                 true,
             ),
             array(
@@ -341,17 +346,20 @@ final class CollectionValidatorTest extends TestCase
                     'offset' => null,
                 ),
                 true,
+                true,
             ),
             array(
                 array(
                     'offset' => -6,
                 ),
+                true,
                 false,
             ),
             array(
                 array(
                     'offset' => '6',
                 ),
+                true,
                 false,
             ),
             array(
@@ -359,11 +367,13 @@ final class CollectionValidatorTest extends TestCase
                     'limit' => 6,
                 ),
                 true,
+                true,
             ),
             array(
                 array(
                     'limit' => 0,
                 ),
+                true,
                 true,
             ),
             array(
@@ -371,17 +381,90 @@ final class CollectionValidatorTest extends TestCase
                     'limit' => null,
                 ),
                 true,
+                true,
             ),
             array(
                 array(
                     'limit' => -6,
                 ),
+                true,
                 false,
             ),
             array(
                 array(
                     'limit' => '6',
                 ),
+                true,
+                false,
+            ),
+            array(
+                array(
+                    'offset' => 6,
+                ),
+                false,
+                false,
+            ),
+            array(
+                array(
+                    'offset' => 0,
+                ),
+                false,
+                true,
+            ),
+            array(
+                array(
+                    'offset' => null,
+                ),
+                false,
+                true,
+            ),
+            array(
+                array(
+                    'offset' => -6,
+                ),
+                false,
+                false,
+            ),
+            array(
+                array(
+                    'offset' => '6',
+                ),
+                false,
+                false,
+            ),
+            array(
+                array(
+                    'limit' => 6,
+                ),
+                false,
+                true,
+            ),
+            array(
+                array(
+                    'limit' => 0,
+                ),
+                false,
+                true,
+            ),
+            array(
+                array(
+                    'limit' => null,
+                ),
+                false,
+                true,
+            ),
+            array(
+                array(
+                    'limit' => -6,
+                ),
+                false,
+                false,
+            ),
+            array(
+                array(
+                    'limit' => '6',
+                ),
+                false,
                 false,
             ),
         );

@@ -115,7 +115,7 @@ final class CollectionService extends Service implements APICollectionService
 
         $persistenceCollection = $this->handler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
 
-        $this->validator->validateCollectionUpdateStruct($collectionUpdateStruct);
+        $this->validator->validateCollectionUpdateStruct($collection, $collectionUpdateStruct);
 
         $updatedCollection = $this->transaction(
             function () use ($collection, $persistenceCollection, $collectionUpdateStruct) {
@@ -209,6 +209,15 @@ final class CollectionService extends Service implements APICollectionService
                 }
 
                 if ($newType === Collection::TYPE_MANUAL) {
+                    $persistenceCollection = $this->handler->updateCollection(
+                        $persistenceCollection,
+                        new CollectionUpdateStruct(
+                            array(
+                                'offset' => 0,
+                            )
+                        )
+                    );
+
                     foreach ($this->handler->loadCollectionItems($persistenceCollection) as $index => $item) {
                         $this->handler->moveItem($item, $index);
                     }
