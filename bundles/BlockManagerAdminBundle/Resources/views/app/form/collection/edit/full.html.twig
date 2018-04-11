@@ -7,12 +7,9 @@
         {{ 'collection.offset_limit'|trans }}
     </a>
 
-    {% set is_manual = not form.vars.collection.hasQuery %}
-
     <div class="collapse in" id="collapseOffsetLimit">
         <div class="row">
-            {# Manual collections do not use offset #}
-            <div class="col-xs-6">{{ form_row(form.offset, {attr: {disabled: is_manual}}) }}</div>
+            <div class="col-xs-6">{{ form_row(form.offset) }}</div>
             <div class="col-xs-6">{{ form_row(form.limit) }}</div>
         </div>
     </div>

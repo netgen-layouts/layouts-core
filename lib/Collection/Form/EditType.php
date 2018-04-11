@@ -38,6 +38,8 @@ final class EditType extends TranslatableType
             array(
                 'label' => 'collection.offset',
                 'property_path' => 'offset',
+                // Manual collections do not support the offset
+                'disabled' => !($options['collection']->hasQuery()),
                 'constraints' => array(
                     new Constraints\NotBlank(),
                     new Constraints\Type(array('type' => 'int')),
