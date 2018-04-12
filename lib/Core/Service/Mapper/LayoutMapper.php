@@ -82,7 +82,7 @@ final class LayoutMapper
             'name' => $layout->name,
             'description' => $layout->description,
             'created' => DateTimeUtils::createFromTimestamp($layout->created),
-            'modified' => DateTimeUtils::createFromTimestamp($layout->created),
+            'modified' => DateTimeUtils::createFromTimestamp($layout->modified),
             'status' => $layout->status,
             'shared' => $layout->shared,
             'mainLocale' => $layout->mainLocale,

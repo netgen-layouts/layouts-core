@@ -158,6 +158,7 @@ final class LayoutHandler implements LayoutHandlerInterface
 
         $updatedLayout = clone $layout;
         $updatedLayout->availableLocales[] = $locale;
+        $updatedLayout->modified = time();
 
         $this->queryHandler->createLayoutTranslation($layout, $locale);
 
@@ -178,6 +179,7 @@ final class LayoutHandler implements LayoutHandlerInterface
 
         $updatedLayout = clone $layout;
         $updatedLayout->mainLocale = $mainLocale;
+        $updatedLayout->modified = time();
 
         $this->queryHandler->updateLayout($updatedLayout);
 
@@ -236,10 +238,7 @@ final class LayoutHandler implements LayoutHandlerInterface
     public function updateLayout(Layout $layout, LayoutUpdateStruct $layoutUpdateStruct)
     {
         $updatedLayout = clone $layout;
-
-        if ($layoutUpdateStruct->modified !== null) {
-            $updatedLayout->modified = (int) $layoutUpdateStruct->modified;
-        }
+        $updatedLayout->modified = time();
 
         if ($layoutUpdateStruct->name !== null) {
             $updatedLayout->name = trim($layoutUpdateStruct->name);
@@ -389,6 +388,7 @@ final class LayoutHandler implements LayoutHandlerInterface
 
         $newLayout = clone $layout;
         $newLayout->type = $targetLayoutType;
+        $newLayout->modified = time();
 
         $this->queryHandler->updateLayout($newLayout);
 
@@ -397,12 +397,9 @@ final class LayoutHandler implements LayoutHandlerInterface
 
     public function createLayoutStatus(Layout $layout, $newStatus)
     {
-        $currentTimeStamp = time();
-
         $newLayout = clone $layout;
         $newLayout->status = $newStatus;
-        $newLayout->created = $currentTimeStamp;
-        $newLayout->modified = $currentTimeStamp;
+        $newLayout->modified = time();
 
         $this->queryHandler->createLayout($newLayout);
         foreach ($newLayout->availableLocales as $locale) {
@@ -442,6 +439,10 @@ final class LayoutHandler implements LayoutHandlerInterface
         if ($locale === $layout->mainLocale) {
             throw new BadStateException('locale', 'Main translation cannot be removed from the layout.');
         }
+
+        $updatedLayout = clone $layout;
+        $updatedLayout->modified = time();
+        $this->queryHandler->updateLayout($updatedLayout);
 
         $this->queryHandler->deleteLayoutTranslations($layout->id, $layout->status, $locale);
 

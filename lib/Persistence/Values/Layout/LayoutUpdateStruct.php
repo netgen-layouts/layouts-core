@@ -7,13 +7,6 @@ use Netgen\BlockManager\Value;
 final class LayoutUpdateStruct extends Value
 {
     /**
-     * Layout modification timestamp.
-     *
-     * @var int
-     */
-    public $modified;
-
-    /**
      * New layout name.
      *
      * @var string

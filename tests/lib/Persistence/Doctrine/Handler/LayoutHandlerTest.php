@@ -584,16 +584,15 @@ final class LayoutHandlerTest extends TestCase
      */
     public function testCreateLayoutTranslation()
     {
-        $layout = $this->layoutHandler->createLayoutTranslation(
-            $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
-            'de',
-            'en'
-        );
+        $originalLayout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
+        $layout = $this->layoutHandler->createLayoutTranslation($originalLayout, 'de', 'en');
 
         $this->assertInstanceOf(Layout::class, $layout);
 
         $this->assertEquals('en', $layout->mainLocale);
         $this->assertEquals(array('en', 'hr', 'de'), $layout->availableLocales);
+        $this->assertEquals($originalLayout->created, $layout->created);
+        $this->assertGreaterThan($originalLayout->modified, $layout->modified);
 
         $layoutBlocks = $this->blockHandler->loadLayoutBlocks($layout);
         foreach ($layoutBlocks as $layoutBlock) {
@@ -639,11 +638,13 @@ final class LayoutHandlerTest extends TestCase
     public function testSetMainTranslation()
     {
         $layout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
-        $layout = $this->layoutHandler->setMainTranslation($layout, 'hr');
+        $updatedLayout = $this->layoutHandler->setMainTranslation($layout, 'hr');
 
-        $this->assertEquals('hr', $layout->mainLocale);
+        $this->assertEquals('hr', $updatedLayout->mainLocale);
+        $this->assertEquals($layout->created, $updatedLayout->created);
+        $this->assertGreaterThan($layout->modified, $updatedLayout->modified);
 
-        $layoutBlocks = $this->blockHandler->loadLayoutBlocks($layout);
+        $layoutBlocks = $this->blockHandler->loadLayoutBlocks($updatedLayout);
         foreach ($layoutBlocks as $layoutBlock) {
             $this->assertEquals('hr', $layoutBlock->mainLocale);
         }
@@ -721,7 +722,6 @@ final class LayoutHandlerTest extends TestCase
         $layoutUpdateStruct = new LayoutUpdateStruct();
         $layoutUpdateStruct->name = 'New name';
         $layoutUpdateStruct->description = 'New description';
-        $layoutUpdateStruct->modified = 123;
 
         $originalLayout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
         $updatedLayout = $this->layoutHandler->updateLayout(
@@ -732,7 +732,8 @@ final class LayoutHandlerTest extends TestCase
         $this->assertInstanceOf(Layout::class, $updatedLayout);
         $this->assertEquals('New name', $updatedLayout->name);
         $this->assertEquals('New description', $updatedLayout->description);
-        $this->assertEquals(123, $updatedLayout->modified);
+        $this->assertEquals($originalLayout->created, $updatedLayout->created);
+        $this->assertGreaterThan($originalLayout->modified, $updatedLayout->modified);
     }
 
     /**
@@ -752,7 +753,8 @@ final class LayoutHandlerTest extends TestCase
         $this->assertInstanceOf(Layout::class, $updatedLayout);
         $this->assertEquals('My layout', $updatedLayout->name);
         $this->assertEquals('My layout description', $updatedLayout->description);
-        $this->assertEquals(1447065813, $updatedLayout->modified);
+        $this->assertEquals($originalLayout->created, $updatedLayout->created);
+        $this->assertGreaterThan($originalLayout->modified, $updatedLayout->modified);
     }
 
     /**
@@ -777,10 +779,8 @@ final class LayoutHandlerTest extends TestCase
         $copyStruct->name = 'New name';
         $copyStruct->description = 'New description';
 
-        $copiedLayout = $this->layoutHandler->copyLayout(
-            $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED),
-            $copyStruct
-        );
+        $originalLayout = $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED);
+        $copiedLayout = $this->layoutHandler->copyLayout($originalLayout, $copyStruct);
 
         $this->assertInstanceOf(Layout::class, $copiedLayout);
 
@@ -793,8 +793,8 @@ final class LayoutHandlerTest extends TestCase
         $this->assertEquals('en', $copiedLayout->mainLocale);
         $this->assertEquals(array('en', 'hr'), $copiedLayout->availableLocales);
 
-        $this->assertGreaterThan(0, $copiedLayout->created);
-        $this->assertGreaterThan(0, $copiedLayout->modified);
+        $this->assertGreaterThan($originalLayout->created, $copiedLayout->created);
+        $this->assertEquals($copiedLayout->created, $copiedLayout->modified);
 
         $this->assertEquals(
             array(
@@ -994,8 +994,9 @@ final class LayoutHandlerTest extends TestCase
             )
         );
 
+        $originalLayout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
         $updatedLayout = $this->layoutHandler->changeLayoutType(
-            $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
+            $originalLayout,
             '4_zones_b',
             array(
                 'top' => array('left', 'right'),
@@ -1014,8 +1015,8 @@ final class LayoutHandlerTest extends TestCase
         $this->assertEquals(Value::STATUS_DRAFT, $updatedLayout->status);
         $this->assertFalse($updatedLayout->shared);
 
-        $this->assertGreaterThan(0, $updatedLayout->created);
-        $this->assertGreaterThan(0, $updatedLayout->modified);
+        $this->assertEquals($originalLayout->created, $updatedLayout->created);
+        $this->assertGreaterThan($originalLayout->modified, $updatedLayout->modified);
 
         $this->assertEquals(
             array(
@@ -1197,8 +1198,9 @@ final class LayoutHandlerTest extends TestCase
             )
         );
 
+        $originalLayout = $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED);
         $copiedLayout = $this->layoutHandler->createLayoutStatus(
-            $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED),
+            $originalLayout,
             Value::STATUS_ARCHIVED
         );
 
@@ -1213,8 +1215,8 @@ final class LayoutHandlerTest extends TestCase
         $this->assertEquals('en', $copiedLayout->mainLocale);
         $this->assertEquals(array('en', 'hr'), $copiedLayout->availableLocales);
 
-        $this->assertGreaterThan(0, $copiedLayout->created);
-        $this->assertGreaterThan(0, $copiedLayout->modified);
+        $this->assertEquals($originalLayout->created, $copiedLayout->created);
+        $this->assertGreaterThan($originalLayout->modified, $copiedLayout->modified);
 
         $this->assertEquals(
             array(
@@ -1470,15 +1472,16 @@ final class LayoutHandlerTest extends TestCase
     public function testDeleteLayoutTranslation()
     {
         $layout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
+        $updatedLayout = $this->layoutHandler->deleteLayoutTranslation($layout, 'hr');
 
-        $layout = $this->layoutHandler->deleteLayoutTranslation($layout, 'hr');
+        $this->assertInstanceOf(Layout::class, $updatedLayout);
+        $this->assertEquals($layout->created, $updatedLayout->created);
+        $this->assertGreaterThan($layout->modified, $updatedLayout->modified);
 
-        $this->assertInstanceOf(Layout::class, $layout);
+        $this->assertEquals('en', $updatedLayout->mainLocale);
+        $this->assertEquals(array('en'), $updatedLayout->availableLocales);
 
-        $this->assertEquals('en', $layout->mainLocale);
-        $this->assertEquals(array('en'), $layout->availableLocales);
-
-        $layoutBlocks = $this->blockHandler->loadLayoutBlocks($layout);
+        $layoutBlocks = $this->blockHandler->loadLayoutBlocks($updatedLayout);
         foreach ($layoutBlocks as $layoutBlock) {
             $this->assertNotContains('hr', $layoutBlock->availableLocales);
         }
@@ -1499,12 +1502,14 @@ final class LayoutHandlerTest extends TestCase
         $block = $this->blockHandler->setMainTranslation($block, 'hr');
         $this->blockHandler->deleteBlockTranslation($block, 'en');
 
-        $layout = $this->layoutHandler->deleteLayoutTranslation($layout, 'hr');
+        $updatedLayout = $this->layoutHandler->deleteLayoutTranslation($layout, 'hr');
 
-        $this->assertInstanceOf(Layout::class, $layout);
+        $this->assertInstanceOf(Layout::class, $updatedLayout);
+        $this->assertEquals($layout->created, $updatedLayout->created);
+        $this->assertGreaterThan($layout->modified, $updatedLayout->modified);
 
-        $this->assertEquals('en', $layout->mainLocale);
-        $this->assertEquals(array('en'), $layout->availableLocales);
+        $this->assertEquals('en', $updatedLayout->mainLocale);
+        $this->assertEquals(array('en'), $updatedLayout->availableLocales);
 
         $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
     }

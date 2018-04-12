@@ -492,16 +492,8 @@ final class LayoutService extends Service implements LayoutServiceInterface
         $layoutDraft = $this->transaction(
             function () use ($persistenceLayout) {
                 $this->layoutHandler->deleteLayout($persistenceLayout->id, Value::STATUS_DRAFT);
-                $layoutDraft = $this->layoutHandler->createLayoutStatus($persistenceLayout, Value::STATUS_DRAFT);
 
-                return $this->layoutHandler->updateLayout(
-                    $layoutDraft,
-                    new LayoutUpdateStruct(
-                        array(
-                            'modified' => time(),
-                        )
-                    )
-                );
+                return $this->layoutHandler->createLayoutStatus($persistenceLayout, Value::STATUS_DRAFT);
             }
         );
 
