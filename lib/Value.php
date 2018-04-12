@@ -7,10 +7,7 @@ use Netgen\BlockManager\Exception\InvalidArgumentException;
 abstract class Value
 {
     /**
-     * Construct object optionally with a set of properties.
-     *
-     * Read only properties values must be set using $properties as they are not writable anymore
-     * after object has been created.
+     * Creates the object and hydrates it with property values provided in $properties array.
      *
      * @param array $properties
      *
