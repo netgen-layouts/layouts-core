@@ -19,9 +19,11 @@ use Netgen\BlockManager\Core\Service\Mapper\LayoutResolverMapper;
 use Netgen\BlockManager\Core\Service\StructBuilder\LayoutResolverStructBuilder;
 use Netgen\BlockManager\Core\Service\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Exception\BadStateException;
+use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\HandlerInterface;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionUpdateStruct;
+use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule as PersistenceRule;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleMetadataUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleUpdateStruct;
@@ -362,6 +364,30 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         );
 
         return $this->mapper->mapRule($publishedRule);
+    }
+
+    public function restoreFromArchive($ruleId)
+    {
+        $archivedRule = $this->handler->loadRule($ruleId, Value::STATUS_ARCHIVED);
+
+        $draftRule = null;
+        try {
+            $draftRule = $this->handler->loadRule($ruleId, Value::STATUS_DRAFT);
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
+
+        $draftRule = $this->transaction(
+            function () use ($draftRule, $archivedRule) {
+                if ($draftRule instanceof PersistenceRule) {
+                    $this->handler->deleteRule($draftRule->id, $draftRule->status);
+                }
+
+                return $this->handler->createRuleStatus($archivedRule, Value::STATUS_DRAFT);
+            }
+        );
+
+        return $this->mapper->mapRule($draftRule);
     }
 
     public function deleteRule(Rule $rule)

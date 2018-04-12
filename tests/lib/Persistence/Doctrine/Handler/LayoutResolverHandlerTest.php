@@ -101,17 +101,6 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRules
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRulesData
-     */
-    public function testLoadRulesInNonExistentStatus()
-    {
-        $rules = $this->handler->loadRules(Value::STATUS_ARCHIVED);
-
-        $this->assertEmpty($rules);
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::getRuleCount
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleCount
      */

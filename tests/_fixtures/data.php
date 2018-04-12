@@ -300,6 +300,7 @@ return array(
     'ngbm_rule' => array(
         array('id' => 1, 'status' => 1, 'layout_id' => 1, 'comment' => 'My comment'),
         array('id' => 2, 'status' => 1, 'layout_id' => 2, 'comment' => 'My other comment'),
+        array('id' => 2, 'status' => 2, 'layout_id' => 2, 'comment' => 'My other comment'),
         array('id' => 3, 'status' => 1, 'layout_id' => 3, 'comment' => null),
         array('id' => 4, 'status' => 1, 'layout_id' => 1, 'comment' => null),
         array('id' => 5, 'status' => 0, 'layout_id' => 2, 'comment' => null),
@@ -349,7 +350,9 @@ return array(
         array('id' => 1, 'status' => 1, 'rule_id' => 1, 'type' => 'route', 'value' => 'my_cool_route'),
         array('id' => 2, 'status' => 1, 'rule_id' => 1, 'type' => 'route', 'value' => 'my_other_cool_route'),
         array('id' => 3, 'status' => 1, 'rule_id' => 2, 'type' => 'route', 'value' => 'my_second_cool_route'),
+        array('id' => 3, 'status' => 2, 'rule_id' => 2, 'type' => 'route', 'value' => 'my_second_cool_route'),
         array('id' => 4, 'status' => 1, 'rule_id' => 2, 'type' => 'route', 'value' => 'my_third_cool_route'),
+        array('id' => 4, 'status' => 2, 'rule_id' => 2, 'type' => 'route', 'value' => 'my_third_cool_route'),
         array('id' => 5, 'status' => 1, 'rule_id' => 3, 'type' => 'route', 'value' => 'my_fourth_cool_route'),
         array('id' => 6, 'status' => 1, 'rule_id' => 3, 'type' => 'route', 'value' => 'my_fifth_cool_route'),
         array('id' => 7, 'status' => 1, 'rule_id' => 4, 'type' => 'route_prefix', 'value' => 'my_cool_'),
@@ -393,6 +396,7 @@ return array(
     ),
     'ngbm_rule_condition' => array(
         array('id' => 1, 'status' => 1, 'rule_id' => 2, 'type' => 'route_parameter', 'value' => '{"parameter_name": "some_param", "parameter_values": [1,2]}'),
+        array('id' => 1, 'status' => 2, 'rule_id' => 2, 'type' => 'route_parameter', 'value' => '{"parameter_name": "some_param", "parameter_values": [1,2]}'),
         array('id' => 2, 'status' => 1, 'rule_id' => 3, 'type' => 'route_parameter', 'value' => '{"parameter_name": "some_param", "parameter_values": [3,4]}'),
         array('id' => 3, 'status' => 1, 'rule_id' => 3, 'type' => 'route_parameter', 'value' => '{"parameter_name": "some_other_param", "parameter_values": [5,6]}'),
         array('id' => 4, 'status' => 0, 'rule_id' => 5, 'type' => 'ez_site_access', 'value' => '["cro"]'),

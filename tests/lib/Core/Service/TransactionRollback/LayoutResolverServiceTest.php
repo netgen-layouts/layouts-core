@@ -204,6 +204,35 @@ final class LayoutResolverServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::restoreFromArchive
+     * @expectedException \Exception
+     * @expectedExceptionMessage Test exception text
+     */
+    public function testRestoreFromArchive()
+    {
+        $this->layoutResolverHandlerMock
+            ->expects($this->at(0))
+            ->method('loadRule')
+            ->will($this->returnValue(new PersistenceRule()));
+
+        $this->layoutResolverHandlerMock
+            ->expects($this->at(1))
+            ->method('loadRule')
+            ->will($this->returnValue(new PersistenceRule()));
+
+        $this->layoutResolverHandlerMock
+            ->expects($this->at(2))
+            ->method('deleteRule')
+            ->will($this->throwException(new Exception('Test exception text')));
+
+        $this->persistenceHandler
+            ->expects($this->once())
+            ->method('rollbackTransaction');
+
+        $this->layoutResolverService->restoreFromArchive(42);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteRule
      * @expectedException \Exception
      * @expectedExceptionMessage Test exception text

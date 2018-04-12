@@ -512,6 +512,27 @@ abstract class LayoutResolverServiceTest extends ServiceTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::restoreFromArchive
+     */
+    public function testRestoreFromArchive()
+    {
+        $restoredRule = $this->layoutResolverService->restoreFromArchive(2);
+
+        $this->assertInstanceOf(Rule::class, $restoredRule);
+        $this->assertEquals(Rule::STATUS_DRAFT, $restoredRule->getStatus());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::restoreFromArchive
+     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
+     * @expectedExceptionMessage Could not find rule with identifier "1"
+     */
+    public function testRestoreFromArchiveThrowsNotFoundExceptionOnNonExistingArchivedVersion()
+    {
+        $this->layoutResolverService->restoreFromArchive(1);
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteRule
      * @expectedException \Netgen\BlockManager\Exception\NotFoundException
      * @expectedExceptionMessage Could not find rule with identifier "5"

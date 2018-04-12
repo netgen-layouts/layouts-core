@@ -190,6 +190,18 @@ interface LayoutResolverService extends Service
     public function publishRule(Rule $rule);
 
     /**
+     * Restores the archived version of a rule to a draft. If draft already exists,
+     * it will be removed.
+     *
+     * @param int|string $ruleId
+     *
+     * @throws \Netgen\BlockManager\Exception\NotFoundException If rule with provided ID does not have an archived version
+     *
+     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
+     */
+    public function restoreFromArchive($ruleId);
+
+    /**
      * Deletes a rule.
      *
      * @param \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule
