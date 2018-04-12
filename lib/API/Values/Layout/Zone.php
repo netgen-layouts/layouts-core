@@ -21,13 +21,6 @@ interface Zone extends Value
     public function getLayoutId();
 
     /**
-     * Returns if the zone is published.
-     *
-     * @return bool
-     */
-    public function isPublished();
-
-    /**
      * Returns if the zone has a linked zone.
      *
      * @return bool

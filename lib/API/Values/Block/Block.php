@@ -30,13 +30,6 @@ interface Block extends Value, ParameterBasedValue, ConfigAwareValue
     public function getDefinition();
 
     /**
-     * Returns if the block is published.
-     *
-     * @return bool
-     */
-    public function isPublished();
-
-    /**
      * Returns view type which will be used to render this block.
      *
      * @return string

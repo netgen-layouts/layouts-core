@@ -28,13 +28,6 @@ interface Condition extends Value
     public function getConditionType();
 
     /**
-     * Returns if the condition is published.
-     *
-     * @return bool
-     */
-    public function isPublished();
-
-    /**
      * Returns the condition value.
      *
      * Value of the condition can be a scalar, an associative array, numeric array or a nested

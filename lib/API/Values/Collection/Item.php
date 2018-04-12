@@ -61,13 +61,6 @@ interface Item extends Value, ConfigAwareValue
     public function getDefinition();
 
     /**
-     * Returns if the item is published.
-     *
-     * @return bool
-     */
-    public function isPublished();
-
-    /**
      * Returns the item position within the collection.
      *
      * @return int

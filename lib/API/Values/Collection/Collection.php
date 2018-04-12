@@ -34,13 +34,6 @@ interface Collection extends Value
     public function getType();
 
     /**
-     * Returns if the collection is published.
-     *
-     * @return bool
-     */
-    public function isPublished();
-
-    /**
      * Returns the starting collection offset.
      *
      * @return int

@@ -22,13 +22,6 @@ interface Query extends Value, ParameterBasedValue
     public function getCollectionId();
 
     /**
-     * Returns if the query is published.
-     *
-     * @return bool
-     */
-    public function isPublished();
-
-    /**
      * Returns if the query is dependent on a context, i.e. currently displayed page.
      *
      * @return bool

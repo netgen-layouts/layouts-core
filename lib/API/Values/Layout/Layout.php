@@ -52,13 +52,6 @@ interface Layout extends Value, ArrayAccess, IteratorAggregate, Countable
     public function getModified();
 
     /**
-     * Returns if the layout is published.
-     *
-     * @return bool
-     */
-    public function isPublished();
-
-    /**
      * Returns if the layout is shared.
      *
      * @return bool
