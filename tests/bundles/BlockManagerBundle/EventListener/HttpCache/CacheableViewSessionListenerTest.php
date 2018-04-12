@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\EventListener\SessionListener;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 final class CacheableViewSessionListenerTest extends TestCase
@@ -27,6 +28,10 @@ final class CacheableViewSessionListenerTest extends TestCase
 
     public function setUp()
     {
+        if (Kernel::VERSION_ID < 30400) {
+            $this->markTestSkipped('CacheableViewSessionListener does nothing versions of Symfony lower than 3.4');
+        }
+
         $this->innerListenerMock = $this->createMock(SessionListener::class);
 
         $this->listener = new CacheableViewSessionListener($this->innerListenerMock);
